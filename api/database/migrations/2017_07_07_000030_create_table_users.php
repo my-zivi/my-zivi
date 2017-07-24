@@ -36,12 +36,12 @@ class CreateTableUsers extends Migration
             $table->string('phone_business');
             $table->string('bank_iban');
             $table->string('post_account');
-            $table->string('work_experience')->nullable();
+            $table->text('work_experience')->nullable();
             $table->boolean('driving_licence')->nullable();
             $table->string('travel_card')->nullable();
             $table->integer('regional_center')->unsigned();
             $table->foreign('regional_center')->references('id')->on('regional_centers');
-            $table->string('internal_note');
+            $table->text('internal_note');
         });
     }
     
