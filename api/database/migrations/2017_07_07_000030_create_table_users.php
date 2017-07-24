@@ -32,7 +32,7 @@ class CreateTableUsers extends Migration
             $table->foreign('canton')->references('id')->on('cantons');
             $table->date('birthday')->nullable(false);
             $table->string('phone_mobile');
-            $table->string('phone_phone');
+            $table->string('phone_private');
             $table->string('phone_business');
             $table->string('bank_iban');
             $table->string('post_account');
