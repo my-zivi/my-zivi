@@ -30,6 +30,7 @@ class CreateTableUsers extends Migration
             $table->foreign('hometown_canton')->references('id')->on('cantons');
             $table->integer('canton')->unsigned()->nullable();
             $table->foreign('canton')->references('id')->on('cantons');
+            $table->date('birthday')->nullable(false);
             $table->string('phone_mobile');
             $table->string('phone_phone');
             $table->string('phone_business');
@@ -37,6 +38,10 @@ class CreateTableUsers extends Migration
             $table->string('post_account');
             $table->string('work_experience')->nullable();
             $table->boolean('driving_licence')->nullable();
+            $table->string('travel_card')->nullable();
+            $table->integer('regional_center')->unsigned();
+            $table->foreign('regional_center')->references('id')->on('regional_centers');
+            $table->string('internal_note');
         });
     }
     

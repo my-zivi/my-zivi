@@ -31,6 +31,7 @@ class User extends Model implements
         'address',
         'city',
         'canton',
+        'birthday',
         'hometown',
         'phone_mobile',
         'phone_phone',
@@ -39,13 +40,9 @@ class User extends Model implements
         'post_account',
         'work_experience',
         'driving_licence',
-
-        'birthday',
-        'travel_card', // GA, Halbtax, AnderesAbo
-        'internal_note',
-        'regional_center'
-
-    
+        'travel_card', // GA, Halbtax, etc.
+        'regional_center',
+        'internal_note'
     ];
 
     /**
