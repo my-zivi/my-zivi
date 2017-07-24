@@ -17,7 +17,7 @@ class CreateTableSpecifications extends Migration
             $table->double('id');
             $table->string('name');
             $table->string('short_name');
-            $table->string('working_clothes_payment');
+            $table->string('working_clothes_payment')->nullable();
             $table->integer('working_clothes_expense');
             $table->integer('working_breakfast_expenses');
             $table->integer('working_lunch_expenses');
