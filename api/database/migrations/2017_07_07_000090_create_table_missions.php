@@ -19,7 +19,7 @@ class CreateTableMissions extends Migration
             $table->softDeletes();
             $table->integer('user')->unsigned();
             $table->foreign('user')->references('id')->on('users');
-            $table->integer('specification')->unsigned();
+            $table->double('specification');
             $table->foreign('specification')->references('id')->on('specifications');
             $table->date('start');
             $table->date('end');

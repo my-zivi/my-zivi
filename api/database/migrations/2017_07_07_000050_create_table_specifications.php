@@ -14,7 +14,7 @@ class CreateTableSpecifications extends Migration
     public function up()
     {
         Schema::create('specifications', function (Blueprint $table) {
-            $table->increments('id');
+            $table->double('id');
             $table->string('name');
             $table->string('short_name');
             $table->string('working_clothes_payment');
@@ -37,6 +37,7 @@ class CreateTableSpecifications extends Migration
             $table->integer('pocket');
             $table->string('manual_file');
             $table->integer('active');
+            $table->primary('id');
         });
     }
 
