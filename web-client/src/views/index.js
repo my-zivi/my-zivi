@@ -35,14 +35,14 @@ const authorizedOnly = ({ router }) => {
 };
 
 export default (
-  <Route component={Layout}>
+  <Route component={Layout} onEnter={authorizedOnly}>
     <Route path="/" component={Home} />
 
     <Route path="/register" component={Register} />
     <Route path="/login" component={Login} />
     <Route path="/logout" component={Logout} />
 
-    <Route path="/profile" component={Profile} onEnter={authorizedOnly} />
+    <Route path="/profile" component={Profile} />
 
     <Route path="/user_list" component={UserList} />
     <Route path="/user_phone_list" component={UserPhoneList} />

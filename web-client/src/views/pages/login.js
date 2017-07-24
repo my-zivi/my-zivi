@@ -1,10 +1,12 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
+
+import { connect } from 'inferno-mobx';
+
 import Card from '../tags/card';
 
 //import API from '../../utils/api.js';
-import { Account } from '../../stores/';
 import axios from 'axios';
 
 // const click = () => {
@@ -37,8 +39,9 @@ import axios from 'axios';
 
 //const url = 'https://dev.stiftungswo.ch/api/regionalcenter';
 
+@connect(['accountStore'])
 export default class Login extends Component {
-  constructor(props) {
+  constructor(props, router) {
     super(props);
 
     this.state = {
@@ -117,7 +120,25 @@ export default class Login extends Component {
     });
   }
 
-  render() {
+  login(router) {
+    axios
+      .post('https://dev.stiftungswo.ch/api/auth/login', { email: 'office@stiftungswo.ch', password: '1234' })
+      .then(response => {
+        console.log(response);
+        console.log(response.data.message);
+        console.log(response.data.data.token);
+        //this.props.accountStore.email = email
+        //this.props.accountStore.token = response.data.data.token
+        localStorage.setItem('jwtToken', response.data.data.token);
+        router.push('/home');
+      })
+      .catch(error => {
+        console.log('Login failed!');
+        console.log(error); // to be verified also: error.data.error.message
+      });
+  }
+
+  render({ router }) {
     return (
       <div className="page page__login">
         <Card>
@@ -133,6 +154,8 @@ export default class Login extends Component {
           <h1>{this.state.count}</h1>
           <button onClick={() => this.increase()}>+</button>
           <button onClick={() => this.decrease()}>-</button>
+          <button onClick={() => this.login(router)}>Login</button>
+          <button onClick={router.push('/home')}>Route</button>
         </Card>
       </div>
     );

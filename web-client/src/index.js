@@ -2,10 +2,16 @@ import Inferno from 'inferno';
 import { Router } from 'inferno-router';
 import { Provider } from 'inferno-mobx';
 import { createBrowserHistory } from 'history';
+import { observable } from 'mobx';
 import views from './views';
 import './index.sass';
 
 const browserHistory = createBrowserHistory();
+
+const accountStore = observable({
+  email: null,
+  token: null,
+});
 
 Inferno.render(
   <Provider accountStore={accountStore}>
