@@ -55,6 +55,10 @@ $api->version('v1', function ($api) {
         $api->get('/user', function () {
             return response()->json(App\User::all());
         });
+        $api->get('/user/zivi', [
+            'uses' => 'App\Http\Controllers\UserController@getZivis',
+            'as' => 'api.user.getZivis'
+        ]);
         $api->get('/user/{id}', function ($id) {
             return response()->json(App\User::find($id));
         });

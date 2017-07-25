@@ -34,7 +34,7 @@ class User extends Model implements
         'birthday',
         'hometown',
         'phone_mobile',
-        'phone_phone',
+        'phone_private',
         'phone_business',
         'bank_iban',
         'post_account',
