@@ -1,19 +1,20 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
+import Component from 'inferno-component';
 
-export default function() {
-  const isLoggedIn = false; // this.state.isLoggedIn;
-  const isAdmin = false; // this.state.isLoggedIn;
+import { connect } from 'inferno-mobx';
 
-  function guestMenu() {
+@connect(['accountStore'])
+export default class Header extends Component {
+  guestMenu() {
     return [<Link to="/register">Registrieren</Link>, <Link to="/login">Anmelden</Link>];
   }
 
-  function userMenu() {
+  userMenu() {
     return [<Link to="/profile">Profil</Link>, <Link to="/logout">Abmelden</Link>];
   }
 
-  function adminMenu() {
+  adminMenu() {
     return [
       // Static data
       <Link to="/user_list">Mitarbeiterliste</Link>,
@@ -21,24 +22,24 @@ export default function() {
       <Link to="/specification">Pflichtenheft</Link>,
       <Link to="/freeday">Freitage</Link>,
 
-      // Operationss
+      // Operations
       <Link to="/mission_overview">Planung</Link>,
       <Link to="/expense">Spesen</Link>,
-      <Link to="/blog">Blog</Link>,
-      <Link to="/credit">Credit</Link>,
     ];
   }
 
-  return (
-    <header className="header">
-      <Link to="/">
-        <h1>iZivi</h1>
-      </Link>
-      <nav>
-        {isLoggedIn & isAdmin ? adminMenu() : null}
-        {isLoggedIn ? userMenu() : null}
-        {!isLoggedIn ? guestMenu() : null}
-      </nav>
-    </header>
-  );
+  render() {
+    return (
+      <header className="header">
+        <Link to="/">
+          <h1>iZivi</h1>
+        </Link>
+        <nav>
+          {this.props.accountStore.isLoggedIn & this.props.accountStore.isAdmin ? this.adminMenu() : null}
+          {this.props.accountStore.isLoggedIn ? this.userMenu() : null}
+          {!this.props.accountStore.isLoggedIn ? this.guestMenu() : null}
+        </nav>
+      </header>
+    );
+  }
 }

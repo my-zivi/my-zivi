@@ -2,6 +2,8 @@ import Inferno from 'inferno';
 import { Route } from 'inferno-router';
 import Layout from './tags/layout';
 
+import { connect } from 'inferno-mobx';
+
 import Home from './pages/home';
 import Register from './pages/register';
 import Login from './pages/login';
@@ -19,19 +21,43 @@ import Expense from './pages/expense';
 
 import Help from './pages/help';
 
-import Article from './pages/article';
-import Credit from './pages/credit';
-import Blog from './pages/blog';
 import Error404 from './pages/errors/404';
 
 const authorizedOnly = ({ router }) => {
-  console.log('Start!');
-  if (localStorage.getItem('jwtToken') === null) {
-    console.log('No valid token found!');
-    router.push('/blog');
-  }
-  console.log('Token exists, but valid?');
-  console.log('Finish!');
+  // console.log('Start!');
+  // if (localStorage.getItem("jwtToken") === null) {
+  // 	console.log('No valid token found!');
+  // 	router.push('/blog');
+  // };
+  // console.log('Token exists, but valid?');
+  // console.log('Finish!');
+};
+
+const doLogout = ({ router }) => {
+  localStorage.removeItem('jwtToken');
+  console.log('GO');
+  connect(
+    props => {
+      console.log(props);
+    },
+    props => {
+      props.accountStore.isLoggedIn = false;
+    },
+    props => {
+      props.accountStore.isAdmin = false;
+    }
+  ),
+    props => {
+      console.log(props);
+    };
+  connect(props => {
+    console.log(props);
+  });
+  //this.props.accountStore.isLoggedIn = false
+  //this.props.accountStore.isAdmin = false
+  console.log('STOP');
+
+  router.push('/');
 };
 
 export default (
@@ -40,7 +66,7 @@ export default (
 
     <Route path="/register" component={Register} />
     <Route path="/login" component={Login} />
-    <Route path="/logout" component={Logout} />
+    <Route path="/logout" component={Logout} onEnter={doLogout} />
 
     <Route path="/profile" component={Profile} />
 
@@ -55,9 +81,6 @@ export default (
 
     <Route path="/help" component={Help} />
 
-    <Route path="/credit" component={Credit} />
-    <Route path="/blog" component={Blog} />
-    <Route path="/blog/:title" component={Article} />
     <Route path="*" component={Error404} />
   </Route>
 );

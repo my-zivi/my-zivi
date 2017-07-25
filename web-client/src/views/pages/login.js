@@ -38,10 +38,12 @@ import axios from 'axios';
 // }
 
 //const url = 'https://dev.stiftungswo.ch/api/regionalcenter';
+const inputEmail = 'office@stiftungswo.ch';
+const inputPassword = '1234';
 
 @connect(['accountStore'])
 export default class Login extends Component {
-  constructor(props, router) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -120,25 +122,41 @@ export default class Login extends Component {
     });
   }
 
-  login(router) {
+  login() {
     axios
-      .post('https://dev.stiftungswo.ch/api/auth/login', { email: 'office@stiftungswo.ch', password: '1234' })
+      .post('https://dev.stiftungswo.ch/api/auth/login', { email: inputEmail, password: inputPassword })
       .then(response => {
         console.log(response);
         console.log(response.data.message);
         console.log(response.data.data.token);
-        //this.props.accountStore.email = email
-        //this.props.accountStore.token = response.data.data.token
+        console.log(this.props);
+        console.log(this.props.accountStore);
+        //console.log(this.props.accountStore.email)
+
+        this.props.accountStore.email = inputEmail;
+        this.props.accountStore.token = response.data.data.token;
+        this.props.accountStore.isLoggedIn = true;
+        this.props.accountStore.isAdmin = true;
         localStorage.setItem('jwtToken', response.data.data.token);
-        router.push('/home');
+        console.log(this.props);
+        //this.props.history.push('/home')
       })
       .catch(error => {
         console.log('Login failed!');
         console.log(error); // to be verified also: error.data.error.message
+        if (!error.response) {
+          // network error
+          console.log('Cannot connect to API server.');
+        } else {
+          // http status code
+          console.log(error.response.status);
+          // response data
+          console.log(error.response.data);
+        }
       });
   }
 
-  render({ router }) {
+  render() {
     return (
       <div className="page page__login">
         <Card>
@@ -154,8 +172,7 @@ export default class Login extends Component {
           <h1>{this.state.count}</h1>
           <button onClick={() => this.increase()}>+</button>
           <button onClick={() => this.decrease()}>-</button>
-          <button onClick={() => this.login(router)}>Login</button>
-          <button onClick={router.push('/home')}>Route</button>
+          <button onClick={() => this.login()}>Login</button>
         </Card>
       </div>
     );
