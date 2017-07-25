@@ -7,7 +7,6 @@ import { connect } from 'inferno-mobx';
 import Home from './pages/home';
 import Register from './pages/register';
 import Login from './pages/login';
-import Logout from './pages/logout';
 import Profile from './pages/profile';
 
 import UserList from './pages/user_list';
@@ -33,31 +32,21 @@ const authorizedOnly = ({ router }) => {
   // console.log('Finish!');
 };
 
-const doLogout = ({ router }) => {
-  localStorage.removeItem('jwtToken');
+const doLogout = ({ router, props }) => {
   console.log('GO');
-  connect(
-    props => {
-      console.log(props);
-    },
-    props => {
-      props.accountStore.isLoggedIn = false;
-    },
-    props => {
-      props.accountStore.isAdmin = false;
-    }
-  ),
-    props => {
-      console.log(props);
-    };
-  connect(props => {
-    console.log(props);
-  });
-  //this.props.accountStore.isLoggedIn = false
-  //this.props.accountStore.isAdmin = false
+  console.log(router);
+  console.log(history);
+  console.log(props);
+
+  //console.log(props.accountStore)
+
+  //accountStore.isLoggedIn = false
+  //accountStore.isAdmin = false
+  //console.log(accountStore)
   console.log('STOP');
 
-  router.push('/');
+  localStorage.removeItem('jwtToken');
+  //router.push('/')
 };
 
 export default (
@@ -66,7 +55,7 @@ export default (
 
     <Route path="/register" component={Register} />
     <Route path="/login" component={Login} />
-    <Route path="/logout" component={Logout} onEnter={doLogout} />
+    <Route path="/logout" onEnter={doLogout} />
 
     <Route path="/profile" component={Profile} />
 
