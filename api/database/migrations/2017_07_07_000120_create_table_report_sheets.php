@@ -22,33 +22,33 @@ class CreateTableReportsheets extends Migration
             $table->integer('user')->unsigned();
             $table->foreign('user')->references('id')->on('users');
             $table->boolean('done');
-            $table->integer('work');
-            $table->string('work_comment');
-            $table->integer('national_holiday');
-            $table->integer('company_holiday');
-            $table->string('company_holiday_comment');
-            $table->integer('workfree');
-            $table->string('workfree_comment');
+            $table->integer('work')->nullable();
+            $table->string('work_comment')->nullable();
+            $table->integer('national_holiday')->nullable();
+            $table->integer('company_holiday')->nullable();
+            $table->string('company_holiday_comment')->nullable();
+            $table->integer('workfree')->nullable();
+            $table->string('workfree_comment')->nullable();
             $table->integer('additional_workfree');
-            $table->string('additional_workfree_comment');
+            $table->string('additional_workfree_comment')->nullable();
             $table->integer('ill');
-            $table->string('ill_comment');
+            $table->string('ill_comment')->nullable();
             $table->integer('holiday');
-            $table->string('holiday_comment');
+            $table->string('holiday_comment')->nullable();
             $table->integer('vacation');
-            $table->string('vacation_comment');
+            $table->string('vacation_comment')->nullable();
             $table->bigInteger('driving_charges');
-            $table->string('driving_charges_comment');
+            $table->string('driving_charges_comment')->nullable();
             $table->bigInteger('extraordinarily');
-            $table->string('extraordinarily_comment');
-            $table->bigInteger('clothes');
-            $table->string('clothes_comment');
+            $table->string('extraordinarily_comment')->nullable();
+            $table->bigInteger('clothes')->nullable();
+            $table->string('clothes_comment')->nullable();
             $table->integer('mission')->unsigned();
             $table->foreign('mission')->references('id')->on('missions');
             $table->string('bank_account_number');
-            $table->integer('document_number'); // "Beleg Nummer"
-            $table->date('booked_date');
-            $table->date('paid_date');
+            $table->integer('document_number')->nullable(); // "Beleg Nummer"
+            $table->date('booked_date')->nullable();
+            $table->date('paid_date')->nullable();
         });
     }
 
