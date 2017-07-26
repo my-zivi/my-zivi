@@ -10,7 +10,6 @@ const browserHistory = createBrowserHistory();
 
 const accountStore = observable({
   email: null,
-  token: null,
   isLoggedIn: false,
   isAdmin: false,
 });
