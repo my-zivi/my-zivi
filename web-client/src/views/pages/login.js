@@ -38,7 +38,7 @@ import axios from 'axios';
 // }
 
 //const url = 'https://dev.stiftungswo.ch/api/regionalcenter';
-const inputEmail = 'office@stiftungswo.ch';
+const inputEmail = 'else@48026.no';
 const inputPassword = '1234';
 
 @connect(['accountStore'])
@@ -124,7 +124,7 @@ export default class Login extends Component {
 
   login() {
     axios
-      .post('https://dev.stiftungswo.ch/api/auth/login', { email: inputEmail, password: inputPassword })
+      .post('http://localhost/api/auth/login', { email: inputEmail, password: inputPassword })
       .then(response => {
         console.log(response);
         console.log(response.data.message);
