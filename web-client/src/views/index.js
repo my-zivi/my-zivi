@@ -24,16 +24,24 @@ import Help from './pages/help';
 
 import Error404 from './pages/errors/404';
 
+const checkToken = ({ props }) => {
+  // @todo: verify token is valid and has not expired yet and set props isLoggedIn and maybe also isAdmin and Role
+  if (localStorage.getItem('jwtToken') !== null) {
+    console.log('has token');
+    console.log(props);
+    props.children.children.context.mobxStores.accountStore.isLoggedIn = true;
+    props.children.children.context.mobxStores.accountStore.isAdmin = true;
+  }
+};
+
 const authorizedOnly = ({ router }) => {
   if (localStorage.getItem('jwtToken') === null) {
     router.push('/login');
-  } else {
-    // verify token is valid and has not expired yet and set props isLoggedIn and maybe also isAdmin and Role
   }
 };
 
 export default (
-  <Route component={Layout}>
+  <Route component={Layout} onEnter={checkToken}>
     <Route path="/" component={Home} />
 
     <Route path="/register" component={Register} />

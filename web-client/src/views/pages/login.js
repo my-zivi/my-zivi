@@ -58,6 +58,7 @@ export default class Login extends Component {
     return (
       <div className="page page__login">
         <Card>
+          <h1>Anmelden</h1>
           Email:
           <br />
           <input type="text" name="email" value={this.state.email} onChange={this.handleChange.bind(this)} />

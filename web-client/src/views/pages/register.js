@@ -57,7 +57,7 @@ export default class Register extends Component {
     return (
       <div className="page page__register">
         <Card>
-          <h1>Registrierung</h1>
+          <h1>Registrieren</h1>
           Email:
           <br />
           <input type="text" name="email" value={this.state.email} onChange={this.handleChange.bind(this)} />
