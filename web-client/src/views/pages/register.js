@@ -12,15 +12,61 @@ export default class Register extends Component {
     super(props);
 
     this.state = {
-      data: [],
+      email: '',
+      password: '',
     };
+  }
+
+  register() {
+    let self = this;
+    axios
+      .post('https://dev.stiftungswo.ch/api/auth/register', {
+        email: this.state.email,
+        password: this.state.password,
+      })
+      .then(response => {
+        this.props.accountStore.isLoggedIn = true;
+        this.props.accountStore.isAdmin = true;
+        localStorage.setItem('jwtToken', response.data.data.token);
+        self.context.router.push('/');
+      })
+      .catch(error => {
+        let errorMsg = '';
+        errorMsg += 'Request failed!\nPlease check the following field(s):\n\n';
+        for (let item in error.response.data) {
+          errorMsg += item + ': ' + error.response.data[item] + '\n';
+        }
+        alert(errorMsg);
+      });
+  }
+
+  handleChange(e) {
+    switch (e.target.name) {
+      case 'email':
+        this.setState({ email: e.target.value });
+        break;
+      case 'password':
+        this.setState({ password: e.target.value });
+        break;
+      default:
+        console.log('Element not found for setting.');
+    }
   }
 
   render() {
     return (
       <div className="page page__register">
         <Card>
-          <h1>Register</h1>
+          <h1>Registrierung</h1>
+          Email:
+          <br />
+          <input type="text" name="email" value={this.state.email} onChange={this.handleChange.bind(this)} />
+          <br />
+          Password:
+          <br />
+          <input type="password" name="password" value={this.state.password} onChange={this.handleChange.bind(this)} />
+          <br />
+          <button onClick={() => this.register()}>Registrieren</button>
         </Card>
       </div>
     );
