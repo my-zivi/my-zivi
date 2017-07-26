@@ -21,10 +21,6 @@ export default class Register extends Component {
       <div className="page page__register">
         <Card>
           <h1>Register</h1>
-          {console.log('----------------------------')}
-          {console.log(this.props.accountStore.email)}
-          {console.log(this.props.accountStore.token)}
-          {console.log(this.props)}
         </Card>
       </div>
     );
