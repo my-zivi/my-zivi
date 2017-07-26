@@ -19,6 +19,12 @@ $api->version('v1', function ($api) {
         'uses' => 'App\Http\Controllers\Auth\AuthController@postLogin',
     ]);
 
+    // PDF
+    $api->get('/pdf/phoneList', [
+        'as' => 'api.pdf',
+        'uses' => 'App\Http\Controllers\PDF\PDFController@getPhoneList'
+    ]);
+
     $api->group([
         'middleware' => 'api.auth',
     ], function ($api) {

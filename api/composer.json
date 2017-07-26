@@ -8,7 +8,8 @@
         "php": ">=5.6.4",
         "laravel/lumen-framework": "5.4.*",
         "vlucas/phpdotenv": "~2.2",
-        "krisanalfa/lumen-dingo-adapter": "^0.0.3"
+        "krisanalfa/lumen-dingo-adapter": "^0.0.3",
+        "setasign/fpdi-fpdf": "1.6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -18,4 +18,9 @@ class Mission extends Model
                            'long_mission',
                            'probation_period'
                         ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user');
+    }
 }

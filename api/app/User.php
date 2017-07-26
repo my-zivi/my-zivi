@@ -55,6 +55,11 @@ class User extends Model implements
         'remember_token',
     ];
 
+    public function missions()
+    {
+        return $this->hasMany('mission', 'user');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

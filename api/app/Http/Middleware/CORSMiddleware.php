@@ -65,7 +65,7 @@ class CORSMiddleware
                 ?: 'GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS',
             'Access-Control-Allow-Credentials' => 'true',
         ] as $header => $value) {
-            $response->header($header, $value);
+            $response->headers->set($header, $value);
         }
 
         return $response;
