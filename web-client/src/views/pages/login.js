@@ -6,6 +6,7 @@ import { connect } from 'inferno-mobx';
 import Card from '../tags/card';
 
 import axios from 'axios';
+import ApiService from '../../utils/api';
 
 @connect(['accountStore'])
 export default class Login extends Component {
@@ -21,7 +22,7 @@ export default class Login extends Component {
   login() {
     let self = this;
     axios
-      .post('https://dev.stiftungswo.ch/api/auth/login', {
+      .post(ApiService.BASE_URL + 'auth/login', {
         email: this.state.email,
         password: this.state.password,
       })

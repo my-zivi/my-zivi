@@ -20,7 +20,7 @@ export default class Register extends Component {
   register() {
     let self = this;
     axios
-      .post('https://dev.stiftungswo.ch/api/auth/register', {
+      .post(ApiService.BASE_URL + '/auth/register', {
         email: this.state.email,
         password: this.state.password,
       })

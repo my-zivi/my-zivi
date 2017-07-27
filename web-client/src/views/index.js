@@ -19,6 +19,7 @@ import Freeday from './pages/freeday';
 
 import MissionOverview from './pages/mission_overview';
 import Expense from './pages/expense';
+import EditExpense from './pages/edit_expense';
 
 import Help from './pages/help';
 
@@ -48,7 +49,7 @@ export default (
     <Route path="/login" component={Login} />
     <Route path="/logout" component={Logout} />
 
-    <Route path="/profile" component={Profile} onEnter={authorizedOnly} />
+    <Route path="/profile/:userid?" component={Profile} onEnter={authorizedOnly} />
 
     <Route path="/user_list" component={UserList} onEnter={authorizedOnly} />
     <Route path="/user_phone_list" component={UserPhoneList} onEnter={authorizedOnly} />
@@ -57,7 +58,9 @@ export default (
     <Route path="/freeday" component={Freeday} onEnter={authorizedOnly} />
 
     <Route path="/mission_overview" component={MissionOverview} onEnter={authorizedOnly} />
+
     <Route path="/expense" component={Expense} onEnter={authorizedOnly} />
+    <Route path="/expense/:report_sheet_id" component={EditExpense} onEnter={authorizedOnly} />
 
     <Route path="/help" component={Help} />
 

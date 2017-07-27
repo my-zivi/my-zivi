@@ -17,8 +17,8 @@ class PDFController extends Controller
 
     public function getPhoneList(Application $app)
     {
-        $from = Input::get("from", 0);
-        $to = Input::get("to", 0);
+        $from = strtotime(Input::get("start", ""));
+        $to = strtotime(Input::get("end", ""));
 
         $phoneList = new PhoneListPDF($from, $to);
 
@@ -34,11 +34,8 @@ class PDFController extends Controller
     {
 
         $reportSheetId = Input::get("reportSheetId");
-        $from = Input::get("from", 0);
-        $to = Input::get("to", 0);
 
-
-        $reportSheet = new ZiviReportSheetPDF($reportSheetId, $from, $to);
+        $reportSheet = new ZiviReportSheetPDF($reportSheetId);
 
         $response = response()->download($reportSheet->createPDF(), 'spesenrapport.pdf')
             ->deleteFileAfterSend(true);

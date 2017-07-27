@@ -3,9 +3,7 @@ import { Link } from 'inferno-router';
 import Card from '../tags/card';
 import axios from 'axios';
 import Component from 'inferno-component';
-
-const inputEmail = 'else@48026.no';
-const inputPassword = '1234';
+import ApiService from '../../utils/api';
 
 export default class User extends Component {
   constructor(props) {
@@ -24,14 +22,16 @@ export default class User extends Component {
     let temp = [];
     let self = this;
     axios
-      .get('http://localhost/api/user/{id}', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+      .get(ApiService.BASE_URL + 'user' + (this.props.params.userid ? '/' + this.props.params.userid : ''), {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+      })
       .then(function(response) {
         console.log('response ' + response.data);
         temp.push(
           <tbody>
             <tr>
               <td colspan="2">ZDP:</td>
-              <td colspan="4">00000</td>
+              <td colspan="4">{response.data.zdp}</td>
             </tr>
             <tr>
               <td colspan="6">
@@ -41,60 +41,60 @@ export default class User extends Component {
             <tr>
               <td colspan="2">Vorname:</td>
               <td>
-                <input class="SWOInput" size="20" id="firstname" name="firstname" value={response.data.TODO} type="text" />
+                <input class="SWOInput" size="20" id="firstname" name="firstname" value={response.data.first_name} type="text" />
               </td>
               <td colspan="2">Nachname:</td>
               <td>
-                <input class="SWOInput" size="20" id="lastname" name="lastname" value={response.data.TODO} type="text" />
+                <input class="SWOInput" size="20" id="lastname" name="lastname" value={response.data.last_name} type="text" />
               </td>
             </tr>
             <tr>
               <td colspan="2">Strasse:</td>
               <td colspan="4">
-                <input class="SWOInput" size="75" id="street" name="street" value={response.data.TODO} type="text" />
+                <input class="SWOInput" size="75" id="street" name="street" value={response.data.address} type="text" />
               </td>
             </tr>
             <tr>
               <td colspan="2">PLZ:</td>
               <td>
-                <input class="SWOInput" size="20" id="zip" name="zip" value={response.data.TODO} maxlength="4" type="text" />
+                <input class="SWOInput" size="20" id="zip" name="zip" value={response.data.zip} maxlength="4" type="text" />
               </td>
               <td colspan="2">Ort:</td>
               <td>
-                <input class="SWOInput" size="20" id="city" name="city" value={response.data.TODO} type="text" />
+                <input class="SWOInput" size="20" id="city" name="city" value={response.data.city} type="text" />
               </td>
             </tr>
             <tr>
               <td colspan="2">Geburtstag:</td>
               <td>
-                <input class="SWOInput" size="20" id="dateofbirth" name="dateofbirth" value={response.data.TODO} type="text" />
+                <input class="SWOInput" size="20" id="dateofbirth" name="dateofbirth" value={response.data.birthday} type="text" />
               </td>
               <td colspan="4">&nbsp;</td>
             </tr>
             <tr>
               <td colspan="2">Tel. Mobil:</td>
               <td>
-                <input class="SWOInput" size="20" id="phoneM" name="phoneM" value={response.data.TODO} type="text" />
+                <input class="SWOInput" size="20" id="phoneM" name="phoneM" value={response.data.phone_mobile} type="text" />
               </td>
               <td colspan="2">Tel. Privat:</td>
               <td>
-                <input class="SWOInput" size="20" id="phoneP" name="phoneP" value={response.data.TODO} type="text" />
+                <input class="SWOInput" size="20" id="phoneP" name="phoneP" value={response.data.phone_private} type="text" />
               </td>
             </tr>
             <tr>
               <td colspan="2">Tel. Geschäft:</td>
               <td>
-                <input class="SWOInput" size="20" id="phoneG" name="phoneG" value={response.data.TODO} type="text" />
+                <input class="SWOInput" size="20" id="phoneG" name="phoneG" value={response.data.phone_business} type="text" />
               </td>
               <td colspan="2">Email:</td>
               <td>
-                <input class="SWOInput" size="20" id="email" name="email" value={response.data.TODO} type="text" />
+                <input class="SWOInput" size="20" id="email" name="email" value={response.data.email} type="text" />
               </td>
             </tr>
             <tr>
               <td colspan="2">Heimatort</td>
               <td>
-                <input class="SWOInput" size="20" id="hometown" name="hometown" value={response.data.TODO} type="text" />
+                <input class="SWOInput" size="20" id="hometown" name="hometown" value={response.data.hometown} type="text" />
               </td>
               <td>Kanton</td>
               <td align="right">
@@ -354,7 +354,9 @@ export default class User extends Component {
             <tr>
               <td colspan="2">Int. Bemerkung:</td>
               <td colspan="4">
-                <textarea rows="4" cols="55" class="SWOInput" id="bemerkung" name="bemerkung" />
+                <textarea rows="4" cols="55" class="SWOInput" id="bemerkung" name="bemerkung">
+                  {response.data.internal_note}
+                </textarea>
               </td>
             </tr>
           </tbody>
@@ -375,32 +377,32 @@ export default class User extends Component {
       <div className="page page__user_list">
         <Card>
           <h1>Profil</h1>
-        </Card>
-        <input class="SWOButton" name="resetPassword" value="Passwort zurücksetzen" type="submit" />
-        <table class="table" cellpadding="30">
-          <tbody>
-            <tr>
-              <td>
-                <input name="id" value="00000" type="hidden" />
-                <input name="action" value="saveEmployee" type="hidden" />
-                <table>
-                  <colgroup>
-                    <col width="140" />
-                    <col width="20" />
-                    <col width="160" />
-                    <col width="140" />
-                    <col width="20" />
-                    <col width="160" />
-                  </colgroup>
+          <input class="SWOButton" name="resetPassword" value="Passwort zurücksetzen" type="submit" />
+          <table class="table" cellpadding="30">
+            <tbody>
+              <tr>
+                <td>
+                  <input name="id" value="00000" type="hidden" />
+                  <input name="action" value="saveEmployee" type="hidden" />
+                  <table>
+                    <colgroup>
+                      <col width="140" />
+                      <col width="20" />
+                      <col width="160" />
+                      <col width="140" />
+                      <col width="20" />
+                      <col width="160" />
+                    </colgroup>
 
-                  {this.state.result}
-                </table>
-                <br />
-                <input class="SWOButton" value="Daten speichern" type="submit" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    {this.state.result}
+                  </table>
+                  <br />
+                  <input class="SWOButton" value="Daten speichern" type="submit" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </Card>
       </div>
     );
   }

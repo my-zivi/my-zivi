@@ -11,6 +11,8 @@
 |
 */
 
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 $api = $app->make(Dingo\Api\Routing\Router::class);
 
 $api->version('v1', function ($api) {
@@ -63,7 +65,7 @@ $api->version('v1', function ($api) {
 
         // User
         $api->get('/user', function () {
-            return response()->json(App\User::all());
+            return response()->json(JWTAuth::parseToken()->authenticate());
         });
         $api->get('/user/zivi', [
             'uses' => 'App\Http\Controllers\UserController@getZivis',
@@ -134,10 +136,37 @@ $api->version('v1', function ($api) {
 
         // Reportsheet
         $api->get('/reportsheet', function () {
-            return response()->json(App\ReportSheet::all());
+            return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'report_sheets.id AS id')
+                ->orderBy('start')
+                ->orderBy('end')
+                ->orderBy('zdp')
+                ->get());
         });
+
+        $api->get('/reportsheet/pending', function () {
+            return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'report_sheets.id AS id')
+                ->where('done', '=', '0')
+                ->orderBy('start')
+                ->orderBy('end')
+                ->orderBy('zdp')
+                ->get());
+        });
+
+        $api->get('/reportsheet/current', function () {
+            return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'report_sheets.id AS id')
+                ->whereDate('start', '>=', date('Y-m-01'))
+                ->whereDate('end', '<', date('Y-m-d', strtotime('first day of next month')))
+                ->orderBy('start')
+                ->orderBy('end')
+                ->orderBy('zdp')
+                ->get());
+        });
+
         $api->get('/reportsheet/{id}', function ($id) {
-            return response()->json(App\ReportSheet::find($id));
+            return response()->json(App\ReportSheet::getSpesen($id));
         });
     });
 });
