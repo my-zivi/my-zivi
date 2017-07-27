@@ -80,7 +80,7 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
   END AS hometown_canton,
   1 AS canton,
   CASE
-    WHEN stiftun8_iZivi.zivis.dateofbirth IS NOT NULL
+    WHEN stiftun8_iZivi.zivis.dateofbirth IS NOT NULL AND stiftun8_iZivi.zivis.dateofbirth != 0
       THEN stiftun8_iZivi.zivis.dateofbirth ELSE NOW()
   END AS birthday,
   stiftun8_iZivi.zivis.phoneM AS phone_mobile,
@@ -115,7 +115,7 @@ stiftun8_iZivi.pflichtenheft.id,
 stiftun8_iZivi.pflichtenheft.name,
 stiftun8_iZivi.pflichtenheft.short_name,
 stiftun8_iZivi.pflichtenheft.working_clothes_payment,
-stiftun8_iZivi.pflichtenheft.working_clothes_expense,
+stiftun8_iZivi.pflichtenheft.working_clothes_expense*100,
 stiftun8_iZivi.pflichtenheft.working_breakfast_expenses,
 stiftun8_iZivi.pflichtenheft.working_lunch_expenses,
 stiftun8_iZivi.pflichtenheft.working_dinner_expenses,
@@ -138,8 +138,8 @@ from stiftun8_iZivi.pflichtenheft);
 
 
 INSERT INTO izivi.specifications (id, name, short_name, working_clothes_payment, working_clothes_expense, working_breakfast_expenses, working_lunch_expenses, working_dinner_expenses, sparetime_breakfast_expenses, sparetime_lunch_expenses, sparetime_dinner_expenses, firstday_breakfast_expenses, firstday_lunch_expenses, firstday_dinner_expenses, lastday_breakfast_expenses, lastday_lunch_expenses, lastday_dinner_expenses, working_time_model, working_time_weekly, accommodation, pocket, manual_file, active) VALUES
-  (19532, 'Gruppeneinsätze, Feldarbeiten', 'F', 'Fr. 60 / Monat, max. Fr. 240', 2.30, 400, 1700, 700, 400, 900, 700, 400, 1700, 700, 400, 1700, 700, 0, 42.00, 1000, 500, 'conditions.pdf', 0),
-  (19535, 'Gruppeneinsätze, Feldarbeiten', 'F', 'Fr. 60 / Monat, max. Fr. 240', 2.30, 400, 1700, 700, 400, 900, 700, 400, 1700, 700, 400, 1700, 700, 0, 42.00, 1000, 500, 'conditions.pdf', 0);
+  (19532, 'Gruppeneinsätze, Feldarbeiten', 'F', 'Fr. 60 / Monat, max. Fr. 240', 230, 400, 1700, 700, 400, 900, 700, 400, 1700, 700, 400, 1700, 700, 0, 42.00, 1000, 500, 'conditions.pdf', 0),
+  (19535, 'Gruppeneinsätze, Feldarbeiten', 'F', 'Fr. 60 / Monat, max. Fr. 240', 230, 400, 1700, 700, 400, 900, 700, 400, 1700, 700, 400, 1700, 700, 0, 42.00, 1000, 500, 'conditions.pdf', 0);
 
 
 INSERT INTO izivi.missions (id, created_at, updated_at, deleted_at, user, specification, start, end, draft, eligible_holiday, role, first_time, long_mission, probation_period) (Select
@@ -155,7 +155,10 @@ INSERT INTO izivi.missions (id, created_at, updated_at, deleted_at, user, specif
   stiftun8_iZivi.einsaetze.pflichtenheft AS specification,
   stiftun8_iZivi.einsaetze.start AS start,
   stiftun8_iZivi.einsaetze.end AS end,
-  stiftun8_iZivi.einsaetze.aufgebot AS draft,
+  CASE
+    WHEN stiftun8_iZivi.einsaetze.aufgebot IS NOT NULL AND stiftun8_iZivi.einsaetze.aufgebot != 0
+      THEN stiftun8_iZivi.einsaetze.aufgebot ELSE NOW()
+  END AS draft,
   stiftun8_iZivi.einsaetze.eligibleholiday AS eligible_holiday,
   CASE
     WHEN stiftun8_iZivi.einsaetze.employment_type = 1
@@ -186,9 +189,9 @@ INSERT INTO izivi.report_sheets (SELECT
   stiftun8_iZivi.meldeblaetter.done,
   stiftun8_iZivi.meldeblaetter.work,
   stiftun8_iZivi.meldeblaetter.work_comment,
-  stiftun8_iZivi.meldeblaetter.compholiday_holiday AS national_holiday,
-  stiftun8_iZivi.meldeblaetter.compholiday_vacation AS company_holiday,
+  stiftun8_iZivi.meldeblaetter.compholiday_holiday AS company_holiday_holiday,
   stiftun8_iZivi.meldeblaetter.compholiday_comment AS company_holiday_comment,
+  stiftun8_iZivi.meldeblaetter.compholiday_vacation AS company_holiday_vacation,
   stiftun8_iZivi.meldeblaetter.workfree,
   stiftun8_iZivi.meldeblaetter.workfree_comment,
   stiftun8_iZivi.meldeblaetter.add_workfree AS additional_workfree,

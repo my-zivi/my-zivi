@@ -10,8 +10,6 @@ namespace App\Http\Controllers\PDF;
 
 use App\Mission;
 use App\Specification;
-use App\User;
-use Illuminate\Support\Facades\DB;
 
 class PhoneListPDF extends PDF
 {
@@ -19,7 +17,6 @@ class PhoneListPDF extends PDF
     private $__PDF_TOP = 25;
     private $__PDF_LEFT = 20;
     private $__PDF_BODY_HEIGHT = 150;
-    private $__PDF_BODY_WIDTH = 245;
     private $__PDF_ROW_HEIGHT = 5;
     private $__PDF_INTERROW_HEIGHT = 4;
     private $__PDF_INTERSECTION_HEIGHT = 5;

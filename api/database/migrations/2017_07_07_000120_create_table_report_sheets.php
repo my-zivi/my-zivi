@@ -24,9 +24,9 @@ class CreateTableReportsheets extends Migration
             $table->boolean('done');
             $table->integer('work')->nullable();
             $table->string('work_comment')->nullable();
-            $table->integer('national_holiday')->nullable();
-            $table->integer('company_holiday')->nullable();
+            $table->integer('company_holiday_holiday')->nullable();
             $table->string('company_holiday_comment')->nullable();
+            $table->integer('company_holiday_vacation')->nullable();
             $table->integer('workfree')->nullable();
             $table->string('workfree_comment')->nullable();
             $table->integer('additional_workfree');

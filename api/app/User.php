@@ -60,6 +60,11 @@ class User extends Model implements
         return $this->hasMany('mission', 'user');
     }
 
+    public function report_sheets()
+    {
+        return $this->hasMany('report_sheets', 'user');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

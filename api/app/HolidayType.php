@@ -9,4 +9,9 @@ class HolidayType extends Model
     protected $fillable = ['id',
                            'name'
                         ];
+
+    public function holiday()
+    {
+        return $this->hasMany('App\Holiday');
+    }
 }

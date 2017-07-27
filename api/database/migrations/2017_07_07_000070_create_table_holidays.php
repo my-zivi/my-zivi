@@ -17,8 +17,8 @@ class CreateTableHolidays extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->softDeletes();
-            $table->timestamp('date_from');
-            $table->timestamp('date_to');
+            $table->date('date_from');
+            $table->date('date_to');
             $table->integer('holiday_type')->unsigned();
             $table->foreign('holiday_type')->references('id')->on('holiday_types');
             $table->string('description');

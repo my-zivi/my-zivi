@@ -1,0 +1,604 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Simon Rösch
+ * Date: 7/26/17
+ * Time: 8:53 AM
+ */
+
+namespace App\Http\Controllers\PDF;
+
+use App\CompanyInfo;
+use App\ReportSheet;
+use App\User;
+
+class ZiviReportSheetPDF extends PDF
+{
+
+    private $left_margin = 25;              // Abstand zum linken Seitenrand
+    private $y_offset = 15;                 // Allgemeiner "Item-Abstand"
+    private $line_break = 7;                // Zeilenabstand zwischen Hauptzeilen
+    private $comment_line_break = 6.5;      // Abstand zwischen Hauptzeile und Kommentar
+    private $comment_line_break2 = 5;       // Abstand zwischen zwei Kommentaren
+    private $shade_height = 5;              // H�he der Hintergrundbox f�r normale Zeilen
+    private $shade_height8 = 4;             // H�he der Hintergrundbox f�r Kommentarzeilen
+
+    private $col = array(65, 90, 113, 131, 149, 168);
+    private $shade_width = array(24, 22, 17, 17, 17, 22);
+    private $col_title = array("Taschengeld", "Unterkunft", "Morgen", "Mittag", "Abend", "Total");
+
+    private $user;
+    private $spesen;
+
+    public function __construct($spesenId, $from, $to)
+    {
+        parent::__construct();
+
+        $this->spesen = ReportSheet::getSpesen($spesenId);
+
+        $this->user = ReportSheet::find($spesenId)->user()->first();
+    }
+
+    protected function render()
+    {
+        $this->pdf->AddPage();
+        $this->pdf->SetFont('Arial', 'B', 12);
+        $this->pdf->SetXY($this->left_margin, $this->y_offset);
+        $this->pdf->SetFillColor(210, 240, 230);
+        $this->pdf->Cell(165, 10, "Spesenrapport", 0, 0, "", 1);
+        $this->pdf->SetFillColor(235, 235, 235);
+
+        $this->pdf->SetFont('Arial', 'B', 10);
+        $this->pdf->SetXY($this->left_margin+32, $this->y_offset);
+        $this->pdf->Cell(0, 10, "des Einsatzbetriebes " . CompanyInfo::COMPANY_NO . " - " . CompanyInfo::COMPANY_NAME_SHORT . ", " . CompanyInfo::COMPANY_ADDRESS . ", " . CompanyInfo::COMPANY_CITY);
+
+        $this->y_offset = $this->y_offset + 18;
+
+        $warn_str = "";
+        if ($this->spesen['meldeblaetter_tage'] != $this->spesen['sum_tage']) {
+            $warn_str .= "Summe der Tage ist falsch! ";
+        }
+        if ($this->spesen['arbeitstage'] < 0) {
+            $warn_str .= "Arbeitstage kleiner als 0!";
+        }
+        if (!empty($warn_str)) {
+            $this->pdf->SetFont('Arial', '', 10);
+            $this->pdf->SetXY($this->left_margin, $this->y_offset);
+            $this->pdf->SetFillColor(255, 200, 200);
+            $this->pdf->Cell(170, 10, "Warnung: " . $warn_str, 1, 0, "", 1);
+            $this->pdf->SetFillColor(235, 235, 235);
+            $this->y_offset = $this->y_offset + 18;
+        }
+
+        $this->pdf->SetFont('Arial', '', 10);
+        $this->pdf->SetXY($this->left_margin, $this->y_offset);
+        $this->pdf->Cell(0, 10, "Pflichtenheft:");
+        $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height/2);
+        $str = $this->spesen['einsaetze_pflichtenheft'] . " " . $this->spesen['pflichtenheft_name'];
+        $this->pdf->Cell(100, $this->shade_height, $str, 0, 0, '', 1);
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+        $this->pdf->SetXY($this->left_margin, $this->y_offset);
+        $this->pdf->Cell(0, 10, "Name, Vorname:");
+        $this->pdf->SetFont('Arial', 'B', 10);
+        $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height/2);
+        $str = $this->user['last_name'] . " " . $this->user['first_name'];
+        $this->pdf->Cell(100, $this->shade_height, $str, 0, 0, '', 1);
+        $this->pdf->SetFont('Arial', '', 10);
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+        $this->pdf->SetXY($this->left_margin, $this->y_offset);
+        $this->pdf->Cell(0, 10, "Adresse:");
+        $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height/2);
+        $str = $this->user['address'] . ", " . $this->user['city'];
+        $this->pdf->Cell(100, $this->shade_height, $str, 0, 0, '', 1);
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+        $this->pdf->SetXY($this->left_margin, $this->y_offset);
+        $this->pdf->Cell(0, 10, "ZDP:");
+        $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height/2);
+        $this->pdf->Cell(100, $this->shade_height, $this->user['zdp'], 0, 0, '', 1);
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+        $this->pdf->SetXY($this->left_margin, $this->y_offset);
+        $this->pdf->Cell(0, 10, "Gesamteinsatz:");
+        $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height/2);
+        $str = date("d. M. Y", strtotime($this->spesen['einsaetze_start'])) . " bis ";
+        $str .= date("d. M. Y", strtotime($this->spesen['einsaetze_end']));
+        $str .= " (" . $this->spesen['einsaetze_tage'] . " Tage)";
+        $this->pdf->Cell(100, $this->shade_height, $str, 0, 0, '', 1);
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+        $this->pdf->SetXY($this->left_margin, $this->y_offset);
+        $this->pdf->Cell(0, 10, "Meldeperiode:");
+        $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->SetFont('Arial', 'B', 10);
+        $str = date("d. M. Y", strtotime($this->spesen['meldeblaetter_start'])) . " bis ";
+        $str .= date("d. M. Y", strtotime($this->spesen['meldeblaetter_end']));
+        $str .= " (" . $this->spesen['meldeblaetter_tage'] . " Tage)";
+        $this->pdf->Cell(100, $this->shade_height, $str, 0, 0, '', 1);
+
+        $this->pdf->SetFont('Arial', '', 10);
+
+        $this->y_offset = $this->y_offset + 20;
+
+// Drucke Spaltenbeschriftungen //
+        $this->pdf->SetFont('Arial', 'B');
+        $this->pdf->SetXY($this->col[0], $this->y_offset);
+        $this->pdf->Cell($this->shade_width[0], 10, $this->col_title[0]);
+        $this->pdf->SetXY($this->col[1], $this->y_offset);
+        $this->pdf->Cell($this->shade_width[1], 10, $this->col_title[1]);
+        $this->pdf->SetXY($this->col[2], $this->y_offset);
+        $this->pdf->Cell($this->shade_width[2], 10, $this->col_title[2]);
+        $this->pdf->SetXY($this->col[3], $this->y_offset);
+        $this->pdf->Cell($this->shade_width[3], 10, $this->col_title[3]);
+        $this->pdf->SetXY($this->col[4], $this->y_offset);
+        $this->pdf->Cell($this->shade_width[4], 10, $this->col_title[4]);
+        $this->pdf->SetXY($this->col[5], $this->y_offset);
+        $this->pdf->Cell($this->shade_width[5], 10, $this->col_title[5], 0, 0, 'R');
+//$this->pdf->SetFont('','');
+
+        $this->y_offset = $this->y_offset + 0.7 * $this->line_break;
+
+// Drucke Einheitsbezeichnungen (Fr.) //
+        $this->pdf->SetFont('Arial', '', 9);
+        $this->pdf->SetXY($this->col[0], $this->y_offset);
+        $this->pdf->Cell($this->shade_width[0], 10, "(Fr.)");
+        $this->pdf->SetXY($this->col[1], $this->y_offset);
+        $this->pdf->Cell($this->shade_width[1], 10, "(Fr.)");
+        $this->pdf->SetXY($this->col[2], $this->y_offset);
+        $this->pdf->Cell($this->shade_width[2], 10, "(Fr.)");
+        $this->pdf->SetXY($this->col[3], $this->y_offset);
+        $this->pdf->Cell($this->shade_width[3], 10, "(Fr.)");
+        $this->pdf->SetXY($this->col[4], $this->y_offset);
+        $this->pdf->Cell($this->shade_width[4], 10, "(Fr.)");
+        $this->pdf->SetXY($this->col[5], $this->y_offset);
+        $this->pdf->Cell($this->shade_width[5], 10, "(Fr.)", 0, 0, 'R');
+        $this->pdf->SetFont('Arial', '', 10);
+
+        $this->y_offset = $this->y_offset + 1.25 * $this->line_break;
+
+        $this->pdf->SetFont('Arial', 'B');
+        $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
+        $this->pdf->Cell(3, 10, strval($this->spesen['arbeitstage']), 0, 0, 'R');
+        $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
+        if ($this->spesen['arbeitstage'] == 1) {
+            $this->pdf->Cell(0, 10, "Arbeitstag");
+        } else {
+            $this->pdf->Cell(0, 10, "Arbeitstage");
+        }
+        $this->pdf->SetFont('Arial', '');
+        $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_pocket']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[1], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_accommodation']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[2], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_working_breakfast_expenses']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[3], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_working_lunch_expenses']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[4], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_working_dinner_expenses']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['total_workdays']), 0, 0, 'R', 1);
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+        $this->pdf->SetFont('Arial', 'B');
+        $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
+        $this->pdf->Cell(3, 10, strval($this->spesen['arbeitsfreie_tage']), 0, 0, 'R');
+        $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
+        if ($this->spesen['arbeitsfreie_tage'] == 1) {
+            $this->pdf->Cell(0, 10, "Arbeitsfreier Tag");
+        } else {
+            $this->pdf->Cell(0, 10, "Arbeitsfreie Tage");
+        }
+        $this->pdf->SetFont('Arial', '');
+        $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_pocket']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[1], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_accommodation']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[2], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_breakfast_expenses']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[3], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_lunch_expenses']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[4], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_dinner_expenses']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['total_workfree']), 0, 0, 'R', 1);
+
+        $n_comments = 0;
+        if (!empty($feiertage_comment)) {
+            $this->pdf->SetFont('Arial', 'I', 8);
+            $this->y_offset = $this->y_offset + $this->comment_line_break;
+            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8/2);
+            $str = "inkl. " . $feiertage_comment;
+            $w = $this->pdf->GetStringWidth($str) + 4;
+            if ($w > 120) {
+                $w = 120;
+            }
+            $this->pdf->Cell($w, $this->shade_height8, $str, 0, 0, '', 1);
+            $this->pdf->SetFont('Arial', '', 10);
+            $n_comments++;
+        }
+
+        if ($this->spesen['add_workfree'] >= 1) {
+            $this->pdf->SetFont('Arial', 'I', 8);
+            if ($n_comments == 0) {
+                $this->y_offset = $this->y_offset + $this->comment_line_break;
+            } else {
+                $this->y_offset = $this->y_offset + $this->comment_line_break2;
+            }
+            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8/2);
+            $str = "inkl. " . $this->spesen['add_workfree'];
+            if ($this->spesen['add_workfree'] == 1) {
+                $str = $str . " zus�tzlicher arbeitsfreier Tag";
+            } else {
+                $str = $str . " zus�tzliche arbeitsfreie Tage";
+            }
+            if (!empty($this->spesen['meldeblaetter_add_workfree_comment'])) {
+                $str = $str . " (" . $this->spesen['meldeblaetter_add_workfree_comment'] . ")";
+            } else {
+                $str = $str . ".";
+            }
+            $w = $this->pdf->GetStringWidth($str) + 4;
+            if ($w > 120) {
+                $w = 120;
+            }
+            $this->pdf->Cell($w, $this->shade_height8, $str, 0, 0, '', 1);
+            $this->pdf->SetFont('Arial', '', 10);
+            $n_comments++;
+        }
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+        $this->pdf->SetFont('Arial', 'B');
+        $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
+        $this->pdf->Cell(3, 10, $this->spesen['krankheitstage'], 0, 0, 'R');
+        $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
+        if ($this->spesen['krankheitstage'] == 1) {
+            $this->pdf->Cell(0, 10, "Krankheitstag");
+        } else {
+            $this->pdf->Cell(0, 10, "Krankheitstage");
+        }
+        $this->pdf->SetFont('Arial', '');
+        $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_pocket']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[1], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_accommodation']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[2], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_breakfast_expenses']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[3], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_lunch_expenses']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[4], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_dinner_expenses']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['total_ill']), 0, 0, 'R', 1);
+
+        if (!empty($this->spesen['meldeblaetter_ill_comment'])) {
+            $this->pdf->SetFont('Arial', 'I', '8');
+            $this->y_offset = $this->y_offset + $this->comment_line_break;
+            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8 / 2);
+            $str = "Bemerkung: " . $this->spesen['meldeblaetter_ill_comment'];
+            $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
+            $this->pdf->SetFont('Arial', '', 10);
+        }
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+        $this->pdf->SetFont('Arial', 'B');
+        $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
+        $this->pdf->Cell(3, 10, $this->spesen['ferientage'], 0, 0, 'R');
+        $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
+        if ($this->spesen['ferientage'] == 1) {
+            $this->pdf->Cell(0, 10, "Ferientag");
+        } else {
+            $this->pdf->Cell(0, 10, "Ferientage");
+        }
+        $this->pdf->SetFont('Arial', '');
+        $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_pocket']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[1], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_accommodation']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[2], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_breakfast_expenses']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[3], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_lunch_expenses']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[4], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_dinner_expenses']/100), 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['total_holiday']), 0, 0, 'R', 1);
+
+        if (!empty($this->spesen['meldeblaetter_holiday_comment'])) {
+            $this->pdf->SetFont('Arial', 'I', 8);
+            $this->y_offset = $this->y_offset + $this->comment_line_break;
+            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8/2);
+            $str = "Bemerkung: " . $this->spesen['meldeblaetter_holiday_comment'];
+            $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
+            $this->pdf->SetFont('Arial', '', 10);
+        }
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+        $this->pdf->SetFont('Arial', 'B');
+        $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
+        $this->pdf->Cell(3, 10, $this->spesen['urlaubstage'], 0, 0, 'R');
+        $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
+        if ($this->spesen['urlaubstage'] == 1) {
+            $this->pdf->Cell(0, 10, "Urlaubstag");
+        } else {
+            $this->pdf->Cell(0, 10, "Urlaubstage");
+        }
+        $this->pdf->SetFont('Arial', '');
+        $this->pdf->SetXY($this->col[0], $this->y_offset+$this->shade_height/2);
+        $this->pdf->Cell($this->shade_width[0], $this->shade_height, "0.00", 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[1], $this->y_offset+$this->shade_height/2);
+        $this->pdf->Cell($this->shade_width[1], $this->shade_height, "0.00", 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[2], $this->y_offset+$this->shade_height/2);
+        $this->pdf->Cell($this->shade_width[2], $this->shade_height, "0.00", 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[3], $this->y_offset+$this->shade_height/2);
+        $this->pdf->Cell($this->shade_width[3], $this->shade_height, "0.00", 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[4], $this->y_offset+$this->shade_height/2);
+        $this->pdf->Cell($this->shade_width[4], $this->shade_height, "0.00", 0, 0, '', 1);
+        $this->pdf->SetXY($this->col[5], $this->y_offset+$this->shade_height/2);
+        $this->pdf->Cell($this->shade_width[5], $this->shade_height, "0.00", 0, 0, 'R', 1);
+
+        $n_comments = 0;
+        if (!empty($urlaub_comment)) {
+            $this->pdf->SetFont('Arial', 'I', 8);
+            $this->y_offset = $this->y_offset + $this->comment_line_break;
+            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8 / 2);
+            $str = "inkl. " . $urlaub_comment;
+            if ($this->spesen['meldeblaetter_companyurlaub'] == 1) {
+                $str .= " (" . $this->spesen['meldeblaetter_companyurlaub'] . " Tag)";
+            } else {
+                $str .= " (" . $this->spesen['meldeblaetter_companyurlaub'] . " Tage)";
+            }
+            $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
+            $this->pdf->SetFont('Arial', '', 10);
+            $n_comments++;
+        }
+
+        if (!empty($this->spesen['meldeblaetter_urlaub_comment'])) {
+            $this->pdf->SetFont('Arial', 'I', 8);
+            if ($n_comments == 0) {
+                $this->y_offset = $this->y_offset + $this->comment_line_break;
+            } else {
+                $this->y_offset = $this->y_offset + $this->comment_line_break2;
+            }
+            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8 / 2);
+            $str = "inkl. " . $this->spesen['meldeblaetter_urlaub_comment'];
+            if ($this->spesen['meldeblaetter_urlaub'] == 1) {
+                $str .= " (" . $this->spesen['meldeblaetter_urlaub'] . " Tag)";
+            } else {
+                $str .= " (" . $this->spesen['meldeblaetter_urlaub'] . " Tage)";
+            }
+            $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
+            $this->pdf->SetFont('Arial', '', 10);
+            $n_comments++;
+        }
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+// FAHRSPESEN //
+        $this->pdf->SetFont('Arial', 'B');
+        $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
+        $this->pdf->Cell(3, 10, "+", 0, 0, 'R');
+        $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
+        $this->pdf->Cell(0, 10, "Fahrspesen");
+        $this->pdf->SetFont('Arial', '', 10);
+        $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['meldeblaetter_fahrspesen']), 0, 0, 'R', 1);
+        $str = $this->spesen['meldeblaetter_fahrspesen_comment'];
+        if (empty($this->spesen['meldeblaetter_fahrspesen'])
+            & empty($this->spesen['meldeblaetter_fahrspesen_comment'])) {
+            $str = "Keine Angaben.";
+        }
+        if (!empty($str)) {
+            $this->pdf->SetFont('Arial', 'I', 8);
+            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
+            $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
+            $this->pdf->SetFont('Arial', '', 10);
+        }
+
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+// ARBEITKLEIDER SPESEN //
+        $this->pdf->SetFont('Arial', 'B');
+        $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
+        $this->pdf->Cell(3, 10, "+", 0, 0, 'R');
+        $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
+        $this->pdf->Cell(0, 10, "Arbeitskleider");
+        $this->pdf->SetFont('Arial', 'I', 8);
+        $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
+        if ($this->spesen['arbeitskleider_tage'] == 1) {
+            $str = "Für " . $this->spesen['arbeitskleider_tage'] . " anrechenbarer Tag (Fr. 60.- pro 26 Tage / max. Fr. 240.- total)";
+        } else {
+            $str = "Für " . $this->spesen['arbeitskleider_tage'] . " anrechenbare Tage (Fr. 60.- pro 26 Tage / max. Fr. 240.- total)";
+        }
+        $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
+        $this->pdf->SetFont('Arial', '', 10);
+        $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
+        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['total_arbeitskleider']), 0, 0, 'R', 1);
+
+        if ($this->spesen[''] == 240) {
+            $this->pdf->SetFont('Arial', 'I', 8);
+            $this->y_offset = $this->y_offset + $this->comment_line_break;
+            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8 / 2);
+            $str = "Das Maximum von ausbezahlten Fr. 240.- wurde erreicht.";
+            $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
+            $this->pdf->SetFont('Arial', '', 10);
+        }
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+// AUSSERORDENTLICHE SPESEN //
+        if (!empty($this->spesen['meldeblaetter_ausserordentlich'])) {
+            $this->pdf->SetFont('Arial', 'B');
+            $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
+            $this->pdf->Cell(3, 10, "+", 0, 0, 'R');
+            $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
+            $this->pdf->Cell(0, 10, "Ausserordentlich");
+            $this->pdf->SetFont('Arial', '');
+            if (!empty($this->spesen['meldeblaetter_ausserordentlich_comment'])) {
+                $this->pdf->SetFont('Arial', 'I', 8);
+                $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
+                $str = $this->spesen['meldeblaetter_ausserordentlich_comment'];
+                $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
+                $this->pdf->SetFont('Arial', '', 10);
+            }
+            $this->pdf->SetXY($this->col[5], $this->y_offset+$this->shade_height/2);
+            $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['meldeblaetter_ausserordentlich']), 0, 0, 'R', 1);
+
+            $this->y_offset = $this->y_offset + $this->line_break;
+        }
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+        $this->pdf->SetFont('Arial', 'B', '10');
+        $this->pdf->SetXY($this->col[4], $this->y_offset);
+        $this->pdf->Cell(0, 10, "Gesamt:");
+        $this->pdf->SetXY($this->col[5], $this->y_offset);
+        $this->pdf->Cell($this->shade_width[5], 10, $this->getRoundedRappen($this->spesen['total']), 0, 0, 'R', 0);
+        $this->pdf->SetLineWidth(0.2);
+        $ll = $this->shade_width[4] + $this->shade_width[5] + 2;
+        $this->pdf->Line($this->col[4], $this->y_offset, $this->col[4] + $ll, $this->y_offset);
+        $this->pdf->SetLineWidth(.4);
+        $this->pdf->Line($this->col[4], $this->y_offset + $this->line_break + 2, $this->col[4] + $ll, $this->y_offset + $this->line_break + 2);
+        $this->pdf->Line($this->col[4], $this->y_offset + $this->line_break + 3, $this->col[4] + $ll, $this->y_offset + $this->line_break + 3);
+        $this->pdf->SetLineWidth(0.2);
+
+        $this->y_offset = $this->y_offset + 15;
+
+        $this->pdf->SetFont('Arial', '', '10');
+        $this->pdf->SetDrawColor(0, 0, 0);
+        $this->pdf->SetXY($this->left_margin, $this->y_offset);
+        $this->pdf->Cell(0, 10, "Datum / Unterschrift:");
+
+        $this->pdf->SetXY($this->col[0], $this->y_offset);
+        $str = CompanyInfo::COMPANY_NAME_SHORT . ":";
+        $line_x1 = $this->col[0] + $this->pdf->GetStringWidth($str) + 4;
+        $line_y = $this->y_offset + $this->line_break;
+        $this->pdf->Cell(0, 10, $str);
+        $this->pdf->Line($line_x1, $line_y, $this->col[3] - 5, $line_y);
+
+        $this->pdf->SetXY($this->col[3], $this->y_offset);
+        $str = "Datum:";
+        $line_x1 = $this->col[3] + $this->pdf->GetStringWidth($str) + 4;
+        $line_y = $this->y_offset + $this->line_break;
+        $this->pdf->Cell(0, 10, $str);
+        $this->pdf->Line($line_x1, $line_y, $this->col[5] + $this->shade_width[5], $line_y);
+
+        $this->y_offset = $this->y_offset + $this->line_break;
+
+        $this->pdf->SetFont('Arial', '', '8');
+        $this->pdf->SetXY($this->col[0], $this->y_offset);
+        $this->pdf->Cell(0, 10, "Einsatz- & Projektleitung");
+
+// Einzahlungsschein drucken
+        $bank_address = explode(',', $this->user['bank']);
+
+        $this->pdf->SetFont('Arial', '', '10');
+// Falls Bankknoto Name der Bank ausgeben
+        if ($this->user['account_type'] == 0) {
+            for ($i = 0; $i < count($bank_address); $i++) {
+                $this->pdf->SetXY(3, 198 + ($i * 5));
+                $this->pdf->Cell(0, 10, trim($bank_address[$i]));
+            }
+        }
+        $this->pdf->SetXY(3, 210);
+        $this->pdf->Cell(0, 10, $this->user['first_name']  . " " . $this->user['last_name']);
+        $this->pdf->SetXY(3, 215);
+        $this->pdf->Cell(0, 10, $this->user['address']);
+        $this->pdf->SetXY(3, 220);
+        $this->pdf->Cell(0, 10, $this->user['city']);
+// Falls Bankkonto unterhalb der Adresse des Zivis noch Konto-Nr. einblenden
+        if ($this->user['account_type'] == 0) {
+            $this->pdf->SetXY(3, 225);
+            $this->pdf->Cell(0, 10, $this->user['kontoNr']);
+        }
+        $this->pdf->SetXY(30, 232);
+        switch ($this->user['account_type']) {
+            // Falls Bankkonto
+            case 0:
+                // Postkonto-Nr. der Bank verwenden
+                $this->pdf->Cell(0, 10, $this->user['bank_post_account_no']);
+                break;
+            // Falls Postkonto
+            case 1:
+                // Konto-Nr. verwenden
+                $this->pdf->Cell(0, 10, $this->user['kontoNr']);
+                break;
+        }
+
+        /*
+        $this->pdf->SetFont('Arial','','12');
+        $this->pdf->SetXY(10, 240);
+        $this->pdf->Cell(40, 10, $this->getRoundedRappen($this->spesen['total']),0,0,'R',0);
+        $this->pdf->SetFont('Arial','','10');
+        */
+        $this->pdf->SetXY(3, 253);
+        $this->pdf->Cell(0, 10, CompanyInfo::COMPANY_NAME);
+        $this->pdf->SetXY(3, 259);
+        $this->pdf->Cell(0, 10, CompanyInfo::COMPANY_ADDRESS);
+        $this->pdf->SetXY(3, 265);
+        $this->pdf->Cell(0, 10, CompanyInfo::COMPANY_CITY);
+
+// Falls Bankknoto Name der Bank ausgeben
+        if ($this->user['account_type'] == 0) {
+            for ($i = 0; $i < count($bank_address); $i++) {
+                $this->pdf->SetXY(62, 198 + ($i * 5));
+                $this->pdf->Cell(0, 10, trim($bank_address[$i]));
+            }
+        }
+        $this->pdf->SetXY(62, 210);
+        $this->pdf->Cell(0, 10, $this->user['first_name']  . " " . $this->user['last_name']);
+        $this->pdf->SetXY(62, 215);
+        $this->pdf->Cell(0, 10, $this->user['address']);
+        $this->pdf->SetXY(62, 220);
+        $this->pdf->Cell(0, 10, $this->user['city']);
+// Falls Bankkonto unterhalb der Adresse des Zivis noch Konto-Nr. einblenden
+        if ($this->user['account_type'] == 0) {
+            $this->pdf->SetXY(62, 225);
+            $this->pdf->Cell(0, 10, $this->user['kontoNr']);
+        }
+        $this->pdf->SetXY(89, 232);
+        switch ($this->user['account_type']) {
+            // Falls Bankkonto
+            case 0:
+                // Postkonto-Nr. der Bank verwenden
+                $this->pdf->Cell(0, 10, $this->user['bank_post_account_no']);
+                break;
+            // Falls Postkonto
+            case 1:
+                // Konto-Nr. verwenden
+                $this->pdf->Cell(0, 10, $this->user['kontoNr']);
+                break;
+        }
+        /*
+        $this->pdf->SetFont('Arial','','12');
+        $this->pdf->SetXY(62, 240);
+        $this->pdf->Cell(40, 10, $this->getRoundedRappen($this->spesen['total']),0,0,'R',0);
+        $this->pdf->SetFont('Arial','','10');
+        */
+        $this->pdf->SetXY(126, 205);
+        $this->pdf->Cell(0, 10, 'Spesen');
+        $str = date("d.m.Y", strtotime($this->spesen['meldeblaetter_start'])) . " bis ";
+        $str .= date("d.m.Y", strtotime($this->spesen['meldeblaetter_end']));
+        $this->pdf->SetXY(126, 210);
+        $this->pdf->Cell(0, 10, $str);
+        $this->pdf->SetXY(144, 222);
+        $this->pdf->Cell(0, 10, CompanyInfo::COMPANY_ACCOUNT_NO);
+        $this->pdf->SetXY(126, 240);
+        $this->pdf->Cell(0, 10, CompanyInfo::COMPANY_NAME);
+        $this->pdf->SetXY(126, 245);
+        $this->pdf->Cell(0, 10, CompanyInfo::COMPANY_ADDRESS);
+        $this->pdf->SetXY(126, 250);
+        $this->pdf->Cell(0, 10, CompanyInfo::COMPANY_CITY);
+    }
+}

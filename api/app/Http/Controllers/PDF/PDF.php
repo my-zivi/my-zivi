@@ -17,9 +17,9 @@ abstract class PDF
     public function __construct($landscape = false)
     {
         if ($landscape) {
-            $this->pdf = new FPDI('L');
+            $this->pdf = new utfFPDI('L');
         } else {
-            $this->pdf = new FPDI();
+            $this->pdf = new utfFPDI();
         }
     }
 
@@ -58,5 +58,24 @@ abstract class PDF
     {
         $europeanDate = date("d.m.Y", $timestamp);
         return $europeanDate;
+    }
+
+    public static function getRoundedRappen($val)
+    {
+        return number_format(round($val * 20) / 20, 2, '.', '');
+    }
+}
+
+class utfFPDI extends FPDI
+{
+
+    function Cell($w, $h = 0, $txt = "", $border = 0, $ln = 0, $align = '', $fill = false, $link = '')
+    {
+        if (!empty($txt)) {
+            if (mb_detect_encoding($txt, 'UTF-8', false)) {
+                $txt = iconv('UTF-8', 'windows-1252', $txt);
+            }
+        }
+        parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link);
     }
 }

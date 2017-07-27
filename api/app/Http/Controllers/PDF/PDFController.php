@@ -22,6 +22,28 @@ class PDFController extends Controller
 
         $phoneList = new PhoneListPDF($from, $to);
 
-        return response()->download($phoneList->createPDF(), 'phonelist.pdf')->deleteFileAfterSend(true);
+        $response =  response()->download($phoneList->createPDF(), 'phonelist.pdf')
+            ->deleteFileAfterSend(true);
+        $response->headers->set("Content-Type", "application/pdf");
+        $response->headers->set("Content-Disposition", "inline");
+        return $response;
+    }
+
+
+    public function getZiviReportSheet(Application $app)
+    {
+
+        $reportSheetId = Input::get("reportSheetId");
+        $from = Input::get("from", 0);
+        $to = Input::get("to", 0);
+
+
+        $reportSheet = new ZiviReportSheetPDF($reportSheetId, $from, $to);
+
+        $response = response()->download($reportSheet->createPDF(), 'spesenrapport.pdf')
+            ->deleteFileAfterSend(true);
+        $response->headers->set("Content-Type", "application/pdf");
+        $response->headers->set("Content-Disposition", "inline");
+        return $response;
     }
 }

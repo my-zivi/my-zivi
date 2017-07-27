@@ -24,6 +24,10 @@ $api->version('v1', function ($api) {
         'as' => 'api.pdf',
         'uses' => 'App\Http\Controllers\PDF\PDFController@getPhoneList'
     ]);
+    $api->get('/pdf/zivireportsheet', [
+        'as' => 'api.pdf',
+        'uses' => 'App\Http\Controllers\PDF\PDFController@getZiviReportSheet'
+    ]);
 
     $api->group([
         'middleware' => 'api.auth',

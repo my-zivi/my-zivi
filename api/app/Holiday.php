@@ -12,4 +12,9 @@ class Holiday extends Model
                            'holiday_type',
                            'description'
                         ];
+
+    public function holidayType()
+    {
+        return $this->belongsTo('App\HolidayType', 'holiday_type');
+    }
 }
