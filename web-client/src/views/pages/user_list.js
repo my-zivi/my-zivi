@@ -13,6 +13,9 @@ export default class UserList extends Component {
       users: [],
       zdp: '',
       name: '',
+      start: '',
+      end: '',
+      group: 0,
     };
   }
 
@@ -21,16 +24,14 @@ export default class UserList extends Component {
   }
 
   getUsers() {
-    let temp = [];
-    let self = this;
     axios
       .get(ApiService.BASE_URL + 'user/zivi', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
-      .then(function(response) {
-        self.setState({
+      .then(response => {
+        this.setState({
           users: response.data.data.original,
         });
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -42,9 +43,30 @@ export default class UserList extends Component {
         break;
       case 'name':
         this.setState({ name: e.target.value });
+        break;
+      case 'start':
+        this.setState({ start: e.target.value });
+        break;
+      case 'end':
+        this.setState({ end: e.target.value });
+        break;
+      case 'group':
+        this.setState({ group: e.target.value });
+        break;
       default:
         console.log('Element not found for setting.');
     }
+  }
+
+  deleteUser(user) {
+    axios
+      .delete(ApiService.BASE_URL + 'user/' + user.id, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+      .then(response => {
+        this.getUsers();
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -61,6 +83,15 @@ export default class UserList extends Component {
       ) {
         continue;
       }
+      if (this.state.start != '' && users[i].end < this.state.start) {
+        continue;
+      }
+      if (this.state.end != '' && users[i].start > this.state.end) {
+        continue;
+      }
+      if (this.state.group != 0 && users[i].role_id != this.state.group) {
+        continue;
+      }
 
       temp.push(
         <tr class={even ? 'teven' : 'todd'}>
@@ -72,10 +103,19 @@ export default class UserList extends Component {
           </td>
           <td>{users[i].start}</td>
           <td>{users[i].end}</td>
-          <td>
-            <button type="button">Löschen</button>
-          </td>
           <td>{users[i].role}</td>
+          <td>
+            <button
+              type="button"
+              onClick={() => {
+                if (confirm('Möchten Sie ' + users[i].first_name + ' ' + users[i].last_name + ' wirklich löschen?')) {
+                  this.deleteUser(users[i]);
+                }
+              }}
+            >
+              Löschen
+            </button>
+          </td>
         </tr>
       );
 
@@ -92,8 +132,8 @@ export default class UserList extends Component {
               <th>Vorname Name</th>
               <th>Start</th>
               <th>Ende</th>
-              <th />
               <th>Gruppe</th>
+              <th />
             </tr>
             <tr>
               <td>
@@ -107,24 +147,23 @@ export default class UserList extends Component {
                   class="SWOInput"
                   name="start"
                   size="10"
-                  type="text"
+                  type="date"
                   value={this.state.start}
                   oninput={this.handleChange.bind(this)}
                 />
               </td>
               <td>
-                <input class="SWOInput" name="end" size="10" type="text" value={this.state.end} oninput={this.handleChange.bind(this)} />
+                <input class="SWOInput" name="end" size="10" type="date" value={this.state.end} oninput={this.handleChange.bind(this)} />
               </td>
-              <td />
               <td>
-                <select name="groupid">
+                <select name="group" value={this.state.group} oninput={this.handleChange.bind(this)}>
                   <option value="0">(Alle Gruppen)</option>
                   <option value="1">Admins</option>
                   <option value="2">Mitarbeiter</option>
                   <option value="3">Zivis</option>
                 </select>
               </td>
-              <td width="100" valign="top" align="right" />
+              <td />
             </tr>
             {temp}
           </table>

@@ -42,13 +42,17 @@ export default class EditExpense extends Component {
       content.push(
         <form action="/editSpesenrapport.php?id=208" method="post" enctype="multipart/form-data">
           <div>
-            <h1>Spesenrapport erstellen für Thomas Honegger</h1>
+            <h1>
+              Spesenrapport erstellen für {sheet.first_name} {sheet.last_name}
+            </h1>
           </div>
           <table border="0" cellspacing="0" cellpadding="4" class="table">
             <tbody>
               <tr>
                 <td class="todd">Pflichtenheft</td>
-                <td class="todd">37391.1 Feldarbeiten (bis 31. März 2010)</td>
+                <td class="todd">
+                  {sheet.pflichtenheft_id} {sheet.pflichtenheft_name}
+                </td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
@@ -79,7 +83,7 @@ export default class EditExpense extends Component {
                 <td class="teven">&nbsp;</td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven" align="right">
-                  0
+                  {sheet.einsaetze_eligibleholiday}
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven">&nbsp;</td>
@@ -117,33 +121,33 @@ export default class EditExpense extends Component {
               <tr>
                 <td class="teven">Arbeit</td>
                 <td class="teven">&nbsp;</td>
-                <td class="teven">8 Tage</td>
+                <td class="teven">{sheet.meldeblaetter_workdays_proposal} Tage</td>
                 <td class="teven" align="right">
-                  <input type="text" name="fArbeit" value="8" size="2" /> Tage
+                  <input type="text" name="fArbeit" value={sheet.meldeblaetter_workdays} size="2" /> Tage
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven" align="left">
-                  Bemerkungen: <input type="text" name="fArbeitcomment" value="" size="45" />
+                  Bemerkungen: <input type="text" name="fArbeitcomment" value={sheet.meldeblaetter_work_comment} size="45" />
                 </td>
               </tr>
               <tr>
                 <td class="todd">Arbeitsfrei</td>
                 <td class="todd">&nbsp;</td>
-                <td class="todd">2 Tage</td>
+                <td class="todd">{sheet.meldeblaetter_workfreedays_proposal} Tage</td>
                 <td class="todd" align="right">
-                  <input type="text" name="fArbeitsfrei" value="2" size="2" /> Tage
+                  <input type="text" name="fArbeitsfrei" value={sheet.meldeblaetter_workfreedays} size="2" /> Tage
                 </td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="left">
-                  Bemerkungen: <input type="text" name="fArbeitsfreicomment" value="" size="45" />
+                  Bemerkungen: <input type="text" name="fArbeitsfreicomment" value={sheet.meldeblaetter_workfree_comment} size="45" />
                 </td>
               </tr>
               <tr>
                 <td class="teven">Betriebsferien (Urlaub)</td>
                 <td class="teven">&nbsp;</td>
-                <td class="teven">0 Tage</td>
+                <td class="teven">{sheet.meldeblaetter_companyurlaub_proposal} Tage</td>
                 <td class="teven" align="right">
-                  <input type="text" name="fBetriebsferienurlaub" value="0" size="2" /> Tage
+                  <input type="text" name="fBetriebsferienurlaub" value={sheet.meldeblaetter_companyurlaub} size="2" /> Tage
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven" align="left">
@@ -153,9 +157,9 @@ export default class EditExpense extends Component {
               <tr>
                 <td class="todd">Betriebsferien (Ferien)</td>
                 <td class="todd">&nbsp;</td>
-                <td class="todd">0 Tage</td>
+                <td class="todd">{sheet.meldeblaetter_ferien_wegen_urlaub_proposal} Tage</td>
                 <td class="todd" align="right">
-                  <input type="text" name="fBetriebsferienferien" value="0" size="2" /> Tage
+                  <input type="text" name="fBetriebsferienferien" value={sheet.meldeblaetter_ferien_wegen_urlaub} size="2" /> Tage
                 </td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="left">
@@ -167,35 +171,35 @@ export default class EditExpense extends Component {
                 <td class="teven">&nbsp;</td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven" align="right">
-                  0 Tage
+                  {sheet.meldeblaetter_add_workfree} Tage
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven">
-                  Bemerkungen: <input type="text" name="fZarbeitsfreicomment" value="" size="45" />
+                  Bemerkungen: <input type="text" name="fZarbeitsfreicomment" value={sheet.meldeblaetter_add_workfree_comment} size="45" />
                 </td>
               </tr>
               <tr>
-                <td class="todd">Krankheit (Übriges Guthaben: 77 Tage)</td>
+                <td class="todd">Krankheit (Übriges Guthaben: {sheet.krankheitstage_verbleibend} Tage)</td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="right">
-                  <input type="text" name="fKrankheit" value="0" size="2" /> Tage
+                  <input type="text" name="fKrankheit" value={sheet.meldeblaetter_ill} size="2" /> Tage
                 </td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd">
-                  Bemerkungen: <input type="text" name="fKrankheitcomment" value="" size="45" />
+                  Bemerkungen: <input type="text" name="fKrankheitcomment" value={sheet.meldeblaetter_ill_comment} size="45" />
                 </td>
               </tr>
               <tr>
-                <td class="teven">Ferien (Übriges Guthaben: 0 Tage)</td>
+                <td class="teven">Ferien (Übriges Guthaben: ?? Tage)</td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven" align="right">
-                  <input type="text" name="fFerien" value="0" size="2" /> Tage
+                  <input type="text" name="fFerien" value={sheet.meldeblaetter_holiday} size="2" /> Tage
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven">
-                  Bemerkungen: <input type="text" name="fFeriencomment" value="" size="45" />
+                  Bemerkungen: <input type="text" name="fFeriencomment" value={sheet.meldeblaetter_holiday_comment} size="45" />
                 </td>
               </tr>
               <tr>
@@ -203,23 +207,23 @@ export default class EditExpense extends Component {
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="right">
-                  <input type="text" name="fUrlaub" value="0" size="2" /> Tage
+                  <input type="text" name="fUrlaub" value={sheet.meldeblaetter_urlaub} size="2" /> Tage
                 </td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd">
-                  Bemerkungen: <input type="text" name="fUrlaubcomment" value="" size="45" />
+                  Bemerkungen: <input type="text" name="fUrlaubcomment" value={sheet.meldeblaetter_urlaub_comment} size="45" />
                 </td>
               </tr>
               <tr>
                 <td class="teven">Kleiderspesen</td>
                 <td class="teven">&nbsp;</td>
-                <td class="teven">23.00 Fr.</td>
+                <td class="teven">{sheet.meldeblaetter_kleider_proposal} Fr.</td>
                 <td class="teven" align="right">
-                  <input type="text" name="fKleiderspesen" value="23.00" size="5" /> Fr.
+                  <input type="text" name="fKleiderspesen" value={sheet.meldeblaetter_kleider} size="5" /> Fr.
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven">
-                  Bemerkungen: <input type="text" name="fKleidercomment" value="" size="45" />
+                  Bemerkungen: <input type="text" name="fKleidercomment" value={sheet.meldeblaetter_kleider_comment} size="45" />
                 </td>
               </tr>
               <tr>
@@ -227,11 +231,11 @@ export default class EditExpense extends Component {
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="right">
-                  <input type="text" name="fFahrspesen" value="0.00" size="5" /> Fr.
+                  <input type="text" name="fFahrspesen" value={sheet.meldeblaetter_fahrspesen} size="5" /> Fr.
                 </td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd">
-                  Bemerkungen: <input type="text" name="fFahrspesencomment" value="" size="45" />
+                  Bemerkungen: <input type="text" name="fFahrspesencomment" value={sheet.meldeblaetter_fahrspesen_comment} size="45" />
                 </td>
               </tr>
               <tr>
@@ -239,11 +243,12 @@ export default class EditExpense extends Component {
                 <td class="teven">&nbsp;</td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven" align="right">
-                  <input type="text" name="fAusserordentlich" value="0.00" size="5" /> Fr.
+                  <input type="text" name="fAusserordentlich" value={sheet.meldeblaetter_ausserordentlich} size="5" /> Fr.
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven">
-                  Bemerkungen: <input type="text" name="fAusserordentlichcomment" value="" size="45" />
+                  Bemerkungen:{' '}
+                  <input type="text" name="fAusserordentlichcomment" value={sheet.meldeblaetter_ausserordentlich_comment} size="45" />
                 </td>
               </tr>
               <tr>
@@ -253,7 +258,7 @@ export default class EditExpense extends Component {
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="right">
-                  <b>437.00 Fr.</b>
+                  <b>{sheet.total} Fr.</b>
                 </td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>

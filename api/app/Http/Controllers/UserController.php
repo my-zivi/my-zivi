@@ -26,7 +26,9 @@ class UserController extends BaseController
         $zivis = DB::table('missions')
             ->join('users', 'missions.user', '=', 'users.id')
             ->join('specifications', 'missions.specification', '=', 'specifications.id')
-            ->select('users.id', 'users.zdp', 'users.first_name', 'users.last_name', 'missions.start', 'missions.end', 'users.work_experience', 'specifications.active', 'missions.role')
+            ->join('roles', 'roles.id', '=', 'missions.role')
+            ->whereNull('users.deleted_at')
+            ->select('users.id', 'users.zdp', 'users.first_name', 'users.last_name', 'missions.start', 'missions.end', 'users.work_experience', 'specifications.active', 'roles.name AS role', 'roles.id AS role_id')
             ->get();
 
         /*

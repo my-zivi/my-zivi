@@ -74,6 +74,10 @@ $api->version('v1', function ($api) {
         $api->get('/user/{id}', function ($id) {
             return response()->json(App\User::find($id));
         });
+        $api->delete('/user/{id}', function ($id) {
+            App\User::destroy($id);
+            return response("deleted");
+        });
         $api->post('/user', function ($id) {
             return 'POST: '.$id;
         });

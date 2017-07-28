@@ -50,6 +50,7 @@ class ReportSheet extends Model
     {
         $reportSheet = ReportSheet::join('missions', 'missions.id', '=', 'report_sheets.mission')
             ->join('specifications', 'specifications.id', '=', 'missions.specification')
+            ->join('users', 'users.id', '=', 'report_sheets.user')
             ->where('report_sheets.id', '=', $reportSheetId)
             ->select(
                 'report_sheets.start AS meldeblaetter_start',
@@ -61,6 +62,8 @@ class ReportSheet extends Model
                 'report_sheets.work_comment AS meldeblaetter_work_comment',
                 'report_sheets.workfree_comment AS meldeblaetter_workfree_comment',
                 'report_sheets.company_holiday_comment AS meldeblaetter_compholiday_comment',
+                'report_sheets.additional_workfree AS meldeblaetter_add_workfree',
+                'report_sheets.additional_workfree_comment AS meldeblaetter_add_workfree_comment',
                 'report_sheets.ill AS meldeblaetter_ill',
                 'report_sheets.ill_comment AS meldeblaetter_ill_comment',
                 'report_sheets.holiday AS meldeblaetter_holiday',
@@ -78,6 +81,7 @@ class ReportSheet extends Model
                 'missions.end AS einsaetze_end',
                 'missions.specification AS einsaetze_pflichtenheft',
                 'missions.eligible_holiday AS einsaetze_eligibleholiday',
+                'specifications.id AS pflichtenheft_id',
                 'specifications.name AS pflichtenheft_name',
                 'specifications.pocket AS pflichtenheft_pocket',
                 'specifications.accommodation AS pflichtenheft_accommodation',
@@ -93,7 +97,9 @@ class ReportSheet extends Model
                 'specifications.firstday_dinner_expenses AS pflichtenheft_firstday_dinner_expenses',
                 'specifications.lastday_breakfast_expenses AS pflichtenheft_lastday_breakfast_expenses',
                 'specifications.lastday_lunch_expenses AS pflichtenheft_lastday_lunch_expenses',
-                'specifications.lastday_dinner_expenses AS pflichtenheft_lastday_dinner_expenses'
+                'specifications.lastday_dinner_expenses AS pflichtenheft_lastday_dinner_expenses',
+                'users.first_name AS first_name',
+                'users.last_name AS last_name'
             )
             ->first();
 
@@ -135,6 +141,7 @@ class ReportSheet extends Model
         }
 
         $reportSheet['meldeblaetter_companyurlaub'] = count($firmenurlaubstage) - $ziviferienrest_fuer_urlaub;
+        $reportSheet['meldeblaetter_companyurlaub_proposal'] = $reportSheet['meldeblaetter_companyurlaub'];
         if (is_numeric($reportSheet['meldeblaetter_compholiday_vacation'])) {
             $reportSheet['meldeblaetter_companyurlaub'] = $reportSheet['meldeblaetter_compholiday_vacation'];
         }
@@ -177,11 +184,14 @@ class ReportSheet extends Model
             }
         }
 
+        $reportSheet['meldeblaetter_workdays_proposal'] = $reportSheet['meldeblaetter_workdays'];
+
         //Overwrite calcuclaed workdays with value from db if not null
         if (is_numeric($reportSheet['meldeblaetter_work'])) {
             $reportSheet['meldeblaetter_workdays'] = $reportSheet['meldeblaetter_work'];
         }
 
+        $reportSheet['meldeblaetter_workfreedays_proposal'] = $reportSheet['meldeblaetter_workfreedays'];
         //Overwrite calcuclaed workfreedays with value from db if not null
         if (is_numeric($reportSheet['meldeblaetter_workfree'])) {
             $reportSheet['meldeblaetter_workfreedays'] = $reportSheet['meldeblaetter_workfree'];
@@ -220,18 +230,19 @@ class ReportSheet extends Model
         $reportSheet['meldeblaetter_fahrspesen'] /= 100;
         $reportSheet['meldeblaetter_ausserordentlich'] /= 100;
 
+
+        $reportSheet['meldeblaetter_kleider_proposal'] = ($reportSheet['meldeblaetter_workdays']+$reportSheet['meldeblaetter_workfreedays']+$reportSheet['meldeblaetter_ferien_wegen_urlaub'])*$reportSheet['pflichtenheft_clothes_expense']/100;
+        $reportSheet['meldeblaetter_kleider_proposal'] = min(240, $reportSheet['meldeblaetter_kleider_proposal']);
+
+        $bisher = ReportSheet::selectRaw('SUM(clothes) AS s')
+                ->where('mission', '=', $reportSheet['mission_id'])
+                ->where('start', '<', $reportSheet['meldeblaetter_start'])->first()['s'] / 100;
+
+        $reportSheet['meldeblaetter_kleider_proposal'] = min($reportSheet['meldeblaetter_kleider_proposal'], 240-$bisher);
+
         if (is_numeric($reportSheet['meldeblaetter_kleider'])) {
             $reportSheet['meldeblaetter_kleider'] = $reportSheet['meldeblaetter_kleider'] / 100;
         } else {
-            $reportSheet['meldeblaetter_kleider_proposal'] = ($reportSheet['meldeblaetter_workdays']+$reportSheet['meldeblaetter_workfreedays']+$reportSheet['meldeblaetter_ferien_wegen_urlaub'])*$reportSheet['pflichtenheft_clothes_expense']/100;
-            $reportSheet['meldeblaetter_kleider_proposal'] = min(240, $reportSheet['meldeblaetter_kleider_proposal']);
-
-            $bisher = ReportSheet::selectRaw('SUM(clothes) AS s')
-                        ->where('mission', '=', $reportSheet['mission_id'])
-                        ->where('start', '<', $reportSheet['meldeblaetter_start'])->first()['s'] / 100;
-
-            $reportSheet['meldeblaetter_kleider_proposal'] = min($reportSheet['meldeblaetter_kleider_proposal'], 240-$bisher);
-
             $reportSheet['meldeblaetter_kleider'] = $reportSheet['meldeblaetter_kleider_proposal'];
         }
 
