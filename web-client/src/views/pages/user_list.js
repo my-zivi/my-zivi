@@ -72,7 +72,6 @@ export default class UserList extends Component {
   render() {
     var temp = [];
     var users = this.state.users;
-    var even = true;
     for (let i = 0; i < users.length; i++) {
       if (this.state.zdp != '' && !users[i].zdp.startsWith(this.state.zdp)) {
         continue;
@@ -94,7 +93,7 @@ export default class UserList extends Component {
       }
 
       temp.push(
-        <tr class={even ? 'teven' : 'todd'}>
+        <tr>
           <td>{users[i].zdp}</td>
           <td>
             <a href={'/profile/' + users[i].id}>
@@ -105,67 +104,73 @@ export default class UserList extends Component {
           <td>{users[i].end}</td>
           <td>{users[i].role}</td>
           <td>
-            <button
-              type="button"
-              onClick={() => {
+            <a
+              href={() => {
                 if (confirm('Möchten Sie ' + users[i].first_name + ' ' + users[i].last_name + ' wirklich löschen?')) {
                   this.deleteUser(users[i]);
                 }
               }}
             >
               Löschen
-            </button>
+            </a>
           </td>
         </tr>
       );
-
-      even = !even;
     }
 
     return (
       <div className="page page__user_list">
         <Card>
           <h1>Benutzerliste</h1>
-          <table class="table" cellspacing="0" cellpadding="2">
-            <tr>
-              <th>ZDP</th>
-              <th>Vorname Name</th>
-              <th>Start</th>
-              <th>Ende</th>
-              <th>Gruppe</th>
-              <th />
-            </tr>
-            <tr>
-              <td>
-                <input class="SWOInput" name="zdp" size="4" type="text" value={this.state.zdp} oninput={this.handleChange.bind(this)} />
-              </td>
-              <td>
-                <input class="SWOInput" name="name" size="15" type="text" value={this.state.name} oninput={this.handleChange.bind(this)} />
-              </td>
-              <td>
-                <input
-                  class="SWOInput"
-                  name="start"
-                  size="10"
-                  type="date"
-                  value={this.state.start}
-                  oninput={this.handleChange.bind(this)}
-                />
-              </td>
-              <td>
-                <input class="SWOInput" name="end" size="10" type="date" value={this.state.end} oninput={this.handleChange.bind(this)} />
-              </td>
-              <td>
-                <select name="group" value={this.state.group} oninput={this.handleChange.bind(this)}>
-                  <option value="0">(Alle Gruppen)</option>
-                  <option value="1">Admins</option>
-                  <option value="2">Mitarbeiter</option>
-                  <option value="3">Zivis</option>
-                </select>
-              </td>
-              <td />
-            </tr>
-            {temp}
+          <table class="table table-hover" cellspacing="0" cellpadding="2">
+            <thead>
+              <tr>
+                <th>ZDP</th>
+                <th>Vorname Name</th>
+                <th>Start</th>
+                <th>Ende</th>
+                <th>Gruppe</th>
+                <th />
+              </tr>
+              <tr>
+                <td>
+                  <input class="SWOInput" name="zdp" size="5" type="text" value={this.state.zdp} oninput={this.handleChange.bind(this)} />
+                </td>
+                <td>
+                  <input
+                    class="SWOInput"
+                    name="name"
+                    size="15"
+                    type="text"
+                    value={this.state.name}
+                    oninput={this.handleChange.bind(this)}
+                  />
+                </td>
+                <td>
+                  <input
+                    class="SWOInput"
+                    name="start"
+                    size="10"
+                    type="date"
+                    value={this.state.start}
+                    oninput={this.handleChange.bind(this)}
+                  />
+                </td>
+                <td>
+                  <input class="SWOInput" name="end" size="10" type="date" value={this.state.end} oninput={this.handleChange.bind(this)} />
+                </td>
+                <td>
+                  <select name="group" value={this.state.group} oninput={this.handleChange.bind(this)}>
+                    <option value="0">(Alle Gruppen)</option>
+                    <option value="1">Admins</option>
+                    <option value="2">Mitarbeiter</option>
+                    <option value="3">Zivis</option>
+                  </select>
+                </td>
+                <td />
+              </tr>
+            </thead>
+            <tbody>{temp}</tbody>
           </table>
         </Card>
       </div>

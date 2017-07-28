@@ -11,6 +11,10 @@ export default class MissionOverview extends Component {
 
     this.state = {
       report_sheets: [],
+      zdp: '',
+      name: '',
+      start: '',
+      end: '',
     };
   }
 
@@ -19,17 +23,44 @@ export default class MissionOverview extends Component {
   }
 
   getReportSheets(url) {
-    let self = this;
+    this.setState({
+      zdp: '',
+      name: '',
+      start: '',
+      end: '',
+    });
     axios
       .get(ApiService.BASE_URL + url, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
-      .then(function(response) {
-        self.setState({
+      .then(response => {
+        this.setState({
           report_sheets: response.data,
         });
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log(error);
       });
+  }
+
+  handleChange(e) {
+    switch (e.target.name) {
+      case 'zdp':
+        this.setState({ zdp: e.target.value });
+        break;
+      case 'name':
+        this.setState({ name: e.target.value });
+        break;
+      case 'start':
+        this.setState({ start: e.target.value });
+        break;
+      case 'end':
+        this.setState({ end: e.target.value });
+        break;
+      case 'group':
+        this.setState({ group: e.target.value });
+        break;
+      default:
+        console.log('Element not found for setting.');
+    }
   }
 
   render() {
@@ -38,8 +69,24 @@ export default class MissionOverview extends Component {
 
     var even = true;
     for (let i = 0; i < sheets.length; i++) {
+      if (this.state.zdp != '' && !sheets[i].zdp.startsWith(this.state.zdp)) {
+        continue;
+      }
+      if (
+        this.state.name != '' &&
+        (sheets[i].first_name + ' ' + sheets[i].last_name).toLowerCase().indexOf(this.state.name.toLowerCase()) == -1
+      ) {
+        continue;
+      }
+      if (this.state.start != '' && sheets[i].end < this.state.start) {
+        continue;
+      }
+      if (this.state.end != '' && sheets[i].start > this.state.end) {
+        continue;
+      }
+
       tableBody.push(
-        <tr class="teven">
+        <tr>
           <td>&nbsp;</td>
           <td class="center">{sheets[i].zdp}</td>
           <td>
@@ -63,45 +110,66 @@ export default class MissionOverview extends Component {
         <Card>
           <h1>Spesen</h1>
 
-          <button>Spesenstatistiken</button>
+          <button class="btn btn-primary">Spesenstatistiken</button>
           <br />
-          <button>Übersicht </button>
-          <button>Übersicht </button>
+          <button class="btn btn-primary">Übersicht </button>
+          <button class="btn btn-primary">Übersicht </button>
 
           <h2>Meldeblätter-Liste</h2>
-          <button onClick={() => this.getReportSheets('reportsheet')}>Alle Meldeblätter anzeigen</button>
-          <button onClick={() => this.getReportSheets('reportsheet/pending')}>Pendente Meldeblätter anzeigen</button>
-          <button onClick={() => this.getReportSheets('reportsheet/current')}>Aktuelle Meldeblätter anzeigen</button>
+          <button class="btn btn-primary" onClick={() => this.getReportSheets('reportsheet')}>
+            Alle Meldeblätter anzeigen
+          </button>
+          <button class="btn btn-primary" onClick={() => this.getReportSheets('reportsheet/pending')}>
+            Pendente Meldeblätter anzeigen
+          </button>
+          <button class="btn btn-primary" onClick={() => this.getReportSheets('reportsheet/current')}>
+            Aktuelle Meldeblätter anzeigen
+          </button>
 
-          <table border="0" cellspacing="0" cellpadding="2" class="table">
-            <tr class="theader">
-              <td>&nbsp;</td>
-              <td>ZDP</td>
-              <td>Name</td>
-              <td>Von</td>
-              <td>Bis</td>
-              <td />
-              <td />
-            </tr>
-            <tr class="theader">
-              <td>&nbsp;</td>
-              <td>
-                <input type="text" size="5" name="FILTER_ZDP" value="" />
-              </td>
-              <td>
-                <input type="text" size="40" name="FILTER_NAME" value="" />
-              </td>
-              <td>
-                <input type="text" size="15" name="FILTER_VON" value="" />
-              </td>
-              <td>
-                <input type="text" size="15" name="FILTER_BIS" value="" />
-              </td>
-              <td />
-              <td />
-            </tr>
-
-            {tableBody}
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>ZDP</th>
+                <th>Name</th>
+                <th>Von</th>
+                <th>Bis</th>
+                <th />
+                <th />
+              </tr>
+              <tr class="theader">
+                <td>&nbsp;</td>
+                <td>
+                  <input class="SWOInput" name="zdp" size="5" type="text" value={this.state.zdp} oninput={this.handleChange.bind(this)} />
+                </td>
+                <td>
+                  <input
+                    class="SWOInput"
+                    name="name"
+                    size="15"
+                    type="text"
+                    value={this.state.name}
+                    oninput={this.handleChange.bind(this)}
+                  />
+                </td>
+                <td>
+                  <input
+                    class="SWOInput"
+                    name="start"
+                    size="10"
+                    type="date"
+                    value={this.state.start}
+                    oninput={this.handleChange.bind(this)}
+                  />
+                </td>
+                <td>
+                  <input class="SWOInput" name="end" size="10" type="date" value={this.state.end} oninput={this.handleChange.bind(this)} />
+                </td>
+                <td />
+                <td />
+              </tr>
+            </thead>
+            <tbody>{tableBody}</tbody>
           </table>
         </Card>
       </div>

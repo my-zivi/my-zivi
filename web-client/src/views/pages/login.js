@@ -20,7 +20,6 @@ export default class Login extends Component {
   }
 
   login() {
-    let self = this;
     axios
       .post(ApiService.BASE_URL + 'auth/login', {
         email: this.state.email,
@@ -30,15 +29,18 @@ export default class Login extends Component {
         this.props.accountStore.isLoggedIn = true;
         this.props.accountStore.isAdmin = true;
         localStorage.setItem('jwtToken', response.data.data.token);
-        self.context.router.push('/');
+        this.context.router.push('/');
+        console.log(this.state.email + ' ' + this.state.password);
       })
       .catch(error => {
-        let errorMsg = '';
-        errorMsg += 'Request failed!\nPlease check the following field(s):\n\n';
-        for (let item in error.response.data) {
-          errorMsg += item + ': ' + error.response.data[item] + '\n';
-        }
-        alert(errorMsg);
+        var errorBox = [];
+        errorBox.push(
+          <div class="alert alert-danger">
+            <strong>Login fehlgeschlagen</strong>
+            <br />E-Mail oder Passwort falsch!
+          </div>
+        );
+        this.setState({ errorBox: errorBox });
       });
   }
 
@@ -59,16 +61,38 @@ export default class Login extends Component {
     return (
       <div className="page page__login">
         <Card>
-          <h1>Anmelden</h1>
-          Email:
-          <br />
-          <input type="text" name="email" value={this.state.email} onChange={this.handleChange.bind(this)} />
-          <br />
-          Password:
-          <br />
-          <input type="password" name="password" value={this.state.password} onChange={this.handleChange.bind(this)} />
-          <br />
-          <button onClick={() => this.login()}>Login</button>
+          <form class="form-signin" action="javascript:;" onsubmit={() => this.login()}>
+            <h2 class="form-signin-heading">Anmelden</h2>
+            {this.state.errorBox}
+            <label for="inputEmail" class="sr-only">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              placeholder="Email"
+              value={this.state.email}
+              onChange={this.handleChange.bind(this)}
+              required
+              autofocus
+            />
+            <label for="inputPassword" class="sr-only">
+              Passwort
+            </label>
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              placeholder="Passwort"
+              value={this.state.password}
+              onChange={this.handleChange.bind(this)}
+              required
+            />
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+              Anmelden
+            </button>
+          </form>
         </Card>
       </div>
     );

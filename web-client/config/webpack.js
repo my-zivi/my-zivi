@@ -34,6 +34,14 @@ module.exports = env => {
               })
             : 'style-loader!css-loader!postcss-loader!sass-loader',
         },
+        {
+          test: /\.css$/,
+          loader: 'style-loader!css-loader',
+        },
+        {
+          test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+          loader: 'file-loader',
+        },
       ],
     },
     plugins: setup(isProd),
@@ -45,6 +53,8 @@ module.exports = env => {
       compress: isProd,
       inline: !isProd,
       hot: !isProd,
+      host: '0.0.0.0',
+      disableHostCheck: true,
     },
   };
 };

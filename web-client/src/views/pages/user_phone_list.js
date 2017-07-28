@@ -13,27 +13,17 @@ export default function(props) {
         </p>
 
         <form action={ApiService.BASE_URL + 'pdf/phoneList'} method="GET">
-          <table class="swoPane" width="500" cellpadding="5">
-            <tbody>
-              <tr>
-                <td>Anfang:</td>
-                <td>
-                  <input class="SWOInput" name="start" type="date" value="" />
-                </td>
-              </tr>
-              <tr>
-                <td>Ende:</td>
-                <td>
-                  <input class="SWOInput" name="end" type="date" value="" />
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">
-                  <input class="SWOButton" type="submit" value="Absenden" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="form-group">
+            <label for="start">Anfang:</label>
+            <input type="date" class="form-control" name="start" id="start" />
+          </div>
+          <div class="form-group">
+            <label for="email">Ende:</label>
+            <input type="date" class="form-control" name="end" id="end" />
+          </div>
+          <button class="btn btn-primary" type="submit">
+            Absenden
+          </button>
         </form>
       </Card>
     </div>

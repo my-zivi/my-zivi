@@ -5,6 +5,7 @@ import { createBrowserHistory } from 'history';
 import { observable } from 'mobx';
 import views from './views';
 import './index.sass';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const browserHistory = createBrowserHistory();
 

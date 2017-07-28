@@ -100,7 +100,7 @@ $api->version('v1', function ($api) {
 
         // Holiday
         $api->get('/holiday', function () {
-            return response()->json(App\Holiday::all());
+            return response()->json(App\Holiday::orderBy('date_from', 'DESC')->get());
         });
         $api->get('/holiday/{id}', function ($id) {
             return response()->json(App\Holiday::find($id));

@@ -217,3 +217,17 @@ INSERT INTO izivi.report_sheets (SELECT
     INNER JOIN users ON izivi.users.zdp=stiftun8_iZivi.meldeblaetter.ziviId
     INNER JOIN missions ON izivi.missions.id=stiftun8_iZivi.meldeblaetter.einsaetze_id);
 
+
+INSERT INTO izivi.holidays(date_from, date_to, holiday_type, description)
+  (SELECT
+    start,
+    end,
+    1,
+    'Betriebsferien' FROM stiftun8_iZivi.companyholidays);
+
+INSERT INTO izivi.holidays(date_from, date_to, holiday_type, description)
+  (SELECT
+    date,
+    date,
+    2,
+    description FROM stiftun8_iZivi.holidays);
