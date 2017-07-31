@@ -1,9 +1,9 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-
+import axios from 'axios';
+import ApiService from '../../utils/api';
 import { connect } from 'inferno-mobx';
-
 import Card from '../tags/card';
 
 @connect(['accountStore'])
@@ -12,18 +12,14 @@ export default class Register extends Component {
     super(props);
 
     this.state = {
-      email: '',
-      password: '',
+      formData: {},
     };
   }
 
   register() {
     let self = this;
     axios
-      .post(ApiService.BASE_URL + '/auth/register', {
-        email: this.state.email,
-        password: this.state.password,
-      })
+      .post(ApiService.BASE_URL + 'auth/register', this.state.formData)
       .then(response => {
         this.props.accountStore.isLoggedIn = true;
         this.props.accountStore.isAdmin = true;
@@ -31,26 +27,29 @@ export default class Register extends Component {
         self.context.router.push('/');
       })
       .catch(error => {
-        let errorMsg = '';
-        errorMsg += 'Request failed!\nPlease check the following field(s):\n\n';
+        var errorMsg = [];
         for (let item in error.response.data) {
-          errorMsg += item + ': ' + error.response.data[item] + '\n';
+          errorMsg.push(
+            <p>
+              {item}: {error.response.data[item]}
+            </p>
+          );
         }
-        alert(errorMsg);
+        var errorBox = [];
+        errorBox.push(
+          <div class="alert alert-danger">
+            <strong>Registration fehlgeschlagen</strong>
+            <br />
+            {errorMsg}
+          </div>
+        );
+        this.setState({ errorBox: errorBox });
       });
   }
 
   handleChange(e) {
-    switch (e.target.name) {
-      case 'email':
-        this.setState({ email: e.target.value });
-        break;
-      case 'password':
-        this.setState({ password: e.target.value });
-        break;
-      default:
-        console.log('Element not found for setting.');
-    }
+    this.state.formData[e.target.name] = e.target.value;
+    this.setState({ formData: this.state.formData });
   }
 
   render() {
@@ -58,15 +57,87 @@ export default class Register extends Component {
       <div className="page page__register">
         <Card>
           <h1>Registrieren</h1>
-          Email:
-          <br />
-          <input type="text" name="email" value={this.state.email} onChange={this.handleChange.bind(this)} />
-          <br />
-          Password:
-          <br />
-          <input type="password" name="password" value={this.state.password} onChange={this.handleChange.bind(this)} />
-          <br />
-          <button onClick={() => this.register()}>Registrieren</button>
+          {this.state.errorBox}
+          <form action="javascript:;" onSubmit={() => this.register()}>
+            <div class="form-group">
+              <label for="zdp">ZDP:</label>
+              <input
+                type="number"
+                class="form-control"
+                name="zdp"
+                id="zdp"
+                value={this.state.formData.zdp}
+                onChange={this.handleChange.bind(this)}
+                min="10000"
+                max="100000"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="firstname">Vorname:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="firstname"
+                id="firstname"
+                value={this.state.formData.firstname}
+                onChange={this.handleChange.bind(this)}
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="lastname">Nachname:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="lastname"
+                id="lastname"
+                value={this.state.formData.lastname}
+                onChange={this.handleChange.bind(this)}
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail:</label>
+              <input
+                type="email"
+                class="form-control"
+                name="email"
+                id="email"
+                value={this.state.formData.email}
+                onChange={this.handleChange.bind(this)}
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Passwort:</label>
+              <input
+                type="password"
+                class="form-control"
+                name="password"
+                id="password"
+                value={this.state.formData.password}
+                onChange={this.handleChange.bind(this)}
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="password_confirm">Passwort Bestätigung:</label>
+              <input
+                type="password"
+                class="form-control"
+                name="password_confirm"
+                id="password_confirm"
+                value={this.state.formData.passwordConfirm}
+                onChange={this.handleChange.bind(this)}
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              Registrieren
+            </button>
+          </form>
         </Card>
       </div>
     );

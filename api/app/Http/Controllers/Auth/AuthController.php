@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -45,6 +46,52 @@ class AuthController extends Controller
 
         // All good so return the token
         return $this->onAuthorized($token);
+    }
+
+    public function postRegister(Request $request)
+    {
+        $errors = array();
+
+        if (empty($request->input("firstname"))) {
+            $errors['Vorname'] = 'Vorname darf nicht leer sein!';
+        }
+        if (empty($request->input("lastname"))) {
+            $errors['Nachname'] = 'Nachname darf nicht leer sein!';
+        }
+        if (empty($request->input("email"))) {
+            $errors['E-Mail'] = 'E-Mail darf nicht leer sein!';
+        }
+        if (empty($request->input("zdp"))) {
+            $errors['ZDP'] = 'ZDP darf nicht leer sein!';
+        }
+        if (empty($request->input("password"))) {
+            $errors['Passwort'] = 'Passwort darf nicht leer sein!';
+        }
+        if ($request->input("password")!=$request->input("password_confirm")) {
+            $errors['Passwort'] = 'Passwörter stimmen nicht überein!';
+        }
+        if (User::where('email', '=', $request->input("email"))->first()!=null) {
+            $errors['E-Mail'] = 'Ein Nutzer für diese E-Mail Adresse existiert bereits!';
+        }
+
+        if (count($errors)>0) {
+            return new JsonResponse($errors, Response::HTTP_NOT_ACCEPTABLE);
+        }
+
+        $user = new User();
+
+        $user->first_name = $request->input("firstname");
+        $user->last_name = $request->input("lastname");
+        $user->email = $request->input("email");
+        $user->zdp = $request->input("zdp");
+        $user->password = password_hash($request->input("password"), PASSWORD_BCRYPT);
+        $user->regional_center = 1;
+
+        mail($user->email, "iZivi Registration", "Hallo und danke für die Registration");
+
+        $user->save();
+
+        return $this->postLogin($request);
     }
 
     /**

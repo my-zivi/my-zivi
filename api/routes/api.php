@@ -21,14 +21,9 @@ $api->version('v1', function ($api) {
         'uses' => 'App\Http\Controllers\Auth\AuthController@postLogin',
     ]);
 
-    // PDF
-    $api->get('/pdf/phoneList', [
-        'as' => 'api.pdf',
-        'uses' => 'App\Http\Controllers\PDF\PDFController@getPhoneList'
-    ]);
-    $api->get('/pdf/zivireportsheet', [
-        'as' => 'api.pdf',
-        'uses' => 'App\Http\Controllers\PDF\PDFController@getZiviReportSheet'
+    $api->post('/auth/register', [
+        'as' => 'api.auth.register',
+        'uses' => 'App\Http\Controllers\Auth\AuthController@postRegister'
     ]);
 
     $api->group([
@@ -172,5 +167,16 @@ $api->version('v1', function ($api) {
         $api->get('/reportsheet/{id}', function ($id) {
             return response()->json(App\ReportSheet::getSpesen($id));
         });
+
+
+        // PDF
+        $api->get('/pdf/phoneList', [
+            'as' => 'api.pdf',
+            'uses' => 'App\Http\Controllers\PDF\PDFController@getPhoneList'
+        ]);
+        $api->get('/pdf/zivireportsheet', [
+            'as' => 'api.pdf',
+            'uses' => 'App\Http\Controllers\PDF\PDFController@getZiviReportSheet'
+        ]);
     });
 });

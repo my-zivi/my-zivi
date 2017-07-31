@@ -36,9 +36,6 @@ class UserController extends BaseController
         $zivis = DB::table('specifications')->get();
         */
 
-        return         new JsonResponse([
-            'data' => response()->json($zivis)
-        ]);
-        ;
+        return         new JsonResponse($zivis);
     }
 }
