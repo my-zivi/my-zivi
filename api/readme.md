@@ -1,5 +1,11 @@
 # iZivi API
 
+## DB migration preparation
+1. Install PHP & mySQL, 
+2. create a db user with all Data and Structure privileges + REFERENCES privilege
+2. Create database stiftun8_iZivi and import the old data
+3. Create database izivi
+
 ## Install
 1. composer update
 2. cp .env.example .env

@@ -87,7 +87,7 @@ class AuthController extends Controller
         $user->password = password_hash($request->input("password"), PASSWORD_BCRYPT);
         $user->regional_center = 1;
 
-        mail($user->email, "iZivi Registration", "Hallo und danke für die Registration");
+        //mail($user->email, "iZivi Registration", "Hallo und danke für die Registration");
 
         $user->save();
 
