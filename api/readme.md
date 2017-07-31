@@ -7,3 +7,6 @@
 4. php artisan jwt:generate --show # (add the key manually to the .env file)
 5. Adjust MySQL login in .env file
 6. php artisan migrate
+
+## Running
+1. php artisan serve

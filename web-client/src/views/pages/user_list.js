@@ -28,7 +28,7 @@ export default class UserList extends Component {
       .get(ApiService.BASE_URL + 'user/zivi', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
       .then(response => {
         this.setState({
-          users: response.data.data.original,
+          users: response.data,
         });
       })
       .catch(error => {
