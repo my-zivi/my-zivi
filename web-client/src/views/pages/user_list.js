@@ -4,6 +4,7 @@ import Card from '../tags/card';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
+import LoadingView from '../tags/loading-view';
 
 export default class UserList extends Component {
   constructor(props) {
@@ -24,15 +25,17 @@ export default class UserList extends Component {
   }
 
   getUsers() {
+    this.setState({ loading: true, error: null });
     axios
       .get(ApiService.BASE_URL + 'user/zivi', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
       .then(response => {
         this.setState({
           users: response.data,
+          loading: false,
         });
       })
       .catch(error => {
-        console.log(error);
+        this.setState({ error: error });
       });
   }
 
@@ -65,7 +68,7 @@ export default class UserList extends Component {
         this.getUsers();
       })
       .catch(error => {
-        console.log(error);
+        this.setState({ error: error });
       });
   }
 
@@ -173,6 +176,8 @@ export default class UserList extends Component {
             <tbody>{temp}</tbody>
           </table>
         </Card>
+
+        <LoadingView loading={this.state.loading} error={this.state.error} />
       </div>
     );
   }
