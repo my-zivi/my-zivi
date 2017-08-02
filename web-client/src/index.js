@@ -39,3 +39,11 @@ if (process.env.NODE_ENV === 'production') {
 	// track pages on route change
 	window.ga && history.listen(obj => ga('send', 'pageview', obj.pathname)); */
 }
+
+//Enable Bootstrap Tooltips and Popovers on all sites
+$(document).ready(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+
+  // Set Popover trigger mode to hover instead of click
+  $('[data-toggle="popover"]').popover({ trigger: 'hover', container: 'body' });
+});
