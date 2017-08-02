@@ -45,7 +45,6 @@ export default class Specifications extends Component {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     this.state['specifications'][i][e.target.name] = value;
     this.setState(this.state);
-    console.log(this.state);
   }
 
   save(i) {

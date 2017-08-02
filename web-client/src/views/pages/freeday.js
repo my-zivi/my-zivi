@@ -13,6 +13,7 @@ export default class Freeday extends Component {
 
     this.state = {
       freedays: [],
+      newFreeday: { holiday_type: 2, description: '' },
     };
   }
 
@@ -35,33 +36,160 @@ export default class Freeday extends Component {
       });
   }
 
+  handleChange(e, i) {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    this.state['freedays'][i][e.target.name] = value;
+    this.setState(this.state);
+  }
+
+  save(i) {
+    this.setState({ loading: true, error: null });
+    axios
+      .post(ApiService.BASE_URL + 'holiday/' + this.state.freedays[i].id, this.state.freedays[i], {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+      })
+      .then(response => {
+        this.setState({ loading: false });
+      })
+      .catch(error => {
+        this.setState({ error: error });
+      });
+  }
+
+  remove(i) {
+    this.setState({ loading: true, error: null });
+    axios
+      .delete(ApiService.BASE_URL + 'holiday/' + this.state.freedays[i].id, {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+      })
+      .then(response => {
+        this.getFreedays();
+      })
+      .catch(error => {
+        this.setState({ error: error });
+      });
+  }
+
+  handleChangeNew(e) {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    this.state['newFreeday'][e.target.name] = value;
+    this.setState(this.state);
+  }
+
+  add() {
+    this.setState({ loading: true, error: null });
+    axios
+      .put(ApiService.BASE_URL + 'holiday', this.state.newFreeday, {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+      })
+      .then(response => {
+        this.setState({ newFreeday: { holiday_type: 2, description: '' } });
+        this.getFreedays();
+      })
+      .catch(error => {
+        this.setState({ error: error });
+      });
+  }
+
   render() {
     var tbody = [];
+
+    tbody.push(
+      <tr>
+        <td>
+          <input
+            class="form-control"
+            type="date"
+            name="date_from"
+            value={this.state.newFreeday.date_from}
+            onChange={e => this.handleChangeNew(e)}
+          />
+        </td>
+        <td>
+          <input
+            class="form-control"
+            type="date"
+            name="date_to"
+            value={this.state.newFreeday.date_to}
+            onChange={e => this.handleChangeNew(e)}
+          />
+        </td>
+        <td>
+          <select
+            class="form-control"
+            name="holiday_type"
+            value={this.state.newFreeday.holiday_type}
+            onChange={e => this.handleChangeNew(e)}
+          >
+            <option value="2">Feiertag</option>
+            <option value="1">Betriebsferien</option>
+          </select>
+        </td>
+        <td>
+          <input
+            class="form-control"
+            type="text"
+            value={this.state.newFreeday.description}
+            name="description"
+            onChange={e => this.handleChangeNew(e)}
+          />
+        </td>
+        <td>
+          <button class="btn btn-sm" onClick={() => this.add()}>
+            hinzufügen
+          </button>
+        </td>
+        <td />
+      </tr>
+    );
 
     var freedays = this.state.freedays;
     for (let i = 0; i < freedays.length; i++) {
       tbody.push(
         <tr>
           <td>
-            <input class="form-control" type="date" value={freedays[i].date_from} />
+            <input
+              class="form-control"
+              type="date"
+              name="date_from"
+              value={freedays[i].date_from}
+              onChange={e => this.handleChange(e, i)}
+            />
           </td>
           <td>
-            <input class="form-control" type="date" value={freedays[i].date_to} />
+            <input class="form-control" type="date" name="date_to" value={freedays[i].date_to} onChange={e => this.handleChange(e, i)} />
           </td>
           <td>
-            <select class="form-control" value={'' + freedays[i].holiday_type}>
+            <select class="form-control" name="holiday_type" value={'' + freedays[i].holiday_type} onChange={e => this.handleChange(e, i)}>
               <option value="2">Feiertag</option>
               <option value="1">Betriebsferien</option>
             </select>
           </td>
           <td>
-            <input class="form-control" type="text" value={freedays[i].description} />
+            <input
+              class="form-control"
+              type="text"
+              name="description"
+              value={freedays[i].description}
+              onChange={e => this.handleChange(e, i)}
+            />
           </td>
           <td>
-            <a>speichern</a>
+            <button class="btn btn-sm" onClick={() => this.save(i)}>
+              speichern
+            </button>
           </td>
           <td>
-            <a>löschen</a>
+            <button
+              class="btn btn-sm"
+              onClick={() => {
+                if (confirm('Möchten Sie ' + freedays[i].description + ' wirklich löschen?')) {
+                  this.remove(i);
+                }
+              }}
+            >
+              löschen
+            </button>
           </td>
         </tr>
       );
@@ -72,7 +200,6 @@ export default class Freeday extends Component {
         <div className="page page__freeday">
           <Card>
             <h1>Freitage</h1>
-            <button class="btn btn-primary">Neuer Eintrag</button>
             <table class="table table-hover">
               <thead>
                 <tr>

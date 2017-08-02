@@ -152,8 +152,30 @@ $api->version('v1', function ($api) {
         $api->get('/holiday', function () {
             return response()->json(App\Holiday::orderBy('date_from', 'DESC')->get());
         });
-        $api->get('/holiday/{id}', function ($id) {
-            return response()->json(App\Holiday::find($id));
+        $api->post('/holiday/{id}', function ($id) {
+            $holiday = App\Holiday::find($id);
+            $holiday->date_from = Input::get("date_from");
+            $holiday->date_to = Input::get("date_to");
+            $holiday->holiday_type = Input::get("holiday_type");
+            $holiday->description = Input::get("description");
+            $holiday->save();
+            return response("updated");
+        });
+
+        $api->put('/holiday', function () {
+            $holiday = new App\Holiday();
+            $holiday->date_from = Input::get("date_from");
+            $holiday->date_to = Input::get("date_to");
+            $holiday->holiday_type = Input::get("holiday_type");
+            $holiday->description = Input::get("description");
+            $holiday->save();
+            return response("inserted");
+        });
+
+        $api->delete('/holiday/{id}', function ($id) {
+            $holiday = App\Holiday::find($id);
+            $holiday->delete();
+            return response("deleted");
         });
 
         // Mission
