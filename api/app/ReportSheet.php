@@ -76,6 +76,11 @@ class ReportSheet extends Model
                 'report_sheets.extraordinarily_comment AS meldeblaetter_ausserordentlich_comment',
                 'report_sheets.clothes AS meldeblaetter_kleider',
                 'report_sheets.clothes_comment AS meldeblaetter_kleider_comment',
+                'report_sheets.bank_account_number AS bank_account_number',
+                'report_sheets.document_number AS document_number',
+                'report_sheets.booked_date AS booked_date',
+                'report_sheets.paid_date AS paid_date',
+                'report_sheets.done AS done',
                 'missions.id AS mission_id',
                 'missions.start AS einsaetze_start',
                 'missions.end AS einsaetze_end',
@@ -139,6 +144,9 @@ class ReportSheet extends Model
         } else {
             $reportSheet['meldeblaetter_ferien_wegen_urlaub'] = $reportSheet['meldeblaetter_ferien_wegen_urlaub_proposal'];
         }
+
+        //Verbleibende Ferien
+        $reportSheet['remaining_holidays'] = $ziviferien-$ziviferienbisher-$reportSheet['meldeblaetter_ferien_wegen_urlaub']-$reportSheet['meldeblaetter_holiday'];
 
         $reportSheet['meldeblaetter_companyurlaub'] = count($firmenurlaubstage) - $ziviferienrest_fuer_urlaub;
         $reportSheet['meldeblaetter_companyurlaub_proposal'] = $reportSheet['meldeblaetter_companyurlaub'];

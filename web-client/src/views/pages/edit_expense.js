@@ -37,6 +37,26 @@ export default class EditExpense extends Component {
       });
   }
 
+  handleChange(e) {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    this.state['report_sheet'][e.target.name] = value;
+    this.setState(this.state);
+  }
+
+  save() {
+    this.setState({ loading: true, error: null });
+    axios
+      .post(ApiService.BASE_URL + 'reportsheet/' + this.props.params.report_sheet_id, this.state.report_sheet, {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+      })
+      .then(response => {
+        this.getReportSheet();
+      })
+      .catch(error => {
+        this.setState({ error: error });
+      });
+  }
+
   showPDF() {
     this.setState({ loading: true, error: null });
     axios
@@ -62,7 +82,12 @@ export default class EditExpense extends Component {
 
     if (sheet != null) {
       content.push(
-        <form action="/editSpesenrapport.php?id=208" method="post" enctype="multipart/form-data">
+        <form
+          action="javascript:;"
+          onsubmit={() => {
+            this.save();
+          }}
+        >
           <div>
             <h1>
               Spesenrapport erstellen für {sheet.first_name} {sheet.last_name}
@@ -145,11 +170,25 @@ export default class EditExpense extends Component {
                 <td class="teven">&nbsp;</td>
                 <td class="teven">{sheet.meldeblaetter_workdays_proposal} Tage</td>
                 <td class="teven" align="right">
-                  <input type="text" name="fArbeit" value={sheet.meldeblaetter_workdays} size="2" /> Tage
+                  <input
+                    type="text"
+                    name="meldeblaetter_workdays"
+                    value={sheet.meldeblaetter_workdays}
+                    size="2"
+                    onchange={e => this.handleChange(e)}
+                  />{' '}
+                  Tage
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven" align="left">
-                  Bemerkungen: <input type="text" name="fArbeitcomment" value={sheet.meldeblaetter_work_comment} size="45" />
+                  Bemerkungen:{' '}
+                  <input
+                    type="text"
+                    name="meldeblaetter_work_comment"
+                    value={sheet.meldeblaetter_work_comment}
+                    size="45"
+                    onchange={e => this.handleChange(e)}
+                  />
                 </td>
               </tr>
               <tr>
@@ -157,11 +196,25 @@ export default class EditExpense extends Component {
                 <td class="todd">&nbsp;</td>
                 <td class="todd">{sheet.meldeblaetter_workfreedays_proposal} Tage</td>
                 <td class="todd" align="right">
-                  <input type="text" name="fArbeitsfrei" value={sheet.meldeblaetter_workfreedays} size="2" /> Tage
+                  <input
+                    type="text"
+                    name="meldeblaetter_workfreedays"
+                    value={sheet.meldeblaetter_workfreedays}
+                    size="2"
+                    onchange={e => this.handleChange(e)}
+                  />{' '}
+                  Tage
                 </td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="left">
-                  Bemerkungen: <input type="text" name="fArbeitsfreicomment" value={sheet.meldeblaetter_workfree_comment} size="45" />
+                  Bemerkungen:{' '}
+                  <input
+                    type="text"
+                    name="meldeblaetter_workfree_comment"
+                    value={sheet.meldeblaetter_workfree_comment}
+                    size="45"
+                    onchange={e => this.handleChange(e)}
+                  />
                 </td>
               </tr>
               <tr>
@@ -169,11 +222,25 @@ export default class EditExpense extends Component {
                 <td class="teven">&nbsp;</td>
                 <td class="teven">{sheet.meldeblaetter_companyurlaub_proposal} Tage</td>
                 <td class="teven" align="right">
-                  <input type="text" name="fBetriebsferienurlaub" value={sheet.meldeblaetter_companyurlaub} size="2" /> Tage
+                  <input
+                    type="text"
+                    name="meldeblaetter_companyurlaub"
+                    value={sheet.meldeblaetter_companyurlaub}
+                    size="2"
+                    onchange={e => this.handleChange(e)}
+                  />{' '}
+                  Tage
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven" align="left">
-                  Bemerkungen: <input type="text" name="fBetriebsferiencomment" value="" size="45" />
+                  Bemerkungen:{' '}
+                  <input
+                    type="text"
+                    name="meldeblaetter_compholiday_comment"
+                    value={sheet.meldeblaetter_compholiday_comment}
+                    size="45"
+                    onchange={e => this.handleChange(e)}
+                  />
                 </td>
               </tr>
               <tr>
@@ -181,7 +248,14 @@ export default class EditExpense extends Component {
                 <td class="todd">&nbsp;</td>
                 <td class="todd">{sheet.meldeblaetter_ferien_wegen_urlaub_proposal} Tage</td>
                 <td class="todd" align="right">
-                  <input type="text" name="fBetriebsferienferien" value={sheet.meldeblaetter_ferien_wegen_urlaub} size="2" /> Tage
+                  <input
+                    type="text"
+                    name="meldeblaetter_ferien_wegen_urlaub"
+                    value={sheet.meldeblaetter_ferien_wegen_urlaub}
+                    size="2"
+                    onchange={e => this.handleChange(e)}
+                  />{' '}
+                  Tage
                 </td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="left">
@@ -197,7 +271,14 @@ export default class EditExpense extends Component {
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven">
-                  Bemerkungen: <input type="text" name="fZarbeitsfreicomment" value={sheet.meldeblaetter_add_workfree_comment} size="45" />
+                  Bemerkungen:{' '}
+                  <input
+                    type="text"
+                    name="meldeblaetter_add_workfree_comment"
+                    value={sheet.meldeblaetter_add_workfree_comment}
+                    size="45"
+                    onchange={e => this.handleChange(e)}
+                  />
                 </td>
               </tr>
               <tr>
@@ -205,23 +286,51 @@ export default class EditExpense extends Component {
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="right">
-                  <input type="text" name="fKrankheit" value={sheet.meldeblaetter_ill} size="2" /> Tage
+                  <input
+                    type="text"
+                    name="meldeblaetter_ill"
+                    value={sheet.meldeblaetter_ill}
+                    size="2"
+                    onchange={e => this.handleChange(e)}
+                  />{' '}
+                  Tage
                 </td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd">
-                  Bemerkungen: <input type="text" name="fKrankheitcomment" value={sheet.meldeblaetter_ill_comment} size="45" />
+                  Bemerkungen:{' '}
+                  <input
+                    type="text"
+                    name="meldeblaetter_ill_comment"
+                    value={sheet.meldeblaetter_ill_comment}
+                    size="45"
+                    onchange={e => this.handleChange(e)}
+                  />
                 </td>
               </tr>
               <tr>
-                <td class="teven">Ferien (Übriges Guthaben: ?? Tage)</td>
+                <td class="teven">Ferien (Übriges Guthaben: {sheet.remaining_holidays} Tage)</td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven" align="right">
-                  <input type="text" name="fFerien" value={sheet.meldeblaetter_holiday} size="2" /> Tage
+                  <input
+                    type="text"
+                    name="meldeblaetter_holiday"
+                    value={sheet.meldeblaetter_holiday}
+                    size="2"
+                    onchange={e => this.handleChange(e)}
+                  />{' '}
+                  Tage
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven">
-                  Bemerkungen: <input type="text" name="fFeriencomment" value={sheet.meldeblaetter_holiday_comment} size="45" />
+                  Bemerkungen:{' '}
+                  <input
+                    type="text"
+                    name="meldeblaetter_holiday_comment"
+                    value={sheet.meldeblaetter_holiday_comment}
+                    size="45"
+                    onchange={e => this.handleChange(e)}
+                  />
                 </td>
               </tr>
               <tr>
@@ -229,11 +338,25 @@ export default class EditExpense extends Component {
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="right">
-                  <input type="text" name="fUrlaub" value={sheet.meldeblaetter_urlaub} size="2" /> Tage
+                  <input
+                    type="text"
+                    name="meldeblaetter_urlaub"
+                    value={sheet.meldeblaetter_urlaub}
+                    size="2"
+                    onchange={e => this.handleChange(e)}
+                  />{' '}
+                  Tage
                 </td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd">
-                  Bemerkungen: <input type="text" name="fUrlaubcomment" value={sheet.meldeblaetter_urlaub_comment} size="45" />
+                  Bemerkungen:{' '}
+                  <input
+                    type="text"
+                    name="meldeblaetter_urlaub_comment"
+                    value={sheet.meldeblaetter_urlaub_comment}
+                    size="45"
+                    onchange={e => this.handleChange(e)}
+                  />
                 </td>
               </tr>
               <tr>
@@ -241,11 +364,25 @@ export default class EditExpense extends Component {
                 <td class="teven">&nbsp;</td>
                 <td class="teven">{sheet.meldeblaetter_kleider_proposal} Fr.</td>
                 <td class="teven" align="right">
-                  <input type="text" name="fKleiderspesen" value={sheet.meldeblaetter_kleider} size="5" /> Fr.
+                  <input
+                    type="text"
+                    name="meldeblaetter_kleider"
+                    value={sheet.meldeblaetter_kleider}
+                    size="5"
+                    onchange={e => this.handleChange(e)}
+                  />{' '}
+                  Fr.
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven">
-                  Bemerkungen: <input type="text" name="fKleidercomment" value={sheet.meldeblaetter_kleider_comment} size="45" />
+                  Bemerkungen:{' '}
+                  <input
+                    type="text"
+                    name="meldeblaetter_kleider_comment"
+                    value={sheet.meldeblaetter_kleider_comment}
+                    size="45"
+                    onchange={e => this.handleChange(e)}
+                  />
                 </td>
               </tr>
               <tr>
@@ -253,11 +390,25 @@ export default class EditExpense extends Component {
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="right">
-                  <input type="text" name="fFahrspesen" value={sheet.meldeblaetter_fahrspesen} size="5" /> Fr.
+                  <input
+                    type="text"
+                    name="meldeblaetter_fahrspesen"
+                    value={sheet.meldeblaetter_fahrspesen}
+                    size="5"
+                    onchange={e => this.handleChange(e)}
+                  />{' '}
+                  Fr.
                 </td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd">
-                  Bemerkungen: <input type="text" name="fFahrspesencomment" value={sheet.meldeblaetter_fahrspesen_comment} size="45" />
+                  Bemerkungen:{' '}
+                  <input
+                    type="text"
+                    name="meldeblaetter_fahrspesen_comment"
+                    value={sheet.meldeblaetter_fahrspesen_comment}
+                    size="45"
+                    onchange={e => this.handleChange(e)}
+                  />
                 </td>
               </tr>
               <tr>
@@ -265,12 +416,25 @@ export default class EditExpense extends Component {
                 <td class="teven">&nbsp;</td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven" align="right">
-                  <input type="text" name="fAusserordentlich" value={sheet.meldeblaetter_ausserordentlich} size="5" /> Fr.
+                  <input
+                    type="text"
+                    name="meldeblaetter_ausserordentlich"
+                    value={sheet.meldeblaetter_ausserordentlich}
+                    size="5"
+                    onchange={e => this.handleChange(e)}
+                  />{' '}
+                  Fr.
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven">
                   Bemerkungen:{' '}
-                  <input type="text" name="fAusserordentlichcomment" value={sheet.meldeblaetter_ausserordentlich_comment} size="45" />
+                  <input
+                    type="text"
+                    name="meldeblaetter_ausserordentlich_comment"
+                    value={sheet.meldeblaetter_ausserordentlich_comment}
+                    size="45"
+                    onchange={e => this.handleChange(e)}
+                  />
                 </td>
               </tr>
               <tr>
@@ -290,7 +454,13 @@ export default class EditExpense extends Component {
                 <td class="teven" />
                 <td class="teven">&nbsp;</td>
                 <td class="teven" align="right">
-                  <input type="text" size="9" name="fKonto" value="4470 (200)" />
+                  <input
+                    type="text"
+                    size="9"
+                    name="bank_account_number"
+                    value={sheet.bank_account_number}
+                    onchange={e => this.handleChange(e)}
+                  />
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven">&nbsp;</td>
@@ -300,7 +470,7 @@ export default class EditExpense extends Component {
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="right">
-                  <input type="text" size="9" name="fBeleg" value="" />
+                  <input type="text" size="9" name="document_number" value={sheet.document_number} onchange={e => this.handleChange(e)} />
                 </td>{' '}
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
@@ -310,7 +480,7 @@ export default class EditExpense extends Component {
                 <td class="teven">&nbsp;</td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven" align="right">
-                  <input type="text" size="9" name="fVerbucht" value="" />
+                  <input type="date" size="9" name="booked_date" value={sheet.booked_date} onchange={e => this.handleChange(e)} />
                 </td>
                 <td class="teven">&nbsp;</td>
                 <td class="teven">&nbsp;</td>
@@ -320,7 +490,7 @@ export default class EditExpense extends Component {
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="right">
-                  <input type="text" size="9" name="fBezahlt" value="" />
+                  <input type="date" size="9" name="paid_date" value={sheet.paid_date} onchange={e => this.handleChange(e)} />
                 </td>{' '}
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
@@ -328,7 +498,7 @@ export default class EditExpense extends Component {
 
               <tr>
                 <td>
-                  <input type="checkbox" name="fDone" id="fidDone" checked="" />
+                  <input type="checkbox" name="done" id="fidDone" defaultChecked={sheet.done} onchange={e => this.handleChange(e)} />
                   <label for="fidDone"> Erledigt</label>
                 </td>
                 <td>&nbsp;</td>
