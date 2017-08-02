@@ -76,6 +76,10 @@ export default class EditExpense extends Component {
       });
   }
 
+  formatRappen(amount) {
+    return parseFloat(Math.round(amount * 100) / 100).toFixed(2);
+  }
+
   render() {
     var content = [];
     var sheet = this.state.report_sheet;
@@ -362,12 +366,12 @@ export default class EditExpense extends Component {
               <tr>
                 <td class="teven">Kleiderspesen</td>
                 <td class="teven">&nbsp;</td>
-                <td class="teven">{sheet.meldeblaetter_kleider_proposal} Fr.</td>
+                <td class="teven">{this.formatRappen(sheet.meldeblaetter_kleider_proposal)} Fr.</td>
                 <td class="teven" align="right">
                   <input
                     type="text"
                     name="meldeblaetter_kleider"
-                    value={sheet.meldeblaetter_kleider}
+                    value={this.formatRappen(sheet.meldeblaetter_kleider)}
                     size="5"
                     onchange={e => this.handleChange(e)}
                   />{' '}
@@ -393,7 +397,7 @@ export default class EditExpense extends Component {
                   <input
                     type="text"
                     name="meldeblaetter_fahrspesen"
-                    value={sheet.meldeblaetter_fahrspesen}
+                    value={this.formatRappen(sheet.meldeblaetter_fahrspesen)}
                     size="5"
                     onchange={e => this.handleChange(e)}
                   />{' '}
@@ -419,7 +423,7 @@ export default class EditExpense extends Component {
                   <input
                     type="text"
                     name="meldeblaetter_ausserordentlich"
-                    value={sheet.meldeblaetter_ausserordentlich}
+                    value={this.formatRappen(sheet.meldeblaetter_ausserordentlich)}
                     size="5"
                     onchange={e => this.handleChange(e)}
                   />{' '}
@@ -444,7 +448,7 @@ export default class EditExpense extends Component {
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd" align="right">
-                  <b>{sheet.total} Fr.</b>
+                  <b>{this.formatRappen(sheet.total)} Fr.</b>
                 </td>
                 <td class="todd">&nbsp;</td>
                 <td class="todd">&nbsp;</td>
