@@ -4,6 +4,8 @@ import Card from '../tags/card';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
+import LoadingView from '../tags/loading-view';
+import Header from '../tags/header';
 
 export default class EditExpense extends Component {
   constructor(props) {
@@ -19,18 +21,38 @@ export default class EditExpense extends Component {
   }
 
   getReportSheet() {
-    let self = this;
+    this.setState({ loading: true, error: null });
     axios
-      .get(ApiService.BASE_URL + 'reportsheet/' + self.props.params.report_sheet_id, {
+      .get(ApiService.BASE_URL + 'reportsheet/' + this.props.params.report_sheet_id, {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
-      .then(function(response) {
-        self.setState({
+      .then(response => {
+        this.setState({
           report_sheet: response.data,
+          loading: false,
         });
       })
-      .catch(function(error) {
-        console.log(error);
+      .catch(error => {
+        this.setState({ error: error });
+      });
+  }
+
+  showPDF() {
+    this.setState({ loading: true, error: null });
+    axios
+      .get(ApiService.BASE_URL + 'pdf/zivireportsheet?reportSheetId=' + this.props.params.report_sheet_id, {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+        responseType: 'blob',
+      })
+      .then(response => {
+        this.setState({
+          loading: false,
+        });
+        let blob = new Blob([response.data], { type: 'application/pdf' });
+        window.location = window.URL.createObjectURL(blob);
+      })
+      .catch(error => {
+        this.setState({ error: error });
       });
   }
 
@@ -315,7 +337,13 @@ export default class EditExpense extends Component {
                 <td>&nbsp;</td>
                 <td align="right">
                   <input type="submit" name="fSubmit" value="Speichern und Aktualisieren" />&nbsp;
-                  <a href={ApiService.BASE_URL + 'pdf/zivireportsheet?reportSheetId=' + this.props.params.report_sheet_id}>PDF anzeigen</a>
+                  <a
+                    onClick={() => {
+                      this.showPDF();
+                    }}
+                  >
+                    PDF anzeigen
+                  </a>
                 </td>
               </tr>
             </tbody>
@@ -325,9 +353,13 @@ export default class EditExpense extends Component {
     }
 
     return (
-      <div className="page page__expense">
-        <Card>{content}</Card>
-      </div>
+      <Header>
+        <div className="page page__expense">
+          <Card>{content}</Card>
+
+          <LoadingView loading={this.state.loading} error={this.state.error} />
+        </div>
+      </Header>
     );
   }
 }

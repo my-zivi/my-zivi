@@ -5,6 +5,7 @@ import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
+import Header from '../tags/header';
 
 export default class UserPhoneList extends Component {
   constructor(props) {
@@ -37,53 +38,55 @@ export default class UserPhoneList extends Component {
 
   render() {
     return (
-      <div className="page page__user_phone_list">
-        <Card>
-          <h1>Telefonliste</h1>
-          <p>
-            Geben Sie ein Anfangsdatum und ein Enddatum ein um eine Telefonliste mit allen Zivis zu erhalten, die in diesem Zeitraum
-            arbeiten.
-          </p>
+      <Header>
+        <div className="page page__user_phone_list">
+          <Card>
+            <h1>Telefonliste</h1>
+            <p>
+              Geben Sie ein Anfangsdatum und ein Enddatum ein um eine Telefonliste mit allen Zivis zu erhalten, die in diesem Zeitraum
+              arbeiten.
+            </p>
 
-          <form
-            action="javascript:;"
-            onSubmit={() => {
-              this.getList();
-            }}
-          >
-            <div class="form-group">
-              <label for="start">Anfang:</label>
-              <input
-                type="date"
-                class="form-control"
-                name="start"
-                id="start"
-                value={this.state.start}
-                onChange={this.handleChange.bind(this)}
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="email">Ende:</label>
-              <input
-                type="date"
-                class="form-control"
-                name="end"
-                id="end"
-                value={this.state.end}
-                onChange={this.handleChange.bind(this)}
-                required
-              />
-            </div>
+            <form
+              action="javascript:;"
+              onSubmit={() => {
+                this.getList();
+              }}
+            >
+              <div class="form-group">
+                <label for="start">Anfang:</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  name="start"
+                  id="start"
+                  value={this.state.start}
+                  onChange={this.handleChange.bind(this)}
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Ende:</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  name="end"
+                  id="end"
+                  value={this.state.end}
+                  onChange={this.handleChange.bind(this)}
+                  required
+                />
+              </div>
 
-            <button class="btn btn-primary" type="submit">
-              Absenden
-            </button>
-          </form>
-        </Card>
+              <button class="btn btn-primary" type="submit">
+                Absenden
+              </button>
+            </form>
+          </Card>
 
-        <LoadingView loading={this.state.loading} error={this.state.error} />
-      </div>
+          <LoadingView loading={this.state.loading} error={this.state.error} />
+        </div>
+      </Header>
     );
   }
 }

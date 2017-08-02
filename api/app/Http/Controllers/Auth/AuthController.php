@@ -10,6 +10,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Exception\HttpResponseException;
 
 class AuthController extends Controller
@@ -35,7 +36,8 @@ class AuthController extends Controller
         try {
             // Attempt to verify the credentials and create a token for the user
             if (!$token = JWTAuth::attempt(
-                $this->getCredentials($request)
+                $this->getCredentials($request),
+                ['isAdmin' => User::where('email', '=', Input::get("email", ""))->first()['role']==1]
             )) {
                 return $this->onUnauthorized();
             }
@@ -86,6 +88,7 @@ class AuthController extends Controller
         $user->zdp = $request->input("zdp");
         $user->password = password_hash($request->input("password"), PASSWORD_BCRYPT);
         $user->regional_center = 1;
+        $user->role = 3;
 
         //mail($user->email, "iZivi Registration", "Hallo und danke für die Registration");
 

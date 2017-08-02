@@ -7,6 +7,8 @@ import Card from '../tags/card';
 
 import axios from 'axios';
 import ApiService from '../../utils/api';
+import LoadingView from '../tags/loading-view';
+import Header from '../tags/header';
 
 @connect(['accountStore'])
 export default class Login extends Component {
@@ -16,10 +18,13 @@ export default class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      loading: false,
+      error: null,
     };
   }
 
   login() {
+    this.setState({ loading: true, error: null });
     axios
       .post(ApiService.BASE_URL + 'auth/login', {
         email: this.state.email,
@@ -39,7 +44,7 @@ export default class Login extends Component {
             <br />E-Mail oder Passwort falsch!
           </div>
         );
-        this.setState({ errorBox: errorBox });
+        this.setState({ errorBox: errorBox, loading: false });
       });
   }
 
@@ -58,42 +63,46 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="page page__login">
-        <Card>
-          <form class="form-signin" action="javascript:;" onsubmit={() => this.login()}>
-            <h2 class="form-signin-heading">Anmelden</h2>
-            {this.state.errorBox}
-            <label for="inputEmail" class="sr-only">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              class="form-control"
-              placeholder="Email"
-              value={this.state.email}
-              onChange={this.handleChange.bind(this)}
-              required
-              autofocus
-            />
-            <label for="inputPassword" class="sr-only">
-              Passwort
-            </label>
-            <input
-              type="password"
-              name="password"
-              class="form-control"
-              placeholder="Passwort"
-              value={this.state.password}
-              onChange={this.handleChange.bind(this)}
-              required
-            />
-            <button class="btn btn-lg btn-primary btn-block" type="submit">
-              Anmelden
-            </button>
-          </form>
-        </Card>
-      </div>
+      <Header>
+        <div className="page page__login">
+          <Card>
+            <form class="form-signin" action="javascript:;" onsubmit={() => this.login()}>
+              <h2 class="form-signin-heading">Anmelden</h2>
+              {this.state.errorBox}
+              <label for="inputEmail" class="sr-only">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="Email"
+                value={this.state.email}
+                onChange={this.handleChange.bind(this)}
+                required
+                autofocus
+              />
+              <label for="inputPassword" class="sr-only">
+                Passwort
+              </label>
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                placeholder="Passwort"
+                value={this.state.password}
+                onChange={this.handleChange.bind(this)}
+                required
+              />
+              <button class="btn btn-lg btn-primary btn-block" type="submit">
+                Anmelden
+              </button>
+            </form>
+          </Card>
+
+          <LoadingView loading={this.state.loading} error={this.state.error} />
+        </div>
+      </Header>
     );
   }
 }

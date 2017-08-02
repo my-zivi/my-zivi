@@ -5,6 +5,7 @@ import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
+import Header from '../tags/header';
 
 export default class UserList extends Component {
   constructor(props) {
@@ -122,63 +123,72 @@ export default class UserList extends Component {
     }
 
     return (
-      <div className="page page__user_list">
-        <Card>
-          <h1>Benutzerliste</h1>
-          <table class="table table-hover" cellspacing="0" cellpadding="2">
-            <thead>
-              <tr>
-                <th>ZDP</th>
-                <th>Vorname Name</th>
-                <th>Start</th>
-                <th>Ende</th>
-                <th>Gruppe</th>
-                <th />
-              </tr>
-              <tr>
-                <td>
-                  <input class="SWOInput" name="zdp" size="5" type="text" value={this.state.zdp} oninput={this.handleChange.bind(this)} />
-                </td>
-                <td>
-                  <input
-                    class="SWOInput"
-                    name="name"
-                    size="15"
-                    type="text"
-                    value={this.state.name}
-                    oninput={this.handleChange.bind(this)}
-                  />
-                </td>
-                <td>
-                  <input
-                    class="SWOInput"
-                    name="start"
-                    size="10"
-                    type="date"
-                    value={this.state.start}
-                    oninput={this.handleChange.bind(this)}
-                  />
-                </td>
-                <td>
-                  <input class="SWOInput" name="end" size="10" type="date" value={this.state.end} oninput={this.handleChange.bind(this)} />
-                </td>
-                <td>
-                  <select name="group" value={this.state.group} oninput={this.handleChange.bind(this)}>
-                    <option value="0">(Alle Gruppen)</option>
-                    <option value="1">Admins</option>
-                    <option value="2">Mitarbeiter</option>
-                    <option value="3">Zivis</option>
-                  </select>
-                </td>
-                <td />
-              </tr>
-            </thead>
-            <tbody>{temp}</tbody>
-          </table>
-        </Card>
+      <Header>
+        <div className="page page__user_list">
+          <Card>
+            <h1>Benutzerliste</h1>
+            <table class="table table-hover" cellspacing="0" cellpadding="2">
+              <thead>
+                <tr>
+                  <th>ZDP</th>
+                  <th>Vorname Name</th>
+                  <th>Start</th>
+                  <th>Ende</th>
+                  <th>Gruppe</th>
+                  <th />
+                </tr>
+                <tr>
+                  <td>
+                    <input class="SWOInput" name="zdp" size="5" type="text" value={this.state.zdp} oninput={this.handleChange.bind(this)} />
+                  </td>
+                  <td>
+                    <input
+                      class="SWOInput"
+                      name="name"
+                      size="15"
+                      type="text"
+                      value={this.state.name}
+                      oninput={this.handleChange.bind(this)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      class="SWOInput"
+                      name="start"
+                      size="10"
+                      type="date"
+                      value={this.state.start}
+                      oninput={this.handleChange.bind(this)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      class="SWOInput"
+                      name="end"
+                      size="10"
+                      type="date"
+                      value={this.state.end}
+                      oninput={this.handleChange.bind(this)}
+                    />
+                  </td>
+                  <td>
+                    <select name="group" value={this.state.group} oninput={this.handleChange.bind(this)}>
+                      <option value="0">(Alle Gruppen)</option>
+                      <option value="1">Admins</option>
+                      <option value="2">Mitarbeiter</option>
+                      <option value="3">Zivis</option>
+                    </select>
+                  </td>
+                  <td />
+                </tr>
+              </thead>
+              <tbody>{temp}</tbody>
+            </table>
+          </Card>
 
-        <LoadingView loading={this.state.loading} error={this.state.error} />
-      </div>
+          <LoadingView loading={this.state.loading} error={this.state.error} />
+        </div>
+      </Header>
     );
   }
 }

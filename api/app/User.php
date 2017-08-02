@@ -28,6 +28,7 @@ class User extends Model implements
         'first_name',
         'last_name',
         'email',
+        'role',
         'address',
         'city',
         'canton',

@@ -4,6 +4,8 @@ import Card from '../tags/card';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
+import LoadingView from '../tags/loading-view';
+import Header from '../tags/header';
 
 export default class User extends Component {
   constructor(props) {
@@ -19,13 +21,15 @@ export default class User extends Component {
   }
 
   getUser() {
+    this.setState({ loading: true, error: null });
+
     let temp = [];
     let self = this;
     axios
       .get(ApiService.BASE_URL + 'user' + (this.props.params.userid ? '/' + this.props.params.userid : ''), {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
-      .then(function(response) {
+      .then(response => {
         console.log('response ' + response.data);
         temp.push(
           <tbody>
@@ -362,48 +366,53 @@ export default class User extends Component {
           </tbody>
         );
       })
-      .then(function(response) {
-        self.setState({
+      .then(response => {
+        this.setState({
           result: temp,
+          loading: false,
         });
       })
-      .catch(function(error) {
-        console.log(error);
+      .catch(error => {
+        this.setState({ error: error });
       });
   }
 
   render() {
     return (
-      <div className="page page__user_list">
-        <Card>
-          <h1>Profil</h1>
-          <input class="SWOButton" name="resetPassword" value="Passwort zurücksetzen" type="submit" />
-          <table class="table" cellpadding="30">
-            <tbody>
-              <tr>
-                <td>
-                  <input name="id" value="00000" type="hidden" />
-                  <input name="action" value="saveEmployee" type="hidden" />
-                  <table>
-                    <colgroup>
-                      <col width="140" />
-                      <col width="20" />
-                      <col width="160" />
-                      <col width="140" />
-                      <col width="20" />
-                      <col width="160" />
-                    </colgroup>
+      <Header>
+        <div className="page page__user_list">
+          <Card>
+            <h1>Profil</h1>
+            <input class="SWOButton" name="resetPassword" value="Passwort zurücksetzen" type="submit" />
+            <table class="table" cellpadding="30">
+              <tbody>
+                <tr>
+                  <td>
+                    <input name="id" value="00000" type="hidden" />
+                    <input name="action" value="saveEmployee" type="hidden" />
+                    <table>
+                      <colgroup>
+                        <col width="140" />
+                        <col width="20" />
+                        <col width="160" />
+                        <col width="140" />
+                        <col width="20" />
+                        <col width="160" />
+                      </colgroup>
 
-                    {this.state.result}
-                  </table>
-                  <br />
-                  <input class="SWOButton" value="Daten speichern" type="submit" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </Card>
-      </div>
+                      {this.state.result}
+                    </table>
+                    <br />
+                    <input class="SWOButton" value="Daten speichern" type="submit" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Card>
+
+          <LoadingView loading={this.state.loading} error={this.state.error} />
+        </div>
+      </Header>
     );
   }
 }

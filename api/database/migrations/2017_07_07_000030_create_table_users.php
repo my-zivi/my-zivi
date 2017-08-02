@@ -20,6 +20,8 @@ class CreateTableUsers extends Migration
             $table->rememberToken();
             $table->string('email')->unique()->nullable(false);
             $table->string('password', 60)->nullable(false);
+            $table->integer('role')->unsigned();
+            $table->foreign('role')->references('id')->on('roles');
             $table->string('zdp')->nullable(false);  // ZivilDienstPlatz, Nummer des Zivildienstleistenden
             $table->string('first_name')->nullable(false);
             $table->string('last_name')->nullable(false);

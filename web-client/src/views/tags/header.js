@@ -29,17 +29,28 @@ export default class Header extends Component {
   }
 
   render() {
+    var isLoggedIn = localStorage.getItem('jwtToken') !== null;
+    var isAdmin = false;
+    if (isLoggedIn) {
+      var jwtDecode = require('jwt-decode');
+      var decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
+      isAdmin = decodedToken.isAdmin;
+    }
+
     return (
-      <header className="header">
-        <Link to="/">
-          <h1>iZivi</h1>
-        </Link>
-        <nav>
-          {this.props.accountStore.isLoggedIn & this.props.accountStore.isAdmin ? this.adminMenu() : null}
-          {this.props.accountStore.isLoggedIn ? this.userMenu() : null}
-          {!this.props.accountStore.isLoggedIn ? this.guestMenu() : null}
-        </nav>
-      </header>
+      <div>
+        <header className="header">
+          <Link to="/">
+            <h1>iZivi</h1>
+          </Link>
+          <nav>
+            {isAdmin ? this.adminMenu() : null}
+            {isLoggedIn ? this.userMenu() : null}
+            {!isLoggedIn ? this.guestMenu() : null}
+          </nav>
+        </header>
+        <main id="content">{this.props.children}</main>
+      </div>
     );
   }
 }

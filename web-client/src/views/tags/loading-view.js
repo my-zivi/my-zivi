@@ -14,8 +14,8 @@ export default class LoadingView extends Component {
       if (nextProps.error.response != null && nextProps.error.response.status == 401) {
         this.props.accountStore.isLoggedIn = false;
         this.props.accountStore.isAdmin = false;
-        localStorage.setItem('jwtToken', '');
-        this.context.router.push('/login');
+        localStorage.removeItem('jwtToken');
+        this.context.router.push('/');
       }
     }
   }
