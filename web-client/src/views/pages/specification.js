@@ -4,6 +4,8 @@ import Card from '../tags/card';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
+import LoadingView from '../tags/loading-view';
+import Header from '../tags/header';
 
 export default class Specifications extends Component {
   constructor(props) {
@@ -24,15 +26,17 @@ export default class Specifications extends Component {
   }
 
   getSpecifications() {
+    this.setState({ loading: true, error: null });
     axios
       .get(ApiService.BASE_URL + 'specification', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
       .then(response => {
         this.setState({
           specifications: response.data,
+          loading: false,
         });
       })
       .catch(error => {
-        console.log(error);
+        this.setState({ error: error });
       });
   }
 
@@ -108,87 +112,91 @@ export default class Specifications extends Component {
     }
 
     return (
-      <div className="page page__specification">
-        <Card>
-          <h1>Pflichtenheft</h1>
-          <table class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th ROWSPAN="2" class="col_a">
-                  Aktiv
-                </th>
-                <th ROWSPAN="2" class="col_a">
-                  ID
-                </th>
-                <th ROWSPAN="2" class="col_a">
-                  Name
-                </th>
-                <th ROWSPAN="2" class="col_a">
-                  Short-Name
-                </th>
-                <th ROWSPAN="2" class="col_b">
-                  Taschengeld
-                </th>
-                <th ROWSPAN="2" class="col_a">
-                  Unterkunft
-                </th>
-                <th ROWSPAN="2" class="col_b">
-                  Kleider
-                </th>
-                <th COLSPAN="4" class="col_a">
-                  Fr&uuml;hst&uuml;ck
-                </th>
-                <th COLSPAN="4" class="col_b">
-                  Mittagessen
-                </th>
-                <th COLSPAN="5" class="col_a">
-                  Abendessen
-                </th>
-              </tr>
-              <tr>
-                <td class="col_a" style="text-align:center">
-                  Erster Tag
-                </td>
-                <td class="col_a" style="text-align:center">
-                  Arbeit
-                </td>
-                <td class="col_a" style="text-align:center">
-                  Frei
-                </td>
-                <td class="col_a" style="text-align:center">
-                  Letzter Tag
-                </td>
-                <td class="col_b" style="text-align:center">
-                  Erster Tag
-                </td>
-                <td class="col_b" style="text-align:center">
-                  Arbeit
-                </td>
-                <td class="col_b" style="text-align:center">
-                  Frei
-                </td>
-                <td class="col_b" style="text-align:center">
-                  Letzter Tag
-                </td>
-                <td class="col_a" style="text-align:center">
-                  Erster Tag
-                </td>
-                <td class="col_a" style="text-align:center">
-                  Arbeit
-                </td>
-                <td class="col_a" style="text-align:center">
-                  Frei
-                </td>
-                <td class="col_a" style="text-align:center">
-                  Letzter Tag
-                </td>
-                <td />
-              </tr>
-            </thead>
-            <tbody>{tbody}</tbody>
-          </table>
-        </Card>
-      </div>
+      <Header>
+        <div className="page page__specification">
+          <Card>
+            <h1>Pflichtenheft</h1>
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th ROWSPAN="2" class="col_a">
+                    Aktiv
+                  </th>
+                  <th ROWSPAN="2" class="col_a">
+                    ID
+                  </th>
+                  <th ROWSPAN="2" class="col_a">
+                    Name
+                  </th>
+                  <th ROWSPAN="2" class="col_a">
+                    Short-Name
+                  </th>
+                  <th ROWSPAN="2" class="col_b">
+                    Taschengeld
+                  </th>
+                  <th ROWSPAN="2" class="col_a">
+                    Unterkunft
+                  </th>
+                  <th ROWSPAN="2" class="col_b">
+                    Kleider
+                  </th>
+                  <th COLSPAN="4" class="col_a">
+                    Fr&uuml;hst&uuml;ck
+                  </th>
+                  <th COLSPAN="4" class="col_b">
+                    Mittagessen
+                  </th>
+                  <th COLSPAN="5" class="col_a">
+                    Abendessen
+                  </th>
+                </tr>
+                <tr>
+                  <td class="col_a" style="text-align:center">
+                    Erster Tag
+                  </td>
+                  <td class="col_a" style="text-align:center">
+                    Arbeit
+                  </td>
+                  <td class="col_a" style="text-align:center">
+                    Frei
+                  </td>
+                  <td class="col_a" style="text-align:center">
+                    Letzter Tag
+                  </td>
+                  <td class="col_b" style="text-align:center">
+                    Erster Tag
+                  </td>
+                  <td class="col_b" style="text-align:center">
+                    Arbeit
+                  </td>
+                  <td class="col_b" style="text-align:center">
+                    Frei
+                  </td>
+                  <td class="col_b" style="text-align:center">
+                    Letzter Tag
+                  </td>
+                  <td class="col_a" style="text-align:center">
+                    Erster Tag
+                  </td>
+                  <td class="col_a" style="text-align:center">
+                    Arbeit
+                  </td>
+                  <td class="col_a" style="text-align:center">
+                    Frei
+                  </td>
+                  <td class="col_a" style="text-align:center">
+                    Letzter Tag
+                  </td>
+                  <td />
+                </tr>
+              </thead>
+              <tbody>{tbody}</tbody>
+            </table>
+          </Card>
+
+          <LoadingView loading={this.state.loading} error={this.state.error} />
+        </div>
+      </Header>
     );
   }
 }

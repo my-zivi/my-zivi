@@ -4,6 +4,8 @@ import Card from '../tags/card';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
+import LoadingView from '../tags/loading-view';
+import Header from '../tags/header';
 
 export default class Freeday extends Component {
   constructor(props) {
@@ -19,15 +21,17 @@ export default class Freeday extends Component {
   }
 
   getFreedays() {
+    this.setState({ loading: true, error: null });
     axios
       .get(ApiService.BASE_URL + 'holiday', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
       .then(response => {
         this.setState({
           freedays: response.data,
+          loading: false,
         });
       })
       .catch(error => {
-        console.log(error);
+        this.setState({ error: error });
       });
   }
 
@@ -64,25 +68,29 @@ export default class Freeday extends Component {
     }
 
     return (
-      <div className="page page__freeday">
-        <Card>
-          <h1>Freitage</h1>
-          <button class="btn btn-primary">Neuer Eintrag</button>
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Datum Start</th>
-                <th>Datum Ende</th>
-                <th>Typ</th>
-                <th>Beschreibung</th>
-                <th />
-                <th />
-              </tr>
-            </thead>
-            <tbody>{tbody}</tbody>
-          </table>
-        </Card>
-      </div>
+      <Header>
+        <div className="page page__freeday">
+          <Card>
+            <h1>Freitage</h1>
+            <button class="btn btn-primary">Neuer Eintrag</button>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Datum Start</th>
+                  <th>Datum Ende</th>
+                  <th>Typ</th>
+                  <th>Beschreibung</th>
+                  <th />
+                  <th />
+                </tr>
+              </thead>
+              <tbody>{tbody}</tbody>
+            </table>
+          </Card>
+
+          <LoadingView loading={this.state.loading} error={this.state.error} />
+        </div>
+      </Header>
     );
   }
 }

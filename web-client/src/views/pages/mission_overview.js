@@ -4,6 +4,7 @@ import Card from '../tags/card';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
+import Header from '../tags/header';
 
 export default class MissionOverview extends Component {
   constructor(props) {
@@ -14,11 +15,13 @@ export default class MissionOverview extends Component {
 
   render() {
     return (
-      <div className="page page__mission_overview">
-        <Card>
-          <h1>Einsatzübersicht</h1>
-        </Card>
-      </div>
+      <Header>
+        <div className="page page__mission_overview">
+          <Card>
+            <h1>Einsatzübersicht</h1>
+          </Card>
+        </div>
+      </Header>
     );
   }
 }

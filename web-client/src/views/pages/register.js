@@ -5,6 +5,8 @@ import axios from 'axios';
 import ApiService from '../../utils/api';
 import { connect } from 'inferno-mobx';
 import Card from '../tags/card';
+import LoadingView from '../tags/loading-view';
+import Header from '../tags/header';
 
 @connect(['accountStore'])
 export default class Register extends Component {
@@ -17,23 +19,23 @@ export default class Register extends Component {
   }
 
   register() {
-    let self = this;
+    this.setState({ loading: true, error: null });
     axios
       .post(ApiService.BASE_URL + 'auth/register', this.state.formData)
       .then(response => {
-        this.props.accountStore.isLoggedIn = true;
-        this.props.accountStore.isAdmin = true;
         localStorage.setItem('jwtToken', response.data.data.token);
-        self.context.router.push('/');
+        this.context.router.push('/');
       })
       .catch(error => {
         var errorMsg = [];
-        for (let item in error.response.data) {
-          errorMsg.push(
-            <p>
-              {item}: {error.response.data[item]}
-            </p>
-          );
+        if (error.response != null && error.response.data != null) {
+          for (let item in error.response.data) {
+            errorMsg.push(
+              <p>
+                {item}: {error.response.data[item]}
+              </p>
+            );
+          }
         }
         var errorBox = [];
         errorBox.push(
@@ -43,7 +45,7 @@ export default class Register extends Component {
             {errorMsg}
           </div>
         );
-        this.setState({ errorBox: errorBox });
+        this.setState({ errorBox: errorBox, loading: false });
       });
   }
 
@@ -54,92 +56,96 @@ export default class Register extends Component {
 
   render() {
     return (
-      <div className="page page__register">
-        <Card>
-          <h1>Registrieren</h1>
-          {this.state.errorBox}
-          <form action="javascript:;" onSubmit={() => this.register()}>
-            <div class="form-group">
-              <label for="zdp">ZDP:</label>
-              <input
-                type="number"
-                class="form-control"
-                name="zdp"
-                id="zdp"
-                value={this.state.formData.zdp}
-                onChange={this.handleChange.bind(this)}
-                min="10000"
-                max="100000"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="firstname">Vorname:</label>
-              <input
-                type="text"
-                class="form-control"
-                name="firstname"
-                id="firstname"
-                value={this.state.formData.firstname}
-                onChange={this.handleChange.bind(this)}
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="lastname">Nachname:</label>
-              <input
-                type="text"
-                class="form-control"
-                name="lastname"
-                id="lastname"
-                value={this.state.formData.lastname}
-                onChange={this.handleChange.bind(this)}
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="email">E-Mail:</label>
-              <input
-                type="email"
-                class="form-control"
-                name="email"
-                id="email"
-                value={this.state.formData.email}
-                onChange={this.handleChange.bind(this)}
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="password">Passwort:</label>
-              <input
-                type="password"
-                class="form-control"
-                name="password"
-                id="password"
-                value={this.state.formData.password}
-                onChange={this.handleChange.bind(this)}
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="password_confirm">Passwort Bestätigung:</label>
-              <input
-                type="password"
-                class="form-control"
-                name="password_confirm"
-                id="password_confirm"
-                value={this.state.formData.passwordConfirm}
-                onChange={this.handleChange.bind(this)}
-                required
-              />
-            </div>
+      <Header>
+        <div className="page page__register">
+          <Card>
+            <h1>Registrieren</h1>
+            {this.state.errorBox}
+            <form action="javascript:;" onSubmit={() => this.register()}>
+              <div class="form-group">
+                <label for="zdp">ZDP:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="zdp"
+                  id="zdp"
+                  value={this.state.formData.zdp}
+                  onChange={this.handleChange.bind(this)}
+                  min="10000"
+                  max="100000"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="firstname">Vorname:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="firstname"
+                  id="firstname"
+                  value={this.state.formData.firstname}
+                  onChange={this.handleChange.bind(this)}
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="lastname">Nachname:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="lastname"
+                  id="lastname"
+                  value={this.state.formData.lastname}
+                  onChange={this.handleChange.bind(this)}
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">E-Mail:</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  id="email"
+                  value={this.state.formData.email}
+                  onChange={this.handleChange.bind(this)}
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="password">Passwort:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  id="password"
+                  value={this.state.formData.password}
+                  onChange={this.handleChange.bind(this)}
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="password_confirm">Passwort Bestätigung:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password_confirm"
+                  id="password_confirm"
+                  value={this.state.formData.passwordConfirm}
+                  onChange={this.handleChange.bind(this)}
+                  required
+                />
+              </div>
 
-            <button type="submit" class="btn btn-primary">
-              Registrieren
-            </button>
-          </form>
-        </Card>
-      </div>
+              <button type="submit" class="btn btn-primary">
+                Registrieren
+              </button>
+            </form>
+          </Card>
+
+          <LoadingView loading={this.state.loading} error={this.state.error} />
+        </div>
+      </Header>
     );
   }
 }

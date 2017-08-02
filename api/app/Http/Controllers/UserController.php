@@ -26,7 +26,7 @@ class UserController extends BaseController
         $zivis = DB::table('missions')
             ->join('users', 'missions.user', '=', 'users.id')
             ->join('specifications', 'missions.specification', '=', 'specifications.id')
-            ->join('roles', 'roles.id', '=', 'missions.role')
+            ->join('roles', 'roles.id', '=', 'users.role')
             ->whereNull('users.deleted_at')
             ->select('users.id', 'users.zdp', 'users.first_name', 'users.last_name', 'missions.start', 'missions.end', 'users.work_experience', 'specifications.active', 'roles.name AS role', 'roles.id AS role_id')
             ->get();
@@ -36,6 +36,6 @@ class UserController extends BaseController
         $zivis = DB::table('specifications')->get();
         */
 
-        return         new JsonResponse($zivis);
+        return new JsonResponse($zivis);
     }
 }

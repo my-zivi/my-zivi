@@ -1,4 +1,4 @@
-INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token,  email,  password,  zdp,  first_name,  last_name,  address,  city,  hometown,  hometown_canton,  canton,  birthday,  phone_mobile,  phone_private,  phone_business,  bank_iban,  post_account,  work_experience,  driving_licence,  travel_card,  regional_center,  internal_note) (SELECT
+INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, email,  password, role,  zdp,  first_name,  last_name,  address,  city,  hometown,  hometown_canton,  canton,  birthday,  phone_mobile,  phone_private,  phone_business,  bank_iban,  post_account,  work_experience,  driving_licence,  travel_card,  regional_center,  internal_note) (SELECT
   NULL AS created_at,
   NULL AS updated_at,
   NULL AS deleted_at,
@@ -15,6 +15,11 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
     ELSE concat('else@', stiftun8_iZivi.accounts.username, '.no')
   END AS email,
   stiftun8_iZivi.accounts.password AS password,
+  CASE
+    WHEN MIN(stiftun8_iZivi.groupaccounts.groupid)=1
+     THEN 1
+   ELSE 3
+  END AS role,
   stiftun8_iZivi.accounts.username AS zdp,
   stiftun8_iZivi.accounts.firstname AS first_name,
   stiftun8_iZivi.accounts.lastname AS last_name,
@@ -106,7 +111,7 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
   END AS regional_center,
   stiftun8_iZivi.zivis.bemerkung AS internal_note
 FROM stiftun8_iZivi.accounts INNER JOIN stiftun8_iZivi.zivis
-  ON stiftun8_iZivi.zivis.id=stiftun8_iZivi.accounts.username WHERE stiftun8_iZivi.zivis.city != '');
+  ON stiftun8_iZivi.zivis.id=stiftun8_iZivi.accounts.username INNER JOIN stiftun8_iZivi.groupaccounts ON stiftun8_iZivi.accounts.accountid=stiftun8_iZivi.groupaccounts.accountid WHERE stiftun8_iZivi.zivis.city != '' GROUP BY stiftun8_iZivi.accounts.accountid);
 
 
 INSERT INTO izivi.specifications (id, name, short_name, working_clothes_payment, working_clothes_expense, working_breakfast_expenses, working_lunch_expenses, working_dinner_expenses, sparetime_breakfast_expenses, sparetime_lunch_expenses, sparetime_dinner_expenses, firstday_breakfast_expenses, firstday_lunch_expenses, firstday_dinner_expenses, lastday_breakfast_expenses, lastday_lunch_expenses, lastday_dinner_expenses, working_time_model, working_time_weekly, accommodation, pocket, manual_file, active) (

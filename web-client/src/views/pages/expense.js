@@ -4,6 +4,8 @@ import Card from '../tags/card';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
+import LoadingView from '../tags/loading-view';
+import Header from '../tags/header';
 
 export default class MissionOverview extends Component {
   constructor(props) {
@@ -28,16 +30,19 @@ export default class MissionOverview extends Component {
       name: '',
       start: '',
       end: '',
+      loading: true,
+      error: null,
     });
     axios
       .get(ApiService.BASE_URL + url, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
       .then(response => {
         this.setState({
           report_sheets: response.data,
+          loading: false,
         });
       })
       .catch(error => {
-        console.log(error);
+        this.setState({ error: error });
       });
   }
 
@@ -106,73 +111,84 @@ export default class MissionOverview extends Component {
     }
 
     return (
-      <div className="page page__expense">
-        <Card>
-          <h1>Spesen</h1>
+      <Header>
+        <div className="page page__expense">
+          <Card>
+            <h1>Spesen</h1>
 
-          <button class="btn btn-primary">Spesenstatistiken</button>
-          <br />
-          <button class="btn btn-primary">Übersicht </button>
-          <button class="btn btn-primary">Übersicht </button>
+            <button class="btn btn-primary">Spesenstatistiken</button>
+            <br />
+            <button class="btn btn-primary">Übersicht </button>
+            <button class="btn btn-primary">Übersicht </button>
 
-          <h2>Meldeblätter-Liste</h2>
-          <button class="btn btn-primary" onClick={() => this.getReportSheets('reportsheet')}>
-            Alle Meldeblätter anzeigen
-          </button>
-          <button class="btn btn-primary" onClick={() => this.getReportSheets('reportsheet/pending')}>
-            Pendente Meldeblätter anzeigen
-          </button>
-          <button class="btn btn-primary" onClick={() => this.getReportSheets('reportsheet/current')}>
-            Aktuelle Meldeblätter anzeigen
-          </button>
+            <h2>Meldeblätter-Liste</h2>
+            <button class="btn btn-primary" onClick={() => this.getReportSheets('reportsheet')}>
+              Alle Meldeblätter anzeigen
+            </button>
+            <button class="btn btn-primary" onClick={() => this.getReportSheets('reportsheet/pending')}>
+              Pendente Meldeblätter anzeigen
+            </button>
+            <button class="btn btn-primary" onClick={() => this.getReportSheets('reportsheet/current')}>
+              Aktuelle Meldeblätter anzeigen
+            </button>
 
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>&nbsp;</th>
-                <th>ZDP</th>
-                <th>Name</th>
-                <th>Von</th>
-                <th>Bis</th>
-                <th />
-                <th />
-              </tr>
-              <tr class="theader">
-                <td>&nbsp;</td>
-                <td>
-                  <input class="SWOInput" name="zdp" size="5" type="text" value={this.state.zdp} oninput={this.handleChange.bind(this)} />
-                </td>
-                <td>
-                  <input
-                    class="SWOInput"
-                    name="name"
-                    size="15"
-                    type="text"
-                    value={this.state.name}
-                    oninput={this.handleChange.bind(this)}
-                  />
-                </td>
-                <td>
-                  <input
-                    class="SWOInput"
-                    name="start"
-                    size="10"
-                    type="date"
-                    value={this.state.start}
-                    oninput={this.handleChange.bind(this)}
-                  />
-                </td>
-                <td>
-                  <input class="SWOInput" name="end" size="10" type="date" value={this.state.end} oninput={this.handleChange.bind(this)} />
-                </td>
-                <td />
-                <td />
-              </tr>
-            </thead>
-            <tbody>{tableBody}</tbody>
-          </table>
-        </Card>
-      </div>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>&nbsp;</th>
+                  <th>ZDP</th>
+                  <th>Name</th>
+                  <th>Von</th>
+                  <th>Bis</th>
+                  <th />
+                  <th />
+                </tr>
+                <tr class="theader">
+                  <td>&nbsp;</td>
+                  <td>
+                    <input class="SWOInput" name="zdp" size="5" type="text" value={this.state.zdp} oninput={this.handleChange.bind(this)} />
+                  </td>
+                  <td>
+                    <input
+                      class="SWOInput"
+                      name="name"
+                      size="15"
+                      type="text"
+                      value={this.state.name}
+                      oninput={this.handleChange.bind(this)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      class="SWOInput"
+                      name="start"
+                      size="10"
+                      type="date"
+                      value={this.state.start}
+                      oninput={this.handleChange.bind(this)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      class="SWOInput"
+                      name="end"
+                      size="10"
+                      type="date"
+                      value={this.state.end}
+                      oninput={this.handleChange.bind(this)}
+                    />
+                  </td>
+                  <td />
+                  <td />
+                </tr>
+              </thead>
+              <tbody>{tableBody}</tbody>
+            </table>
+          </Card>
+
+          <LoadingView loading={this.state.loading} error={this.state.error} />
+        </div>
+      </Header>
     );
   }
 }
