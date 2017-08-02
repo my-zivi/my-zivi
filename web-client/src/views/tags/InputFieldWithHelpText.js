@@ -9,7 +9,15 @@ export default class InputFieldWithHelpText extends InputField {
     let inputType = this.lookForInputType(this.props.inputType);
 
     return this.getFormGroup(
-      <input type={inputType} id={this.props.id} value={this.props.value} className="form-control" disabled={this.props.disabled} />,
+      <input
+        type={inputType}
+        id={this.props.id}
+        name={this.props.id}
+        value={this.props.value}
+        className="form-control"
+        onChange={e => this.props.self.handleChange(e)}
+        disabled={this.props.disabled}
+      />,
 
       <div id={'_help' + this.props.id} className="col-sm-1">
         <a href="#" data-toggle="popover" title={this.props.label} data-content={this.props.popoverText}>

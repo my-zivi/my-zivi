@@ -74,8 +74,35 @@ $api->version('v1', function ($api) {
             App\User::destroy($id);
             return response("deleted");
         });
-        $api->post('/user', function ($id) {
-            return 'POST: '.$id;
+        $api->post('/user/{id}', function ($id) {
+            $user = App\User::find($id);
+            $user->created_at = Input::get("created_at", "");
+            $user->updated_at = Input::get("updated_at", "");
+            $user->deleted_at = Input::get("deleted_at", "");
+            $user->email = Input::get("email", "");
+            $user->role = Input::get("role", "");
+            $user->zdp = Input::get("zdp", "");
+            $user->first_name = Input::get("first_name", "");
+            $user->last_name = Input::get("last_name", "");
+            $user->address = Input::get("address", "");
+            $user->city = Input::get("city", "");
+            $user->hometown = Input::get("hometown", "");
+            $user->hometown_canton = Input::get("hometown_canton", "");
+            $user->canton = Input::get("canton", "");
+            $user->birthday = Input::get("birthday", "");
+            $user->phone_mobile = Input::get("phone_mobile", "");
+            $user->phone_private = Input::get("phone_private", "");
+            $user->phone_business = Input::get("phone_business", "");
+            $user->bank_iban = Input::get("bank_iban", "");
+            $user->post_account = Input::get("post_account", "");
+            $user->work_experience = Input::get("work_experience", "");
+            $user->driving_licence = Input::get("driving_licence", "");
+            $user->travel_card = Input::get("travel_card", "");
+            $user->regional_center = Input::get("regional_center", "");
+            $user->internal_note = Input::get("internal_note", "");
+            //$user->zip = Input::get("zip", "");
+            $user->save();
+            return response("updated");
         });
 
         // Specification (Pflichtenheft)

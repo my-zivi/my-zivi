@@ -66,6 +66,11 @@ class User extends Model implements
         return $this->hasMany('report_sheets', 'user');
     }
 
+    public function canton()
+    {
+        return $this->belongsTo('App\Canton', 'canton');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
