@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Support\Facades\Input;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 $api = $app->make(Dingo\Api\Routing\Router::class);
@@ -83,6 +84,60 @@ $api->version('v1', function ($api) {
         });
         $api->get('/specification/{id}', function ($id) {
             return response()->json(App\Specification::find($id));
+        });
+        $api->post('/specification/{id}', function ($id) {
+            $spec = App\Specification::find($id);
+            $spec->accommodation = Input::get("accommodation", "");
+            $spec->active = Input::get("active", "");
+            $spec->firstday_breakfast_expenses = Input::get("firstday_breakfast_expenses", "");
+            $spec->firstday_dinner_expenses = Input::get("firstday_dinner_expenses", "");
+            $spec->firstday_lunch_expenses = Input::get("firstday_lunch_expenses", "");
+            $spec->lastday_breakfast_expenses = Input::get("lastday_breakfast_expenses", "");
+            $spec->lastday_dinner_expenses = Input::get("lastday_dinner_expenses", "");
+            $spec->lastday_lunch_expenses = Input::get("lastday_lunch_expenses", "");
+            $spec->name = Input::get("name", "");
+            $spec->pocket = Input::get("pocket", "");
+            $spec->short_name = Input::get("short_name", "");
+            $spec->sparetime_breakfast_expenses = Input::get("sparetime_breakfast_expenses", "");
+            $spec->sparetime_dinner_expenses = Input::get("sparetime_dinner_expenses", "");
+            $spec->sparetime_lunch_expenses = Input::get("sparetime_lunch_expenses", "");
+            $spec->working_breakfast_expenses = Input::get("working_breakfast_expenses", "");
+            $spec->working_clothes_expense = Input::get("working_clothes_expense", "");
+            $spec->working_clothes_payment = Input::get("working_clothes_payment", "");
+            $spec->working_dinner_expenses = Input::get("working_dinner_expenses", "");
+            $spec->working_lunch_expenses = Input::get("working_lunch_expenses", "");
+            $spec->working_time_model = Input::get("working_time_model", "");
+            $spec->working_time_weekly = Input::get("working_time_weekly", "");
+            $spec->save();
+            return response("updated");
+        });
+
+        $api->put('/specification/{id}', function ($id) {
+            $spec = new App\Specification();
+            $spec->id = $id;
+            $spec->accommodation = Input::get("accommodation", "");
+            $spec->active = Input::get("active", "");
+            $spec->firstday_breakfast_expenses = Input::get("firstday_breakfast_expenses", "");
+            $spec->firstday_dinner_expenses = Input::get("firstday_dinner_expenses", "");
+            $spec->firstday_lunch_expenses = Input::get("firstday_lunch_expenses", "");
+            $spec->lastday_breakfast_expenses = Input::get("lastday_breakfast_expenses", "");
+            $spec->lastday_dinner_expenses = Input::get("lastday_dinner_expenses", "");
+            $spec->lastday_lunch_expenses = Input::get("lastday_lunch_expenses", "");
+            $spec->name = Input::get("name", "");
+            $spec->pocket = Input::get("pocket", "");
+            $spec->short_name = Input::get("short_name", "");
+            $spec->sparetime_breakfast_expenses = Input::get("sparetime_breakfast_expenses", "");
+            $spec->sparetime_dinner_expenses = Input::get("sparetime_dinner_expenses", "");
+            $spec->sparetime_lunch_expenses = Input::get("sparetime_lunch_expenses", "");
+            $spec->working_breakfast_expenses = Input::get("working_breakfast_expenses", "");
+            $spec->working_clothes_expense = Input::get("working_clothes_expense", "");
+            $spec->working_clothes_payment = Input::get("working_clothes_payment", "");
+            $spec->working_dinner_expenses = Input::get("working_dinner_expenses", "");
+            $spec->working_lunch_expenses = Input::get("working_lunch_expenses", "");
+            $spec->working_time_model = Input::get("working_time_model", "");
+            $spec->working_time_weekly = Input::get("working_time_weekly", "");
+            $spec->save();
+            return response("inserted");
         });
 
         // Holiday Type
