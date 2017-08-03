@@ -240,7 +240,7 @@ $api->version('v1', function ($api) {
         // Reportsheet
         $api->get('/reportsheet', function () {
             return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'report_sheets.id AS id')
+                ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
                 ->orderBy('start')
                 ->orderBy('end')
                 ->orderBy('zdp')
@@ -249,7 +249,7 @@ $api->version('v1', function ($api) {
 
         $api->get('/reportsheet/pending', function () {
             return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'report_sheets.id AS id')
+                ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
                 ->where('done', '=', '0')
                 ->orderBy('start')
                 ->orderBy('end')
@@ -259,7 +259,7 @@ $api->version('v1', function ($api) {
 
         $api->get('/reportsheet/current', function () {
             return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'report_sheets.id AS id')
+                ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
                 ->whereDate('start', '>=', date('Y-m-01'))
                 ->whereDate('end', '<', date('Y-m-d', strtotime('first day of next month')))
                 ->orderBy('start')
