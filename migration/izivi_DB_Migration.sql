@@ -1,4 +1,4 @@
-INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, email,  password, role,  zdp,  first_name,  last_name,  address,  city,  hometown,  hometown_canton,  canton,  birthday,  phone_mobile,  phone_private,  phone_business,  bank_iban,  post_account,  work_experience,  driving_licence,  travel_card,  regional_center,  internal_note) (SELECT
+INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, email,  password, role,  zdp,  first_name,  last_name,  address,  zip, city,  hometown,  hometown_canton,  canton,  birthday,  phone_mobile,  phone_private,  phone_business,  bank_iban,  post_account,  work_experience,  driving_licence,  travel_card,  regional_center,  internal_note) (SELECT
   NULL AS created_at,
   NULL AS updated_at,
   NULL AS deleted_at,
@@ -16,19 +16,56 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
   END AS email,
   stiftun8_iZivi.accounts.password AS password,
   CASE
-    WHEN MIN(stiftun8_iZivi.groupaccounts.groupid)=1
+    WHEN stiftun8_iZivi.accounts.accountid=50
      THEN 1
+    WHEN stiftun8_iZivi.accounts.accountid=313
+     THEN 1
+    WHEN stiftun8_iZivi.accounts.accountid=538
+     THEN 1
+    WHEN stiftun8_iZivi.accounts.accountid=572
+     THEN 1
+    WHEN stiftun8_iZivi.accounts.accountid=591
+     THEN 1
+    WHEN stiftun8_iZivi.accounts.accountid=592
+     THEN 1
+    WHEN stiftun8_iZivi.accounts.accountid=618
+     THEN 1
+    WHEN stiftun8_iZivi.accounts.accountid=622
+     THEN 1
+    WHEN stiftun8_iZivi.accounts.accountid=107 #guest
+     THEN 2
+    WHEN stiftun8_iZivi.accounts.accountid=557 #guest
+     THEN 2
    ELSE 3
   END AS role,
   stiftun8_iZivi.accounts.username AS zdp,
   stiftun8_iZivi.accounts.firstname AS first_name,
   stiftun8_iZivi.accounts.lastname AS last_name,
-  stiftun8_iZivi.zivis.street AS address,
+  CASE
+    WHEN stiftun8_iZivi.zivis.street = ''
+      THEN 'NO_Street'
+    WHEN stiftun8_iZivi.zivis.street IS NULL
+      THEN 'NULL_Street'
+    ELSE stiftun8_iZivi.zivis.street
+  END AS address,
+  CASE
+    WHEN stiftun8_iZivi.zivis.zip = ''
+      THEN 0000
+    WHEN stiftun8_iZivi.zivis.zip IS NULL
+      THEN 0000
+    ELSE stiftun8_iZivi.zivis.zip
+  END AS zip,
   CASE
     WHEN stiftun8_iZivi.zivis.city != ''
       THEN trim(stiftun8_iZivi.zivis.city) ELSE 'NoCity'
   END,
-  stiftun8_iZivi.zivis.hometown AS hometown,
+  CASE
+    WHEN stiftun8_iZivi.zivis.hometown = ''
+      THEN 'NO_Hometown'
+    WHEN stiftun8_iZivi.zivis.hometown IS NULL
+      THEN 'NULL_Hometown'
+    ELSE stiftun8_iZivi.zivis.hometown
+  END AS hometown,
   CASE
     WHEN stiftun8_iZivi.zivis.hometown_canton = 'ZH'
       THEN 1
@@ -88,11 +125,35 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
     WHEN stiftun8_iZivi.zivis.dateofbirth IS NOT NULL AND stiftun8_iZivi.zivis.dateofbirth != 0
       THEN stiftun8_iZivi.zivis.dateofbirth ELSE NOW()
   END AS birthday,
-  stiftun8_iZivi.zivis.phoneM AS phone_mobile,
-  stiftun8_iZivi.zivis.phoneP AS phone_private,
-  stiftun8_iZivi.zivis.phoneG AS phone_business,
+  CASE
+    WHEN stiftun8_iZivi.zivis.phoneM = ''
+      THEN 0000000000
+    WHEN stiftun8_iZivi.zivis.phoneM IS NULL
+      THEN 0000000000
+    ELSE stiftun8_iZivi.zivis.phoneM
+  END AS phone_mobile,
+  CASE
+    WHEN stiftun8_iZivi.zivis.phoneP = ''
+      THEN 0000000000
+    WHEN stiftun8_iZivi.zivis.phoneP IS NULL
+      THEN 0000000000
+    ELSE stiftun8_iZivi.zivis.phoneP
+  END AS phone_private,
+  CASE
+    WHEN stiftun8_iZivi.zivis.phoneG = ''
+      THEN 0000000000
+    WHEN stiftun8_iZivi.zivis.phoneG IS NULL
+      THEN 0000000000
+    ELSE stiftun8_iZivi.zivis.phoneG
+  END AS phone_business,
   '' AS bank_iban,
-  stiftun8_iZivi.zivis.bank_post_account_no AS post_account,
+  CASE
+    WHEN stiftun8_iZivi.zivis.bank_post_account_no = ''
+      THEN 0
+    WHEN stiftun8_iZivi.zivis.bank_post_account_no IS NULL
+      THEN 0
+    ELSE stiftun8_iZivi.zivis.bank_post_account_no
+  END AS post_account,
   stiftun8_iZivi.zivis.berufserfahrung AS work_experience,
   stiftun8_iZivi.zivis.fahrausweis AS driving_licence,
   concat(stiftun8_iZivi.zivis.ga, ' ', stiftun8_iZivi.zivis.halbtax ,' ', stiftun8_iZivi.zivis.anderesAbo) AS travel_card,
@@ -109,11 +170,15 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
       THEN 5 #Luzern gibt es nicht mehr als Zentrum! alles nach Araau
    ELSE 1
   END AS regional_center,
-  stiftun8_iZivi.zivis.bemerkung AS internal_note
+  CASE
+    WHEN stiftun8_iZivi.zivis.bemerkung = ''
+      THEN 'NO_Note'
+    WHEN stiftun8_iZivi.zivis.bemerkung IS NULL
+      THEN 'NULL_Note'
+    ELSE stiftun8_iZivi.zivis.bemerkung
+  END AS internal_note
 FROM stiftun8_iZivi.accounts
-  INNER JOIN stiftun8_iZivi.zivis ON stiftun8_iZivi.zivis.id=stiftun8_iZivi.accounts.username
-  INNER JOIN stiftun8_iZivi.groupaccounts ON stiftun8_iZivi.accounts.accountid=stiftun8_iZivi.groupaccounts.accountid WHERE stiftun8_iZivi.zivis.city != '' GROUP BY stiftun8_iZivi.accounts.accountid);
-
+  LEFT JOIN stiftun8_iZivi.zivis ON stiftun8_iZivi.zivis.id=stiftun8_iZivi.accounts.username);
 
 INSERT INTO izivi.specifications (id, name, short_name, working_clothes_payment, working_clothes_expense, working_breakfast_expenses, working_lunch_expenses, working_dinner_expenses, sparetime_breakfast_expenses, sparetime_lunch_expenses, sparetime_dinner_expenses, firstday_breakfast_expenses, firstday_lunch_expenses, firstday_dinner_expenses, lastday_breakfast_expenses, lastday_lunch_expenses, lastday_dinner_expenses, working_time_model, working_time_weekly, accommodation, pocket, manual_file, active) (
 Select

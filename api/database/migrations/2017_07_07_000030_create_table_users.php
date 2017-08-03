@@ -26,6 +26,7 @@ class CreateTableUsers extends Migration
             $table->string('first_name')->nullable(false);
             $table->string('last_name')->nullable(false);
             $table->string('address');
+            $table->integer('zip');
             $table->string('city');
             $table->string('hometown');
             $table->integer('hometown_canton')->unsigned()->nullable();
