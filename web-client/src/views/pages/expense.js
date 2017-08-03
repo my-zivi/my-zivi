@@ -17,6 +17,10 @@ export default class MissionOverview extends Component {
       name: '',
       start: '',
       end: '',
+
+      time_type: 0,
+      time_year: new Date().getFullYear(),
+      showOnlyDoneSheets: 1,
     };
   }
 
@@ -47,26 +51,57 @@ export default class MissionOverview extends Component {
   }
 
   handleChange(e) {
-    switch (e.target.name) {
-      case 'zdp':
-        this.setState({ zdp: e.target.value });
-        break;
-      case 'name':
-        this.setState({ name: e.target.value });
-        break;
-      case 'start':
-        this.setState({ start: e.target.value });
-        break;
-      case 'end':
-        this.setState({ end: e.target.value });
-        break;
-      case 'group':
-        this.setState({ group: e.target.value });
-        break;
-      default:
-        console.log('Element not found for setting.');
-    }
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    this.state[e.target.name] = value;
+    this.setState(this.state);
   }
+
+  showStatsExtended(showDetails) {
+    this.showStats(
+      this.state.time_type,
+      showDetails,
+      this.state.showOnlyDoneSheets,
+      this.state.time_year,
+      this.state.time_from,
+      this.state.time_to
+    );
+  }
+
+  showStats(time_type, showDetails, showOnlyDoneSheets, time_year, time_from, time_to) {
+    this.setState({ loading: true, error: null });
+    axios
+      .get(
+        ApiService.BASE_URL +
+          'pdf/statistik?time_type=' +
+          time_type +
+          '&showDetails=' +
+          showDetails +
+          '&showOnlyDoneSheets=' +
+          showOnlyDoneSheets +
+          '&time_year=' +
+          time_year +
+          '&time_from=' +
+          time_from +
+          '&time_to=' +
+          time_to,
+        {
+          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+          responseType: 'blob',
+        }
+      )
+      .then(response => {
+        this.setState({
+          loading: false,
+        });
+        let blob = new Blob([response.data], { type: 'application/pdf' });
+        window.location = window.URL.createObjectURL(blob);
+      })
+      .catch(error => {
+        this.setState({ error: error });
+      });
+  }
+
+  monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 
   render() {
     var tableBody = [];
@@ -110,16 +145,163 @@ export default class MissionOverview extends Component {
       even = !even;
     }
 
+    var prevMonthDate = new Date();
+    prevMonthDate.setMonth(prevMonthDate.getMonth() - 1);
+    var curMonthDate = new Date();
+
+    var yearoptions = [];
+    for (var i = 2005; i < curMonthDate.getFullYear() + 3; i++) {
+      yearoptions.push(<option value={i}>{i}</option>);
+    }
+
     return (
       <Header>
         <div className="page page__expense">
           <Card>
             <h1>Spesen</h1>
 
-            <button class="btn btn-primary">Spesenstatistiken</button>
-            <br />
-            <button class="btn btn-primary">Übersicht </button>
-            <button class="btn btn-primary">Übersicht </button>
+            <button class="btn btn-primary" onclick={() => this.showStats(3, 1)}>
+              Übersicht {this.monthNames[prevMonthDate.getMonth()]}
+            </button>
+            <button class="btn btn-primary" onclick={() => this.showStats(2, 1)}>
+              Übersicht {this.monthNames[curMonthDate.getMonth()]}
+            </button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+              Erweitert
+            </button>
+
+            <div id="myModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                      &times;
+                    </button>
+                    <h4 class="modal-title">Spesenstatistik erstellen</h4>
+                  </div>
+                  <div class="modal-body">
+                    <label>
+                      <input
+                        type="radio"
+                        name="time_type"
+                        value="0"
+                        defaultChecked="true"
+                        onchange={e => {
+                          this.handleChange(e);
+                        }}
+                      />{' '}
+                      Jahr:&nbsp;
+                    </label>
+                    <select
+                      name="time_year"
+                      defaultValue={curMonthDate.getFullYear()}
+                      onchange={e => {
+                        this.handleChange(e);
+                      }}
+                    >
+                      {yearoptions}
+                    </select>
+                    <br />
+                    <label>
+                      <input
+                        type="radio"
+                        name="time_type"
+                        value="1"
+                        onchange={e => {
+                          this.handleChange(e);
+                        }}
+                      />{' '}
+                      Periode:&nbsp;
+                    </label>
+                    <input
+                      type="date"
+                      name="time_from"
+                      onchange={e => {
+                        this.handleChange(e);
+                      }}
+                    />{' '}
+                    -{' '}
+                    <input
+                      type="date"
+                      name="time_to"
+                      onchange={e => {
+                        this.handleChange(e);
+                      }}
+                    />
+                    <br />
+                    <label>
+                      <input
+                        type="radio"
+                        name="time_type"
+                        value="2"
+                        onchange={e => {
+                          this.handleChange(e);
+                        }}
+                      />{' '}
+                      {this.monthNames[curMonthDate.getMonth()]} {curMonthDate.getFullYear()}
+                    </label>
+                    <br />
+                    <label>
+                      <input
+                        type="radio"
+                        name="time_type"
+                        value="3"
+                        onchange={e => {
+                          this.handleChange(e);
+                        }}
+                      />{' '}
+                      {this.monthNames[prevMonthDate.getMonth()]} {prevMonthDate.getFullYear()}
+                    </label>
+                    <br />
+                    <br />
+                    <label>
+                      <input
+                        type="radio"
+                        name="showOnlyDoneSheets"
+                        value="1"
+                        defaultChecked="true"
+                        onchange={e => {
+                          this.handleChange(e);
+                        }}
+                      />{' '}
+                      Erledigte Meldeblätter
+                    </label>
+                    <br />
+                    <label>
+                      <input
+                        type="radio"
+                        name="showOnlyDoneSheets"
+                        value="0"
+                        onchange={e => {
+                          this.handleChange(e);
+                        }}
+                      />{' '}
+                      Alle Meldeblätter
+                    </label>
+                    <br />
+                    <br />
+                    <button
+                      data-dismiss="modal"
+                      onClick={() => {
+                        this.showStatsExtended(0);
+                      }}
+                      class="btn btn-primary"
+                    >
+                      Gesamtstatistik
+                    </button>
+                    <button
+                      data-dismiss="modal"
+                      onClick={() => {
+                        this.showStatsExtended(1);
+                      }}
+                      class="btn btn-primary"
+                    >
+                      Detailübersicht
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <h2>Meldeblätter-Liste</h2>
             <button class="btn btn-primary" onClick={() => this.getReportSheets('reportsheet')}>
