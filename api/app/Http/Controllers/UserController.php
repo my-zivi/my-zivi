@@ -31,8 +31,8 @@ class UserController extends BaseController
             ->select('users.id', 'users.zdp', 'users.first_name', 'users.last_name', 'users.work_experience', 'roles.name AS role', 'roles.id AS role_id')
             ->selectRaw('max(missions.start) AS start')
             ->selectRaw('max(missions.end) AS end')
-            ->orderBy('start')
-            ->orderBy('end')
+            ->orderBy('start', 'DESC')
+            ->orderBy('end', 'DESC')
             ->orderBy('users.last_name')
             ->get();
         /*
