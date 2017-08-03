@@ -5,6 +5,7 @@ import InputField from '../tags/InputField';
 import InputFieldWithHelpText from '../tags/InputFieldWithHelpText';
 import InputCheckbox from '../tags/InputCheckbox';
 import DatePicker from '../tags/DatePicker';
+import Cantons from '../tags/Cantons';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
@@ -40,23 +41,8 @@ export default class User extends Component {
   }
 
   renderCantons() {
-    var options = [];
-    options.push(<option value="" />);
-
-    for (let i = 0; i < this.state.cantons.length; i++) {
-      let isSelected = false;
-      if (parseInt(this.state.result['canton']) == i + 1) {
-        isSelected = true;
-      }
-
-      options.push(
-        <option value={this.state.cantons[i].id} selected={isSelected}>
-          {this.state.cantons[i].short_name}
-        </option>
-      );
-    }
-
-    return options;
+    let cantons = new Cantons();
+    return cantons.renderCantons(this.state);
   }
 
   getUser() {
