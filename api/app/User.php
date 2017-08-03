@@ -30,6 +30,7 @@ class User extends Model implements
         'email',
         'role',
         'address',
+        'zip',
         'city',
         'canton',
         'birthday',
