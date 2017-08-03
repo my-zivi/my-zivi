@@ -267,21 +267,33 @@ class ReportSheet extends Model
         $reportSheet['total_arbeitskleider'] = $reportSheet['meldeblaetter_kleider'];
         $reportSheet['add_workfree'] = $reportSheet['meldeblaetter_add_workfree'];
 
-        $sparetime_sum = ($reportSheet['pflichtenheft_pocket'] +
+        $reportSheet['sparetime_sum'] = ($reportSheet['pflichtenheft_pocket'] +
                             $reportSheet['pflichtenheft_accommodation'] +
                             $reportSheet['pflichtenheft_sparetime_breakfast_expenses'] +
                             $reportSheet['pflichtenheft_sparetime_lunch_expenses'] +
                             $reportSheet['pflichtenheft_sparetime_dinner_expenses']) / 100;
-        $reportSheet['total_ill'] = PDF::getRoundedRappen($reportSheet['krankheitstage'] * $sparetime_sum);
+        $reportSheet['total_ill'] = PDF::getRoundedRappen($reportSheet['krankheitstage'] * $reportSheet['sparetime_sum']);
 
-        $workday_sum =   ($reportSheet['pflichtenheft_pocket'] +
+        $reportSheet['workday_sum'] =   ($reportSheet['pflichtenheft_pocket'] +
                             $reportSheet['pflichtenheft_accommodation'] +
                             $reportSheet['pflichtenheft_working_breakfast_expenses'] +
                             $reportSheet['pflichtenheft_working_lunch_expenses'] +
                             $reportSheet['pflichtenheft_working_dinner_expenses']) / 100;
-        $reportSheet['total_workdays'] = PDF::getRoundedRappen($reportSheet['arbeitstage'] * $workday_sum);
-        $reportSheet['total_workfree'] = PDF::getRoundedRappen($reportSheet['arbeitsfreie_tage'] * $sparetime_sum);
-        $reportSheet['total_holiday'] = PDF::getRoundedRappen($reportSheet['ferientage'] * $sparetime_sum);
+
+        $reportSheet['firstday_sum'] = ($reportSheet['pflichtenheft_pocket'] +
+                $reportSheet['pflichtenheft_accommodation'] +
+                $reportSheet['pflichtenheft_firstday_breakfast_expenses'] +
+                $reportSheet['pflichtenheft_firstday_lunch_expenses'] +
+                $reportSheet['pflichtenheft_firstday_dinner_expenses']) / 100;
+        $reportSheet['lastday_sum'] = ($reportSheet['pflichtenheft_pocket'] +
+                $reportSheet['pflichtenheft_accommodation'] +
+                $reportSheet['pflichtenheft_lastday_breakfast_expenses'] +
+                $reportSheet['pflichtenheft_lastday_lunch_expenses'] +
+                $reportSheet['pflichtenheft_lastday_dinner_expenses']) / 100;
+
+        $reportSheet['total_workdays'] = PDF::getRoundedRappen($reportSheet['arbeitstage'] * $reportSheet['workday_sum']);
+        $reportSheet['total_workfree'] = PDF::getRoundedRappen($reportSheet['arbeitsfreie_tage'] * $reportSheet['sparetime_sum']);
+        $reportSheet['total_holiday'] = PDF::getRoundedRappen($reportSheet['ferientage'] * $reportSheet['sparetime_sum']);
         $reportSheet['total_fahrspesen'] = PDF::getRoundedRappen($reportSheet['meldeblaetter_fahrspesen']);
         $reportSheet['total_ausserordentlich'] = PDF::getRoundedRappen($reportSheet['meldeblaetter_ausserordentlich']);
 
