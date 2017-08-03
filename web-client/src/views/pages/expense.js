@@ -104,7 +104,7 @@ export default class MissionOverview extends Component {
           <td>
             <a href={'/expense/' + sheets[i].id}>Spesen bearbeiten</a>
           </td>
-          <td>{sheets[i].done ? <img border="0" src="images/ok.png" /> : ''}</td>
+          <td>{sheets[i].done ? <span class="glyphicon glyphicon-ok" style="color:green" /> : ''}</td>
         </tr>
       );
       even = !even;
