@@ -86,6 +86,7 @@ $api->version('v1', function ($api) {
             $user->last_name = Input::get("last_name", "");
             $user->address = Input::get("address", "");
             $user->city = Input::get("city", "");
+            $user->zip = Input::get("zip", "");
             $user->hometown = Input::get("hometown", "");
             $user->hometown_canton = Input::get("hometown_canton", "");
             $user->canton = Input::get("canton", "");
@@ -100,7 +101,6 @@ $api->version('v1', function ($api) {
             $user->travel_card = Input::get("travel_card", "");
             $user->regional_center = Input::get("regional_center", "");
             $user->internal_note = Input::get("internal_note", "");
-            //$user->zip = Input::get("zip", "");
             $user->save();
             return response("updated");
         });

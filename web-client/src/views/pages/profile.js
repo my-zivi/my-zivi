@@ -55,8 +55,6 @@ export default class User extends Component {
     let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     this.state['result'][e.target.name] = value;
     this.setState(this.state);
-
-    console.log(value);
   }
 
   handleDateChange(e, origin) {
@@ -118,6 +116,7 @@ export default class User extends Component {
                 <InputField id="last_name" label="Nachname" value={result.last_name} self={this} />
                 <InputField id="address" label="Strasse" value={result.address} self={this} />
                 <InputField id="city" label="Ort" value={result.city} self={this} />
+                <InputField id="zip" label="PLZ" value={result.zip} self={this} />
                 <DatePicker
                   id="birthday"
                   label="Geburtstag"
