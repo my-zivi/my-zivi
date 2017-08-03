@@ -20,29 +20,17 @@ export default class User extends Component {
       result: [],
       cantons: [],
     };
+
+    this.cantonTag = new Cantons();
   }
 
   componentDidMount() {
     this.getUser();
-    this.getCantons();
-  }
-
-  getCantons() {
-    axios
-      .get(ApiService.BASE_URL + 'canton', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
-      .then(response => {
-        this.setState({
-          cantons: response.data,
-        });
-      })
-      .catch(error => {
-        this.setState({ error: error });
-      });
+    this.cantonTag.getCantons(this);
   }
 
   renderCantons() {
-    let cantons = new Cantons();
-    return cantons.renderCantons(this.state);
+    return this.cantonTag.renderCantons(this.state);
   }
 
   getUser() {
