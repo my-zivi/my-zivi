@@ -6,18 +6,16 @@ import InputField from '../tags/InputField';
 
 export default class DatePicker extends InputField {
   static dateFormat_EN2CH(value) {
-    let dateArray = value.split('-');
-    return dateArray[2] + '.' + dateArray[1] + '.' + dateArray[0];
+    return moment(value).format('DD.MM.YYYY');
   }
 
   static dateFormat_CH2EN(value) {
-    let dateArray = value.split('.');
-    return dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0];
+    return moment(value, 'DD.MM.YYYY').format('YYYY-MM-DD');
   }
 
   render() {
     let dateValue = this.props.value;
-    if (this.props.value === undefined || parseInt(this.props.value) == 0) {
+    if (dateValue === undefined || parseInt(dateValue) == 0) {
       dateValue = null;
     } else {
       dateValue = DatePicker.dateFormat_EN2CH(this.props.value);
@@ -31,7 +29,7 @@ export default class DatePicker extends InputField {
           id={this.props.id}
           name={this.props.id}
           value={dateValue}
-          onChange={e => this.props.self.handleDateChange(e)}
+          onChange={e => this.props.callback(e, this.props.callbackOrigin)}
         />
         <span class="input-group-addon add-on">
           <span class="glyphicon glyphicon-calendar" />

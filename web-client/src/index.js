@@ -56,6 +56,7 @@ $(document).ready(function() {
   defaultDate.setFullYear(defaultDate.getFullYear() - 25);
 
   $('.datePicker').datepicker({
+    //format: 'yyyy-mm-dd',
     format: 'dd.mm.yyyy',
     autoclose: true,
     startView: 'decade',
