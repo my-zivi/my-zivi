@@ -46,4 +46,30 @@ $(document).ready(function() {
 
   // Set Popover trigger mode to hover instead of click
   $('[data-toggle="popover"]').popover({ trigger: 'hover', container: 'body' });
+
+  /*$('.datepicker').datepicker({
+        format: 'mm/dd/yyyy',
+        startDate: '-3d'
+    });*/
+
+  var defaultDate = new Date(2012, 7, 25);
+  defaultDate.setFullYear(defaultDate.getFullYear() - 25);
+
+  $('.datePicker').datepicker({
+    format: 'dd.mm.yyyy',
+    autoclose: true,
+    startView: 'decade',
+  });
+  /*
+    $('.datepicker')
+        .datepicker({
+            format: 'mm/dd/yyyy'
+        })
+        .on('changeDate', function(e) {
+            // Set the value for the date input
+            $(".selectedDate").val($(".datepicker").datepicker('getFormattedDate'));
+
+            // Revalidate it
+            //$('.eventForm').formValidation('revalidateField', 'selectedDate');
+        });*/
 });

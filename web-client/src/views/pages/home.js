@@ -10,7 +10,7 @@ export default function(props) {
         <Card>
           <h1>iZivi</h1>
           <br />
-          <p>iZivi ist ein Tool zur Erfassung und Planung von Zivis.</p>
+          <p>iZivi ist ein Tool zur Erfassung und Planung von Zivi-Einsätzen.</p>
           <p>
             Wähle einen der Menupunkte (oben) aus, um dich einzuloggen. Bist du ein Zivi der seinen Einsatz beim uns eintragen will so musst
             du zuerst ein Benutzerkonto erstellen. Mache dies indem du auf den Menüpunkt Account erstellen klickst.
