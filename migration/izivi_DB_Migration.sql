@@ -110,8 +110,9 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
    ELSE 1
   END AS regional_center,
   stiftun8_iZivi.zivis.bemerkung AS internal_note
-FROM stiftun8_iZivi.accounts INNER JOIN stiftun8_iZivi.zivis
-  ON stiftun8_iZivi.zivis.id=stiftun8_iZivi.accounts.username INNER JOIN stiftun8_iZivi.groupaccounts ON stiftun8_iZivi.accounts.accountid=stiftun8_iZivi.groupaccounts.accountid WHERE stiftun8_iZivi.zivis.city != '' GROUP BY stiftun8_iZivi.accounts.accountid);
+FROM stiftun8_iZivi.accounts
+  INNER JOIN stiftun8_iZivi.zivis ON stiftun8_iZivi.zivis.id=stiftun8_iZivi.accounts.username
+  INNER JOIN stiftun8_iZivi.groupaccounts ON stiftun8_iZivi.accounts.accountid=stiftun8_iZivi.groupaccounts.accountid WHERE stiftun8_iZivi.zivis.city != '' GROUP BY stiftun8_iZivi.accounts.accountid);
 
 
 INSERT INTO izivi.specifications (id, name, short_name, working_clothes_payment, working_clothes_expense, working_breakfast_expenses, working_lunch_expenses, working_dinner_expenses, sparetime_breakfast_expenses, sparetime_lunch_expenses, sparetime_dinner_expenses, firstday_breakfast_expenses, firstday_lunch_expenses, firstday_dinner_expenses, lastday_breakfast_expenses, lastday_lunch_expenses, lastday_dinner_expenses, working_time_model, working_time_weekly, accommodation, pocket, manual_file, active) (
@@ -152,7 +153,7 @@ INSERT INTO izivi.missions (id, created_at, updated_at, deleted_at, user, specif
   NULL AS created_at,
   NULL AS updated_at,
   NULL AS deleted_at,
-  (Select id from users where users.zdp=(CASE
+  (Select id from izivi.users where izivi.users.zdp=(CASE
     WHEN LENGTH(stiftun8_iZivi.einsaetze.ziviId) = 4
       THEN concat('0', stiftun8_iZivi.einsaetze.ziviId)
     ELSE stiftun8_iZivi.einsaetze.ziviId
@@ -186,7 +187,7 @@ INSERT INTO izivi.report_sheets (SELECT
   NULL AS deleted_at,
   stiftun8_iZivi.meldeblaetter.start,
   stiftun8_iZivi.meldeblaetter.end,
-  (Select id from users where users.zdp=(CASE
+  (Select id from izivi.users where izivi.users.zdp=(CASE
     WHEN LENGTH(stiftun8_iZivi.meldeblaetter.ziviId) = 4
       THEN concat('0', stiftun8_iZivi.meldeblaetter.ziviId)
     ELSE stiftun8_iZivi.meldeblaetter.ziviId
@@ -219,8 +220,8 @@ INSERT INTO izivi.report_sheets (SELECT
   stiftun8_iZivi.meldeblaetter.verbucht AS booked_date,
   stiftun8_iZivi.meldeblaetter.bezahlt AS paid_date
   FROM stiftun8_iZivi.meldeblaetter
-    INNER JOIN users ON izivi.users.zdp=stiftun8_iZivi.meldeblaetter.ziviId
-    INNER JOIN missions ON izivi.missions.id=stiftun8_iZivi.meldeblaetter.einsaetze_id);
+    INNER JOIN izivi.users ON izivi.users.zdp=stiftun8_iZivi.meldeblaetter.ziviId
+    INNER JOIN izivi.missions ON izivi.missions.id=stiftun8_iZivi.meldeblaetter.einsaetze_id);
 
 
 INSERT INTO izivi.holidays(date_from, date_to, holiday_type, description)
