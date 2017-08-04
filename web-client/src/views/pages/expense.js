@@ -6,6 +6,7 @@ import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
+import DatePicker from '../tags/DatePicker';
 
 export default class MissionOverview extends Component {
   constructor(props) {
@@ -202,6 +203,7 @@ export default class MissionOverview extends Component {
                       {yearoptions}
                     </select>
                     <br />
+
                     <label>
                       <input
                         type="radio"
@@ -213,22 +215,27 @@ export default class MissionOverview extends Component {
                       />{' '}
                       Periode:&nbsp;
                     </label>
-                    <input
-                      type="date"
-                      name="time_from"
-                      onchange={e => {
+                    <DatePicker
+                      id="time_from"
+                      label="Datum von"
+                      value={new Date()}
+                      callback={e => {
                         this.handleChange(e);
                       }}
-                    />{' '}
-                    -{' '}
-                    <input
-                      type="date"
-                      name="time_to"
-                      onchange={e => {
-                        this.handleChange(e);
-                      }}
+                      callbackOrigin={this}
                     />
+                    <DatePicker
+                      id="time_to"
+                      label="Datum zu"
+                      value={new Date()}
+                      callback={e => {
+                        this.handleChange(e);
+                      }}
+                      callbackOrigin={this}
+                    />
+                    <div id="picker-container" />
                     <br />
+
                     <label>
                       <input
                         type="radio"
@@ -254,6 +261,7 @@ export default class MissionOverview extends Component {
                     </label>
                     <br />
                     <br />
+
                     <label>
                       <input
                         type="radio"
@@ -280,6 +288,7 @@ export default class MissionOverview extends Component {
                     </label>
                     <br />
                     <br />
+
                     <button
                       data-dismiss="modal"
                       onClick={() => {
@@ -372,5 +381,9 @@ export default class MissionOverview extends Component {
         </div>
       </Header>
     );
+  }
+
+  componentDidUpdate() {
+    DatePicker.initializeDatePicker();
   }
 }

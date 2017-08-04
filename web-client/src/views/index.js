@@ -24,6 +24,7 @@ import EditExpense from './pages/edit_expense';
 import Help from './pages/help';
 
 import Error404 from './pages/errors/404';
+import ChangePassword from './pages/changePassword';
 
 const checkToken = ({ props }) => {
   console.log('checkToken called');
@@ -44,6 +45,8 @@ export default (
     <Route path="/logout" component={Logout} />
 
     <Route path="/profile/:userid?" component={Profile} onEnter={authorizedOnly} />
+
+    <Route path="/changePassword" component={ChangePassword} onEnter={authorizedOnly} />
 
     <Route path="/user_list" component={UserList} onEnter={authorizedOnly} />
     <Route path="/user_phone_list" component={UserPhoneList} onEnter={authorizedOnly} />

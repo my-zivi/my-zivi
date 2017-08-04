@@ -13,6 +13,14 @@ export default class DatePicker extends InputField {
     return moment(value, 'DD.MM.YYYY').format('YYYY-MM-DD');
   }
 
+  static initializeDatePicker() {
+    $('.datePicker').datepicker({
+      format: 'dd.mm.yyyy',
+      autoclose: true,
+      startView: 'decade',
+    });
+  }
+
   render() {
     let dateValue = this.props.value;
     if (dateValue === undefined || parseInt(dateValue) == 0) {
