@@ -10,7 +10,6 @@ import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 
-@connect(['accountStore'])
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -31,8 +30,6 @@ export default class Login extends Component {
         password: this.state.password,
       })
       .then(response => {
-        this.props.accountStore.isLoggedIn = true;
-        this.props.accountStore.isAdmin = true;
         localStorage.setItem('jwtToken', response.data.data.token);
         this.context.router.push('/');
       })
