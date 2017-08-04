@@ -382,4 +382,8 @@ export default class MissionOverview extends Component {
       </Header>
     );
   }
+
+  componentDidUpdate() {
+    DatePicker.initializeDatePicker();
+  }
 }

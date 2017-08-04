@@ -239,6 +239,10 @@ export default class User extends Component {
     );
   }
 
+  componentDidUpdate() {
+    DatePicker.initializeDatePicker();
+  }
+
   passwordChangeButton() {
     if (!this.props.params.userid) {
       return (
