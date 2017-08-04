@@ -11,10 +11,12 @@ use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Http\Exception\HttpResponseException;
 
 class AuthController extends Controller
 {
+    const PW_MIN_LENGTH = 7;
+    const PW_LENGTH_TEXT = 'Das Passwort muss aus mindestens '.AuthController::PW_MIN_LENGTH.' Zeichen bestehen!';
+
     /**
      * Handle a login request to the application.
      *
@@ -71,6 +73,9 @@ class AuthController extends Controller
         }
         if ($request->input("password")!=$request->input("password_confirm")) {
             $errors['Passwort'] = 'Passwörter stimmen nicht überein!';
+        }
+        if (strlen($request->input("password")) < AuthController::PW_MIN_LENGTH) {
+            $errors['Passwort'] = AuthController::PW_LENGTH_TEXT;
         }
         if (User::where('email', '=', $request->input("email"))->first()!=null) {
             $errors['E-Mail'] = 'Ein Nutzer für diese E-Mail Adresse existiert bereits!';

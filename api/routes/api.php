@@ -67,6 +67,7 @@ $api->version('v1', function ($api) {
             'uses' => 'App\Http\Controllers\UserController@getZivis',
             'as' => 'api.user.getZivis'
         ]);
+
         $api->get('/user/{id}', function ($id) {
             return response()->json(App\User::find($id));
         });
@@ -104,6 +105,11 @@ $api->version('v1', function ($api) {
             $user->save();
             return response("updated");
         });
+
+        $api->post('/postChangePassword', [
+            'as' => 'api.user.postChangePassword',
+            'uses' => 'App\Http\Controllers\UserController@changePassword'
+        ]);
 
         // Specification (Pflichtenheft)
         $api->get('/specification', function () {
