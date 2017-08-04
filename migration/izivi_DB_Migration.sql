@@ -226,7 +226,7 @@ INSERT INTO izivi.missions (id, created_at, updated_at, deleted_at, user, specif
   stiftun8_iZivi.einsaetze.end AS end,
   CASE
     WHEN stiftun8_iZivi.einsaetze.aufgebot IS NOT NULL AND stiftun8_iZivi.einsaetze.aufgebot != 0
-      THEN stiftun8_iZivi.einsaetze.aufgebot ELSE NOW()
+      THEN stiftun8_iZivi.einsaetze.aufgebot ELSE NULL
   END AS draft,
   stiftun8_iZivi.einsaetze.eligibleholiday AS eligible_holiday,
   CASE

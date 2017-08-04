@@ -23,7 +23,7 @@ class CreateTableMissions extends Migration
             $table->foreign('specification')->references('id')->on('specifications');
             $table->date('start');
             $table->date('end');
-            $table->date('draft'); // "Aufgebot"
+            $table->date('draft')->nullable(); // "Aufgebot"
             $table->integer('eligible_holiday');
             $table->integer('role')->unsigned();
             $table->foreign('role')->references('id')->on('roles');

@@ -29,3 +29,10 @@ blockquote
 	border-left: 4px solid md-color('grey', '200')
 	padding: $base-spacing/2 $base-spacing
 	padding-right: 0
+
+@media print
+	.no-print, .no-print *
+		display: none !important
+
+	a[href]:after
+		content: none !important

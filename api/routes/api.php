@@ -27,11 +27,6 @@ $api->version('v1', function ($api) {
         'uses' => 'App\Http\Controllers\Auth\AuthController@postRegister'
     ]);
 
-    $api->get('/pdf/statistik', [
-        'as' => 'api.pdf',
-        'uses' => 'App\Http\Controllers\PDF\PDFController@getSpesenStatistik'
-    ]);
-
     $api->group([
         'middleware' => 'api.auth',
     ], function ($api) {
@@ -112,7 +107,7 @@ $api->version('v1', function ($api) {
 
         // Specification (Pflichtenheft)
         $api->get('/specification', function () {
-            return response()->json(App\Specification::all());
+            return response()->json(App\Specification::select('*', 'id AS fullId')->get());
         });
         $api->get('/specification/{id}', function ($id) {
             return response()->json(App\Specification::find($id));
@@ -211,11 +206,14 @@ $api->version('v1', function ($api) {
         });
 
         // Mission
-        $api->get('/mission', function () {
-            return response()->json(App\Mission::all());
-        });
-        $api->get('/mission/{id}', function ($id) {
-            return response()->json(App\Mission::find($id));
+        $api->get('/missions/{year}', function ($year) {
+            return response()->json(App\Mission::join('users', 'users.id', '=', 'missions.user')
+                                    ->join('specifications', 'specifications.id', '=', 'missions.specification')
+                                    ->select('*', 'users.id AS userid')
+                                    ->whereDate('end', '>=', $year.'-01-01')
+                                    ->whereDate('start', '<=', $year.'-12-31')
+                                    ->orderBy('start')
+                                    ->get());
         });
 
         // Role
@@ -314,9 +312,15 @@ $api->version('v1', function ($api) {
             'as' => 'api.pdf',
             'uses' => 'App\Http\Controllers\PDF\PDFController@getPhoneList'
         ]);
+
         $api->get('/pdf/zivireportsheet', [
             'as' => 'api.pdf',
             'uses' => 'App\Http\Controllers\PDF\PDFController@getZiviReportSheet'
+        ]);
+
+        $api->get('/pdf/statistik', [
+            'as' => 'api.pdf',
+            'uses' => 'App\Http\Controllers\PDF\PDFController@getSpesenStatistik'
         ]);
     });
 });
