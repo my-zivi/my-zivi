@@ -52,4 +52,12 @@ export default class Header extends Component {
       </div>
     );
   }
+
+  //initialize validation after render
+  componentDidUpdate() {
+    $('[data-toggle="tooltip"]').tooltip();
+
+    // Set Popover trigger mode to hover instead of click
+    $('[data-toggle="popover"]').popover({ trigger: 'hover', container: 'body' });
+  }
 }

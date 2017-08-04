@@ -21,6 +21,7 @@ export default class User extends Component {
       result: [],
       cantons: [],
       regianlCenters: [],
+      lastDateValue: null,
     };
 
     this.cantonTag = new Cantons();
@@ -50,7 +51,10 @@ export default class User extends Component {
         this.setState({
           result: response.data,
           loading: false,
+          lastDateValue: response.data['birthday'],
         });
+
+        console.log('response: ' + response.data['birthday']);
       })
       .catch(error => {
         this.setState({ error: error });
@@ -64,7 +68,13 @@ export default class User extends Component {
   }
 
   handleDateChange(e, origin) {
-    let value = DatePicker.dateFormat_CH2EN(e.target.value);
+    let value = e.target.value;
+
+    if (value === undefined || value == null || value == '') {
+      value = origin.state.lastDateValue;
+    } else {
+      value = DatePicker.dateFormat_CH2EN(value);
+    }
 
     origin.state['result'][e.target.name] = value;
     origin.setState(this.state);
