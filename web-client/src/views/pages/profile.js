@@ -14,7 +14,7 @@ import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 
 export default class User extends Component {
-  constructor(props) {
+  constructor(props, { router }) {
     super(props);
 
     this.state = {
@@ -25,12 +25,18 @@ export default class User extends Component {
 
     this.cantonTag = new Cantons();
     this.regionalCenterTag = new RegionalCenters();
+    this.router = router;
   }
 
   componentDidMount() {
     this.getUser();
     this.cantonTag.getCantons(this);
     this.regionalCenterTag.getRegionalCenters(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.props = nextProps;
+    this.componentDidMount();
   }
 
   getUser() {
@@ -91,10 +97,16 @@ export default class User extends Component {
       });
   }
 
+  redirectToChangePassword(e) {
+    this.router.push('/changePassword');
+  }
+
   render() {
     let result = this.state.result;
-    let howerText_BankName =
-      'Name, Postleitzahl und Ort deiner Bank. Während der Eingabe werden dir Banken mit den entsprechenden Namen und aus den entsprechenden Ortschaften vorgeschlagen welche du auswählen kannst um automatisch die Clearing-Nr. und Postkonto-Nr. abfüllen zu lassen. Beispiel: Meine Bank, 8000 Zürich';
+    let howerText_IBAN = 'IBAN nummer';
+    let howerText_Post = 'Postkonto Nummer';
+    let howerText_Berufserfahrung =
+      'Wir profitieren gerne von deiner Erfahrung. Wenn wir genau wissen, wann wer mit welchen Erfahrungen einen Einsatz tätigt, können wir z.T. Projekte speziell planen.';
 
     return (
       <Header>
@@ -104,19 +116,19 @@ export default class User extends Component {
             <div class="container">
               <form class="form-horizontal">
                 <hr />
-                <button name="resetPassword" type="submit" class="btn btn-primary">
-                  Passwort zurücksetzen
-                </button>
+                {this.passwordChangeButton()}
                 <input name="id" value="00000" type="hidden" />
                 <input name="action" value="saveEmployee" type="hidden" />
-                <hr />
+
                 <h3>Persönliche Informationen</h3>
                 <InputField id="zdp" label="ZDP" value={result.zdp} disabled="true" />
                 <InputField id="first_name" label="Vorname" value={result.first_name} self={this} />
                 <InputField id="last_name" label="Nachname" value={result.last_name} self={this} />
+
                 <InputField id="address" label="Strasse" value={result.address} self={this} />
                 <InputField id="city" label="Ort" value={result.city} self={this} />
                 <InputField id="zip" label="PLZ" value={result.zip} self={this} />
+
                 <DatePicker
                   id="birthday"
                   label="Geburtstag"
@@ -124,11 +136,14 @@ export default class User extends Component {
                   callback={this.handleDateChange}
                   callbackOrigin={this}
                 />
+
                 <InputField id="hometown" label="Heimatort" value={result.hometown} self={this} />
+
                 <InputField inputType="email" id="email" label="E-Mail" value={result.email} self={this} />
                 <InputField inputType="tel" id="phone_mobile" label="Tel. Mobil" value={result.phone_mobile} self={this} />
                 <InputField inputType="tel" id="phone_private" label="Tel. Privat" value={result.phone_private} self={this} />
                 <InputField inputType="tel" id="phone_business" label="Tel. Geschäft" value={result.phone_business} self={this} />
+
                 <div class="form-group">
                   <label class="control-label col-sm-3" for="canton">
                     Kanton
@@ -139,24 +154,20 @@ export default class User extends Component {
                     </select>
                   </div>
                 </div>
+
                 <hr />
-                <h3>Bank-/Postverbindung</h3>,
-                <InputFieldWithHelpText
-                  id="bank_iban"
-                  label="IBAN-Nr."
-                  value={result.bank_iban}
-                  popoverText={howerText_BankName}
-                  self={this}
-                />
+                <h3>Bank-/Postverbindung</h3>
+                <InputFieldWithHelpText id="bank_iban" label="IBAN-Nr." value={result.bank_iban} popoverText={howerText_IBAN} self={this} />
                 <InputFieldWithHelpText
                   id="post_account"
                   label="Postkonto-Nr."
                   value={result.post_account}
-                  popoverText={howerText_BankName}
+                  popoverText={howerText_Post}
                   self={this}
                 />
+
                 <hr />
-                <h3>Diverse Informationen</h3>,
+                <h3>Diverse Informationen</h3>
                 <div class="form-group">
                   <label class="control-label col-sm-3" for="berufserfahrung">
                     Berufserfahrung
@@ -173,25 +184,26 @@ export default class User extends Component {
                     </textarea>
                   </div>
                   <div id="_helpberufserfahrung" className="col-sm-1">
-                    <a href="#" data-toggle="popover" title="Berufserfahrung" data-content="Text TODO">
+                    <a href="#" data-toggle="popover" title="Berufserfahrung" data-content={howerText_Berufserfahrung}>
                       <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
                     </a>
                   </div>
                 </div>
+
                 <div class="form-group">
                   <label class="control-label col-sm-3" for="hometown">
                     Regionalzentrum
                   </label>
                   <div class="col-sm-9">
                     <select id="regional_center" name="regional_center" class="form-control" onChange={e => this.handleSelectChange(e)}>
-                      {' '}
-                      // regional_center
                       {this.regionalCenterTag.renderRegionalCenters(this.state)}
                     </select>
                   </div>
                 </div>
+
                 <InputCheckbox id="driving_licence" value={result.driving_licence} label="Führerausweis" self={this} />
                 <InputCheckbox id="travel_card" value={result.travel_card} label="GA" self={this} />
+
                 <div class="form-group">
                   <label class="control-label col-sm-3" for="internal_comment">
                     Int. Bemerkung
@@ -208,6 +220,7 @@ export default class User extends Component {
                     </textarea>
                   </div>
                 </div>
+
                 <button
                   type="submit"
                   class="btn btn-primary"
@@ -224,5 +237,19 @@ export default class User extends Component {
         </div>
       </Header>
     );
+  }
+
+  passwordChangeButton() {
+    if (!this.props.params.userid) {
+      return (
+        <div>
+          <button name="resetPassword" class="btn btn-primary" onClick={e => this.redirectToChangePassword(e)}>
+            Passwort ändern
+          </button>
+          <hr />
+        </div>
+      );
+    }
+    return;
   }
 }
