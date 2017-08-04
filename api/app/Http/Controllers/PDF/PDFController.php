@@ -43,4 +43,29 @@ class PDFController extends Controller
         $response->headers->set("Content-Disposition", "inline");
         return $response;
     }
+
+    public function getSpesenStatistik(Application $app)
+    {
+        $showOnlyDoneSheets = Input::get("showOnlyDoneSheets")==1;
+        $showDetails = Input::get("showDetails")==1;
+        $time_type = Input::get("time_type");
+        $time_from = strtotime(Input::get("time_from"));
+        $time_to = strtotime(Input::get("time_to"));
+        $time_year = Input::get("time_year");
+
+        $statistik = new SpesenStatistik(
+            $showOnlyDoneSheets,
+            $showDetails,
+            $time_type,
+            $time_from,
+            $time_to,
+            $time_year
+        );
+
+        $response = response()->download($statistik->createPDF(), 'statistik.pdf')
+            ->deleteFileAfterSend(true);
+        $response->headers->set("Content-Type", "application/pdf");
+        $response->headers->set("Content-Disposition", "inline");
+        return $response;
+    }
 }

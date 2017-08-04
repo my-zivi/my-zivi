@@ -3,7 +3,6 @@ import { Link } from 'inferno-router';
 import Component from 'inferno-component';
 import { connect } from 'inferno-mobx';
 
-@connect(['accountStore'])
 export default class LoadingView extends Component {
   constructor(props) {
     super(props);
@@ -12,8 +11,6 @@ export default class LoadingView extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.error != null) {
       if (nextProps.error.response != null && nextProps.error.response.status == 401) {
-        this.props.accountStore.isLoggedIn = false;
-        this.props.accountStore.isAdmin = false;
         localStorage.removeItem('jwtToken');
         this.context.router.push('/');
       }

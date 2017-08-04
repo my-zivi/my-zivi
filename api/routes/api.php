@@ -27,6 +27,11 @@ $api->version('v1', function ($api) {
         'uses' => 'App\Http\Controllers\Auth\AuthController@postRegister'
     ]);
 
+    $api->get('/pdf/statistik', [
+        'as' => 'api.pdf',
+        'uses' => 'App\Http\Controllers\PDF\PDFController@getSpesenStatistik'
+    ]);
+
     $api->group([
         'middleware' => 'api.auth',
     ], function ($api) {

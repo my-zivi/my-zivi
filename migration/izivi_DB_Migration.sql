@@ -12,7 +12,7 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
       THEN concat('_@', stiftun8_iZivi.accounts.username, '.no')
     WHEN stiftun8_iZivi.accounts.email IS NULL
       THEN concat('IS_NULL@', stiftun8_iZivi.accounts.username, '.no')
-    ELSE concat('else@', stiftun8_iZivi.accounts.username, '.no')
+    ELSE stiftun8_iZivi.accounts.email
   END AS email,
   stiftun8_iZivi.accounts.password AS password,
   CASE
@@ -49,9 +49,7 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
     ELSE stiftun8_iZivi.zivis.street
   END AS address,
   CASE
-    WHEN stiftun8_iZivi.zivis.zip = ''
-      THEN 0000
-    WHEN stiftun8_iZivi.zivis.zip IS NULL
+    WHEN stiftun8_iZivi.zivis.zip IS NULL OR NOT stiftun8_iZivi.zivis.zip REGEXP '[0-9]+'
       THEN 0000
     ELSE stiftun8_iZivi.zivis.zip
   END AS zip,

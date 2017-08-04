@@ -60,6 +60,50 @@ abstract class PDF
         return $europeanDate;
     }
 
+    protected function getGermanMonth($timestamp)
+    {
+        $month_str = "";
+        switch (date("m", $timestamp)) {
+            case 1:
+                $month_str = "Januar";
+                break;
+            case 2:
+                $month_str = "Februar";
+                break;
+            case 3:
+                $month_str = "M&auml;rz";
+                break;
+            case 4:
+                $month_str = "April";
+                break;
+            case 5:
+                $month_str = "Mai";
+                break;
+            case 6:
+                $month_str = "Juni";
+                break;
+            case 7:
+                $month_str = "Juli";
+                break;
+            case 8:
+                $month_str = "August";
+                break;
+            case 9:
+                $month_str = "September";
+                break;
+            case 10:
+                $month_str = "Oktober";
+                break;
+            case 11:
+                $month_str = "November";
+                break;
+            case 12:
+                $month_str = "Dezember";
+                break;
+        }
+        return $month_str;
+    }
+
     public static function getRoundedRappen($val)
     {
         return number_format(round($val * 20) / 20, 2, '.', '');

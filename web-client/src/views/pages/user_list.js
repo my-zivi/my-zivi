@@ -17,6 +17,7 @@ export default class UserList extends Component {
       name: '',
       start: '',
       end: '',
+      active: '',
       group: 0,
     };
   }
@@ -41,25 +42,9 @@ export default class UserList extends Component {
   }
 
   handleChange(e) {
-    switch (e.target.name) {
-      case 'zdp':
-        this.setState({ zdp: e.target.value });
-        break;
-      case 'name':
-        this.setState({ name: e.target.value });
-        break;
-      case 'start':
-        this.setState({ start: e.target.value });
-        break;
-      case 'end':
-        this.setState({ end: e.target.value });
-        break;
-      case 'group':
-        this.setState({ group: e.target.value });
-        break;
-      default:
-        console.log('Element not found for setting.');
-    }
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    this.state[e.target.name] = value;
+    this.setState(this.state);
   }
 
   deleteUser(user) {
@@ -92,6 +77,14 @@ export default class UserList extends Component {
       if (this.state.end != '' && users[i].start > this.state.end) {
         continue;
       }
+      if (
+        this.state.active &&
+        (users[i].start == null ||
+          users[i].end < new Date().toISOString().slice(0, 10) ||
+          users[i].start > new Date().toISOString().slice(0, 10))
+      ) {
+        continue;
+      }
       if (this.state.group != 0 && users[i].role_id != this.state.group) {
         continue;
       }
@@ -106,10 +99,11 @@ export default class UserList extends Component {
           </td>
           <td>{users[i].start}</td>
           <td>{users[i].end}</td>
+          <td>{users[i].active}</td>
           <td>{users[i].role}</td>
           <td>
             <a
-              href={() => {
+              onclick={() => {
                 if (confirm('Möchten Sie ' + users[i].first_name + ' ' + users[i].last_name + ' wirklich löschen?')) {
                   this.deleteUser(users[i]);
                 }
@@ -134,6 +128,7 @@ export default class UserList extends Component {
                   <th>Vorname Name</th>
                   <th>Start</th>
                   <th>Ende</th>
+                  <th>Aktiv?</th>
                   <th>Gruppe</th>
                   <th />
                 </tr>
@@ -169,6 +164,15 @@ export default class UserList extends Component {
                       type="date"
                       value={this.state.end}
                       oninput={this.handleChange.bind(this)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      class="SWOInput"
+                      name="active"
+                      type="checkbox"
+                      value={this.state.active}
+                      onchange={this.handleChange.bind(this)}
                     />
                   </td>
                   <td>
