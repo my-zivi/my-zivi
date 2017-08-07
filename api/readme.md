@@ -15,7 +15,10 @@
 6. php artisan migrate
 7. run db-script izivi_DB_Migration.sql from ./migration on the izivi database
 8. Run the "After" migration to update all passwords:  
-php artisan migrate --path=.\database\migrations\After
+* Windows:
+        * php artisan migrate --path=.\database\migrations\After
+* *nix:
+        * php artisan migrate --path=./database/migrations/After
 
 ## Running
 1. php artisan serve
