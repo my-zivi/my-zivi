@@ -94,19 +94,22 @@ export default class MissionOverview extends Component {
       }
     }
 
-    var wocheCount = [];
+    var weekCount = [];
     for (var i = 1; i <= 52; i++) {
-      wocheCount[i] = 0;
+      weekCount[i] = 0;
     }
 
     var tbody = [];
-    var missions = this.state.missions;
-    for (var i = 0; i < missions.length; i++) {
+    var userMissions = this.state.missions;
+
+    for (var i = 0; i < userMissions.length; i++) {
       var selected = false;
       for (var s = 0; s < specs.length; s++) {
-        if (specs[s].fullId == missions[i].specification) {
-          selected = specs[s].selected;
-          break;
+        for (var x = 0; x < userMissions[i].length; x++) {
+          if (specs[s].fullId == userMissions[i][x].specification) {
+            selected = specs[s].selected;
+            break;
+          }
         }
       }
 
@@ -115,41 +118,55 @@ export default class MissionOverview extends Component {
       }
 
       var cells = [];
-      cells.push(<td>{missions[i].short_name}</td>);
+      cells.push(<td>{userMissions[i][0].short_name}</td>);
       cells.push(
         <td>
-          <div class="no-print">{missions[i].zdp}</div>
+          <div class="no-print">{userMissions[i][0].zdp}</div>
         </td>
       );
       cells.push(
         <td class="einsatz-zivi-name" style="text-align:left; padding-left:8px !important;" nowrap>
-          <a href={'/profile/' + missions[i].userid}>
-            {missions[i].first_name} {missions[i].last_name}
+          <a href={'/profile/' + userMissions[i][0].userid}>
+            {userMissions[i][0].first_name} {userMissions[i][0].last_name}
           </a>
         </td>
       );
-      var startWeek = moment(missions[i].start).isoWeek();
-      if (new Date(missions[i].start).getFullYear() < this.state.year) {
-        startWeek = -1;
+
+      var missionCounter = 0;
+
+      if (userMissions[i][0].last_name == 'Fasnacht') {
+        console.log('break');
       }
-      var endWeek = moment(missions[i].end).isoWeek();
-      if (new Date(missions[i].end).getFullYear() > this.state.year) {
-        endWeek = 55;
-      }
+
       for (var x = 1; x <= 52; x++) {
+        var curMission = userMissions[i][missionCounter];
+        var startWeek = moment(curMission.start).isoWeek();
+        if (new Date(curMission.start).getFullYear() < this.state.year) {
+          startWeek = -1;
+        }
+        var endWeek = moment(curMission.end).isoWeek();
+        if (new Date(curMission.end).getFullYear() > this.state.year) {
+          endWeek = 55;
+        }
+
         if (x < startWeek || x > endWeek) {
           cells.push(<td />);
         } else {
-          wocheCount[x]++;
+          weekCount[x]++;
           if (x == startWeek) {
-            cells.push(<td class={missions[i].draft == null ? 'einsatzDraft' : 'einsatz'}>{new Date(missions[i].start).getDate()}</td>);
+            cells.push(<td class={curMission.draft == null ? 'einsatzDraft' : 'einsatz'}>{new Date(curMission.start).getDate()}</td>);
           } else if (x == endWeek) {
-            cells.push(<td class={missions[i].draft == null ? 'einsatzDraft' : 'einsatz'}>{new Date(missions[i].end).getDate()}</td>);
+            cells.push(<td class={curMission.draft == null ? 'einsatzDraft' : 'einsatz'}>{new Date(curMission.end).getDate()}</td>);
           } else {
-            cells.push(<td class={missions[i].draft == null ? 'einsatzDraft' : 'einsatz'}>x</td>);
+            cells.push(<td class={curMission.draft == null ? 'einsatzDraft' : 'einsatz'}>x</td>);
+          }
+
+          if (x == endWeek && missionCounter < userMissions[i].length - 1) {
+            missionCounter++;
           }
         }
       }
+
       tbody.push(<tr>{cells}</tr>);
     }
 
@@ -165,8 +182,8 @@ export default class MissionOverview extends Component {
     var monthColCount = 1;
     for (var i = 1; i <= 52; i++) {
       weekHeaders.push(<td style="width:25px;">{i}</td>);
-      averageHeaders.push(<td>{wocheCount[i]}</td>);
-      averageCount += wocheCount[i];
+      averageHeaders.push(<td>{weekCount[i]}</td>);
+      averageCount += weekCount[i];
       if (startDate.getMonth() != prevMonth) {
         monthHeaders.push(
           <td style="font-weight:bold;" colspan={monthColCount}>
