@@ -30,7 +30,7 @@ abstract class PDF
 
         $this->render();
 
-        $DIR_TEMP = "/tmp";
+        $DIR_TEMP = sys_get_temp_dir();
         $file=basename(tempnam($DIR_TEMP, 'tmp'));
         //Save PDF to file
         $this->pdf->Output($file, 'F');

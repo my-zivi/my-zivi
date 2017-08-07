@@ -160,16 +160,17 @@ export default class MissionOverview extends Component {
         <div className="page page__expense">
           <Card>
             <h1>Spesen</h1>
-
-            <button class="btn btn-primary" onclick={() => this.showStats(3, 1)}>
-              Übersicht {this.monthNames[prevMonthDate.getMonth()]}
-            </button>
-            <button class="btn btn-primary" onclick={() => this.showStats(2, 1)}>
-              Übersicht {this.monthNames[curMonthDate.getMonth()]}
-            </button>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-              Erweitert
-            </button>
+            <div class="btn-group">
+              <button class="btn btn-default" onclick={() => this.showStats(3, 1)}>
+                Übersicht {this.monthNames[prevMonthDate.getMonth()]}
+              </button>
+              <button class="btn btn-default" onclick={() => this.showStats(2, 1)}>
+                Übersicht {this.monthNames[curMonthDate.getMonth()]}
+              </button>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                Erweitert
+              </button>
+            </div>
 
             <div id="myModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
@@ -313,15 +314,26 @@ export default class MissionOverview extends Component {
             </div>
 
             <h2>Meldeblätter-Liste</h2>
-            <button class="btn btn-primary" onClick={() => this.getReportSheets('reportsheet')}>
-              Alle Meldeblätter anzeigen
-            </button>
-            <button class="btn btn-primary" onClick={() => this.getReportSheets('reportsheet/pending')}>
-              Pendente Meldeblätter anzeigen
-            </button>
-            <button class="btn btn-primary" onClick={() => this.getReportSheets('reportsheet/current')}>
-              Aktuelle Meldeblätter anzeigen
-            </button>
+
+            <nav class="navbar">
+              <ul class="nav nav-tabs" role="tablist">
+                <li>
+                  <a onClick={() => this.getReportSheets('reportsheet')} href="#">
+                    Alle Meldeblätter anzeigen
+                  </a>
+                </li>
+                <li>
+                  <a onClick={() => this.getReportSheets('reportsheet/pending')} href="#">
+                    Pendente Meldeblätter anzeigen
+                  </a>
+                </li>
+                <li>
+                  <a onClick={() => this.getReportSheets('reportsheet/current')} href="#">
+                    Aktuelle Meldeblätter anzeigen
+                  </a>
+                </li>
+              </ul>
+            </nav>
 
             <table class="table table-hover">
               <thead>

@@ -220,13 +220,27 @@ $api->version('v1', function ($api) {
 
         // Mission
         $api->get('/missions/{year}', function ($year) {
-            return response()->json(App\Mission::join('users', 'users.id', '=', 'missions.user')
+            $data = App\Mission::join('users', 'users.id', '=', 'missions.user')
                                     ->join('specifications', 'specifications.id', '=', 'missions.specification')
                                     ->select('*', 'users.id AS userid')
                                     ->whereDate('end', '>=', $year.'-01-01')
                                     ->whereDate('start', '<=', $year.'-12-31')
                                     ->orderBy('start')
-                                    ->get());
+                                    ->get();
+            $intermediateResult = array();
+            foreach ($data as $m) {
+                if (!isset($intermediateResult[$m->userid])) {
+                    $intermediateResult[$m->userid] = array();
+                }
+                $intermediateResult[$m->userid][] = $m;
+            }
+
+            $result = array();
+            foreach ($intermediateResult as $m) {
+                $result[] = $m;
+            }
+
+            return response()->json($result);
         });
 
         $api->put('/mission', function () {
