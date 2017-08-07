@@ -59,18 +59,25 @@ $api->version('v1', function ($api) {
             return response()->json(App\Canton::find($id));
         });
 
-        // User
-        $api->get('/user', function () {
-            return response()->json(JWTAuth::parseToken()->authenticate());
-        });
+
         $api->get('/user/zivi', [
             'uses' => 'App\Http\Controllers\UserController@getZivis',
             'as' => 'api.user.getZivis'
         ]);
 
-        $api->get('/user/{id}', function ($id) {
-            return response()->json(App\User::find($id));
+        // User
+        $api->get('/user', function () {
+            $user = JWTAuth::parseToken()->authenticate();
+            $user->missions = $user->missions;
+            return response()->json($user);
         });
+
+        $api->get('/user/{id}', function ($id) {
+            $user = App\User::find($id);
+            $user->missions = $user->missions;
+            return response()->json($user);
+        });
+
         $api->delete('/user/{id}', function ($id) {
             App\User::destroy($id);
             return response("deleted");
@@ -220,6 +227,26 @@ $api->version('v1', function ($api) {
                                     ->whereDate('start', '<=', $year.'-12-31')
                                     ->orderBy('start')
                                     ->get());
+        });
+
+        $api->put('/mission', function () {
+            $mission = new App\Mission();
+            $mission->user = Input::get("user", "");
+            $mission->specification = Input::get("specification", "");
+            $mission->start = Input::get("start", "");
+            $mission->end = Input::get("end", "");
+            $mission->eligible_holiday = 0;//TODO:??
+            $mission->role = 3; //TODO: needed??
+            $mission->first_time = Input::get("first_time", false);
+            $mission->long_mission = Input::get("long_mission", false);
+            $mission->probation_period = Input::get("probation_period", false);
+            $mission->save();
+            return response("inserted");
+        });
+
+        $api->delete('/mission/{id}', function ($id) {
+            App\Mission::find($id)->delete();
+            return response("deleted");
         });
 
         // Role

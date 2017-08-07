@@ -59,12 +59,12 @@ class User extends Model implements
 
     public function missions()
     {
-        return $this->hasMany('mission', 'user');
+        return $this->hasMany('App\Mission', 'user');
     }
 
     public function report_sheets()
     {
-        return $this->hasMany('report_sheets', 'user');
+        return $this->hasMany('App\ReportSheet', 'user');
     }
 
     public function canton()
