@@ -181,6 +181,25 @@ export default class Register extends Component {
                   <div class="col-sm-3" />
                   <div class="help-block with-errors col-sm-9" />
                 </div>
+
+                <div class="form-group has-feedback">
+                  <label class="control-label col-sm-3" for="community_pw">
+                    Community Passwort:
+                  </label>
+                  <div class="col-sm-9">
+                    <input
+                      type="password"
+                      id="community_pw"
+                      name="community_pw"
+                      value={this.state.formData.communityPW}
+                      onChange={this.handleChange.bind(this)}
+                      className="form-control"
+                      required
+                    />
+                  </div>
+                  <div class="col-sm-3" />
+                  <div class="help-block with-errors col-sm-9" />
+                </div>
                 <hr />
 
                 <button type="submit" class="btn btn-primary">

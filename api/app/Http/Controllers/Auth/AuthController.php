@@ -77,6 +77,9 @@ class AuthController extends Controller
         if (strlen($request->input("password")) < AuthController::PW_MIN_LENGTH) {
             $errors['Passwort'] = AuthController::PW_LENGTH_TEXT;
         }
+        if ($request->input("community_pw") != "swoswo") {
+            $errors['Community Passwort'] = 'Community PW stimmt nicht!';
+        }
         if (User::where('email', '=', $request->input("email"))->first()!=null) {
             $errors['E-Mail'] = 'Ein Nutzer für diese E-Mail Adresse existiert bereits!';
         }
