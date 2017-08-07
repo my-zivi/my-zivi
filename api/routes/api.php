@@ -304,6 +304,17 @@ $api->version('v1', function ($api) {
                 ->get());
         });
 
+        $api->get('/reportsheet/me', function () {
+            $user = JWTAuth::parseToken()->authenticate();
+            return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                ->select('report_sheets.id AS id', 'start', 'end', 'done')
+                ->where('users.id', '=', $user->id)
+                ->orderBy('start')
+                ->orderBy('end')
+                ->orderBy('zdp')
+                ->get());
+        });
+
         $api->get('/reportsheet/{id}', function ($id) {
             return response()->json(App\ReportSheet::getSpesen($id));
         });
@@ -338,7 +349,6 @@ $api->version('v1', function ($api) {
             $sheet->save();
             return response("updated");
         });
-
 
         // PDF
         $api->get('/pdf/phoneList', [
