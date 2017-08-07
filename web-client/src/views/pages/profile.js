@@ -193,7 +193,7 @@ export default class User extends Component {
                       {result.work_experience}
                     </textarea>
                   </div>
-                  <div id="_helpberufserfahrung" className="col-sm-1">
+                  <div id="_helpberufserfahrung" className="col-sm-1 hidden-xs">
                     <a href="#" data-toggle="popover" title="Berufserfahrung" data-content={howerText_Berufserfahrung}>
                       <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
                     </a>

@@ -1,33 +1,38 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
+import BootstrapNavLink from '../tags/BootstrapNavLink';
 
 import { connect } from 'inferno-mobx';
 
 export default class Header extends Component {
   guestMenu() {
-    return [<Link to="/register">Registrieren</Link>, <Link to="/login">Anmelden</Link>];
+    return [<BootstrapNavLink to="/register">Registrieren</BootstrapNavLink>, <BootstrapNavLink to="/login">Anmelden</BootstrapNavLink>];
   }
 
   userMenu() {
-    return [<Link to="/profile">Profil</Link>, <Link to="/logout">Abmelden</Link>];
+    return [<BootstrapNavLink to="/profile">Profil</BootstrapNavLink>, <BootstrapNavLink to="/logout">Abmelden</BootstrapNavLink>];
   }
 
   adminMenu() {
     return [
       // Static data
-      <Link to="/user_list">Mitarbeiterliste</Link>,
-      <Link to="/user_phone_list">Telefonliste</Link>,
-      <Link to="/specification">Pflichtenheft</Link>,
-      <Link to="/freeday">Freitage</Link>,
+      <BootstrapNavLink to="/user_list">Mitarbeiterliste</BootstrapNavLink>,
+      <BootstrapNavLink to="/user_phone_list">Telefonliste</BootstrapNavLink>,
+      <BootstrapNavLink to="/specification">Pflichtenheft</BootstrapNavLink>,
+      <BootstrapNavLink to="/freeday" mobileHidden="true">
+        Freitage
+      </BootstrapNavLink>,
 
       // Operations
-      <Link to="/mission_overview">Planung</Link>,
-      <Link to="/expense">Spesen</Link>,
+      <BootstrapNavLink to="/mission_overview">Planung</BootstrapNavLink>,
+      <BootstrapNavLink to="/expense" mobileHidden="true">
+        Spesen
+      </BootstrapNavLink>,
     ];
   }
 
-  render() {
+  generateNavLinks() {
     var isLoggedIn = localStorage.getItem('jwtToken') !== null;
     var isAdmin = false;
     if (isLoggedIn) {
@@ -37,23 +42,25 @@ export default class Header extends Component {
     }
 
     return (
+      <ul class="nav navbar-nav">
+        {isAdmin ? this.adminMenu() : null}
+        {isLoggedIn ? this.userMenu() : null}
+        {!isLoggedIn ? this.guestMenu() : null}
+      </ul>
+    );
+  }
+
+  render() {
+    return (
       <div>
-        <header className="header no-print">
-          <Link to="/">
-            <h1>iZivi</h1>
-          </Link>
-          <nav>
-            {isAdmin ? this.adminMenu() : null}
-            {isLoggedIn ? this.userMenu() : null}
-            {!isLoggedIn ? this.guestMenu() : null}
-          </nav>
-        </header>
-        <main id="content">{this.props.children}</main>
+        {BootstrapNavLink.getNavbar(this.generateNavLinks())}
+        <main id="content" style="padding-top: 0">
+          {this.props.children}
+        </main>
       </div>
     );
   }
 
-  //initialize validation after render
   componentDidUpdate() {
     $('[data-toggle="tooltip"]').tooltip();
 

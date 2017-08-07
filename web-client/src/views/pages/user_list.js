@@ -1,6 +1,6 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
-import Card from '../tags/card';
+import ScrollableCard from '../tags/scrollableCard';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
@@ -91,7 +91,7 @@ export default class UserList extends Component {
 
       temp.push(
         <tr>
-          <td>{users[i].zdp}</td>
+          <td className="hidden-xs">{users[i].zdp}</td>
           <td>
             <a href={'/profile/' + users[i].id}>
               {users[i].first_name} {users[i].last_name}
@@ -99,9 +99,9 @@ export default class UserList extends Component {
           </td>
           <td>{users[i].start}</td>
           <td>{users[i].end}</td>
-          <td>{users[i].active}</td>
-          <td>{users[i].role}</td>
-          <td>
+          <td className="hidden-xs">{users[i].active}</td>
+          <td className="hidden-xs">{users[i].role}</td>
+          <td className="hidden-xs">
             <a
               onclick={() => {
                 if (confirm('Möchten Sie ' + users[i].first_name + ' ' + users[i].last_name + ' wirklich löschen?')) {
@@ -119,21 +119,21 @@ export default class UserList extends Component {
     return (
       <Header>
         <div className="page page__user_list">
-          <Card>
+          <ScrollableCard>
             <h1>Benutzerliste</h1>
             <table class="table table-hover" cellspacing="0" cellpadding="2">
               <thead>
                 <tr>
-                  <th>ZDP</th>
+                  <th className="hidden-xs">ZDP</th>
                   <th>Vorname Name</th>
                   <th>Start</th>
                   <th>Ende</th>
-                  <th>Aktiv?</th>
-                  <th>Gruppe</th>
-                  <th />
+                  <th className="hidden-xs">Aktiv?</th>
+                  <th className="hidden-xs">Gruppe</th>
+                  <th className="hidden-xs" />
                 </tr>
                 <tr>
-                  <td>
+                  <td className="hidden-xs">
                     <input class="SWOInput" name="zdp" size="5" type="text" value={this.state.zdp} oninput={this.handleChange.bind(this)} />
                   </td>
                   <td>
@@ -166,7 +166,7 @@ export default class UserList extends Component {
                       oninput={this.handleChange.bind(this)}
                     />
                   </td>
-                  <td>
+                  <td className="hidden-xs">
                     <input
                       class="SWOInput"
                       name="active"
@@ -175,7 +175,7 @@ export default class UserList extends Component {
                       onchange={this.handleChange.bind(this)}
                     />
                   </td>
-                  <td>
+                  <td className="hidden-xs">
                     <select name="group" value={this.state.group} oninput={this.handleChange.bind(this)}>
                       <option value="0">(Alle Gruppen)</option>
                       <option value="1">Admins</option>
@@ -183,12 +183,12 @@ export default class UserList extends Component {
                       <option value="3">Zivis</option>
                     </select>
                   </td>
-                  <td />
+                  <td className="hidden-xs" />
                 </tr>
               </thead>
               <tbody>{temp}</tbody>
             </table>
-          </Card>
+          </ScrollableCard>
 
           <LoadingView loading={this.state.loading} error={this.state.error} />
         </div>
