@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Input;
 
 class AuthController extends Controller
 {
-    const MD5_HASH_LENGTH = 32;
     const PW_MIN_LENGTH = 7;
     const PW_LENGTH_TEXT = 'Das Passwort muss aus mindestens '.AuthController::PW_MIN_LENGTH.' Zeichen bestehen!';
 
@@ -47,18 +46,15 @@ class AuthController extends Controller
                 return $this->onUnauthorized();
             }
 
-            // Simple MD5 fallback - converts and updates MD5 to bcrypt
-            if (mb_strlen($user['password'], 'utf8') === AuthController::MD5_HASH_LENGTH) {
-                // MD5
-                if (md5($userPasswordInput) === $user['password']) {
-                    $isAuthorized = true;
-                    $token = JWTAuth::fromUser($user, $customClaims);
-                    $userPasswordNewHash = password_hash($userPasswordInput, PASSWORD_BCRYPT);
-                    $user->password = $userPasswordNewHash;
-                    $user->save();
-                }
+            // Simple MD5 fallback with double hashing (MD5 + bcrypt) - converts MD5 to bcrypt
+            if (password_verify(md5($userPasswordInput), $user['password'])) {
+                // double hashed: MD5 + bcrypt
+                $isAuthorized = true;
+                $token = JWTAuth::fromUser($user, $customClaims);
+                $user->password = password_hash($userPasswordInput, PASSWORD_BCRYPT);
+                $user->save();
             } else {
-                // bcrypt
+                // single hashed: bcrypt
                 if ($token = JWTAuth::attempt($this->getCredentials($request), $customClaims)) {
                     $isAuthorized = true;
                 }
