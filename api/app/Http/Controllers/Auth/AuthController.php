@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Input;
 
 class AuthController extends Controller
 {
+    const MD5_HASH_LENGTH = 32;
     const PW_MIN_LENGTH = 7;
     const PW_LENGTH_TEXT = 'Das Passwort muss aus mindestens '.AuthController::PW_MIN_LENGTH.' Zeichen bestehen!';
 
@@ -37,10 +38,33 @@ class AuthController extends Controller
 
         try {
             // Attempt to verify the credentials and create a token for the user
-            if (!$token = JWTAuth::attempt(
-                $this->getCredentials($request),
-                ['isAdmin' => User::where('email', '=', Input::get("email", ""))->first()['role']==1]
-            )) {
+            $isAuthorized = false;
+            $userPasswordInput = $this->getCredentials($request)['password'];
+            $user = User::where('email', '=', Input::get("email", ""))->first();
+            $customClaims = ['isAdmin' => $user['role']==1];
+
+            if ($userPasswordInput === '' or $user['password'] === '') {
+                return $this->onUnauthorized();
+            }
+
+            // Simple MD5 fallback - converts and updates MD5 to bcrypt
+            if (mb_strlen($user['password'], 'utf8') === AuthController::MD5_HASH_LENGTH) {
+                // MD5
+                if (md5($userPasswordInput) === $user['password']) {
+                    $isAuthorized = true;
+                    $token = JWTAuth::fromUser($user, $customClaims);
+                    $userPasswordNewHash = password_hash($userPasswordInput, PASSWORD_BCRYPT);
+                    $user->password = $userPasswordNewHash;
+                    $user->save();
+                }
+            } else {
+                // bcrypt
+                if ($token = JWTAuth::attempt($this->getCredentials($request), $customClaims)) {
+                    $isAuthorized = true;
+                }
+            }
+
+            if (!$isAuthorized) {
                 return $this->onUnauthorized();
             }
         } catch (JWTException $e) {
@@ -76,6 +100,9 @@ class AuthController extends Controller
         }
         if (strlen($request->input("password")) < AuthController::PW_MIN_LENGTH) {
             $errors['Passwort'] = AuthController::PW_LENGTH_TEXT;
+        }
+        if ($request->input("community_pw") != "swoswo") {
+            $errors['Community Passwort'] = 'Community PW stimmt nicht!';
         }
         if (User::where('email', '=', $request->input("email"))->first()!=null) {
             $errors['E-Mail'] = 'Ein Nutzer für diese E-Mail Adresse existiert bereits!';
