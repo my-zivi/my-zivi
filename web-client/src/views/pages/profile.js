@@ -55,8 +55,6 @@ export default class User extends Component {
           loading: false,
           lastDateValue: response.data['birthday'],
         });
-
-        console.log('response: ' + response.data['birthday']);
       })
       .catch(error => {
         this.setState({ error: error });
