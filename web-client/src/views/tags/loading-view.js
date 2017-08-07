@@ -32,7 +32,7 @@ export default class LoadingView extends Component {
     }
 
     return (
-      <div style="background:rgba(255,255,255,0.9); width:100%; height:100%; position:absolute; left:0px; top:0px; display: table; text-align:center;">
+      <div style="background:rgba(255,255,255,0.9); width:100%; height:100%; z-index:99999999; position:fixed; left:0px; top:0px; display: table; text-align:center;">
         <div style="display:table-cell; vertical-align: middle;">{content}</div>
       </div>
     );
