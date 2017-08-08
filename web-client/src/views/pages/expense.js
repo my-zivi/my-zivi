@@ -155,29 +155,6 @@ export default class MissionOverview extends Component {
       yearoptions.push(<option value={i}>{i}</option>);
     }
 
-    var datepicker = (
-      <div id="datePickerContainer" class="panel-collapse collapse">
-        <DatePicker
-          id="time_from"
-          label="Datum von"
-          value={new Date()}
-          callback={e => {
-            this.handleChange(e);
-          }}
-          callbackOrigin={this}
-        />
-        <DatePicker
-          id="time_to"
-          label="Datum zu"
-          value={new Date()}
-          callback={e => {
-            this.handleChange(e);
-          }}
-          callbackOrigin={this}
-        />
-      </div>
-    );
-
     return (
       <Header>
         <div className="page page__expense">
@@ -205,116 +182,145 @@ export default class MissionOverview extends Component {
                     <h4 class="modal-title">Spesenstatistik erstellen</h4>
                   </div>
                   <div class="modal-body">
-                    <label>
-                      <input
-                        type="radio"
-                        name="time_type"
-                        value="0"
-                        defaultChecked="true"
-                        onchange={e => {
-                          this.handleChange(e);
-                        }}
-                      />{' '}
-                      Jahr:&nbsp;
-                    </label>
-                    <select
-                      name="time_year"
-                      defaultValue={curMonthDate.getFullYear()}
-                      onchange={e => {
-                        this.handleChange(e);
-                      }}
-                    >
-                      {yearoptions}
-                    </select>
-                    <br />
+                    <div class="btn-group btn-block" data-toggle="buttons">
+                      <label class="btn btn-info active" data-toggle="collapse" data-target="#datePickerContainer.in" style="width:100%">
+                        <input
+                          type="radio"
+                          name="time_type"
+                          value="0"
+                          defaultChecked="true"
+                          onchange={e => {
+                            this.handleChange(e);
+                          }}
+                        />{' '}
+                        Jahr:&nbsp;
+                        <select
+                          name="time_year"
+                          defaultValue={curMonthDate.getFullYear()}
+                          onchange={e => {
+                            this.handleChange(e);
+                          }}
+                          style="color: black;"
+                        >
+                          {yearoptions}
+                        </select>
+                      </label>
 
-                    <label>
-                      <input
-                        type="radio"
-                        name="time_type"
-                        value="1"
-                        onchange={e => {
-                          this.handleChange(e);
-                        }}
-                        data-toggle="collapse"
-                        data-target="#datePickerContainer"
-                      />{' '}
-                      Periode:&nbsp;
-                    </label>
-                    {datepicker}
-                    <br />
+                      <label class="btn btn-info " data-toggle="collapse" data-target="#datePickerContainer:not(.in)" style="width:100%">
+                        <input
+                          type="radio"
+                          name="time_type"
+                          value="1"
+                          onchange={e => {
+                            this.handleChange(e);
+                          }}
+                        />{' '}
+                        Periode:&nbsp;
+                      </label>
+                      <div id="datePickerContainer" class="panel-collapse collapse ">
+                        <div class="btn-group-justified">
+                          <label class="btn">
+                            <DatePicker
+                              id="time_from"
+                              label="Von"
+                              value={new Date()}
+                              callback={e => {
+                                this.handleChange(e);
+                              }}
+                              callbackOrigin={this}
+                            />
+                          </label>
+                          <label class="btn">
+                            <DatePicker
+                              id="time_to"
+                              label="Zu"
+                              value={new Date()}
+                              callback={e => {
+                                this.handleChange(e);
+                              }}
+                              callbackOrigin={this}
+                            />
+                          </label>
+                        </div>
+                      </div>
 
-                    <label>
-                      <input
-                        type="radio"
-                        name="time_type"
-                        value="2"
-                        onchange={e => {
-                          this.handleChange(e);
-                        }}
-                      />{' '}
-                      {this.monthNames[curMonthDate.getMonth()]} {curMonthDate.getFullYear()}
-                    </label>
-                    <br />
-                    <label>
-                      <input
-                        type="radio"
-                        name="time_type"
-                        value="3"
-                        onchange={e => {
-                          this.handleChange(e);
-                        }}
-                      />{' '}
-                      {this.monthNames[prevMonthDate.getMonth()]} {prevMonthDate.getFullYear()}
-                    </label>
-                    <br />
-                    <br />
+                      <label class="btn btn-info" data-toggle="collapse" data-target="#datePickerContainer.in" style="width:100%">
+                        <input
+                          type="radio"
+                          name="time_type"
+                          value="2"
+                          onchange={e => {
+                            this.handleChange(e);
+                          }}
+                        />{' '}
+                        {this.monthNames[curMonthDate.getMonth()] + ' ' + curMonthDate.getFullYear()}
+                      </label>
 
-                    <label>
-                      <input
-                        type="radio"
-                        name="showOnlyDoneSheets"
-                        value="1"
-                        defaultChecked="true"
-                        onchange={e => {
-                          this.handleChange(e);
-                        }}
-                      />{' '}
-                      Erledigte Meldeblätter
-                    </label>
-                    <br />
-                    <label>
-                      <input
-                        type="radio"
-                        name="showOnlyDoneSheets"
-                        value="0"
-                        onchange={e => {
-                          this.handleChange(e);
-                        }}
-                      />{' '}
-                      Alle Meldeblätter
-                    </label>
+                      <label class="btn btn-info" data-toggle="collapse" data-target="#datePickerContainer.in" style="width:100%">
+                        <input
+                          type="radio"
+                          name="time_type"
+                          value="3"
+                          onchange={e => {
+                            this.handleChange(e);
+                          }}
+                        />{' '}
+                        {this.monthNames[prevMonthDate.getMonth()] + ' ' + prevMonthDate.getFullYear()}
+                      </label>
+                    </div>
+
                     <br />
                     <br />
 
-                    <button
-                      data-dismiss="modal"
-                      onClick={() => {
-                        this.showStatsExtended(0);
-                      }}
-                      class="btn btn-primary"
-                    >
-                      Gesamtstatistik
-                    </button>
-                    <button
-                      data-dismiss="modal"
-                      onClick={() => {
-                        this.showStatsExtended(1);
-                      }}
-                      class="btn btn-primary"
-                    >
-                      Detailübersicht
-                    </button>
+                    <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                      <label class="btn btn-default active">
+                        <input
+                          type="radio"
+                          name="showOnlyDoneSheets"
+                          value="1"
+                          onchange={e => {
+                            this.handleChange(e);
+                          }}
+                        />{' '}
+                        Erledigte Meldeblätter
+                      </label>
+                      <label class="btn btn-default">
+                        <input
+                          type="radio"
+                          name="showOnlyDoneSheets"
+                          value="0"
+                          onchange={e => {
+                            this.handleChange(e);
+                          }}
+                        />{' '}
+                        Alle Meldeblätter
+                      </label>
+                    </div>
+
+                    <br />
+
+                    <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                      <label class="btn btn-primary">
+                        <input
+                          type="radio"
+                          data-dismiss="modal"
+                          onchange={() => {
+                            this.showStatsExtended(0);
+                          }}
+                        />{' '}
+                        Gesamtstatistik
+                      </label>
+                      <label class="btn btn-primary">
+                        <input
+                          type="radio"
+                          data-dismiss="modal"
+                          onchange={() => {
+                            this.showStatsExtended(1);
+                          }}
+                        />{' '}
+                        Detailübersicht
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
