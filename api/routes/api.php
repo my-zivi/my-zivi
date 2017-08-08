@@ -318,11 +318,21 @@ $api->version('v1', function ($api) {
                 ->get());
         });
 
-        $api->get('/reportsheet/me', function () {
+        $api->get('/reportsheet/user/me', function () {
             $user = JWTAuth::parseToken()->authenticate();
             return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                 ->select('report_sheets.id AS id', 'start', 'end', 'done')
                 ->where('users.id', '=', $user->id)
+                ->orderBy('start')
+                ->orderBy('end')
+                ->orderBy('zdp')
+                ->get());
+        });
+
+        $api->get('/reportsheet/user/{id}', function ($id) {
+            return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                ->select('report_sheets.id AS id', 'start', 'end', 'done')
+                ->where('users.id', '=', $id)
                 ->orderBy('start')
                 ->orderBy('end')
                 ->orderBy('zdp')

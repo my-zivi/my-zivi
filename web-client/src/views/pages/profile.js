@@ -19,6 +19,8 @@ export default class User extends Component {
     super(props);
 
     this.state = {
+      loading: false,
+      error: null,
       result: [],
       cantons: [],
       regianlCenters: [],
@@ -83,17 +85,17 @@ export default class User extends Component {
 
   getReportSheets() {
     this.setState({ loading: true, error: null });
+    let apiRoute = this.props.params.userid === undefined ? 'me' : this.props.params.userid;
 
     axios
-      .get(ApiService.BASE_URL + 'reportsheet/me', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+      .get(ApiService.BASE_URL + 'reportsheet/user/' + apiRoute, {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+      })
       .then(response => {
-        this.setState({
-          loading: false,
-          reportSheets: response.data,
-        });
+        this.setState({ loading: false, reportSheets: response.data });
       })
       .catch(error => {
-        this.setState({ error: error });
+        this.setState({ loading: false, error: error });
       });
   }
 
@@ -502,7 +504,7 @@ export default class User extends Component {
                       <td>{obj.end}</td>
                       <td>{moment(obj.end, 'YYYY-MM-DD').diff(moment(obj.start, 'YYYY-MM-DD'), 'days')}</td>
                       <td>
-                        <button name="reportSheet" class="btn btn-primary" onClick="">
+                        <button name="reportSheet" class="btn btn-xs" onClick="">
                           Spesenrapport
                         </button>
                       </td>
