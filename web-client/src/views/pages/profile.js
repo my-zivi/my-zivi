@@ -12,7 +12,6 @@ import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
-import moment from 'moment';
 
 export default class User extends Component {
   constructor(props, { router }) {
@@ -131,6 +130,25 @@ export default class User extends Component {
       })
       .catch(error => {
         this.setState({ loading: false, error: error });
+      });
+  }
+
+  getMissionDraft(missionKey) {
+    this.setState({ loading: true, error: null });
+    axios
+      .get(ApiService.BASE_URL + 'mission/' + missionKey + '/draft', {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+        responseType: 'blob',
+      })
+      .then(response => {
+        this.setState({
+          loading: false,
+        });
+        let blob = new Blob([response.data], { type: 'application/pdf' });
+        window.location = window.URL.createObjectURL(blob);
+      })
+      .catch(error => {
+        this.setState({ error: error });
       });
   }
 
@@ -484,7 +502,14 @@ export default class User extends Component {
               </button>
             </td>
             <td>
-              <button class="btn btn-xs">drucken</button>
+              <button
+                class="btn btn-xs"
+                onClick={() => {
+                  this.getMissionDraft(curMission.id);
+                }}
+              >
+                drucken
+              </button>
             </td>
             <td>{deleteButton}</td>
           </tr>

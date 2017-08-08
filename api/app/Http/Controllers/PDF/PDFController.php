@@ -68,4 +68,15 @@ class PDFController extends Controller
         $response->headers->set("Content-Disposition", "inline");
         return $response;
     }
+
+    public function getAufgebot(Application $app, $id)
+    {
+        $aufgebot = new AufgebotPDF($id);
+
+        $response = response()->download($aufgebot->createPDF(), 'aufgebot.pdf')
+            ->deleteFileAfterSend(true);
+        $response->headers->set("Content-Type", "application/pdf");
+        $response->headers->set("Content-Disposition", "inline");
+        return $response;
+    }
 }

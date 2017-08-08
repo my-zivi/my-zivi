@@ -280,6 +280,12 @@ $api->version('v1', function ($api) {
             return response("deleted");
         });
 
+
+        $api->get('/mission/{id}/draft', [
+            'as' => 'api.pdf',
+            'uses' => 'App\Http\Controllers\PDF\PDFController@getAufgebot'
+        ]);
+
         $api->post('/mission/{id}/receivedDraft', function ($id) {
             $mission = App\Mission::find($id);
             $mission->draft = date("Y-m-d");
