@@ -152,6 +152,7 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
       THEN 0
     ELSE stiftun8_iZivi.zivis.bank_post_account_no
   END AS post_account,
+  stiftun8_iZivi.zivis.health_insurance AS health_insurance,
   stiftun8_iZivi.zivis.berufserfahrung AS work_experience,
   stiftun8_iZivi.zivis.fahrausweis AS driving_licence,
   concat(stiftun8_iZivi.zivis.ga, ' ', stiftun8_iZivi.zivis.halbtax ,' ', stiftun8_iZivi.zivis.anderesAbo) AS travel_card,

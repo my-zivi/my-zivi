@@ -199,7 +199,7 @@ export default class MissionOverview extends Component {
                   <div class="modal-body">
                     <div class="btn-group btn-block" data-toggle="buttons">
                       <label
-                        class="btn btn-info active"
+                        class="btn btn-default active"
                         data-toggle="collapse"
                         data-target="#datePickerContainer.in"
                         style="width: 598px;border-radius: 5px;margin: 0px;"
@@ -227,7 +227,7 @@ export default class MissionOverview extends Component {
                       </label>
 
                       <label
-                        class="btn btn-info"
+                        class="btn btn-default"
                         data-toggle="collapse"
                         data-target="#datePickerContainer:not(.in)"
                         style="width: 598px;border-radius: 5px;margin: 0px;"
@@ -266,7 +266,7 @@ export default class MissionOverview extends Component {
                       </div>
 
                       <label
-                        class="btn btn-info"
+                        class="btn btn-default"
                         data-toggle="collapse"
                         data-target="#datePickerContainer.in"
                         style="width: 598px;border-radius: 5px;margin: 0px;"
@@ -283,7 +283,7 @@ export default class MissionOverview extends Component {
                       </label>
 
                       <label
-                        class="btn btn-info"
+                        class="btn btn-default"
                         data-toggle="collapse"
                         data-target="#datePickerContainer.in"
                         style="width: 598px;border-radius: 5px;margin: 0px;"
@@ -331,7 +331,7 @@ export default class MissionOverview extends Component {
                     <br />
 
                     <div class="btn-group  btn-group-justified" data-toggle="buttons">
-                      <label class="btn btn-primary">
+                      <label class="btn btn-info">
                         <input
                           type="radio"
                           data-dismiss="modal"
@@ -341,7 +341,7 @@ export default class MissionOverview extends Component {
                         />{' '}
                         Gesamtstatistik
                       </label>
-                      <label class="btn btn-primary">
+                      <label class="btn btn-info">
                         <input
                           type="radio"
                           data-dismiss="modal"

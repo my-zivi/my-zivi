@@ -577,6 +577,10 @@ export default class User extends Component {
                 />
 
                 <hr />
+                <h3>Krankenkasse</h3>
+                <InputField id="health_insurance" label="Krankenkasse (Name und Ort)" value={result.health_insurance} self={this} />
+                <hr />
+
                 <h3>Diverse Informationen</h3>
                 <div class="form-group">
                   <label class="control-label col-sm-3" for="berufserfahrung">
