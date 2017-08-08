@@ -1,4 +1,4 @@
-INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, email,  password, role,  zdp,  first_name,  last_name,  address,  zip, city,  hometown,  hometown_canton,  canton,  birthday,  phone_mobile,  phone_private,  phone_business,  bank_iban,  post_account,  work_experience,  driving_licence,  travel_card,  regional_center,  internal_note) (SELECT
+INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, email,  password, role,  zdp,  first_name,  last_name,  address,  zip, city,  hometown,  hometown_canton,  canton,  birthday,  phone_mobile,  phone_private,  phone_business,  bank_iban,  post_account, health_insurance, work_experience,  driving_licence,  travel_card,  regional_center,  internal_note) (SELECT
   NULL AS created_at,
   NULL AS updated_at,
   NULL AS deleted_at,
