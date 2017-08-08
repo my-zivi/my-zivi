@@ -95,7 +95,7 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->SetXY($this->left_margin, $this->y_offset);
         $this->pdf->Cell(0, 10, "Adresse:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height/2);
-        $str = $this->user['street'] . ", " . $this->user['zip'] . " " . $this->user['city'];
+        $str = $this->user['address'] . ", " . $this->user['zip'] . " " . $this->user['city'];
         $this->pdf->Cell(100, $this->shade_height, $str, 0, 0, '', 1);
 
         $this->y_offset = $this->y_offset + $this->line_break;
@@ -554,20 +554,16 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell(0, 10, "Bankverbindung:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
         $str = "";
-        if ($this->user["bank"] != '') {
-            $str .= $this->user["bank"] . "\n";
+        if ($this->user["bank_iban"] != '') {
+            $str .= "IBAN: " . $this->user["bank_iban"] . "\n";
             $this->additional_offset += 5;
         }
-        if ($this->user["kontoNr"] != '') {
-            $str .= "Konto-Nr.: " . $this->user["kontoNr"] . "\n";
+        if ($this->user["post_account"] != '') {
+            $str .= "Post Konto-Nr.: " . $this->user["post_account"] . "\n";
             $this->additional_offset += 5;
         }
-        if ($this->user["bank_clearing"] != '') {
-            $str .= "Clearing-Nr.: " . $this->user["bank_clearing"] . "\n";
-            $this->additional_offset += 5;
-        }
+        //if ($this->user["bank_clearing"] != '') {$str .= "Clearing-Nr.: " . $this->user["bank_clearing"] . "\n"; $this->additional_offset += 5;}
         $this->pdf->MultiCell($this->bank_shade_width, $this->shade_height, $str, 0, '', 1);
-
 
         $this->y_offset = $this->y_offset + $this->line_break + $this->additional_offset - 5;
 
