@@ -348,4 +348,27 @@ class ReportSheet extends Model
         $y = date("Y", $day_TS);
         return mktime(0, 0, 0, $m, $d + 1, $y);
     }
+
+    public static function getDiensttageCount($start, $end)
+    {
+        if (strtotime($end)>strtotime($start)) {
+            $dayCount = ReportSheet::countDaysBetween(strtotime($start), strtotime($end));
+
+            $betriebsferien = Holiday::join('holiday_types', 'holidays.holiday_type', '=', 'holiday_types.id')
+                ->whereDate('date_from', '<=', $end)
+                ->whereDate('date_to', '>=', $start)
+                ->where('holiday_types.name', '=', 'Betriebsferien')
+                ->get();
+
+            foreach ($betriebsferien as $ferien) {
+                for ($u = max(strtotime($start), strtotime($ferien['date_from'])); $u<=min(strtotime($end), strtotime($ferien['date_to'])); $u=ReportSheet::tomorrow($u)) {
+                    $dayCount--;
+                }
+            }
+
+            return $dayCount;
+        } else {
+            return 0;
+        }
+    }
 }

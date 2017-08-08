@@ -56,14 +56,49 @@ export default class User extends Component {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
-        this.setState({
+        var newState = {
           result: response.data,
           loading: false,
           lastDateValue: response.data['birthday'],
-        });
+        };
+        for (var i = 0; i < response.data.missions.length; i++) {
+          var key = response.data.missions[i].id;
+
+          newState['result'][key + '_specification'] = response.data.missions[i].specification;
+          newState['result'][key + '_start'] = response.data.missions[i].start;
+          newState['result'][key + '_end'] = response.data.missions[i].end;
+          newState['result'][key + '_first_time'] = response.data.missions[i].first_time;
+          newState['result'][key + '_long_mission'] = response.data.missions[i].long_mission;
+          newState['result'][key + '_probation_period'] = response.data.missions[i].probation_period;
+        }
+
+        this.setState(newState);
+
+        for (var i = 0; i < response.data.missions.length; i++) {
+          this.getMissionDays(response.data.missions[i].id);
+        }
       })
       .catch(error => {
         this.setState({ error: error });
+      });
+  }
+
+  getMissionDays(missionKey) {
+    this.state.result[missionKey + '_days'] = '';
+    this.setState(this.state);
+
+    axios
+      .get(
+        ApiService.BASE_URL +
+          'diensttage?start=' +
+          this.state.result[missionKey + '_start'] +
+          '&end=' +
+          this.state.result[missionKey + '_end'],
+        { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
+      )
+      .then(response => {
+        this.state.result[missionKey + '_days'] = response.data;
+        this.setState(this.state);
       });
   }
 
@@ -149,22 +184,50 @@ export default class User extends Component {
     this.router.push('/changePassword');
   }
 
-  addNewMission() {
+  saveMission(missionKey) {
     var newMission = {
       user: this.state.result.id,
-      specification: this.state.result.newmission_specification,
-      start: this.state.result.newmission_start,
-      end: this.state.result.newmission_end,
-      first_time: this.state.result.newmission_first_time,
-      long_mission: this.state.result.newmission_long_mission,
-      probation_period: this.state.result.newmission_probation_period,
+      specification: this.state.result[missionKey + '_specification'],
+      start: this.state.result[missionKey + '_start'],
+      end: this.state.result[missionKey + '_end'],
+      first_time: this.state.result[missionKey + '_first_time'],
+      long_mission: this.state.result[missionKey + '_long_mission'],
+      probation_period: this.state.result[missionKey + '_probation_period'],
     };
 
     this.setState({ loading: true, error: null });
+    if (missionKey == 'newmission') {
+      axios
+        .put(ApiService.BASE_URL + 'mission/', newMission, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+        .then(response => {
+          $('[data-dismiss=modal]').trigger({ type: 'click' });
+          this.getUser();
+        })
+        .catch(error => {
+          this.setState({ error: error });
+        });
+    } else {
+      axios
+        .post(ApiService.BASE_URL + 'mission/' + missionKey, newMission, {
+          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+        })
+        .then(response => {
+          $('[data-dismiss=modal]').trigger({ type: 'click' });
+          this.getUser();
+        })
+        .catch(error => {
+          this.setState({ error: error });
+        });
+    }
+  }
+
+  setReceivedDraft(missionKey) {
+    this.setState({ loading: true, error: null });
     axios
-      .put(ApiService.BASE_URL + 'mission/', newMission, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+      .post(ApiService.BASE_URL + 'mission/' + missionKey + '/receivedDraft', null, {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+      })
       .then(response => {
-        $('[data-dismiss=modal]').trigger({ type: 'click' });
         this.getUser();
       })
       .catch(error => {
@@ -201,6 +264,177 @@ export default class User extends Component {
       });
   }
 
+  getEditModal(mission, isAdmin) {
+    let missionKey = mission != null ? mission.id : 'newmission';
+
+    let howerText_Tage =
+      'Zeigt dir die Anzahl Tage an welche für den Einsatz voraussichtlich angerechnet werden. Falls während dem Einsatz Betriebsferien liegen werden die entsprechenden Tage abgezogen falls die Dauer zu kurz ist um diese mit Ferientagen kompensieren zu können. Feiertage innerhalb von Betriebsferien gelten auf alle Fälle als Dienstage.';
+
+    var specification_options = [];
+    specification_options.push(<option value="" />);
+    for (var i = 0; i < this.state.specifications.length; i++) {
+      if (this.state.specifications[i].active) {
+        specification_options.push(<option value={'' + this.state.specifications[i].fullId}>{this.state.specifications[i].name}</option>);
+      }
+    }
+
+    var aufgebotErhaltenButton = [];
+    if (mission != null && mission.draft == null && isAdmin) {
+      aufgebotErhaltenButton.push(
+        <button
+          class="btn btn-primary"
+          type="button"
+          onClick={() => {
+            this.setReceivedDraft(missionKey);
+          }}
+        >
+          Aufgebot erhalten
+        </button>
+      );
+    }
+
+    return (
+      <div id={'einsatzModal' + (mission != null ? mission.id : '')} class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button id="einsatzModalClose" type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+              <h4 class="modal-title">Zivildiensteinsatz</h4>
+            </div>
+            <div class="modal-body">
+              <form
+                class="form-horizontal"
+                action="javascript:;"
+                onsubmit={() => {
+                  this.saveMission(missionKey);
+                }}
+              >
+                <div class="form-group">
+                  <label class="control-label col-sm-3" for={missionKey + '_specification'}>
+                    Pflichtenheft
+                  </label>
+                  <div class="col-sm-9">
+                    <select
+                      value={'' + this.state['result'][missionKey + '_specification']}
+                      id={missionKey + '_specification'}
+                      name={missionKey + '_specification'}
+                      class="form-control"
+                      onChange={e => this.handleSelectChange(e)}
+                      required
+                    >
+                      {specification_options}
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-3" for="newmission_mission_type">
+                    Einsatzart
+                  </label>
+                  <div class="col-sm-9">
+                    <select
+                      id="newmission_mission_type"
+                      name="newmission_mission_type"
+                      class="form-control"
+                      onChange={e => this.handleSelectChange(e)}
+                    >
+                      <option value="0" />
+                      <option value="1">Erster Einsatz</option>
+                      <option value="2">Letzter Einsatz</option>
+                    </select>
+                  </div>
+                </div>
+                <DatePicker
+                  value={this.state['result'][missionKey + '_start']}
+                  id={missionKey + '_start'}
+                  label="Einsatzbeginn"
+                  callback={(e, origin) => {
+                    this.handleDateChange(e, origin);
+                    this.getMissionDays(missionKey);
+                  }}
+                  callbackOrigin={this}
+                />
+                <DatePicker
+                  value={this.state['result'][missionKey + '_end']}
+                  id={missionKey + '_end'}
+                  label="Einsatzende"
+                  callback={(e, origin) => {
+                    this.handleDateChange(e, origin);
+                    this.getMissionDays(missionKey);
+                  }}
+                  callbackOrigin={this}
+                />
+                <InputFieldWithHelpText
+                  value={this.state['result'][missionKey + '_days']}
+                  id={missionKey + '_days'}
+                  label="Tage"
+                  popoverText={howerText_Tage}
+                  self={this}
+                  disabled="true"
+                />
+                <InputCheckbox
+                  value={this.state['result'][missionKey + '_first_time']}
+                  id={missionKey + '_first_time'}
+                  label="Erster SWO Einsatz"
+                  self={this}
+                />
+                <InputCheckbox
+                  value={this.state['result'][missionKey + '_long_mission']}
+                  id={missionKey + '_long_mission'}
+                  label="Langer Einsatz oder Teil davon"
+                  self={this}
+                />
+                <InputCheckbox
+                  value={this.state['result'][missionKey + '_probation_period']}
+                  id={missionKey + '_probation_period'}
+                  label="Probeeinsatz"
+                  self={this}
+                />
+                <hr />
+                <h4>Schnuppertag</h4>
+                <p>
+                  Tragen Sie nachfolgend ein, ob Sie bei der SWO einen Schnuppertag geleistet haben. Dieser wird dem Einsatz allenfalls
+                  angerechnet.
+                </p>
+                <DatePicker
+                  value={this.state[missionKey + '_trial_mission_date']}
+                  id={missionKey + '_trial_mission_date'}
+                  label="Datum"
+                  self={this}
+                />
+                <div class="form-group">
+                  <label class="control-label col-sm-3" for={missionKey + '_trial_mission_comment'}>
+                    Bemerkungen zum Schnuppertag
+                  </label>
+                  <div class="col-sm-9">
+                    <textarea
+                      rows="4"
+                      value={this.state['result'][missionKey + '_trial_mission_comment']}
+                      id={missionKey + '_trial_mission_comment'}
+                      name={missionKey + '_trial_mission_comment'}
+                      class="form-control"
+                      onChange={e => this.handleTextareaChange(e)}
+                    />
+                  </div>
+                </div>
+                <hr />
+                <h4>Status</h4>
+                {mission == null || mission.draft == null ? 'Provisorisch' : 'Aufgeboten, Aufgebot erhalten am ' + mission.draft}
+                <hr />
+                <button class="btn btn-primary" type="submit">
+                  Daten speichern
+                </button>
+                &nbsp;
+                {aufgebotErhaltenButton}
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     var jwtDecode = require('jwt-decode');
     var decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
@@ -211,16 +445,6 @@ export default class User extends Component {
     let howerText_Post = 'Postkonto Nummer';
     let howerText_Berufserfahrung =
       'Wir profitieren gerne von deiner Erfahrung. Wenn wir genau wissen, wann wer mit welchen Erfahrungen einen Einsatz tätigt, können wir z.T. Projekte speziell planen.';
-    let howerText_Tage =
-      'Zeigt dir die Anzahl Tage an welche für den Einsatz voraussichtlich angerechnet werden. Falls während dem Einsatz Betriebsferien liegen werden die entsprechenden Tage abgezogen falls die Dauer zu kurz ist um diese mit Ferientagen kompensieren zu können. Feiertage innerhalb von Betriebsferien gelten auf alle Fälle als Dienstage.';
-
-    var specification_options = [];
-    specification_options.push(<option value="" />);
-    for (var i = 0; i < this.state.specifications.length; i++) {
-      if (this.state.specifications[i].active) {
-        specification_options.push(<option value={this.state.specifications[i].fullId}>{this.state.specifications[i].name}</option>);
-      }
-    }
 
     var missions = [];
     if (this.state.result.missions != null) {
@@ -255,11 +479,17 @@ export default class User extends Component {
             <td>{moment(m[i].start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
             <td>{moment(m[i].end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
             <td>
+              <button class="btn btn-xs" data-toggle="modal" data-target={'#einsatzModal' + m[i].id}>
+                bearbeiten
+              </button>
+            </td>
+            <td>
               <button class="btn btn-xs">drucken</button>
             </td>
             <td>{deleteButton}</td>
           </tr>
         );
+        missions.push(this.getEditModal(m[i], isAdmin));
       }
     }
 
@@ -405,103 +635,7 @@ export default class User extends Component {
                 Neue Einsatzplanung hinzufügen
               </button>
 
-              <div id="einsatzModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button id="einsatzModalClose" type="button" class="close" data-dismiss="modal">
-                        &times;
-                      </button>
-                      <h4 class="modal-title">Zivildiensteinsatz</h4>
-                    </div>
-                    <div class="modal-body">
-                      <form
-                        class="form-horizontal"
-                        action="javascript:;"
-                        onsubmit={() => {
-                          this.addNewMission();
-                        }}
-                      >
-                        <div class="form-group">
-                          <label class="control-label col-sm-3" for="newmission_specification">
-                            Pflichtenheft
-                          </label>
-                          <div class="col-sm-9">
-                            <select
-                              id="newmission_specification"
-                              name="newmission_specification"
-                              class="form-control"
-                              onChange={e => this.handleSelectChange(e)}
-                              required
-                            >
-                              {specification_options}
-                            </select>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="control-label col-sm-3" for="newmission_mission_type">
-                            Einsatzart
-                          </label>
-                          <div class="col-sm-9">
-                            <select
-                              id="newmission_mission_type"
-                              name="newmission_mission_type"
-                              class="form-control"
-                              onChange={e => this.handleSelectChange(e)}
-                            >
-                              <option value="0" />
-                              <option value="1">Erster Einsatz</option>
-                              <option value="2">Letzter Einsatz</option>
-                            </select>
-                          </div>
-                        </div>
-                        <DatePicker id="newmission_start" label="Einsatzbeginn" callback={this.handleDateChange} callbackOrigin={this} />
-                        <DatePicker id="newmission_end" label="Einsatzende" callback={this.handleDateChange} callbackOrigin={this} />
-                        <InputFieldWithHelpText
-                          id="newmission_days"
-                          label="Tage"
-                          popoverText={howerText_Tage}
-                          self={this}
-                          disabled="true"
-                        />
-                        <InputCheckbox id="newmission_first_time" label="Erster SWO Einsatz" self={this} />
-                        <InputCheckbox id="newmission_long_mission" label="Langer Einsatz oder Teil davon" self={this} />
-                        <InputCheckbox id="newmission_probation_period" label="Probeeinsatz" self={this} />
-                        <hr />
-                        <h4>Schnuppertag</h4>
-                        <p>
-                          Tragen Sie nachfolgend ein, ob Sie bei der SWO einen Schnuppertag geleistet haben. Dieser wird dem Einsatz
-                          allenfalls angerechnet.
-                        </p>
-                        <DatePicker id="newmission_trial_mission_date" label="Datum" self={this} />
-                        <div class="form-group">
-                          <label class="control-label col-sm-3" for="newmission_trial_mission_comment">
-                            Bemerkungen zum Schnuppertag
-                          </label>
-                          <div class="col-sm-9">
-                            <textarea
-                              rows="4"
-                              id="newmission_trial_mission_comment"
-                              name="newmission_trial_mission_comment"
-                              class="form-control"
-                              onChange={e => this.handleTextareaChange(e)}
-                            >
-                              {result.internal_note}
-                            </textarea>
-                          </div>
-                        </div>
-                        <hr />
-                        <h4>Status</h4>
-                        Provisorisch
-                        <hr />
-                        <button class="btn btn-primary" type="submit">
-                          Daten speichern
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {this.getEditModal(null, isAdmin)}
 
               <hr />
               <h3>Meldeblätter</h3>
