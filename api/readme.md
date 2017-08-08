@@ -12,9 +12,10 @@
 3. php artisan key:generate
 4. php artisan jwt:generate --show # (add the key manually to the .env file)
 5. Adjust MySQL login in .env file
-6. php artisan migrate
-7. run db-script izivi_DB_Migration.sql from ./migration on the izivi database
-8. Run the "After" migration to update all passwords:  
+6. php artisan migrate:reset
+7. php artisan migrate
+8. run db-script izivi_DB_Migration.sql from ./migration on the izivi database
+9. Run the "After" migration to update all passwords:  
 * Windows:
         * php artisan migrate --path=.\database\migrations\After
 * *nix:
