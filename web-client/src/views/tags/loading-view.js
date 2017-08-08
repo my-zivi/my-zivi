@@ -2,6 +2,8 @@ import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
 import { connect } from 'inferno-mobx';
+import axios from 'axios';
+import ApiService from '../../utils/api';
 
 export default class LoadingView extends Component {
   constructor(props) {
@@ -14,6 +16,23 @@ export default class LoadingView extends Component {
         localStorage.removeItem('jwtToken');
         this.context.router.push('/');
       }
+    }
+  }
+
+  componentDidMount() {
+    if (localStorage.getItem('jwtToken') !== null) {
+      axios
+        .request({
+          url: ApiService.BASE_URL + 'auth/refresh',
+          method: 'patch',
+          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+        })
+        .then(response => {
+          localStorage.setItem('jwtToken', response.data.data.token);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 
