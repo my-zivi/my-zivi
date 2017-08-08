@@ -184,6 +184,23 @@ export default class User extends Component {
       });
   }
 
+  showReportSheet(id) {
+    this.setState({ loading: true, error: null });
+    axios
+      .get(ApiService.BASE_URL + 'pdf/zivireportsheet?reportSheetId=' + id, {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+        responseType: 'blob',
+      })
+      .then(response => {
+        this.setState({ loading: false });
+        let blob = new Blob([response.data], { type: 'application/pdf' });
+        window.location = window.URL.createObjectURL(blob);
+      })
+      .catch(error => {
+        this.setState({ loading: false, error: error });
+      });
+  }
+
   render() {
     var jwtDecode = require('jwt-decode');
     var decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
@@ -235,8 +252,8 @@ export default class User extends Component {
         missions.push(
           <tr>
             <td>{name}</td>
-            <td>{m[i].start}</td>
-            <td>{m[i].end}</td>
+            <td>{moment(m[i].start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
+            <td>{moment(m[i].end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
             <td>
               <button class="btn btn-xs">drucken</button>
             </td>
@@ -498,18 +515,20 @@ export default class User extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.reportSheets.map(obj => (
-                    <tr>
-                      <td>{obj.start}</td>
-                      <td>{obj.end}</td>
-                      <td>{moment(obj.end, 'YYYY-MM-DD').diff(moment(obj.start, 'YYYY-MM-DD'), 'days')}</td>
-                      <td>
-                        <button name="reportSheet" class="btn btn-xs" onClick="">
-                          Spesenrapport
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  {this.state.reportSheets.length
+                    ? this.state.reportSheets.map(obj => (
+                        <tr>
+                          <td>{moment(obj.start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
+                          <td>{moment(obj.end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
+                          <td>{moment(obj.end, 'YYYY-MM-DD').diff(moment(obj.start, 'YYYY-MM-DD'), 'days')}</td>
+                          <td>
+                            <button name="reportSheet" class="btn btn-xs" onClick={() => this.showReportSheet(obj.id)}>
+                              Spesenrapport
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    : null}
                 </tbody>
               </table>
             </div>
