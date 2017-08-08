@@ -111,6 +111,7 @@ $api->version('v1', function ($api) {
             $user->travel_card = Input::get("travel_card", "");
             $user->regional_center = Input::get("regional_center", "");
             $user->internal_note = Input::get("internal_note", "");
+            $user->health_insurance = Input::get("health_insurance", "");
             $user->save();
             return response("updated");
         });
