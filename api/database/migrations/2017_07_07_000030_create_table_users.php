@@ -41,7 +41,9 @@ class CreateTableUsers extends Migration
             $table->string('health_insurance');
             $table->text('work_experience')->nullable();
             $table->boolean('driving_licence')->nullable();
-            $table->string('travel_card')->nullable();
+            $table->boolean('ga_travelcard');
+            $table->boolean('half_fare_travelcard');
+            $table->string('other_fare_network')->nullable();
             $table->integer('regional_center')->unsigned();
             $table->foreign('regional_center')->references('id')->on('regional_centers');
             $table->text('internal_note');

@@ -672,7 +672,9 @@ export default class User extends Component {
                 </div>
 
                 <InputCheckbox id="driving_licence" value={result.driving_licence} label="Führerausweis" self={this} />
-                <InputCheckbox id="travel_card" value={result.travel_card} label="GA" self={this} />
+                <InputCheckbox id="ga_travelcard" value={result.ga_travelcard} label="GA" self={this} />
+                <InputCheckbox id="half_fare_travelcard" value={result.half_fare_travelcard} label="Halbtax" self={this} />
+                <InputField id="other_fare_network" label="Andere Abos" value={result.other_fare_network} self={this} />
 
                 {ApiService.isAdmin() ? this.getInternalNote(result) : null}
 
