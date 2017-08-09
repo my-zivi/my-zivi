@@ -453,6 +453,36 @@ export default class User extends Component {
     );
   }
 
+  getInternalNote(result) {
+    if (this.props.params.userid) {
+      return (
+        <div class="form-group">
+          <label class="control-label col-sm-3" for="internal_comment">
+            Int. Bemerkung
+          </label>
+          <div class="col-sm-9">
+            <textarea rows="4" id="internal_note" name="internal_note" class="form-control" onChange={e => this.handleTextareaChange(e)}>
+              {result.internal_note}
+            </textarea>
+          </div>
+        </div>
+      );
+    }
+  }
+
+  getPasswordChangeButton() {
+    if (!this.props.params.userid) {
+      return (
+        <div>
+          <button name="resetPassword" class="btn btn-primary" onClick={e => this.redirectToChangePassword(e)}>
+            Passwort ändern
+          </button>
+          <hr />
+        </div>
+      );
+    }
+  }
+
   render() {
     var jwtDecode = require('jwt-decode');
     var decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
@@ -526,7 +556,7 @@ export default class User extends Component {
             <div class="container">
               <form class="form-horizontal">
                 <hr />
-                {this.passwordChangeButton()}
+                {this.getPasswordChangeButton()}
                 <input name="id" value="00000" type="hidden" />
                 <input name="action" value="saveEmployee" type="hidden" />
 
@@ -568,13 +598,6 @@ export default class User extends Component {
                 <hr />
                 <h3>Bank-/Postverbindung</h3>
                 <InputFieldWithHelpText id="bank_iban" label="IBAN-Nr." value={result.bank_iban} popoverText={howerText_IBAN} self={this} />
-                <InputFieldWithHelpText
-                  id="post_account"
-                  label="Postkonto-Nr."
-                  value={result.post_account}
-                  popoverText={howerText_Post}
-                  self={this}
-                />
 
                 <hr />
                 <h3>Krankenkasse</h3>
@@ -618,22 +641,7 @@ export default class User extends Component {
                 <InputCheckbox id="driving_licence" value={result.driving_licence} label="Führerausweis" self={this} />
                 <InputCheckbox id="travel_card" value={result.travel_card} label="GA" self={this} />
 
-                <div class="form-group">
-                  <label class="control-label col-sm-3" for="internal_comment">
-                    Int. Bemerkung
-                  </label>
-                  <div class="col-sm-9">
-                    <textarea
-                      rows="4"
-                      id="internal_note"
-                      name="internal_note"
-                      class="form-control"
-                      onChange={e => this.handleTextareaChange(e)}
-                    >
-                      {result.internal_note}
-                    </textarea>
-                  </div>
-                </div>
+                {this.getInternalNote(result)}
 
                 <button
                   type="submit"
@@ -704,19 +712,5 @@ export default class User extends Component {
 
   componentDidUpdate() {
     DatePicker.initializeDatePicker();
-  }
-
-  passwordChangeButton() {
-    if (!this.props.params.userid) {
-      return (
-        <div>
-          <button name="resetPassword" class="btn btn-primary" onClick={e => this.redirectToChangePassword(e)}>
-            Passwort ändern
-          </button>
-          <hr />
-        </div>
-      );
-    }
-    return;
   }
 }

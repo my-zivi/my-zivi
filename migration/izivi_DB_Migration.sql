@@ -470,7 +470,7 @@ WHERE account_type = 0;
 UPDATE izivi.users u 
 LEFT JOIN izivi.no_iban z 
 ON u.zdp = z.id 
-SET u.bank_iban = z.kontoNr 
+SET u.bank_iban = REPLACE(z.kontoNr, '\n', ', ') 
 WHERE z.account_type = 2 
 OR z.account_type = 3;
 

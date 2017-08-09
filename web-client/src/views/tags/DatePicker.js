@@ -28,7 +28,6 @@ export default class DatePicker extends InputField {
     } else {
       dateValue = DatePicker.dateFormat_EN2CH(this.props.value);
     }
-    console.log('render of DatePicker value = ', dateValue);
 
     return this.getFormGroup(
       <div class="input-group input-append date datePicker" id="datePicker">
