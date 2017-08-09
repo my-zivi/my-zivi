@@ -23,11 +23,12 @@ export default class DatePicker extends InputField {
 
   render() {
     let dateValue = this.props.value;
-    if (dateValue === undefined || parseInt(dateValue) == 0) {
+    if (dateValue === undefined || dateValue == null || parseInt(dateValue) == 0) {
       dateValue = null;
     } else {
       dateValue = DatePicker.dateFormat_EN2CH(this.props.value);
     }
+    console.log('render of DatePicker value = ', dateValue);
 
     return this.getFormGroup(
       <div class="input-group input-append date datePicker" id="datePicker">

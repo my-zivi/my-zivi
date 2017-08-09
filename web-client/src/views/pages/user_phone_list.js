@@ -6,16 +6,23 @@ import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
+import DatePicker from '../tags/DatePicker';
 
 export default class UserPhoneList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { loading: false };
+    this.state = {
+      loading: false,
+      lastDateValue: new Date(),
+      start: null,
+      end: null,
+    };
   }
 
   getList() {
     this.setState({ loading: true, error: null });
+    console.log('this.state.start = ', this.state.start);
     axios
       .get(ApiService.BASE_URL + 'pdf/phoneList?start=' + this.state.start + '&end=' + this.state.end, {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
@@ -31,9 +38,17 @@ export default class UserPhoneList extends Component {
       });
   }
 
-  handleChange(e) {
-    this.state[e.target.name] = e.target.value;
-    this.setState(this.state);
+  handleDateChange(e, origin) {
+    let value = e.target.value;
+
+    if (value === undefined || value == null || value == '') {
+      value = origin.state.lastDateValue;
+    } else {
+      value = DatePicker.dateFormat_CH2EN(value);
+    }
+
+    origin.state[e.target.name] = value;
+    origin.setState(this.state);
   }
 
   render() {
@@ -53,30 +68,8 @@ export default class UserPhoneList extends Component {
                 this.getList();
               }}
             >
-              <div class="form-group">
-                <label for="start">Anfang:</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  name="start"
-                  id="start"
-                  value={this.state.start}
-                  onChange={this.handleChange.bind(this)}
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="email">Ende:</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  name="end"
-                  id="end"
-                  value={this.state.end}
-                  onChange={this.handleChange.bind(this)}
-                  required
-                />
-              </div>
+              <DatePicker id="start" label="Anfang:" value={this.state.start} callback={this.handleDateChange} callbackOrigin={this} />
+              <DatePicker id="end" label="Ende:" value={this.state.end} callback={this.handleDateChange} callbackOrigin={this} />
 
               <button class="btn btn-primary" type="submit">
                 Absenden
@@ -88,5 +81,9 @@ export default class UserPhoneList extends Component {
         </div>
       </Header>
     );
+  }
+
+  componentDidMount() {
+    DatePicker.initializeDatePicker();
   }
 }
