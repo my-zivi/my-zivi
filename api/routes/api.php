@@ -29,6 +29,16 @@ $api->version('v1', function ($api) {
         'uses' => 'App\Http\Controllers\Auth\AuthController@postRegister'
     ]);
 
+    $api->post('/auth/forgotPassword', [
+        'as' => 'api.auth.forgotpassword',
+        'uses' => 'App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail'
+    ]);
+
+    $api->post('/auth/resetPassword', [
+        'as' => 'api.auth.resetpassword',
+        'uses' => 'App\Http\Controllers\Auth\ForgotPasswordController@resetPassword'
+    ]);
+
     $api->group([
         'middleware' => 'api.auth',
     ], function ($api) {
@@ -105,7 +115,6 @@ $api->version('v1', function ($api) {
             $user->phone_private = Input::get("phone_private", "");
             $user->phone_business = Input::get("phone_business", "");
             $user->bank_iban = Input::get("bank_iban", "");
-            $user->post_account = Input::get("post_account", "");
             $user->work_experience = Input::get("work_experience", "");
             $user->driving_licence = Input::get("driving_licence", "");
             $user->travel_card = Input::get("travel_card", "");

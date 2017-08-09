@@ -101,10 +101,18 @@ export default class ChangePassword extends Component {
             {this.state.errorBox}
             {this.state.confirmBox}
             <div class="container">
-              <form id="changePasswordForm" action="javascript:;" class="form-horizontal" data-toggle="validator">
+              <form
+                id="changePasswordForm"
+                action="javascript:;"
+                class="form-horizontal"
+                data-toggle="validator"
+                onsubmit={() => {
+                  this.save();
+                }}
+              >
                 <hr />
                 <input name="id" value="00000" type="hidden" />
-                <button name="back" class="btn btn-primary" onClick={e => this.redirectBack(e)}>
+                <button type="button" name="back" class="btn btn-primary" onClick={e => this.redirectBack(e)}>
                   Abbrechen
                 </button>
                 <hr />
@@ -168,13 +176,7 @@ export default class ChangePassword extends Component {
                   <div class="help-block with-errors col-sm-9" />
                 </div>
 
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  onclick={() => {
-                    this.save();
-                  }}
-                >
+                <button type="submit" class="btn btn-primary">
                   Absenden
                 </button>
               </form>

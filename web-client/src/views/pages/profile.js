@@ -184,6 +184,21 @@ export default class User extends Component {
     this.setState(this.state);
   }
 
+  handleIBANChange(e) {
+    this.validateIBAN(e.target.value);
+    return this.handleChange(e);
+  }
+
+  validateIBAN(value) {
+    var regex = new RegExp('^CH\\d{2,2}\\s{0,1}(\\w{4,4}\\s{0,1}){4,7}\\w{0,2}$', 'g');
+
+    if (regex.test(value)) {
+      $('#ibanFormGroup').removeClass('has-warning');
+    } else {
+      $('#ibanFormGroup').addClass('has-warning');
+    }
+  }
+
   save() {
     this.setState({ loading: true, error: null });
     axios
@@ -453,6 +468,32 @@ export default class User extends Component {
     );
   }
 
+  getInternalNote(result) {
+    return (
+      <div class="form-group">
+        <label class="control-label col-sm-3" for="internal_comment">
+          Int. Bemerkung
+        </label>
+        <div class="col-sm-9">
+          <textarea rows="4" id="internal_note" name="internal_note" class="form-control" onChange={e => this.handleTextareaChange(e)}>
+            {result.internal_note}
+          </textarea>
+        </div>
+      </div>
+    );
+  }
+
+  getPasswordChangeButton() {
+    return (
+      <div>
+        <button name="resetPassword" class="btn btn-primary" onClick={e => this.redirectToChangePassword(e)}>
+          Passwort ändern
+        </button>
+        <hr />
+      </div>
+    );
+  }
+
   render() {
     let result = this.state.result;
     let howerText_IBAN = 'IBAN nummer';
@@ -522,7 +563,7 @@ export default class User extends Component {
             <div class="container">
               <form class="form-horizontal">
                 <hr />
-                {this.passwordChangeButton()}
+                {this.getPasswordChangeButton()}
                 <input name="id" value="00000" type="hidden" />
                 <input name="action" value="saveEmployee" type="hidden" />
 
@@ -563,14 +604,27 @@ export default class User extends Component {
 
                 <hr />
                 <h3>Bank-/Postverbindung</h3>
-                <InputFieldWithHelpText id="bank_iban" label="IBAN-Nr." value={result.bank_iban} popoverText={howerText_IBAN} self={this} />
-                <InputFieldWithHelpText
-                  id="post_account"
-                  label="Postkonto-Nr."
-                  value={result.post_account}
-                  popoverText={howerText_Post}
-                  self={this}
-                />
+
+                <div class="form-group" id="ibanFormGroup">
+                  <label class="control-label col-sm-3" for="hometown">
+                    IBAN-Nr.
+                  </label>
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      id="bank_iban"
+                      name="bank_iban"
+                      value={result.bank_iban}
+                      className="form-control"
+                      onChange={e => this.handleIBANChange(e)}
+                    />
+                  </div>
+                  <div id="_helpiban" className="col-sm-1 hidden-xs">
+                    <a href="#" data-toggle="popover" title="IBAN-Nr" data-content={howerText_IBAN}>
+                      <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
+                    </a>
+                  </div>
+                </div>
 
                 <hr />
                 <h3>Krankenkasse</h3>
@@ -614,24 +668,7 @@ export default class User extends Component {
                 <InputCheckbox id="driving_licence" value={result.driving_licence} label="Führerausweis" self={this} />
                 <InputCheckbox id="travel_card" value={result.travel_card} label="GA" self={this} />
 
-                {ApiService.isAdmin() ? (
-                  <div class="form-group">
-                    <label class="control-label col-sm-3" for="internal_comment">
-                      Int. Bemerkung
-                    </label>
-                    <div class="col-sm-9">
-                      <textarea
-                        rows="4"
-                        id="internal_note"
-                        name="internal_note"
-                        class="form-control"
-                        onChange={e => this.handleTextareaChange(e)}
-                      >
-                        {result.internal_note}
-                      </textarea>
-                    </div>
-                  </div>
-                ) : null}
+                {ApiService.isAdmin() ? this.getInternalNote(result) : null}
 
                 <button
                   type="submit"
@@ -710,19 +747,6 @@ export default class User extends Component {
 
   componentDidUpdate() {
     DatePicker.initializeDatePicker();
-  }
-
-  passwordChangeButton() {
-    if (!this.props.params.userid) {
-      return (
-        <div>
-          <button name="resetPassword" class="btn btn-primary" onClick={e => this.redirectToChangePassword(e)}>
-            Passwort ändern
-          </button>
-          <hr />
-        </div>
-      );
-    }
-    return;
+    this.validateIBAN($('#bank_iban').val());
   }
 }

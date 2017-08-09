@@ -65,35 +65,42 @@ export default class Login extends Component {
             <form class="form-signin" action="javascript:;" onsubmit={() => this.login()}>
               <h2 class="form-signin-heading">Anmelden</h2>
               {this.state.errorBox}
-              <label for="inputEmail" class="sr-only">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                class="form-control"
-                placeholder="Email"
-                value={this.state.email}
-                onChange={this.handleChange.bind(this)}
-                required
-                autofocus
-              />
-              <label for="inputPassword" class="sr-only">
-                Passwort
-              </label>
-              <input
-                type="password"
-                name="password"
-                class="form-control"
-                placeholder="Passwort"
-                value={this.state.password}
-                onChange={this.handleChange.bind(this)}
-                required
-              />
-              <button class="btn btn-lg btn-primary btn-block" type="submit">
-                Anmelden
-              </button>
+              <p>
+                <label for="inputEmail" class="sr-only">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="Email"
+                  value={this.state.email}
+                  onChange={this.handleChange.bind(this)}
+                  required
+                  autofocus
+                />
+                <label for="inputPassword" class="sr-only">
+                  Passwort
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  class="form-control"
+                  placeholder="Passwort"
+                  value={this.state.password}
+                  onChange={this.handleChange.bind(this)}
+                  required
+                />
+              </p>
+              <p>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                  Anmelden
+                </button>
+              </p>
             </form>
+            <p>
+              <a href="/forgotPassword">Passwort vergessen?</a>
+            </p>
           </Card>
 
           <LoadingView loading={this.state.loading} error={this.state.error} />
