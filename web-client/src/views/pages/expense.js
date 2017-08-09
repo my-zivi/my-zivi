@@ -1,6 +1,6 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
-import Card from '../tags/card';
+import ScrollableCard from '../tags/scrollableCard';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
@@ -173,7 +173,7 @@ export default class MissionOverview extends Component {
     return (
       <Header>
         <div className="page page__expense">
-          <Card>
+          <ScrollableCard>
             <h1>Spesen</h1>
             <div class="btn-group">
               <button class="btn btn-default" onclick={() => this.showStats(3, 1)}>
@@ -431,7 +431,7 @@ export default class MissionOverview extends Component {
               </thead>
               <tbody>{tableBody}</tbody>
             </table>
-          </Card>
+          </ScrollableCard>
 
           <LoadingView loading={this.state.loading} error={this.state.error} />
         </div>
