@@ -12,11 +12,15 @@ export default class UserPhoneList extends Component {
   constructor(props) {
     super(props);
 
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString();
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString();
+
     this.state = {
       loading: false,
       lastDateValue: new Date(),
-      start: null,
-      end: null,
+      start: firstDay,
+      end: lastDay,
     };
   }
 
