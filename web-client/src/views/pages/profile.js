@@ -186,6 +186,20 @@ export default class User extends Component {
     this.setState(this.state);
   }
 
+  handleIBANChange(e) {
+    let value = e.target.value;
+
+    var regex = new RegExp('^CH\\d{2,2}\\s{0,1}(\\w{4,4}\\s{0,1}){4,7}\\w{0,2}$', 'g');
+
+    if (regex.test(value)) {
+      $('#ibanFormGroup').removeClass('has-warning');
+    } else {
+      $('#ibanFormGroup').addClass('has-warning');
+    }
+
+    return this.handleChange(e);
+  }
+
   save() {
     this.setState({ loading: true, error: null });
     axios
@@ -599,7 +613,27 @@ export default class User extends Component {
 
                 <hr />
                 <h3>Bank-/Postverbindung</h3>
-                <InputFieldWithHelpText id="bank_iban" label="IBAN-Nr." value={result.bank_iban} popoverText={howerText_IBAN} self={this} />
+
+                <div class="form-group" id="ibanFormGroup">
+                  <label class="control-label col-sm-3" for="hometown">
+                    IBAN-Nr.
+                  </label>
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      id="bank_iban"
+                      name="bank_iban"
+                      value={result.bank_iban}
+                      className="form-control"
+                      onChange={e => this.handleIBANChange(e)}
+                    />
+                  </div>
+                  <div id="_helpiban" className="col-sm-1 hidden-xs">
+                    <a href="#" data-toggle="popover" title="IBAN-Nr" data-content={howerText_IBAN}>
+                      <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
+                    </a>
+                  </div>
+                </div>
 
                 <hr />
                 <h3>Krankenkasse</h3>
