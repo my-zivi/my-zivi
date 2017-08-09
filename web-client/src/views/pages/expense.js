@@ -1,6 +1,6 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
-import Card from '../tags/card';
+import ScrollableCard from '../tags/scrollableCard';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
@@ -18,7 +18,9 @@ export default class MissionOverview extends Component {
       name: '',
       start: '',
       end: '',
-
+      time_from: null,
+      time_to: null,
+      lastDateValue: new Date(),
       time_type: 0,
       time_year: new Date().getFullYear(),
       showOnlyDoneSheets: 1,
@@ -55,6 +57,19 @@ export default class MissionOverview extends Component {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     this.state[e.target.name] = value;
     this.setState(this.state);
+  }
+
+  handleDateChange(e, origin) {
+    let value = e.target.value;
+
+    if (value === undefined || value == null || value == '') {
+      value = origin.state.lastDateValue;
+    } else {
+      value = DatePicker.dateFormat_CH2EN(value);
+    }
+
+    origin.state[e.target.name] = value;
+    origin.setState(this.state);
   }
 
   showStatsExtended(showDetails) {
@@ -158,7 +173,7 @@ export default class MissionOverview extends Component {
     return (
       <Header>
         <div className="page page__expense">
-          <Card>
+          <ScrollableCard>
             <h1>Spesen</h1>
             <div class="btn-group">
               <button class="btn btn-default" onclick={() => this.showStats(3, 1)}>
@@ -183,7 +198,12 @@ export default class MissionOverview extends Component {
                   </div>
                   <div class="modal-body">
                     <div class="btn-group btn-block" data-toggle="buttons">
-                      <label class="btn btn-info active" data-toggle="collapse" data-target="#datePickerContainer.in" style="width:100%">
+                      <label
+                        class="btn btn-default active"
+                        data-toggle="collapse"
+                        data-target="#datePickerContainer.in"
+                        style="width: 598px;border-radius: 5px;margin: 0px;"
+                      >
                         <input
                           type="radio"
                           name="time_type"
@@ -206,7 +226,12 @@ export default class MissionOverview extends Component {
                         </select>
                       </label>
 
-                      <label class="btn btn-info " data-toggle="collapse" data-target="#datePickerContainer:not(.in)" style="width:100%">
+                      <label
+                        class="btn btn-default"
+                        data-toggle="collapse"
+                        data-target="#datePickerContainer:not(.in)"
+                        style="width: 598px;border-radius: 5px;margin: 0px;"
+                      >
                         <input
                           type="radio"
                           name="time_type"
@@ -223,10 +248,8 @@ export default class MissionOverview extends Component {
                             <DatePicker
                               id="time_from"
                               label="Von"
-                              value={new Date()}
-                              callback={e => {
-                                this.handleChange(e);
-                              }}
+                              value={this.state.time_from}
+                              callback={this.handleDateChange}
                               callbackOrigin={this}
                             />
                           </label>
@@ -234,17 +257,20 @@ export default class MissionOverview extends Component {
                             <DatePicker
                               id="time_to"
                               label="Zu"
-                              value={new Date()}
-                              callback={e => {
-                                this.handleChange(e);
-                              }}
+                              value={this.state.time_to}
+                              callback={this.handleDateChange}
                               callbackOrigin={this}
                             />
                           </label>
                         </div>
                       </div>
 
-                      <label class="btn btn-info" data-toggle="collapse" data-target="#datePickerContainer.in" style="width:100%">
+                      <label
+                        class="btn btn-default"
+                        data-toggle="collapse"
+                        data-target="#datePickerContainer.in"
+                        style="width: 598px;border-radius: 5px;margin: 0px;"
+                      >
                         <input
                           type="radio"
                           name="time_type"
@@ -256,7 +282,12 @@ export default class MissionOverview extends Component {
                         {this.monthNames[curMonthDate.getMonth()] + ' ' + curMonthDate.getFullYear()}
                       </label>
 
-                      <label class="btn btn-info" data-toggle="collapse" data-target="#datePickerContainer.in" style="width:100%">
+                      <label
+                        class="btn btn-default"
+                        data-toggle="collapse"
+                        data-target="#datePickerContainer.in"
+                        style="width: 598px;border-radius: 5px;margin: 0px;"
+                      >
                         <input
                           type="radio"
                           name="time_type"
@@ -300,7 +331,7 @@ export default class MissionOverview extends Component {
                     <br />
 
                     <div class="btn-group  btn-group-justified" data-toggle="buttons">
-                      <label class="btn btn-primary">
+                      <label class="btn btn-info">
                         <input
                           type="radio"
                           data-dismiss="modal"
@@ -310,7 +341,7 @@ export default class MissionOverview extends Component {
                         />{' '}
                         Gesamtstatistik
                       </label>
-                      <label class="btn btn-primary">
+                      <label class="btn btn-info">
                         <input
                           type="radio"
                           data-dismiss="modal"
@@ -400,7 +431,7 @@ export default class MissionOverview extends Component {
               </thead>
               <tbody>{tableBody}</tbody>
             </table>
-          </Card>
+          </ScrollableCard>
 
           <LoadingView loading={this.state.loading} error={this.state.error} />
         </div>

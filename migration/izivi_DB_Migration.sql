@@ -1,4 +1,13 @@
-INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, email,  password, role,  zdp,  first_name,  last_name,  address,  zip, city,  hometown,  hometown_canton,  canton,  birthday,  phone_mobile,  phone_private,  phone_business,  bank_iban,  post_account,  work_experience,  driving_licence,  travel_card,  regional_center,  internal_note) (SELECT
+/*
+██████╗  █████╗ ███████╗██╗ ██████╗    ██████╗  █████╗ ████████╗ █████╗ 
+██╔══██╗██╔══██╗██╔════╝██║██╔════╝    ██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗
+██████╔╝███████║███████╗██║██║         ██║  ██║███████║   ██║   ███████║
+██╔══██╗██╔══██║╚════██║██║██║         ██║  ██║██╔══██║   ██║   ██╔══██║
+██████╔╝██║  ██║███████║██║╚██████╗    ██████╔╝██║  ██║   ██║   ██║  ██║
+╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝ ╚═════╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
+*/
+
+INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, email,  password, role,  zdp,  first_name,  last_name,  address,  zip, city,  hometown,  hometown_canton,  canton,  birthday,  phone_mobile,  phone_private,  phone_business,  bank_iban,  post_account, health_insurance, work_experience,  driving_licence,  travel_card,  regional_center,  internal_note) (SELECT
   NULL AS created_at,
   NULL AS updated_at,
   NULL AS deleted_at,
@@ -152,6 +161,7 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
       THEN 0
     ELSE stiftun8_iZivi.zivis.bank_post_account_no
   END AS post_account,
+  stiftun8_iZivi.zivis.health_insurance AS health_insurance,
   stiftun8_iZivi.zivis.berufserfahrung AS work_experience,
   stiftun8_iZivi.zivis.fahrausweis AS driving_licence,
   concat(stiftun8_iZivi.zivis.ga, ' ', stiftun8_iZivi.zivis.halbtax ,' ', stiftun8_iZivi.zivis.anderesAbo) AS travel_card,
@@ -302,6 +312,15 @@ INSERT INTO izivi.holidays(date_from, date_to, holiday_type, description)
     description FROM stiftun8_iZivi.holidays);
 
 	
+/*
+██╗   ██╗███╗   ███╗██╗      █████╗ ██╗   ██╗████████╗    ███████╗██╗██╗  ██╗
+██║   ██║████╗ ████║██║     ██╔══██╗██║   ██║╚══██╔══╝    ██╔════╝██║╚██╗██╔╝
+██║   ██║██╔████╔██║██║     ███████║██║   ██║   ██║       █████╗  ██║ ╚███╔╝ 
+██║   ██║██║╚██╔╝██║██║     ██╔══██║██║   ██║   ██║       ██╔══╝  ██║ ██╔██╗ 
+╚██████╔╝██║ ╚═╝ ██║███████╗██║  ██║╚██████╔╝   ██║       ██║     ██║██╔╝ ██╗
+ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝    ╚═╝       ╚═╝     ╚═╝╚═╝  ╚═╝
+*/
+	
 UPDATE izivi.users SET first_name = (SELECT REPLACE(first_name, 'Ã©', 'é'));
 UPDATE izivi.users SET last_name = (SELECT REPLACE(last_name, 'Ã©', 'é'));
 UPDATE izivi.users SET address = (SELECT REPLACE(address, 'Ã©', 'é'));
@@ -341,3 +360,121 @@ UPDATE izivi.users SET city = (SELECT REPLACE(city, 'Ã', 'í'));
 UPDATE izivi.users SET hometown = (SELECT REPLACE(hometown, 'Ã', 'í'));
 UPDATE izivi.users SET work_experience = (SELECT REPLACE(work_experience, 'Ã', 'í'));
 UPDATE izivi.specifications SET name = (SELECT REPLACE(name, 'Ã', 'í'));
+
+
+/*
+██████╗  █████╗ ███╗   ██╗██╗  ██╗     █████╗  ██████╗ ██████╗ ██████╗ ██╗   ██╗███╗   ██╗████████╗███████╗
+██╔══██╗██╔══██╗████╗  ██║██║ ██╔╝    ██╔══██╗██╔════╝██╔════╝██╔═══██╗██║   ██║████╗  ██║╚══██╔══╝██╔════╝
+██████╔╝███████║██╔██╗ ██║█████╔╝     ███████║██║     ██║     ██║   ██║██║   ██║██╔██╗ ██║   ██║   ███████╗
+██╔══██╗██╔══██║██║╚██╗██║██╔═██╗     ██╔══██║██║     ██║     ██║   ██║██║   ██║██║╚██╗██║   ██║   ╚════██║
+██████╔╝██║  ██║██║ ╚████║██║  ██╗    ██║  ██║╚██████╗╚██████╗╚██████╔╝╚██████╔╝██║ ╚████║   ██║   ███████║
+╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝    ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚══════╝
+
+==== account types ====
+0 Bank Account with old number system
+1 Post Finance Account with old number system
+
+3 not to be converted
+4 to be converted by the IBAN calculation tool
+
+==== Generating the CSV file ====
+
+SET @row_number = 0;
+SELECT (@row_number:=@row_number + 1) AS 'row', id AS 'zdp', bank_clearing, kontoNr FROM no_iban;
+
+Export with Separator ";" and no escaping
+
+==== Using the IBAN tool ====
+
+See
+https://www.six-interbank-clearing.com/de/home/standardization/iban/iban-tool.html
+*/
+
+DROP TABLE IF EXISTS izivi.no_iban;
+CREATE TABLE izivi.no_iban LIKE stiftun8_iZivi.zivis; 
+INSERT izivi.no_iban SELECT * FROM stiftun8_iZivi.zivis;
+
+/* Post finance accounts */
+UPDATE izivi.no_iban SET kontoNr = REPLACE(kontoNR, "Postcheque", "PC");
+UPDATE izivi.no_iban SET kontoNr = REPLACE(kontoNR, "Postkonto", "PC");
+
+/* Mark unresolvable if the correct format is not found */
+UPDATE izivi.no_iban 
+SET account_type = 3 
+WHERE account_type = 0 
+AND kontoNr NOT REGEXP('^.*([0-9]{2,5}[\-.][0-9]{2,5})+.*$');
+
+/* Mark as post finance account if 'PC' is in the text */
+UPDATE izivi.no_iban SET account_type = 1 WHERE kontoNr LIKE '%PC%';
+
+/* Accounts with a valid IBAN don't need to be converted */
+UPDATE izivi.no_iban SET account_type = 3 WHERE kontoNr REGEXP('.*(CH[0-9][0-9]).*');
+
+/* Post finance BC code is 9000 */
+UPDATE izivi.no_iban SET bank_clearing = 9000 WHERE account_type = 1;
+
+/* remove all except numbers and '-' from the bank account */
+DROP FUNCTION IF EXISTS numbersandhyphen; 
+DELIMITER | 
+CREATE FUNCTION numbersandhyphen( str TEXT ) RETURNS CHAR(255) 
+BEGIN 
+  DECLARE i, len SMALLINT DEFAULT 1; 
+  DECLARE ret TEXT DEFAULT ''; 
+  DECLARE c CHAR(1); 
+  SET len = CHAR_LENGTH( str ); 
+  REPEAT 
+    BEGIN 
+      SET c = MID( str, i, 1 ); 
+      IF c REGEXP '[.0-9\-]' THEN 
+        SET ret=CONCAT(ret,c); 
+      END IF; 
+      SET i = i + 1; 
+    END; 
+  UNTIL i > len END REPEAT; 
+  RETURN ret; 
+END | 
+DELIMITER ; 
+
+/* Clean up post finance account numbers */
+UPDATE izivi.no_iban SET kontoNr = (LOWER(kontoNr)) WHERE account_type = 1;
+UPDATE izivi.no_iban SET kontoNr = (SELECT REPLACE(kontoNr, 'pc-konto', 'pc'))  WHERE account_type = 1;
+UPDATE izivi.no_iban SET kontoNr = numbersandhyphen(kontoNr) WHERE account_type = 1;
+
+/* Mark unresolvable if there are more than 9 chars */
+UPDATE izivi.no_iban SET account_type = 3 WHERE account_type = 1 AND CHAR_LENGTH(kontoNr) > 12;
+
+/* Mark Post Finance acounts for conversion */
+UPDATE izivi.no_iban SET account_type = 4 WHERE account_type = 1;
+
+/* Mark unresolvable if no BC is set or if BS contains letters */
+UPDATE izivi.no_iban 
+SET account_type = 3 
+WHERE account_type = 0 
+AND (
+bank_clearing REGEXP('^.*[A-Za-z]+.*$') 
+OR bank_clearing = '' 
+);
+
+/* Mark unresolvable if there is more than one account number found */
+UPDATE izivi.no_iban 
+SET account_type = 3 
+WHERE account_type = 0 
+AND kontoNr REGEXP('^.*[0-9]+.*[A-Za-z]+.*[0-9]+.*$');
+
+/* Clean up bank accounts without IBAN */
+UPDATE izivi.no_iban 
+SET account_type = 4, kontoNr = numbersandhyphen(kontoNr) 
+WHERE account_type = 0;
+
+/* Copy entries with IBAN number and unresolvable */
+UPDATE izivi.users u 
+LEFT JOIN izivi.no_iban z 
+ON u.zdp = z.id 
+SET u.bank_iban = z.kontoNr 
+WHERE z.account_type = 2 
+OR z.account_type = 3;
+
+/* Delete entries with IBAN and unresolvables, leave others for IBAN translation tool */
+DELETE FROM izivi.no_iban 
+WHERE account_type = 2
+OR account_type = 3;

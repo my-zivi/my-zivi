@@ -11,6 +11,8 @@
 |
 */
 
+use App\Holiday;
+use App\ReportSheet;
 use Illuminate\Support\Facades\Input;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -109,6 +111,7 @@ $api->version('v1', function ($api) {
             $user->travel_card = Input::get("travel_card", "");
             $user->regional_center = Input::get("regional_center", "");
             $user->internal_note = Input::get("internal_note", "");
+            $user->health_insurance = Input::get("health_insurance", "");
             $user->save();
             return response("updated");
         });
@@ -258,9 +261,37 @@ $api->version('v1', function ($api) {
             return response("inserted");
         });
 
+        $api->post('/mission/{id}', function ($id) {
+            $mission = App\Mission::find($id);
+            $mission->user = Input::get("user", "");
+            $mission->specification = Input::get("specification", "");
+            $mission->start = Input::get("start", "");
+            $mission->end = Input::get("end", "");
+            $mission->eligible_holiday = 0;//TODO:??
+            $mission->role = 3; //TODO: needed??
+            $mission->first_time = Input::get("first_time", false);
+            $mission->long_mission = Input::get("long_mission", false);
+            $mission->probation_period = Input::get("probation_period", false);
+            $mission->save();
+            return response("updated");
+        });
+
         $api->delete('/mission/{id}', function ($id) {
             App\Mission::find($id)->delete();
             return response("deleted");
+        });
+
+
+        $api->get('/mission/{id}/draft', [
+            'as' => 'api.pdf',
+            'uses' => 'App\Http\Controllers\PDF\PDFController@getAufgebot'
+        ]);
+
+        $api->post('/mission/{id}/receivedDraft', function ($id) {
+            $mission = App\Mission::find($id);
+            $mission->draft = date("Y-m-d");
+            $mission->save();
+            return response("updated");
         });
 
         // Role
@@ -377,6 +408,14 @@ $api->version('v1', function ($api) {
             $sheet->save();
             return response("updated");
         });
+
+        $api->get('/diensttage', function () {
+            $start = Input::get("start", "");
+            $end = Input::get("end", "");
+
+            return response()->json(ReportSheet::getDiensttageCount($start, $end));
+        });
+
 
         // PDF
         $api->get('/pdf/phoneList', [
