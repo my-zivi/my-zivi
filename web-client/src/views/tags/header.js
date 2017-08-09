@@ -2,8 +2,7 @@ import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
 import BootstrapNavLink from '../tags/BootstrapNavLink';
-
-import { connect } from 'inferno-mobx';
+import ApiService from '../../utils/api';
 
 export default class Header extends Component {
   guestMenu() {
@@ -31,19 +30,11 @@ export default class Header extends Component {
   }
 
   generateNavLinks() {
-    var isLoggedIn = localStorage.getItem('jwtToken') !== null;
-    var isAdmin = false;
-    if (isLoggedIn) {
-      var jwtDecode = require('jwt-decode');
-      var decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
-      isAdmin = decodedToken.isAdmin;
-    }
-
     return (
       <ul class="nav navbar-nav">
-        {isAdmin ? this.adminMenu() : null}
-        {isLoggedIn ? this.userMenu() : null}
-        {!isLoggedIn ? this.guestMenu() : null}
+        {ApiService.isAdmin() ? this.adminMenu() : null}
+        {ApiService.isLoggedIn() ? this.userMenu() : null}
+        {!ApiService.isLoggedIn() ? this.guestMenu() : null}
       </ul>
     );
   }

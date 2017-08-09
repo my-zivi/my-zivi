@@ -3,7 +3,6 @@ import { Link } from 'inferno-router';
 import Component from 'inferno-component';
 import axios from 'axios';
 import ApiService from '../../utils/api';
-import { connect } from 'inferno-mobx';
 import Card from '../tags/card';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';

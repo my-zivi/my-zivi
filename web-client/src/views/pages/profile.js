@@ -1,6 +1,5 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
-import { connect } from 'inferno-mobx';
 
 import Card from '../tags/card';
 import InputField from '../tags/InputField';
@@ -15,7 +14,6 @@ import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 
-@connect(['accountStore'])
 export default class User extends Component {
   constructor(props, { router }) {
     super(props);
@@ -456,10 +454,6 @@ export default class User extends Component {
   }
 
   render() {
-    var jwtDecode = require('jwt-decode');
-    var decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
-    var isAdmin = decodedToken.isAdmin;
-
     let result = this.state.result;
     let howerText_IBAN = 'IBAN nummer';
     let howerText_Post = 'Postkonto Nummer';
@@ -479,7 +473,7 @@ export default class User extends Component {
         }
         let curMission = m[i];
         var deleteButton = [];
-        if (isAdmin) {
+        if (ApiService.isAdmin()) {
           deleteButton.push(
             <button
               class="btn btn-xs"
@@ -516,7 +510,7 @@ export default class User extends Component {
             <td>{deleteButton}</td>
           </tr>
         );
-        missions.push(this.getEditModal(m[i], isAdmin));
+        missions.push(this.getEditModal(m[i], ApiService.isAdmin()));
       }
     }
 
@@ -620,22 +614,24 @@ export default class User extends Component {
                 <InputCheckbox id="driving_licence" value={result.driving_licence} label="Führerausweis" self={this} />
                 <InputCheckbox id="travel_card" value={result.travel_card} label="GA" self={this} />
 
-                <div class="form-group">
-                  <label class="control-label col-sm-3" for="internal_comment">
-                    Int. Bemerkung
-                  </label>
-                  <div class="col-sm-9">
-                    <textarea
-                      rows="4"
-                      id="internal_note"
-                      name="internal_note"
-                      class="form-control"
-                      onChange={e => this.handleTextareaChange(e)}
-                    >
-                      {result.internal_note}
-                    </textarea>
+                {ApiService.isAdmin() ? (
+                  <div class="form-group">
+                    <label class="control-label col-sm-3" for="internal_comment">
+                      Int. Bemerkung
+                    </label>
+                    <div class="col-sm-9">
+                      <textarea
+                        rows="4"
+                        id="internal_note"
+                        name="internal_note"
+                        class="form-control"
+                        onChange={e => this.handleTextareaChange(e)}
+                      >
+                        {result.internal_note}
+                      </textarea>
+                    </div>
                   </div>
-                </div>
+                ) : null}
 
                 <button
                   type="submit"
@@ -666,7 +662,7 @@ export default class User extends Component {
                 Neue Einsatzplanung hinzufügen
               </button>
 
-              {this.getEditModal(null, isAdmin)}
+              {this.getEditModal(null, ApiService.isAdmin())}
 
               <hr />
               <h3>Meldeblätter</h3>
@@ -687,14 +683,12 @@ export default class User extends Component {
                           <td>{moment(obj.start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
                           <td>{moment(obj.end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
                           <td>{moment(obj.end, 'YYYY-MM-DD').diff(moment(obj.start, 'YYYY-MM-DD'), 'days')}</td>
-                          {this.props.accountStore.isLoggedIn ? (
-                            <td>
-                              <button name="showReportSheet" class="btn btn-xs" onClick={() => this.showReportSheet(obj.id)}>
-                                Spesenrapport anzeigen
-                              </button>
-                            </td>
-                          ) : null}
-                          {this.props.accountStore.isAdmin ? (
+                          <td>
+                            <button name="showReportSheet" class="btn btn-xs" onClick={() => this.showReportSheet(obj.id)}>
+                              Spesenrapport anzeigen
+                            </button>
+                          </td>
+                          {ApiService.isAdmin() ? (
                             <td>
                               <button name="editReportSheet" class="btn btn-xs" onClick={() => this.router.push('/expense/' + obj.id)}>
                                 Spesen bearbeiten

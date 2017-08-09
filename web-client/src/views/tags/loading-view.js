@@ -1,7 +1,6 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-import { connect } from 'inferno-mobx';
 import axios from 'axios';
 import ApiService from '../../utils/api';
 
@@ -20,7 +19,7 @@ export default class LoadingView extends Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem('jwtToken') !== null) {
+    if (ApiService.isLoggedIn()) {
       axios
         .request({
           url: ApiService.BASE_URL + 'auth/refresh',

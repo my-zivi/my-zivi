@@ -1,7 +1,6 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-import { connect } from 'inferno-mobx';
 import InputField from '../tags/InputField';
 
 export default class DatePicker extends InputField {
@@ -28,7 +27,6 @@ export default class DatePicker extends InputField {
     } else {
       dateValue = DatePicker.dateFormat_EN2CH(this.props.value);
     }
-    console.log('render of DatePicker value = ', dateValue);
 
     return this.getFormGroup(
       <div class="input-group input-append date datePicker" id="datePicker">

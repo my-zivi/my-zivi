@@ -21,7 +21,6 @@
     "file-loader": "^0.11.2",
     "history": "^4.6.1",
     "inferno": "^3.1.0",
-    "inferno-mobx": "^3.7.0",
     "inferno-router": "^3.1.0",
     "jwt-decode": "^2.2.0",
     "md-colors": "^1.0.0",
