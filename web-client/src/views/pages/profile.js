@@ -486,7 +486,7 @@ export default class User extends Component {
   getPasswordChangeButton() {
     return (
       <div>
-        <button name="resetPassword" class="btn btn-primary" onClick={e => this.redirectToChangePassword(e)}>
+        <button type="button" name="resetPassword" class="btn btn-primary" onClick={e => this.redirectToChangePassword(e)}>
           Passwort ändern
         </button>
         <hr />
