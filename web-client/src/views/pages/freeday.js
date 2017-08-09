@@ -7,6 +7,7 @@ import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/DatePicker';
+import Toast from '../../utils/toast';
 
 export default class Freeday extends Component {
   constructor(props) {
@@ -64,10 +65,14 @@ export default class Freeday extends Component {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
+        Toast.showSuccess('Speichern erfolgreich', 'Frei-Tag wurde erfolgreich gespeichert');
         this.setState({ loading: false });
       })
       .catch(error => {
-        this.setState({ error: error });
+        Toast.showError('Speichern fehlgeschlagen', 'Frei-Tag konnte nicht gespeicher werden');
+        this.setState({ loading: false });
+        //TODO ERROR Handling!!!
+        //this.setState({error: error});
       });
   }
 
@@ -78,10 +83,14 @@ export default class Freeday extends Component {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
+        Toast.showSuccess('Löschen erfolgreich', 'Frei-Tag wurde erfolgreich gelöscht');
         this.getFreedays();
       })
       .catch(error => {
-        this.setState({ error: error });
+        Toast.showError('Löschen fehlgeschlagen', 'Frei-Tag konnte nicht gelöscht werden');
+        this.setState({ loading: false });
+        //TODO ERROR Handling!!!
+        //this.setState({error: error});
       });
   }
 
@@ -98,11 +107,15 @@ export default class Freeday extends Component {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
+        Toast.showSuccess('Hinzufügen erfolgreich', 'Frei-Tag wurde erfolgreich hinzugefügt');
         this.setState({ newFreeday: { holiday_type: 2, description: '' } });
         this.getFreedays();
       })
       .catch(error => {
-        this.setState({ error: error });
+        Toast.showError('Hinzufügen fehlgeschlagen', 'Frei-Tag konnte nicht hinzugefügt werden');
+        this.setState({ loading: false });
+        //TODO ERROR Handling!!!
+        //this.setState({error: error});
       });
   }
 
@@ -172,7 +185,7 @@ export default class Freeday extends Component {
             />
           </td>
           <td>
-            <button class="btn btn-sm" onClick={() => this.save(i)}>
+            <button type="button" class="btn btn-sm" onClick={() => this.save(i)}>
               speichern
             </button>
           </td>

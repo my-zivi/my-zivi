@@ -4,6 +4,7 @@ import { createBrowserHistory } from 'history';
 import views from './views';
 import './index.sass';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'izitoast/dist/css/iziToast.css';
 
 const browserHistory = createBrowserHistory();
 
