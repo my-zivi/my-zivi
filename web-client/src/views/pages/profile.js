@@ -561,7 +561,13 @@ export default class User extends Component {
           <Card>
             <h1>Profil</h1>
             <div class="container">
-              <form class="form-horizontal">
+              <form
+                class="form-horizontal"
+                action="javascript:;"
+                onSubmit={() => {
+                  this.save();
+                }}
+              >
                 <hr />
                 {this.getPasswordChangeButton()}
                 <input name="id" value="00000" type="hidden" />
@@ -670,13 +676,7 @@ export default class User extends Component {
 
                 {ApiService.isAdmin() ? this.getInternalNote(result) : null}
 
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  onclick={() => {
-                    this.save();
-                  }}
-                >
+                <button type="submit" class="btn btn-primary">
                   Absenden
                 </button>
               </form>
