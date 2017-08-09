@@ -709,8 +709,9 @@ export default class User extends Component {
                     <th>Von</th>
                     <th>Bis</th>
                     <th>Tage</th>
+                    {ApiService.isAdmin() ? <th>Erledigt</th> : null}
                     <th />
-                    <th />
+                    {ApiService.isAdmin() ? <th /> : null}
                   </tr>
                 </thead>
                 <tbody>
@@ -720,6 +721,7 @@ export default class User extends Component {
                           <td>{moment(obj.start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
                           <td>{moment(obj.end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
                           <td>{moment(obj.end, 'YYYY-MM-DD').diff(moment(obj.start, 'YYYY-MM-DD'), 'days')}</td>
+                          {ApiService.isAdmin() ? obj.done === 1 ? <td>&#9989;</td> : <td /> : null}
                           <td>
                             <button name="showReportSheet" class="btn btn-xs" onClick={() => this.showReportSheet(obj.id)}>
                               Spesenrapport anzeigen
