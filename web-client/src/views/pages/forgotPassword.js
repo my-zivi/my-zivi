@@ -1,12 +1,10 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-import { connect } from 'inferno-mobx';
-
-import Card from '../tags/card';
-
 import axios from 'axios';
 import ApiService from '../../utils/api';
+
+import Card from '../tags/card';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 
