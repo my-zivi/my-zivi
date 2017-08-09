@@ -41,7 +41,9 @@ class User extends Model implements
         'bank_iban',
         'work_experience',
         'driving_licence',
-        'travel_card', // GA, Halbtax, etc.
+        'ga_travelcard',
+        'half_fare_travelcard',
+        'other_fare_network',
         'regional_center',
         'internal_note'
     ];

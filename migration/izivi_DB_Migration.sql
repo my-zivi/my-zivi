@@ -7,7 +7,7 @@
 ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝ ╚═════╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
 */
 
-INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, email,  password, role,  zdp,  first_name,  last_name,  address,  zip, city,  hometown,  hometown_canton,  canton,  birthday,  phone_mobile,  phone_private,  phone_business,  bank_iban, health_insurance, work_experience,  driving_licence,  travel_card,  regional_center,  internal_note) (SELECT
+INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, email,  password, role,  zdp,  first_name,  last_name,  address,  zip, city,  hometown,  hometown_canton, canton, birthday, phone_mobile, phone_private, phone_business, bank_iban, health_insurance, work_experience, driving_licence, ga_travelcard, half_fare_travelcard, other_fare_network, regional_center,  internal_note) (SELECT
   NULL AS created_at,
   NULL AS updated_at,
   NULL AS deleted_at,
@@ -157,8 +157,10 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
   stiftun8_iZivi.zivis.health_insurance AS health_insurance,
   stiftun8_iZivi.zivis.berufserfahrung AS work_experience,
   stiftun8_iZivi.zivis.fahrausweis AS driving_licence,
-  concat(stiftun8_iZivi.zivis.ga, ' ', stiftun8_iZivi.zivis.halbtax ,' ', stiftun8_iZivi.zivis.anderesAbo) AS travel_card,
-   CASE
+  stiftun8_iZivi.zivis.ga AS ga_travelcard,
+  stiftun8_iZivi.zivis.halbtax AS half_fare_travelcard,
+  stiftun8_iZivi.zivis.anderesAbo AS other_fare_network,
+CASE
     WHEN stiftun8_iZivi.zivis.regionalzentrum = 3
       THEN 2
     WHEN stiftun8_iZivi.zivis.regionalzentrum = 6
@@ -470,4 +472,4 @@ OR z.account_type = 3;
 /* Delete entries with IBAN and unresolvables, leave others for IBAN translation tool */
 DELETE FROM izivi.no_iban 
 WHERE account_type = 2
-OR account_type = 3;
+OR account_type = 3;                       

@@ -116,8 +116,10 @@ $api->version('v1', function ($api) {
             $user->phone_business = Input::get("phone_business", "");
             $user->bank_iban = Input::get("bank_iban", "");
             $user->work_experience = Input::get("work_experience", "");
-            $user->driving_licence = Input::get("driving_licence", "");
-            $user->travel_card = Input::get("travel_card", "");
+            $user->driving_licence = Input::get("driving_licence", 0);
+            $user->ga_travelcard = Input::get("ga_travelcard", 0);
+            $user->half_fare_travelcard = Input::get("half_fare_travelcard", 0);
+            $user->other_fare_network = Input::get("other_fare_network", "");
             $user->regional_center = Input::get("regional_center", "");
             $user->internal_note = Input::get("internal_note", "");
             $user->health_insurance = Input::get("health_insurance", "");
