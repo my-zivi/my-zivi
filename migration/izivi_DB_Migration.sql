@@ -155,7 +155,7 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
   END AS phone_business,
   '' AS bank_iban,
   CASE WHEN stiftun8_iZivi.zivis.health_insurance IS NULL
-    THEN 'NULL'
+    THEN ''
     ELSE stiftun8_iZivi.zivis.health_insurance
   END AS health_insurance,
   stiftun8_iZivi.zivis.berufserfahrung AS work_experience,
