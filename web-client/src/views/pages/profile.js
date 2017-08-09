@@ -187,8 +187,11 @@ export default class User extends Component {
   }
 
   handleIBANChange(e) {
-    let value = e.target.value;
+    this.validateIBAN(e.target.value);
+    return this.handleChange(e);
+  }
 
+  validateIBAN(value) {
     var regex = new RegExp('^CH\\d{2,2}\\s{0,1}(\\w{4,4}\\s{0,1}){4,7}\\w{0,2}$', 'g');
 
     if (regex.test(value)) {
@@ -196,8 +199,6 @@ export default class User extends Component {
     } else {
       $('#ibanFormGroup').addClass('has-warning');
     }
-
-    return this.handleChange(e);
   }
 
   save() {
@@ -758,5 +759,6 @@ export default class User extends Component {
 
   componentDidUpdate() {
     DatePicker.initializeDatePicker();
+    this.validateIBAN($('#bank_iban').val());
   }
 }

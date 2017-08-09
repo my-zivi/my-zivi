@@ -38,7 +38,6 @@ class CreateTableUsers extends Migration
             $table->string('phone_private');
             $table->string('phone_business');
             $table->string('bank_iban');
-            $table->string('post_account');
             $table->string('health_insurance');
             $table->text('work_experience')->nullable();
             $table->boolean('driving_licence')->nullable();

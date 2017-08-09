@@ -115,7 +115,6 @@ $api->version('v1', function ($api) {
             $user->phone_private = Input::get("phone_private", "");
             $user->phone_business = Input::get("phone_business", "");
             $user->bank_iban = Input::get("bank_iban", "");
-            $user->post_account = Input::get("post_account", "");
             $user->work_experience = Input::get("work_experience", "");
             $user->driving_licence = Input::get("driving_licence", "");
             $user->travel_card = Input::get("travel_card", "");

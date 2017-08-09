@@ -7,7 +7,7 @@
 ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝ ╚═════╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
 */
 
-INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, email,  password, role,  zdp,  first_name,  last_name,  address,  zip, city,  hometown,  hometown_canton,  canton,  birthday,  phone_mobile,  phone_private,  phone_business,  bank_iban,  post_account, health_insurance, work_experience,  driving_licence,  travel_card,  regional_center,  internal_note) (SELECT
+INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, email,  password, role,  zdp,  first_name,  last_name,  address,  zip, city,  hometown,  hometown_canton,  canton,  birthday,  phone_mobile,  phone_private,  phone_business,  bank_iban, health_insurance, work_experience,  driving_licence,  travel_card,  regional_center,  internal_note) (SELECT
   NULL AS created_at,
   NULL AS updated_at,
   NULL AS deleted_at,
@@ -154,13 +154,6 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
     ELSE stiftun8_iZivi.zivis.phoneG
   END AS phone_business,
   '' AS bank_iban,
-  CASE
-    WHEN stiftun8_iZivi.zivis.bank_post_account_no = ''
-      THEN 0
-    WHEN stiftun8_iZivi.zivis.bank_post_account_no IS NULL
-      THEN 0
-    ELSE stiftun8_iZivi.zivis.bank_post_account_no
-  END AS post_account,
   stiftun8_iZivi.zivis.health_insurance AS health_insurance,
   stiftun8_iZivi.zivis.berufserfahrung AS work_experience,
   stiftun8_iZivi.zivis.fahrausweis AS driving_licence,

@@ -39,7 +39,6 @@ class User extends Model implements
         'phone_private',
         'phone_business',
         'bank_iban',
-        'post_account',
         'work_experience',
         'driving_licence',
         'travel_card', // GA, Halbtax, etc.
