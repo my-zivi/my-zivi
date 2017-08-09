@@ -14,13 +14,12 @@ import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import moment from 'moment';
 
+@connect(['accountStore'])
 export default class User extends Component {
   constructor(props, { router }) {
     super(props);
 
     this.state = {
-      loading: false,
-      error: null,
       result: [],
       cantons: [],
       regianlCenters: [],
@@ -85,6 +84,7 @@ export default class User extends Component {
 
   getReportSheets() {
     this.setState({ loading: true, error: null });
+
     let apiRoute = this.props.params.userid === undefined ? 'me' : this.props.params.userid;
 
     axios
@@ -512,6 +512,7 @@ export default class User extends Component {
                     <th>Bis</th>
                     <th>Tage</th>
                     <th />
+                    <th />
                   </tr>
                 </thead>
                 <tbody>
@@ -521,11 +522,20 @@ export default class User extends Component {
                           <td>{moment(obj.start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
                           <td>{moment(obj.end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
                           <td>{moment(obj.end, 'YYYY-MM-DD').diff(moment(obj.start, 'YYYY-MM-DD'), 'days')}</td>
-                          <td>
-                            <button name="reportSheet" class="btn btn-xs" onClick={() => this.showReportSheet(obj.id)}>
-                              Spesenrapport
-                            </button>
-                          </td>
+                          {this.props.accountStore.isLoggedIn ? (
+                            <td>
+                              <button name="showReportSheet" class="btn btn-xs" onClick={() => this.showReportSheet(obj.id)}>
+                                Spesenrapport anzeigen
+                              </button>
+                            </td>
+                          ) : null}
+                          {this.props.accountStore.isAdmin ? (
+                            <td>
+                              <button name="editReportSheet" class="btn btn-xs" onClick={() => this.router.push('/expense/' + obj.id)}>
+                                Spesen bearbeiten
+                              </button>
+                            </td>
+                          ) : null}
                         </tr>
                       ))
                     : null}

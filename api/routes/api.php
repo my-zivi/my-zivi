@@ -320,23 +320,27 @@ $api->version('v1', function ($api) {
 
         $api->get('/reportsheet/user/me', function () {
             $user = JWTAuth::parseToken()->authenticate();
-            return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                ->select('report_sheets.id AS id', 'start', 'end', 'done')
-                ->where('users.id', '=', $user->id)
-                ->orderBy('start')
-                ->orderBy('end')
-                ->orderBy('zdp')
-                ->get());
-        });
 
-        $api->get('/reportsheet/user/{id}', function ($id) {
-            return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                ->select('report_sheets.id AS id', 'start', 'end', 'done')
-                ->where('users.id', '=', $id)
-                ->orderBy('start')
-                ->orderBy('end')
-                ->orderBy('zdp')
-                ->get());
+            if ($user->isAdmin()) {
+                // Administrators
+                return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                    ->select('report_sheets.id AS id', 'start', 'end', 'done')
+                    ->where('users.id', '=', $user->id)
+                    ->orderBy('start')
+                    ->orderBy('end')
+                    ->orderBy('zdp')
+                    ->get());
+            } else {
+                // Zivis
+                return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                    ->select('report_sheets.id AS id', 'start', 'end', 'done')
+                    ->where('users.id', '=', $user->id)
+                    ->where('done', '=', 1)
+                    ->orderBy('start')
+                    ->orderBy('end')
+                    ->orderBy('zdp')
+                    ->get());
+            }
         });
 
         $api->get('/reportsheet/{id}', function ($id) {
@@ -389,5 +393,21 @@ $api->version('v1', function ($api) {
             'as' => 'api.pdf',
             'uses' => 'App\Http\Controllers\PDF\PDFController@getSpesenStatistik'
         ]);
+
+        // Administrators only
+        $api->group([
+            'middleware' => 'role',
+        ], function ($api) {
+
+            $api->get('/reportsheet/user/{id}', function ($id) {
+                return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                    ->select('report_sheets.id AS id', 'start', 'end', 'done')
+                    ->where('users.id', '=', $id)
+                    ->orderBy('start')
+                    ->orderBy('end')
+                    ->orderBy('zdp')
+                    ->get());
+            });
+        });
     });
 });

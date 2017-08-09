@@ -91,4 +91,18 @@ class User extends Model implements
     {
         return [];
     }
+
+    /**
+     * Return whether the user is an administrator
+     *
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        if ($this->role = Role::where('name', '=', 'admin')->first()['id']) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
