@@ -13,10 +13,13 @@
 
 use Illuminate\Support\Facades\Input;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Holiday;
+use App\ReportSheet;
 
 $api = $app->make(Dingo\Api\Routing\Router::class);
 
 $api->version('v1', function ($api) {
+    // Auth - Public
     $api->post('/auth/login', [
         'as' => 'api.auth.login',
         'uses' => 'App\Http\Controllers\Auth\AuthController@postLogin',
@@ -327,7 +330,7 @@ $api->version('v1', function ($api) {
             return response()->json(App\RegionalCenter::find($id));
         });
 
-        // Reportsheet - Public
+        // Reportsheet - Authenticated
         $api->get('/reportsheet/user/me', function () {
             $user = JWTAuth::parseToken()->authenticate();
 
@@ -382,7 +385,9 @@ $api->version('v1', function ($api) {
             'middleware' => 'role',
         ], function ($api) {
 
-            // Reportsheet - Secure
+
+
+            // Reportsheet - Admins
             $api->get('/reportsheet', function () {
                 return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                     ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
@@ -391,7 +396,6 @@ $api->version('v1', function ($api) {
                     ->orderBy('zdp')
                     ->get());
             });
-
             $api->get('/reportsheet/pending', function () {
                 return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                     ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
@@ -401,7 +405,6 @@ $api->version('v1', function ($api) {
                     ->orderBy('zdp')
                     ->get());
             });
-
             $api->get('/reportsheet/current', function () {
                 return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                     ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
@@ -412,11 +415,9 @@ $api->version('v1', function ($api) {
                     ->orderBy('zdp')
                     ->get());
             });
-
             $api->get('/reportsheet/{id}', function ($id) {
                 return response()->json(App\ReportSheet::getSpesen($id));
             });
-
             $api->post('/reportsheet/{id}', function ($id) {
                 $sheet = App\ReportSheet::find($id);
                 $sheet->work = Input::get("meldeblaetter_workdays", "");
@@ -447,7 +448,6 @@ $api->version('v1', function ($api) {
                 $sheet->save();
                 return response("updated");
             });
-
             $api->get('/reportsheet/user/{id}', function ($id) {
                 return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                     ->select('report_sheets.id AS id', 'start', 'end', 'done')
