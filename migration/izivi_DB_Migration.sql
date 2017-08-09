@@ -440,6 +440,9 @@ UPDATE izivi.no_iban SET kontoNr = (LOWER(kontoNr)) WHERE account_type = 1;
 UPDATE izivi.no_iban SET kontoNr = (SELECT REPLACE(kontoNr, 'pc-konto', 'pc'))  WHERE account_type = 1;
 UPDATE izivi.no_iban SET kontoNr = numbersandhyphen(kontoNr) WHERE account_type = 1;
 
+/* Mark unresolvable if there are more than 9 chars */
+UPDATE izivi.no_iban SET account_type = 3 WHERE account_type = 1 AND CHAR_LENGTH(kontoNr) > 12;
+
 /* Mark Post Finance acounts for conversion */
 UPDATE izivi.no_iban SET account_type = 4 WHERE account_type = 1;
 
@@ -452,7 +455,7 @@ bank_clearing REGEXP('^.*[A-Za-z]+.*$')
 OR bank_clearing = '' 
 );
 
-/* Mark unresolvable if there are letters between the numbers */
+/* Mark unresolvable if there is more than one account number found */
 UPDATE izivi.no_iban 
 SET account_type = 3 
 WHERE account_type = 0 
