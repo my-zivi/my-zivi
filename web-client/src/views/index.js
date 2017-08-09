@@ -25,6 +25,8 @@ import Help from './pages/help';
 
 import Error404 from './pages/errors/404';
 import ChangePassword from './pages/changePassword';
+import ForgotPassword from './pages/forgotPassword';
+import ResetPassword from './pages/resetPassword';
 
 const authorizedOnly = ({ router }) => {
   if (localStorage.getItem('jwtToken') === null) {
@@ -38,6 +40,8 @@ export default (
 
     <Route path="/register" component={Register} />
     <Route path="/login" component={Login} />
+    <Route path="/forgotPassword" component={ForgotPassword} />
+    <Route path="/resetPassword/:code" component={ResetPassword} />
     <Route path="/logout" component={Logout} />
 
     <Route path="/profile/:userid?" component={Profile} onEnter={authorizedOnly} />

@@ -29,6 +29,16 @@ $api->version('v1', function ($api) {
         'uses' => 'App\Http\Controllers\Auth\AuthController@postRegister'
     ]);
 
+    $api->post('/auth/forgotPassword', [
+        'as' => 'api.auth.forgotpassword',
+        'uses' => 'App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail'
+    ]);
+
+    $api->post('/auth/resetPassword', [
+        'as' => 'api.auth.resetpassword',
+        'uses' => 'App\Http\Controllers\Auth\ForgotPasswordController@resetPassword'
+    ]);
+
     $api->group([
         'middleware' => 'api.auth',
     ], function ($api) {
