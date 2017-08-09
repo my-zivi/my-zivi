@@ -1,5 +1,7 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
+import { connect } from 'inferno-mobx';
+
 import Card from '../tags/card';
 import InputField from '../tags/InputField';
 import InputFieldWithHelpText from '../tags/InputFieldWithHelpText';
