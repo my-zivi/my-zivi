@@ -1,7 +1,6 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-import { connect } from 'inferno-mobx';
 
 export default class InputField extends Component {
   getFormGroup(inputField, additionalContent = null, contentWidth = 9) {

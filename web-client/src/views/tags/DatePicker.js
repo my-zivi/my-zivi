@@ -1,7 +1,6 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-import { connect } from 'inferno-mobx';
 import InputField from '../tags/InputField';
 
 export default class DatePicker extends InputField {

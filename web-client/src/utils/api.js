@@ -1,17 +1,26 @@
 const BASE_URL = 'http://localhost:8000/api/';
 
-// GET list of all dinosaurs from API
-function getDinoList() {
-  return fetch(`${BASE_URL}regionalcenter`).then(_verifyResponse, _handleError);
-}
+// Is user logged in?
+const isLoggedIn = () => {
+  if (localStorage.getItem('jwtToken') !== null) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
-// GET a dinosaur's detail info from API by ID
-function getDino(id) {
-  return fetch(`${BASE_URL}dinosaur/${id}`).then(_verifyResponse, _handleError);
-}
+// Is user an administrator?
+export const isAdmin = () => {
+  if (isLoggedIn()) {
+    const jwtDecode = require('jwt-decode');
+    const decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
+    return decodedToken.isAdmin;
+  }
+  return false;
+};
 
 // Verify that the fetched response is JSON
-function _verifyResponse(res) {
+export function _verifyResponse(res) {
   let contentType = res.headers.get('content-type');
 
   if (contentType && contentType.indexOf('application/json') !== -1) {
@@ -21,12 +30,5 @@ function _verifyResponse(res) {
   }
 }
 
-// Handle fetch errors
-function _handleError(error) {
-  console.error('An error occurred:', error);
-  throw error;
-}
-
-// Export ApiService
-const ApiService = { getDinoList, getDino, BASE_URL };
+const ApiService = { BASE_URL, isLoggedIn, isAdmin };
 export default ApiService;

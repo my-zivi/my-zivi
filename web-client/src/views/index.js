@@ -2,8 +2,6 @@ import Inferno from 'inferno';
 import { Route } from 'inferno-router';
 import Layout from './tags/layout';
 
-import { connect } from 'inferno-mobx';
-
 import Home from './pages/home';
 import Register from './pages/register';
 import Login from './pages/login';

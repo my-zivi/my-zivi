@@ -1,11 +1,10 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-import { connect } from 'inferno-mobx';
+import jwtDecode from 'jwt-decode';
+import axios from 'axios';
 
 import Card from '../tags/card';
-
-import axios from 'axios';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -34,7 +33,7 @@ export default class Login extends Component {
         this.context.router.push('/');
       })
       .catch(error => {
-        var errorBox = [];
+        let errorBox = [];
         errorBox.push(
           <div class="alert alert-danger">
             <strong>Login fehlgeschlagen</strong>
