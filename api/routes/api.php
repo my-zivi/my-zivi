@@ -11,8 +11,6 @@
 |
 */
 
-use App\Holiday;
-use App\ReportSheet;
 use Illuminate\Support\Facades\Input;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -327,37 +325,7 @@ $api->version('v1', function ($api) {
             return response()->json(App\RegionalCenter::find($id));
         });
 
-        // Reportsheet
-        $api->get('/reportsheet', function () {
-            return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
-                ->orderBy('start')
-                ->orderBy('end')
-                ->orderBy('zdp')
-                ->get());
-        });
-
-        $api->get('/reportsheet/pending', function () {
-            return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
-                ->where('done', '=', '0')
-                ->orderBy('start')
-                ->orderBy('end')
-                ->orderBy('zdp')
-                ->get());
-        });
-
-        $api->get('/reportsheet/current', function () {
-            return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
-                ->whereDate('start', '>=', date('Y-m-01'))
-                ->whereDate('end', '<', date('Y-m-d', strtotime('first day of next month')))
-                ->orderBy('start')
-                ->orderBy('end')
-                ->orderBy('zdp')
-                ->get());
-        });
-
+        // Reportsheet - Public
         $api->get('/reportsheet/user/me', function () {
             $user = JWTAuth::parseToken()->authenticate();
 
@@ -381,41 +349,6 @@ $api->version('v1', function ($api) {
                     ->orderBy('zdp')
                     ->get());
             }
-        });
-
-        $api->get('/reportsheet/{id}', function ($id) {
-            return response()->json(App\ReportSheet::getSpesen($id));
-        });
-
-        $api->post('/reportsheet/{id}', function ($id) {
-            $sheet = App\ReportSheet::find($id);
-            $sheet->work = Input::get("meldeblaetter_workdays", "");
-            $sheet->work_comment = Input::get("meldeblaetter_work_comment", "");
-            $sheet->workfree = Input::get("meldeblaetter_workfreedays", "");
-            $sheet->workfree_comment = Input::get("meldeblaetter_workfree_comment", "");
-            $sheet->company_holiday_vacation = Input::get("meldeblaetter_companyurlaub", "");
-            $sheet->company_holiday_comment = Input::get("meldeblaetter_compholiday_comment", "");
-            $sheet->company_holiday_holiday = Input::get("meldeblaetter_ferien_wegen_urlaub", "");
-            $sheet->additional_workfree_comment = Input::get("meldeblaetter_add_workfree_comment", "");
-            $sheet->ill = Input::get("meldeblaetter_ill", "");
-            $sheet->ill_comment = Input::get("meldeblaetter_ill_comment", "");
-            $sheet->holiday = Input::get("meldeblaetter_holiday", "");
-            $sheet->holiday_comment = Input::get("meldeblaetter_holiday_comment", "");
-            $sheet->vacation = Input::get("meldeblaetter_urlaub", "");
-            $sheet->vacation_comment = Input::get("meldeblaetter_urlaub_comment", "");
-            $sheet->clothes = Input::get("meldeblaetter_kleider", "")*100;
-            $sheet->clothes_comment = Input::get("meldeblaetter_kleider_comment", "");
-            $sheet->driving_charges = Input::get("meldeblaetter_fahrspesen", "")*100;
-            $sheet->driving_charges_comment = Input::get("meldeblaetter_fahrspesen_comment", "");
-            $sheet->extraordinarily = Input::get("meldeblaetter_ausserordentlich", "")*100;
-            $sheet->extraordinarily_comment = Input::get("meldeblaetter_ausserordentlich_comment", "");
-            $sheet->bank_account_number = Input::get("bank_account_number", "");
-            $sheet->document_number = Input::get("document_number", "");
-            $sheet->booked_date = Input::get("booked_date", "");
-            $sheet->paid_date = Input::get("paid_date", "");
-            $sheet->done = Input::get("done", "");
-            $sheet->save();
-            return response("updated");
         });
 
         $api->get('/diensttage', function () {
@@ -446,6 +379,72 @@ $api->version('v1', function ($api) {
         $api->group([
             'middleware' => 'role',
         ], function ($api) {
+
+            // Reportsheet - Secure
+            $api->get('/reportsheet', function () {
+                return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                    ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
+                    ->orderBy('start')
+                    ->orderBy('end')
+                    ->orderBy('zdp')
+                    ->get());
+            });
+
+            $api->get('/reportsheet/pending', function () {
+                return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                    ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
+                    ->where('done', '=', '0')
+                    ->orderBy('start')
+                    ->orderBy('end')
+                    ->orderBy('zdp')
+                    ->get());
+            });
+
+            $api->get('/reportsheet/current', function () {
+                return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                    ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
+                    ->whereDate('start', '>=', date('Y-m-01'))
+                    ->whereDate('end', '<', date('Y-m-d', strtotime('first day of next month')))
+                    ->orderBy('start')
+                    ->orderBy('end')
+                    ->orderBy('zdp')
+                    ->get());
+            });
+
+            $api->get('/reportsheet/{id}', function ($id) {
+                return response()->json(App\ReportSheet::getSpesen($id));
+            });
+
+            $api->post('/reportsheet/{id}', function ($id) {
+                $sheet = App\ReportSheet::find($id);
+                $sheet->work = Input::get("meldeblaetter_workdays", "");
+                $sheet->work_comment = Input::get("meldeblaetter_work_comment", "");
+                $sheet->workfree = Input::get("meldeblaetter_workfreedays", "");
+                $sheet->workfree_comment = Input::get("meldeblaetter_workfree_comment", "");
+                $sheet->company_holiday_vacation = Input::get("meldeblaetter_companyurlaub", "");
+                $sheet->company_holiday_comment = Input::get("meldeblaetter_compholiday_comment", "");
+                $sheet->company_holiday_holiday = Input::get("meldeblaetter_ferien_wegen_urlaub", "");
+                $sheet->additional_workfree_comment = Input::get("meldeblaetter_add_workfree_comment", "");
+                $sheet->ill = Input::get("meldeblaetter_ill", "");
+                $sheet->ill_comment = Input::get("meldeblaetter_ill_comment", "");
+                $sheet->holiday = Input::get("meldeblaetter_holiday", "");
+                $sheet->holiday_comment = Input::get("meldeblaetter_holiday_comment", "");
+                $sheet->vacation = Input::get("meldeblaetter_urlaub", "");
+                $sheet->vacation_comment = Input::get("meldeblaetter_urlaub_comment", "");
+                $sheet->clothes = Input::get("meldeblaetter_kleider", "")*100;
+                $sheet->clothes_comment = Input::get("meldeblaetter_kleider_comment", "");
+                $sheet->driving_charges = Input::get("meldeblaetter_fahrspesen", "")*100;
+                $sheet->driving_charges_comment = Input::get("meldeblaetter_fahrspesen_comment", "");
+                $sheet->extraordinarily = Input::get("meldeblaetter_ausserordentlich", "")*100;
+                $sheet->extraordinarily_comment = Input::get("meldeblaetter_ausserordentlich_comment", "");
+                $sheet->bank_account_number = Input::get("bank_account_number", "");
+                $sheet->document_number = Input::get("document_number", "");
+                $sheet->booked_date = Input::get("booked_date", "");
+                $sheet->paid_date = Input::get("paid_date", "");
+                $sheet->done = Input::get("done", "");
+                $sheet->save();
+                return response("updated");
+            });
 
             $api->get('/reportsheet/user/{id}', function ($id) {
                 return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
