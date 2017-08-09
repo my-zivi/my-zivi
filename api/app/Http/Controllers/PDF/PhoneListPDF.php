@@ -34,10 +34,10 @@ class PhoneListPDF extends PDF
         $this->endDate = $to;
         $this->zivis = array();
 
-        $specifications = Specification::all();
+        $specifications = Specification::select('*', 'id AS fullId')->get();
         foreach ($specifications as $specification) {
             $zivis = Mission::join('users', 'users.id', '=', 'missions.user')
-                ->where('specification', '=', $specification->id)
+                ->where('specification', '=', $specification->fullId)
                 ->whereDate('start', '<=', date('Y-m-d', $to))
                 ->whereDate('end', '>=', date('Y-m-d', $from))
                 ->orderBy('last_name', 'first_name')->get();
