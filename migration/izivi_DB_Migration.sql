@@ -154,7 +154,10 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
     ELSE stiftun8_iZivi.zivis.phoneG
   END AS phone_business,
   '' AS bank_iban,
-  stiftun8_iZivi.zivis.health_insurance AS health_insurance,
+  CASE WHEN stiftun8_iZivi.zivis.health_insurance IS NULL
+    THEN ''
+    ELSE stiftun8_iZivi.zivis.health_insurance
+  END AS health_insurance,
   stiftun8_iZivi.zivis.berufserfahrung AS work_experience,
   stiftun8_iZivi.zivis.fahrausweis AS driving_licence,
   stiftun8_iZivi.zivis.ga AS ga_travelcard,
