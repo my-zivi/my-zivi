@@ -32,11 +32,16 @@ export default class MissionOverview extends Component {
   }
 
   componentDidMount() {
-    this.getReportSheets('reportsheet');
+    this.getReportSheets('reportsheet', 1);
     DatePicker.initializeDatePicker();
   }
 
-  getReportSheets(url) {
+  getReportSheets(url, tabId) {
+    $('#tab1').attr('class', 'btn-default');
+    $('#tab2').attr('class', 'btn-default');
+    $('#tab3').attr('class', 'btn-default');
+    $('#tab' + tabId).attr('class', 'btn-success');
+
     this.setState({
       zdp: '',
       name: '',
@@ -191,6 +196,27 @@ export default class MissionOverview extends Component {
                 Erweitert
               </button>
             </div>
+
+            <h2>Meldeblätter-Liste</h2>
+
+            <div class="btn-group">
+              <button id="tab1" onclick={() => this.getReportSheets('reportsheet', 1)}>
+                Alle Meldeblätter anzeigen
+              </button>
+              <button id="tab2" onclick={() => this.getReportSheets('reportsheet/pending', 2)}>
+                Pendente Meldeblätter anzeigen
+              </button>
+              <button id="tab3" onclick={() => this.getReportSheets('reportsheet/current', 3)}>
+                Aktuelle Meldeblätter anzeigen
+              </button>
+            </div>
+
+            {/*
+                        <ul class="nav nav-pills" role="tablist">
+                            <li id="tab1"><a onClick={ ()=>this.getReportSheets('reportsheet', 1) } href="#">Alle Meldeblätter anzeigen</a></li>
+                            <li id="tab2"><a onClick={ ()=>this.getReportSheets('reportsheet/pending', 2) } href="#">Pendente Meldeblätter anzeigen</a></li>
+                            <li id="tab3"><a onClick={ ()=>this.getReportSheets('reportsheet/current', 3) } href="#">Aktuelle Meldeblätter anzeigen</a></li>
+                        </ul>*/}
 
             <div id="myModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
@@ -362,28 +388,6 @@ export default class MissionOverview extends Component {
               </div>
             </div>
 
-            <h2>Meldeblätter-Liste</h2>
-
-            <nav class="navbar">
-              <ul class="nav nav-tabs" role="tablist">
-                <li>
-                  <a onClick={() => this.getReportSheets('reportsheet')} href="#">
-                    Alle Meldeblätter anzeigen
-                  </a>
-                </li>
-                <li>
-                  <a onClick={() => this.getReportSheets('reportsheet/pending')} href="#">
-                    Pendente Meldeblätter anzeigen
-                  </a>
-                </li>
-                <li>
-                  <a onClick={() => this.getReportSheets('reportsheet/current')} href="#">
-                    Aktuelle Meldeblätter anzeigen
-                  </a>
-                </li>
-              </ul>
-            </nav>
-
             <table class="table table-hover">
               <thead>
                 <tr>
@@ -398,24 +402,10 @@ export default class MissionOverview extends Component {
                 <tr class="theader">
                   <td>&nbsp;</td>
                   <td>
-                    <input
-                      class="form-control"
-                      name="zdp"
-                      size="5"
-                      type="text"
-                      value={this.state.zdp}
-                      oninput={this.handleChange.bind(this)}
-                    />
+                    <input class="form-control" name="zdp" type="text" value={this.state.zdp} oninput={this.handleChange.bind(this)} />
                   </td>
                   <td>
-                    <input
-                      class="form-control"
-                      name="name"
-                      size="15"
-                      type="text"
-                      value={this.state.name}
-                      oninput={this.handleChange.bind(this)}
-                    />
+                    <input class="form-control" name="name" type="text" value={this.state.name} oninput={this.handleChange.bind(this)} />
                   </td>
                   <td>
                     <DatePicker id="start" value={null} callback={this.handleDateChange} callbackOrigin={this} showLabel={false} />
