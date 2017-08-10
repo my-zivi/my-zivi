@@ -167,9 +167,11 @@ export default class User extends Component {
   }
 
   save() {
+    let apiRoute = this.props.params.userid === undefined ? 'me' : this.props.params.userid;
+
     this.setState({ loading: true, error: null });
     axios
-      .post(ApiService.BASE_URL + 'user/' + this.state.result.id, this.state.result, {
+      .post(ApiService.BASE_URL + 'user/' + apiRoute, this.state.result, {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {

@@ -585,7 +585,7 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell(0, 10, "Verbucht:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height/2);
         $this->pdf->SetFont('', '', '10');
-        if ($this->spesen['meldeblaetter_verbucht']) {
+        if ($this->spesen['booked_date']) {
             $this->pdf->Cell($this->bank_shade_width, $this->shade_height, date('d.m.Y', strtotime($this->spesen['booked_date'])), 0, 0, '', 1);
         } else {
             $this->pdf->Cell($this->bank_shade_width, $this->shade_height, '', 0, 0, '', 1);
@@ -599,7 +599,7 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell(0, 10, "Bezahlt:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height/2);
         $this->pdf->SetFont('', '', '10');
-        if ($this->spesen['meldeblaetter_bezahlt']) {
+        if ($this->spesen['paid_date']) {
             $this->pdf->Cell($this->bank_shade_width, $this->shade_height, date('d.m.Y', strtotime($this->spesen['paid_date'])), 0, 0, '', 1);
         } else {
             $this->pdf->Cell($this->bank_shade_width, $this->shade_height, '', 0, 0, '', 1);

@@ -11,6 +11,7 @@ use App\User;
 use App\Http\Controllers\Auth\AuthController;
 use App\Mission;
 use App\Specification;
+use Illuminate\Support\Facades\Input;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -100,5 +101,30 @@ class UserController extends Controller
             $credentials,
             ['isAdmin' => false]
         ));
+    }
+
+    public static function updateUser($user)
+    {
+        $user->first_name = Input::get("first_name", "");
+        $user->last_name = Input::get("last_name", "");
+        $user->address = Input::get("address", "");
+        $user->city = Input::get("city", "");
+        $user->zip = Input::get("zip", "");
+        $user->hometown = Input::get("hometown", "");
+        $user->hometown_canton = Input::get("hometown_canton", "");
+        $user->canton = Input::get("canton", "");
+        $user->birthday = Input::get("birthday", "");
+        $user->phone_mobile = Input::get("phone_mobile", "");
+        $user->phone_private = Input::get("phone_private", "");
+        $user->phone_business = Input::get("phone_business", "");
+        $user->bank_iban = Input::get("bank_iban", "");
+        $user->work_experience = Input::get("work_experience", "");
+        $user->driving_licence = Input::get("driving_licence", 0);
+        $user->ga_travelcard = Input::get("ga_travelcard", 0);
+        $user->half_fare_travelcard = Input::get("half_fare_travelcard", 0);
+        $user->other_fare_network = Input::get("other_fare_network", "");
+        $user->regional_center = Input::get("regional_center", "");
+        $user->health_insurance = Input::get("health_insurance", "");
+        $user->save();
     }
 }
