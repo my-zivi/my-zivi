@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mission extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['id',
                            'user',
                            'specification', // "Pflichtenheft"

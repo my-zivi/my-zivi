@@ -238,6 +238,7 @@ $api->version('v1', function ($api) {
             $data = App\Mission::join('users', 'users.id', '=', 'missions.user')
                                     ->join('specifications', 'specifications.id', '=', 'missions.specification')
                                     ->select('*', 'users.id AS userid')
+                                    ->whereNull('missions.deleted_at')
                                     ->whereDate('end', '>=', $year.'-01-01')
                                     ->whereDate('start', '<=', $year.'-12-31')
                                     ->orderBy('start')
