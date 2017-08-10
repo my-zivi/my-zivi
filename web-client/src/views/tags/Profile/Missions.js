@@ -21,7 +21,7 @@ export default class Missions extends Component {
     specification_options.push(<option value="" />);
     for (var i = 0; i < self.state.specifications.length; i++) {
       if (self.state.specifications[i].active) {
-        specification_options.push(<option value={'' + self.state.specifications[i].fullId}>{self.state.specifications[i].name}</option>);
+        specification_options.push(<option value={'' + self.state.specifications[i].id}>{self.state.specifications[i].name}</option>);
       }
     }
 
@@ -206,7 +206,7 @@ export default class Missions extends Component {
       for (var i = 0; i < m.length; i++) {
         var name = m[i].specification;
         for (var s = 0; s < self.state.specifications.length; s++) {
-          if (m[i].specification == self.state.specifications[s].fullId) {
+          if (m[i].specification == self.state.specifications[s].id) {
             name = name + ' ' + self.state.specifications[s].name;
             break;
           }
