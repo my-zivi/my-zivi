@@ -134,10 +134,6 @@ export default class MissionOverview extends Component {
 
       var missionCounter = 0;
 
-      if (userMissions[i][0].last_name == 'Fasnacht') {
-        console.log('break');
-      }
-
       for (var x = 1; x <= 52; x++) {
         var curMission = userMissions[i][missionCounter];
         var startWeek = moment(curMission.start).isoWeek();
