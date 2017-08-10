@@ -55,7 +55,7 @@ export default class Specifications extends Component {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
-        Toast.showError('Speichern erfolgreich', 'Pflichtenheft gespeichert');
+        Toast.showSuccess('Speichern erfolgreich', 'Pflichtenheft gespeichert');
         this.setState({ loading: false });
       })
       .catch(error => {
@@ -79,10 +79,13 @@ export default class Specifications extends Component {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
+        Toast.showSuccess('Hinzufügen erfolgreich', 'Pflichtenheft hinzugefügt');
         this.getSpecifications();
       })
       .catch(error => {
-        this.setState({ error: error });
+        Toast.showError('Hinzufügen fehlgeschlagen', 'Pflichtenheft konnte nicht hinzugefügt werden');
+        //TODO ERROR Handling!!!
+        //this.setState({error: error});
       });
   }
 

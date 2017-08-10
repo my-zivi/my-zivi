@@ -15,6 +15,7 @@ import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
+import Toast from '../../utils/toast';
 
 export default class User extends Component {
   constructor(props, { router }) {
@@ -42,6 +43,7 @@ export default class User extends Component {
     this.regionalCenterTag.getRegionalCenters(this);
     this.getSpecifications();
     this.getReportSheets();
+    DatePicker.initializeDatePicker();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -171,10 +173,14 @@ export default class User extends Component {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
+        Toast.showSuccess('Speichern erfolgreich', 'Profil gespeichert');
         this.setState({ loading: false });
       })
       .catch(error => {
         this.setState({ error: error });
+        Toast.showError('Speichern fehlgeschlagen', 'Profil konnte nicht gespeichert werden');
+        //TODO ERROR Handling!!!
+        //this.setState({error: error});
       });
   }
 
@@ -216,6 +222,7 @@ export default class User extends Component {
     let howerText_Post = 'Postkonto Nummer';
     let howerText_Berufserfahrung =
       'Wir profitieren gerne von deiner Erfahrung. Wenn wir genau wissen, wann wer mit welchen Erfahrungen einen Einsatz tätigt, können wir z.T. Projekte speziell planen.';
+    let howerText_health_insurance = 'Krankenkassen Name und Ort';
 
     var missions = this.missionTag.getMissions(this);
 
@@ -298,7 +305,26 @@ export default class User extends Component {
 
                 <hr />
                 <h3>Krankenkasse</h3>
-                <InputField id="health_insurance" label="Krankenkasse (Name und Ort)" value={result.health_insurance} self={this} />
+                <div class="form-group" id="healthInsuranceFormGroup">
+                  <label class="control-label col-sm-3" for="health_insurance">
+                    Krankenkasse (Name und Ort)
+                  </label>
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      id="health_insurance"
+                      name="health_insurance"
+                      value={result.health_insurance}
+                      className="form-control"
+                      onChange={e => this.handleIBANChange(e)}
+                    />
+                  </div>
+                  <div id="_helpiban" className="col-sm-1 hidden-xs">
+                    <a href="#" data-toggle="popover" title="Krankenkasse" data-content={howerText_health_insurance}>
+                      <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
+                    </a>
+                  </div>
+                </div>
                 <hr />
 
                 <h3>Diverse Informationen</h3>
@@ -413,7 +439,6 @@ export default class User extends Component {
   }
 
   componentDidUpdate() {
-    DatePicker.initializeDatePicker();
     this.validateIBAN($('#bank_iban').val());
   }
 }
