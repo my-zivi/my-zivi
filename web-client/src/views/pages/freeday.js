@@ -91,7 +91,7 @@ export default class Freeday extends Component {
         this.setState({ loading: false });
       })
       .catch(error => {
-        Toast.showError('Speichern fehlgeschlagen', 'Frei-Tag konnte nicht gespeicher werden');
+        Toast.showError('Speichern fehlgeschlagen', 'Frei-Tag konnte nicht gespeicher werden', error, this.context);
         this.setState({ loading: false });
       });
   }
@@ -107,7 +107,7 @@ export default class Freeday extends Component {
         this.getFreedays();
       })
       .catch(error => {
-        Toast.showError('Löschen fehlgeschlagen', 'Frei-Tag konnte nicht gelöscht werden');
+        Toast.showError('Löschen fehlgeschlagen', 'Frei-Tag konnte nicht gelöscht werden', error, this.context);
         this.setState({ loading: false });
       });
   }
@@ -124,7 +124,7 @@ export default class Freeday extends Component {
         this.getFreedays();
       })
       .catch(error => {
-        Toast.showError('Hinzufügen fehlgeschlagen', 'Frei-Tag konnte nicht hinzugefügt werden');
+        Toast.showError('Hinzufügen fehlgeschlagen', 'Frei-Tag konnte nicht hinzugefügt werden', error, this.context);
         this.setState({ loading: false });
       });
   }

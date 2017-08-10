@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Input;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Holiday;
@@ -68,6 +69,7 @@ $api->version('v1', function ($api) {
         $api->get('/user', function () {
             $user = JWTAuth::parseToken()->authenticate();
             $user->missions = $user->missions;
+            $user->internal_note = null;
             return response()->json($user);
         });
         $api->post('/postChangePassword', [
@@ -268,24 +270,31 @@ $api->version('v1', function ($api) {
 
             if ($user->isAdmin()) {
                 // Admins
-                return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                    ->select('report_sheets.id AS id', 'start', 'end', 'done')
-                    ->where('users.id', '=', $user->id)
-                    ->orderBy('start')
-                    ->orderBy('end')
-                    ->orderBy('zdp')
-                    ->get());
+                $reportSheets = App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                                ->select('report_sheets.id AS id', 'start', 'end', 'done')
+                                ->where('users.id', '=', $user->id)
+                                ->orderBy('start')
+                                ->orderBy('end')
+                                ->orderBy('zdp')
+                                ->get();
             } else {
                 // Zivis
-                return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                $reportSheets = App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                     ->select('report_sheets.id AS id', 'start', 'end', 'done')
                     ->where('users.id', '=', $user->id)
                     ->where('done', '=', 1)
                     ->orderBy('start')
                     ->orderBy('end')
                     ->orderBy('zdp')
-                    ->get());
+                    ->get();
             }
+
+            // Add calculated column days
+            foreach ($reportSheets as $reportSheet) {
+                $reportSheet['days'] = App\ReportSheet::getDiensttageCount($reportSheet->start, $reportSheet->end);
+            }
+
+            return response()->json($reportSheets);
         });
 
         $api->get('/diensttage', function () {
@@ -293,6 +302,12 @@ $api->version('v1', function ($api) {
             $end = Input::get("end", "");
 
             return response()->json(ReportSheet::getDiensttageCount($start, $end));
+        });
+
+
+        $api->post('/user/me', function () {
+            $user = JWTAuth::parseToken()->authenticate();
+            UserController::updateUser($user);
         });
 
 
@@ -339,34 +354,9 @@ $api->version('v1', function ($api) {
             });
             $api->post('/user/{id}', function ($id) {
                 $user = App\User::find($id);
-                $user->created_at = Input::get("created_at", "");
-                $user->updated_at = Input::get("updated_at", "");
-                $user->deleted_at = Input::get("deleted_at", "");
-                $user->email = Input::get("email", "");
                 $user->role = Input::get("role", "");
-                $user->zdp = Input::get("zdp", "");
-                $user->first_name = Input::get("first_name", "");
-                $user->last_name = Input::get("last_name", "");
-                $user->address = Input::get("address", "");
-                $user->city = Input::get("city", "");
-                $user->zip = Input::get("zip", "");
-                $user->hometown = Input::get("hometown", "");
-                $user->hometown_canton = Input::get("hometown_canton", "");
-                $user->canton = Input::get("canton", "");
-                $user->birthday = Input::get("birthday", "");
-                $user->phone_mobile = Input::get("phone_mobile", "");
-                $user->phone_private = Input::get("phone_private", "");
-                $user->phone_business = Input::get("phone_business", "");
-                $user->bank_iban = Input::get("bank_iban", "");
-                $user->work_experience = Input::get("work_experience", "");
-                $user->driving_licence = Input::get("driving_licence", 0);
-                $user->ga_travelcard = Input::get("ga_travelcard", 0);
-                $user->half_fare_travelcard = Input::get("half_fare_travelcard", 0);
-                $user->other_fare_network = Input::get("other_fare_network", "");
-                $user->regional_center = Input::get("regional_center", "");
                 $user->internal_note = Input::get("internal_note", "");
-                $user->health_insurance = Input::get("health_insurance", "");
-                $user->save();
+                UserController::updateUser($user);
                 return response("updated");
             });
 
