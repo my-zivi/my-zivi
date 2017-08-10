@@ -7,6 +7,7 @@ import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/DatePicker';
+import Toast from '../../utils/toast';
 
 export default class UserList extends Component {
   constructor(props) {
@@ -73,10 +74,13 @@ export default class UserList extends Component {
     axios
       .delete(ApiService.BASE_URL + 'user/' + user.id, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
       .then(response => {
+        Toast.showSuccess('Löschen erfolgreich', 'Benutzer wurde erfolgreich gelöscht');
         this.getUsers();
       })
       .catch(error => {
-        this.setState({ error: error });
+        Toast.showError('Löschen fehlgeschlagen', 'Benutzer konnte nicht gelöscht werden');
+        //TODO ERROR Handling!!!
+        //this.setState({error: error});
       });
   }
 

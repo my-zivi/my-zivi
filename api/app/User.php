@@ -100,7 +100,8 @@ class User extends Model implements
      */
     public function isAdmin()
     {
-        if ($this->role = Role::where('name', '=', 'admin')->first()['id']) {
+        $role_admin = Role::where('name', '=', 'admin')->first();
+        if ($this->role === $role_admin['id']) {
             return true;
         } else {
             return false;

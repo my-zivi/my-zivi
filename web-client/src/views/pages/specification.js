@@ -6,6 +6,7 @@ import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
+import Toast from '../../utils/toast';
 
 export default class Specifications extends Component {
   constructor(props) {
@@ -54,10 +55,13 @@ export default class Specifications extends Component {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
+        Toast.showError('Speichern erfolgreich', 'Pflichtenheft gespeichert');
         this.setState({ loading: false });
       })
       .catch(error => {
-        this.setState({ error: error });
+        Toast.showError('Speichern fehlgeschlagen', 'Pflichtenheft konnte nicht gespeichert werden');
+        //TODO ERROR Handling!!!
+        //this.setState({error: error});
       });
   }
 

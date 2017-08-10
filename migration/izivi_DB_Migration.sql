@@ -159,9 +159,18 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
     ELSE stiftun8_iZivi.zivis.health_insurance
   END AS health_insurance,
   stiftun8_iZivi.zivis.berufserfahrung AS work_experience,
-  stiftun8_iZivi.zivis.fahrausweis AS driving_licence,
-  stiftun8_iZivi.zivis.ga AS ga_travelcard,
-  stiftun8_iZivi.zivis.halbtax AS half_fare_travelcard,
+  CASE WHEN stiftun8_iZivi.zivis.fahrausweis IS NULL
+       THEN 0
+       ELSE stiftun8_iZivi.zivis.fahrausweis
+  END AS driving_licence,
+  CASE WHEN stiftun8_iZivi.zivis.ga IS NULL
+       THEN 0
+       ELSE stiftun8_iZivi.zivis.ga
+  END AS ga_travelcard,
+  CASE WHEN stiftun8_iZivi.zivis.halbtax IS NULL
+       THEN 0
+       ELSE stiftun8_iZivi.zivis.halbtax
+  END AS half_fare_travelcard,
   stiftun8_iZivi.zivis.anderesAbo AS other_fare_network,
 CASE
     WHEN stiftun8_iZivi.zivis.regionalzentrum = 3
