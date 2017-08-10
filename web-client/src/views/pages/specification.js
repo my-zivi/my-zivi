@@ -59,9 +59,7 @@ export default class Specifications extends Component {
         this.setState({ loading: false });
       })
       .catch(error => {
-        Toast.showError('Speichern fehlgeschlagen', 'Pflichtenheft konnte nicht gespeichert werden');
-        //TODO ERROR Handling!!!
-        //this.setState({error: error});
+        Toast.showError('Speichern fehlgeschlagen', 'Pflichtenheft konnte nicht gespeichert werden', error, this.context);
       });
   }
 
@@ -83,9 +81,7 @@ export default class Specifications extends Component {
         this.getSpecifications();
       })
       .catch(error => {
-        Toast.showError('Hinzufügen fehlgeschlagen', 'Pflichtenheft konnte nicht hinzugefügt werden');
-        //TODO ERROR Handling!!!
-        //this.setState({error: error});
+        Toast.showError('Hinzufügen fehlgeschlagen', 'Pflichtenheft konnte nicht hinzugefügt werden', error, this.context);
       });
   }
 

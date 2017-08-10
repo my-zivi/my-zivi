@@ -167,9 +167,11 @@ export default class User extends Component {
   }
 
   save() {
+    let apiRoute = this.props.params.userid === undefined ? 'me' : this.props.params.userid;
+
     this.setState({ loading: true, error: null });
     axios
-      .post(ApiService.BASE_URL + 'user/' + this.state.result.id, this.state.result, {
+      .post(ApiService.BASE_URL + 'user/' + apiRoute, this.state.result, {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
@@ -177,10 +179,8 @@ export default class User extends Component {
         this.setState({ loading: false });
       })
       .catch(error => {
-        this.setState({ error: error });
-        Toast.showError('Speichern fehlgeschlagen', 'Profil konnte nicht gespeichert werden');
-        //TODO ERROR Handling!!!
-        //this.setState({error: error});
+        this.setState({ loading: false });
+        Toast.showError('Speichern fehlgeschlagen', 'Profil konnte nicht gespeichert werden', error, this.context);
       });
   }
 

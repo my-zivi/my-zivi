@@ -3,13 +3,20 @@ import { Link } from 'inferno-router';
 import Component from 'inferno-component';
 
 export default class InputField extends Component {
-  getFormGroup(inputField, additionalContent = null, contentWidth = 9) {
+  getFormGroup(inputField, additionalContent = null, contentWidth = 9, showLabel = true) {
+    let divClass = 'col-sm-' + contentWidth;
+    if (!showLabel) {
+      divClass = 'col';
+    }
+
     return (
       <div className="form-group">
-        <label className="control-label col-sm-3" htmlFor={this.props.id}>
-          {this.props.label}
-        </label>
-        <div className={'col-sm-' + contentWidth}>{inputField}</div>
+        {showLabel ? (
+          <label className="control-label col-sm-3" htmlFor={this.props.id}>
+            {this.props.label}
+          </label>
+        ) : null}
+        <div className={divClass}>{inputField}</div>
         {additionalContent}
       </div>
     );

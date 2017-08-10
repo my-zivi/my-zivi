@@ -398,11 +398,18 @@ export default class MissionOverview extends Component {
                 <tr class="theader">
                   <td>&nbsp;</td>
                   <td>
-                    <input class="SWOInput" name="zdp" size="5" type="text" value={this.state.zdp} oninput={this.handleChange.bind(this)} />
+                    <input
+                      class="form-control"
+                      name="zdp"
+                      size="5"
+                      type="text"
+                      value={this.state.zdp}
+                      oninput={this.handleChange.bind(this)}
+                    />
                   </td>
                   <td>
                     <input
-                      class="SWOInput"
+                      class="form-control"
                       name="name"
                       size="15"
                       type="text"
@@ -411,10 +418,10 @@ export default class MissionOverview extends Component {
                     />
                   </td>
                   <td>
-                    <DatePicker id="start" value={null} callback={this.handleDateChange} callbackOrigin={this} />
+                    <DatePicker id="start" value={null} callback={this.handleDateChange} callbackOrigin={this} showLabel={false} />
                   </td>
                   <td>
-                    <DatePicker id="end" value={null} callback={this.handleDateChange} callbackOrigin={this} />
+                    <DatePicker id="end" value={null} callback={this.handleDateChange} callbackOrigin={this} showLabel={false} />
                   </td>
                   <td />
                   <td />

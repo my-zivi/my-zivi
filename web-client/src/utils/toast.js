@@ -8,6 +8,7 @@ function showSuccess(title, msg) {
     titleLineHeight: 20,
     messageSize: 14,
     messageLineHeight: 20,
+    icon: 'glyphicon glyphicon-thumbs-up',
     color: 'green',
     title: title,
     message: msg,
@@ -23,13 +24,19 @@ function showSuccess(title, msg) {
   });
 }
 
-function showError(title, msg) {
+function showError(title, msg, error, context) {
+  if (error != null && error.response != null && error.response.status == 401) {
+    localStorage.removeItem('jwtToken');
+    context.router.push('/');
+  }
+
   iziToast.show({
     id: 'toast-failed',
     titleSize: 18,
     titleLineHeight: 20,
     messageSize: 14,
     messageLineHeight: 20,
+    icon: 'glyphicon glyphicon-fire',
     color: 'red',
     title: title,
     message: msg,
