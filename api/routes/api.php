@@ -77,104 +77,6 @@ $api->version('v1', function ($api) {
             'uses' => 'App\Http\Controllers\UserController@changePassword'
         ]);
 
-        // Specification (Pflichtenheft) - Authenticated
-        $api->get('/specification', function () {
-            return response()->json(App\Specification::select('*', 'id AS fullId')->get());
-        });
-        $api->get('/specification/{id}', function ($id) {
-            return response()->json(App\Specification::find($id));
-        });
-        $api->post('/specification/{id}', function ($id) {
-            $spec = App\Specification::find($id);
-            $spec->accommodation = Input::get("accommodation", "");
-            $spec->active = Input::get("active", "");
-            $spec->firstday_breakfast_expenses = Input::get("firstday_breakfast_expenses", "");
-            $spec->firstday_dinner_expenses = Input::get("firstday_dinner_expenses", "");
-            $spec->firstday_lunch_expenses = Input::get("firstday_lunch_expenses", "");
-            $spec->lastday_breakfast_expenses = Input::get("lastday_breakfast_expenses", "");
-            $spec->lastday_dinner_expenses = Input::get("lastday_dinner_expenses", "");
-            $spec->lastday_lunch_expenses = Input::get("lastday_lunch_expenses", "");
-            $spec->name = Input::get("name", "");
-            $spec->pocket = Input::get("pocket", "");
-            $spec->short_name = Input::get("short_name", "");
-            $spec->sparetime_breakfast_expenses = Input::get("sparetime_breakfast_expenses", "");
-            $spec->sparetime_dinner_expenses = Input::get("sparetime_dinner_expenses", "");
-            $spec->sparetime_lunch_expenses = Input::get("sparetime_lunch_expenses", "");
-            $spec->working_breakfast_expenses = Input::get("working_breakfast_expenses", "");
-            $spec->working_clothes_expense = Input::get("working_clothes_expense", "");
-            $spec->working_clothes_payment = Input::get("working_clothes_payment", "");
-            $spec->working_dinner_expenses = Input::get("working_dinner_expenses", "");
-            $spec->working_lunch_expenses = Input::get("working_lunch_expenses", "");
-            $spec->working_time_model = Input::get("working_time_model", "");
-            $spec->working_time_weekly = Input::get("working_time_weekly", "");
-            $spec->save();
-            return response("updated");
-        });
-
-        $api->put('/specification/{id}', function ($id) {
-            $spec = new App\Specification();
-            $spec->id = $id;
-            $spec->accommodation = Input::get("accommodation", "");
-            $spec->active = Input::get("active", "");
-            $spec->firstday_breakfast_expenses = Input::get("firstday_breakfast_expenses", "");
-            $spec->firstday_dinner_expenses = Input::get("firstday_dinner_expenses", "");
-            $spec->firstday_lunch_expenses = Input::get("firstday_lunch_expenses", "");
-            $spec->lastday_breakfast_expenses = Input::get("lastday_breakfast_expenses", "");
-            $spec->lastday_dinner_expenses = Input::get("lastday_dinner_expenses", "");
-            $spec->lastday_lunch_expenses = Input::get("lastday_lunch_expenses", "");
-            $spec->name = Input::get("name", "");
-            $spec->pocket = Input::get("pocket", "");
-            $spec->short_name = Input::get("short_name", "");
-            $spec->sparetime_breakfast_expenses = Input::get("sparetime_breakfast_expenses", "");
-            $spec->sparetime_dinner_expenses = Input::get("sparetime_dinner_expenses", "");
-            $spec->sparetime_lunch_expenses = Input::get("sparetime_lunch_expenses", "");
-            $spec->working_breakfast_expenses = Input::get("working_breakfast_expenses", "");
-            $spec->working_clothes_expense = Input::get("working_clothes_expense", "");
-            $spec->working_clothes_payment = Input::get("working_clothes_payment", "");
-            $spec->working_dinner_expenses = Input::get("working_dinner_expenses", "");
-            $spec->working_lunch_expenses = Input::get("working_lunch_expenses", "");
-            $spec->working_time_model = Input::get("working_time_model", "");
-            $spec->working_time_weekly = Input::get("working_time_weekly", "");
-            $spec->save();
-            return response("inserted");
-        });
-
-        // Holiday Type - Authenticated
-        $api->get('/holiday_type', function () {
-            return response()->json(App\HolidayType::all());
-        });
-        $api->get('/holiday_type/{id}', function ($id) {
-            return response()->json(App\HolidayType::find($id));
-        });
-
-        // Holiday - Authenticated
-        $api->get('/holiday', function () {
-            return response()->json(App\Holiday::orderBy('date_from', 'DESC')->get());
-        });
-        $api->post('/holiday/{id}', function ($id) {
-            $holiday = App\Holiday::find($id);
-            $holiday->date_from = Input::get("date_from");
-            $holiday->date_to = Input::get("date_to");
-            $holiday->holiday_type = Input::get("holiday_type");
-            $holiday->description = Input::get("description");
-            $holiday->save();
-            return response("updated");
-        });
-        $api->put('/holiday', function () {
-            $holiday = new App\Holiday();
-            $holiday->date_from = Input::get("date_from");
-            $holiday->date_to = Input::get("date_to");
-            $holiday->holiday_type = Input::get("holiday_type");
-            $holiday->description = Input::get("description");
-            $holiday->save();
-            return response("inserted");
-        });
-        $api->delete('/holiday/{id}', function ($id) {
-            $holiday = App\Holiday::find($id);
-            $holiday->delete();
-            return response("deleted");
-        });
-
         // Mission - Authenticated
         $api->get('/missions/{year}', function ($year) {
             $data = App\Mission::join('users', 'users.id', '=', 'missions.user')
@@ -238,24 +140,6 @@ $api->version('v1', function ($api) {
             'uses' => 'App\Http\Controllers\PDF\PDFController@getAufgebot'
         ]);
 
-
-
-        // Role- Authenticated
-        $api->get('/role', function () {
-            return response()->json(App\Role::all());
-        });
-        $api->get('/role/{id}', function ($id) {
-            return response()->json(App\Role::find($id));
-        });
-
-        // Log - Authenticated
-        $api->get('/log', function () {
-            return response()->json(App\Log::all());
-        });
-        $api->get('/log/{id}', function ($id) {
-            return response()->json(App\Log::find($id));
-        });
-
         // Regionalcenter - Authenticated
         $api->get('/regionalcenter', function () {
             return response()->json(App\RegionalCenter::all());
@@ -267,7 +151,6 @@ $api->version('v1', function ($api) {
         // Reportsheet - Authenticated
         $api->get('/reportsheet/user/me', function () {
             $user = JWTAuth::parseToken()->authenticate();
-
             if ($user->isAdmin()) {
                 // Admins
                 $reportSheets = App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
@@ -288,12 +171,10 @@ $api->version('v1', function ($api) {
                     ->orderBy('zdp')
                     ->get();
             }
-
             // Add calculated column days
             foreach ($reportSheets as $reportSheet) {
                 $reportSheet['days'] = App\ReportSheet::getDiensttageCount($reportSheet->start, $reportSheet->end);
             }
-
             return response()->json($reportSheets);
         });
 
@@ -380,6 +261,118 @@ $api->version('v1', function ($api) {
                 return response("updated");
             });
 
+            // Specification (Pflichtenheft) - Admins
+            $api->get('/specification', function () {
+                return response()->json(App\Specification::select('*', 'id AS fullId')->get());
+            });
+            $api->get('/specification/{id}', function ($id) {
+                return response()->json(App\Specification::find($id));
+            });
+            $api->post('/specification/{id}', function ($id) {
+                $spec = App\Specification::find($id);
+                $spec->accommodation = Input::get("accommodation", "");
+                $spec->active = Input::get("active", "");
+                $spec->firstday_breakfast_expenses = Input::get("firstday_breakfast_expenses", "");
+                $spec->firstday_dinner_expenses = Input::get("firstday_dinner_expenses", "");
+                $spec->firstday_lunch_expenses = Input::get("firstday_lunch_expenses", "");
+                $spec->lastday_breakfast_expenses = Input::get("lastday_breakfast_expenses", "");
+                $spec->lastday_dinner_expenses = Input::get("lastday_dinner_expenses", "");
+                $spec->lastday_lunch_expenses = Input::get("lastday_lunch_expenses", "");
+                $spec->name = Input::get("name", "");
+                $spec->pocket = Input::get("pocket", "");
+                $spec->short_name = Input::get("short_name", "");
+                $spec->sparetime_breakfast_expenses = Input::get("sparetime_breakfast_expenses", "");
+                $spec->sparetime_dinner_expenses = Input::get("sparetime_dinner_expenses", "");
+                $spec->sparetime_lunch_expenses = Input::get("sparetime_lunch_expenses", "");
+                $spec->working_breakfast_expenses = Input::get("working_breakfast_expenses", "");
+                $spec->working_clothes_expense = Input::get("working_clothes_expense", "");
+                $spec->working_clothes_payment = Input::get("working_clothes_payment", "");
+                $spec->working_dinner_expenses = Input::get("working_dinner_expenses", "");
+                $spec->working_lunch_expenses = Input::get("working_lunch_expenses", "");
+                $spec->working_time_model = Input::get("working_time_model", "");
+                $spec->working_time_weekly = Input::get("working_time_weekly", "");
+                $spec->save();
+                return response("updated");
+            });
+            $api->put('/specification/{id}', function ($id) {
+                $spec = new App\Specification();
+                $spec->id = $id;
+                $spec->accommodation = Input::get("accommodation", "");
+                $spec->active = Input::get("active", "");
+                $spec->firstday_breakfast_expenses = Input::get("firstday_breakfast_expenses", "");
+                $spec->firstday_dinner_expenses = Input::get("firstday_dinner_expenses", "");
+                $spec->firstday_lunch_expenses = Input::get("firstday_lunch_expenses", "");
+                $spec->lastday_breakfast_expenses = Input::get("lastday_breakfast_expenses", "");
+                $spec->lastday_dinner_expenses = Input::get("lastday_dinner_expenses", "");
+                $spec->lastday_lunch_expenses = Input::get("lastday_lunch_expenses", "");
+                $spec->name = Input::get("name", "");
+                $spec->pocket = Input::get("pocket", "");
+                $spec->short_name = Input::get("short_name", "");
+                $spec->sparetime_breakfast_expenses = Input::get("sparetime_breakfast_expenses", "");
+                $spec->sparetime_dinner_expenses = Input::get("sparetime_dinner_expenses", "");
+                $spec->sparetime_lunch_expenses = Input::get("sparetime_lunch_expenses", "");
+                $spec->working_breakfast_expenses = Input::get("working_breakfast_expenses", "");
+                $spec->working_clothes_expense = Input::get("working_clothes_expense", "");
+                $spec->working_clothes_payment = Input::get("working_clothes_payment", "");
+                $spec->working_dinner_expenses = Input::get("working_dinner_expenses", "");
+                $spec->working_lunch_expenses = Input::get("working_lunch_expenses", "");
+                $spec->working_time_model = Input::get("working_time_model", "");
+                $spec->working_time_weekly = Input::get("working_time_weekly", "");
+                $spec->save();
+                return response("inserted");
+            });
+
+            // Holiday Type - Admins
+            $api->get('/holiday_type', function () {
+                return response()->json(App\HolidayType::all());
+            });
+            $api->get('/holiday_type/{id}', function ($id) {
+                return response()->json(App\HolidayType::find($id));
+            });
+
+            // Holiday - Admins
+            $api->get('/holiday', function () {
+                return response()->json(App\Holiday::orderBy('date_from', 'DESC')->get());
+            });
+            $api->post('/holiday/{id}', function ($id) {
+                $holiday = App\Holiday::find($id);
+                $holiday->date_from = Input::get("date_from");
+                $holiday->date_to = Input::get("date_to");
+                $holiday->holiday_type = Input::get("holiday_type");
+                $holiday->description = Input::get("description");
+                $holiday->save();
+                return response("updated");
+            });
+            $api->put('/holiday', function () {
+                $holiday = new App\Holiday();
+                $holiday->date_from = Input::get("date_from");
+                $holiday->date_to = Input::get("date_to");
+                $holiday->holiday_type = Input::get("holiday_type");
+                $holiday->description = Input::get("description");
+                $holiday->save();
+                return response("inserted");
+            });
+            $api->delete('/holiday/{id}', function ($id) {
+                $holiday = App\Holiday::find($id);
+                $holiday->delete();
+                return response("deleted");
+            });
+
+            // Role - Admins
+            $api->get('/role', function () {
+                return response()->json(App\Role::all());
+            });
+            $api->get('/role/{id}', function ($id) {
+                return response()->json(App\Role::find($id));
+            });
+
+            // Log - Admins
+            $api->get('/log', function () {
+                return response()->json(App\Log::all());
+            });
+            $api->get('/log/{id}', function ($id) {
+                return response()->json(App\Log::find($id));
+            });
 
             // Reportsheet - Admins
             $api->get('/reportsheet', function () {
