@@ -8,6 +8,7 @@ import InputField from './InputField';
 import InputFieldWithHelpText from './InputFieldWithHelpText';
 import InputCheckbox from './InputCheckbox';
 import DatePicker from '../DatePicker';
+import Toast from '../../../utils/toast';
 
 export default class Missions extends Component {
   renderMissions = (self, mission, isAdmin) => {
@@ -191,6 +192,7 @@ export default class Missions extends Component {
       })
       .then(response => {
         self.getUser();
+        self.getReportSheets();
       })
       .catch(error => {
         self.setState({ error: error });
