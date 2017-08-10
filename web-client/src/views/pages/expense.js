@@ -37,10 +37,10 @@ export default class MissionOverview extends Component {
   }
 
   getReportSheets(url, tabId) {
-    $('#tab1').attr('class', 'btn-default');
-    $('#tab2').attr('class', 'btn-default');
-    $('#tab3').attr('class', 'btn-default');
-    $('#tab' + tabId).attr('class', 'btn-success');
+    $('#tab1').attr('class', 'btn btn-default');
+    $('#tab2').attr('class', 'btn btn-default');
+    $('#tab3').attr('class', 'btn btn-default');
+    $('#tab' + tabId).attr('class', 'btn btn-primary');
 
     this.setState({
       zdp: '',
@@ -184,20 +184,24 @@ export default class MissionOverview extends Component {
       <Header>
         <div className="page page__expense">
           <ScrollableCard>
-            <h1>Spesen</h1>
             <div class="btn-group">
               <button class="btn btn-default" onclick={() => this.showStats(3, 1)}>
-                Übersicht {this.monthNames[prevMonthDate.getMonth()]}
+                <span class="glyphicon glyphicon-file" aria-hidden="true" />
+                {' ' + this.monthNames[prevMonthDate.getMonth()]}
               </button>
               <button class="btn btn-default" onclick={() => this.showStats(2, 1)}>
-                Übersicht {this.monthNames[curMonthDate.getMonth()]}
+                <span class="glyphicon glyphicon-file" aria-hidden="true" />
+                {' ' + this.monthNames[curMonthDate.getMonth()]}
               </button>
-              <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Erweitert
+              <button class="btn btn-default" data-toggle="modal" data-target="#myModal">
+                <span class="glyphicon glyphicon-file" aria-hidden="true" />
+                {' Erweitert'}
               </button>
             </div>
 
-            <h2>Meldeblätter-Liste</h2>
+            <br />
+            <br />
+            <h2>Meldeblätter</h2>
 
             <div class="btn-group">
               <button id="tab1" onclick={() => this.getReportSheets('reportsheet', 1)}>
@@ -210,14 +214,8 @@ export default class MissionOverview extends Component {
                 Aktuelle Meldeblätter anzeigen
               </button>
             </div>
-
-            {/*
-                        <ul class="nav nav-pills" role="tablist">
-                            <li id="tab1"><a onClick={ ()=>this.getReportSheets('reportsheet', 1) } href="#">Alle Meldeblätter anzeigen</a></li>
-                            <li id="tab2"><a onClick={ ()=>this.getReportSheets('reportsheet/pending', 2) } href="#">Pendente Meldeblätter anzeigen</a></li>
-                            <li id="tab3"><a onClick={ ()=>this.getReportSheets('reportsheet/current', 3) } href="#">Aktuelle Meldeblätter anzeigen</a></li>
-                        </ul>*/}
-
+            <br />
+            <br />
             <div id="myModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
                 <div class="modal-content">
