@@ -99,6 +99,12 @@ $api->version('v1', function ($api) {
             return response()->json(App\RegionalCenter::find($id));
         });
 
+        // Mission - Authenticated
+        $api->get('/mission/{id}/draft', [
+            'as' => 'api.pdf',
+            'uses' => 'App\Http\Controllers\PDF\PDFController@getAufgebot'
+        ]);
+
         // Reportsheet - Authenticated
         $api->get('/reportsheet/user/me', function () {
             $user = JWTAuth::parseToken()->authenticate();
@@ -176,6 +182,7 @@ $api->version('v1', function ($api) {
                 return response("updated");
             });
 
+            // Mission - Admins
             $api->post('/mission/{id}/receivedDraft', function ($id) {
                 $mission = App\Mission::find($id);
                 $mission->draft = date("Y-m-d");
@@ -257,7 +264,7 @@ $api->version('v1', function ($api) {
                 return response("inserted");
             });
 
-            // Mission - Authenticated
+            // Mission - Admins
             $api->get('/missions/{year}', function ($year) {
                 $data = App\Mission::join('users', 'users.id', '=', 'missions.user')
                                         ->join('specifications', 'specifications.id', '=', 'missions.specification')
@@ -315,10 +322,6 @@ $api->version('v1', function ($api) {
                 App\ReportSheet::deleteByMission($id);
                 return response("deleted");
             });
-            $api->get('/mission/{id}/draft', [
-                'as' => 'api.pdf',
-                'uses' => 'App\Http\Controllers\PDF\PDFController@getAufgebot'
-            ]);
 
             // Holiday Type - Admins
             $api->get('/holiday_type', function () {
