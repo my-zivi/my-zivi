@@ -268,24 +268,31 @@ $api->version('v1', function ($api) {
 
             if ($user->isAdmin()) {
                 // Admins
-                return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                    ->select('report_sheets.id AS id', 'start', 'end', 'done')
-                    ->where('users.id', '=', $user->id)
-                    ->orderBy('start')
-                    ->orderBy('end')
-                    ->orderBy('zdp')
-                    ->get());
+                $reportSheets = App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                                ->select('report_sheets.id AS id', 'start', 'end', 'done')
+                                ->where('users.id', '=', $user->id)
+                                ->orderBy('start')
+                                ->orderBy('end')
+                                ->orderBy('zdp')
+                                ->get();
             } else {
                 // Zivis
-                return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                $reportSheets = App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                     ->select('report_sheets.id AS id', 'start', 'end', 'done')
                     ->where('users.id', '=', $user->id)
                     ->where('done', '=', 1)
                     ->orderBy('start')
                     ->orderBy('end')
                     ->orderBy('zdp')
-                    ->get());
+                    ->get();
             }
+
+            // Add calculated column days
+            foreach ($reportSheets as $reportSheet) {
+                $reportSheet['days'] = App\ReportSheet::getDiensttageCount($reportSheet->start, $reportSheet->end);
+            }
+
+            return response()->json($reportSheets);
         });
 
         $api->get('/diensttage', function () {
