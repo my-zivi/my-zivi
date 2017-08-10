@@ -352,13 +352,21 @@ UPDATE izivi.users SET hometown = (SELECT REPLACE(hometown, 'Ã¼', 'ü'));
 UPDATE izivi.users SET work_experience = (SELECT REPLACE(work_experience, 'Ã¼', 'ü'));
 UPDATE izivi.specifications SET name = (SELECT REPLACE(name, 'Ã¼', 'ü'));
 
-UPDATE izivi.users SET first_name = (SELECT REPLACE(first_name, 'í¶', 'ö'));
-UPDATE izivi.users SET last_name = (SELECT REPLACE(last_name, 'í¶', 'ö'));
-UPDATE izivi.users SET address = (SELECT REPLACE(address, 'í¶', 'ö'));
-UPDATE izivi.users SET city = (SELECT REPLACE(city, 'í¶', 'ö'));
-UPDATE izivi.users SET hometown = (SELECT REPLACE(hometown, 'í¶', 'ö'));
-UPDATE izivi.users SET work_experience = (SELECT REPLACE(work_experience, 'í¶', 'ö'));
-UPDATE izivi.specifications SET name = (SELECT REPLACE(name, 'í¶', 'ö'));
+UPDATE izivi.users SET first_name = (SELECT REPLACE(first_name, 'ï¿½', 'ü'));
+UPDATE izivi.users SET last_name = (SELECT REPLACE(last_name, 'ï¿½', 'ü'));
+UPDATE izivi.users SET address = (SELECT REPLACE(address, 'ï¿½', 'ü'));
+UPDATE izivi.users SET city = (SELECT REPLACE(city, 'ï¿½', 'ü'));
+UPDATE izivi.users SET hometown = (SELECT REPLACE(hometown, 'ï¿½', 'ü'));
+UPDATE izivi.users SET work_experience = (SELECT REPLACE(work_experience, 'ï¿½', 'ü'));
+UPDATE izivi.specifications SET name = (SELECT REPLACE(name, 'ï¿½', 'ü'));
+
+UPDATE izivi.users SET first_name = (SELECT REPLACE(first_name, 'Ã¶', 'ö'));
+UPDATE izivi.users SET last_name = (SELECT REPLACE(last_name, 'Ã¶', 'ö'));
+UPDATE izivi.users SET address = (SELECT REPLACE(address, 'Ã¶', 'ö'));
+UPDATE izivi.users SET city = (SELECT REPLACE(city, 'Ã¶', 'ö'));
+UPDATE izivi.users SET hometown = (SELECT REPLACE(hometown, 'Ã¶', 'ö'));
+UPDATE izivi.users SET work_experience = (SELECT REPLACE(work_experience, 'Ã¶', 'ö'));
+UPDATE izivi.specifications SET name = (SELECT REPLACE(name, 'Ã¶', 'ö'));
 
 UPDATE izivi.users SET first_name = (SELECT REPLACE(first_name, 'Ã', 'í'));
 UPDATE izivi.users SET last_name = (SELECT REPLACE(last_name, 'Ã', 'í'));
