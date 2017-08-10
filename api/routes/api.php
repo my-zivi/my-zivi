@@ -234,14 +234,10 @@ $api->version('v1', function ($api) {
             'as' => 'api.pdf',
             'uses' => 'App\Http\Controllers\PDF\PDFController@getAufgebot'
         ]);
-        $api->post('/mission/{id}/receivedDraft', function ($id) {
-            $mission = App\Mission::find($id);
-            $mission->draft = date("Y-m-d");
-            $mission->save();
-            return response("updated");
-        });
 
-        // Role - Authenticated
+
+
+        // Role- Authenticated
         $api->get('/role', function () {
             return response()->json(App\Role::all());
         });
@@ -268,7 +264,6 @@ $api->version('v1', function ($api) {
         // Reportsheet - Authenticated
         $api->get('/reportsheet/user/me', function () {
             $user = JWTAuth::parseToken()->authenticate();
-            return ReportSheet::getDiensttageCount('start', 'end');
 
             if ($user->isAdmin()) {
                 // Admins
@@ -375,6 +370,27 @@ $api->version('v1', function ($api) {
                 $user->save();
                 return response("updated");
             });
+
+            $api->post('/mission/{id}/receivedDraft', function ($id) {
+                $mission = App\Mission::find($id);
+                $mission->draft = date("Y-m-d");
+                $mission->save();
+
+                //Add new ReportSheets
+                $start = new DateTime($mission->start);
+                $end = new DateTime($mission->end);
+                $reportSheetEnd = clone $start;
+                $reportSheetEnd->modify('last day of this month');
+                while ($reportSheetEnd<$end) {
+                    ReportSheet::add($mission, $start, $reportSheetEnd);
+                    $start->modify('first day of next month');
+                    $reportSheetEnd->modify('last day of next month');
+                }
+                ReportSheet::add($mission, $start, $end);
+
+                return response("updated");
+            });
+
 
             // Reportsheet - Admins
             $api->get('/reportsheet', function () {
