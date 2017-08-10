@@ -1,6 +1,6 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
-import Card from '../tags/card';
+import ScrollableCard from '../tags/scrollableCard';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
@@ -135,10 +135,22 @@ export default class Freeday extends Component {
     tbody.push(
       <tr>
         <td>
-          <DatePicker id="date_from" value={this.state.newFreeday.date_from} callback={this.handleNewDateChange} callbackOrigin={this} />
+          <DatePicker
+            id="date_from"
+            value={this.state.newFreeday.date_from}
+            callback={this.handleNewDateChange}
+            callbackOrigin={this}
+            showLabel={false}
+          />
         </td>
         <td>
-          <DatePicker id="date_to" value={this.state.newFreeday.date_to} callback={this.handleNewDateChange} callbackOrigin={this} />
+          <DatePicker
+            id="date_to"
+            value={this.state.newFreeday.date_to}
+            callback={this.handleNewDateChange}
+            callbackOrigin={this}
+            showLabel={false}
+          />
         </td>
         <td>
           <select
@@ -179,6 +191,7 @@ export default class Freeday extends Component {
               value={this.state.freedays[i].date_from}
               callback={(e, origin) => this.handleDateChange(e, origin, i)}
               callbackOrigin={this}
+              showLabel={false}
             />
           </td>
           <td>
@@ -187,6 +200,7 @@ export default class Freeday extends Component {
               value={this.state.freedays[i].date_to}
               callback={(e, origin) => this.handleDateChange(e, origin, i)}
               callbackOrigin={this}
+              showLabel={false}
             />
           </td>
           <td>
@@ -228,7 +242,7 @@ export default class Freeday extends Component {
     return (
       <Header>
         <div className="page page__freeday">
-          <Card>
+          <ScrollableCard>
             <h1>Freitage</h1>
             <table class="table table-hover">
               <thead>
@@ -243,7 +257,7 @@ export default class Freeday extends Component {
               </thead>
               <tbody>{tbody}</tbody>
             </table>
-          </Card>
+          </ScrollableCard>
 
           <LoadingView loading={this.state.loading} error={this.state.error} />
         </div>
