@@ -19,7 +19,7 @@ export default class InputFieldWithHelpText extends InputField {
       />,
 
       <div id={'_help' + this.props.id} className="col-sm-1 hidden-xs">
-        <a href="#" data-toggle="popover" title={this.props.label} data-content={this.props.popoverText}>
+        <a data-toggle="popover" title={this.props.label} data-content={this.props.popoverText}>
           <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
         </a>
       </div>,

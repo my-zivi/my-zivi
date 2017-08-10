@@ -297,7 +297,7 @@ export default class User extends Component {
                     />
                   </div>
                   <div id="_helpiban" className="col-sm-1 hidden-xs">
-                    <a href="#" data-toggle="popover" title="IBAN-Nr" data-content={howerText_IBAN}>
+                    <a data-toggle="popover" title="IBAN-Nr" data-content={howerText_IBAN}>
                       <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
                     </a>
                   </div>
@@ -320,7 +320,7 @@ export default class User extends Component {
                     />
                   </div>
                   <div id="_helpiban" className="col-sm-1 hidden-xs">
-                    <a href="#" data-toggle="popover" title="Krankenkasse" data-content={howerText_health_insurance}>
+                    <a data-toggle="popover" title="Krankenkasse" data-content={howerText_health_insurance}>
                       <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
                     </a>
                   </div>
@@ -344,7 +344,7 @@ export default class User extends Component {
                     </textarea>
                   </div>
                   <div id="_helpberufserfahrung" className="col-sm-1 hidden-xs">
-                    <a href="#" data-toggle="popover" title="Berufserfahrung" data-content={howerText_Berufserfahrung}>
+                    <a data-toggle="popover" title="Berufserfahrung" data-content={howerText_Berufserfahrung}>
                       <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
                     </a>
                   </div>
