@@ -375,18 +375,18 @@ export default class User extends Component {
 
               <hr />
               <h3>Zivieinsätze</h3>
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Pflichtenheft</th>
-                    <th>Start</th>
-                    <th>Ende</th>
-                    <th />
-                    <th />
-                  </tr>
-                </thead>
-                <tbody>{missions}</tbody>
-              </table>
+              <div class="container">
+                <div class="row">
+                  <div class="col-xs-3">Pflichtenheft</div>
+                  <div class="col-xs-2">Start</div>
+                  <div class="col-xs-2">Ende</div>
+                  <div class="col-xs-1" />
+                  <div class="col-xs-1" />
+                  <div class="col-xs-1" />
+                </div>
+              </div>
+              <div class="container">{missions}</div>
+
               <button class="btn btn-primary" data-toggle="modal" data-target="#einsatzModal">
                 Neue Einsatzplanung hinzufügen
               </button>
@@ -394,42 +394,40 @@ export default class User extends Component {
 
               <hr />
               <h3>Meldeblätter</h3>
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Von</th>
-                    <th>Bis</th>
-                    <th>Angerechnete Tage</th>
-                    {ApiService.isAdmin() ? <th>Erledigt</th> : null}
-                    <th />
-                    {ApiService.isAdmin() ? <th /> : null}
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.reportSheets.length
-                    ? this.state.reportSheets.map(obj => (
-                        <tr>
-                          <td>{moment(obj.start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
-                          <td>{moment(obj.end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
-                          <td>{obj.days}</td>
-                          {ApiService.isAdmin() ? obj.done === 1 ? <td>&#9989;</td> : <td /> : null}
-                          <td>
-                            <button name="showReportSheet" class="btn btn-xs" onClick={() => this.showReportSheet(obj.id)}>
-                              Spesenrapport anzeigen
+              <div class="container">
+                <div class="row">
+                  <div class="col-xs-2">Von</div>
+                  <div class="col-xs-2">Bis</div>
+                  <div class="col-xs-1">Angerechnete Tage</div>
+                  {ApiService.isAdmin() ? <div class="col-xs-1">Erledigt</div> : null}
+                  <div class="col-xs-2" />
+                  {ApiService.isAdmin() ? <div class="col-xs-2" /> : null}
+                </div>
+              </div>
+              <div class="container">
+                {this.state.reportSheets.length
+                  ? this.state.reportSheets.map(obj => (
+                      <div class="row">
+                        <div class="col-xs-2">{moment(obj.start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
+                        <div class="col-xs-2">{moment(obj.end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
+                        <div class="col-xs-1">{obj.days}</div>
+                        {ApiService.isAdmin() ? obj.done === 1 ? <div class="col-xs-1">&#9989;</div> : <div class="col-xs-1" /> : null}
+                        <div class="col-xs-2">
+                          <button name="showReportSheet" class="btn btn-xs" onClick={() => this.showReportSheet(obj.id)}>
+                            Spesenrapport anzeigen
+                          </button>
+                        </div>
+                        {ApiService.isAdmin() ? (
+                          <div class="col-xs-2">
+                            <button name="editReportSheet" class="btn btn-xs" onClick={() => this.router.push('/expense/' + obj.id)}>
+                              Spesen bearbeiten
                             </button>
-                          </td>
-                          {ApiService.isAdmin() ? (
-                            <td>
-                              <button name="editReportSheet" class="btn btn-xs" onClick={() => this.router.push('/expense/' + obj.id)}>
-                                Spesen bearbeiten
-                              </button>
-                            </td>
-                          ) : null}
-                        </tr>
-                      ))
-                    : null}
-                </tbody>
-              </table>
+                          </div>
+                        ) : null}
+                      </div>
+                    ))
+                  : null}
+              </div>
             </div>
           </Card>
           <LoadingView loading={this.state.loading} error={this.state.error} />
