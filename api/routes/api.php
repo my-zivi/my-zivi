@@ -72,72 +72,13 @@ $api->version('v1', function ($api) {
             $user->internal_note = null;
             return response()->json($user);
         });
+        $api->post('/user/me', function () {
+            $user = JWTAuth::parseToken()->authenticate();
+            UserController::updateUser($user);
+        });
         $api->post('/postChangePassword', [
             'as' => 'api.user.postChangePassword',
             'uses' => 'App\Http\Controllers\UserController@changePassword'
-        ]);
-
-        // Mission - Authenticated
-        $api->get('/missions/{year}', function ($year) {
-            $data = App\Mission::join('users', 'users.id', '=', 'missions.user')
-                                    ->join('specifications', 'specifications.id', '=', 'missions.specification')
-                                    ->select('*', 'users.id AS userid')
-                                    ->whereNull('missions.deleted_at')
-                                    ->whereDate('end', '>=', $year.'-01-01')
-                                    ->whereDate('start', '<=', $year.'-12-31')
-                                    ->orderBy('start')
-                                    ->get();
-            $intermediateResult = array();
-            foreach ($data as $m) {
-                if (!isset($intermediateResult[$m->userid])) {
-                    $intermediateResult[$m->userid] = array();
-                }
-                $intermediateResult[$m->userid][] = $m;
-            }
-
-            $result = array();
-            foreach ($intermediateResult as $m) {
-                $result[] = $m;
-            }
-
-            return response()->json($result);
-        });
-        $api->put('/mission', function () {
-            $mission = new App\Mission();
-            $mission->user = Input::get("user", "");
-            $mission->specification = Input::get("specification", "");
-            $mission->start = Input::get("start", "");
-            $mission->end = Input::get("end", "");
-            $mission->eligible_holiday = 0;//TODO:??
-            $mission->role = 3; //TODO: needed??
-            $mission->first_time = Input::get("first_time", false);
-            $mission->long_mission = Input::get("long_mission", false);
-            $mission->probation_period = Input::get("probation_period", false);
-            $mission->save();
-            return response("inserted");
-        });
-        $api->post('/mission/{id}', function ($id) {
-            $mission = App\Mission::find($id);
-            $mission->user = Input::get("user", "");
-            $mission->specification = Input::get("specification", "");
-            $mission->start = Input::get("start", "");
-            $mission->end = Input::get("end", "");
-            $mission->eligible_holiday = 0;//TODO:??
-            $mission->role = 3; //TODO: needed??
-            $mission->first_time = Input::get("first_time", false);
-            $mission->long_mission = Input::get("long_mission", false);
-            $mission->probation_period = Input::get("probation_period", false);
-            $mission->save();
-            return response("updated");
-        });
-        $api->delete('/mission/{id}', function ($id) {
-            App\Mission::find($id)->delete();
-            App\ReportSheet::deleteByMission($id);
-            return response("deleted");
-        });
-        $api->get('/mission/{id}/draft', [
-            'as' => 'api.pdf',
-            'uses' => 'App\Http\Controllers\PDF\PDFController@getAufgebot'
         ]);
 
         // Regionalcenter - Authenticated
@@ -178,6 +119,7 @@ $api->version('v1', function ($api) {
             return response()->json($reportSheets);
         });
 
+        // Service days - Authenticated
         $api->get('/diensttage', function () {
             $start = Input::get("start", "");
             $end = Input::get("end", "");
@@ -185,27 +127,10 @@ $api->version('v1', function ($api) {
             return response()->json(ReportSheet::getDiensttageCount($start, $end));
         });
 
-
-        $api->post('/user/me', function () {
-            $user = JWTAuth::parseToken()->authenticate();
-            UserController::updateUser($user);
-        });
-
-
-        // PDF
-        $api->get('/pdf/phoneList', [
-            'as' => 'api.pdf',
-            'uses' => 'App\Http\Controllers\PDF\PDFController@getPhoneList'
-        ]);
-
+        // PDF - Authenticated
         $api->get('/pdf/zivireportsheet', [
             'as' => 'api.pdf',
             'uses' => 'App\Http\Controllers\PDF\PDFController@getZiviReportSheet'
-        ]);
-
-        $api->get('/pdf/statistik', [
-            'as' => 'api.pdf',
-            'uses' => 'App\Http\Controllers\PDF\PDFController@getSpesenStatistik'
         ]);
 
         // Admins only
@@ -321,6 +246,69 @@ $api->version('v1', function ($api) {
                 $spec->save();
                 return response("inserted");
             });
+
+            // Mission - Authenticated
+            $api->get('/missions/{year}', function ($year) {
+                $data = App\Mission::join('users', 'users.id', '=', 'missions.user')
+                                        ->join('specifications', 'specifications.id', '=', 'missions.specification')
+                                        ->select('*', 'users.id AS userid')
+                                        ->whereNull('missions.deleted_at')
+                                        ->whereDate('end', '>=', $year.'-01-01')
+                                        ->whereDate('start', '<=', $year.'-12-31')
+                                        ->orderBy('start')
+                                        ->get();
+                $intermediateResult = array();
+                foreach ($data as $m) {
+                    if (!isset($intermediateResult[$m->userid])) {
+                        $intermediateResult[$m->userid] = array();
+                    }
+                    $intermediateResult[$m->userid][] = $m;
+                }
+
+                $result = array();
+                foreach ($intermediateResult as $m) {
+                    $result[] = $m;
+                }
+
+                return response()->json($result);
+            });
+            $api->put('/mission', function () {
+                $mission = new App\Mission();
+                $mission->user = Input::get("user", "");
+                $mission->specification = Input::get("specification", "");
+                $mission->start = Input::get("start", "");
+                $mission->end = Input::get("end", "");
+                $mission->eligible_holiday = 0;//TODO:??
+                $mission->role = 3; //TODO: needed??
+                $mission->first_time = Input::get("first_time", false);
+                $mission->long_mission = Input::get("long_mission", false);
+                $mission->probation_period = Input::get("probation_period", false);
+                $mission->save();
+                return response("inserted");
+            });
+            $api->post('/mission/{id}', function ($id) {
+                $mission = App\Mission::find($id);
+                $mission->user = Input::get("user", "");
+                $mission->specification = Input::get("specification", "");
+                $mission->start = Input::get("start", "");
+                $mission->end = Input::get("end", "");
+                $mission->eligible_holiday = 0;//TODO:??
+                $mission->role = 3; //TODO: needed??
+                $mission->first_time = Input::get("first_time", false);
+                $mission->long_mission = Input::get("long_mission", false);
+                $mission->probation_period = Input::get("probation_period", false);
+                $mission->save();
+                return response("updated");
+            });
+            $api->delete('/mission/{id}', function ($id) {
+                App\Mission::find($id)->delete();
+                App\ReportSheet::deleteByMission($id);
+                return response("deleted");
+            });
+            $api->get('/mission/{id}/draft', [
+                'as' => 'api.pdf',
+                'uses' => 'App\Http\Controllers\PDF\PDFController@getAufgebot'
+            ]);
 
             // Holiday Type - Admins
             $api->get('/holiday_type', function () {
@@ -444,6 +432,16 @@ $api->version('v1', function ($api) {
                     ->orderBy('zdp')
                     ->get());
             });
+
+            // PDF - Admins
+            $api->get('/pdf/phoneList', [
+                'as' => 'api.pdf',
+                'uses' => 'App\Http\Controllers\PDF\PDFController@getPhoneList'
+            ]);
+            $api->get('/pdf/statistik', [
+                'as' => 'api.pdf',
+                'uses' => 'App\Http\Controllers\PDF\PDFController@getSpesenStatistik'
+            ]);
         });
     });
 });
