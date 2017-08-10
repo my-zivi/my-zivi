@@ -228,6 +228,7 @@ $api->version('v1', function ($api) {
         });
         $api->delete('/mission/{id}', function ($id) {
             App\Mission::find($id)->delete();
+            App\ReportSheet::deleteByMission($id);
             return response("deleted");
         });
         $api->get('/mission/{id}/draft', [
@@ -332,13 +333,11 @@ $api->version('v1', function ($api) {
                 'uses' => 'App\Http\Controllers\UserController@getZivis',
                 'as' => 'api.user.getZivis'
             ]);
-
             $api->get('/user/{id}', function ($id) {
                 $user = App\User::find($id);
                 $user->missions = $user->missions;
                 return response()->json($user);
             });
-
             $api->delete('/user/{id}', function ($id) {
                 App\User::destroy($id);
                 return response("deleted");

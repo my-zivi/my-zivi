@@ -371,4 +371,11 @@ class ReportSheet extends Model
             return 0;
         }
     }
+
+    // Delete all linked report sheets to a mission when a mission is soft deleted
+    public static function deleteByMission($missionId)
+    {
+        $reportSheets = App\Flight::where($missionId, '=', 'mission');
+        $reportSheets->delete();
+    }
 }
