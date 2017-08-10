@@ -278,9 +278,7 @@ export default class Missions extends Component {
           self.getUser();
         })
         .catch(error => {
-          Toast.showError('Speichern fehlgeschlagen', 'Neuer Einsatz konnte nicht gespeichert werden');
-          //TODO ERROR Handling!!!
-          //this.setState({error: error});
+          Toast.showError('Speichern fehlgeschlagen', 'Neuer Einsatz konnte nicht gespeichert werden', error, this.context);
         });
     } else {
       axios
@@ -293,9 +291,7 @@ export default class Missions extends Component {
           self.getUser();
         })
         .catch(error => {
-          Toast.showError('Speichern fehlgeschlagen', 'Einsatz konnte nicht gespeichert werden');
-          //TODO ERROR Handling!!!
-          //this.setState({error: error});
+          Toast.showError('Speichern fehlgeschlagen', 'Einsatz konnte nicht gespeichert werden', error, this.context);
         });
     }
   }
@@ -309,9 +305,7 @@ export default class Missions extends Component {
         self.getUser();
       })
       .catch(error => {
-        Toast.showError('Löschen fehlgeschlagen', 'Einsatz konnte nicht gelöscht werden');
-        //TODO ERROR Handling!!!
-        //this.setState({error: error});
+        Toast.showError('Löschen fehlgeschlagen', 'Einsatz konnte nicht gelöscht werden', error, this.context);
       });
   }
 

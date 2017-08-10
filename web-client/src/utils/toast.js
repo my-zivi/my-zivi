@@ -23,7 +23,12 @@ function showSuccess(title, msg) {
   });
 }
 
-function showError(title, msg) {
+function showError(title, msg, error, context) {
+  if (error != null && error.response != null && error.response.status == 401) {
+    localStorage.removeItem('jwtToken');
+    context.router.push('/');
+  }
+
   iziToast.show({
     id: 'toast-failed',
     titleSize: 18,

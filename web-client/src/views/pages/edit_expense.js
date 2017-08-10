@@ -50,10 +50,11 @@ export default class EditExpense extends Component {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
+        Toast.showSuccess('Speichern erfolgreich', 'Spesen konnte gespeichert werden');
         this.getReportSheet();
       })
       .catch(error => {
-        this.setState({ error: error });
+        Toast.showError('Speichern fehlgeschlagen', 'Spesen konnte nicht gespeichert werden', error, this.context);
       });
   }
 

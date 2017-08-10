@@ -178,9 +178,7 @@ export default class User extends Component {
       })
       .catch(error => {
         this.setState({ error: error });
-        Toast.showError('Speichern fehlgeschlagen', 'Profil konnte nicht gespeichert werden');
-        //TODO ERROR Handling!!!
-        //this.setState({error: error});
+        Toast.showError('Speichern fehlgeschlagen', 'Profil konnte nicht gespeichert werden', error, this.context);
       });
   }
 
