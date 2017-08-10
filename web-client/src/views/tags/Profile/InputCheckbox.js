@@ -1,7 +1,7 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-import InputField from '../tags/InputField';
+import InputField from './InputField';
 
 export default class InputCheckbox extends InputField {
   render() {
