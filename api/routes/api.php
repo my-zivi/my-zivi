@@ -81,6 +81,16 @@ $api->version('v1', function ($api) {
             'uses' => 'App\Http\Controllers\UserController@changePassword'
         ]);
 
+        // Specification (Pflichtenheft) - Authenticated
+        $api->get('/specification/me', function () {
+            $user = JWTAuth::parseToken()->authenticate();
+            return response()->json(
+                App\Specification::
+                    select('specifications.id', 'specifications.name')
+                    ->get()
+            );
+        });
+
         // Regionalcenter - Authenticated
         $api->get('/regionalcenter', function () {
             return response()->json(App\RegionalCenter::all());
