@@ -390,7 +390,7 @@ export default class User extends Component {
               <button class="btn btn-primary" data-toggle="modal" data-target="#einsatzModal">
                 Neue Einsatzplanung hinzufügen
               </button>
-              {this.missionTag.renderMissions(this, missions, ApiService.isAdmin())}
+              {this.missionTag.renderMissions(this, null, ApiService.isAdmin())}
 
               <hr />
               <h3>Meldeblätter</h3>

@@ -10,7 +10,7 @@ const isLoggedIn = () => {
 };
 
 // Is user an administrator?
-export const isAdmin = () => {
+const isAdmin = () => {
   if (isLoggedIn()) {
     const jwtDecode = require('jwt-decode');
     const decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
@@ -20,7 +20,7 @@ export const isAdmin = () => {
 };
 
 // Verify that the fetched response is JSON
-export function _verifyResponse(res) {
+function _verifyResponse(res) {
   let contentType = res.headers.get('content-type');
 
   if (contentType && contentType.indexOf('application/json') !== -1) {

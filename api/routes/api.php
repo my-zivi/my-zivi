@@ -19,22 +19,20 @@ use App\ReportSheet;
 $api = $app->make(Dingo\Api\Routing\Router::class);
 
 $api->version('v1', function ($api) {
+
     // Auth - Public
     $api->post('/auth/login', [
         'as' => 'api.auth.login',
         'uses' => 'App\Http\Controllers\Auth\AuthController@postLogin',
     ]);
-
     $api->post('/auth/register', [
         'as' => 'api.auth.register',
         'uses' => 'App\Http\Controllers\Auth\AuthController@postRegister'
     ]);
-
     $api->post('/auth/forgotPassword', [
         'as' => 'api.auth.forgotpassword',
         'uses' => 'App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail'
     ]);
-
     $api->post('/auth/resetPassword', [
         'as' => 'api.auth.resetpassword',
         'uses' => 'App\Http\Controllers\Auth\ForgotPasswordController@resetPassword'
@@ -44,13 +42,7 @@ $api->version('v1', function ($api) {
         'middleware' => 'api.auth',
     ], function ($api) {
 
-        // Root
-        $api->get('/', [
-            'uses' => 'App\Http\Controllers\APIController@getIndex',
-            'as' => 'api.index'
-        ]);
-
-        // Authentication
+        // Authentication - Authenticated
         $api->get('/auth/user', [
             'uses' => 'App\Http\Controllers\Auth\AuthController@getUser',
             'as' => 'api.auth.user'
@@ -64,7 +56,7 @@ $api->version('v1', function ($api) {
             'as' => 'api.auth.invalidate'
         ]);
 
-        // Canton
+        // Canton - Authenticated
         $api->get('/canton', function () {
             return response()->json(App\Canton::all());
         });
@@ -72,68 +64,18 @@ $api->version('v1', function ($api) {
             return response()->json(App\Canton::find($id));
         });
 
-
-        $api->get('/user/zivi', [
-            'uses' => 'App\Http\Controllers\UserController@getZivis',
-            'as' => 'api.user.getZivis'
-        ]);
-
-        // User
+        // User - Authenticated
         $api->get('/user', function () {
             $user = JWTAuth::parseToken()->authenticate();
             $user->missions = $user->missions;
             return response()->json($user);
         });
-
-        $api->get('/user/{id}', function ($id) {
-            $user = App\User::find($id);
-            $user->missions = $user->missions;
-            return response()->json($user);
-        });
-
-        $api->delete('/user/{id}', function ($id) {
-            App\User::destroy($id);
-            return response("deleted");
-        });
-        $api->post('/user/{id}', function ($id) {
-            $user = App\User::find($id);
-            $user->created_at = Input::get("created_at", "");
-            $user->updated_at = Input::get("updated_at", "");
-            $user->deleted_at = Input::get("deleted_at", "");
-            $user->email = Input::get("email", "");
-            $user->role = Input::get("role", "");
-            $user->zdp = Input::get("zdp", "");
-            $user->first_name = Input::get("first_name", "");
-            $user->last_name = Input::get("last_name", "");
-            $user->address = Input::get("address", "");
-            $user->city = Input::get("city", "");
-            $user->zip = Input::get("zip", "");
-            $user->hometown = Input::get("hometown", "");
-            $user->hometown_canton = Input::get("hometown_canton", "");
-            $user->canton = Input::get("canton", "");
-            $user->birthday = Input::get("birthday", "");
-            $user->phone_mobile = Input::get("phone_mobile", "");
-            $user->phone_private = Input::get("phone_private", "");
-            $user->phone_business = Input::get("phone_business", "");
-            $user->bank_iban = Input::get("bank_iban", "");
-            $user->work_experience = Input::get("work_experience", "");
-            $user->driving_licence = Input::get("driving_licence", 0);
-            $user->ga_travelcard = Input::get("ga_travelcard", 0);
-            $user->half_fare_travelcard = Input::get("half_fare_travelcard", 0);
-            $user->other_fare_network = Input::get("other_fare_network", "");
-            $user->regional_center = Input::get("regional_center", "");
-            $user->internal_note = Input::get("internal_note", "");
-            $user->health_insurance = Input::get("health_insurance", "");
-            $user->save();
-            return response("updated");
-        });
-
         $api->post('/postChangePassword', [
             'as' => 'api.user.postChangePassword',
             'uses' => 'App\Http\Controllers\UserController@changePassword'
         ]);
 
-        // Specification (Pflichtenheft)
+        // Specification (Pflichtenheft) - Authenticated
         $api->get('/specification', function () {
             return response()->json(App\Specification::select('*', 'id AS fullId')->get());
         });
@@ -195,7 +137,7 @@ $api->version('v1', function ($api) {
             return response("inserted");
         });
 
-        // Holiday Type
+        // Holiday Type - Authenticated
         $api->get('/holiday_type', function () {
             return response()->json(App\HolidayType::all());
         });
@@ -203,7 +145,7 @@ $api->version('v1', function ($api) {
             return response()->json(App\HolidayType::find($id));
         });
 
-        // Holiday
+        // Holiday - Authenticated
         $api->get('/holiday', function () {
             return response()->json(App\Holiday::orderBy('date_from', 'DESC')->get());
         });
@@ -216,7 +158,6 @@ $api->version('v1', function ($api) {
             $holiday->save();
             return response("updated");
         });
-
         $api->put('/holiday', function () {
             $holiday = new App\Holiday();
             $holiday->date_from = Input::get("date_from");
@@ -226,14 +167,13 @@ $api->version('v1', function ($api) {
             $holiday->save();
             return response("inserted");
         });
-
         $api->delete('/holiday/{id}', function ($id) {
             $holiday = App\Holiday::find($id);
             $holiday->delete();
             return response("deleted");
         });
 
-        // Mission
+        // Mission - Authenticated
         $api->get('/missions/{year}', function ($year) {
             $data = App\Mission::join('users', 'users.id', '=', 'missions.user')
                                     ->join('specifications', 'specifications.id', '=', 'missions.specification')
@@ -258,7 +198,6 @@ $api->version('v1', function ($api) {
 
             return response()->json($result);
         });
-
         $api->put('/mission', function () {
             $mission = new App\Mission();
             $mission->user = Input::get("user", "");
@@ -273,7 +212,6 @@ $api->version('v1', function ($api) {
             $mission->save();
             return response("inserted");
         });
-
         $api->post('/mission/{id}', function ($id) {
             $mission = App\Mission::find($id);
             $mission->user = Input::get("user", "");
@@ -288,26 +226,19 @@ $api->version('v1', function ($api) {
             $mission->save();
             return response("updated");
         });
-
         $api->delete('/mission/{id}', function ($id) {
             App\Mission::find($id)->delete();
+            App\ReportSheet::deleteByMission($id);
             return response("deleted");
         });
-
-
         $api->get('/mission/{id}/draft', [
             'as' => 'api.pdf',
             'uses' => 'App\Http\Controllers\PDF\PDFController@getAufgebot'
         ]);
 
-        $api->post('/mission/{id}/receivedDraft', function ($id) {
-            $mission = App\Mission::find($id);
-            $mission->draft = date("Y-m-d");
-            $mission->save();
-            return response("updated");
-        });
 
-        // Role
+
+        // Role- Authenticated
         $api->get('/role', function () {
             return response()->json(App\Role::all());
         });
@@ -315,7 +246,7 @@ $api->version('v1', function ($api) {
             return response()->json(App\Role::find($id));
         });
 
-        // Log
+        // Log - Authenticated
         $api->get('/log', function () {
             return response()->json(App\Log::all());
         });
@@ -323,7 +254,7 @@ $api->version('v1', function ($api) {
             return response()->json(App\Log::find($id));
         });
 
-        // Regionalcenter
+        // Regionalcenter - Authenticated
         $api->get('/regionalcenter', function () {
             return response()->json(App\RegionalCenter::all());
         });
@@ -336,7 +267,7 @@ $api->version('v1', function ($api) {
             $user = JWTAuth::parseToken()->authenticate();
 
             if ($user->isAdmin()) {
-                // Administrators
+                // Admins
                 return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                     ->select('report_sheets.id AS id', 'start', 'end', 'done')
                     ->where('users.id', '=', $user->id)
@@ -381,11 +312,83 @@ $api->version('v1', function ($api) {
             'uses' => 'App\Http\Controllers\PDF\PDFController@getSpesenStatistik'
         ]);
 
-        // Administrators only
+        // Admins only
         $api->group([
             'middleware' => 'role',
         ], function ($api) {
 
+            // Root - Admins
+            $api->get('/', [
+                'uses' => 'App\Http\Controllers\APIController@getIndex',
+                'as' => 'api.index'
+            ]);
+
+            // User - Admins
+            $api->get('/user/zivi', [
+                'uses' => 'App\Http\Controllers\UserController@getZivis',
+                'as' => 'api.user.getZivis'
+            ]);
+            $api->get('/user/{id}', function ($id) {
+                $user = App\User::find($id);
+                $user->missions = $user->missions;
+                return response()->json($user);
+            });
+            $api->delete('/user/{id}', function ($id) {
+                App\User::destroy($id);
+                return response("deleted");
+            });
+            $api->post('/user/{id}', function ($id) {
+                $user = App\User::find($id);
+                $user->created_at = Input::get("created_at", "");
+                $user->updated_at = Input::get("updated_at", "");
+                $user->deleted_at = Input::get("deleted_at", "");
+                $user->email = Input::get("email", "");
+                $user->role = Input::get("role", "");
+                $user->zdp = Input::get("zdp", "");
+                $user->first_name = Input::get("first_name", "");
+                $user->last_name = Input::get("last_name", "");
+                $user->address = Input::get("address", "");
+                $user->city = Input::get("city", "");
+                $user->zip = Input::get("zip", "");
+                $user->hometown = Input::get("hometown", "");
+                $user->hometown_canton = Input::get("hometown_canton", "");
+                $user->canton = Input::get("canton", "");
+                $user->birthday = Input::get("birthday", "");
+                $user->phone_mobile = Input::get("phone_mobile", "");
+                $user->phone_private = Input::get("phone_private", "");
+                $user->phone_business = Input::get("phone_business", "");
+                $user->bank_iban = Input::get("bank_iban", "");
+                $user->work_experience = Input::get("work_experience", "");
+                $user->driving_licence = Input::get("driving_licence", 0);
+                $user->ga_travelcard = Input::get("ga_travelcard", 0);
+                $user->half_fare_travelcard = Input::get("half_fare_travelcard", 0);
+                $user->other_fare_network = Input::get("other_fare_network", "");
+                $user->regional_center = Input::get("regional_center", "");
+                $user->internal_note = Input::get("internal_note", "");
+                $user->health_insurance = Input::get("health_insurance", "");
+                $user->save();
+                return response("updated");
+            });
+
+            $api->post('/mission/{id}/receivedDraft', function ($id) {
+                $mission = App\Mission::find($id);
+                $mission->draft = date("Y-m-d");
+                $mission->save();
+
+                //Add new ReportSheets
+                $start = new DateTime($mission->start);
+                $end = new DateTime($mission->end);
+                $reportSheetEnd = clone $start;
+                $reportSheetEnd->modify('last day of this month');
+                while ($reportSheetEnd<$end) {
+                    ReportSheet::add($mission, $start, $reportSheetEnd);
+                    $start->modify('first day of next month');
+                    $reportSheetEnd->modify('last day of next month');
+                }
+                ReportSheet::add($mission, $start, $end);
+
+                return response("updated");
+            });
 
 
             // Reportsheet - Admins

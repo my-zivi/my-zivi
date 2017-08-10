@@ -371,4 +371,21 @@ class ReportSheet extends Model
             return 0;
         }
     }
+
+    public static function add($mission, $start, $end)
+    {
+        $sheet = new ReportSheet();
+        $sheet->mission = $mission->id;
+        $sheet->user = $mission->user;
+        $sheet->start = $start;
+        $sheet->end = $end;
+        $sheet->save();
+    }
+
+    // Delete all linked report sheets to a mission when a mission is soft deleted
+    public static function deleteByMission($missionId)
+    {
+        $reportSheets = App\Flight::where($missionId, '=', 'mission');
+        $reportSheets->delete();
+    }
 }
