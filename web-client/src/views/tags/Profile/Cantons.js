@@ -3,7 +3,7 @@ import VNodeFlags from 'inferno-vnode-flags';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
 import axios from 'axios';
-import ApiService from '../../utils/api';
+import ApiService from '../../../utils/api';
 
 export default class Cantons extends Component {
   renderCantons(state) {

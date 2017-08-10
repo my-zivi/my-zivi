@@ -1,7 +1,7 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-import InputField from '../tags/InputField';
+import InputField from './Profile/InputField';
 
 export default class DatePicker extends InputField {
   static dateFormat_EN2CH(value) {
