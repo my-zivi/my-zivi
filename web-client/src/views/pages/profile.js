@@ -399,7 +399,7 @@ export default class User extends Component {
                   <div class="col-xs-2">Von</div>
                   <div class="col-xs-2">Bis</div>
                   <div class="col-xs-2">Angerechnete Tage</div>
-                  {ApiService.isAdmin() ? <div class="col-xs-1">Erledigt</div> : null}
+                  <div class="col-xs-1">Status</div>
                   <div class="col-xs-2" />
                   {ApiService.isAdmin() ? <div class="col-xs-2" /> : null}
                 </div>
@@ -411,11 +411,21 @@ export default class User extends Component {
                         <div class="col-xs-2">{moment(obj.start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
                         <div class="col-xs-2">{moment(obj.end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
                         <div class="col-xs-2">{obj.days}</div>
-                        {ApiService.isAdmin() ? obj.done === 1 ? <div class="col-xs-1">&#9989;</div> : <div class="col-xs-1" /> : null}
+                        {obj.done === 1 ? (
+                          <div class="col-xs-1">
+                            <span class="glyphicon glyphicon-ok" style="color:green" />
+                          </div>
+                        ) : (
+                          <div class="col-xs-1">
+                            <span class="glyphicon glyphicon glyphicon-hourglass" style="color:orange" />
+                          </div>
+                        )}
                         <div class="col-xs-2">
-                          <button name="showReportSheet" class="btn btn-xs" onClick={() => this.showReportSheet(obj.id)}>
-                            Spesenrapport anzeigen
-                          </button>
+                          {obj.done === 1 ? (
+                            <button name="showReportSheet" class="btn btn-xs" onClick={() => this.showReportSheet(obj.id)}>
+                              Spesenrapport anzeigen
+                            </button>
+                          ) : null}
                         </div>
                         {ApiService.isAdmin() ? (
                           <div class="col-xs-2">
