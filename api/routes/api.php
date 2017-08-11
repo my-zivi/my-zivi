@@ -425,13 +425,18 @@ $api->version('v1', function ($api) {
                 return response("updated");
             });
             $api->get('/reportsheet/user/{id}', function ($id) {
-                return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+                 $reportSheets = App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                     ->select('report_sheets.id AS id', 'start', 'end', 'done')
                     ->where('users.id', '=', $id)
                     ->orderBy('start')
                     ->orderBy('end')
                     ->orderBy('zdp')
-                    ->get());
+                    ->get();
+                // Add calculated column days
+                foreach ($reportSheets as $reportSheet) {
+                    $reportSheet['days'] = App\ReportSheet::getDiensttageCount($reportSheet->start, $reportSheet->end);
+                }
+                return response()->json($reportSheets);
             });
 
             // PDF - Admins
