@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Input;
 
 class AuthController extends Controller
 {
+    const USER_ROLE_ZIVI = 2;
     const PW_MIN_LENGTH = 7;
     const PW_LENGTH_TEXT = 'Das Passwort muss aus mindestens '.AuthController::PW_MIN_LENGTH.' Zeichen bestehen!';
 
@@ -116,7 +117,7 @@ class AuthController extends Controller
         $user->zdp = $request->input("zdp");
         $user->password = password_hash($request->input("password"), PASSWORD_BCRYPT);
         $user->regional_center = 1;
-        $user->role = 3;
+        $user->role = AuthController::USER_ROLE_ZIVI;
 
         //mail($user->email, "iZivi Registration", "Hallo und danke für die Registration");
 

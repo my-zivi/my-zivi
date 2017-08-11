@@ -7,10 +7,9 @@ import ApiService from '../../../utils/api';
 export default class AdminRestrictedFields extends Component {
   getRoleOptions(result) {
     var options = [];
+    let roleNames = ['', 'Admin', 'Zivi'];
 
-    let roleNames = ['', 'Admin', 'Angestellt', 'Zivi'];
-
-    for (let i = 1; i < 4; i++) {
+    for (let i = 1; i < 3; i++) {
       let isSelected = false;
       if (parseInt(result['role']) == i) {
         isSelected = true;

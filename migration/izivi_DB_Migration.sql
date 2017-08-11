@@ -41,11 +41,7 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
      THEN 1
     WHEN stiftun8_iZivi.accounts.accountid=622
      THEN 1
-    WHEN stiftun8_iZivi.accounts.accountid=107 #guest
-     THEN 2
-    WHEN stiftun8_iZivi.accounts.accountid=557 #guest
-     THEN 2
-   ELSE 3
+   ELSE 2
   END AS role,
   stiftun8_iZivi.accounts.username AS zdp,
   stiftun8_iZivi.accounts.firstname AS first_name,
@@ -251,9 +247,7 @@ INSERT INTO izivi.missions (id, created_at, updated_at, deleted_at, user, specif
       THEN 1
     WHEN stiftun8_iZivi.einsaetze.employment_type = 2
       THEN 2
-    WHEN stiftun8_iZivi.einsaetze.employment_type = 7
-      THEN 3
-    ELSE 3
+    ELSE 2
   END AS role,
   stiftun8_iZivi.einsaetze.firsttime AS first_time,
   stiftun8_iZivi.einsaetze.long_employment AS long_mission,
