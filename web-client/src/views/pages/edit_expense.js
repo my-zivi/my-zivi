@@ -1,12 +1,13 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Card from '../tags/card';
+import InputField from '../tags/Profile/InputField';
+import DatePicker from '../tags/DatePicker';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
-import DatePicker from '../tags/DatePicker';
 import Toast from '../../utils/toast';
 
 export default class EditExpense extends Component {
@@ -89,439 +90,178 @@ export default class EditExpense extends Component {
 
     if (sheet != null) {
       content.push(
-        <form>
-          <div>
-            <h1>
-              Spesenrapport erstellen für {sheet.first_name} {sheet.last_name}
-            </h1>
-          </div>
-          <table border="0" cellspacing="0" cellpadding="4" class="table">
-            <tbody>
-              <tr>
-                <td>Pflichtenheft</td>
-                <td>
-                  {sheet.pflichtenheft_id} {sheet.pflichtenheft_name}
-                </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Beginn Einsatz</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">{sheet.einsaetze_start}</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Ende Einsatz</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">{sheet.einsaetze_end}</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Ferienanspruch für Einsatz</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">{sheet.einsaetze_eligibleholiday}</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Beginn Meldeblattperiode</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">{sheet.meldeblaetter_start}</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Ende Meldeblattperiode</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">{sheet.meldeblaetter_end}</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Dauer</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">{sheet.sum_tage} Tage</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Arbeit</td>
-                <td>&nbsp;</td>
-                <td>{sheet.meldeblaetter_workdays_proposal} Tage</td>
-                <td align="right">
-                  <input
-                    type="text"
-                    name="meldeblaetter_workdays"
-                    value={sheet.meldeblaetter_workdays}
-                    size="2"
-                    onchange={e => this.handleChange(e)}
-                  />{' '}
-                  Tage
-                </td>
-                <td>&nbsp;</td>
-                <td align="left">
-                  Bemerkungen:{' '}
-                  <input
-                    type="text"
-                    name="meldeblaetter_work_comment"
-                    value={sheet.meldeblaetter_work_comment}
-                    size="45"
-                    onchange={e => this.handleChange(e)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Arbeitsfrei</td>
-                <td>&nbsp;</td>
-                <td>{sheet.meldeblaetter_workfreedays_proposal} Tage</td>
-                <td align="right">
-                  <input
-                    type="text"
-                    name="meldeblaetter_workfreedays"
-                    value={sheet.meldeblaetter_workfreedays}
-                    size="2"
-                    onchange={e => this.handleChange(e)}
-                  />{' '}
-                  Tage
-                </td>
-                <td>&nbsp;</td>
-                <td align="left">
-                  Bemerkungen:{' '}
-                  <input
-                    type="text"
-                    name="meldeblaetter_workfree_comment"
-                    value={sheet.meldeblaetter_workfree_comment}
-                    size="45"
-                    onchange={e => this.handleChange(e)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Betriebsferien (Urlaub)</td>
-                <td>&nbsp;</td>
-                <td>{sheet.meldeblaetter_companyurlaub_proposal} Tage</td>
-                <td align="right">
-                  <input
-                    type="text"
-                    name="meldeblaetter_companyurlaub"
-                    value={sheet.meldeblaetter_companyurlaub}
-                    size="2"
-                    onchange={e => this.handleChange(e)}
-                  />{' '}
-                  Tage
-                </td>
-                <td>&nbsp;</td>
-                <td align="left">
-                  Bemerkungen:{' '}
-                  <input
-                    type="text"
-                    name="meldeblaetter_compholiday_comment"
-                    value={sheet.meldeblaetter_compholiday_comment}
-                    size="45"
-                    onchange={e => this.handleChange(e)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Betriebsferien (Ferien)</td>
-                <td>&nbsp;</td>
-                <td>{sheet.meldeblaetter_ferien_wegen_urlaub_proposal} Tage</td>
-                <td align="right">
-                  <input
-                    type="text"
-                    name="meldeblaetter_ferien_wegen_urlaub"
-                    value={sheet.meldeblaetter_ferien_wegen_urlaub}
-                    size="2"
-                    onchange={e => this.handleChange(e)}
-                  />{' '}
-                  Tage
-                </td>
-                <td>&nbsp;</td>
-                <td align="left">&nbsp;</td>
-              </tr>
-              <tr>
-                <td>zusätzlich Arbeitsfrei</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">{sheet.meldeblaetter_add_workfree} Tage</td>
-                <td>&nbsp;</td>
-                <td>
-                  Bemerkungen:{' '}
-                  <input
-                    type="text"
-                    name="meldeblaetter_add_workfree_comment"
-                    value={sheet.meldeblaetter_add_workfree_comment}
-                    size="45"
-                    onchange={e => this.handleChange(e)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Krankheit (Übriges Guthaben: {sheet.krankheitstage_verbleibend} Tage)</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">
-                  <input
-                    type="text"
-                    name="meldeblaetter_ill"
-                    value={sheet.meldeblaetter_ill}
-                    size="2"
-                    onchange={e => this.handleChange(e)}
-                  />{' '}
-                  Tage
-                </td>
-                <td>&nbsp;</td>
-                <td>
-                  Bemerkungen:{' '}
-                  <input
-                    type="text"
-                    name="meldeblaetter_ill_comment"
-                    value={sheet.meldeblaetter_ill_comment}
-                    size="45"
-                    onchange={e => this.handleChange(e)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Ferien (Übriges Guthaben: {sheet.remaining_holidays} Tage)</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">
-                  <input
-                    type="text"
-                    name="meldeblaetter_holiday"
-                    value={sheet.meldeblaetter_holiday}
-                    size="2"
-                    onchange={e => this.handleChange(e)}
-                  />{' '}
-                  Tage
-                </td>
-                <td>&nbsp;</td>
-                <td>
-                  Bemerkungen:{' '}
-                  <input
-                    type="text"
-                    name="meldeblaetter_holiday_comment"
-                    value={sheet.meldeblaetter_holiday_comment}
-                    size="45"
-                    onchange={e => this.handleChange(e)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Persönlicher Urlaub</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">
-                  <input
-                    type="text"
-                    name="meldeblaetter_urlaub"
-                    value={sheet.meldeblaetter_urlaub}
-                    size="2"
-                    onchange={e => this.handleChange(e)}
-                  />{' '}
-                  Tage
-                </td>
-                <td>&nbsp;</td>
-                <td>
-                  Bemerkungen:{' '}
-                  <input
-                    type="text"
-                    name="meldeblaetter_urlaub_comment"
-                    value={sheet.meldeblaetter_urlaub_comment}
-                    size="45"
-                    onchange={e => this.handleChange(e)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Kleiderspesen</td>
-                <td>&nbsp;</td>
-                <td>{this.formatRappen(sheet.meldeblaetter_kleider_proposal)} Fr.</td>
-                <td align="right">
-                  <input
-                    type="text"
-                    name="meldeblaetter_kleider"
-                    value={this.formatRappen(sheet.meldeblaetter_kleider)}
-                    size="5"
-                    onchange={e => this.handleChange(e)}
-                  />{' '}
-                  Fr.
-                </td>
-                <td>&nbsp;</td>
-                <td>
-                  Bemerkungen:{' '}
-                  <input
-                    type="text"
-                    name="meldeblaetter_kleider_comment"
-                    value={sheet.meldeblaetter_kleider_comment}
-                    size="45"
-                    onchange={e => this.handleChange(e)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Fahrspesen</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">
-                  <input
-                    type="text"
-                    name="meldeblaetter_fahrspesen"
-                    value={this.formatRappen(sheet.meldeblaetter_fahrspesen)}
-                    size="5"
-                    onchange={e => this.handleChange(e)}
-                  />{' '}
-                  Fr.
-                </td>
-                <td>&nbsp;</td>
-                <td>
-                  Bemerkungen:{' '}
-                  <input
-                    type="text"
-                    name="meldeblaetter_fahrspesen_comment"
-                    value={sheet.meldeblaetter_fahrspesen_comment}
-                    size="45"
-                    onchange={e => this.handleChange(e)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Ausserordentliche Spesen</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">
-                  <input
-                    type="text"
-                    name="meldeblaetter_ausserordentlich"
-                    value={this.formatRappen(sheet.meldeblaetter_ausserordentlich)}
-                    size="5"
-                    onchange={e => this.handleChange(e)}
-                  />{' '}
-                  Fr.
-                </td>
-                <td>&nbsp;</td>
-                <td>
-                  Bemerkungen:{' '}
-                  <input
-                    type="text"
-                    name="meldeblaetter_ausserordentlich_comment"
-                    value={sheet.meldeblaetter_ausserordentlich_comment}
-                    size="45"
-                    onchange={e => this.handleChange(e)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <b>Total</b>
-                </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">
-                  <b>{this.formatRappen(sheet.total)} Fr.</b>
-                </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Konto-Nr.</td>
-                <td />
-                <td>&nbsp;</td>
-                <td align="right">
-                  <input
-                    type="text"
-                    size="9"
-                    name="bank_account_number"
-                    value={sheet.bank_account_number}
-                    onchange={e => this.handleChange(e)}
-                  />
-                </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Beleg-Nr.</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">
-                  <input type="text" size="9" name="document_number" value={sheet.document_number} onchange={e => this.handleChange(e)} />
-                </td>{' '}
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Verbucht</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">
-                  <DatePicker id="booked_date" value={sheet.booked_date} callback={this.handleDateChange} callbackOrigin={this} />
-                </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Bezahlt</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">
-                  <DatePicker id="paid_date" value={sheet.paid_date} callback={this.handleDateChange} callbackOrigin={this} />
-                </td>{' '}
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
+        <div class="container">
+          <form class="form-horizontal" action="javascript:;">
+            <div>
+              <h1>
+                Spesenrapport erstellen für {sheet.first_name} {sheet.last_name}
+              </h1>
+            </div>
+            <br />
+            <br />
 
-              <tr>
-                <td>
-                  <input type="checkbox" name="done" id="fidDone" defaultChecked={sheet.done} onchange={e => this.handleChange(e)} />
-                  <label for="fidDone"> Erledigt</label>
-                </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right">
-                  <button
-                    type="button"
-                    name="showProfile"
-                    onClick={() => {
-                      this.router.push('/profile/' + ApiService.getUserId());
-                    }}
-                  >
-                    Profil anzeigen
-                  </button>
-                  &nbsp;&nbsp;
-                  <button
-                    type="button"
-                    name="saveExpense"
-                    onClick={() => {
-                      this.save();
-                    }}
-                  >
-                    Speichern
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
+            <h3>Allgemein</h3>
+            <InputField id="pid" label="Pflichtenheft" value={sheet.pflichtenheft_id + ' ' + sheet.pflichtenheft_name} disabled="true" />
+            <DatePicker
+              id="einsaetze_start"
+              label="Beginn Einsatz"
+              value={sheet.einsaetze_start}
+              callback={this.handleDateChange}
+              callbackOrigin={this}
+            />
+            <DatePicker
+              id="einsaetze_end"
+              label="Ende Einsatz"
+              value={sheet.einsaetze_end}
+              callback={this.handleDateChange}
+              callbackOrigin={this}
+            />
+
+            <InputField
+              id="einsaetze_eligibleholiday"
+              label="Ferienanspruch für Einsatz"
+              value={sheet.einsaetze_eligibleholiday}
+              disabled="true"
+            />
+            <InputField id="meldeblaetter_start" label="Beginn Meldeblattperiode" value={sheet.meldeblaetter_start} disabled="true" />
+
+            <InputField id="meldeblaetter_end" label="Ende Meldeblattperiode" value={sheet.meldeblaetter_end} disabled="true" />
+            <InputField id="sum_tage" label="Dauer" value={sheet.sum_tage + ' Tage'} disabled="true" />
+
+            <h3>Gearbeitet</h3>
+            <InputField
+              id="meldeblaetter_workdays_proposal"
+              label="Vorschlag"
+              value={sheet.meldeblaetter_workdays_proposal}
+              disabled="true"
+            />
+            <InputField id="meldeblaetter_workdays" label="Wert" value={sheet.meldeblaetter_workdays} />
+
+            <h3>Arbeitsfreie Tage</h3>
+            <InputField
+              id="meldeblaetter_workfreedays_proposal"
+              label="Vorschlag"
+              value={sheet.meldeblaetter_workfreedays_proposal}
+              disabled="true"
+            />
+            <InputField id="meldeblaetter_workfreedays" label="Wert" value={sheet.meldeblaetter_workfreedays} />
+            <InputField id="meldeblaetter_workfree_comment" label="Bemerkung" value={sheet.meldeblaetter_workfree_comment} />
+
+            <h3>Betriebsferien (Urlaub)</h3>
+            <InputField
+              id="meldeblaetter_companyurlaub_proposal"
+              label="Vorschlag"
+              value={sheet.meldeblaetter_companyurlaub_proposal}
+              disabled="true"
+            />
+            <InputField id="meldeblaetter_companyurlaub" label="Wert" value={sheet.meldeblaetter_companyurlaub} />
+            <InputField id="meldeblaetter_compholiday_comment" label="Bemerkung" value={sheet.meldeblaetter_compholiday_comment} />
+
+            <h3>Betriebsferien (Ferien)</h3>
+            <InputField
+              id="meldeblaetter_ferien_wegen_urlaub_proposal"
+              label="Vorschlag"
+              value={sheet.meldeblaetter_ferien_wegen_urlaub_proposal}
+              disabled="true"
+            />
+            <InputField id="meldeblaetter_ferien_wegen_urlaub" label="Wert" value={sheet.meldeblaetter_ferien_wegen_urlaub} />
+
+            <h3>Zusätzlich Arbeitsfrei</h3>
+            <InputField id="meldeblaetter_add_workfree" label="Vorschlag" value={sheet.meldeblaetter_add_workfree} disabled="true" />
+            <InputField id="meldeblaetter_add_workfree_comment" label="Bemerkung" value={sheet.meldeblaetter_add_workfree_comment} />
+
+            <h3>Krankheit</h3>
+            <InputField
+              id="krankheitstage_verbleibend"
+              label="Übriges Guthaben"
+              value={sheet.krankheitstage_verbleibend + ' Tage'}
+              disabled="true"
+            />
+            <InputField id="meldeblaetter_ill" label="Wert" value={sheet.meldeblaetter_ill} />
+            <InputField id="meldeblaetter_ill_comment" label="Bemerkung" value={sheet.meldeblaetter_ill_comment} />
+
+            <h3>Ferien</h3>
+            <InputField id="remaining_holidays" label="Übriges Guthaben" value={sheet.remaining_holidays + ' Tage'} disabled="true" />
+            <InputField id="meldeblaetter_holiday" label="Wert" value={sheet.meldeblaetter_holiday} />
+            <InputField id="meldeblaetter_holiday_comment" label="Bemerkung" value={sheet.meldeblaetter_holiday_comment} />
+
+            <h3>Persönlicher Urlaub</h3>
+            <InputField id="meldeblaetter_urlaub" label="Wert" value={sheet.meldeblaetter_urlaub} />
+            <InputField id="meldeblaetter_urlaub_comment" label="Bemerkung" value={sheet.meldeblaetter_urlaub_comment} />
+
+            <h3>Kleiderspesen</h3>
+            <InputField
+              id="meldeblaetter_kleider_proposal"
+              label="Wert"
+              value={this.formatRappen(sheet.meldeblaetter_kleider_proposal) + ' Fr.'}
+              disabled="true"
+            />
+            <InputField id="meldeblaetter_kleider_comment" label="Bemerkung" value={sheet.meldeblaetter_kleider_comment} />
+
+            <h3>Fahrspesen</h3>
+            <InputField id="meldeblaetter_fahrspesen" label="Wert [Fr.]" value={sheet.meldeblaetter_fahrspesen} />
+            <InputField id="meldeblaetter_fahrspesen_comment" label="Bemerkung" value={sheet.meldeblaetter_fahrspesen_comment} />
+
+            <h3>Ausserordentliche Spesen</h3>
+            <InputField id="meldeblaetter_ausserordentlich" label="Wert" value={this.formatRappen(sheet.meldeblaetter_ausserordentlich)} />
+            <InputField
+              id="meldeblaetter_ausserordentlich_comment"
+              label="Bemerkung"
+              value={sheet.meldeblaetter_ausserordentlich_comment}
+            />
+
+            <InputField id="total" label="Total" value={this.formatRappen(sheet.total) + ' Fr.'} disabled="true" />
+
+            <InputField id="bank_account_number" label="Konto-Nr." value={sheet.bank_account_number} />
+            <InputField id="document_number" label="Beleg-Nr." value={sheet.document_number} />
+
+            <DatePicker
+              id="booked_date"
+              label="Verbucht"
+              value={sheet.booked_date}
+              callback={this.handleDateChange}
+              callbackOrigin={this}
+            />
+            <DatePicker id="paid_date" label="Bezahlt" value={sheet.paid_date} callback={this.handleDateChange} callbackOrigin={this} />
+
+            <InputField id="done" label="Erledigt" value={sheet.done} />
+
+            <br />
+            <br />
+
+            <div class="form-group">
+              <div class="col-sm-2" />
+              <button
+                type="submit"
+                name="saveExpense"
+                class="btn btn-primary col-sm-1"
+                onClick={() => {
+                  this.save();
+                }}
+              >
+                Speichern
+              </button>
+              <div class="col-sm-1" />
+              <button
+                type="button"
+                name="showProfile"
+                class="btn btn-default col-sm-2"
+                onClick={() => {
+                  this.router.push('/profile/' + ApiService.getUserId());
+                }}
+              >
+                Profil anzeigen
+              </button>
+              <div class="col-sm-6" />
+            </div>
+          </form>
+        </div>
       );
     }
 
     return (
       <Header>
-        <div className="page page__expense">
+        <div className="page page__edit_expense">
           <Card>{content}</Card>
 
           <LoadingView loading={this.state.loading} error={this.state.error} />
