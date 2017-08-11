@@ -213,18 +213,27 @@ export default class MissionOverview extends Component {
         <div className="page page__mission_overview">
           <ScrollableCard>
             <h1>Einsatzübersicht</h1>
-
-            <div class="container" style="height: auto;">
+            <div class="container" style="height: auto; width: auto;">
               <div class="row">
                 <div class="col-sm-2">
-                  <select defaultValue={this.state.year} onchange={e => this.handleChangeYear(e)}>
-                    <option value="2015">2015</option>
+                  <select
+                    defaultValue={this.state.year}
+                    onchange={e => this.handleChangeYear(e)}
+                    class="form-control"
+                    style="margin: 10px auto auto auto;"
+                  >
                     {yearOptions}
                   </select>
                 </div>
                 <div class="col-sm-8">{specifications}</div>
                 <div class="col-sm-2">
-                  <button type="button" class="btn btn-primary" name="print" onclick={e => this.print()}>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    name="print"
+                    onclick={e => this.print()}
+                    style="margin: 10px auto auto auto;"
+                  >
                     {' '}
                     Drucken{' '}
                   </button>
