@@ -219,21 +219,25 @@ export default class Freeday extends Component {
             />
           </td>
           <td>
-            <button type="button" class="btn btn-sm" onClick={() => this.save(i)}>
-              speichern
-            </button>
+            {this.state.freedays[i].date_from > new Date().toISOString() ? (
+              <button type="button" class="btn btn-sm" onClick={() => this.save(i)}>
+                speichern
+              </button>
+            ) : null}
           </td>
           <td>
-            <button
-              class="btn btn-sm"
-              onClick={() => {
-                if (confirm('Möchten Sie ' + freedays[i].description + ' wirklich löschen?')) {
-                  this.remove(i);
-                }
-              }}
-            >
-              löschen
-            </button>
+            {this.state.freedays[i].date_from > new Date().toISOString() ? (
+              <button
+                class="btn btn-sm"
+                onClick={() => {
+                  if (confirm('Möchten Sie ' + freedays[i].description + ' wirklich löschen?')) {
+                    this.remove(i);
+                  }
+                }}
+              >
+                löschen
+              </button>
+            ) : null}
           </td>
         </tr>
       );

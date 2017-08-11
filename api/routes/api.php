@@ -321,7 +321,15 @@ $api->version('v1', function ($api) {
 
             // Holiday - Admins
             $api->get('/holiday', function () {
-                return response()->json(App\Holiday::orderBy('date_from', 'DESC')->get());
+                $start = new DateTime();
+                $end = new DateTime();
+                $start->modify('first day of january last year');
+                $end->modify('last day of december next year');
+
+                return response()->json(App\Holiday::orderBy('date_from', 'DESC')
+                    ->whereDate('date_from', '>=', $start)
+                    ->whereDate('date_from', '<=', $end)
+                    ->get());
             });
             $api->post('/holiday/{id}', function ($id) {
                 $holiday = App\Holiday::find($id);
