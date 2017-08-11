@@ -1,4 +1,6 @@
 const BASE_URL = 'http://localhost:8000/api/';
+const jwtDecode = require('jwt-decode');
+const decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
 
 // Is user logged in?
 const isLoggedIn = () => {
@@ -12,11 +14,16 @@ const isLoggedIn = () => {
 // Is user an administrator?
 const isAdmin = () => {
   if (isLoggedIn()) {
-    const jwtDecode = require('jwt-decode');
-    const decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
     return decodedToken.isAdmin;
   }
   return false;
+};
+
+// Get logged in user id
+const getUserId = () => {
+  if (isLoggedIn()) {
+    return decodedToken.sub;
+  }
 };
 
 // Verify that the fetched response is JSON
@@ -30,5 +37,5 @@ function _verifyResponse(res) {
   }
 }
 
-const ApiService = { BASE_URL, isLoggedIn, isAdmin };
+const ApiService = { BASE_URL, isLoggedIn, isAdmin, getUserId };
 export default ApiService;
