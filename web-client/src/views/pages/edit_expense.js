@@ -10,12 +10,14 @@ import DatePicker from '../tags/DatePicker';
 import Toast from '../../utils/toast';
 
 export default class EditExpense extends Component {
-  constructor(props) {
+  constructor(props, { router }) {
     super(props);
 
     this.state = {
       report_sheet: null,
     };
+
+    this.router = router;
   }
 
   componentDidMount() {
@@ -77,41 +79,17 @@ export default class EditExpense extends Component {
       });
   }
 
-  showPDF() {
-    this.setState({ loading: true, error: null });
-    axios
-      .get(ApiService.BASE_URL + 'pdf/zivireportsheet?reportSheetId=' + this.props.params.report_sheet_id, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-        responseType: 'blob',
-      })
-      .then(response => {
-        this.setState({
-          loading: false,
-        });
-        let blob = new Blob([response.data], { type: 'application/pdf' });
-        window.location = window.URL.createObjectURL(blob);
-      })
-      .catch(error => {
-        this.setState({ error: error });
-      });
-  }
-
   formatRappen(amount) {
     return parseFloat(Math.round(amount * 100) / 100).toFixed(2);
   }
 
-  render() {
+  render(props) {
     var content = [];
     var sheet = this.state.report_sheet;
 
     if (sheet != null) {
       content.push(
-        <form
-          action="javascript:;"
-          onsubmit={() => {
-            this.save();
-          }}
-        >
+        <form>
           <div>
             <h1>
               Spesenrapport erstellen für {sheet.first_name} {sheet.last_name}
@@ -514,14 +492,25 @@ export default class EditExpense extends Component {
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td align="right">
-                  <input type="submit" name="fSubmit" value="Speichern und Aktualisieren" />&nbsp;
-                  <a
+                  <button
+                    type="button"
+                    name="showProfile"
                     onClick={() => {
-                      this.showPDF();
+                      this.router.push('/profile/' + ApiService.getUserId());
                     }}
                   >
-                    PDF anzeigen
-                  </a>
+                    Profil anzeigen
+                  </button>
+                  &nbsp;&nbsp;
+                  <button
+                    type="button"
+                    name="saveExpense"
+                    onClick={() => {
+                      this.save();
+                    }}
+                  >
+                    Speichern
+                  </button>
                 </td>
               </tr>
             </tbody>
