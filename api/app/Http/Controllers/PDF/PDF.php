@@ -60,6 +60,52 @@ abstract class PDF
         return $europeanDate;
     }
 
+    protected function getGermanDate($timestamp)
+    {
+
+        $month_str = "";
+        switch (date("m", $timestamp)) {
+            case 1:
+                $month_str = "Jan.";
+                break;
+            case 2:
+                $month_str = "Feb.";
+                break;
+            case 3:
+                $month_str = "M&auml;rz";
+                break;
+            case 4:
+                $month_str = "Apr.";
+                break;
+            case 5:
+                $month_str = "Mai";
+                break;
+            case 6:
+                $month_str = "Juni";
+                break;
+            case 7:
+                $month_str = "Juli";
+                break;
+            case 8:
+                $month_str = "Aug.";
+                break;
+            case 9:
+                $month_str = "Sep.";
+                break;
+            case 10:
+                $month_str = "Okt.";
+                break;
+            case 11:
+                $month_str = "Nov.";
+                break;
+            case 12:
+                $month_str = "Dez.";
+                break;
+        }
+
+        return date("d.", $timestamp).' '.$month_str.' '.date("Y", $timestamp);
+    }
+
     protected function getGermanMonth($timestamp)
     {
         $month_str = "";
@@ -113,13 +159,13 @@ abstract class PDF
 class utfFPDI extends FPDI
 {
 
-    function Cell($w, $h = 0, $txt = "", $border = 0, $ln = 0, $align = '', $fill = false, $link = '')
+    function Cell($w, $h = 0, $txt = "", $border = 0, $ln = 0, $align = '', $fill = false, $link = '', $allowStringOverflow = false)
     {
         if (!empty($txt)) {
             if (mb_detect_encoding($txt, 'UTF-8', false)) {
                 $txt = iconv('UTF-8', 'windows-1252', $txt);
             }
-            if ($w>0) {
+            if ($w>0 && !$allowStringOverflow) {
                 $textwidth = $this->getstringwidth($txt);
                 while ($textwidth>$w) {              // loop until textwidth is shorter than cell width
                     $txt=substr($txt, 0, -1);             // strip last char

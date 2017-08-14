@@ -130,10 +130,40 @@ class ReportSheet extends Model
             ->where('holiday_types.name', '=', 'Betriebsferien')
             ->get();
 
+        $holiday_feiertage = Holiday::join('holiday_types', 'holidays.holiday_type', '=', 'holiday_types.id')
+            ->whereDate('date_from', '<=', $reportSheet['meldeblaetter_end'])
+            ->whereDate('date_to', '>=', $reportSheet['meldeblaetter_start'])
+            ->where('holiday_types.name', '=', 'Feiertag')
+            ->get();
+
+        $feiertage = array();
+        foreach ($holiday_feiertage as $range) {
+            for ($u = strtotime($range['date_from']); $u<=strtotime($range['date_to']); $u=ReportSheet::tomorrow($u)) {
+                if (date('w', $u)==0 || date('w', $u)==6) {
+                    //ignore Feiertage an Wochenenden
+                } else {
+                    $feiertage[] = $u;
+                }
+            }
+        }
+
         $firmenurlaubstage = array();
         foreach ($betriebsferien as $ferien) {
             for ($u = strtotime($ferien['date_from']); $u<=strtotime($ferien['date_to']); $u=ReportSheet::tomorrow($u)) {
-                $firmenurlaubstage[] = $u;
+                if (date('w', $u)==0 || date('w', $u)==6) {
+                    //ignore Betriebsferien an Wochenenden
+                } else {
+                    $isFeiertag = false;
+                    foreach ($feiertage as $feiertag) {
+                        if ($u == $feiertag) {
+                            $isFeiertag = true;
+                            break;
+                        }
+                    }
+                    if (!$isFeiertag) {
+                        $firmenurlaubstage[] = $u;
+                    }
+                }
             }
         }
 
@@ -163,19 +193,6 @@ class ReportSheet extends Model
 
         $from_date = strtotime($reportSheet['meldeblaetter_start']);
         $to_date = strtotime($reportSheet['meldeblaetter_end']);
-
-        $holiday_feiertage = Holiday::join('holiday_types', 'holidays.holiday_type', '=', 'holiday_types.id')
-            ->whereDate('date_from', '<=', $reportSheet['meldeblaetter_end'])
-            ->whereDate('date_to', '>=', $reportSheet['meldeblaetter_start'])
-            ->where('holiday_types.name', '=', 'Feiertag')
-            ->get();
-
-        $feiertage = array();
-        foreach ($holiday_feiertage as $range) {
-            for ($u = strtotime($range['date_from']); $u<=strtotime($range['date_to']); $u=ReportSheet::tomorrow($u)) {
-                $feiertage[] = $u;
-            }
-        }
 
         for ($day = $from_date; $day <= $to_date; $day = ReportSheet::tomorrow($day)) {
             if (array_search($day, $firmenurlaubstage) !== false) {
@@ -364,9 +381,28 @@ class ReportSheet extends Model
                 ->where('holiday_types.name', '=', 'Betriebsferien')
                 ->get();
 
+            $feiertage = Holiday::join('holiday_types', 'holidays.holiday_type', '=', 'holiday_types.id')
+                ->whereDate('date_from', '<=', $end)
+                ->whereDate('date_to', '>=', $start)
+                ->where('holiday_types.name', '=', 'Feiertag')
+                ->get();
+
             foreach ($betriebsferien as $ferien) {
                 for ($u = max(strtotime($start), strtotime($ferien['date_from'])); $u<=min(strtotime($end), strtotime($ferien['date_to'])); $u=ReportSheet::tomorrow($u)) {
-                    $dayCount--;
+                    if (date('w', $u)==0 || date('w', $u)==6) {
+                        //ingore saturday & sunday, because they count as Diensttag anyway
+                    } else {
+                        $isInFeiertag = false;
+                        foreach ($feiertage as $feiertag) {
+                            if (strtotime($feiertag['date_from'])<=$u && $u<=strtotime($feiertag['date_to'])) {
+                                $isInFeiertag = true;
+                                break;
+                            }
+                        }
+                        if (!$isInFeiertag) {
+                            $dayCount--;
+                        }
+                    }
                 }
             }
 

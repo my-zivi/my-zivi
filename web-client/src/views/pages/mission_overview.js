@@ -129,7 +129,7 @@ export default class MissionOverview extends Component {
         </td>
       );
       cells.push(
-        <td class="einsatz-zivi-name" style="text-align:left; padding-left:8px !important;" nowrap>
+        <td class="einsatz-zivi-name" nowrap>
           <a href={'/profile/' + userMissions[i][0].userid}>
             {userMissions[i][0].first_name} {userMissions[i][0].last_name}
           </a>
@@ -213,7 +213,7 @@ export default class MissionOverview extends Component {
         <div className="page page__mission_overview">
           <ScrollableCard>
             <h1>Einsatzübersicht</h1>
-            <div class="container" style="height: auto; width: auto;">
+            <div class="container no-print" style="height: auto; width: auto;">
               <div class="row">
                 <div class="col-sm-2">
                   <select

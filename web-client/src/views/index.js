@@ -19,6 +19,8 @@ import MissionOverview from './pages/mission_overview';
 import Expense from './pages/expense';
 import EditExpense from './pages/edit_expense';
 
+import UserFeedback from './pages/user_feedback';
+
 import Help from './pages/help';
 
 import Error404 from './pages/errors/404';
@@ -56,6 +58,8 @@ export default (
 
     <Route path="/expense" component={Expense} onEnter={authorizedOnly} />
     <Route path="/expense/:report_sheet_id" component={EditExpense} onEnter={authorizedOnly} />
+
+    <Route path="/user_feedback" component={UserFeedback} onEnter={authorizedOnly} />
 
     <Route path="/help" component={Help} />
 

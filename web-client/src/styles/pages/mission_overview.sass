@@ -12,13 +12,22 @@
   background: #FFCC99
   text-align: center
 
+.einsatz-zivi-name
+  text-align: left !important
+  padding-left: 8px !important
+
 
 @media print
+  .table-no-padding
+    td
+      padding: 1px 1px 1px 1px !important
+
   td
-    font-size: 9pt !important
+    font-size: 6pt !important
 
   .einsatz-zivi-name
-    max-width: 80px
+    max-width: 65px
     overflow: hidden
     text-overflow: ellipsis
     white-space: nowrap
+    padding-left: 1px !important

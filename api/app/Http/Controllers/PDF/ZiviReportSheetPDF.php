@@ -115,8 +115,8 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->SetXY($this->left_margin, $this->y_offset);
         $this->pdf->Cell(0, 10, "Gesamteinsatz:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height/2);
-        $str = date("d. M. Y", strtotime($this->spesen['einsaetze_start'])) . " bis ";
-        $str .= date("d. M. Y", strtotime($this->spesen['einsaetze_end']));
+        $str = $this->getGermanDate(strtotime($this->spesen['einsaetze_start'])) . " bis ";
+        $str .= $this->getGermanDate(strtotime($this->spesen['einsaetze_end']));
         $str .= " (" . $this->spesen['einsaetze_tage'] . " Tage)";
         $this->pdf->Cell(100, $this->shade_height, $str, 0, 0, '', 1);
 
@@ -126,8 +126,8 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell(0, 10, "Meldeperiode:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
         $this->pdf->SetFont('Arial', 'B', 10);
-        $str = date("d. M. Y", strtotime($this->spesen['meldeblaetter_start'])) . " bis ";
-        $str .= date("d. M. Y", strtotime($this->spesen['meldeblaetter_end']));
+        $str = $this->getGermanDate(strtotime($this->spesen['meldeblaetter_start'])) . " bis ";
+        $str .= $this->getGermanDate(strtotime($this->spesen['meldeblaetter_end']));
         $str .= " (" . $this->spesen['meldeblaetter_tage'] . " Tage)";
         $this->pdf->Cell(100, $this->shade_height, $str, 0, 0, '', 1);
 
@@ -200,7 +200,7 @@ class ZiviReportSheetPDF extends PDF
         if ($bolListFirstDay) {
             $this->pdf->SetFont('', 'B');
             $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
-            $this->pdf->Cell(3, 10, strval($intFirstDays), 0, 0, 'R');
+            $this->pdf->Cell(3, 10, strval($intFirstDays), 0, 0, 'R', false, '', true);
             $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
             $this->pdf->Cell(0, 10, "Erster Arbeitstag");
             $this->pdf->SetFont('', '');
@@ -221,7 +221,7 @@ class ZiviReportSheetPDF extends PDF
 
         $this->pdf->SetFont('', 'B');
         $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
-        $this->pdf->Cell(3, 10, strval($this->spesen['arbeitstage']), 0, 0, 'R');
+        $this->pdf->Cell(3, 10, strval($this->spesen['arbeitstage']), 0, 0, 'R', false, '', true);
         $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
         if ($this->spesen['arbeitstage'] == 1) {
             $this->pdf->Cell(0, 10, "Arbeitstag");
@@ -246,7 +246,7 @@ class ZiviReportSheetPDF extends PDF
         if ($bolListLastDay) {
             $this->pdf->SetFont('', 'B');
             $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
-            $this->pdf->Cell(3, 10, strval($intLastDays), 0, 0, 'R');
+            $this->pdf->Cell(3, 10, strval($intLastDays), 0, 0, 'R', false, '', true);
             $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
             $this->pdf->Cell(0, 10, "Letzter Arbeitstag");
             $this->pdf->SetFont('', '');
@@ -267,7 +267,7 @@ class ZiviReportSheetPDF extends PDF
 //<-- MG.16.02.2011 --
         $this->pdf->SetFont('', 'B');
         $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
-        $this->pdf->Cell(3, 10, strval($this->spesen['arbeitsfreie_tage']), 0, 0, 'R');
+        $this->pdf->Cell(3, 10, strval($this->spesen['arbeitsfreie_tage']), 0, 0, 'R', false, '', true);
         $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
         if ($this->spesen['arbeitsfreie_tage'] == 1) {
             $this->pdf->Cell(0, 10, "Arbeitsfreier Tag");
@@ -335,7 +335,7 @@ class ZiviReportSheetPDF extends PDF
 
         $this->pdf->SetFont('', 'B');
         $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
-        $this->pdf->Cell(3, 10, $this->spesen['krankheitstage'], 0, 0, 'R');
+        $this->pdf->Cell(3, 10, $this->spesen['krankheitstage'], 0, 0, 'R', false, '', true);
         $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
         if ($this->spesen['krankheitstage'] == 1) {
             $this->pdf->Cell(0, 10, "Krankheitstag");
@@ -369,7 +369,7 @@ class ZiviReportSheetPDF extends PDF
 
         $this->pdf->SetFont('', 'B');
         $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
-        $this->pdf->Cell(3, 10, $this->spesen['ferientage'], 0, 0, 'R');
+        $this->pdf->Cell(3, 10, $this->spesen['ferientage'], 0, 0, 'R', false, '', true);
         $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
         if ($this->spesen['ferientage'] == 1) {
             $this->pdf->Cell(0, 10, "Ferientag");
@@ -403,7 +403,7 @@ class ZiviReportSheetPDF extends PDF
 
         $this->pdf->SetFont('', 'B');
         $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
-        $this->pdf->Cell(3, 10, $this->spesen['urlaubstage'], 0, 0, 'R');
+        $this->pdf->Cell(3, 10, $this->spesen['urlaubstage'], 0, 0, 'R', false, '', true);
         $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
         if ($this->spesen['urlaubstage'] == 1) {
             $this->pdf->Cell(0, 10, "Urlaubstag");
