@@ -164,6 +164,7 @@ export default class EditExpense extends Component {
               proposalValue={sheet.meldeblaetter_workdays_proposal}
               showComment={false}
               self={this}
+              doValidation={true}
             />
 
             <InputFieldWithProposal
@@ -172,6 +173,7 @@ export default class EditExpense extends Component {
               value={sheet.meldeblaetter_workfreedays}
               proposalValue={sheet.meldeblaetter_workfreedays_proposal}
               showComment={true}
+              doValidation={true}
               commentId="meldeblaetter_workfree_comment"
               commentValue={sheet.meldeblaetter_workfree_comment}
               self={this}
