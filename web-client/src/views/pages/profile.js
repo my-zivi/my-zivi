@@ -91,13 +91,10 @@ export default class User extends Component {
   }
 
   getSpecifications() {
-    this.setState({ loading: true, error: null });
-
     axios
       .get(ApiService.BASE_URL + 'specification/me', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
       .then(response => {
         this.setState({
-          loading: false,
           specifications: response.data,
         });
       })
