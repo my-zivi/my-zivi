@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Input;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Holiday;
 use App\ReportSheet;
+use App\Http\Controllers\Auth\AuthController;
 
 $api = $app->make(Dingo\Api\Routing\Router::class);
 
@@ -280,7 +281,7 @@ $api->version('v1', function ($api) {
                 $mission->start = Input::get("start", "");
                 $mission->end = Input::get("end", "");
                 $mission->eligible_holiday = 0;//TODO:??
-                $mission->role = 3; //TODO: needed??
+                $mission->role = AuthController::USER_ROLE_ZIVI; //TODO: needed??
                 $mission->first_time = Input::get("first_time", false);
                 $mission->long_mission = Input::get("long_mission", false);
                 $mission->probation_period = Input::get("probation_period", false);
@@ -294,7 +295,7 @@ $api->version('v1', function ($api) {
                 $mission->start = Input::get("start", "");
                 $mission->end = Input::get("end", "");
                 $mission->eligible_holiday = 0;//TODO:??
-                $mission->role = 3; //TODO: needed??
+                $mission->role = AuthController::USER_ROLE_ZIVI; //TODO: needed??
                 $mission->first_time = Input::get("first_time", false);
                 $mission->long_mission = Input::get("long_mission", false);
                 $mission->probation_period = Input::get("probation_period", false);
@@ -425,6 +426,8 @@ $api->version('v1', function ($api) {
                 $sheet->booked_date = Input::get("booked_date", "");
                 $sheet->paid_date = Input::get("paid_date", "");
                 $sheet->done = Input::get("done", "");
+                $sheet->start = Input::get("meldeblaetter_start", "");
+                $sheet->end = Input::get("meldeblaetter_end", "");
                 $sheet->save();
                 return response("updated");
             });
@@ -441,6 +444,29 @@ $api->version('v1', function ($api) {
                     $reportSheet['days'] = App\ReportSheet::getDiensttageCount($reportSheet->start, $reportSheet->end);
                 }
                 return response()->json($reportSheets);
+            });
+
+            $api->delete('/reportsheet/{id}', function ($id) {
+                App\ReportSheet::destroy($id);
+                return response("deleted");
+            });
+
+            $api->put('/reportsheet', function () {
+                $userId = Input::get("user", "");
+                if ($userId == null) {
+                    $userId = JWTAuth::parseToken()->authenticate()->id;
+                }
+
+                $mission = App\Mission::find(Input::get("mission", ""));
+
+                $report = new App\ReportSheet();
+                $report->user = $userId;
+                $report->mission = $mission->id;
+                $report->start = $mission->start;
+                $report->end = $mission->end;
+                $report->save();
+
+                return response("inserted");
             });
 
             // PDF - Admins

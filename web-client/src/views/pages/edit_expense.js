@@ -81,6 +81,22 @@ export default class EditExpense extends Component {
       });
   }
 
+  deleteReportSheet() {
+    if (confirm('Möchten Sie dieses Meldeblatt wirklich löschen?')) {
+      this.setState({ loading: true, error: null });
+      axios
+        .delete(ApiService.BASE_URL + 'reportsheet/' + this.props.params.report_sheet_id, {
+          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+        })
+        .then(response => {
+          this.router.push('/profile/' + this.state['report_sheet']['user']);
+        })
+        .catch(error => {
+          Toast.showError('Löschen fehlgeschlagen', 'Meldeblatt konnte nicht gelöscht werden', error, this.context);
+        });
+    }
+  }
+
   formatRappen(amount) {
     return parseFloat(Math.round(amount * 100) / 100).toFixed(2);
   }
@@ -118,16 +134,26 @@ export default class EditExpense extends Component {
               callbackOrigin={this}
               disabled="true"
             />
-
+            <DatePicker
+              id="meldeblaetter_start"
+              label="Beginn Meldeblattperiode"
+              value={sheet.meldeblaetter_start}
+              callback={this.handleDateChange}
+              callbackOrigin={this}
+            />
+            <DatePicker
+              id="meldeblaetter_end"
+              label="Ende Meldeblattperiode"
+              value={sheet.meldeblaetter_end}
+              callback={this.handleDateChange}
+              callbackOrigin={this}
+            />
             <InputField
               id="einsaetze_eligibleholiday"
               label="Ferienanspruch für Einsatz"
               value={sheet.einsaetze_eligibleholiday}
               disabled="true"
             />
-            <InputField id="meldeblaetter_start" label="Beginn Meldeblattperiode" value={sheet.meldeblaetter_start} disabled="true" />
-
-            <InputField id="meldeblaetter_end" label="Ende Meldeblattperiode" value={sheet.meldeblaetter_end} disabled="true" />
             <InputField id="sum_tage" label="Dauer" value={sheet.sum_tage + ' Tage'} disabled="true" />
             <hr />
 
@@ -278,32 +304,42 @@ export default class EditExpense extends Component {
 
             <hr />
 
-            <div class="form-group">
-              <div class="col-sm-2" />
-              <button
-                type="submit"
-                name="saveExpense"
-                class="btn btn-primary col-sm-1"
-                onClick={() => {
-                  this.save();
-                }}
-              >
-                Speichern
-              </button>
-              <div class="col-sm-1" />
-              <button
-                type="button"
-                name="showProfile"
-                class="btn btn-default col-sm-2"
-                onClick={() => {
-                  this.router.push('/profile/' + ApiService.getUserId());
-                }}
-              >
-                Profil anzeigen
-              </button>
-              <div class="col-sm-6" />
-            </div>
+            <button
+              type="submit"
+              name="saveExpense"
+              class="btn btn-primary col-sm-2"
+              onClick={() => {
+                this.save();
+              }}
+            >
+              <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" /> Speichern
+            </button>
+            <button
+              type="button"
+              name="showProfile"
+              class="btn btn-danger col-sm-2"
+              onClick={() => {
+                this.deleteReportSheet();
+              }}
+            >
+              <span class="glyphicon glyphicon-trash" aria-hidden="true" /> Löschen
+            </button>
+            <div class="col-sm-6" />
+            <button
+              type="button"
+              name="deleteReport"
+              class="btn btn-default col-sm-2"
+              onClick={() => {
+                this.router.push('/profile/' + this.state['report_sheet']['user']);
+              }}
+            >
+              Profil anzeigen
+            </button>
           </form>
+          <br />
+          <br />
+          <br />
+          <br />
         </div>
       );
     }

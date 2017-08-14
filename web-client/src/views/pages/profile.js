@@ -123,6 +123,27 @@ export default class User extends Component {
       });
   }
 
+  addReportSheet(missionId) {
+    this.setState({ loading: true, error: null });
+
+    axios
+      .put(
+        ApiService.BASE_URL + 'reportsheet/',
+        {
+          user: this.props.params.userid ? this.props.params.userid : null,
+          mission: missionId,
+        },
+        { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
+      )
+      .then(response => {
+        Toast.showSuccess('Hinzufügen erfolgreich', 'Meldeblatt hinzugefügt');
+        this.getReportSheets();
+      })
+      .catch(error => {
+        Toast.showError('Hinzufügen fehlgeschlagen', 'Meldeblatt konnte nicht hinzugefügt werden', error, this.context);
+      });
+  }
+
   handleChange(e) {
     let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     this.state['result'][e.target.name] = value;
@@ -213,7 +234,7 @@ export default class User extends Component {
     return (
       <div>
         <button type="button" name="resetPassword" class="btn btn-primary" onClick={e => this.redirectToChangePassword(e)}>
-          Passwort ändern
+          <span class="glyphicon glyphicon-wrench" /> Passwort ändern
         </button>
         <hr />
       </div>
@@ -373,30 +394,33 @@ export default class User extends Component {
                 {ApiService.isAdmin() ? this.adminFields.getAdminRestrictedFields(this, result) : null}
 
                 <button type="submit" class="btn btn-primary">
-                  Absenden
+                  <span class="glyphicon glyphicon-floppy-disk" /> Speichern
                 </button>
               </form>
-
+              <br />
               <hr />
-              <h3>Zivieinsätze</h3>
+              <br />
+
+              <h3>Einsätze</h3>
               <div class="container">
                 <div class="row">
-                  <div class="col-xs-3">Pflichtenheft</div>
+                  <div class="col-xs-2">Pflichtenheft</div>
                   <div class="col-xs-2">Start</div>
-                  <div class="col-xs-2">Ende</div>
-                  <div class="col-xs-1" />
-                  <div class="col-xs-1" />
-                  <div class="col-xs-1" />
+                  <div class="col-xs-3">Ende</div>
                 </div>
               </div>
               <div class="container">{missions}</div>
-
-              <button class="btn btn-primary" data-toggle="modal" data-target="#einsatzModal">
+              <br />
+              <button class="btn btn-success" data-toggle="modal" data-target="#einsatzModal">
                 Neue Einsatzplanung hinzufügen
               </button>
               {this.missionTag.renderMissions(this, null, ApiService.isAdmin())}
 
+              <br />
+              <br />
               <hr />
+              <br />
+
               <h3>Meldeblätter</h3>
               <div class="container">
                 <div class="row">
@@ -404,8 +428,6 @@ export default class User extends Component {
                   <div class="col-xs-2">Bis</div>
                   <div class="col-xs-2">Angerechnete Tage</div>
                   <div class="col-xs-1">Status</div>
-                  <div class="col-xs-2" />
-                  {ApiService.isAdmin() ? <div class="col-xs-2" /> : null}
                 </div>
               </div>
               <div class="container">
@@ -424,17 +446,21 @@ export default class User extends Component {
                             <span class="glyphicon glyphicon glyphicon-hourglass" style="color:orange" />
                           </div>
                         )}
-                        <div class="col-xs-2">
+                        <div class="col-xs-1">
                           {obj.done === 1 ? (
                             <button name="showReportSheet" class="btn btn-xs" onClick={() => this.showReportSheet(obj.id)}>
-                              Spesenrapport anzeigen
+                              <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
                             </button>
                           ) : null}
                         </div>
                         {ApiService.isAdmin() ? (
                           <div class="col-xs-2">
-                            <button name="editReportSheet" class="btn btn-xs" onClick={() => this.router.push('/expense/' + obj.id)}>
-                              Spesen bearbeiten
+                            <button
+                              name="editReportSheet"
+                              class="btn btn-xs btn-warning"
+                              onClick={() => this.router.push('/expense/' + obj.id)}
+                            >
+                              <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
                             </button>
                           </div>
                         ) : null}
@@ -443,6 +469,8 @@ export default class User extends Component {
                   : null}
               </div>
             </div>
+            <br />
+            <br />
           </Card>
           <LoadingView loading={this.state.loading} error={this.state.error} />
         </div>

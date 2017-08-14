@@ -211,32 +211,44 @@ export default class Missions extends Component {
             break;
           }
         }
+
         let curMission = m[i];
         var deleteButton = [];
+        var addButton = [];
+
         if (ApiService.isAdmin()) {
           deleteButton.push(
             <button
-              class="btn btn-xs"
+              class="btn btn-xs btn-danger"
               onClick={() => {
                 if (confirm('Möchten Sie diesen Einsatz wirklich löschen?')) {
                   self.missionTag.deleteMission(self, curMission);
                 }
               }}
             >
-              löschen
+              <span class="glyphicon glyphicon-trash" aria-hidden="true" /> Löschen
+            </button>
+          );
+          addButton.push(
+            <button
+              data-toggle="popover"
+              data-content="Neues Meldeblatt hinzufügen"
+              class="btn btn-xs btn-success"
+              onClick={() => {
+                self.addReportSheet(curMission.id);
+              }}
+              title=""
+            >
+              <span class="glyphicon glyphicon-plus" aria-hidden="true" /> Meldeblatt
             </button>
           );
         }
+
         missions.push(
           <div class="row">
-            <div class="col-xs-3">{name}</div>
+            <div class="col-xs-2">{name}</div>
             <div class="col-xs-2">{moment(m[i].start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
-            <div class="col-xs-2">{moment(m[i].end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
-            <div class="col-xs-1">
-              <button class="btn btn-xs" data-toggle="modal" data-target={'#einsatzModal' + m[i].id}>
-                bearbeiten
-              </button>
-            </div>
+            <div class="col-xs-3">{moment(m[i].end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
             <div class="col-xs-1">
               <button
                 class="btn btn-xs"
@@ -244,10 +256,16 @@ export default class Missions extends Component {
                   this.getMissionDraft(self, curMission.id);
                 }}
               >
-                drucken
+                <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
+              </button>
+            </div>
+            <div class="col-xs-1">
+              <button class="btn btn-xs btn-warning" data-toggle="modal" data-target={'#einsatzModal' + m[i].id}>
+                <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
               </button>
             </div>
             <div class="col-xs-1">{deleteButton}</div>
+            <div class="col-xs-1">{addButton}</div>
           </div>
         );
         missions.push(this.renderMissions(self, m[i], ApiService.isAdmin()));
