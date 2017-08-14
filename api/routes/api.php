@@ -86,7 +86,7 @@ $api->version('v1', function ($api) {
             $user = JWTAuth::parseToken()->authenticate();
             return response()->json(
                 App\Specification::
-                    select('specifications.id', 'specifications.name')
+                    select('id AS fullId', 'name', 'active')
                     ->get()
             );
         });
