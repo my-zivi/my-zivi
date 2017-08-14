@@ -1,7 +1,7 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-import InputField from './Profile/InputField';
+import InputField from './InputField';
 
 export default class DatePicker extends InputField {
   static dateFormat_EN2CH(value) {
@@ -42,6 +42,7 @@ export default class DatePicker extends InputField {
           name={this.props.id}
           value={dateValue}
           onChange={e => this.props.callback(e, this.props.callbackOrigin)}
+          disabled={this.props.disabled}
         />
         <span class="input-group-addon add-on">
           <span class="glyphicon glyphicon-calendar" />

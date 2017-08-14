@@ -1,8 +1,9 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Card from '../tags/card';
-import InputField from '../tags/Profile/InputField';
-import DatePicker from '../tags/DatePicker';
+import InputField from '../tags/InputFields/InputField';
+import InputFieldWithProposal from '../tags/InputFields/InputFieldWithProposal';
+import DatePicker from '../tags/InputFields/DatePicker';
 import axios from 'axios';
 import Component from 'inferno-component';
 import ApiService from '../../utils/api';
@@ -100,7 +101,6 @@ export default class EditExpense extends Component {
             <br />
             <br />
 
-            <h3>Allgemein</h3>
             <InputField id="pid" label="Pflichtenheft" value={sheet.pflichtenheft_id + ' ' + sheet.pflichtenheft_name} disabled="true" />
             <DatePicker
               id="einsaetze_start"
@@ -108,6 +108,7 @@ export default class EditExpense extends Component {
               value={sheet.einsaetze_start}
               callback={this.handleDateChange}
               callbackOrigin={this}
+              disabled="true"
             />
             <DatePicker
               id="einsaetze_end"
@@ -115,6 +116,7 @@ export default class EditExpense extends Component {
               value={sheet.einsaetze_end}
               callback={this.handleDateChange}
               callbackOrigin={this}
+              disabled="true"
             />
 
             <InputField
@@ -127,93 +129,141 @@ export default class EditExpense extends Component {
 
             <InputField id="meldeblaetter_end" label="Ende Meldeblattperiode" value={sheet.meldeblaetter_end} disabled="true" />
             <InputField id="sum_tage" label="Dauer" value={sheet.sum_tage + ' Tage'} disabled="true" />
+            <hr />
 
-            <h3>Gearbeitet</h3>
+            <InputFieldWithProposal
+              id="meldeblaetter_workdays"
+              valueLabel="Gearbeitet"
+              value={sheet.meldeblaetter_workdays}
+              proposalValue={sheet.meldeblaetter_workdays_proposal}
+              showComment={false}
+              self={this}
+            />
+
+            <InputFieldWithProposal
+              id="meldeblaetter_workfreedays"
+              valueLabel="Arbeitsfreie Tage"
+              value={sheet.meldeblaetter_workfreedays}
+              proposalValue={sheet.meldeblaetter_workfreedays_proposal}
+              showComment={true}
+              commentId="meldeblaetter_workfree_comment"
+              commentValue={sheet.meldeblaetter_workfree_comment}
+              self={this}
+            />
+
+            <InputFieldWithProposal
+              id="meldeblaetter_companyurlaub"
+              valueLabel="Betriebsferien (Urlaub)"
+              value={sheet.meldeblaetter_companyurlaub}
+              proposalValue={sheet.meldeblaetter_companyurlaub_proposal}
+              showComment={true}
+              commentId="meldeblaetter_compholiday_comment"
+              commentValue={sheet.meldeblaetter_compholiday_comment}
+              self={this}
+            />
+
+            <InputFieldWithProposal
+              id="meldeblaetter_ferien_wegen_urlaub"
+              valueLabel="Betriebsferien (Ferien)"
+              value={sheet.meldeblaetter_ferien_wegen_urlaub}
+              proposalValue={sheet.meldeblaetter_ferien_wegen_urlaub_proposal}
+              showComment={false}
+              self={this}
+            />
+
             <InputField
-              id="meldeblaetter_workdays_proposal"
-              label="Vorschlag"
-              value={sheet.meldeblaetter_workdays_proposal}
+              id="meldeblaetter_add_workfree"
+              label="Zusätzlich Arbeitsfrei"
+              value={sheet.meldeblaetter_add_workfree}
               disabled="true"
             />
-            <InputField id="meldeblaetter_workdays" label="Wert" value={sheet.meldeblaetter_workdays} />
+            <div class="proposalComment">
+              <InputField
+                id="meldeblaetter_add_workfree_comment"
+                label="Bemerkung"
+                value={sheet.meldeblaetter_add_workfree_comment}
+                self={this}
+              />
+            </div>
+            <hr />
 
-            <h3>Arbeitsfreie Tage</h3>
-            <InputField
-              id="meldeblaetter_workfreedays_proposal"
-              label="Vorschlag"
-              value={sheet.meldeblaetter_workfreedays_proposal}
-              disabled="true"
+            <InputFieldWithProposal
+              id="meldeblaetter_ill"
+              valueLabel="Krankheit"
+              value={sheet.meldeblaetter_ill}
+              proposalValue={sheet.krankheitstage_verbleibend}
+              proposalText="Übriges Guthaben: "
+              showComment={true}
+              commentId="meldeblaetter_ill_comment"
+              commentValue={sheet.meldeblaetter_ill_comment}
+              self={this}
             />
-            <InputField id="meldeblaetter_workfreedays" label="Wert" value={sheet.meldeblaetter_workfreedays} />
-            <InputField id="meldeblaetter_workfree_comment" label="Bemerkung" value={sheet.meldeblaetter_workfree_comment} />
 
-            <h3>Betriebsferien (Urlaub)</h3>
-            <InputField
-              id="meldeblaetter_companyurlaub_proposal"
-              label="Vorschlag"
-              value={sheet.meldeblaetter_companyurlaub_proposal}
-              disabled="true"
+            <InputFieldWithProposal
+              id="meldeblaetter_holiday"
+              valueLabel="Ferien"
+              value={sheet.meldeblaetter_holiday}
+              proposalValue={sheet.remaining_holidays}
+              proposalText="Übriges Guthaben: "
+              showComment={true}
+              commentId="meldeblaetter_holiday_comment"
+              commentValue={sheet.meldeblaetter_holiday_comment}
+              self={this}
             />
-            <InputField id="meldeblaetter_companyurlaub" label="Wert" value={sheet.meldeblaetter_companyurlaub} />
-            <InputField id="meldeblaetter_compholiday_comment" label="Bemerkung" value={sheet.meldeblaetter_compholiday_comment} />
 
-            <h3>Betriebsferien (Ferien)</h3>
-            <InputField
-              id="meldeblaetter_ferien_wegen_urlaub_proposal"
-              label="Vorschlag"
-              value={sheet.meldeblaetter_ferien_wegen_urlaub_proposal}
-              disabled="true"
+            <InputField id="meldeblaetter_urlaub" label="Persönlicher Urlaub" value={sheet.meldeblaetter_urlaub} self={this} />
+            <div class="proposalComment">
+              <InputField id="meldeblaetter_urlaub_comment" label="Bemerkung" value={sheet.meldeblaetter_urlaub_comment} self={this} />
+            </div>
+            <hr />
+
+            <InputFieldWithProposal
+              id="meldeblaetter_kleider"
+              valueLabel="Kleiderspesen"
+              value={this.formatRappen(sheet.meldeblaetter_kleider)}
+              proposalValue={this.formatRappen(sheet.meldeblaetter_kleider_proposal) + ' Fr.'}
+              showComment={true}
+              commentId="meldeblaetter_kleider_comment"
+              commentValue={sheet.meldeblaetter_kleider_comment}
+              self={this}
             />
-            <InputField id="meldeblaetter_ferien_wegen_urlaub" label="Wert" value={sheet.meldeblaetter_ferien_wegen_urlaub} />
 
-            <h3>Zusätzlich Arbeitsfrei</h3>
-            <InputField id="meldeblaetter_add_workfree" label="Vorschlag" value={sheet.meldeblaetter_add_workfree} disabled="true" />
-            <InputField id="meldeblaetter_add_workfree_comment" label="Bemerkung" value={sheet.meldeblaetter_add_workfree_comment} />
-
-            <h3>Krankheit</h3>
             <InputField
-              id="krankheitstage_verbleibend"
-              label="Übriges Guthaben"
-              value={sheet.krankheitstage_verbleibend + ' Tage'}
-              disabled="true"
+              id="meldeblaetter_fahrspesen"
+              label="Fahrspesen"
+              value={this.formatRappen(sheet.meldeblaetter_fahrspesen)}
+              self={this}
             />
-            <InputField id="meldeblaetter_ill" label="Wert" value={sheet.meldeblaetter_ill} />
-            <InputField id="meldeblaetter_ill_comment" label="Bemerkung" value={sheet.meldeblaetter_ill_comment} />
+            <div class="proposalComment">
+              <InputField
+                id="meldeblaetter_fahrspesen_comment"
+                label="Bemerkung"
+                value={sheet.meldeblaetter_fahrspesen_comment}
+                self={this}
+              />
+            </div>
+            <hr />
 
-            <h3>Ferien</h3>
-            <InputField id="remaining_holidays" label="Übriges Guthaben" value={sheet.remaining_holidays + ' Tage'} disabled="true" />
-            <InputField id="meldeblaetter_holiday" label="Wert" value={sheet.meldeblaetter_holiday} />
-            <InputField id="meldeblaetter_holiday_comment" label="Bemerkung" value={sheet.meldeblaetter_holiday_comment} />
-
-            <h3>Persönlicher Urlaub</h3>
-            <InputField id="meldeblaetter_urlaub" label="Wert" value={sheet.meldeblaetter_urlaub} />
-            <InputField id="meldeblaetter_urlaub_comment" label="Bemerkung" value={sheet.meldeblaetter_urlaub_comment} />
-
-            <h3>Kleiderspesen</h3>
             <InputField
-              id="meldeblaetter_kleider_proposal"
-              label="Wert"
-              value={this.formatRappen(sheet.meldeblaetter_kleider_proposal) + ' Fr.'}
-              disabled="true"
+              id="meldeblaetter_ausserordentlich"
+              label="Ausserordentliche Spesen"
+              value={this.formatRappen(sheet.meldeblaetter_ausserordentlich)}
+              self={this}
             />
-            <InputField id="meldeblaetter_kleider_comment" label="Bemerkung" value={sheet.meldeblaetter_kleider_comment} />
-
-            <h3>Fahrspesen</h3>
-            <InputField id="meldeblaetter_fahrspesen" label="Wert [Fr.]" value={sheet.meldeblaetter_fahrspesen} />
-            <InputField id="meldeblaetter_fahrspesen_comment" label="Bemerkung" value={sheet.meldeblaetter_fahrspesen_comment} />
-
-            <h3>Ausserordentliche Spesen</h3>
-            <InputField id="meldeblaetter_ausserordentlich" label="Wert" value={this.formatRappen(sheet.meldeblaetter_ausserordentlich)} />
-            <InputField
-              id="meldeblaetter_ausserordentlich_comment"
-              label="Bemerkung"
-              value={sheet.meldeblaetter_ausserordentlich_comment}
-            />
+            <div class="proposalComment">
+              <InputField
+                id="meldeblaetter_ausserordentlich_comment"
+                label="Bemerkung"
+                value={sheet.meldeblaetter_ausserordentlich_comment}
+                self={this}
+              />
+            </div>
+            <hr />
 
             <InputField id="total" label="Total" value={this.formatRappen(sheet.total) + ' Fr.'} disabled="true" />
 
-            <InputField id="bank_account_number" label="Konto-Nr." value={sheet.bank_account_number} />
-            <InputField id="document_number" label="Beleg-Nr." value={sheet.document_number} />
+            <InputField id="bank_account_number" label="Konto-Nr." value={sheet.bank_account_number} self={this} />
+            <InputField id="document_number" label="Beleg-Nr." value={sheet.document_number} self={this} />
 
             <DatePicker
               id="booked_date"
@@ -224,10 +274,9 @@ export default class EditExpense extends Component {
             />
             <DatePicker id="paid_date" label="Bezahlt" value={sheet.paid_date} callback={this.handleDateChange} callbackOrigin={this} />
 
-            <InputField id="done" label="Erledigt" value={sheet.done} />
+            <InputField id="done" label="Erledigt" value={sheet.done} self={this} />
 
-            <br />
-            <br />
+            <hr />
 
             <div class="form-group">
               <div class="col-sm-2" />

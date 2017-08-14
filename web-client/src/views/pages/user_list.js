@@ -6,7 +6,7 @@ import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
-import DatePicker from '../tags/DatePicker';
+import DatePicker from '../tags/InputFields/DatePicker';
 import Toast from '../../utils/toast';
 
 export default class UserList extends Component {

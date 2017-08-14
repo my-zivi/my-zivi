@@ -4,10 +4,10 @@ import { Link } from 'inferno-router';
 import Component from 'inferno-component';
 import axios from 'axios';
 import ApiService from '../../../utils/api';
-import InputField from './InputField';
-import InputFieldWithHelpText from './InputFieldWithHelpText';
-import InputCheckbox from './InputCheckbox';
-import DatePicker from '../DatePicker';
+import InputField from '../InputFields/InputField';
+import InputFieldWithHelpText from '../InputFields/InputFieldWithHelpText';
+import InputCheckbox from '../InputFields/InputCheckbox';
+import DatePicker from '../InputFields/DatePicker';
 import Toast from '../../../utils/toast';
 
 export default class Missions extends Component {

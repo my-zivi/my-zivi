@@ -2,10 +2,10 @@ import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 
 import Card from '../tags/card';
-import InputField from '../tags/Profile/InputField';
-import InputFieldWithHelpText from '../tags/Profile/InputFieldWithHelpText';
-import InputCheckbox from '../tags/Profile/InputCheckbox';
-import DatePicker from '../tags/DatePicker';
+import InputField from '../tags/InputFields/InputField';
+import InputFieldWithHelpText from '../tags/InputFields/InputFieldWithHelpText';
+import InputCheckbox from '../tags/InputFields/InputCheckbox';
+import DatePicker from '../tags/InputFields/DatePicker';
 import Cantons from '../tags/Profile/Cantons';
 import RegionalCenters from '../tags/Profile/RegionalCenters';
 import Missions from '../tags/Profile/Missions';
