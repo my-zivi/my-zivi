@@ -72,7 +72,7 @@ abstract class PDF
                 $month_str = "Feb.";
                 break;
             case 3:
-                $month_str = "M&auml;rz";
+                $month_str = "März";
                 break;
             case 4:
                 $month_str = "Apr.";
@@ -117,7 +117,7 @@ abstract class PDF
                 $month_str = "Februar";
                 break;
             case 3:
-                $month_str = "M&auml;rz";
+                $month_str = "März";
                 break;
             case 4:
                 $month_str = "April";

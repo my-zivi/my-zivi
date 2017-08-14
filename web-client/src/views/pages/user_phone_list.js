@@ -24,24 +24,6 @@ export default class UserPhoneList extends Component {
     };
   }
 
-  getList() {
-    this.setState({ loading: true, error: null });
-    console.log('this.state.start = ', this.state.start);
-    axios
-      .get(ApiService.BASE_URL + 'pdf/phoneList?start=' + this.state.start + '&end=' + this.state.end, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-        responseType: 'blob',
-      })
-      .then(response => {
-        this.setState({ loading: false });
-        let blob = new Blob([response.data], { type: 'application/pdf' });
-        window.location = window.URL.createObjectURL(blob);
-      })
-      .catch(error => {
-        this.setState({ error: error });
-      });
-  }
-
   handleDateChange(e, origin) {
     let value = e.target.value;
 
@@ -66,18 +48,25 @@ export default class UserPhoneList extends Component {
               arbeiten.
             </p>
 
-            <form
-              action="javascript:;"
-              onSubmit={() => {
-                this.getList();
-              }}
-            >
+            <form action="javascript:;">
               <DatePicker id="start" label="Anfang:" value={this.state.start} callback={this.handleDateChange} callbackOrigin={this} />
               <DatePicker id="end" label="Ende:" value={this.state.end} callback={this.handleDateChange} callbackOrigin={this} />
 
-              <button class="btn btn-primary" type="submit">
+              <a
+                class="btn btn-primary"
+                href={
+                  ApiService.BASE_URL +
+                  'pdf/phoneList?start=' +
+                  this.state.start +
+                  '&end=' +
+                  this.state.end +
+                  '&jwttoken=' +
+                  encodeURI(localStorage.getItem('jwtToken'))
+                }
+                target="_blank"
+              >
                 Absenden
-              </button>
+              </a>
             </form>
           </Card>
 

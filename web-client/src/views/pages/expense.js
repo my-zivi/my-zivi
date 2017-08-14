@@ -83,7 +83,7 @@ export default class MissionOverview extends Component {
   }
 
   showStatsExtended(showDetails) {
-    this.showStats(
+    return this.showStats(
       this.state.time_type,
       showDetails,
       this.state.showOnlyDoneSheets,
@@ -94,37 +94,23 @@ export default class MissionOverview extends Component {
   }
 
   showStats(time_type, showDetails, showOnlyDoneSheets, time_year, time_from, time_to) {
-    this.setState({ loading: true, error: null });
-    axios
-      .get(
-        ApiService.BASE_URL +
-          'pdf/statistik?time_type=' +
-          time_type +
-          '&showDetails=' +
-          showDetails +
-          '&showOnlyDoneSheets=' +
-          showOnlyDoneSheets +
-          '&time_year=' +
-          time_year +
-          '&time_from=' +
-          time_from +
-          '&time_to=' +
-          time_to,
-        {
-          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-          responseType: 'blob',
-        }
-      )
-      .then(response => {
-        this.setState({
-          loading: false,
-        });
-        let blob = new Blob([response.data], { type: 'application/pdf' });
-        window.location = window.URL.createObjectURL(blob);
-      })
-      .catch(error => {
-        this.setState({ error: error });
-      });
+    return (
+      ApiService.BASE_URL +
+      'pdf/statistik?time_type=' +
+      time_type +
+      '&showDetails=' +
+      showDetails +
+      '&showOnlyDoneSheets=' +
+      showOnlyDoneSheets +
+      '&time_year=' +
+      time_year +
+      '&time_from=' +
+      time_from +
+      '&time_to=' +
+      time_to +
+      '&jwttoken=' +
+      encodeURI(localStorage.getItem('jwtToken'))
+    );
   }
 
   monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
@@ -185,18 +171,18 @@ export default class MissionOverview extends Component {
         <div className="page page__expense">
           <ScrollableCard>
             <div class="btn-group">
-              <button class="btn btn-default" onclick={() => this.showStats(3, 1)}>
+              <a class="btn btn-default" href={this.showStats(3, 1)} target="_blank">
                 <span class="glyphicon glyphicon-file" aria-hidden="true" />
                 {' ' + this.monthNames[prevMonthDate.getMonth()]}
-              </button>
-              <button class="btn btn-default" onclick={() => this.showStats(2, 1)}>
+              </a>
+              <a class="btn btn-default" href={this.showStats(2, 1)} target="_blank">
                 <span class="glyphicon glyphicon-file" aria-hidden="true" />
                 {' ' + this.monthNames[curMonthDate.getMonth()]}
-              </button>
-              <button class="btn btn-default" data-toggle="modal" data-target="#myModal">
+              </a>
+              <a class="btn btn-default" data-toggle="modal" data-target="#myModal">
                 <span class="glyphicon glyphicon-file" aria-hidden="true" />
                 {' Erweitert'}
-              </button>
+              </a>
             </div>
 
             <br />
@@ -359,27 +345,13 @@ export default class MissionOverview extends Component {
 
                     <br />
 
-                    <div class="btn-group  btn-group-justified" data-toggle="buttons">
-                      <label class="btn btn-info">
-                        <input
-                          type="radio"
-                          data-dismiss="modal"
-                          onchange={() => {
-                            this.showStatsExtended(0);
-                          }}
-                        />{' '}
+                    <div class="btn-group  btn-group-justified">
+                      <a class="btn btn-info" href={this.showStatsExtended(0)} target="_blank">
                         Gesamtstatistik
-                      </label>
-                      <label class="btn btn-info">
-                        <input
-                          type="radio"
-                          data-dismiss="modal"
-                          onchange={() => {
-                            this.showStatsExtended(1);
-                          }}
-                        />{' '}
+                      </a>
+                      <a class="btn btn-info" href={this.showStatsExtended(1)} target="_blank">
                         Detailübersicht
-                      </label>
+                      </a>
                     </div>
                   </div>
                 </div>

@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Input;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CORSMiddleware
 {
@@ -21,6 +23,11 @@ class CORSMiddleware
         if ($this->isPreflightRequest($request)) {
             $response = $this->createEmptyResponse();
         } else {
+            //Allow setting token as Get-Parameter for PDF Downloads
+            $token = Input::get("jwttoken", null);
+            if ($token != null) {
+                $request->headers->set('Authorization', "Bearer ".$token);
+            }
             $response = $next($request);
         }
 

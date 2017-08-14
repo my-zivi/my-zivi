@@ -210,23 +210,6 @@ export default class User extends Component {
     this.router.push('/changePassword');
   }
 
-  showReportSheet(id) {
-    this.setState({ loading: true, error: null });
-    axios
-      .get(ApiService.BASE_URL + 'pdf/zivireportsheet?reportSheetId=' + id, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-        responseType: 'blob',
-      })
-      .then(response => {
-        this.setState({ loading: false });
-        let blob = new Blob([response.data], { type: 'application/pdf' });
-        window.location = window.URL.createObjectURL(blob);
-      })
-      .catch(error => {
-        this.setState({ loading: false, error: error });
-      });
-  }
-
   getPasswordChangeButton() {
     return (
       <div>
@@ -445,16 +428,27 @@ export default class User extends Component {
                         )}
                         <div class="col-xs-1">
                           {obj.done === 1 ? (
-                            <button name="showReportSheet" class="btn btn-xs" onClick={() => this.showReportSheet(obj.id)}>
+                            <a
+                              name="showReportSheet"
+                              class="btn btn-xs btn-link"
+                              href={
+                                ApiService.BASE_URL +
+                                'pdf/zivireportsheet?reportSheetId=' +
+                                obj.id +
+                                '&jwttoken=' +
+                                encodeURI(localStorage.getItem('jwtToken'))
+                              }
+                              target="_blank"
+                            >
                               <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
-                            </button>
+                            </a>
                           ) : null}
                         </div>
                         {ApiService.isAdmin() ? (
                           <div class="col-xs-2">
                             <button
                               name="editReportSheet"
-                              class="btn btn-xs btn-warning"
+                              class="btn btn-link btn-xs btn-warning"
                               onClick={() => this.router.push('/expense/' + obj.id)}
                             >
                               <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
