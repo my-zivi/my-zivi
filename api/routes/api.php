@@ -44,10 +44,6 @@ $api->version('v1', function ($api) {
     ], function ($api) {
 
         // Authentication - Authenticated
-        $api->get('/auth/user', [
-            'uses' => 'App\Http\Controllers\Auth\AuthController@getUser',
-            'as' => 'api.auth.user'
-        ]);
         $api->patch('/auth/refresh', [
             'uses' => 'App\Http\Controllers\Auth\AuthController@patchRefresh',
             'as' => 'api.auth.refresh'
@@ -86,7 +82,7 @@ $api->version('v1', function ($api) {
             $user = JWTAuth::parseToken()->authenticate();
             return response()->json(
                 App\Specification::
-                    select('specifications.id', 'specifications.name')
+                    select('id AS fullId', 'name', 'active')
                     ->get()
             );
         });

@@ -11,6 +11,7 @@ namespace App\Http\Controllers\PDF;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Laravel\Lumen\Application;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PDFController extends Controller
 {
@@ -36,6 +37,12 @@ class PDFController extends Controller
         $reportSheetId = Input::get("reportSheetId");
 
         $reportSheet = new ZiviReportSheetPDF($reportSheetId);
+
+        //Allow only admins to get reportSheets of other Users
+        $user = JWTAuth::parseToken()->authenticate();
+        if ($user->role!=1 && $user->id!=$reportSheet->getUserId()) {
+            return response("unauthorized", 401);
+        }
 
         $response = response()->download($reportSheet->createPDF(), 'spesenrapport.pdf')
             ->deleteFileAfterSend(true);

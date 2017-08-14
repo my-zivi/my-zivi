@@ -41,6 +41,11 @@ class ZiviReportSheetPDF extends PDF
         $this->user = ReportSheet::find($spesenId)->user()->first();
     }
 
+    public function getUserId()
+    {
+        return $this->user->id;
+    }
+
     protected function render()
     {
         $this->pdf->AddPage();
