@@ -209,17 +209,4 @@ class AuthController extends Controller
             ]
         ]);
     }
-
-    /**
-     * Get authenticated user.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getUser()
-    {
-        return new JsonResponse([
-            'message' => 'authenticated_user',
-            'data' => JWTAuth::parseToken()->authenticate()
-        ]);
-    }
 }

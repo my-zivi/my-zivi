@@ -44,10 +44,6 @@ $api->version('v1', function ($api) {
     ], function ($api) {
 
         // Authentication - Authenticated
-        $api->get('/auth/user', [
-            'uses' => 'App\Http\Controllers\Auth\AuthController@getUser',
-            'as' => 'api.auth.user'
-        ]);
         $api->patch('/auth/refresh', [
             'uses' => 'App\Http\Controllers\Auth\AuthController@patchRefresh',
             'as' => 'api.auth.refresh'
