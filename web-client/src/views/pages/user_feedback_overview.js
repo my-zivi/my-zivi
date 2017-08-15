@@ -69,23 +69,21 @@ export default class UserFeedbackOverview extends Component {
 
     for (var x = 0; x < questions.length; x++) {
       //console.log("questions[", x, "] = ", questions[x])
-      if (answers[x]) {
-        feedbacks.push(
-          <div class="checkbox no-print">
-            <label>
-              <input
-                type="checkbox"
-                name={x}
-                defaultChecked={true}
-                onchange={e => {
-                  this.handleChange(e);
-                }}
-              />
-              {questions[x].question + ' ' + answers[x].answer}
-            </label>
-          </div>
-        );
-      }
+      feedbacks.push(
+        <div class="checkbox no-print">
+          <label>
+            {questions[x].question}
+            <input
+              type="checkbox"
+              name={x}
+              defaultChecked={true}
+              onchange={e => {
+                this.handleChange(e);
+              }}
+            />
+          </label>
+        </div>
+      );
     }
 
     return (
