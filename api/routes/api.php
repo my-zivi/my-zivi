@@ -128,7 +128,52 @@ $api->version('v1', function ($api) {
             return response()->json(ReportSheet::getDiensttageCount($start, $end));
         });
 
-        // PDF - Authenticated
+        $api->put('/mission', function () {
+            $mission = new App\Mission();
+            $mission->user = Input::get("user", "");
+            $mission->specification = Input::get("specification", "");
+            $mission->mission_type = Input::get("mission_type", false);
+            $mission->start = Input::get("start", "");
+            $mission->end = Input::get("end", "");
+            $mission->eligible_holiday = Input::get("long_mission", false);
+            $mission->first_time = Input::get("first_time", false);
+            $mission->long_mission = Input::get("long_mission", false);
+            $mission->probation_period = Input::get("probation_period", false);
+            $mission->probation_day = Input::get("probation_day", "");
+            $mission->probation_day_comment = Input::get("probation_day_comment", "");
+
+            $user = JWTAuth::parseToken()->authenticate();
+            if (!$user->isAdmin() && $user->id!=$mission->user) {
+                return response("not allowed", 401);
+            }
+
+            $mission->save();
+            return response("inserted");
+        });
+        $api->post('/mission/{id}', function ($id) {
+            $mission = App\Mission::find($id);
+            $mission->user = Input::get("user", "");
+            $mission->specification = Input::get("specification", "");
+            $mission->mission_type = Input::get("mission_type", false);
+            $mission->start = Input::get("start", "");
+            $mission->end = Input::get("end", "");
+            $mission->eligible_holiday = Input::get("long_mission", false);
+            $mission->first_time = Input::get("first_time", false);
+            $mission->long_mission = Input::get("long_mission", false);
+            $mission->probation_period = Input::get("probation_period", false);
+            $mission->probation_day = Input::get("probation_day", "");
+            $mission->probation_day_comment = Input::get("probation_day_comment", "");
+
+            $user = JWTAuth::parseToken()->authenticate();
+            if (!$user->isAdmin() && ($user->id!=$mission->user || $mission->draft!=null)) {
+                return response("not allowed", 401);
+            }
+
+            $mission->save();
+            return response("updated");
+        });
+
+        // PDF
         $api->get('/pdf/zivireportsheet', [
             'as' => 'api.pdf',
             'uses' => 'App\Http\Controllers\PDF\PDFController@getZiviReportSheet'
@@ -311,34 +356,6 @@ $api->version('v1', function ($api) {
                 }
 
                 return response()->json($result);
-            });
-            $api->put('/mission', function () {
-                $mission = new App\Mission();
-                $mission->user = Input::get("user", "");
-                $mission->specification = Input::get("specification", "");
-                $mission->start = Input::get("start", "");
-                $mission->end = Input::get("end", "");
-                $mission->eligible_holiday = 0;//TODO:??
-                $mission->role = AuthController::USER_ROLE_ZIVI; //TODO: needed??
-                $mission->first_time = Input::get("first_time", false);
-                $mission->long_mission = Input::get("long_mission", false);
-                $mission->probation_period = Input::get("probation_period", false);
-                $mission->save();
-                return response("inserted");
-            });
-            $api->post('/mission/{id}', function ($id) {
-                $mission = App\Mission::find($id);
-                $mission->user = Input::get("user", "");
-                $mission->specification = Input::get("specification", "");
-                $mission->start = Input::get("start", "");
-                $mission->end = Input::get("end", "");
-                $mission->eligible_holiday = 0;//TODO:??
-                $mission->role = AuthController::USER_ROLE_ZIVI; //TODO: needed??
-                $mission->first_time = Input::get("first_time", false);
-                $mission->long_mission = Input::get("long_mission", false);
-                $mission->probation_period = Input::get("probation_period", false);
-                $mission->save();
-                return response("updated");
             });
             $api->delete('/mission/{id}', function ($id) {
                 App\Mission::find($id)->delete();

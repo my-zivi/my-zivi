@@ -81,8 +81,9 @@ export default class Missions extends Component {
                   </label>
                   <div class="col-sm-9">
                     <select
-                      id="newmission_mission_type"
-                      name="newmission_mission_type"
+                      value={'' + self.state['result'][missionKey + '_mission_type']}
+                      id={missionKey + '_mission_type'}
+                      name={missionKey + '_mission_type'}
                       class="form-control"
                       onChange={e => self.handleSelectChange(e)}
                     >
@@ -145,35 +146,36 @@ export default class Missions extends Component {
                   angerechnet.
                 </p>
                 <DatePicker
-                  value={self.state[missionKey + '_trial_mission_date']}
-                  id={missionKey + '_trial_mission_date'}
+                  value={self.state['result'][missionKey + '_probation_day']}
+                  id={missionKey + '_probation_day'}
                   callback={self.handleDateChange}
                   label="Datum"
                   callbackOrigin={self}
                 />
                 <div class="form-group">
-                  <label class="control-label col-sm-3" for={missionKey + '_trial_mission_comment'}>
+                  <label class="control-label col-sm-3" for={missionKey + '_probation_day_comment'}>
                     Bemerkungen zum Schnuppertag
                   </label>
                   <div class="col-sm-9">
                     <textarea
                       rows="4"
-                      id={missionKey + '_trial_mission_comment'}
-                      name={missionKey + '_trial_mission_comment'}
+                      id={missionKey + '_probation_day_comment'}
+                      name={missionKey + '_probation_day_comment'}
                       class="form-control"
                       onChange={e => self.handleTextareaChange(e)}
-                    >
-                      {self.state.result[missionKey + '_trial_mission_comment']}
-                    </textarea>
+                      value={self.state.result[missionKey + '_probation_day_comment']}
+                    />
                   </div>
                 </div>
                 <hr />
                 <h4>Status</h4>
                 {mission == null || mission.draft == null ? 'Provisorisch' : 'Aufgeboten, Aufgebot erhalten am ' + mission.draft}
                 <hr />
-                <button class="btn btn-primary" type="submit">
-                  Daten speichern
-                </button>
+                {mission == null || mission.draft == null ? (
+                  <button class="btn btn-primary" type="submit">
+                    Daten speichern
+                  </button>
+                ) : null}
                 &nbsp;
                 {aufgebotErhaltenButton}
               </form>
@@ -278,11 +280,14 @@ export default class Missions extends Component {
     var newMission = {
       user: self.state.result.id,
       specification: self.state.result[missionKey + '_specification'],
+      mission_type: self.state.result[missionKey + '_mission_type'],
       start: self.state.result[missionKey + '_start'],
       end: self.state.result[missionKey + '_end'],
       first_time: self.state.result[missionKey + '_first_time'],
       long_mission: self.state.result[missionKey + '_long_mission'],
       probation_period: self.state.result[missionKey + '_probation_period'],
+      probation_day: self.state.result[missionKey + '_probation_day'],
+      probation_day_comment: self.state.result[missionKey + '_probation_day_comment'],
     };
 
     self.setState({ loading: true, error: null });
@@ -295,7 +300,7 @@ export default class Missions extends Component {
           self.getUser();
         })
         .catch(error => {
-          Toast.showError('Speichern fehlgeschlagen', 'Neuer Einsatz konnte nicht gespeichert werden', error, this.context);
+          Toast.showError('Speichern fehlgeschlagen', 'Neuer Einsatz konnte nicht gespeichert werden', error, self.context);
         });
     } else {
       axios
@@ -308,7 +313,7 @@ export default class Missions extends Component {
           self.getUser();
         })
         .catch(error => {
-          Toast.showError('Speichern fehlgeschlagen', 'Einsatz konnte nicht gespeichert werden', error, this.context);
+          Toast.showError('Speichern fehlgeschlagen', 'Einsatz konnte nicht gespeichert werden', error, self.context);
         });
     }
   }
@@ -322,7 +327,7 @@ export default class Missions extends Component {
         self.getUser();
       })
       .catch(error => {
-        Toast.showError('Löschen fehlgeschlagen', 'Einsatz konnte nicht gelöscht werden', error, this.context);
+        Toast.showError('Löschen fehlgeschlagen', 'Einsatz konnte nicht gelöscht werden', error, self.context);
       });
   }
 

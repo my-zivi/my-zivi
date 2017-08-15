@@ -72,11 +72,14 @@ export default class User extends Component {
           var key = response.data.missions[i].id;
 
           newState['result'][key + '_specification'] = response.data.missions[i].specification;
+          newState['result'][key + '_mission_type'] = response.data.missions[i].mission_type;
           newState['result'][key + '_start'] = response.data.missions[i].start;
           newState['result'][key + '_end'] = response.data.missions[i].end;
           newState['result'][key + '_first_time'] = response.data.missions[i].first_time;
           newState['result'][key + '_long_mission'] = response.data.missions[i].long_mission;
           newState['result'][key + '_probation_period'] = response.data.missions[i].probation_period;
+          newState['result'][key + '_probation_day'] = response.data.missions[i].probation_day;
+          newState['result'][key + '_probation_day_comment'] = response.data.missions[i].probation_day_comment;
         }
 
         this.setState(newState);
