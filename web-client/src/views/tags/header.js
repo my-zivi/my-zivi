@@ -22,6 +22,7 @@ export default class Header extends Component {
       <BootstrapNavLink to="/freeday" mobileHidden="true">
         Freitage
       </BootstrapNavLink>,
+      <BootstrapNavLink to="/user_feedback_overview">Einsatz Feedback</BootstrapNavLink>,
 
       // Operations
       <BootstrapNavLink to="/mission_overview">Planung</BootstrapNavLink>,

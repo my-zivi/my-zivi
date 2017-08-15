@@ -20,6 +20,7 @@ import Expense from './pages/expense';
 import EditExpense from './pages/edit_expense';
 
 import UserFeedback from './pages/user_feedback';
+import UserFeedbackOverview from './pages/user_feedback_overview';
 
 import Help from './pages/help';
 
@@ -60,6 +61,7 @@ export default (
     <Route path="/expense/:report_sheet_id" component={EditExpense} onEnter={authorizedOnly} />
 
     <Route path="/user_feedback" component={UserFeedback} onEnter={authorizedOnly} />
+    <Route path="/user_feedback_overview" component={UserFeedbackOverview} onEnter={authorizedOnly} />
 
     <Route path="/help" component={Help} />
 

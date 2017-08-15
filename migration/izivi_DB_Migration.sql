@@ -314,7 +314,27 @@ INSERT INTO izivi.holidays(date_from, date_to, holiday_type, description)
     2,
     description FROM stiftun8_iZivi.holidays);
 
-	
+INSERT INTO izivi.user_feedback_questions(question, type, opt1, opt2, opt3, pos, activ)
+  (SELECT
+    question,
+    type,
+    opt1,
+    opt2,
+    opt3,
+    pos,
+    activ FROM stiftun8_iZivi.questions_eval);
+
+INSERT INTO izivi.user_feedback(user, year, questionId, answer)
+
+      for(var i = 0; i <= 60; i++)
+      {(SELECT
+        ziviId,
+        year,
+        i,
+        "f"i
+
+      FROM stiftun8_iZivi.evaluation)};
+
 /*
 ██╗   ██╗███╗   ███╗██╗      █████╗ ██╗   ██╗████████╗    ███████╗██╗██╗  ██╗
 ██║   ██║████╗ ████║██║     ██╔══██╗██║   ██║╚══██╔══╝    ██╔════╝██║╚██╗██╔╝
@@ -489,6 +509,7 @@ OR z.account_type = 3;
 DELETE FROM izivi.no_iban 
 WHERE account_type = 2
 OR account_type = 3;
+
 
 /*
 ███████╗██████╗ ███████╗███████╗██████╗  █████╗ ██╗   ██╗    ██████╗ ██████╗ ███████╗    ███████╗██╗██╗     ██╗

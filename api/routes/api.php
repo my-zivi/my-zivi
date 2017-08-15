@@ -134,6 +134,23 @@ $api->version('v1', function ($api) {
             'uses' => 'App\Http\Controllers\PDF\PDFController@getZiviReportSheet'
         ]);
 
+        $api->put('/user/feedback', function () {
+            $content = Input::get();
+            $userId = JWTAuth::parseToken()->authenticate()->id;
+            $date = time();
+
+            foreach ($content as $key => $value) {
+                $user_feedback = new App\UserFeedback();
+                $user_feedback->user = $userId;
+                $user_feedback->year = $date;
+                $user_feedback->questionId = $key;
+                $user_feedback->answer = $value;
+                $user_feedback->save();
+            }
+
+            return response("inserted");
+        });
+
         // Admins only
         $api->group([
             'middleware' => 'role',
@@ -150,6 +167,25 @@ $api->version('v1', function ($api) {
                 'uses' => 'App\Http\Controllers\UserController@getZivis',
                 'as' => 'api.user.getZivis'
             ]);
+
+            $api->get('/user/feedback', function () {
+                $user_feedback = App\UserFeedback::all();
+                return response()->json($user_feedback);
+            });
+
+            $api->get('/user/feedback/question', function () {
+                $user_feedback_question = App\UserFeedbackQuestions::all();
+                return response()->json($user_feedback_question);
+            });
+            $api->get('/user/feedback/{id}', function ($id) {
+                $user_feedback = App\UserFeedback::find($id);
+                return response()->json($user_feedback);
+            });
+            $api->get('/user/feedback/question/{id}', function ($id) {
+                $user_feedback_question = App\UserFeedbackQuestions::find($id);
+                return response()->json($user_feedback_question);
+            });
+
             $api->get('/user/{id}', function ($id) {
                 $user = App\User::find($id);
                 $user->missions = $user->missions;
@@ -166,6 +202,8 @@ $api->version('v1', function ($api) {
                 UserController::updateUser($user);
                 return response("updated");
             });
+
+
 
             // Mission - Admins
             $api->post('/mission/{id}/receivedDraft', function ($id) {
