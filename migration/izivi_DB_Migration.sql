@@ -318,6 +318,16 @@ INSERT INTO izivi.holidays(date_from, date_to, holiday_type, description)
 ██║   ██║╚════██║██╔══╝  ██╔══██╗    ██╔══╝  ██╔══╝  ██╔══╝  ██║  ██║██╔══██╗██╔══██║██║     ██╔═██╗ ╚════██║
 ╚██████╔╝███████║███████╗██║  ██║    ██║     ███████╗███████╗██████╔╝██████╔╝██║  ██║╚██████╗██║  ██╗███████║
  ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝    ╚═╝     ╚══════╝╚══════╝╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝
+ 
+ types
+ 
+ 1: Frage mit Unterantworten (nicht verwendet) => Typ 0
+ 2: Frage 1-4 => Typ 1
+ 3: Frage 1-4 => Typ 1
+ 4: Textantwort => Typ 2
+ 5: Frage 1-4 => Typ 1
+ 6: Frage 1-4 => Typ 1
+ 
 */
 
 INSERT INTO `user_feedback_questions` (`id`, `question`, `type`, `opt1`, `opt2`, `opt3`, `pos`, `active`) VALUES
@@ -392,6 +402,13 @@ INSERT INTO `user_feedback_questions` (`id`, `question`, `type`, `opt1`, `opt2`,
 (69, 'Tiefpunkt (e) meines Zivildiensteinsatzes :', 4, '', '', '', 69, 1),
 (70, 'Verbesserungsvorschläge :', 4, '', '', '', 70, 1),
 (71, 'Weitere Kommentare :', 4, '', '', '', 71, 1);	
+
+UPDATE user_feedback_questions SET type = 0 WHERE type = 1;
+UPDATE user_feedback_questions SET type = 1 WHERE type = 2;
+UPDATE user_feedback_questions SET type = 1 WHERE type = 3;
+UPDATE user_feedback_questions SET type = 1 WHERE type = 5;
+UPDATE user_feedback_questions SET type = 1 WHERE type = 6;
+UPDATE user_feedback_questions SET type = 2 WHERE type = 4;
 
 
 /*
