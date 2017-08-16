@@ -310,26 +310,89 @@ INSERT INTO izivi.holidays(date_from, date_to, holiday_type, description)
     2,
     description FROM stiftun8_iZivi.holidays);
 
-INSERT INTO izivi.user_feedback_questions(question, type, opt1, opt2, opt3, pos, activ)
-  (SELECT
-    question,
-    type,
-    opt1,
-    opt2,
-    opt3,
-    pos,
-    activ FROM stiftun8_iZivi.questions_eval);
+	
+/*
+██╗   ██╗███████╗███████╗██████╗     ███████╗███████╗███████╗██████╗ ██████╗  █████╗  ██████╗██╗  ██╗███████╗
+██║   ██║██╔════╝██╔════╝██╔══██╗    ██╔════╝██╔════╝██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝██║ ██╔╝██╔════╝
+██║   ██║███████╗█████╗  ██████╔╝    █████╗  █████╗  █████╗  ██║  ██║██████╔╝███████║██║     █████╔╝ ███████╗
+██║   ██║╚════██║██╔══╝  ██╔══██╗    ██╔══╝  ██╔══╝  ██╔══╝  ██║  ██║██╔══██╗██╔══██║██║     ██╔═██╗ ╚════██║
+╚██████╔╝███████║███████╗██║  ██║    ██║     ███████╗███████╗██████╔╝██████╔╝██║  ██║╚██████╗██║  ██╗███████║
+ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝    ╚═╝     ╚══════╝╚══════╝╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝
+*/
 
-INSERT INTO izivi.user_feedback(user, year, questionId, answer)
+INSERT INTO `user_feedback_questions` (`id`, `question`, `type`, `opt1`, `opt2`, `opt3`, `pos`, `active`) VALUES
+(1, 'Wie wurdest du auf die SWO aufmerksam ?', 3, '', '', '', 1, 1),
+(2, 'Hattest du genügend Informationen zum Einsatzbetrieb ?', 6, 'nein', 'ja', '', 2, 1),
+(3, 'Wie zufrieden warst du mit der Anmeldung über iZivi ?', 6, 'nicht zufrieden', 'sehr zufrieden', '', 3, 1),
+(4, 'Wie zufrieden warst du mit der Spesenabrechnung ?', 6, 'nicht zufrieden', 'sehr zufrieden', '', 4, 1),
+(5, 'Wie wichtig waren folgende Gründe bei deiner Wahl des Einsatzbetriebes ?', 1, 'gar nicht wichtig', 'sehr wichtig', '', 5, 1),
+(6, '- Aktive Naturschutzarbeit', 2, '', '', '', 6, 1),
+(7, '- Ort des Einsatzbetriebes', 2, '', '', '', 7, 1),
+(8, '- Möglichkeit einer kurzen Einsatzdauer', 2, '', '', '', 8, 1),
+(9, '- Empfehlung', 2, '', '', '', 9, 1),
+(10, '- Früherer Einsatz bei der SWO', 2, '', '', '', 10, 1),
+(11, 'Wie streng war die Arbeit ?', 6, 'gar nicht streng', 'sehr streng', '', 11, 1),
+(12, 'Wie gut wurde (n) ...', 1, 'sehr schlecht', 'sehr gut', '', 12, 1),
+(13, '- die Arbeitstechniken erklärt ?', 2, '', '', '', 13, 1),
+(14, '- der Umgang mit Maschinen erklärt ?', 2, '', '', '', 14, 1),
+(15, '- Sinn und Zweck der Projekte erklärt ?', 2, '', '', '', 15, 1),
+(16, 'Wie beurteilst du den Zustand der...', 1, 'sehr schlecht', 'sehr gut', '', 16, 1),
+(17, '- Arbeitshilfsmittel ? (Handwerkzeug, Fahrzeuge etc.)', 2, '', '', '', 17, 1),
+(18, '- zur Verfügung gestellten Arbeitskleider', 2, '', '', '', 18, 1),
+(19, 'Wie war die Stimmung in der Gruppe während der Arbeit ?', 6, 'sehr schlecht', 'sehr gut', '', 19, 1),
+(20, 'Wie fandest du die Gruppengrösse', 6, 'zu klein', 'zu gross', '', 20, 1),
+(21, 'Wie sinnvoll hast du die Projekte empfunden ?', 6, 'gar nicht sinnvoll', 'sehr sinnvoll', '', 21, 1),
+(22, 'Wie beurteilst du die Sicherheit während der Arbeit ?', 6, 'gar nicht sicher', 'sehr sicher', '', 22, 1),
+(23, 'Waren rauchende Zivi\'s für dich ein Problem ...', 1, 'gar nicht', 'sehr stark', '', 23, 1),
+(24, '- während der Arbeit ?', 2, '', '', '', 24, 1),
+(25, '- während der Pausen ?', 2, '', '', '', 25, 1),
+(26, 'Bist du selbst Raucher ?', 6, 'nein', 'ja', '', 26, 1),
+(27, 'Wie stark stimmst du folgenden Aussagen zu ?', 1, 'stimme gar nicht zu', 'stimme voll zu', '', 27, 1),
+(28, '- Die Anwesenheit eines Einsatzleiters war motivierend.', 2, '', '', '', 28, 1),
+(29, '- Eine höhere Präsenz der Einsatzleiter wäre wünschenswert.', 2, '', '', '', 29, 1),
+(30, '- Eine intensivere persönliche Betreuung wäre gut.', 2, '', '', '', 30, 1),
+(31, '- Der Einsatzleiter stand bei Fragen jeweils zur Verfügung.', 2, '', '', '', 31, 1),
+(32, '- Der Einsatzleiter konnte meine Fragen gut beantworten.', 2, '', '', '', 32, 1),
+(33, '- Der Einsatzleiter wirkte in der Regel fachlich kompetent.', 2, '', '', '', 33, 1),
+(34, '- Ich bekam ein faires Feedback auf meine Arbeit.', 2, '', '', '', 34, 1),
+(35, '- Der Einsatzleiter gab realistische Tagesziele vor.', 2, '', '', '0', 35, 1),
+(36, 'Manuel Brändli', 1, 'sehr schlecht', 'sehr gut', 'weiss nicht', 36, 1),
+(37, '- Fachliche Kompetenz', 5, '', '', '', 37, 1),
+(38, '- Soziale Kompetenz', 5, '', '', '', 38, 1),
+(39, '- Stimmung während der Arbeit', 5, '', '', '', 39, 1),
+(40, '- Konkret kann verbessert werden :', 4, '', '', '', 40, 1),
+(41, 'Andreas Wolf', 1, 'sehr schlecht', 'sehr gut', 'weiss nicht', 41, 1),
+(42, '- Fachliche Kompetenz', 5, '', '', '', 42, 1),
+(43, '- Soziale Kompetenz', 5, '', '', '', 43, 1),
+(44, '- Stimmung während der Arbeit', 5, '', '', '', 44, 1),
+(45, '- Konkret kann verbessert werden :', 4, '', '', '', 45, 1),
+(46, 'Marc Pfeuti', 1, 'sehr schlecht', 'sehr gut', 'weiss nicht', 46, 1),
+(47, '- Fachliche Kompetenz', 5, '', '', '', 47, 1),
+(48, '- Soziale Kompetenz', 5, '', '', '', 48, 1),
+(49, '- Stimmung während der Arbeit', 5, '', '', '', 49, 1),
+(50, '- Konkret kann verbessert werden :', 4, '', '', '', 50, 1),
+(51, 'Lothar Schroeder', 1, 'sehr schlecht', 'sehr gut', 'weiss nicht', 51, 0),
+(52, '- Fachliche Kompetenz', 5, '', '', '', 52, 0),
+(53, '- Soziale Kompetenz', 5, '', '', '', 53, 0),
+(54, '- Stimmung während der Arbeit', 5, '', '', '', 54, 0),
+(55, '- Konkret kann verbessert werden :', 4, '', '', '', 55, 0),
+(56, 'Daniel Jerjen', 1, 'sehr schlecht', 'sehr gut', 'weiss nicht', 56, 1),
+(57, '- Fachliche Kompetenz', 5, '', '', '', 57, 1),
+(58, '- Soziale Kompetenz', 5, '', '', '', 58, 1),
+(59, '- Stimmung während der Arbeit', 5, '', '', '', 59, 1),
+(60, '- Konkret kann verbessert werden :', 4, '', '', '', 60, 1),
+(61, 'Lukas Geser', 1, 'sehr schlecht', 'sehr gut', 'weiss nicht', 61, 1),
+(62, '- Fachliche Kompetenz', 5, '', '', '', 62, 1),
+(63, '- Soziale Kompetenz', 5, '', '', '', 63, 1),
+(64, '- Stimmung während der Arbeit', 5, '', '', '', 64, 1),
+(65, '- Konkret kann verbessert werden :', 4, '', '', '', 65, 1),
+(66, 'Würdest du die SWO als Einsatzbetrieb weiterempfehlen ?', 6, 'nein', 'ja', '', 66, 1),
+(67, 'Würdest du wieder einmal Zivildienst bei der SWO leisten ?', 6, 'nein', 'ja', '', 67, 1),
+(68, 'Höhepunkt (e) meines Zivildiensteinsatzes :', 4, '', '', '', 68, 1),
+(69, 'Tiefpunkt (e) meines Zivildiensteinsatzes :', 4, '', '', '', 69, 1),
+(70, 'Verbesserungsvorschläge :', 4, '', '', '', 70, 1),
+(71, 'Weitere Kommentare :', 4, '', '', '', 71, 1);	
 
-      for(var i = 0; i <= 60; i++)
-      {(SELECT
-        ziviId,
-        year,
-        i,
-        "f"i
-
-      FROM stiftun8_iZivi.evaluation)};
 
 /*
 ██╗   ██╗███╗   ███╗██╗      █████╗ ██╗   ██╗████████╗    ███████╗██╗██╗  ██╗

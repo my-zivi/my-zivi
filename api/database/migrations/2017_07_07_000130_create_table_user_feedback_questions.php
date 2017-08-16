@@ -23,7 +23,7 @@ class CreateTableUserFeedbackQuestions extends Migration
             $table->string('opt2')->nullable();
             $table->string('opt3')->nullable();
             $table->integer('pos');
-            $table->integer('activ');
+            $table->integer('active');
         });
     }
 }

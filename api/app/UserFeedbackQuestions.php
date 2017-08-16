@@ -16,6 +16,6 @@ class UserFeedbackQuestions extends Model
                         'opt2',
                         'opt3',
                         'pos',
-                        'activ'
+                        'active'
         ];
 }
