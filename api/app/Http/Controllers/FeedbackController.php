@@ -11,20 +11,77 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 class FeedbackController extends Controller
 {
+    private $output = null;
+
     public function getFeedbacks(Application $app)
     {
-        $answers = DB::table('user_feedbacks')->get();
+        $this->output = new ConsoleOutput();
 
-        $output = new ConsoleOutput();
-        $output->writeln("FeedbackController getFeedbacks = ".json_encode($answers));
+        $questions = DB::table('user_feedback_questions')->get();
 
-        foreach ($answers as $value) {
-            {$value.questionId: [1:count($value.answer==1), 2:count($value.answer==2)]}
+
+        //$output->writeln("FeedbackController getFeedbacks = ".json_encode($questions));
+
+        foreach ($questions as $question) {
+            $this->output->writeln("questionID = ".$question->id);
+
+            switch ($question->type) {
+                case 0:
+                    $questions['answers'] = null;
+                    break;
+                case 1:
+                    $questions['answers'] = $this->getFeedbacksType1($question->id);
+                    break;
+                case 2:
+                    $questions['answers'] = $this->getFeedbacksType2($question->id);
+                    break;
+            }
+
+            $this->output->writeln("Answers = ".json_encode($questions['answers']));
         }
 
-        return new JsonResponse($answers);
+        return new JsonResponse($questions);
+    }
+
+    /*
+     SELECT
+     (SELECT COUNT(*) FROM user_feedback WHERE answer = 1 AND questionId = 3) AS '1',
+     (SELECT COUNT(*) FROM user_feedback WHERE answer = 2 AND questionId = 3) AS '2',
+     (SELECT COUNT(*) FROM user_feedback WHERE answer = 3 AND questionId = 3) AS '3',
+     (SELECT COUNT(*) FROM user_feedback WHERE answer = 4 AND questionId = 3) AS '4';
+    */
+    private function getFeedbacksType1($questionId)
+    {
+
+        // works:
+        //$results = DB::table('user_feedback')->where('answer', '=', 1)->get()->count();
+        //DB::table('user_feedback')->select(DB::raw('COUNT(*) AS "1"'))->where('answer', '=', 1)->where('questionId', '=', $questionId)->get();
+
+        $results = array();
+        $results[1] = DB::table('user_feedback')->where('answer', '=', 1)->where('questionId', '=', $questionId)->get()->count();
+        $results[2] = DB::table('user_feedback')->where('answer', '=', 2)->where('questionId', '=', $questionId)->get()->count();
+        $results[3] = DB::table('user_feedback')->where('answer', '=', 3)->where('questionId', '=', $questionId)->get()->count();
+        $results[4] = DB::table('user_feedback')->where('answer', '=', 4)->where('questionId', '=', $questionId)->get()->count();
+
+        return $results;
+    }
+
+    private function getFeedbacksType2($questionId)
+    {
+        $results = DB::table('user_feedback')->select('answer')->where('questionId', '=', $questionId)->get();
+
+        $returnObj = "";
+        foreach ($results as $result) {
+            //$this->output->writeln(json_encode($result->answer));
+            $returnObj .= "\n\r | \n\r " . $result->answer;
+        }
+
+        return $returnObj;
     }
 }
+
+
+
 //$answerMatrix->name = 1;
 /*
 var answerMatrix = {
