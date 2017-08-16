@@ -136,15 +136,27 @@ export default class UserFeedbackOverview extends Component {
               <div class="row">
                 <div class="col-xs-3">
                   <label>{answers[x] ? answers[x].answer : null}</label>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-danger" style="width: 20%;" />
+                  </div>
                 </div>
                 <div class="col-xs-3">
                   <label>{answers[x] ? answers[x].answer : null}</label>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-warning" style="width: 30%;" />
+                  </div>
                 </div>
                 <div class="col-xs-3">
                   <label>{answers[x] ? answers[x].answer : null}</label>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-info" style="width: 40%;" />
+                  </div>
                 </div>
                 <div class="col-xs-3">
                   <label>{answers[x] ? answers[x].answer : null}</label>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-success" style="width: 50%;" />
+                  </div>
                 </div>
               </div>
             </div>
