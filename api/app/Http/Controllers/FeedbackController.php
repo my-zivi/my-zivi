@@ -19,7 +19,7 @@ class FeedbackController extends Controller
         $output->writeln("FeedbackController getFeedbacks = ".json_encode($answers));
 
         foreach ($answers as $value) {
-            {$value.questionId: [1:count($value.answer==1), 2:count($value.answer==2)]}
+            //{$value.questionId: [1:count($value.answer==1), 2:count($value.answer==2)]}
         }
 
         return new JsonResponse($answers);
