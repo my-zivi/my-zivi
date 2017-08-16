@@ -64,74 +64,149 @@ export default class UserFeedbackOverview extends Component {
     var answers = this.state.feedbacks;
     var questions = this.state.questions;
 
-    console.log('answers = ', answers);
-    console.log('questions = ', questions);
-
     for (var x = 0; x < questions.length; x++) {
+      //Initialize different titles
       if (x == 0) {
         feedbacks.push(
-          <div>
-            <h3>SWO als Einsatzbetrieb</h3>
-            ------------------------------------------------------------------------------------------------
+          <div class="row">
+            <div class="col-xs-12" style="background-color: #cccccc;">
+              <h4>SWO als Einsatzbetrieb</h4>
+            </div>
           </div>
         );
       }
       if (x == 11) {
         feedbacks.push(
-          <div>
-            <h3>Arbeit</h3>
-            ------------------------------------------------------------------------------------------------
+          <div class="row">
+            <div class="col-xs-12" style="background-color: #cccccc;">
+              <h4>Arbeit</h4>
+            </div>
           </div>
         );
       }
       if (x == 27) {
         feedbacks.push(
-          <div>
-            <h3>Einsatzleitung</h3>
-            ------------------------------------------------------------------------------------------------
+          <div class="row">
+            <div class="col-xs-12" style="background-color: #cccccc;">
+              <h4>Einsatzleitung</h4>
+            </div>
           </div>
         );
       }
       if (x == 36) {
         feedbacks.push(
-          <div>
-            <h3>Bewertung der Einsatzleiter</h3>
-            ------------------------------------------------------------------------------------------------
+          <div class="row">
+            <div class="col-xs-12" style="background-color: #cccccc;">
+              <h4>Bewertung der Einsatzleiter</h4>
+            </div>
           </div>
         );
       }
       if (x == 66) {
         feedbacks.push(
-          <div>
-            <h3>Weiteres</h3>
-            ------------------------------------------------------------------------------------------------
+          <div class="row">
+            <div class="col-xs-12" style="background-color: #cccccc;">
+              <h4>Weiteres</h4>
+            </div>
           </div>
         );
       }
-      //console.log("questions[", x, "] = ", questions[x])
-      feedbacks.push(
-        <div>
-          <label>
-            {questions[x].question}
-            <br />
-            <input
-              type="text"
-              value={answers[x] ? answers[x].answer : null}
-              name={x}
-              defaultChecked={true}
-              onchange={e => {
-                this.handleChange(e);
-              }}
-            />
-          </label>
-        </div>
-      );
+
+      //Initialize different questiontypes
+      if (questions[x].type == 1) {
+        feedbacks.push(
+          <div class="row">
+            <div class="col-xs-8">
+              <label>{questions[x].question}</label>
+            </div>
+            <div class="col-xs-4" />
+          </div>
+        );
+      }
+      if (questions[x].type == 2 || questions[x].type == 5 || questions[x].type == 6) {
+        feedbacks.push(
+          <div class="row">
+            <div class="col-xs-8">
+              <label>{questions[x].question}</label>
+            </div>
+            <div class="col-xs-1">
+              <label>{questions[x].opt1}</label>
+            </div>
+            <div class="col-xs-2">
+              <div class="row">
+                <div class="col-xs-3">
+                  <label>{answers[x] ? answers[x].answer : null}</label>
+                </div>
+                <div class="col-xs-3">
+                  <label>{answers[x] ? answers[x].answer : null}</label>
+                </div>
+                <div class="col-xs-3">
+                  <label>{answers[x] ? answers[x].answer : null}</label>
+                </div>
+                <div class="col-xs-3">
+                  <label>{answers[x] ? answers[x].answer : null}</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-1">
+              <label>{questions[x].opt2}</label>
+            </div>
+          </div>
+        );
+      }
+      if (questions[x].type == 3) {
+        feedbacks.push(
+          <div class="row">
+            <div class="col-xs-8">
+              <label>{questions[x].question}</label>
+            </div>
+            <div class="col-xs-4">
+              <div class="row">
+                <div class="col-xs-2">
+                  <label>Kollegen {answers[x] ? answers[x].answer : null}</label>
+                </div>
+                <div class="col-xs-2">
+                  <label>EIS {answers[x] ? answers[x].answer : null}</label>
+                </div>
+                <div class="col-xs-2">
+                  <label>Website SWO {answers[x] ? answers[x].answer : null}</label>
+                </div>
+                <div class="col-xs-2">
+                  <label>Thomas Winter {answers[x] ? answers[x].answer : null}</label>
+                </div>
+                <div class="col-xs-2">
+                  <label>Früherer Einsatz {answers[x] ? answers[x].answer : null}</label>
+                </div>
+                <div class="col-xs-2">
+                  <label>Anderes {answers[x] ? answers[x].answer : null}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+      if (questions[x].type == 4) {
+        feedbacks.push(
+          <div class="row">
+            <div class="col-xs-8">
+              <label>{questions[x].question}</label>
+            </div>
+            <div class="col-xs-4">
+              <textarea rows="5" cols="42" value={answers[x] ? answers[x].answer : null} name={x} />
+            </div>
+          </div>
+        );
+      }
     }
 
     return (
       <Header>
         <div className="page page__user_feedback_overview">
-          <Card>{feedbacks}</Card>
+          <Card>
+            <div class="container" style="background-color: #ebebeb;">
+              {feedbacks}
+            </div>
+          </Card>
 
           <LoadingView loading={this.state.loading} error={this.state.error} />
         </div>
