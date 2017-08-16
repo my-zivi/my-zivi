@@ -68,13 +68,50 @@ export default class UserFeedbackOverview extends Component {
     console.log('questions = ', questions);
 
     for (var x = 0; x < questions.length; x++) {
+      if (x == 0) {
+        feedbacks.push(
+          <div>
+            <h3>SWO als Einsatzbetrieb</h3>
+          </div>
+        );
+      }
+      if (x == 11) {
+        feedbacks.push(
+          <div>
+            <h3>Arbeit</h3>
+          </div>
+        );
+      }
+      if (x == 27) {
+        feedbacks.push(
+          <div>
+            <h3>Einsatzleitung</h3>
+          </div>
+        );
+      }
+      if (x == 36) {
+        feedbacks.push(
+          <div>
+            <h3>Bewertung der Einsatzleiter</h3>
+          </div>
+        );
+      }
+      if (x == 66) {
+        feedbacks.push(
+          <div>
+            <h3>Weiteres</h3>
+          </div>
+        );
+      }
       //console.log("questions[", x, "] = ", questions[x])
       feedbacks.push(
-        <div class="checkbox no-print">
+        <div>
           <label>
             {questions[x].question}
+            <br />
             <input
-              type="checkbox"
+              type="text"
+              value={answers[x] ? answers[x].answer : null}
               name={x}
               defaultChecked={true}
               onchange={e => {
