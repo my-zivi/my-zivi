@@ -2,6 +2,7 @@ import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Card from '../tags/card';
 import InputField from '../tags/InputFields/InputField';
+import InputCheckbox from '../tags/InputFields/InputCheckbox';
 import InputFieldWithProposal from '../tags/InputFields/InputFieldWithProposal';
 import DatePicker from '../tags/InputFields/DatePicker';
 import axios from 'axios';
@@ -49,6 +50,17 @@ export default class EditExpense extends Component {
 
   handleChange(e) {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    this.state['report_sheet'][e.target.name] = value;
+    this.setState(this.state);
+  }
+
+  handleSelectChange(e) {
+    let value = 1;
+
+    console.log(e);
+    /*
+        var targetSelect = document.getElementById( e.target.id );
+        let value = targetSelect.options[ targetSelect.selectedIndex ].value;*/
     this.state['report_sheet'][e.target.name] = value;
     this.setState(this.state);
   }
@@ -302,7 +314,7 @@ export default class EditExpense extends Component {
             />
             <DatePicker id="paid_date" label="Bezahlt" value={sheet.paid_date} callback={this.handleDateChange} callbackOrigin={this} />
 
-            <InputField id="done" label="Erledigt" value={sheet.done} self={this} />
+            <InputCheckbox id="done" label="Erledigt" value={sheet.done} self={this} />
 
             <hr />
 
