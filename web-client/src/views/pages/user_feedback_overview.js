@@ -113,60 +113,7 @@ export default class UserFeedbackOverview extends Component {
       }
 
       //Initialize different questiontypes
-      if (questions[x].type == 1) {
-        feedbacks.push(
-          <div class="row">
-            <div class="col-xs-8">
-              <label>{questions[x].question}</label>
-            </div>
-            <div class="col-xs-4" />
-          </div>
-        );
-      }
-      if (questions[x].type == 2 || questions[x].type == 5 || questions[x].type == 6) {
-        feedbacks.push(
-          <div class="row">
-            <div class="col-xs-8">
-              <label>{questions[x].question}</label>
-            </div>
-            <div class="col-xs-1">
-              <label>{questions[x].opt1}</label>
-            </div>
-            <div class="col-xs-2">
-              <div class="row">
-                <div class="col-xs-3">
-                  <label>{answers[x] ? answers[x].answer : null}</label>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-danger" style="width: 20%;" />
-                  </div>
-                </div>
-                <div class="col-xs-3">
-                  <label>{answers[x] ? answers[x].answer : null}</label>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-warning" style="width: 30%;" />
-                  </div>
-                </div>
-                <div class="col-xs-3">
-                  <label>{answers[x] ? answers[x].answer : null}</label>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-info" style="width: 40%;" />
-                  </div>
-                </div>
-                <div class="col-xs-3">
-                  <label>{answers[x] ? answers[x].answer : null}</label>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-success" style="width: 50%;" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xs-1">
-              <label>{questions[x].opt2}</label>
-            </div>
-          </div>
-        );
-      }
-      if (questions[x].type == 3) {
+      if (questions[x].pos == 1) {
         feedbacks.push(
           <div class="row">
             <div class="col-xs-8">
@@ -196,8 +143,58 @@ export default class UserFeedbackOverview extends Component {
             </div>
           </div>
         );
-      }
-      if (questions[x].type == 4) {
+      } else if (questions[x].type == 0) {
+        feedbacks.push(
+          <div class="row">
+            <div class="col-xs-8">
+              <label>{questions[x].question}</label>
+            </div>
+            <div class="col-xs-4" />
+          </div>
+        );
+      } else if (questions[x].type == 1) {
+        feedbacks.push(
+          <div class="row">
+            <div class="col-xs-8">
+              <label>{questions[x].question}</label>
+            </div>
+            <div class="col-xs-1">
+              <label>{questions[x].opt1}</label>
+            </div>
+            <div class="col-xs-2">
+              <div class="row">
+                <div class="col-xs-3">
+                  <label>{answers[x]['answers'][0]}</label>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-danger" style="width: 20%;" />
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <label>{answers[x]['answers'][1]}</label>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-warning" style="width: 30%;" />
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <label>{answers[x]['answers'][2]}</label>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-info" style="width: 40%;" />
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <label>{answers[x]['answers'][3]}</label>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-success" style="width: 50%;" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-1">
+              <label>{questions[x].opt2}</label>
+            </div>
+          </div>
+        );
+      } else if (questions[x].type == 2) {
         feedbacks.push(
           <div class="row">
             <div class="col-xs-8">

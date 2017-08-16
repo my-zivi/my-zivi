@@ -13,31 +13,29 @@ class FeedbackController extends Controller
 {
     private $output = null;
 
-    public function getFeedbacks(Application $app)
+    public function getFeedbacks()
     {
         $this->output = new ConsoleOutput();
 
         $questions = DB::table('user_feedback_questions')->get();
-
-
         //$output->writeln("FeedbackController getFeedbacks = ".json_encode($questions));
 
-        foreach ($questions as $question) {
-            $this->output->writeln("questionID = ".$question->id);
+        for ($i = 0; $i < count($questions); $i++) {
+            //$this->output->writeln("questionID = ".$question->id);
 
-            switch ($question->type) {
+            switch ($questions[$i]->type) {
                 case 0:
-                    $questions['answers'] = null;
+                    $questions[$i]->answers = null;
                     break;
                 case 1:
-                    $questions['answers'] = $this->getFeedbacksType1($question->id);
+                    $questions[$i]->answers = $this->getFeedbacksType1($questions[$i]->id);
                     break;
                 case 2:
-                    $questions['answers'] = $this->getFeedbacksType2($question->id);
+                    $questions[$i]->answers = $this->getFeedbacksType2($questions[$i]->id);
                     break;
             }
 
-            $this->output->writeln("Answers = ".json_encode($questions['answers']));
+            //$this->output->writeln("Answers = ".json_encode($question['answers']));
         }
 
         return new JsonResponse($questions);
