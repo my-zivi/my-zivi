@@ -17,6 +17,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Holiday;
 use App\ReportSheet;
 use App\Http\Controllers\Auth\AuthController;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 $api = $app->make(Dingo\Api\Routing\Router::class);
 
@@ -182,15 +183,31 @@ $api->version('v1', function ($api) {
         $api->put('/user/feedback', function () {
             $content = Input::get();
             $userId = JWTAuth::parseToken()->authenticate()->id;
-            $date = time();
+            $date = date("Y-m-d H:i:s");
+
+            $output = new ConsoleOutput();
+            $output->writeln(json_encode($content));
 
             foreach ($content as $key => $value) {
-                $user_feedback = new App\UserFeedback();
-                $user_feedback->user = $userId;
-                $user_feedback->year = $date;
-                $user_feedback->questionId = $key;
-                $user_feedback->answer = $value;
-                $user_feedback->save();
+                if (is_array($value)) {
+                    foreach ($value as $subKey => $subValue) {
+                        $output->writeln("sub ");
+                        $user_feedback = new App\UserFeedback();
+                        $user_feedback->user = $userId;
+                        $user_feedback->year = $date;
+                        $user_feedback->questionId = $subKey;
+                        $user_feedback->answer = $subValue;
+                        $user_feedback->save();
+                    }
+                } else {
+                    $output->writeln("parent ");
+                    $user_feedback = new App\UserFeedback();
+                    $user_feedback->user = $userId;
+                    $user_feedback->year = $date;
+                    $user_feedback->questionId = $key;
+                    $user_feedback->answer = $value;
+                    $user_feedback->save();
+                }
             }
 
             return response("inserted");
@@ -213,10 +230,10 @@ $api->version('v1', function ($api) {
                 'as' => 'api.user.getZivis'
             ]);
 
-            $api->get('/user/feedback', function () {
-                $user_feedback = App\UserFeedback::all();
-                return response()->json($user_feedback);
-            });
+            $api->get('/user/feedback', [
+                'uses' => 'App\Http\Controllers\FeedbackController@getFeedbacks',
+                'as' => 'api.feedbacks'
+            ]);
 
             $api->get('/user/feedback/question', function () {
                 $user_feedback_question = App\UserFeedbackQuestions::all();
