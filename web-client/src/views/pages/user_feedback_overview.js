@@ -123,7 +123,7 @@ export default class UserFeedbackOverview extends Component {
           </div>
         );
       }
-      if (x == 27) {
+      if (x == 26) {
         feedbacks.push(
           <div class="row">
             <div class="col-xs-12" style="background-color: #cccccc;">
@@ -132,7 +132,7 @@ export default class UserFeedbackOverview extends Component {
           </div>
         );
       }
-      if (x == 36) {
+      if (x == 35) {
         feedbacks.push(
           <div class="row">
             <div class="col-xs-12" style="background-color: #cccccc;">
@@ -141,7 +141,7 @@ export default class UserFeedbackOverview extends Component {
           </div>
         );
       }
-      if (x == 66) {
+      if (x == 65) {
         feedbacks.push(
           <div class="row">
             <div class="col-xs-12" style="background-color: #cccccc;">
