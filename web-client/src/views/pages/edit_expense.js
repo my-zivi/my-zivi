@@ -89,6 +89,7 @@ export default class EditExpense extends Component {
         this.getReportSheet();
       })
       .catch(error => {
+        this.setState({ loading: false, error: null });
         Toast.showError('Speichern fehlgeschlagen', 'Spesen konnte nicht gespeichert werden', error, this.context);
       });
   }
@@ -104,6 +105,7 @@ export default class EditExpense extends Component {
           this.router.push('/profile/' + this.state['report_sheet']['user']);
         })
         .catch(error => {
+          this.setState({ loading: false, error: null });
           Toast.showError('Löschen fehlgeschlagen', 'Meldeblatt konnte nicht gelöscht werden', error, this.context);
         });
     }
