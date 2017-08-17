@@ -117,45 +117,80 @@ export default class UserFeedbackOverview extends Component {
       //Initialize different titles
       if (x == 0) {
         feedbacks.push(
-          <div class="row">
-            <div class="col-xs-12" style="background-color: #cccccc;">
-              <h4>SWO als Einsatzbetrieb</h4>
+          <div>
+            <div class="row">
+              <div class="col-xs-12 chapter">
+                <h3>SWO als Einsatzbetrieb</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <br />
+              </div>
             </div>
           </div>
         );
       }
       if (x == 11) {
         feedbacks.push(
-          <div class="row">
-            <div class="col-xs-12" style="background-color: #cccccc;">
-              <h4>Arbeit</h4>
+          <div>
+            <div class="row">
+              <div class="col-xs-12 chapter">
+                <h3>Arbeit</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <br />
+              </div>
             </div>
           </div>
         );
       }
       if (x == 26) {
         feedbacks.push(
-          <div class="row">
-            <div class="col-xs-12" style="background-color: #cccccc;">
-              <h4>Einsatzleitung</h4>
+          <div>
+            <div class="row">
+              <div class="col-xs-12 chapter">
+                <h3>Einsatzleitung</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <br />
+              </div>
             </div>
           </div>
         );
       }
       if (x == 35) {
         feedbacks.push(
-          <div class="row">
-            <div class="col-xs-12" style="background-color: #cccccc;">
-              <h4>Bewertung der Einsatzleiter</h4>
+          <div>
+            <div class="row">
+              <div class="col-xs-12 chapter">
+                <h3>Bewertung der Einsatzleiter</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <br />
+              </div>
             </div>
           </div>
         );
       }
       if (x == 65) {
         feedbacks.push(
-          <div class="row">
-            <div class="col-xs-12" style="background-color: #cccccc;">
-              <h4>Weiteres</h4>
+          <div>
+            <div class="row">
+              <div class="col-xs-12 chapter">
+                <h3>Weiteres</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <br />
+              </div>
             </div>
           </div>
         );
@@ -191,51 +226,45 @@ export default class UserFeedbackOverview extends Component {
               </div>
               <div class="row">
                 <div class="col-xs-2">
-                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
-                    <div
-                      class="progress-bar"
-                      style={'height: ' + (100 - answerOnePerc * 100) + '%; width: 100%;  background-color: white;'}
-                    />
+                  <div class="progress vertical progress-striped progress-bar-info">
+                    <div class="progress-bar" style={'height: ' + (100 - answerOnePerc * 100) + '%;'}>
+                      {answerOnePerc * 100}
+                    </div>
                   </div>
                 </div>
                 <div class="col-xs-2">
-                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
-                    <div
-                      class="progress-bar"
-                      style={'height: ' + (100 - answerTwoPerc * 100) + '%; width: 100%;  background-color: white;'}
-                    />
+                  <div class="progress vertical progress-striped progress-bar-info">
+                    <div class="progress-bar" style={'height: ' + (100 - answerTwoPerc * 100) + '%;'}>
+                      {answerTwoPerc * 100}
+                    </div>
                   </div>
                 </div>
                 <div class="col-xs-2">
-                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
-                    <div
-                      class="progress-bar"
-                      style={'height: ' + (100 - answerThreePerc * 100) + '%; width: 100%;  background-color: white;'}
-                    />
+                  <div class="progress vertical progress-striped progress-bar-info">
+                    <div class="progress-bar" style={'height: ' + (100 - answerThreePerc * 100) + '%;'}>
+                      {answerThreePerc * 100}
+                    </div>
                   </div>
                 </div>
                 <div class="col-xs-2">
-                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
-                    <div
-                      class="progress-bar"
-                      style={'height: ' + (100 - answerFourPerc * 100) + '%; width: 100%;  background-color: white;'}
-                    />
+                  <div class="progress vertical progress-striped progress-bar-info">
+                    <div class="progress-bar" style={'height: ' + (100 - answerFourPerc * 100) + '%;'}>
+                      {answerFourPerc * 100}
+                    </div>
                   </div>
                 </div>
                 <div class="col-xs-2">
-                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
-                    <div
-                      class="progress-bar"
-                      style={'height: ' + (100 - answerFivePerc * 100) + '%; width: 100%;  background-color: white;'}
-                    />
+                  <div class="progress vertical progress-striped progress-bar-info">
+                    <div class="progress-bar" style={'height: ' + (100 - answerFivePerc * 100) + '%;'}>
+                      {answerFivePerc * 100}
+                    </div>
                   </div>
                 </div>
                 <div class="col-xs-2">
-                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
-                    <div
-                      class="progress-bar"
-                      style={'height: ' + (100 - answerSixPerc * 100) + '%; width: 100%;  background-color: white;'}
-                    />
+                  <div class="progress vertical progress-striped progress-bar-info">
+                    <div class="progress-bar" style={'height: ' + (100 - answerSixPerc * 100) + '%;'}>
+                      {answerSixPerc * 100}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -246,7 +275,9 @@ export default class UserFeedbackOverview extends Component {
         feedbacks.push(
           <div class="row">
             <div class="col-xs-8">
-              <label>{answers[x].question}</label>
+              <label>
+                <h4>{answers[x].question}</h4>
+              </label>
             </div>
             <div class="col-xs-4" />
           </div>
@@ -263,11 +294,8 @@ export default class UserFeedbackOverview extends Component {
             <div class="col-xs-2">
               <div class="row">
                 <div class="col-xs-3">
-                  <div class="progress vertical progress-striped progress-bar-danger" style="height: 50px; width: 20px;">
-                    <div
-                      class="progress-bar"
-                      style={'height: ' + (100 - answerOnePerc * 100) + '%; width: 100%;  background-color: white; color: black;'}
-                    >
+                  <div class="progress vertical progress-striped progress-bar-danger">
+                    <div class="progress-bar" style={'height: ' + (100 - answerOnePerc * 100) + '%;'}>
                       {answerOnePerc * 100}
                     </div>
                   </div>
@@ -275,11 +303,8 @@ export default class UserFeedbackOverview extends Component {
                 <div class="col-xs-3" />
                 <div class="col-xs-3" />
                 <div class="col-xs-3">
-                  <div class="progress vertical progress-striped progress-bar-warning" style="height: 50px; width: 20px;">
-                    <div
-                      class="progress-bar"
-                      style={'height: ' + (100 - answerTwoPerc * 100) + '%; width: 100%;  background-color: white; color: black;'}
-                    >
+                  <div class="progress vertical progress-striped progress-bar-warning">
+                    <div class="progress-bar" style={'height: ' + (100 - answerTwoPerc * 100) + '%;'}>
                       {answerTwoPerc * 100}
                     </div>
                   </div>
@@ -303,41 +328,29 @@ export default class UserFeedbackOverview extends Component {
             <div class="col-xs-2">
               <div class="row">
                 <div class="col-xs-3">
-                  <div class="progress vertical progress-striped progress-bar-danger" style="height: 50px; width: 20px;">
-                    <div
-                      class="progress-bar"
-                      style={'height: ' + (100 - answerOnePerc * 100) + '%; width: 100%;  background-color: white; color: black;'}
-                    >
+                  <div class="progress vertical progress-striped progress-bar-danger">
+                    <div class="progress-bar" style={'height: ' + (100 - answerOnePerc * 100) + '%;'}>
                       {answerOnePerc * 100}
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-3">
-                  <div class="progress vertical progress-striped progress-bar-warning" style="height: 50px; width: 20px;">
-                    <div
-                      class="progress-bar"
-                      style={'height: ' + (100 - answerTwoPerc * 100) + '%; width: 100%;  background-color: white; color: black;'}
-                    >
+                  <div class="progress vertical progress-striped progress-bar-warning">
+                    <div class="progress-bar" style={'height: ' + (100 - answerTwoPerc * 100) + '%;'}>
                       {answerTwoPerc * 100}
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-3">
-                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
-                    <div
-                      class="progress-bar"
-                      style={'height: ' + (100 - answerThreePerc * 100) + '%; width: 100%;  background-color: white; color: black;'}
-                    >
+                  <div class="progress vertical progress-striped progress-bar-info">
+                    <div class="progress-bar" style={'height: ' + (100 - answerThreePerc * 100) + '%;'}>
                       {answerThreePerc * 100}
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-3">
-                  <div class="progress vertical progress-striped progress-bar-success" style="height: 50px; width: 20px;">
-                    <div
-                      class="progress-bar"
-                      style={'height: ' + (100 - answerFourPerc * 100) + '%; width: 100%;  background-color: white; color: black;'}
-                    >
+                  <div class="progress vertical progress-striped progress-bar-success">
+                    <div class="progress-bar" style={'height: ' + (100 - answerFourPerc * 100) + '%;'}>
                       {answerFourPerc * 100}
                     </div>
                   </div>
@@ -356,7 +369,7 @@ export default class UserFeedbackOverview extends Component {
               <label>{answers[x].question}</label>
             </div>
             <div class="col-xs-6">
-              <textarea rows="10" cols="75" value={answers[x] ? answers[x]['answers'] : null} name={x} />
+              <textarea class="form-control" rows="10" cols="50" value={answers[x] ? answers[x]['answers'] : null} name={x} />
             </div>
           </div>
         );
@@ -367,16 +380,14 @@ export default class UserFeedbackOverview extends Component {
       <Header>
         <div className="page page__user_feedback_overview">
           <Card>
-            <div class="container" style="background-color: #ebebeb;">
+            <div class="container title">
               <div class="row">
-                <div class="col-xs-12" style="background-color: #ffffff;">
+                <div class="col-xs-12">
                   <h4>Anzahl Feedbacks in diesem Jahr: {totalFeedbacks}</h4>
                 </div>
               </div>
             </div>
-            <div class="container" style="background-color: #ebebeb;">
-              {feedbacks}
-            </div>
+            <div class="container feedback">{feedbacks}</div>
           </Card>
 
           <LoadingView loading={this.state.loading} error={this.state.error} />

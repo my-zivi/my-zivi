@@ -413,9 +413,16 @@ export default class UserFeedback extends Component {
 
   render() {
     return (
-      <div>
-        <div id="surveyContainer" />
-      </div>
+      <Header>
+        <div className="page page__user_feedback">
+          <Card>
+            <div>
+              <div id="surveyContainer" />
+            </div>
+          </Card>
+          <LoadingView loading={this.state.loading} error={this.state.error} />
+        </div>
+      </Header>
     );
   }
 }
