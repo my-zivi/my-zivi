@@ -26,6 +26,23 @@ export default class AdminRestrictedFields extends Component {
   }
 
   getAdminRestrictedFields(self, result) {
+    /* Don't show role field for own user */
+    let roleFormGroup = [];
+    if (self.props.params.userid) {
+      roleFormGroup.push(
+        <div class="form-group">
+          <label class="control-label col-sm-3" for="role">
+            Benutzerrolle
+          </label>
+          <div class="col-sm-9">
+            <select id="role" name="role" class="form-control" onChange={e => self.handleSelectChange(e)} value={result.role}>
+              {this.getRoleOptions(result)}
+            </select>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div>
         <div class="form-group">
@@ -38,16 +55,7 @@ export default class AdminRestrictedFields extends Component {
             </textarea>
           </div>
         </div>
-        <div class="form-group">
-          <label class="control-label col-sm-3" for="role">
-            Benutzerrolle
-          </label>
-          <div class="col-sm-9">
-            <select id="role" name="role" class="form-control" onChange={e => self.handleSelectChange(e)} value={result.role}>
-              {this.getRoleOptions(result)}
-            </select>
-          </div>
-        </div>
+        {roleFormGroup}
       </div>
     );
   }
