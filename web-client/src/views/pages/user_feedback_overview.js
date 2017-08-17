@@ -46,6 +46,64 @@ export default class UserFeedbackOverview extends Component {
     var answers = this.state.feedbacks;
 
     for (var x = 0; x < answers.length; x++) {
+      var answerOne = 0;
+      var answerTwo = 0;
+      var answerThree = 0;
+      var answerFour = 0;
+      var answerFive = 0;
+      var answerSix = 0;
+
+      var totalAnswers = 0;
+
+      var answerOnePerc = 0;
+      var answerTwoPerc = 0;
+      var answerThreePerc = 0;
+      var answerFourPerc = 0;
+      var answerFivePerc = 0;
+      var answerSixPerc = 0;
+
+      if (answers[x].type == 1) {
+        answerOne = answers[x]['answers']['1'] ? answers[x]['answers']['1'] : 0;
+        answerTwo = answers[x]['answers']['2'] ? answers[x]['answers']['2'] : 0;
+        answerThree = answers[x]['answers']['3'] ? answers[x]['answers']['3'] : 0;
+        answerFour = answers[x]['answers']['4'] ? answers[x]['answers']['4'] : 0;
+        answerFive = answers[x]['answers']['5'] ? answers[x]['answers']['5'] : 0;
+        answerSix = answers[x]['answers']['6'] ? answers[x]['answers']['6'] : 0;
+
+        totalAnswers = answerOne + answerTwo + answerThree + answerFour + answerFive + answerSix;
+
+        if (answerOne == 0) {
+          answerOnePerc = 0;
+        } else {
+          answerOnePerc = answerOne / totalAnswers;
+        }
+        if (answerTwo == 0) {
+          answerTwoPerc = 0;
+        } else {
+          answerTwoPerc = answerTwo / totalAnswers;
+        }
+        if (answerThree == 0) {
+          answerThreePerc = 0;
+        } else {
+          answerThreePerc = answerThree / totalAnswers;
+        }
+        if (answerFour == 0) {
+          answerFourPerc = 0;
+        } else {
+          answerFourPerc = answerFour / totalAnswers;
+        }
+        if (answerFive == 0) {
+          answerFivePerc = 0;
+        } else {
+          answerFivePerc = answerFive / totalAnswers;
+        }
+        if (answerSix == 0) {
+          answerSixPerc = 0;
+        } else {
+          answerSixPerc = answerSix / totalAnswers;
+        }
+      }
+
       //Initialize different titles
       if (x == 0) {
         feedbacks.push(
@@ -97,28 +155,60 @@ export default class UserFeedbackOverview extends Component {
       if (answers[x].pos == 1) {
         feedbacks.push(
           <div class="row">
-            <div class="col-xs-8">
+            <div class="col-xs-7">
               <label>{answers[x].question}</label>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-5">
               <div class="row">
                 <div class="col-xs-2">
-                  <label>Kollegen {answers[x] ? answers[x].answer : null}</label>
+                  <label>Kollegen</label>
                 </div>
                 <div class="col-xs-2">
-                  <label>EIS {answers[x] ? answers[x].answer : null}</label>
+                  <label>EIS</label>
                 </div>
                 <div class="col-xs-2">
-                  <label>Website SWO {answers[x] ? answers[x].answer : null}</label>
+                  <label>Website SWO</label>
                 </div>
                 <div class="col-xs-2">
-                  <label>Thomas Winter {answers[x] ? answers[x].answer : null}</label>
+                  <label>Thomas Winter</label>
                 </div>
                 <div class="col-xs-2">
-                  <label>Früherer Einsatz {answers[x] ? answers[x].answer : null}</label>
+                  <label>Früherer Einsatz</label>
                 </div>
                 <div class="col-xs-2">
-                  <label>Anderes {answers[x] ? answers[x].answer : null}</label>
+                  <label>Anderes</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-2">
+                  <div class="progress vertical progress-striped" style="height: 50px; width: 20px;">
+                    <div class="progress-bar progress-bar-info" style={'height: ' + answerOnePerc * 100 + '%; width: 100%;'} />
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="progress vertical progress-striped" style="height: 50px; width: 20px;">
+                    <div class="progress-bar progress-bar-info" style={'height: ' + answerTwoPerc * 100 + '%; width: 100%;'} />
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="progress vertical progress-striped" style="height: 50px; width: 20px;">
+                    <div class="progress-bar progress-bar-info" style={'height: ' + answerThreePerc * 100 + '%; width: 100%;'} />
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="progress vertical progress-striped" style="height: 50px; width: 20px;">
+                    <div class="progress-bar progress-bar-info" style={'height: ' + answerFourPerc * 100 + '%; width: 100%;'} />
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="progress vertical progress-striped" style="height: 50px; width: 20px;">
+                    <div class="progress-bar progress-bar-info" style={'height: ' + answerFivePerc * 100 + '%; width: 100%;'} />
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="progress vertical progress-striped" style="height: 50px; width: 20px;">
+                    <div class="progress-bar progress-bar-info" style={'height: ' + answerSixPerc * 100 + '%; width: 100%;'} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -145,27 +235,27 @@ export default class UserFeedbackOverview extends Component {
             <div class="col-xs-2">
               <div class="row">
                 <div class="col-xs-3">
-                  <label>{answers[x]['answers'][0]}</label>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-danger" style="width: 20%;" />
+                  <label>{answers[x]['answers']['1']}</label>
+                  <div class="progress vertical progress-striped" style="height: 50px">
+                    <div class="progress-bar progress-bar-danger" style={'height: ' + answerOnePerc * 100 + '%; width: 100%;'} />
                   </div>
                 </div>
                 <div class="col-xs-3">
-                  <label>{answers[x]['answers'][1]}</label>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-warning" style="width: 30%;" />
+                  <label>{answers[x]['answers']['2']}</label>
+                  <div class="progress vertical progress-striped" style="height: 50px">
+                    <div class="progress-bar progress-bar-warning" style={'height: ' + answerTwoPerc * 100 + '%; width: 100%;'} />
                   </div>
                 </div>
                 <div class="col-xs-3">
-                  <label>{answers[x]['answers'][2]}</label>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-info" style="width: 40%;" />
+                  <label>{answers[x]['answers']['3']}</label>
+                  <div class="progress vertical progress-striped" style="height: 50px">
+                    <div class="progress-bar progress-bar-info" style={'height: ' + answerThreePerc * 100 + '%; width: 100%;'} />
                   </div>
                 </div>
                 <div class="col-xs-3">
-                  <label>{answers[x]['answers'][3]}</label>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-success" style="width: 50%;" />
+                  <label>{answers[x]['answers']['4']}</label>
+                  <div class="progress vertical progress-striped" style="height: 50px">
+                    <div class="progress-bar progress-bar-success" style={'height: ' + answerFourPerc * 100 + '%; width: 100%;'} />
                   </div>
                 </div>
               </div>
@@ -178,11 +268,11 @@ export default class UserFeedbackOverview extends Component {
       } else if (answers[x].type == 2) {
         feedbacks.push(
           <div class="row">
-            <div class="col-xs-8">
+            <div class="col-xs-6">
               <label>{answers[x].question}</label>
             </div>
-            <div class="col-xs-4">
-              <textarea rows="5" cols="42" value={answers[x] ? answers[x].answer : null} name={x} />
+            <div class="col-xs-6">
+              <textarea rows="10" cols="75" value={answers[x] ? answers[x]['answers'] : null} name={x} />
             </div>
           </div>
         );
