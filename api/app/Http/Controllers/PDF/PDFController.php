@@ -81,6 +81,13 @@ class PDFController extends Controller
     {
         $aufgebot = new AufgebotPDF($id);
 
+        //Allow only admins to get reportSheets of other Users
+        $user = JWTAuth::setToken(substr(Request::header("Authorization"), 7))->authenticate();
+        if ($user->role!=1 && $user->id!=$aufgebot->getUserId()) {
+            return response("unauthorized", 401);
+        }
+
+
         $response = response()->download($aufgebot->createPDF(), 'aufgebot.pdf')
             ->deleteFileAfterSend(true);
         $response->headers->set("Content-Type", "application/pdf");

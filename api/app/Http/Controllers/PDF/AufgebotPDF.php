@@ -39,6 +39,11 @@ class AufgebotPDF extends PDF
             ->get();
     }
 
+    public function getUserId()
+    {
+        return $this->zivi->id;
+    }
+
     protected function render()
     {
         /*$this->zivi = array("health_insurance"=>"KPT","kontoNr"=>"43", "id"=>"36680", "street"=>"asd", "zip"=>"sadjl", "city"=>"jasd", "phoneP"=>"asdljk", "phoneM"=>"asjl");
