@@ -13,7 +13,7 @@ class CreateTableUserFeedback extends Migration
      */
     public function up()
     {
-        Schema::create('user_feedback', function (Blueprint $table) {
+        Schema::create('user_feedbacks', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->softDeletes();
