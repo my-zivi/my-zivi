@@ -23,3 +23,17 @@
 * *nix:
     php artisan migrate --path=./database/migrations/After
 7. php artisan serve
+
+#Live Deployment
+1. Copy all files except for the vendor folder to remote server
+2. Create or adapt the .env file for the live database
+3. Connect to server via SSH
+4. Install composer if needed (https://getcomposer.org/download/) and run 
+    * php composer.phar install
+5. Run
+    * php artisan migrate
+6. If migrating from old iZivi adapt the izivi_DB_Migration.sql to match your databases and run it from the console (it does not work in phpMyAdmin)
+    * mysql -u DATABASE_USER -p --database NEW_DATABASE_NAME < izivi_DB_Migration.sql 
+7. If migrating from old iZivi run 
+    * php artisan migrate --path=./database/migrations/After
+8. Make sure your server endpoint points to the public folder
