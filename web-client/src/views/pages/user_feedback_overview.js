@@ -181,33 +181,51 @@ export default class UserFeedbackOverview extends Component {
               </div>
               <div class="row">
                 <div class="col-xs-2">
-                  <div class="progress vertical progress-striped" style="height: 50px; width: 20px;">
-                    <div class="progress-bar progress-bar-info" style={'height: ' + answerOnePerc * 100 + '%; width: 100%;'} />
+                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
+                    <div
+                      class="progress-bar"
+                      style={'height: ' + (100 - answerOnePerc * 100) + '%; width: 100%;  background-color: white;'}
+                    />
                   </div>
                 </div>
                 <div class="col-xs-2">
-                  <div class="progress vertical progress-striped" style="height: 50px; width: 20px;">
-                    <div class="progress-bar progress-bar-info" style={'height: ' + answerTwoPerc * 100 + '%; width: 100%;'} />
+                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
+                    <div
+                      class="progress-bar"
+                      style={'height: ' + (100 - answerTwoPerc * 100) + '%; width: 100%;  background-color: white;'}
+                    />
                   </div>
                 </div>
                 <div class="col-xs-2">
-                  <div class="progress vertical progress-striped" style="height: 50px; width: 20px;">
-                    <div class="progress-bar progress-bar-info" style={'height: ' + answerThreePerc * 100 + '%; width: 100%;'} />
+                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
+                    <div
+                      class="progress-bar"
+                      style={'height: ' + (100 - answerThreePerc * 100) + '%; width: 100%;  background-color: white;'}
+                    />
                   </div>
                 </div>
                 <div class="col-xs-2">
-                  <div class="progress vertical progress-striped" style="height: 50px; width: 20px;">
-                    <div class="progress-bar progress-bar-info" style={'height: ' + answerFourPerc * 100 + '%; width: 100%;'} />
+                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
+                    <div
+                      class="progress-bar"
+                      style={'height: ' + (100 - answerFourPerc * 100) + '%; width: 100%;  background-color: white;'}
+                    />
                   </div>
                 </div>
                 <div class="col-xs-2">
-                  <div class="progress vertical progress-striped" style="height: 50px; width: 20px;">
-                    <div class="progress-bar progress-bar-info" style={'height: ' + answerFivePerc * 100 + '%; width: 100%;'} />
+                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
+                    <div
+                      class="progress-bar"
+                      style={'height: ' + (100 - answerFivePerc * 100) + '%; width: 100%;  background-color: white;'}
+                    />
                   </div>
                 </div>
                 <div class="col-xs-2">
-                  <div class="progress vertical progress-striped" style="height: 50px; width: 20px;">
-                    <div class="progress-bar progress-bar-info" style={'height: ' + answerSixPerc * 100 + '%; width: 100%;'} />
+                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
+                    <div
+                      class="progress-bar"
+                      style={'height: ' + (100 - answerSixPerc * 100) + '%; width: 100%;  background-color: white;'}
+                    />
                   </div>
                 </div>
               </div>
@@ -236,26 +254,38 @@ export default class UserFeedbackOverview extends Component {
               <div class="row">
                 <div class="col-xs-3">
                   <label>{answers[x]['answers']['1']}</label>
-                  <div class="progress vertical progress-striped" style="height: 50px">
-                    <div class="progress-bar progress-bar-danger" style={'height: ' + answerOnePerc * 100 + '%; width: 100%;'} />
+                  <div class="progress vertical progress-striped progress-bar-danger" style="height: 50px; width: 20px;">
+                    <div
+                      class="progress-bar"
+                      style={'height: ' + (100 - answerOnePerc * 100) + '%; width: 100%;  background-color: white;'}
+                    />
                   </div>
                 </div>
                 <div class="col-xs-3">
                   <label>{answers[x]['answers']['2']}</label>
-                  <div class="progress vertical progress-striped" style="height: 50px">
-                    <div class="progress-bar progress-bar-warning" style={'height: ' + answerTwoPerc * 100 + '%; width: 100%;'} />
+                  <div class="progress vertical progress-striped progress-bar-warning" style="height: 50px; width: 20px;">
+                    <div
+                      class="progress-bar"
+                      style={'height: ' + (100 - answerTwoPerc * 100) + '%; width: 100%;  background-color: white;'}
+                    />
                   </div>
                 </div>
                 <div class="col-xs-3">
                   <label>{answers[x]['answers']['3']}</label>
-                  <div class="progress vertical progress-striped" style="height: 50px">
-                    <div class="progress-bar progress-bar-info" style={'height: ' + answerThreePerc * 100 + '%; width: 100%;'} />
+                  <div class="progress vertical progress-striped progress-bar-info" style="height: 50px; width: 20px;">
+                    <div
+                      class="progress-bar"
+                      style={'height: ' + (100 - answerThreePerc * 100) + '%; width: 100%;  background-color: white;'}
+                    />
                   </div>
                 </div>
                 <div class="col-xs-3">
                   <label>{answers[x]['answers']['4']}</label>
-                  <div class="progress vertical progress-striped" style="height: 50px">
-                    <div class="progress-bar progress-bar-success" style={'height: ' + answerFourPerc * 100 + '%; width: 100%;'} />
+                  <div class="progress vertical progress-striped progress-bar-success" style="height: 50px; width: 20px;">
+                    <div
+                      class="progress-bar"
+                      style={'height: ' + (100 - answerFourPerc * 100) + '%; width: 100%;  background-color: white;'}
+                    />
                   </div>
                 </div>
               </div>
