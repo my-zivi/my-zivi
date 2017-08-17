@@ -22,7 +22,6 @@ export default class UserFeedbackOverview extends Component {
 
   componentDidMount() {
     this.getFeedbackAnswers();
-    this.getFeedbackQuestions();
   }
 
   getFeedbackAnswers() {
@@ -42,29 +41,11 @@ export default class UserFeedbackOverview extends Component {
       });
   }
 
-  getFeedbackQuestions() {
-    this.setState({ loading: true, error: null });
-
-    axios
-      .get(ApiService.BASE_URL + 'user/feedback/question', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
-      .then(response => {
-        this.setState({ loading: false });
-        //console.log("response questions = ", response.data)
-        this.setState({
-          questions: response.data,
-        });
-      })
-      .catch(error => {
-        this.setState({ error: error });
-      });
-  }
-
   render() {
     var feedbacks = [];
     var answers = this.state.feedbacks;
-    var questions = this.state.questions;
 
-    for (var x = 0; x < questions.length; x++) {
+    for (var x = 0; x < answers.length; x++) {
       //Initialize different titles
       if (x == 0) {
         feedbacks.push(
@@ -113,11 +94,11 @@ export default class UserFeedbackOverview extends Component {
       }
 
       //Initialize different questiontypes
-      if (questions[x].pos == 1) {
+      if (answers[x].pos == 1) {
         feedbacks.push(
           <div class="row">
             <div class="col-xs-8">
-              <label>{questions[x].question}</label>
+              <label>{answers[x].question}</label>
             </div>
             <div class="col-xs-4">
               <div class="row">
@@ -143,23 +124,23 @@ export default class UserFeedbackOverview extends Component {
             </div>
           </div>
         );
-      } else if (questions[x].type == 0) {
+      } else if (answers[x].type == 0) {
         feedbacks.push(
           <div class="row">
             <div class="col-xs-8">
-              <label>{questions[x].question}</label>
+              <label>{answers[x].question}</label>
             </div>
             <div class="col-xs-4" />
           </div>
         );
-      } else if (questions[x].type == 1) {
+      } else if (answers[x].type == 1) {
         feedbacks.push(
           <div class="row">
             <div class="col-xs-8">
-              <label>{questions[x].question}</label>
+              <label>{answers[x].question}</label>
             </div>
             <div class="col-xs-1">
-              <label>{questions[x].opt1}</label>
+              <label>{answers[x].opt1}</label>
             </div>
             <div class="col-xs-2">
               <div class="row">
@@ -190,15 +171,15 @@ export default class UserFeedbackOverview extends Component {
               </div>
             </div>
             <div class="col-xs-1">
-              <label>{questions[x].opt2}</label>
+              <label>{answers[x].opt2}</label>
             </div>
           </div>
         );
-      } else if (questions[x].type == 2) {
+      } else if (answers[x].type == 2) {
         feedbacks.push(
           <div class="row">
             <div class="col-xs-8">
-              <label>{questions[x].question}</label>
+              <label>{answers[x].question}</label>
             </div>
             <div class="col-xs-4">
               <textarea rows="5" cols="42" value={answers[x] ? answers[x].answer : null} name={x} />
