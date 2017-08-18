@@ -332,6 +332,34 @@ class ReportSheet extends Model
                                         $reportSheet['ferientage'] +
                                         $reportSheet['krankheitstage'];
 
+
+        if ($reportSheet['firstday_sum'] != $reportSheet['workday_sum']) {
+            $reportSheet['bolListFirstDay'] = true;
+            if (strtotime($reportSheet['meldeblaetter_start']) == strtotime($reportSheet['einsaetze_start'])) {
+                $reportSheet['intFirstDays'] = 1;
+                $reportSheet['arbeitstage'] -= 1;
+                $reportSheet['total'] -= $reportSheet['workday_sum'];
+                $reportSheet['total'] += $reportSheet['firstday_sum'];
+            } else {
+                $reportSheet['intFirstDays'] = 0;
+            }
+        } else {
+            $reportSheet['bolListFirstDay'] = false;
+        }
+        if ($reportSheet['lastday_sum'] != $reportSheet['workday_sum']) {
+            $reportSheet['bolListLastDay'] = true;
+            if (strtotime($reportSheet['meldeblaetter_end']) == strtotime($reportSheet['einsaetze_end'])) {
+                $reportSheet['intLastDays'] = 1;
+                $reportSheet['arbeitstage'] -= 1;
+                $reportSheet['total'] -= $reportSheet['workday_sum'];
+                $reportSheet['total'] += $reportSheet['lastday_sum'];
+            } else {
+                $reportSheet['intLastDays'] = 0;
+            }
+        } else {
+            $reportSheet['bolListLastDay'] = false;
+        }
+
         return $reportSheet;
     }
 
