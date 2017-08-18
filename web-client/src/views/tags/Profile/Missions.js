@@ -290,6 +290,21 @@ export default class Missions extends Component {
       probation_day_comment: self.state.result[missionKey + '_probation_day_comment'],
     };
 
+    if (moment(newMission['start']).isoWeekday() != 1) {
+      Toast.showError('Falscher Einsatzbeginn', 'Erster Einsatztag muss zwingend ein Montag sein!', null, self.context);
+      return;
+    }
+
+    if (moment(newMission['end']).isoWeekday() != 5 && newMission['mission_type'] != 2) {
+      Toast.showError(
+        'Falsches Einsatzende',
+        'Letzter Einsatztag muss zwingend ein Freitag sein! (Ausnahme: letzter Einsatz)',
+        null,
+        self.context
+      );
+      return;
+    }
+
     self.setState({ loading: true, error: null });
     if (missionKey == 'newmission') {
       axios
