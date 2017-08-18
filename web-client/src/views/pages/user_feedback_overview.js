@@ -41,6 +41,50 @@ export default class UserFeedbackOverview extends Component {
       });
   }
 
+  getChapter(title) {
+    return (
+      <div>
+        <div class="row">
+          <div class="col-xs-12 chapter">
+            <h3>{title}</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <br />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  getType1RowContent(numberOfAnswers, answers, totalAnswers, colSize = 3) {
+    let cols = [];
+
+    for (var i = 1; i <= numberOfAnswers; i++) {
+      let answerPerc = 0;
+      let answerClasses = ['', 'progress-bar-danger', 'progress-bar-warning', 'progress-bar-info', 'progress-bar-success'];
+
+      if (answers[i] == 0) {
+        answerPerc = 0;
+      } else {
+        answerPerc = answers[i] / totalAnswers;
+      }
+
+      cols.push(
+        <div class={'col-xs-' + colSize}>
+          <div class={'progress vertical progress-striped ' + answerClasses[i]}>
+            <div class="progress-bar" style={'height: ' + (100 - answerPerc * 100) + '%;'}>
+              {Math.round(answerPerc * 100)}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return cols;
+  }
+
   render() {
     var feedbacks = [];
     var answers = this.state.feedbacks;
@@ -56,221 +100,104 @@ export default class UserFeedbackOverview extends Component {
     }
 
     for (var x = 0; x < answers.length; x++) {
-      var answerOne = 0;
-      var answerTwo = 0;
-      var answerThree = 0;
-      var answerFour = 0;
-      var answerFive = 0;
-      var answerSix = 0;
-
-      var totalAnswers = 0;
-
-      var answerOnePerc = 0;
-      var answerTwoPerc = 0;
-      var answerThreePerc = 0;
-      var answerFourPerc = 0;
-      var answerFivePerc = 0;
-      var answerSixPerc = 0;
+      // Chapters
+      switch (x) {
+        case 0:
+          feedbacks.push(this.getChapter('SWO als Einsatzbetrieb'));
+          break;
+        case 11:
+          feedbacks.push(this.getChapter('Arbeit'));
+          break;
+        case 26:
+          feedbacks.push(this.getChapter('Einsatzleitung'));
+          break;
+        case 35:
+          feedbacks.push(this.getChapter('Bewertung der Einsatzleiter'));
+          break;
+        case 65:
+          feedbacks.push(this.getChapter('Weiteres'));
+          break;
+      }
 
       if (answers[x].type == 1) {
-        answerOne = answers[x]['answers']['1'] ? answers[x]['answers']['1'] : 0;
-        answerTwo = answers[x]['answers']['2'] ? answers[x]['answers']['2'] : 0;
-        answerThree = answers[x]['answers']['3'] ? answers[x]['answers']['3'] : 0;
-        answerFour = answers[x]['answers']['4'] ? answers[x]['answers']['4'] : 0;
-        answerFive = answers[x]['answers']['5'] ? answers[x]['answers']['5'] : 0;
-        answerSix = answers[x]['answers']['6'] ? answers[x]['answers']['6'] : 0;
+        let rawContent = [];
+        let totalAnswers = 0;
+        let answersCleaned = [];
+        let answersPerc = [];
 
-        totalAnswers = answerOne + answerTwo + answerThree + answerFour + answerFive + answerSix;
+        for (var i = 1; i <= 6; i++) {
+          answersCleaned[i] = answers[x]['answers'][i] ? answers[x]['answers'][i] : 0;
+          totalAnswers += answersCleaned[i];
+          console.log(totalAnswers);
+        }
 
-        if (answerOne == 0) {
-          answerOnePerc = 0;
-        } else {
-          answerOnePerc = answerOne / totalAnswers;
-        }
-        if (answerTwo == 0) {
-          answerTwoPerc = 0;
-        } else {
-          answerTwoPerc = answerTwo / totalAnswers;
-        }
-        if (answerThree == 0) {
-          answerThreePerc = 0;
-        } else {
-          answerThreePerc = answerThree / totalAnswers;
-        }
-        if (answerFour == 0) {
-          answerFourPerc = 0;
-        } else {
-          answerFourPerc = answerFour / totalAnswers;
-        }
-        if (answerFive == 0) {
-          answerFivePerc = 0;
-        } else {
-          answerFivePerc = answerFive / totalAnswers;
-        }
-        if (answerSix == 0) {
-          answerSixPerc = 0;
-        } else {
-          answerSixPerc = answerSix / totalAnswers;
-        }
-      }
-
-      //Initialize different titles
-      if (x == 0) {
-        feedbacks.push(
-          <div>
+        // Question types
+        if (answers[x].pos == 1) {
+          feedbacks.push(
             <div class="row">
-              <div class="col-xs-12 chapter">
-                <h3>SWO als Einsatzbetrieb</h3>
+              <div class="col-xs-7">
+                <label>{answers[x].question}</label>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                <br />
-              </div>
-            </div>
-          </div>
-        );
-      }
-      if (x == 11) {
-        feedbacks.push(
-          <div>
-            <div class="row">
-              <div class="col-xs-12 chapter">
-                <h3>Arbeit</h3>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                <br />
-              </div>
-            </div>
-          </div>
-        );
-      }
-      if (x == 26) {
-        feedbacks.push(
-          <div>
-            <div class="row">
-              <div class="col-xs-12 chapter">
-                <h3>Einsatzleitung</h3>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                <br />
-              </div>
-            </div>
-          </div>
-        );
-      }
-      if (x == 35) {
-        feedbacks.push(
-          <div>
-            <div class="row">
-              <div class="col-xs-12 chapter">
-                <h3>Bewertung der Einsatzleiter</h3>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                <br />
-              </div>
-            </div>
-          </div>
-        );
-      }
-      if (x == 65) {
-        feedbacks.push(
-          <div>
-            <div class="row">
-              <div class="col-xs-12 chapter">
-                <h3>Weiteres</h3>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                <br />
-              </div>
-            </div>
-          </div>
-        );
-      }
-
-      //Initialize different questiontypes
-      if (answers[x].pos == 1) {
-        feedbacks.push(
-          <div class="row">
-            <div class="col-xs-7">
-              <label>{answers[x].question}</label>
-            </div>
-            <div class="col-xs-5">
-              <div class="row">
-                <div class="col-xs-2">
-                  <label>Kollegen</label>
-                </div>
-                <div class="col-xs-2">
-                  <label>EIS</label>
-                </div>
-                <div class="col-xs-2">
-                  <label>Website SWO</label>
-                </div>
-                <div class="col-xs-2">
-                  <label>Thomas Winter</label>
-                </div>
-                <div class="col-xs-2">
-                  <label>Früherer Einsatz</label>
-                </div>
-                <div class="col-xs-2">
-                  <label>Anderes</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-2">
-                  <div class="progress vertical progress-striped progress-bar-info">
-                    <div class="progress-bar" style={'height: ' + (100 - answerOnePerc * 100) + '%;'}>
-                      {Math.round(answerOnePerc * 100)}
-                    </div>
+              <div class="col-xs-5">
+                <div class="row">
+                  <div class="col-xs-2">
+                    <label>Kollegen</label>
+                  </div>
+                  <div class="col-xs-2">
+                    <label>EIS</label>
+                  </div>
+                  <div class="col-xs-2">
+                    <label>Website SWO</label>
+                  </div>
+                  <div class="col-xs-2">
+                    <label>Thomas Winter</label>
+                  </div>
+                  <div class="col-xs-2">
+                    <label>Früherer Einsatz</label>
+                  </div>
+                  <div class="col-xs-2">
+                    <label>Anderes</label>
                   </div>
                 </div>
-                <div class="col-xs-2">
-                  <div class="progress vertical progress-striped progress-bar-info">
-                    <div class="progress-bar" style={'height: ' + (100 - answerTwoPerc * 100) + '%;'}>
-                      {Math.round(answerTwoPerc * 100)}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-2">
-                  <div class="progress vertical progress-striped progress-bar-info">
-                    <div class="progress-bar" style={'height: ' + (100 - answerThreePerc * 100) + '%;'}>
-                      {Math.round(answerThreePerc * 100)}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-2">
-                  <div class="progress vertical progress-striped progress-bar-info">
-                    <div class="progress-bar" style={'height: ' + (100 - answerFourPerc * 100) + '%;'}>
-                      {Math.round(answerFourPerc * 100)}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-2">
-                  <div class="progress vertical progress-striped progress-bar-info">
-                    <div class="progress-bar" style={'height: ' + (100 - answerFivePerc * 100) + '%;'}>
-                      {Math.round(answerFivePerc * 100)}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-2">
-                  <div class="progress vertical progress-striped progress-bar-info">
-                    <div class="progress-bar" style={'height: ' + (100 - answerSixPerc * 100) + '%;'}>
-                      {Math.round(answerSixPerc * 100)}
-                    </div>
-                  </div>
-                </div>
+                <div class="row">{this.getType1RowContent(6, answersCleaned, totalAnswers, 2)}</div>
               </div>
             </div>
-          </div>
-        );
+          );
+        } else if (answers[x].pos == 26) {
+          feedbacks.push(
+            <div class="row">
+              <div class="col-xs-8">
+                <label>{answers[x].question}</label>
+              </div>
+              <div class="col-xs-1">
+                <label>{answers[x].opt1}</label>
+              </div>
+              <div class="col-xs-2">
+                <div class="row">{this.getType1RowContent(2, answersCleaned, totalAnswers, 4)}</div>
+              </div>
+              <div class="col-xs-1">
+                <label>{answers[x].opt2}</label>
+              </div>
+            </div>
+          );
+        } else {
+          feedbacks.push(
+            <div class="row">
+              <div class="col-xs-8">
+                <label>{answers[x].question}</label>
+              </div>
+              <div class="col-xs-1">
+                <label>{answers[x].opt1}</label>
+              </div>
+              <div class="col-xs-2">
+                <div class="row">{this.getType1RowContent(4, answersCleaned, totalAnswers)}</div>
+              </div>
+              <div class="col-xs-1">
+                <label>{answers[x].opt2}</label>
+              </div>
+            </div>
+          );
+        }
       } else if (answers[x].type == 0) {
         feedbacks.push(
           <div class="row">
@@ -280,86 +207,6 @@ export default class UserFeedbackOverview extends Component {
               </label>
             </div>
             <div class="col-xs-4" />
-          </div>
-        );
-      } else if (answers[x].pos == 26) {
-        feedbacks.push(
-          <div class="row">
-            <div class="col-xs-8">
-              <label>{answers[x].question}</label>
-            </div>
-            <div class="col-xs-1">
-              <label>{answers[x].opt1}</label>
-            </div>
-            <div class="col-xs-2">
-              <div class="row">
-                <div class="col-xs-3">
-                  <div class="progress vertical progress-striped progress-bar-danger">
-                    <div class="progress-bar" style={'height: ' + (100 - answerOnePerc * 100) + '%;'}>
-                      {Math.round(answerOnePerc * 100)}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-3" />
-                <div class="col-xs-3" />
-                <div class="col-xs-3">
-                  <div class="progress vertical progress-striped progress-bar-warning">
-                    <div class="progress-bar" style={'height: ' + (100 - answerTwoPerc * 100) + '%;'}>
-                      {Math.round(answerTwoPerc * 100)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xs-1">
-              <label>{answers[x].opt2}</label>
-            </div>
-          </div>
-        );
-      } else if (answers[x].type == 1) {
-        feedbacks.push(
-          <div class="row">
-            <div class="col-xs-8">
-              <label>{answers[x].question}</label>
-            </div>
-            <div class="col-xs-1">
-              <label>{answers[x].opt1}</label>
-            </div>
-            <div class="col-xs-2">
-              <div class="row">
-                <div class="col-xs-3">
-                  <div class="progress vertical progress-striped progress-bar-danger">
-                    <div class="progress-bar" style={'height: ' + (100 - answerOnePerc * 100) + '%;'}>
-                      {Math.round(answerOnePerc * 100)}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-3">
-                  <div class="progress vertical progress-striped progress-bar-warning">
-                    <div class="progress-bar" style={'height: ' + (100 - answerTwoPerc * 100) + '%;'}>
-                      {Math.round(answerTwoPerc * 100)}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-3">
-                  <div class="progress vertical progress-striped progress-bar-info">
-                    <div class="progress-bar" style={'height: ' + (100 - answerThreePerc * 100) + '%;'}>
-                      {Math.round(answerThreePerc * 100)}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-3">
-                  <div class="progress vertical progress-striped progress-bar-success">
-                    <div class="progress-bar" style={'height: ' + (100 - answerFourPerc * 100) + '%;'}>
-                      {Math.round(answerFourPerc * 100)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xs-1">
-              <label>{answers[x].opt2}</label>
-            </div>
           </div>
         );
       } else if (answers[x].type == 2) {
