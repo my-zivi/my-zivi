@@ -168,7 +168,7 @@ export default class EditExpense extends Component {
               value={sheet.einsaetze_eligibleholiday}
               disabled="true"
             />
-            <InputField id="sum_tage" label="Dauer" value={sheet.sum_tage + ' Tage'} disabled="true" />
+            <InputField id="meldeblaetter_tage" label="Dauer" value={sheet.meldeblaetter_tage + ' Tage'} disabled="true" />
             <hr />
 
             <InputFieldWithProposal

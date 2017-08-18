@@ -171,36 +171,11 @@ class ZiviReportSheetPDF extends PDF
 
         $this->y_offset = $this->y_offset + 1.25 * $this->line_break;
 //-- MG.16.02.2011 -->
-        $bolListFirstDay = false;
-        $bolListLastDay = false;
 
-        if ($this->spesen['firstday_sum'] != $this->spesen['workday_sum']) {
-            $bolListFirstDay = true;
-            if (strtotime($this->spesen['meldeblaetter_start']) == strtotime($this->spesen['einsaetze_start'])) {
-                $intFirstDays = 1;
-                $this->spesen['arbeitstage'] -= 1;
-                $this->spesen['total'] -= $this->spesen['workday_sum'];
-                $this->spesen['total'] += $this->spesen['firstday_sum'];
-            } else {
-                $intFirstDays = 0;
-            }
-        }
-        if ($this->spesen['lastday_sum'] != $this->spesen['workday_sum']) {
-            $bolListLastDay = true;
-            if (strtotime($this->spesen['meldeblaetter_end']) == strtotime($this->spesen['einsaetze_end'])) {
-                $intLastDays = 1;
-                $this->spesen['arbeitstage'] -= 1;
-                $this->spesen['total'] -= $this->spesen['workday_sum'];
-                $this->spesen['total'] += $this->spesen['lastday_sum'];
-            } else {
-                $intLastDays = 0;
-            }
-        }
-
-        if ($bolListFirstDay) {
+        if ($this->spesen['bolListFirstDay']) {
             $this->pdf->SetFont('', 'B');
             $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
-            $this->pdf->Cell(3, 10, strval($intFirstDays), 0, 0, 'R', false, '', true);
+            $this->pdf->Cell(3, 10, strval($this->spesen['intFirstDays']), 0, 0, 'R', false, '', true);
             $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
             $this->pdf->Cell(0, 10, "Erster Arbeitstag");
             $this->pdf->SetFont('', '');
@@ -215,7 +190,7 @@ class ZiviReportSheetPDF extends PDF
             $this->pdf->SetXY($this->col[4], $this->y_offset + $this->shade_height / 2);
             $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_firstday_dinner_expenses']/100), 0, 0, '', 1);
             $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($intFirstDays*$this->spesen['firstday_sum']), 0, 0, 'R', 1);
+            $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['intFirstDays']*$this->spesen['firstday_sum']), 0, 0, 'R', 1);
             $this->y_offset = $this->y_offset + $this->line_break;
         }
 
@@ -243,10 +218,10 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['arbeitstage']*$this->spesen['workday_sum']), 0, 0, 'R', 1);
         $this->y_offset = $this->y_offset + $this->line_break;
 
-        if ($bolListLastDay) {
+        if ($this->spesen['bolListLastDay']) {
             $this->pdf->SetFont('', 'B');
             $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
-            $this->pdf->Cell(3, 10, strval($intLastDays), 0, 0, 'R', false, '', true);
+            $this->pdf->Cell(3, 10, strval($this->spesen['intLastDays']), 0, 0, 'R', false, '', true);
             $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
             $this->pdf->Cell(0, 10, "Letzter Arbeitstag");
             $this->pdf->SetFont('', '');
@@ -261,7 +236,7 @@ class ZiviReportSheetPDF extends PDF
             $this->pdf->SetXY($this->col[4], $this->y_offset + $this->shade_height / 2);
             $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_lastday_dinner_expenses']/100), 0, 0, '', 1);
             $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($intLastDays*$this->spesen['lastday_sum']), 0, 0, 'R', 1);
+            $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['intLastDays']*$this->spesen['lastday_sum']), 0, 0, 'R', 1);
             $this->y_offset = $this->y_offset + $this->line_break;
         }
 //<-- MG.16.02.2011 --

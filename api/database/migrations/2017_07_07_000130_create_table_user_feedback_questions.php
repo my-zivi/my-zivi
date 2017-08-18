@@ -26,4 +26,14 @@ class CreateTableUserFeedbackQuestions extends Migration
             $table->integer('active');
         });
     }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('user_feedback_questions');
+    }
 }

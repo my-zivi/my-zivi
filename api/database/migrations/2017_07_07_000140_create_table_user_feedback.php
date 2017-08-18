@@ -24,4 +24,14 @@ class CreateTableUserFeedback extends Migration
             $table->string('answer');
         });
     }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('user_feedbacks');
+    }
 }

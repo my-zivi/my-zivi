@@ -31,6 +31,7 @@ class CreateTableMissions extends Migration
             $table->integer('mission_type');
             $table->date('probation_day')->nullable();
             $table->string('probation_day_comment')->nullable();
+            $table->boolean('feedback_mail_sent');
         });
     }
 
