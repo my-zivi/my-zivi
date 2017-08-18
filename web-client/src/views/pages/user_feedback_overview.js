@@ -228,42 +228,42 @@ export default class UserFeedbackOverview extends Component {
                 <div class="col-xs-2">
                   <div class="progress vertical progress-striped progress-bar-info">
                     <div class="progress-bar" style={'height: ' + (100 - answerOnePerc * 100) + '%;'}>
-                      {answerOnePerc * 100}
+                      {Math.round(answerOnePerc * 100)}
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-2">
                   <div class="progress vertical progress-striped progress-bar-info">
                     <div class="progress-bar" style={'height: ' + (100 - answerTwoPerc * 100) + '%;'}>
-                      {answerTwoPerc * 100}
+                      {Math.round(answerTwoPerc * 100)}
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-2">
                   <div class="progress vertical progress-striped progress-bar-info">
                     <div class="progress-bar" style={'height: ' + (100 - answerThreePerc * 100) + '%;'}>
-                      {answerThreePerc * 100}
+                      {Math.round(answerThreePerc * 100)}
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-2">
                   <div class="progress vertical progress-striped progress-bar-info">
                     <div class="progress-bar" style={'height: ' + (100 - answerFourPerc * 100) + '%;'}>
-                      {answerFourPerc * 100}
+                      {Math.round(answerFourPerc * 100)}
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-2">
                   <div class="progress vertical progress-striped progress-bar-info">
                     <div class="progress-bar" style={'height: ' + (100 - answerFivePerc * 100) + '%;'}>
-                      {answerFivePerc * 100}
+                      {Math.round(answerFivePerc * 100)}
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-2">
                   <div class="progress vertical progress-striped progress-bar-info">
                     <div class="progress-bar" style={'height: ' + (100 - answerSixPerc * 100) + '%;'}>
-                      {answerSixPerc * 100}
+                      {Math.round(answerSixPerc * 100)}
                     </div>
                   </div>
                 </div>
@@ -296,7 +296,7 @@ export default class UserFeedbackOverview extends Component {
                 <div class="col-xs-3">
                   <div class="progress vertical progress-striped progress-bar-danger">
                     <div class="progress-bar" style={'height: ' + (100 - answerOnePerc * 100) + '%;'}>
-                      {answerOnePerc * 100}
+                      {Math.round(answerOnePerc * 100)}
                     </div>
                   </div>
                 </div>
@@ -305,7 +305,7 @@ export default class UserFeedbackOverview extends Component {
                 <div class="col-xs-3">
                   <div class="progress vertical progress-striped progress-bar-warning">
                     <div class="progress-bar" style={'height: ' + (100 - answerTwoPerc * 100) + '%;'}>
-                      {answerTwoPerc * 100}
+                      {Math.round(answerTwoPerc * 100)}
                     </div>
                   </div>
                 </div>
@@ -330,28 +330,28 @@ export default class UserFeedbackOverview extends Component {
                 <div class="col-xs-3">
                   <div class="progress vertical progress-striped progress-bar-danger">
                     <div class="progress-bar" style={'height: ' + (100 - answerOnePerc * 100) + '%;'}>
-                      {answerOnePerc * 100}
+                      {Math.round(answerOnePerc * 100)}
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-3">
                   <div class="progress vertical progress-striped progress-bar-warning">
                     <div class="progress-bar" style={'height: ' + (100 - answerTwoPerc * 100) + '%;'}>
-                      {answerTwoPerc * 100}
+                      {Math.round(answerTwoPerc * 100)}
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-3">
                   <div class="progress vertical progress-striped progress-bar-info">
                     <div class="progress-bar" style={'height: ' + (100 - answerThreePerc * 100) + '%;'}>
-                      {answerThreePerc * 100}
+                      {Math.round(answerThreePerc * 100)}
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-3">
                   <div class="progress vertical progress-striped progress-bar-success">
                     <div class="progress-bar" style={'height: ' + (100 - answerFourPerc * 100) + '%;'}>
-                      {answerFourPerc * 100}
+                      {Math.round(answerFourPerc * 100)}
                     </div>
                   </div>
                 </div>
