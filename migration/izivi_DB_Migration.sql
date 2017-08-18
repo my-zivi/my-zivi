@@ -226,7 +226,7 @@ INSERT INTO izivi.specifications (id, name, short_name, working_clothes_payment,
   (19535, 'Gruppeneinsätze, Feldarbeiten', 'F', 'Fr. 60 / Monat, max. Fr. 240', 230, 400, 1700, 700, 400, 900, 700, 400, 1700, 700, 400, 1700, 700, 0, 42.00, 1000, 500, 'conditions.pdf', 0);
 
 
-INSERT INTO izivi.missions (id, created_at, updated_at, deleted_at, user, specification, start, end, draft, eligible_holiday, first_time, long_mission, probation_period, mission_type, probation_day, probation_day_comment) (Select
+INSERT INTO izivi.missions (id, created_at, updated_at, deleted_at, user, specification, start, end, draft, eligible_holiday, first_time, long_mission, probation_period, mission_type, probation_day, probation_day_comment, feedback_mail_sent) (Select
   stiftun8_iZivi.einsaetze.id,
   NULL AS created_at,
   NULL AS updated_at,
@@ -249,7 +249,8 @@ INSERT INTO izivi.missions (id, created_at, updated_at, deleted_at, user, specif
   stiftun8_iZivi.einsaetze.probation_period AS probation_period,
   0,
   null,
-  null
+  null,
+  stiftun8_iZivi.einsaetze.end < NOW() AS feedback_mail_sent
 FROM stiftun8_iZivi.einsaetze WHERE stiftun8_iZivi.einsaetze.ziviId != '' AND stiftun8_iZivi.einsaetze.ziviId != 'gast');
 
 INSERT INTO izivi.report_sheets (SELECT
