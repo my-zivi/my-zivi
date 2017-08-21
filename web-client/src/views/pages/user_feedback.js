@@ -23,6 +23,8 @@ export default class UserFeedback extends Component {
     //survey.sendResult('70a0b637-c72c-4162-8e4d-15fe62e11b9e');
     this.setState({ loading: true, error: null });
 
+    //TODO set feedback_done in Missions to 1
+
     axios
       .put(ApiService.BASE_URL + 'user/feedback', survey.data, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
       .then(() => {

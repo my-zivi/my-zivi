@@ -30,6 +30,7 @@ class CreateTableMissions extends Migration
             $table->boolean('long_mission');
             $table->integer('probation_period');
             $table->boolean('feedback_mail_sent');
+            $table->boolean('feedback_done');
         });
     }
 

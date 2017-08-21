@@ -246,11 +246,33 @@ export default class Missions extends Component {
           );
         }
 
+        var disabledMission = [];
+        if (m[i].end >= new Date() || m[i].feedback_done == 1) {
+          disabledMission.push(
+            <div class="col-xs-1">
+              <a href="/user_feedback">
+                <button class="btn btn-xs btn-info" disabled>
+                  {' '}
+                  Feedback
+                </button>
+              </a>
+            </div>
+          );
+        } else {
+          disabledMission.push(
+            <div class="col-xs-1">
+              <a href="/user_feedback">
+                <button class="btn btn-xs btn-info"> Feedback</button>
+              </a>
+            </div>
+          );
+        }
+
         missions.push(
           <div class="row">
             <div class="col-xs-2">{name}</div>
             <div class="col-xs-2">{moment(m[i].start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
-            <div class="col-xs-3">{moment(m[i].end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
+            <div class="col-xs-2">{moment(m[i].end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
             <div class="col-xs-1">
               <a
                 class="btn btn-xs"
@@ -265,6 +287,7 @@ export default class Missions extends Component {
                 <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
               </button>
             </div>
+            {disabledMission}
             <div class="col-xs-1">{deleteButton}</div>
             <div class="col-xs-1">{addButton}</div>
           </div>

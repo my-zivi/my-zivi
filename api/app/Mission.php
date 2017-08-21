@@ -20,7 +20,8 @@ class Mission extends Model
                            'first_time',
                            'long_mission',
                            'probation_period',
-                           'feedback_mail_sent'
+                           'feedback_mail_sent',
+                           'feedback_done'
                         ];
 
     public function usermodel()
