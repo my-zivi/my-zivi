@@ -188,6 +188,9 @@ $api->version('v1', function ($api) {
             $output = new ConsoleOutput();
             $output->writeln(json_encode($content));
 
+
+            //TODO set feedback_done in Missions to 1
+
             foreach ($content as $key => $value) {
                 if (is_array($value)) {
                     foreach ($value as $subKey => $subValue) {
