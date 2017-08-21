@@ -13,7 +13,7 @@ export default class LoadingView extends Component {
     if (nextProps.error != null) {
       if (nextProps.error.response != null && nextProps.error.response.status == 401) {
         localStorage.removeItem('jwtToken');
-        this.context.router.push('/');
+        this.context.router.push('/login?path=' + this.context.router.url);
       }
     }
   }
@@ -31,6 +31,10 @@ export default class LoadingView extends Component {
         })
         .catch(error => {
           console.log(error);
+          if (error.response.status == 401) {
+            localStorage.removeItem('jwtToken');
+            this.context.router.push('/login?path=' + this.context.router.url);
+          }
         });
     }
   }

@@ -30,7 +30,11 @@ export default class Login extends Component {
       })
       .then(response => {
         localStorage.setItem('jwtToken', response.data.data.token);
-        this.context.router.push('/');
+        if (this.props.params.path) {
+          this.context.router.push(this.props.params.path);
+        } else {
+          this.context.router.push('/');
+        }
       })
       .catch(error => {
         let errorBox = [];
