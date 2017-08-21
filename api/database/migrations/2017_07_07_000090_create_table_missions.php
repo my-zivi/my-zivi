@@ -25,10 +25,10 @@ class CreateTableMissions extends Migration
             $table->date('end');
             $table->date('draft')->nullable(); // "Aufgebot"
             $table->integer('eligible_holiday');
+            $table->integer('mission_type')->nullable();
             $table->integer('first_time');
             $table->boolean('long_mission');
             $table->integer('probation_period');
-            $table->integer('mission_type');
             $table->date('probation_day')->nullable();
             $table->string('probation_day_comment')->nullable();
             $table->boolean('feedback_mail_sent');

@@ -16,10 +16,12 @@ class Mission extends Model
                            'end',
                            'draft', // "Aufgebot"
                            'eligible_holiday',
-                           'role',
+                           'mission_type',
                            'first_time',
                            'long_mission',
                            'probation_period',
+                           'probation_day',
+                           'probation_day_comment',
                            'feedback_mail_sent'
                         ];
 

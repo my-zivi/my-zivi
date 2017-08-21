@@ -244,6 +244,7 @@ INSERT INTO izivi.missions (id, created_at, updated_at, deleted_at, user, specif
       THEN stiftun8_iZivi.einsaetze.aufgebot ELSE NULL
   END AS draft,
   stiftun8_iZivi.einsaetze.eligibleholiday AS eligible_holiday,
+  stiftun8_iZivi.einsaetze.employment_type AS mission_type,
   stiftun8_iZivi.einsaetze.firsttime AS first_time,
   stiftun8_iZivi.einsaetze.long_employment AS long_mission,
   stiftun8_iZivi.einsaetze.probation_period AS probation_period,
