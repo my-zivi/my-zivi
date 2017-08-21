@@ -41,7 +41,7 @@ class PDFController extends Controller
 
         //Allow only admins to get reportSheets of other Users
         $user = JWTAuth::setToken(substr(Request::header("Authorization"), 7))->authenticate();
-        if ($user->role!=1 && $user->id!=$reportSheet->getUserId()) {
+        if ($user->role!=1 && ($user->id!=$reportSheet->getUserId() || !$reportSheet->isDone())) {
             return response("unauthorized", 401);
         }
 

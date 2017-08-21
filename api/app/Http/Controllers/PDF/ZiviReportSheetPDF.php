@@ -46,6 +46,11 @@ class ZiviReportSheetPDF extends PDF
         return $this->user->id;
     }
 
+    public function isDone()
+    {
+        return $this->spesen->done;
+    }
+
     protected function render()
     {
         $this->pdf->AddPage();
