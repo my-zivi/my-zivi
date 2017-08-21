@@ -20,8 +20,6 @@ class Mission extends Model
                            'first_time',
                            'long_mission',
                            'probation_period',
-                           'probation_day',
-                           'probation_day_comment',
                            'feedback_mail_sent'
                         ];
 

@@ -248,9 +248,6 @@ INSERT INTO izivi.missions (id, created_at, updated_at, deleted_at, user, specif
   stiftun8_iZivi.einsaetze.firsttime AS first_time,
   stiftun8_iZivi.einsaetze.long_employment AS long_mission,
   stiftun8_iZivi.einsaetze.probation_period AS probation_period,
-  0,
-  null,
-  null,
   stiftun8_iZivi.einsaetze.end < NOW() AS feedback_mail_sent
 FROM stiftun8_iZivi.einsaetze WHERE stiftun8_iZivi.einsaetze.ziviId != '' AND stiftun8_iZivi.einsaetze.ziviId != 'gast');
 
