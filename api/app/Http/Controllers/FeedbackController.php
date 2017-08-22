@@ -115,7 +115,7 @@ class FeedbackController extends Controller
 
         foreach ($missions as $mission) {
             $missionId = $mission->id;
-            $email = "clot@schaniel.net"; //aw@stiftungswo.ch;mp@stiftungswo.ch;mbr@stiftungswo.ch;lg@stiftungswo.ch;dj@stiftungswo.ch;ls@stiftungswo.ch;
+            $email = "aw@stiftungswo.ch;mp@stiftungswo.ch;mbr@stiftungswo.ch;lg@stiftungswo.ch;dj@stiftungswo.ch;ls@stiftungswo.ch;";
             $subject = "Feedback von einem Zivi erstellt";
             $emailText = 'Liebe Einsatzleitung,
               
@@ -134,7 +134,7 @@ class FeedbackController extends Controller
     http://www.stiftungswo.ch';
 
             //TODO: activate this for production
-            mail($email, $subject, $emailText, 'Content-type: text/text; charset=utf-8');
+            //mail($email, $subject , $emailText, 'Content-type: text/text; charset=utf-8');
         }
     }
 
