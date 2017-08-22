@@ -72,7 +72,6 @@ class FeedbackController extends Controller
         $output->writeln(json_encode($content));
 */
         $this->setMissionFeedbackDone($missionId);
-        $this->sendEmailToMissionControl();
 
         foreach ($content as $key => $value) {
             if (is_array($value)) {
@@ -96,6 +95,8 @@ class FeedbackController extends Controller
             }
         }
 
+        $this->sendEmailToMissionControl($feedbackId);
+
         return response("User Feedback inserted for User: ". $userId);
     }
 
@@ -108,34 +109,29 @@ class FeedbackController extends Controller
         $mission[0]->save();
     }
 
-    private function sendEmailToMissionControl()
+    private function sendEmailToMissionControl($feedbackId)
     {
-        $missions = Mission::whereDate('end', '<', Carbon::now())
-            ->get();
 
-        foreach ($missions as $mission) {
-            $missionId = $mission->id;
-            $email = "aw@stiftungswo.ch;mp@stiftungswo.ch;mbr@stiftungswo.ch;lg@stiftungswo.ch;dj@stiftungswo.ch;ls@stiftungswo.ch;";
-            $subject = "Feedback von einem Zivi erstellt";
-            $emailText = 'Liebe Einsatzleitung,
-              
-    Ein Zivi hat gerade eben das Feedback zu seinem Einsatz abgegeben. 
-              
-    Du findest die Gesamt-Evaluation unter folgendem Link: http://izivi.stiftungswo.ch/user_feedback_overview
-              
-    Liebe Grüsse aus Schwerzenbach
-              
-    Dein SWO-Team
-    Bahnstrasse 9
-    8603 Schwerzenbach
-    
-    Phone:  +41 (0)43 355 58 44
-    E-Mail:  swo@stiftungswo.ch
-    http://www.stiftungswo.ch';
+        //TODO: change emails for production
+        $email = "aw@stiftungswo.ch;mp@stiftungswo.ch;mbr@stiftungswo.ch;lg@stiftungswo.ch;dj@stiftungswo.ch;ls@stiftungswo.ch;";
+        $subject = "Feedback von einem Zivi erstellt";
+        $emailText = 'Liebe Einsatzleitung,
+          
+Ein Zivi hat gerade eben das Feedback zu seinem Einsatz abgegeben. 
+          
+Du findest die Gesamt-Evaluation unter folgendem Link: http://izivi.stiftungswo.ch/user_feedback_overview/'.$feedbackId.'
+          
+Liebe Grüsse aus Schwerzenbach
+          
+Dein SWO-Team
+Bahnstrasse 9
+8603 Schwerzenbach
 
-            //TODO: activate this for production
-            //mail($email, $subject , $emailText, 'Content-type: text/text; charset=utf-8');
-        }
+Phone:  +41 (0)43 355 58 44
+E-Mail:  swo@stiftungswo.ch
+http://www.stiftungswo.ch';
+
+        mail($email, $subject, $emailText, 'Content-type: text/text; charset=utf-8');
     }
 
     /*
