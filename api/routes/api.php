@@ -188,8 +188,12 @@ $api->version('v1', function ($api) {
             $output = new ConsoleOutput();
             $output->writeln(json_encode($content));
 
+            $missionId = $content['missionId'];
+            $content = $content['survey'];
 
-            //TODO set feedback_done in Missions to 1
+            $mission = App\Mission::find($missionId);
+            $mission->feedback_done = true;
+            $mission->save();
 
             foreach ($content as $key => $value) {
                 if (is_array($value)) {

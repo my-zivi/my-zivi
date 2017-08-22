@@ -247,22 +247,21 @@ export default class Missions extends Component {
         }
 
         var disabledMission = [];
-        if (m[i].end >= new Date() || m[i].feedback_done == 1) {
-          disabledMission.push(
-            <div class="col-xs-1">
-              <a href="/user_feedback">
-                <button class="btn btn-xs btn-info" disabled>
-                  {' '}
-                  Feedback
-                </button>
-              </a>
-            </div>
-          );
+
+        console.log('date end =' + new Date(m[i].end));
+        console.log('date =' + new Date());
+
+        console.log('test =' + moment(m[i].end).isAfter(new Date()) || m[i].feedback_done == 1);
+        console.log('test2 =' + moment(m[i].end).isAfter(new Date()));
+        console.log('test3 =' + m[i].feedback_done == 1);
+
+        if (moment(m[i].end).isAfter(new Date()) || m[i].feedback_done == 1) {
+          disabledMission.push(<div class="col-xs-1" />);
         } else {
           disabledMission.push(
             <div class="col-xs-1">
-              <a href="/user_feedback">
-                <button class="btn btn-xs btn-info"> Feedback</button>
+              <a href={'/user_feedback/' + m[i].id} class="btn btn-xs btn-info">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true" /> Feedback
               </a>
             </div>
           );

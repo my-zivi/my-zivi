@@ -23,10 +23,14 @@ export default class UserFeedback extends Component {
     //survey.sendResult('70a0b637-c72c-4162-8e4d-15fe62e11b9e');
     this.setState({ loading: true, error: null });
 
-    //TODO send mission ID too for setting feedback_done attribute to 1 for mission!
+    var missionId = this.props.params.missionId;
 
     axios
-      .put(ApiService.BASE_URL + 'user/feedback', survey.data, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+      .put(
+        ApiService.BASE_URL + 'user/feedback',
+        { survey: survey.data, missionId: missionId },
+        { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
+      )
       .then(() => {
         console.log('put user/feedback works');
         this.setState({ loading: false });

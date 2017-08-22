@@ -60,7 +60,7 @@ export default (
     <Route path="/expense" component={Expense} onEnter={authorizedOnly} />
     <Route path="/expense/:report_sheet_id" component={EditExpense} onEnter={authorizedOnly} />
 
-    <Route path="/user_feedback" component={UserFeedback} onEnter={authorizedOnly} />
+    <Route path="/user_feedback/:missionId" component={UserFeedback} onEnter={authorizedOnly} />
     <Route path="/user_feedback_overview" component={UserFeedbackOverview} onEnter={authorizedOnly} />
 
     <Route path="/help" component={Help} />
