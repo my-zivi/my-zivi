@@ -19,6 +19,7 @@ class CreateTableUserFeedback extends Migration
             $table->softDeletes();
             $table->integer('user')->unsigned();
             $table->foreign('user')->references('id')->on('users');
+            $table->string('feedbackId');
             $table->date('year');
             $table->string('questionId');
             $table->string('answer');

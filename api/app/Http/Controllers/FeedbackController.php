@@ -15,13 +15,19 @@ define("ONE_YEAR_IN_SEC", 60 * 60 * 24 * 365);
 
 class FeedbackController extends Controller
 {
-    private $output = null;
     private $date_from = null;
     private $date_to = null;
+    private $feedback_id = null;
+
+
+    public function getFeedback($feedback_id)
+    {
+        $this->feedback_id = $feedback_id;
+        return $this->getFeedbacks();
+    }
 
     public function getFeedbacks()
     {
-        $this->output = new ConsoleOutput();
 
         $oneYearAgo = date('m/d/Y h:i:s a', time() - constant("ONE_YEAR_IN_SEC"));
         $today = date('m/d/Y h:i:s a', time());
@@ -60,12 +66,20 @@ class FeedbackController extends Controller
         $results = array();
 
         for ($i = 1; $i <= 6; $i++) {
-            $results[$i] = DB::table('user_feedbacks')
-                ->where('answer', '=', $i)
-                ->where('questionId', '=', $questionId)
-                ->whereDate('year', '>=', $this->date_from)
-                ->whereDate('year', '<=', $this->date_to)
-                ->get()->count();
+            if ($this->feedback_id!=null) {
+                $results[$i] = DB::table('user_feedbacks')
+                    ->where('answer', '=', $i)
+                    ->where('questionId', '=', $questionId)
+                    ->where('feedbackId', '=', $this->feedback_id)
+                    ->get()->count();
+            } else {
+                $results[$i] = DB::table('user_feedbacks')
+                    ->where('answer', '=', $i)
+                    ->where('questionId', '=', $questionId)
+                    ->whereDate('year', '>=', $this->date_from)
+                    ->whereDate('year', '<=', $this->date_to)
+                    ->get()->count();
+            }
         }
 
         return $results;
@@ -73,15 +87,21 @@ class FeedbackController extends Controller
 
     private function getFeedbacksTypeText($questionId)
     {
-        $results = DB::table('user_feedbacks')->select('answer')
-            ->where('questionId', '=', $questionId)
-            ->whereDate('year', '>=', $this->date_from)
-            ->whereDate('year', '<=', $this->date_to)
-            ->get();
+        if ($this->feedback_id!=null) {
+            $results = DB::table('user_feedbacks')->select('answer')
+                ->where('questionId', '=', $questionId)
+                ->where('feedbackId', '=', $this->feedback_id)
+                ->get();
+        } else {
+            $results = DB::table('user_feedbacks')->select('answer')
+                ->where('questionId', '=', $questionId)
+                ->whereDate('year', '>=', $this->date_from)
+                ->whereDate('year', '<=', $this->date_to)
+                ->get();
+        }
 
         $answerTexts = "";
         foreach ($results as $key => $value) {
-            //$this->output->writeln(json_encode($value->answer));
             $answerTexts .= $value->answer . "\n\r";
         }
 

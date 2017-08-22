@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\UserController;
+use Faker\Provider\Uuid;
 use Illuminate\Support\Facades\Input;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Holiday;
@@ -183,6 +184,7 @@ $api->version('v1', function ($api) {
         $api->put('/user/feedback', function () {
             $content = Input::get();
             $userId = JWTAuth::parseToken()->authenticate()->id;
+            $feedbackId = Uuid::uuid();
             $date = date("Y-m-d H:i:s");
 
             $output = new ConsoleOutput();
@@ -201,6 +203,7 @@ $api->version('v1', function ($api) {
                         $output->writeln("sub ");
                         $user_feedback = new App\UserFeedback();
                         $user_feedback->user = $userId;
+                        $user_feedback->feedbackId = $feedbackId;
                         $user_feedback->year = $date;
                         $user_feedback->questionId = $subKey;
                         $user_feedback->answer = $subValue;
@@ -210,6 +213,7 @@ $api->version('v1', function ($api) {
                     $output->writeln("parent ");
                     $user_feedback = new App\UserFeedback();
                     $user_feedback->user = $userId;
+                    $user_feedback->feedbackId = $feedbackId;
                     $user_feedback->year = $date;
                     $user_feedback->questionId = $key;
                     $user_feedback->answer = $value;
@@ -241,15 +245,14 @@ $api->version('v1', function ($api) {
                 'uses' => 'App\Http\Controllers\FeedbackController@getFeedbacks',
                 'as' => 'api.feedbacks'
             ]);
-
             $api->get('/user/feedback/question', function () {
                 $user_feedback_question = App\UserFeedbackQuestions::all();
                 return response()->json($user_feedback_question);
             });
-            $api->get('/user/feedback/{id}', function ($id) {
-                $user_feedback = App\UserFeedback::find($id);
-                return response()->json($user_feedback);
-            });
+            $api->get('/user/feedback/{id}', [
+                'uses' => 'App\Http\Controllers\FeedbackController@getFeedback',
+                'as' => 'api.feedback'
+            ]);
             $api->get('/user/feedback/question/{id}', function ($id) {
                 $user_feedback_question = App\UserFeedbackQuestions::find($id);
                 return response()->json($user_feedback_question);

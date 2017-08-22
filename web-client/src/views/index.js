@@ -62,6 +62,7 @@ export default (
 
     <Route path="/user_feedback/:missionId" component={UserFeedback} onEnter={authorizedOnly} />
     <Route path="/user_feedback_overview" component={UserFeedbackOverview} onEnter={authorizedOnly} />
+    <Route path="/user_feedback_overview/:feedback_id" component={UserFeedbackOverview} onEnter={authorizedOnly} />
 
     <Route path="/help" component={Help} />
 

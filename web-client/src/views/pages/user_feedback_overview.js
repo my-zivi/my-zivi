@@ -34,17 +34,22 @@ export default class UserFeedbackOverview extends Component {
   getFeedbackAnswers() {
     this.setState({ loading: true, error: null });
 
-    axios
-      .get(
+    var request;
+    if (this.props.params.feedback_id) {
+      request = ApiService.BASE_URL + 'user/feedback/' + this.props.params.feedback_id;
+    } else {
+      request =
         ApiService.BASE_URL +
-          'user/feedback?date_from=' +
-          this.dbDate(this.state.date_from) +
-          '&date_to=' +
-          this.dbDate(this.state.date_to),
-        {
-          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-        }
-      )
+        'user/feedback?date_from=' +
+        this.dbDate(this.state.date_from) +
+        '&date_to=' +
+        this.dbDate(this.state.date_to);
+    }
+
+    axios
+      .get(request, {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+      })
       .then(response => {
         this.setState({ loading: false });
         this.setState({
@@ -291,25 +296,33 @@ export default class UserFeedbackOverview extends Component {
       <Header>
         <div className="page page__user_feedback_overview">
           <Card>
-            <div class="container top">
-              <div class="row">
-                <div class="col-sm-4">
-                  <DatePicker
-                    id="date_from"
-                    label="Von"
-                    value={this.state.date_from}
-                    callback={this.handleDateChange}
-                    callbackOrigin={this}
-                  />
-                </div>
-                <div class="col-sm-4">
-                  <DatePicker id="date_to" label="Bis" value={this.state.date_to} callback={this.handleDateChange} callbackOrigin={this} />
-                </div>
-                <div class="col-sm-4">
-                  <h5>Anzahl Feedbacks: {totalFeedbacks}</h5>
+            {this.props.params.feedback_id == null && (
+              <div class="container top">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <DatePicker
+                      id="date_from"
+                      label="Von"
+                      value={this.state.date_from}
+                      callback={this.handleDateChange}
+                      callbackOrigin={this}
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <DatePicker
+                      id="date_to"
+                      label="Bis"
+                      value={this.state.date_to}
+                      callback={this.handleDateChange}
+                      callbackOrigin={this}
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <h5>Anzahl Feedbacks: {totalFeedbacks}</h5>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             <div class="container feedback">
               <div class="innerContainer">{feedbacks}</div>
             </div>
