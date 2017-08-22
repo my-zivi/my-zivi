@@ -181,48 +181,9 @@ $api->version('v1', function ($api) {
             'uses' => 'App\Http\Controllers\PDF\PDFController@getZiviReportSheet'
         ]);
 
-        $api->put('/user/feedback', function () {
-            $content = Input::get();
-            $userId = JWTAuth::parseToken()->authenticate()->id;
-            $feedbackId = Uuid::uuid();
-            $date = date("Y-m-d H:i:s");
-
-            $output = new ConsoleOutput();
-            $output->writeln(json_encode($content));
-
-            $missionId = $content['missionId'];
-            $content = $content['survey'];
-
-            $mission = App\Mission::find($missionId);
-            $mission->feedback_done = true;
-            $mission->save();
-
-            foreach ($content as $key => $value) {
-                if (is_array($value)) {
-                    foreach ($value as $subKey => $subValue) {
-                        $output->writeln("sub ");
-                        $user_feedback = new App\UserFeedback();
-                        $user_feedback->user = $userId;
-                        $user_feedback->feedbackId = $feedbackId;
-                        $user_feedback->year = $date;
-                        $user_feedback->questionId = $subKey;
-                        $user_feedback->answer = $subValue;
-                        $user_feedback->save();
-                    }
-                } else {
-                    $output->writeln("parent ");
-                    $user_feedback = new App\UserFeedback();
-                    $user_feedback->user = $userId;
-                    $user_feedback->feedbackId = $feedbackId;
-                    $user_feedback->year = $date;
-                    $user_feedback->questionId = $key;
-                    $user_feedback->answer = $value;
-                    $user_feedback->save();
-                }
-            }
-
-            return response("inserted");
-        });
+        $api->put('/user/feedback', [
+            'uses' => 'App\Http\Controllers\FeedbackController@putFeedback'
+        ]);
 
         // Admins only
         $api->group([

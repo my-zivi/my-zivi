@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mission;
+use App\UserFeedback;
+use Carbon\Carbon;
+use Faker\Provider\Uuid;
 use Laravel\Lumen\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Input;
@@ -52,6 +56,86 @@ class FeedbackController extends Controller
         }
 
         return new JsonResponse($questions);
+    }
+
+    public function putFeedback()
+    {
+        $content = Input::get();
+        $userId = JWTAuth::parseToken()->authenticate()->id;
+        $date = date("Y-m-d H:i:s");
+
+        $feedbackId = Uuid::uuid();
+        $missionId = $content['missionId'];
+        $content = $content['survey'];
+/*
+        $output = new ConsoleOutput();
+        $output->writeln(json_encode($content));
+*/
+        $this->setMissionFeedbackDone($missionId);
+        $this->sendEmailToMissionControl();
+
+        foreach ($content as $key => $value) {
+            if (is_array($value)) {
+                foreach ($value as $subKey => $subValue) {
+                    $user_feedback = new UserFeedback();
+                    $user_feedback->user = $userId;
+                    $user_feedback->feedbackId = $feedbackId;
+                    $user_feedback->year = $date;
+                    $user_feedback->questionId = $subKey;
+                    $user_feedback->answer = $subValue;
+                    $user_feedback->save();
+                }
+            } else {
+                $user_feedback = new UserFeedback();
+                $user_feedback->user = $userId;
+                $user_feedback->feedbackId = $feedbackId;
+                $user_feedback->year = $date;
+                $user_feedback->questionId = $key;
+                $user_feedback->answer = $value;
+                $user_feedback->save();
+            }
+        }
+
+        return response("User Feedback inserted for User: ". $userId);
+    }
+
+    private function setMissionFeedbackDone($missionId)
+    {
+        $mission = Mission::where('id', $missionId)
+            ->get();
+
+        $mission[0]->feedback_done = true;
+        $mission[0]->save();
+    }
+
+    private function sendEmailToMissionControl()
+    {
+        $missions = Mission::whereDate('end', '<', Carbon::now())
+            ->get();
+
+        foreach ($missions as $mission) {
+            $missionId = $mission->id;
+            $email = "clot@schaniel.net"; //aw@stiftungswo.ch;mp@stiftungswo.ch;mbr@stiftungswo.ch;lg@stiftungswo.ch;dj@stiftungswo.ch;ls@stiftungswo.ch;
+            $subject = "Feedback von einem Zivi erstellt";
+            $emailText = 'Liebe Einsatzleitung,
+              
+    Ein Zivi hat gerade eben das Feedback zu seinem Einsatz abgegeben. 
+              
+    Du findest die Gesamt-Evaluation unter folgendem Link: http://izivi.stiftungswo.ch/user_feedback_overview
+              
+    Liebe Grüsse aus Schwerzenbach
+              
+    Dein SWO-Team
+    Bahnstrasse 9
+    8603 Schwerzenbach
+    
+    Phone:  +41 (0)43 355 58 44
+    E-Mail:  swo@stiftungswo.ch
+    http://www.stiftungswo.ch';
+
+            //TODO: activate this for production
+            mail($email, $subject, $emailText, 'Content-type: text/text; charset=utf-8');
+        }
     }
 
     /*
