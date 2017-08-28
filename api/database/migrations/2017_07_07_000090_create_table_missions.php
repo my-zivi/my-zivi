@@ -28,7 +28,7 @@ class CreateTableMissions extends Migration
             $table->integer('mission_type')->nullable();
             $table->integer('first_time');
             $table->boolean('long_mission');
-            $table->integer('probation_period');
+            $table->integer('probation_period')->nullable();
             $table->boolean('feedback_mail_sent');
             $table->boolean('feedback_done');
         });

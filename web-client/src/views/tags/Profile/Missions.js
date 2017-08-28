@@ -140,34 +140,6 @@ export default class Missions extends Component {
                   self={self}
                 />
                 <hr />
-                <h4>Schnuppertag</h4>
-                <p>
-                  Tragen Sie nachfolgend ein, ob Sie bei der SWO einen Schnuppertag geleistet haben. Dieser wird dem Einsatz allenfalls
-                  angerechnet.
-                </p>
-                <DatePicker
-                  value={self.state['result'][missionKey + '_probation_day']}
-                  id={missionKey + '_probation_day'}
-                  callback={self.handleDateChange}
-                  label="Datum"
-                  callbackOrigin={self}
-                />
-                <div class="form-group">
-                  <label class="control-label col-sm-3" for={missionKey + '_probation_day_comment'}>
-                    Bemerkungen zum Schnuppertag
-                  </label>
-                  <div class="col-sm-9">
-                    <textarea
-                      rows="4"
-                      id={missionKey + '_probation_day_comment'}
-                      name={missionKey + '_probation_day_comment'}
-                      class="form-control"
-                      onChange={e => self.handleTextareaChange(e)}
-                      value={self.state.result[missionKey + '_probation_day_comment']}
-                    />
-                  </div>
-                </div>
-                <hr />
                 <h4>Status</h4>
                 {mission == null || mission.draft == null ? 'Provisorisch' : 'Aufgeboten, Aufgebot erhalten am ' + mission.draft}
                 <hr />

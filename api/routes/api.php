@@ -141,9 +141,7 @@ $api->version('v1', function ($api) {
             $mission->first_time = Input::get("first_time", false);
             $mission->long_mission = Input::get("long_mission", false);
             $mission->probation_period = Input::get("probation_period", false);
-            $mission->probation_day = Input::get("probation_day", "");
-            $mission->probation_day_comment = Input::get("probation_day_comment", "");
-
+           
             $user = JWTAuth::parseToken()->authenticate();
             if (!$user->isAdmin() && $user->id!=$mission->user) {
                 return response("not allowed", 401);
@@ -163,9 +161,7 @@ $api->version('v1', function ($api) {
             $mission->first_time = Input::get("first_time", false);
             $mission->long_mission = Input::get("long_mission", false);
             $mission->probation_period = Input::get("probation_period", false);
-            $mission->probation_day = Input::get("probation_day", "");
-            $mission->probation_day_comment = Input::get("probation_day_comment", "");
-
+            
             $user = JWTAuth::parseToken()->authenticate();
             if (!$user->isAdmin() && ($user->id!=$mission->user || $mission->draft!=null)) {
                 return response("not allowed", 401);

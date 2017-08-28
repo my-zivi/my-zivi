@@ -78,8 +78,6 @@ export default class User extends Component {
           newState['result'][key + '_first_time'] = response.data.missions[i].first_time;
           newState['result'][key + '_long_mission'] = response.data.missions[i].long_mission;
           newState['result'][key + '_probation_period'] = response.data.missions[i].probation_period;
-          newState['result'][key + '_probation_day'] = response.data.missions[i].probation_day;
-          newState['result'][key + '_probation_day_comment'] = response.data.missions[i].probation_day_comment;
         }
 
         this.setState(newState);
