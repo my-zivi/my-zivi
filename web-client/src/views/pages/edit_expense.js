@@ -156,14 +156,7 @@ export default class EditExpense extends Component {
             <br />
 
             <InputField id="pid" label="Pflichtenheft" value={sheet.pflichtenheft_id + ' ' + sheet.pflichtenheft_name} disabled="true" />
-            <DatePicker
-              id="einsaetze_start"
-              label="Beginn Einsatz"
-              value={sheet.einsaetze_start}
-              callback={this.handleDateChange}
-              callbackOrigin={this}
-              disabled="true"
-            />
+            <DatePicker id="einsaetze_start" label="Beginn Einsatz" value={sheet.einsaetze_start} disabled="true" />
             <DatePicker
               id="einsaetze_end"
               label="Ende Einsatz"
@@ -356,52 +349,55 @@ export default class EditExpense extends Component {
 
             <hr />
 
-            <button
-              type="submit"
-              name="saveExpense"
-              class="btn btn-primary col-sm-2"
-              onClick={() => {
-                this.save();
-              }}
-            >
-              <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" /> Speichern
-            </button>
-            <button
-              type="button"
-              name="showProfile"
-              class="btn btn-danger col-sm-2"
-              onClick={() => {
-                this.deleteReportSheet();
-              }}
-            >
-              <span class="glyphicon glyphicon-trash" aria-hidden="true" /> Löschen
-            </button>
-            <a
-              type="button"
-              name="print"
-              class="btn btn-warning col-sm-2"
-              href={
-                ApiService.BASE_URL +
-                'pdf/zivireportsheet?reportSheetId=' +
-                this.props.params.report_sheet_id +
-                '&jwttoken=' +
-                encodeURI(localStorage.getItem('jwtToken'))
-              }
-              target="_blank"
-            >
-              <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
-            </a>
-            <div class="col-sm-6" />
-            <button
-              type="button"
-              name="deleteReport"
-              class="btn btn-default col-sm-2"
-              onClick={() => {
-                this.router.push('/profile/' + this.state['report_sheet']['user']);
-              }}
-            >
-              Profil anzeigen
-            </button>
+            <div class="container">
+              <button
+                type="submit"
+                name="saveExpense"
+                class="btn btn-primary col-sm-3"
+                onClick={() => {
+                  this.save();
+                }}
+              >
+                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" /> Speichern und aktualisieren
+              </button>
+              <div class="col-sm-2" />
+              <button
+                type="button"
+                name="showProfile"
+                class="btn btn-danger col-sm-2"
+                onClick={() => {
+                  this.deleteReportSheet();
+                }}
+              >
+                <span class="glyphicon glyphicon-trash" aria-hidden="true" /> Löschen
+              </button>
+              <a
+                type="button"
+                name="print"
+                class="btn btn-warning col-sm-2"
+                href={
+                  ApiService.BASE_URL +
+                  'pdf/zivireportsheet?reportSheetId=' +
+                  this.props.params.report_sheet_id +
+                  '&jwttoken=' +
+                  encodeURI(localStorage.getItem('jwtToken'))
+                }
+                target="_blank"
+              >
+                <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
+              </a>
+              <div class="col-sm-1" />
+              <button
+                type="button"
+                name="deleteReport"
+                class="btn btn-default col-sm-2"
+                onClick={() => {
+                  this.router.push('/profile/' + this.state['report_sheet']['user']);
+                }}
+              >
+                Profil anzeigen
+              </button>
+            </div>
           </form>
           <br />
           <br />
