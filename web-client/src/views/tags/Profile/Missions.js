@@ -273,22 +273,25 @@ export default class Missions extends Component {
       first_time: self.state.result[missionKey + '_first_time'],
       long_mission: self.state.result[missionKey + '_long_mission'],
       probation_period: self.state.result[missionKey + '_probation_period'],
-      probation_day: self.state.result[missionKey + '_probation_day'],
-      probation_day_comment: self.state.result[missionKey + '_probation_day_comment'],
     };
 
-    if (moment(newMission['start']).isoWeekday() != 1) {
+    if (moment(newMission['start']).isoWeekday() != 1 && newMission['probation_period'] != 1) {
       Toast.showError('Falscher Einsatzbeginn', 'Erster Einsatztag muss zwingend ein Montag sein!', null, self.context);
       return;
     }
 
-    if (moment(newMission['end']).isoWeekday() != 5 && newMission['mission_type'] != 2) {
+    if (moment(newMission['end']).isoWeekday() != 5 && newMission['mission_type'] != 2 && newMission['probation_period'] != 1) {
       Toast.showError(
         'Falsches Einsatzende',
         'Letzter Einsatztag muss zwingend ein Freitag sein! (Ausnahme: letzter Einsatz)',
         null,
         self.context
       );
+      return;
+    }
+
+    if (!moment(newMission['start']).isSameOrBefore(moment(newMission['end']))) {
+      Toast.showError('Falsches Einsatzdauer', 'Erster Einsatztag nach dem letzten Einsatztag', null, self.context);
       return;
     }
 
