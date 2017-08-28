@@ -115,6 +115,7 @@ class FeedbackController extends Controller
         //TODO: change emails for production
         $email = "aw@stiftungswo.ch;mp@stiftungswo.ch;mbr@stiftungswo.ch;lg@stiftungswo.ch;dj@stiftungswo.ch;ls@stiftungswo.ch;";
         $subject = "Feedback von einem Zivi erstellt";
+        $headers = 'Content-type: text/text; charset=utf-8; From: swo@stiftungswo.ch';
         $emailText = 'Liebe Einsatzleitung,
           
 Ein Zivi hat gerade eben das Feedback zu seinem Einsatz abgegeben. 

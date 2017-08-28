@@ -251,9 +251,9 @@ export default class Missions extends Component {
                 <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
               </button>
             </div>
-            {disabledMission}
             <div class="col-xs-1">{deleteButton}</div>
             <div class="col-xs-1">{addButton}</div>
+            {disabledMission}
           </div>
         );
         missions.push(this.renderMissions(self, m[i], ApiService.isAdmin()));
