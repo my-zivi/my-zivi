@@ -41,10 +41,10 @@ class FeedbackController extends Controller
 
         $json_string = "";
         $string_start = '{"pages":[';
-        $string_end = "]}";
+        $string_end = '], "requiredText": "", "showProgressBar": "top", "showQuestionNumbers": "off" }';
         $page_start = '{"elements": [{"type":"panel", "elements":[';
-        $lastPageName = "Seite 1";
-        $lastPageTitle = "Seite 1";
+        $lastPageName = "Organisation"; //TODO hardcoded
+        $lastPageTitle = "Organisation";
 
         $this->questions = UserFeedbackQuestion::orderBy('id', 'ASC')->get();
         $json_string .= $string_start.$page_start;
@@ -58,7 +58,7 @@ class FeedbackController extends Controller
                 $json_string .= $page_start;
             }
 
-            $json_string .= $this->xy();
+            $json_string .= $this->getJSONbyQuestionType();
         }
 
         $json_string = substr($json_string, 0, -1); // remove last comma
@@ -68,40 +68,33 @@ class FeedbackController extends Controller
         return new JsonResponse($json_string);
     }
 
-    private function xy()
+    private function getJSONbyQuestionType()
     {
         $returnString = "";
 
         switch ($this->questions[$this->index]->type) {
             case constant("TYPE_SINGLE_QUESTION"):
+                $returnString .= '{ "type":"rating", "isRequired":"true", "name":"'.$this->questions[$this->index]->id.'", "rateValues":["1","2","3","4"], "title":"'.$this->questions[$this->index]->question.'" },';
+                break;
+
             case constant("TYPE_GROUP_QUESTION"):
-                $returnString .= '{ "type":"rating", "isRequired":true, "name":"'.$this->questions[$this->index]->id.'", "rateValues":["1","2","3","4"], "title":"'.$this->questions[$this->index]->question.'" },';
+                $returnString .= '{ "type":"rating", "isRequired":"true", "name":"'.$this->questions[$this->index]->id.'", "rateValues":["1","2","3","4"], "title":"'.$this->questions[$this->index]->question.'", "indent": "2" },';
                 break;
 
             case constant("TYPE_SINGLE_QUESTION_2"):
-                $returnString .= '{ "type":"rating", "isRequired":true, "name":"'.$this->questions[$this->index]->id.'", "rateValues":[{"value":"1","text":"Ja"},{"value":"2","text":"Nein"}], "title":"'.$this->questions[$this->index]->question.'" },';
+                $returnString .= '{ "type":"rating", "isRequired":"true", "name":"'.$this->questions[$this->index]->id.'", "rateValues":[{"value":"1","text":"Ja"},{"value":"2","text":"Nein"}], "title":"'.$this->questions[$this->index]->question.'" },';
                 break;
 
             case constant("TYPE_SINGLE_QUESTION_6"):
-                $returnString .= '{ "type":"radiogroup", "isRequired":true, "name":"'.$this->questions[$this->index]->id.'", "choices":[{"value":"1","text":"Kollegen"},{"value":"2","text":"EIS"},{"value":"3","text":"Website SWO"},{"value":"4","text":"Thomas Winter"},{"value":"5","text":"Früherer Einsatz"},{"value":"6","text":"Anderes"}], "title":"'.$this->questions[$this->index]->question.'" },'; //TODO remove hardcoded texts
+                $returnString .= '{ "type":"radiogroup", "isRequired":"true", "name":"'.$this->questions[$this->index]->id.'", "choices":[{"value":"1","text":"Kollegen"},{"value":"2","text":"EIS"},{"value":"3","text":"Website SWO"},{"value":"4","text":"Thomas Winter"},{"value":"5","text":"Früherer Einsatz"},{"value":"6","text":"Anderes"}], "title":"'.$this->questions[$this->index]->question.'" },'; //TODO remove hardcoded texts
                 break;
 
             case constant("TYPE_GROUP_TITLE"):
-                $a = 0;
-                $childs = "";
-                while ($this->questions[$this->index+1]->type == constant("TYPE_GROUP_QUESTION")) {
-                    $this->index++;
-                    $a++;
-
-                    $childs .= $this->xy();
-                }
-
-                $childs = substr($childs, 0, -1); // remove last comma
-                $returnString .= '{ "type":"panel", "elements":['.$childs.'], "name":"'.$this->questions[$this->index-$a]->question.'" },';
-
+                $returnString .= '{ "type": "html", "html": "<h4>'.$this->questions[$this->index]->question.'</h4><p class=\'btn-group\'>'.$this->questions[$this->index]->opt1.' - '.$this->questions[$this->index]->opt2.'</p>", "name": "question" },';
                 break;
+
             case constant("TYPE_TEXT"):
-                $returnString .= '{ "type":"text", "isRequired":true, "name":"'.$this->questions[$this->index]->id.'", "title":"'.$this->questions[$this->index]->question.'", visible:false, visibleIf:"{151} = 1"},';
+                $returnString .= '{ "type":"text", "isRequired":true, "name":"'.$this->questions[$this->index]->id.'", "title":"'.$this->questions[$this->index]->question.'", "visible":"false", "visibleIf":"{151} = 1"},';
                 break;
         }
 
@@ -132,14 +125,14 @@ class FeedbackController extends Controller
 
         for ($i = 0; $i < count($questions); $i++) {
             switch ($questions[$i]->type) {
-                case 0:
+                case 2:
                     $questions[$i]->answers = null;
                     break;
-                case 1:
-                    $questions[$i]->answers = $this->getFeedbacksTypeRange($questions[$i]->id);
-                    break;
-                case 2:
+                case 4:
                     $questions[$i]->answers = $this->getFeedbacksTypeText($questions[$i]->id);
+                    break;
+                default:
+                    $questions[$i]->answers = $this->getFeedbacksTypeRange($questions[$i]->id);
                     break;
             }
         }

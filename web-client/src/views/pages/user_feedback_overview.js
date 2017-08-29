@@ -144,9 +144,10 @@ export default class UserFeedbackOverview extends Component {
   render() {
     var feedbacks = [];
     var answers = this.state.feedbacks;
+    var totalFeedbacks = 0;
 
-    if (answers[0]) {
-      var totalFeedbacks =
+    if (answers[0] !== undefined && answers[0] != null && answers[0]['answers'] !== undefined) {
+      totalFeedbacks =
         answers[0]['answers']['1'] +
         answers[0]['answers']['2'] +
         answers[0]['answers']['3'] +
@@ -175,19 +176,21 @@ export default class UserFeedbackOverview extends Component {
           break;
       }
 
-      if (answers[x].type == 1) {
+      if (answers[x].type == 1 || answers[x].type == 3 || answers[x].type == 5 || answers[x].type == 6) {
         let rawContent = [];
         let totalAnswers = 0;
         let answersCleaned = [];
         let answersPerc = [];
 
         for (var i = 1; i <= 6; i++) {
+          console.log('lalala 1');
           answersCleaned[i] = answers[x]['answers'][i] ? answers[x]['answers'][i] : 0;
           totalAnswers += answersCleaned[i];
+          console.log('lalala 2');
         }
 
         // Question types
-        if (answers[x].pos == 1) {
+        if (answers[x].type == 6) {
           feedbacks.push(
             <div class="row">
               <div class="col-xs-7">
@@ -218,7 +221,7 @@ export default class UserFeedbackOverview extends Component {
               </div>
             </div>
           );
-        } else if (answers[x].pos == 26) {
+        } else if (answers[x].type == 5) {
           feedbacks.push(
             <div class="row">
               <div class="col-xs-8">
@@ -253,7 +256,7 @@ export default class UserFeedbackOverview extends Component {
             </div>
           );
         }
-      } else if (answers[x].type == 0) {
+      } else if (answers[x].type == 2) {
         feedbacks.push(
           <div>
             <br />
@@ -274,7 +277,7 @@ export default class UserFeedbackOverview extends Component {
             </div>
           </div>
         );
-      } else if (answers[x].type == 2) {
+      } else if (answers[x].type == 4) {
         feedbacks.push(
           <div>
             <div class="row">

@@ -48,10 +48,6 @@ export default class UserFeedback extends Component {
           loading: false,
         };
 
-        console.log(response.data);
-        //let surveyJSON = JSON.parse(response.data);
-        console.log(JSON.stringify(response.data));
-
         Survey.Survey.cssType = 'bootstrap';
         var survey = new Survey.Model(response.data);
         $('#surveyContainer').Survey({
@@ -80,7 +76,7 @@ export default class UserFeedback extends Component {
       <Header>
         <div className="page page__user_feedback">
           <Card>
-            <div>
+            <div class="container">
               <div id="surveyContainer" />
             </div>
           </Card>
