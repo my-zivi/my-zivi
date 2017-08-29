@@ -319,96 +319,86 @@ INSERT INTO izivi.holidays(date_from, date_to, holiday_type, description)
 ╚██████╔╝███████║███████╗██║  ██║    ██║     ███████╗███████╗██████╔╝██████╔╝██║  ██║╚██████╗██║  ██╗███████║
  ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝    ╚═╝     ╚══════╝╚══════╝╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝
  
- types
- 
- 1: Frage mit Unterantworten (nicht verwendet) => Typ 0
- 2: Frage 1-4 => Typ 1
- 3: Frage 1-4 => Typ 1
- 4: Textantwort => Typ 2
- 5: Frage 1-4 => Typ 1
- 6: Frage 1-4 => Typ 1
+=== types ===
+define("TYPE_SINGLE_QUESTION", 1);
+define("TYPE_GROUP_TITLE", 2);
+define("TYPE_GROUP_QUESTION", 3);
+define("TYPE_TEXT", 4);
  
 */
 
-INSERT INTO `user_feedback_questions` (`id`, `question`, `type`, `opt1`, `opt2`, `opt3`, `pos`, `active`) VALUES
-(1, 'Wie wurdest du auf die SWO aufmerksam ?', 3, '', '', '', 1, 1),
-(2, 'Hattest du genügend Informationen zum Einsatzbetrieb ?', 6, 'nein', 'ja', '', 2, 1),
-(3, 'Wie zufrieden warst du mit der Anmeldung über iZivi ?', 6, 'nicht zufrieden', 'sehr zufrieden', '', 3, 1),
-(4, 'Wie zufrieden warst du mit der Spesenabrechnung ?', 6, 'nicht zufrieden', 'sehr zufrieden', '', 4, 1),
-(5, 'Wie wichtig waren folgende Gründe bei deiner Wahl des Einsatzbetriebes ?', 1, 'gar nicht wichtig', 'sehr wichtig', '', 5, 1),
-(6, '- Aktive Naturschutzarbeit', 2, '', '', '', 6, 1),
-(7, '- Ort des Einsatzbetriebes', 2, '', '', '', 7, 1),
-(8, '- Möglichkeit einer kurzen Einsatzdauer', 2, '', '', '', 8, 1),
-(9, '- Empfehlung', 2, '', '', '', 9, 1),
-(10, '- Früherer Einsatz bei der SWO', 2, '', '', '', 10, 1),
-(11, 'Wie streng war die Arbeit ?', 6, 'gar nicht streng', 'sehr streng', '', 11, 1),
-(12, 'Wie gut wurde (n) ...', 1, 'sehr schlecht', 'sehr gut', '', 12, 1),
-(13, '- die Arbeitstechniken erklärt ?', 2, '', '', '', 13, 1),
-(14, '- der Umgang mit Maschinen erklärt ?', 2, '', '', '', 14, 1),
-(15, '- Sinn und Zweck der Projekte erklärt ?', 2, '', '', '', 15, 1),
-(16, 'Wie beurteilst du den Zustand der...', 1, 'sehr schlecht', 'sehr gut', '', 16, 1),
-(17, '- Arbeitshilfsmittel ? (Handwerkzeug, Fahrzeuge etc.)', 2, '', '', '', 17, 1),
-(18, '- zur Verfügung gestellten Arbeitskleider', 2, '', '', '', 18, 1),
-(19, 'Wie war die Stimmung in der Gruppe während der Arbeit ?', 6, 'sehr schlecht', 'sehr gut', '', 19, 1),
-(20, 'Wie fandest du die Gruppengrösse', 6, 'zu klein', 'zu gross', '', 20, 1),
-(21, 'Wie sinnvoll hast du die Projekte empfunden ?', 6, 'gar nicht sinnvoll', 'sehr sinnvoll', '', 21, 1),
-(22, 'Wie beurteilst du die Sicherheit während der Arbeit ?', 6, 'gar nicht sicher', 'sehr sicher', '', 22, 1),
-(23, 'Waren rauchende Zivi\'s für dich ein Problem ...', 1, 'gar nicht', 'sehr stark', '', 23, 1),
-(24, '- während der Arbeit ?', 2, '', '', '', 24, 1),
-(25, '- während der Pausen ?', 2, '', '', '', 25, 1),
-(26, 'Bist du selbst Raucher ?', 6, 'nein', 'ja', '', 26, 1),
-(27, 'Wie stark stimmst du folgenden Aussagen zu ?', 1, 'stimme gar nicht zu', 'stimme voll zu', '', 27, 1),
-(28, '- Die Anwesenheit eines Einsatzleiters war motivierend.', 2, '', '', '', 28, 1),
-(29, '- Eine höhere Präsenz der Einsatzleiter wäre wünschenswert.', 2, '', '', '', 29, 1),
-(30, '- Eine intensivere persönliche Betreuung wäre gut.', 2, '', '', '', 30, 1),
-(31, '- Der Einsatzleiter stand bei Fragen jeweils zur Verfügung.', 2, '', '', '', 31, 1),
-(32, '- Der Einsatzleiter konnte meine Fragen gut beantworten.', 2, '', '', '', 32, 1),
-(33, '- Der Einsatzleiter wirkte in der Regel fachlich kompetent.', 2, '', '', '', 33, 1),
-(34, '- Ich bekam ein faires Feedback auf meine Arbeit.', 2, '', '', '', 34, 1),
-(35, '- Der Einsatzleiter gab realistische Tagesziele vor.', 2, '', '', '0', 35, 1),
-(36, 'Manuel Brändli', 1, 'sehr schlecht', 'sehr gut', 'weiss nicht', 36, 1),
-(37, '- Fachliche Kompetenz', 5, '', '', '', 37, 1),
-(38, '- Soziale Kompetenz', 5, '', '', '', 38, 1),
-(39, '- Stimmung während der Arbeit', 5, '', '', '', 39, 1),
-(40, '- Konkret kann verbessert werden :', 4, '', '', '', 40, 1),
-(41, 'Andreas Wolf', 1, 'sehr schlecht', 'sehr gut', 'weiss nicht', 41, 1),
-(42, '- Fachliche Kompetenz', 5, '', '', '', 42, 1),
-(43, '- Soziale Kompetenz', 5, '', '', '', 43, 1),
-(44, '- Stimmung während der Arbeit', 5, '', '', '', 44, 1),
-(45, '- Konkret kann verbessert werden :', 4, '', '', '', 45, 1),
-(46, 'Marc Pfeuti', 1, 'sehr schlecht', 'sehr gut', 'weiss nicht', 46, 1),
-(47, '- Fachliche Kompetenz', 5, '', '', '', 47, 1),
-(48, '- Soziale Kompetenz', 5, '', '', '', 48, 1),
-(49, '- Stimmung während der Arbeit', 5, '', '', '', 49, 1),
-(50, '- Konkret kann verbessert werden :', 4, '', '', '', 50, 1),
-(51, 'Lothar Schroeder', 1, 'sehr schlecht', 'sehr gut', 'weiss nicht', 51, 0),
-(52, '- Fachliche Kompetenz', 5, '', '', '', 52, 0),
-(53, '- Soziale Kompetenz', 5, '', '', '', 53, 0),
-(54, '- Stimmung während der Arbeit', 5, '', '', '', 54, 0),
-(55, '- Konkret kann verbessert werden :', 4, '', '', '', 55, 0),
-(56, 'Daniel Jerjen', 1, 'sehr schlecht', 'sehr gut', 'weiss nicht', 56, 1),
-(57, '- Fachliche Kompetenz', 5, '', '', '', 57, 1),
-(58, '- Soziale Kompetenz', 5, '', '', '', 58, 1),
-(59, '- Stimmung während der Arbeit', 5, '', '', '', 59, 1),
-(60, '- Konkret kann verbessert werden :', 4, '', '', '', 60, 1),
-(61, 'Lukas Geser', 1, 'sehr schlecht', 'sehr gut', 'weiss nicht', 61, 1),
-(62, '- Fachliche Kompetenz', 5, '', '', '', 62, 1),
-(63, '- Soziale Kompetenz', 5, '', '', '', 63, 1),
-(64, '- Stimmung während der Arbeit', 5, '', '', '', 64, 1),
-(65, '- Konkret kann verbessert werden :', 4, '', '', '', 65, 1),
-(66, 'Würdest du die SWO als Einsatzbetrieb weiterempfehlen ?', 6, 'nein', 'ja', '', 66, 1),
-(67, 'Würdest du wieder einmal Zivildienst bei der SWO leisten ?', 6, 'nein', 'ja', '', 67, 1),
-(68, 'Höhepunkt (e) meines Zivildiensteinsatzes :', 4, '', '', '', 68, 1),
-(69, 'Tiefpunkt (e) meines Zivildiensteinsatzes :', 4, '', '', '', 69, 1),
-(70, 'Verbesserungsvorschläge :', 4, '', '', '', 70, 1),
-(71, 'Weitere Kommentare :', 4, '', '', '', 71, 1);	
-
-UPDATE user_feedback_questions SET type = 0 WHERE type = 1;
-UPDATE user_feedback_questions SET type = 1 WHERE type = 2;
-UPDATE user_feedback_questions SET type = 1 WHERE type = 3;
-UPDATE user_feedback_questions SET type = 1 WHERE type = 5;
-UPDATE user_feedback_questions SET type = 1 WHERE type = 6;
-UPDATE user_feedback_questions SET type = 2 WHERE type = 4;
+INSERT INTO `user_feedback_questions` (`id`, `created_at`, `updated_at`, `deleted_at`, `question`, `json`, `new_page`, `type`, `opt1`, `opt2`, `opt3`, `pos`, `active`) VALUES
+  (1, NULL, NULL, NULL, 'Wie wurdest du auf die SWO aufmerksam ?', '{type:"radiogroup",choices:[{value:"1",text:"Kollegen"},{value:"2",text:"EIS"},{value:"3",text:"Website SWO "},{value:"4",text:"Thomas Winter"},{value:"5",text:"Früherer Einsatz"},{value:"6",text:"Anderes"}],isRequired:true,name:"1",title:"Wie wurdest du auf die SWO aufmerksam?"}', 0, 1, '', '', '', 1, 1),
+  (2, NULL, NULL, NULL, 'Hattest du genügend Informationen zum Einsatzbetrieb ?', '{type:"rating",isRequired:true,name:"2",rateValues:["1","2","3","4"],title:"Hattest du genügend Informationen zum Einsatzbetrieb ?"}', 0, 1, 'nein', 'ja', '', 2, 1),
+  (3, NULL, NULL, NULL, 'Wie zufrieden warst du mit der Anmeldung über iZivi ?', '{type:"rating",isRequired:true,name:"3",rateValues:["1","2","3","4"],title:"Wie zufrieden warst du mit der Anmeldung über iZivi ?"}', 0, 1, 'nicht zufrieden', 'sehr zufrieden', '', 3, 1),
+  (4, NULL, NULL, NULL, 'Wie zufrieden warst du mit der Spesenabrechnung ?', '{type:"rating",isRequired:true,name:"4",rateValues:["1","2","3","4"],title:"Wie zufrieden warst du mit der Spesenabrechnung?"}', 0, 1, 'nicht zufrieden', 'sehr zufrieden', '', 4, 1),
+  (5, NULL, NULL, NULL, 'Wie wichtig waren folgende Gründe bei deiner Wahl des Einsatzbetriebes ?', '{type:"matrix",columns:["1","2","3","4"],isAllRowRequired:true,isRequired:true,name:"5",rows:[{value:"6",text:"- Aktive Naturschutzarbeit"},{value:"7",text:"- Ort des Einsatzbetriebes"},{value:"8",text:"- Möglichkeit einer kurzen Einsatzdauer"},{value:"9",text:"- Empfehlung"},{value:"10",text:"- Früherer Einsatz bei der SWO"}],title:"Wie wichtig waren folgende Gründe bei deiner Wahl des Einsatzbetriebes?"}', 0, 2, 'gar nicht wichtig', 'sehr wichtig', '', 5, 1),
+  (6, NULL, NULL, NULL, '- Aktive Naturschutzarbeit', '', 0, 3, '', '', '', 6, 1),
+  (7, NULL, NULL, NULL, '- Ort des Einsatzbetriebes', '', 0, 3, '', '', '', 7, 1),
+  (8, NULL, NULL, NULL, '- Möglichkeit einer kurzen Einsatzdauer', '', 0, 3, '', '', '', 8, 1),
+  (9, NULL, NULL, NULL, '- Empfehlung', '', 0, 3, '', '', '', 9, 1),
+  (10, NULL, NULL, NULL, '- Früherer Einsatz bei der SWO', '', 0, 3, '', '', '', 10, 1),
+  (11, NULL, NULL, NULL, 'Wie streng war die Arbeit ?', '{type:"rating",isRequired:true,name:"11",rateValues:["1","2","3","4"],title:"Wie streng war die Arbeit?"}', 1, 1, 'gar nicht streng', 'sehr streng', '', 11, 1),
+  (12, NULL, NULL, NULL, 'Wie gut wurde (n) ...', '{type:"matrix",columns:["1","2","3","4"],isAllRowRequired:true,isRequired:true,name:"12",rows:[{value:"13",text:"- die Arbeitstechniken?"},{value:"14",text:"- der Umgang mit Maschinen?"},{value:"15",text:"- Sinn und Zweck der Projekte?"}],title:"Wie gut erklärt wurde (n) ..."}', 0, 2, 'sehr schlecht', 'sehr gut', '', 12, 1),
+  (13, NULL, NULL, NULL, '- die Arbeitstechniken erklärt ?', '', 0, 3, '', '', '', 13, 1),
+  (14, NULL, NULL, NULL, '- der Umgang mit Maschinen erklärt ?', '', 0, 3, '', '', '', 14, 1),
+  (15, NULL, NULL, NULL, '- Sinn und Zweck der Projekte erklärt ?', '', 0, 3, '', '', '', 15, 1),
+  (16, NULL, NULL, NULL, 'Wie beurteilst du den Zustand der...', '{type:"matrix",columns:["1","2","3","4"],isAllRowRequired:true,isRequired:true,name:"16",rows:[{value:"17",text:"- Arbeitshilfsmittel? (Handwerkzeug, Fahrzeuge etc.)"},{value:"18",text:"- zur Verfügung gestellten Arbeitskleider?"}],title:"Wie beurteilst du den Zustand der..."}', 0, 2, 'sehr schlecht', 'sehr gut', '', 16, 1),
+  (17, NULL, NULL, NULL, '- Arbeitshilfsmittel ? (Handwerkzeug, Fahrzeuge etc.)', '', 0, 3, '', '', '', 17, 1),
+  (18, NULL, NULL, NULL, '- zur Verfügung gestellten Arbeitskleider', '', 0, 3, '', '', '', 18, 1),
+  (19, NULL, NULL, NULL, 'Wie war die Stimmung in der Gruppe während der Arbeit ?', '{type:"rating",isRequired:true,name:"19",rateValues:["1","2","3","4"],title:"Wie war die Stimmung in der Gruppe während der Arbeit?"}', 0, 1, 'sehr schlecht', 'sehr gut', '', 19, 1),
+  (20, NULL, NULL, NULL, 'Wie fandest du die Gruppengrösse', '{type:"rating",isRequired:true,name:"20",rateValues:["1","2","3","4"],title:"Wie fandest du die Gruppengrösse?"}', 0, 1, 'zu klein', 'zu gross', '', 20, 1),
+  (21, NULL, NULL, NULL, 'Wie sinnvoll hast du die Projekte empfunden ?', '{type:"rating",isRequired:true,name:"21",rateValues:["1","2","3","4"],title:"Wie sinnvoll hast du die Projekte empfunden?"}', 0, 1, 'gar nicht sinnvoll', 'sehr sinnvoll', '', 21, 1),
+  (22, NULL, NULL, NULL, 'Wie beurteilst du die Sicherheit während der Arbeit ?', '{type:"rating",isRequired:true,name:"22",rateValues:["1","2","3","4"],title:"Wie beurteilst du die Sicherheit während der Arbeit?"}', 0, 1, 'gar nicht sicher', 'sehr sicher', '', 22, 1),
+  (23, NULL, NULL, NULL, 'Waren rauchende Zivi\'s für dich ein Problem ...', '{type:"matrix",columns:["1","2","3","4"],isAllRowRequired:true,isRequired:true,name:"23",rows:[{value:"24",text:"- während der Arbeit?"},{value:"25",text:"- während der Pausen?"}],title:"Waren rauchende Zivi''s für dich ein Problem ..."}', 0, 2, 'gar nicht', 'sehr stark', '', 23, 1),
+  (24, NULL, NULL, NULL, '- während der Arbeit ?', '', 0, 3, '', '', '', 24, 1),
+  (25, NULL, NULL, NULL, '- während der Pausen ?', '', 0, 3, '', '', '', 25, 1),
+  (26, NULL, NULL, NULL, 'Bist du selbst Raucher ?', '{type:"rating",isRequired:true,name:"26",rateValues:[{value:"1",text:"Ja"},{value:"2",text:"Nein"}],title:"Bist du selbst Raucher?"}', 0, 1, 'nein', 'ja', '', 26, 1),
+  (27, NULL, NULL, NULL, 'Wie stark stimmst du folgenden Aussagen zu ?', '', 0, 2, 'stimme gar nicht zu', 'stimme voll zu', '', 27, 1),
+  (28, NULL, NULL, NULL, '- Die Anwesenheit eines Einsatzleiters war motivierend.', '', 0, 3, '', '', '', 28, 1),
+  (29, NULL, NULL, NULL, '- Eine höhere Präsenz der Einsatzleiter wäre wünschenswert.', '', 0, 3, '', '', '', 29, 1),
+  (30, NULL, NULL, NULL, '- Eine intensivere persönliche Betreuung wäre gut.', '', 0, 3, '', '', '', 30, 1),
+  (31, NULL, NULL, NULL, '- Der Einsatzleiter stand bei Fragen jeweils zur Verfügung.', '', 0, 3, '', '', '', 31, 1),
+  (32, NULL, NULL, NULL, '- Der Einsatzleiter konnte meine Fragen gut beantworten.', '', 0, 3, '', '', '', 32, 1),
+  (33, NULL, NULL, NULL, '- Der Einsatzleiter wirkte in der Regel fachlich kompetent.', '', 0, 3, '', '', '', 33, 1),
+  (34, NULL, NULL, NULL, '- Ich bekam ein faires Feedback auf meine Arbeit.', '', 0, 3, '', '', '', 34, 1),
+  (35, NULL, NULL, NULL, '- Der Einsatzleiter gab realistische Tagesziele vor.', '', 0, 3, '', '', '0', 35, 1),
+  (36, NULL, NULL, NULL, 'Manuel Brändli', '', 0, 2, 'sehr schlecht', 'sehr gut', 'weiss nicht', 36, 1),
+  (37, NULL, NULL, NULL, '- Fachliche Kompetenz', '', 0, 3, '', '', '', 37, 1),
+  (38, NULL, NULL, NULL, '- Soziale Kompetenz', '', 0, 3, '', '', '', 38, 1),
+  (39, NULL, NULL, NULL, '- Stimmung während der Arbeit', '', 0, 3, '', '', '', 39, 1),
+  (40, NULL, NULL, NULL, '- Konkret kann verbessert werden :', '', 0, 3, '', '', '', 40, 1),
+  (41, NULL, NULL, NULL, 'Andreas Wolf', '', 0, 2, 'sehr schlecht', 'sehr gut', 'weiss nicht', 41, 1),
+  (42, NULL, NULL, NULL, '- Fachliche Kompetenz', '', 0, 3, '', '', '', 42, 1),
+  (43, NULL, NULL, NULL, '- Soziale Kompetenz', '', 0, 3, '', '', '', 43, 1),
+  (44, NULL, NULL, NULL, '- Stimmung während der Arbeit', '', 0, 3, '', '', '', 44, 1),
+  (45, NULL, NULL, NULL, '- Konkret kann verbessert werden :', '', 0, 3, '', '', '', 45, 1),
+  (46, NULL, NULL, NULL, 'Marc Pfeuti', '', 0, 2, 'sehr schlecht', 'sehr gut', 'weiss nicht', 46, 1),
+  (47, NULL, NULL, NULL, '- Fachliche Kompetenz', '', 0, 3, '', '', '', 47, 1),
+  (48, NULL, NULL, NULL, '- Soziale Kompetenz', '', 0, 3, '', '', '', 48, 1),
+  (49, NULL, NULL, NULL, '- Stimmung während der Arbeit', '', 0, 3, '', '', '', 49, 1),
+  (50, NULL, NULL, NULL, '- Konkret kann verbessert werden :', '', 0, 3, '', '', '', 50, 1),
+  (51, NULL, NULL, NULL, 'Lothar Schroeder', '', 0, 2, 'sehr schlecht', 'sehr gut', 'weiss nicht', 51, 0),
+  (52, NULL, NULL, NULL, '- Fachliche Kompetenz', '', 0, 3, '', '', '', 52, 0),
+  (53, NULL, NULL, NULL, '- Soziale Kompetenz', '', 0, 3, '', '', '', 53, 0),
+  (54, NULL, NULL, NULL, '- Stimmung während der Arbeit', '', 0, 3, '', '', '', 54, 0),
+  (55, NULL, NULL, NULL, '- Konkret kann verbessert werden :', '', 0, 3, '', '', '', 55, 0),
+  (56, NULL, NULL, NULL, 'Daniel Jerjen', '', 0, 2, 'sehr schlecht', 'sehr gut', 'weiss nicht', 56, 1),
+  (57, NULL, NULL, NULL, '- Fachliche Kompetenz', '', 0, 3, '', '', '', 57, 1),
+  (58, NULL, NULL, NULL, '- Soziale Kompetenz', '', 0, 3, '', '', '', 58, 1),
+  (59, NULL, NULL, NULL, '- Stimmung während der Arbeit', '', 0, 3, '', '', '', 59, 1),
+  (60, NULL, NULL, NULL, '- Konkret kann verbessert werden :', '', 0, 3, '', '', '', 60, 1),
+  (61, NULL, NULL, NULL, 'Lukas Geser', '', 0, 2, 'sehr schlecht', 'sehr gut', 'weiss nicht', 61, 1),
+  (62, NULL, NULL, NULL, '- Fachliche Kompetenz', '', 0, 3, '', '', '', 62, 1),
+  (63, NULL, NULL, NULL, '- Soziale Kompetenz', '', 0, 3, '', '', '', 63, 1),
+  (64, NULL, NULL, NULL, '- Stimmung während der Arbeit', '', 0, 3, '', '', '', 64, 1),
+  (65, NULL, NULL, NULL, '- Konkret kann verbessert werden :', '', 0, 3, '', '', '', 65, 1),
+  (66, NULL, NULL, NULL, 'Würdest du die SWO als Einsatzbetrieb weiterempfehlen ?', '', 0, 1, 'nein', 'ja', '', 66, 1),
+  (67, NULL, NULL, NULL, 'Würdest du wieder einmal Zivildienst bei der SWO leisten ?', '', 0, 1, 'nein', 'ja', '', 67, 1),
+  (68, NULL, NULL, NULL, 'Höhepunkt (e) meines Zivildiensteinsatzes :', '', 0, 4, '', '', '', 68, 1),
+  (69, NULL, NULL, NULL, 'Tiefpunkt (e) meines Zivildiensteinsatzes :', '', 0, 4, '', '', '', 69, 1),
+  (70, NULL, NULL, NULL, 'Verbesserungsvorschläge :', '', 0, 4, '', '', '', 70, 1),
+  (71, NULL, NULL, NULL, 'Weitere Kommentare :', '', 0, 4, '', '', '', 71, 1);
 
 
 /*

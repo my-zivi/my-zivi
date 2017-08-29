@@ -181,6 +181,10 @@ $api->version('v1', function ($api) {
             'uses' => 'App\Http\Controllers\FeedbackController@putFeedback'
         ]);
 
+        $api->get('/questionnaire', [
+            'uses' => 'App\Http\Controllers\FeedbackController@getQuestionnaireJSON'
+        ]);
+
         // Admins only
         $api->group([
             'middleware' => 'role',
@@ -203,7 +207,7 @@ $api->version('v1', function ($api) {
                 'as' => 'api.feedbacks'
             ]);
             $api->get('/user/feedback/question', function () {
-                $user_feedback_question = App\UserFeedbackQuestions::all();
+                $user_feedback_question = App\UserFeedbackQuestion::all();
                 return response()->json($user_feedback_question);
             });
             $api->get('/user/feedback/{id}', [
@@ -211,7 +215,7 @@ $api->version('v1', function ($api) {
                 'as' => 'api.feedback'
             ]);
             $api->get('/user/feedback/question/{id}', function ($id) {
-                $user_feedback_question = App\UserFeedbackQuestions::find($id);
+                $user_feedback_question = App\UserFeedbackQuestion::find($id);
                 return response()->json($user_feedback_question);
             });
 

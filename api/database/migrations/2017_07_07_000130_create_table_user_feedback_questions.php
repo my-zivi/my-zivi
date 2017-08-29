@@ -18,6 +18,8 @@ class CreateTableUserFeedbackQuestions extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('question');
+            $table->string('json');
+            $table->boolean('new_page');
             $table->integer('type');
             $table->string('opt1')->nullable();
             $table->string('opt2')->nullable();
