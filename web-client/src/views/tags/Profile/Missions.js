@@ -174,11 +174,24 @@ export default class Missions extends Component {
   }
 
   getMissions(self) {
+    let confirmedIcon = (
+      <a data-toggle="popover" title="" data-content="Aufgebot erhalten">
+        <span class="glyphicon glyphicon-check" style="color:green" />
+      </a>
+    );
+
+    let draftOpenIcon = (
+      <a data-toggle="popover" title="" data-content="Provisorisch">
+        <span class="glyphicon glyphicon-unchecked" style="color:grey" />
+      </a>
+    );
+
     var missions = [];
     if (self.state.result.missions != null) {
       var m = self.state.result.missions;
       for (var i = 0; i < m.length; i++) {
         var name = m[i].specification;
+
         for (var s = 0; s < self.state.specifications.length; s++) {
           if (m[i].specification == self.state.specifications[s].id) {
             name = name + ' ' + self.state.specifications[s].name;
@@ -218,17 +231,18 @@ export default class Missions extends Component {
           );
         }
 
-        var disabledMission = [];
+        var feedbackButton = [];
 
-        if (moment(m[i].end).isAfter(new Date()) || m[i].feedback_done == 1) {
-          disabledMission.push(<div class="col-xs-1" />);
-        } else {
-          disabledMission.push(
-            <div class="col-xs-1">
-              <a href={'/user_feedback/' + m[i].id} class="btn btn-xs btn-info">
-                <span class="glyphicon glyphicon glyphicon-list" aria-hidden="true" /> Feedback
-              </a>
-            </div>
+        if (
+          moment().isSameOrAfter(moment(m[i].end)) &&
+          m[i].feedback_done != 1 &&
+          self.props.params.userid === undefined && // Only allow feedbacks for own user
+          curMission.draft != null // Only allow feedbacks for confirmed missions
+        ) {
+          feedbackButton.push(
+            <a href={'/user_feedback/' + m[i].id} class="btn btn-xs btn-info">
+              <span class="glyphicon glyphicon-list" aria-hidden="true" /> Feedback
+            </a>
           );
         }
 
@@ -237,6 +251,7 @@ export default class Missions extends Component {
             <div class="col-xs-2">{name}</div>
             <div class="col-xs-2">{moment(m[i].start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
             <div class="col-xs-2">{moment(m[i].end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
+            <div class="col-xs-1">{curMission == null || curMission.draft == null ? draftOpenIcon : confirmedIcon}</div>
             <div class="col-xs-1">
               <a
                 class="btn btn-xs"
@@ -246,14 +261,14 @@ export default class Missions extends Component {
                 <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
               </a>
             </div>
-            <div class="col-xs-1">
+            <div class="col-xs-1 hidden-xs">
               <button class="btn btn-xs btn-warning" data-toggle="modal" data-target={'#einsatzModal' + m[i].id}>
                 <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
               </button>
             </div>
-            <div class="col-xs-1">{deleteButton}</div>
-            <div class="col-xs-1">{addButton}</div>
-            {disabledMission}
+            <div class="col-xs-1 hidden-xs">{deleteButton}</div>
+            <div class="col-xs-1 hidden-xs">{addButton}</div>
+            <div class="col-xs-1 hidden-xs">{feedbackButton}</div>
           </div>
         );
         missions.push(this.renderMissions(self, m[i], ApiService.isAdmin()));

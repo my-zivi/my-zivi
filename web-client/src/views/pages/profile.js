@@ -231,7 +231,19 @@ export default class User extends Component {
       'Wir profitieren gerne von deiner Erfahrung. Wenn wir genau wissen, wann wer mit welchen Erfahrungen einen Einsatz tätigt, können wir z.T. Projekte speziell planen.';
     let howerText_health_insurance = 'Krankenkassen Name und Ort';
 
-    var missions = this.missionTag.getMissions(this);
+    let missions = this.missionTag.getMissions(this);
+
+    let statusDone = (
+      <a data-toggle="popover" title="" data-content="Erledigt">
+        <span class="glyphicon glyphicon-ok" style="color:green" />
+      </a>
+    );
+
+    let statusPending = (
+      <a data-toggle="popover" title="" data-content="In Bearbeitung">
+        <span class="glyphicon glyphicon-hourglass" style="color:orange" />
+      </a>
+    );
 
     return (
       <Header>
@@ -419,15 +431,7 @@ export default class User extends Component {
                         <div class="col-xs-2">{moment(obj.start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
                         <div class="col-xs-2">{moment(obj.end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
                         <div class="col-xs-2">{obj.days}</div>
-                        {obj.done === 1 ? (
-                          <div class="col-xs-1">
-                            <span class="glyphicon glyphicon-ok" style="color:green" />
-                          </div>
-                        ) : (
-                          <div class="col-xs-1">
-                            <span class="glyphicon glyphicon glyphicon-hourglass" style="color:orange" />
-                          </div>
-                        )}
+                        <div class="col-xs-1">{obj.done === 1 ? statusDone : statusPending}</div>
                         <div class="col-xs-1">
                           {obj.done === 1 ? (
                             <a
