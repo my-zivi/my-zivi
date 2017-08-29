@@ -22,81 +22,96 @@ define("TYPE_SINGLE_QUESTION", 1);
 define("TYPE_GROUP_TITLE", 2);
 define("TYPE_GROUP_QUESTION", 3);
 define("TYPE_TEXT", 4);
+define("TYPE_SINGLE_QUESTION_2", 5);
+define("TYPE_SINGLE_QUESTION_6", 6);
 
 class FeedbackController extends Controller
 {
     private $date_from = null;
     private $date_to = null;
     private $feedback_id = null;
+    private $questions = array();
+    private $index = 0;
+    private $output;
 
     public function getQuestionnaireJSON()
     {
 
-        $json_string = "";
-        $string_start = "{pages:[";
-        $string_end = "]}";
-        $page_start = "{type:\"panel\", elements:[";
-        $lastPageName = "";
-        $lastPageTitle = "";
+        $this->output = new ConsoleOutput();
 
-        $questions = UserFeedbackQuestion::orderBy('id', 'asc')->get();
+        $json_string = "";
+        $string_start = '{"pages":[';
+        $string_end = "]}";
+        $page_start = '{"elements": [{"type":"panel", "elements":[';
+        $lastPageName = "Seite 1";
+        $lastPageTitle = "Seite 1";
+
+        $this->questions = UserFeedbackQuestion::orderBy('id', 'ASC')->get();
         $json_string .= $string_start.$page_start;
 
-        $output = new ConsoleOutput();
-
-        for ($i = 0; $i < count($questions); $i++) {
-            if ($questions[$i]->new_page == 1) {
+        for ($this->index = 0; $this->index < count($this->questions); $this->index++) {
+            if ($this->questions[$this->index]->new_page == 1) {
+                $json_string = substr($json_string, 0, -1); // remove last comma
                 $json_string .= $this->getPageEndString($lastPageName, $lastPageTitle).",";
-                $lastPageName = $questions[$i]->question;
-                $lastPageTitle = $questions[$i]->question;
+                $lastPageName = $this->questions[$this->index]->question;
+                $lastPageTitle = $this->questions[$this->index]->question;
                 $json_string .= $page_start;
             }
 
-            switch ($questions[$i]->type) {
-                case constant("TYPE_SINGLE_QUESTION"):
-                case constant("TYPE_GROUP_TITLE"):
-                case constant("TYPE_TEXT"):
-                    $json_string .= $questions[$i]->json;
-
-                    $a = 1;
-                    while (1) {
-                        if ($i+$a >= count($questions)) {
-                            $output->writeln(json_encode($i." + ".$a. " count"));
-                            break 1;
-                        }
-
-                        if ($questions[$i+$a]->type == constant("TYPE_GROUP_QUESTION")) {
-                            $output->writeln(json_encode($i." + ".$a. " groupQuestion"));
-                            $a += 1;
-                            continue 1;
-                        }
-
-                        if ($questions[$i+$a]->new_page != 1) {
-                            $output->writeln(json_encode($i." + ".$a. " !new_page"));
-                            $json_string .= ",";
-                            break 1;
-                        } else {
-                            $output->writeln(json_encode($i." + ".$a. " new_page"));
-                            break 1;
-                        }
-                    }
-
-                    break;
-                case constant("TYPE_GROUP_QUESTION"):
-                    //nothing to do?
-                    break;
-            }
+            $json_string .= $this->xy();
         }
 
+        $json_string = substr($json_string, 0, -1); // remove last comma
         $json_string .= $this->getPageEndString($lastPageName, $lastPageTitle);
         $json_string .= $string_end;
 
         return new JsonResponse($json_string);
     }
 
+    private function xy()
+    {
+        $returnString = "";
+
+        switch ($this->questions[$this->index]->type) {
+            case constant("TYPE_SINGLE_QUESTION"):
+            case constant("TYPE_GROUP_QUESTION"):
+                $returnString .= '{ "type":"rating", "isRequired":true, "name":"'.$this->questions[$this->index]->id.'", "rateValues":["1","2","3","4"], "title":"'.$this->questions[$this->index]->question.'" },';
+                break;
+
+            case constant("TYPE_SINGLE_QUESTION_2"):
+                $returnString .= '{ "type":"rating", "isRequired":true, "name":"'.$this->questions[$this->index]->id.'", "rateValues":[{"value":"1","text":"Ja"},{"value":"2","text":"Nein"}], "title":"'.$this->questions[$this->index]->question.'" },';
+                break;
+
+            case constant("TYPE_SINGLE_QUESTION_6"):
+                $returnString .= '{ "type":"radiogroup", "isRequired":true, "name":"'.$this->questions[$this->index]->id.'", "choices":[{"value":"1","text":"Kollegen"},{"value":"2","text":"EIS"},{"value":"3","text":"Website SWO"},{"value":"4","text":"Thomas Winter"},{"value":"5","text":"Früherer Einsatz"},{"value":"6","text":"Anderes"}], "title":"'.$this->questions[$this->index]->question.'" },'; //TODO remove hardcoded texts
+                break;
+
+            case constant("TYPE_GROUP_TITLE"):
+                $a = 0;
+                $childs = "";
+                while ($this->questions[$this->index+1]->type == constant("TYPE_GROUP_QUESTION")) {
+                    $this->index++;
+                    $a++;
+
+                    $childs .= $this->xy();
+                }
+
+                $childs = substr($childs, 0, -1); // remove last comma
+                $returnString .= '{ "type":"panel", "elements":['.$childs.'], "name":"'.$this->questions[$this->index-$a]->question.'" },';
+
+                break;
+            case constant("TYPE_TEXT"):
+                $returnString .= '{ "type":"text", "isRequired":true, "name":"'.$this->questions[$this->index]->id.'", "title":"'.$this->questions[$this->index]->question.'", visible:false, visibleIf:"{151} = 1"},';
+                break;
+        }
+
+        $this->output->writeln(json_encode($this->index));
+        return $returnString;
+    }
+
     private function getPageEndString($pageName, $pageTitle)
     {
-        return "],name:\"".$pageName."\", title:\"".$pageTitle."\"}";
+        return '], "name":"'.$pageName.'", "title":"'.$pageTitle.'" }]}';
     }
 
     public function getFeedback($feedback_id)
@@ -107,7 +122,6 @@ class FeedbackController extends Controller
 
     public function getFeedbacks()
     {
-
         $oneYearAgo = date('m/d/Y h:i:s a', time() - constant("ONE_YEAR_IN_SEC"));
         $today = date('m/d/Y h:i:s a', time());
 

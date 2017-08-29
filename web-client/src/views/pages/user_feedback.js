@@ -19,9 +19,6 @@ export default class UserFeedback extends Component {
   }
 
   sendDataToServer(survey) {
-    //var resultAsString = JSON.stringify(survey.data);
-    //alert(resultAsString); //send Ajax request to your web server.
-    //survey.sendResult('70a0b637-c72c-4162-8e4d-15fe62e11b9e');
     this.setState({ loading: true, error: null });
 
     var missionId = this.props.params.missionId;
@@ -52,13 +49,11 @@ export default class UserFeedback extends Component {
         };
 
         console.log(response.data);
+        //let surveyJSON = JSON.parse(response.data);
         console.log(JSON.stringify(response.data));
 
-        let surveyJSON = '';
-        eval('surveyJSON = ' + response.data);
-
         Survey.Survey.cssType = 'bootstrap';
-        var survey = new Survey.Model(surveyJSON);
+        var survey = new Survey.Model(response.data);
         $('#surveyContainer').Survey({
           model: survey,
           onComplete: survey => {

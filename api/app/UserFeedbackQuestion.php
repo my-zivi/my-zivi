@@ -11,7 +11,6 @@ class UserFeedbackQuestion extends Model
     protected $fillable = [
                         'id',
                         'question',
-                        'json',
                         'new_page',
                         'type',
                         'opt1',
