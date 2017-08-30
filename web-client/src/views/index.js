@@ -17,6 +17,8 @@ import Freeday from './pages/freeday';
 
 import MissionOverview from './pages/mission_overview';
 import Expense from './pages/expense';
+import ExpensePayment from './pages/expense_payment';
+import ExpensePaymentDetail from './pages/expense_payment_detail';
 import EditExpense from './pages/edit_expense';
 
 import UserFeedback from './pages/user_feedback';
@@ -58,6 +60,8 @@ export default (
     <Route path="/mission_overview" component={MissionOverview} onEnter={authorizedOnly} />
 
     <Route path="/expense" component={Expense} onEnter={authorizedOnly} />
+    <Route path="/expensePayment" component={ExpensePayment} onEnter={authorizedOnly} />
+    <Route path="/expensePayment/:payment_id" component={ExpensePaymentDetail} onEnter={authorizedOnly} />
     <Route path="/expense/:report_sheet_id" component={EditExpense} onEnter={authorizedOnly} />
 
     <Route path="/user_feedback/:missionId" component={UserFeedback} onEnter={authorizedOnly} />

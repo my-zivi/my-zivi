@@ -8,7 +8,7 @@ import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
 
-export default class MissionOverview extends Component {
+export default class ExpenseOverview extends Component {
   constructor(props) {
     super(props);
 
@@ -32,7 +32,7 @@ export default class MissionOverview extends Component {
   }
 
   componentDidMount() {
-    this.getReportSheets('reportsheet', 1);
+    this.getReportSheets('reportsheet/pending', 2);
     DatePicker.initializeDatePicker();
   }
 
@@ -124,7 +124,6 @@ export default class MissionOverview extends Component {
       </a>
     );
 
-    var even = true;
     for (let i = 0; i < sheets.length; i++) {
       if (this.state.zdp != '' && !sheets[i].zdp.startsWith(this.state.zdp)) {
         continue;
@@ -159,7 +158,6 @@ export default class MissionOverview extends Component {
           </td>
         </tr>
       );
-      even = !even;
     }
 
     var prevMonthDate = new Date();
@@ -204,6 +202,11 @@ export default class MissionOverview extends Component {
               <button id="tab3" onclick={() => this.getReportSheets('reportsheet/current', 3)}>
                 Aktuelle Meldeblätter anzeigen
               </button>
+            </div>
+            <div class="btn-group" style="padding-left:10px">
+              <a class="btn btn-default" href="/expensePayment">
+                Auszahlung
+              </a>
             </div>
             <br />
             <br />

@@ -39,4 +39,8 @@ class CompanyInfo
     const RESPONSIBLE_FUNCTION = 'Einsatzleiter';
     // E-Mail Adresse der fuer den Zivildienst verantwortlichen Person
     const RESPONSIBLE_MAIL = 'zivildienst@stiftungswo.ch';
+
+
+    const SPESEN_PAYMENT_IBAN = 'CH1509000000302661798';
+    const SPESEN_PAYMENT_BIC = 'POFICHBEXXX';
 }

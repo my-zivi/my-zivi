@@ -16,6 +16,7 @@ import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import Toast from '../../utils/toast';
+import moment from 'moment-timezone';
 
 export default class User extends Component {
   constructor(props, { router }) {
@@ -431,9 +432,9 @@ export default class User extends Component {
                         <div class="col-xs-2">{moment(obj.start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
                         <div class="col-xs-2">{moment(obj.end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
                         <div class="col-xs-2">{obj.days}</div>
-                        <div class="col-xs-1">{obj.done === 1 ? statusDone : statusPending}</div>
+                        <div class="col-xs-1">{obj.state > 0 ? (obj.state === 3 ? statusDone : statusPending) : ''}</div>
                         <div class="col-xs-1">
-                          {obj.done === 1 ? (
+                          {obj.state === 3 ? (
                             <a
                               name="showReportSheet"
                               class="btn btn-xs btn-link"

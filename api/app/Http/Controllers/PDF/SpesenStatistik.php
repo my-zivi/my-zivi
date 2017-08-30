@@ -617,7 +617,7 @@ class SpesenStatistik extends PDF
     {
         $query = ReportSheet::join('users', 'users.id', '=', 'report_sheets.user');
         if ($this->showOnlyDoneSheets) {
-            $query = $query->where('report_sheets.done', '=', '1');
+            $query = $query->where('report_sheets.status', '=', '3');
         }
         $result = $query
             ->whereDate('report_sheets.start', '<=', date("Y-m-d", $end_TS))

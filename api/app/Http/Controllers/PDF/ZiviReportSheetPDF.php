@@ -48,7 +48,7 @@ class ZiviReportSheetPDF extends PDF
 
     public function isDone()
     {
-        return $this->spesen->done;
+        return $this->spesen->state==3;
     }
 
     protected function render()
@@ -564,34 +564,7 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell($this->bank_shade_width, $this->shade_height, $this->spesen['document_number'], 0, 0, '', 1);
 
         $this->y_offset = $this->y_offset + $this->line_break;
-
-        $this->pdf->SetFont('', 'B', '10');
-        $this->pdf->SetXY($this->left_margin, $this->y_offset);
-        $this->pdf->Cell(0, 10, "Verbucht:");
-        $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height/2);
-        $this->pdf->SetFont('', '', '10');
-        if ($this->spesen['booked_date']) {
-            $this->pdf->Cell($this->bank_shade_width, $this->shade_height, date('d.m.Y', strtotime($this->spesen['booked_date'])), 0, 0, '', 1);
-        } else {
-            $this->pdf->Cell($this->bank_shade_width, $this->shade_height, '', 0, 0, '', 1);
-        }
-
-
         $this->y_offset = $this->y_offset + $this->line_break;
-
-        $this->pdf->SetFont('', 'B', '10');
-        $this->pdf->SetXY($this->left_margin, $this->y_offset);
-        $this->pdf->Cell(0, 10, "Bezahlt:");
-        $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height/2);
-        $this->pdf->SetFont('', '', '10');
-        if ($this->spesen['paid_date']) {
-            $this->pdf->Cell($this->bank_shade_width, $this->shade_height, date('d.m.Y', strtotime($this->spesen['paid_date'])), 0, 0, '', 1);
-        } else {
-            $this->pdf->Cell($this->bank_shade_width, $this->shade_height, '', 0, 0, '', 1);
-        }
-
-
-
 
 
         if ($this->y_offset > 300) {

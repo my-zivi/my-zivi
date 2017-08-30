@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e3de1ce7e3a456fc45400fcb78d74917",
+    "content-hash": "d51ebaa1f6bc7bf1965b54f21266c407",
     "packages": [
         {
             "name": "dingo/api",
@@ -324,6 +324,34 @@
                 "parser"
             ],
             "time": "2014-09-09T13:34:57+00:00"
+        },
+        {
+            "name": "globalcitizen/php-iban",
+            "version": "v2.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/globalcitizen/php-iban.git",
+                "reference": "3de32bd2c02ebb5fe0694fd28d2d1a5d2f0ec291"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/globalcitizen/php-iban/zipball/3de32bd2c02ebb5fe0694fd28d2d1a5d2f0ec291",
+                "reference": "3de32bd2c02ebb5fe0694fd28d2d1a5d2f0ec291",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "oophp-iban.php",
+                    "php-iban.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "description": "php-iban is a library for parsing and validating IBAN (and IIBAN) bank account information.",
+            "time": "2017-08-10T17:28:10+00:00"
         },
         {
             "name": "illuminate/auth",
@@ -3635,7 +3663,7 @@
             ],
             "authors": [
                 {
-                    "name": "Pádraic Brady",
+                    "name": "Padraic Brady",
                     "email": "padraic.brady@gmail.com",
                     "homepage": "http://blog.astrumfutura.com"
                 },

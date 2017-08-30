@@ -21,7 +21,6 @@ class CreateTableReportsheets extends Migration
             $table->date('end');
             $table->integer('user')->unsigned();
             $table->foreign('user')->references('id')->on('users');
-            $table->boolean('done');
             $table->integer('work')->nullable();
             $table->string('work_comment')->nullable();
             $table->integer('company_holiday_holiday')->nullable();
@@ -47,8 +46,7 @@ class CreateTableReportsheets extends Migration
             $table->foreign('mission')->references('id')->on('missions');
             $table->string('bank_account_number');
             $table->integer('document_number')->nullable(); // "Beleg Nummer"
-            $table->date('booked_date')->nullable();
-            $table->date('paid_date')->nullable();
+            $table->integer('state')->unsigned();
         });
     }
 

@@ -2,6 +2,7 @@ import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
 import InputField from './InputField';
+import moment from 'moment-timezone';
 
 export default class DatePicker extends InputField {
   static dateFormat_EN2CH(value) {

@@ -108,8 +108,9 @@ $api->version('v1', function ($api) {
         $api->get('/reportsheet/user/me', function () {
             $user = JWTAuth::parseToken()->authenticate();
             $reportSheets = App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                            ->select('report_sheets.id AS id', 'start', 'end', 'done')
+                            ->select('report_sheets.id AS id', 'start', 'end', 'state')
                             ->where('users.id', '=', $user->id)
+                            ->where('state', '>', '0')
                             ->orderBy('start')
                             ->orderBy('end')
                             ->orderBy('zdp')
@@ -414,7 +415,7 @@ $api->version('v1', function ($api) {
             // Reportsheet - Admins
             $api->get('/reportsheet', function () {
                 return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                    ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
+                    ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'state', 'report_sheets.id AS id')
                     ->orderBy('start')
                     ->orderBy('end')
                     ->orderBy('zdp')
@@ -422,8 +423,8 @@ $api->version('v1', function ($api) {
             });
             $api->get('/reportsheet/pending', function () {
                 return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                    ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
-                    ->where('done', '=', '0')
+                    ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'state', 'report_sheets.id AS id')
+                    ->where('state', '=', '0')
                     ->orderBy('start')
                     ->orderBy('end')
                     ->orderBy('zdp')
@@ -431,7 +432,7 @@ $api->version('v1', function ($api) {
             });
             $api->get('/reportsheet/current', function () {
                 return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                    ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'done', 'report_sheets.id AS id')
+                    ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'state', 'report_sheets.id AS id')
                     ->whereDate('start', '>=', date('Y-m-01'))
                     ->whereDate('end', '<', date('Y-m-d', strtotime('first day of next month')))
                     ->orderBy('start')
@@ -439,6 +440,22 @@ $api->version('v1', function ($api) {
                     ->orderBy('zdp')
                     ->get());
             });
+            $api->get('/reportsheet/payments', [
+                'uses' => 'App\Http\Controllers\PaymentController@getPaymentOverview',
+                'as' => 'api.paymentoverview'
+            ]);
+            $api->get('/reportsheet/payments/execute', [
+                'uses' => 'App\Http\Controllers\PaymentController@getIsoPaymentXml',
+                'as' => 'api.paymentexecute'
+            ]);
+            $api->get('/reportsheet/payments/{id}', [
+                'uses' => 'App\Http\Controllers\PaymentController@getArchivedPayment',
+                'as' => 'api.paymentarchived'
+            ]);
+            $api->get('/reportsheet/payments/xml/{id}', [
+                'uses' => 'App\Http\Controllers\PaymentController@getArchivedXml',
+                'as' => 'api.paymentarchivedxml'
+            ]);
             $api->get('/reportsheet/{id}', function ($id) {
                 return response()->json(App\ReportSheet::getSpesen($id));
             });
@@ -466,9 +483,7 @@ $api->version('v1', function ($api) {
                 $sheet->extraordinarily_comment = Input::get("meldeblaetter_ausserordentlich_comment", "");
                 $sheet->bank_account_number = Input::get("bank_account_number", "");
                 $sheet->document_number = Input::get("document_number", "");
-                $sheet->booked_date = Input::get("booked_date", "");
-                $sheet->paid_date = Input::get("paid_date", "");
-                $sheet->done = Input::get("done", "");
+                $sheet->state = Input::get("state", "");
                 $sheet->start = Input::get("meldeblaetter_start", "");
                 $sheet->end = Input::get("meldeblaetter_end", "");
                 $sheet->save();
@@ -476,7 +491,7 @@ $api->version('v1', function ($api) {
             });
             $api->get('/reportsheet/user/{id}', function ($id) {
                  $reportSheets = App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                    ->select('report_sheets.id AS id', 'start', 'end', 'done')
+                    ->select('report_sheets.id AS id', 'start', 'end', 'state')
                     ->where('users.id', '=', $id)
                     ->orderBy('start')
                     ->orderBy('end')

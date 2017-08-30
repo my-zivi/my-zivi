@@ -28,6 +28,7 @@
     "md-colors": "^1.0.0",
     "mobx": "^3.2.1",
     "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
     "survey-jquery": "^0.12.21"
   },
   "devDependencies": {

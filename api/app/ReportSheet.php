@@ -14,7 +14,6 @@ class ReportSheet extends Model
                            'start',
                            'end',
                            'user',
-                           'done',
                            'work',
                            'work_comment',
                            'national_holiday',
@@ -39,8 +38,7 @@ class ReportSheet extends Model
                            'employmentId',
                            'bank_account_number',
                            'document_number', // "Beleg Nummer"
-                           'booked_date',
-                           'paid_date'
+                           'state'
                         ];
 
 
@@ -81,9 +79,7 @@ class ReportSheet extends Model
                 'report_sheets.clothes_comment AS meldeblaetter_kleider_comment',
                 'report_sheets.bank_account_number AS bank_account_number',
                 'report_sheets.document_number AS document_number',
-                'report_sheets.booked_date AS booked_date',
-                'report_sheets.paid_date AS paid_date',
-                'report_sheets.done AS done',
+                'report_sheets.state AS state',
                 'missions.id AS mission_id',
                 'missions.start AS einsaetze_start',
                 'missions.end AS einsaetze_end',
@@ -108,6 +104,11 @@ class ReportSheet extends Model
                 'specifications.lastday_dinner_expenses AS pflichtenheft_lastday_dinner_expenses',
                 'users.first_name AS first_name',
                 'users.last_name AS last_name',
+                'users.zdp AS zdp',
+                'users.bank_iban AS iban',
+                'users.address AS address',
+                'users.zip AS zip',
+                'users.city AS city',
                 'users.id AS user'
             )
             ->first();

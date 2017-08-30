@@ -6,6 +6,7 @@ import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import Header from '../tags/header';
 import LoadingView from '../tags/loading-view';
+import moment from 'moment-timezone';
 
 export default class MissionOverview extends Component {
   constructor(props) {

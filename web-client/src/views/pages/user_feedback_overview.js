@@ -7,6 +7,7 @@ import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
+import moment from 'moment-timezone';
 
 export default class UserFeedbackOverview extends Component {
   constructor(props) {

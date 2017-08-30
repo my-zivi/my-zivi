@@ -264,7 +264,6 @@ INSERT INTO izivi.report_sheets (SELECT
       THEN concat('0', stiftun8_iZivi.meldeblaetter.ziviId)
     ELSE stiftun8_iZivi.meldeblaetter.ziviId
   END)) AS user,
-  stiftun8_iZivi.meldeblaetter.done,
   stiftun8_iZivi.meldeblaetter.work,
   stiftun8_iZivi.meldeblaetter.work_comment,
   stiftun8_iZivi.meldeblaetter.compholiday_holiday AS company_holiday_holiday,
@@ -289,8 +288,12 @@ INSERT INTO izivi.report_sheets (SELECT
   stiftun8_iZivi.meldeblaetter.einsaetze_id AS mission,
   stiftun8_iZivi.meldeblaetter.konto_nr AS bank_account_number,
   stiftun8_iZivi.meldeblaetter.beleg_nr AS document_number,
-  stiftun8_iZivi.meldeblaetter.verbucht AS booked_date,
-  stiftun8_iZivi.meldeblaetter.bezahlt AS paid_date
+  CASE
+    WHEN
+      stiftun8_iZivi.meldeblaetter.done
+    THEN 3
+    ELSE 0
+  END AS state
   FROM stiftun8_iZivi.meldeblaetter
     INNER JOIN izivi.users ON izivi.users.zdp=stiftun8_iZivi.meldeblaetter.ziviId
     INNER JOIN izivi.missions ON izivi.missions.id=stiftun8_iZivi.meldeblaetter.einsaetze_id);

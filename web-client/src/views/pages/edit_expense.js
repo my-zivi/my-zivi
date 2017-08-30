@@ -11,6 +11,7 @@ import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import Toast from '../../utils/toast';
+import moment from 'moment-timezone';
 
 export default class EditExpense extends Component {
   constructor(props, { router }) {
@@ -336,17 +337,19 @@ export default class EditExpense extends Component {
             <InputField id="bank_account_number" label="Konto-Nr." value={sheet.bank_account_number} self={this} />
             <InputField id="document_number" label="Beleg-Nr." value={sheet.document_number} self={this} />
 
-            <DatePicker
-              id="booked_date"
-              label="Verbucht"
-              value={sheet.booked_date}
-              callback={this.handleDateChange}
-              callbackOrigin={this}
-            />
-            <DatePicker id="paid_date" label="Bezahlt" value={sheet.paid_date} callback={this.handleDateChange} callbackOrigin={this} />
-
-            <InputCheckbox id="done" label="Erledigt" value={sheet.done} self={this} />
-
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="state">
+                Status
+              </label>
+              <div class="col-sm-9">
+                <select value={'' + sheet['state']} id="state" name="state" class="form-control" onChange={e => this.handleChange(e)}>
+                  <option value="0">Offen</option>
+                  <option value="1">Bereit für Auszahlung</option>
+                  <option value="2">Auszahlung in Verarbeitung</option>
+                  <option value="3">Erledigt</option>
+                </select>
+              </div>
+            </div>
             <hr />
 
             <div class="container">
