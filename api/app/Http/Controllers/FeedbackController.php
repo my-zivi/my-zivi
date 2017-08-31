@@ -41,7 +41,7 @@ class FeedbackController extends Controller
 
         $json_string = "";
         $string_start = '{"pages":[';
-        $string_end = '], "requiredText": "", "showProgressBar": "top", "showQuestionNumbers": "off" }';
+        $string_end = '], "requiredText": "(*)", "showProgressBar": "top", "showQuestionNumbers": "off" }';
         $page_start = '{"elements": [{"type":"panel", "elements":[';
         $lastPageName = "Organisation"; //TODO hardcoded
         $lastPageTitle = "Organisation";
@@ -71,22 +71,27 @@ class FeedbackController extends Controller
     private function getJSONbyQuestionType()
     {
         $returnString = "";
-
+        $requiredTag = "";
+        
+        if ($this->questions[$this->index]->required) {
+            $requiredTag = '"isRequired":"true", ';
+        }
+        
         switch ($this->questions[$this->index]->type) {
             case constant("TYPE_SINGLE_QUESTION"):
-                $returnString .= '{ "type":"rating", "isRequired":"true", "name":"'.$this->questions[$this->index]->id.'", "rateValues":["1","2","3","4"], "title":"'.$this->questions[$this->index]->question.'" },';
+                $returnString .= '{ "type":"rating", '.$requiredTag.'"name":"'.$this->questions[$this->index]->id.'", "rateValues":["1","2","3","4"], "title":"'.$this->questions[$this->index]->question.'" },';
                 break;
 
             case constant("TYPE_GROUP_QUESTION"):
-                $returnString .= '{ "type":"rating", "isRequired":"true", "name":"'.$this->questions[$this->index]->id.'", "rateValues":["1","2","3","4"], "title":"'.$this->questions[$this->index]->question.'", "indent": "2" },';
+                $returnString .= '{ "type":"rating", '.$requiredTag.'"name":"'.$this->questions[$this->index]->id.'", "rateValues":["1","2","3","4"], "title":"'.$this->questions[$this->index]->question.'", "indent": "2" },';
                 break;
 
             case constant("TYPE_SINGLE_QUESTION_2"):
-                $returnString .= '{ "type":"rating", "isRequired":"true", "name":"'.$this->questions[$this->index]->id.'", "rateValues":[{"value":"1","text":"Ja"},{"value":"2","text":"Nein"}], "title":"'.$this->questions[$this->index]->question.'" },';
+                $returnString .= '{ "type":"rating",  '.$requiredTag.'"name":"'.$this->questions[$this->index]->id.'", "rateValues":[{"value":"1","text":"Ja"},{"value":"2","text":"Nein"}], "title":"'.$this->questions[$this->index]->question.'" },';
                 break;
 
             case constant("TYPE_SINGLE_QUESTION_6"):
-                $returnString .= '{ "type":"radiogroup", "isRequired":"true", "name":"'.$this->questions[$this->index]->id.'", "choices":[{"value":"1","text":"Kollegen"},{"value":"2","text":"EIS"},{"value":"3","text":"Website SWO"},{"value":"4","text":"Thomas Winter"},{"value":"5","text":"Früherer Einsatz"},{"value":"6","text":"Anderes"}], "title":"'.$this->questions[$this->index]->question.'" },'; //TODO remove hardcoded texts
+                $returnString .= '{ "type":"radiogroup", '.$requiredTag.'"name":"'.$this->questions[$this->index]->id.'", "choices":[{"value":"1","text":"Kollegen"},{"value":"2","text":"EIS"},{"value":"3","text":"Website SWO"},{"value":"4","text":"Thomas Winter"},{"value":"5","text":"Früherer Einsatz"},{"value":"6","text":"Anderes"}], "title":"'.$this->questions[$this->index]->question.'" },'; //TODO remove hardcoded texts
                 break;
 
             case constant("TYPE_GROUP_TITLE"):
@@ -94,11 +99,11 @@ class FeedbackController extends Controller
                 break;
 
             case constant("TYPE_TEXT"):
-                $returnString .= '{ "type":"text", "isRequired":true, "name":"'.$this->questions[$this->index]->id.'", "title":"'.$this->questions[$this->index]->question.'", "visible":"false", "visibleIf":"{151} = 1"},';
+                $returnString .= '{ "type":"comment", '.$requiredTag.'"name":"'.$this->questions[$this->index]->id.'", "title":"'.$this->questions[$this->index]->question.'"},';
                 break;
         }
 
-        $this->output->writeln(json_encode($this->index));
+        //$this->output->writeln(json_encode($this->index));
         return $returnString;
     }
 

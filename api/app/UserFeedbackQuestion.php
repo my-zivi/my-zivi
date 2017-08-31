@@ -13,6 +13,7 @@ class UserFeedbackQuestion extends Model
                         'question',
                         'new_page',
                         'type',
+                        'required',
                         'opt1',
                         'opt2',
                         'opt3',

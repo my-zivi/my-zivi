@@ -22,7 +22,7 @@ class CreateTableUserFeedback extends Migration
             $table->string('feedbackId');
             $table->date('year');
             $table->string('questionId');
-            $table->string('answer');
+            $table->text('answer');
         });
     }
 

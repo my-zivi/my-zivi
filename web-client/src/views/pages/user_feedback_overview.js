@@ -184,10 +184,8 @@ export default class UserFeedbackOverview extends Component {
         let answersPerc = [];
 
         for (var i = 1; i <= 6; i++) {
-          console.log('lalala 1');
           answersCleaned[i] = answers[x]['answers'][i] ? answers[x]['answers'][i] : 0;
           totalAnswers += answersCleaned[i];
-          console.log('lalala 2');
         }
 
         // Question types
