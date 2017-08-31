@@ -71,7 +71,7 @@ class SendFeedbackRemainderMails extends Command
 
             print $email."\n";
             //TODO: activate this for production
-            //mail($email, $subject , $emailText, 'Content-type: text/text; charset=utf-8');
+            //mail($email, $subject , utf8_decode($emailText), 'From: swo@stiftungswo.ch');
 
             $mission->feedback_mail_sent = true;
             $mission->save();
