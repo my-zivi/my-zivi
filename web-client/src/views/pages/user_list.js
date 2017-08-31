@@ -205,8 +205,7 @@ export default class UserList extends Component {
                     <select className="form-control" name="group" value={this.state.group} oninput={this.handleChange.bind(this)}>
                       <option value="0">(Alle Gruppen)</option>
                       <option value="1">Admins</option>
-                      <option value="2">Mitarbeiter</option>
-                      <option value="3">Zivis</option>
+                      <option value="2">Zivis</option>
                     </select>
                   </td>
                   <td className="hidden-xs" />
