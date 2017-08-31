@@ -11,9 +11,9 @@ const browserHistory = createBrowserHistory();
 Inferno.render(<Router history={browserHistory}>{views}</Router>, document.getElementById('root'));
 
 if (process.env.NODE_ENV === 'production') {
-  // cache all assets if browser supports serviceworker
   if ('serviceWorker' in navigator && location.protocol === 'https:') {
-    navigator.serviceWorker.register('/service-worker.js');
+    // disable serviceworker, it seems to make more trouble than help
+    navigator.serviceWorker.unregister('/service-worker.js');
   }
 
   /* 	// add Google Analytics
