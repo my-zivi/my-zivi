@@ -416,7 +416,7 @@ class SpesenStatistik extends PDF
 
             // Print Data Row //
             $this->pdf->SetFont($this->FONT, '', $this->FONT_SIZE_TINY);
-            if ($blatt['done'] == 0) {
+            if ($blatt['state'] == 3) {
                 $this->pdf->SetTextColor($this->FONT_WEAK_R, $this->FONT_WEAK_R, $this->FONT_WEAK_R);
                 $this->pdf->SetFillColor($this->ROW_COLOR_WEAK_R, $this->ROW_COLOR_WEAK_G, $this->ROW_COLOR_WEAK_B);
             } else {
@@ -617,7 +617,7 @@ class SpesenStatistik extends PDF
     {
         $query = ReportSheet::join('users', 'users.id', '=', 'report_sheets.user');
         if ($this->showOnlyDoneSheets) {
-            $query = $query->where('report_sheets.status', '=', '3');
+            $query = $query->where('report_sheets.state', '=', '3');
         }
         $result = $query
             ->whereDate('report_sheets.start', '<=', date("Y-m-d", $end_TS))
@@ -627,7 +627,7 @@ class SpesenStatistik extends PDF
             ->orderBy('users.zdp')
             ->orderBy('report_sheets.start')
             ->orderBy('report_sheets.end')
-            ->select('report_sheets.id AS id', 'users.zdp AS ziviId', 'first_name', 'last_name', 'start', 'end', 'done')
+            ->select('report_sheets.id AS id', 'users.zdp AS ziviId', 'first_name', 'last_name', 'start', 'end', 'state')
             ->get();
 
         foreach ($result as $row) {
