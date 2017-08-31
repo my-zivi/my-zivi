@@ -21,6 +21,7 @@ class CreateTableUserFeedbackQuestions extends Migration
             $table->boolean('new_page');
             $table->integer('type');
             $table->boolean('required')->default(0);
+            $table->string('custom_info')->nullable();
             $table->string('opt1')->nullable();
             $table->string('opt2')->nullable();
             $table->string('opt3')->nullable();

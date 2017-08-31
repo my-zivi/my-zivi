@@ -329,7 +329,6 @@ define("TYPE_GROUP_QUESTION", 3);
 define("TYPE_TEXT", 4);
 define("TYPE_SINGLE_QUESTION_2", 5);
 define("TYPE_SINGLE_QUESTION_6", 6);
- 
 */
 
 INSERT INTO `user_feedback_questions` (`id`, `created_at`, `updated_at`, `deleted_at`, `question`, `new_page`, `type`, `required`, `opt1`, `opt2`, `opt3`, `pos`, `active`) VALUES
@@ -368,7 +367,7 @@ INSERT INTO `user_feedback_questions` (`id`, `created_at`, `updated_at`, `delete
 (33, NULL, NULL, NULL, 'Der Einsatzleiter wirkte in der Regel fachlich kompetent.', 0, 3, 1, '', '', '', 33, 1),
 (34, NULL, NULL, NULL, 'Ich bekam ein faires Feedback auf meine Arbeit.', 0, 3, 1, '', '', '', 34, 1),
 (35, NULL, NULL, NULL, 'Der Einsatzleiter gab realistische Tagesziele vor.', 0, 3, 1, '', '', '0', 35, 1),
-(36, NULL, NULL, NULL, 'Manuel Brändli', 0, 2, 0, 'sehr schlecht', 'sehr gut', 'weiss nicht', 36, 1),
+(36, NULL, NULL, NULL, 'Manuel Brändli', 1, 2, 0, 'sehr schlecht', 'sehr gut', 'weiss nicht', 36, 1),
 (37, NULL, NULL, NULL, 'Fachliche Kompetenz', 0, 3, 0, '', '', '', 37, 1),
 (38, NULL, NULL, NULL, 'Soziale Kompetenz', 0, 3, 0, '', '', '', 38, 1),
 (39, NULL, NULL, NULL, 'Stimmung während der Arbeit', 0, 3, 0, '', '', '', 39, 1),
@@ -398,12 +397,22 @@ INSERT INTO `user_feedback_questions` (`id`, `created_at`, `updated_at`, `delete
 (63, NULL, NULL, NULL, 'Soziale Kompetenz', 0, 3, 0, '', '', '', 63, 1),
 (64, NULL, NULL, NULL, 'Stimmung während der Arbeit', 0, 3, 0, '', '', '', 64, 1),
 (65, NULL, NULL, NULL, 'Konkret kann verbessert werden :', 0, 4, 0, '', '', '', 65, 1),
-(66, NULL, NULL, NULL, 'Würdest du die SWO als Einsatzbetrieb weiterempfehlen?', 0, 1, 0, 'nein', 'ja', '', 66, 1),
+(66, NULL, NULL, NULL, 'Würdest du die SWO als Einsatzbetrieb weiterempfehlen?', 1, 1, 0, 'nein', 'ja', '', 66, 1),
 (67, NULL, NULL, NULL, 'Würdest du wieder einmal Zivildienst bei der SWO leisten?', 0, 1, 0, 'nein', 'ja', '', 67, 1),
 (68, NULL, NULL, NULL, 'Höhepunkt (e) meines Zivildiensteinsatzes :', 0, 4, 0, '', '', '', 68, 1),
 (69, NULL, NULL, NULL, 'Tiefpunkt (e) meines Zivildiensteinsatzes :', 0, 4, 0, '', '', '', 69, 1),
 (70, NULL, NULL, NULL, 'Verbesserungsvorschläge :', 0, 4, 0, '', '', '', 70, 1),
 (71, NULL, NULL, NULL, 'Weitere Kommentare :', 0, 4, 0, '', '', '', 71, 1);
+
+/* Insert custom information*/
+UPDATE `user_feedback_questions`
+SET custom_info = '"choices":[{"value":"1","text":"Kollegen"},{"value":"2","text":"EIS"},{"value":"3","text":"Website SWO"},{"value":"4","text":"Thomas Winter"},{"value":"5","text":"Früherer Einsatz"},{"value":"6","text":"Anderes"}],'
+WHERE id = 1;
+
+UPDATE `user_feedback_questions` SET custom_info = 'Arbeit' WHERE id = 11;
+UPDATE `user_feedback_questions` SET custom_info = 'Einsatzleitung' WHERE id = 27;
+UPDATE `user_feedback_questions` SET custom_info = 'Bewertung der Einsatzleiter' WHERE id = 36;
+UPDATE `user_feedback_questions` SET custom_info = 'Weiteres' WHERE id = 66;
 
 
 /*

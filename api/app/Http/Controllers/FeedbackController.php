@@ -40,29 +40,31 @@ class FeedbackController extends Controller
         $this->output = new ConsoleOutput();
 
         $json_string = "";
+        $firstPage = true;
         $string_start = '{"pages":[';
         $string_end = '], "requiredText": "(*)", "showProgressBar": "top", "showQuestionNumbers": "off" }';
         $page_start = '{"elements": [{"type":"panel", "elements":[';
-        $lastPageName = "Organisation"; //TODO hardcoded
-        $lastPageTitle = "Organisation";
-
+        $last_page_title = 'SWO als Einsatzbetrieb';
+       
         $this->questions = UserFeedbackQuestion::orderBy('id', 'ASC')->get();
-        $json_string .= $string_start.$page_start;
+        $json_string .= $string_start;
 
         for ($this->index = 0; $this->index < count($this->questions); $this->index++) {
             if ($this->questions[$this->index]->new_page == 1) {
-                $json_string = substr($json_string, 0, -1); // remove last comma
-                $json_string .= $this->getPageEndString($lastPageName, $lastPageTitle).",";
-                $lastPageName = $this->questions[$this->index]->question;
-                $lastPageTitle = $this->questions[$this->index]->question;
+                if (!$firstPage) {
+                    $json_string = substr($json_string, 0, -1); // remove last comma
+                    $json_string .= $this->getPageEndString($last_page_title).",";
+                }
+                $last_page_title = $this->questions[$this->index]->custom_info;
                 $json_string .= $page_start;
+                $firstPage = false;
             }
 
             $json_string .= $this->getJSONbyQuestionType();
         }
 
         $json_string = substr($json_string, 0, -1); // remove last comma
-        $json_string .= $this->getPageEndString($lastPageName, $lastPageTitle);
+        $json_string .= $this->getPageEndString($last_page_title);
         $json_string .= $string_end;
 
         return new JsonResponse($json_string);
@@ -91,7 +93,7 @@ class FeedbackController extends Controller
                 break;
 
             case constant("TYPE_SINGLE_QUESTION_6"):
-                $returnString .= '{ "type":"radiogroup", '.$requiredTag.'"name":"'.$this->questions[$this->index]->id.'", "choices":[{"value":"1","text":"Kollegen"},{"value":"2","text":"EIS"},{"value":"3","text":"Website SWO"},{"value":"4","text":"Thomas Winter"},{"value":"5","text":"Früherer Einsatz"},{"value":"6","text":"Anderes"}], "title":"'.$this->questions[$this->index]->question.'" },'; //TODO remove hardcoded texts
+                $returnString .= '{ "type":"radiogroup", '.$requiredTag.'"name":"'.$this->questions[$this->index]->id.'", '.$this->questions[$this->index]->custom_info.' "title":"'.$this->questions[$this->index]->question.'" },';
                 break;
 
             case constant("TYPE_GROUP_TITLE"):
@@ -107,9 +109,10 @@ class FeedbackController extends Controller
         return $returnString;
     }
 
-    private function getPageEndString($pageName, $pageTitle)
+    private function getPageEndString($last_page_title)
     {
-        return '], "name":"'.$pageName.'", "title":"'.$pageTitle.'" }]}';
+        return '], "title":"'.$last_page_title.'" }]}';
+        return ']}]}';
     }
 
     public function getFeedback($feedback_id)
@@ -256,12 +259,12 @@ http://www.stiftungswo.ch';
     private function getFeedbacksTypeText($questionId)
     {
         if ($this->feedback_id!=null) {
-            $results = DB::table('user_feedbacks')->select('answer')
+            $results = DB::table('user_feedbacks')->select('answer', 'year')
                 ->where('questionId', '=', $questionId)
                 ->where('feedbackId', '=', $this->feedback_id)
                 ->get();
         } else {
-            $results = DB::table('user_feedbacks')->select('answer')
+            $results = DB::table('user_feedbacks')->select('answer', 'year')
                 ->where('questionId', '=', $questionId)
                 ->whereDate('year', '>=', $this->date_from)
                 ->whereDate('year', '<=', $this->date_to)
@@ -270,7 +273,7 @@ http://www.stiftungswo.ch';
 
         $answerTexts = "";
         foreach ($results as $key => $value) {
-            $answerTexts .= $value->answer . "\n\r";
+            $answerTexts .= "==== ".$value->year." ====\n".$value->answer."\n\n";
         }
 
         return $answerTexts;

@@ -143,41 +143,39 @@ export default class UserFeedbackOverview extends Component {
   }
 
   render() {
+    let TYPE_SINGLE_QUESTION = 1;
+    let TYPE_GROUP_TITLE = 2;
+    let TYPE_GROUP_QUESTION = 3;
+    let TYPE_TEXT = 4;
+    let TYPE_SINGLE_QUESTION_2 = 5;
+    let TYPE_SINGLE_QUESTION_6 = 6;
+
     var feedbacks = [];
     var answers = this.state.feedbacks;
     var totalFeedbacks = 0;
 
-    if (answers[0] !== undefined && answers[0] != null && answers[0]['answers'] !== undefined) {
+    if (answers[1] !== undefined && answers[1] != null && answers[1]['answers'] !== undefined) {
       totalFeedbacks =
-        answers[0]['answers']['1'] +
-        answers[0]['answers']['2'] +
-        answers[0]['answers']['3'] +
-        answers[0]['answers']['4'] +
-        answers[0]['answers']['5'] +
-        answers[0]['answers']['6'];
+        answers[1]['answers']['1'] +
+        answers[1]['answers']['2'] +
+        answers[1]['answers']['3'] +
+        answers[1]['answers']['4'] +
+        answers[1]['answers']['5'] +
+        answers[1]['answers']['6'];
     }
 
     for (var x = 0; x < answers.length; x++) {
-      // Chapters
-      switch (x) {
-        case 0:
-          feedbacks.push(this.getChapter('SWO als Einsatzbetrieb'));
-          break;
-        case 11:
-          feedbacks.push(this.getChapter('Arbeit'));
-          break;
-        case 26:
-          feedbacks.push(this.getChapter('Einsatzleitung'));
-          break;
-        case 35:
-          feedbacks.push(this.getChapter('Bewertung der Einsatzleiter'));
-          break;
-        case 65:
-          feedbacks.push(this.getChapter('Weiteres'));
-          break;
+      if (answers[x].new_page == 1) {
+        feedbacks.push(this.getChapter(answers[x].custom_info));
       }
 
-      if (answers[x].type == 1 || answers[x].type == 3 || answers[x].type == 5 || answers[x].type == 6) {
+      // These questions have multiple answers
+      if (
+        answers[x].type == TYPE_SINGLE_QUESTION ||
+        answers[x].type == TYPE_GROUP_QUESTION ||
+        answers[x].type == TYPE_SINGLE_QUESTION_2 ||
+        answers[x].type == TYPE_SINGLE_QUESTION_6
+      ) {
         let rawContent = [];
         let totalAnswers = 0;
         let answersCleaned = [];
@@ -188,8 +186,9 @@ export default class UserFeedbackOverview extends Component {
           totalAnswers += answersCleaned[i];
         }
 
-        // Question types
-        if (answers[x].type == 6) {
+        if (answers[x].type == TYPE_SINGLE_QUESTION_6) {
+          console.log(answers[x].custom_info);
+
           feedbacks.push(
             <div class="row">
               <div class="col-xs-7">
@@ -220,7 +219,7 @@ export default class UserFeedbackOverview extends Component {
               </div>
             </div>
           );
-        } else if (answers[x].type == 5) {
+        } else if (answers[x].type == TYPE_SINGLE_QUESTION_2) {
           feedbacks.push(
             <div class="row">
               <div class="col-xs-8">
@@ -255,7 +254,11 @@ export default class UserFeedbackOverview extends Component {
             </div>
           );
         }
-      } else if (answers[x].type == 2) {
+      } else if (answers[x].type == TYPE_GROUP_TITLE) {
+        if (answers[x].question == '') {
+          continue;
+        }
+
         feedbacks.push(
           <div>
             <br />
@@ -276,7 +279,7 @@ export default class UserFeedbackOverview extends Component {
             </div>
           </div>
         );
-      } else if (answers[x].type == 4) {
+      } else if (answers[x].type == TYPE_TEXT) {
         feedbacks.push(
           <div>
             <div class="row">

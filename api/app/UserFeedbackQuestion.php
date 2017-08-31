@@ -14,6 +14,7 @@ class UserFeedbackQuestion extends Model
                         'new_page',
                         'type',
                         'required',
+                        'custom_info',
                         'opt1',
                         'opt2',
                         'opt3',
