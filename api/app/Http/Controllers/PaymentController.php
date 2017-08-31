@@ -46,7 +46,7 @@ class PaymentController extends Controller
             if (strlen($item['address'])==0 || strlen($item['zip'])==0 || strlen($item['city'])==0) {
                 $item['reason'] = "Adresse unvollständig";
             }
-            if (!(new \IBAN($item['iban']))->VerifyMachineFormatOnly()) {
+            if (strlen($item['iban'])==0 || !(new \IBAN($item['iban']))->VerifyMachineFormatOnly()) {
                 $item['reason'] = "IBAN fehlt oder hat ungültiges Format";
             }
 
