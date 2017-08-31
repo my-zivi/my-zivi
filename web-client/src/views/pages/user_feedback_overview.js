@@ -150,9 +150,9 @@ export default class UserFeedbackOverview extends Component {
     let TYPE_SINGLE_QUESTION_2 = 5;
     let TYPE_SINGLE_QUESTION_6 = 6;
 
-    var feedbacks = [];
-    var answers = this.state.feedbacks;
-    var totalFeedbacks = 0;
+    let feedbacks = [];
+    let answers = this.state.feedbacks;
+    let totalFeedbacks = 0;
 
     if (answers[1] !== undefined && answers[1] != null && answers[1]['answers'] !== undefined) {
       totalFeedbacks =
@@ -187,7 +187,15 @@ export default class UserFeedbackOverview extends Component {
         }
 
         if (answers[x].type == TYPE_SINGLE_QUESTION_6) {
-          console.log(answers[x].custom_info);
+          let parsedText = JSON.parse('{' + answers[x].custom_info.substring(0, answers[x].custom_info.length - 1) + '}');
+          let rows = [];
+          parsedText.choices.forEach(function(element) {
+            rows.push(
+              <div class="col-xs-2">
+                <label>{element.text}</label>
+              </div>
+            );
+          });
 
           feedbacks.push(
             <div class="row">
@@ -195,26 +203,7 @@ export default class UserFeedbackOverview extends Component {
                 <label>{answers[x].question}</label>
               </div>
               <div class="col-xs-5">
-                <div class="row">
-                  <div class="col-xs-2">
-                    <label>Kollegen</label>
-                  </div>
-                  <div class="col-xs-2">
-                    <label>EIS</label>
-                  </div>
-                  <div class="col-xs-2">
-                    <label>Website SWO</label>
-                  </div>
-                  <div class="col-xs-2">
-                    <label>Thomas Winter</label>
-                  </div>
-                  <div class="col-xs-2">
-                    <label>Früherer Einsatz</label>
-                  </div>
-                  <div class="col-xs-2">
-                    <label>Anderes</label>
-                  </div>
-                </div>
+                <div class="row">{rows}</div>
                 <div class="row">{this.getType1RowContent(6, answersCleaned, totalAnswers, 2)}</div>
               </div>
             </div>
