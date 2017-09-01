@@ -7,6 +7,7 @@ use App\UserFeedback;
 use App\UserFeedbackQuestion;
 use Carbon\Carbon;
 use Faker\Provider\Uuid;
+use Illuminate\Support\Facades\App;
 use Laravel\Lumen\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Input;
@@ -202,7 +203,6 @@ class FeedbackController extends Controller
     private function sendEmailToMissionControl($feedbackId)
     {
 
-        //TODO: change emails for production
         $email = "aw@stiftungswo.ch;mp@stiftungswo.ch;mbr@stiftungswo.ch;lg@stiftungswo.ch;dj@stiftungswo.ch;ls@stiftungswo.ch;";
         $subject = "Feedback von einem Zivi erstellt";
         $emailText = 'Liebe Einsatzleitung,
@@ -221,8 +221,11 @@ Phone:  +41 (0)43 355 58 44
 E-Mail:  swo@stiftungswo.ch
 http://www.stiftungswo.ch';
 
-        //TODO: enable emails for production
-        //mail($email, $subject , utf8_decode($emailText), 'From: swo@stiftungswo.ch');
+        if (App::environment('production')) {
+            mail($email, $subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
+        } else {
+            mail("test@stiftungswo.ch", $subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
+        }
     }
 
     /*

@@ -33,7 +33,7 @@ import ResetPassword from './pages/resetPassword';
 
 const authorizedOnly = ({ router }) => {
   if (localStorage.getItem('jwtToken') === null) {
-    router.push('/login');
+    router.push('/login?path=' + this.context.router.url);
   }
 };
 
