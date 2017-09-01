@@ -17,6 +17,7 @@ export default class MissionOverview extends Component {
       loading: false,
       error: null,
       missions: [],
+      weekCount: [],
       specifications: [],
     };
   }
@@ -49,10 +50,7 @@ export default class MissionOverview extends Component {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
-        this.setState({
-          missions: response.data,
-          loading: false,
-        });
+        this.renderMissions(response.data);
       })
       .catch(error => {
         this.setState({ error: error });
@@ -70,60 +68,37 @@ export default class MissionOverview extends Component {
     this.setState(this.state);
   }
 
+  componentDidUpdate() {
+    var specs = this.state.specifications;
+    for (var s = 0; s < specs.length; s++) {
+      if (specs[s].selected) {
+        $('tr.mission-row-' + String(specs[s].fullId).replace('.', '_')).show();
+      } else {
+        $('tr.mission-row-' + String(specs[s].fullId).replace('.', '_')).hide();
+      }
+    }
+  }
+
   monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 
   print() {
     window.print();
   }
 
-  render() {
-    let howerText_test = 'Das ist ein Test';
-
-    var specifications = [];
+  renderMissions(userMissions) {
     var specs = this.state.specifications;
-    for (var x = 0; x < specs.length; x++) {
-      if (specs[x].active) {
-        specifications.push(
-          <div class="checkbox no-print">
-            <label>
-              <input
-                type="checkbox"
-                name={x}
-                defaultChecked={true}
-                onchange={e => {
-                  this.handleChange(e);
-                }}
-              />
-              {specs[x].name}
-            </label>
-          </div>
-        );
-      }
-    }
 
     var weekCount = [];
-    for (var i = 1; i <= 52; i++) {
-      weekCount[i] = 0;
+    for (var x = 0; x < specs.length; x++) {
+      weekCount[specs[x].fullId] = [];
+      for (var i = 1; i <= 52; i++) {
+        weekCount[specs[x].fullId][i] = 0;
+      }
     }
 
     var tbody = [];
-    var userMissions = this.state.missions;
 
     for (var i = 0; i < userMissions.length; i++) {
-      var selected = false;
-      for (var s = 0; s < specs.length; s++) {
-        for (var x = 0; x < userMissions[i].length; x++) {
-          if (specs[s].fullId == userMissions[i][x].specification) {
-            selected = specs[s].selected;
-            break;
-          }
-        }
-      }
-
-      if (!selected) {
-        continue;
-      }
-
       var cells = [];
       cells.push(<td>{userMissions[i][0].short_name}</td>);
       cells.push(
@@ -158,7 +133,7 @@ export default class MissionOverview extends Component {
         if (x < startWeek || x > endWeek) {
           cells.push(<td data-toggle="popover" data-content={popOverStart + ' - ' + popOverEnd} />);
         } else {
-          weekCount[x]++;
+          weekCount[curMission.specification][x]++;
           if (x == startWeek) {
             cells.push(
               <td
@@ -197,9 +172,45 @@ export default class MissionOverview extends Component {
         }
       }
 
-      tbody.push(<tr>{cells}</tr>);
+      tbody.push(<tr class={'mission-row-' + String(userMissions[i][0].specification).replace('.', '_')}>{cells}</tr>);
     }
 
+    this.setState({
+      tbody: tbody,
+      weekCount: weekCount,
+      loading: false,
+    });
+  }
+
+  render() {
+    var specifications = [];
+    var specs = this.state.specifications;
+    for (var x = 0; x < specs.length; x++) {
+      if (specs[x].active) {
+        specifications.push(
+          <div class="checkbox no-print">
+            <label>
+              <input
+                type="checkbox"
+                name={x}
+                defaultChecked={true}
+                onchange={e => {
+                  this.handleChange(e);
+                }}
+              />
+              {specs[x].name}
+            </label>
+          </div>
+        );
+      }
+    }
+
+    var yearOptions = [];
+    for (var i = 2005; i <= new Date().getFullYear() + 1; i++) {
+      yearOptions.push(<option value={i}>{i}</option>);
+    }
+
+    var weekCount = this.state.weekCount;
     var averageCount = 0;
     var weekHeaders = [];
     var averageHeaders = [];
@@ -211,9 +222,15 @@ export default class MissionOverview extends Component {
     var prevMonth = 0;
     var monthColCount = 1;
     for (var i = 1; i <= 52; i++) {
+      var weekCountSum = 0;
+      for (var x = 0; x < specs.length; x++) {
+        if (specs[x].selected && weekCount[specs[x].fullId]) {
+          weekCountSum += weekCount[specs[x].fullId][i];
+        }
+      }
       weekHeaders.push(<td style="width:25px;">{i}</td>);
-      averageHeaders.push(<td>{weekCount[i]}</td>);
-      averageCount += weekCount[i];
+      averageHeaders.push(<td>{weekCountSum}</td>);
+      averageCount += weekCountSum;
       if (startDate.getMonth() != prevMonth) {
         monthHeaders.push(
           <td style="font-weight:bold;" colspan={monthColCount}>
@@ -232,11 +249,6 @@ export default class MissionOverview extends Component {
         {this.monthNames[prevMonth]}
       </td>
     );
-
-    var yearOptions = [];
-    for (var i = 2005; i <= new Date().getFullYear() + 1; i++) {
-      yearOptions.push(<option value={i}>{i}</option>);
-    }
 
     return (
       <Header>
@@ -287,7 +299,7 @@ export default class MissionOverview extends Component {
                   {averageHeaders}
                 </tr>
               </thead>
-              <tbody>{tbody}</tbody>
+              <tbody>{this.state.tbody}</tbody>
             </table>
           </ScrollableCard>
           <LoadingView loading={this.state.loading} error={this.state.error} />
