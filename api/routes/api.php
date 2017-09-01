@@ -11,6 +11,7 @@
 |
 */
 
+use App\CompanyInfo;
 use App\Http\Controllers\UserController;
 use Faker\Provider\Uuid;
 use Illuminate\Support\Facades\Input;
@@ -514,6 +515,7 @@ $api->version('v1', function ($api) {
                 $report->mission = $mission->id;
                 $report->start = $mission->start;
                 $report->end = $mission->end;
+                $report->bank_account_number = CompanyInfo::DEFAULT_ACCOUNT_NUMBER_REPORT_SHEETS;
                 $report->save();
 
                 return response("inserted");
