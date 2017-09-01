@@ -50,9 +50,9 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
   stiftun8_iZivi.accounts.lastname AS last_name,
   CASE
     WHEN stiftun8_iZivi.zivis.street = ''
-      THEN 'NO_Street'
+      THEN ''
     WHEN stiftun8_iZivi.zivis.street IS NULL
-      THEN 'NULL_Street'
+      THEN ''
     ELSE stiftun8_iZivi.zivis.street
   END AS address,
   CASE
@@ -62,13 +62,13 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
   END AS zip,
   CASE
     WHEN stiftun8_iZivi.zivis.city != ''
-      THEN trim(stiftun8_iZivi.zivis.city) ELSE 'NoCity'
+      THEN trim(stiftun8_iZivi.zivis.city) ELSE ''
   END,
   CASE
     WHEN stiftun8_iZivi.zivis.hometown = ''
-      THEN 'NO_Hometown'
+      THEN ''
     WHEN stiftun8_iZivi.zivis.hometown IS NULL
-      THEN 'NULL_Hometown'
+      THEN ''
     ELSE stiftun8_iZivi.zivis.hometown
   END AS hometown,
   CASE
@@ -185,9 +185,9 @@ CASE
   END AS regional_center,
   CASE
     WHEN stiftun8_iZivi.zivis.bemerkung = ''
-      THEN 'NO_Note'
+      THEN ''
     WHEN stiftun8_iZivi.zivis.bemerkung IS NULL
-      THEN 'NULL_Note'
+      THEN ''
     ELSE stiftun8_iZivi.zivis.bemerkung
   END AS internal_note
 FROM stiftun8_iZivi.accounts
