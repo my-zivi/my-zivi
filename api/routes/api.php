@@ -56,14 +56,6 @@ $api->version('v1', function ($api) {
             'as' => 'api.auth.invalidate'
         ]);
 
-        // Canton - Authenticated
-        $api->get('/canton', function () {
-            return response()->json(App\Canton::all());
-        });
-        $api->get('/canton/{id}', function ($id) {
-            return response()->json(App\Canton::find($id));
-        });
-
         // User - Authenticated
         $api->get('/user', function () {
             $user = JWTAuth::parseToken()->authenticate();

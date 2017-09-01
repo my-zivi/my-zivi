@@ -6,7 +6,6 @@ import InputField from '../tags/InputFields/InputField';
 import InputFieldWithHelpText from '../tags/InputFields/InputFieldWithHelpText';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';
 import DatePicker from '../tags/InputFields/DatePicker';
-import Cantons from '../tags/Profile/Cantons';
 import RegionalCenters from '../tags/Profile/RegionalCenters';
 import Missions from '../tags/Profile/Missions';
 import AdminRestrictedFields from '../tags/Profile/AdminRestrictedFields';
@@ -24,14 +23,12 @@ export default class User extends Component {
 
     this.state = {
       result: [],
-      cantons: [],
       regianlCenters: [],
       specifications: [],
       lastDateValue: null,
       reportSheets: [],
     };
 
-    this.cantonTag = new Cantons();
     this.regionalCenterTag = new RegionalCenters();
     this.adminFields = new AdminRestrictedFields();
     this.missionTag = new Missions();
@@ -40,7 +37,6 @@ export default class User extends Component {
 
   componentDidMount() {
     this.getUser();
-    this.cantonTag.getCantons(this);
     this.regionalCenterTag.getRegionalCenters(this);
     this.getSpecifications();
     this.getReportSheets();
@@ -287,17 +283,6 @@ export default class User extends Component {
                 <InputField inputType="tel" id="phone_mobile" label="Tel. Mobil" value={result.phone_mobile} self={this} />
                 <InputField inputType="tel" id="phone_private" label="Tel. Privat" value={result.phone_private} self={this} />
                 <InputField inputType="tel" id="phone_business" label="Tel. Geschäft" value={result.phone_business} self={this} />
-
-                <div class="form-group">
-                  <label class="control-label col-sm-3" for="canton">
-                    Kanton
-                  </label>
-                  <div class="col-sm-9">
-                    <select id="canton" name="canton" class="form-control" onChange={e => this.handleSelectChange(e)}>
-                      {this.cantonTag.renderCantons(this.state)}
-                    </select>
-                  </div>
-                </div>
 
                 <hr />
                 <h3>Bank-/Postverbindung</h3>

@@ -9,7 +9,7 @@ ANSI Shadow theme
 ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝ ╚═════╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
 */
 
-INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, email,  password, role,  zdp,  first_name,  last_name,  address,  zip, city,  hometown,  hometown_canton, canton, birthday, phone_mobile, phone_private, phone_business, bank_iban, health_insurance, work_experience, driving_licence, ga_travelcard, half_fare_travelcard, other_fare_network, regional_center,  internal_note) (SELECT
+INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, email,  password, role,  zdp,  first_name,  last_name,  address,  zip, city,  hometown, birthday, phone_mobile, phone_private, phone_business, bank_iban, health_insurance, work_experience, driving_licence, ga_travelcard, half_fare_travelcard, other_fare_network, regional_center,  internal_note) (SELECT
   NULL AS created_at,
   NULL AS updated_at,
   NULL AS deleted_at,
@@ -71,61 +71,6 @@ INSERT INTO izivi.users (created_at,  updated_at,  deleted_at,  remember_token, 
       THEN ''
     ELSE stiftun8_iZivi.zivis.hometown
   END AS hometown,
-  CASE
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'ZH'
-      THEN 1
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'BE'
-      THEN 2
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'LU'
-      THEN 3
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'UR'
-      THEN 4
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'SZ'
-      THEN 5
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'OW'
-      THEN 6
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'NW'
-      THEN 7
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'GL'
-      THEN 8
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'ZG'
-      THEN 9
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'FR'
-      THEN 10
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'SO'
-      THEN 11
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'BS'
-      THEN 12
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'BL'
-      THEN 13
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'SH'
-      THEN 14
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'AR'
-      THEN 15
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'AI'
-      THEN 16
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'SG'
-      THEN 17
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'GR'
-      THEN 18
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'AG'
-      THEN 19
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'TG'
-      THEN 20
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'TI'
-      THEN 21
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'VD'
-      THEN 22
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'VS'
-      THEN 23
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'NE'
-      THEN 24
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'GE'
-      THEN 25
-    WHEN stiftun8_iZivi.zivis.hometown_canton = 'JU'
-      THEN 26
-  END AS hometown_canton,
-  1 AS canton,
   CASE
     WHEN stiftun8_iZivi.zivis.dateofbirth IS NOT NULL AND stiftun8_iZivi.zivis.dateofbirth != 0
       THEN stiftun8_iZivi.zivis.dateofbirth ELSE NOW()

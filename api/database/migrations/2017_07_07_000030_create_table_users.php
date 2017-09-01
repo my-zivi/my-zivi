@@ -29,10 +29,6 @@ class CreateTableUsers extends Migration
             $table->integer('zip')->unsigned()->nullable();
             $table->string('city');
             $table->string('hometown');
-            $table->integer('hometown_canton')->unsigned()->nullable();
-            $table->foreign('hometown_canton')->references('id')->on('cantons');
-            $table->integer('canton')->unsigned()->nullable();
-            $table->foreign('canton')->references('id')->on('cantons');
             $table->date('birthday')->nullable(false);
             $table->string('phone_mobile');
             $table->string('phone_private');

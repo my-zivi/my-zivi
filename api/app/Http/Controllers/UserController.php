@@ -111,8 +111,6 @@ class UserController extends Controller
         $user->city = Input::get("city", "");
         $user->zip = Input::get("zip", "");
         $user->hometown = Input::get("hometown", "");
-        $user->hometown_canton = Input::get("hometown_canton", "");
-        $user->canton = Input::get("canton", "");
         $user->birthday = Input::get("birthday", "");
         $user->phone_mobile = Input::get("phone_mobile", "");
         $user->phone_private = Input::get("phone_private", "");
