@@ -1,4 +1,4 @@
-import Inferno from 'inferno';
+﻿import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Card from '../tags/card';
 import InputField from '../tags/InputFields/InputField';
@@ -57,11 +57,6 @@ export default class EditExpense extends Component {
 
   handleSelectChange(e) {
     let value = 1;
-
-    console.log(e);
-    /*
-        var targetSelect = document.getElementById( e.target.id );
-        let value = targetSelect.options[ targetSelect.selectedIndex ].value;*/
     this.state['report_sheet'][e.target.name] = value;
     this.setState(this.state);
   }

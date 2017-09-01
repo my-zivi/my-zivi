@@ -1,4 +1,4 @@
-import Inferno from 'inferno';
+﻿import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
 import axios from 'axios';

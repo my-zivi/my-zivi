@@ -1,4 +1,4 @@
-import Inferno from 'inferno';
+﻿import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import ScrollableCard from '../tags/scrollableCard';
 import axios from 'axios';
@@ -64,7 +64,6 @@ export default class UserList extends Component {
     }
 
     value = value.slice(0, 10);
-    console.log('value = ', value);
 
     origin.state[e.target.name] = value;
     origin.setState(this.state);
@@ -85,7 +84,6 @@ export default class UserList extends Component {
   }
 
   render() {
-    console.log('state start = ', this.state.start);
     var temp = [];
     var users = this.state.users;
     for (let i = 0; i < users.length; i++) {
