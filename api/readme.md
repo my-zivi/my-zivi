@@ -26,7 +26,7 @@
 
 #Live Deployment
 1. Copy all files except for the vendor folder to remote server
-2. Create or adapt the .env file for the live database
+2. Create or adapt the .env file for the live database (set APP_ENV to production and disable DEBUG)
 3. Connect to server via SSH
 4. Install composer if needed (https://getcomposer.org/download/) and run 
     * php composer.phar install

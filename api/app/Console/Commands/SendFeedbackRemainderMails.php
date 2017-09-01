@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Mission;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\App;
 
 class SendFeedbackRemainderMails extends Command
 {
@@ -70,8 +71,11 @@ class SendFeedbackRemainderMails extends Command
     http://www.stiftungswo.ch';
 
             print $email."\n";
-            //TODO: activate this for production
-            //mail($email, $subject , utf8_decode($emailText), 'From: swo@stiftungswo.ch');
+            if (App::environment('production')) {
+                mail($email, $subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
+            } else {
+                mail("test@stiftungswo.ch", $subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
+            }
 
             $mission->feedback_mail_sent = true;
             $mission->save();
