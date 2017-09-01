@@ -1,11 +1,11 @@
-import Inferno from 'inferno';
+﻿import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
 
 export default class BootstrapNavLink extends Component {
   static getNavbar(navLinks) {
     return (
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
           <div class="navbar-header">
             <button
