@@ -230,18 +230,6 @@ export default class User extends Component {
 
     let missions = this.missionTag.getMissions(this);
 
-    let statusDone = (
-      <a data-toggle="popover" title="" data-content="Erledigt">
-        <span class="glyphicon glyphicon-ok" style="color:green" />
-      </a>
-    );
-
-    let statusPending = (
-      <a data-toggle="popover" title="" data-content="In Bearbeitung">
-        <span class="glyphicon glyphicon-hourglass" style="color:orange" />
-      </a>
-    );
-
     return (
       <Header>
         <div className="page page__user_list">
@@ -417,7 +405,21 @@ export default class User extends Component {
                         <div class="col-xs-2">{moment(obj.start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
                         <div class="col-xs-2">{moment(obj.end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
                         <div class="col-xs-2">{obj.days}</div>
-                        <div class="col-xs-1">{obj.state > 0 ? (obj.state === 3 ? statusDone : statusPending) : ''}</div>
+                        <div class="col-xs-1">
+                          {obj.state > 0 ? (
+                            obj.state === 3 ? (
+                              <a data-toggle="popover" title="" data-content="Erledigt">
+                                <span class="glyphicon glyphicon-ok" style="color:green" />
+                              </a>
+                            ) : (
+                              <a data-toggle="popover" title="" data-content="In Bearbeitung">
+                                <span class="glyphicon glyphicon-hourglass" style="color:orange" />
+                              </a>
+                            )
+                          ) : (
+                            ''
+                          )}
+                        </div>
                         <div class="col-xs-1">
                           {obj.state === 3 ? (
                             <a
