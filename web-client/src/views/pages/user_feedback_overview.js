@@ -187,15 +187,18 @@ export default class UserFeedbackOverview extends Component {
         }
 
         if (answers[x].type == TYPE_SINGLE_QUESTION_6) {
-          let parsedText = JSON.parse('{' + answers[x].custom_info.substring(0, answers[x].custom_info.length - 1) + '}');
+          let custom_info = this.tryParseJSON('{' + answers[x].custom_info.substring(0, answers[x].custom_info.length - 1) + '}');
+
           let rows = [];
-          parsedText.choices.forEach(function(element) {
-            rows.push(
-              <div class="col-xs-2">
-                <label>{element.text}</label>
-              </div>
-            );
-          });
+          if (custom_info && custom_info.choices) {
+            custom_info.choices.forEach(function(element) {
+              rows.push(
+                <div class="col-xs-2">
+                  <label>{element.text}</label>
+                </div>
+              );
+            });
+          }
 
           feedbacks.push(
             <div class="row">
@@ -325,5 +328,21 @@ export default class UserFeedbackOverview extends Component {
         </div>
       </Header>
     );
+  }
+
+  tryParseJSON(jsonString) {
+    try {
+      var o = JSON.parse(jsonString);
+
+      // Handle non-exception-throwing cases:
+      // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
+      // but... JSON.parse(null) returns null, and typeof null === "object",
+      // so we must check for that, too. Thankfully, null is falsey, so this suffices:
+      if (o && typeof o === 'object') {
+        return o;
+      }
+    } catch (e) {}
+
+    return false;
   }
 }

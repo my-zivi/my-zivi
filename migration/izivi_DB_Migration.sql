@@ -408,7 +408,7 @@ INSERT INTO `user_feedback_questions` (`id`, `created_at`, `updated_at`, `delete
 /* Insert custom information*/
 UPDATE `user_feedback_questions`
 SET custom_info = '"choices":[{"value":"1","text":"Kollegen"},{"value":"2","text":"EIS"},{"value":"3","text":"Website SWO"},{"value":"4","text":"Thomas Winter"},{"value":"5","text":"Früherer Einsatz"},{"value":"6","text":"Anderes"}],'
-WHERE id = 1;
+WHERE id = 2;
 
 /*
 ██╗   ██╗███╗   ███╗██╗      █████╗ ██╗   ██╗████████╗    ███████╗██╗██╗  ██╗
