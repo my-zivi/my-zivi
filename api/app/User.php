@@ -32,7 +32,6 @@ class User extends Model implements
         'address',
         'zip',
         'city',
-        'canton',
         'birthday',
         'hometown',
         'phone_mobile',
@@ -66,11 +65,6 @@ class User extends Model implements
     public function report_sheets()
     {
         return $this->hasMany('App\ReportSheet', 'user');
-    }
-
-    public function canton()
-    {
-        return $this->belongsTo('App\Canton', 'canton');
     }
 
     /**

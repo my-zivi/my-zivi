@@ -1,4 +1,4 @@
-import Inferno from 'inferno';
+﻿import Inferno from 'inferno';
 import VNodeFlags from 'inferno-vnode-flags';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
@@ -144,7 +144,7 @@ export default class Missions extends Component {
                 <h4>Status</h4>
                 {mission == null || mission.draft == null ? 'Provisorisch' : 'Aufgeboten, Aufgebot erhalten am ' + mission.draft}
                 <hr />
-                {mission == null || mission.draft == null ? (
+                {mission == null || mission.draft == null || ApiService.isAdmin() ? (
                   <button class="btn btn-primary" type="submit">
                     Daten speichern
                   </button>
