@@ -6,6 +6,8 @@ https://izivi.stiftungswo.ch/
 
 ## Ordnerstruktur
 
+Ordner | Verwendung
+--- | ---
 - [api](api/readme.md) | Backend
 - [web-client](web-client/readme.md) | Frontend
 - migration | Datenmigration von altem iZivi
