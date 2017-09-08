@@ -9,6 +9,7 @@ https://izivi.stiftungswo.ch/
 - [api](api/readme.md) | Backend
 - [web-client](web-client/readme.md) | Frontend
 - migration | Datenmigration von altem iZivi
+
 Die Ordner „api“ und „web-client“ haben jeweils eine Datei REAME.md mit einer Installationsanleitung. Fürs Backend gibt es eine Anleitung für Arbeiten an der Datenmigration. Diese ist nach dem Rollout 2017 nicht mehr relevant.
 
 ## Frameworks und Dependencies
@@ -28,7 +29,7 @@ Die Ordner „api“ und „web-client“ haben jeweils eine Datei REAME.md mit 
 | Yarn                       | Paketverwaltung und Entwicklungsserver ($yarn run watch) |
 | Babel                      | ES6 backwards compatibility |
 | Webpack                    | Bundeling JS, CSS, SASS modules |
-| IZI Toast                  | Snackbar for Error and Feedback [[http://izitoast.marcelodolce.com/]] |
+| IZI Toast                  | Snackbar for Error and Feedback http://izitoast.marcelodolce.com/ |
 | Survey JS                  | Darstellung der User Feedbacks |
 
 
