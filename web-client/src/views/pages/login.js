@@ -31,7 +31,11 @@ export default class Login extends Component {
       .then(response => {
         localStorage.setItem('jwtToken', response.data.data.token);
         if (this.props.params.path) {
-          this.context.router.push(this.props.params.path);
+          var url = this.props.params.path;
+          if (url.startsWith('/login')) {
+            url = '/';
+          }
+          this.context.router.push(url);
         } else {
           this.context.router.push('/');
         }

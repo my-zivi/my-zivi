@@ -47,28 +47,26 @@ class SendFeedbackRemainderMails extends Command
 
         foreach ($missions as $mission) {
             $user = $mission->usermodel;
-            $vorname = $user->firstname;
-            $ziviId = $user->zdp;
-            $id = "42";
+            $vorname = $user->first_name;
             $email = $user->email;
             $subject = "Deine Meinung ist uns wichtig";
             $emailText = 'Lieber '.$vorname.',
               
-    wir danken dir herzlich für deinen Einsatz bei der Stiftung Wirtschaft und Ökologie SWO. Um besser abschätzen zu können wie dein Einsatz beim SWO war, bitten wir dich, unsere Evaluation auszufüllen.
-              
-    Du findest die Evaluation unter folgendem Link: http://izivi.stiftungswo.ch/editEvaluation.php?ziviId='.$ziviId.'&id='.$id.'
-    
-    Herzlichen Dank für dein Feedback.
-              
-    Liebe Grüsse aus Schwerzenbach
-              
-    Dein SWO-Team
-    Bahnstrasse 9
-    8603 Schwerzenbach
-    
-    Phone:  +41 (0)43 355 58 44
-    E-Mail:  swo@stiftungswo.ch
-    http://www.stiftungswo.ch';
+wir danken dir herzlich für deinen Einsatz bei der Stiftung Wirtschaft und Ökologie SWO. Um besser abschätzen zu können wie dein Einsatz beim SWO war, bitten wir dich, unsere Evaluation auszufüllen.
+          
+Du findest die Evaluation unter folgendem Link: https://izivi.stiftungswo.ch/user_feedback/'.$mission->id.'
+
+Herzlichen Dank für dein Feedback.
+          
+Liebe Grüsse aus Schwerzenbach
+          
+Dein SWO-Team
+Bahnstrasse 9
+8603 Schwerzenbach
+
+Phone:  +41 (0)43 355 58 44
+E-Mail:  swo@stiftungswo.ch
+http://www.stiftungswo.ch';
 
             print $email."\n";
             if (App::environment('production')) {

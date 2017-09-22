@@ -7,7 +7,7 @@
 
 
 # Live Deployment
-1. change the BASE_URL in src/utils/api.js to point to your productive API
+1. change the BASE_URL in src/utils/api.js to point to your productive API (only if you want something different e.g. for a test deployment)
 2. yarn build
 3. Copy all contents of dist folder to corresponding folder on server (delete old files first)
 4. Make sure the .htaccess file with the following content exists:
