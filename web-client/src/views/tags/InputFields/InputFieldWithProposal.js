@@ -56,7 +56,7 @@ export default class InputFieldWithProposal extends InputField {
           this.validateMainField();
           this.props.self.handleChange(e);
         }}
-        disabled={this.props.disabled}
+        readonly={this.props.disabled}
       />
     );
   }
@@ -75,7 +75,7 @@ export default class InputFieldWithProposal extends InputField {
           id={'prop_' + this.props.id}
           value={proposalText + this.props.proposalValue}
           className="form-control"
-          disabled="true"
+          readonly="true"
         />
       </div>
     );

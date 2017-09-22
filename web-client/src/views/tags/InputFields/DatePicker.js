@@ -43,7 +43,7 @@ export default class DatePicker extends InputField {
           name={this.props.id}
           value={dateValue}
           onChange={e => this.props.callback(e, this.props.callbackOrigin)}
-          disabled={this.props.disabled}
+          readonly={this.props.disabled}
         />
         <span class="input-group-addon add-on">
           <span class="glyphicon glyphicon-calendar" />
