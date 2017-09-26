@@ -84,7 +84,7 @@ export default class Register extends Component {
                       value={this.state.formData.zdp}
                       onChange={this.handleChange.bind(this)}
                       min="10000"
-                      max="100000"
+                      max="1000000"
                       required
                     />
                   </div>
