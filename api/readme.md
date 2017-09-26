@@ -1,6 +1,6 @@
 # iZivi API
 
-This Readme File covers developing and deploying the backend. See [web-client Readme](../web-client/readme.md) for information about the frontend.
+This Readme file covers developing and deploying the backend. See [web-client Readme](../web-client/readme.md) for information about the frontend.
 
 ### Development setup
 1. Install PHP + mySQL + composer
@@ -11,6 +11,15 @@ This Readme File covers developing and deploying the backend. See [web-client Re
 6. Adjust MySQL login in .env file
 7. Create a database "izivi" and import data
 8. ``php artisan serve``
+
+### Logging
+``` PHP
+use Symfony\Component\Console\Output\ConsoleOutput;
+// [...]
+$output = new ConsoleOutput();
+$output->writeln("some log to console");
+```
+The logs will be displayed in the terminal where you started your artisan server.
 
 ### Live Deployment
 1. Copy all files except for the vendor folder to remote server
