@@ -5,6 +5,8 @@ namespace App;
 use App\Http\Controllers\PDF\PDF;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use \DateTime;
 
 class ReportSheet extends Model
 {
@@ -403,42 +405,91 @@ class ReportSheet extends Model
     {
         if (strtotime($end)>=strtotime($start)) {
             $dayCount = ReportSheet::countDaysBetween(strtotime($start), strtotime($end));
-
-            $betriebsferien = Holiday::join('holiday_types', 'holidays.holiday_type', '=', 'holiday_types.id')
-                ->whereDate('date_from', '<=', $end)
-                ->whereDate('date_to', '>=', $start)
-                ->where('holiday_types.name', '=', 'Betriebsferien')
-                ->get();
-
-            $feiertage = Holiday::join('holiday_types', 'holidays.holiday_type', '=', 'holiday_types.id')
-                ->whereDate('date_from', '<=', $end)
-                ->whereDate('date_to', '>=', $start)
-                ->where('holiday_types.name', '=', 'Feiertag')
-                ->get();
-
-            foreach ($betriebsferien as $ferien) {
-                for ($u = max(strtotime($start), strtotime($ferien['date_from'])); $u<=min(strtotime($end), strtotime($ferien['date_to'])); $u=ReportSheet::tomorrow($u)) {
-                    if (date('w', $u)==0 || date('w', $u)==6) {
-                        //ingore saturday & sunday, because they count as Diensttag anyway
-                    } else {
-                        $isInFeiertag = false;
-                        foreach ($feiertage as $feiertag) {
-                            if (strtotime($feiertag['date_from'])<=$u && $u<=strtotime($feiertag['date_to'])) {
-                                $isInFeiertag = true;
-                                break;
-                            }
-                        }
-                        if (!$isInFeiertag) {
-                            $dayCount--;
-                        }
-                    }
-                }
-            }
-
-            return $dayCount;
+            return ReportSheet::subtractFreeDays($start, $end, $dayCount);
         } else {
             return 0;
         }
+    }
+
+    public static function getDiensttageEndDate($start, $days)
+    {
+
+        $end = $start;
+        if (isset($days) && $days > 0) {
+          // end date is usually start date + days
+            $end = ReportSheet::addDaysToDate($start, $days-1);
+            $lastEnd = $end;
+            $chargedDays = -2;
+            $hasHolidays = false;
+
+          // the end date is increased until the charged days matches the selection (in case there are holidays)
+            while ($chargedDays < $days && $chargedDays < 400) {
+                $lastEnd = $end;
+                $end = ReportSheet::addDaysToDate($end, 1);
+                $chargedDays = ReportSheet::getDiensttageCount($start, $end);
+
+                if ($chargedDays < $days+1) {
+                    $hasHolidays = true;
+                }
+            }
+        }
+
+        // if there are holidays found, the date needs to be set to the next day
+        if ($hasHolidays) {
+            return $end;
+        }
+
+        return $lastEnd;
+    }
+
+    /**
+    * Subtracts the number of days that are "Betriebsferien" and not "Feiertage"
+    */
+    private static function subtractFreeDays($start, $end, $dayCount)
+    {
+
+        $betriebsferien = Holiday::join('holiday_types', 'holidays.holiday_type', '=', 'holiday_types.id')
+          ->whereDate('date_from', '<=', $end)
+          ->whereDate('date_to', '>=', $start)
+          ->where('holiday_types.name', '=', 'Betriebsferien')
+          ->get();
+
+        $feiertage = Holiday::join('holiday_types', 'holidays.holiday_type', '=', 'holiday_types.id')
+          ->whereDate('date_from', '<=', $end)
+          ->whereDate('date_to', '>=', $start)
+          ->where('holiday_types.name', '=', 'Feiertag')
+          ->get();
+
+        foreach ($betriebsferien as $ferien) {
+            for ($u = max(strtotime($start), strtotime($ferien['date_from'])); $u<=min(strtotime($end), strtotime($ferien['date_to'])); $u=ReportSheet::tomorrow($u)) {
+                if (date('w', $u)==0 || date('w', $u)==6) {
+                    //ingore saturday & sunday, because they count as Diensttag anyway
+                } else {
+                    $isInFeiertag = false;
+                    foreach ($feiertage as $feiertag) {
+                        if (strtotime($feiertag['date_from'])<=$u && $u<=strtotime($feiertag['date_to'])) {
+                            $isInFeiertag = true;
+                            break;
+                        }
+                    }
+                    if (!$isInFeiertag) {
+                        $dayCount--;
+                    }
+                }
+            }
+        }
+
+        return $dayCount;
+    }
+
+    /**
+    * Returns the calculated date as a string
+    */
+    private static function addDaysToDate($dateString, $days)
+    {
+        $datetime = DateTime::createFromFormat('Y-m-d', $dateString);
+        $datetime->modify('+'.$days.' day');
+        return $datetime->format('Y-m-d');
     }
 
     public static function add($mission, $start, $end)

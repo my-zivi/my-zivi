@@ -63,7 +63,6 @@ export default class User extends Component {
         var newState = {
           result: response.data,
           loading: false,
-          lastDateValue: response.data['birthday'],
         };
         for (var i = 0; i < response.data.missions.length; i++) {
           var key = response.data.missions[i].id;
@@ -149,14 +148,16 @@ export default class User extends Component {
   handleDateChange(e, origin) {
     let value = e.target.value;
 
-    if (value === undefined || value == null || value == '') {
+    if (value) {
+      value = DatePicker.dateFormat_CH2EN(value);
+    } else if (origin.state.lastDateValue) {
       value = origin.state.lastDateValue;
     } else {
-      value = DatePicker.dateFormat_CH2EN(value);
+      return;
     }
 
     origin.state['result'][e.target.name] = value;
-    origin.setState(this.state);
+    origin.setState(origin.state);
   }
 
   handleSelectChange(e) {
