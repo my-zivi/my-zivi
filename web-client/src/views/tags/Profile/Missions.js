@@ -119,8 +119,11 @@ export default class Missions extends Component {
                   id={missionKey + '_days'}
                   label="Tage"
                   popoverText={howerText_Tage}
+                  callback={e => {
+                    self.handleChange(e, self);
+                    this.calculateMissionEndDate(e, self, missionKey);
+                  }}
                   self={self}
-                  disabled="true"
                 />
                 <InputCheckbox
                   value={self.state['result'][missionKey + '_first_time']}
@@ -356,22 +359,51 @@ export default class Missions extends Component {
       });
   }
 
+  calculateMissionEndDate(e, self, missionKey) {
+    self.state['result'][e.target.name] = e.target.value; // update days
+    self.setState(self.state);
+    let startDate = self.state['result'][missionKey + '_start'];
+
+    if (e.target.value && e.target.value > 0 && startDate) {
+      axios
+        .get(ApiService.BASE_URL + 'diensttageEndDate?start=' + startDate + '&days=' + self.state.result[missionKey + '_days'], {
+          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
+        })
+        .then(response => {
+          if (response && response.data) {
+            self.state.result[missionKey + '_end'] = response.data;
+            self.setState(self.state);
+          }
+        })
+        .catch(error => {
+          self.setState({ loading: false, error: null });
+        });
+    }
+  }
+
   getMissionDays(self, missionKey) {
     self.state.result[missionKey + '_days'] = '';
     self.setState(self.state);
 
-    axios
-      .get(
-        ApiService.BASE_URL +
-          'diensttage?start=' +
-          self.state.result[missionKey + '_start'] +
-          '&end=' +
-          self.state.result[missionKey + '_end'],
-        { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
-      )
-      .then(response => {
-        self.state.result[missionKey + '_days'] = response.data;
-        self.setState(self.state);
-      });
+    if (self.state.result[missionKey + '_start'] && self.state.result[missionKey + '_end']) {
+      axios
+        .get(
+          ApiService.BASE_URL +
+            'diensttage?start=' +
+            self.state.result[missionKey + '_start'] +
+            '&end=' +
+            self.state.result[missionKey + '_end'],
+          { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
+        )
+        .then(response => {
+          if (response && response.data) {
+            self.state.result[missionKey + '_days'] = response.data;
+            self.setState(self.state);
+          }
+        })
+        .catch(error => {
+          self.setState({ loading: false, error: null });
+        });
+    }
   }
 }
