@@ -129,6 +129,9 @@ export default class MissionOverview extends Component {
         let popOverEnd = endDates[x];
 
         var curMission = userMissions[i][missionCounter];
+        if (!curMission) {
+          continue;
+        }
         var startWeek = moment(curMission.start).isoWeek();
         if (new Date(curMission.start).getFullYear() < this.state.year) {
           startWeek = -1;

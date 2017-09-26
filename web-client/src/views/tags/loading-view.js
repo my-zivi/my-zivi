@@ -31,7 +31,7 @@ export default class LoadingView extends Component {
         })
         .catch(error => {
           console.log(error);
-          if (error.response.status == 401) {
+          if (error.response && error.response.status == 401) {
             localStorage.removeItem('jwtToken');
             this.context.router.push('/login?path=' + this.context.router.url);
           }
