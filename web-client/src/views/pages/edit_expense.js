@@ -97,14 +97,13 @@ export default class EditExpense extends Component {
       (parseInt(this.state.report_sheet.meldeblaetter_urlaub) || 0);
 
     if (requiredDays != providedDays) {
-      Toast.showError(
-        'Anzahl Tage prüfen!',
-        'Die benötigte Anzahl Tage (' + requiredDays + ') stimmt nicht mit der eingefüllten Anzahl (' + providedDays + ') überein.',
-        null,
-        this.context
-      );
-
       if (!this.state.force_save) {
+        Toast.showError(
+          'Anzahl Tage prüfen!',
+          'Die benötigte Anzahl Tage (' + requiredDays + ') stimmt nicht mit der eingefüllten Anzahl (' + providedDays + ') überein.',
+          null,
+          this.context
+        );
         return;
       }
     }
