@@ -19,6 +19,7 @@ export default class EditExpense extends Component {
 
     this.state = {
       report_sheet: null,
+      force_save: false,
     };
 
     this.router = router;
@@ -77,18 +78,23 @@ export default class EditExpense extends Component {
     origin.setState(this.state);
   }
 
+  handleForceSave(e) {
+    const value = e.target.checked;
+    this.state.force_save = value;
+    this.setState(this.state);
+  }
+
   save() {
     var requiredDays = this.state.report_sheet.meldeblaetter_tage;
     var providedDays =
-      parseInt(this.state.report_sheet.meldeblaetter_workdays) ||
-      0 + parseInt(this.state.report_sheet.meldeblaetter_workfreedays) ||
-      0 + parseInt(this.state.report_sheet.meldeblaetter_companyurlaub) ||
-      0 + parseInt(this.state.report_sheet.meldeblaetter_ferien_wegen_urlaub) ||
-      0 + parseInt(this.state.report_sheet.meldeblaetter_add_workfree) ||
-      0 + parseInt(this.state.report_sheet.meldeblaetter_ill) ||
-      0 + parseInt(this.state.report_sheet.meldeblaetter_holiday) ||
-      0 + parseInt(this.state.report_sheet.meldeblaetter_urlaub) ||
-      0;
+      (parseInt(this.state.report_sheet.meldeblaetter_workdays) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_workfreedays) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_companyurlaub) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_ferien_wegen_urlaub) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_add_workfree) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_ill) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_holiday) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_urlaub) || 0);
 
     if (requiredDays != providedDays) {
       Toast.showError(
@@ -97,7 +103,10 @@ export default class EditExpense extends Component {
         null,
         this.context
       );
-      return;
+
+      if (!this.state.force_save) {
+        return;
+      }
     }
 
     this.setState({ loading: true, error: null });
@@ -396,6 +405,18 @@ export default class EditExpense extends Component {
               >
                 Profil anzeigen
               </button>
+            </div>
+            <br />
+            <br />
+
+            <div class="container">
+              <InputCheckbox
+                id="force_save"
+                value={this.state.force_save}
+                label="Speichern erzwingen"
+                self={this}
+                callback={e => this.handleForceSave(e)}
+              />
             </div>
           </form>
           <br />
