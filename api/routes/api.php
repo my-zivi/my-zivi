@@ -120,57 +120,26 @@ $api->version('v1', function ($api) {
         $api->get('/diensttage', function () {
             $start = Input::get("start", "");
             $end = Input::get("end", "");
+            $long_mission = Input::get("long_mission", false);
 
-            return response()->json(ReportSheet::getDiensttageCount($start, $end));
+            return response()->json(ReportSheet::getDiensttageCount($start, $end, $long_mission));
         });
 
         $api->get('/diensttageEndDate', function () {
             $start = Input::get("start", "");
             $days = Input::get("days", "0");
+            $long_mission = Input::get("long_mission", false);
 
-            return response()->json(ReportSheet::getDiensttageEndDate($start, $days));
+            return response()->json(ReportSheet::getDiensttageEndDate($start, $days, $long_mission));
         });
 
-        $api->put('/mission', function () {
-            $mission = new App\Mission();
-            $mission->user = Input::get("user", "");
-            $mission->specification = Input::get("specification", "");
-            $mission->mission_type = Input::get("mission_type", false);
-            $mission->start = Input::get("start", "");
-            $mission->end = Input::get("end", "");
-            $mission->eligible_holiday = Input::get("long_mission", false);
-            $mission->first_time = Input::get("first_time", false);
-            $mission->long_mission = Input::get("long_mission", false);
-            $mission->probation_period = Input::get("probation_period", false);
+        $api->put('/mission', [
+            'uses' => 'App\Http\Controllers\MissionController@putMission'
+        ]);
 
-            $user = JWTAuth::parseToken()->authenticate();
-            if (!$user->isAdmin() && $user->id!=$mission->user) {
-                return response("not allowed", 401);
-            }
-
-            $mission->save();
-            return response("inserted");
-        });
-        $api->post('/mission/{id}', function ($id) {
-            $mission = App\Mission::find($id);
-            $mission->user = Input::get("user", "");
-            $mission->specification = Input::get("specification", "");
-            $mission->mission_type = Input::get("mission_type", false);
-            $mission->start = Input::get("start", "");
-            $mission->end = Input::get("end", "");
-            $mission->eligible_holiday = Input::get("long_mission", false);
-            $mission->first_time = Input::get("first_time", false);
-            $mission->long_mission = Input::get("long_mission", false);
-            $mission->probation_period = Input::get("probation_period", false);
-
-            $user = JWTAuth::parseToken()->authenticate();
-            if (!$user->isAdmin() && ($user->id!=$mission->user || $mission->draft!=null)) {
-                return response("not allowed", 401);
-            }
-
-            $mission->save();
-            return response("updated");
-        });
+        $api->post('/mission/{id}', [
+            'uses' => 'App\Http\Controllers\MissionController@postMission'
+        ]);
 
         // PDF
         $api->get('/pdf/zivireportsheet', [

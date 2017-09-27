@@ -135,6 +135,10 @@ export default class Missions extends Component {
                   value={self.state['result'][missionKey + '_long_mission']}
                   id={missionKey + '_long_mission'}
                   label="Langer Einsatz oder Teil davon"
+                  callback={e => {
+                    self.handleChange(e);
+                    this.getMissionDays(self, missionKey);
+                  }}
                   self={self}
                 />
                 <InputCheckbox
@@ -365,10 +369,22 @@ export default class Missions extends Component {
     let startDate = self.state['result'][missionKey + '_start'];
 
     if (e.target.value && e.target.value > 0 && startDate) {
+      let long_mission = self.state.result[missionKey + '_long_mission'];
+      if (!long_mission) {
+        long_mission = false;
+      }
+
       axios
-        .get(ApiService.BASE_URL + 'diensttageEndDate?start=' + startDate + '&days=' + self.state.result[missionKey + '_days'], {
-          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-        })
+        .get(
+          ApiService.BASE_URL +
+            'diensttageEndDate?start=' +
+            startDate +
+            '&days=' +
+            self.state.result[missionKey + '_days'] +
+            '&long_mission=' +
+            long_mission,
+          { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
+        )
         .then(response => {
           if (response && response.data) {
             self.state.result[missionKey + '_end'] = response.data;
@@ -385,6 +401,11 @@ export default class Missions extends Component {
     self.state.result[missionKey + '_days'] = '';
     self.setState(self.state);
 
+    let long_mission = self.state.result[missionKey + '_long_mission'];
+    if (!long_mission) {
+      long_mission = false;
+    }
+
     if (self.state.result[missionKey + '_start'] && self.state.result[missionKey + '_end']) {
       axios
         .get(
@@ -392,7 +413,9 @@ export default class Missions extends Component {
             'diensttage?start=' +
             self.state.result[missionKey + '_start'] +
             '&end=' +
-            self.state.result[missionKey + '_end'],
+            self.state.result[missionKey + '_end'] +
+            '&long_mission=' +
+            long_mission,
           { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
         )
         .then(response => {
