@@ -144,7 +144,7 @@ export default class MissionOverview extends Component {
         if (x < startWeek || x > endWeek) {
           cells.push(<td title={popOverStart + ' - ' + popOverEnd} />);
         } else {
-          if (weekCount[curMission.specification] && weekCount[curMission.specification][x]) {
+          if (weekCount[curMission.specification]) {
             weekCount[curMission.specification][x]++;
           }
           if (x == startWeek) {
