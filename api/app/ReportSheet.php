@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\CompanyInfo;
 use App\Http\Controllers\PDF\PDF;
 use App\Http\Controllers\MissionController;
 use Illuminate\Database\Eloquent\Model;
@@ -504,6 +505,7 @@ class ReportSheet extends Model
         $sheet->user = $mission->user;
         $sheet->start = $start;
         $sheet->end = $end;
+                $sheet->bank_account_number = CompanyInfo::DEFAULT_ACCOUNT_NUMBER_REPORT_SHEETS;
         $sheet->save();
     }
 
