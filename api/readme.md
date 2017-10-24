@@ -10,6 +10,9 @@ This Readme file covers developing and deploying the backend. See [web-client Re
 5. run ``php artisan jwt:generate --show`` and add the key manually to the .env file
 6. Adjust MySQL login in .env file
 7. Create a database "izivi" and import data
+  - Export Database as SQL from Cyon PHPMyAdmin
+  - Import into your own database
+  - This should include your own user - set its role to 1 (admin) so you get admin access for your local application
 8. ``php artisan serve``
 
 ### Logging
