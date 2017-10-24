@@ -1,0 +1,20 @@
+version: "3.1"
+services:
+  api:
+    build:
+        context: ./api
+    volumes:
+      - ./api:/var/app
+    working_dir: /var/app
+    command: ["php", "artisan", "serve", "--host=0.0.0.0"]
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+  db:
+    image: mariadb:10
+    environment:
+      - MYSQL_ROOT_PASSWORD=a
+    ports:
+      - "43306:3306"
+

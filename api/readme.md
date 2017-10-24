@@ -3,17 +3,18 @@
 This Readme file covers developing and deploying the backend. See [web-client Readme](../web-client/readme.md) for information about the frontend.
 
 ### Development setup
-1. Install PHP + mySQL + composer
-2. ``composer update``
+1. Install dependencies: `docker run --rm -v $(PWD):/app -w /app composer install`
+2. Start up the docker stack: `docker-compose up`
 3. ``cp .env.example .env``
 4. ``php artisan key:generate``
 5. run ``php artisan jwt:generate --show`` and add the key manually to the .env file
-6. Adjust MySQL login in .env file
-7. Create a database "izivi" and import data
-  - Export Database as SQL from Cyon PHPMyAdmin
-  - Import into your own database
-  - This should include your own user - set its role to 1 (admin) so you get admin access for your local application
-8. ``php artisan serve``
+6. Create a database "izivi" and import data
+    - Export Database as SQL from Cyon PHPMyAdmin
+        - Make sure your dump contains a `CREATE DATABASE izivi; USE izivi;` at the start
+        - This should include your own user - set its role to 1 (admin) so you get admin access for your local application. (Or do it later using a database editor)
+    - Import into your own database (your container name may vary): `docker exec -i izivi_db_1 mysql -uroot -pa < dump.sql`
+7. Adjust MySQL parameters in .env file if needed
+8. Done. API is available on `localhost:8000`
 
 ### Logging
 ``` PHP
