@@ -224,7 +224,7 @@ http://www.stiftungswo.ch';
         if (App::environment('production')) {
             mail($email, $subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
         } else {
-            mail("test@stiftungswo.ch", $subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
+            mail("tech@stiftungswo.ch", $subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
         }
     }
 
