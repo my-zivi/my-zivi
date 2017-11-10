@@ -3,18 +3,35 @@ services:
   api:
     build:
         context: ./api
+    container_name: izivi_api
     volumes:
       - ./api:/var/app
     working_dir: /var/app
-    command: ["php", "artisan", "serve", "--host=0.0.0.0"]
+    command:  "php artisan serve --host=0.0.0.0"
     depends_on:
-      - db
+      - mariadb
     ports:
       - "8000:8000"
-  db:
+  web-client:
+    image: node:8
+    container_name: izivi_web-client
+    volumes:
+      - ./web-client:/var/web-client    
+    working_dir: /var/web-client
+    ports:
+      - "43000:3000"
+    command: bash -c "yarn install && yarn run watch"
+  mariadb:
     image: mariadb:10
+    container_name: izivi_db
     environment:
-      - MYSQL_ROOT_PASSWORD=a
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
     ports:
       - "43306:3306"
-
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: izivi_phpmyadmin
+    environment:
+     - PMA_ARBITRARY=1
+    ports:
+     - 48080:80
