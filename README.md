@@ -1,3 +1,6 @@
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/stiftungswo/izivi.svg?columns=all)](https://waffle.io/stiftungswo/izivi)
+
+
 # SWO iZivi #
 
 Der Code für das iZivi Tool das in der SWO verwendet wird. iZivi wurde im Juli 2017 neu lanciert, weil die PHP-Version der alten Applikation nicht mehr unterstützt wird. Der Aufwand um die Applikation neu zu schreiben ist kleiner, als die alte Applikation auf PHP 7 zu heben.
