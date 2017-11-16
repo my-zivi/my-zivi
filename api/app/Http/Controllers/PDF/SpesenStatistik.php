@@ -668,6 +668,7 @@ class SpesenStatistik extends PDF
 
         $spesen = ReportSheet::getSpesen($meldeblatt);
 
+        // Add first & last day to arbeitstage, since they are not considered yet in getSpesen.
         $tage = array('arbeitstage' => $spesen['arbeitstage'] + $spesen['intFirstDays'] + $spesen['intLastDays'],
             'arbeitsfreietage' => $spesen['arbeitsfreie_tage'],
             'krankheitstage' => $spesen['krankheitstage'],
@@ -679,13 +680,11 @@ class SpesenStatistik extends PDF
         $geld_arbeitstage = $spesen['arbeitstage']*$spesen['workday_sum'];
         if ($spesen['firstday_sum'] != $spesen['workday_sum']) {
             if (strtotime($spesen['meldeblaetter_start']) == strtotime($spesen['einsaetze_start'])) {
-                //$geld_arbeitstage -= $spesen['workday_sum'];
                 $geld_arbeitstage += $spesen['firstday_sum'];
             }
         }
         if ($spesen['lastday_sum'] != $spesen['workday_sum']) {
             if (strtotime($spesen['meldeblaetter_end']) == strtotime($spesen['einsaetze_end'])) {
-                //$geld_arbeitstage -= $spesen['workday_sum'];
                 $geld_arbeitstage += $spesen['lastday_sum'];
             }
         }
