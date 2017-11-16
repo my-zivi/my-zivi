@@ -116,6 +116,9 @@ class ReportSheet extends Model
             )
             ->first();
 
+        // echo("Arbeitstage ".$reportSheet['meldeblaetter_work']." in DB vs. ");
+            
+
         $reportSheet['meldeblaetter_tage'] = ReportSheet::countDaysBetween(strtotime($reportSheet['meldeblaetter_start']), strtotime($reportSheet['meldeblaetter_end']));
         $reportSheet['einsaetze_tage'] = ReportSheet::countDaysBetween(strtotime($reportSheet['einsaetze_start']), strtotime($reportSheet['einsaetze_end']));
 
@@ -215,6 +218,8 @@ class ReportSheet extends Model
                 }
             }
         }
+
+
 
         $reportSheet['meldeblaetter_workdays_proposal'] = $reportSheet['meldeblaetter_workdays'];
 

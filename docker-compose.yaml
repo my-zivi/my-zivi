@@ -19,7 +19,7 @@ services:
       - ./web-client:/var/web-client    
     working_dir: /var/web-client
     ports:
-      - "43000:3000"
+      - "43000:43000"
     command: bash -c "yarn install && yarn run watch"
   mariadb:
     image: mariadb:10
