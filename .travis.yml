@@ -7,6 +7,6 @@ before_script:
   - ./CI/backend.sh
 script:
   - ./CI/frontend.sh
+  - ./api/vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
 after_success:
-  - bash -c echo "after_success"
-  - bash -c echo "It works!"
+  - bash <(curl -s https://codecov.io/bash)
