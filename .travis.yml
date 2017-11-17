@@ -5,7 +5,7 @@ php:
 before_script:
   - ./CI/backend.sh
 script:
-  - bash -c echo "script"
+  - ./CI/frontend.sh
 after_success:
   - bash -c echo "after_success"
   - bash -c echo "It works!"
