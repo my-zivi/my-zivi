@@ -3,9 +3,9 @@ sudo: false
 php:
   - 7.1
 before_script:
-  - bash -c echo("before_script")
+  - bash -c echo "before_script"
 script:
-  - bash -c echo("script")
+  - bash -c echo "script"
 after_success:
-  - bash -c echo("after_success")
-  - bash -c echo("It works!")
+  - bash -c echo "after_success"
+  - bash -c echo "It works!"
