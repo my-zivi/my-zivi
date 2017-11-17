@@ -6,7 +6,7 @@ before_script:
   - cp ./api/.env.travis ./api/.env
   - ./CI/backend.sh
 script:
-  - ./CI/frontend.sh
   - ./api/vendor/phpunit/phpunit/phpunit -c api --coverage-clover=coverage.xml
+  - ./CI/frontend.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash)
