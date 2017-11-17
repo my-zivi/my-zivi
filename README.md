@@ -1,4 +1,8 @@
+[![Build Status](https://travis-ci.org/stiftungswo/izivi.svg?branch=master)]
+(https://travis-ci.org/stiftungswo/zivi)
+[![codecov](https://codecov.io/gh/stiftungswo/izivi/branch/master/graph/badge.svg)](https://codecov.io/gh/stiftungswo/izivi)
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/stiftungswo/izivi.svg?columns=all)](https://waffle.io/stiftungswo/izivi)
+
 
 
 # SWO iZivi #
