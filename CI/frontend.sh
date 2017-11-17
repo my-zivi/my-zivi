@@ -1,5 +1,6 @@
 #!/bin/bash -x
 
+source ~/.nvm/nvm.sh && \
 nvm install 8.3 && \
 nvm use 8.3 && \
 cd web-client && \
