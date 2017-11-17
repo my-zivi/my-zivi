@@ -10,3 +10,17 @@ script:
   - ./CI/frontend.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+env:
+  global:
+    - secure: "ELFgvd3Wm426wLb0jrQvHIQ9yqZsqvk7quQvMIWR7QcAf9IGsUwxlQHIT99Ol+czx+4oP4OMw+39obS9zBf4RmzOi1seqHrkix1bRjKtEgnYDZUum87V5AXRd1/4wv8o2+7TUli3fIF2bEK6CGhd7bs/Lt6TRD1GL6zVBnd6Wh4=" #target
+deploy:
+  - provider: script
+    script: CI/deploy.sh test
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: script
+    script: CI/deploy.sh prod
+    skip_cleanup: true
+    on:
+      branch: production
