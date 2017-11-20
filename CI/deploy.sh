@@ -19,7 +19,7 @@ case $1 in
 esac
 
 #Read config env
-$CONFIG_FILE=izivi.$ENVIRONMENT.env
+CONFIG_FILE=izivi.$ENVIRONMENT.env
 export $(ssh $TARGET "cat $CONFIG_FILE" | xargs)
 
 TMP=izivi_deploy_tmp
