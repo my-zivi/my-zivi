@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 if [ ! -f $HOME/.ssh/id_rsa ]; then
   echo "Setting up SSH key"
