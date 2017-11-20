@@ -1,4 +1,10 @@
-const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://izivi-api.stiftungswo.ch/api/' : 'http://localhost:8000/api/';
+let BASE_URL = 'http://localhost:8000/api/';
+if (window.location.href.includes('izivi-test')) {
+  BASE_URL = 'https://izivi-api-test.stiftungswo.ch/api/';
+} else if (window.location.href.includes('izivi')) {
+  BASE_URL = 'https://izivi-api.stiftungswo.ch/api/';
+}
+
 const jwtDecode = require('jwt-decode');
 
 // Is user logged in?
