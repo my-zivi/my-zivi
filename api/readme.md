@@ -3,8 +3,9 @@
 This Readme file covers developing and deploying the backend. See [web-client Readme](../web-client/readme.md) for information about the frontend.
 
 ### Development setup
-1. Start up the docker stack: ``docker-compose up -d``
-2. Install dependencies: ``docker exec izivi_api composer install``
+0. Build the api image: ``docker build -t izivi_api api``
+1. Install dependencies: ``docker run --rm -v $PWD/api:/app -w /app izivi_api composer install``
+2. Start up the docker stack: ``docker-compose up -d``
 3. Copy .env file: ``cp api/.env.example api/.env``
 4. Generate key: ``docker exec izivi_api php artisan key:generate`` (it will be populated into the api/.env file)
 5. run ``docker exec izivi_api php artisan jwt:generate --show`` and add the key manually to the .env file
