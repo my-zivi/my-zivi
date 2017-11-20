@@ -674,7 +674,7 @@ class SpesenStatistik extends PDF
             'krankheitstage' => $spesen['krankheitstage'],
             'ferientage' => $spesen['ferientage'],
             'urlaubstage' => $spesen['urlaubstage'],
-            'arbeitskleider' => $spesen['meldeblaetter_workdays']+$spesen['meldeblaetter_workfreedays']-$spesen['meldeblaetter_urlaub']
+            'arbeitskleider' => $spesen['meldeblaetter_workdays']+$spesen['meldeblaetter_workfreedays']
         );
 
         $geld_arbeitstage = $spesen['arbeitstage']*$spesen['workday_sum'];
@@ -702,7 +702,7 @@ class SpesenStatistik extends PDF
         $geld['sum'] = $geld['arbeitstage'] + $geld['arbeitsfreietage'] + $geld['krankheitstage']
             + $geld['ferientage'] + $geld['fahrspesen'] + $geld['arbeitskleider']
             + $geld['ausserordentlich'];
-        $tage['sum'] = $spesen['arbeitstage'] + $spesen['arbeitsfreie_tage'] + $spesen['urlaubstage'] + $spesen['ferientage'] + $spesen['krankheitstage'];
+        $tage['sum'] = $spesen['arbeitstage'] + $spesen['arbeitsfreie_tage'] + $spesen['urlaubstage'] + $spesen['ferientage'] + $spesen['krankheitstage'] + $spesen['intFirstDays'] + $spesen['intLastDays'];
 
         return(array('tage' => $tage, 'geld' => $geld));
     }
