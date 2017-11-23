@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        \Log::info("Application started");
         $schedule->command(SendFeedbackRemainderMails::class)->daily();
     }
 }
