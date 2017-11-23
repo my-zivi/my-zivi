@@ -203,7 +203,7 @@ class FeedbackController extends Controller
     private function sendEmailToMissionControl($feedbackId)
     {
 
-        $email = "aw@stiftungswo.ch;mp@stiftungswo.ch;mbr@stiftungswo.ch;lg@stiftungswo.ch;dj@stiftungswo.ch;ls@stiftungswo.ch;";
+        $email = env('API_MAIL_FEEDBACK', null);
         $subject = "Feedback von einem Zivi erstellt";
         $emailText = 'Liebe Einsatzleitung,
           
@@ -221,10 +221,14 @@ Phone:  +41 (0)43 355 58 44
 E-Mail:  swo@stiftungswo.ch
 http://www.stiftungswo.ch';
 
-        if (App::environment('production')) {
-            mail($email, $subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
+        if ($email) {
+            if (App::environment('production')) {
+                mail($email, $subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
+            } else {
+                mail($email, "IZIVI TEST: ".$subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
+            }
         } else {
-            mail("tech@stiftungswo.ch", $subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
+            \Log::warning("env variable API_MAIL_FEEDBACK is not set.");
         }
     }
 

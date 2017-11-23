@@ -19,13 +19,11 @@ This Readme file covers developing and deploying the backend. See [web-client Re
 9. Run the database migration `docker exec izivi_api php artisan migrate`
 
 ### Logging
-``` PHP
-use Symfony\Component\Console\Output\ConsoleOutput;
-// [...]
-$output = new ConsoleOutput();
-$output->writeln("some log to console");
-```
-The logs will be displayed in the terminal where you started your artisan server.
+
+For logging please use lumen logger (e.g. `\Log::warning("your message here.");`).
+Please see https://lumen.laravel.com/docs/5.2/errors for more detailled documentation.
+
+The log files will be written to `api/storage/logs/` which is shared between your docker container and your development machine. 
 
 ### Live Deployment
 1. Copy all files except for the vendor folder to remote server
