@@ -164,6 +164,8 @@ class FeedbackController extends Controller
 */
         $this->setMissionFeedbackDone($missionId);
 
+        \Log::debug("Mission ".$missionId." has been marked as done");
+
         foreach ($content as $key => $value) {
             if (is_array($value)) {
                 foreach ($value as $subKey => $subValue) {
@@ -186,7 +188,11 @@ class FeedbackController extends Controller
             }
         }
 
+        \Log::debug("Feedback ".$feedbackId." has been saved. Try to send email.");
+
         $this->sendEmailToMissionControl($feedbackId);
+
+        \Log::debug("Email for feedback ".$feedbackId." has been sent");
 
         return response("User Feedback inserted for User: ". $userId);
     }
@@ -221,11 +227,14 @@ Phone:  +41 (0)43 355 58 44
 E-Mail:  swo@stiftungswo.ch
 http://www.stiftungswo.ch';
 
+        \Log::debug("Recipient for email is ".$email);
+
         if ($email) {
             if (App::environment('production')) {
                 mail($email, $subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
             } else {
                 mail($email, "IZIVI TEST: ".$subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
+                \Log::debug("Sent email to test mail address");
             }
         } else {
             \Log::warning("env variable API_MAIL_FEEDBACK is not set.");
