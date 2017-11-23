@@ -18,6 +18,8 @@ case $1 in
     ;;
 esac
 
+cp web-client/htaccess.dist web-client/dist/.htaccess
+
 #Read config env
 CONFIG_FILE=izivi.$ENVIRONMENT.env
 TARGET=$target
