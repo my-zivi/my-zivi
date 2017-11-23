@@ -23,7 +23,7 @@ export default class User extends Component {
 
     this.state = {
       result: [],
-      regianlCenters: [],
+      regionalCenters: [],
       specifications: [],
       lastDateValue: null,
       reportSheets: [],

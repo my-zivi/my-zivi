@@ -10,15 +10,15 @@ export default class RegionalCenters extends Component {
     var options = [];
     options.push(<option value="" />);
 
-    for (let i = 0; i < state.regianlCenters.length; i++) {
+    for (let i = 0; i < state.regionalCenters.length; i++) {
       let isSelected = false;
       if (parseInt(state.result['regional_center']) == i + 1) {
         isSelected = true;
       }
 
       options.push(
-        <option value={state.regianlCenters[i].id} selected={isSelected}>
-          {state.regianlCenters[i].name}
+        <option value={state.regionalCenters[i].id} selected={isSelected}>
+          {state.regionalCenters[i].name}
         </option>
       );
     }
@@ -31,7 +31,7 @@ export default class RegionalCenters extends Component {
       .get(ApiService.BASE_URL + 'regionalcenter', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
       .then(response => {
         self.setState({
-          regianlCenters: response.data,
+          regionalCenters: response.data,
         });
       })
       .catch(error => {
