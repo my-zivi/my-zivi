@@ -49,13 +49,13 @@ class SendFeedbackRemainderMails extends Command
             $user = $mission->usermodel;
             $vorname = $user->first_name;
             $email = $user->email;
-            $url = (App::environment('production')) ? 'http://izivi.stiftungswo.ch/user_feedback/' : 'http://izivi-test.stiftungswo.ch/user_feedback/';
+            $url = env('APP_URL', null);
             $subject = "Deine Meinung ist uns wichtig";
             $emailText = 'Lieber '.$vorname.',
               
 wir danken dir herzlich für deinen Einsatz bei der Stiftung Wirtschaft und Ökologie SWO. Um besser abschätzen zu können wie dein Einsatz beim SWO war, bitten wir dich, unsere Evaluation auszufüllen.
           
-Du findest die Evaluation unter folgendem Link: '.$url.$mission->id.'
+Du findest die Evaluation unter folgendem Link: '.$url.'user_feedback/'.$mission->id.'
 
 Herzlichen Dank für dein Feedback.
           

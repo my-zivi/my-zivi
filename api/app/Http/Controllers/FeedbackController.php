@@ -211,13 +211,13 @@ class FeedbackController extends Controller
 
         $email = env('API_MAIL_FEEDBACK', null);
         $subject = "Feedback von einem Zivi erstellt";
-        $url = (App::environment('production')) ? 'http://izivi.stiftungswo.ch/user_feedback_overview/' : 'http://izivi-test.stiftungswo.ch/user_feedback_overview/';
+        $url = env('APP_URL', null);
 
         $emailText = 'Liebe Einsatzleitung,
           
 Ein Zivi hat gerade eben das Feedback zu seinem Einsatz abgegeben. 
           
-Du findest die Gesamt-Evaluation unter folgendem Link: '.$url.$feedbackId.'
+Du findest die Gesamt-Evaluation unter folgendem Link: '.$url.'user_feedback_overview/'.$feedbackId.'
           
 Liebe Grüsse aus Schwerzenbach
           
