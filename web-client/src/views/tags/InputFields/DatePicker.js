@@ -18,6 +18,8 @@ export default class DatePicker extends InputField {
       format: 'dd.mm.yyyy',
       autoclose: true,
       startView: 'decade',
+      weekStart: 1,
+      language: 'de',
     });
   }
 
