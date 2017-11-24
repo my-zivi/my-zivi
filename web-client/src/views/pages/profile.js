@@ -395,7 +395,7 @@ export default class User extends Component {
                 <div class="row">
                   <div class="col-xs-2">Von</div>
                   <div class="col-xs-2">Bis</div>
-                  <div class="col-xs-2">Angerechnete Tage</div>
+                  <div class="col-xs-2">Anzahl Tage</div>
                   <div class="col-xs-1">Status</div>
                 </div>
               </div>
