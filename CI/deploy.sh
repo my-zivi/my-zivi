@@ -43,5 +43,5 @@ ssh $TARGET mv $TMP $PROJECT_DIR
 ssh $TARGET cp $CONFIG_FILE $PROJECT_DIR/api/.env
 
 ssh $TARGET mkdir -p $BACKUP_DIR
-ssh $TARGET "mysqldump -u $DATABASE_USER -p\"$DATABASE_PW\" $DATABASE | bzip2 -c > $BACKUP_DIR/$DB_DATABASE_$(date +%Y_%m_%d-%H:%M:%S).sql.bz2"
+ssh $TARGET "mysqldump -u $DATABASE_USER -p\"$DATABASE_PW\" $DB_DATABASE | bzip2 -c > $BACKUP_DIR/${DB_DATABASE}_$(date +%Y_%m_%d-%H:%M:%S).sql.bz2"
 ssh $TARGET "cd $PROJECT_DIR/api && php71 artisan migrate"
