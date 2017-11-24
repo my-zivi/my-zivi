@@ -17,7 +17,7 @@ use \DateTime;
 
 class MissionController extends Controller
 {
-    public function putMission()
+    public function postMission()
     {
         $mission = new Mission();
         $this->fillAttributes($mission);
@@ -31,7 +31,7 @@ class MissionController extends Controller
         return response("inserted");
     }
 
-    public function postMission($id)
+    public function putMission($id)
     {
         $mission = Mission::find($id);
         $this->updateReportSheets($mission);

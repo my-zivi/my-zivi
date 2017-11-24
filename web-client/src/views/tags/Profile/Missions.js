@@ -321,7 +321,7 @@ export default class Missions extends Component {
     self.setState({ loading: true, error: null });
     if (missionKey == 'newmission') {
       axios
-        .put(ApiService.BASE_URL + 'mission', newMission, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+        .post(ApiService.BASE_URL + 'mission', newMission, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
         .then(response => {
           Toast.showSuccess('Speichern erfolgreich', 'Neuer Einsatz konnte gespeichert werden');
           $('[data-dismiss=modal]').trigger({ type: 'click' });
@@ -333,7 +333,7 @@ export default class Missions extends Component {
         });
     } else {
       axios
-        .post(ApiService.BASE_URL + 'mission/' + missionKey, newMission, {
+        .put(ApiService.BASE_URL + 'mission/' + missionKey, newMission, {
           headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
         })
         .then(response => {

@@ -133,12 +133,12 @@ $api->version('v1', function ($api) {
             return response()->json(ReportSheet::getDiensttageEndDate($start, $days, $long_mission));
         });
 
-        $api->put('/mission', [
-            'uses' => 'App\Http\Controllers\MissionController@putMission'
+        $api->post('/mission', [
+            'uses' => 'App\Http\Controllers\MissionController@postMission'
         ]);
 
-        $api->post('/mission/{id}', [
-            'uses' => 'App\Http\Controllers\MissionController@postMission'
+        $api->put('/mission/{id}', [
+            'uses' => 'App\Http\Controllers\MissionController@putMission'
         ]);
 
         // PDF
