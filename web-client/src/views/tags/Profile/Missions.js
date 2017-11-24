@@ -340,6 +340,7 @@ export default class Missions extends Component {
           Toast.showSuccess('Speichern erfolgreich', 'Einsatz konnte gespeichert werden');
           $('[data-dismiss=modal]').trigger({ type: 'click' });
           self.getUser();
+          self.getReportSheets();
         })
         .catch(error => {
           self.setState({ loading: false, error: null });

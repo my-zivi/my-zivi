@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use \App\Mission;
-use Carbon\Carbon;
+use App\ReportSheet;
 use Faker\Provider\Uuid;
 use Illuminate\Support\Facades\App;
 use Laravel\Lumen\Application;
@@ -34,6 +34,7 @@ class MissionController extends Controller
     public function postMission($id)
     {
         $mission = Mission::find($id);
+        $this->updateReportSheets($mission);
         $this->fillAttributes($mission);
 
         $user = JWTAuth::parseToken()->authenticate();
@@ -44,6 +45,27 @@ class MissionController extends Controller
         $mission->save();
         return response("updated");
     }
+
+    private function updateReportSheets(&$mission)
+    {
+        if ($mission->draft) {
+            if ($mission->end != Input::get("end", "") && $mission->end < Input::get("end", "")) {
+                $start = new DateTime($mission->end);
+                $end = new DateTime(Input::get("end", ""));
+                $iteratorStart = $start->modify("next day");
+                $iteratorEnd = clone $iteratorStart;
+                $iteratorEnd->modify('last day of this month');
+
+                while ($iteratorEnd<$end) {
+                    ReportSheet::add($mission, $iteratorStart, $iteratorEnd);
+                    $iteratorStart->modify('first day of next month');
+                    $iteratorEnd->modify('last day of next month');
+                }
+                ReportSheet::add($mission, $iteratorStart, $end);
+            }
+        }
+    }
+ 
 
   /**
   * @param $mission is passed by reference
