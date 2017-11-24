@@ -26,7 +26,7 @@ TARGET=$target
 export $(ssh $TARGET "cat $CONFIG_FILE" | xargs)
 
 TMP=izivi_deploy_tmp
-BACKUP_DIR=./backup
+BACKUP_DIR=./backup/izivi/$ENVIRONMENT
 
 if [ -z "$PROJECT_DIR" ]; then
   echo "PROJECT_DIR is not set"
