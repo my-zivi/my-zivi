@@ -4,20 +4,20 @@ php:
   - 7.1
 before_script:
   - cp ./api/.env.travis ./api/.env
-  - ./CI/backend.sh
+  - ./ci/backend.sh
 script:
   - ./api/vendor/phpunit/phpunit/phpunit -c api --coverage-clover=coverage.xml
-  - ./CI/frontend.sh
+  - ./ci/frontend.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 deploy:
   - provider: script
-    script: CI/deploy.sh test
+    script: ci/deploy.sh test
     skip_cleanup: true
     on:
       branch: master
   - provider: script
-    script: CI/deploy.sh prod
+    script: ci/deploy.sh prod
     skip_cleanup: true
     on:
       branch: production
