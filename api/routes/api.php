@@ -459,6 +459,16 @@ $api->version('v1', function ($api) {
                 $sheet->save();
                 return response("updated");
             });
+            $api->put('/reportsheet/{id}/state', function ($id) {
+                $sheet = App\ReportSheet::find($id);
+                $state = Input::get("state", null);
+                if ($state === null) {
+                    throw new Exception("Missing 'state'");
+                }
+                $sheet->state = $state;
+                $sheet->save();
+                return response("updated");
+            });
             $api->get('/reportsheet/user/{id}', function ($id) {
                  $reportSheets = App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                     ->select('report_sheets.id AS id', 'start', 'end', 'state')

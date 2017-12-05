@@ -167,7 +167,8 @@ class PaymentController extends Controller
         $payment = Payment::find($id);
         $payment->sheets = PaymentEntry::
             join('users', 'users.id', '=', 'payment_entries.user')
-            ->select('amount', 'report_sheet', 'first_name', 'last_name', 'zdp', 'users.id AS userid', 'iban')
+            ->join('report_sheets', 'report_sheets.id', '=', 'payment_entries.report_sheet')
+            ->select('amount', 'report_sheet', 'first_name', 'last_name', 'zdp', 'users.id AS userid', 'iban', 'state')
             ->where('payment', '=', $id)->get();
         return new JsonResponse($payment);
     }

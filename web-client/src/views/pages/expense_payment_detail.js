@@ -8,6 +8,8 @@ import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
 import moment from 'moment-timezone';
+import { Glyphicon } from '../components/Glyphicon';
+import update from 'immutability-helper';
 
 export default class ExpensePaymentDetail extends Component {
   constructor(props) {
@@ -18,6 +20,56 @@ export default class ExpensePaymentDetail extends Component {
       },
     };
   }
+
+  Confirmer = sheet => {
+    switch (sheet.state) {
+      case -1:
+        return <Glyphicon name="refresh" spin />;
+      case 2:
+        return <Glyphicon style={{ cursor: 'pointer' }} name="unchecked" onClick={() => this.updateState(sheet.report_sheet, 3)} />;
+      case 3:
+        return <Glyphicon name="ok" />;
+      default:
+        return <Glyphicon name="alert" title="Ungültiger Status" />;
+    }
+  };
+
+  setSheetState = (sheetId, state) =>
+    this.setState(
+      update(this.state, {
+        payment: {
+          sheets: {
+            $set: this.state.payment.sheets.map(sheet => {
+              if (sheet.report_sheet === sheetId) {
+                return {
+                  ...sheet,
+                  state,
+                };
+              }
+              return sheet;
+            }),
+          },
+        },
+      })
+    );
+
+  updateState = (sheetId, state) => {
+    this.setSheetState(sheetId, -1);
+    axios
+      .put(
+        `${ApiService.BASE_URL}reportsheet/${sheetId}/state`,
+        { state },
+        { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
+      )
+      .then(response => {
+        this.setSheetState(sheetId, state);
+        console.log('woo');
+      })
+      .catch(error => {
+        //this.setState({error: error});
+        console.log('ow');
+      });
+  };
 
   componentDidMount() {
     this.getReportSheets();
@@ -46,25 +98,7 @@ export default class ExpensePaymentDetail extends Component {
   }
 
   render() {
-    var tableBody = [];
-    var sheets = this.state.payment.sheets;
-
-    for (let i = 0; i < sheets.length; i++) {
-      tableBody.push(
-        <tr>
-          <td>{sheets[i].zdp}</td>
-          <td>
-            <a href={'/profile/' + sheets[i].userid}>
-              {sheets[i].first_name} {sheets[i].last_name}
-            </a>
-          </td>
-          <td>{sheets[i].iban}</td>
-          <td>
-            <a href={'/expense/' + sheets[i].report_sheet}>{'CHF ' + this.formatRappen(sheets[i].amount / 100)}</a>
-          </td>
-        </tr>
-      );
-    }
+    const sheets = this.state.payment.sheets;
 
     return (
       <Header>
@@ -85,9 +119,26 @@ export default class ExpensePaymentDetail extends Component {
                     <th>Name</th>
                     <th>IBAN</th>
                     <th>Betrag</th>
+                    <th>Bestätigen</th>
                   </tr>
                 </thead>
-                <tbody>{tableBody}</tbody>
+                <tbody>
+                  {sheets.map(sheet => (
+                    <tr>
+                      <td>{sheet.zdp}</td>
+                      <td>
+                        <a href={'/profile/' + sheet.userid}>
+                          {sheet.first_name} {sheet.last_name}
+                        </a>
+                      </td>
+                      <td>{sheet.iban}</td>
+                      <td>
+                        <a href={'/expense/' + sheet.report_sheet}>{'CHF ' + this.formatRappen(sheet.amount / 100)}</a>
+                      </td>
+                      <td>{this.Confirmer(sheet)}</td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
 
               <a
