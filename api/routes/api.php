@@ -414,7 +414,7 @@ $api->version('v1', function ($api) {
                 'uses' => 'App\Http\Controllers\PaymentController@getPaymentOverview',
                 'as' => 'api.paymentoverview'
             ]);
-            $api->get('/reportsheet/payments/execute', [
+            $api->post('/reportsheet/payments/execute', [
                 'uses' => 'App\Http\Controllers\PaymentController@getIsoPaymentXml',
                 'as' => 'api.paymentexecute'
             ]);

@@ -125,24 +125,19 @@ export default class ExpensePayment extends Component {
                   <tbody>{tableBody}</tbody>
                 </table>
 
-                <a
-                  onClick={() => {
+                <form
+                  method="POST"
+                  action={ApiService.BASE_URL + 'reportsheet/payments/execute'}
+                  onSubmit={() =>
                     setTimeout(() => {
                       this.getReportSheets();
-                    }, 2000);
-                  }}
-                  href={
-                    ApiService.BASE_URL +
-                    'reportsheet/payments/execute?data=' +
-                    encodeURI(JSON.stringify(this.state.report_sheets.valid)) +
-                    '&jwttoken=' +
-                    encodeURI(localStorage.getItem('jwtToken'))
+                    }, 2000)
                   }
-                  class="btn btn-primary"
                 >
-                  Zahlung auslösen
-                </a>
-
+                  <input type="hidden" name="data" value={JSON.stringify(this.state.report_sheets.valid)} />
+                  <input type="hidden" name="jwttoken" value={localStorage.getItem('jwtToken')} />
+                  <input type="submit" class="btn btn-primary" value="Zahlung auslösen" />
+                </form>
                 <br />
                 <br />
               </div>

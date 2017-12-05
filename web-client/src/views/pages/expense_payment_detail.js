@@ -8,7 +8,7 @@ import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
 import moment from 'moment-timezone';
-import { Glyphicon } from '../components/Glyphicon';
+import { Glyphicon } from '../tags/Glyphicon';
 import update from 'immutability-helper';
 
 export default class ExpensePaymentDetail extends Component {
