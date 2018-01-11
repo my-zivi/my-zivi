@@ -25,6 +25,8 @@ export default class MissionOverview extends Component {
   componentDidMount() {
     this.getSpecifications();
     this.getMissions();
+
+    this.scrollTableHeader($('table'));
   }
 
   getSpecifications() {
@@ -83,6 +85,23 @@ export default class MissionOverview extends Component {
 
   print() {
     window.print();
+  }
+
+  scrollTableHeader(table) {
+    const onScroll = () => {
+      const offset = $(window).scrollTop();
+      const tableOffsetTop = table.offset().top;
+      const thead = table.find('thead');
+
+      if (offset > tableOffsetTop - 50) {
+        thead.css('top', offset - (tableOffsetTop - 50));
+      } else {
+        thead.css('top', 0);
+      }
+    };
+
+    $(window).scroll(onScroll);
+    onScroll();
   }
 
   renderMissions(userMissions) {
@@ -218,10 +237,12 @@ export default class MissionOverview extends Component {
     var monthHeaders = [];
     var startDate = new Date(this.state.year + '-01-01');
     while (moment(startDate).isoWeek() > 50) {
-      startDate.setDate(startDate.getDate() + 7);
+      startDate.setDate(startDate.getDate() + 1);
     }
-    var prevMonth = 0;
-    var monthColCount = 1;
+    var prevMonth = moment(startDate)
+      .isoWeekday(1)
+      .month();
+    var monthColCount = 0;
     for (var i = 1; i <= 52; i++) {
       var weekCountSum = 0;
       for (var x = 0; x < specs.length; x++) {
@@ -229,20 +250,24 @@ export default class MissionOverview extends Component {
           weekCountSum += weekCount[specs[x].fullId][i];
         }
       }
-      weekHeaders.push(<td style="width:25px;">{i}</td>);
+      weekHeaders.push(<td>{i}</td>);
       averageHeaders.push(<td>{weekCountSum}</td>);
       averageCount += weekCountSum;
-      if (startDate.getMonth() != prevMonth) {
+      if (
+        moment(startDate)
+          .isoWeekday(1)
+          .month() != prevMonth
+      ) {
+        // cell width (25px) must be the same as in mission_overview.sass
         monthHeaders.push(
-          <td style="font-weight:bold;" colspan={monthColCount}>
+          <td style={{ 'font-weight': 'bold', 'max-width': 25 * monthColCount + 'px', overflow: 'hidden' }} colspan={monthColCount}>
             {this.monthNames[prevMonth]}
           </td>
         );
-        monthColCount = 1;
+        monthColCount = 0;
         prevMonth = startDate.getMonth();
-      } else {
-        monthColCount++;
       }
+      monthColCount++;
       startDate.setDate(startDate.getDate() + 7);
     }
     monthHeaders.push(
@@ -284,7 +309,7 @@ export default class MissionOverview extends Component {
               </div>
             </div>
 
-            <table class="table table-striped table-bordered table-no-padding">
+            <table class="table table-striped table-bordered table-no-padding" id="mission_overview_table">
               <thead>
                 <tr>
                   <td colspan="3" rowspan="2">
