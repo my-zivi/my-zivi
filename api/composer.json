@@ -10,7 +10,9 @@
         "vlucas/phpdotenv": "~2.2",
         "krisanalfa/lumen-dingo-adapter": "^0.0.3",
         "setasign/fpdi-fpdf": "1.6.2",
-        "globalcitizen/php-iban": "^2.6"
+        "globalcitizen/php-iban": "^2.6",
+        "sentry/sentry": "dev-master",
+        "sentry/sentry-laravel": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
