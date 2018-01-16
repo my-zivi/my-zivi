@@ -6,11 +6,16 @@ before_script:
   - cp ./api/.env.travis ./api/.env
   - ./ci/backend.sh
 script:
-  - ./api/vendor/phpunit/phpunit/phpunit -c api --coverage-clover=coverage.xml
+  - ./ci/test.sh
   - ./ci/frontend.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 deploy:
+  - provider: script
+    script: ci/deploy.sh test
+    skip_cleanup: true
+    on:
+      branch: dev
   - provider: script
     script: ci/deploy.sh test
     skip_cleanup: true
