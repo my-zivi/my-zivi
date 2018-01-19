@@ -17,9 +17,9 @@ class CompanyInfo
     // Name des Einsatzbetriebs im EIS (eis.zivil-dienst.ch)
     const COMPANY_NAME_EIS = 'SWO Artenschutz';
     // Adresse des Einsatzbetriebs
-    const COMPANY_ADDRESS = 'Im Schatzacker 5';
+    const COMPANY_ADDRESS = 'Bahnstrasse 18b';
     // PLZ und Ort des Einsatzbetriebs
-    const COMPANY_CITY = '8600 Dübendorf-Gfenn ';
+    const COMPANY_CITY = '8603 Schwerzenbach ';
     // Adresse des Einsatzbetriebs
     const COMPANY_ADDRESS_WORKPLACE = 'Bahnstrasse 9';
     // PLZ und Ort des Einsatzbetriebs
