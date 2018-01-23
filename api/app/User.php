@@ -38,6 +38,7 @@ class User extends Model implements
         'phone_private',
         'phone_business',
         'bank_iban',
+        'bank_bic',
         'work_experience',
         'driving_licence',
         'ga_travelcard',

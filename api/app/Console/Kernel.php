@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\FetchBICs;
 use App\Console\Commands\SendFeedbackRemainderMails;
 use App\Console\Commands\DatabaseCreateCommand;
 use Illuminate\Console\Scheduling\Schedule;
@@ -16,7 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         SendFeedbackRemainderMails::class,
-        DatabaseCreateCommand::class
+        DatabaseCreateCommand::class,
+        FetchBICs::class
     ];
 
     /**
