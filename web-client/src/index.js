@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import Inferno from 'inferno';
 import { Router } from 'inferno-router';
 import { createBrowserHistory } from 'history';
