@@ -136,7 +136,7 @@ export default class ExpensePayment extends Component {
                 >
                   <input type="hidden" name="data" value={JSON.stringify(this.state.report_sheets.valid)} />
                   <input type="hidden" name="jwttoken" value={localStorage.getItem('jwtToken')} />
-                  <input type="submit" class="btn btn-primary" value="Zahlung auslösen" />
+                  <input type="submit" class="btn btn-primary" value="Zahlungsdatei generieren" />
                 </form>
                 <br />
                 <br />

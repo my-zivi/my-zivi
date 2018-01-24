@@ -40,6 +40,7 @@ class PaymentController extends Controller
             $item['zip'] = $sheet['zip'];
             $item['city'] = $sheet['city'];
             $item['iban'] = strtoupper(str_replace(' ', '', $sheet['iban']));
+            $item['bic'] = $sheet['bic'];
             $item['amount'] = $sheet['total'];
             $item['sheet_id'] = $id->id;
 
@@ -48,6 +49,9 @@ class PaymentController extends Controller
             }
             if (strlen($item['iban'])==0 || !(new \IBAN($item['iban']))->VerifyMachineFormatOnly()) {
                 $item['reason'] = "IBAN fehlt oder hat ungültiges Format";
+            }
+            if (strlen($item['bic'])==0) {
+                $item['reason'] = "BIC fehlt";
             }
 
             if (isset($item['reason'])) {
@@ -115,6 +119,11 @@ class PaymentController extends Controller
 				<Amt>
 					<InstdAmt Ccy=\"CHF\">".$element['amount']."</InstdAmt>
 				</Amt>
+				<CdtrAgt>
+					<FinInstnId>
+						<BIC>".$element['bic']."</BIC>
+					</FinInstnId>
+				</CdtrAgt>
 				<Cdtr>
 					<Nm>".$element['first_name']." ".$element['last_name']."</Nm>
 					<PstlAdr>

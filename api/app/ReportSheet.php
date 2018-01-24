@@ -109,6 +109,7 @@ class ReportSheet extends Model
                 'users.last_name AS last_name',
                 'users.zdp AS zdp',
                 'users.bank_iban AS iban',
+                'users.bank_bic AS bic',
                 'users.address AS address',
                 'users.zip AS zip',
                 'users.city AS city',
