@@ -174,11 +174,10 @@ export default class User extends Component {
   }
 
   handleIBANChange(e) {
-    console.log('IBANNING');
+    this.handleChange(e);
     if (this.validateIBAN(e.target.value)) {
       this.fetchBIC(e.target.value);
     }
-    return this.handleChange(e);
   }
 
   validateIBAN(value) {
@@ -194,6 +193,7 @@ export default class User extends Component {
   }
 
   fetchBIC(iban) {
+    this.setState({ bic_fetching: true });
     axios
       .get(`https://openiban.com/validate/${iban}?getBIC=true`)
       .then(res => {
@@ -208,7 +208,8 @@ export default class User extends Component {
       .catch(err => {
         console.error(err);
         //todo print into status field?
-      });
+      })
+      .finally(() => this.setState({ bic_fetching: false }));
   }
 
   save() {
@@ -332,6 +333,22 @@ export default class User extends Component {
                       className="form-control"
                       onChange={e => this.handleChange(e)}
                     />
+                  </div>
+                  <div className="col-sm-1">
+                    {this.state.bic_fetching ? (
+                      <a title="BIC suchen">
+                        <span style="font-size:2em;" className="glyphicon glyphicon-refresh gly-spin" aria-hidden="true" />
+                      </a>
+                    ) : (
+                      <a title="BIC suchen">
+                        <span
+                          style="font-size:2em;"
+                          className="glyphicon glyphicon-search"
+                          onClick={() => this.fetchBIC(this.state.result.bank_iban)}
+                          aria-hidden="true"
+                        />
+                      </a>
+                    )}
                   </div>
                   <div id="_helpbic" className="col-sm-1 hidden-xs">
                     <a
