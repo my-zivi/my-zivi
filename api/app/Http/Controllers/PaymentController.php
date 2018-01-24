@@ -17,6 +17,13 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 
+function scrub(string $s)
+{
+    //these are the characters supported by the postFinance api
+    $pattern = '%[^a-zA-Z0-9\.,;:\'\+\-\/\(\)?\*\[\]\{\}\\`´~ !"#\%&<>÷=@_$£àáâäçèé ëìíîïñòóôöùúûüýßÀÁÂÄÇÈÉÊËÌÍÎÏÒÓÔÖÙÚÛÜÑ]%u';
+    return preg_replace($pattern, '', $s);
+}
+
 class PaymentController extends Controller
 {
 
@@ -125,11 +132,11 @@ class PaymentController extends Controller
 					</FinInstnId>
 				</CdtrAgt>
 				<Cdtr>
-					<Nm>".$element['first_name']." ".$element['last_name']."</Nm>
+					<Nm>".scrub($element['first_name'])." ".scrub($element['last_name'])."</Nm>
 					<PstlAdr>
-						<StrtNm>".$element['address']."</StrtNm>
-						<PstCd>".$element['zip']."</PstCd>
-						<TwnNm>".$element['city']."</TwnNm>
+						<StrtNm>".scrub($element['address'])."</StrtNm>
+						<PstCd>".scrub($element['zip'])."</PstCd>
+						<TwnNm>".scrub($element['city'])."</TwnNm>
 						<Ctry>CH</Ctry>
 					</PstlAdr>
 				</Cdtr>
