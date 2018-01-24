@@ -117,6 +117,7 @@ class UserController extends Controller
         $user->phone_private = Input::get("phone_private", "");
         $user->phone_business = Input::get("phone_business", "");
         $user->bank_iban = Input::get("bank_iban", "");
+        $user->bank_bic = Input::get("bank_bic", "");
         $user->work_experience = Input::get("work_experience", "");
         $user->driving_licence = Input::get("driving_licence", 0);
         $user->ga_travelcard = Input::get("ga_travelcard", 0);

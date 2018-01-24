@@ -19,7 +19,7 @@ class FetchBICs extends Command
      *
      * @var string
      */
-    protected $description = 'Fetches missing BICs based on the IBAN form a webservice.';
+    protected $description = 'Fetches user\'s missing BICs based on their IBAN from a webservice.';
 
     /**
      * Create a new command instance.

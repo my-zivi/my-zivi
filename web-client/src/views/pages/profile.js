@@ -174,7 +174,10 @@ export default class User extends Component {
   }
 
   handleIBANChange(e) {
-    this.validateIBAN(e.target.value);
+    console.log('IBANNING');
+    if (this.validateIBAN(e.target.value)) {
+      this.fetchBIC(e.target.value);
+    }
     return this.handleChange(e);
   }
 
@@ -183,9 +186,29 @@ export default class User extends Component {
 
     if (regex.test(value)) {
       $('#ibanFormGroup').removeClass('has-warning');
+      return true;
     } else {
       $('#ibanFormGroup').addClass('has-warning');
+      return false;
     }
+  }
+
+  fetchBIC(iban) {
+    axios
+      .get(`https://openiban.com/validate/${iban}?getBIC=true`)
+      .then(res => {
+        console.log(res);
+        this.setState({
+          result: {
+            ...this.state.result,
+            bank_bic: res.data.bankData.bic,
+          },
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        //todo print into status field?
+      });
   }
 
   save() {
@@ -223,7 +246,7 @@ export default class User extends Component {
 
   render() {
     let result = this.state.result;
-    let howerText_IBAN = 'IBAN nummer';
+    let howerText_IBAN = 'Du kannst die Nummer mit oder ohne Abständen eingeben.';
     let howerText_Post = 'Postkonto Nummer';
     let howerText_Berufserfahrung =
       'Wir profitieren gerne von deiner Erfahrung. Wenn wir genau wissen, wann wer mit welchen Erfahrungen einen Einsatz tätigt, können wir z.T. Projekte speziell planen.';
@@ -277,7 +300,7 @@ export default class User extends Component {
                 <h3>Bank-/Postverbindung</h3>
 
                 <div class="form-group" id="ibanFormGroup">
-                  <label class="control-label col-sm-3" for="hometown">
+                  <label class="control-label col-sm-3" for="bank_iban">
                     IBAN-Nr.
                   </label>
                   <div class="col-sm-8">
@@ -287,7 +310,7 @@ export default class User extends Component {
                       name="bank_iban"
                       value={result.bank_iban}
                       className="form-control"
-                      onChange={e => this.handleIBANChange(e)}
+                      onInput={e => this.handleIBANChange(e)}
                     />
                   </div>
                   <div id="_helpiban" className="col-sm-1 hidden-xs">
@@ -296,7 +319,30 @@ export default class User extends Component {
                     </a>
                   </div>
                 </div>
-
+                <div class="form-group" id="bicFormGroup">
+                  <label class="control-label col-sm-3" for="bank_bic">
+                    BIC/SWIFT
+                  </label>
+                  <div class="col-sm-7">
+                    <input
+                      type="text"
+                      id="bank_bic"
+                      name="bank_bic"
+                      value={result.bank_bic}
+                      className="form-control"
+                      onChange={e => this.handleChange(e)}
+                    />
+                  </div>
+                  <div id="_helpbic" className="col-sm-1 hidden-xs">
+                    <a
+                      data-toggle="popover"
+                      title="BIC/SWIFT"
+                      data-content="Der BIC/SWIFT code, der Deine Bank identifizert. Du findest diesen meist auf der Website Deiner Bank."
+                    >
+                      <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
+                    </a>
+                  </div>
+                </div>
                 <hr />
                 <h3>Krankenkasse</h3>
                 <div class="form-group" id="healthInsuranceFormGroup">
