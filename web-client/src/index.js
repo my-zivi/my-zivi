@@ -6,10 +6,29 @@ import views from './views';
 import './index.sass';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'izitoast/dist/css/iziToast.css';
+import Raven from 'raven-js';
+import api from './utils/api';
 
-const browserHistory = createBrowserHistory();
+//these will be replaced by a build script, if needed
+export const release = 'COMMIT_ID';
+export const environment = 'ENVIRONMENT';
+const sentryDSN = 'SENTRY_DSN';
 
-Inferno.render(<Router history={browserHistory}>{views}</Router>, document.getElementById('root'));
+if (sentryDSN.startsWith('https')) {
+  console.log('yes raven');
+  Raven.config(sentryDSN).install();
+} else {
+  console.log('no raven');
+}
+
+Raven.context(() => {
+  Raven.setTagsContext({ release });
+  Raven.setUserContext({ id: api.getUserId() });
+
+  const browserHistory = createBrowserHistory();
+
+  Inferno.render(<Router history={browserHistory}>{views}</Router>, document.getElementById('root'));
+});
 
 if (process.env.NODE_ENV === 'production') {
   if ('serviceWorker' in navigator && location.protocol === 'https:') {

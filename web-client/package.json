@@ -31,6 +31,7 @@
     "mobx": "^3.2.1",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
+    "raven-js": "^3.22.1",
     "survey-jquery": "^0.12.21"
   },
   "devDependencies": {

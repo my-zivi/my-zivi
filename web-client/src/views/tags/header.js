@@ -3,6 +3,7 @@ import { Link } from 'inferno-router';
 import Component from 'inferno-component';
 import BootstrapNavLink from '../tags/BootstrapNavLink';
 import ApiService from '../../utils/api';
+import { release, environment } from '../../index';
 
 export default class Header extends Component {
   guestMenu() {
@@ -47,6 +48,9 @@ export default class Header extends Component {
         <main id="content" style="padding-top: 0">
           {this.props.children}
         </main>
+        <span class="release-info">
+          {release} - {environment}
+        </span>
       </div>
     );
   }

@@ -1,16 +1,16 @@
-let BASE_URL = 'http://localhost:8000/api/';
-if (window.location.href.includes('izivi-test')) {
-  BASE_URL = 'https://izivi-api-test.stiftungswo.ch/api/';
-} else if (window.location.href.includes('izivi')) {
-  BASE_URL = 'https://izivi-api.stiftungswo.ch/api/';
-}
+import moment from 'moment';
+import jwtDecode from 'jwt-decode';
+import Raven from 'raven-js';
 
-const jwtDecode = require('jwt-decode');
+//this will be replaced by a build script, if necessary
+const baseUrlOverride = 'BASE_URL';
+const BASE_URL = baseUrlOverride.startsWith('http') ? baseUrlOverride : 'http://localhost:8000/api/';
 
 // Is user logged in?
 const isLoggedIn = () => {
   if (localStorage.getItem('jwtToken') !== null) {
-    return true;
+    const decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
+    return moment.unix(decodedToken.exp).isAfter(moment());
   } else {
     return false;
   }
@@ -33,6 +33,11 @@ const getUserId = () => {
   }
 };
 
+const setToken = token => {
+  localStorage.setItem('jwtToken', token);
+  Raven.setUserContext({ id: getUserId() });
+};
+
 // Verify that the fetched response is JSON
 function _verifyResponse(res) {
   let contentType = res.headers.get('content-type');
@@ -44,5 +49,5 @@ function _verifyResponse(res) {
   }
 }
 
-const ApiService = { BASE_URL, isLoggedIn, isAdmin, getUserId };
+const ApiService = { BASE_URL, isLoggedIn, isAdmin, getUserId, setToken };
 export default ApiService;

@@ -29,7 +29,7 @@ export default class Login extends Component {
         password: this.state.password,
       })
       .then(response => {
-        localStorage.setItem('jwtToken', response.data.data.token);
+        ApiService.setToken(response.data.data.token);
         if (this.props.params.path) {
           var url = this.props.params.path;
           if (url.startsWith('/login')) {
