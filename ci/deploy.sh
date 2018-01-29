@@ -37,7 +37,8 @@ ssh $TARGET mkdir -p ${PROJECT_DIR} ${PROJECT_DIR}.bak && \
 rsync -ra --exclude '.git' --exclude 'node_modules' . $TARGET:$TMP && \
 ssh $TARGET sed -i'' "s/COMMIT_ID/$TRAVIS_COMMIT/" $TMP/web-client/dist/app.*.js && \
 ssh $TARGET sed -i'' "s/ENVIRONMENT/$ENVIRONMENT/" $TMP/web-client/dist/app.*.js && \
-ssh $TARGET sed -i'' "s/BASE_URL/$API_URL/" $TMP/web-client/dist/app.*.js && \
+ssh $TARGET sed -i'' "s,BASE_URL,$API_URL," $TMP/web-client/dist/app.*.js && \
+ssh $TARGET sed -i'' "s,SENTRY_DSN,$SENTRY_DSN_PUBLIC," $TMP/web-client/dist/app.*.js && \
 ssh $TARGET cp $CONFIG_FILE $TMP/api/.env && \
 ssh $TARGET rm -r ${PROJECT_DIR}.bak && \
 ssh $TARGET mv $PROJECT_DIR ${PROJECT_DIR}.bak && \
