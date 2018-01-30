@@ -28,4 +28,11 @@ class Mission extends Model
     {
         return $this->belongsTo('App\User', 'user');
     }
+
+    public function getFormattedDate($fieldName)
+    {
+        $field = $this[$fieldName];
+        $date = date_create_from_format('Y-m-d', $field);
+        return date_format($date, 'd.m.Y');
+    }
 }
