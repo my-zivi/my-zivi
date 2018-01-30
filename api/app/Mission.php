@@ -9,6 +9,8 @@ class Mission extends Model
 {
     use SoftDeletes;
 
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'start', 'end'];
+
     protected $fillable = ['id',
                            'user',
                            'specification', // "Pflichtenheft"
