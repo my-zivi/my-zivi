@@ -1,11 +1,10 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Card from '../tags/card';
-import axios from 'axios';
 import Component from 'inferno-component';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
+import { api } from '../../utils/api';
 
 export default class ResetPassword extends Component {
   constructor(props) {
@@ -24,16 +23,12 @@ export default class ResetPassword extends Component {
     let errorBox = [];
     let confirmBox = [];
 
-    axios
-      .post(
-        ApiService.BASE_URL + 'auth/resetPassword',
-        {
-          code: this.props.params.code,
-          new_password: this.state.new_password,
-          new_password_2: this.state.new_password_2,
-        },
-        { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
-      )
+    api()
+      .post('auth/resetPassword', {
+        code: this.props.params.code,
+        new_password: this.state.new_password,
+        new_password_2: this.state.new_password_2,
+      })
       .then(response => {
         errorMsg = [];
         errorBox = [];

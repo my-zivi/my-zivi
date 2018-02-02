@@ -1,12 +1,11 @@
 ﻿import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import ScrollableCard from '../tags/scrollableCard';
-import axios from 'axios';
 import Component from 'inferno-component';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import Toast from '../../utils/toast';
+import { api } from '../../utils/api';
 
 export default class Specifications extends Component {
   constructor(props) {
@@ -29,8 +28,8 @@ export default class Specifications extends Component {
 
   getSpecifications() {
     this.setState({ loading: true, error: null });
-    axios
-      .get(ApiService.BASE_URL + 'specification', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .get('specification')
       .then(response => {
         this.setState({
           specifications: response.data,
@@ -50,10 +49,8 @@ export default class Specifications extends Component {
 
   save(i) {
     this.setState({ loading: true, error: null });
-    axios
-      .post(ApiService.BASE_URL + 'specification/' + this.state.specifications[i].id, this.state.specifications[i], {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .post('specification/' + this.state.specifications[i].id, this.state.specifications[i])
       .then(response => {
         Toast.showSuccess('Speichern erfolgreich', 'Pflichtenheft gespeichert');
         this.setState({ loading: false });
@@ -72,10 +69,8 @@ export default class Specifications extends Component {
 
   add() {
     this.setState({ loading: true, error: null });
-    axios
-      .put(ApiService.BASE_URL + 'specification/' + this.state.newSpec.id, this.state.newSpec, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .put('specification/' + this.state.newSpec.id, this.state.newSpec)
       .then(response => {
         Toast.showSuccess('Hinzufügen erfolgreich', 'Pflichtenheft hinzugefügt');
         this.getSpecifications();

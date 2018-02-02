@@ -2,8 +2,7 @@ import Inferno from 'inferno';
 import VNodeFlags from 'inferno-vnode-flags';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-import axios from 'axios';
-import ApiService from '../../../utils/api';
+import { api } from '../../../utils/api';
 
 export default class RegionalCenters extends Component {
   renderRegionalCenters(state) {
@@ -27,8 +26,8 @@ export default class RegionalCenters extends Component {
   }
 
   getRegionalCenters(self) {
-    axios
-      .get(ApiService.BASE_URL + 'regionalcenter', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .get('regionalcenter')
       .then(response => {
         self.setState({
           regionalCenters: response.data,

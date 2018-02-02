@@ -1,11 +1,10 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-import axios from 'axios';
-import ApiService from '../../utils/api';
 import Card from '../tags/card';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
+import { api } from '../../utils/api';
 
 export default class Register extends Component {
   constructor(props) {
@@ -18,8 +17,8 @@ export default class Register extends Component {
 
   register() {
     this.setState({ loading: true, error: null });
-    axios
-      .post(ApiService.BASE_URL + 'auth/register', this.state.formData)
+    api()
+      .post('auth/register', this.state.formData)
       .then(response => {
         localStorage.setItem('jwtToken', response.data.data.token);
         this.context.router.push('/');

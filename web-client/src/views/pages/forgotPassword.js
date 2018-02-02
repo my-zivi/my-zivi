@@ -1,12 +1,11 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-import axios from 'axios';
-import ApiService from '../../utils/api';
 
 import Card from '../tags/card';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
+import { api } from '../../utils/api';
 
 export default class ForgotPassword extends Component {
   constructor(props) {
@@ -22,8 +21,8 @@ export default class ForgotPassword extends Component {
 
   send() {
     this.setState({ loading: true, error: null });
-    axios
-      .post(ApiService.BASE_URL + 'auth/forgotPassword', {
+    api()
+      .post('auth/forgotPassword', {
         email: this.state.email,
       })
       .then(response => {

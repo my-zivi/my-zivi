@@ -1,12 +1,11 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Card from '../tags/card';
-import axios from 'axios';
 import Component from 'inferno-component';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
+import { apiURL } from '../../utils/api';
 
 export default class UserPhoneList extends Component {
   constructor(props) {
@@ -54,18 +53,17 @@ export default class UserPhoneList extends Component {
 
               <a
                 class="btn btn-primary"
-                href={
-                  ApiService.BASE_URL +
-                  'pdf/phoneList?start=' +
-                  this.state.start +
-                  '&end=' +
-                  this.state.end +
-                  '&jwttoken=' +
-                  encodeURI(localStorage.getItem('jwtToken'))
-                }
+                href={apiURL(
+                  'pdf/phoneList',
+                  {
+                    start: this.state.start,
+                    end: this.state.end,
+                  },
+                  true
+                )}
                 target="_blank"
               >
-                Absenden
+                Laden
               </a>
             </form>
           </Card>

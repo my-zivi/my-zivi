@@ -1,12 +1,11 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import ScrollableCard from '../tags/scrollableCard';
-import axios from 'axios';
 import Component from 'inferno-component';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
+import { api, apiURL } from '../../utils/api';
 
 export default class ExpenseOverview extends Component {
   constructor(props) {
@@ -46,8 +45,8 @@ export default class ExpenseOverview extends Component {
       loading: true,
       error: null,
     });
-    axios
-      .get(ApiService.BASE_URL + url, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .get(url)
       .then(response => {
         this.setState({
           report_sheets: response.data,
@@ -90,22 +89,17 @@ export default class ExpenseOverview extends Component {
   }
 
   showStats(time_type, showDetails, showOnlyDoneSheets, time_year, time_from, time_to) {
-    return (
-      ApiService.BASE_URL +
-      'pdf/statistik?time_type=' +
-      time_type +
-      '&showDetails=' +
-      showDetails +
-      '&showOnlyDoneSheets=' +
-      showOnlyDoneSheets +
-      '&time_year=' +
-      time_year +
-      '&time_from=' +
-      time_from +
-      '&time_to=' +
-      time_to +
-      '&jwttoken=' +
-      encodeURI(localStorage.getItem('jwtToken'))
+    return apiURL(
+      'pdf/statistik',
+      {
+        time_type,
+        showDetails,
+        showOnlyDoneSheets,
+        time_year,
+        time_from,
+        time_to,
+      },
+      true
     );
   }
 

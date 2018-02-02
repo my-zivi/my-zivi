@@ -2,12 +2,12 @@ import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
 import jwtDecode from 'jwt-decode';
-import axios from 'axios';
 
 import Card from '../tags/card';
-import ApiService from '../../utils/api';
+import Auth from '../../utils/auth';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
+import { api } from '../../utils/api';
 
 export default class Login extends Component {
   constructor(props) {
@@ -23,13 +23,13 @@ export default class Login extends Component {
 
   login() {
     this.setState({ loading: true, error: null });
-    axios
-      .post(ApiService.BASE_URL + 'auth/login', {
+    api()
+      .post('auth/login', {
         email: this.state.email,
         password: this.state.password,
       })
       .then(response => {
-        ApiService.setToken(response.data.data.token);
+        Auth.setToken(response.data.data.token);
         if (this.props.params.path) {
           var url = this.props.params.path;
           if (url.startsWith('/login')) {

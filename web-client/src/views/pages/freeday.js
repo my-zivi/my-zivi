@@ -1,13 +1,12 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import ScrollableCard from '../tags/scrollableCard';
-import axios from 'axios';
 import Component from 'inferno-component';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
 import Toast from '../../utils/toast';
+import { api } from '../../utils/api';
 
 export default class Freeday extends Component {
   constructor(props) {
@@ -25,8 +24,8 @@ export default class Freeday extends Component {
 
   getFreedays() {
     this.setState({ loading: true, error: null });
-    axios
-      .get(ApiService.BASE_URL + 'holiday', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .get('holiday')
       .then(response => {
         this.setState({
           freedays: response.data,
@@ -78,10 +77,8 @@ export default class Freeday extends Component {
 
   save(i) {
     this.setState({ loading: true, error: null });
-    axios
-      .post(ApiService.BASE_URL + 'holiday/' + this.state.freedays[i].id, this.state.freedays[i], {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .post('holiday/' + this.state.freedays[i].id, this.state.freedays[i])
       .then(response => {
         Toast.showSuccess('Speichern erfolgreich', 'Frei-Tag wurde erfolgreich gespeichert');
         this.setState({ loading: false });
@@ -94,10 +91,8 @@ export default class Freeday extends Component {
 
   remove(i) {
     this.setState({ loading: true, error: null });
-    axios
-      .delete(ApiService.BASE_URL + 'holiday/' + this.state.freedays[i].id, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .delete('holiday/' + this.state.freedays[i].id)
       .then(response => {
         Toast.showSuccess('Löschen erfolgreich', 'Frei-Tag wurde erfolgreich gelöscht');
         this.getFreedays();
@@ -110,10 +105,8 @@ export default class Freeday extends Component {
 
   add() {
     this.setState({ loading: true, error: null });
-    axios
-      .put(ApiService.BASE_URL + 'holiday', this.state.newFreeday, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .put('holiday', this.state.newFreeday)
       .then(response => {
         Toast.showSuccess('Hinzufügen erfolgreich', 'Frei-Tag wurde erfolgreich hinzugefügt');
         this.setState({ newFreeday: { holiday_type: 2, description: '' } });

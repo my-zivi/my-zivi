@@ -1,13 +1,12 @@
 ﻿import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Card from '../tags/card';
-import axios from 'axios';
 import Component from 'inferno-component';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
 import moment from 'moment-timezone';
+import { api, apiURL } from '../../utils/api';
 
 export default class UserFeedbackOverview extends Component {
   constructor(props) {
@@ -36,20 +35,16 @@ export default class UserFeedbackOverview extends Component {
 
     var request;
     if (this.props.params.feedback_id) {
-      request = ApiService.BASE_URL + 'user/feedback/' + this.props.params.feedback_id;
+      request = apiURL('user/feedback/' + this.props.params.feedback_id);
     } else {
-      request =
-        ApiService.BASE_URL +
-        'user/feedback?date_from=' +
-        this.dbDate(this.state.date_from) +
-        '&date_to=' +
-        this.dbDate(this.state.date_to);
+      request = apiURL('user/feedback', {
+        date_from: this.dbDate(this.state.date_from),
+        date_to: this.dbDate(this.state.date_to),
+      });
     }
 
-    axios
-      .get(request, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .get(request)
       .then(response => {
         this.setState({ loading: false });
         this.setState({

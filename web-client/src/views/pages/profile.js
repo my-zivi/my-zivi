@@ -9,13 +9,14 @@ import DatePicker from '../tags/InputFields/DatePicker';
 import RegionalCenters from '../tags/Profile/RegionalCenters';
 import Missions from '../tags/Profile/Missions';
 import AdminRestrictedFields from '../tags/Profile/AdminRestrictedFields';
-import axios from 'axios';
 import Component from 'inferno-component';
-import ApiService from '../../utils/api';
+import Auth from '../../utils/auth';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import Toast from '../../utils/toast';
 import moment from 'moment-timezone';
+import { api, apiURL } from '../../utils/api';
+import axios from 'axios';
 
 export default class User extends Component {
   constructor(props, { router }) {
@@ -50,10 +51,9 @@ export default class User extends Component {
   getUser() {
     this.setState({ loading: true, error: null });
 
-    axios
-      .get(ApiService.BASE_URL + 'user' + (this.props.params.userid ? '/' + this.props.params.userid : ''), {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    const route = this.props.params.userid ? 'user/' + this.props.params.userid : 'user';
+    api()
+      .get(route)
       .then(response => {
         var newState = {
           result: response.data,
@@ -83,8 +83,8 @@ export default class User extends Component {
   }
 
   getSpecifications() {
-    axios
-      .get(ApiService.BASE_URL + 'specification/me', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .get('specification/me')
       .then(response => {
         this.setState({
           specifications: response.data,
@@ -100,10 +100,8 @@ export default class User extends Component {
 
     let apiRoute = this.props.params.userid === undefined ? 'me' : this.props.params.userid;
 
-    axios
-      .get(ApiService.BASE_URL + 'reportsheet/user/' + apiRoute, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .get('reportsheet/user/' + apiRoute)
       .then(response => {
         this.setState({ loading: false, reportSheets: response.data });
       })
@@ -115,15 +113,11 @@ export default class User extends Component {
   addReportSheet(missionId) {
     this.setState({ loading: true, error: null });
 
-    axios
-      .put(
-        ApiService.BASE_URL + 'reportsheet',
-        {
-          user: this.props.params.userid ? this.props.params.userid : null,
-          mission: missionId,
-        },
-        { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
-      )
+    api()
+      .put('reportsheet', {
+        user: this.props.params.userid ? this.props.params.userid : null,
+        mission: missionId,
+      })
       .then(response => {
         Toast.showSuccess('Hinzufügen erfolgreich', 'Meldeblatt hinzugefügt');
         this.getReportSheets();
@@ -209,10 +203,8 @@ export default class User extends Component {
     let apiRoute = this.props.params.userid === undefined ? 'me' : this.props.params.userid;
 
     this.setState({ loading: true, error: null });
-    axios
-      .post(ApiService.BASE_URL + 'user/' + apiRoute, this.state.result, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .post('user/' + apiRoute, this.state.result)
       .then(response => {
         Toast.showSuccess('Speichern erfolgreich', 'Profil gespeichert');
         this.setState({ loading: false });
@@ -416,7 +408,7 @@ export default class User extends Component {
                 <InputCheckbox id="half_fare_travelcard" value={result.half_fare_travelcard} label="Halbtax" self={this} />
                 <InputField id="other_fare_network" label="Andere Abos" value={result.other_fare_network} self={this} />
 
-                {ApiService.isAdmin() ? this.adminFields.getAdminRestrictedFields(this, result) : null}
+                {Auth.isAdmin() ? this.adminFields.getAdminRestrictedFields(this, result) : null}
 
                 <button type="submit" class="btn btn-primary">
                   <span class="glyphicon glyphicon-floppy-disk" /> Speichern
@@ -446,7 +438,7 @@ export default class User extends Component {
               <button class="btn btn-success" data-toggle="modal" data-target="#einsatzModal">
                 Neue Einsatzplanung hinzufügen
               </button>
-              {this.missionTag.renderMissions(this, null, ApiService.isAdmin())}
+              {this.missionTag.renderMissions(this, null, Auth.isAdmin())}
 
               <br />
               <br />
@@ -463,7 +455,7 @@ export default class User extends Component {
                       <th>Anzahl Tage</th>
                       <th>Status</th>
                       <th />
-                      {ApiService.isAdmin() ? <th /> : null}
+                      {Auth.isAdmin() ? <th /> : null}
                     </tr>
                   </thead>
                   <tbody>
@@ -493,20 +485,14 @@ export default class User extends Component {
                                 <a
                                   name="showReportSheet"
                                   class="btn btn-xs btn-link"
-                                  href={
-                                    ApiService.BASE_URL +
-                                    'pdf/zivireportsheet?reportSheetId=' +
-                                    obj.id +
-                                    '&jwttoken=' +
-                                    encodeURI(localStorage.getItem('jwtToken'))
-                                  }
+                                  href={apiURL('pdf/zivireportsheet', { reportSheetId: obj.id }, true)}
                                   target="_blank"
                                 >
                                   <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
                                 </a>
                               ) : null}
                             </td>
-                            {ApiService.isAdmin() ? (
+                            {Auth.isAdmin() ? (
                               <td>
                                 <button
                                   name="editReportSheet"
