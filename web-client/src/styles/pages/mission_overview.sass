@@ -1,77 +1,78 @@
 
-.table-no-padding
-  td
-    padding: 5px 1px 5px 1px !important
-    text-align: center
-
-.einsatz
-  background: #00CC66
-  text-align: center
-
-.einsatzDraft
-  background: #FFCC99
-  text-align: center
-
-.einsatz-zivi-name
-  text-align: left !important
-  padding-left: 8px !important
-
-
-@media print
+.page__mission_overview
   .table-no-padding
     td
-      padding: 1px 1px 1px 1px !important
+      padding: 5px 1px 5px 1px !important
+      text-align: center
 
-  td
-    font-size: 6pt !important
+  .einsatz
+    background: #00CC66
+    text-align: center
+
+  .einsatzDraft
+    background: #FFCC99
+    text-align: center
 
   .einsatz-zivi-name
-    max-width: 65px
-    overflow: hidden
-    text-overflow: ellipsis
-    white-space: nowrap
-    padding-left: 1px !important
+    text-align: left !important
+    padding-left: 8px !important
 
-// scrollable table header (only while not printing)
-$cell-width: 25px
-$first-column-width: 40px
-$second-column-width: 100px
-$third-column-width: 150px
-@media not print
-	table#mission_overview_table
-		width: auto
 
-		// use display block to be able to use "position: relative" in child
-		thead, tbody
-			display: block
+  @media print
+    .table-no-padding
+      td
+        padding: 1px 1px 1px 1px !important
 
-		// prepare for moving header (top is set on every scroll)
-		thead
-			position: relative
-			top: 0
-			background-color: white
+    td
+      font-size: 6pt !important
 
-		// all small cells
-		tbody td[title], thead td:not([colspan])
-			width: $cell-width
-			min-width: $cell-width
+    .einsatz-zivi-name
+      max-width: 65px
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+      padding-left: 1px !important
 
-		//cell with text "name"
-		td[rowspan]
-			width: $first-column-width + $second-column-width + $third-column-width
-			min-width: $first-column-width + $second-column-width + $third-column-width
+  // scrollable table header (only while not printing)
+  $cell-width: 25px
+  $first-column-width: 40px
+  $second-column-width: 100px
+  $third-column-width: 150px
+  @media not print
+    table#mission_overview_table
+      width: auto
 
-		// first columns in table body
-		tbody td
-			&:nth-child(1)
-				width: $first-column-width
-				min-width: $first-column-width
-			&:nth-child(2)
-				width: $second-column-width
-				min-width: $second-column-width
-			// names will get cut off
-			&:nth-child(3)
-				width: $third-column-width
-				min-width: $third-column-width
-				max-width: $third-column-width
-				overflow: hidden
+      // use display block to be able to use "position: relative" in child
+      thead, tbody
+        display: block
+
+      // prepare for moving header (top is set on every scroll)
+      thead
+        position: relative
+        top: 0
+        background-color: white
+
+      // all small cells
+      tbody td[title], thead td:not([colspan])
+        width: $cell-width
+        min-width: $cell-width
+
+      //cell with text "name"
+      td[rowspan]
+        width: $first-column-width + $second-column-width + $third-column-width
+        min-width: $first-column-width + $second-column-width + $third-column-width
+
+      // first columns in table body
+      tbody td
+        &:nth-child(1)
+          width: $first-column-width
+          min-width: $first-column-width
+        &:nth-child(2)
+          width: $second-column-width
+          min-width: $second-column-width
+        // names will get cut off
+        &:nth-child(3)
+          width: $third-column-width
+          min-width: $third-column-width
+          max-width: $third-column-width
+          overflow: hidden

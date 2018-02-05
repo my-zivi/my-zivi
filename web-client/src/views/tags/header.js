@@ -48,7 +48,7 @@ export default class Header extends Component {
         <main id="content" style="padding-top: 0">
           {this.props.children}
         </main>
-        <span class="release-info">
+        <span class="release-info hide-print">
           {release} - {environment}
         </span>
       </div>

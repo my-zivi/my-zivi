@@ -97,12 +97,17 @@ export default class ExpensePaymentDetail extends Component {
     return parseFloat(Math.round(amount * 100) / 100).toFixed(2);
   }
 
+  total(sheets) {
+    const amount = sheets.reduce((sum, sheet) => sum + sheet.amount, 0);
+    return 'CHF ' + this.formatRappen(amount / 100);
+  }
+
   render() {
     const sheets = this.state.payment.sheets;
 
     return (
       <Header>
-        <div className="page page__expense">
+        <div className="page page__expense_payment_detail">
           <ScrollableCard>
             <h2>
               Auszahlung vom{' '}
@@ -118,8 +123,8 @@ export default class ExpensePaymentDetail extends Component {
                     <th>ZDP</th>
                     <th>Name</th>
                     <th>IBAN</th>
-                    <th>Betrag</th>
-                    <th>Bestätigen</th>
+                    <th class="amount">Betrag</th>
+                    <th class="hide-print">Bestätigen</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -132,12 +137,15 @@ export default class ExpensePaymentDetail extends Component {
                         </a>
                       </td>
                       <td>{sheet.iban}</td>
-                      <td>
+                      <td class="amount">
                         <a href={'/expense/' + sheet.report_sheet}>{'CHF ' + this.formatRappen(sheet.amount / 100)}</a>
                       </td>
-                      <td>{this.Confirmer(sheet)}</td>
+                      <td class="hide-print">{this.Confirmer(sheet)}</td>
                     </tr>
                   ))}
+                  <tr class="total show-print">
+                    <td colspan="4">{this.total(sheets)}</td>
+                  </tr>
                 </tbody>
               </table>
 
@@ -149,13 +157,10 @@ export default class ExpensePaymentDetail extends Component {
                   '?jwttoken=' +
                   encodeURI(localStorage.getItem('jwtToken'))
                 }
-                class="btn btn-primary"
+                class="btn btn-primary hide-print"
               >
                 zahlung.xml erneut herunterladen
               </a>
-
-              <br />
-              <br />
             </div>
           </ScrollableCard>
 
