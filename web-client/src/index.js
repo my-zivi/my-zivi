@@ -12,8 +12,7 @@ const browserHistory = createBrowserHistory();
 Inferno.render(<Router history={browserHistory}>{views}</Router>, document.getElementById('root'));
 
 if (process.env.NODE_ENV === 'production') {
-  if ('serviceWorker' in navigator && location.protocol === 'https:')
-  {
+  if ('serviceWorker' in navigator && location.protocol === 'https:') {
     // disable serviceworker, it seems to make more trouble than help
     //navigator.serviceWorker.register('/service-worker.js');
   }
