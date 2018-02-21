@@ -2,7 +2,7 @@
 composer global require "squizlabs/php_codesniffer=*"
 $HOME/.composer/vendor/bin/phpcbf --standard=psr2 api/
 code1=$?
-$HOME/.composer/vendor/bin/phpcbf --standard=psr2 api/
+$HOME/.composer/vendor/bin/phpcbf --standard=psr2 api/ > /dev/null 2>&1
 code2=$?
 if [ $code1 -ne $code2 ]; then
   echo "PHP Api is not properly formatted. Please reformat and commit again. See #TODO"
