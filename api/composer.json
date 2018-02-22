@@ -5,14 +5,14 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7.0.0",
         "laravel/lumen-framework": "5.4.*",
         "vlucas/phpdotenv": "~2.2",
         "krisanalfa/lumen-dingo-adapter": "^0.0.3",
         "setasign/fpdi-fpdf": "1.6.2",
         "globalcitizen/php-iban": "^2.6",
-        "sentry/sentry": "dev-master",
-        "sentry/sentry-laravel": "dev-master"
+        "sentry/sentry": "^1.8.3",
+        "sentry/sentry-laravel": "^0.8.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
