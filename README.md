@@ -14,9 +14,9 @@ https://izivi.stiftungswo.ch/
 
 Ordner | Verwendung
 --- | ---
-- [api](api/readme.md) | Backend
-- [web-client](web-client/readme.md) | Frontend
-- migration | Datenmigration von altem iZivi
+[api](api/readme.md) | Backend
+[web-client](web-client/readme.md) | Frontend
+migration | Datenmigration von altem iZivi
 
 Die Ordner „api“ und „web-client“ haben jeweils eine Datei REAME.md mit einer Installationsanleitung. Fürs Backend gibt es eine Anleitung für Arbeiten an der Datenmigration. Diese ist nach dem Rollout 2017 nicht mehr relevant.
 
@@ -40,6 +40,13 @@ Die Ordner „api“ und „web-client“ haben jeweils eine Datei REAME.md mit 
 | IZI Toast                  | Snackbar for Error and Feedback http://izitoast.marcelodolce.com/ |
 | Survey JS                  | Darstellung der User Feedbacks |
 
+## Code Formatierung
+
+Das Backend und Frontend sollen immer sauber formatiert sein (wird von Travis überprüft).
+
+Vor dem commiten sollten immer die formatier-tools ausgeführt werden.
+
+Die Anleitungen dafür befinden sich in den jeweiligen [READMES](#ordnerstruktur).
 
 ## Komponenten
 

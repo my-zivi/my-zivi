@@ -3,6 +3,7 @@ sudo: false
 php:
   - 7.1
 before_script:
+  - ./ci/check_format.sh
   - cp ./api/.env.travis ./api/.env
   - ./ci/backend.sh
 script:

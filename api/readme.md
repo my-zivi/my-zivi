@@ -18,6 +18,14 @@ This Readme file covers developing and deploying the backend. See [web-client Re
 8. The API is now available on `localhost:48000`
 9. Run the database migration `docker exec izivi_api php artisan migrate`
 
+
+### Formatting
+
+[phpcbf](https://github.com/squizlabs/PHP_CodeSniffer) is used to automatically format our code based on [PSR-2](https://www.php-fig.org/psr/psr-2/).  
+Just run `composer run format` or `docker exec izivi_api composer run format`.
+
+You should run this before each commit or else the [CI](https://travis-ci.org/stiftungswo) system will yell at you.
+
 ### Logging
 
 For logging please use lumen logger (e.g. `\Log::warning("your message here.");`).
