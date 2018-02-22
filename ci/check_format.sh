@@ -1,4 +1,4 @@
-# checks if formatters could have been run locally to fix the code style 
+# checks if formatters could have been run locally to fix the code style
 
 # check backend (api)
 composer global require "squizlabs/php_codesniffer=*"
@@ -10,7 +10,7 @@ code1=$?
 $HOME/.composer/vendor/bin/phpcbf --standard=psr2 api/ > /dev/null 2>&1
 code2=$?
 if [ $code1 -ne $code2 ]; then
-  echo "PHP Api is not properly formatted. Please reformat and commit again. See #TODO"
+  echo "PHP Api is not properly formatted. Please reformat and commit again. See https://github.com/stiftungswo/izivi/tree/master/api#formatting"
   exit 1;
 fi
 
@@ -19,6 +19,6 @@ npm install -g prettier
 cd web-client
 prettier --list-different --print-width 140 --single-quote --trailing-comma es5 "src/**/*.js"
 if [ $? -ne 0 ]; then
-  echo "Web-client is not properly formatted. Please reformat and commit again. See #TODO"
+  echo "Web-client is not properly formatted. Please reformat and commit again. See https://github.com/stiftungswo/izivi/tree/master/web-client#formatting"
   exit 1;
 fi

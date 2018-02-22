@@ -8,6 +8,14 @@ This Readme File covers developing and deploying the frontend. See [api Readme](
 4. ``yarn install``
 5. ``yarn run watch``
 
+### Formatting
+
+[Prettier](https://prettier.io) is used to automatically format our code.  
+Just run `yarn format` or `docker exec izivi_web-client yarn format`.
+
+You should run this before each commit or else the [CI](https://travis-ci.org/stiftungswo) system will yell at you.
+
+
 ### Live Deployment
 1. change the BASE_URL in src/utils/api.js to point to your productive API (only if you want something different e.g. for a test deployment)
 2. ``yarn build``
