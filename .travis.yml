@@ -16,7 +16,8 @@ deploy:
     script: ci/deploy.sh test
     skip_cleanup: true
     on:
-      branch: dev
+      all_branches: true
+      condition: $TRAVIS_BRANCH == *-DEPLOY
   - provider: script
     script: ci/deploy.sh test
     skip_cleanup: true
