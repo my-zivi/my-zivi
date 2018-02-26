@@ -1,4 +1,4 @@
-#!/bin/bash -vue
+#!/bin/bash -vu
 
 # checks if formatters could have been run locally to fix the code style
 
