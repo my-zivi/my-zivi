@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+set -e #fail instantly on errors
+set -v #verbose output
+
 if [ ! -f $HOME/.ssh/id_rsa ]; then
   echo "Setting up SSH key"
   ./ci/establish-ssh.sh
@@ -18,12 +22,12 @@ case $1 in
     ;;
 esac
 
-#Read config env
+# This imports the config from $CONFIG_FILE on the remote system ($TARGET) into this scripts environment
 CONFIG_FILE=deploy/izivi.$ENVIRONMENT.env
 TARGET=$target
 export $(ssh $TARGET "cat $CONFIG_FILE" | xargs)
 
-TMP=izivi_deploy_tmp
+TMP=izivi_deploy_tmp_${TRAVIS_BRANCH}_${TRAVIS_COMMIT}
 BACKUP_DIR=./backup/izivi/$ENVIRONMENT
 
 if [ -z "$PROJECT_DIR" ]; then
