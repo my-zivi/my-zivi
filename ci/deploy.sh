@@ -42,4 +42,4 @@ ssh $TARGET mv $TMP $PROJECT_DIR
 # db backup and migrate
 ssh $TARGET mkdir -p $BACKUP_DIR && \
 ssh $TARGET "mysqldump -u $DB_USERNAME -p$DB_PASSWORD $DB_DATABASE | bzip2 -c > $BACKUP_DIR/${DB_DATABASE}_$(date +%Y_%m_%d-%H:%M:%S).sql.bz2" && \
-ssh $TARGET "cd $PROJECT_DIR/api && php72 artisan migrate --no-interaction"
+ssh $TARGET "cd $PROJECT_DIR/api && php72 artisan migrate --no-interaction --force"
