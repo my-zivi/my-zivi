@@ -1,8 +1,4 @@
-#!/bin/bash
-
-
-set -e #fail instantly on errors
-set -v #verbose output
+#!/bin/bash -vue
 
 if [ ! -f $HOME/.ssh/id_rsa ]; then
   echo "Setting up SSH key"
@@ -29,11 +25,6 @@ export $(ssh $TARGET "cat $CONFIG_FILE" | xargs)
 
 TMP=izivi_deploy_tmp_${TRAVIS_BRANCH}_${TRAVIS_COMMIT}
 BACKUP_DIR=./backup/izivi/$ENVIRONMENT
-
-if [ -z "$PROJECT_DIR" ]; then
-  echo "PROJECT_DIR is not set"
-  exit 1
-fi
 
 # upload and move folders
 cp web-client/htaccess.dist web-client/dist/.htaccess && \

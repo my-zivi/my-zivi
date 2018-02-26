@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -vue
 
 source ~/.nvm/nvm.sh && \
 nvm install 8.3 && \

@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -vue
 
 cd api
 composer install --no-interaction && \

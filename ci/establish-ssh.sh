@@ -1,4 +1,5 @@
-#!/bin/bash -x
+#!/bin/bash -vue
+
 SSH_FILE=$HOME/.ssh/id_rsa
 openssl aes-256-cbc \
     -K $encrypted_947905863296_key \
