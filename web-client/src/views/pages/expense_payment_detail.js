@@ -143,7 +143,7 @@ export default class ExpensePaymentDetail extends Component {
                       <td class="hide-print">{this.Confirmer(sheet)}</td>
                     </tr>
                   ))}
-                  <tr class="total show-print">
+                  <tr class="total">
                     <td colspan="4">{this.total(sheets)}</td>
                   </tr>
                 </tbody>
