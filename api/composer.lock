@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "70607ada3a7759ecba9d237f85db00a2",
+    "content-hash": "b61e39539c874f5361daca7a11262c48",
     "packages": [
         {
             "name": "dingo/api",
@@ -3603,16 +3603,16 @@
         },
         {
             "name": "flipbox/lumen-generator",
-            "version": "5.6.1",
+            "version": "5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/flipboxstudio/lumen-generator.git",
-                "reference": "ed6d22447f1c43092b9bb300cbebe48cb4dd54f5"
+                "reference": "ac3d296599a5210baa787de3f8da9b5341e199c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/flipboxstudio/lumen-generator/zipball/ed6d22447f1c43092b9bb300cbebe48cb4dd54f5",
-                "reference": "ed6d22447f1c43092b9bb300cbebe48cb4dd54f5",
+                "url": "https://api.github.com/repos/flipboxstudio/lumen-generator/zipball/ac3d296599a5210baa787de3f8da9b5341e199c9",
+                "reference": "ac3d296599a5210baa787de3f8da9b5341e199c9",
                 "shasum": ""
             },
             "require": {
@@ -3638,7 +3638,7 @@
                 }
             ],
             "description": "A Lumen Generator You Are Missing",
-            "time": "2018-02-13T06:11:59+00:00"
+            "time": "2018-01-24T12:08:35+00:00"
         },
         {
             "name": "fzaninotto/faker",

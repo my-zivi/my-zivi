@@ -18,7 +18,7 @@
         "fzaninotto/faker": "~1.4",
         "phpunit/phpunit": "~5.0",
         "mockery/mockery": "~0.9",
-        "flipbox/lumen-generator": "^5.4",
+        "flipbox/lumen-generator": "5.5.*",
         "squizlabs/php_codesniffer": "^3.2"
     },
     "autoload": {
