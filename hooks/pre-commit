@@ -1,0 +1,58 @@
+#!/bin/sh
+jsfiles=$(git diff --cached --name-only --diff-filter=ACM "*.js" | sed s,web-client/,git-export-dir/web-client/, | tr '\n' ' ')
+phpfiles=$(git diff --cached --name-only --diff-filter=ACM "*.php" | sed s,api/,git-export-dir/api/, | tr '\n' ' ')
+
+
+exitstatus=0
+
+
+if [[ ! ( -z "$jsfiles" ) ]];
+then
+
+    git checkout-index --prefix=web-client/git-export-dir/ -a
+    cd web-client/git-export-dir/
+
+    echo "$jsfiles" | xargs docker exec izivi_web-client npx prettier --list-different --print-width 140 --single-quote --trailing-comma es5
+
+    if [[ $? != 0 ]];
+    then
+        echo
+        echo "js files were not properly formatted, please format them with:"
+        echo "yarn format"
+        echo
+
+
+        exitstatus=1
+    fi
+
+    cd ../../
+    rm -rf web-client/git-export-dir/
+fi
+
+
+
+if [[ ! ( -z "$phpfiles" ) ]];
+then
+
+    git checkout-index --prefix=api/git-export-dir/ -a
+    cd api/git-export-dir/
+
+    echo "$phpfiles" | xargs docker exec izivi_api vendor/bin/phpcs --standard=psr2 | grep "PHPCBF CAN FIX" > /dev/null
+
+    if [[ $? -eq 0 ]];
+    then
+        echo
+        echo "php files were not properly formatted, please format them with:"
+        echo "composer run format"
+        echo
+
+        exitstatus=1
+    fi
+
+    cd ../../
+    rm -rf api/git-export-dir/
+fi
+
+
+
+exit $exitstatus
