@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CheckHolidayCommand;
 use App\Console\Commands\FetchBICs;
 use App\Console\Commands\SendFeedbackRemainderMails;
 use App\Console\Commands\DatabaseCreateCommand;
@@ -18,7 +19,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         SendFeedbackRemainderMails::class,
         DatabaseCreateCommand::class,
-        FetchBICs::class
+        FetchBICs::class,
+        CheckHolidayCommand::class,
     ];
 
     /**
