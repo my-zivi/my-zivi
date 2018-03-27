@@ -6,7 +6,7 @@
 
 # SWO iZivi #
 
-Der Code für das iZivi Tool das in der SWO verwendet wird. iZivi wurde im Juli 2017 neu lanciert, weil die PHP-Version der alten Applikation nicht mehr unterstützt wird. Der Aufwand um die Applikation neu zu schreiben ist kleiner, als die alte Applikation auf PHP 7 zu heben.
+iZivi ist ein Tool um Schweizer Zivildienstleistende in einem Einsatzbetrieb zu verwalten.
 
 https://izivi.stiftungswo.ch/
 
@@ -78,6 +78,23 @@ Hier wird ein JSON string aus den user_feedback_questions in der Datenbank zusam
 #### UserFeedback (Frontend)
 
 Im Frontend wird der JSON string vom Backend angezogen. Dieser String wird an die surveyjs library weitergegeben. Surveyjs rendert dann das HTML und setzt es in den Container „surveyContainer
+
+## Deployment
+
+Travis kann das Projekt mit seinen [deploy Skript](https://github.com/stiftungswo/izivi/blob/master/ci/deploy.sh) per SSH auf einem beliebigen Webhosting automatisch deployen. Dafür müssen auf dem Zielserver unter `~/deploy` folgende Files liegen:
+
+* izivi.prod.env (orientiert sich an [.env.example](https://github.com/stiftungswo/izivi/blob/master/api/.env.example)
+
+### Sentry
+
+Fehler auf Produktivsystemen werden auf Sentry geloggt wenn eine valide  `SENTRY_DSN` gesetzt ist. Siehe [Config](https://github.com/stiftungswo/izivi/blob/master/api/.env.example)
+
+Die Variablen werden im Travis Build abgefüllt.
+
+### Deployment at SWO
+
+Weitere Informationen im [privaten Wiki](https://wiki.stiftungswo.ch/it:sw:izivi#deployment)
+
 
 ## License
 
