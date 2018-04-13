@@ -19,3 +19,5 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+AddHandler application/x-httpd-php71 .php
