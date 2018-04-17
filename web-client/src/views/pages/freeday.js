@@ -7,6 +7,7 @@ import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
 import Toast from '../../utils/toast';
 import { api } from '../../utils/api';
+import update from 'immutability-helper';
 
 export default class Freeday extends Component {
   constructor(props) {
@@ -39,40 +40,51 @@ export default class Freeday extends Component {
 
   handleChange(e, i) {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    this.state['freedays'][i][e.target.name] = value;
-    this.setState(this.state);
+
+    //this.state['freedays'][i][e.target.name] = value;
+    this.setState({ freedays: update(this.state.freedays, { [i]: { [e.target.name]: { $set: value } } }) });
   }
 
   handleChangeNew(e) {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    this.state['newFreeday'][e.target.name] = value;
-    this.setState(this.state);
+    this.setState({
+      newFreeday: {
+        ...this.state.newFreeday,
+        [e.target.name]: value,
+      },
+    });
   }
 
-  handleNewDateChange(e, origin) {
+  handleNewDateChange(e) {
     let value = e.target.value;
 
     if (value === undefined || value == null || value == '') {
-      value = origin.state.lastDateValue;
+      value = this.state.lastDateValue;
     } else {
       value = DatePicker.dateFormat_CH2EN(value);
     }
 
-    origin.state['newFreeday'][e.target.name] = value;
-    origin.setState(this.state);
+    this.setState({
+      newFreeday: {
+        ...this.state.newFreeday,
+        [e.target.name]: value,
+      },
+    });
   }
 
-  handleDateChange(e, origin, index) {
+  handleDateChange(e, index) {
     let value = e.target.value;
 
     if (value === undefined || value == null || value == '') {
-      value = origin.state.lastDateValue;
+      value = this.state.lastDateValue;
     } else {
       value = DatePicker.dateFormat_CH2EN(value);
     }
 
-    origin.state['freedays'][index][e.target.name] = value;
-    origin.setState(this.state);
+    //origin.state['freedays'][index][e.target.name] = value;
+    this.setState({
+      freedays: update(this.state.freedays, { [index]: { [e.target.name]: { $set: value } } }),
+    });
   }
 
   save(i) {
@@ -127,19 +139,12 @@ export default class Freeday extends Component {
           <DatePicker
             id="date_from"
             value={this.state.newFreeday.date_from}
-            callback={this.handleNewDateChange}
-            callbackOrigin={this}
+            onChange={this.handleNewDateChange.bind(this)}
             showLabel={false}
           />
         </td>
         <td>
-          <DatePicker
-            id="date_to"
-            value={this.state.newFreeday.date_to}
-            callback={this.handleNewDateChange}
-            callbackOrigin={this}
-            showLabel={false}
-          />
+          <DatePicker id="date_to" value={this.state.newFreeday.date_to} onChange={this.handleNewDateChange.bind(this)} showLabel={false} />
         </td>
         <td>
           <select
@@ -178,19 +183,12 @@ export default class Freeday extends Component {
             <DatePicker
               id="date_from"
               value={this.state.freedays[i].date_from}
-              callback={(e, origin) => this.handleDateChange(e, origin, i)}
-              callbackOrigin={this}
+              onChange={e => this.handleDateChange(e, i)}
               showLabel={false}
             />
           </td>
           <td>
-            <DatePicker
-              id="date_to"
-              value={this.state.freedays[i].date_to}
-              callback={(e, origin) => this.handleDateChange(e, origin, i)}
-              callbackOrigin={this}
-              showLabel={false}
-            />
+            <DatePicker id="date_to" value={this.state.freedays[i].date_to} onChange={e => this.handleDateChange(e, i)} showLabel={false} />
           </td>
           <td>
             <select class="form-control" name="holiday_type" value={'' + freedays[i].holiday_type} onChange={e => this.handleChange(e, i)}>

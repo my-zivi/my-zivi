@@ -6,6 +6,7 @@ import Header from '../tags/header';
 import LoadingView from '../tags/loading-view';
 import moment from 'moment-timezone';
 import { api } from '../../utils/api';
+import update from 'immutability-helper';
 
 export default class MissionOverview extends Component {
   constructor(props) {
@@ -57,14 +58,14 @@ export default class MissionOverview extends Component {
   }
 
   handleChangeYear(e) {
-    this.state.year = e.target.value;
-    this.setState(this.state);
-    this.getMissions();
+    this.setState({ year: e.target.value }, () => this.getMissions());
   }
 
-  handleChange(e, i) {
-    this.state.specifications[e.target.name].selected = e.target.checked;
-    this.setState(this.state);
+  toggleSpecification(e) {
+    //this.state.specifications[i].selected = e.target.checked;
+    this.setState({
+      specifications: update(this.state.specifications, { [e.target.name]: { $toggle: ['selected'] } }),
+    });
   }
 
   componentDidUpdate() {
@@ -212,7 +213,7 @@ export default class MissionOverview extends Component {
                 name={x}
                 defaultChecked={true}
                 onchange={e => {
-                  this.handleChange(e);
+                  this.toggleSpecification(e);
                 }}
               />
               {specs[x].name}

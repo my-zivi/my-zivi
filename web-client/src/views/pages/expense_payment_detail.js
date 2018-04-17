@@ -44,26 +44,22 @@ export default class ExpensePaymentDetail extends Component {
     }
   };
 
-  setSheetState = (sheetId, state) =>
+  setSheetState(sheetId, state) {
+    const sheetIndex = this.state.payment.sheets.map(sheet => sheet.report_sheet).indexOf(sheetId);
     this.setState(
       update(this.state, {
         payment: {
           sheets: {
-            $set: this.state.payment.sheets.map(sheet => {
-              if (sheet.report_sheet === sheetId) {
-                return {
-                  ...sheet,
-                  state,
-                };
-              }
-              return sheet;
-            }),
+            [sheetIndex]: {
+              state: { $set: state },
+            },
           },
         },
       })
     );
+  }
 
-  updateState = (sheetId, state) => {
+  updateState(sheetId, state) {
     this.setSheetState(sheetId, -1);
     api()
       .put(`reportsheet/${sheetId}/state`, { state })
@@ -74,7 +70,7 @@ export default class ExpensePaymentDetail extends Component {
         Toast.showError('Bestätigen fehlgeschlagen', 'Ein Fehler ist aufgetreten', error, this.context);
         this.setSheetState(sheetId, -2);
       });
-  };
+  }
 
   componentDidMount() {
     this.getReportSheets();

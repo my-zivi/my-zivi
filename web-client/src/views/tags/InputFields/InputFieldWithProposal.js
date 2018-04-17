@@ -43,7 +43,7 @@ export default class InputFieldWithProposal extends InputField {
           name={this.props.id}
           value={this.props.value}
           className="form-control"
-          onChange={e => this.props.self.handleChange(e)}
+          onChange={this.props.onChange}
           readOnly={this.props.disabled}
         />
       </div>
@@ -78,7 +78,7 @@ export default class InputFieldWithProposal extends InputField {
         name={this.props.commentId}
         value={this.props.commentValue}
         className="form-control"
-        onChange={e => this.props.self.handleChange(e)}
+        onChange={this.props.onChange}
       />
     );
   }

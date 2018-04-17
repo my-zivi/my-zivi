@@ -6,6 +6,7 @@ import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import Toast from '../../utils/toast';
 import { api } from '../../utils/api';
+import update from 'immutability-helper';
 
 export default class Specifications extends Component {
   constructor(props) {
@@ -43,8 +44,11 @@ export default class Specifications extends Component {
 
   handleChange(e, i) {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    this.state['specifications'][i][e.target.name] = value;
-    this.setState(this.state);
+
+    //this.state['specifications'][i][e.target.name] = value;
+    this.setState({
+      specifications: update(this.state.specifications, { [i]: { [e.target.name]: { $set: value } } }),
+    });
   }
 
   save(i) {
@@ -63,8 +67,12 @@ export default class Specifications extends Component {
 
   handleChangeNew(e) {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    this.state['newSpec'][e.target.name] = value;
-    this.setState(this.state);
+    this.setState({
+      newSpec: {
+        ...this.state.newSpec,
+        [e.target.name]: value,
+      },
+    });
   }
 
   add() {

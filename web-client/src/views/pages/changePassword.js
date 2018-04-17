@@ -76,15 +76,7 @@ export default class ChangePassword extends Component {
 
   handleChange(e) {
     let value = e.target.value;
-    this.state[e.target.name] = value;
-    this.setState(this.state);
-  }
-
-  handleSecondPWChange(e) {
-    var targetSelect = document.getElementById(e.target.id);
-    let value = targetSelect.options[targetSelect.selectedIndex].value;
-    this.state[e.target.name] = value;
-    this.setState(this.state);
+    this.setState({ [e.target.name]: value });
   }
 
   render() {

@@ -69,7 +69,7 @@ export default class Missions extends Component {
                       id={missionKey + '_specification'}
                       name={missionKey + '_specification'}
                       class="form-control"
-                      onChange={e => self.handleSelectChange(e)}
+                      onChange={e => self.handleChange(e)}
                       required
                     >
                       {specification_options}
@@ -86,7 +86,7 @@ export default class Missions extends Component {
                       id={missionKey + '_mission_type'}
                       name={missionKey + '_mission_type'}
                       class="form-control"
-                      onChange={e => self.handleSelectChange(e)}
+                      onChange={e => self.handleChange(e)}
                     >
                       <option value="0" />
                       <option value="1">Erster Einsatz</option>
@@ -98,28 +98,26 @@ export default class Missions extends Component {
                   value={self.state['result'][missionKey + '_start']}
                   id={missionKey + '_start'}
                   label="Einsatzbeginn"
-                  callback={e => {
+                  onChange={e => {
                     self.handleDateChange(e, self);
                     this.getMissionDays(self, missionKey);
                   }}
-                  callbackOrigin={self}
                 />
                 <DatePicker
                   value={self.state['result'][missionKey + '_end']}
                   id={missionKey + '_end'}
                   label="Einsatzende"
-                  callback={e => {
+                  onChange={e => {
                     self.handleDateChange(e, self);
                     this.getMissionDays(self, missionKey);
                   }}
-                  callbackOrigin={self}
                 />
                 <InputFieldWithHelpText
                   value={self.state['result'][missionKey + '_days']}
                   id={missionKey + '_days'}
                   label="Tage"
                   popoverText={howerText_Tage}
-                  callback={e => {
+                  onChange={e => {
                     self.handleChange(e, self);
                     this.calculateMissionEndDate(e, self, missionKey);
                   }}
@@ -129,23 +127,22 @@ export default class Missions extends Component {
                   value={self.state['result'][missionKey + '_first_time']}
                   id={missionKey + '_first_time'}
                   label="Erster SWO Einsatz"
-                  self={self}
+                  onChange={self.handleChange.bind(self)}
                 />
                 <InputCheckbox
                   value={self.state['result'][missionKey + '_long_mission']}
                   id={missionKey + '_long_mission'}
                   label="Langer Einsatz oder Teil davon"
-                  callback={e => {
+                  onChange={e => {
                     self.handleChange(e);
                     this.getMissionDays(self, missionKey);
                   }}
-                  self={self}
                 />
                 <InputCheckbox
                   value={self.state['result'][missionKey + '_probation_period']}
                   id={missionKey + '_probation_period'}
                   label="Probeeinsatz"
-                  self={self}
+                  onChange={self.handleChange.bind(self)}
                 />
                 <hr />
                 <h4>Status</h4>
@@ -359,8 +356,12 @@ export default class Missions extends Component {
   }
 
   calculateMissionEndDate(e, self, missionKey) {
-    self.state['result'][e.target.name] = e.target.value; // update days
-    self.setState(self.state);
+    self.setState({
+      result: {
+        ...self.state.result,
+        [e.target.name]: e.target.value, // update days
+      },
+    });
     let startDate = self.state['result'][missionKey + '_start'];
 
     if (e.target.value && e.target.value > 0 && startDate) {

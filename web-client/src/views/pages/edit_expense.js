@@ -45,36 +45,46 @@ export default class EditExpense extends Component {
 
   handleChange(e) {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    this.state['report_sheet'][e.target.name] = value;
-    this.setState(this.state);
+    this.setState({
+      report_sheet: {
+        ...this.state.report_sheet,
+        [e.target.name]: value,
+      },
+    });
   }
 
   handleSelectChange(e) {
     let value = 1;
-    this.state['report_sheet'][e.target.name] = value;
-    this.setState(this.state);
+    this.setState({
+      report_sheet: {
+        ...this.state.report_sheet,
+        [e.target.name]: value,
+      },
+    });
   }
 
-  handleDateChange(e, origin) {
+  handleDateChange(e) {
     let value = e.target.value;
 
     if (value === undefined || value == null || value == '') {
-      value = origin.state.lastDateValue;
+      value = this.state.lastDateValue;
     } else {
       value = DatePicker.dateFormat_CH2EN(value);
     }
 
-    origin.state['report_sheet'][e.target.name] = value;
-    origin.state['report_sheet']['meldeblaetter_tage'] =
-      moment(origin.state['report_sheet']['meldeblaetter_end']).diff(moment(origin.state['report_sheet']['meldeblaetter_start']), 'days') +
-      1;
-    origin.setState(this.state);
+    this.setState({
+      report_sheet: {
+        ...this.state.report_sheet,
+        [e.target.name]: value,
+        meldeblaetter_tage:
+          moment(this.state['report_sheet']['meldeblaetter_end']).diff(moment(this.state['report_sheet']['meldeblaetter_start']), 'days') +
+          1,
+      },
+    });
   }
 
   handleForceSave(e) {
-    const value = e.target.checked;
-    this.state.force_save = value;
-    this.setState(this.state);
+    this.setState({ force_save: !this.state.force_save });
   }
 
   save() {
@@ -149,37 +159,34 @@ export default class EditExpense extends Component {
             <br />
             <br />
 
-            <InputField id="pid" label="Pflichtenheft" value={sheet.pflichtenheft_id + ' ' + sheet.pflichtenheft_name} disabled="true" />
-            <DatePicker id="einsaetze_start" label="Beginn Einsatz" value={sheet.einsaetze_start} disabled="true" />
+            <InputField id="pid" label="Pflichtenheft" value={sheet.pflichtenheft_id + ' ' + sheet.pflichtenheft_name} disabled />
+            <DatePicker id="einsaetze_start" label="Beginn Einsatz" value={sheet.einsaetze_start} disabled />
             <DatePicker
               id="einsaetze_end"
               label="Ende Einsatz"
               value={sheet.einsaetze_end}
-              callback={this.handleDateChange}
-              callbackOrigin={this}
+              onChange={this.handleDateChange.bind(this)}
               disabled="true"
             />
             <DatePicker
               id="meldeblaetter_start"
               label="Beginn Meldeblattperiode"
               value={sheet.meldeblaetter_start}
-              callback={this.handleDateChange}
-              callbackOrigin={this}
+              onChange={this.handleDateChange.bind(this)}
             />
             <DatePicker
               id="meldeblaetter_end"
               label="Ende Meldeblattperiode"
               value={sheet.meldeblaetter_end}
-              callback={this.handleDateChange}
-              callbackOrigin={this}
+              onChange={this.handleDateChange.bind(this)}
             />
             <InputField
               id="einsaetze_eligibleholiday"
               label="Ferienanspruch für Einsatz"
               value={sheet.einsaetze_eligibleholiday}
-              disabled="true"
+              disabled
             />
-            <InputField id="meldeblaetter_tage" label="Dauer" value={sheet.meldeblaetter_tage + ' Tage'} disabled="true" />
+            <InputField id="meldeblaetter_tage" label="Dauer" value={sheet.meldeblaetter_tage + ' Tage'} disabled />
             <hr />
 
             <InputFieldWithProposal
@@ -189,8 +196,8 @@ export default class EditExpense extends Component {
               inputType="number"
               proposalValue={sheet.meldeblaetter_workdays_proposal}
               showComment={false}
-              self={this}
               doValidation={true}
+              onChange={this.handleChange.bind(this)}
             />
 
             <InputFieldWithProposal
@@ -203,7 +210,7 @@ export default class EditExpense extends Component {
               doValidation={true}
               commentId="meldeblaetter_workfree_comment"
               commentValue={sheet.meldeblaetter_workfree_comment}
-              self={this}
+              onChange={this.handleChange.bind(this)}
             />
 
             <InputFieldWithProposal
@@ -215,7 +222,7 @@ export default class EditExpense extends Component {
               showComment={true}
               commentId="meldeblaetter_compholiday_comment"
               commentValue={sheet.meldeblaetter_compholiday_comment}
-              self={this}
+              onChange={this.handleChange.bind(this)}
             />
 
             <InputFieldWithProposal
@@ -225,21 +232,16 @@ export default class EditExpense extends Component {
               inputType="number"
               proposalValue={sheet.meldeblaetter_ferien_wegen_urlaub_proposal}
               showComment={false}
-              self={this}
+              onChange={this.handleChange.bind(this)}
             />
 
-            <InputField
-              id="meldeblaetter_add_workfree"
-              label="Zusätzlich Arbeitsfrei"
-              value={sheet.meldeblaetter_add_workfree}
-              disabled="true"
-            />
+            <InputField id="meldeblaetter_add_workfree" label="Zusätzlich Arbeitsfrei" value={sheet.meldeblaetter_add_workfree} disabled />
             <div class="proposalComment">
               <InputField
                 id="meldeblaetter_add_workfree_comment"
                 label="Bemerkung"
                 value={sheet.meldeblaetter_add_workfree_comment}
-                self={this}
+                onChange={this.handleChange.bind(this)}
               />
             </div>
             <hr />
@@ -254,7 +256,7 @@ export default class EditExpense extends Component {
               showComment={true}
               commentId="meldeblaetter_ill_comment"
               commentValue={sheet.meldeblaetter_ill_comment}
-              self={this}
+              onChange={this.handleChange.bind(this)}
             />
 
             <InputFieldWithProposal
@@ -267,18 +269,23 @@ export default class EditExpense extends Component {
               showComment={true}
               commentId="meldeblaetter_holiday_comment"
               commentValue={sheet.meldeblaetter_holiday_comment}
-              self={this}
+              onChange={this.handleChange.bind(this)}
             />
 
             <InputField
               id="meldeblaetter_urlaub"
               label="Persönlicher Urlaub"
               value={sheet.meldeblaetter_urlaub}
-              self={this}
+              onChange={this.handleChange.bind(this)}
               inputType="number"
             />
             <div class="proposalComment">
-              <InputField id="meldeblaetter_urlaub_comment" label="Bemerkung" value={sheet.meldeblaetter_urlaub_comment} self={this} />
+              <InputField
+                id="meldeblaetter_urlaub_comment"
+                label="Bemerkung"
+                value={sheet.meldeblaetter_urlaub_comment}
+                onChange={this.handleChange.bind(this)}
+              />
             </div>
             <hr />
 
@@ -290,21 +297,21 @@ export default class EditExpense extends Component {
               showComment={true}
               commentId="meldeblaetter_kleider_comment"
               commentValue={sheet.meldeblaetter_kleider_comment}
-              self={this}
+              onChange={this.handleChange.bind(this)}
             />
 
             <InputField
               id="meldeblaetter_fahrspesen"
               label="Fahrspesen"
               value={this.formatRappen(sheet.meldeblaetter_fahrspesen)}
-              self={this}
+              onChange={this.handleChange.bind(this)}
             />
             <div class="proposalComment">
               <InputField
                 id="meldeblaetter_fahrspesen_comment"
                 label="Bemerkung"
                 value={sheet.meldeblaetter_fahrspesen_comment}
-                self={this}
+                onChange={this.handleChange.bind(this)}
               />
             </div>
             <hr />
@@ -313,22 +320,27 @@ export default class EditExpense extends Component {
               id="meldeblaetter_ausserordentlich"
               label="Ausserordentliche Spesen"
               value={this.formatRappen(sheet.meldeblaetter_ausserordentlich)}
-              self={this}
+              onChange={this.handleChange.bind(this)}
             />
             <div class="proposalComment">
               <InputField
                 id="meldeblaetter_ausserordentlich_comment"
                 label="Bemerkung"
                 value={sheet.meldeblaetter_ausserordentlich_comment}
-                self={this}
+                onChange={this.handleChange.bind(this)}
               />
             </div>
             <hr />
 
-            <InputField id="total" label="Total" value={this.formatRappen(sheet.total) + ' Fr.'} disabled="true" />
+            <InputField id="total" label="Total" value={this.formatRappen(sheet.total) + ' Fr.'} disabled />
 
-            <InputField id="bank_account_number" label="Konto-Nr." value={sheet.bank_account_number} self={this} />
-            <InputField id="document_number" label="Beleg-Nr." value={sheet.document_number} self={this} />
+            <InputField
+              id="bank_account_number"
+              label="Konto-Nr."
+              value={sheet.bank_account_number}
+              onChange={this.handleChange.bind(this)}
+            />
+            <InputField id="document_number" label="Beleg-Nr." value={sheet.document_number} onChange={this.handleChange.bind(this)} />
 
             <div class="form-group">
               <label class="control-label col-sm-3" for="state">
@@ -402,8 +414,7 @@ export default class EditExpense extends Component {
                 id="force_save"
                 value={this.state.force_save}
                 label="Speichern erzwingen"
-                self={this}
-                callback={e => this.handleForceSave(e)}
+                onChange={e => this.handleForceSave(e)}
               />
             </div>
           </form>

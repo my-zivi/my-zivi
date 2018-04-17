@@ -48,23 +48,23 @@ export default class UserList extends Component {
 
   handleChange(e) {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    this.state[e.target.name] = value;
-    this.setState(this.state);
+    this.setState({
+      [e.target.name]: value,
+    });
   }
 
-  handleDateChange(e, origin) {
+  handleDateChange(e) {
     let value = e.target.value;
 
     if (value === undefined || value == null || value == '') {
-      value = origin.state.lastDateValue;
+      value = this.state.lastDateValue;
     } else {
       value = DatePicker.dateFormat_CH2EN(value);
     }
 
     value = value.slice(0, 10);
 
-    origin.state[e.target.name] = value;
-    origin.setState(this.state);
+    this.setState({ [e.target.name]: value });
   }
 
   deleteUser(user) {
@@ -177,16 +177,10 @@ export default class UserList extends Component {
                     />
                   </td>
                   <td>
-                    <DatePicker
-                      id="start"
-                      value={this.state.start}
-                      callback={this.handleDateChange}
-                      callbackOrigin={this}
-                      showLabel={false}
-                    />
+                    <DatePicker id="start" value={this.state.start} onChange={this.handleDateChange.bind(this)} showLabel={false} />
                   </td>
                   <td>
-                    <DatePicker id="end" value={this.state.end} callback={this.handleDateChange} callbackOrigin={this} showLabel={false} />
+                    <DatePicker id="end" value={this.state.end} onChange={this.handleDateChange.bind(this)} showLabel={false} />
                   </td>
                   <td className="hidden-xs">
                     <input

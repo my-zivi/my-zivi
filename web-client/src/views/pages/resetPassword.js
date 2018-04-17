@@ -72,8 +72,9 @@ export default class ResetPassword extends Component {
 
   handleChange(e) {
     let value = e.target.value;
-    this.state[e.target.name] = value;
-    this.setState(this.state);
+    this.setState({
+      [e.target.name]: value,
+    });
   }
 
   render() {

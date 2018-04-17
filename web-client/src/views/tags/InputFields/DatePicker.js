@@ -56,7 +56,7 @@ export default class DatePicker extends InputField {
           id={this.props.id}
           name={this.props.id}
           value={dateValue}
-          onChange={e => this.props.callback(e, this.props.callbackOrigin)}
+          onChange={e => this.props.onChange(e)}
           readonly={this.props.disabled}
         />
         <span class="input-group-addon add-on">
