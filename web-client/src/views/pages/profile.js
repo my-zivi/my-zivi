@@ -42,10 +42,6 @@ export default class User extends Component {
     this.getReportSheets();
   }
 
-  componentDidUpdate() {
-    this.validateIBAN($('#bank_iban').val());
-  }
-
   componentWillReceiveProps(nextProps) {
     this.props = nextProps;
     this.componentDidMount();
@@ -183,10 +179,8 @@ export default class User extends Component {
     var regex = new RegExp('^CH\\d{2,2}\\s{0,1}(\\w{4,4}\\s{0,1}){4,7}\\w{0,2}$', 'g');
 
     if (regex.test(value)) {
-      $('#ibanFormGroup').removeClass('has-warning');
       return true;
     } else {
-      $('#ibanFormGroup').addClass('has-warning');
       return false;
     }
   }
@@ -299,7 +293,7 @@ export default class User extends Component {
                 <hr />
                 <h3>Bank-/Postverbindung</h3>
 
-                <div class="form-group" id="ibanFormGroup">
+                <div class={'form-group ' + (this.validateIBAN(result.bank_iban) ? '' : 'has-warning')} id="ibanFormGroup">
                   <label class="control-label col-sm-3" for="bank_iban">
                     IBAN-Nr.
                   </label>

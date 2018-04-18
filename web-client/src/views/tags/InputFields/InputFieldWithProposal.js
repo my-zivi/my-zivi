@@ -4,25 +4,15 @@ import Component from 'inferno-component';
 import InputField from './InputField';
 
 export default class InputFieldWithProposal extends InputField {
-  validateMainField() {
-    if (this.props.doValidation !== undefined && this.props.doValidation == true) {
-      let mainValue = $('#' + this.props.id).val();
+  isMainValid() {
+    if (this.props.doValidation) {
+      let mainValue = this.props.value;
       let proposalValue = this.props.proposalValue;
 
-      if (mainValue == proposalValue) {
-        $('#' + this.props.id)
-          .parent()
-          .removeClass('has-warning');
-      } else {
-        $('#' + this.props.id)
-          .parent()
-          .addClass('has-warning');
-      }
+      return mainValue == proposalValue;
+    } else {
+      return true;
     }
-  }
-
-  componentDidMount() {
-    this.validateMainField();
   }
 
   render() {
@@ -46,18 +36,17 @@ export default class InputFieldWithProposal extends InputField {
     let inputType = this.lookForInputType(this.props.inputType);
 
     return (
-      <input
-        type={inputType}
-        id={this.props.id}
-        name={this.props.id}
-        value={this.props.value}
-        className="form-control"
-        onChange={e => {
-          this.validateMainField();
-          this.props.self.handleChange(e);
-        }}
-        readonly={this.props.disabled}
-      />
+      <div class={this.isMainValid() ? '' : 'has-warning'}>
+        <input
+          type={inputType}
+          id={this.props.id}
+          name={this.props.id}
+          value={this.props.value}
+          className="form-control"
+          onChange={e => this.props.self.handleChange(e)}
+          readOnly={this.props.disabled}
+        />
+      </div>
     );
   }
 

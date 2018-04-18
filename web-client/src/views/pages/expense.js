@@ -17,6 +17,7 @@ export default class ExpenseOverview extends Component {
     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString();
 
     this.state = {
+      activeReportSheet: null,
       report_sheets: [],
       zdp: '',
       name: '',
@@ -36,12 +37,8 @@ export default class ExpenseOverview extends Component {
   }
 
   getReportSheets(url, tabId) {
-    $('#tab1').attr('class', 'btn btn-default');
-    $('#tab2').attr('class', 'btn btn-default');
-    $('#tab3').attr('class', 'btn btn-default');
-    $('#tab' + tabId).attr('class', 'btn btn-primary');
-
     this.setState({
+      activeReportSheet: tabId,
       zdp: '',
       name: '',
       start: '',
@@ -192,13 +189,25 @@ export default class ExpenseOverview extends Component {
             <h2>Meldeblätter</h2>
 
             <div class="btn-group">
-              <button id="tab1" onclick={() => this.getReportSheets('reportsheet', 1)}>
+              <button
+                id="tab1"
+                class={this.state.activeReportSheet === 1 ? 'btn btn-primary' : 'btn btn-default'}
+                onclick={() => this.getReportSheets('reportsheet', 1)}
+              >
                 Alle Meldeblätter anzeigen
               </button>
-              <button id="tab2" onclick={() => this.getReportSheets('reportsheet/pending', 2)}>
+              <button
+                id="tab2"
+                class={this.state.activeReportSheet === 2 ? 'btn btn-primary' : 'btn btn-default'}
+                onclick={() => this.getReportSheets('reportsheet/pending', 2)}
+              >
                 Pendente Meldeblätter anzeigen
               </button>
-              <button id="tab3" onclick={() => this.getReportSheets('reportsheet/current', 3)}>
+              <button
+                id="tab3"
+                class={this.state.activeReportSheet === 3 ? 'btn btn-primary' : 'btn btn-default'}
+                onclick={() => this.getReportSheets('reportsheet/current', 3)}
+              >
                 Aktuelle Meldeblätter anzeigen
               </button>
             </div>
