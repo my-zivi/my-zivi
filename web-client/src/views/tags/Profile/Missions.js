@@ -255,12 +255,12 @@ export default class Missions extends Component {
         }
 
         missions.push(
-          <div class="row">
-            <div class="col-xs-2">{name}</div>
-            <div class="col-xs-2">{moment(m[i].start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
-            <div class="col-xs-2">{moment(m[i].end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
-            <div class="col-xs-1">{curMission == null || curMission.draft == null ? draftOpenIcon : confirmedIcon}</div>
-            <div class="col-xs-1">
+          <tr>
+            <td>{name}</td>
+            <td>{moment(m[i].start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
+            <td>{moment(m[i].end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
+            <td>{curMission == null || curMission.draft == null ? draftOpenIcon : confirmedIcon}</td>
+            <td>
               <a
                 class="btn btn-xs"
                 href={ApiService.BASE_URL + 'mission/' + curMission.id + '/draft?jwttoken=' + encodeURI(localStorage.getItem('jwtToken'))}
@@ -268,16 +268,18 @@ export default class Missions extends Component {
               >
                 <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
               </a>
-            </div>
-            <div class="col-xs-1 hidden-xs">
-              <button class="btn btn-xs btn-warning" data-toggle="modal" data-target={'#einsatzModal' + m[i].id}>
-                <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
-              </button>
-            </div>
-            <div class="col-xs-1 hidden-xs">{deleteButton}</div>
-            <div class="col-xs-1 hidden-xs">{addButton}</div>
-            <div class="col-xs-1 hidden-xs">{feedbackButton}</div>
-          </div>
+            </td>
+            <td>
+              <div>
+                <button class="btn btn-xs btn-warning" data-toggle="modal" data-target={'#einsatzModal' + m[i].id}>
+                  <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
+                </button>&nbsp;
+                {deleteButton}&nbsp;
+                {addButton}&nbsp;
+                {feedbackButton}
+              </div>
+            </td>
+          </tr>
         );
         missions.push(this.renderMissions(self, m[i], ApiService.isAdmin()));
       }

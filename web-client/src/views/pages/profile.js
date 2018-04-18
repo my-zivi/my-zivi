@@ -433,14 +433,21 @@ export default class User extends Component {
               <br />
 
               <h3>Einsätze</h3>
-              <div class="container">
-                <div class="row">
-                  <div class="col-xs-2">Pflichtenheft</div>
-                  <div class="col-xs-2">Start</div>
-                  <div class="col-xs-3">Ende</div>
-                </div>
+              <div class="table-responsive">
+                <table class="table table-condensed">
+                  <thead>
+                    <tr>
+                      <th>Pflichtenheft</th>
+                      <th>Start</th>
+                      <th>Ende</th>
+                      <th />
+                      <th />
+                      <th />
+                    </tr>
+                  </thead>
+                  <tbody>{missions}</tbody>
+                </table>
               </div>
-              <div class="container">{missions}</div>
               <br />
               <button class="btn btn-success" data-toggle="modal" data-target="#einsatzModal">
                 Neue Einsatzplanung hinzufügen
@@ -453,68 +460,74 @@ export default class User extends Component {
               <br />
 
               <h3>Meldeblätter</h3>
-              <div class="container">
-                <div class="row">
-                  <div class="col-xs-2">Von</div>
-                  <div class="col-xs-2">Bis</div>
-                  <div class="col-xs-2">Anzahl Tage</div>
-                  <div class="col-xs-1">Status</div>
-                </div>
-              </div>
-              <div class="container">
-                {this.state.reportSheets.length
-                  ? this.state.reportSheets.map(obj => (
-                      <div class="row">
-                        <div class="col-xs-2">{moment(obj.start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
-                        <div class="col-xs-2">{moment(obj.end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</div>
-                        <div class="col-xs-2">{obj.days}</div>
-                        <div class="col-xs-1">
-                          {obj.state > 0 ? (
-                            obj.state === 3 ? (
-                              <a data-toggle="popover" title="" data-content="Erledigt">
-                                <span class="glyphicon glyphicon-ok" style="color:green" />
-                              </a>
-                            ) : (
-                              <a data-toggle="popover" title="" data-content="In Bearbeitung">
-                                <span class="glyphicon glyphicon-hourglass" style="color:orange" />
-                              </a>
-                            )
-                          ) : (
-                            ''
-                          )}
-                        </div>
-                        <div class="col-xs-1">
-                          {obj.state === 3 ? (
-                            <a
-                              name="showReportSheet"
-                              class="btn btn-xs btn-link"
-                              href={
-                                ApiService.BASE_URL +
-                                'pdf/zivireportsheet?reportSheetId=' +
-                                obj.id +
-                                '&jwttoken=' +
-                                encodeURI(localStorage.getItem('jwtToken'))
-                              }
-                              target="_blank"
-                            >
-                              <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
-                            </a>
-                          ) : null}
-                        </div>
-                        {ApiService.isAdmin() ? (
-                          <div class="col-xs-2">
-                            <button
-                              name="editReportSheet"
-                              class="btn btn-link btn-xs btn-warning"
-                              onClick={() => this.router.push('/expense/' + obj.id)}
-                            >
-                              <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
-                            </button>
-                          </div>
-                        ) : null}
-                      </div>
-                    ))
-                  : null}
+              <div class="table-responsive">
+                <table class="table table-condensed">
+                  <thead>
+                    <tr>
+                      <th>Von</th>
+                      <th>Bis</th>
+                      <th>Anzahl Tage</th>
+                      <th>Status</th>
+                      <th />
+                      {ApiService.isAdmin() ? <th /> : null}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.reportSheets.length
+                      ? this.state.reportSheets.map(obj => (
+                          <tr>
+                            <td>{moment(obj.start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
+                            <td>{moment(obj.end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
+                            <td>{obj.days}</td>
+                            <td>
+                              {obj.state > 0 ? (
+                                obj.state === 3 ? (
+                                  <a data-toggle="popover" title="" data-content="Erledigt">
+                                    <span class="glyphicon glyphicon-ok" style="color:green" />
+                                  </a>
+                                ) : (
+                                  <a data-toggle="popover" title="" data-content="In Bearbeitung">
+                                    <span class="glyphicon glyphicon-hourglass" style="color:orange" />
+                                  </a>
+                                )
+                              ) : (
+                                ''
+                              )}
+                            </td>
+                            <td>
+                              {obj.state === 3 ? (
+                                <a
+                                  name="showReportSheet"
+                                  class="btn btn-xs btn-link"
+                                  href={
+                                    ApiService.BASE_URL +
+                                    'pdf/zivireportsheet?reportSheetId=' +
+                                    obj.id +
+                                    '&jwttoken=' +
+                                    encodeURI(localStorage.getItem('jwtToken'))
+                                  }
+                                  target="_blank"
+                                >
+                                  <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
+                                </a>
+                              ) : null}
+                            </td>
+                            {ApiService.isAdmin() ? (
+                              <td>
+                                <button
+                                  name="editReportSheet"
+                                  class="btn btn-link btn-xs btn-warning"
+                                  onClick={() => this.router.push('/expense/' + obj.id)}
+                                >
+                                  <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
+                                </button>
+                              </td>
+                            ) : null}
+                          </tr>
+                        ))
+                      : null}
+                  </tbody>
+                </table>
               </div>
             </div>
             <br />
