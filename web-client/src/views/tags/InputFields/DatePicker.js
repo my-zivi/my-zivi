@@ -20,7 +20,8 @@ export default class DatePicker extends InputField {
     $(this.element).datepicker({
       format: 'dd.mm.yyyy',
       autoclose: true,
-      startView: 'decade',
+      startView: 'days',
+      todayHighlight: true,
       weekStart: 1,
       language: 'de',
     });
