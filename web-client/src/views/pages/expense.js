@@ -33,7 +33,6 @@ export default class ExpenseOverview extends Component {
 
   componentDidMount() {
     this.getReportSheets('reportsheet/pending', 2);
-    DatePicker.initializeDatePicker();
   }
 
   getReportSheets(url, tabId) {

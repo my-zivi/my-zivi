@@ -23,7 +23,6 @@ export default class ExpensePayment extends Component {
 
   componentDidMount() {
     this.getReportSheets();
-    DatePicker.initializeDatePicker();
   }
 
   getReportSheets() {

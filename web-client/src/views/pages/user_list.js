@@ -30,7 +30,6 @@ export default class UserList extends Component {
 
   componentDidMount() {
     this.getUsers();
-    DatePicker.initializeDatePicker();
   }
 
   getUsers() {

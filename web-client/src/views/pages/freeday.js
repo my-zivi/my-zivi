@@ -23,10 +23,6 @@ export default class Freeday extends Component {
     this.getFreedays();
   }
 
-  componentDidUpdate() {
-    DatePicker.initializeDatePicker();
-  }
-
   getFreedays() {
     this.setState({ loading: true, error: null });
     axios

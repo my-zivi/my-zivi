@@ -75,8 +75,4 @@ export default class UserPhoneList extends Component {
       </Header>
     );
   }
-
-  componentDidMount() {
-    DatePicker.initializeDatePicker();
-  }
 }

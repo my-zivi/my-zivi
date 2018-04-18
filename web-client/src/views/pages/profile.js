@@ -43,7 +43,6 @@ export default class User extends Component {
   }
 
   componentDidUpdate() {
-    DatePicker.initializeDatePicker();
     this.validateIBAN($('#bank_iban').val());
   }
 

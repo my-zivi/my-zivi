@@ -29,10 +29,6 @@ export default class EditExpense extends Component {
     this.getReportSheet();
   }
 
-  componentDidUpdate() {
-    DatePicker.initializeDatePicker();
-  }
-
   getReportSheet() {
     this.setState({ loading: true, error: null });
     axios

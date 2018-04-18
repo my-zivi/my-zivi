@@ -25,7 +25,6 @@ export default class UserFeedbackOverview extends Component {
 
   componentDidMount() {
     this.getFeedbackAnswers();
-    DatePicker.initializeDatePicker();
   }
 
   dbDate(sec) {

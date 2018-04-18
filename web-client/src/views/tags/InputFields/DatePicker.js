@@ -5,6 +5,9 @@ import InputField from './InputField';
 import moment from 'moment-timezone';
 
 export default class DatePicker extends InputField {
+  // element ref
+  element = null;
+
   static dateFormat_EN2CH(value) {
     return moment(value).format('DD.MM.YYYY');
   }
@@ -13,14 +16,18 @@ export default class DatePicker extends InputField {
     return moment(value, 'DD.MM.YYYY').format('YYYY-MM-DD');
   }
 
-  static initializeDatePicker() {
-    $('.datePicker').datepicker({
+  componentDidMount() {
+    $(this.element).datepicker({
       format: 'dd.mm.yyyy',
       autoclose: true,
       startView: 'decade',
       weekStart: 1,
       language: 'de',
     });
+  }
+
+  componentWillUnmount() {
+    $(this.element).datepicker('destroy');
   }
 
   render() {
@@ -37,7 +44,11 @@ export default class DatePicker extends InputField {
     }
 
     return this.getFormGroup(
-      <div class={'input-group input-append date ' + (this.props.disabled ? '' : 'datePicker')} id="datePicker">
+      <div
+        class={'input-group input-append date ' + (this.props.disabled ? '' : 'datePicker')}
+        id="datePicker"
+        ref={picker => (this.element = picker)}
+      >
         <input
           type="text"
           class="form-control"
