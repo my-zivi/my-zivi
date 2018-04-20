@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import * as Inferno from 'inferno';
 import { Router } from 'inferno-router';
-import {initDevTools} from 'inferno-devtools';
+import { initDevTools } from 'inferno-devtools';
 import { createBrowserHistory } from 'history';
 import views from './views';
 import './index.css';

@@ -1,11 +1,11 @@
-import {Component} from 'inferno';
+import { Component } from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
 import axios from 'axios';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import moment from 'moment-timezone';
-import {Glyphicon} from '../tags/Glyphicon';
+import { Glyphicon } from '../tags/Glyphicon';
 import update from 'immutability-helper';
 
 export default class ExpensePaymentDetail extends Component {

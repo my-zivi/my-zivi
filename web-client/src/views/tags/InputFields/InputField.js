@@ -1,4 +1,4 @@
-import {Component} from 'inferno';
+import { Component } from 'inferno';
 
 export default class InputField extends Component {
   getFormGroup(inputField, additionalContent = null, contentWidth = 9, showLabel = true) {

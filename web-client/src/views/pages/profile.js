@@ -1,4 +1,4 @@
-import {Component} from 'inferno';
+import { Component } from 'inferno';
 import Card from '../tags/card';
 import InputField from '../tags/InputFields/InputField';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';
@@ -386,7 +386,7 @@ export default class User extends Component {
                       class="form-control"
                       value={result.work_experience}
                       onInput={e => this.handleTextareaChange(e)}
-                    ></textarea>
+                    />
                   </div>
                   <div id="_helpberufserfahrung" className="col-sm-1 hidden-xs">
                     <a data-toggle="popover" title="Berufserfahrung" data-content={howerText_Berufserfahrung}>

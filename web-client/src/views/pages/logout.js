@@ -1,4 +1,4 @@
-import {Component} from 'inferno';
+import { Component } from 'inferno';
 
 export default class Logout extends Component {
   constructor(props) {

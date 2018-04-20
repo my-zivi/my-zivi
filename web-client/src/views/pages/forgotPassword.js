@@ -1,4 +1,4 @@
-import {Component} from 'inferno';
+import { Component } from 'inferno';
 import axios from 'axios';
 import ApiService from '../../utils/api';
 

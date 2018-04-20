@@ -1,6 +1,6 @@
 import Card from '../tags/card';
 import axios from 'axios';
-import {Component} from 'inferno';
+import { Component } from 'inferno';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';

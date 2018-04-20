@@ -1,7 +1,7 @@
-import {Component} from 'inferno';
+import { Component } from 'inferno';
 import BootstrapNavLink from '../tags/BootstrapNavLink';
 import ApiService from '../../utils/api';
-import {environment, release} from '../../index';
+import { environment, release } from '../../index';
 
 export default class Header extends Component {
   guestMenu() {

@@ -1,5 +1,5 @@
-﻿import {Component} from 'inferno';
-import {Link} from 'inferno-router';
+﻿import { Component } from 'inferno';
+import { Link } from 'inferno-router';
 
 export default class BootstrapNavLink extends Component {
   static getNavbar(navLinks) {
