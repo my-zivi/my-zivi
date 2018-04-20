@@ -1,8 +1,5 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+import {Component} from 'inferno';
 import Card from '../tags/card';
-import axios from 'axios';
-import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';

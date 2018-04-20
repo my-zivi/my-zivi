@@ -1,6 +1,4 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
+import {Component} from 'inferno';
 import axios from 'axios';
 import ApiService from '../../utils/api';
 

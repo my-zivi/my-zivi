@@ -38,16 +38,5 @@ const setToken = token => {
   Raven.setUserContext({ id: getUserId() });
 };
 
-// Verify that the fetched response is JSON
-function _verifyResponse(res) {
-  let contentType = res.headers.get('content-type');
-
-  if (contentType && contentType.indexOf('application/json') !== -1) {
-    return res.json();
-  } else {
-    _handleError({ message: 'Response was not JSON' });
-  }
-}
-
 const ApiService = { BASE_URL, isLoggedIn, isAdmin, getUserId, setToken };
 export default ApiService;

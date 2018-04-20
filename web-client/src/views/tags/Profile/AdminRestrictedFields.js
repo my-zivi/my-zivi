@@ -1,8 +1,4 @@
-import Inferno from 'inferno';
-import VNodeFlags from 'inferno-vnode-flags';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
-import ApiService from '../../../utils/api';
+import {Component} from 'inferno';
 
 export default class AdminRestrictedFields extends Component {
   getRoleOptions(result) {
@@ -28,7 +24,7 @@ export default class AdminRestrictedFields extends Component {
   getAdminRestrictedFields(self, result) {
     /* Don't show role field for own user */
     let roleFormGroup = [];
-    if (self.props.params.userid) {
+    if (self.props.match.params.userid) {
       roleFormGroup.push(
         <div class="form-group">
           <label class="control-label col-sm-3" for="role">

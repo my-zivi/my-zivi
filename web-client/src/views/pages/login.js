@@ -1,7 +1,4 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
-import jwtDecode from 'jwt-decode';
+import {Component} from 'inferno';
 import axios from 'axios';
 
 import Card from '../tags/card';
@@ -30,14 +27,14 @@ export default class Login extends Component {
       })
       .then(response => {
         ApiService.setToken(response.data.data.token);
-        if (this.props.params.path) {
-          var url = this.props.params.path;
+        if (this.props.match.params.path) {
+          var url = this.props.match.params.path;
           if (url.startsWith('/login')) {
             url = '/';
           }
-          this.context.router.push(url);
+          this.context.router.history.push(url);
         } else {
-          this.context.router.push('/');
+          this.context.router.history.push('/');
         }
       })
       .catch(error => {

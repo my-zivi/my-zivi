@@ -1,6 +1,4 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
+import {Component} from 'inferno';
 import axios from 'axios';
 import ApiService from '../../utils/api';
 import Card from '../tags/card';
@@ -22,7 +20,7 @@ export default class Register extends Component {
       .post(ApiService.BASE_URL + 'auth/register', this.state.formData)
       .then(response => {
         localStorage.setItem('jwtToken', response.data.data.token);
-        this.context.router.push('/');
+        this.context.router.history.push('/');
       })
       .catch(error => {
         var errorMsg = [];
@@ -216,6 +214,6 @@ export default class Register extends Component {
 
   //initialize validation after render
   componentDidUpdate() {
-    $('#registerForm').validator();
+    window.$('#registerForm').validator();
   }
 }

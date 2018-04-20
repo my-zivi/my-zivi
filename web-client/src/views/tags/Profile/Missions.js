@@ -1,10 +1,6 @@
-﻿import Inferno from 'inferno';
-import VNodeFlags from 'inferno-vnode-flags';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
+﻿import {Component} from 'inferno';
 import axios from 'axios';
 import ApiService from '../../../utils/api';
-import InputField from '../InputFields/InputField';
 import InputFieldWithHelpText from '../InputFields/InputFieldWithHelpText';
 import InputCheckbox from '../InputFields/InputCheckbox';
 import DatePicker from '../InputFields/DatePicker';
@@ -216,7 +212,7 @@ export default class Missions extends Component {
             <button
               class="btn btn-xs btn-danger"
               onClick={() => {
-                if (confirm('Möchten Sie diesen Einsatz wirklich löschen?')) {
+                if (window.confirm('Möchten Sie diesen Einsatz wirklich löschen?')) {
                   self.missionTag.deleteMission(self, curMission);
                 }
               }}
@@ -244,7 +240,7 @@ export default class Missions extends Component {
         if (
           moment().isSameOrAfter(moment(m[i].end)) &&
           m[i].feedback_done != 1 &&
-          self.props.params.userid === undefined && // Only allow feedbacks for own user
+          self.props.match.params.userid === undefined && // Only allow feedbacks for own user
           curMission.draft != null // Only allow feedbacks for confirmed missions
         ) {
           feedbackButton.push(
@@ -326,7 +322,7 @@ export default class Missions extends Component {
         .post(ApiService.BASE_URL + 'mission', newMission, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
         .then(response => {
           Toast.showSuccess('Speichern erfolgreich', 'Neuer Einsatz konnte gespeichert werden');
-          $('[data-dismiss=modal]').trigger({ type: 'click' });
+          window.$('[data-dismiss=modal]').trigger({ type: 'click' });
           self.getUser();
         })
         .catch(error => {
@@ -340,7 +336,7 @@ export default class Missions extends Component {
         })
         .then(response => {
           Toast.showSuccess('Speichern erfolgreich', 'Einsatz konnte gespeichert werden');
-          $('[data-dismiss=modal]').trigger({ type: 'click' });
+          window.$('[data-dismiss=modal]').trigger({ type: 'click' });
           self.getUser();
           self.getReportSheets();
         })

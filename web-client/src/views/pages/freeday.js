@@ -1,8 +1,6 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+import {Component} from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
 import axios from 'axios';
-import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -226,7 +224,7 @@ export default class Freeday extends Component {
               <button
                 class="btn btn-sm"
                 onClick={() => {
-                  if (confirm('Möchten Sie ' + freedays[i].description + ' wirklich löschen?')) {
+                  if (window.confirm('Möchten Sie ' + freedays[i].description + ' wirklich löschen?')) {
                     this.remove(i);
                   }
                 }}

@@ -1,7 +1,4 @@
-import Inferno from 'inferno';
-import VNodeFlags from 'inferno-vnode-flags';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
+import {Component} from 'inferno';
 import axios from 'axios';
 import ApiService from '../../../utils/api';
 

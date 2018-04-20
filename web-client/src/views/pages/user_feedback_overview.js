@@ -1,8 +1,6 @@
-﻿import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+﻿import {Component} from 'inferno';
 import Card from '../tags/card';
 import axios from 'axios';
-import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -35,8 +33,8 @@ export default class UserFeedbackOverview extends Component {
     this.setState({ loading: true, error: null });
 
     var request;
-    if (this.props.params.feedback_id) {
-      request = ApiService.BASE_URL + 'user/feedback/' + this.props.params.feedback_id;
+    if (this.props.match.params.feedback_id) {
+      request = ApiService.BASE_URL + 'user/feedback/' + this.props.match.params.feedback_id;
     } else {
       request =
         ApiService.BASE_URL +
@@ -292,7 +290,7 @@ export default class UserFeedbackOverview extends Component {
       <Header>
         <div className="page page__user_feedback_overview">
           <Card>
-            {this.props.params.feedback_id == null && (
+            {this.props.match.params.feedback_id == null && (
               <div class="container top">
                 <div class="row">
                   <div class="col-sm-4">

@@ -1,6 +1,4 @@
-﻿import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
+﻿import {Component} from 'inferno';
 import axios from 'axios';
 import ApiService from '../../utils/api';
 
@@ -13,7 +11,7 @@ export default class LoadingView extends Component {
     if (nextProps.error != null) {
       if (nextProps.error.response != null && nextProps.error.response.status == 401) {
         localStorage.removeItem('jwtToken');
-        this.context.router.push('/login?path=' + encodeURI(this.context.router.url));
+        this.context.router.history.push('/login?path=' + encodeURI(this.context.router.route.location.pathname));
       }
     }
   }
@@ -33,7 +31,7 @@ export default class LoadingView extends Component {
           console.log(error);
           if (error.response && error.response.status == 401) {
             localStorage.removeItem('jwtToken');
-            this.context.router.push('/login?path=' + this.context.router.url);
+            this.context.router.history.push('/login?path=' + this.context.router.route.location.pathname);
           }
         });
     }

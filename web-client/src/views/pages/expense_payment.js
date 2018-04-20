@@ -1,12 +1,9 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+import {Component} from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
 import axios from 'axios';
-import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
-import DatePicker from '../tags/InputFields/DatePicker';
 import moment from 'moment-timezone';
 
 export default class ExpensePayment extends Component {

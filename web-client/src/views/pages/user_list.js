@@ -1,8 +1,6 @@
-﻿import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+﻿import {Component} from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
 import axios from 'axios';
-import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -128,7 +126,7 @@ export default class UserList extends Component {
           <td className="hidden-xs">
             <a
               onclick={() => {
-                if (confirm('Möchten Sie ' + users[i].first_name + ' ' + users[i].last_name + ' wirklich löschen?')) {
+                if (window.confirm('Möchten Sie ' + users[i].first_name + ' ' + users[i].last_name + ' wirklich löschen?')) {
                   this.deleteUser(users[i]);
                 }
               }}

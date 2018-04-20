@@ -1,9 +1,7 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
+import {Component} from 'inferno';
 import BootstrapNavLink from '../tags/BootstrapNavLink';
 import ApiService from '../../utils/api';
-import { release, environment } from '../../index';
+import {environment, release} from '../../index';
 
 export default class Header extends Component {
   guestMenu() {
@@ -56,9 +54,9 @@ export default class Header extends Component {
   }
 
   componentDidUpdate() {
-    $('[data-toggle="tooltip"]').tooltip();
+    window.$('[data-toggle="tooltip"]').tooltip();
 
     // Set Popover trigger mode to hover instead of click
-    $('[data-toggle="popover"]').popover({ trigger: 'hover', container: 'body' });
+    window.$('[data-toggle="popover"]').popover({ trigger: 'hover', container: 'body' });
   }
 }

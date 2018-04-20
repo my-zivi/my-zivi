@@ -1,6 +1,3 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
 import InputField from './InputField';
 import moment from 'moment-timezone';
 
@@ -17,7 +14,7 @@ export default class DatePicker extends InputField {
   }
 
   componentDidMount() {
-    $(this.element).datepicker({
+    window.$(this.element).datepicker({
       format: 'dd.mm.yyyy',
       autoclose: true,
       startView: 'days',
@@ -28,7 +25,7 @@ export default class DatePicker extends InputField {
   }
 
   componentWillUnmount() {
-    $(this.element).datepicker('destroy');
+    window.$(this.element).datepicker('destroy');
   }
 
   render() {

@@ -1,16 +1,12 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-
+import {Component} from 'inferno';
 import Card from '../tags/card';
 import InputField from '../tags/InputFields/InputField';
-import InputFieldWithHelpText from '../tags/InputFields/InputFieldWithHelpText';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';
 import DatePicker from '../tags/InputFields/DatePicker';
 import RegionalCenters from '../tags/Profile/RegionalCenters';
 import Missions from '../tags/Profile/Missions';
 import AdminRestrictedFields from '../tags/Profile/AdminRestrictedFields';
 import axios from 'axios';
-import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -51,7 +47,7 @@ export default class User extends Component {
     this.setState({ loading: true, error: null });
 
     axios
-      .get(ApiService.BASE_URL + 'user' + (this.props.params.userid ? '/' + this.props.params.userid : ''), {
+      .get(ApiService.BASE_URL + 'user' + (this.props.match.params.userid ? '/' + this.props.match.params.userid : ''), {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
@@ -98,7 +94,7 @@ export default class User extends Component {
   getReportSheets() {
     this.setState({ loading: true, error: null });
 
-    let apiRoute = this.props.params.userid === undefined ? 'me' : this.props.params.userid;
+    let apiRoute = this.props.match.params.userid === undefined ? 'me' : this.props.match.params.userid;
 
     axios
       .get(ApiService.BASE_URL + 'reportsheet/user/' + apiRoute, {
@@ -119,7 +115,7 @@ export default class User extends Component {
       .put(
         ApiService.BASE_URL + 'reportsheet',
         {
-          user: this.props.params.userid ? this.props.params.userid : null,
+          user: this.props.match.params.userid ? this.props.match.params.userid : null,
           mission: missionId,
         },
         { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
@@ -206,7 +202,7 @@ export default class User extends Component {
   }
 
   save() {
-    let apiRoute = this.props.params.userid === undefined ? 'me' : this.props.params.userid;
+    let apiRoute = this.props.match.params.userid === undefined ? 'me' : this.props.match.params.userid;
 
     this.setState({ loading: true, error: null });
     axios
@@ -224,7 +220,7 @@ export default class User extends Component {
   }
 
   redirectToChangePassword(e) {
-    this.router.push('/changePassword');
+    this.router.history.push('/changePassword');
   }
 
   getPasswordChangeButton() {
@@ -511,7 +507,7 @@ export default class User extends Component {
                                 <button
                                   name="editReportSheet"
                                   class="btn btn-link btn-xs btn-warning"
-                                  onClick={() => this.router.push('/expense/' + obj.id)}
+                                  onClick={() => this.router.history.push('/expense/' + obj.id)}
                                 >
                                   <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
                                 </button>

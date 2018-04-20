@@ -1,12 +1,10 @@
-﻿import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+import {Component} from 'inferno';
 import Card from '../tags/card';
 import InputField from '../tags/InputFields/InputField';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';
 import InputFieldWithProposal from '../tags/InputFields/InputFieldWithProposal';
 import DatePicker from '../tags/InputFields/DatePicker';
 import axios from 'axios';
-import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -32,7 +30,7 @@ export default class EditExpense extends Component {
   getReportSheet() {
     this.setState({ loading: true, error: null });
     axios
-      .get(ApiService.BASE_URL + 'reportsheet/' + this.props.params.report_sheet_id, {
+      .get(ApiService.BASE_URL + 'reportsheet/' + this.props.match.params.report_sheet_id, {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
@@ -106,7 +104,7 @@ export default class EditExpense extends Component {
 
     this.setState({ loading: true, error: null });
     axios
-      .post(ApiService.BASE_URL + 'reportsheet/' + this.props.params.report_sheet_id, this.state.report_sheet, {
+      .post(ApiService.BASE_URL + 'reportsheet/' + this.props.match.params.report_sheet_id, this.state.report_sheet, {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {
@@ -120,14 +118,14 @@ export default class EditExpense extends Component {
   }
 
   deleteReportSheet() {
-    if (confirm('Möchten Sie dieses Meldeblatt wirklich löschen?')) {
+    if (window.confirm('Möchten Sie dieses Meldeblatt wirklich löschen?')) {
       this.setState({ loading: true, error: null });
       axios
-        .delete(ApiService.BASE_URL + 'reportsheet/' + this.props.params.report_sheet_id, {
+        .delete(ApiService.BASE_URL + 'reportsheet/' + this.props.match.params.report_sheet_id, {
           headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
         })
         .then(response => {
-          this.router.push('/profile/' + this.state['report_sheet']['user']);
+          this.router.history.push('/profile/' + this.state['report_sheet']['user']);
         })
         .catch(error => {
           this.setState({ loading: false, error: null });
@@ -381,7 +379,7 @@ export default class EditExpense extends Component {
                 href={
                   ApiService.BASE_URL +
                   'pdf/zivireportsheet?reportSheetId=' +
-                  this.props.params.report_sheet_id +
+                  this.props.match.params.report_sheet_id +
                   '&jwttoken=' +
                   encodeURI(localStorage.getItem('jwtToken'))
                 }
@@ -395,7 +393,7 @@ export default class EditExpense extends Component {
                 name="deleteReport"
                 class="btn btn-default col-sm-2"
                 onClick={() => {
-                  this.router.push('/profile/' + this.state['report_sheet']['user']);
+                  this.router.history.push('/profile/' + this.state['report_sheet']['user']);
                 }}
               >
                 Profil anzeigen

@@ -1,8 +1,6 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+import {Component} from 'inferno';
 import Card from '../tags/card';
 import axios from 'axios';
-import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -28,7 +26,7 @@ export default class ResetPassword extends Component {
       .post(
         ApiService.BASE_URL + 'auth/resetPassword',
         {
-          code: this.props.params.code,
+          code: this.props.match.params.code,
           new_password: this.state.new_password,
           new_password_2: this.state.new_password_2,
         },
@@ -154,6 +152,6 @@ export default class ResetPassword extends Component {
 
   //initialize validation after render
   componentDidUpdate() {
-    $('#changePasswordForm').validator();
+    window.$('#changePasswordForm').validator();
   }
 }

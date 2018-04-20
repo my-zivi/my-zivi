@@ -1,10 +1,9 @@
-import Inferno from 'inferno';
-import Component from 'inferno-component';
+import {Component} from 'inferno';
 
 export default class Logout extends Component {
-  constructor(props, { router }) {
+  constructor(props) {
     super(props);
     localStorage.removeItem('jwtToken');
-    router.push('/');
+    props.history.push('/');
   }
 }

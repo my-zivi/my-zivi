@@ -1,8 +1,6 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+import {Component} from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
 import axios from 'axios';
-import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import Header from '../tags/header';
 import LoadingView from '../tags/loading-view';
@@ -26,7 +24,7 @@ export default class MissionOverview extends Component {
     this.getSpecifications();
     this.getMissions();
 
-    this.scrollTableHeader($('table'));
+    this.scrollTableHeader(window.$('table'));
   }
 
   getSpecifications() {
@@ -74,9 +72,9 @@ export default class MissionOverview extends Component {
     var specs = this.state.specifications;
     for (var s = 0; s < specs.length; s++) {
       if (specs[s].selected) {
-        $('tr.mission-row-' + String(specs[s].fullId).replace('.', '_')).show();
+        window.$('tr.mission-row-' + String(specs[s].fullId).replace('.', '_')).show();
       } else {
-        $('tr.mission-row-' + String(specs[s].fullId).replace('.', '_')).hide();
+        window.$('tr.mission-row-' + String(specs[s].fullId).replace('.', '_')).hide();
       }
     }
   }
@@ -89,7 +87,7 @@ export default class MissionOverview extends Component {
 
   scrollTableHeader(table) {
     const onScroll = () => {
-      const offset = $(window).scrollTop();
+      const offset = window.$(window).scrollTop();
       const tableOffsetTop = table.offset().top;
       const thead = table.find('thead');
 
@@ -100,7 +98,7 @@ export default class MissionOverview extends Component {
       }
     };
 
-    $(window).scroll(onScroll);
+    window.$(window).scroll(onScroll);
     onScroll();
   }
 

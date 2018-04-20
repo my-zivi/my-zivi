@@ -1,6 +1,4 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
+import {Component} from 'inferno';
 
 export default class InputField extends Component {
   getFormGroup(inputField, additionalContent = null, contentWidth = 9, showLabel = true) {

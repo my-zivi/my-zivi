@@ -1,14 +1,11 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+import {Component} from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
 import axios from 'axios';
-import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
-import DatePicker from '../tags/InputFields/DatePicker';
 import moment from 'moment-timezone';
-import { Glyphicon } from '../tags/Glyphicon';
+import {Glyphicon} from '../tags/Glyphicon';
 import update from 'immutability-helper';
 
 export default class ExpensePaymentDetail extends Component {
@@ -78,7 +75,7 @@ export default class ExpensePaymentDetail extends Component {
   getReportSheets() {
     this.setState({ loading: true, error: null });
     axios
-      .get(ApiService.BASE_URL + 'reportsheet/payments/' + this.props.params.payment_id, {
+      .get(ApiService.BASE_URL + 'reportsheet/payments/' + this.props.match.params.payment_id, {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
       })
       .then(response => {

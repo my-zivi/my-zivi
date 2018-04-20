@@ -1,8 +1,6 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+import {Component} from 'inferno';
 import Card from '../tags/card';
 import axios from 'axios';
-import Component from 'inferno-component';
 import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -21,7 +19,7 @@ export default class UserFeedback extends Component {
   sendDataToServer(survey) {
     this.setState({ loading: true, error: null });
 
-    var missionId = this.props.params.missionId;
+    var missionId = this.props.match.params.missionId;
 
     axios
       .put(
@@ -47,14 +45,14 @@ export default class UserFeedback extends Component {
           loading: false,
         };
 
-        Survey.Survey.cssType = 'bootstrap';
-        Survey.defaultBootstrapCss.navigationButton = 'btn btn-success';
+        window.Survey.Survey.cssType = 'bootstrap';
+        window.Survey.defaultBootstrapCss.navigationButton = 'btn btn-success';
 
         let surveyJSON = this.tryGetObject(response.data);
 
         if (surveyJSON) {
-          var survey = new Survey.Model(surveyJSON);
-          $('#surveyContainer').Survey({
+          var survey = new window.Survey.Model(surveyJSON);
+          window.$('#surveyContainer').Survey({
             model: survey,
             completeText: 'Danke für dein Feedback!',
             onComplete: survey => {
