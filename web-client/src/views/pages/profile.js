@@ -320,7 +320,7 @@ export default class User extends Component {
                       name="bank_bic"
                       value={result.bank_bic}
                       className="form-control"
-                      onChange={e => this.handleChange(e)}
+                      onInput={e => this.handleChange(e)}
                     />
                   </div>
                   <div className="col-sm-1">
@@ -362,7 +362,7 @@ export default class User extends Component {
                       name="health_insurance"
                       value={result.health_insurance}
                       className="form-control"
-                      onChange={e => this.handleIBANChange(e)}
+                      onInput={e => this.handleIBANChange(e)}
                     />
                   </div>
                   <div id="_helpiban" className="col-sm-1 hidden-xs">
@@ -384,10 +384,9 @@ export default class User extends Component {
                       id="work_experience"
                       name="work_experience"
                       class="form-control"
-                      onChange={e => this.handleTextareaChange(e)}
-                    >
-                      {result.work_experience}
-                    </textarea>
+                      value={result.work_experience}
+                      onInput={e => this.handleTextareaChange(e)}
+                    ></textarea>
                   </div>
                   <div id="_helpberufserfahrung" className="col-sm-1 hidden-xs">
                     <a data-toggle="popover" title="Berufserfahrung" data-content={howerText_Berufserfahrung}>

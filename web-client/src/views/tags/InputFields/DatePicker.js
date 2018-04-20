@@ -47,6 +47,7 @@ export default class DatePicker extends InputField {
         id="datePicker"
         ref={picker => (this.element = picker)}
       >
+        {/* todo fixme compare this onInput / onChange with original (ability to hand edit the date)*/}
         <input
           type="text"
           class="form-control"

@@ -126,7 +126,8 @@ export default class ChangePassword extends Component {
                       type="password"
                       id="old_password"
                       name="old_password"
-                      onChange={e => this.handleChange(e)}
+                      value={this.state.old_password}
+                      onInput={e => this.handleChange(e)}
                       className="form-control"
                       required
                     />
@@ -142,7 +143,8 @@ export default class ChangePassword extends Component {
                       type="password"
                       id="new_password"
                       name="new_password"
-                      onChange={e => this.handleChange(e)}
+                      value={this.state.new_password}
+                      onInput={e => this.handleChange(e)}
                       className="form-control"
                       data-minlength="7"
                       placeholder=""
@@ -162,7 +164,8 @@ export default class ChangePassword extends Component {
                       type="password"
                       id="new_password_2"
                       name="new_password_2"
-                      onChange={e => this.handleChange(e)}
+                      value={this.state.new_password_2}
+                      onInput={e => this.handleChange(e)}
                       className="form-control"
                       data-match="#new_password"
                       data-match-error="Die beiden Eingaben stimmen nicht überein"

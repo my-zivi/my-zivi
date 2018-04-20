@@ -46,9 +46,7 @@ export default class AdminRestrictedFields extends Component {
             Int. Bemerkung
           </label>
           <div class="col-sm-9">
-            <textarea rows="4" id="internal_note" name="internal_note" class="form-control" onChange={e => self.handleTextareaChange(e)}>
-              {result.internal_note}
-            </textarea>
+            <textarea rows="4" id="internal_note" name="internal_note" class="form-control" value={result.internal_note} onInput={e => self.handleTextareaChange(e)}></textarea>
           </div>
         </div>
         {roleFormGroup}

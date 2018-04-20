@@ -10,7 +10,15 @@ export default class Register extends Component {
     super(props);
 
     this.state = {
-      formData: {},
+      formData: {
+        zdp: '',
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+        password_confirm: '',
+        community_pw: '',
+      },
     };
   }
 
@@ -80,7 +88,7 @@ export default class Register extends Component {
                       name="zdp"
                       id="zdp"
                       value={this.state.formData.zdp}
-                      onChange={this.handleChange.bind(this)}
+                      onInput={this.handleChange.bind(this)}
                       min="10000"
                       max="1000000"
                       required
@@ -98,7 +106,7 @@ export default class Register extends Component {
                       name="firstname"
                       id="firstname"
                       value={this.state.formData.firstname}
-                      onChange={this.handleChange.bind(this)}
+                      onInput={this.handleChange.bind(this)}
                       required
                     />
                   </div>
@@ -114,7 +122,7 @@ export default class Register extends Component {
                       name="lastname"
                       id="lastname"
                       value={this.state.formData.lastname}
-                      onChange={this.handleChange.bind(this)}
+                      onInput={this.handleChange.bind(this)}
                       required
                     />
                   </div>
@@ -130,7 +138,7 @@ export default class Register extends Component {
                       name="email"
                       id="email"
                       value={this.state.formData.email}
-                      onChange={this.handleChange.bind(this)}
+                      onInput={this.handleChange.bind(this)}
                       required
                     />
                   </div>
@@ -146,7 +154,7 @@ export default class Register extends Component {
                       id="password"
                       name="password"
                       value={this.state.formData.password}
-                      onChange={this.handleChange.bind(this)}
+                      onInput={this.handleChange.bind(this)}
                       className="form-control"
                       data-minlength="7"
                       placeholder=""
@@ -166,8 +174,8 @@ export default class Register extends Component {
                       type="password"
                       id="password_confirm"
                       name="password_confirm"
-                      value={this.state.formData.passwordConfirm}
-                      onChange={this.handleChange.bind(this)}
+                      value={this.state.formData.password_confirm}
+                      onInput={this.handleChange.bind(this)}
                       className="form-control"
                       data-match="#password"
                       data-match-error="Die beiden Eingaben stimmen nicht überein"
@@ -188,8 +196,8 @@ export default class Register extends Component {
                       type="password"
                       id="community_pw"
                       name="community_pw"
-                      value={this.state.formData.communityPW}
-                      onChange={this.handleChange.bind(this)}
+                      value={this.state.formData.community_pw}
+                      onInput={this.handleChange.bind(this)}
                       className="form-control"
                       required
                     />

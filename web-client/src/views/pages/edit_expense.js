@@ -1,4 +1,4 @@
-import {Component} from 'inferno';
+﻿import {Component} from 'inferno';
 import Card from '../tags/card';
 import InputField from '../tags/InputFields/InputField';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';
@@ -290,7 +290,8 @@ export default class EditExpense extends Component {
             <InputFieldWithProposal
               id="meldeblaetter_kleider"
               valueLabel="Kleiderspesen"
-              value={this.formatRappen(sheet.meldeblaetter_kleider)}
+              inputType="number"
+              value={sheet.meldeblaetter_kleider}
               proposalValue={this.formatRappen(sheet.meldeblaetter_kleider_proposal) + ' Fr.'}
               showComment={true}
               commentId="meldeblaetter_kleider_comment"
@@ -301,7 +302,8 @@ export default class EditExpense extends Component {
             <InputField
               id="meldeblaetter_fahrspesen"
               label="Fahrspesen"
-              value={this.formatRappen(sheet.meldeblaetter_fahrspesen)}
+              inputType="number"
+              value={sheet.meldeblaetter_fahrspesen}
               self={this}
             />
             <div class="proposalComment">
@@ -317,7 +319,8 @@ export default class EditExpense extends Component {
             <InputField
               id="meldeblaetter_ausserordentlich"
               label="Ausserordentliche Spesen"
-              value={this.formatRappen(sheet.meldeblaetter_ausserordentlich)}
+              inputType="number"
+              value={sheet.meldeblaetter_ausserordentlich}
               self={this}
             />
             <div class="proposalComment">

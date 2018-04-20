@@ -163,7 +163,7 @@ export default class Freeday extends Component {
             type="text"
             value={this.state.newFreeday.description}
             name="description"
-            onChange={e => this.handleChangeNew(e)}
+            onInput={e => this.handleChangeNew(e)}
           />
         </td>
         <td>
@@ -209,7 +209,7 @@ export default class Freeday extends Component {
               type="text"
               name="description"
               value={freedays[i].description}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td>

@@ -80,7 +80,7 @@ export default class Login extends Component {
                   class="form-control"
                   placeholder="Email"
                   value={this.state.email}
-                  onChange={this.handleChange.bind(this)}
+                  onInput={this.handleChange.bind(this)}
                   required
                   autofocus
                 />
@@ -93,7 +93,7 @@ export default class Login extends Component {
                   class="form-control"
                   placeholder="Passwort"
                   value={this.state.password}
-                  onChange={this.handleChange.bind(this)}
+                  onInput={this.handleChange.bind(this)}
                   required
                 />
               </p>
