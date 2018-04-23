@@ -9,13 +9,14 @@ import DatePicker from '../tags/InputFields/DatePicker';
 import RegionalCenters from '../tags/Profile/RegionalCenters';
 import Missions from '../tags/Profile/Missions';
 import AdminRestrictedFields from '../tags/Profile/AdminRestrictedFields';
-import axios from 'axios';
 import Component from 'inferno-component';
-import ApiService from '../../utils/api';
+import Auth from '../../utils/auth';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import Toast from '../../utils/toast';
 import moment from 'moment-timezone';
+import { api, apiURL } from '../../utils/api';
+import axios from 'axios';
 
 export default class User extends Component {
   constructor(props, { router }) {
@@ -50,10 +51,9 @@ export default class User extends Component {
   getUser() {
     this.setState({ loading: true, error: null });
 
-    axios
-      .get(ApiService.BASE_URL + 'user' + (this.props.params.userid ? '/' + this.props.params.userid : ''), {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    const route = this.props.params.userid ? 'user/' + this.props.params.userid : 'user';
+    api()
+      .get(route)
       .then(response => {
         var newState = {
           result: response.data,
@@ -83,8 +83,8 @@ export default class User extends Component {
   }
 
   getSpecifications() {
-    axios
-      .get(ApiService.BASE_URL + 'specification/me', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .get('specification/me')
       .then(response => {
         this.setState({
           specifications: response.data,
@@ -100,10 +100,8 @@ export default class User extends Component {
 
     let apiRoute = this.props.params.userid === undefined ? 'me' : this.props.params.userid;
 
-    axios
-      .get(ApiService.BASE_URL + 'reportsheet/user/' + apiRoute, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .get('reportsheet/user/' + apiRoute)
       .then(response => {
         this.setState({ loading: false, reportSheets: response.data });
       })
@@ -115,15 +113,11 @@ export default class User extends Component {
   addReportSheet(missionId) {
     this.setState({ loading: true, error: null });
 
-    axios
-      .put(
-        ApiService.BASE_URL + 'reportsheet',
-        {
-          user: this.props.params.userid ? this.props.params.userid : null,
-          mission: missionId,
-        },
-        { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
-      )
+    api()
+      .put('reportsheet', {
+        user: this.props.params.userid ? this.props.params.userid : null,
+        mission: missionId,
+      })
       .then(response => {
         Toast.showSuccess('Hinzufügen erfolgreich', 'Meldeblatt hinzugefügt');
         this.getReportSheets();
@@ -135,37 +129,34 @@ export default class User extends Component {
   }
 
   handleChange(e) {
-    let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    this.state['result'][e.target.name] = value;
-    this.setState(this.state);
+    if (e.target.type === 'checkbox') {
+      this.changeResult(e.target.name, !this.state.result[e.target.name]);
+    } else {
+      this.changeResult(e.target.name, e.target.value);
+    }
   }
 
-  handleDateChange(e, origin) {
+  handleDateChange(e) {
     let value = e.target.value;
 
     if (value) {
       value = DatePicker.dateFormat_CH2EN(value);
-    } else if (origin.state.lastDateValue) {
-      value = origin.state.lastDateValue;
+    } else if (this.state.lastDateValue) {
+      value = this.state.lastDateValue;
     } else {
       return;
     }
 
-    origin.state['result'][e.target.name] = value;
-    origin.setState(origin.state);
+    this.changeResult(e.target.name, value);
   }
 
-  handleSelectChange(e) {
-    var targetSelect = document.getElementById(e.target.id);
-    let value = targetSelect.options[targetSelect.selectedIndex].value;
-    this.state['result'][e.target.name] = value;
-    this.setState(this.state);
-  }
-
-  handleTextareaChange(e) {
-    let value = document.getElementById(e.target.id).value;
-    this.state['result'][e.target.name] = value;
-    this.setState(this.state);
+  changeResult(key, value) {
+    this.setState({
+      result: {
+        ...this.state.result,
+        [key]: value,
+      },
+    });
   }
 
   handleIBANChange(e) {
@@ -209,10 +200,8 @@ export default class User extends Component {
     let apiRoute = this.props.params.userid === undefined ? 'me' : this.props.params.userid;
 
     this.setState({ loading: true, error: null });
-    axios
-      .post(ApiService.BASE_URL + 'user/' + apiRoute, this.state.result, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .post('user/' + apiRoute, this.state.result)
       .then(response => {
         Toast.showSuccess('Speichern erfolgreich', 'Profil gespeichert');
         this.setState({ loading: false });
@@ -268,27 +257,39 @@ export default class User extends Component {
 
                 <h3>Persönliche Informationen</h3>
                 <InputField id="zdp" label="ZDP" value={result.zdp} disabled="true" />
-                <InputField id="first_name" label="Vorname" value={result.first_name} self={this} />
-                <InputField id="last_name" label="Nachname" value={result.last_name} self={this} />
+                <InputField id="first_name" label="Vorname" value={result.first_name} onChange={this.handleChange.bind(this)} />
+                <InputField id="last_name" label="Nachname" value={result.last_name} onChange={this.handleChange.bind(this)} />
 
-                <InputField id="address" label="Strasse" value={result.address} self={this} />
-                <InputField id="city" label="Ort" value={result.city} self={this} />
-                <InputField id="zip" label="PLZ" value={result.zip} self={this} />
+                <InputField id="address" label="Strasse" value={result.address} onChange={this.handleChange.bind(this)} />
+                <InputField id="city" label="Ort" value={result.city} onChange={this.handleChange.bind(this)} />
+                <InputField id="zip" label="PLZ" value={result.zip} onChange={this.handleChange.bind(this)} />
 
-                <DatePicker
-                  id="birthday"
-                  label="Geburtstag"
-                  value={result.birthday}
-                  callback={this.handleDateChange}
-                  callbackOrigin={this}
+                <DatePicker id="birthday" label="Geburtstag" value={result.birthday} onChange={this.handleDateChange.bind(this)} />
+
+                <InputField id="hometown" label="Heimatort" value={result.hometown} onChange={this.handleChange.bind(this)} />
+
+                <InputField inputType="email" id="email" label="E-Mail" value={result.email} onChange={this.handleChange.bind(this)} />
+                <InputField
+                  inputType="tel"
+                  id="phone_mobile"
+                  label="Tel. Mobil"
+                  value={result.phone_mobile}
+                  onChange={this.handleChange.bind(this)}
                 />
-
-                <InputField id="hometown" label="Heimatort" value={result.hometown} self={this} />
-
-                <InputField inputType="email" id="email" label="E-Mail" value={result.email} self={this} />
-                <InputField inputType="tel" id="phone_mobile" label="Tel. Mobil" value={result.phone_mobile} self={this} />
-                <InputField inputType="tel" id="phone_private" label="Tel. Privat" value={result.phone_private} self={this} />
-                <InputField inputType="tel" id="phone_business" label="Tel. Geschäft" value={result.phone_business} self={this} />
+                <InputField
+                  inputType="tel"
+                  id="phone_private"
+                  label="Tel. Privat"
+                  value={result.phone_private}
+                  onChange={this.handleChange.bind(this)}
+                />
+                <InputField
+                  inputType="tel"
+                  id="phone_business"
+                  label="Tel. Geschäft"
+                  value={result.phone_business}
+                  onChange={this.handleChange.bind(this)}
+                />
 
                 <hr />
                 <h3>Bank-/Postverbindung</h3>
@@ -388,7 +389,7 @@ export default class User extends Component {
                       id="work_experience"
                       name="work_experience"
                       class="form-control"
-                      onChange={e => this.handleTextareaChange(e)}
+                      onChange={e => this.handleChange(e)}
                     >
                       {result.work_experience}
                     </textarea>
@@ -405,18 +406,33 @@ export default class User extends Component {
                     Regionalzentrum
                   </label>
                   <div class="col-sm-9">
-                    <select id="regional_center" name="regional_center" class="form-control" onChange={e => this.handleSelectChange(e)}>
+                    <select id="regional_center" name="regional_center" class="form-control" onChange={e => this.handleChange(e)}>
                       {this.regionalCenterTag.renderRegionalCenters(this.state)}
                     </select>
                   </div>
                 </div>
 
-                <InputCheckbox id="driving_licence" value={result.driving_licence} label="Führerausweis" self={this} />
-                <InputCheckbox id="ga_travelcard" value={result.ga_travelcard} label="GA" self={this} />
-                <InputCheckbox id="half_fare_travelcard" value={result.half_fare_travelcard} label="Halbtax" self={this} />
-                <InputField id="other_fare_network" label="Andere Abos" value={result.other_fare_network} self={this} />
+                <InputCheckbox
+                  id="driving_licence"
+                  value={result.driving_licence}
+                  label="Führerausweis"
+                  onChange={this.handleChange.bind(this)}
+                />
+                <InputCheckbox id="ga_travelcard" value={result.ga_travelcard} label="GA" onChange={this.handleChange.bind(this)} />
+                <InputCheckbox
+                  id="half_fare_travelcard"
+                  value={result.half_fare_travelcard}
+                  label="Halbtax"
+                  onChange={this.handleChange.bind(this)}
+                />
+                <InputField
+                  id="other_fare_network"
+                  label="Andere Abos"
+                  value={result.other_fare_network}
+                  onChange={this.handleChange.bind(this)}
+                />
 
-                {ApiService.isAdmin() ? this.adminFields.getAdminRestrictedFields(this, result) : null}
+                {Auth.isAdmin() ? this.adminFields.getAdminRestrictedFields(this, result) : null}
 
                 <button type="submit" class="btn btn-primary">
                   <span class="glyphicon glyphicon-floppy-disk" /> Speichern
@@ -446,7 +462,7 @@ export default class User extends Component {
               <button class="btn btn-success" data-toggle="modal" data-target="#einsatzModal">
                 Neue Einsatzplanung hinzufügen
               </button>
-              {this.missionTag.renderMissions(this, null, ApiService.isAdmin())}
+              {this.missionTag.renderMissions(this, null, Auth.isAdmin())}
 
               <br />
               <br />
@@ -463,7 +479,7 @@ export default class User extends Component {
                       <th>Anzahl Tage</th>
                       <th>Status</th>
                       <th />
-                      {ApiService.isAdmin() ? <th /> : null}
+                      {Auth.isAdmin() ? <th /> : null}
                     </tr>
                   </thead>
                   <tbody>
@@ -493,20 +509,14 @@ export default class User extends Component {
                                 <a
                                   name="showReportSheet"
                                   class="btn btn-xs btn-link"
-                                  href={
-                                    ApiService.BASE_URL +
-                                    'pdf/zivireportsheet?reportSheetId=' +
-                                    obj.id +
-                                    '&jwttoken=' +
-                                    encodeURI(localStorage.getItem('jwtToken'))
-                                  }
+                                  href={apiURL('pdf/zivireportsheet', { reportSheetId: obj.id }, true)}
                                   target="_blank"
                                 >
                                   <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
                                 </a>
                               ) : null}
                             </td>
-                            {ApiService.isAdmin() ? (
+                            {Auth.isAdmin() ? (
                               <td>
                                 <button
                                   name="editReportSheet"

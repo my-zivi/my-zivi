@@ -6,10 +6,6 @@ import InputField from './InputField';
 export default class InputFieldWithHelpText extends InputField {
   render() {
     let inputType = this.lookForInputType(this.props.inputType);
-    let changeCallback = e => this.props.self.handleChange(e, this.props.self);
-    if (this.props.callback && this.props.self) {
-      changeCallback = e => this.props.callback(e, this.props.self);
-    }
 
     return this.getFormGroup(
       <input
@@ -18,7 +14,7 @@ export default class InputFieldWithHelpText extends InputField {
         name={this.props.id}
         value={this.props.value}
         className="form-control"
-        onChange={changeCallback}
+        onChange={this.props.onChange}
         readonly={this.props.disabled}
       />,
 

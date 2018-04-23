@@ -1,12 +1,11 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Card from '../tags/card';
-import axios from 'axios';
 import Component from 'inferno-component';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
+import { apiURL } from '../../utils/api';
 
 export default class UserPhoneList extends Component {
   constructor(props) {
@@ -24,17 +23,18 @@ export default class UserPhoneList extends Component {
     };
   }
 
-  handleDateChange(e, origin) {
+  handleDateChange(e) {
     let value = e.target.value;
 
     if (value === undefined || value == null || value == '') {
-      value = origin.state.lastDateValue;
+      value = this.state.lastDateValue;
     } else {
       value = DatePicker.dateFormat_CH2EN(value);
     }
 
-    origin.state[e.target.name] = value;
-    origin.setState(this.state);
+    this.setState({
+      [e.target.name]: value,
+    });
   }
 
   render() {
@@ -49,23 +49,22 @@ export default class UserPhoneList extends Component {
             </p>
 
             <form action="javascript:;">
-              <DatePicker id="start" label="Anfang:" value={this.state.start} callback={this.handleDateChange} callbackOrigin={this} />
-              <DatePicker id="end" label="Ende:" value={this.state.end} callback={this.handleDateChange} callbackOrigin={this} />
+              <DatePicker id="start" label="Anfang:" value={this.state.start} onChange={this.handleDateChange.bind(this)} />
+              <DatePicker id="end" label="Ende:" value={this.state.end} onChange={this.handleDateChange.bind(this)} />
 
               <a
                 class="btn btn-primary"
-                href={
-                  ApiService.BASE_URL +
-                  'pdf/phoneList?start=' +
-                  this.state.start +
-                  '&end=' +
-                  this.state.end +
-                  '&jwttoken=' +
-                  encodeURI(localStorage.getItem('jwtToken'))
-                }
+                href={apiURL(
+                  'pdf/phoneList',
+                  {
+                    start: this.state.start,
+                    end: this.state.end,
+                  },
+                  true
+                )}
                 target="_blank"
               >
-                Absenden
+                Laden
               </a>
             </form>
           </Card>

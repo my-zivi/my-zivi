@@ -2,14 +2,14 @@
 import VNodeFlags from 'inferno-vnode-flags';
 import { Link } from 'inferno-router';
 import Component from 'inferno-component';
-import axios from 'axios';
-import ApiService from '../../../utils/api';
+import Auth from '../../../utils/auth';
 import InputField from '../InputFields/InputField';
 import InputFieldWithHelpText from '../InputFields/InputFieldWithHelpText';
 import InputCheckbox from '../InputFields/InputCheckbox';
 import DatePicker from '../InputFields/DatePicker';
 import Toast from '../../../utils/toast';
 import moment from 'moment-timezone';
+import { api, apiURL } from '../../../utils/api';
 
 export default class Missions extends Component {
   renderMissions = (self, mission, isAdmin) => {
@@ -69,7 +69,7 @@ export default class Missions extends Component {
                       id={missionKey + '_specification'}
                       name={missionKey + '_specification'}
                       class="form-control"
-                      onChange={e => self.handleSelectChange(e)}
+                      onChange={e => self.handleChange(e)}
                       required
                     >
                       {specification_options}
@@ -86,7 +86,7 @@ export default class Missions extends Component {
                       id={missionKey + '_mission_type'}
                       name={missionKey + '_mission_type'}
                       class="form-control"
-                      onChange={e => self.handleSelectChange(e)}
+                      onChange={e => self.handleChange(e)}
                     >
                       <option value="0" />
                       <option value="1">Erster Einsatz</option>
@@ -98,28 +98,26 @@ export default class Missions extends Component {
                   value={self.state['result'][missionKey + '_start']}
                   id={missionKey + '_start'}
                   label="Einsatzbeginn"
-                  callback={e => {
+                  onChange={e => {
                     self.handleDateChange(e, self);
                     this.getMissionDays(self, missionKey);
                   }}
-                  callbackOrigin={self}
                 />
                 <DatePicker
                   value={self.state['result'][missionKey + '_end']}
                   id={missionKey + '_end'}
                   label="Einsatzende"
-                  callback={e => {
+                  onChange={e => {
                     self.handleDateChange(e, self);
                     this.getMissionDays(self, missionKey);
                   }}
-                  callbackOrigin={self}
                 />
                 <InputFieldWithHelpText
                   value={self.state['result'][missionKey + '_days']}
                   id={missionKey + '_days'}
                   label="Tage"
                   popoverText={howerText_Tage}
-                  callback={e => {
+                  onChange={e => {
                     self.handleChange(e, self);
                     this.calculateMissionEndDate(e, self, missionKey);
                   }}
@@ -129,29 +127,28 @@ export default class Missions extends Component {
                   value={self.state['result'][missionKey + '_first_time']}
                   id={missionKey + '_first_time'}
                   label="Erster SWO Einsatz"
-                  self={self}
+                  onChange={self.handleChange.bind(self)}
                 />
                 <InputCheckbox
                   value={self.state['result'][missionKey + '_long_mission']}
                   id={missionKey + '_long_mission'}
                   label="Langer Einsatz oder Teil davon"
-                  callback={e => {
+                  onChange={e => {
                     self.handleChange(e);
                     this.getMissionDays(self, missionKey);
                   }}
-                  self={self}
                 />
                 <InputCheckbox
                   value={self.state['result'][missionKey + '_probation_period']}
                   id={missionKey + '_probation_period'}
                   label="Probeeinsatz"
-                  self={self}
+                  onChange={self.handleChange.bind(self)}
                 />
                 <hr />
                 <h4>Status</h4>
                 {mission == null || mission.draft == null ? 'Provisorisch' : 'Aufgeboten, Aufgebot erhalten am ' + mission.draft}
                 <hr />
-                {mission == null || mission.draft == null || ApiService.isAdmin() ? (
+                {mission == null || mission.draft == null || Auth.isAdmin() ? (
                   <button class="btn btn-primary" type="submit">
                     Daten speichern
                   </button>
@@ -168,10 +165,8 @@ export default class Missions extends Component {
 
   setReceivedDraft(self, missionKey) {
     self.setState({ loading: true, error: null });
-    axios
-      .post(ApiService.BASE_URL + 'mission/' + missionKey + '/receivedDraft', null, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .post(`mission/${missionKey}/receivedDraft`)
       .then(response => {
         self.getUser();
         self.getReportSheets();
@@ -211,7 +206,7 @@ export default class Missions extends Component {
         var deleteButton = [];
         var addButton = [];
 
-        if (ApiService.isAdmin()) {
+        if (Auth.isAdmin()) {
           deleteButton.push(
             <button
               class="btn btn-xs btn-danger"
@@ -261,11 +256,7 @@ export default class Missions extends Component {
             <td>{moment(m[i].end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
             <td>{curMission == null || curMission.draft == null ? draftOpenIcon : confirmedIcon}</td>
             <td>
-              <a
-                class="btn btn-xs"
-                href={ApiService.BASE_URL + 'mission/' + curMission.id + '/draft?jwttoken=' + encodeURI(localStorage.getItem('jwtToken'))}
-                target="_blank"
-              >
+              <a class="btn btn-xs" href={apiURL(`mission/${curMission.id}/draft`, {}, true)} target="_blank">
                 <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
               </a>
             </td>
@@ -281,7 +272,7 @@ export default class Missions extends Component {
             </td>
           </tr>
         );
-        missions.push(this.renderMissions(self, m[i], ApiService.isAdmin()));
+        missions.push(this.renderMissions(self, m[i], Auth.isAdmin()));
       }
     }
 
@@ -322,8 +313,8 @@ export default class Missions extends Component {
 
     self.setState({ loading: true, error: null });
     if (missionKey == 'newmission') {
-      axios
-        .post(ApiService.BASE_URL + 'mission', newMission, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+      api()
+        .post('mission', newMission)
         .then(response => {
           Toast.showSuccess('Speichern erfolgreich', 'Neuer Einsatz konnte gespeichert werden');
           $('[data-dismiss=modal]').trigger({ type: 'click' });
@@ -334,10 +325,8 @@ export default class Missions extends Component {
           Toast.showError('Speichern fehlgeschlagen', 'Neuer Einsatz konnte nicht gespeichert werden', error, self.context);
         });
     } else {
-      axios
-        .put(ApiService.BASE_URL + 'mission/' + missionKey, newMission, {
-          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-        })
+      api()
+        .put('mission/' + missionKey, newMission)
         .then(response => {
           Toast.showSuccess('Speichern erfolgreich', 'Einsatz konnte gespeichert werden');
           $('[data-dismiss=modal]').trigger({ type: 'click' });
@@ -353,8 +342,8 @@ export default class Missions extends Component {
 
   deleteMission(self, mission) {
     self.setState({ loading: true, error: null });
-    axios
-      .delete(ApiService.BASE_URL + 'mission/' + mission.id, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .delete('mission/' + mission.id)
       .then(response => {
         Toast.showSuccess('Löschen erfolgreich', 'Einsatz konnte gelöscht werden');
         self.getUser();
@@ -367,8 +356,12 @@ export default class Missions extends Component {
   }
 
   calculateMissionEndDate(e, self, missionKey) {
-    self.state['result'][e.target.name] = e.target.value; // update days
-    self.setState(self.state);
+    self.setState({
+      result: {
+        ...self.state.result,
+        [e.target.name]: e.target.value, // update days
+      },
+    });
     let startDate = self.state['result'][missionKey + '_start'];
 
     if (e.target.value && e.target.value > 0 && startDate) {
@@ -377,17 +370,8 @@ export default class Missions extends Component {
         long_mission = false;
       }
 
-      axios
-        .get(
-          ApiService.BASE_URL +
-            'diensttageEndDate?start=' +
-            startDate +
-            '&days=' +
-            self.state.result[missionKey + '_days'] +
-            '&long_mission=' +
-            long_mission,
-          { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
-        )
+      api()
+        .get('diensttageEndDate', { params: { start: startDate, days: self.state.result[missionKey + '_days'], long_mission } })
         .then(response => {
           if (response && response.data) {
             self.state.result[missionKey + '_end'] = response.data;
@@ -410,17 +394,14 @@ export default class Missions extends Component {
     }
 
     if (self.state.result[missionKey + '_start'] && self.state.result[missionKey + '_end']) {
-      axios
-        .get(
-          ApiService.BASE_URL +
-            'diensttage?start=' +
-            self.state.result[missionKey + '_start'] +
-            '&end=' +
-            self.state.result[missionKey + '_end'] +
-            '&long_mission=' +
+      api()
+        .get('diensttage', {
+          params: {
+            start: self.state.result[missionKey + '_start'],
+            end: self.state.result[missionKey + '_end'],
             long_mission,
-          { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
-        )
+          },
+        })
         .then(response => {
           if (response && response.data) {
             self.state.result[missionKey + '_days'] = response.data;

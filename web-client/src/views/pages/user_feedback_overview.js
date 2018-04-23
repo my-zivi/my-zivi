@@ -1,13 +1,12 @@
 ﻿import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Card from '../tags/card';
-import axios from 'axios';
 import Component from 'inferno-component';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
 import moment from 'moment-timezone';
+import { api, apiURL } from '../../utils/api';
 
 export default class UserFeedbackOverview extends Component {
   constructor(props) {
@@ -36,20 +35,16 @@ export default class UserFeedbackOverview extends Component {
 
     var request;
     if (this.props.params.feedback_id) {
-      request = ApiService.BASE_URL + 'user/feedback/' + this.props.params.feedback_id;
+      request = apiURL('user/feedback/' + this.props.params.feedback_id);
     } else {
-      request =
-        ApiService.BASE_URL +
-        'user/feedback?date_from=' +
-        this.dbDate(this.state.date_from) +
-        '&date_to=' +
-        this.dbDate(this.state.date_to);
+      request = apiURL('user/feedback', {
+        date_from: this.dbDate(this.state.date_from),
+        date_to: this.dbDate(this.state.date_to),
+      });
     }
 
-    axios
-      .get(request, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .get(request)
       .then(response => {
         this.setState({ loading: false });
         this.setState({
@@ -61,19 +56,20 @@ export default class UserFeedbackOverview extends Component {
       });
   }
 
-  handleDateChange(e, origin) {
-    let lastValue = origin.state[e.target.name];
+  handleDateChange(e) {
+    let lastValue = this.state[e.target.name];
     let value = e.target.value;
 
     if (value !== undefined && value != null && value != '') {
       value = DatePicker.dateFormat_CH2EN(value);
     }
 
-    origin.state[e.target.name] = value;
-    origin.setState(this.state);
+    this.setState({
+      [e.target.name]: value,
+    });
 
     if (!moment(value).isSame(lastValue, 'day')) {
-      origin.getFeedbackAnswers();
+      this.getFeedbackAnswers();
     }
   }
 
@@ -296,22 +292,10 @@ export default class UserFeedbackOverview extends Component {
               <div class="container top">
                 <div class="row">
                   <div class="col-sm-4">
-                    <DatePicker
-                      id="date_from"
-                      label="Von"
-                      value={this.state.date_from}
-                      callback={this.handleDateChange}
-                      callbackOrigin={this}
-                    />
+                    <DatePicker id="date_from" label="Von" value={this.state.date_from} onChange={this.handleDateChange.bind(this)} />
                   </div>
                   <div class="col-sm-4">
-                    <DatePicker
-                      id="date_to"
-                      label="Bis"
-                      value={this.state.date_to}
-                      callback={this.handleDateChange}
-                      callbackOrigin={this}
-                    />
+                    <DatePicker id="date_to" label="Bis" value={this.state.date_to} onChange={this.handleDateChange.bind(this)} />
                   </div>
                   <div class="col-sm-4">
                     <h5>Anzahl Feedbacks: {totalFeedbacks}</h5>

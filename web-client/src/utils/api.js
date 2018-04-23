@@ -1,53 +1,22 @@
-import moment from 'moment';
-import jwtDecode from 'jwt-decode';
-import Raven from 'raven-js';
+import axios from 'axios';
+import axiosBuildURL from 'axios/lib/helpers/buildURL';
 
 //this will be replaced by a build script, if necessary
 const baseUrlOverride = 'BASE_URL';
 const BASE_URL = baseUrlOverride.startsWith('http') ? baseUrlOverride : 'http://localhost:8000/api/';
 
-// Is user logged in?
-const isLoggedIn = () => {
-  if (localStorage.getItem('jwtToken') !== null) {
-    const decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
-    return moment.unix(decodedToken.exp).isAfter(moment());
-  } else {
-    return false;
-  }
+export const api = () => {
+  return axios.create({
+    baseURL: BASE_URL,
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('jwtToken'),
+    },
+  });
 };
 
-// Is user an administrator?
-const isAdmin = () => {
-  if (isLoggedIn()) {
-    const decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
-    return decodedToken.isAdmin;
+export const apiURL = (path, params, auth = false) => {
+  if (auth) {
+    params.jwttoken = localStorage.getItem('jwtToken');
   }
-  return false;
+  return axiosBuildURL(BASE_URL + path, params);
 };
-
-// Get logged in user id
-const getUserId = () => {
-  if (isLoggedIn()) {
-    const decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
-    return decodedToken.sub;
-  }
-};
-
-const setToken = token => {
-  localStorage.setItem('jwtToken', token);
-  Raven.setUserContext({ id: getUserId() });
-};
-
-// Verify that the fetched response is JSON
-function _verifyResponse(res) {
-  let contentType = res.headers.get('content-type');
-
-  if (contentType && contentType.indexOf('application/json') !== -1) {
-    return res.json();
-  } else {
-    _handleError({ message: 'Response was not JSON' });
-  }
-}
-
-const ApiService = { BASE_URL, isLoggedIn, isAdmin, getUserId, setToken };
-export default ApiService;

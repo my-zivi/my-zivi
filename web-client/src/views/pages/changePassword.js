@@ -1,11 +1,10 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import Card from '../tags/card';
-import axios from 'axios';
 import Component from 'inferno-component';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
+import { api } from '../../utils/api';
 
 export default class ChangePassword extends Component {
   constructor(props) {
@@ -24,16 +23,12 @@ export default class ChangePassword extends Component {
     let errorBox = [];
     let confirmBox = [];
 
-    axios
-      .post(
-        ApiService.BASE_URL + 'postChangePassword',
-        {
-          old_password: this.state.old_password,
-          new_password: this.state.new_password,
-          new_password_2: this.state.new_password_2,
-        },
-        { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
-      )
+    api()
+      .post('postChangePassword', {
+        old_password: this.state.old_password,
+        new_password: this.state.new_password,
+        new_password_2: this.state.new_password_2,
+      })
       .then(response => {
         errorMsg = [];
         errorBox = [];
@@ -81,15 +76,7 @@ export default class ChangePassword extends Component {
 
   handleChange(e) {
     let value = e.target.value;
-    this.state[e.target.name] = value;
-    this.setState(this.state);
-  }
-
-  handleSecondPWChange(e) {
-    var targetSelect = document.getElementById(e.target.id);
-    let value = targetSelect.options[targetSelect.selectedIndex].value;
-    this.state[e.target.name] = value;
-    this.setState(this.state);
+    this.setState({ [e.target.name]: value });
   }
 
   render() {

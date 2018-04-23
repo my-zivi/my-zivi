@@ -1,12 +1,12 @@
 import Inferno from 'inferno';
 import { Link } from 'inferno-router';
 import ScrollableCard from '../tags/scrollableCard';
-import axios from 'axios';
 import Component from 'inferno-component';
-import ApiService from '../../utils/api';
 import Header from '../tags/header';
 import LoadingView from '../tags/loading-view';
 import moment from 'moment-timezone';
+import { api } from '../../utils/api';
+import update from 'immutability-helper';
 
 export default class MissionOverview extends Component {
   constructor(props) {
@@ -30,8 +30,8 @@ export default class MissionOverview extends Component {
   }
 
   getSpecifications() {
-    axios
-      .get(ApiService.BASE_URL + 'specification', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .get('specification')
       .then(response => {
         for (var i = 0; i < response.data.length; i++) {
           response.data[i].selected = true;
@@ -47,10 +47,8 @@ export default class MissionOverview extends Component {
 
   getMissions() {
     this.setState({ loading: true, error: null });
-    axios
-      .get(ApiService.BASE_URL + 'missions/' + this.state.year, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .get(`missions/${this.state.year}`)
       .then(response => {
         this.renderMissions(response.data);
       })
@@ -60,14 +58,14 @@ export default class MissionOverview extends Component {
   }
 
   handleChangeYear(e) {
-    this.state.year = e.target.value;
-    this.setState(this.state);
-    this.getMissions();
+    this.setState({ year: e.target.value }, () => this.getMissions());
   }
 
-  handleChange(e, i) {
-    this.state.specifications[e.target.name].selected = e.target.checked;
-    this.setState(this.state);
+  toggleSpecification(e) {
+    //this.state.specifications[i].selected = e.target.checked;
+    this.setState({
+      specifications: update(this.state.specifications, { [e.target.name]: { $toggle: ['selected'] } }),
+    });
   }
 
   componentDidUpdate() {
@@ -215,7 +213,7 @@ export default class MissionOverview extends Component {
                 name={x}
                 defaultChecked={true}
                 onchange={e => {
-                  this.handleChange(e);
+                  this.toggleSpecification(e);
                 }}
               />
               {specs[x].name}
