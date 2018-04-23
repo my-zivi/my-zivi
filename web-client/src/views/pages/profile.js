@@ -1,21 +1,17 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-
+import { Component } from 'inferno';
 import Card from '../tags/card';
 import InputField from '../tags/InputFields/InputField';
-import InputFieldWithHelpText from '../tags/InputFields/InputFieldWithHelpText';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';
 import DatePicker from '../tags/InputFields/DatePicker';
 import RegionalCenters from '../tags/Profile/RegionalCenters';
 import Missions from '../tags/Profile/Missions';
 import AdminRestrictedFields from '../tags/Profile/AdminRestrictedFields';
-import Component from 'inferno-component';
-import Auth from '../../utils/auth';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import Toast from '../../utils/toast';
 import moment from 'moment-timezone';
 import { api, apiURL } from '../../utils/api';
+import Auth from '../../utils/auth';
 import axios from 'axios';
 
 export default class User extends Component {
@@ -51,16 +47,16 @@ export default class User extends Component {
   getUser() {
     this.setState({ loading: true, error: null });
 
-    const route = this.props.params.userid ? 'user/' + this.props.params.userid : 'user';
+    const route = this.props.match.params.userid ? 'user/' + this.props.match.params.userid : 'user';
     api()
       .get(route)
       .then(response => {
-        var newState = {
+        let newState = {
           result: response.data,
           loading: false,
         };
-        for (var i = 0; i < response.data.missions.length; i++) {
-          var key = response.data.missions[i].id;
+        for (let i = 0; i < response.data.missions.length; i++) {
+          let key = response.data.missions[i].id;
 
           newState['result'][key + '_specification'] = response.data.missions[i].specification;
           newState['result'][key + '_mission_type'] = response.data.missions[i].mission_type;
@@ -73,7 +69,7 @@ export default class User extends Component {
 
         this.setState(newState);
 
-        for (var i = 0; i < response.data.missions.length; i++) {
+        for (let i = 0; i < response.data.missions.length; i++) {
           this.missionTag.getMissionDays(this, response.data.missions[i].id);
         }
       })
@@ -98,7 +94,7 @@ export default class User extends Component {
   getReportSheets() {
     this.setState({ loading: true, error: null });
 
-    let apiRoute = this.props.params.userid === undefined ? 'me' : this.props.params.userid;
+    let apiRoute = this.props.match.params.userid === undefined ? 'me' : this.props.match.params.userid;
 
     api()
       .get('reportsheet/user/' + apiRoute)
@@ -115,7 +111,7 @@ export default class User extends Component {
 
     api()
       .put('reportsheet', {
-        user: this.props.params.userid ? this.props.params.userid : null,
+        user: this.props.match.params.userid ? this.props.match.params.userid : null,
         mission: missionId,
       })
       .then(response => {
@@ -181,7 +177,6 @@ export default class User extends Component {
     axios
       .get(`https://openiban.com/validate/${iban}?getBIC=true`)
       .then(res => {
-        console.log(res);
         this.setState({
           result: {
             ...this.state.result,
@@ -197,7 +192,7 @@ export default class User extends Component {
   }
 
   save() {
-    let apiRoute = this.props.params.userid === undefined ? 'me' : this.props.params.userid;
+    let apiRoute = this.props.match.params.userid === undefined ? 'me' : this.props.match.params.userid;
 
     this.setState({ loading: true, error: null });
     api()
@@ -213,7 +208,7 @@ export default class User extends Component {
   }
 
   redirectToChangePassword(e) {
-    this.router.push('/changePassword');
+    this.router.history.push('/changePassword');
   }
 
   getPasswordChangeButton() {
@@ -230,7 +225,6 @@ export default class User extends Component {
   render() {
     let result = this.state.result;
     let howerText_IBAN = 'Du kannst die Nummer mit oder ohne Abständen eingeben.';
-    let howerText_Post = 'Postkonto Nummer';
     let howerText_Berufserfahrung =
       'Wir profitieren gerne von deiner Erfahrung. Wenn wir genau wissen, wann wer mit welchen Erfahrungen einen Einsatz tätigt, können wir z.T. Projekte speziell planen.';
     let howerText_health_insurance = 'Krankenkassen Name und Ort';
@@ -245,8 +239,8 @@ export default class User extends Component {
             <div class="container">
               <form
                 class="form-horizontal"
-                action="javascript:;"
-                onSubmit={() => {
+                onSubmit={e => {
+                  e.preventDefault();
                   this.save();
                 }}
               >
@@ -257,38 +251,38 @@ export default class User extends Component {
 
                 <h3>Persönliche Informationen</h3>
                 <InputField id="zdp" label="ZDP" value={result.zdp} disabled="true" />
-                <InputField id="first_name" label="Vorname" value={result.first_name} onChange={this.handleChange.bind(this)} />
-                <InputField id="last_name" label="Nachname" value={result.last_name} onChange={this.handleChange.bind(this)} />
+                <InputField id="first_name" label="Vorname" value={result.first_name} onInput={this.handleChange.bind(this)} />
+                <InputField id="last_name" label="Nachname" value={result.last_name} onInput={this.handleChange.bind(this)} />
 
-                <InputField id="address" label="Strasse" value={result.address} onChange={this.handleChange.bind(this)} />
-                <InputField id="city" label="Ort" value={result.city} onChange={this.handleChange.bind(this)} />
-                <InputField id="zip" label="PLZ" value={result.zip} onChange={this.handleChange.bind(this)} />
+                <InputField id="address" label="Strasse" value={result.address} onInput={this.handleChange.bind(this)} />
+                <InputField id="city" label="Ort" value={result.city} onInput={this.handleChange.bind(this)} />
+                <InputField id="zip" label="PLZ" value={result.zip} onInput={this.handleChange.bind(this)} />
 
                 <DatePicker id="birthday" label="Geburtstag" value={result.birthday} onChange={this.handleDateChange.bind(this)} />
 
-                <InputField id="hometown" label="Heimatort" value={result.hometown} onChange={this.handleChange.bind(this)} />
+                <InputField id="hometown" label="Heimatort" value={result.hometown} onInput={this.handleChange.bind(this)} />
 
-                <InputField inputType="email" id="email" label="E-Mail" value={result.email} onChange={this.handleChange.bind(this)} />
+                <InputField inputType="email" id="email" label="E-Mail" value={result.email} onInput={this.handleChange.bind(this)} />
                 <InputField
                   inputType="tel"
                   id="phone_mobile"
                   label="Tel. Mobil"
                   value={result.phone_mobile}
-                  onChange={this.handleChange.bind(this)}
+                  onInput={this.handleChange.bind(this)}
                 />
                 <InputField
                   inputType="tel"
                   id="phone_private"
                   label="Tel. Privat"
                   value={result.phone_private}
-                  onChange={this.handleChange.bind(this)}
+                  onInput={this.handleChange.bind(this)}
                 />
                 <InputField
                   inputType="tel"
                   id="phone_business"
                   label="Tel. Geschäft"
                   value={result.phone_business}
-                  onChange={this.handleChange.bind(this)}
+                  onInput={this.handleChange.bind(this)}
                 />
 
                 <hr />
@@ -309,9 +303,9 @@ export default class User extends Component {
                     />
                   </div>
                   <div id="_helpiban" className="col-sm-1 hidden-xs">
-                    <a data-toggle="popover" title="IBAN-Nr" data-content={howerText_IBAN}>
-                      <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
-                    </a>
+                    <span data-toggle="popover" title="IBAN-Nr" data-content={howerText_IBAN}>
+                      <span style={{ fontSize: '2em' }} className="glyphicon glyphicon-question-sign" aria-hidden="true" />
+                    </span>
                   </div>
                 </div>
                 <div class="form-group" id="bicFormGroup">
@@ -325,33 +319,33 @@ export default class User extends Component {
                       name="bank_bic"
                       value={result.bank_bic}
                       className="form-control"
-                      onChange={e => this.handleChange(e)}
+                      onInput={e => this.handleChange(e)}
                     />
                   </div>
                   <div className="col-sm-1">
                     {this.state.bic_fetching ? (
-                      <a title="BIC suchen">
-                        <span style="font-size:2em;" className="glyphicon glyphicon-refresh gly-spin" aria-hidden="true" />
-                      </a>
+                      <span title="BIC suchen">
+                        <span style={{ fontSize: '2em' }} className="glyphicon glyphicon-refresh gly-spin" aria-hidden="true" />
+                      </span>
                     ) : (
-                      <a title="BIC suchen">
+                      <span title="BIC suchen">
                         <span
-                          style="font-size:2em;"
+                          style={{ fontSize: '2em' }}
                           className="glyphicon glyphicon-search"
                           onClick={() => this.fetchBIC(this.state.result.bank_iban)}
                           aria-hidden="true"
                         />
-                      </a>
+                      </span>
                     )}
                   </div>
                   <div id="_helpbic" className="col-sm-1 hidden-xs">
-                    <a
+                    <span
                       data-toggle="popover"
                       title="BIC/SWIFT"
                       data-content="Der BIC/SWIFT code, der Deine Bank identifizert. Du findest diesen meist auf der Website Deiner Bank."
                     >
-                      <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
-                    </a>
+                      <span style={{ fontSize: '2em' }} className="glyphicon glyphicon-question-sign" aria-hidden="true" />
+                    </span>
                   </div>
                 </div>
                 <hr />
@@ -367,13 +361,13 @@ export default class User extends Component {
                       name="health_insurance"
                       value={result.health_insurance}
                       className="form-control"
-                      onChange={e => this.handleIBANChange(e)}
+                      onInput={e => this.handleIBANChange(e)}
                     />
                   </div>
                   <div id="_helpiban" className="col-sm-1 hidden-xs">
-                    <a data-toggle="popover" title="Krankenkasse" data-content={howerText_health_insurance}>
-                      <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
-                    </a>
+                    <span data-toggle="popover" title="Krankenkasse" data-content={howerText_health_insurance}>
+                      <span style={{ fontSize: '2em' }} className="glyphicon glyphicon-question-sign" aria-hidden="true" />
+                    </span>
                   </div>
                 </div>
                 <hr />
@@ -389,15 +383,14 @@ export default class User extends Component {
                       id="work_experience"
                       name="work_experience"
                       class="form-control"
-                      onChange={e => this.handleChange(e)}
-                    >
-                      {result.work_experience}
-                    </textarea>
+                      value={result.work_experience}
+                      onInput={e => this.handleChange(e)}
+                    />
                   </div>
                   <div id="_helpberufserfahrung" className="col-sm-1 hidden-xs">
-                    <a data-toggle="popover" title="Berufserfahrung" data-content={howerText_Berufserfahrung}>
-                      <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
-                    </a>
+                    <span data-toggle="popover" title="Berufserfahrung" data-content={howerText_Berufserfahrung}>
+                      <span style={{ fontSize: '2em' }} className="glyphicon glyphicon-question-sign" aria-hidden="true" />
+                    </span>
                   </div>
                 </div>
 
@@ -429,7 +422,7 @@ export default class User extends Component {
                   id="other_fare_network"
                   label="Andere Abos"
                   value={result.other_fare_network}
-                  onChange={this.handleChange.bind(this)}
+                  onInput={this.handleChange.bind(this)}
                 />
 
                 {Auth.isAdmin() ? this.adminFields.getAdminRestrictedFields(this, result) : null}
@@ -492,13 +485,13 @@ export default class User extends Component {
                             <td>
                               {obj.state > 0 ? (
                                 obj.state === 3 ? (
-                                  <a data-toggle="popover" title="" data-content="Erledigt">
-                                    <span class="glyphicon glyphicon-ok" style="color:green" />
-                                  </a>
+                                  <span data-toggle="popover" title="" data-content="Erledigt">
+                                    <span class="glyphicon glyphicon-ok" style={{ color: 'green' }} />
+                                  </span>
                                 ) : (
-                                  <a data-toggle="popover" title="" data-content="In Bearbeitung">
-                                    <span class="glyphicon glyphicon-hourglass" style="color:orange" />
-                                  </a>
+                                  <span data-toggle="popover" title="" data-content="In Bearbeitung">
+                                    <span class="glyphicon glyphicon-hourglass" style={{ color: 'orange' }} />
+                                  </span>
                                 )
                               ) : (
                                 ''
@@ -521,7 +514,7 @@ export default class User extends Component {
                                 <button
                                   name="editReportSheet"
                                   class="btn btn-link btn-xs btn-warning"
-                                  onClick={() => this.router.push('/expense/' + obj.id)}
+                                  onClick={() => this.router.history.push('/expense/' + obj.id)}
                                 >
                                   <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
                                 </button>

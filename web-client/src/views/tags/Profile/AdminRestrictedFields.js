@@ -1,7 +1,4 @@
-import Inferno from 'inferno';
-import VNodeFlags from 'inferno-vnode-flags';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
+import { Component } from 'inferno';
 
 export default class AdminRestrictedFields extends Component {
   getRoleOptions(result) {
@@ -10,7 +7,7 @@ export default class AdminRestrictedFields extends Component {
 
     for (let i = 1; i < 3; i++) {
       let isSelected = false;
-      if (parseInt(result['role']) == i) {
+      if (parseInt(result['role'], 10) === i) {
         isSelected = true;
       }
 
@@ -25,7 +22,7 @@ export default class AdminRestrictedFields extends Component {
   }
 
   getAdminRestrictedFields(self, result) {
-    if (self.props.params.userid) {
+    if (self.props.match.params.userid) {
       return (
         <div>
           <div class="form-group">
@@ -43,9 +40,14 @@ export default class AdminRestrictedFields extends Component {
               Interne Bemerkung
             </label>
             <div class="col-sm-9">
-              <textarea rows="4" id="internal_note" name="internal_note" class="form-control" onChange={e => self.handleChange(e)}>
-                {result.internal_note}
-              </textarea>
+              <textarea
+                rows="4"
+                id="internal_note"
+                name="internal_note"
+                class="form-control"
+                value={result.internal_note}
+                onInput={e => self.handleChange(e)}
+              />
             </div>
           </div>
         </div>

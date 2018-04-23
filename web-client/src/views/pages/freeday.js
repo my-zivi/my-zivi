@@ -1,7 +1,5 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+import { Component } from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
-import Component from 'inferno-component';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
@@ -58,10 +56,10 @@ export default class Freeday extends Component {
   handleNewDateChange(e) {
     let value = e.target.value;
 
-    if (value === undefined || value == null || value == '') {
-      value = this.state.lastDateValue;
-    } else {
+    if (value) {
       value = DatePicker.dateFormat_CH2EN(value);
+    } else {
+      value = this.state.lastDateValue;
     }
 
     this.setState({
@@ -75,10 +73,10 @@ export default class Freeday extends Component {
   handleDateChange(e, index) {
     let value = e.target.value;
 
-    if (value === undefined || value == null || value == '') {
-      value = this.state.lastDateValue;
-    } else {
+    if (value) {
       value = DatePicker.dateFormat_CH2EN(value);
+    } else {
+      value = this.state.lastDateValue;
     }
 
     //origin.state['freedays'][index][e.target.name] = value;
@@ -163,7 +161,7 @@ export default class Freeday extends Component {
             type="text"
             value={this.state.newFreeday.description}
             name="description"
-            onChange={e => this.handleChangeNew(e)}
+            onInput={e => this.handleChangeNew(e)}
           />
         </td>
         <td>
@@ -202,7 +200,7 @@ export default class Freeday extends Component {
               type="text"
               name="description"
               value={freedays[i].description}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td>
@@ -217,7 +215,7 @@ export default class Freeday extends Component {
               <button
                 class="btn btn-sm"
                 onClick={() => {
-                  if (confirm('Möchten Sie ' + freedays[i].description + ' wirklich löschen?')) {
+                  if (window.confirm('Möchten Sie ' + freedays[i].description + ' wirklich löschen?')) {
                     this.remove(i);
                   }
                 }}

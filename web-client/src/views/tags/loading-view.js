@@ -1,19 +1,13 @@
-﻿import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
+import { Component } from 'inferno';
 import { api } from '../../utils/api';
 import Auth from '../../utils/auth';
 
 export default class LoadingView extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.error != null) {
-      if (nextProps.error.response != null && nextProps.error.response.status == 401) {
+      if (nextProps.error.response != null && nextProps.error.response.status === 401) {
         localStorage.removeItem('jwtToken');
-        this.context.router.push('/login?path=' + encodeURI(this.context.router.url));
+        this.context.router.history.push('/login?path=' + encodeURI(this.context.router.route.location.pathname));
       }
     }
   }
@@ -27,9 +21,9 @@ export default class LoadingView extends Component {
         })
         .catch(error => {
           console.log(error);
-          if (error.response && error.response.status == 401) {
+          if (error.response && error.response.status === 401) {
             localStorage.removeItem('jwtToken');
-            this.context.router.push('/login?path=' + this.context.router.url);
+            this.context.router.history.push('/login?path=' + this.context.router.route.location.pathname);
           }
         });
     }
@@ -50,8 +44,20 @@ export default class LoadingView extends Component {
     }
 
     return (
-      <div style="background:rgba(255,255,255,0.9); width:100%; height:100%; z-index:99999999; position:fixed; left:0px; top:0px; display: table; text-align:center;">
-        <div style="display:table-cell; vertical-align: middle;">{content}</div>
+      <div
+        style={{
+          background: 'rgba(255,255,255,0.9)',
+          width: '100%',
+          height: '100%',
+          zIndex: '99999999',
+          position: 'fixed',
+          left: '0px',
+          top: '0px',
+          display: 'table',
+          textAlign: 'center',
+        }}
+      >
+        <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>{content}</div>
       </div>
     );
   }

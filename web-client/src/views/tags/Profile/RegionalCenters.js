@@ -1,7 +1,4 @@
-import Inferno from 'inferno';
-import VNodeFlags from 'inferno-vnode-flags';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
+import { Component } from 'inferno';
 import { api } from '../../../utils/api';
 
 export default class RegionalCenters extends Component {
@@ -11,7 +8,7 @@ export default class RegionalCenters extends Component {
 
     for (let i = 0; i < state.regionalCenters.length; i++) {
       let isSelected = false;
-      if (parseInt(state.result['regional_center']) == i + 1) {
+      if (parseInt(state.result['regional_center'], 10) === i + 1) {
         isSelected = true;
       }
 

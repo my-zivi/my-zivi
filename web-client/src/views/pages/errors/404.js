@@ -1,4 +1,3 @@
-import Inferno from 'inferno';
 import Card from '../../tags/card';
 
 export default function() {

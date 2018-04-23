@@ -1,7 +1,4 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
-import jwtDecode from 'jwt-decode';
+import { Component } from 'inferno';
 
 import Card from '../tags/card';
 import Auth from '../../utils/auth';
@@ -30,14 +27,14 @@ export default class Login extends Component {
       })
       .then(response => {
         Auth.setToken(response.data.data.token);
-        if (this.props.params.path) {
-          var url = this.props.params.path;
+        if (this.props.match.params.path) {
+          var url = this.props.match.params.path;
           if (url.startsWith('/login')) {
             url = '/';
           }
-          this.context.router.push(url);
+          this.context.router.history.push(url);
         } else {
-          this.context.router.push('/');
+          this.context.router.history.push('/');
         }
       })
       .catch(error => {
@@ -70,7 +67,13 @@ export default class Login extends Component {
       <Header>
         <div className="page page__login">
           <Card>
-            <form class="form-signin" action="javascript:;" onsubmit={() => this.login()}>
+            <form
+              class="form-signin"
+              onSubmit={e => {
+                e.preventDefault();
+                this.login();
+              }}
+            >
               <h2 class="form-signin-heading">Anmelden</h2>
               {this.state.errorBox}
               <p>
@@ -83,7 +86,7 @@ export default class Login extends Component {
                   class="form-control"
                   placeholder="Email"
                   value={this.state.email}
-                  onChange={this.handleChange.bind(this)}
+                  onInput={this.handleChange.bind(this)}
                   required
                   autofocus
                 />
@@ -96,7 +99,7 @@ export default class Login extends Component {
                   class="form-control"
                   placeholder="Passwort"
                   value={this.state.password}
-                  onChange={this.handleChange.bind(this)}
+                  onInput={this.handleChange.bind(this)}
                   required
                 />
               </p>

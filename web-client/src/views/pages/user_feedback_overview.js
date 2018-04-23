@@ -1,7 +1,5 @@
-﻿import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+﻿import { Component } from 'inferno';
 import Card from '../tags/card';
-import Component from 'inferno-component';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
@@ -34,8 +32,8 @@ export default class UserFeedbackOverview extends Component {
     this.setState({ loading: true, error: null });
 
     var request;
-    if (this.props.params.feedback_id) {
-      request = apiURL('user/feedback/' + this.props.params.feedback_id);
+    if (this.props.match.params.feedback_id) {
+      request = apiURL('user/feedback/' + this.props.match.params.feedback_id);
     } else {
       request = apiURL('user/feedback', {
         date_from: this.dbDate(this.state.date_from),
@@ -60,7 +58,7 @@ export default class UserFeedbackOverview extends Component {
     let lastValue = this.state[e.target.name];
     let value = e.target.value;
 
-    if (value !== undefined && value != null && value != '') {
+    if (value) {
       value = DatePicker.dateFormat_CH2EN(value);
     }
 
@@ -93,17 +91,17 @@ export default class UserFeedbackOverview extends Component {
   getType1RowContent(numberOfAnswers, answers, totalAnswers, colSize = 3) {
     let cols = [];
 
-    for (var i = 1; i <= numberOfAnswers; i++) {
+    for (let i = 1; i <= numberOfAnswers; i++) {
       let answerPerc = 0;
       let answerClasses;
 
-      if (numberOfAnswers == 2) {
+      if (numberOfAnswers === 2) {
         answerClasses = ['', 'progress-bar-danger', 'progress-bar-success'];
 
-        if (i == 2) {
+        if (i === 2) {
           cols.push(<div class={'col-xs-6'} />);
         }
-      } else if (numberOfAnswers == 6) {
+      } else if (numberOfAnswers === 6) {
         answerClasses = [
           '',
           'progress-bar-info',
@@ -117,16 +115,16 @@ export default class UserFeedbackOverview extends Component {
         answerClasses = ['', 'progress-bar-danger', 'progress-bar-warning', 'progress-bar-info', 'progress-bar-success'];
       }
 
-      if (answers[i] == 0) {
-        answerPerc = 0;
-      } else {
+      if (answers[i]) {
         answerPerc = answers[i] / totalAnswers;
+      } else {
+        answerPerc = 0;
       }
 
       cols.push(
         <div class={'col-xs-' + colSize}>
           <div class={'progress vertical progress-striped ' + answerClasses[i]}>
-            <div class="progress-bar" style={'height: ' + (100 - answerPerc * 100) + '%;'}>
+            <div class="progress-bar" style={{ height: 100 - answerPerc * 100 + '%' }}>
               {Math.round(answerPerc * 100)}
             </div>
           </div>
@@ -160,28 +158,26 @@ export default class UserFeedbackOverview extends Component {
     }
 
     for (var x = 0; x < answers.length; x++) {
-      if (answers[x].new_page == 1) {
+      if (+answers[x].new_page === 1) {
         feedbacks.push(this.getChapter(answers[x].custom_info));
       }
 
       // These questions have multiple answers
       if (
-        answers[x].type == TYPE_SINGLE_QUESTION ||
-        answers[x].type == TYPE_GROUP_QUESTION ||
-        answers[x].type == TYPE_SINGLE_QUESTION_2 ||
-        answers[x].type == TYPE_SINGLE_QUESTION_6
+        answers[x].type === TYPE_SINGLE_QUESTION ||
+        answers[x].type === TYPE_GROUP_QUESTION ||
+        answers[x].type === TYPE_SINGLE_QUESTION_2 ||
+        answers[x].type === TYPE_SINGLE_QUESTION_6
       ) {
-        let rawContent = [];
         let totalAnswers = 0;
         let answersCleaned = [];
-        let answersPerc = [];
 
         for (var i = 1; i <= 6; i++) {
           answersCleaned[i] = answers[x]['answers'][i] ? answers[x]['answers'][i] : 0;
           totalAnswers += answersCleaned[i];
         }
 
-        if (answers[x].type == TYPE_SINGLE_QUESTION_6) {
+        if (answers[x].type === TYPE_SINGLE_QUESTION_6) {
           let custom_info = this.tryParseJSON('{' + answers[x].custom_info.substring(0, answers[x].custom_info.length - 1) + '}');
 
           let rows = [];
@@ -206,7 +202,7 @@ export default class UserFeedbackOverview extends Component {
               </div>
             </div>
           );
-        } else if (answers[x].type == TYPE_SINGLE_QUESTION_2) {
+        } else if (answers[x].type === TYPE_SINGLE_QUESTION_2) {
           feedbacks.push(
             <div class="row">
               <div class="col-xs-8">
@@ -241,8 +237,8 @@ export default class UserFeedbackOverview extends Component {
             </div>
           );
         }
-      } else if (answers[x].type == TYPE_GROUP_TITLE) {
-        if (answers[x].question == '') {
+      } else if (answers[x].type === TYPE_GROUP_TITLE) {
+        if (!answers[x].question) {
           continue;
         }
 
@@ -266,7 +262,7 @@ export default class UserFeedbackOverview extends Component {
             </div>
           </div>
         );
-      } else if (answers[x].type == TYPE_TEXT) {
+      } else if (answers[x].type === TYPE_TEXT) {
         feedbacks.push(
           <div>
             <div class="row">
@@ -288,7 +284,7 @@ export default class UserFeedbackOverview extends Component {
       <Header>
         <div className="page page__user_feedback_overview">
           <Card>
-            {this.props.params.feedback_id == null && (
+            {this.props.match.params.feedback_id == null && (
               <div class="container top">
                 <div class="row">
                   <div class="col-sm-4">

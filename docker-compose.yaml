@@ -16,11 +16,11 @@ services:
     image: node:8
     container_name: izivi_web-client
     volumes:
-      - ./web-client:/var/web-client    
+      - ./web-client:/var/web-client
     working_dir: /var/web-client
     ports:
       - "43000:43000"
-    command: bash -c "yarn install && yarn run watch"
+    command: bash -c "yarn install && yarn run start"
   mariadb:
     image: mariadb:10
     container_name: izivi_db

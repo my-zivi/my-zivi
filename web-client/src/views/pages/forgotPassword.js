@@ -1,6 +1,4 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
+import { Component } from 'inferno';
 
 import Card from '../tags/card';
 import LoadingView from '../tags/loading-view';
@@ -73,7 +71,13 @@ export default class ForgotPassword extends Component {
             {this.state.errorBox}
 
             {!this.state.done && (
-              <form class="form-signin" action="javascript:;" onsubmit={() => this.send()}>
+              <form
+                class="form-signin"
+                onSubmit={e => {
+                  e.preventDefault();
+                  this.send();
+                }}
+              >
                 <p>
                   <label for="inputEmail" class="sr-only">
                     Email
@@ -84,7 +88,7 @@ export default class ForgotPassword extends Component {
                     class="form-control"
                     placeholder="Email"
                     value={this.state.email}
-                    onChange={this.handleChange.bind(this)}
+                    onInput={this.handleChange.bind(this)}
                     required
                     autofocus
                   />

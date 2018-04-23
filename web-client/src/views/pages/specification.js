@@ -1,7 +1,5 @@
-﻿import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+﻿import { Component } from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
-import Component from 'inferno-component';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import Toast from '../../utils/toast';
@@ -106,15 +104,15 @@ export default class Specifications extends Component {
           </td>
           <td class="col_a">{specifications[i].id}</td>
           <td class="col_a">
-            <input type="text" size="20" name="name" value={specifications[i].name} onChange={e => this.handleChange(e, i)} />
+            <input type="text" size="20" name="name" value={specifications[i].name} onInput={e => this.handleChange(e, i)} />
           </td>
 
           <td class="col_a">
-            <input type="text" size="5" name="short_name" value={specifications[i].short_name} onChange={e => this.handleChange(e, i)} />
+            <input type="text" size="5" name="short_name" value={specifications[i].short_name} onInput={e => this.handleChange(e, i)} />
           </td>
 
           <td class="col_b">
-            <input type="text" size="5" name="pocket" value={specifications[i].pocket} onChange={e => this.handleChange(e, i)} />
+            <input type="text" size="5" name="pocket" value={specifications[i].pocket} onInput={e => this.handleChange(e, i)} />
           </td>
           <td class="col_a">
             <input
@@ -122,7 +120,7 @@ export default class Specifications extends Component {
               size="5"
               name="accommodation"
               value={specifications[i].accommodation}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_b">
@@ -131,7 +129,7 @@ export default class Specifications extends Component {
               size="5"
               name="working_clothes_expense"
               value={specifications[i].working_clothes_expense}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_a">
@@ -140,7 +138,7 @@ export default class Specifications extends Component {
               size="5"
               name="firstday_breakfast_expenses"
               value={specifications[i].firstday_breakfast_expenses}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_a">
@@ -149,7 +147,7 @@ export default class Specifications extends Component {
               size="5"
               name="working_breakfast_expenses"
               value={specifications[i].working_breakfast_expenses}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_a">
@@ -158,7 +156,7 @@ export default class Specifications extends Component {
               size="5"
               name="sparetime_breakfast_expenses"
               value={specifications[i].sparetime_breakfast_expenses}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_a">
@@ -167,7 +165,7 @@ export default class Specifications extends Component {
               size="5"
               name="lastday_breakfast_expenses"
               value={specifications[i].lastday_breakfast_expenses}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_b">
@@ -176,7 +174,7 @@ export default class Specifications extends Component {
               size="5"
               name="firstday_lunch_expenses"
               value={specifications[i].firstday_lunch_expenses}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_b">
@@ -185,7 +183,7 @@ export default class Specifications extends Component {
               size="5"
               name="working_lunch_expenses"
               value={specifications[i].working_lunch_expenses}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_b">
@@ -194,7 +192,7 @@ export default class Specifications extends Component {
               size="5"
               name="sparetime_lunch_expenses"
               value={specifications[i].sparetime_lunch_expenses}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_b">
@@ -203,7 +201,7 @@ export default class Specifications extends Component {
               size="5"
               name="lastday_lunch_expenses"
               value={specifications[i].lastday_lunch_expenses}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_a">
@@ -212,7 +210,7 @@ export default class Specifications extends Component {
               size="5"
               name="firstday_dinner_expenses"
               value={specifications[i].firstday_dinner_expenses}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_a">
@@ -221,7 +219,7 @@ export default class Specifications extends Component {
               size="5"
               name="working_dinner_expenses"
               value={specifications[i].working_dinner_expenses}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_a">
@@ -230,7 +228,7 @@ export default class Specifications extends Component {
               size="5"
               name="sparetime_dinner_expenses"
               value={specifications[i].sparetime_dinner_expenses}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_a">
@@ -239,7 +237,7 @@ export default class Specifications extends Component {
               size="5"
               name="lastday_dinner_expenses"
               value={specifications[i].lastday_dinner_expenses}
-              onChange={e => this.handleChange(e, i)}
+              onInput={e => this.handleChange(e, i)}
             />
           </td>
           <td class="col_a">
@@ -247,7 +245,7 @@ export default class Specifications extends Component {
               class="btn btn-sm"
               type="submit"
               value="&nbsp;speichern&nbsp;"
-              onclick={() => {
+              onClick={() => {
                 this.save(i);
               }}
             />
@@ -257,8 +255,8 @@ export default class Specifications extends Component {
     }
 
     tbody.push(
-      <tr style="background:white;">
-        <td colspan="20" style="padding-top:20px;">
+      <tr style={{ background: 'white' }}>
+        <td colspan="20" style={{ paddingTop: '20px' }}>
           Pflichtenheft hinzufügen:
         </td>
       </tr>
@@ -267,70 +265,70 @@ export default class Specifications extends Component {
     tbody.push(
       <tr>
         <td class="col_a">
-          <input type="checkbox" name="active" onChange={e => this.handleChangeNew(e)} />
+          <input type="checkbox" name="active" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_a">
-          <input type="number" style="width:70px" name="id" onChange={e => this.handleChangeNew(e)} required />
+          <input type="number" style={{ width: '70px' }} name="id" onInput={e => this.handleChangeNew(e)} required />
         </td>
         <td class="col_a">
-          <input type="text" size="20" name="name" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="20" name="name" onInput={e => this.handleChangeNew(e)} />
         </td>
 
         <td class="col_a">
-          <input type="text" size="5" name="short_name" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="short_name" onInput={e => this.handleChangeNew(e)} />
         </td>
 
         <td class="col_b">
-          <input type="text" size="5" name="pocket" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="pocket" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_a">
-          <input type="text" size="5" name="accommodation" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="accommodation" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_b">
-          <input type="text" size="5" name="working_clothes_expense" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="working_clothes_expense" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_a">
-          <input type="text" size="5" name="firstday_breakfast_expenses" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="firstday_breakfast_expenses" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_a">
-          <input type="text" size="5" name="working_breakfast_expenses" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="working_breakfast_expenses" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_a">
-          <input type="text" size="5" name="sparetime_breakfast_expenses" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="sparetime_breakfast_expenses" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_a">
-          <input type="text" size="5" name="lastday_breakfast_expenses" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="lastday_breakfast_expenses" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_b">
-          <input type="text" size="5" name="firstday_lunch_expenses" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="firstday_lunch_expenses" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_b">
-          <input type="text" size="5" name="working_lunch_expenses" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="working_lunch_expenses" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_b">
-          <input type="text" size="5" name="sparetime_lunch_expenses" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="sparetime_lunch_expenses" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_b">
-          <input type="text" size="5" name="lastday_lunch_expenses" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="lastday_lunch_expenses" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_a">
-          <input type="text" size="5" name="firstday_dinner_expenses" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="firstday_dinner_expenses" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_a">
-          <input type="text" size="5" name="working_dinner_expenses" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="working_dinner_expenses" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_a">
-          <input type="text" size="5" name="sparetime_dinner_expenses" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="sparetime_dinner_expenses" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_a">
-          <input type="text" size="5" name="lastday_dinner_expenses" onChange={e => this.handleChangeNew(e)} />
+          <input type="text" size="5" name="lastday_dinner_expenses" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_a">
           <input
             class="btn btn-sm"
             type="submit"
             value="&nbsp;hinzufügen&nbsp;"
-            onclick={() => {
+            onClick={() => {
               this.add();
             }}
           />
@@ -378,40 +376,40 @@ export default class Specifications extends Component {
                   </th>
                 </tr>
                 <tr>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Erster Tag
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Arbeit
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Frei
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Letzter Tag
                   </td>
-                  <td class="col_b" style="text-align:center">
+                  <td class="col_b" style={{ textAlign: 'center' }}>
                     Erster Tag
                   </td>
-                  <td class="col_b" style="text-align:center">
+                  <td class="col_b" style={{ textAlign: 'center' }}>
                     Arbeit
                   </td>
-                  <td class="col_b" style="text-align:center">
+                  <td class="col_b" style={{ textAlign: 'center' }}>
                     Frei
                   </td>
-                  <td class="col_b" style="text-align:center">
+                  <td class="col_b" style={{ textAlign: 'center' }}>
                     Letzter Tag
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Erster Tag
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Arbeit
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Frei
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Letzter Tag
                   </td>
                   <td />

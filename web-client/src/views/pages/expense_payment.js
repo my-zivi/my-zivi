@@ -1,10 +1,7 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+import { Component } from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
-import Component from 'inferno-component';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
-import DatePicker from '../tags/InputFields/DatePicker';
 import moment from 'moment-timezone';
 import { api, apiURL } from '../../utils/api';
 
@@ -141,7 +138,7 @@ export default class ExpensePayment extends Component {
               </div>
             )}
 
-            {this.state.report_sheets.valid.length == 0 && (
+            {this.state.report_sheets.valid.length === 0 && (
               <div>
                 Keine pendenten Zahlungen
                 <br />

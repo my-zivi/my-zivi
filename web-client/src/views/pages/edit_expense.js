@@ -1,11 +1,9 @@
-﻿import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+﻿import { Component } from 'inferno';
 import Card from '../tags/card';
 import InputField from '../tags/InputFields/InputField';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';
 import InputFieldWithProposal from '../tags/InputFields/InputFieldWithProposal';
 import DatePicker from '../tags/InputFields/DatePicker';
-import Component from 'inferno-component';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import Toast from '../../utils/toast';
@@ -31,7 +29,7 @@ export default class EditExpense extends Component {
   getReportSheet() {
     this.setState({ loading: true, error: null });
     api()
-      .get('reportsheet/' + this.props.params.report_sheet_id)
+      .get('reportsheet/' + this.props.match.params.report_sheet_id)
       .then(response => {
         this.setState({
           report_sheet: response.data,
@@ -66,10 +64,10 @@ export default class EditExpense extends Component {
   handleDateChange(e) {
     let value = e.target.value;
 
-    if (value === undefined || value == null || value == '') {
-      value = this.state.lastDateValue;
-    } else {
+    if (value) {
       value = DatePicker.dateFormat_CH2EN(value);
+    } else {
+      value = this.state.lastDateValue;
     }
 
     this.setState({
@@ -90,16 +88,16 @@ export default class EditExpense extends Component {
   save() {
     var requiredDays = this.state.report_sheet.meldeblaetter_tage;
     var providedDays =
-      (parseInt(this.state.report_sheet.meldeblaetter_workdays) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_workfreedays) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_companyurlaub) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_ferien_wegen_urlaub) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_add_workfree) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_ill) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_holiday) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_urlaub) || 0);
+      (parseInt(this.state.report_sheet.meldeblaetter_workdays, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_workfreedays, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_companyurlaub, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_ferien_wegen_urlaub, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_add_workfree, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_ill, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_holiday, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_urlaub, 10) || 0);
 
-    if (requiredDays != providedDays) {
+    if (requiredDays !== providedDays) {
       if (!this.state.force_save) {
         Toast.showError(
           'Anzahl Tage prüfen!',
@@ -113,7 +111,7 @@ export default class EditExpense extends Component {
 
     this.setState({ loading: true, error: null });
     api()
-      .post('reportsheet/' + this.props.params.report_sheet_id, this.state.report_sheet)
+      .post('reportsheet/' + this.props.match.params.report_sheet_id, this.state.report_sheet)
       .then(response => {
         Toast.showSuccess('Speichern erfolgreich', 'Spesen konnte gespeichert werden');
         this.getReportSheet();
@@ -125,12 +123,12 @@ export default class EditExpense extends Component {
   }
 
   deleteReportSheet() {
-    if (confirm('Möchten Sie dieses Meldeblatt wirklich löschen?')) {
+    if (window.confirm('Möchten Sie dieses Meldeblatt wirklich löschen?')) {
       this.setState({ loading: true, error: null });
       api()
-        .delete('reportsheet/' + this.props.params.report_sheet_id)
+        .delete('reportsheet/' + this.props.match.params.report_sheet_id)
         .then(response => {
-          this.router.push('/profile/' + this.state['report_sheet']['user']);
+          this.router.history.push('/profile/' + this.state['report_sheet']['user']);
         })
         .catch(error => {
           this.setState({ loading: false, error: null });
@@ -150,7 +148,13 @@ export default class EditExpense extends Component {
     if (sheet != null) {
       content.push(
         <div class="container">
-          <form class="form-horizontal" action="javascript:;">
+          <form
+            class="form-horizontal"
+            onSubmit={e => {
+              e.preventDefault();
+              this.save();
+            }}
+          >
             <div>
               <h1>
                 Spesenrapport erstellen für {sheet.first_name} {sheet.last_name}
@@ -197,7 +201,7 @@ export default class EditExpense extends Component {
               proposalValue={sheet.meldeblaetter_workdays_proposal}
               showComment={false}
               doValidation={true}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputFieldWithProposal
@@ -210,7 +214,7 @@ export default class EditExpense extends Component {
               doValidation={true}
               commentId="meldeblaetter_workfree_comment"
               commentValue={sheet.meldeblaetter_workfree_comment}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputFieldWithProposal
@@ -222,7 +226,7 @@ export default class EditExpense extends Component {
               showComment={true}
               commentId="meldeblaetter_compholiday_comment"
               commentValue={sheet.meldeblaetter_compholiday_comment}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputFieldWithProposal
@@ -232,7 +236,7 @@ export default class EditExpense extends Component {
               inputType="number"
               proposalValue={sheet.meldeblaetter_ferien_wegen_urlaub_proposal}
               showComment={false}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputField id="meldeblaetter_add_workfree" label="Zusätzlich Arbeitsfrei" value={sheet.meldeblaetter_add_workfree} disabled />
@@ -241,7 +245,7 @@ export default class EditExpense extends Component {
                 id="meldeblaetter_add_workfree_comment"
                 label="Bemerkung"
                 value={sheet.meldeblaetter_add_workfree_comment}
-                onChange={this.handleChange.bind(this)}
+                onInput={this.handleChange.bind(this)}
               />
             </div>
             <hr />
@@ -256,7 +260,7 @@ export default class EditExpense extends Component {
               showComment={true}
               commentId="meldeblaetter_ill_comment"
               commentValue={sheet.meldeblaetter_ill_comment}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputFieldWithProposal
@@ -269,14 +273,14 @@ export default class EditExpense extends Component {
               showComment={true}
               commentId="meldeblaetter_holiday_comment"
               commentValue={sheet.meldeblaetter_holiday_comment}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputField
               id="meldeblaetter_urlaub"
               label="Persönlicher Urlaub"
               value={sheet.meldeblaetter_urlaub}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
               inputType="number"
             />
             <div class="proposalComment">
@@ -284,7 +288,7 @@ export default class EditExpense extends Component {
                 id="meldeblaetter_urlaub_comment"
                 label="Bemerkung"
                 value={sheet.meldeblaetter_urlaub_comment}
-                onChange={this.handleChange.bind(this)}
+                onInput={this.handleChange.bind(this)}
               />
             </div>
             <hr />
@@ -292,26 +296,28 @@ export default class EditExpense extends Component {
             <InputFieldWithProposal
               id="meldeblaetter_kleider"
               valueLabel="Kleiderspesen"
-              value={this.formatRappen(sheet.meldeblaetter_kleider)}
+              inputType="number"
+              value={sheet.meldeblaetter_kleider}
               proposalValue={this.formatRappen(sheet.meldeblaetter_kleider_proposal) + ' Fr.'}
               showComment={true}
               commentId="meldeblaetter_kleider_comment"
               commentValue={sheet.meldeblaetter_kleider_comment}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputField
               id="meldeblaetter_fahrspesen"
               label="Fahrspesen"
-              value={this.formatRappen(sheet.meldeblaetter_fahrspesen)}
-              onChange={this.handleChange.bind(this)}
+              inputType="number"
+              value={sheet.meldeblaetter_fahrspesen}
+              onInput={this.handleChange.bind(this)}
             />
             <div class="proposalComment">
               <InputField
                 id="meldeblaetter_fahrspesen_comment"
                 label="Bemerkung"
                 value={sheet.meldeblaetter_fahrspesen_comment}
-                onChange={this.handleChange.bind(this)}
+                onInput={this.handleChange.bind(this)}
               />
             </div>
             <hr />
@@ -319,15 +325,16 @@ export default class EditExpense extends Component {
             <InputField
               id="meldeblaetter_ausserordentlich"
               label="Ausserordentliche Spesen"
-              value={this.formatRappen(sheet.meldeblaetter_ausserordentlich)}
-              onChange={this.handleChange.bind(this)}
+              inputType="number"
+              value={sheet.meldeblaetter_ausserordentlich}
+              onInput={this.handleChange.bind(this)}
             />
             <div class="proposalComment">
               <InputField
                 id="meldeblaetter_ausserordentlich_comment"
                 label="Bemerkung"
                 value={sheet.meldeblaetter_ausserordentlich_comment}
-                onChange={this.handleChange.bind(this)}
+                onInput={this.handleChange.bind(this)}
               />
             </div>
             <hr />
@@ -338,9 +345,9 @@ export default class EditExpense extends Component {
               id="bank_account_number"
               label="Konto-Nr."
               value={sheet.bank_account_number}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
-            <InputField id="document_number" label="Beleg-Nr." value={sheet.document_number} onChange={this.handleChange.bind(this)} />
+            <InputField id="document_number" label="Beleg-Nr." value={sheet.document_number} onInput={this.handleChange.bind(this)} />
 
             <div class="form-group">
               <label class="control-label col-sm-3" for="state">
@@ -358,14 +365,7 @@ export default class EditExpense extends Component {
             <hr />
 
             <div class="container">
-              <button
-                type="submit"
-                name="saveExpense"
-                class="btn btn-primary col-sm-3"
-                onClick={() => {
-                  this.save();
-                }}
-              >
+              <button type="submit" name="saveExpense" class="btn btn-primary col-sm-3">
                 <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" /> Speichern und aktualisieren
               </button>
               <div class="col-sm-2" />
@@ -386,7 +386,7 @@ export default class EditExpense extends Component {
                 href={apiURL(
                   'pdf/zivireportsheet',
                   {
-                    reportSheetId: this.props.params.report_sheet_id,
+                    reportSheetId: this.props.match.params.report_sheet_id,
                   },
                   true
                 )}
@@ -400,7 +400,7 @@ export default class EditExpense extends Component {
                 name="deleteReport"
                 class="btn btn-default col-sm-2"
                 onClick={() => {
-                  this.router.push('/profile/' + this.state['report_sheet']['user']);
+                  this.router.history.push('/profile/' + this.state['report_sheet']['user']);
                 }}
               >
                 Profil anzeigen

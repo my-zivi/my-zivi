@@ -1,6 +1,3 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
 import InputField from './InputField';
 
 export default class InputFieldWithProposal extends InputField {
@@ -9,7 +6,7 @@ export default class InputFieldWithProposal extends InputField {
       let mainValue = this.props.value;
       let proposalValue = this.props.proposalValue;
 
-      return mainValue == proposalValue;
+      return mainValue.toString() === proposalValue.toString();
     } else {
       return true;
     }
@@ -43,7 +40,7 @@ export default class InputFieldWithProposal extends InputField {
           name={this.props.id}
           value={this.props.value}
           className="form-control"
-          onChange={this.props.onChange}
+          onInput={this.props.onInput}
           readOnly={this.props.disabled}
         />
       </div>
@@ -53,7 +50,7 @@ export default class InputFieldWithProposal extends InputField {
   getProposalField() {
     let proposalText = 'Vorschlag: ';
 
-    if (this.props.proposalText !== undefined && this.props.proposalText != '') {
+    if (this.props.proposalText) {
       proposalText = this.props.proposalText;
     }
 
@@ -78,7 +75,7 @@ export default class InputFieldWithProposal extends InputField {
         name={this.props.commentId}
         value={this.props.commentValue}
         className="form-control"
-        onChange={this.props.onChange}
+        onInput={this.props.onInput}
       />
     );
   }

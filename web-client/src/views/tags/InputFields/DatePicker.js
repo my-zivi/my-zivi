@@ -1,6 +1,3 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
 import InputField from './InputField';
 import moment from 'moment-timezone';
 
@@ -17,7 +14,7 @@ export default class DatePicker extends InputField {
   }
 
   componentDidMount() {
-    $(this.element).datepicker({
+    window.$(this.element).datepicker({
       format: 'dd.mm.yyyy',
       autoclose: true,
       startView: 'days',
@@ -28,15 +25,15 @@ export default class DatePicker extends InputField {
   }
 
   componentWillUnmount() {
-    $(this.element).datepicker('destroy');
+    window.$(this.element).datepicker('destroy');
   }
 
   render() {
     let dateValue = this.props.value;
-    if (dateValue === undefined || dateValue == null || parseInt(dateValue) == 0) {
-      dateValue = null;
-    } else {
+    if (dateValue) {
       dateValue = DatePicker.dateFormat_EN2CH(this.props.value);
+    } else {
+      dateValue = null;
     }
 
     let showLabel = true;
@@ -50,6 +47,7 @@ export default class DatePicker extends InputField {
         id="datePicker"
         ref={picker => (this.element = picker)}
       >
+        {/* todo fixme compare this onInput / onChange with original (ability to hand edit the date)*/}
         <input
           type="text"
           class="form-control"
@@ -58,6 +56,7 @@ export default class DatePicker extends InputField {
           value={dateValue}
           onChange={e => this.props.onChange(e)}
           readonly={this.props.disabled}
+          autocomplete="off"
         />
         <span class="input-group-addon add-on">
           <span class="glyphicon glyphicon-calendar" />

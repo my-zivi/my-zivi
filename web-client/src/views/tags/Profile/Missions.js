@@ -1,9 +1,5 @@
-﻿import Inferno from 'inferno';
-import VNodeFlags from 'inferno-vnode-flags';
-import { Link } from 'inferno-router';
-import Component from 'inferno-component';
+import { Component } from 'inferno';
 import Auth from '../../../utils/auth';
-import InputField from '../InputFields/InputField';
 import InputFieldWithHelpText from '../InputFields/InputFieldWithHelpText';
 import InputCheckbox from '../InputFields/InputCheckbox';
 import DatePicker from '../InputFields/DatePicker';
@@ -54,8 +50,8 @@ export default class Missions extends Component {
             <div class="modal-body">
               <form
                 class="form-horizontal"
-                action="javascript:;"
-                onsubmit={() => {
+                onSubmit={e => {
+                  e.preventDefault();
                   this.saveMission(self, missionKey);
                 }}
               >
@@ -121,7 +117,6 @@ export default class Missions extends Component {
                     self.handleChange(e, self);
                     this.calculateMissionEndDate(e, self, missionKey);
                   }}
-                  self={self}
                 />
                 <InputCheckbox
                   value={self.state['result'][missionKey + '_first_time']}
@@ -178,15 +173,15 @@ export default class Missions extends Component {
 
   getMissions(self) {
     let confirmedIcon = (
-      <a data-toggle="popover" title="" data-content="Aufgebot erhalten">
-        <span class="glyphicon glyphicon-check" style="color:green" />
-      </a>
+      <span data-toggle="popover" title="" data-content="Aufgebot erhalten">
+        <span class="glyphicon glyphicon-check" style={{ color: 'green' }} />
+      </span>
     );
 
     let draftOpenIcon = (
-      <a data-toggle="popover" title="" data-content="Provisorisch">
-        <span class="glyphicon glyphicon-unchecked" style="color:grey" />
-      </a>
+      <span data-toggle="popover" title="" data-content="Provisorisch">
+        <span class="glyphicon glyphicon-unchecked" style={{ color: 'grey' }} />
+      </span>
     );
 
     var missions = [];
@@ -196,7 +191,7 @@ export default class Missions extends Component {
         var name = m[i].specification;
 
         for (var s = 0; s < self.state.specifications.length; s++) {
-          if (m[i].specification == self.state.specifications[s].id) {
+          if (m[i].specification === self.state.specifications[s].id) {
             name = name + ' ' + self.state.specifications[s].name;
             break;
           }
@@ -211,7 +206,7 @@ export default class Missions extends Component {
             <button
               class="btn btn-xs btn-danger"
               onClick={() => {
-                if (confirm('Möchten Sie diesen Einsatz wirklich löschen?')) {
+                if (window.confirm('Möchten Sie diesen Einsatz wirklich löschen?')) {
                   self.missionTag.deleteMission(self, curMission);
                 }
               }}
@@ -238,8 +233,8 @@ export default class Missions extends Component {
 
         if (
           moment().isSameOrAfter(moment(m[i].end)) &&
-          m[i].feedback_done != 1 &&
-          self.props.params.userid === undefined && // Only allow feedbacks for own user
+          +m[i].feedback_done !== 1 &&
+          self.props.match.params.userid === undefined && // Only allow feedbacks for own user
           curMission.draft != null // Only allow feedbacks for confirmed missions
         ) {
           feedbackButton.push(
@@ -291,12 +286,12 @@ export default class Missions extends Component {
       probation_period: self.state.result[missionKey + '_probation_period'],
     };
 
-    if (moment(newMission['start']).isoWeekday() != 1 && newMission['probation_period'] != 1) {
+    if (moment(newMission['start']).isoWeekday() !== 1 && +newMission['probation_period'] !== 1) {
       Toast.showError('Falscher Einsatzbeginn', 'Erster Einsatztag muss zwingend ein Montag sein!', null, self.context);
       return;
     }
 
-    if (moment(newMission['end']).isoWeekday() != 5 && newMission['mission_type'] != 2 && newMission['probation_period'] != 1) {
+    if (moment(newMission['end']).isoWeekday() !== 5 && +newMission['mission_type'] !== 2 && +newMission['probation_period'] !== 1) {
       Toast.showError(
         'Falsches Einsatzende',
         'Letzter Einsatztag muss zwingend ein Freitag sein! (Ausnahme: letzter Einsatz)',
@@ -312,12 +307,12 @@ export default class Missions extends Component {
     }
 
     self.setState({ loading: true, error: null });
-    if (missionKey == 'newmission') {
+    if (missionKey === 'newmission') {
       api()
         .post('mission', newMission)
         .then(response => {
           Toast.showSuccess('Speichern erfolgreich', 'Neuer Einsatz konnte gespeichert werden');
-          $('[data-dismiss=modal]').trigger({ type: 'click' });
+          window.$('[data-dismiss=modal]').trigger({ type: 'click' });
           self.getUser();
         })
         .catch(error => {
@@ -329,7 +324,7 @@ export default class Missions extends Component {
         .put('mission/' + missionKey, newMission)
         .then(response => {
           Toast.showSuccess('Speichern erfolgreich', 'Einsatz konnte gespeichert werden');
-          $('[data-dismiss=modal]').trigger({ type: 'click' });
+          window.$('[data-dismiss=modal]').trigger({ type: 'click' });
           self.getUser();
           self.getReportSheets();
         })

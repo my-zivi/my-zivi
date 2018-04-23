@@ -25,9 +25,9 @@ function showSuccess(title, msg) {
 }
 
 function showError(title, msg, error, context) {
-  if (error != null && error.response != null && error.response.status == 401) {
+  if (error != null && error.response != null && error.response.status === 401) {
     localStorage.removeItem('jwtToken');
-    context.router.push('/');
+    context.router.history.push('/');
   }
 
   iziToast.show({
@@ -124,5 +124,5 @@ function showWarning(title, msg) {
 */
 
 // Export
-const Toast = { showSuccess, showError };
+const Toast = { showSuccess, showError, showWarning };
 export default Toast;

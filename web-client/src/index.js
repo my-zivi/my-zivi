@@ -1,9 +1,10 @@
 import 'babel-polyfill';
-import Inferno from 'inferno';
+import * as Inferno from 'inferno';
 import { Router } from 'inferno-router';
+import { initDevTools } from 'inferno-devtools';
 import { createBrowserHistory } from 'history';
 import views from './views';
-import './index.sass';
+import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'izitoast/dist/css/iziToast.css';
 import Raven from 'raven-js';
@@ -27,11 +28,15 @@ Raven.context(() => {
 
   const browserHistory = createBrowserHistory();
 
+  if (process.env.NODE_ENV !== 'production') {
+    initDevTools(); // produces error: https://github.com/infernojs/inferno/issues/1324
+  }
+
   Inferno.render(<Router history={browserHistory}>{views}</Router>, document.getElementById('root'));
 });
 
 if (process.env.NODE_ENV === 'production') {
-  if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
     // disable serviceworker, it seems to make more trouble than help
     //navigator.serviceWorker.register('/service-worker.js');
   }
