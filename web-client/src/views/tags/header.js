@@ -43,7 +43,7 @@ export default class Header extends Component {
     return (
       <div>
         {BootstrapNavLink.getNavbar(this.generateNavLinks())}
-        <main id="content" style="padding-top: 0">
+        <main id="content" style={{ paddingTop: 0 }}>
           {this.props.children}
         </main>
         <span class="release-info hide-print">

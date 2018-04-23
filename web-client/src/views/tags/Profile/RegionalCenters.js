@@ -8,7 +8,7 @@ export default class RegionalCenters extends Component {
 
     for (let i = 0; i < state.regionalCenters.length; i++) {
       let isSelected = false;
-      if (parseInt(state.result['regional_center']) == i + 1) {
+      if (parseInt(state.result['regional_center'], 10) === i + 1) {
         isSelected = true;
       }
 

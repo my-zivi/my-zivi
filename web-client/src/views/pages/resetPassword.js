@@ -85,7 +85,15 @@ export default class ResetPassword extends Component {
             {this.state.confirmBox}
             <div class="container">
               {!this.state.done && (
-                <form id="changePasswordForm" action="javascript:;" class="form-horizontal" data-toggle="validator">
+                <form
+                  id="changePasswordForm"
+                  class="form-horizontal"
+                  data-toggle="validator"
+                  onSubmit={e => {
+                    e.preventDefault();
+                    this.save();
+                  }}
+                >
                   <div class="form-group has-feedback">
                     <label class="control-label col-sm-3" for="old_password">
                       Neues Passwort
@@ -95,7 +103,8 @@ export default class ResetPassword extends Component {
                         type="password"
                         id="new_password"
                         name="new_password"
-                        onChange={e => this.handleChange(e)}
+                        value={this.state.new_password}
+                        onInput={e => this.handleChange(e)}
                         className="form-control"
                         data-minlength="7"
                         placeholder=""
@@ -115,7 +124,8 @@ export default class ResetPassword extends Component {
                         type="password"
                         id="new_password_2"
                         name="new_password_2"
-                        onChange={e => this.handleChange(e)}
+                        value={this.state.new_password_2}
+                        onInput={e => this.handleChange(e)}
                         className="form-control"
                         data-match="#new_password"
                         data-match-error="Die beiden Eingaben stimmen nicht überein"
@@ -127,13 +137,7 @@ export default class ResetPassword extends Component {
                     <div class="help-block with-errors col-sm-9" />
                   </div>
 
-                  <button
-                    type="submit"
-                    class="btn btn-primary"
-                    onclick={() => {
-                      this.save();
-                    }}
-                  >
+                  <button type="submit" class="btn btn-primary">
                     Absenden
                   </button>
                 </form>

@@ -245,7 +245,7 @@ export default class Specifications extends Component {
               class="btn btn-sm"
               type="submit"
               value="&nbsp;speichern&nbsp;"
-              onclick={() => {
+              onClick={() => {
                 this.save(i);
               }}
             />
@@ -255,8 +255,8 @@ export default class Specifications extends Component {
     }
 
     tbody.push(
-      <tr style="background:white;">
-        <td colspan="20" style="padding-top:20px;">
+      <tr style={{ background: 'white' }}>
+        <td colspan="20" style={{ paddingTop: '20px' }}>
           Pflichtenheft hinzufügen:
         </td>
       </tr>
@@ -268,7 +268,7 @@ export default class Specifications extends Component {
           <input type="checkbox" name="active" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_a">
-          <input type="number" style="width:70px" name="id" onInput={e => this.handleChangeNew(e)} required />
+          <input type="number" style={{ width: '70px' }} name="id" onInput={e => this.handleChangeNew(e)} required />
         </td>
         <td class="col_a">
           <input type="text" size="20" name="name" onInput={e => this.handleChangeNew(e)} />
@@ -328,7 +328,7 @@ export default class Specifications extends Component {
             class="btn btn-sm"
             type="submit"
             value="&nbsp;hinzufügen&nbsp;"
-            onclick={() => {
+            onClick={() => {
               this.add();
             }}
           />
@@ -376,40 +376,40 @@ export default class Specifications extends Component {
                   </th>
                 </tr>
                 <tr>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Erster Tag
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Arbeit
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Frei
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Letzter Tag
                   </td>
-                  <td class="col_b" style="text-align:center">
+                  <td class="col_b" style={{ textAlign: 'center' }}>
                     Erster Tag
                   </td>
-                  <td class="col_b" style="text-align:center">
+                  <td class="col_b" style={{ textAlign: 'center' }}>
                     Arbeit
                   </td>
-                  <td class="col_b" style="text-align:center">
+                  <td class="col_b" style={{ textAlign: 'center' }}>
                     Frei
                   </td>
-                  <td class="col_b" style="text-align:center">
+                  <td class="col_b" style={{ textAlign: 'center' }}>
                     Letzter Tag
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Erster Tag
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Arbeit
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Frei
                   </td>
-                  <td class="col_a" style="text-align:center">
+                  <td class="col_a" style={{ textAlign: 'center' }}>
                     Letzter Tag
                   </td>
                   <td />

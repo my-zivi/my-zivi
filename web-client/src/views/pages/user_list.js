@@ -54,10 +54,10 @@ export default class UserList extends Component {
   handleDateChange(e) {
     let value = e.target.value;
 
-    if (value === undefined || value == null || value == '') {
-      value = this.state.lastDateValue;
-    } else {
+    if (value) {
       value = DatePicker.dateFormat_CH2EN(value);
+    } else {
+      value = this.state.lastDateValue;
     }
 
     value = value.slice(0, 10);
@@ -83,19 +83,16 @@ export default class UserList extends Component {
     var temp = [];
     var users = this.state.users;
     for (let i = 0; i < users.length; i++) {
-      if (this.state.zdp != '' && !users[i].zdp.startsWith(this.state.zdp)) {
+      if (this.state.zdp && !users[i].zdp.startsWith(this.state.zdp)) {
         continue;
       }
-      if (
-        this.state.name != '' &&
-        (users[i].first_name + ' ' + users[i].last_name).toLowerCase().indexOf(this.state.name.toLowerCase()) == -1
-      ) {
+      if (this.state.name && (users[i].first_name + ' ' + users[i].last_name).toLowerCase().indexOf(this.state.name.toLowerCase()) === -1) {
         continue;
       }
-      if (this.state.start != '' && users[i].end < this.state.start) {
+      if (this.state.start && users[i].end < this.state.start) {
         continue;
       }
-      if (this.state.end != '' && users[i].start > this.state.end) {
+      if (this.state.end && users[i].start > this.state.end) {
         continue;
       }
       if (
@@ -106,7 +103,7 @@ export default class UserList extends Component {
       ) {
         continue;
       }
-      if (this.state.group != 0 && users[i].role_id != this.state.group) {
+      if (+this.state.group !== 0 && +users[i].role_id !== +this.state.group) {
         continue;
       }
 
@@ -123,15 +120,16 @@ export default class UserList extends Component {
           <td className="hidden-xs">{users[i].active}</td>
           <td className="hidden-xs">{users[i].role}</td>
           <td className="hidden-xs">
-            <a
-              onclick={() => {
+            <button
+              class="btn btn-danger btn-xs"
+              onClick={() => {
                 if (window.confirm('Möchten Sie ' + users[i].first_name + ' ' + users[i].last_name + ' wirklich löschen?')) {
                   this.deleteUser(users[i]);
                 }
               }}
             >
               Löschen
-            </a>
+            </button>
           </td>
         </tr>
       );
@@ -161,7 +159,7 @@ export default class UserList extends Component {
                       size="5"
                       type="text"
                       value={this.state.zdp}
-                      oninput={this.handleChange.bind(this)}
+                      onInput={this.handleChange.bind(this)}
                     />
                   </td>
                   <td>
@@ -171,7 +169,7 @@ export default class UserList extends Component {
                       size="15"
                       type="text"
                       value={this.state.name}
-                      oninput={this.handleChange.bind(this)}
+                      onInput={this.handleChange.bind(this)}
                     />
                   </td>
                   <td>
@@ -186,11 +184,11 @@ export default class UserList extends Component {
                       name="active"
                       type="checkbox"
                       value={this.state.active}
-                      onchange={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                     />
                   </td>
                   <td className="hidden-xs">
-                    <select className="form-control" name="group" value={this.state.group} oninput={this.handleChange.bind(this)}>
+                    <select className="form-control" name="group" value={this.state.group} onInput={this.handleChange.bind(this)}>
                       <option value="0">(Alle Gruppen)</option>
                       <option value="1">Admins</option>
                       <option value="2">Zivis</option>

@@ -66,10 +66,10 @@ export default class ExpenseOverview extends Component {
   handleDateChange(e) {
     let value = e.target.value;
 
-    if (value === undefined || value == null || value == '') {
-      value = this.state.lastDateValue;
-    } else {
+    if (value) {
       value = DatePicker.dateFormat_CH2EN(value);
+    } else {
+      value = this.state.lastDateValue;
     }
 
     this.setState({ [e.target.name]: value });
@@ -107,25 +107,25 @@ export default class ExpenseOverview extends Component {
     var tableBody = [];
     var sheets = this.state.report_sheets;
     let statusIcon = (
-      <a data-toggle="popover" title="" data-content="Erledigt">
-        <span style="color:green;" className="glyphicon glyphicon-ok" aria-hidden="true" />
-      </a>
+      <span data-toggle="popover" title="" data-content="Erledigt">
+        <span style={{ color: 'green' }} className="glyphicon glyphicon-ok" aria-hidden="true" />
+      </span>
     );
 
     for (let i = 0; i < sheets.length; i++) {
-      if (this.state.zdp != '' && !sheets[i].zdp.startsWith(this.state.zdp)) {
+      if (this.state.zdp && !sheets[i].zdp.startsWith(this.state.zdp)) {
         continue;
       }
       if (
-        this.state.name != '' &&
-        (sheets[i].first_name + ' ' + sheets[i].last_name).toLowerCase().indexOf(this.state.name.toLowerCase()) == -1
+        this.state.name &&
+        (sheets[i].first_name + ' ' + sheets[i].last_name).toLowerCase().indexOf(this.state.name.toLowerCase()) === -1
       ) {
         continue;
       }
-      if (this.state.start != '' && sheets[i].end < this.state.start) {
+      if (this.state.start && sheets[i].end < this.state.start) {
         continue;
       }
-      if (this.state.end != '' && sheets[i].start > this.state.end) {
+      if (this.state.end && sheets[i].start > this.state.end) {
         continue;
       }
 
@@ -170,10 +170,10 @@ export default class ExpenseOverview extends Component {
                 <span class="glyphicon glyphicon-file" aria-hidden="true" />
                 {' ' + this.monthNames[curMonthDate.getMonth()]}
               </a>
-              <a class="btn btn-default" data-toggle="modal" data-target="#myModal">
+              <button class="btn btn-default" data-toggle="modal" data-target="#myModal">
                 <span class="glyphicon glyphicon-file" aria-hidden="true" />
                 {' Erweitert'}
-              </a>
+              </button>
             </div>
 
             <br />
@@ -184,26 +184,26 @@ export default class ExpenseOverview extends Component {
               <button
                 id="tab1"
                 class={this.state.activeReportSheet === 1 ? 'btn btn-primary' : 'btn btn-default'}
-                onclick={() => this.getReportSheets('reportsheet', 1)}
+                onClick={() => this.getReportSheets('reportsheet', 1)}
               >
                 Alle Meldeblätter anzeigen
               </button>
               <button
                 id="tab2"
                 class={this.state.activeReportSheet === 2 ? 'btn btn-primary' : 'btn btn-default'}
-                onclick={() => this.getReportSheets('reportsheet/pending', 2)}
+                onClick={() => this.getReportSheets('reportsheet/pending', 2)}
               >
                 Pendente Meldeblätter anzeigen
               </button>
               <button
                 id="tab3"
                 class={this.state.activeReportSheet === 3 ? 'btn btn-primary' : 'btn btn-default'}
-                onclick={() => this.getReportSheets('reportsheet/current', 3)}
+                onClick={() => this.getReportSheets('reportsheet/current', 3)}
               >
                 Aktuelle Meldeblätter anzeigen
               </button>
             </div>
-            <div class="btn-group" style="padding-left:10px">
+            <div class="btn-group" style={{ paddingLeft: '10px' }}>
               <a class="btn btn-default" href="/expensePayment">
                 Auszahlung
               </a>
@@ -225,14 +225,14 @@ export default class ExpenseOverview extends Component {
                         class="btn btn-default active"
                         data-toggle="collapse"
                         data-target="#datePickerContainer.in"
-                        style="width: 598px;border-radius: 5px;margin: 0px;"
+                        style={{ width: '598px', borderRadius: '5px', margin: '0px' }}
                       >
                         <input
                           type="radio"
                           name="time_type"
                           value="0"
                           defaultChecked="true"
-                          onchange={e => {
+                          onChange={e => {
                             this.handleChange(e);
                           }}
                         />{' '}
@@ -240,10 +240,10 @@ export default class ExpenseOverview extends Component {
                         <select
                           name="time_year"
                           defaultValue={curMonthDate.getFullYear()}
-                          onchange={e => {
+                          onChange={e => {
                             this.handleChange(e);
                           }}
-                          style="color: black;"
+                          style={{ color: 'black' }}
                         >
                           {yearoptions}
                         </select>
@@ -253,13 +253,13 @@ export default class ExpenseOverview extends Component {
                         class="btn btn-default"
                         data-toggle="collapse"
                         data-target="#datePickerContainer:not(.in)"
-                        style="width: 598px;border-radius: 5px;margin: 0px;"
+                        style={{ width: '598px', borderRadius: '5px', margin: '0px' }}
                       >
                         <input
                           type="radio"
                           name="time_type"
                           value="1"
-                          onchange={e => {
+                          onChange={e => {
                             this.handleChange(e);
                           }}
                         />{' '}
@@ -285,13 +285,13 @@ export default class ExpenseOverview extends Component {
                         class="btn btn-default"
                         data-toggle="collapse"
                         data-target="#datePickerContainer.in"
-                        style="width: 598px;border-radius: 5px;margin: 0px;"
+                        style={{ width: '598px', borderRadius: '5px', margin: '0px' }}
                       >
                         <input
                           type="radio"
                           name="time_type"
                           value="2"
-                          onchange={e => {
+                          onChange={e => {
                             this.handleChange(e);
                           }}
                         />{' '}
@@ -302,13 +302,13 @@ export default class ExpenseOverview extends Component {
                         class="btn btn-default"
                         data-toggle="collapse"
                         data-target="#datePickerContainer.in"
-                        style="width: 598px;border-radius: 5px;margin: 0px;"
+                        style={{ width: '598px', borderRadius: '5px', margin: '0px' }}
                       >
                         <input
                           type="radio"
                           name="time_type"
                           value="3"
-                          onchange={e => {
+                          onChange={e => {
                             this.handleChange(e);
                           }}
                         />{' '}
@@ -325,7 +325,7 @@ export default class ExpenseOverview extends Component {
                           type="radio"
                           name="showOnlyDoneSheets"
                           value="1"
-                          onchange={e => {
+                          onChange={e => {
                             this.handleChange(e);
                           }}
                         />{' '}
@@ -336,7 +336,7 @@ export default class ExpenseOverview extends Component {
                           type="radio"
                           name="showOnlyDoneSheets"
                           value="0"
-                          onchange={e => {
+                          onChange={e => {
                             this.handleChange(e);
                           }}
                         />{' '}
@@ -373,10 +373,10 @@ export default class ExpenseOverview extends Component {
                 <tr class="theader">
                   <td>&nbsp;</td>
                   <td>
-                    <input class="form-control" name="zdp" type="text" value={this.state.zdp} oninput={this.handleChange.bind(this)} />
+                    <input class="form-control" name="zdp" type="text" value={this.state.zdp} onInput={this.handleChange.bind(this)} />
                   </td>
                   <td>
-                    <input class="form-control" name="name" type="text" value={this.state.name} oninput={this.handleChange.bind(this)} />
+                    <input class="form-control" name="name" type="text" value={this.state.name} onInput={this.handleChange.bind(this)} />
                   </td>
                   <td>
                     <DatePicker id="start" value={null} onChange={this.handleDateChange.bind(this)} showLabel={false} />

@@ -4,7 +4,6 @@ import InputField from '../tags/InputFields/InputField';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';
 import InputFieldWithProposal from '../tags/InputFields/InputFieldWithProposal';
 import DatePicker from '../tags/InputFields/DatePicker';
-import axios from 'axios';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import Toast from '../../utils/toast';
@@ -65,10 +64,10 @@ export default class EditExpense extends Component {
   handleDateChange(e) {
     let value = e.target.value;
 
-    if (value === undefined || value == null || value == '') {
-      value = this.state.lastDateValue;
-    } else {
+    if (value) {
       value = DatePicker.dateFormat_CH2EN(value);
+    } else {
+      value = this.state.lastDateValue;
     }
 
     this.setState({
@@ -89,16 +88,16 @@ export default class EditExpense extends Component {
   save() {
     var requiredDays = this.state.report_sheet.meldeblaetter_tage;
     var providedDays =
-      (parseInt(this.state.report_sheet.meldeblaetter_workdays) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_workfreedays) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_companyurlaub) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_ferien_wegen_urlaub) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_add_workfree) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_ill) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_holiday) || 0) +
-      (parseInt(this.state.report_sheet.meldeblaetter_urlaub) || 0);
+      (parseInt(this.state.report_sheet.meldeblaetter_workdays, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_workfreedays, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_companyurlaub, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_ferien_wegen_urlaub, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_add_workfree, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_ill, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_holiday, 10) || 0) +
+      (parseInt(this.state.report_sheet.meldeblaetter_urlaub, 10) || 0);
 
-    if (requiredDays != providedDays) {
+    if (requiredDays !== providedDays) {
       if (!this.state.force_save) {
         Toast.showError(
           'Anzahl Tage prüfen!',
@@ -149,7 +148,13 @@ export default class EditExpense extends Component {
     if (sheet != null) {
       content.push(
         <div class="container">
-          <form class="form-horizontal" action="javascript:;">
+          <form
+            class="form-horizontal"
+            onSubmit={e => {
+              e.preventDefault();
+              this.save();
+            }}
+          >
             <div>
               <h1>
                 Spesenrapport erstellen für {sheet.first_name} {sheet.last_name}
@@ -360,14 +365,7 @@ export default class EditExpense extends Component {
             <hr />
 
             <div class="container">
-              <button
-                type="submit"
-                name="saveExpense"
-                class="btn btn-primary col-sm-3"
-                onClick={() => {
-                  this.save();
-                }}
-              >
+              <button type="submit" name="saveExpense" class="btn btn-primary col-sm-3">
                 <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" /> Speichern und aktualisieren
               </button>
               <div class="col-sm-2" />

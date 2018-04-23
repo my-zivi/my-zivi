@@ -88,10 +88,10 @@ export default class ChangePassword extends Component {
             <div class="container">
               <form
                 id="changePasswordForm"
-                action="javascript:;"
                 class="form-horizontal"
                 data-toggle="validator"
-                onsubmit={() => {
+                onSubmit={e => {
+                  e.preventDefault();
                   this.save();
                 }}
               >

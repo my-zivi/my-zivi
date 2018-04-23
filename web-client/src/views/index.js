@@ -1,6 +1,4 @@
-import Inferno from 'inferno';
 import { Route, Switch } from 'inferno-router';
-import Layout from './tags/layout';
 
 import Home from './pages/home';
 import Register from './pages/register';

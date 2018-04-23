@@ -7,7 +7,7 @@ export default class AdminRestrictedFields extends Component {
 
     for (let i = 1; i < 3; i++) {
       let isSelected = false;
-      if (parseInt(result['role']) == i) {
+      if (parseInt(result['role'], 10) === i) {
         isSelected = true;
       }
 

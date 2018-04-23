@@ -30,10 +30,10 @@ export default class DatePicker extends InputField {
 
   render() {
     let dateValue = this.props.value;
-    if (dateValue === undefined || dateValue == null || parseInt(dateValue) == 0) {
-      dateValue = null;
-    } else {
+    if (dateValue) {
       dateValue = DatePicker.dateFormat_EN2CH(this.props.value);
+    } else {
+      dateValue = null;
     }
 
     let showLabel = true;
@@ -56,6 +56,7 @@ export default class DatePicker extends InputField {
           value={dateValue}
           onChange={e => this.props.onChange(e)}
           readonly={this.props.disabled}
+          autocomplete="off"
         />
         <span class="input-group-addon add-on">
           <span class="glyphicon glyphicon-calendar" />

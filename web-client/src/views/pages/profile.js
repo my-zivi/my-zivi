@@ -51,12 +51,12 @@ export default class User extends Component {
     api()
       .get(route)
       .then(response => {
-        var newState = {
+        let newState = {
           result: response.data,
           loading: false,
         };
-        for (var i = 0; i < response.data.missions.length; i++) {
-          var key = response.data.missions[i].id;
+        for (let i = 0; i < response.data.missions.length; i++) {
+          let key = response.data.missions[i].id;
 
           newState['result'][key + '_specification'] = response.data.missions[i].specification;
           newState['result'][key + '_mission_type'] = response.data.missions[i].mission_type;
@@ -69,7 +69,7 @@ export default class User extends Component {
 
         this.setState(newState);
 
-        for (var i = 0; i < response.data.missions.length; i++) {
+        for (let i = 0; i < response.data.missions.length; i++) {
           this.missionTag.getMissionDays(this, response.data.missions[i].id);
         }
       })
@@ -177,7 +177,6 @@ export default class User extends Component {
     axios
       .get(`https://openiban.com/validate/${iban}?getBIC=true`)
       .then(res => {
-        console.log(res);
         this.setState({
           result: {
             ...this.state.result,
@@ -226,7 +225,6 @@ export default class User extends Component {
   render() {
     let result = this.state.result;
     let howerText_IBAN = 'Du kannst die Nummer mit oder ohne Abständen eingeben.';
-    let howerText_Post = 'Postkonto Nummer';
     let howerText_Berufserfahrung =
       'Wir profitieren gerne von deiner Erfahrung. Wenn wir genau wissen, wann wer mit welchen Erfahrungen einen Einsatz tätigt, können wir z.T. Projekte speziell planen.';
     let howerText_health_insurance = 'Krankenkassen Name und Ort';
@@ -241,8 +239,8 @@ export default class User extends Component {
             <div class="container">
               <form
                 class="form-horizontal"
-                action="javascript:;"
-                onSubmit={() => {
+                onSubmit={e => {
+                  e.preventDefault();
                   this.save();
                 }}
               >
@@ -305,9 +303,9 @@ export default class User extends Component {
                     />
                   </div>
                   <div id="_helpiban" className="col-sm-1 hidden-xs">
-                    <a data-toggle="popover" title="IBAN-Nr" data-content={howerText_IBAN}>
-                      <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
-                    </a>
+                    <span data-toggle="popover" title="IBAN-Nr" data-content={howerText_IBAN}>
+                      <span style={{ fontSize: '2em' }} className="glyphicon glyphicon-question-sign" aria-hidden="true" />
+                    </span>
                   </div>
                 </div>
                 <div class="form-group" id="bicFormGroup">
@@ -326,28 +324,28 @@ export default class User extends Component {
                   </div>
                   <div className="col-sm-1">
                     {this.state.bic_fetching ? (
-                      <a title="BIC suchen">
-                        <span style="font-size:2em;" className="glyphicon glyphicon-refresh gly-spin" aria-hidden="true" />
-                      </a>
+                      <span title="BIC suchen">
+                        <span style={{ fontSize: '2em' }} className="glyphicon glyphicon-refresh gly-spin" aria-hidden="true" />
+                      </span>
                     ) : (
-                      <a title="BIC suchen">
+                      <span title="BIC suchen">
                         <span
-                          style="font-size:2em;"
+                          style={{ fontSize: '2em' }}
                           className="glyphicon glyphicon-search"
                           onClick={() => this.fetchBIC(this.state.result.bank_iban)}
                           aria-hidden="true"
                         />
-                      </a>
+                      </span>
                     )}
                   </div>
                   <div id="_helpbic" className="col-sm-1 hidden-xs">
-                    <a
+                    <span
                       data-toggle="popover"
                       title="BIC/SWIFT"
                       data-content="Der BIC/SWIFT code, der Deine Bank identifizert. Du findest diesen meist auf der Website Deiner Bank."
                     >
-                      <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
-                    </a>
+                      <span style={{ fontSize: '2em' }} className="glyphicon glyphicon-question-sign" aria-hidden="true" />
+                    </span>
                   </div>
                 </div>
                 <hr />
@@ -367,9 +365,9 @@ export default class User extends Component {
                     />
                   </div>
                   <div id="_helpiban" className="col-sm-1 hidden-xs">
-                    <a data-toggle="popover" title="Krankenkasse" data-content={howerText_health_insurance}>
-                      <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
-                    </a>
+                    <span data-toggle="popover" title="Krankenkasse" data-content={howerText_health_insurance}>
+                      <span style={{ fontSize: '2em' }} className="glyphicon glyphicon-question-sign" aria-hidden="true" />
+                    </span>
                   </div>
                 </div>
                 <hr />
@@ -390,9 +388,9 @@ export default class User extends Component {
                     />
                   </div>
                   <div id="_helpberufserfahrung" className="col-sm-1 hidden-xs">
-                    <a data-toggle="popover" title="Berufserfahrung" data-content={howerText_Berufserfahrung}>
-                      <span style="font-size:2em;" className="glyphicon glyphicon-question-sign" aria-hidden="true" />
-                    </a>
+                    <span data-toggle="popover" title="Berufserfahrung" data-content={howerText_Berufserfahrung}>
+                      <span style={{ fontSize: '2em' }} className="glyphicon glyphicon-question-sign" aria-hidden="true" />
+                    </span>
                   </div>
                 </div>
 
@@ -487,13 +485,13 @@ export default class User extends Component {
                             <td>
                               {obj.state > 0 ? (
                                 obj.state === 3 ? (
-                                  <a data-toggle="popover" title="" data-content="Erledigt">
-                                    <span class="glyphicon glyphicon-ok" style="color:green" />
-                                  </a>
+                                  <span data-toggle="popover" title="" data-content="Erledigt">
+                                    <span class="glyphicon glyphicon-ok" style={{ color: 'green' }} />
+                                  </span>
                                 ) : (
-                                  <a data-toggle="popover" title="" data-content="In Bearbeitung">
-                                    <span class="glyphicon glyphicon-hourglass" style="color:orange" />
-                                  </a>
+                                  <span data-toggle="popover" title="" data-content="In Bearbeitung">
+                                    <span class="glyphicon glyphicon-hourglass" style={{ color: 'orange' }} />
+                                  </span>
                                 )
                               ) : (
                                 ''

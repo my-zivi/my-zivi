@@ -6,7 +6,7 @@ export default class InputFieldWithProposal extends InputField {
       let mainValue = this.props.value;
       let proposalValue = this.props.proposalValue;
 
-      return mainValue == proposalValue;
+      return mainValue.toString() === proposalValue.toString();
     } else {
       return true;
     }
@@ -50,7 +50,7 @@ export default class InputFieldWithProposal extends InputField {
   getProposalField() {
     let proposalText = 'Vorschlag: ';
 
-    if (this.props.proposalText !== undefined && this.props.proposalText != '') {
+    if (this.props.proposalText) {
       proposalText = this.props.proposalText;
     }
 

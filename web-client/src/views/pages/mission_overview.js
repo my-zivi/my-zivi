@@ -104,9 +104,9 @@ export default class MissionOverview extends Component {
     var specs = this.state.specifications;
 
     var weekCount = [];
-    for (var x = 0; x < specs.length; x++) {
+    for (let x = 0; x < specs.length; x++) {
       weekCount[specs[x].fullId] = [];
-      for (var i = 1; i <= 52; i++) {
+      for (let i = 1; i <= 52; i++) {
         weekCount[specs[x].fullId][i] = 0;
       }
     }
@@ -114,14 +114,14 @@ export default class MissionOverview extends Component {
     var startDates = [];
     var endDates = [];
 
-    for (var x = 1; x <= 52; x++) {
+    for (let x = 1; x <= 52; x++) {
       startDates[x] = moment(this.state.year + ' ' + x + ' 1', 'YYYY WW E').format('DD.MM.YYYY');
       endDates[x] = moment(this.state.year + ' ' + x + ' 5', 'YYYY WW E').format('DD.MM.YYYY');
     }
 
     var tbody = [];
 
-    for (var i = 0; i < userMissions.length; i++) {
+    for (let i = 0; i < userMissions.length; i++) {
       var cells = [];
       cells.push(<td>{userMissions[i][0].short_name}</td>);
       cells.push(
@@ -139,7 +139,7 @@ export default class MissionOverview extends Component {
 
       var missionCounter = 0;
 
-      for (var x = 1; x <= 52; x++) {
+      for (let x = 1; x <= 52; x++) {
         let popOverStart = startDates[x];
         let popOverEnd = endDates[x];
 
@@ -162,13 +162,13 @@ export default class MissionOverview extends Component {
           if (weekCount[curMission.specification]) {
             weekCount[curMission.specification][x]++;
           }
-          if (x == startWeek) {
+          if (x === startWeek) {
             cells.push(
               <td class={curMission.draft == null ? 'einsatzDraft' : 'einsatz'} title={popOverStart + ' - ' + popOverEnd}>
                 {new Date(curMission.start).getDate()}
               </td>
             );
-          } else if (x == endWeek) {
+          } else if (x === endWeek) {
             cells.push(
               <td class={curMission.draft == null ? 'einsatzDraft' : 'einsatz'} title={popOverStart + ' - ' + popOverEnd}>
                 {new Date(curMission.end).getDate()}
@@ -182,7 +182,7 @@ export default class MissionOverview extends Component {
             );
           }
 
-          if (x == endWeek && missionCounter < userMissions[i].length - 1) {
+          if (x === endWeek && missionCounter < userMissions[i].length - 1) {
             missionCounter++;
           }
         }
@@ -201,7 +201,7 @@ export default class MissionOverview extends Component {
   render() {
     var specifications = [];
     var specs = this.state.specifications;
-    for (var x = 0; x < specs.length; x++) {
+    for (let x = 0; x < specs.length; x++) {
       if (specs[x].active) {
         specifications.push(
           <div class="checkbox no-print">
@@ -210,7 +210,7 @@ export default class MissionOverview extends Component {
                 type="checkbox"
                 name={x}
                 defaultChecked={true}
-                onchange={e => {
+                onChange={e => {
                   this.toggleSpecification(e);
                 }}
               />
@@ -222,7 +222,7 @@ export default class MissionOverview extends Component {
     }
 
     var yearOptions = [];
-    for (var i = 2005; i <= new Date().getFullYear() + 1; i++) {
+    for (let i = 2005; i <= new Date().getFullYear() + 1; i++) {
       yearOptions.push(<option value={i}>{i}</option>);
     }
 
@@ -239,9 +239,9 @@ export default class MissionOverview extends Component {
       .isoWeekday(1)
       .month();
     var monthColCount = 0;
-    for (var i = 1; i <= 52; i++) {
+    for (let i = 1; i <= 52; i++) {
       var weekCountSum = 0;
-      for (var x = 0; x < specs.length; x++) {
+      for (let x = 0; x < specs.length; x++) {
         if (specs[x].selected && weekCount[specs[x].fullId]) {
           weekCountSum += weekCount[specs[x].fullId][i];
         }
@@ -252,11 +252,11 @@ export default class MissionOverview extends Component {
       if (
         moment(startDate)
           .isoWeekday(1)
-          .month() != prevMonth
+          .month() !== prevMonth
       ) {
         // cell width (25px) must be the same as in mission_overview.sass
         monthHeaders.push(
-          <td style={{ 'font-weight': 'bold', 'max-width': 25 * monthColCount + 'px', overflow: 'hidden' }} colspan={monthColCount}>
+          <td style={{ fontWeight: 'bold', maxWidth: 25 * monthColCount + 'px', overflow: 'hidden' }} colspan={monthColCount}>
             {this.monthNames[prevMonth]}
           </td>
         );
@@ -267,7 +267,7 @@ export default class MissionOverview extends Component {
       startDate.setDate(startDate.getDate() + 7);
     }
     monthHeaders.push(
-      <td style="font-weight:bold;" colspan={monthColCount}>
+      <td style={{ fontWeight: 'bold' }} colspan={monthColCount}>
         {this.monthNames[prevMonth]}
       </td>
     );
@@ -277,14 +277,14 @@ export default class MissionOverview extends Component {
         <div className="page page__mission_overview">
           <ScrollableCard>
             <h1>Einsatzübersicht</h1>
-            <div class="container no-print" style="height: auto; width: auto;">
+            <div class="container no-print" style={{ height: 'auto', width: 'auto' }}>
               <div class="row">
                 <div class="col-sm-2">
                   <select
                     defaultValue={this.state.year}
-                    onchange={e => this.handleChangeYear(e)}
+                    onChange={e => this.handleChangeYear(e)}
                     class="form-control"
-                    style="margin: 10px auto auto auto;"
+                    style={{ margin: '10px auto auto auto' }}
                   >
                     {yearOptions}
                   </select>
@@ -295,8 +295,8 @@ export default class MissionOverview extends Component {
                     type="button"
                     class="btn btn-primary"
                     name="print"
-                    onclick={e => this.print()}
-                    style="margin: 10px auto auto auto;"
+                    onClick={e => this.print()}
+                    style={{ margin: '10px auto auto auto' }}
                   >
                     {' '}
                     Drucken{' '}
@@ -315,7 +315,7 @@ export default class MissionOverview extends Component {
                 </tr>
                 <tr>{weekHeaders}</tr>
                 <tr>
-                  <td colspan="3" style="text-align:left; padding-left:8px !important; font-weight:bold;" nowrap>
+                  <td colspan="3" style={{ textAlign: 'left', paddingLeft: '8px !important', fontWeight: 'bold' }} nowrap>
                     Ø / Woche: {(averageCount / 52).toFixed(2)}
                   </td>
                   {averageHeaders}

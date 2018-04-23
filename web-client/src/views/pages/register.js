@@ -53,8 +53,12 @@ export default class Register extends Component {
   }
 
   handleChange(e) {
-    this.state.formData[e.target.name] = e.target.value;
-    this.setState({ formData: this.state.formData });
+    this.setState({
+      formData: {
+        ...this.state.formData,
+        [e.target.name]: e.target.value,
+      },
+    });
   }
 
   render() {
@@ -67,8 +71,10 @@ export default class Register extends Component {
               {this.state.errorBox}
               <form
                 id="registerForm"
-                action="javascript:;"
-                onSubmit={() => this.register()}
+                onSubmit={e => {
+                  e.preventDefault();
+                  this.register();
+                }}
                 class="form-horizontal"
                 data-toggle="validator"
               >

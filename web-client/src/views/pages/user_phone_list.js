@@ -24,10 +24,10 @@ export default class UserPhoneList extends Component {
   handleDateChange(e) {
     let value = e.target.value;
 
-    if (value === undefined || value == null || value == '') {
-      value = this.state.lastDateValue;
-    } else {
+    if (value) {
       value = DatePicker.dateFormat_CH2EN(value);
+    } else {
+      value = this.state.lastDateValue;
     }
 
     this.setState({
@@ -46,7 +46,7 @@ export default class UserPhoneList extends Component {
               arbeiten.
             </p>
 
-            <form action="javascript:;">
+            <form onSubmit={e => e.preventDefault()}>
               <DatePicker id="start" label="Anfang:" value={this.state.start} onChange={this.handleDateChange.bind(this)} />
               <DatePicker id="end" label="Ende:" value={this.state.end} onChange={this.handleDateChange.bind(this)} />
 

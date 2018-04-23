@@ -138,7 +138,7 @@ export default class ExpensePayment extends Component {
               </div>
             )}
 
-            {this.state.report_sheets.valid.length == 0 && (
+            {this.state.report_sheets.valid.length === 0 && (
               <div>
                 Keine pendenten Zahlungen
                 <br />

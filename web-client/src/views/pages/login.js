@@ -67,7 +67,13 @@ export default class Login extends Component {
       <Header>
         <div className="page page__login">
           <Card>
-            <form class="form-signin" action="javascript:;" onsubmit={() => this.login()}>
+            <form
+              class="form-signin"
+              onSubmit={e => {
+                e.preventDefault();
+                this.login();
+              }}
+            >
               <h2 class="form-signin-heading">Anmelden</h2>
               {this.state.errorBox}
               <p>

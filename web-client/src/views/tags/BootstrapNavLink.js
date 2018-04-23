@@ -40,7 +40,7 @@ export default class BootstrapNavLink extends Component {
     classes += this.props.liClasses;
 
     return (
-      <li class={classes} style="margin-bottom: 0px; list-style: none;">
+      <li class={classes} style={{ marginBottom: '0px', listStyle: 'none' }}>
         <Link to={this.props.to}>{this.props.children}</Link>
       </li>
     );
