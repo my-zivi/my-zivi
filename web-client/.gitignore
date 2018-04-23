@@ -1,6 +1,6 @@
 node_modules/
 .DS_Store
 *.log
-dist
+build
 src/styles/**/*.css
 src/index.css
