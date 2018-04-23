@@ -1,6 +1,6 @@
 import { Component } from 'inferno';
 import BootstrapNavLink from '../tags/BootstrapNavLink';
-import ApiService from '../../utils/api';
+import Auth from '../../utils/auth';
 import { environment, release } from '../../index';
 
 export default class Header extends Component {
@@ -32,9 +32,9 @@ export default class Header extends Component {
   generateNavLinks() {
     return (
       <ul class="nav navbar-nav">
-        {ApiService.isAdmin() ? this.adminMenu() : null}
-        {ApiService.isLoggedIn() ? this.userMenu() : null}
-        {!ApiService.isLoggedIn() ? this.guestMenu() : null}
+        {Auth.isAdmin() ? this.adminMenu() : null}
+        {Auth.isLoggedIn() ? this.userMenu() : null}
+        {!Auth.isLoggedIn() ? this.guestMenu() : null}
       </ul>
     );
   }

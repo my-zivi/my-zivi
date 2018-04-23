@@ -8,7 +8,7 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'izitoast/dist/css/iziToast.css';
 import Raven from 'raven-js';
-import api from './utils/api';
+import api from './utils/auth';
 
 //these will be replaced by a build script, if needed
 export const release = 'COMMIT_ID';

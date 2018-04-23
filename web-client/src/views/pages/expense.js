@@ -1,10 +1,9 @@
 import { Component } from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
-import axios from 'axios';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
+import { api, apiURL } from '../../utils/api';
 
 export default class ExpenseOverview extends Component {
   constructor(props) {
@@ -44,8 +43,8 @@ export default class ExpenseOverview extends Component {
       loading: true,
       error: null,
     });
-    axios
-      .get(ApiService.BASE_URL + url, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .get(url)
       .then(response => {
         this.setState({
           report_sheets: response.data,
@@ -59,21 +58,21 @@ export default class ExpenseOverview extends Component {
 
   handleChange(e) {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    this.state[e.target.name] = value;
-    this.setState(this.state);
+    this.setState({
+      [e.target.name]: value,
+    });
   }
 
-  handleDateChange(e, origin) {
+  handleDateChange(e) {
     let value = e.target.value;
 
     if (value === undefined || value == null || value == '') {
-      value = origin.state.lastDateValue;
+      value = this.state.lastDateValue;
     } else {
       value = DatePicker.dateFormat_CH2EN(value);
     }
 
-    origin.state[e.target.name] = value;
-    origin.setState(this.state);
+    this.setState({ [e.target.name]: value });
   }
 
   showStatsExtended(showDetails) {
@@ -88,22 +87,17 @@ export default class ExpenseOverview extends Component {
   }
 
   showStats(time_type, showDetails, showOnlyDoneSheets, time_year, time_from, time_to) {
-    return (
-      ApiService.BASE_URL +
-      'pdf/statistik?time_type=' +
-      time_type +
-      '&showDetails=' +
-      showDetails +
-      '&showOnlyDoneSheets=' +
-      showOnlyDoneSheets +
-      '&time_year=' +
-      time_year +
-      '&time_from=' +
-      time_from +
-      '&time_to=' +
-      time_to +
-      '&jwttoken=' +
-      encodeURI(localStorage.getItem('jwtToken'))
+    return apiURL(
+      'pdf/statistik',
+      {
+        time_type,
+        showDetails,
+        showOnlyDoneSheets,
+        time_year,
+        time_from,
+        time_to,
+      },
+      true
     );
   }
 
@@ -278,18 +272,11 @@ export default class ExpenseOverview extends Component {
                               id="time_from"
                               label="Von"
                               value={this.state.time_from}
-                              callback={this.handleDateChange}
-                              callbackOrigin={this}
+                              onChange={this.handleDateChange.bind(this)}
                             />
                           </label>
                           <label class="btn">
-                            <DatePicker
-                              id="time_to"
-                              label="Zu"
-                              value={this.state.time_to}
-                              callback={this.handleDateChange}
-                              callbackOrigin={this}
-                            />
+                            <DatePicker id="time_to" label="Zu" value={this.state.time_to} onChange={this.handleDateChange.bind(this)} />
                           </label>
                         </div>
                       </div>
@@ -392,10 +379,10 @@ export default class ExpenseOverview extends Component {
                     <input class="form-control" name="name" type="text" value={this.state.name} oninput={this.handleChange.bind(this)} />
                   </td>
                   <td>
-                    <DatePicker id="start" value={null} callback={this.handleDateChange} callbackOrigin={this} showLabel={false} />
+                    <DatePicker id="start" value={null} onChange={this.handleDateChange.bind(this)} showLabel={false} />
                   </td>
                   <td>
-                    <DatePicker id="end" value={null} callback={this.handleDateChange} callbackOrigin={this} showLabel={false} />
+                    <DatePicker id="end" value={null} onChange={this.handleDateChange.bind(this)} showLabel={false} />
                   </td>
                   <td />
                   <td />

@@ -1,11 +1,11 @@
 import { Component } from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
-import axios from 'axios';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
 import Toast from '../../utils/toast';
+import { api } from '../../utils/api';
+import update from 'immutability-helper';
 
 export default class Freeday extends Component {
   constructor(props) {
@@ -23,8 +23,8 @@ export default class Freeday extends Component {
 
   getFreedays() {
     this.setState({ loading: true, error: null });
-    axios
-      .get(ApiService.BASE_URL + 'holiday', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .get('holiday')
       .then(response => {
         this.setState({
           freedays: response.data,
@@ -38,48 +38,57 @@ export default class Freeday extends Component {
 
   handleChange(e, i) {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    this.state['freedays'][i][e.target.name] = value;
-    this.setState(this.state);
+
+    //this.state['freedays'][i][e.target.name] = value;
+    this.setState({ freedays: update(this.state.freedays, { [i]: { [e.target.name]: { $set: value } } }) });
   }
 
   handleChangeNew(e) {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    this.state['newFreeday'][e.target.name] = value;
-    this.setState(this.state);
+    this.setState({
+      newFreeday: {
+        ...this.state.newFreeday,
+        [e.target.name]: value,
+      },
+    });
   }
 
-  handleNewDateChange(e, origin) {
+  handleNewDateChange(e) {
     let value = e.target.value;
 
     if (value === undefined || value == null || value == '') {
-      value = origin.state.lastDateValue;
+      value = this.state.lastDateValue;
     } else {
       value = DatePicker.dateFormat_CH2EN(value);
     }
 
-    origin.state['newFreeday'][e.target.name] = value;
-    origin.setState(this.state);
+    this.setState({
+      newFreeday: {
+        ...this.state.newFreeday,
+        [e.target.name]: value,
+      },
+    });
   }
 
-  handleDateChange(e, origin, index) {
+  handleDateChange(e, index) {
     let value = e.target.value;
 
     if (value === undefined || value == null || value == '') {
-      value = origin.state.lastDateValue;
+      value = this.state.lastDateValue;
     } else {
       value = DatePicker.dateFormat_CH2EN(value);
     }
 
-    origin.state['freedays'][index][e.target.name] = value;
-    origin.setState(this.state);
+    //origin.state['freedays'][index][e.target.name] = value;
+    this.setState({
+      freedays: update(this.state.freedays, { [index]: { [e.target.name]: { $set: value } } }),
+    });
   }
 
   save(i) {
     this.setState({ loading: true, error: null });
-    axios
-      .post(ApiService.BASE_URL + 'holiday/' + this.state.freedays[i].id, this.state.freedays[i], {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .post('holiday/' + this.state.freedays[i].id, this.state.freedays[i])
       .then(response => {
         Toast.showSuccess('Speichern erfolgreich', 'Frei-Tag wurde erfolgreich gespeichert');
         this.setState({ loading: false });
@@ -92,10 +101,8 @@ export default class Freeday extends Component {
 
   remove(i) {
     this.setState({ loading: true, error: null });
-    axios
-      .delete(ApiService.BASE_URL + 'holiday/' + this.state.freedays[i].id, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .delete('holiday/' + this.state.freedays[i].id)
       .then(response => {
         Toast.showSuccess('Löschen erfolgreich', 'Frei-Tag wurde erfolgreich gelöscht');
         this.getFreedays();
@@ -108,10 +115,8 @@ export default class Freeday extends Component {
 
   add() {
     this.setState({ loading: true, error: null });
-    axios
-      .put(ApiService.BASE_URL + 'holiday', this.state.newFreeday, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .put('holiday', this.state.newFreeday)
       .then(response => {
         Toast.showSuccess('Hinzufügen erfolgreich', 'Frei-Tag wurde erfolgreich hinzugefügt');
         this.setState({ newFreeday: { holiday_type: 2, description: '' } });
@@ -132,19 +137,12 @@ export default class Freeday extends Component {
           <DatePicker
             id="date_from"
             value={this.state.newFreeday.date_from}
-            callback={this.handleNewDateChange}
-            callbackOrigin={this}
+            onChange={this.handleNewDateChange.bind(this)}
             showLabel={false}
           />
         </td>
         <td>
-          <DatePicker
-            id="date_to"
-            value={this.state.newFreeday.date_to}
-            callback={this.handleNewDateChange}
-            callbackOrigin={this}
-            showLabel={false}
-          />
+          <DatePicker id="date_to" value={this.state.newFreeday.date_to} onChange={this.handleNewDateChange.bind(this)} showLabel={false} />
         </td>
         <td>
           <select
@@ -183,19 +181,12 @@ export default class Freeday extends Component {
             <DatePicker
               id="date_from"
               value={this.state.freedays[i].date_from}
-              callback={(e, origin) => this.handleDateChange(e, origin, i)}
-              callbackOrigin={this}
+              onChange={e => this.handleDateChange(e, i)}
               showLabel={false}
             />
           </td>
           <td>
-            <DatePicker
-              id="date_to"
-              value={this.state.freedays[i].date_to}
-              callback={(e, origin) => this.handleDateChange(e, origin, i)}
-              callbackOrigin={this}
-              showLabel={false}
-            />
+            <DatePicker id="date_to" value={this.state.freedays[i].date_to} onChange={e => this.handleDateChange(e, i)} showLabel={false} />
           </td>
           <td>
             <select class="form-control" name="holiday_type" value={'' + freedays[i].holiday_type} onChange={e => this.handleChange(e, i)}>

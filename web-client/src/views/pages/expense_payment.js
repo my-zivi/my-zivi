@@ -1,10 +1,9 @@
 import { Component } from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
-import axios from 'axios';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import moment from 'moment-timezone';
+import { api, apiURL } from '../../utils/api';
 
 export default class ExpensePayment extends Component {
   constructor(props) {
@@ -24,8 +23,8 @@ export default class ExpensePayment extends Component {
 
   getReportSheets() {
     this.setState({ loading: true, error: null });
-    axios
-      .get(ApiService.BASE_URL + 'reportsheet/payments', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .get('reportsheet/payments')
       .then(response => {
         this.setState({
           report_sheets: response.data,
@@ -123,7 +122,7 @@ export default class ExpensePayment extends Component {
 
                 <form
                   method="POST"
-                  action={ApiService.BASE_URL + 'reportsheet/payments/execute'}
+                  action={apiURL('reportsheet/payments/execute')}
                   onSubmit={() =>
                     setTimeout(() => {
                       this.getReportSheets();

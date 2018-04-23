@@ -1,11 +1,10 @@
 ﻿import { Component } from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
-import axios from 'axios';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import DatePicker from '../tags/InputFields/DatePicker';
 import Toast from '../../utils/toast';
+import { api } from '../../utils/api';
 
 export default class UserList extends Component {
   constructor(props) {
@@ -32,8 +31,8 @@ export default class UserList extends Component {
 
   getUsers() {
     this.setState({ loading: true, error: null });
-    axios
-      .get(ApiService.BASE_URL + 'user/zivi', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .get('user/zivi')
       .then(response => {
         this.setState({
           users: response.data,
@@ -47,29 +46,29 @@ export default class UserList extends Component {
 
   handleChange(e) {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    this.state[e.target.name] = value;
-    this.setState(this.state);
+    this.setState({
+      [e.target.name]: value,
+    });
   }
 
-  handleDateChange(e, origin) {
+  handleDateChange(e) {
     let value = e.target.value;
 
     if (value === undefined || value == null || value == '') {
-      value = origin.state.lastDateValue;
+      value = this.state.lastDateValue;
     } else {
       value = DatePicker.dateFormat_CH2EN(value);
     }
 
     value = value.slice(0, 10);
 
-    origin.state[e.target.name] = value;
-    origin.setState(this.state);
+    this.setState({ [e.target.name]: value });
   }
 
   deleteUser(user) {
     this.setState({ loading: true, error: null });
-    axios
-      .delete(ApiService.BASE_URL + 'user/' + user.id, { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .delete('user/' + user.id)
       .then(response => {
         Toast.showSuccess('Löschen erfolgreich', 'Benutzer wurde erfolgreich gelöscht');
         this.getUsers();
@@ -176,16 +175,10 @@ export default class UserList extends Component {
                     />
                   </td>
                   <td>
-                    <DatePicker
-                      id="start"
-                      value={this.state.start}
-                      callback={this.handleDateChange}
-                      callbackOrigin={this}
-                      showLabel={false}
-                    />
+                    <DatePicker id="start" value={this.state.start} onChange={this.handleDateChange.bind(this)} showLabel={false} />
                   </td>
                   <td>
-                    <DatePicker id="end" value={this.state.end} callback={this.handleDateChange} callbackOrigin={this} showLabel={false} />
+                    <DatePicker id="end" value={this.state.end} onChange={this.handleDateChange.bind(this)} showLabel={false} />
                   </td>
                   <td className="hidden-xs">
                     <input

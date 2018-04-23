@@ -1,12 +1,12 @@
 import { Component } from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
-import axios from 'axios';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import moment from 'moment-timezone';
 import { Glyphicon } from '../tags/Glyphicon';
 import update from 'immutability-helper';
+import { api, apiURL } from '../../utils/api';
+import Toast from '../../utils/toast';
 
 export default class ExpensePaymentDetail extends Component {
   constructor(props) {
@@ -19,11 +19,21 @@ export default class ExpensePaymentDetail extends Component {
   }
 
   Confirmer = sheet => {
+    const confirmCheckbox = (
+      <Glyphicon style={{ cursor: 'pointer' }} name="unchecked" onClick={() => this.updateState(sheet.report_sheet, 3)} />
+    );
     switch (sheet.state) {
+      case -2:
+        return (
+          <div>
+            {confirmCheckbox}
+            <Glyphicon name="alert" title="Fehler" />;
+          </div>
+        );
       case -1:
         return <Glyphicon name="refresh" spin />;
       case 2:
-        return <Glyphicon style={{ cursor: 'pointer' }} name="unchecked" onClick={() => this.updateState(sheet.report_sheet, 3)} />;
+        return confirmCheckbox;
       case 3:
         return <Glyphicon name="ok" />;
       default:
@@ -31,42 +41,33 @@ export default class ExpensePaymentDetail extends Component {
     }
   };
 
-  setSheetState = (sheetId, state) =>
+  setSheetState(sheetId, state) {
+    const sheetIndex = this.state.payment.sheets.map(sheet => sheet.report_sheet).indexOf(sheetId);
     this.setState(
       update(this.state, {
         payment: {
           sheets: {
-            $set: this.state.payment.sheets.map(sheet => {
-              if (sheet.report_sheet === sheetId) {
-                return {
-                  ...sheet,
-                  state,
-                };
-              }
-              return sheet;
-            }),
+            [sheetIndex]: {
+              state: { $set: state },
+            },
           },
         },
       })
     );
+  }
 
-  updateState = (sheetId, state) => {
+  updateState(sheetId, state) {
     this.setSheetState(sheetId, -1);
-    axios
-      .put(
-        `${ApiService.BASE_URL}reportsheet/${sheetId}/state`,
-        { state },
-        { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
-      )
+    api()
+      .put(`reportsheet/${sheetId}/state`, { state })
       .then(response => {
         this.setSheetState(sheetId, state);
-        console.log('woo');
       })
       .catch(error => {
-        //this.setState({error: error});
-        console.log('ow');
+        Toast.showError('Bestätigen fehlgeschlagen', 'Ein Fehler ist aufgetreten', error, this.context);
+        this.setSheetState(sheetId, -2);
       });
-  };
+  }
 
   componentDidMount() {
     this.getReportSheets();
@@ -74,10 +75,8 @@ export default class ExpensePaymentDetail extends Component {
 
   getReportSheets() {
     this.setState({ loading: true, error: null });
-    axios
-      .get(ApiService.BASE_URL + 'reportsheet/payments/' + this.props.match.params.payment_id, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-      })
+    api()
+      .get('reportsheet/payments/' + this.props.match.params.payment_id)
       .then(response => {
         this.setState({
           payment: response.data,
@@ -145,16 +144,7 @@ export default class ExpensePaymentDetail extends Component {
                 </tbody>
               </table>
 
-              <a
-                href={
-                  ApiService.BASE_URL +
-                  'reportsheet/payments/xml/' +
-                  this.state.payment.id +
-                  '?jwttoken=' +
-                  encodeURI(localStorage.getItem('jwtToken'))
-                }
-                class="btn btn-primary hide-print"
-              >
+              <a href={apiURL('reportsheet/payments/xml/' + this.state.payment.id, {}, true)} class="btn btn-primary hide-print">
                 zahlung.xml erneut herunterladen
               </a>
             </div>

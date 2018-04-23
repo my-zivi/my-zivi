@@ -1,6 +1,5 @@
 import { Component } from 'inferno';
-import axios from 'axios';
-import ApiService from '../../../utils/api';
+import { api } from '../../../utils/api';
 
 export default class RegionalCenters extends Component {
   renderRegionalCenters(state) {
@@ -24,8 +23,8 @@ export default class RegionalCenters extends Component {
   }
 
   getRegionalCenters(self) {
-    axios
-      .get(ApiService.BASE_URL + 'regionalcenter', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .get('regionalcenter')
       .then(response => {
         self.setState({
           regionalCenters: response.data,

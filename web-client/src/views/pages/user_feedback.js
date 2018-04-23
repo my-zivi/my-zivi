@@ -1,10 +1,9 @@
 import { Component } from 'inferno';
 import Card from '../tags/card';
-import axios from 'axios';
-import ApiService from '../../utils/api';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import Toast from '../../utils/toast';
+import { api } from '../../utils/api';
 
 export default class UserFeedback extends Component {
   constructor(props) {
@@ -21,12 +20,11 @@ export default class UserFeedback extends Component {
 
     var missionId = this.props.match.params.missionId;
 
-    axios
-      .put(
-        ApiService.BASE_URL + 'user/feedback',
-        { survey: survey.data, missionId: missionId },
-        { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } }
-      )
+    api()
+      .put('user/feedback', {
+        survey: survey.data,
+        missionId: missionId,
+      })
       .then(() => {
         this.setState({ loading: false });
       })
@@ -38,8 +36,8 @@ export default class UserFeedback extends Component {
   getQuestionnaireJSON() {
     this.setState({ loading: true, error: null });
 
-    axios
-      .get(ApiService.BASE_URL + 'questionnaire', { headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') } })
+    api()
+      .get('questionnaire')
       .then(response => {
         var newState = {
           loading: false,

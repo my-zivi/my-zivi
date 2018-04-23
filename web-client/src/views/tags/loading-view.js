@@ -1,6 +1,6 @@
-﻿import { Component } from 'inferno';
-import axios from 'axios';
-import ApiService from '../../utils/api';
+import { Component } from 'inferno';
+import { api } from '../../utils/api';
+import Auth from '../../utils/auth';
 
 export default class LoadingView extends Component {
   constructor(props) {
@@ -17,13 +17,9 @@ export default class LoadingView extends Component {
   }
 
   componentDidMount() {
-    if (ApiService.isLoggedIn()) {
-      axios
-        .request({
-          url: ApiService.BASE_URL + 'auth/refresh',
-          method: 'patch',
-          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwtToken') },
-        })
+    if (Auth.isLoggedIn()) {
+      api()
+        .patch('auth/refresh')
         .then(response => {
           localStorage.setItem('jwtToken', response.data.data.token);
         })
