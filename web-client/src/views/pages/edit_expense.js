@@ -196,7 +196,7 @@ export default class EditExpense extends Component {
               proposalValue={sheet.meldeblaetter_workdays_proposal}
               showComment={false}
               doValidation={true}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputFieldWithProposal
@@ -209,7 +209,7 @@ export default class EditExpense extends Component {
               doValidation={true}
               commentId="meldeblaetter_workfree_comment"
               commentValue={sheet.meldeblaetter_workfree_comment}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputFieldWithProposal
@@ -221,7 +221,7 @@ export default class EditExpense extends Component {
               showComment={true}
               commentId="meldeblaetter_compholiday_comment"
               commentValue={sheet.meldeblaetter_compholiday_comment}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputFieldWithProposal
@@ -231,7 +231,7 @@ export default class EditExpense extends Component {
               inputType="number"
               proposalValue={sheet.meldeblaetter_ferien_wegen_urlaub_proposal}
               showComment={false}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputField id="meldeblaetter_add_workfree" label="Zusätzlich Arbeitsfrei" value={sheet.meldeblaetter_add_workfree} disabled />
@@ -240,7 +240,7 @@ export default class EditExpense extends Component {
                 id="meldeblaetter_add_workfree_comment"
                 label="Bemerkung"
                 value={sheet.meldeblaetter_add_workfree_comment}
-                onChange={this.handleChange.bind(this)}
+                onInput={this.handleChange.bind(this)}
               />
             </div>
             <hr />
@@ -255,7 +255,7 @@ export default class EditExpense extends Component {
               showComment={true}
               commentId="meldeblaetter_ill_comment"
               commentValue={sheet.meldeblaetter_ill_comment}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputFieldWithProposal
@@ -268,14 +268,14 @@ export default class EditExpense extends Component {
               showComment={true}
               commentId="meldeblaetter_holiday_comment"
               commentValue={sheet.meldeblaetter_holiday_comment}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputField
               id="meldeblaetter_urlaub"
               label="Persönlicher Urlaub"
               value={sheet.meldeblaetter_urlaub}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
               inputType="number"
             />
             <div class="proposalComment">
@@ -283,7 +283,7 @@ export default class EditExpense extends Component {
                 id="meldeblaetter_urlaub_comment"
                 label="Bemerkung"
                 value={sheet.meldeblaetter_urlaub_comment}
-                onChange={this.handleChange.bind(this)}
+                onInput={this.handleChange.bind(this)}
               />
             </div>
             <hr />
@@ -297,7 +297,7 @@ export default class EditExpense extends Component {
               showComment={true}
               commentId="meldeblaetter_kleider_comment"
               commentValue={sheet.meldeblaetter_kleider_comment}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
 
             <InputField
@@ -305,14 +305,14 @@ export default class EditExpense extends Component {
               label="Fahrspesen"
               inputType="number"
               value={sheet.meldeblaetter_fahrspesen}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
             <div class="proposalComment">
               <InputField
                 id="meldeblaetter_fahrspesen_comment"
                 label="Bemerkung"
                 value={sheet.meldeblaetter_fahrspesen_comment}
-                onChange={this.handleChange.bind(this)}
+                onInput={this.handleChange.bind(this)}
               />
             </div>
             <hr />
@@ -322,14 +322,14 @@ export default class EditExpense extends Component {
               label="Ausserordentliche Spesen"
               inputType="number"
               value={sheet.meldeblaetter_ausserordentlich}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
             <div class="proposalComment">
               <InputField
                 id="meldeblaetter_ausserordentlich_comment"
                 label="Bemerkung"
                 value={sheet.meldeblaetter_ausserordentlich_comment}
-                onChange={this.handleChange.bind(this)}
+                onInput={this.handleChange.bind(this)}
               />
             </div>
             <hr />
@@ -340,9 +340,9 @@ export default class EditExpense extends Component {
               id="bank_account_number"
               label="Konto-Nr."
               value={sheet.bank_account_number}
-              onChange={this.handleChange.bind(this)}
+              onInput={this.handleChange.bind(this)}
             />
-            <InputField id="document_number" label="Beleg-Nr." value={sheet.document_number} onChange={this.handleChange.bind(this)} />
+            <InputField id="document_number" label="Beleg-Nr." value={sheet.document_number} onInput={this.handleChange.bind(this)} />
 
             <div class="form-group">
               <label class="control-label col-sm-3" for="state">

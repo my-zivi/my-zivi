@@ -253,38 +253,38 @@ export default class User extends Component {
 
                 <h3>Persönliche Informationen</h3>
                 <InputField id="zdp" label="ZDP" value={result.zdp} disabled="true" />
-                <InputField id="first_name" label="Vorname" value={result.first_name} onChange={this.handleChange.bind(this)} />
-                <InputField id="last_name" label="Nachname" value={result.last_name} onChange={this.handleChange.bind(this)} />
+                <InputField id="first_name" label="Vorname" value={result.first_name} onInput={this.handleChange.bind(this)} />
+                <InputField id="last_name" label="Nachname" value={result.last_name} onInput={this.handleChange.bind(this)} />
 
-                <InputField id="address" label="Strasse" value={result.address} onChange={this.handleChange.bind(this)} />
-                <InputField id="city" label="Ort" value={result.city} onChange={this.handleChange.bind(this)} />
-                <InputField id="zip" label="PLZ" value={result.zip} onChange={this.handleChange.bind(this)} />
+                <InputField id="address" label="Strasse" value={result.address} onInput={this.handleChange.bind(this)} />
+                <InputField id="city" label="Ort" value={result.city} onInput={this.handleChange.bind(this)} />
+                <InputField id="zip" label="PLZ" value={result.zip} onInput={this.handleChange.bind(this)} />
 
                 <DatePicker id="birthday" label="Geburtstag" value={result.birthday} onChange={this.handleDateChange.bind(this)} />
 
-                <InputField id="hometown" label="Heimatort" value={result.hometown} onChange={this.handleChange.bind(this)} />
+                <InputField id="hometown" label="Heimatort" value={result.hometown} onInput={this.handleChange.bind(this)} />
 
-                <InputField inputType="email" id="email" label="E-Mail" value={result.email} onChange={this.handleChange.bind(this)} />
+                <InputField inputType="email" id="email" label="E-Mail" value={result.email} onInput={this.handleChange.bind(this)} />
                 <InputField
                   inputType="tel"
                   id="phone_mobile"
                   label="Tel. Mobil"
                   value={result.phone_mobile}
-                  onChange={this.handleChange.bind(this)}
+                  onInput={this.handleChange.bind(this)}
                 />
                 <InputField
                   inputType="tel"
                   id="phone_private"
                   label="Tel. Privat"
                   value={result.phone_private}
-                  onChange={this.handleChange.bind(this)}
+                  onInput={this.handleChange.bind(this)}
                 />
                 <InputField
                   inputType="tel"
                   id="phone_business"
                   label="Tel. Geschäft"
                   value={result.phone_business}
-                  onChange={this.handleChange.bind(this)}
+                  onInput={this.handleChange.bind(this)}
                 />
 
                 <hr />
@@ -424,7 +424,7 @@ export default class User extends Component {
                   id="other_fare_network"
                   label="Andere Abos"
                   value={result.other_fare_network}
-                  onChange={this.handleChange.bind(this)}
+                  onInput={this.handleChange.bind(this)}
                 />
 
                 {Auth.isAdmin() ? this.adminFields.getAdminRestrictedFields(this, result) : null}

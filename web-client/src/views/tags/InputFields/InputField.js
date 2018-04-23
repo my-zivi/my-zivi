@@ -34,7 +34,7 @@ export default class InputField extends Component {
         name={this.props.id}
         value={this.props.value}
         className="form-control"
-        onInput={this.props.onChange}
+        onInput={this.props.onInput}
         readonly={this.props.disabled}
       />
     );
