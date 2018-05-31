@@ -78,7 +78,12 @@ class PaymentController extends Controller
 
         $elements = json_decode(Input::get('data'), true);
         $total = 0;
-        foreach ($elements as $element) {
+        $skipped = 0;
+        foreach ($elements as $key => $element) {
+            if ($element['amount'] <= 0) {
+                $elements[$key]['skip'] = true;
+                $skipped++;
+            }
             $total += $element['amount'];
         }
 
@@ -91,7 +96,7 @@ class PaymentController extends Controller
 		<GrpHdr>
 			<MsgId>SWO-M-".$id."</MsgId>
 			<CreDtTm>".date('c')."</CreDtTm>
-			<NbOfTxs>".count($elements)."</NbOfTxs>
+			<NbOfTxs>".(count($elements) - $skipped)."</NbOfTxs>
 			<CtrlSum>".$total."</CtrlSum>
 			<InitgPty>
 				<Nm>".CompanyInfo::COMPANY_NAME."</Nm>
@@ -117,6 +122,9 @@ class PaymentController extends Controller
 
 
         foreach ($elements as $key => $element) {
+            if (isset($element['skip']) && $element['skip']) {
+                continue;
+            }
             $xml .= "
 			<CdtTrfTxInf>
 				<PmtId>
