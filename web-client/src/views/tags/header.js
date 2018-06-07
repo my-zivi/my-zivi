@@ -1,5 +1,6 @@
 import { Component } from 'inferno';
-import BootstrapNavLink from '../tags/BootstrapNavLink';
+import BootstrapNavLink from './BootstrapNavLink';
+import DataPolicyBanner from './DataPolicyBanner';
 import Auth from '../../utils/auth';
 import { environment, release } from '../../index';
 
@@ -49,6 +50,7 @@ export default class Header extends Component {
         <span class="release-info hide-print">
           {release} - {environment}
         </span>
+        <DataPolicyBanner />
       </div>
     );
   }
