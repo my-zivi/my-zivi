@@ -45,10 +45,9 @@ class PDFController extends Controller
             return response("unauthorized", 401);
         }
 
-        $response = response()->download($reportSheet->createPDF(), 'spesenrapport.pdf')
+        $response = response()
+            ->download($reportSheet->createPDF(), 'spesenrapport.pdf', ["Content-Type" => "application/pdf"], 'inline')
             ->deleteFileAfterSend(true);
-        $response->headers->set("Content-Type", "application/pdf");
-        $response->headers->set("Content-Disposition", "inline");
         return $response;
     }
 
