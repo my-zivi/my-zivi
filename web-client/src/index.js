@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import * as Inferno from 'inferno';
 import { Router } from 'inferno-router';
-import { initDevTools } from 'inferno-devtools';
+//import { initDevTools } from 'inferno-devtools';
 import { createBrowserHistory } from 'history';
 import views from './views';
 import './index.css';
@@ -29,7 +29,7 @@ Raven.context(() => {
   const browserHistory = createBrowserHistory();
 
   if (process.env.NODE_ENV !== 'production') {
-    initDevTools(); // produces error: https://github.com/infernojs/inferno/issues/1324
+    //initDevTools(); // produces error: https://github.com/infernojs/inferno/issues/1324
   }
 
   Inferno.render(<Router history={browserHistory}>{views}</Router>, document.getElementById('root'));
