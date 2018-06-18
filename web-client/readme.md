@@ -6,7 +6,7 @@ This Readme File covers developing and deploying the frontend. See [api Readme](
 2. Install Yarn (https://yarnpkg.com/en/docs/install)
 3. ``cd ./web-client``
 4. ``yarn install``
-5. ``yarn run watch``
+5. ``yarn run start``
 
 ### Formatting
 
