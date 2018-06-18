@@ -11,11 +11,12 @@ This Readme file covers developing and deploying the backend. See [web-client Re
 5. run ``docker exec izivi_api php artisan jwt:generate --show`` and add the key manually to the .env file
 6. Import Database
     - Export Database as SQL from Cyon (Datenbank -> MySQL -> stiftun8_izivi2 -> Backup)
-    - Open PHPMyAdmin available  on `localhost:48080` and create a database "izivi"
-    - Import the database from the backup file
+    - Open PHPMyAdmin, available  on `localhost:48080`
+    - Login with server address "mariadb", user name "root" and leave the password field empty
+    - Create a database named "izivi" and import the database from the backup file
     - Edit your user and set the role to 1 (admin) or use the tech@stiftungswo.ch account (see Keepass).
 7. Adjust MySQL parameters in .env file if needed
-8. The API is now available on `localhost:48000`
+8. The API is now available on `localhost:8000`
 9. Run the database migration `docker exec izivi_api php artisan migrate`
 
 
