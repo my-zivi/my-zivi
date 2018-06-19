@@ -231,7 +231,7 @@ $api->version('v1', function ($api) {
 
             // Specification (Pflichtenheft) - Admins
             $api->get('/specification', function () {
-                return response()->json(App\Specification::select('*', 'id AS fullId')->get());
+                return response()->json(DB::table('specifications')->select('*')->get());
             });
             $api->get('/specification/{id}', function ($id) {
                 return response()->json(App\Specification::find($id));
