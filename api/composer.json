@@ -12,7 +12,8 @@
         "setasign/fpdi-fpdf": "1.6.2",
         "globalcitizen/php-iban": "^2.6",
         "sentry/sentry": "^1.8.3",
-        "sentry/sentry-laravel": "^0.8.0"
+        "sentry/sentry-laravel": "^0.8.0",
+        "doctrine/dbal": "^2.7"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
