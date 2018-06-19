@@ -256,8 +256,8 @@ export default class Specifications extends Component {
 
     tbody.push(
       <tr style={{ background: 'white' }}>
-        <td colspan="20" style={{ paddingTop: '20px' }}>
-          Pflichtenheft hinzufügen:
+        <td colspan="20" style={{ paddingTop: '20px', paddingBottom: '20px'}}>
+          Pflichtenheft hinzufügen (Lediglich Zahlen und Bodenstriche sind erlaubt für die Nummer!)
         </td>
       </tr>
     );
@@ -268,7 +268,7 @@ export default class Specifications extends Component {
           <input type="checkbox" name="active" onInput={e => this.handleChangeNew(e)} />
         </td>
         <td class="col_a">
-          <input type="number" style={{ width: '70px' }} name="id" onInput={e => this.handleChangeNew(e)} required />
+          <input type="text" style={{ width: '70px' }} name="id" onInput={e => this.handleChangeNew(e)} required />
         </td>
         <td class="col_a">
           <input type="text" size="20" name="name" onInput={e => this.handleChangeNew(e)} />
