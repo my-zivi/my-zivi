@@ -3707,8 +3707,8 @@ ignore@^3.3.3:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.7.tgz#612289bfb3c220e186a58118618d5be8c1bab021"
 
 immutability-helper@^2.6.6:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.7.0.tgz#4ea9916cc8f45142ec3e3f0fce75fa5d66fa1b38"
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.7.1.tgz#5636dbb593e3deb5e572766d42249ea06bae7640"
   dependencies:
     invariant "^2.2.0"
 
@@ -3745,9 +3745,9 @@ indexof@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/indexof/-/indexof-0.0.1.tgz#82dc336d232b9062179d05ab3293a66059fd435d"
 
-inferno-clone-vnode@5.0.6:
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/inferno-clone-vnode/-/inferno-clone-vnode-5.0.6.tgz#d377b4b65f5a9b116c5fbda62e9d9786700e4763"
+inferno-clone-vnode@5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/inferno-clone-vnode/-/inferno-clone-vnode-5.1.1.tgz#4e248ef322ab41205687e9168ac18f34a89de039"
 
 inferno-dev-utils@^5.3.0:
   version "5.3.0"
@@ -3773,22 +3773,22 @@ inferno-dev-utils@^5.3.0:
     text-table "0.2.0"
 
 inferno-devtools@^5.0.4:
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/inferno-devtools/-/inferno-devtools-5.0.6.tgz#4fb856aa01c9eb0889dd39b518c68d3f4e1bb79c"
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/inferno-devtools/-/inferno-devtools-5.1.1.tgz#31d819e8f32cd0c6540dacbe7ea45dcb1b8d797d"
 
 inferno-error-overlay@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/inferno-error-overlay/-/inferno-error-overlay-4.3.0.tgz#11d9fc2603b79aaa10b50c5106d089a5783c5571"
 
 inferno-router@^5.0.4:
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/inferno-router/-/inferno-router-5.0.6.tgz#d7251480fbbe687094cc3fc90c7068dd8b9788c9"
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/inferno-router/-/inferno-router-5.1.1.tgz#020049cc502c23899ef13bbc5435bc18f6f790ec"
   dependencies:
     history "^4.7.2"
     hoist-non-inferno-statics "^1.1.3"
-    inferno "5.0.6"
-    inferno-clone-vnode "5.0.6"
-    inferno-shared "5.0.6"
+    inferno "5.1.1"
+    inferno-clone-vnode "5.1.1"
+    inferno-shared "5.1.1"
     path-to-regexp-es6 "1.7.0"
 
 inferno-scripts@6.3.0:
@@ -3835,20 +3835,20 @@ inferno-scripts@6.3.0:
   optionalDependencies:
     fsevents "1.1.3"
 
-inferno-shared@5.0.6:
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/inferno-shared/-/inferno-shared-5.0.6.tgz#392ed65f910049204b826c4640f5c1bf45c68e84"
+inferno-shared@5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/inferno-shared/-/inferno-shared-5.1.1.tgz#07e835004f08400213d8c38ac2bb88a23b5b102f"
 
-inferno-vnode-flags@5.0.6:
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/inferno-vnode-flags/-/inferno-vnode-flags-5.0.6.tgz#f9416e82ffb47c9e40d0734a9a55d9573d203b26"
+inferno-vnode-flags@5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/inferno-vnode-flags/-/inferno-vnode-flags-5.1.1.tgz#4baf066a8c867537d2d8d868277e74f09fdd0b38"
 
-inferno@5.0.6, inferno@^5.0.4:
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/inferno/-/inferno-5.0.6.tgz#12fc7f0028d6846c14af94f1c0eefc082126ca5a"
+inferno@5.1.1, inferno@^5.0.4:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/inferno/-/inferno-5.1.1.tgz#fbfe5732594c9fa719020f091fb0e4b6fcaa70ec"
   dependencies:
-    inferno-shared "5.0.6"
-    inferno-vnode-flags "5.0.6"
+    inferno-shared "5.1.1"
+    inferno-vnode-flags "5.1.1"
     opencollective "^1.0.3"
 
 inflight@^1.0.4:
@@ -6236,8 +6236,8 @@ preserve@^0.2.0:
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
 prettier@^1.12.1:
-  version "1.13.4"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.13.4.tgz#31bbae6990f13b1093187c731766a14036fa72e6"
+  version "1.13.5"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.13.5.tgz#7ae2076998c8edce79d63834e9b7b09fead6bfd0"
 
 pretty-bytes@^4.0.2:
   version "4.0.2"
@@ -6411,8 +6411,8 @@ range-parser@^1.0.3, range-parser@~1.2.0:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
 raven-js@^3.22.1:
-  version "3.25.2"
-  resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.25.2.tgz#d3ad1c694f70855dda6f705204ee6ab76ba62884"
+  version "3.26.3"
+  resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.26.3.tgz#0efb49969b5b11ab965f7b0d6da4ca102b763cb0"
 
 raw-body@2.3.2:
   version "2.3.2"
