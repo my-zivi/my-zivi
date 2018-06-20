@@ -27,8 +27,11 @@ export default class Login extends Component {
       })
       .then(response => {
         Auth.setToken(response.data.data.token);
-        if (this.props.match.params.path) {
-          var url = this.props.match.params.path;
+
+        const query = new URLSearchParams(this.props.location.search);
+
+        if (query.has('path')) {
+          var url = query.get('path');
           if (url.startsWith('/login')) {
             url = '/';
           }
