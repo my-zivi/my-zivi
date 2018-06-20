@@ -231,7 +231,7 @@ $api->version('v1', function ($api) {
 
             // Specification (Pflichtenheft) - Admins
             $api->get('/specification', function () {
-                return response()->json(App\Specification::select('*', 'id AS fullId')->get());
+                return response()->json(DB::table('specifications')->select('*')->get());
             });
             $api->get('/specification/{id}', function ($id) {
                 return response()->json(App\Specification::find($id));
@@ -263,6 +263,11 @@ $api->version('v1', function ($api) {
                 return response("updated");
             });
             $api->put('/specification/{id}', function ($id) {
+
+                if (!preg_match('/^[0-9\d_]*$/', $id)) {
+                    return response()->json('Die ID enthält ungültige Zeichen!', 400);
+                }
+
                 $spec = new App\Specification();
                 $spec->id = $id;
                 $spec->accommodation = Input::get("accommodation", "");
