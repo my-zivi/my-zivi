@@ -20,17 +20,17 @@ class UpdatedIdForSpecifications extends Migration
         });
 
         // change data types
-        Schema::table('specifications', function(Blueprint $table) {
-           $table->string('id')->change();
+        Schema::table('specifications', function (Blueprint $table) {
+            $table->string('id')->change();
         });
 
-        Schema::table('missions', function(Blueprint $table) {
+        Schema::table('missions', function (Blueprint $table) {
             $table->string('specification')->change();
         });
 
         // change id to notation with underscore
         $specification_ids = DB::table('specifications')->select('id')->get();
-        $specification_ids->each(function($specification_obj) {
+        $specification_ids->each(function ($specification_obj) {
 
             // build the new id based on the old one
             $existing_id = $specification_obj->id;
@@ -46,7 +46,7 @@ class UpdatedIdForSpecifications extends Migration
         });
 
         // restore foreign key relation
-        Schema::table('missions',function(Blueprint $table) {
+        Schema::table('missions', function (Blueprint $table) {
             $table->foreign('specification')->references('id')->on('specifications')
                 ->onDelete('restrict')->onUpdate('restrict');
         });
@@ -66,7 +66,7 @@ class UpdatedIdForSpecifications extends Migration
 
         // change id to notation with dot
         $specification_ids = DB::table('specifications')->select('id')->get();
-        $specification_ids->each(function($specification_obj) {
+        $specification_ids->each(function ($specification_obj) {
 
             // build the new id based on the old one
             $existing_id = $specification_obj->id;
@@ -82,16 +82,16 @@ class UpdatedIdForSpecifications extends Migration
         });
 
         // change back data type of column
-        Schema::table('specifications', function(Blueprint $table) {
+        Schema::table('specifications', function (Blueprint $table) {
             $table->float('id')->change();
         });
 
-        Schema::table('missions', function(Blueprint $table) {
+        Schema::table('missions', function (Blueprint $table) {
             $table->float('specification')->change();
         });
 
         // restore old data type
-        Schema::table('missions', function(Blueprint $table) {
+        Schema::table('missions', function (Blueprint $table) {
             $table->foreign('specification')->references('id')
                 ->on('specifications')->onDelete('restrict')->onUpdate('restrict');
         });
