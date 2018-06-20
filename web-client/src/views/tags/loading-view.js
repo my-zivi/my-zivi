@@ -7,7 +7,10 @@ export default class LoadingView extends Component {
     if (nextProps.error != null) {
       if (nextProps.error.response != null && nextProps.error.response.status === 401) {
         localStorage.removeItem('jwtToken');
-        this.context.router.history.push('/login?path=' + encodeURI(this.context.router.route.location.pathname));
+        window.setTimeout(
+          () => this.context.router.history.push('/login?path=' + encodeURI(this.context.router.route.location.pathname)),
+          0
+        );
       }
     }
   }
