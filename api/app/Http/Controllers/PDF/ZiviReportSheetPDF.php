@@ -570,10 +570,8 @@ class ZiviReportSheetPDF extends PDF
         if ($this->y_offset > 250) {
             $this->pdf->AddPage();
             $this->y_offset = 15;
-        } elseif ($this->y_offset > 240 && $this->y_offset < 250) {
-            $this->y_offset = $this->y_offset + 10;
         } else {
-            $this->y_offset = $this->y_offset + 20;
+            $this->y_offset = 250;
         }
 
 
