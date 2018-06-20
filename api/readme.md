@@ -34,6 +34,10 @@ Please see https://lumen.laravel.com/docs/5.2/errors for more detailled document
 
 The log files will be written to `api/storage/logs/` which is shared between your docker container and your development machine. 
 
+### Database Abstraction Layer
+
+The project contains the default Lumen DBAL as well as the DBAL by Doctrine. According to the [documentation](https://laravel.com/docs/5.6/migrations#modifying-columns) of Laravel itself, Doctrine is required to change existing columns where already any amount of data has been filled in.
+
 ### Live Deployment
 1. Copy all files except for the vendor folder to remote server
 2. Create or adapt the .env file for the live database (set APP_ENV to production and disable DEBUG)
