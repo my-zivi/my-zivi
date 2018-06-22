@@ -1,11 +1,10 @@
 <?php
 
-use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class AuthTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseTransactions;
 
     /**
      * A basic test example.
@@ -42,5 +41,38 @@ class AuthTest extends TestCase
             'password'  => $password
         ])
             ->assertResponseOk();
+    }
+
+    public function testRegister()
+    {
+        $formData = [
+            'zdp'              => '123456',
+            'firstname'        => 'Max',
+            'lastname'         => 'Mustermann',
+            'email'            => 'foo@example.com',
+            'password'         => 'test1234',
+            'password_confirm' => 'test1234',
+            'community_pw'     => 'swoswo',
+        ];
+
+        $response = $this->json('post', 'api/auth/register', $formData);
+
+        $response->seeJson([
+            'message' => 'token_generated',
+        ])->assertResponseOk();
+
+        $this->json('post', 'api/auth/login', [
+            'email'    => $formData['email'],
+            'password' => $formData['password'],
+        ])->assertResponseOk();
+    }
+
+    public function testTokenRefreshFails()
+    {
+        $response = $this->json('patch', 'api/auth/refresh');
+
+        $response->assertResponseStatus(401);
+
+        // todo: test successfull refresh
     }
 }
