@@ -24,7 +24,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 $api = $app->make(Dingo\Api\Routing\Router::class);
 
 $api->version('v1', function ($api) {
-
+    /** @var Dingo\Api\Routing\Router $api */
     // Auth - Public
     $api->post('/auth/login', [
         'as' => 'api.auth.login',
@@ -46,7 +46,7 @@ $api->version('v1', function ($api) {
     $api->group([
         'middleware' => 'api.auth',
     ], function ($api) {
-
+        /** @var Dingo\Api\Routing\Router $api */
         // Authentication - Authenticated
         $api->patch('/auth/refresh', [
             'uses' => 'App\Http\Controllers\Auth\AuthController@patchRefresh',
@@ -159,7 +159,7 @@ $api->version('v1', function ($api) {
         $api->group([
             'middleware' => 'role',
         ], function ($api) {
-
+            /** @var Dingo\Api\Routing\Router $api */
             // Root - Admins
             $api->get('/', [
                 'uses' => 'App\Http\Controllers\APIController@getIndex',
