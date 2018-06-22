@@ -18,7 +18,7 @@ export default class Missions extends Component {
     specification_options.push(<option value="" />);
     for (var i = 0; i < self.state.specifications.length; i++) {
       if (self.state.specifications[i].active) {
-        specification_options.push(<option value={'' + self.state.specifications[i].fullId}>{self.state.specifications[i].name}</option>);
+        specification_options.push(<option value={'' + self.state.specifications[i].id}>{self.state.specifications[i].name}</option>);
       }
     }
 

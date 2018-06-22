@@ -70,9 +70,9 @@ export default class MissionOverview extends Component {
     var specs = this.state.specifications;
     for (var s = 0; s < specs.length; s++) {
       if (specs[s].selected) {
-        window.$('tr.mission-row-' + String(specs[s].fullId).replace('.', '_')).show();
+        window.$('tr.mission-row-' + specs[s].id).show();
       } else {
-        window.$('tr.mission-row-' + String(specs[s].fullId).replace('.', '_')).hide();
+        window.$('tr.mission-row-' + specs[s].id).hide();
       }
     }
   }
@@ -103,11 +103,11 @@ export default class MissionOverview extends Component {
   renderMissions(userMissions) {
     var specs = this.state.specifications;
 
-    var weekCount = [];
+    var weekCount = {};
     for (let x = 0; x < specs.length; x++) {
-      weekCount[specs[x].fullId] = [];
+      weekCount[specs[x].id] = [];
       for (let i = 1; i <= 52; i++) {
-        weekCount[specs[x].fullId][i] = 0;
+        weekCount[specs[x].id][i] = 0;
       }
     }
 
@@ -242,8 +242,8 @@ export default class MissionOverview extends Component {
     for (let i = 1; i <= 52; i++) {
       var weekCountSum = 0;
       for (let x = 0; x < specs.length; x++) {
-        if (specs[x].selected && weekCount[specs[x].fullId]) {
-          weekCountSum += weekCount[specs[x].fullId][i];
+        if (specs[x].selected && weekCount[specs[x].id]) {
+          weekCountSum += weekCount[specs[x].id][i];
         }
       }
       weekHeaders.push(<td>{i}</td>);
