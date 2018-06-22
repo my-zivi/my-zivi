@@ -1,4 +1,5 @@
 import iziToast from 'izitoast/dist/js/iziToast.js';
+import Auth from './auth';
 
 function showSuccess(title, msg) {
   iziToast.show({
@@ -26,7 +27,7 @@ function showSuccess(title, msg) {
 
 function showError(title, msg, error, context) {
   if (error != null && error.response != null && error.response.status === 401) {
-    localStorage.removeItem('jwtToken');
+    Auth.removeToken();
     context.router.history.push('/');
   }
 

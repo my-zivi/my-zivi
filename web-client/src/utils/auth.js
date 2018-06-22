@@ -34,5 +34,12 @@ const setToken = token => {
   Raven.setUserContext({ id: getUserId() });
 };
 
-const Auth = { isLoggedIn, isAdmin, getUserId, setToken };
+const getToken = () => localStorage.getItem('jwtToken');
+
+const removeToken = () => {
+  localStorage.removeItem('jwtToken');
+  Raven.setUserContext({ id: undefined });
+};
+
+const Auth = { isLoggedIn, isAdmin, getUserId, setToken, getToken, removeToken };
 export default Auth;

@@ -4,6 +4,7 @@ import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import moment from 'moment-timezone';
 import { api, apiURL } from '../../utils/api';
+import Auth from '../../utils/auth';
 
 export default class ExpensePayment extends Component {
   constructor(props) {
@@ -130,7 +131,7 @@ export default class ExpensePayment extends Component {
                   }
                 >
                   <input type="hidden" name="data" value={JSON.stringify(this.state.report_sheets.valid)} />
-                  <input type="hidden" name="jwttoken" value={localStorage.getItem('jwtToken')} />
+                  <input type="hidden" name="jwttoken" value={Auth.getToken()} />
                   <input type="submit" class="btn btn-primary" value="Zahlungsdatei generieren" />
                 </form>
                 <br />

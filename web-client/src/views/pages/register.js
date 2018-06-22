@@ -3,6 +3,7 @@ import Card from '../tags/card';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import { api } from '../../utils/api';
+import Auth from '../../utils/auth';
 
 export default class Register extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class Register extends Component {
     api()
       .post('auth/register', this.state.formData)
       .then(response => {
-        localStorage.setItem('jwtToken', response.data.data.token);
+        Auth.setToken(response.data.data.token);
         this.context.router.history.push('/');
       })
       .catch(error => {
