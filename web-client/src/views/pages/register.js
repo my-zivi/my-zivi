@@ -146,6 +146,7 @@ export default class Register extends Component {
                       value={this.state.formData.email}
                       onInput={this.handleChange.bind(this)}
                       required
+                      autoComplete="username email"
                     />
                   </div>
                 </div>
@@ -165,6 +166,7 @@ export default class Register extends Component {
                       data-minlength="7"
                       placeholder=""
                       required
+                      autoComplete="new-password"
                     />
                   </div>
                   <div class="col-sm-3" />
@@ -187,6 +189,7 @@ export default class Register extends Component {
                       data-match-error="Die beiden Eingaben stimmen nicht überein"
                       placeholder=""
                       required
+                      autoComplete="new-password"
                     />
                   </div>
                   <div class="col-sm-3" />

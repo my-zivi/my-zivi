@@ -117,6 +117,7 @@ export default class ChangePassword extends Component {
                       onInput={e => this.handleChange(e)}
                       className="form-control"
                       required
+                      autoComplete="current-password"
                     />
                   </div>
                 </div>
@@ -136,6 +137,7 @@ export default class ChangePassword extends Component {
                       data-minlength="7"
                       placeholder=""
                       required
+                      autoComplete="new-password"
                     />
                   </div>
                   <div class="col-sm-3" />
@@ -158,6 +160,7 @@ export default class ChangePassword extends Component {
                       data-match-error="Die beiden Eingaben stimmen nicht überein"
                       placeholder=""
                       required
+                      autoComplete="new-password"
                     />
                   </div>
                   <div class="col-sm-3" />
