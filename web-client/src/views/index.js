@@ -1,4 +1,6 @@
-import { Route, Switch } from 'inferno-router';
+import { Route, Switch, Redirect } from 'inferno-router';
+
+import Auth from '../utils/auth';
 
 import Home from './pages/home';
 import Register from './pages/register';
@@ -29,11 +31,13 @@ import ChangePassword from './pages/changePassword';
 import ForgotPassword from './pages/forgotPassword';
 import ResetPassword from './pages/resetPassword';
 
-const authorizedOnly = ({ router }) => {
-  if (localStorage.getItem('jwtToken') === null) {
-    router.history.push('/login?path=' + encodeURI(this.context.router.route.location.pathname));
-  }
-};
+function ProtectedRoute({ component: Component, ...props }) {
+  let render = props => {
+    return Auth.isLoggedIn() ? <Component {...props} /> : <Redirect to={'/login?path=' + encodeURI(props.location.pathname)} />;
+  };
+
+  return <Route {...props} render={render} />;
+}
 
 export default (
   <div>
@@ -46,26 +50,26 @@ export default (
       <Route path="/resetPassword/:code" component={ResetPassword} />
       <Route path="/logout" component={Logout} />
 
-      <Route path="/profile/:userid?" component={Profile} onEnter={authorizedOnly} />
+      <ProtectedRoute path="/profile/:userid?" component={Profile} />
 
-      <Route path="/changePassword" component={ChangePassword} onEnter={authorizedOnly} />
+      <ProtectedRoute path="/changePassword" component={ChangePassword} />
 
-      <Route path="/user_list" component={UserList} onEnter={authorizedOnly} />
-      <Route path="/user_phone_list" component={UserPhoneList} onEnter={authorizedOnly} />
+      <ProtectedRoute path="/user_list" component={UserList} />
+      <ProtectedRoute path="/user_phone_list" component={UserPhoneList} />
 
-      <Route path="/specification" component={Specification} onEnter={authorizedOnly} />
-      <Route path="/freeday" component={Freeday} onEnter={authorizedOnly} />
+      <ProtectedRoute path="/specification" component={Specification} />
+      <ProtectedRoute path="/freeday" component={Freeday} />
 
-      <Route path="/mission_overview" component={MissionOverview} onEnter={authorizedOnly} />
+      <ProtectedRoute path="/mission_overview" component={MissionOverview} />
 
-      <Route path="/expense" exact component={Expense} onEnter={authorizedOnly} />
-      <Route path="/expensePayment" exact component={ExpensePayment} onEnter={authorizedOnly} />
-      <Route path="/expensePayment/:payment_id" component={ExpensePaymentDetail} onEnter={authorizedOnly} />
-      <Route path="/expense/:report_sheet_id" component={EditExpense} onEnter={authorizedOnly} />
+      <ProtectedRoute path="/expense" exact component={Expense} />
+      <ProtectedRoute path="/expensePayment" exact component={ExpensePayment} />
+      <ProtectedRoute path="/expensePayment/:payment_id" component={ExpensePaymentDetail} />
+      <ProtectedRoute path="/expense/:report_sheet_id" component={EditExpense} />
 
-      <Route path="/user_feedback/:missionId" component={UserFeedback} onEnter={authorizedOnly} />
-      <Route path="/user_feedback_overview" exact component={UserFeedbackOverview} onEnter={authorizedOnly} />
-      <Route path="/user_feedback_overview/:feedback_id" component={UserFeedbackOverview} onEnter={authorizedOnly} />
+      <ProtectedRoute path="/user_feedback/:missionId" component={UserFeedback} />
+      <ProtectedRoute path="/user_feedback_overview" exact component={UserFeedbackOverview} />
+      <ProtectedRoute path="/user_feedback_overview/:feedback_id" component={UserFeedbackOverview} />
 
       <Route path="/help" component={Help} />
 
