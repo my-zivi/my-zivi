@@ -1,52 +1,54 @@
 import { Component } from 'inferno';
+import { Redirect } from 'inferno-router';
 import { api } from '../../utils/api';
 import Auth from '../../utils/auth';
 
 export default class LoadingView extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      redirectToLogin: false,
+    };
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.error != null) {
       if (nextProps.error.response != null && nextProps.error.response.status === 401) {
-        localStorage.removeItem('jwtToken');
-        window.setTimeout(
-          () => this.context.router.history.push('/login?path=' + encodeURI(this.context.router.route.location.pathname)),
-          0
-        );
+        this.redirectToLogin();
       }
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     if (Auth.isLoggedIn()) {
-      api()
-        .patch('auth/refresh')
-        .then(response => {
-          localStorage.setItem('jwtToken', response.data.data.token);
-        })
-        .catch(error => {
-          console.log(error);
-          if (error.response && error.response.status === 401) {
-            localStorage.removeItem('jwtToken');
-            this.context.router.history.push('/login?path=' + this.context.router.route.location.pathname);
-          }
-        });
+      try {
+        let response = await api().patch('auth/refresh');
+        Auth.setToken(response.data.data.token);
+      } catch (error) {
+        console.log(error);
+        if (error.response && error.response.status === 401) {
+          this.redirectToLogin();
+        }
+      }
     }
   }
 
+  redirectToLogin() {
+    Auth.removeToken();
+    this.setState({ redirectToLogin: true });
+  }
+
   render() {
-    var content = [];
-    if (this.props.error != null) {
-      content.push(<div>Error: {this.props.error.message}</div>);
-    } else if (this.props.loading) {
-      content.push(
-        <div>
-          <span class="glyphicon-left glyphicon glyphicon-refresh gly-spin" /> Laden...
-        </div>
-      );
-    } else {
-      return;
+    if (this.state.redirectToLogin) {
+      let target = {
+        pathname: '/login',
+        state: { referrer: this.context.router.route.location.pathname },
+      };
+      return <Redirect to={target} />;
     }
 
-    return (
+    let Wrapper = ({ children }) => (
       <div
         style={{
           background: 'rgba(255,255,255,0.9)',
@@ -60,8 +62,26 @@ export default class LoadingView extends Component {
           textAlign: 'center',
         }}
       >
-        <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>{content}</div>
+        <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>{children}</div>
       </div>
     );
+
+    if (this.props.error != null) {
+      return (
+        <Wrapper>
+          <div>Error: {this.props.error.message}</div>
+        </Wrapper>
+      );
+    } else if (this.props.loading) {
+      return (
+        <Wrapper>
+          <div>
+            <span class="glyphicon-left glyphicon glyphicon-refresh gly-spin" /> Laden...
+          </div>
+        </Wrapper>
+      );
+    }
+
+    return null;
   }
 }

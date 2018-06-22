@@ -1,4 +1,5 @@
 import { Component } from 'inferno';
+import { Redirect } from 'inferno-router';
 
 import Card from '../tags/card';
 import Auth from '../../utils/auth';
@@ -15,41 +16,30 @@ export default class Login extends Component {
       password: '',
       loading: false,
       error: null,
+      redirectToReferrer: false,
     };
   }
 
-  login() {
+  async login() {
     this.setState({ loading: true, error: null });
-    api()
-      .post('auth/login', {
+    try {
+      let response = await api().post('auth/login', {
         email: this.state.email,
         password: this.state.password,
-      })
-      .then(response => {
-        Auth.setToken(response.data.data.token);
-
-        const query = new URLSearchParams(this.props.location.search);
-
-        if (query.has('path')) {
-          var url = query.get('path');
-          if (url.startsWith('/login')) {
-            url = '/';
-          }
-          this.context.router.history.push(url);
-        } else {
-          this.context.router.history.push('/');
-        }
-      })
-      .catch(error => {
-        let errorBox = [];
-        errorBox.push(
-          <div class="alert alert-danger">
-            <strong>Login fehlgeschlagen</strong>
-            <br />E-Mail oder Passwort falsch!
-          </div>
-        );
-        this.setState({ errorBox: errorBox, loading: false });
       });
+      Auth.setToken(response.data.data.token);
+
+      this.setState({ redirectToReferrer: true, loading: false });
+    } catch (error) {
+      let errorBox = [];
+      errorBox.push(
+        <div class="alert alert-danger">
+          <strong>Login fehlgeschlagen</strong>
+          <br />E-Mail oder Passwort falsch!
+        </div>
+      );
+      this.setState({ errorBox: errorBox, loading: false });
+    }
   }
 
   handleChange(e) {
@@ -65,7 +55,31 @@ export default class Login extends Component {
     }
   }
 
+  getReferrer() {
+    let { state, search } = this.props.location;
+    // check for referer in router state (from ProtectedRoute in index.js)
+    if (state && state.referrer) {
+      return state.referrer;
+    }
+
+    // check for the old 'path' query parameter
+    const query = new URLSearchParams(search);
+
+    if (query.has('path')) {
+      let url = query.get('path');
+      if (url.startsWith('/login')) {
+        url = '/';
+      }
+      return url;
+    }
+    return '/';
+  }
+
   render() {
+    if (this.state.redirectToReferrer) {
+      return <Redirect to={this.getReferrer()} />;
+    }
+
     return (
       <Header>
         <div className="page page__login">

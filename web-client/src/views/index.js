@@ -33,7 +33,11 @@ import ResetPassword from './pages/resetPassword';
 
 function ProtectedRoute({ component: Component, ...props }) {
   let render = props => {
-    return Auth.isLoggedIn() ? <Component {...props} /> : <Redirect to={'/login?path=' + encodeURI(props.location.pathname)} />;
+    let target = {
+      pathname: '/login',
+      state: { referrer: props.location.pathname },
+    };
+    return Auth.isLoggedIn() ? <Component {...props} /> : <Redirect to={target} />;
   };
 
   return <Route {...props} render={render} />;
