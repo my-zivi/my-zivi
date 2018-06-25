@@ -41,7 +41,6 @@ class AuthController extends Controller
             $isAuthorized = false;
             $userPasswordInput = $this->getCredentials($request)['password'];
             $user = User::where('email', '=', Input::get("email", ""))->first();
-            $customClaims = ['isAdmin' => $user['role']==1];
 
             if ($userPasswordInput === '' or $user['password'] === '') {
                 return $this->onUnauthorized();
@@ -51,12 +50,12 @@ class AuthController extends Controller
             if (password_verify(md5($userPasswordInput), $user['password'])) {
                 // double hashed: MD5 + bcrypt
                 $isAuthorized = true;
-                $token = JWTAuth::fromUser($user, $customClaims);
+                $token = JWTAuth::fromUser($user);
                 $user->password = password_hash($userPasswordInput, PASSWORD_BCRYPT);
                 $user->save();
             } else {
                 // single hashed: bcrypt
-                if ($token = JWTAuth::attempt($this->getCredentials($request), $customClaims)) {
+                if ($token = JWTAuth::attempt($this->getCredentials($request))) {
                     $isAuthorized = true;
                 }
             }
