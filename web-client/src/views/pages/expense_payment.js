@@ -3,8 +3,7 @@ import ScrollableCard from '../tags/scrollableCard';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import moment from 'moment-timezone';
-import { api, apiURL } from '../../utils/api';
-import Auth from '../../utils/auth';
+import { api } from '../../utils/api';
 
 export default class ExpensePayment extends Component {
   constructor(props) {
@@ -39,6 +38,34 @@ export default class ExpensePayment extends Component {
 
   formatRappen(amount) {
     return parseFloat(Math.round(amount * 100) / 100).toFixed(2);
+  }
+
+  async generateReportsheet() {
+    try {
+      let response = await api().post('reportsheet/payments/execute', {
+        data: this.state.report_sheets.valid,
+      });
+
+      let { xml, filename } = response.data;
+
+      ExpensePayment.downloadXmlFile(xml, filename);
+      this.getReportSheets();
+    } catch (error) {
+      this.setState({ error });
+    }
+  }
+
+  static downloadXmlFile(xml, filename) {
+    let a = document.createElement('a');
+    let objectURL = URL.createObjectURL(new Blob([xml], { type: 'application/xml' }));
+    a.href = objectURL;
+    a.download = filename;
+
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(objectURL);
   }
 
   render() {
@@ -121,19 +148,9 @@ export default class ExpensePayment extends Component {
                   <tbody>{tableBody}</tbody>
                 </table>
 
-                <form
-                  method="POST"
-                  action={apiURL('reportsheet/payments/execute')}
-                  onSubmit={() =>
-                    setTimeout(() => {
-                      this.getReportSheets();
-                    }, 2000)
-                  }
-                >
-                  <input type="hidden" name="data" value={JSON.stringify(this.state.report_sheets.valid)} />
-                  <input type="hidden" name="jwttoken" value={Auth.getToken()} />
-                  <input type="submit" class="btn btn-primary" value="Zahlungsdatei generieren" />
-                </form>
+                <button className="btn btn-primary" onClick={() => this.generateReportsheet()}>
+                  Zahlungsdatei generieren
+                </button>
                 <br />
                 <br />
               </div>

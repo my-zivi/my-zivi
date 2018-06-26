@@ -3,8 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Auth\Factory as Auth;
-use App\Role as AppRole;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class Role
 {
@@ -17,7 +16,7 @@ class Role
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->user()->isAdmin()) {
+        if (!JWTAuth::parseToken()->authenticate()->isAdmin()) {
             return response()->json('{"message": "Unauthorized - Only for administrators", "status_code": 401}', 401);
         }
 

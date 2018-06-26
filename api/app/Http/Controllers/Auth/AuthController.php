@@ -23,7 +23,7 @@ class AuthController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function postLogin(Request $request)
     {
@@ -179,7 +179,7 @@ class AuthController extends Controller
     /**
      * Invalidate a token.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteInvalidate()
     {
@@ -193,7 +193,7 @@ class AuthController extends Controller
     /**
      * Refresh a token.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function patchRefresh()
     {

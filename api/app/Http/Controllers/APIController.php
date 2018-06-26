@@ -7,10 +7,13 @@ use Illuminate\Http\JsonResponse;
 
 class APIController extends Controller
 {
+
     /**
      * Get root url.
      *
-     * @return \Illuminate\Http\Response
+     * @param Application $app
+     *
+     * @return JsonResponse
      */
     public function getIndex(Application $app)
     {

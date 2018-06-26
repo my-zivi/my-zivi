@@ -17,7 +17,7 @@ export const api = () => {
 
 export const apiURL = (path, params, auth = false) => {
   if (auth) {
-    params.jwttoken = Auth.getToken();
+    params.token = Auth.getToken();
   }
   return axiosBuildURL(BASE_URL + path, params);
 };

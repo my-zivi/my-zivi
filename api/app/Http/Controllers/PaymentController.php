@@ -75,8 +75,7 @@ class PaymentController extends Controller
 
     public function getIsoPaymentXml()
     {
-
-        $elements = json_decode(Input::get('data'), true);
+        $elements = Input::get('data');
         $total = 0;
         $skipped = 0;
         foreach ($elements as $key => $element) {
@@ -180,9 +179,10 @@ class PaymentController extends Controller
             $paymentEntry->save();
         }
 
-        return (new Response($xml, 200))
-            ->header('Content-Type', 'application/xml')
-            ->header('Content-Disposition', 'attachment; filename="'.$this->generatePaymentName($payment).'"');
+        return [
+            'xml' => $xml,
+            'filename' => $this->generatePaymentName($payment),
+        ];
     }
 
 
