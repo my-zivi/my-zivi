@@ -16,9 +16,28 @@ $factory->define(App\User::class, function ($faker) {
         'first_name' => $faker->name,
         'last_name' => $faker->name,
         'email' => $faker->email,
-        'password' => app('hash')->make('johndoe'),
+        'password' => app('hash')->make($faker->password),
         'remember_token' => str_random(10),
         'role' => 2,
-        'regional_center' => 2
+        'regional_center' => 2,
+        'zdp' => $faker->randomNumber(6),
+        'address' => $faker->streetAddress,
+        'city' => $faker->city,
+        'hometown' => $faker->city,
+        'zip' => $faker->postcode,
+        'hometown_canton' => $faker->numberBetween(1, 26),
+        'canton' => $faker->numberBetween(1, 26),
+        'birthday' => $faker->date(),
+        'phone_mobile' => $faker->phoneNumber,
+        'bank_iban' => $faker->iban('CH'),
+        'bank_bic' => $faker->swiftBicNumber,
+        'health_insurance' => $faker->company,
+        'work_experience' => $faker->sentence(),
     ];
+});
+
+$factory->defineAs(App\User::class, 'admin', function ($faker) use ($factory) {
+    $user = $factory->raw('App\User');
+    $user['role'] = 1;
+    return $user;
 });

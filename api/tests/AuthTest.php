@@ -67,12 +67,16 @@ class AuthTest extends TestCase
         ])->assertResponseOk();
     }
 
-    public function testTokenRefreshFails()
+    public function testTokenRefresh()
     {
         $response = $this->json('patch', 'api/auth/refresh');
 
         $response->assertResponseStatus(401);
 
-        // todo: test successfull refresh
+        $response = $this->authJson('patch', "api/auth/refresh", 'zivi');
+
+        $response->seeJson([
+            'message' => 'token_refreshed',
+        ])->assertResponseOk();
     }
 }
