@@ -21,7 +21,7 @@ use App\ReportSheet;
 use App\Http\Controllers\Auth\AuthController;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-$api = $app->make(Dingo\Api\Routing\Router::class);
+$api = app()->make(Dingo\Api\Routing\Router::class);
 
 $api->version('v1', function ($api) {
     /** @var Dingo\Api\Routing\Router $api */
