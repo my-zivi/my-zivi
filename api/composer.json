@@ -11,7 +11,7 @@
         "setasign/fpdi-fpdf": "1.6.2",
         "globalcitizen/php-iban": "^2.6",
         "sentry/sentry": "^1.8.3",
-        "sentry/sentry-laravel": "^0.8.0",
+        "sentry/sentry-laravel": "^0.9.0",
         "doctrine/dbal": "^2.7",
         "dingo/api": "v2.0.0-alpha2",
         "tymon/jwt-auth": "1.0.0-rc.2"
@@ -20,7 +20,7 @@
         "fzaninotto/faker": "~1.4",
         "phpunit/phpunit": "~7.0",
         "mockery/mockery": "~1.0",
-        "flipbox/lumen-generator": "5.5.*",
+        "flipbox/lumen-generator": "5.6.*",
         "squizlabs/php_codesniffer": "~3.2"
     },
     "autoload": {
