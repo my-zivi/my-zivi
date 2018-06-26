@@ -1,5 +1,8 @@
 <?php
 
+use Faker\Generator;
+use Illuminate\Database\Eloquent\Factory;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -11,7 +14,9 @@
 |
 */
 
-$factory->define(App\User::class, function ($faker) {
+/** @var Factory $factory */
+
+$factory->define(App\User::class, function (Generator $faker) {
     return [
         'first_name' => $faker->name,
         'last_name' => $faker->name,
@@ -36,8 +41,8 @@ $factory->define(App\User::class, function ($faker) {
     ];
 });
 
-$factory->defineAs(App\User::class, 'admin', function ($faker) use ($factory) {
-    $user = $factory->raw('App\User');
+$factory->defineAs(App\User::class, 'admin', function (Generator $faker) use ($factory) {
+    $user = $factory->raw(App\User::class);
     $user['role'] = 1;
     return $user;
 });

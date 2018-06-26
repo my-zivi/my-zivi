@@ -1,6 +1,7 @@
 <?php
 
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthTest extends TestCase
 {
@@ -78,5 +79,26 @@ class AuthTest extends TestCase
         $response->seeJson([
             'message' => 'token_refreshed',
         ])->assertResponseOk();
+    }
+
+    public function testAlternateTokenParameter()
+    {
+        $user = factory(\App\User::class, 'admin')->create();
+        $token = JWTAuth::fromUser($user);
+
+        $this->json('get', 'api')->assertResponseStatus(401);
+        $this->json('get', 'api?token=' . $token)->assertResponseOk();
+    }
+
+    public function testAdminAuth()
+    {
+        $response = $this->authJson('GET', "api/", 'zivi');
+        $response->assertResponseStatus(401);
+        $admin = factory(\App\User::class, 'admin')->create();
+
+        $response = $this->authJson('GET', "api/", $admin);
+        $response
+            ->seeJson(['message' => 'Lumen (5.6.3) (Laravel Components 5.6.*)'])
+            ->assertResponseOk();
     }
 }
