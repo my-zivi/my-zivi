@@ -57,9 +57,6 @@ class PaymentController extends Controller
             if (strlen($item['iban'])==0 || !(new \IBAN($item['iban']))->VerifyMachineFormatOnly()) {
                 $item['reason'] = "IBAN fehlt oder hat ungültiges Format";
             }
-            if (strlen($item['bic'])==0) {
-                $item['reason'] = "BIC fehlt";
-            }
 
             if (isset($item['reason'])) {
                 $result["invalid"][] = $item;
@@ -124,6 +121,9 @@ class PaymentController extends Controller
             if (isset($element['skip']) && $element['skip']) {
                 continue;
             }
+            // IID oder Clearing-Nummer: https://www.moneytoday.ch/lexikon/iid/
+            // kann anstelle von BIC benutzt werden
+            $iid = substr($element['iban'], 4, 5);
             $xml .= "
 			<CdtTrfTxInf>
 				<PmtId>
@@ -135,7 +135,12 @@ class PaymentController extends Controller
 				</Amt>
 				<CdtrAgt>
 					<FinInstnId>
-						<BIC>".$element['bic']."</BIC>
+						<ClrSysMmbId>
+						    <ClrSysId>
+						        <Cd>CHBCC</Cd>
+                            </ClrSysId>
+                            <MmbId>$iid</MmbId>
+                        </ClrSysMmbId>
 					</FinInstnId>
 				</CdtrAgt>
 				<Cdtr>

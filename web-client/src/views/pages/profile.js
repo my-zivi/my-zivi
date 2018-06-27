@@ -12,7 +12,6 @@ import Toast from '../../utils/toast';
 import moment from 'moment-timezone';
 import { api, apiURL } from '../../utils/api';
 import Auth from '../../utils/auth';
-import axios from 'axios';
 
 export default class User extends Component {
   constructor(props, { router }) {
@@ -157,9 +156,6 @@ export default class User extends Component {
 
   handleIBANChange(e) {
     this.handleChange(e);
-    if (this.validateIBAN(e.target.value)) {
-      this.fetchBIC(e.target.value);
-    }
   }
 
   validateIBAN(value) {
@@ -170,25 +166,6 @@ export default class User extends Component {
     } else {
       return false;
     }
-  }
-
-  fetchBIC(iban) {
-    this.setState({ bic_fetching: true });
-    axios
-      .get(`https://openiban.com/validate/${iban}?getBIC=true`)
-      .then(res => {
-        this.setState({
-          result: {
-            ...this.state.result,
-            bank_bic: res.data.bankData.bic,
-          },
-        });
-      })
-      .catch(err => {
-        console.error(err);
-        //todo print into status field?
-      })
-      .finally(() => this.setState({ bic_fetching: false }));
   }
 
   save() {
@@ -312,7 +289,7 @@ export default class User extends Component {
                   <label class="control-label col-sm-3" for="bank_bic">
                     BIC/SWIFT
                   </label>
-                  <div class="col-sm-7">
+                  <div class="col-sm-8">
                     <input
                       type="text"
                       id="bank_bic"
@@ -321,22 +298,6 @@ export default class User extends Component {
                       className="form-control"
                       onInput={e => this.handleChange(e)}
                     />
-                  </div>
-                  <div className="col-sm-1">
-                    {this.state.bic_fetching ? (
-                      <span title="BIC suchen">
-                        <span style={{ fontSize: '2em' }} className="glyphicon glyphicon-refresh gly-spin" aria-hidden="true" />
-                      </span>
-                    ) : (
-                      <span title="BIC suchen">
-                        <span
-                          style={{ fontSize: '2em' }}
-                          className="glyphicon glyphicon-search"
-                          onClick={() => this.fetchBIC(this.state.result.bank_iban)}
-                          aria-hidden="true"
-                        />
-                      </span>
-                    )}
                   </div>
                   <div id="_helpbic" className="col-sm-1 hidden-xs">
                     <span
