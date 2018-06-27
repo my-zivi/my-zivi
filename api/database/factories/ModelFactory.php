@@ -30,8 +30,6 @@ $factory->define(App\User::class, function (Generator $faker) {
         'city' => $faker->city,
         'hometown' => $faker->city,
         'zip' => $faker->postcode,
-        'hometown_canton' => $faker->numberBetween(1, 26),
-        'canton' => $faker->numberBetween(1, 26),
         'birthday' => $faker->date(),
         'phone_mobile' => $faker->phoneNumber,
         'bank_iban' => $faker->iban('CH'),
