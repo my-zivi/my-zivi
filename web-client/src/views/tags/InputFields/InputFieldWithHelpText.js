@@ -12,7 +12,7 @@ export default class InputFieldWithHelpText extends InputField {
         value={this.props.value}
         className="form-control"
         onChange={this.props.onChange}
-        readonly={this.props.disabled}
+        readOnly={this.props.disabled}
       />,
 
       <div id={'_help' + this.props.id} className="col-sm-1 hidden-xs">

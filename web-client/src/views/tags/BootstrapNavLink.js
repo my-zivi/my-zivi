@@ -1,4 +1,4 @@
-﻿import { Component } from 'inferno';
+import { Component } from 'inferno';
 import { Link } from 'inferno-router';
 
 export default class BootstrapNavLink extends Component {

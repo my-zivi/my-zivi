@@ -1,4 +1,4 @@
-﻿import { Component } from 'inferno';
+import { Component } from 'inferno';
 import Card from '../tags/card';
 import InputField from '../tags/InputFields/InputField';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';

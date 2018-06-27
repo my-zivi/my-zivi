@@ -139,7 +139,7 @@ export default class ExpensePaymentDetail extends Component {
                     </tr>
                   ))}
                   <tr class="total">
-                    <td colspan="4">{this.total(sheets)}</td>
+                    <td colSpan="4">{this.total(sheets)}</td>
                   </tr>
                 </tbody>
               </table>

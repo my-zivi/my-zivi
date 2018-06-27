@@ -1,4 +1,4 @@
-﻿import Card from '../tags/card';
+import Card from '../tags/card';
 import Header from '../tags/header';
 
 export default function(props) {

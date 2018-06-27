@@ -1,4 +1,4 @@
-﻿import { Component } from 'inferno';
+import { Component } from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -140,7 +140,7 @@ export default class UserList extends Component {
         <div className="page page__user_list">
           <ScrollableCard>
             <h1>Benutzerliste</h1>
-            <table class="table table-hover" cellspacing="0" cellpadding="2">
+            <table class="table table-hover" cellSpacing="0" cellPadding="2">
               <thead>
                 <tr>
                   <th className="hidden-xs">ZDP</th>

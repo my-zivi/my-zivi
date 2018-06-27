@@ -439,7 +439,7 @@ export default class User extends Component {
                   <tbody>
                     {this.state.reportSheets.length
                       ? this.state.reportSheets.map(obj => (
-                          <tr>
+                          <tr key={obj.id}>
                             <td>{moment(obj.start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
                             <td>{moment(obj.end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
                             <td>{obj.days}</td>

@@ -256,7 +256,7 @@ export default class MissionOverview extends Component {
       ) {
         // cell width (25px) must be the same as in mission_overview.sass
         monthHeaders.push(
-          <td style={{ fontWeight: 'bold', maxWidth: 25 * monthColCount + 'px', overflow: 'hidden' }} colspan={monthColCount}>
+          <td style={{ fontWeight: 'bold', maxWidth: 25 * monthColCount + 'px', overflow: 'hidden' }} colSpan={monthColCount}>
             {this.monthNames[prevMonth]}
           </td>
         );
@@ -267,7 +267,7 @@ export default class MissionOverview extends Component {
       startDate.setDate(startDate.getDate() + 7);
     }
     monthHeaders.push(
-      <td style={{ fontWeight: 'bold' }} colspan={monthColCount}>
+      <td style={{ fontWeight: 'bold' }} colSpan={monthColCount}>
         {this.monthNames[prevMonth]}
       </td>
     );
@@ -308,14 +308,14 @@ export default class MissionOverview extends Component {
             <table class="table table-striped table-bordered table-no-padding" id="mission_overview_table">
               <thead>
                 <tr>
-                  <td colspan="3" rowspan="2">
+                  <td colSpan="3" rowSpan="2">
                     Name
                   </td>
                   {monthHeaders}
                 </tr>
                 <tr>{weekHeaders}</tr>
                 <tr>
-                  <td colspan="3" style={{ textAlign: 'left', paddingLeft: '8px !important', fontWeight: 'bold' }} nowrap>
+                  <td colSpan="3" style={{ textAlign: 'left', paddingLeft: '8px !important', fontWeight: 'bold' }} nowrap>
                     Ø / Woche: {(averageCount / 52).toFixed(2)}
                   </td>
                   {averageHeaders}

@@ -1,4 +1,4 @@
-﻿import { Component } from 'inferno';
+import { Component } from 'inferno';
 import ScrollableCard from '../tags/scrollableCard';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -256,7 +256,7 @@ export default class Specifications extends Component {
 
     tbody.push(
       <tr style={{ background: 'white' }}>
-        <td colspan="20" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+        <td colSpan="20" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
           Pflichtenheft hinzufügen (Lediglich Zahlen und Bodenstriche sind erlaubt für die Nummer!)
         </td>
       </tr>

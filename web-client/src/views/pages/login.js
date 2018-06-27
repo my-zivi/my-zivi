@@ -105,7 +105,7 @@ export default class Login extends Component {
                   value={this.state.email}
                   onInput={this.handleChange.bind(this)}
                   required
-                  autofocus
+                  autoFocus
                   autoComplete="username email"
                 />
                 <label for="inputPassword" class="sr-only">
