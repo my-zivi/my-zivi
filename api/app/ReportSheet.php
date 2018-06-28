@@ -41,7 +41,8 @@ class ReportSheet extends Model
                            'employmentId',
                            'bank_account_number',
                            'document_number', // "Beleg Nummer"
-                           'state'
+                           'state',
+                           'ignore_first_last_day',
                         ];
 
 
@@ -83,6 +84,7 @@ class ReportSheet extends Model
                 'report_sheets.bank_account_number AS bank_account_number',
                 'report_sheets.document_number AS document_number',
                 'report_sheets.state AS state',
+                'report_sheets.ignore_first_last_day AS ignore_first_last_day',
                 'missions.id AS mission_id',
                 'missions.start AS einsaetze_start',
                 'missions.end AS einsaetze_end',
@@ -118,7 +120,7 @@ class ReportSheet extends Model
             ->first();
 
         // echo("Arbeitstage ".$reportSheet['meldeblaetter_work']." in DB vs. ");
-            
+
 
         $reportSheet['meldeblaetter_tage'] = ReportSheet::countDaysBetween(strtotime($reportSheet['meldeblaetter_start']), strtotime($reportSheet['meldeblaetter_end']));
         $reportSheet['einsaetze_tage'] = ReportSheet::countDaysBetween(strtotime($reportSheet['einsaetze_start']), strtotime($reportSheet['einsaetze_end']));
@@ -310,16 +312,20 @@ class ReportSheet extends Model
                             $reportSheet['pflichtenheft_working_lunch_expenses'] +
                             $reportSheet['pflichtenheft_working_dinner_expenses']) / 100;
 
-        $reportSheet['firstday_sum'] = ($reportSheet['pflichtenheft_pocket'] +
-                $reportSheet['pflichtenheft_accommodation'] +
-                $reportSheet['pflichtenheft_firstday_breakfast_expenses'] +
-                $reportSheet['pflichtenheft_firstday_lunch_expenses'] +
-                $reportSheet['pflichtenheft_firstday_dinner_expenses']) / 100;
-        $reportSheet['lastday_sum'] = ($reportSheet['pflichtenheft_pocket'] +
-                $reportSheet['pflichtenheft_accommodation'] +
-                $reportSheet['pflichtenheft_lastday_breakfast_expenses'] +
-                $reportSheet['pflichtenheft_lastday_lunch_expenses'] +
-                $reportSheet['pflichtenheft_lastday_dinner_expenses']) / 100;
+        if ($reportSheet['ignore_first_last_day']) {
+            $reportSheet['firstday_sum'] = $reportSheet['lastday_sum'] = $reportSheet['workday_sum'];
+        } else {
+            $reportSheet['firstday_sum'] = ($reportSheet['pflichtenheft_pocket'] +
+                                            $reportSheet['pflichtenheft_accommodation'] +
+                                            $reportSheet['pflichtenheft_firstday_breakfast_expenses'] +
+                                            $reportSheet['pflichtenheft_firstday_lunch_expenses'] +
+                                            $reportSheet['pflichtenheft_firstday_dinner_expenses']) / 100;
+            $reportSheet['lastday_sum'] = ($reportSheet['pflichtenheft_pocket'] +
+                                           $reportSheet['pflichtenheft_accommodation'] +
+                                           $reportSheet['pflichtenheft_lastday_breakfast_expenses'] +
+                                           $reportSheet['pflichtenheft_lastday_lunch_expenses'] +
+                                           $reportSheet['pflichtenheft_lastday_dinner_expenses']) / 100;
+        }
 
         $reportSheet['total_workdays'] = PDF::getRoundedRappen($reportSheet['arbeitstage'] * $reportSheet['workday_sum']);
         $reportSheet['total_workfree'] = PDF::getRoundedRappen($reportSheet['arbeitsfreie_tage'] * $reportSheet['sparetime_sum']);

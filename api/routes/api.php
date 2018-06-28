@@ -461,6 +461,7 @@ $api->version('v1', function ($api) {
                 $sheet->state = Input::get("state", "");
                 $sheet->start = Input::get("meldeblaetter_start", "");
                 $sheet->end = Input::get("meldeblaetter_end", "");
+                $sheet->ignore_first_last_day = !!Input::get("ignore_first_last_day", false);
                 $sheet->save();
                 return response("updated");
             });

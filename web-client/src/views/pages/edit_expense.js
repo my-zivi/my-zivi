@@ -349,6 +349,13 @@ export default class EditExpense extends Component {
             </div>
             <hr />
 
+            <InputCheckbox
+              id="ignore_first_last_day"
+              label="Ersten/Letzten Tag nicht speziell behandeln"
+              value={sheet.ignore_first_last_day}
+              onChange={this.handleChange.bind(this)}
+            />
+
             <InputField id="total" label="Total" value={this.formatRappen(sheet.total) + ' Fr.'} disabled />
 
             <InputField
