@@ -198,6 +198,7 @@ export default class EditExpense extends Component {
               valueLabel="Gearbeitet"
               value={sheet.meldeblaetter_workdays}
               inputType="number"
+              step="any"
               proposalValue={sheet.meldeblaetter_workdays_proposal}
               showComment={false}
               doValidation={true}
@@ -209,6 +210,7 @@ export default class EditExpense extends Component {
               valueLabel="Arbeitsfreie Tage"
               value={sheet.meldeblaetter_workfreedays}
               inputType="number"
+              step="any"
               proposalValue={sheet.meldeblaetter_workfreedays_proposal}
               showComment={true}
               doValidation={true}
@@ -222,6 +224,7 @@ export default class EditExpense extends Component {
               valueLabel="Betriebsferien (Urlaub)"
               value={sheet.meldeblaetter_companyurlaub}
               inputType="number"
+              step="any"
               proposalValue={sheet.meldeblaetter_companyurlaub_proposal}
               showComment={true}
               commentId="meldeblaetter_compholiday_comment"
@@ -234,6 +237,7 @@ export default class EditExpense extends Component {
               valueLabel="Betriebsferien (Ferien)"
               value={sheet.meldeblaetter_ferien_wegen_urlaub}
               inputType="number"
+              step="any"
               proposalValue={sheet.meldeblaetter_ferien_wegen_urlaub_proposal}
               showComment={false}
               onInput={this.handleChange.bind(this)}
@@ -255,6 +259,7 @@ export default class EditExpense extends Component {
               valueLabel="Krankheit"
               value={sheet.meldeblaetter_ill}
               inputType="number"
+              step="any"
               proposalValue={sheet.krankheitstage_verbleibend}
               proposalText="Übriges Guthaben: "
               showComment={true}
@@ -268,6 +273,7 @@ export default class EditExpense extends Component {
               valueLabel="Ferien"
               value={sheet.meldeblaetter_holiday}
               inputType="number"
+              step="any"
               proposalValue={sheet.remaining_holidays}
               proposalText="Übriges Guthaben: "
               showComment={true}
@@ -282,6 +288,7 @@ export default class EditExpense extends Component {
               value={sheet.meldeblaetter_urlaub}
               onInput={this.handleChange.bind(this)}
               inputType="number"
+              step="any"
             />
             <div class="proposalComment">
               <InputField
@@ -297,6 +304,7 @@ export default class EditExpense extends Component {
               id="meldeblaetter_kleider"
               valueLabel="Kleiderspesen"
               inputType="number"
+              step="any"
               value={sheet.meldeblaetter_kleider}
               proposalValue={this.formatRappen(sheet.meldeblaetter_kleider_proposal) + ' Fr.'}
               showComment={true}
@@ -309,6 +317,7 @@ export default class EditExpense extends Component {
               id="meldeblaetter_fahrspesen"
               label="Fahrspesen"
               inputType="number"
+              step="any"
               value={sheet.meldeblaetter_fahrspesen}
               onInput={this.handleChange.bind(this)}
             />
@@ -326,6 +335,7 @@ export default class EditExpense extends Component {
               id="meldeblaetter_ausserordentlich"
               label="Ausserordentliche Spesen"
               inputType="number"
+              step="any"
               value={sheet.meldeblaetter_ausserordentlich}
               onInput={this.handleChange.bind(this)}
             />

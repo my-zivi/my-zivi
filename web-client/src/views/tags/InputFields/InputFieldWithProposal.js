@@ -42,6 +42,7 @@ export default class InputFieldWithProposal extends InputField {
           className="form-control"
           onInput={this.props.onInput}
           readOnly={this.props.disabled}
+          step={this.props.step}
         />
       </div>
     );
