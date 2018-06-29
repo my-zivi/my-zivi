@@ -38,7 +38,7 @@ The log files will be written to `api/storage/logs/` which is shared between you
 
 The project contains the default Lumen DBAL as well as the DBAL by Doctrine. According to the [documentation](https://laravel.com/docs/5.6/migrations#modifying-columns) of Laravel itself, Doctrine is required to change existing columns where already any amount of data has been filled in.
 
-### Live Deployment
+### Live Deployment (is handled by travis)
 1. Copy all files except for the vendor folder to remote server
 2. Create or adapt the .env file for the live database (set APP_ENV to production and disable DEBUG)
 3. Connect to server via SSH
