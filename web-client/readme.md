@@ -16,7 +16,7 @@ Just run `yarn format` or `docker exec izivi_web-client yarn format`.
 You should run this before each commit or else the [CI](https://travis-ci.org/stiftungswo) system will yell at you.
 
 
-### Live Deployment
+### Live Deployment (is handled by travis)
 1. change the BASE_URL in src/utils/api.js to point to your productive API (only if you want something different e.g. for a test deployment)
 2. ``yarn build``
 3. Copy all contents of dist folder to corresponding folder on server (delete old files first)
