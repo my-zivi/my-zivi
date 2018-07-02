@@ -10,7 +10,7 @@ if [[ ! ( -z "$jsfiles" ) ]];
 then
 
     git checkout-index --prefix=git-export-dir/ -a
-    echo "$jsfiles" | xargs docker run --rm -v $(pwd)/git-export-dir/web-client:/app -w /app smutdose/prettier prettier --list-different --print-width 140 --single-quote --trailing-comma es5
+    echo "$jsfiles" | xargs docker run --rm -v $(pwd)/git-export-dir/web-client:/app -w /app node:8 npx prettier --list-different --print-width 140 --single-quote --trailing-comma es5
 
     if [[ $? != 0 ]];
     then

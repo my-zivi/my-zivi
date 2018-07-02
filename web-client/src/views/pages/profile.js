@@ -3,6 +3,7 @@ import Card from '../tags/card';
 import InputField from '../tags/InputFields/InputField';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';
 import DatePicker from '../tags/InputFields/DatePicker';
+import PhoneInput from '../tags/InputFields/PhoneInput';
 import RegionalCenters from '../tags/Profile/RegionalCenters';
 import Missions from '../tags/Profile/Missions';
 import AdminRestrictedFields from '../tags/Profile/AdminRestrictedFields';
@@ -23,6 +24,11 @@ export default class User extends Component {
       specifications: [],
       lastDateValue: null,
       reportSheets: [],
+      phonenumberValid: {
+        phone_mobile: undefined,
+        phone_private: undefined,
+        phone_business: undefined,
+      },
     };
 
     this.regionalCenterTag = new RegionalCenters();
@@ -145,6 +151,19 @@ export default class User extends Component {
     this.changeResult(e.target.name, value);
   }
 
+  handlePhonenumberChange(value, valid, fieldName) {
+    this.setState({
+      result: {
+        ...this.state.result,
+        [fieldName]: valid !== false ? value : this.state.result[fieldName],
+      },
+      phonenumberValid: {
+        ...this.state.phonenumberValid,
+        [fieldName]: valid,
+      },
+    });
+  }
+
   changeResult(key, value) {
     this.setState({
       result: {
@@ -199,6 +218,18 @@ export default class User extends Component {
     );
   }
 
+  getPhonenumberClass(fieldName) {
+    let isValid = this.state.phonenumberValid[fieldName];
+
+    if (isValid === true) {
+      return 'has-success';
+    } else if (isValid === false) {
+      return 'has-error';
+    } else {
+      return '';
+    }
+  }
+
   render() {
     let result = this.state.result;
     let howerText_IBAN = 'Du kannst die Nummer mit oder ohne Abständen eingeben.';
@@ -207,6 +238,8 @@ export default class User extends Component {
     let howerText_health_insurance = 'Krankenkassen Name und Ort';
 
     let missions = this.missionTag.getMissions(this);
+
+    let arePhonenumbersInvalid = Object.values(this.state.phonenumberValid).some(v => v === false);
 
     return (
       <Header>
@@ -240,26 +273,26 @@ export default class User extends Component {
                 <InputField id="hometown" label="Heimatort" value={result.hometown} onInput={this.handleChange.bind(this)} />
 
                 <InputField inputType="email" id="email" label="E-Mail" value={result.email} onInput={this.handleChange.bind(this)} />
-                <InputField
-                  inputType="tel"
+                <PhoneInput
                   id="phone_mobile"
                   label="Tel. Mobil"
                   value={result.phone_mobile}
-                  onInput={this.handleChange.bind(this)}
+                  groupClass={this.getPhonenumberClass('phone_mobile')}
+                  onInput={(value, valid) => this.handlePhonenumberChange(value, valid, 'phone_mobile')}
                 />
-                <InputField
-                  inputType="tel"
+                <PhoneInput
                   id="phone_private"
                   label="Tel. Privat"
                   value={result.phone_private}
-                  onInput={this.handleChange.bind(this)}
+                  groupClass={this.getPhonenumberClass('phone_private')}
+                  onInput={(value, valid) => this.handlePhonenumberChange(value, valid, 'phone_private')}
                 />
-                <InputField
-                  inputType="tel"
+                <PhoneInput
                   id="phone_business"
                   label="Tel. Geschäft"
                   value={result.phone_business}
-                  onInput={this.handleChange.bind(this)}
+                  groupClass={this.getPhonenumberClass('phone_business')}
+                  onInput={(value, valid) => this.handlePhonenumberChange(value, valid, 'phone_business')}
                 />
 
                 <hr />
@@ -388,9 +421,10 @@ export default class User extends Component {
 
                 {Auth.isAdmin() ? this.adminFields.getAdminRestrictedFields(this, result) : null}
 
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" disabled={arePhonenumbersInvalid}>
                   <span class="glyphicon glyphicon-floppy-disk" /> Speichern
                 </button>
+                {arePhonenumbersInvalid && <span>Nicht alle Telefonnummern sind valide!</span>}
               </form>
               <br />
               <hr />

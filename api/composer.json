@@ -6,15 +6,16 @@
     "type": "project",
     "require": {
         "php": ">=7.1.3",
-        "laravel/lumen-framework": "5.6.*",
-        "vlucas/phpdotenv": "~2.2",
-        "setasign/fpdi-fpdf": "1.6.2",
+        "dingo/api": "v2.0.0-alpha2",
+        "doctrine/dbal": "^2.7",
+        "giggsey/libphonenumber-for-php": "^8.9",
         "globalcitizen/php-iban": "^2.6",
+        "laravel/lumen-framework": "5.6.*",
         "sentry/sentry": "^1.8.3",
         "sentry/sentry-laravel": "^0.9.0",
-        "doctrine/dbal": "^2.7",
-        "dingo/api": "v2.0.0-alpha2",
-        "tymon/jwt-auth": "1.0.0-rc.2"
+        "setasign/fpdi-fpdf": "1.6.2",
+        "tymon/jwt-auth": "1.0.0-rc.2",
+        "vlucas/phpdotenv": "~2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\CheckHolidayCommand;
 use App\Console\Commands\FetchBICs;
+use App\Console\Commands\FormatPhonenumbersCommand;
 use App\Console\Commands\SendFeedbackRemainderMails;
 use App\Console\Commands\DatabaseCreateCommand;
 use Illuminate\Console\Scheduling\Schedule;
@@ -21,6 +22,7 @@ class Kernel extends ConsoleKernel
         DatabaseCreateCommand::class,
         FetchBICs::class,
         CheckHolidayCommand::class,
+        FormatPhonenumbersCommand::class,
     ];
 
     /**

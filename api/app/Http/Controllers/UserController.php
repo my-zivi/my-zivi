@@ -104,7 +104,7 @@ class UserController extends Controller
         ));
     }
 
-    public static function updateUser($user)
+    public static function updateUser(User $user)
     {
         $user->first_name = Input::get("first_name", "");
         $user->last_name = Input::get("last_name", "");

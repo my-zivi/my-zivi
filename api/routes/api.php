@@ -155,6 +155,11 @@ $api->version('v1', function ($api) {
             'uses' => 'App\Http\Controllers\FeedbackController@getQuestionnaireJSON'
         ]);
 
+        $api->post('/phonenumber/validate', [
+            'as' => 'api.phonenumber.validate',
+            'uses' => 'App\Http\Controllers\PhonenumberController@validatePhonenumber',
+        ]);
+
         // Admins only
         $api->group([
             'middleware' => 'role',
