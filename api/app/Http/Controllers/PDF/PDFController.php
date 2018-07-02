@@ -40,7 +40,7 @@ class PDFController extends Controller
         $reportSheet = new ZiviReportSheetPDF($reportSheetId);
 
         //Allow only admins to get reportSheets of other Users
-        $user = JWTAuth::setToken(substr(Request::header("Authorization"), 7))->authenticate();
+        $user = JWTAuth::parseToken()->authenticate();
         if ($user->role!=1 && ($user->id!=$reportSheet->getUserId() || !$reportSheet->isDone())) {
             return response("unauthorized", 401);
         }
@@ -81,7 +81,7 @@ class PDFController extends Controller
         $aufgebot = new AufgebotPDF($id);
 
         //Allow only admins to get reportSheets of other Users
-        $user = JWTAuth::setToken(substr(Request::header("Authorization"), 7))->authenticate();
+        $user = JWTAuth::parseToken()->authenticate();
         if ($user->role!=1 && $user->id!=$aufgebot->getUserId()) {
             return response("unauthorized", 401);
         }
