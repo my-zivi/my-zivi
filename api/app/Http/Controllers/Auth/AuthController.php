@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\CompanyInfo;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\App;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -121,6 +123,21 @@ class AuthController extends Controller
         //mail($user->email, "iZivi Registration", "Hallo und danke für die Registration");
 
         $user->save();
+
+        if ($request->input("newsletter", false)) {
+            $message = sprintf(
+                "Ein Zivi hat sich im iZivi registriert und sich für den Newsletter angemeldet:\nVorname:%s\nNachname:%s\nZDP:%s\nEmail:%s",
+                $user->first_name,
+                $user->last_name,
+                $user->zdp,
+                $user->email
+            );
+            if (App::environment('production')) {
+                mail(CompanyInfo::NEWSLETTER_INFO_MAIL, "iZivi Registration Newsletter anmeldung", utf8_decode($message));
+            } else {
+                \Log::debug("New signup: $message");
+            }
+        }
 
         return $this->postLogin($request);
     }

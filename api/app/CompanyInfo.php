@@ -30,7 +30,7 @@ class CompanyInfo
     const COMPANY_NO = '423';
     // Postkonto Nr. des Einsatzbetriebs (Für Spesen Einzahlungsschein)
     const COMPANY_ACCOUNT_NO = '';
-    
+
     // Name der fuer den Zivildienst verantwortlichen Person
     const RESPONSIBLE_PERSON_NAME = 'Marc Pfeuti';
     // Mobile-Nr der fuer den Zivildienst verantwortlichen Person
@@ -39,6 +39,8 @@ class CompanyInfo
     const RESPONSIBLE_FUNCTION = 'Einsatzleiter';
     // E-Mail Adresse der fuer den Zivildienst verantwortlichen Person
     const RESPONSIBLE_MAIL = 'zivildienst@stiftungswo.ch';
+    // E-Mail Adresse der fuer den Newsletter verantwortlichen Person
+    const NEWSLETTER_INFO_MAIL = 'office@stiftungswo.ch';
 
     const DEFAULT_ACCOUNT_NUMBER_REPORT_SHEETS = '4470 (200)';
 

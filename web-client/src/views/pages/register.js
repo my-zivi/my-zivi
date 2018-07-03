@@ -18,6 +18,7 @@ export default class Register extends Component {
         password: '',
         password_confirm: '',
         community_pw: '',
+        newsletter: false,
       },
     };
   }
@@ -57,7 +58,7 @@ export default class Register extends Component {
     this.setState({
       formData: {
         ...this.state.formData,
-        [e.target.name]: e.target.value,
+        [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value,
       },
     });
   }
@@ -209,6 +210,24 @@ export default class Register extends Component {
                       onInput={this.handleChange.bind(this)}
                       className="form-control"
                       required
+                    />
+                  </div>
+                  <div class="col-sm-3" />
+                  <div class="help-block with-errors col-sm-9" />
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="control-label col-sm-3" for="newsletter">
+                    Newsletter:
+                  </label>
+                  <div class="col-sm-9">
+                    <input
+                      type="checkbox"
+                      id="newsletter"
+                      name="newsletter"
+                      value={this.state.formData.newsletter}
+                      onInput={this.handleChange.bind(this)}
+                      className="form-control"
                     />
                   </div>
                   <div class="col-sm-3" />
