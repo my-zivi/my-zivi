@@ -56,8 +56,6 @@ export default class Header extends Component {
   }
 
   componentDidUpdate() {
-    window.$('[data-toggle="tooltip"]').tooltip();
-
     // Set Popover trigger mode to hover instead of click
     window.$('[data-toggle="popover"]').popover({ trigger: 'hover', container: 'body' });
   }
