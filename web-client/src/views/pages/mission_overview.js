@@ -24,7 +24,7 @@ export default class MissionOverview extends Component {
     this.getSpecifications();
     this.getMissions();
 
-    this.scrollTableHeader(window.$('table'));
+    this.scrollTableHeader(document.querySelector('table'));
   }
 
   getSpecifications() {
@@ -85,18 +85,18 @@ export default class MissionOverview extends Component {
 
   scrollTableHeader(table) {
     const onScroll = () => {
-      const offset = window.$(window).scrollTop();
-      const tableOffsetTop = table.offset().top;
-      const thead = table.find('thead');
+      const offset = window.pageYOffset;
+      const tableOffsetTop = table.getBoundingClientRect().top + window.pageYOffset;
+      const thead = table.querySelector('thead');
 
       if (offset > tableOffsetTop - 50) {
-        thead.css('top', offset - (tableOffsetTop - 50));
+        thead.style.top = `${offset - (tableOffsetTop - 50)}px`;
       } else {
-        thead.css('top', 0);
+        thead.style.top = '0';
       }
     };
 
-    window.$(window).scroll(onScroll);
+    document.addEventListener('scroll', onScroll);
     onScroll();
   }
 
