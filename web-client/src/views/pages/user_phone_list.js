@@ -51,7 +51,7 @@ export default class UserPhoneList extends Component {
               <DatePicker id="end" label="Ende:" value={this.state.end} onChange={this.handleDateChange.bind(this)} />
 
               <a
-                class="btn btn-primary"
+                className="btn btn-primary"
                 href={apiURL(
                   'pdf/phoneList',
                   {

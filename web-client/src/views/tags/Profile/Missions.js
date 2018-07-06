@@ -24,9 +24,9 @@ export default class Missions extends Component {
 
     var aufgebotErhaltenButton = [];
     if (mission != null && mission.draft == null && isAdmin) {
-      aufgebotErhaltenButton.push(
+      aufgebotErhaltenButton = (
         <button
-          class="btn btn-primary"
+          className="btn btn-primary"
           type="button"
           onClick={() => {
             this.setReceivedDraft(self, missionKey);
@@ -38,33 +38,33 @@ export default class Missions extends Component {
     }
 
     return (
-      <div id={'einsatzModal' + (mission != null ? mission.id : '')} class="modal fade" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button id="einsatzModalClose" type="button" class="close" data-dismiss="modal">
+      <div id={'einsatzModal' + (mission != null ? mission.id : '')} className="modal fade" role="dialog">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button id="einsatzModalClose" type="button" className="close" data-dismiss="modal">
                 &times;
               </button>
-              <h4 class="modal-title">Zivildiensteinsatz</h4>
+              <h4 className="modal-title">Zivildiensteinsatz</h4>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <form
-                class="form-horizontal"
+                className="form-horizontal"
                 onSubmit={e => {
                   e.preventDefault();
                   this.saveMission(self, missionKey);
                 }}
               >
-                <div class="form-group">
-                  <label class="control-label col-sm-3" for={missionKey + '_specification'}>
+                <div className="form-group">
+                  <label className="control-label col-sm-3" for={missionKey + '_specification'}>
                     Pflichtenheft
                   </label>
-                  <div class="col-sm-9">
+                  <div className="col-sm-9">
                     <select
                       value={'' + self.state['result'][missionKey + '_specification']}
                       id={missionKey + '_specification'}
                       name={missionKey + '_specification'}
-                      class="form-control"
+                      className="form-control"
                       onChange={e => self.handleChange(e)}
                       required
                     >
@@ -72,16 +72,16 @@ export default class Missions extends Component {
                     </select>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-3" for="newmission_mission_type">
+                <div className="form-group">
+                  <label className="control-label col-sm-3" for="newmission_mission_type">
                     Einsatzart
                   </label>
-                  <div class="col-sm-9">
+                  <div className="col-sm-9">
                     <select
                       value={'' + self.state['result'][missionKey + '_mission_type']}
                       id={missionKey + '_mission_type'}
                       name={missionKey + '_mission_type'}
-                      class="form-control"
+                      className="form-control"
                       onChange={e => self.handleChange(e)}
                     >
                       <option value="0" />
@@ -144,7 +144,7 @@ export default class Missions extends Component {
                 {mission == null || mission.draft == null ? 'Provisorisch' : 'Aufgeboten, Aufgebot erhalten am ' + mission.draft}
                 <hr />
                 {mission == null || mission.draft == null || Auth.isAdmin() ? (
-                  <button class="btn btn-primary" type="submit">
+                  <button className="btn btn-primary" type="submit">
                     Daten speichern
                   </button>
                 ) : null}
@@ -174,13 +174,13 @@ export default class Missions extends Component {
   getMissions(self) {
     let confirmedIcon = (
       <span data-toggle="popover" title="" data-content="Aufgebot erhalten">
-        <span class="glyphicon glyphicon-check" style={{ color: 'green' }} />
+        <span className="glyphicon glyphicon-check" style={{ color: 'green' }} />
       </span>
     );
 
     let draftOpenIcon = (
       <span data-toggle="popover" title="" data-content="Provisorisch">
-        <span class="glyphicon glyphicon-unchecked" style={{ color: 'grey' }} />
+        <span className="glyphicon glyphicon-unchecked" style={{ color: 'grey' }} />
       </span>
     );
 
@@ -202,29 +202,29 @@ export default class Missions extends Component {
         var addButton = [];
 
         if (Auth.isAdmin()) {
-          deleteButton.push(
+          deleteButton = (
             <button
-              class="btn btn-xs btn-danger"
+              className="btn btn-xs btn-danger"
               onClick={() => {
                 if (window.confirm('Möchten Sie diesen Einsatz wirklich löschen?')) {
                   self.missionTag.deleteMission(self, curMission);
                 }
               }}
             >
-              <span class="glyphicon glyphicon-trash" aria-hidden="true" /> Löschen
+              <span className="glyphicon glyphicon-trash" aria-hidden="true" /> Löschen
             </button>
           );
-          addButton.push(
+          addButton = (
             <button
               data-toggle="popover"
               data-content="Neues Meldeblatt hinzufügen"
-              class="btn btn-xs btn-success"
+              className="btn btn-xs btn-success"
               onClick={() => {
                 self.addReportSheet(curMission.id);
               }}
               title=""
             >
-              <span class="glyphicon glyphicon-plus" aria-hidden="true" /> Meldeblatt
+              <span className="glyphicon glyphicon-plus" aria-hidden="true" /> Meldeblatt
             </button>
           );
         }
@@ -237,9 +237,9 @@ export default class Missions extends Component {
           self.props.match.params.userid === undefined && // Only allow feedbacks for own user
           curMission.draft != null // Only allow feedbacks for confirmed missions
         ) {
-          feedbackButton.push(
-            <a href={'/user_feedback/' + m[i].id} class="btn btn-xs btn-info">
-              <span class="glyphicon glyphicon-list" aria-hidden="true" /> Feedback
+          feedbackButton = (
+            <a href={'/user_feedback/' + m[i].id} className="btn btn-xs btn-info">
+              <span className="glyphicon glyphicon-list" aria-hidden="true" /> Feedback
             </a>
           );
         }
@@ -251,14 +251,14 @@ export default class Missions extends Component {
             <td>{moment(m[i].end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
             <td>{curMission == null || curMission.draft == null ? draftOpenIcon : confirmedIcon}</td>
             <td>
-              <a class="btn btn-xs" href={apiURL(`mission/${curMission.id}/draft`, {}, true)} target="_blank">
-                <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
+              <a className="btn btn-xs" href={apiURL(`mission/${curMission.id}/draft`, {}, true)} target="_blank">
+                <span className="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
               </a>
             </td>
             <td>
               <div>
-                <button class="btn btn-xs btn-warning" data-toggle="modal" data-target={'#einsatzModal' + m[i].id}>
-                  <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
+                <button className="btn btn-xs btn-warning" data-toggle="modal" data-target={'#einsatzModal' + m[i].id}>
+                  <span className="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
                 </button>&nbsp;
                 {deleteButton}&nbsp;
                 {addButton}&nbsp;
@@ -287,7 +287,7 @@ export default class Missions extends Component {
     };
 
     if (moment(newMission['start']).isoWeekday() !== 1 && +newMission['probation_period'] !== 1) {
-      Toast.showError('Falscher Einsatzbeginn', 'Erster Einsatztag muss zwingend ein Montag sein!', null, self.context);
+      Toast.showError('Falscher Einsatzbeginn', 'Erster Einsatztag muss zwingend ein Montag sein!', null, null);
       return;
     }
 
@@ -302,7 +302,7 @@ export default class Missions extends Component {
     }
 
     if (!moment(newMission['start']).isSameOrBefore(moment(newMission['end']))) {
-      Toast.showError('Falsches Einsatzdauer', 'Erster Einsatztag nach dem letzten Einsatztag', null, self.context);
+      Toast.showError('Falsches Einsatzdauer', 'Erster Einsatztag nach dem letzten Einsatztag', null, null);
       return;
     }
 
@@ -317,7 +317,9 @@ export default class Missions extends Component {
         })
         .catch(error => {
           self.setState({ loading: false, error: null });
-          Toast.showError('Speichern fehlgeschlagen', 'Neuer Einsatz konnte nicht gespeichert werden', error, self.context);
+          Toast.showError('Speichern fehlgeschlagen', 'Neuer Einsatz konnte nicht gespeichert werden', error, path =>
+            self.props.history.push(path)
+          );
         });
     } else {
       api()
@@ -330,7 +332,9 @@ export default class Missions extends Component {
         })
         .catch(error => {
           self.setState({ loading: false, error: null });
-          Toast.showError('Speichern fehlgeschlagen', 'Einsatz konnte nicht gespeichert werden', error, self.context);
+          Toast.showError('Speichern fehlgeschlagen', 'Einsatz konnte nicht gespeichert werden', error, path =>
+            self.props.history.push(path)
+          );
         });
     }
   }
@@ -345,7 +349,7 @@ export default class Missions extends Component {
         self.getReportSheets();
       })
       .catch(error => {
-        Toast.showError('Löschen fehlgeschlagen', 'Einsatz konnte nicht gelöscht werden', error, self.context);
+        Toast.showError('Löschen fehlgeschlagen', 'Einsatz konnte nicht gelöscht werden', error, path => self.props.history.push(path));
         self.setState({ loading: false, error: null });
       });
   }

@@ -2,8 +2,10 @@ import InputField from './InputField';
 import moment from 'moment-timezone';
 
 export default class DatePicker extends InputField {
-  // element ref
-  element = null;
+  // picker ref
+  picker = null;
+  // input ref
+  input = null;
 
   static dateFormat_EN2CH(value) {
     return moment(value).format('DD.MM.YYYY');
@@ -14,18 +16,21 @@ export default class DatePicker extends InputField {
   }
 
   componentDidMount() {
-    window.$(this.element).datepicker({
-      format: 'dd.mm.yyyy',
-      autoclose: true,
-      startView: 'days',
-      todayHighlight: true,
-      weekStart: 1,
-      language: 'de',
-    });
+    window
+      .$(this.picker)
+      .datepicker({
+        format: 'dd.mm.yyyy',
+        autoclose: true,
+        startView: 'days',
+        todayHighlight: true,
+        weekStart: 1,
+        language: 'de',
+      })
+      .on('changeDate', () => this.props.onChange({ target: this.input }));
   }
 
   componentWillUnmount() {
-    window.$(this.element).datepicker('destroy');
+    window.$(this.picker).datepicker('destroy');
   }
 
   render() {
@@ -33,7 +38,7 @@ export default class DatePicker extends InputField {
     if (dateValue) {
       dateValue = DatePicker.dateFormat_EN2CH(this.props.value);
     } else {
-      dateValue = null;
+      dateValue = '';
     }
 
     let showLabel = true;
@@ -43,23 +48,23 @@ export default class DatePicker extends InputField {
 
     return this.getFormGroup(
       <div
-        class={'input-group input-append date ' + (this.props.disabled ? '' : 'datePicker')}
+        className={'input-group input-append date ' + (this.props.disabled ? '' : 'datePicker')}
         id="datePicker"
-        ref={picker => (this.element = picker)}
+        ref={picker => (this.picker = picker)}
       >
         {/* todo fixme compare this onInput / onChange with original (ability to hand edit the date)*/}
         <input
           type="text"
-          class="form-control"
+          className="form-control"
           id={this.props.id}
           name={this.props.id}
-          value={dateValue}
-          onChange={e => this.props.onChange(e)}
+          defaultValue={dateValue}
+          ref={input => (this.input = input)}
           readOnly={this.props.disabled}
           autoComplete="off"
         />
-        <span class="input-group-addon add-on">
-          <span class="glyphicon glyphicon-calendar" />
+        <span className="input-group-addon add-on">
+          <span className="glyphicon glyphicon-calendar" />
         </span>
       </div>,
       null,

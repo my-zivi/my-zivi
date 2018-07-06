@@ -194,7 +194,7 @@ export default class MissionOverview extends Component {
     for (let x = 0; x < specs.length; x++) {
       if (specs[x].active) {
         specifications.push(
-          <div class="checkbox no-print">
+          <div className="checkbox no-print">
             <label>
               <input
                 type="checkbox"
@@ -267,23 +267,23 @@ export default class MissionOverview extends Component {
         <div className="page page__mission_overview">
           <ScrollableCard>
             <h1>Einsatzübersicht</h1>
-            <div class="container no-print" style={{ height: 'auto', width: 'auto' }}>
-              <div class="row">
-                <div class="col-sm-2">
+            <div className="container no-print" style={{ height: 'auto', width: 'auto' }}>
+              <div className="row">
+                <div className="col-sm-2">
                   <select
                     defaultValue={this.state.year}
                     onChange={e => this.handleChangeYear(e)}
-                    class="form-control"
+                    className="form-control"
                     style={{ margin: '10px auto auto auto' }}
                   >
                     {yearOptions}
                   </select>
                 </div>
-                <div class="col-sm-8">{specifications}</div>
-                <div class="col-sm-2">
+                <div className="col-sm-8">{specifications}</div>
+                <div className="col-sm-2">
                   <button
                     type="button"
-                    class="btn btn-primary"
+                    className="btn btn-primary"
                     name="print"
                     onClick={e => this.print()}
                     style={{ margin: '10px auto auto auto' }}
@@ -295,7 +295,7 @@ export default class MissionOverview extends Component {
               </div>
             </div>
 
-            <table class="table table-striped table-bordered table-no-padding" id="mission_overview_table">
+            <table className="table table-striped table-bordered table-no-padding" id="mission_overview_table">
               <thead>
                 <tr>
                   <td colSpan="3" rowSpan="2">
@@ -305,7 +305,7 @@ export default class MissionOverview extends Component {
                 </tr>
                 <tr>{weekHeaders}</tr>
                 <tr>
-                  <td colSpan="3" style={{ textAlign: 'left', paddingLeft: '8px !important', fontWeight: 'bold' }} nowrap>
+                  <td colSpan="3" style={{ textAlign: 'left', paddingLeft: '8px !important', fontWeight: 'bold' }} nowrap="true">
                     Ø / Woche: {(averageCount / 52).toFixed(2)}
                   </td>
                   {averageHeaders}
@@ -327,10 +327,10 @@ function Row({ specId, shortName, zdp, userId, userName, cells }) {
       <td>{shortName}</td>
 
       <td>
-        <div class="no-print">{zdp}</div>
+        <div className="no-print">{zdp}</div>
       </td>
 
-      <td class="einsatz-zivi-name" nowrap>
+      <td className="einsatz-zivi-name" nowrap="true">
         <a href={'/profile/' + userId}>{userName}</a>
       </td>
 

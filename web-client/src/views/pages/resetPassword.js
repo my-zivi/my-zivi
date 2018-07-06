@@ -30,10 +30,8 @@ export default class ResetPassword extends Component {
       .then(response => {
         errorMsg = [];
         errorBox = [];
-        confirmBox = [];
-
-        confirmBox.push(
-          <div class="alert alert-success">
+        confirmBox = (
+          <div className="alert alert-success">
             <strong>Änderung Erfolgreich!</strong>
             <br />Ihr Passwort wurde geändert. <a href="/login">Zum Login</a>
           </div>
@@ -50,10 +48,9 @@ export default class ResetPassword extends Component {
           }
         }
 
-        errorBox = [];
         confirmBox = [];
-        errorBox.push(
-          <div class="alert alert-danger">
+        errorBox = (
+          <div className="alert alert-danger">
             <strong>Passwort konnte nicht geändert werden.</strong>
             <br />
             {errorMsg}
@@ -83,22 +80,22 @@ export default class ResetPassword extends Component {
             <h1>Passwort Ändern</h1>
             {this.state.errorBox}
             {this.state.confirmBox}
-            <div class="container">
+            <div className="container">
               {!this.state.done && (
                 <form
                   id="changePasswordForm"
-                  class="form-horizontal"
+                  className="form-horizontal"
                   data-toggle="validator"
                   onSubmit={e => {
                     e.preventDefault();
                     this.save();
                   }}
                 >
-                  <div class="form-group has-feedback">
-                    <label class="control-label col-sm-3" for="old_password">
+                  <div className="form-group has-feedback">
+                    <label className="control-label col-sm-3" for="old_password">
                       Neues Passwort
                     </label>
-                    <div class="col-sm-9">
+                    <div className="col-sm-9">
                       <input
                         type="password"
                         id="new_password"
@@ -111,15 +108,15 @@ export default class ResetPassword extends Component {
                         required
                       />
                     </div>
-                    <div class="col-sm-3" />
-                    <div class="help-block col-sm-9">Mindestens 7 Zeichen</div>
+                    <div className="col-sm-3" />
+                    <div className="help-block col-sm-9">Mindestens 7 Zeichen</div>
                   </div>
 
-                  <div class="form-group has-feedback">
-                    <label class="control-label col-sm-3" for="old_password">
+                  <div className="form-group has-feedback">
+                    <label className="control-label col-sm-3" for="old_password">
                       Wiederholen
                     </label>
-                    <div class="col-sm-9">
+                    <div className="col-sm-9">
                       <input
                         type="password"
                         id="new_password_2"
@@ -133,11 +130,11 @@ export default class ResetPassword extends Component {
                         required
                       />
                     </div>
-                    <div class="col-sm-3" />
-                    <div class="help-block with-errors col-sm-9" />
+                    <div className="col-sm-3" />
+                    <div className="help-block with-errors col-sm-9" />
                   </div>
 
-                  <button type="submit" class="btn btn-primary">
+                  <button type="submit" className="btn btn-primary">
                     Absenden
                   </button>
                 </form>

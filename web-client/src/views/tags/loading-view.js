@@ -1,9 +1,9 @@
 import { Component } from 'inferno';
-import { Redirect } from 'inferno-router';
+import { Redirect, withRouter } from 'inferno-router';
 import { api } from '../../utils/api';
 import Auth from '../../utils/auth';
 
-export default class LoadingView extends Component {
+class LoadingView extends Component {
   constructor(props) {
     super(props);
 
@@ -43,7 +43,7 @@ export default class LoadingView extends Component {
     if (this.state.redirectToLogin) {
       let target = {
         pathname: '/login',
-        state: { referrer: this.context.router.route.location.pathname },
+        state: { referrer: this.props.location.pathname },
       };
       return <Redirect to={target} />;
     }
@@ -76,7 +76,7 @@ export default class LoadingView extends Component {
       return (
         <Wrapper>
           <div>
-            <span class="glyphicon-left glyphicon glyphicon-refresh gly-spin" /> Laden...
+            <span className="glyphicon-left glyphicon glyphicon-refresh gly-spin" /> Laden...
           </div>
         </Wrapper>
       );
@@ -85,3 +85,5 @@ export default class LoadingView extends Component {
     return null;
   }
 }
+
+export default withRouter(LoadingView);

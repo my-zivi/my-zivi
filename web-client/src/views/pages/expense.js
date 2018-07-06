@@ -132,14 +132,14 @@ export default class ExpenseOverview extends Component {
       tableBody.push(
         <tr>
           <td>&nbsp;</td>
-          <td class="center">{sheets[i].zdp}</td>
+          <td className="center">{sheets[i].zdp}</td>
           <td>
             <a href={'/profile/' + sheets[i].userid}>
               {sheets[i].first_name} {sheets[i].last_name}
             </a>
           </td>
-          <td class="center">{sheets[i].start}</td>
-          <td class="center">{sheets[i].end}</td>
+          <td className="center">{sheets[i].start}</td>
+          <td className="center">{sheets[i].end}</td>
           <td>{sheets[i].done ? statusIcon : ''}</td>
           <td>
             <a href={'/expense/' + sheets[i].id}>Spesen bearbeiten</a>
@@ -161,17 +161,17 @@ export default class ExpenseOverview extends Component {
       <Header>
         <div className="page page__expense">
           <ScrollableCard>
-            <div class="btn-group">
-              <a class="btn btn-default" href={this.showStats(3, 1)} target="_blank">
-                <span class="glyphicon glyphicon-file" aria-hidden="true" />
+            <div className="btn-group">
+              <a className="btn btn-default" href={this.showStats(3, 1)} target="_blank">
+                <span className="glyphicon glyphicon-file" aria-hidden="true" />
                 {' ' + this.monthNames[prevMonthDate.getMonth()]}
               </a>
-              <a class="btn btn-default" href={this.showStats(2, 1)} target="_blank">
-                <span class="glyphicon glyphicon-file" aria-hidden="true" />
+              <a className="btn btn-default" href={this.showStats(2, 1)} target="_blank">
+                <span className="glyphicon glyphicon-file" aria-hidden="true" />
                 {' ' + this.monthNames[curMonthDate.getMonth()]}
               </a>
-              <button class="btn btn-default" data-toggle="modal" data-target="#myModal">
-                <span class="glyphicon glyphicon-file" aria-hidden="true" />
+              <button className="btn btn-default" data-toggle="modal" data-target="#myModal">
+                <span className="glyphicon glyphicon-file" aria-hidden="true" />
                 {' Erweitert'}
               </button>
             </div>
@@ -180,49 +180,49 @@ export default class ExpenseOverview extends Component {
             <br />
             <h2>Meldeblätter</h2>
 
-            <div class="btn-group">
+            <div className="btn-group">
               <button
                 id="tab1"
-                class={this.state.activeReportSheet === 1 ? 'btn btn-primary' : 'btn btn-default'}
+                className={this.state.activeReportSheet === 1 ? 'btn btn-primary' : 'btn btn-default'}
                 onClick={() => this.getReportSheets('reportsheet', 1)}
               >
                 Alle Meldeblätter anzeigen
               </button>
               <button
                 id="tab2"
-                class={this.state.activeReportSheet === 2 ? 'btn btn-primary' : 'btn btn-default'}
+                className={this.state.activeReportSheet === 2 ? 'btn btn-primary' : 'btn btn-default'}
                 onClick={() => this.getReportSheets('reportsheet/pending', 2)}
               >
                 Pendente Meldeblätter anzeigen
               </button>
               <button
                 id="tab3"
-                class={this.state.activeReportSheet === 3 ? 'btn btn-primary' : 'btn btn-default'}
+                className={this.state.activeReportSheet === 3 ? 'btn btn-primary' : 'btn btn-default'}
                 onClick={() => this.getReportSheets('reportsheet/current', 3)}
               >
                 Aktuelle Meldeblätter anzeigen
               </button>
             </div>
-            <div class="btn-group" style={{ paddingLeft: '10px' }}>
-              <a class="btn btn-default" href="/expensePayment">
+            <div className="btn-group" style={{ paddingLeft: '10px' }}>
+              <a className="btn btn-default" href="/expensePayment">
                 Auszahlung
               </a>
             </div>
             <br />
             <br />
-            <div id="myModal" class="modal fade" role="dialog">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
+            <div id="myModal" className="modal fade" role="dialog">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <button type="button" className="close" data-dismiss="modal">
                       &times;
                     </button>
-                    <h4 class="modal-title">Spesenstatistik erstellen</h4>
+                    <h4 className="modal-title">Spesenstatistik erstellen</h4>
                   </div>
-                  <div class="modal-body">
-                    <div class="btn-group btn-block" data-toggle="buttons">
+                  <div className="modal-body">
+                    <div className="btn-group btn-block" data-toggle="buttons">
                       <label
-                        class="btn btn-default active"
+                        className="btn btn-default active"
                         data-toggle="collapse"
                         data-target="#datePickerContainer.in"
                         style={{ width: '598px', borderRadius: '5px', margin: '0px' }}
@@ -250,7 +250,7 @@ export default class ExpenseOverview extends Component {
                       </label>
 
                       <label
-                        class="btn btn-default"
+                        className="btn btn-default"
                         data-toggle="collapse"
                         data-target="#datePickerContainer:not(.in)"
                         style={{ width: '598px', borderRadius: '5px', margin: '0px' }}
@@ -265,9 +265,9 @@ export default class ExpenseOverview extends Component {
                         />{' '}
                         Periode:&nbsp;
                       </label>
-                      <div id="datePickerContainer" class="panel-collapse collapse ">
-                        <div class="btn-group-justified">
-                          <label class="btn">
+                      <div id="datePickerContainer" className="panel-collapse collapse ">
+                        <div className="btn-group-justified">
+                          <label className="btn">
                             <DatePicker
                               id="time_from"
                               label="Von"
@@ -275,14 +275,14 @@ export default class ExpenseOverview extends Component {
                               onChange={this.handleDateChange.bind(this)}
                             />
                           </label>
-                          <label class="btn">
+                          <label className="btn">
                             <DatePicker id="time_to" label="Zu" value={this.state.time_to} onChange={this.handleDateChange.bind(this)} />
                           </label>
                         </div>
                       </div>
 
                       <label
-                        class="btn btn-default"
+                        className="btn btn-default"
                         data-toggle="collapse"
                         data-target="#datePickerContainer.in"
                         style={{ width: '598px', borderRadius: '5px', margin: '0px' }}
@@ -299,7 +299,7 @@ export default class ExpenseOverview extends Component {
                       </label>
 
                       <label
-                        class="btn btn-default"
+                        className="btn btn-default"
                         data-toggle="collapse"
                         data-target="#datePickerContainer.in"
                         style={{ width: '598px', borderRadius: '5px', margin: '0px' }}
@@ -319,8 +319,8 @@ export default class ExpenseOverview extends Component {
                     <br />
                     <br />
 
-                    <div class="btn-group  btn-group-justified" data-toggle="buttons">
-                      <label class="btn btn-default active">
+                    <div className="btn-group  btn-group-justified" data-toggle="buttons">
+                      <label className="btn btn-default active">
                         <input
                           type="radio"
                           name="showOnlyDoneSheets"
@@ -331,7 +331,7 @@ export default class ExpenseOverview extends Component {
                         />{' '}
                         Erledigte Meldeblätter
                       </label>
-                      <label class="btn btn-default">
+                      <label className="btn btn-default">
                         <input
                           type="radio"
                           name="showOnlyDoneSheets"
@@ -346,11 +346,11 @@ export default class ExpenseOverview extends Component {
 
                     <br />
 
-                    <div class="btn-group  btn-group-justified">
-                      <a class="btn btn-info" href={this.showStatsExtended(0)} target="_blank">
+                    <div className="btn-group  btn-group-justified">
+                      <a className="btn btn-info" href={this.showStatsExtended(0)} target="_blank">
                         Gesamtstatistik
                       </a>
-                      <a class="btn btn-info" href={this.showStatsExtended(1)} target="_blank">
+                      <a className="btn btn-info" href={this.showStatsExtended(1)} target="_blank">
                         Detailübersicht
                       </a>
                     </div>
@@ -359,7 +359,7 @@ export default class ExpenseOverview extends Component {
               </div>
             </div>
 
-            <table class="table table-hover">
+            <table className="table table-hover">
               <thead>
                 <tr>
                   <th>&nbsp;</th>
@@ -370,13 +370,19 @@ export default class ExpenseOverview extends Component {
                   <th />
                   <th />
                 </tr>
-                <tr class="theader">
+                <tr className="theader">
                   <td>&nbsp;</td>
                   <td>
-                    <input class="form-control" name="zdp" type="text" value={this.state.zdp} onInput={this.handleChange.bind(this)} />
+                    <input className="form-control" name="zdp" type="text" value={this.state.zdp} onInput={this.handleChange.bind(this)} />
                   </td>
                   <td>
-                    <input class="form-control" name="name" type="text" value={this.state.name} onInput={this.handleChange.bind(this)} />
+                    <input
+                      className="form-control"
+                      name="name"
+                      type="text"
+                      value={this.state.name}
+                      onInput={this.handleChange.bind(this)}
+                    />
                   </td>
                   <td>
                     <DatePicker id="start" value={null} onChange={this.handleDateChange.bind(this)} showLabel={false} />

@@ -32,7 +32,7 @@ export default class Header extends Component {
 
   generateNavLinks() {
     return (
-      <ul class="nav navbar-nav">
+      <ul className="nav navbar-nav">
         {Auth.isAdmin() ? this.adminMenu() : null}
         {Auth.isLoggedIn() ? this.userMenu() : null}
         {!Auth.isLoggedIn() ? this.guestMenu() : null}
@@ -47,7 +47,7 @@ export default class Header extends Component {
         <main id="content" style={{ paddingTop: 0 }}>
           {this.props.children}
         </main>
-        <span class="release-info hide-print">
+        <span className="release-info hide-print">
           {release} - {environment}
         </span>
         <DataPolicyBanner />

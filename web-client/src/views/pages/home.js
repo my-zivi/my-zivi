@@ -32,7 +32,7 @@ export default function(props) {
             <li>
               Als zukünftiger Zivi musst du dich zuerst erkundigen, ob zum gewünschten Zeitpunkt ein Einsatz möglich ist. Erkundige dich
               bitte direkt bei{' '}
-              <a href="//stiftungswo.ch/about/meet-the-team" target="_blank">
+              <a href="//stiftungswo.ch/about/meet-the-team" target="_blank" rel="noopener noreferrer">
                 Marc Pfeuti
               </a>.
             </li>

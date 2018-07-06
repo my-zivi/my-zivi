@@ -103,7 +103,7 @@ export default class EditExpense extends Component {
           'Anzahl Tage prüfen!',
           'Die benötigte Anzahl Tage (' + requiredDays + ') stimmt nicht mit der eingefüllten Anzahl (' + providedDays + ') überein.',
           null,
-          this.context
+          null
         );
         return;
       }
@@ -118,7 +118,7 @@ export default class EditExpense extends Component {
       })
       .catch(error => {
         this.setState({ loading: false, error: null });
-        Toast.showError('Speichern fehlgeschlagen', 'Spesen konnte nicht gespeichert werden', error, this.context);
+        Toast.showError('Speichern fehlgeschlagen', 'Spesen konnte nicht gespeichert werden', error, path => this.props.history.push(path));
       });
   }
 
@@ -132,7 +132,9 @@ export default class EditExpense extends Component {
         })
         .catch(error => {
           this.setState({ loading: false, error: null });
-          Toast.showError('Löschen fehlgeschlagen', 'Meldeblatt konnte nicht gelöscht werden', error, this.context);
+          Toast.showError('Löschen fehlgeschlagen', 'Meldeblatt konnte nicht gelöscht werden', error, path =>
+            this.props.history.push(path)
+          );
         });
     }
   }
@@ -142,14 +144,14 @@ export default class EditExpense extends Component {
   }
 
   render(props) {
-    var content = [];
+    var content = null;
     var sheet = this.state.report_sheet;
 
     if (sheet != null) {
-      content.push(
-        <div class="container">
+      content = (
+        <div className="container">
           <form
-            class="form-horizontal"
+            className="form-horizontal"
             onSubmit={e => {
               e.preventDefault();
               this.save();
@@ -244,7 +246,7 @@ export default class EditExpense extends Component {
             />
 
             <InputField id="meldeblaetter_add_workfree" label="Zusätzlich Arbeitsfrei" value={sheet.meldeblaetter_add_workfree} disabled />
-            <div class="proposalComment">
+            <div className="proposalComment">
               <InputField
                 id="meldeblaetter_add_workfree_comment"
                 label="Bemerkung"
@@ -290,7 +292,7 @@ export default class EditExpense extends Component {
               inputType="number"
               step="any"
             />
-            <div class="proposalComment">
+            <div className="proposalComment">
               <InputField
                 id="meldeblaetter_urlaub_comment"
                 label="Bemerkung"
@@ -321,7 +323,7 @@ export default class EditExpense extends Component {
               value={sheet.meldeblaetter_fahrspesen}
               onInput={this.handleChange.bind(this)}
             />
-            <div class="proposalComment">
+            <div className="proposalComment">
               <InputField
                 id="meldeblaetter_fahrspesen_comment"
                 label="Bemerkung"
@@ -339,7 +341,7 @@ export default class EditExpense extends Component {
               value={sheet.meldeblaetter_ausserordentlich}
               onInput={this.handleChange.bind(this)}
             />
-            <div class="proposalComment">
+            <div className="proposalComment">
               <InputField
                 id="meldeblaetter_ausserordentlich_comment"
                 label="Bemerkung"
@@ -366,12 +368,12 @@ export default class EditExpense extends Component {
             />
             <InputField id="document_number" label="Beleg-Nr." value={sheet.document_number} onInput={this.handleChange.bind(this)} />
 
-            <div class="form-group">
-              <label class="control-label col-sm-3" for="state">
+            <div className="form-group">
+              <label className="control-label col-sm-3" for="state">
                 Status
               </label>
-              <div class="col-sm-9">
-                <select value={'' + sheet['state']} id="state" name="state" class="form-control" onChange={e => this.handleChange(e)}>
+              <div className="col-sm-9">
+                <select value={'' + sheet['state']} id="state" name="state" className="form-control" onChange={e => this.handleChange(e)}>
                   <option value="0">Offen</option>
                   <option value="1">Bereit für Auszahlung</option>
                   <option value="2">Auszahlung in Verarbeitung</option>
@@ -381,25 +383,25 @@ export default class EditExpense extends Component {
             </div>
             <hr />
 
-            <div class="container">
-              <button type="submit" name="saveExpense" class="btn btn-primary col-sm-3">
-                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" /> Speichern und aktualisieren
+            <div className="container">
+              <button type="submit" name="saveExpense" className="btn btn-primary col-sm-3">
+                <span className="glyphicon glyphicon-floppy-disk" aria-hidden="true" /> Speichern und aktualisieren
               </button>
-              <div class="col-sm-2" />
+              <div className="col-sm-2" />
               <button
                 type="button"
                 name="showProfile"
-                class="btn btn-danger col-sm-2"
+                className="btn btn-danger col-sm-2"
                 onClick={() => {
                   this.deleteReportSheet();
                 }}
               >
-                <span class="glyphicon glyphicon-trash" aria-hidden="true" /> Löschen
+                <span className="glyphicon glyphicon-trash" aria-hidden="true" /> Löschen
               </button>
               <a
                 type="button"
                 name="print"
-                class="btn btn-warning col-sm-2"
+                className="btn btn-warning col-sm-2"
                 href={apiURL(
                   'pdf/zivireportsheet',
                   {
@@ -409,13 +411,13 @@ export default class EditExpense extends Component {
                 )}
                 target="_blank"
               >
-                <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
+                <span className="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
               </a>
-              <div class="col-sm-1" />
+              <div className="col-sm-1" />
               <button
                 type="button"
                 name="deleteReport"
-                class="btn btn-default col-sm-2"
+                className="btn btn-default col-sm-2"
                 onClick={() => {
                   this.router.history.push('/profile/' + this.state['report_sheet']['user']);
                 }}
@@ -426,7 +428,7 @@ export default class EditExpense extends Component {
             <br />
             <br />
 
-            <div class="container">
+            <div className="container">
               <InputCheckbox
                 id="force_save"
                 value={this.state.force_save}

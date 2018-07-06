@@ -29,7 +29,7 @@ export default class Register extends Component {
       .post('auth/register', this.state.formData)
       .then(response => {
         Auth.setToken(response.data.data.token);
-        this.context.router.history.push('/');
+        this.props.history.push('/');
       })
       .catch(error => {
         var errorMsg = [];
@@ -42,9 +42,8 @@ export default class Register extends Component {
             );
           }
         }
-        var errorBox = [];
-        errorBox.push(
-          <div class="alert alert-danger">
+        var errorBox = (
+          <div className="alert alert-danger">
             <strong>Registration fehlgeschlagen</strong>
             <br />
             {errorMsg}
@@ -69,7 +68,7 @@ export default class Register extends Component {
         <div className="page page__register">
           <Card>
             <h1>Registrieren</h1>
-            <div class="container">
+            <div className="container">
               {this.state.errorBox}
               <form
                 id="registerForm"
@@ -77,21 +76,21 @@ export default class Register extends Component {
                   e.preventDefault();
                   this.register();
                 }}
-                class="form-horizontal"
+                className="form-horizontal"
                 data-toggle="validator"
               >
                 <hr />
                 <h3>Persönliche Informationen</h3>
                 <br />
 
-                <div class="form-group">
-                  <label class="control-label col-sm-3" for="zdp">
+                <div className="form-group">
+                  <label className="control-label col-sm-3" for="zdp">
                     ZDP:
                   </label>
-                  <div class="col-sm-9">
+                  <div className="col-sm-9">
                     <input
                       type="number"
-                      class="form-control"
+                      className="form-control"
                       name="zdp"
                       id="zdp"
                       value={this.state.formData.zdp}
@@ -102,14 +101,14 @@ export default class Register extends Component {
                     />
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-3" for="firstname">
+                <div className="form-group">
+                  <label className="control-label col-sm-3" for="firstname">
                     Vorname:
                   </label>
-                  <div class="col-sm-9">
+                  <div className="col-sm-9">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       name="firstname"
                       id="firstname"
                       value={this.state.formData.firstname}
@@ -118,14 +117,14 @@ export default class Register extends Component {
                     />
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-3" for="lastname">
+                <div className="form-group">
+                  <label className="control-label col-sm-3" for="lastname">
                     Nachname:
                   </label>
-                  <div class="col-sm-9">
+                  <div className="col-sm-9">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       name="lastname"
                       id="lastname"
                       value={this.state.formData.lastname}
@@ -134,14 +133,14 @@ export default class Register extends Component {
                     />
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-3" for="email">
+                <div className="form-group">
+                  <label className="control-label col-sm-3" for="email">
                     E-Mail:
                   </label>
-                  <div class="col-sm-9">
+                  <div className="col-sm-9">
                     <input
                       type="email"
-                      class="form-control"
+                      className="form-control"
                       name="email"
                       id="email"
                       value={this.state.formData.email}
@@ -152,11 +151,11 @@ export default class Register extends Component {
                   </div>
                 </div>
 
-                <div class="form-group has-feedback">
-                  <label class="control-label col-sm-3" for="password">
+                <div className="form-group has-feedback">
+                  <label className="control-label col-sm-3" for="password">
                     Passwort:
                   </label>
-                  <div class="col-sm-9">
+                  <div className="col-sm-9">
                     <input
                       type="password"
                       id="password"
@@ -170,15 +169,15 @@ export default class Register extends Component {
                       autoComplete="new-password"
                     />
                   </div>
-                  <div class="col-sm-3" />
-                  <div class="help-block col-sm-9">Mindestens 7 Zeichen</div>
+                  <div className="col-sm-3" />
+                  <div className="help-block col-sm-9">Mindestens 7 Zeichen</div>
                 </div>
 
-                <div class="form-group has-feedback">
-                  <label class="control-label col-sm-3" for="password_confirm">
+                <div className="form-group has-feedback">
+                  <label className="control-label col-sm-3" for="password_confirm">
                     Passwort Bestätigung:
                   </label>
-                  <div class="col-sm-9">
+                  <div className="col-sm-9">
                     <input
                       type="password"
                       id="password_confirm"
@@ -193,15 +192,15 @@ export default class Register extends Component {
                       autoComplete="new-password"
                     />
                   </div>
-                  <div class="col-sm-3" />
-                  <div class="help-block with-errors col-sm-9" />
+                  <div className="col-sm-3" />
+                  <div className="help-block with-errors col-sm-9" />
                 </div>
 
-                <div class="form-group has-feedback">
-                  <label class="control-label col-sm-3" for="community_pw">
+                <div className="form-group has-feedback">
+                  <label className="control-label col-sm-3" for="community_pw">
                     Community Passwort:
                   </label>
-                  <div class="col-sm-9">
+                  <div className="col-sm-9">
                     <input
                       type="password"
                       id="community_pw"
@@ -212,15 +211,15 @@ export default class Register extends Component {
                       required
                     />
                   </div>
-                  <div class="col-sm-3" />
-                  <div class="help-block with-errors col-sm-9" />
+                  <div className="col-sm-3" />
+                  <div className="help-block with-errors col-sm-9" />
                 </div>
 
-                <div class="form-group has-feedback">
-                  <label class="control-label col-sm-3" for="newsletter">
+                <div className="form-group has-feedback">
+                  <label className="control-label col-sm-3" for="newsletter">
                     Newsletter:
                   </label>
-                  <div class="col-sm-9">
+                  <div className="col-sm-9">
                     <input
                       type="checkbox"
                       id="newsletter"
@@ -230,12 +229,12 @@ export default class Register extends Component {
                       className="form-control"
                     />
                   </div>
-                  <div class="col-sm-3" />
-                  <div class="help-block with-errors col-sm-9" />
+                  <div className="col-sm-3" />
+                  <div className="help-block with-errors col-sm-9" />
                 </div>
                 <hr />
 
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" className="btn btn-primary">
                   Registrieren
                 </button>
               </form>

@@ -136,7 +136,7 @@ export default class ExpensePayment extends Component {
             <h2>Auszahlungen</h2>
             {this.state.report_sheets.valid.length > 0 && (
               <div>
-                <table class="table table-hover">
+                <table className="table table-hover">
                   <thead>
                     <tr>
                       <th>ZDP</th>
@@ -167,7 +167,7 @@ export default class ExpensePayment extends Component {
             {sheets.length > 0 && (
               <div>
                 <h2>Ungültige Auszahlungen</h2>
-                <table class="table table-hover">
+                <table className="table table-hover">
                   <thead>
                     <tr>
                       <th>ZDP</th>
@@ -186,7 +186,7 @@ export default class ExpensePayment extends Component {
 
             <div>
               <h2>Archiv</h2>
-              <table class="table table-hover">
+              <table className="table table-hover">
                 <thead>
                   <tr>
                     <th>Datum</th>

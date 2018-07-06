@@ -74,13 +74,13 @@ export default class UserFeedbackOverview extends Component {
   getChapter(title) {
     return (
       <div>
-        <div class="row chapter">
-          <div class="col-xs-12">
+        <div className="row chapter">
+          <div className="col-xs-12">
             <h3>{title}</h3>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xs-12">
+        <div className="row">
+          <div className="col-xs-12">
             <br />
           </div>
         </div>
@@ -99,7 +99,7 @@ export default class UserFeedbackOverview extends Component {
         answerClasses = ['', 'progress-bar-danger', 'progress-bar-success'];
 
         if (i === 2) {
-          cols.push(<div class={'col-xs-6'} />);
+          cols.push(<div className={'col-xs-6'} />);
         }
       } else if (numberOfAnswers === 6) {
         answerClasses = [
@@ -122,9 +122,9 @@ export default class UserFeedbackOverview extends Component {
       }
 
       cols.push(
-        <div class={'col-xs-' + colSize}>
-          <div class={'progress vertical progress-striped ' + answerClasses[i]}>
-            <div class="progress-bar" style={{ height: 100 - answerPerc * 100 + '%' }}>
+        <div className={'col-xs-' + colSize}>
+          <div className={'progress vertical progress-striped ' + answerClasses[i]}>
+            <div className="progress-bar" style={{ height: 100 - answerPerc * 100 + '%' }}>
               {Math.round(answerPerc * 100)}
             </div>
           </div>
@@ -184,7 +184,7 @@ export default class UserFeedbackOverview extends Component {
           if (custom_info && custom_info.choices) {
             custom_info.choices.forEach(function(element) {
               rows.push(
-                <div class="col-xs-2">
+                <div className="col-xs-2">
                   <label>{element.text}</label>
                 </div>
               );
@@ -192,46 +192,46 @@ export default class UserFeedbackOverview extends Component {
           }
 
           feedbacks.push(
-            <div class="row">
-              <div class="col-xs-6">
+            <div className="row">
+              <div className="col-xs-6">
                 <label>{answers[x].question}</label>
               </div>
-              <div class="col-xs-6">
-                <div class="row question6row">{rows}</div>
-                <div class="row">{this.getType1RowContent(6, answersCleaned, totalAnswers, 2)}</div>
+              <div className="col-xs-6">
+                <div className="row question6row">{rows}</div>
+                <div className="row">{this.getType1RowContent(6, answersCleaned, totalAnswers, 2)}</div>
               </div>
             </div>
           );
         } else if (answers[x].type === TYPE_SINGLE_QUESTION_2) {
           feedbacks.push(
-            <div class="row">
-              <div class="col-xs-8">
+            <div className="row">
+              <div className="col-xs-8">
                 <label>{answers[x].question}</label>
               </div>
-              <div class="col-xs-1">
+              <div className="col-xs-1">
                 <label>{answers[x].opt1}</label>
               </div>
-              <div class="col-xs-2">
-                <div class="row">{this.getType1RowContent(2, answersCleaned, totalAnswers)}</div>
+              <div className="col-xs-2">
+                <div className="row">{this.getType1RowContent(2, answersCleaned, totalAnswers)}</div>
               </div>
-              <div class="col-xs-1">
+              <div className="col-xs-1">
                 <label>{answers[x].opt2}</label>
               </div>
             </div>
           );
         } else {
           feedbacks.push(
-            <div class="row">
-              <div class="col-xs-8">
+            <div className="row">
+              <div className="col-xs-8">
                 <label>{answers[x].question}</label>
               </div>
-              <div class="col-xs-1">
+              <div className="col-xs-1">
                 <label>{answers[x].opt1}</label>
               </div>
-              <div class="col-xs-2">
-                <div class="row">{this.getType1RowContent(4, answersCleaned, totalAnswers)}</div>
+              <div className="col-xs-2">
+                <div className="row">{this.getType1RowContent(4, answersCleaned, totalAnswers)}</div>
               </div>
-              <div class="col-xs-1">
+              <div className="col-xs-1">
                 <label>{answers[x].opt2}</label>
               </div>
             </div>
@@ -246,17 +246,17 @@ export default class UserFeedbackOverview extends Component {
           <div>
             <br />
             <br />
-            <div class="row">
-              <div class="col-xs-8">
+            <div className="row">
+              <div className="col-xs-8">
                 <label>
                   <h4>{answers[x].question}</h4>
                 </label>
               </div>
-              <div class="col-xs-1">
+              <div className="col-xs-1">
                 <label>{answers[x].opt1}</label>
               </div>
-              <div class="col-xs-2" />
-              <div class="col-xs-1">
+              <div className="col-xs-2" />
+              <div className="col-xs-1">
                 <label>{answers[x].opt2}</label>
               </div>
             </div>
@@ -265,12 +265,12 @@ export default class UserFeedbackOverview extends Component {
       } else if (answers[x].type === TYPE_TEXT) {
         feedbacks.push(
           <div>
-            <div class="row">
-              <div class="col-xs-6">
+            <div className="row">
+              <div className="col-xs-6">
                 <label>{answers[x].question}</label>
               </div>
-              <div class="col-xs-6">
-                <textarea class="form-control" rows="10" cols="50" value={answers[x] ? answers[x]['answers'] : null} name={x} />
+              <div className="col-xs-6">
+                <textarea className="form-control" rows="10" cols="50" defaultValue={answers[x] ? answers[x]['answers'] : null} name={x} />
               </div>
             </div>
             <br />
@@ -285,22 +285,22 @@ export default class UserFeedbackOverview extends Component {
         <div className="page page__user_feedback_overview">
           <Card>
             {this.props.match.params.feedback_id == null && (
-              <div class="container top">
-                <div class="row">
-                  <div class="col-sm-4">
+              <div className="container top">
+                <div className="row">
+                  <div className="col-sm-4">
                     <DatePicker id="date_from" label="Von" value={this.state.date_from} onChange={this.handleDateChange.bind(this)} />
                   </div>
-                  <div class="col-sm-4">
+                  <div className="col-sm-4">
                     <DatePicker id="date_to" label="Bis" value={this.state.date_to} onChange={this.handleDateChange.bind(this)} />
                   </div>
-                  <div class="col-sm-4">
+                  <div className="col-sm-4">
                     <h5>Anzahl Feedbacks: {totalFeedbacks}</h5>
                   </div>
                 </div>
               </div>
             )}
-            <div class="container feedback">
-              <div class="innerContainer">{feedbacks}</div>
+            <div className="container feedback">
+              <div className="innerContainer">{feedbacks}</div>
             </div>
           </Card>
           <LoadingView loading={this.state.loading} error={this.state.error} />

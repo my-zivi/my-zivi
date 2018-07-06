@@ -31,9 +31,8 @@ export default class Login extends Component {
 
       this.setState({ redirectToReferrer: true, loading: false });
     } catch (error) {
-      let errorBox = [];
-      errorBox.push(
-        <div class="alert alert-danger">
+      let errorBox = (
+        <div className="alert alert-danger">
           <strong>Login fehlgeschlagen</strong>
           <br />E-Mail oder Passwort falsch!
         </div>
@@ -85,22 +84,22 @@ export default class Login extends Component {
         <div className="page page__login">
           <Card>
             <form
-              class="form-signin"
+              className="form-signin"
               onSubmit={e => {
                 e.preventDefault();
                 this.login();
               }}
             >
-              <h2 class="form-signin-heading">Anmelden</h2>
+              <h2 className="form-signin-heading">Anmelden</h2>
               {this.state.errorBox}
               <p>
-                <label for="inputEmail" class="sr-only">
+                <label for="inputEmail" className="sr-only">
                   Email
                 </label>
                 <input
                   type="email"
                   name="email"
-                  class="form-control"
+                  className="form-control"
                   placeholder="Email"
                   value={this.state.email}
                   onInput={this.handleChange.bind(this)}
@@ -108,13 +107,13 @@ export default class Login extends Component {
                   autoFocus
                   autoComplete="username email"
                 />
-                <label for="inputPassword" class="sr-only">
+                <label for="inputPassword" className="sr-only">
                   Passwort
                 </label>
                 <input
                   type="password"
                   name="password"
-                  class="form-control"
+                  className="form-control"
                   placeholder="Passwort"
                   value={this.state.password}
                   onInput={this.handleChange.bind(this)}
@@ -123,7 +122,7 @@ export default class Login extends Component {
                 />
               </p>
               <p>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                <button className="btn btn-lg btn-primary btn-block" type="submit">
                   Anmelden
                 </button>
               </p>

@@ -38,10 +38,15 @@ export default class DataPolicyBanner extends Component {
           Wir verwenden Cookies und Analyse Tools um die Nutzerfreundlichkeit unserer Webseite zu verbessern. Wenn Sie die Webseite weiter
           nutzen, gehen wir von Ihrem Einverständnis aus.
         </span>
-        <button class="btn btn-default" onClick={() => this.hide()} style={{ marginLeft: '10px' }}>
+        <button className="btn btn-default" onClick={() => this.hide()} style={{ marginLeft: '10px' }}>
           OK
         </button>
-        <a href="https://www.stiftungswo.ch/datenschutzerklaerung/" style={{ marginLeft: '10px' }} target="_blank">
+        <a
+          href="https://www.stiftungswo.ch/datenschutzerklaerung/"
+          style={{ marginLeft: '10px' }}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Weitere Infos: Datenschutzerklärung
         </a>
       </div>
