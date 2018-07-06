@@ -1,5 +1,5 @@
-import { Component } from 'inferno';
-import { Link } from 'inferno-router';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class BootstrapNavLink extends Component {
   static getNavbar(navLinks) {

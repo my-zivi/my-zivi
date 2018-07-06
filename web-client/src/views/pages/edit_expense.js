@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import Card from '../tags/card';
 import InputField from '../tags/InputFields/InputField';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';
@@ -369,7 +369,7 @@ export default class EditExpense extends Component {
             <InputField id="document_number" label="Beleg-Nr." value={sheet.document_number} onInput={this.handleChange.bind(this)} />
 
             <div className="form-group">
-              <label className="control-label col-sm-3" for="state">
+              <label className="control-label col-sm-3" htmlFor="state">
                 Status
               </label>
               <div className="col-sm-9">

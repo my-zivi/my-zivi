@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import ScrollableCard from '../tags/scrollableCard';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -104,7 +104,7 @@ export default class ExpenseOverview extends Component {
   monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 
   render() {
-    var tableBody = [];
+    let tableBody = [];
     var sheets = this.state.report_sheets;
     let statusIcon = (
       <span data-toggle="popover" title="" data-content="Erledigt">
@@ -154,7 +154,11 @@ export default class ExpenseOverview extends Component {
 
     var yearoptions = [];
     for (var i = 2005; i < curMonthDate.getFullYear() + 3; i++) {
-      yearoptions.push(<option value={i}>{i}</option>);
+      yearoptions.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      );
     }
 
     return (
@@ -373,7 +377,7 @@ export default class ExpenseOverview extends Component {
                 <tr className="theader">
                   <td>&nbsp;</td>
                   <td>
-                    <input className="form-control" name="zdp" type="text" value={this.state.zdp} onInput={this.handleChange.bind(this)} />
+                    <input className="form-control" name="zdp" type="text" value={this.state.zdp} onChange={this.handleChange.bind(this)} />
                   </td>
                   <td>
                     <input
@@ -381,7 +385,7 @@ export default class ExpenseOverview extends Component {
                       name="name"
                       type="text"
                       value={this.state.name}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                     />
                   </td>
                   <td>

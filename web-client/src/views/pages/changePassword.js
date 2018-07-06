@@ -1,5 +1,5 @@
 import Card from '../tags/card';
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import { api } from '../../utils/api';
@@ -45,7 +45,7 @@ export default class ChangePassword extends Component {
         if (error.response != null && error.response.data != null) {
           for (let item in error.response.data) {
             errorMsg.push(
-              <p>
+              <p key={item}>
                 {item}: {error.response.data[item]}
               </p>
             );
@@ -102,7 +102,7 @@ export default class ChangePassword extends Component {
                 <h3>Passwort</h3>
 
                 <div className="form-group has-feedback">
-                  <label className="control-label col-sm-3" for="old_password">
+                  <label className="control-label col-sm-3" htmlFor="old_password">
                     Altes Passwort
                   </label>
                   <div className="col-sm-9">
@@ -111,7 +111,7 @@ export default class ChangePassword extends Component {
                       id="old_password"
                       name="old_password"
                       value={this.state.old_password}
-                      onInput={e => this.handleChange(e)}
+                      onChange={e => this.handleChange(e)}
                       className="form-control"
                       required
                       autoComplete="current-password"
@@ -120,7 +120,7 @@ export default class ChangePassword extends Component {
                 </div>
 
                 <div className="form-group has-feedback">
-                  <label className="control-label col-sm-3" for="old_password">
+                  <label className="control-label col-sm-3" htmlFor="old_password">
                     Neues Passwort
                   </label>
                   <div className="col-sm-9">
@@ -129,7 +129,7 @@ export default class ChangePassword extends Component {
                       id="new_password"
                       name="new_password"
                       value={this.state.new_password}
-                      onInput={e => this.handleChange(e)}
+                      onChange={e => this.handleChange(e)}
                       className="form-control"
                       data-minlength="7"
                       placeholder=""
@@ -142,7 +142,7 @@ export default class ChangePassword extends Component {
                 </div>
 
                 <div className="form-group has-feedback">
-                  <label className="control-label col-sm-3" for="old_password">
+                  <label className="control-label col-sm-3" htmlFor="old_password">
                     Wiederholen
                   </label>
                   <div className="col-sm-9">
@@ -151,7 +151,7 @@ export default class ChangePassword extends Component {
                       id="new_password_2"
                       name="new_password_2"
                       value={this.state.new_password_2}
-                      onInput={e => this.handleChange(e)}
+                      onChange={e => this.handleChange(e)}
                       className="form-control"
                       data-match="#new_password"
                       data-match-error="Die beiden Eingaben stimmen nicht überein"

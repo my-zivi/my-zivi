@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 
 export default class InputField extends Component {
   getFormGroup(inputField, additionalContent = null, contentWidth = 9, showLabel = true, label = this.props.label) {
@@ -32,9 +32,9 @@ export default class InputField extends Component {
         type={inputType}
         id={this.props.id}
         name={this.props.id}
-        value={this.props.value}
+        value={this.props.value || ''}
         className="form-control"
-        onInput={this.props.onInput}
+        onChange={this.props.onInput}
         readOnly={this.props.disabled}
         step={this.props.step}
       />

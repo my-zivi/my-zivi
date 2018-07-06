@@ -1,5 +1,5 @@
-import Inferno from 'inferno';
-import { Link } from 'inferno-router';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function CardLink(props) {
   return (

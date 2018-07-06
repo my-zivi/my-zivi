@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import ScrollableCard from '../tags/scrollableCard';
 import Header from '../tags/header';
 import LoadingView from '../tags/loading-view';
@@ -213,7 +213,11 @@ export default class MissionOverview extends Component {
 
     var yearOptions = [];
     for (let i = 2005; i <= new Date().getFullYear() + 1; i++) {
-      yearOptions.push(<option value={i}>{i}</option>);
+      yearOptions.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      );
     }
 
     var weekCount = this.state.weekCount;

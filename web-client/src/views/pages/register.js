@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import Card from '../tags/card';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -36,7 +36,7 @@ export default class Register extends Component {
         if (error.response != null && error.response.data != null) {
           for (let item in error.response.data) {
             errorMsg.push(
-              <p>
+              <p key={item}>
                 {item}: {error.response.data[item]}
               </p>
             );
@@ -84,7 +84,7 @@ export default class Register extends Component {
                 <br />
 
                 <div className="form-group">
-                  <label className="control-label col-sm-3" for="zdp">
+                  <label className="control-label col-sm-3" htmlFor="zdp">
                     ZDP:
                   </label>
                   <div className="col-sm-9">
@@ -94,7 +94,7 @@ export default class Register extends Component {
                       name="zdp"
                       id="zdp"
                       value={this.state.formData.zdp}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       min="10000"
                       max="1000000"
                       required
@@ -102,7 +102,7 @@ export default class Register extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="control-label col-sm-3" for="firstname">
+                  <label className="control-label col-sm-3" htmlFor="firstname">
                     Vorname:
                   </label>
                   <div className="col-sm-9">
@@ -112,13 +112,13 @@ export default class Register extends Component {
                       name="firstname"
                       id="firstname"
                       value={this.state.formData.firstname}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       required
                     />
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="control-label col-sm-3" for="lastname">
+                  <label className="control-label col-sm-3" htmlFor="lastname">
                     Nachname:
                   </label>
                   <div className="col-sm-9">
@@ -128,13 +128,13 @@ export default class Register extends Component {
                       name="lastname"
                       id="lastname"
                       value={this.state.formData.lastname}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       required
                     />
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="control-label col-sm-3" for="email">
+                  <label className="control-label col-sm-3" htmlFor="email">
                     E-Mail:
                   </label>
                   <div className="col-sm-9">
@@ -144,7 +144,7 @@ export default class Register extends Component {
                       name="email"
                       id="email"
                       value={this.state.formData.email}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       required
                       autoComplete="username email"
                     />
@@ -152,7 +152,7 @@ export default class Register extends Component {
                 </div>
 
                 <div className="form-group has-feedback">
-                  <label className="control-label col-sm-3" for="password">
+                  <label className="control-label col-sm-3" htmlFor="password">
                     Passwort:
                   </label>
                   <div className="col-sm-9">
@@ -161,7 +161,7 @@ export default class Register extends Component {
                       id="password"
                       name="password"
                       value={this.state.formData.password}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       className="form-control"
                       data-minlength="7"
                       placeholder=""
@@ -174,7 +174,7 @@ export default class Register extends Component {
                 </div>
 
                 <div className="form-group has-feedback">
-                  <label className="control-label col-sm-3" for="password_confirm">
+                  <label className="control-label col-sm-3" htmlFor="password_confirm">
                     Passwort Bestätigung:
                   </label>
                   <div className="col-sm-9">
@@ -183,7 +183,7 @@ export default class Register extends Component {
                       id="password_confirm"
                       name="password_confirm"
                       value={this.state.formData.password_confirm}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       className="form-control"
                       data-match="#password"
                       data-match-error="Die beiden Eingaben stimmen nicht überein"
@@ -197,7 +197,7 @@ export default class Register extends Component {
                 </div>
 
                 <div className="form-group has-feedback">
-                  <label className="control-label col-sm-3" for="community_pw">
+                  <label className="control-label col-sm-3" htmlFor="community_pw">
                     Community Passwort:
                   </label>
                   <div className="col-sm-9">
@@ -206,7 +206,7 @@ export default class Register extends Component {
                       id="community_pw"
                       name="community_pw"
                       value={this.state.formData.community_pw}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       className="form-control"
                       required
                     />
@@ -216,7 +216,7 @@ export default class Register extends Component {
                 </div>
 
                 <div className="form-group has-feedback">
-                  <label className="control-label col-sm-3" for="newsletter">
+                  <label className="control-label col-sm-3" htmlFor="newsletter">
                     Newsletter:
                   </label>
                   <div className="col-sm-9">
@@ -224,8 +224,8 @@ export default class Register extends Component {
                       type="checkbox"
                       id="newsletter"
                       name="newsletter"
-                      value={this.state.formData.newsletter}
-                      onInput={this.handleChange.bind(this)}
+                      checked={this.state.formData.newsletter}
+                      onChange={this.handleChange.bind(this)}
                       className="form-control"
                     />
                   </div>

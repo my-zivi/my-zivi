@@ -1,4 +1,5 @@
-import { Route, Switch, Redirect } from 'inferno-router';
+import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Auth from '../utils/auth';
 

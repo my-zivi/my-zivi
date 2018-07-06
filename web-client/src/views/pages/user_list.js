@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import ScrollableCard from '../tags/scrollableCard';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -108,7 +108,7 @@ export default class UserList extends Component {
       }
 
       temp.push(
-        <tr>
+        <tr key={users[i].id}>
           <td className="hidden-xs">{users[i].zdp}</td>
           <td>
             <a href={'/profile/' + users[i].id}>
@@ -159,7 +159,7 @@ export default class UserList extends Component {
                       size="5"
                       type="text"
                       value={this.state.zdp}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                     />
                   </td>
                   <td>
@@ -169,7 +169,7 @@ export default class UserList extends Component {
                       size="15"
                       type="text"
                       value={this.state.name}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                     />
                   </td>
                   <td>

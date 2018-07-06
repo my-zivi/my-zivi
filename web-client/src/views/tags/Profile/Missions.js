@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import Auth from '../../../utils/auth';
 import InputFieldWithHelpText from '../InputFields/InputFieldWithHelpText';
 import InputCheckbox from '../InputFields/InputCheckbox';
@@ -15,10 +15,15 @@ export default class Missions extends Component {
       'Zeigt dir die Anzahl Tage an welche für den Einsatz voraussichtlich angerechnet werden. Falls während dem Einsatz Betriebsferien liegen werden die entsprechenden Tage abgezogen falls die Dauer zu kurz ist um diese mit Ferientagen kompensieren zu können. Feiertage innerhalb von Betriebsferien gelten auf alle Fälle als Dienstage.';
 
     var specification_options = [];
-    specification_options.push(<option value="" />);
+    specification_options.push(<option key={''} value="" />);
     for (var i = 0; i < self.state.specifications.length; i++) {
       if (self.state.specifications[i].active) {
-        specification_options.push(<option value={'' + self.state.specifications[i].id}>{self.state.specifications[i].name}</option>);
+        let id = '' + self.state.specifications[i].id;
+        specification_options.push(
+          <option key={id} value={id}>
+            {self.state.specifications[i].name}
+          </option>
+        );
       }
     }
 
@@ -56,7 +61,7 @@ export default class Missions extends Component {
                 }}
               >
                 <div className="form-group">
-                  <label className="control-label col-sm-3" for={missionKey + '_specification'}>
+                  <label className="control-label col-sm-3" htmlFor={missionKey + '_specification'}>
                     Pflichtenheft
                   </label>
                   <div className="col-sm-9">
@@ -73,7 +78,7 @@ export default class Missions extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="control-label col-sm-3" for="newmission_mission_type">
+                  <label className="control-label col-sm-3" htmlFor="newmission_mission_type">
                     Einsatzart
                   </label>
                   <div className="col-sm-9">

@@ -1,3 +1,4 @@
+import React from 'react';
 import InputField from './InputField';
 import { api } from '../../../utils/api';
 
@@ -22,10 +23,10 @@ export default class PhoneInput extends InputField {
         type="tel"
         id={this.props.id}
         name={this.props.id}
-        value={this.props.value}
+        value={this.props.value || ''}
         className={'form-control'}
-        onInput={e => this.props.onInput(e.target.value, undefined)}
-        onChange={() => this.validate()}
+        onChange={e => this.props.onInput(e.target.value, undefined)}
+        onBlur={() => this.validate()}
         readOnly={this.props.disabled}
       />
     );
