@@ -8,7 +8,7 @@ This Readme file covers developing and deploying the backend. See [web-client Re
 2. Start up the docker stack: ``docker-compose up -d``
 3. Copy .env file: ``cp api/.env.example api/.env``
 4. Generate key: ``docker exec izivi_api php artisan key:generate`` (it will be populated into the api/.env file)
-5. run ``docker exec izivi_api php artisan jwt:generate --show`` and add the key manually to the .env file
+5. run ``docker exec izivi_api php artisan jwt:secret --show`` and add the key manually to the .env file
 6. Import Database
     - Export Database as SQL from Cyon (Datenbank -> MySQL -> stiftun8_izivi2 -> Backup)
     - Open PHPMyAdmin, available  on `localhost:48080`
