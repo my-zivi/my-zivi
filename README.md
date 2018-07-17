@@ -79,6 +79,13 @@ Hier wird ein JSON string aus den user_feedback_questions in der Datenbank zusam
 
 Im Frontend wird der JSON string vom Backend angezogen. Dieser String wird an die surveyjs library weitergegeben. Surveyjs rendert dann das HTML und setzt es in den Container „surveyContainer
 
+## Development Setup
+
+Um das Backend (API) lokal zu installieren, folge der Anleitung im api Ordner: 
+[api/readme.md](https://github.com/stiftungswo/izivi/blob/master/api/readme.md)
+
+Um mit der Entwicklung im Frontend zu starten, folge der folgenden Anleitung: [web-client/readme.md](https://github.com/stiftungswo/izivi/blob/master/web-client/readme.md)
+
 ## Deployment
 
 Travis kann das Projekt mit seinen [deploy Skript](https://github.com/stiftungswo/izivi/blob/master/ci/deploy.sh) per SSH auf einem beliebigen Webhosting automatisch deployen. Dafür müssen auf dem Zielserver unter `~/deploy` folgende Files liegen:
