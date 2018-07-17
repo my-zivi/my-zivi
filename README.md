@@ -79,7 +79,7 @@ Hier wird ein JSON string aus den user_feedback_questions in der Datenbank zusam
 
 Im Frontend wird der JSON string vom Backend angezogen. Dieser String wird an die surveyjs library weitergegeben. Surveyjs rendert dann das HTML und setzt es in den Container „surveyContainer
 
-## Development Setup
+## Development Setup
 
 Um das Backend (API) lokal zu installieren, folge der Anleitung im api Ordner: 
 [api/readme.md](https://github.com/stiftungswo/izivi/blob/master/api/readme.md)
