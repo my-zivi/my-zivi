@@ -120,12 +120,12 @@ export default class User extends Component {
         mission: missionId,
       })
       .then(response => {
-        Toast.showSuccess('Hinzufügen erfolgreich', 'Spesenblatt hinzugefügt');
+        Toast.showSuccess('Hinzufügen erfolgreich', 'Meldeblatt hinzugefügt');
         this.getReportSheets();
       })
       .catch(error => {
         this.setState({ loading: false });
-        Toast.showError('Hinzufügen fehlgeschlagen', 'Spesenblatt konnte nicht hinzugefügt werden', error, this.context);
+        Toast.showError('Hinzufügen fehlgeschlagen', 'Meldeblatt konnte nicht hinzugefügt werden', error, this.context);
       });
   }
 
@@ -457,7 +457,7 @@ export default class User extends Component {
               <hr />
               <br />
 
-              <h3>Spesenblätter</h3>
+              <h3>Meldeblätter</h3>
               <div class="table-responsive">
                 <table class="table table-condensed">
                   <thead>
