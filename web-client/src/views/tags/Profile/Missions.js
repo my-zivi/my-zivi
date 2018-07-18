@@ -217,14 +217,14 @@ export default class Missions extends Component {
           addButton.push(
             <button
               data-toggle="popover"
-              data-content="Neues Meldeblatt hinzufügen"
+              data-content="Neues Spesenblatt hinzufügen"
               class="btn btn-xs btn-success"
               onClick={() => {
                 self.addReportSheet(curMission.id);
               }}
               title=""
             >
-              <span class="glyphicon glyphicon-plus" aria-hidden="true" /> Meldeblatt
+              <span class="glyphicon glyphicon-plus" aria-hidden="true" /> Spesenblatt
             </button>
           );
         }
