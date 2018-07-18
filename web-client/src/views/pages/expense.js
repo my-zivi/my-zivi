@@ -178,7 +178,7 @@ export default class ExpenseOverview extends Component {
 
             <br />
             <br />
-            <h2>Spesenblätter</h2>
+            <h2>Meldeblätter</h2>
 
             <div class="btn-group">
               <button
@@ -186,21 +186,21 @@ export default class ExpenseOverview extends Component {
                 class={this.state.activeReportSheet === 1 ? 'btn btn-primary' : 'btn btn-default'}
                 onClick={() => this.getReportSheets('reportsheet', 1)}
               >
-                Alle Spesenblätter anzeigen
+                Alle Meldeblätter anzeigen
               </button>
               <button
                 id="tab2"
                 class={this.state.activeReportSheet === 2 ? 'btn btn-primary' : 'btn btn-default'}
                 onClick={() => this.getReportSheets('reportsheet/pending', 2)}
               >
-                Pendente Spesenblätter anzeigen
+                Pendente Meldeblätter anzeigen
               </button>
               <button
                 id="tab3"
                 class={this.state.activeReportSheet === 3 ? 'btn btn-primary' : 'btn btn-default'}
                 onClick={() => this.getReportSheets('reportsheet/current', 3)}
               >
-                Aktuelle Spesenblätter anzeigen
+                Aktuelle Meldeblätter anzeigen
               </button>
             </div>
             <div class="btn-group" style={{ paddingLeft: '10px' }}>
@@ -329,7 +329,7 @@ export default class ExpenseOverview extends Component {
                             this.handleChange(e);
                           }}
                         />{' '}
-                        Erledigte Spesenblätter
+                        Erledigte Meldeblätter
                       </label>
                       <label class="btn btn-default">
                         <input
@@ -340,7 +340,7 @@ export default class ExpenseOverview extends Component {
                             this.handleChange(e);
                           }}
                         />{' '}
-                        Alle Spesenblätter
+                        Alle Meldeblätter
                       </label>
                     </div>
 
