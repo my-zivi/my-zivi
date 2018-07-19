@@ -1,29 +1,49 @@
 import Card from '../tags/card';
 import Header from '../tags/header';
 
-export default function (props) {
+export default function(props) {
   return (
     <Header>
       <div className="page page__home">
         <Card>
-          <h1>iZivi <span> ist ein Tool der SWO zur Erfassung und Planung von Zivi-Einsätzen</span></h1>
+          <h1>
+            iZivi <span> ist ein Tool der SWO zur Erfassung und Planung von Zivi-Einsätzen</span>
+          </h1>
           <br />
 
-          <p>Bist du das erste mal bei uns und möchtest einen Einsatz planen? Dann kannst du dich über folgenden Link <a href="//izivi.stiftungswo.ch/register" target="_self">Registrieren</a>.</p>
-          <p>Falls du uns bereits bekannt bist, kannst du dich hier <a href="//izivi.stiftungswo.ch/login" target="_self">
-            Anmelden</a>.</p>
+          <p>
+            Bist du das erste mal bei uns und möchtest einen Einsatz planen? Dann kannst du dich über folgenden Link{' '}
+            <a href="//izivi.stiftungswo.ch/register" target="_self">
+              Registrieren
+            </a>.
+          </p>
+          <p>
+            Falls du uns bereits bekannt bist, kannst du dich hier{' '}
+            <a href="//izivi.stiftungswo.ch/login" target="_self">
+              Anmelden
+            </a>.
+          </p>
         </Card>
         <Card>
           <h2>Ablauf der Planung eines Einsatzes</h2>
           <ul>
             <li>
-              Als zukünftiger Zivi musst du dich zuerst erkundigen, ob zum gewünschten Zeitpunkt ein Einsatz möglich ist. Kontaktiere hierfür bitte
-                direkt <a href="//stiftungswo.ch/about/meet-the-team#jumptomarc" target="_blank"> Marc Pfeuti </a>
-              unter <a href="mailto:mp@stiftungswo.ch?subject=Einsatzplanung Zivildienst&body=Guten Tag Herr Pfeuti! 
+              Als zukünftiger Zivi musst du dich zuerst erkundigen, ob zum gewünschten Zeitpunkt ein Einsatz möglich ist. Kontaktiere
+              hierfür bitte direkt{' '}
+              <a href="//stiftungswo.ch/about/meet-the-team#jumptomarc" target="_blank">
+                {' '}
+                Marc Pfeuti{' '}
+              </a>
+              unter{' '}
+              <a
+                href="mailto:mp@stiftungswo.ch?subject=Einsatzplanung Zivildienst&body=Guten Tag Herr Pfeuti! 
               %0D%0A%0D%0AIch schreibe Ihnen betreffend meiner Einsatzplanung als FELDZIVI / BÜROZIVI (EINS AUSWÄHLEN) vom DD.MM.YYYY bis DD.MM.YYYY, wäre dies möglich?
               %0D%0A%0D%0ADa ich ein fauler Zivi bin wurde diese Nachricht von iZivi generiert.
               %0D%0A%0D%0A
-              %0D%0A%0D%0ABesten Dank und freundliche Grüsse">mp@stiftungswo.ch</a>.
+              %0D%0A%0D%0ABesten Dank und freundliche Grüsse"
+              >
+                mp@stiftungswo.ch
+              </a>.
             </li>
             <li>Ist ein Einsatz grundsätzlich möglich, wirst du im allgemeinen einen halben Schnuppertag absolvieren müssen.</li>
             <li>
