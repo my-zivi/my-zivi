@@ -38,7 +38,6 @@ export default function(props) {
               <a
                 href="mailto:mp@stiftungswo.ch?subject=Einsatzplanung Zivildienst&body=Guten Tag Herr Pfeuti! 
               %0D%0A%0D%0AIch schreibe Ihnen betreffend meiner Einsatzplanung als FELDZIVI / BÜROZIVI (EINS AUSWÄHLEN) vom DD.MM.YYYY bis DD.MM.YYYY, wäre dies möglich?
-              %0D%0A%0D%0ADa ich ein fauler Zivi bin wurde diese Nachricht von iZivi generiert.
               %0D%0A%0D%0A
               %0D%0A%0D%0ABesten Dank und freundliche Grüsse"
               >
