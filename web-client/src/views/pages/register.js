@@ -69,6 +69,23 @@ export default class Register extends Component {
         <div className="page page__register">
           <Card>
             <h1>Registrieren</h1>
+            <ul>
+              <li>
+                Als zukünftiger Zivi musst du dich zuerst erkundigen, ob zum gewünschten Zeitpunkt ein Einsatz möglich ist. Kontaktiere hierfür bitte
+                direkt <a href="//stiftungswo.ch/about/meet-the-team#jumptomarc" target="_blank"> Marc Pfeuti</a> unter <a href="mailto:mp@stiftungswo.ch">
+                  mp@stiftungswo.ch</a>.
+            </li>
+              <li>Ist ein Einsatz grundsätzlich möglich, wirst du im allgemeinen einen halben Schnuppertag absolvieren müssen.</li>
+              <li>
+                Hat dir der Schnuppertag gefallen und die Einsatzleistung ist mit deiner Motivation / Leistung zufrieden, so wird dir die
+                Einsatzleitung ein Community Passwort bekannt gegeben, mit welchem du dir auf dieser Seite einen Account eröffnen und die
+                Einsatzplanung erstellen kannst.
+            </li>
+              <li>Danach gibst du deine persönlichen Daten und die Einsatzplanung ein und druckst diese aus.</li>
+              <li>Die Einsatzplanung brauchst du nun nur noch zu unterschreiben und an den Einsatzbetrieb zurückzuschicken.</li>
+              <li>Der Einsatzbetrieb unterschreibt dann die Einsatzplanung und leitet sie an die Regionalstelle weiter.</li>
+              <li>Das Aufgebot erhältst du dann automatisch von der Regionalstelle.</li>
+            </ul>
             <div class="container">
               {this.state.errorBox}
               <form
