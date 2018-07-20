@@ -63,7 +63,7 @@ export default class DatePicker extends InputField {
         </span>
       </div>,
       null,
-      showLabel ? 9 : 12,
+      showLabel ? 8 : 12,
       showLabel
     );
   }

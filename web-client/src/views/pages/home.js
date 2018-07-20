@@ -26,34 +26,35 @@ export default function(props) {
         </Card>
         <Card>
           <h2>Ablauf der Planung eines Einsatzes</h2>
-          <ul>
-            <li>
-              Als zukünftiger Zivi musst du dich zuerst erkundigen, ob zum gewünschten Zeitpunkt ein Einsatz möglich ist. Kontaktiere
-              hierfür bitte direkt{' '}
-              <a href="//stiftungswo.ch/about/meet-the-team#jumptomarc" target="_blank">
-                {' '}
-                Marc Pfeuti{' '}
-              </a>
-              unter{' '}
-              <a
-                href="mailto:mp@stiftungswo.ch?subject=Einsatzplanung Zivildienst&body=Guten Tag Herr Pfeuti! 
-              %0D%0A%0D%0AIch schreibe Ihnen betreffend meiner Einsatzplanung als FELDZIVI / BÜROZIVI (EINS AUSWÄHLEN) vom DD.MM.YYYY bis DD.MM.YYYY, wäre dies möglich?
+          <p>
+            Als zukünftiger Zivi musst du dich zuerst erkundigen, ob zum gewünschten Zeitpunkt ein Einsatz möglich ist. Kontaktiere hierfür
+            bitte direkt{' '}
+            <a href="//stiftungswo.ch/about/meet-the-team#jumptomarc" target="_blank">
+              {' '}
+              Marc Pfeuti{' '}
+            </a>
+            unter{' '}
+            <a
+              href="mailto:mp@stiftungswo.ch?subject=Einsatzplanung Zivildienst&body=Guten Tag Herr Pfeuti! 
+              %0D%0A%0D%0AIch schreibe Ihnen betreffend meiner Einsatzplanung als FELDZIVI / BÜROZIVI (EINS AUSWÄHLEN) vom DD.MM.YYYY bis DD.MM.YYYY, wäre dieser Zeitraum möglich?
               %0D%0A%0D%0A
               %0D%0A%0D%0ABesten Dank und freundliche Grüsse"
-              >
-                mp@stiftungswo.ch
-              </a>.
-            </li>
-            <li>Ist ein Einsatz grundsätzlich möglich, wirst du im allgemeinen einen halben Schnuppertag absolvieren müssen.</li>
+            >
+              {' '}
+              mp@stiftungswo.ch{' '}
+            </a>.
+          </p>
+          <ul type="circle">
             <li>
-              Hat dir der Schnuppertag gefallen und die Einsatzleistung ist mit deiner Motivation / Leistung zufrieden, so wird dir die
-              Einsatzleitung ein Community Passwort bekannt gegeben, mit welchem du dir auf dieser Seite einen Account eröffnen und die
-              Einsatzplanung erstellen kannst.
+              Ist ein Einsatz grundsätzlich möglich, wirst du im allgemeinen einen halben Schnuppertag absolvieren müssen. Hat dir der
+              Schnuppertag gefallen und die Einsatzleitung ist mit deiner Motivation & Leistung zufrieden, so wird dir ein Community
+              Passwort bekannt gegeben, mit welchem du dir auf dieser Seite deinen Account eröffnen und die Einsatzplanung erstellen kannst.
             </li>
-            <li>Danach gibst du deine persönlichen Daten und die Einsatzplanung ein und druckst diese aus.</li>
-            <li>Die Einsatzplanung brauchst du nun nur noch zu unterschreiben und an den Einsatzbetrieb zurückzuschicken.</li>
-            <li>Der Einsatzbetrieb unterschreibt dann die Einsatzplanung und leitet sie an die Regionalstelle weiter.</li>
-            <li>Das Aufgebot erhältst du dann automatisch von der Regionalstelle.</li>
+            <li>
+              Nach Eingabe deiner persönlichen Daten kannst du die Einsatzplanung ausdrucken, unterschreiben und an den Einsatzbetrieb
+              zurückzuschicken. Nach erfolgreicher Prüfung werden wir diese direkt an dein zuständiges Regionalzentrum weiterleiten.
+            </li>
+            <li>Das Aufgebot erhältst du dann automatisch von deinem zuständigen Regionalzentrum.</li>
           </ul>
         </Card>
         <Card>
@@ -101,14 +102,6 @@ export default function(props) {
             Am Ende der Seite findest du eine Liste deiner Einsatzplanungen. Ist diese leer, so hast du noch keine Einsatzplanung erfasst.
             Siehe nächstes Kapitel. Klicke auf den Link drucken so wird ein PDF der Einsatzplanung generiert und in einem neuen Fenster
             angezeigt. Dieses kannst du dann drucken und an den Einsatzbetrieb schicken.
-          </p>
-        </Card>
-        <Card>
-          <h2>Einsatzplanung erfassen</h2>
-          <p>
-            Um eine Einsatzplanung zu erfassen musst du nur das Pflichtenheft auswählen und Start- und Enddatum eingeben. Beachte:
-            Zivi-Einsätze im Naturschutz müssen an einem Montag beginnen und an einem Freitag enden, ausser es handelt sich um deinen
-            letzten Zivi Einsatz und du leistest nur noch die verbleibenden Resttage.
           </p>
         </Card>
         <Card>

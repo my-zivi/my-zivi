@@ -232,9 +232,10 @@ export default class User extends Component {
 
   render() {
     let result = this.state.result;
-    let howerText_IBAN = 'Du kannst die Nummer mit oder ohne Abständen eingeben.';
+    let howerText_IBAN =
+      'Die IBAN-Nr. wird zur Überweisung für die von der "Vollzugsstelle für Zivildienst" festgelegten Entschädigungen und Spesen benützt. Inkorrekte Angaben führen somit zu Verspätung der Auszahlungen. Du kannst die Nummer mit oder ohne Abständen eingeben.';
     let howerText_Berufserfahrung =
-      'Wir profitieren gerne von deiner Erfahrung. Wenn wir genau wissen, wann wer mit welchen Erfahrungen einen Einsatz tätigt, können wir z.T. Projekte speziell planen.';
+      'Wir profitieren gerne von deiner Berufserfahrung und können diese bei Möglichkeit in unsere Projekte einfliessen lassen.';
     let howerText_health_insurance = 'Krankenkassen Name und Ort';
 
     let missions = this.missionTag.getMissions(this);
@@ -260,6 +261,21 @@ export default class User extends Component {
                 <input name="action" value="saveEmployee" type="hidden" />
 
                 <h3>Persönliche Informationen</h3>
+                <p>
+                  Bitte fülle die folgenden Felder zu deiner Person wahrheitsgetreu aus. Dadurch erleichterst du dir und uns den
+                  administrativen Aufwand. Wir verwenden diese Informationen ausschliesslich zur Erstellung der Einsatzplanung und zur
+                  administrativen Abwicklung.
+                </p>
+                <p>
+                  Bitte lies dir auch die näheren Informationen zu den jeweiligen Feldern unter dem{' '}
+                  <span style={{ fontSize: '1em' }} className="glyphicon glyphicon-question-sign" aria-hidden="true" /> Icon jeweils durch.
+                </p>
+                <br />
+                <p>
+                  <b>Wichtig:</b> Vergiss nicht zu speichern (Daten speichern) bevor du die Seite verlässt oder eine Einsatzplanung erfasst.
+                </p>
+                <br />
+
                 <InputField id="zdp" label="ZDP" value={result.zdp} disabled="true" />
                 <InputField id="first_name" label="Vorname" value={result.first_name} onInput={this.handleChange.bind(this)} />
                 <InputField id="last_name" label="Nachname" value={result.last_name} onInput={this.handleChange.bind(this)} />
@@ -392,7 +408,7 @@ export default class User extends Component {
                   <label class="control-label col-sm-3" for="hometown">
                     Regionalzentrum
                   </label>
-                  <div class="col-sm-9">
+                  <div class="col-sm-8">
                     <select id="regional_center" name="regional_center" class="form-control" onChange={e => this.handleChange(e)}>
                       {this.regionalCenterTag.renderRegionalCenters(this.state)}
                     </select>
@@ -430,7 +446,17 @@ export default class User extends Component {
               <hr />
               <br />
 
-              <h3>Einsätze</h3>
+              <h3>Einsatzplanung</h3>
+              <p>
+                Um eine Einsatzplanung zu erfassen klicke unten auf "Neue Einsatzplanung hinzufügen" wähle ein Pflichtenheft aus und trage
+                Start- und Enddatum ein.<br />Klicke nach dem Erstellen der Einsatzplanung auf "Drucken", um ein PDF zu generieren. Dieses
+                kannst du dann an den Einsatzbetrieb schicken.
+              </p>
+              <p>
+                <b>Beachte:</b> Zivi-Einsätze im Naturschutz müssen an einem Montag beginnen und an einem Freitag enden, ausser es handelt
+                sich um deinen letzten Zivi Einsatz und du leistest nur noch die verbleibenden Resttage.
+              </p>
+
               <div class="table-responsive">
                 <table class="table table-condensed">
                   <thead>
