@@ -480,7 +480,17 @@ export default class User extends Component {
 
               <br />
               <br />
-              <hr />
+              <br />
+              <br />
+              <h3>Einsatzverlängerung</h3>
+              <p>
+                Nach Absprache mit der Einsatzleitung kannst du auch einen Einsatz verlängern. Erfasse dazu eine neue Einsatzplanung, welche
+                als Startdatum den Tag nach Einsatzende der vorhergehenden Einsatzplanung hat. Drucke diese Einsatzplanung und lasse sie von
+                der Einsatzleitung unterschreiben.
+              </p>
+              <br />
+              <br />
+              <br />
               <br />
 
               <h3>Spesenblätter</h3>

@@ -10,7 +10,6 @@ export default function(props) {
             iZivi <span> ist ein Tool der SWO zur Erfassung und Planung von Zivi-Einsätzen</span>
           </h1>
           <br />
-
           <p>
             Bist du das erste mal bei uns und möchtest einen Einsatz planen? Dann kannst du dich über folgenden Link{' '}
             <a href="//izivi.stiftungswo.ch/register" target="_self">
@@ -73,44 +72,6 @@ export default function(props) {
               von der Einsatzleitung bekannt gegeben.
             </li>
           </ul>
-        </Card>
-        <Card>
-          <h2>Persönliche Daten eingeben</h2>
-          <p>
-            Auf dieser Seite kannst du deine persönlichen Daten erfassen und editieren. Primär werden diese zur Erstellung der
-            Einsatzplanung benötigt. Einige andere sind uns bei der Administration des Zivi Projektes (Bsp. KontoNr.) hilfreich. Bitte fülle
-            alle Felder korrekt aus. Du erleichterst uns und dir deinen Zivieinsatz. Zu folgenden Feldern einige Erläuterungen:
-          </p>
-          <ul>
-            <li>
-              Konto-Nr.: Die Konto-Nr. wird zur Überweisung deiner Spesen benützt. In der Vergangenheit ist es einige Male passiert, dass
-              Spesen verspätet ausbezahlt werden mussten, da uns Zivis die Kontonummer nicht rechtzeitig mitgeteilt hatten.
-            </li>
-            <li>
-              Berufserfahrung: Wir profitieren gerne von deiner Erfahrung. Wenn wir genau wissen, wann wer mit welchen Erfahrungen einen
-              Einsatz tätigt, können wir z.T. Projekte speziell planen.
-            </li>
-            <li>Führerausweis: Wir brauchen immer wieder Zivis welche bei Bedarf das Steuer übernehmen.</li>
-            <li>GA/Halbtax: Informationen über allfällig vorhandene GAs/Halbtax brauchen wir für die Spesenabrechnung</li>
-            <li>
-              Photo: Optional, hilft uns Namen und Gesichter zu assozieren. Damit werden wir deinen Namen schon beim ersten mal kennen.
-              Beachte : JPEG/GIF/BMP, Max 512kb
-            </li>
-          </ul>
-          <p>Wichtig: Vergiss nicht zu speichern (Daten speichern) bevor du die Seite verlässt oder eine Einsatzplanung erfasst.</p>
-          <p>
-            Am Ende der Seite findest du eine Liste deiner Einsatzplanungen. Ist diese leer, so hast du noch keine Einsatzplanung erfasst.
-            Siehe nächstes Kapitel. Klicke auf den Link drucken so wird ein PDF der Einsatzplanung generiert und in einem neuen Fenster
-            angezeigt. Dieses kannst du dann drucken und an den Einsatzbetrieb schicken.
-          </p>
-        </Card>
-        <Card>
-          <h2>Einsatzverlängerung</h2>
-          <p>
-            Nach Absprache mit der Einsatzleitung kannst du auch einen Einsatz verlängern. Erfasse dazu eine neue Einsatzplanung, welche als
-            Startdatum den Tag nach Einsatzende der vorhergehenden Einsatzplanung hat. Drucke diese Einsatzplanung und lasse sie von der
-            Einsatzleitung unterschreiben.
-          </p>
         </Card>
       </div>
     </Header>
