@@ -5,6 +5,7 @@ export default function(props) {
   return (
     <Header>
       <div className="page page__home">
+        <div class="bg" />
         <Card>
           <h1>
             iZivi <span> ist ein Tool der SWO zur Erfassung und Planung von Zivi-Einsätzen</span>
@@ -51,7 +52,7 @@ export default function(props) {
             </li>
             <li>
               Nach Eingabe deiner persönlichen Daten kannst du die Einsatzplanung ausdrucken, unterschreiben und an den Einsatzbetrieb
-              zurückzuschicken. Nach erfolgreicher Prüfung werden wir diese direkt an dein zuständiges Regionalzentrum weiterleiten.
+              zurückschicken. Nach erfolgreicher Prüfung werden wir diese direkt an dein zuständiges Regionalzentrum weiterleiten.
             </li>
             <li>Das Aufgebot erhältst du dann automatisch von deinem zuständigen Regionalzentrum.</li>
           </ul>

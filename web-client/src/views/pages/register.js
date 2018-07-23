@@ -117,7 +117,7 @@ export default class Register extends Component {
 
                 <div class="form-group">
                   <label class="control-label col-sm-3" for="zdp">
-                    ZDP:
+                    Zivildienstnummer (ZDP):
                   </label>
                   <div class="col-sm-9">
                     <input
@@ -125,6 +125,7 @@ export default class Register extends Component {
                       class="form-control"
                       name="zdp"
                       id="zdp"
+                      placeholder="Dies ist deine Zivildienst-Nummer, welche du auf deinem Aufgebot wiederfindest"
                       value={this.state.formData.zdp}
                       onInput={this.handleChange.bind(this)}
                       min="10000"
@@ -143,6 +144,7 @@ export default class Register extends Component {
                       class="form-control"
                       name="firstname"
                       id="firstname"
+                      placeholder="Dein Vorname"
                       value={this.state.formData.firstname}
                       onInput={this.handleChange.bind(this)}
                       required
@@ -159,6 +161,7 @@ export default class Register extends Component {
                       class="form-control"
                       name="lastname"
                       id="lastname"
+                      placeholder="Dein Nachname"
                       value={this.state.formData.lastname}
                       onInput={this.handleChange.bind(this)}
                       required
@@ -175,6 +178,7 @@ export default class Register extends Component {
                       class="form-control"
                       name="email"
                       id="email"
+                      placeholder="Wird für das zukünftige Login sowie das Versenden von Systemnachrichten benötigt"
                       value={this.state.formData.email}
                       onInput={this.handleChange.bind(this)}
                       required
@@ -196,7 +200,7 @@ export default class Register extends Component {
                       onInput={this.handleChange.bind(this)}
                       className="form-control"
                       data-minlength="7"
-                      placeholder=""
+                      placeholder="Ein frei wählbares Passwort mit mindestens 7 Zeichen"
                       required
                       autoComplete="new-password"
                     />
@@ -219,7 +223,7 @@ export default class Register extends Component {
                       className="form-control"
                       data-match="#password"
                       data-match-error="Die beiden Eingaben stimmen nicht überein"
-                      placeholder=""
+                      placeholder="Wiederhole dein gewähltes Passwort"
                       required
                       autoComplete="new-password"
                     />
@@ -237,6 +241,7 @@ export default class Register extends Component {
                       type="password"
                       id="community_pw"
                       name="community_pw"
+                      placeholder="Dieses erhälst du von der Einsatzleitung welche dich berechtigt einen Account zu eröffnen"
                       value={this.state.formData.community_pw}
                       onInput={this.handleChange.bind(this)}
                       className="form-control"
@@ -248,18 +253,21 @@ export default class Register extends Component {
                 </div>
 
                 <div class="form-group has-feedback">
-                  <label class="control-label col-sm-3" for="newsletter">
-                    Newsletter:
-                  </label>
+                  <div class="col-sm-3" />
                   <div class="col-sm-9">
-                    <input
-                      type="checkbox"
-                      id="newsletter"
-                      name="newsletter"
-                      value={this.state.formData.newsletter}
-                      onInput={this.handleChange.bind(this)}
-                      className="form-control"
-                    />
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        id="newsletter"
+                        name="newsletter"
+                        value={this.state.formData.newsletter}
+                        onInput={this.handleChange.bind(this)}
+                        className="form-check-input"
+                      />
+                      <label class="form-check-label" for="newsletter">
+                        &nbsp;&nbsp;Ja, ich möchte Newsletter erhalten!
+                      </label>
+                    </div>
                   </div>
                   <div class="col-sm-3" />
                   <div class="help-block with-errors col-sm-9" />
