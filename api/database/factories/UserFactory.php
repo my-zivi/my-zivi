@@ -41,6 +41,8 @@ $factory->define(App\User::class, function (Generator $faker) {
 
 $factory->defineAs(App\User::class, 'admin', function (Generator $faker) use ($factory) {
     $user = $factory->raw(App\User::class);
+    $user['email'] ='office@stiftungswo.ch';
+    $user['password'] = app('hash')->make('GutesPasswort');
     $user['role'] = 1;
     return $user;
 });
