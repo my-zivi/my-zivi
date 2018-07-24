@@ -67,6 +67,7 @@ export default class Register extends Component {
     return (
       <Header>
         <div className="page page__register">
+          <br />
           <Card>
             <h2>Registrieren</h2>
             <p>
@@ -96,9 +97,9 @@ export default class Register extends Component {
               </li>
               <li>
                 Nach Eingabe deiner persönlichen Daten kannst du die Einsatzplanung ausdrucken, unterschreiben und an den Einsatzbetrieb
-                zurückzuschicken. Nach erfolgreicher Prüfung werden wir diese direkt an dein zuständiges Regionalzentrum weiterleiten.
+                zurückzuschicken. Nach erfolgreicher Prüfung werden wir diese direkt an dein zuständiges Regionalzentrum weiterleiten. Das
+                Aufgebot erhältst du dann automatisch von deinem zuständigen Regionalzentrum.
               </li>
-              <li>Das Aufgebot erhältst du dann automatisch von deinem zuständigen Regionalzentrum.</li>
             </ul>
             <div class="container">
               {this.state.errorBox}

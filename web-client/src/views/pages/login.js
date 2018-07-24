@@ -83,6 +83,7 @@ export default class Login extends Component {
     return (
       <Header>
         <div className="page page__login">
+          <br />
           <Card>
             <form
               class="form-signin"
@@ -108,6 +109,7 @@ export default class Login extends Component {
                   autoFocus
                   autoComplete="username email"
                 />
+                <br />
                 <label for="inputPassword" class="sr-only">
                   Passwort
                 </label>
@@ -123,7 +125,8 @@ export default class Login extends Component {
                 />
               </p>
               <p>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                <br />
+                <button class="btn btn-md btn-primary" type="submit">
                   Anmelden
                 </button>
               </p>
