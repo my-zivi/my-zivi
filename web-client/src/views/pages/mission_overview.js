@@ -71,7 +71,10 @@ export default class MissionOverview extends Component {
   }
 
   isSpecSelected(specId) {
-    return this.state.specifications.filter(spec => spec.selected).some(spec => spec.id === specId);
+    // warning: specId will be a string, but the id of the spec is a number!
+    // that's because we store the mission ids as strings rather than a number (look up issue #73 on github)
+    // so it is safer to convert the spec.id to a string rather than the other way
+    return this.state.specifications.filter(spec => spec.selected).some(spec => spec.id.toString() === specId);
   }
 
   monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
