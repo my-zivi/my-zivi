@@ -1,7 +1,7 @@
 import { Component } from 'inferno';
 
 export default class InputField extends Component {
-  getFormGroup(inputField, additionalContent = null, contentWidth = 8, showLabel = true) {
+  getFormGroup(inputField, additionalContent = null, contentWidth = 8, showLabel = true, label = this.props.label) {
     let divClass = 'col-sm-' + contentWidth;
     if (!showLabel) {
       divClass = 'col';
@@ -11,7 +11,7 @@ export default class InputField extends Component {
       <div className={'form-group ' + this.props.groupClass}>
         {showLabel ? (
           <label className="control-label col-sm-3" htmlFor={this.props.id}>
-            {this.props.label}
+            {label}
           </label>
         ) : null}
         <div className={divClass}>{inputField}</div>

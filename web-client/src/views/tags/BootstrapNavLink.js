@@ -4,27 +4,27 @@ import { Link } from 'inferno-router';
 export default class BootstrapNavLink extends Component {
   static getNavbar(navLinks) {
     return (
-      <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-          <div class="navbar-header">
+      <nav className="navbar navbar-default navbar-fixed-top">
+        <div className="container-fluid">
+          <div className="navbar-header">
             <button
               type="button"
-              class="navbar-toggle collapsed"
+              className="navbar-toggle collapsed"
               data-toggle="collapse"
               data-target="#bs-example-navbar-collapse-1"
               aria-expanded="false"
             >
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar" />
-              <span class="icon-bar" />
-              <span class="icon-bar" />
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+              <span className="icon-bar" />
             </button>
             <BootstrapNavLink to="/" liClasses="navbar-brand">
               iZivi
             </BootstrapNavLink>
           </div>
 
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             {navLinks}
           </div>
         </div>
@@ -40,7 +40,7 @@ export default class BootstrapNavLink extends Component {
     classes += this.props.liClasses;
 
     return (
-      <li class={classes} style={{ marginBottom: '0px', listStyle: 'none' }}>
+      <li className={classes} style={{ marginBottom: '0px', listStyle: 'none' }}>
         <Link to={this.props.to}>{this.props.children}</Link>
       </li>
     );

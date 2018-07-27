@@ -61,7 +61,8 @@ export default class UserFeedback extends Component {
           Toast.showError(
             'Problem in der Konfiguration',
             'Die Datenbank-Konfiguration des Fragebogens stimmt nicht. Bitte melde dich bei einem Admin.',
-            this.context
+            null,
+            null
           );
         }
 
@@ -83,7 +84,7 @@ export default class UserFeedback extends Component {
           <Card>
             <h1>Einsatz-Feedback</h1>
             <br />
-            <div class="container">
+            <div className="container">
               <div id="surveyContainer" />
             </div>
           </Card>

@@ -25,26 +25,26 @@ export default class AdminRestrictedFields extends Component {
     if (self.props.match.params.userid) {
       return (
         <div>
-          <div class="form-group">
-            <label class="control-label col-sm-3" for="role">
+          <div className="form-group">
+            <label className="control-label col-sm-3" for="role">
               Benutzerrolle
             </label>
-            <div class="col-sm-9">
-              <select id="role" name="role" class="form-control" onChange={e => self.handleChange(e)} value={result.role}>
+            <div className="col-sm-9">
+              <select id="role" name="role" className="form-control" onChange={e => self.handleChange(e)} value={result.role}>
                 {this.getRoleOptions(result)}
               </select>
             </div>
           </div>
-          <div class="form-group">
-            <label class="control-label col-sm-3" for="internal_comment">
+          <div className="form-group">
+            <label className="control-label col-sm-3" for="internal_comment">
               Interne Bemerkung
             </label>
-            <div class="col-sm-9">
+            <div className="col-sm-9">
               <textarea
                 rows="4"
                 id="internal_note"
                 name="internal_note"
-                class="form-control"
+                className="form-control"
                 value={result.internal_note}
                 onInput={e => self.handleChange(e)}
               />

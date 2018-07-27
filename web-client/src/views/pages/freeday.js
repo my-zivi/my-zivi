@@ -94,7 +94,9 @@ export default class Freeday extends Component {
         this.setState({ loading: false });
       })
       .catch(error => {
-        Toast.showError('Speichern fehlgeschlagen', 'Frei-Tag konnte nicht gespeicher werden', error, this.context);
+        Toast.showError('Speichern fehlgeschlagen', 'Frei-Tag konnte nicht gespeicher werden', error, path =>
+          this.props.history.push(path)
+        );
         this.setState({ loading: false });
       });
   }
@@ -108,7 +110,7 @@ export default class Freeday extends Component {
         this.getFreedays();
       })
       .catch(error => {
-        Toast.showError('Löschen fehlgeschlagen', 'Frei-Tag konnte nicht gelöscht werden', error, this.context);
+        Toast.showError('Löschen fehlgeschlagen', 'Frei-Tag konnte nicht gelöscht werden', error, path => this.props.history.push(path));
         this.setState({ loading: false });
       });
   }
@@ -123,7 +125,9 @@ export default class Freeday extends Component {
         this.getFreedays();
       })
       .catch(error => {
-        Toast.showError('Hinzufügen fehlgeschlagen', 'Frei-Tag konnte nicht hinzugefügt werden', error, this.context);
+        Toast.showError('Hinzufügen fehlgeschlagen', 'Frei-Tag konnte nicht hinzugefügt werden', error, path =>
+          this.props.history.push(path)
+        );
         this.setState({ loading: false });
       });
   }
@@ -131,7 +135,7 @@ export default class Freeday extends Component {
   render() {
     var tbody = [];
 
-    tbody.push(
+    let inputForm = (
       <tr>
         <td>
           <DatePicker
@@ -146,7 +150,7 @@ export default class Freeday extends Component {
         </td>
         <td>
           <select
-            class="form-control"
+            className="form-control"
             name="holiday_type"
             value={this.state.newFreeday.holiday_type}
             onChange={e => this.handleChangeNew(e)}
@@ -157,7 +161,7 @@ export default class Freeday extends Component {
         </td>
         <td>
           <input
-            class="form-control"
+            className="form-control"
             type="text"
             value={this.state.newFreeday.description}
             name="description"
@@ -165,7 +169,7 @@ export default class Freeday extends Component {
           />
         </td>
         <td>
-          <button class="btn btn-sm" onClick={() => this.add()}>
+          <button className="btn btn-sm" onClick={() => this.add()}>
             hinzufügen
           </button>
         </td>
@@ -189,14 +193,19 @@ export default class Freeday extends Component {
             <DatePicker id="date_to" value={this.state.freedays[i].date_to} onChange={e => this.handleDateChange(e, i)} showLabel={false} />
           </td>
           <td>
-            <select class="form-control" name="holiday_type" value={'' + freedays[i].holiday_type} onChange={e => this.handleChange(e, i)}>
+            <select
+              className="form-control"
+              name="holiday_type"
+              value={'' + freedays[i].holiday_type}
+              onChange={e => this.handleChange(e, i)}
+            >
               <option value="2">Feiertag</option>
               <option value="1">Betriebsferien</option>
             </select>
           </td>
           <td>
             <input
-              class="form-control"
+              className="form-control"
               type="text"
               name="description"
               value={freedays[i].description}
@@ -205,7 +214,7 @@ export default class Freeday extends Component {
           </td>
           <td>
             {this.state.freedays[i].date_from > new Date().toISOString() ? (
-              <button type="button" class="btn btn-sm" onClick={() => this.save(i)}>
+              <button type="button" className="btn btn-sm" onClick={() => this.save(i)}>
                 speichern
               </button>
             ) : null}
@@ -213,7 +222,7 @@ export default class Freeday extends Component {
           <td>
             {this.state.freedays[i].date_from > new Date().toISOString() ? (
               <button
-                class="btn btn-sm"
+                className="btn btn-sm"
                 onClick={() => {
                   if (window.confirm('Möchten Sie ' + freedays[i].description + ' wirklich löschen?')) {
                     this.remove(i);
@@ -233,7 +242,7 @@ export default class Freeday extends Component {
         <div className="page page__freeday">
           <ScrollableCard>
             <h1>Freitage</h1>
-            <table class="table table-hover">
+            <table className="table table-hover">
               <thead>
                 <tr>
                   <th>Datum Start</th>
@@ -244,7 +253,10 @@ export default class Freeday extends Component {
                   <th />
                 </tr>
               </thead>
-              <tbody>{tbody}</tbody>
+              <tbody>
+                {inputForm}
+                {tbody}
+              </tbody>
             </table>
           </ScrollableCard>
 

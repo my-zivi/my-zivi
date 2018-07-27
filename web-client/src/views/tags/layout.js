@@ -1,7 +1,7 @@
 import Inferno from 'inferno';
 import Header from './header';
 
-export default function(props) {
+export default function Layout(props) {
   return (
     <div id="app">
       <Header />

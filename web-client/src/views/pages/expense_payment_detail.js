@@ -64,7 +64,7 @@ export default class ExpensePaymentDetail extends Component {
         this.setSheetState(sheetId, state);
       })
       .catch(error => {
-        Toast.showError('Bestätigen fehlgeschlagen', 'Ein Fehler ist aufgetreten', error, this.context);
+        Toast.showError('Bestätigen fehlgeschlagen', 'Ein Fehler ist aufgetreten', error, path => this.props.history.push(path));
         this.setSheetState(sheetId, -2);
       });
   }
@@ -112,14 +112,14 @@ export default class ExpensePaymentDetail extends Component {
                 .format('DD.MM.YYYY H:mm')}
             </h2>
             <div>
-              <table class="table table-hover">
+              <table className="table table-hover">
                 <thead>
                   <tr>
                     <th>ZDP</th>
                     <th>Name</th>
                     <th>IBAN</th>
-                    <th class="amount">Betrag</th>
-                    <th class="hide-print">Bestätigen</th>
+                    <th className="amount">Betrag</th>
+                    <th className="hide-print">Bestätigen</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -132,19 +132,19 @@ export default class ExpensePaymentDetail extends Component {
                         </a>
                       </td>
                       <td>{sheet.iban}</td>
-                      <td class="amount">
+                      <td className="amount">
                         <a href={'/expense/' + sheet.report_sheet}>{'CHF ' + this.formatRappen(sheet.amount / 100)}</a>
                       </td>
-                      <td class="hide-print">{this.Confirmer(sheet)}</td>
+                      <td className="hide-print">{this.Confirmer(sheet)}</td>
                     </tr>
                   ))}
-                  <tr class="total">
+                  <tr className="total">
                     <td colSpan="4">{this.total(sheets)}</td>
                   </tr>
                 </tbody>
               </table>
 
-              <a href={apiURL('reportsheet/payments/xml/' + this.state.payment.id, {}, true)} class="btn btn-primary hide-print">
+              <a href={apiURL('reportsheet/payments/xml/' + this.state.payment.id, {}, true)} className="btn btn-primary hide-print">
                 zahlung.xml erneut herunterladen
               </a>
             </div>

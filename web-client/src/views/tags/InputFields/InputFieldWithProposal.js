@@ -15,15 +15,13 @@ export default class InputFieldWithProposal extends InputField {
   render() {
     let commentField = null;
     if (this.props.showComment === true) {
-      this.props.label = 'Bemerkung';
-      commentField = this.getFormGroup(this.getCommentField(), null, 9, true);
+      commentField = this.getFormGroup(this.getCommentField(), null, 9, true, 'Bemerkung');
     }
 
-    this.props.label = this.props.valueLabel;
     return (
       <div>
-        {this.getFormGroup(this.getMainInputField(), this.getProposalField(), 4)}
-        <div class="proposalComment">{commentField}</div>
+        {this.getFormGroup(this.getMainInputField(), this.getProposalField(), 4, true, this.props.valueLabel)}
+        <div className="proposalComment">{commentField}</div>
         <hr />
       </div>
     );
@@ -33,7 +31,7 @@ export default class InputFieldWithProposal extends InputField {
     let inputType = this.lookForInputType(this.props.inputType);
 
     return (
-      <div class={this.isMainValid() ? '' : 'has-warning'}>
+      <div className={this.isMainValid() ? '' : 'has-warning'}>
         <input
           type={inputType}
           id={this.props.id}

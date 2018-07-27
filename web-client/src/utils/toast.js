@@ -25,10 +25,10 @@ function showSuccess(title, msg) {
   });
 }
 
-function showError(title, msg, error, context) {
+function showError(title, msg, error, redirectFn) {
   if (error != null && error.response != null && error.response.status === 401) {
     Auth.removeToken();
-    context.router.history.push('/');
+    redirectFn('/');
   }
 
   iziToast.show({

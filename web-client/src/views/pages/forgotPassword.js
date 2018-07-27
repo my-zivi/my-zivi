@@ -24,9 +24,8 @@ export default class ForgotPassword extends Component {
         email: this.state.email,
       })
       .then(response => {
-        var errorBox = [];
-        errorBox.push(
-          <div class="alert alert-info">
+        var errorBox = (
+          <div className="alert alert-info">
             <strong>E-Mail gesendet</strong>
             <br />Sie haben eine E-Mail mit einem Link zum Passwort-Reset erhalten.
           </div>
@@ -34,15 +33,14 @@ export default class ForgotPassword extends Component {
         this.setState({ done: true, errorBox: errorBox, loading: false });
       })
       .catch(error => {
-        var errorBox = [];
         var errorText = '';
         if (error.response != null && error.response.data != null) {
           for (let item in error.response.data) {
             errorText += error.response.data[item] + ' ';
           }
         }
-        errorBox.push(
-          <div class="alert alert-danger">
+        var errorBox = (
+          <div className="alert alert-danger">
             <strong>Fehler</strong>
             <br />
             {errorText}
@@ -67,25 +65,25 @@ export default class ForgotPassword extends Component {
       <Header>
         <div className="page page__login">
           <Card>
-            <h2 class="form-signin-heading">Passwort vergessen</h2>
+            <h2 className="form-signin-heading">Passwort vergessen</h2>
             {this.state.errorBox}
 
             {!this.state.done && (
               <form
-                class="form-signin"
+                className="form-signin"
                 onSubmit={e => {
                   e.preventDefault();
                   this.send();
                 }}
               >
                 <p>
-                  <label for="inputEmail" class="sr-only">
+                  <label for="inputEmail" className="sr-only">
                     Email
                   </label>
                   <input
                     type="email"
                     name="email"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Email"
                     value={this.state.email}
                     onInput={this.handleChange.bind(this)}
@@ -93,7 +91,7 @@ export default class ForgotPassword extends Component {
                     autoFocus
                   />
                 </p>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                <button className="btn btn-lg btn-primary btn-block" type="submit">
                   Weiter
                 </button>
               </form>

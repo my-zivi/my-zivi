@@ -12,7 +12,8 @@ export default class MissionOverview extends Component {
 
     this.state = {
       year: new Date().getFullYear(),
-      loading: false,
+      loadingSpecifications: false,
+      loadingMissions: false,
       error: null,
       missions: [],
       weekCount: [],
@@ -24,35 +25,38 @@ export default class MissionOverview extends Component {
     this.getSpecifications();
     this.getMissions();
 
-    this.scrollTableHeader(window.$('table'));
+    this.scrollTableHeader(document.querySelector('table'));
   }
 
-  getSpecifications() {
-    api()
-      .get('specification')
-      .then(response => {
-        for (var i = 0; i < response.data.length; i++) {
-          response.data[i].selected = true;
-        }
-        this.setState({
-          specifications: response.data,
-        });
-      })
-      .catch(error => {
-        this.setState({ error: error });
+  async getSpecifications() {
+    this.setState({ loadingSpecifications: true, error: null });
+    try {
+      let response = await api().get('specification');
+      response.data.forEach(row => (row.selected = true));
+      this.setState({
+        loadingSpecifications: false,
+        specifications: response.data,
       });
+    } catch (error) {
+      this.setState({ error });
+    }
   }
 
-  getMissions() {
-    this.setState({ loading: true, error: null });
-    api()
-      .get(`missions/${this.state.year}`)
-      .then(response => {
-        this.renderMissions(response.data);
-      })
-      .catch(error => {
-        this.setState({ error: error });
+  async getMissions() {
+    this.setState({ loadingMissions: true, error: null });
+    try {
+      let response = await api().get(`missions/${this.state.year}`);
+
+      let { missions, weekCount } = this.renderMissions(response.data);
+
+      this.setState({
+        loadingMissions: false,
+        missions,
+        weekCount,
       });
+    } catch (error) {
+      this.setState({ error });
+    }
   }
 
   handleChangeYear(e) {
@@ -66,15 +70,11 @@ export default class MissionOverview extends Component {
     });
   }
 
-  componentDidUpdate() {
-    var specs = this.state.specifications;
-    for (var s = 0; s < specs.length; s++) {
-      if (specs[s].selected) {
-        window.$('tr.mission-row-' + specs[s].id).show();
-      } else {
-        window.$('tr.mission-row-' + specs[s].id).hide();
-      }
-    }
+  isSpecSelected(specId) {
+    // warning: specId will be a string, but the id of the spec is a number!
+    // that's because we store the mission ids as strings rather than a number (look up issue #73 on github)
+    // so it is safer to convert the spec.id to a string rather than the other way
+    return this.state.specifications.filter(spec => spec.selected).some(spec => spec.id.toString() === specId);
   }
 
   monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
@@ -85,117 +85,110 @@ export default class MissionOverview extends Component {
 
   scrollTableHeader(table) {
     const onScroll = () => {
-      const offset = window.$(window).scrollTop();
-      const tableOffsetTop = table.offset().top;
-      const thead = table.find('thead');
+      const offset = window.pageYOffset;
+      const tableOffsetTop = table.getBoundingClientRect().top + window.pageYOffset;
+      const thead = table.querySelector('thead');
 
       if (offset > tableOffsetTop - 50) {
-        thead.css('top', offset - (tableOffsetTop - 50));
+        thead.style.top = `${offset - (tableOffsetTop - 50)}px`;
       } else {
-        thead.css('top', 0);
+        thead.style.top = '0';
       }
     };
 
-    window.$(window).scroll(onScroll);
+    document.addEventListener('scroll', onScroll);
     onScroll();
   }
 
-  renderMissions(userMissions) {
-    var specs = this.state.specifications;
-
-    var weekCount = {};
-    for (let x = 0; x < specs.length; x++) {
-      weekCount[specs[x].id] = [];
+  renderMissions(missions) {
+    let weekCount = {};
+    for (let spec of this.state.specifications) {
+      weekCount[spec.id] = [];
       for (let i = 1; i <= 52; i++) {
-        weekCount[specs[x].id][i] = 0;
+        weekCount[spec.id][i] = 0;
       }
     }
 
-    var startDates = [];
-    var endDates = [];
+    let startDates = [];
+    let endDates = [];
 
     for (let x = 1; x <= 52; x++) {
       startDates[x] = moment(this.state.year + ' ' + x + ' 1', 'YYYY WW E').format('DD.MM.YYYY');
       endDates[x] = moment(this.state.year + ' ' + x + ' 5', 'YYYY WW E').format('DD.MM.YYYY');
     }
 
-    var tbody = [];
+    let rows = [];
 
-    for (let i = 0; i < userMissions.length; i++) {
-      var cells = [];
-      cells.push(<td>{userMissions[i][0].short_name}</td>);
-      cells.push(
-        <td>
-          <div class="no-print">{userMissions[i][0].zdp}</div>
-        </td>
-      );
-      cells.push(
-        <td class="einsatz-zivi-name" nowrap>
-          <a href={'/profile/' + userMissions[i][0].userid}>
-            {userMissions[i][0].first_name} {userMissions[i][0].last_name}
-          </a>
-        </td>
-      );
+    for (let mission of missions) {
+      let cells = [];
 
-      var missionCounter = 0;
+      let missionCounter = 0;
 
       for (let x = 1; x <= 52; x++) {
         let popOverStart = startDates[x];
         let popOverEnd = endDates[x];
 
-        var curMission = userMissions[i][missionCounter];
+        let curMission = mission[missionCounter];
         if (!curMission) {
           continue;
         }
-        var startWeek = moment(curMission.start).isoWeek();
+        let startWeek = moment(curMission.start).isoWeek();
         if (new Date(curMission.start).getFullYear() < this.state.year) {
           startWeek = -1;
         }
-        var endWeek = moment(curMission.end).isoWeek();
+        let endWeek = moment(curMission.end).isoWeek();
         if (new Date(curMission.end).getFullYear() > this.state.year) {
           endWeek = 55;
         }
 
         if (x < startWeek || x > endWeek) {
-          cells.push(<td title={popOverStart + ' - ' + popOverEnd} />);
+          cells.push({
+            title: popOverStart + ' - ' + popOverEnd,
+          });
         } else {
           if (weekCount[curMission.specification]) {
             weekCount[curMission.specification][x]++;
           }
           if (x === startWeek) {
-            cells.push(
-              <td class={curMission.draft == null ? 'einsatzDraft' : 'einsatz'} title={popOverStart + ' - ' + popOverEnd}>
-                {new Date(curMission.start).getDate()}
-              </td>
-            );
+            cells.push({
+              className: curMission.draft == null ? 'einsatzDraft' : 'einsatz',
+              title: popOverStart + ' - ' + popOverEnd,
+              content: new Date(curMission.start).getDate(),
+            });
           } else if (x === endWeek) {
-            cells.push(
-              <td class={curMission.draft == null ? 'einsatzDraft' : 'einsatz'} title={popOverStart + ' - ' + popOverEnd}>
-                {new Date(curMission.end).getDate()}
-              </td>
-            );
+            cells.push({
+              className: curMission.draft == null ? 'einsatzDraft' : 'einsatz',
+              title: popOverStart + ' - ' + popOverEnd,
+              content: new Date(curMission.end).getDate(),
+            });
           } else {
-            cells.push(
-              <td class={curMission.draft == null ? 'einsatzDraft' : 'einsatz'} title={popOverStart + ' - ' + popOverEnd}>
-                x
-              </td>
-            );
+            cells.push({
+              className: curMission.draft == null ? 'einsatzDraft' : 'einsatz',
+              title: popOverStart + ' - ' + popOverEnd,
+              content: 'x',
+            });
           }
 
-          if (x === endWeek && missionCounter < userMissions[i].length - 1) {
+          if (x === endWeek && missionCounter < mission.length - 1) {
             missionCounter++;
           }
         }
       }
 
-      tbody.push(<tr class={'mission-row-' + String(userMissions[i][0].specification).replace('.', '_')}>{cells}</tr>);
+      rows.push({
+        specId: String(mission[0].specification),
+        shortName: mission[0].short_name,
+        zdp: mission[0].zdp,
+        userId: mission[0].userid,
+        userName: `${mission[0].first_name} ${mission[0].last_name}`,
+        cells,
+      });
     }
 
-    this.setState({
-      tbody: tbody,
-      weekCount: weekCount,
-      loading: false,
-    });
+    return {
+      missions: rows,
+      weekCount,
+    };
   }
 
   render() {
@@ -204,7 +197,7 @@ export default class MissionOverview extends Component {
     for (let x = 0; x < specs.length; x++) {
       if (specs[x].active) {
         specifications.push(
-          <div class="checkbox no-print">
+          <div className="checkbox no-print">
             <label>
               <input
                 type="checkbox"
@@ -277,23 +270,23 @@ export default class MissionOverview extends Component {
         <div className="page page__mission_overview">
           <ScrollableCard>
             <h1>Einsatzübersicht</h1>
-            <div class="container no-print" style={{ height: 'auto', width: 'auto' }}>
-              <div class="row">
-                <div class="col-sm-2">
+            <div className="container no-print" style={{ height: 'auto', width: 'auto' }}>
+              <div className="row">
+                <div className="col-sm-2">
                   <select
                     defaultValue={this.state.year}
                     onChange={e => this.handleChangeYear(e)}
-                    class="form-control"
+                    className="form-control"
                     style={{ margin: '10px auto auto auto' }}
                   >
                     {yearOptions}
                   </select>
                 </div>
-                <div class="col-sm-8">{specifications}</div>
-                <div class="col-sm-2">
+                <div className="col-sm-8">{specifications}</div>
+                <div className="col-sm-2">
                   <button
                     type="button"
-                    class="btn btn-primary"
+                    className="btn btn-primary"
                     name="print"
                     onClick={e => this.print()}
                     style={{ margin: '10px auto auto auto' }}
@@ -305,7 +298,7 @@ export default class MissionOverview extends Component {
               </div>
             </div>
 
-            <table class="table table-striped table-bordered table-no-padding" id="mission_overview_table">
+            <table className="table table-striped table-bordered table-no-padding" id="mission_overview_table">
               <thead>
                 <tr>
                   <td colSpan="3" rowSpan="2">
@@ -315,18 +308,36 @@ export default class MissionOverview extends Component {
                 </tr>
                 <tr>{weekHeaders}</tr>
                 <tr>
-                  <td colSpan="3" style={{ textAlign: 'left', paddingLeft: '8px !important', fontWeight: 'bold' }} nowrap>
+                  <td colSpan="3" style={{ textAlign: 'left', paddingLeft: '8px !important', fontWeight: 'bold' }} nowrap="true">
                     Ø / Woche: {(averageCount / 52).toFixed(2)}
                   </td>
                   {averageHeaders}
                 </tr>
               </thead>
-              <tbody>{this.state.tbody}</tbody>
+              <tbody>{this.state.missions.map(row => this.isSpecSelected(row.specId) && <Row {...row} />)}</tbody>
             </table>
           </ScrollableCard>
-          <LoadingView loading={this.state.loading} error={this.state.error} />
+          <LoadingView loading={this.state.loadingMissions || this.state.loadingSpecifications} error={this.state.error} />
         </div>
       </Header>
     );
   }
+}
+
+function Row({ specId, shortName, zdp, userId, userName, cells }) {
+  return (
+    <tr className={'mission-row-' + specId}>
+      <td>{shortName}</td>
+
+      <td>
+        <div className="no-print">{zdp}</div>
+      </td>
+
+      <td className="einsatz-zivi-name" nowrap="true">
+        <a href={'/profile/' + userId}>{userName}</a>
+      </td>
+
+      {cells.map(({ content, ...props }) => <td {...props}>{content}</td>)}
+    </tr>
+  );
 }

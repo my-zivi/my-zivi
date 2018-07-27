@@ -20,7 +20,7 @@ export default class UserList extends Component {
       name: '',
       start: firstDay,
       end: lastDay,
-      active: '',
+      active: false,
       group: 0,
     };
   }
@@ -75,7 +75,7 @@ export default class UserList extends Component {
       })
       .catch(error => {
         this.setState({ loading: false, error: null });
-        Toast.showError('Löschen fehlgeschlagen', 'Benutzer konnte nicht gelöscht werden', error, this.context);
+        Toast.showError('Löschen fehlgeschlagen', 'Benutzer konnte nicht gelöscht werden', error, path => this.props.history.push(path));
       });
   }
 
@@ -121,7 +121,7 @@ export default class UserList extends Component {
           <td className="hidden-xs">{users[i].role}</td>
           <td className="hidden-xs">
             <button
-              class="btn btn-danger btn-xs"
+              className="btn btn-danger btn-xs"
               onClick={() => {
                 if (window.confirm('Möchten Sie ' + users[i].first_name + ' ' + users[i].last_name + ' wirklich löschen?')) {
                   this.deleteUser(users[i]);
@@ -140,7 +140,7 @@ export default class UserList extends Component {
         <div className="page page__user_list">
           <ScrollableCard>
             <h1>Benutzerliste</h1>
-            <table class="table table-hover" cellSpacing="0" cellPadding="2">
+            <table className="table table-hover" cellSpacing="0" cellPadding="2">
               <thead>
                 <tr>
                   <th className="hidden-xs">ZDP</th>
@@ -154,7 +154,7 @@ export default class UserList extends Component {
                 <tr>
                   <td className="hidden-xs">
                     <input
-                      class="form-control"
+                      className="form-control"
                       name="zdp"
                       size="5"
                       type="text"
@@ -164,7 +164,7 @@ export default class UserList extends Component {
                   </td>
                   <td>
                     <input
-                      class="form-control"
+                      className="form-control"
                       name="name"
                       size="15"
                       type="text"
@@ -180,10 +180,10 @@ export default class UserList extends Component {
                   </td>
                   <td className="hidden-xs">
                     <input
-                      class="form-control"
+                      className="form-control"
                       name="active"
                       type="checkbox"
-                      value={this.state.active}
+                      checked={this.state.active}
                       onChange={this.handleChange.bind(this)}
                     />
                   </td>

@@ -4,7 +4,6 @@ import InputField from '../tags/InputFields/InputField';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';
 import DatePicker from '../tags/InputFields/DatePicker';
 import PhoneInput from '../tags/InputFields/PhoneInput';
-import RegionalCenters from '../tags/Profile/RegionalCenters';
 import Missions from '../tags/Profile/Missions';
 import AdminRestrictedFields from '../tags/Profile/AdminRestrictedFields';
 import LoadingView from '../tags/loading-view';
@@ -29,9 +28,9 @@ export default class User extends Component {
         phone_private: undefined,
         phone_business: undefined,
       },
+      loading: {},
     };
 
-    this.regionalCenterTag = new RegionalCenters();
     this.adminFields = new AdminRestrictedFields();
     this.missionTag = new Missions();
     this.router = router;
@@ -39,7 +38,7 @@ export default class User extends Component {
 
   componentDidMount() {
     this.getUser();
-    this.regionalCenterTag.getRegionalCenters(this);
+    this.getRegionalCenters();
     this.getSpecifications();
     this.getReportSheets();
   }
@@ -50,7 +49,7 @@ export default class User extends Component {
   }
 
   getUser() {
-    this.setState({ loading: true, error: null });
+    this.setState({ loading: { ...this.state.loading, user: true }, error: null });
 
     const route = this.props.match.params.userid ? 'user/' + this.props.match.params.userid : 'user';
     api()
@@ -58,7 +57,7 @@ export default class User extends Component {
       .then(response => {
         let newState = {
           result: response.data,
-          loading: false,
+          loading: { ...this.state.loading, user: false },
         };
         for (let i = 0; i < response.data.missions.length; i++) {
           let key = response.data.missions[i].id;
@@ -83,12 +82,29 @@ export default class User extends Component {
       });
   }
 
+  getRegionalCenters() {
+    this.setState({ loading: { ...this.state.loading, regionalCenters: true }, error: null });
+    api()
+      .get('regionalcenter')
+      .then(response => {
+        this.setState({
+          regionalCenters: response.data,
+          loading: { ...this.state.loading, regionalCenters: false },
+        });
+      })
+      .catch(error => {
+        this.setState({ error: error });
+      });
+  }
+
   getSpecifications() {
+    this.setState({ loading: { ...this.state.loading, specifications: true }, error: null });
     api()
       .get('specification/me')
       .then(response => {
         this.setState({
           specifications: response.data,
+          loading: { ...this.state.loading, specifications: false },
         });
       })
       .catch(error => {
@@ -97,22 +113,22 @@ export default class User extends Component {
   }
 
   getReportSheets() {
-    this.setState({ loading: true, error: null });
+    this.setState({ loading: { ...this.state.loading, reportSheets: true }, error: null });
 
     let apiRoute = this.props.match.params.userid === undefined ? 'me' : this.props.match.params.userid;
 
     api()
       .get('reportsheet/user/' + apiRoute)
       .then(response => {
-        this.setState({ loading: false, reportSheets: response.data });
+        this.setState({ loading: { ...this.state.loading, reportSheets: false }, reportSheets: response.data });
       })
       .catch(error => {
-        this.setState({ loading: false, error: error });
+        this.setState({ error: error });
       });
   }
 
   addReportSheet(missionId) {
-    this.setState({ loading: true, error: null });
+    this.setState({ loading: { ...this.state.loading, reportSheet: true }, error: null });
 
     api()
       .put('reportsheet', {
@@ -120,12 +136,15 @@ export default class User extends Component {
         mission: missionId,
       })
       .then(response => {
+        this.setState({ loading: { ...this.state.loading, reportSheet: false } });
         Toast.showSuccess('Hinzufügen erfolgreich', 'Spesenblatt hinzugefügt');
         this.getReportSheets();
       })
       .catch(error => {
-        this.setState({ loading: false });
-        Toast.showError('Hinzufügen fehlgeschlagen', 'Spesenblatt konnte nicht hinzugefügt werden', error, this.context);
+        this.setState({ loading: { ...this.state.loading, reportSheet: false } });
+        Toast.showError('Hinzufügen fehlgeschlagen', 'Spesenblatt konnte nicht hinzugefügt werden', error, path =>
+          this.props.history.push(path)
+        );
       });
   }
 
@@ -190,28 +209,28 @@ export default class User extends Component {
   save() {
     let apiRoute = this.props.match.params.userid === undefined ? 'me' : this.props.match.params.userid;
 
-    this.setState({ loading: true, error: null });
+    this.setState({ loading: { ...this.state.loading, save: true }, error: null });
     api()
       .post('user/' + apiRoute, this.state.result)
       .then(response => {
         Toast.showSuccess('Speichern erfolgreich', 'Profil gespeichert');
-        this.setState({ loading: false });
+        this.setState({ loading: { ...this.state.loading, save: false } });
       })
       .catch(error => {
-        this.setState({ loading: false });
-        Toast.showError('Speichern fehlgeschlagen', 'Profil konnte nicht gespeichert werden', error, this.context);
+        this.setState({ loading: { ...this.state.loading, save: false } });
+        Toast.showError('Speichern fehlgeschlagen', 'Profil konnte nicht gespeichert werden', error, path => this.props.history.push(path));
       });
   }
 
   redirectToChangePassword(e) {
-    this.router.history.push('/changePassword');
+    this.props.history.push('/changePassword');
   }
 
   getPasswordChangeButton() {
     return (
       <div>
-        <button type="button" name="resetPassword" class="btn btn-primary" onClick={e => this.redirectToChangePassword(e)}>
-          <span class="glyphicon glyphicon-wrench" /> Passwort ändern
+        <button type="button" name="resetPassword" className="btn btn-primary" onClick={e => this.redirectToChangePassword(e)}>
+          <span className="glyphicon glyphicon-wrench" /> Passwort ändern
         </button>
         <hr />
       </div>
@@ -247,9 +266,9 @@ export default class User extends Component {
         <div className="page page__user_list">
           <Card>
             <h1>Profil</h1>
-            <div class="container">
+            <div className="container">
               <form
-                class="form-horizontal"
+                className="form-horizontal"
                 onSubmit={e => {
                   e.preventDefault();
                   this.save();
@@ -314,11 +333,11 @@ export default class User extends Component {
                 <hr />
                 <h3>Bank-/Postverbindung</h3>
 
-                <div class={'form-group ' + (this.validateIBAN(result.bank_iban) ? '' : 'has-warning')} id="ibanFormGroup">
-                  <label class="control-label col-sm-3" for="bank_iban">
+                <div className={'form-group ' + (this.validateIBAN(result.bank_iban) ? '' : 'has-warning')} id="ibanFormGroup">
+                  <label className="control-label col-sm-3" for="bank_iban">
                     IBAN-Nr.
                   </label>
-                  <div class="col-sm-8">
+                  <div className="col-sm-8">
                     <input
                       type="text"
                       id="bank_iban"
@@ -334,11 +353,11 @@ export default class User extends Component {
                     </span>
                   </div>
                 </div>
-                <div class="form-group" id="bicFormGroup">
-                  <label class="control-label col-sm-3" for="bank_bic">
+                <div className="form-group" id="bicFormGroup">
+                  <label className="control-label col-sm-3" for="bank_bic">
                     BIC/SWIFT
                   </label>
-                  <div class="col-sm-8">
+                  <div className="col-sm-8">
                     <input
                       type="text"
                       id="bank_bic"
@@ -360,11 +379,11 @@ export default class User extends Component {
                 </div>
                 <hr />
                 <h3>Krankenkasse</h3>
-                <div class="form-group" id="healthInsuranceFormGroup">
-                  <label class="control-label col-sm-3" for="health_insurance">
+                <div className="form-group" id="healthInsuranceFormGroup">
+                  <label className="control-label col-sm-3" for="health_insurance">
                     Krankenkasse (Name und Ort)
                   </label>
-                  <div class="col-sm-8">
+                  <div className="col-sm-8">
                     <input
                       type="text"
                       id="health_insurance"
@@ -383,11 +402,11 @@ export default class User extends Component {
                 <hr />
 
                 <h3>Diverse Informationen</h3>
-                <div class="form-group">
-                  <label class="control-label col-sm-3" for="berufserfahrung">
+                <div className="form-group">
+                  <label className="control-label col-sm-3" for="berufserfahrung">
                     Berufserfahrung
                   </label>
-                  <div class="col-sm-8">
+                  <div className="col-sm-8">
                     <textarea
                       rows="4"
                       id="work_experience"
@@ -404,13 +423,24 @@ export default class User extends Component {
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label class="control-label col-sm-3" for="hometown">
+                <div className="form-group">
+                  <label className="control-label col-sm-3" for="hometown">
                     Regionalzentrum
                   </label>
-                  <div class="col-sm-8">
-                    <select id="regional_center" name="regional_center" class="form-control" onChange={e => this.handleChange(e)}>
-                      {this.regionalCenterTag.renderRegionalCenters(this.state)}
+                  <div className="col-sm-8">
+                    <select
+                      id="regional_center"
+                      name="regional_center"
+                      className="form-control"
+                      onChange={e => this.handleChange(e)}
+                      value={+this.state.result.regional_center || 0}
+                    >
+                      <option value="" />
+                      {this.state.regionalCenters.map(({ id, name }) => (
+                        <option key={id} value={id}>
+                          {name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -437,8 +467,8 @@ export default class User extends Component {
 
                 {Auth.isAdmin() ? this.adminFields.getAdminRestrictedFields(this, result) : null}
 
-                <button type="submit" class="btn btn-primary" disabled={arePhonenumbersInvalid}>
-                  <span class="glyphicon glyphicon-floppy-disk" /> Speichern
+                <button type="submit" className="btn btn-primary" disabled={arePhonenumbersInvalid}>
+                  <span className="glyphicon glyphicon-floppy-disk" /> Speichern
                 </button>
                 {arePhonenumbersInvalid && <span>Nicht alle Telefonnummern sind valide!</span>}
               </form>
@@ -457,8 +487,8 @@ export default class User extends Component {
                 sich um deinen letzten Zivi Einsatz und du leistest nur noch die verbleibenden Resttage.
               </p>
 
-              <div class="table-responsive">
-                <table class="table table-condensed">
+              <div className="table-responsive">
+                <table className="table table-condensed">
                   <thead>
                     <tr>
                       <th>Pflichtenheft</th>
@@ -473,7 +503,7 @@ export default class User extends Component {
                 </table>
               </div>
               <br />
-              <button class="btn btn-success" data-toggle="modal" data-target="#einsatzModal">
+              <button className="btn btn-success" data-toggle="modal" data-target="#einsatzModal">
                 Neue Einsatzplanung hinzufügen
               </button>
               {this.missionTag.renderMissions(this, null, Auth.isAdmin())}
@@ -494,8 +524,8 @@ export default class User extends Component {
               <br />
 
               <h3>Spesenblätter</h3>
-              <div class="table-responsive">
-                <table class="table table-condensed">
+              <div className="table-responsive">
+                <table className="table table-condensed">
                   <thead>
                     <tr>
                       <th>Von</th>
@@ -517,11 +547,11 @@ export default class User extends Component {
                               {obj.state > 0 ? (
                                 obj.state === 3 ? (
                                   <span data-toggle="popover" title="" data-content="Erledigt">
-                                    <span class="glyphicon glyphicon-ok" style={{ color: 'green' }} />
+                                    <span className="glyphicon glyphicon-ok" style={{ color: 'green' }} />
                                   </span>
                                 ) : (
                                   <span data-toggle="popover" title="" data-content="In Bearbeitung">
-                                    <span class="glyphicon glyphicon-hourglass" style={{ color: 'orange' }} />
+                                    <span className="glyphicon glyphicon-hourglass" style={{ color: 'orange' }} />
                                   </span>
                                 )
                               ) : (
@@ -532,11 +562,11 @@ export default class User extends Component {
                               {obj.state === 3 ? (
                                 <a
                                   name="showReportSheet"
-                                  class="btn btn-xs btn-link"
+                                  className="btn btn-xs btn-link"
                                   href={apiURL('pdf/zivireportsheet', { reportSheetId: obj.id }, true)}
                                   target="_blank"
                                 >
-                                  <span class="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
+                                  <span className="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
                                 </a>
                               ) : null}
                             </td>
@@ -544,10 +574,10 @@ export default class User extends Component {
                               <td>
                                 <button
                                   name="editReportSheet"
-                                  class="btn btn-link btn-xs btn-warning"
+                                  className="btn btn-link btn-xs btn-warning"
                                   onClick={() => this.router.history.push('/expense/' + obj.id)}
                                 >
-                                  <span class="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
+                                  <span className="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
                                 </button>
                               </td>
                             ) : null}
@@ -561,7 +591,7 @@ export default class User extends Component {
             <br />
             <br />
           </Card>
-          <LoadingView loading={this.state.loading} error={this.state.error} />
+          <LoadingView loading={Object.values(this.state.loading).some(a => a)} error={this.state.error} />
         </div>
       </Header>
     );

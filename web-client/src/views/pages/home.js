@@ -5,7 +5,7 @@ export default function(props) {
   return (
     <Header>
       <div className="page page__home">
-        <div class="bg">
+        <div className="bg">
           <br />
           <Card>
             <h1>
@@ -20,7 +20,7 @@ export default function(props) {
             </p>
             <p>
               Falls du uns bereits bekannt bist, kannst du dich hier{' '}
-              <a href="//izivi.stiftungswo.ch/login" target="_self">
+              <a href="//izivi.stiftungswo.ch/login" target="_self" rel="noopener noreferrer">
                 Anmelden
               </a>.
             </p>
