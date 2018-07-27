@@ -65,7 +65,7 @@ export default class Register extends Component {
   render() {
     return (
       <Header>
-        <div className="page page__register">
+        <div className="page page__register background-image">
           <br />
           <Card>
             <h2>Registrieren</h2>

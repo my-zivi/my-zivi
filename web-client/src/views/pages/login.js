@@ -81,7 +81,7 @@ export default class Login extends Component {
 
     return (
       <Header>
-        <div className="page page__login">
+        <div className="page page__login background-image">
           <br />
           <Card>
             <form
