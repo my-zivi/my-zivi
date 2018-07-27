@@ -1,7 +1,7 @@
 import { Component } from 'inferno';
 
 export default class InputField extends Component {
-  getFormGroup(inputField, additionalContent = null, contentWidth = 9, showLabel = true, label = this.props.label) {
+  getFormGroup(inputField, additionalContent = null, contentWidth = 8, showLabel = true, label = this.props.label) {
     let divClass = 'col-sm-' + contentWidth;
     if (!showLabel) {
       divClass = 'col';

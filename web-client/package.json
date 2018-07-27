@@ -13,6 +13,7 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^3.3.7",
+    "cypress": "^3.0.2",
     "history": "^4.7.2",
     "immutability-helper": "^2.6.6",
     "inferno": "^5.0.4",
@@ -35,7 +36,7 @@
     "build": "npm-run-all build-css build-js",
     "test": "inferno-scripts test --env=jsdom",
     "eject": "inferno-scripts eject",
-    "format": "prettier --write \"src/**/*.js\""
+    "format": "prettier --write \"{src,cypress}/**/*.js\""
   },
   "devDependencies": {
     "inferno-devtools": "^5.0.4",

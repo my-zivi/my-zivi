@@ -32,6 +32,7 @@ export default class DataPolicyBanner extends Component {
           textAlign: 'center',
           width: '100%',
           zIndex: 9999,
+          height: 'auto',
         }}
       >
         <span>
