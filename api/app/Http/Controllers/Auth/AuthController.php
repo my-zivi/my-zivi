@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\CompanyInfo;
 use App\User;
+use App\Mail\NewsletterSignup;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -119,24 +121,10 @@ class AuthController extends Controller
         $user->password = password_hash($request->input("password"), PASSWORD_BCRYPT);
         $user->regional_center = 1;
         $user->role = AuthController::USER_ROLE_ZIVI;
-
-        //mail($user->email, "iZivi Registration", "Hallo und danke für die Registration");
-
         $user->save();
 
         if ($request->input("newsletter", false)) {
-            $message = sprintf(
-                "Ein Zivi hat sich im iZivi registriert und sich für den Newsletter angemeldet:\nVorname:%s\nNachname:%s\nZDP:%s\nEmail:%s",
-                $user->first_name,
-                $user->last_name,
-                $user->zdp,
-                $user->email
-            );
-            if (App::environment('production')) {
-                mail(CompanyInfo::NEWSLETTER_INFO_MAIL, "iZivi Registration Newsletter anmeldung", utf8_decode($message));
-            } else {
-                \Log::debug("New signup: $message");
-            }
+            Mail::to(CompanyInfo::NEWSLETTER_INFO_MAIL)->send(new NewsletterSignup($user));
         }
 
         return $this->postLogin($request);
