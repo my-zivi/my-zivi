@@ -11,7 +11,7 @@ class NewUserFeedback extends ZiviMailer
      */
 
     /**
-     * @var int
+     * @var String
      */
     public $feedbackId;
 
@@ -20,7 +20,7 @@ class NewUserFeedback extends ZiviMailer
      */
     public $url;
 
-    public function __construct(int $feedbackId)
+    public function __construct(String $feedbackId)
     {
         $this->feedbackId = $feedbackId;
         $this->url = env('APP_URL', null);
