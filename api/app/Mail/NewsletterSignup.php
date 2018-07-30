@@ -3,13 +3,9 @@
 namespace App\Mail;
 
 use App\User;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
 
-class NewsletterSignup extends Mailable
+class NewsletterSignup extends ZiviMailer
 {
-    use SerializesModels;
-
     /**
      * Create a new message instance.
      *
@@ -33,6 +29,6 @@ class NewsletterSignup extends Mailable
      */
     public function build()
     {
-        return $this->subject('iZivi Registration Newsletter-Anmeldung')->view('emails.user.newsletter_signup');
+        return $this->prefixSubject('iZivi Registration Newsletter-Anmeldung')->view('emails.user.newsletter_signup');
     }
 }

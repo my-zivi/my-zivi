@@ -4,13 +4,9 @@ namespace App\Mail;
 
 use App\User;
 use App\Mission;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
 
-class FeedbackReminder extends Mailable
+class FeedbackReminder extends ZiviMailer
 {
-    use SerializesModels;
-
     /**
      * Create a new message instance.
      *
@@ -46,6 +42,6 @@ class FeedbackReminder extends Mailable
      */
     public function build()
     {
-        return $this->subject('Deine Meinung ist uns wichtig')->view('emails.user.feedback_reminder');
+        return $this->prefixSubject('Deine Meinung ist uns wichtig')->view('emails.user.feedback_reminder');
     }
 }

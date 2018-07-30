@@ -2,15 +2,8 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-
-class PasswordResetLink extends Mailable
+class PasswordResetLink extends ZiviMailer
 {
-    use Queueable, SerializesModels;
-
     /**
      * Create a new message instance.
      *
@@ -40,6 +33,6 @@ class PasswordResetLink extends Mailable
      */
     public function build()
     {
-        return $this->subject('iZivi Passwort vergessen')->view('emails.user.password_reset_link');
+        return $this->prefixSubject('iZivi Passwort vergessen')->view('emails.user.password_reset_link');
     }
 }

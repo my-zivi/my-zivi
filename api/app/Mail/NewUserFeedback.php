@@ -2,13 +2,8 @@
 
 namespace App\Mail;
 
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
-
-class NewUserFeedback extends Mailable
+class NewUserFeedback extends ZiviMailer
 {
-    use SerializesModels;
-
     /**
      * Create a new message instance.
      *
@@ -38,6 +33,6 @@ class NewUserFeedback extends Mailable
      */
     public function build()
     {
-        return $this->subject('Feedback von einem Zivi erstellt')->view('emails.user_feedback.new_feedback');
+        return $this->prefixSubject('Feedback von einem Zivi erstellt')->view('emails.user_feedback.new_feedback');
     }
 }
