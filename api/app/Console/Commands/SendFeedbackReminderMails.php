@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App;
 use App\Mission;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -50,7 +51,7 @@ class SendFeedbackReminderMails extends Command
             $user = $mission->usermodel;
             print "Sending reminder mail to " . $user->email . "for mission no. " . $mission->id . '.';
 
-            if (App::environment('production')) {
+            if (app()->environment('production')) {
                 Mail::to($user->email)->send(new FeedbackReminder($user, $mission));
             } else {
                 Mail::to(env('API_MAIL_FEEDBACK', "office@stiftungswo.ch"))->send(new FeedbackReminder($user, $mission));
