@@ -2,14 +2,14 @@
 
 namespace App\Mail;
 
-use App\User;
-use App\Mission;
+use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class FeedbackReminder extends Mailable
+class PasswordResetLink extends Mailable
 {
-    use SerializesModels;
+    use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
@@ -18,24 +18,18 @@ class FeedbackReminder extends Mailable
      */
 
     /**
-     * @var User
+     * @var String
      */
-    public $user;
-
-    /**
-     * @var Mission
-     */
-    public $mission;
+    public $token;
 
     /**
      * @var mixed
      */
     public $url;
 
-    public function __construct(User $user, Mission $mission)
+    public function __construct(String $token)
     {
-        $this->user = $user;
-        $this->mission = $mission;
+        $this->token = $token;
         $this->url = env('APP_URL', null);
     }
 
@@ -46,6 +40,6 @@ class FeedbackReminder extends Mailable
      */
     public function build()
     {
-        return $this->subject('Deine Meinung ist uns wichtig')->view('emails.user.feedback_reminder');
+        return $this->subject('iZivi Passwort vergessen')->view('emails.user.password_reset_link');
     }
 }
