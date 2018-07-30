@@ -1,6 +1,6 @@
 <html>
 <body>
-<p>Lieber {{ $user->vorname }},<br><br>
+<p>Lieber {{ $user->first_name }},<br><br>
 
     wir danken dir herzlich für deinen Einsatz bei der Stiftung Wirtschaft und Ökologie SWO. Um besser abschätzen zu können, wie dein Einsatz bei der SWO war, bitten wir dich, unsere Evaluation auszufüllen.<br><br>
 
@@ -14,8 +14,8 @@
     Bahnstrasse 18b<br>
     8603 Schwerzenbach<br><br>
 
-    Phone:  +41 (0)43 355 58 44<br>
-    E-Mail:  swo@stiftungswo.ch<br>
+    Phone: +41 (0)43 355 58 44<br>
+    E-Mail: office@stiftungswo.ch<br>
     http://www.stiftungswo.ch</p>
 </body>
 </html>

@@ -8,14 +8,14 @@ use Illuminate\Console\Command;
 use App\Mail\FeedbackReminder;
 use Illuminate\Support\Facades\Mail;
 
-class SendFeedbackRemainderMails extends Command
+class SendFeedbackReminderMails extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:sendFeedbackRemainderMails';
+    protected $signature = 'command:sendFeedbackReminderMails';
 
     /**
      * The console command description.
@@ -48,11 +48,15 @@ class SendFeedbackRemainderMails extends Command
 
         foreach ($missions as $mission) {
             $user = $mission->usermodel;
+            print "Sending reminder mail to " . $user->email . "for mission no. " . $mission->id . '.';
 
-            # mail(env('API_MAIL_FEEDBACK', "office@stiftungswo.ch"), "IZIVI TEST: ".$subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
-            Mail::to(env('API_MAIL_FEEDBACK', "office@stiftungswo.ch"))->send(new FeedbackReminder($user, $mission));
+            if (App::environment('production')) {
+                Mail::to($user->email)->send(new FeedbackReminder($user, $mission));
+            } else {
+                Mail::to(env('API_MAIL_FEEDBACK', "office@stiftungswo.ch"))->send(new FeedbackReminder($user, $mission));
+            }
 
-            # $mission->feedback_mail_sent = true;
+            $mission->feedback_mail_sent = true;
             $mission->save();
         }
     }
