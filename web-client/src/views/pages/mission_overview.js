@@ -337,7 +337,9 @@ function Row({ specId, shortName, zdp, userId, userName, cells }) {
         <a href={'/profile/' + userId}>{userName}</a>
       </td>
 
-      {cells.map(({ content, ...props }) => <td {...props}>{content}</td>)}
+      {cells.map(({ content, ...props }) => (
+        <td {...props}>{content}</td>
+      ))}
     </tr>
   );
 }

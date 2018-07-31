@@ -259,9 +259,12 @@ export default class Missions extends Component {
               <div>
                 <button className="btn btn-xs btn-warning" data-toggle="modal" data-target={'#einsatzModal' + m[i].id}>
                   <span className="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
-                </button>&nbsp;
-                {deleteButton}&nbsp;
-                {addButton}&nbsp;
+                </button>
+                &nbsp;
+                {deleteButton}
+                &nbsp;
+                {addButton}
+                &nbsp;
                 {feedbackButton}
               </div>
             </td>

@@ -33,7 +33,8 @@ export default class ResetPassword extends Component {
         confirmBox = (
           <div className="alert alert-success">
             <strong>Änderung Erfolgreich!</strong>
-            <br />Ihr Passwort wurde geändert. <a href="/login">Zum Login</a>
+            <br />
+            Ihr Passwort wurde geändert. <a href="/login">Zum Login</a>
           </div>
         );
 

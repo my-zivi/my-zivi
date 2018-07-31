@@ -85,7 +85,8 @@ export default class Register extends Component {
               >
                 {' '}
                 mp@stiftungswo.ch{' '}
-              </a>.
+              </a>
+              .
             </p>
             <ul type="circle">
               <li>
