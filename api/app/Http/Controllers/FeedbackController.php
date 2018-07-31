@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Mission;
 use App\UserFeedback;
 use App\UserFeedbackQuestion;
+use App\Mail\NewUserFeedback;
 use Carbon\Carbon;
 use Faker\Provider\Uuid;
 use Illuminate\Support\Facades\App;
 use Laravel\Lumen\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -210,34 +212,10 @@ class FeedbackController extends Controller
     {
 
         $email = env('API_MAIL_FEEDBACK', null);
-        $subject = "Feedback von einem Zivi erstellt";
-        $url = env('APP_URL', null);
-
-        $emailText = 'Liebe Einsatzleitung,
-          
-Ein Zivi hat gerade eben das Feedback zu seinem Einsatz abgegeben. 
-          
-Du findest die Gesamt-Evaluation unter folgendem Link: '.$url.'user_feedback_overview/'.$feedbackId.'
-          
-Liebe Grüsse aus Schwerzenbach
-          
-Dein SWO-Team
-Bahnstrasse 9
-8603 Schwerzenbach
-
-Phone:  +41 (0)43 355 58 44
-E-Mail:  swo@stiftungswo.ch
-http://www.stiftungswo.ch';
-
         \Log::debug("Recipient for email is ".$email);
 
         if ($email) {
-            if (App::environment('production')) {
-                mail($email, $subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
-            } else {
-                mail($email, "IZIVI TEST: ".$subject, utf8_decode($emailText), 'From: swo@stiftungswo.ch');
-                \Log::debug("Sent email to test mail address");
-            }
+            Mail::to($email)->send(new NewUserFeedback($feedbackId));
         } else {
             \Log::warning("env variable API_MAIL_FEEDBACK is not set.");
         }

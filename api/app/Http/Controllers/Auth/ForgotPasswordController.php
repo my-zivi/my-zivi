@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PasswordResetLink;
 use App\PasswordReset;
 use App\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -48,16 +50,13 @@ class ForgotPasswordController extends Controller
         $resetPW->email = $email;
         $resetPW->token = bin2hex(openssl_random_pseudo_bytes(16));
         $resetPW->save();
-        $result = mail(
-            $email,
-            "iZivi Passwort vergessen",
-            utf8_decode("Hallo\nFür Ihren iZivi-Account wurde ein Passwort-Reset angefordert. Sie können unter http://izivi.stiftungswo.ch/resetPassword/".$resetPW->token." ein neues Passwort setzen."),
-            "From: swo@stiftungswo.ch"
-        );
-        if ($result) {
-            return true;
-        } else {
+
+        Mail::to($email)->send(new PasswordResetLink($resetPW->token));
+
+        if (count(Mail::failures()) > 0) {
             return false;
+        } else {
+            return true;
         }
     }
 
