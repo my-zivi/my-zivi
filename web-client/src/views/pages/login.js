@@ -34,7 +34,8 @@ export default class Login extends Component {
       let errorBox = (
         <div className="alert alert-danger">
           <strong>Login fehlgeschlagen</strong>
-          <br />E-Mail oder Passwort falsch!
+          <br />
+          E-Mail oder Passwort falsch!
         </div>
       );
       this.setState({ errorBox: errorBox, loading: false });

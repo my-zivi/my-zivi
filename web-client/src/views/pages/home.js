@@ -13,15 +13,17 @@ export default function(props) {
           <br />
           <p>
             Bist du das erste mal bei uns und möchtest einen Einsatz planen? Dann kannst du dich über folgenden Link{' '}
-            <a href="//izivi.stiftungswo.ch/register" target="_self">
+            <a href="/register" target="_self">
               Registrieren
-            </a>.
+            </a>
+            .
           </p>
           <p>
             Falls du uns bereits bekannt bist, kannst du dich hier{' '}
-            <a href="//izivi.stiftungswo.ch/login" target="_self" rel="noopener noreferrer">
+            <a href="/login" target="_self" rel="noopener noreferrer">
               Anmelden
-            </a>.
+            </a>
+            .
           </p>
         </Card>
       </div>
