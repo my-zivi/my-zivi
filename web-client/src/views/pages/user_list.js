@@ -89,10 +89,10 @@ export default class UserList extends Component {
       if (this.state.name && (users[i].first_name + ' ' + users[i].last_name).toLowerCase().indexOf(this.state.name.toLowerCase()) === -1) {
         continue;
       }
-      if (this.state.start && users[i].end < this.state.start) {
+      if (this.state.start && users[i].start < this.state.start) {
         continue;
       }
-      if (this.state.end && users[i].start > this.state.end) {
+      if (this.state.end && users[i].end > this.state.end) {
         continue;
       }
       if (
