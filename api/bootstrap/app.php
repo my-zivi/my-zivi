@@ -124,6 +124,10 @@ $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 
 $app->register(Sentry\SentryLaravel\SentryLumenServiceProvider::class);
 
+// Register Laravel Mail component
+$app->configure('mail');
+$app->register(Illuminate\Mail\MailServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

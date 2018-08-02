@@ -1,5 +1,8 @@
 #!/bin/bash -vue
 
+# do build the frontend first
+cd web-client && yarn build && cd -
+
 if [ ! -f $HOME/.ssh/id_rsa ]; then
   echo "Setting up SSH key"
   ./ci/establish-ssh.sh
@@ -19,6 +22,7 @@ case $1 in
 esac
 
 # This imports the config from $CONFIG_FILE on the remote system ($TARGET) into this scripts environment
+echo "deploy app to $ENVIRONMENT."
 CONFIG_FILE=deploy/izivi.$ENVIRONMENT.env
 TARGET=$target
 export $(ssh $TARGET "cat $CONFIG_FILE" | xargs)

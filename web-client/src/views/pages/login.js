@@ -34,7 +34,8 @@ export default class Login extends Component {
       let errorBox = (
         <div className="alert alert-danger">
           <strong>Login fehlgeschlagen</strong>
-          <br />E-Mail oder Passwort falsch!
+          <br />
+          E-Mail oder Passwort falsch!
         </div>
       );
       this.setState({ errorBox: errorBox, loading: false });
@@ -81,7 +82,8 @@ export default class Login extends Component {
 
     return (
       <Header>
-        <div className="page page__login">
+        <div className="page page__login background-image">
+          <br />
           <Card>
             <form
               className="form-signin"
@@ -107,6 +109,7 @@ export default class Login extends Component {
                   autoFocus
                   autoComplete="username email"
                 />
+                <br />
                 <label htmlFor="inputPassword" className="sr-only">
                   Passwort
                 </label>
@@ -122,7 +125,8 @@ export default class Login extends Component {
                 />
               </p>
               <p>
-                <button className="btn btn-lg btn-primary btn-block" type="submit">
+                <br />
+                <button className="btn btn-md btn-primary" type="submit">
                   Anmelden
                 </button>
               </p>

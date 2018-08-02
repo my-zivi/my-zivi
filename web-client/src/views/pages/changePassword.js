@@ -33,7 +33,8 @@ export default class ChangePassword extends Component {
         confirmBox = (
           <div className="alert alert-success">
             <strong>Änderung Erfolgreich!</strong>
-            <br />Ihr Passwort wurde geändert.
+            <br />
+            Ihr Passwort wurde geändert.
           </div>
         );
 

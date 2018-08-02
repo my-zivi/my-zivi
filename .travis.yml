@@ -2,32 +2,50 @@ language: php
 sudo: false
 php:
   - 7.1
-before_script:
-  - ./ci/check_format.sh
-  - cp ./api/.env.travis ./api/.env
-  - ./ci/backend.sh
-script:
-  - ./ci/test.sh
-  - ./ci/frontend.sh
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-deploy:
-  - provider: script
-    script: ci/deploy.sh test
-    skip_cleanup: true
-    on:
-      all_branches: true
-      condition: $TRAVIS_BRANCH == *-DEPLOY
-  - provider: script
-    script: ci/deploy.sh test
-    skip_cleanup: true
-    on:
-      branch: master
-  - provider: script
-    script: ci/deploy.sh prod
-    skip_cleanup: true
-    on:
-      branch: production
+
+stages:
+  - test
+  - name: deploy
+    if: branch = master OR branch = production OR branch =~ \b-DEPLOY\b
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+    - $HOME/.cache/yarn
+    - $HOME/.cache/Cypress
+
+# install programming languages
+before_install:
+  - nvm install 8.9
+
+install:
+  - composer install -d api $COMPOSER_FLAGS
+  - npm install -g yarn
+  - yarn --cwd web-client install
+
+jobs:
+  include:
+    # run the test steps
+    - stage: test
+      script: ./ci/test_frontend.sh
+      name: "Run automated tests for frontend"
+    - script: ./ci/test_backend.sh
+      name: "Run automated tests for backend"
+    - script: ./ci/check_format.sh
+      name: "Check formatting of front- and backend"
+
+    # run the deployment step
+    - stage: deploy
+      script: skip
+      env:
+      - DEPLOY_SYSTEM: $(if [ "$TRAVIS_BRANCH" == "production" ]; then echo "prod"; else echo "test"; fi)
+      deploy:
+      - provider: script
+        script: ci/deploy.sh $DEPLOY_SYSTEM
+        skip_cleanup: true
+        on:
+          all_branches: true
+
 env:
   global:
     secure: "PST5xGuQ5iE3FqkayeHtn6/O4rvACvZrTm1wzWVkDrE/KUnrko5H9UwNixPVSyeL2mr+fT163ZuYVkXQ/Ps6ZxYuFy/9/gmF9xDfxp1sfBc5jpXX7qUlmtMvsO0Z7qb7IMr+GKUW3dfnhldotQYIAbS3F0+9WmfejSollajj3SQmoe93fSUBSWKuuRwdv0V5CRf0iuA8WuJMLiIhclD/Uqu2+vp1tbUc2Dnw5O57YRSvfuSgXzm0N4oX0WyMhLhgjKEP2P/2Atd0RisrO2RGkUovRa6C+R+x/0WbKi/KEpktOxS34JYosby1oCP2XnvOSuiCDdsPH036kQQDogMD/hQccxYcpVYcjrqybjVIVLfSlGcpmy9QILCuDcc4D/uYOm7NA2ExtssqjiMAwaMqiriOoDeNfWK73yUnWuErKQbaxyDd2Aix1ZCaET0OcolN26KqsmyJ+pYD2Kd5zlmn9sWT0fZ9sAlOLdPDS+RkrHnUo0EXLgGYrZF0g0Yod0sVNMs6EQwm8rMDI6PvYX0lBPafi8v485L4bk2hP3tHcfE3X70GDciUanYdbm0+KdYzocVO3f2Ra08HXxwDEgILrw3G6FzR3ZQkdasTRM1by9zlCNjYT76/qU0H7DMLCh8cke/zbAnPxbiTEdZsEc4caBG3xFevhG4IfqgupwszzEk="

@@ -185,7 +185,7 @@ class PhoneListPDF extends PDF
         $pdf->Cell(0, 0, $zivi["address"]);
         $cx += 50;
         $pdf->SetXY($cx, $cy);
-        $pdf->Cell(0, 0, $zivi["city"]);
+        $pdf->Cell(0, 0, $zivi["zip"] . " " . $zivi["city"]);
         $cx += 40;
         $pdf->SetXY($cx, $cy);
         $phone = $this->getZiviPhoneNumber($zivi, $this->typeOfNumber);

@@ -27,7 +27,8 @@ export default class ForgotPassword extends Component {
         var errorBox = (
           <div className="alert alert-info">
             <strong>E-Mail gesendet</strong>
-            <br />Sie haben eine E-Mail mit einem Link zum Passwort-Reset erhalten.
+            <br />
+            Sie haben eine E-Mail mit einem Link zum Passwort-Reset erhalten.
           </div>
         );
         this.setState({ done: true, errorBox: errorBox, loading: false });

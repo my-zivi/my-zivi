@@ -123,7 +123,7 @@ export default class EditExpense extends Component {
   }
 
   deleteReportSheet() {
-    if (window.confirm('Möchten Sie dieses Meldeblatt wirklich löschen?')) {
+    if (window.confirm('Möchten Sie dieses Spesenblatt wirklich löschen?')) {
       this.setState({ loading: true, error: null });
       api()
         .delete('reportsheet/' + this.props.match.params.report_sheet_id)
@@ -132,7 +132,7 @@ export default class EditExpense extends Component {
         })
         .catch(error => {
           this.setState({ loading: false, error: null });
-          Toast.showError('Löschen fehlgeschlagen', 'Meldeblatt konnte nicht gelöscht werden', error, path =>
+          Toast.showError('Löschen fehlgeschlagen', 'Spesenblatt konnte nicht gelöscht werden', error, path =>
             this.props.history.push(path)
           );
         });
@@ -176,13 +176,13 @@ export default class EditExpense extends Component {
             />
             <DatePicker
               id="meldeblaetter_start"
-              label="Beginn Meldeblattperiode"
+              label="Beginn Spesenblattperiode"
               value={sheet.meldeblaetter_start}
               onChange={this.handleDateChange.bind(this)}
             />
             <DatePicker
               id="meldeblaetter_end"
-              label="Ende Meldeblattperiode"
+              label="Ende Spesenblattperiode"
               value={sheet.meldeblaetter_end}
               onChange={this.handleDateChange.bind(this)}
             />
