@@ -194,8 +194,11 @@ export default class MissionOverview extends Component {
   render() {
     var specifications = [];
     var specs = this.state.specifications;
+
+    var specIdsOfMissions = this.state.missions.map(mission => mission.specId).filter((elem, index, arr) => index === arr.indexOf(elem));
+
     for (let x = 0; x < specs.length; x++) {
-      if (specs[x].active) {
+      if (specIdsOfMissions.includes(specs[x].id)) {
         specifications.push(
           <div className="checkbox no-print">
             <label>
