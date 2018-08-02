@@ -197,7 +197,7 @@ export default class MissionOverview extends Component {
     for (let x = 0; x < specs.length; x++) {
       if (specs[x].active) {
         specifications.push(
-          <div className="checkbox no-print">
+          <div className="checkbox no-print" key={x}>
             <label>
               <input
                 type="checkbox"
@@ -243,8 +243,8 @@ export default class MissionOverview extends Component {
           weekCountSum += weekCount[specs[x].id][i];
         }
       }
-      weekHeaders.push(<td>{i}</td>);
-      averageHeaders.push(<td>{weekCountSum}</td>);
+      weekHeaders.push(<td key={i}>{i}</td>);
+      averageHeaders.push(<td key={i}>{weekCountSum}</td>);
       averageCount += weekCountSum;
       if (
         moment(startDate)
@@ -253,7 +253,11 @@ export default class MissionOverview extends Component {
       ) {
         // cell width (25px) must be the same as in mission_overview.sass
         monthHeaders.push(
-          <td style={{ fontWeight: 'bold', maxWidth: 25 * monthColCount + 'px', overflow: 'hidden' }} colSpan={monthColCount}>
+          <td
+            style={{ fontWeight: 'bold', maxWidth: 25 * monthColCount + 'px', overflow: 'hidden' }}
+            colSpan={monthColCount}
+            key={'month_header_' + i}
+          >
             {this.monthNames[prevMonth]}
           </td>
         );
@@ -264,7 +268,7 @@ export default class MissionOverview extends Component {
       startDate.setDate(startDate.getDate() + 7);
     }
     monthHeaders.push(
-      <td style={{ fontWeight: 'bold' }} colSpan={monthColCount}>
+      <td style={{ fontWeight: 'bold' }} colSpan={monthColCount} key={this.monthNames.indexOf(this.monthNames[prevMonth])}>
         {this.monthNames[prevMonth]}
       </td>
     );
@@ -318,7 +322,7 @@ export default class MissionOverview extends Component {
                   {averageHeaders}
                 </tr>
               </thead>
-              <tbody>{this.state.missions.map(row => this.isSpecSelected(row.specId) && <Row {...row} />)}</tbody>
+              <tbody>{this.state.missions.map(row => this.isSpecSelected(row.specId) && <Row key={row.zdp} {...row} />)}</tbody>
             </table>
           </ScrollableCard>
           <LoadingView loading={this.state.loadingMissions || this.state.loadingSpecifications} error={this.state.error} />
@@ -341,8 +345,10 @@ function Row({ specId, shortName, zdp, userId, userName, cells }) {
         <a href={'/profile/' + userId}>{userName}</a>
       </td>
 
-      {cells.map(({ content, ...props }) => (
-        <td {...props}>{content}</td>
+      {cells.map(({ content, ...props }, index) => (
+        <td key={index} {...props}>
+          {content}
+        </td>
       ))}
     </tr>
   );

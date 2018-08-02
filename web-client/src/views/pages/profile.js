@@ -12,9 +12,10 @@ import Toast from '../../utils/toast';
 import moment from 'moment-timezone';
 import { api, apiURL } from '../../utils/api';
 import Auth from '../../utils/auth';
+import { Link } from 'react-router-dom';
 
 export default class User extends Component {
-  constructor(props, { router }) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -33,7 +34,6 @@ export default class User extends Component {
 
     this.adminFields = new AdminRestrictedFields();
     this.missionTag = new Missions();
-    this.router = router;
   }
 
   componentDidMount() {
@@ -574,13 +574,9 @@ export default class User extends Component {
                             </td>
                             {Auth.isAdmin() ? (
                               <td>
-                                <button
-                                  name="editReportSheet"
-                                  className="btn btn-link btn-xs btn-warning"
-                                  onClick={() => this.router.history.push('/expense/' + obj.id)}
-                                >
+                                <Link to={'/expense/' + obj.id} className={'btn btn-link btn-xs btn-warning'} name={'editReportSheet'}>
                                   <span className="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
-                                </button>
+                                </Link>
                               </td>
                             ) : null}
                           </tr>

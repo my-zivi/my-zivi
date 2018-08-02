@@ -12,7 +12,7 @@ export default class Missions extends Component {
     let missionKey = mission != null ? mission.id : 'newmission';
 
     let howerText_Tage =
-      'Zeigt dir die Anzahl Tage an welche für den Einsatz voraussichtlich angerechnet werden. Falls während dem Einsatz Betriebsferien liegen werden die entsprechenden Tage abgezogen falls die Dauer zu kurz ist um diese mit Ferientagen kompensieren zu können. Feiertage innerhalb von Betriebsferien gelten auf alle Fälle als Dienstage.';
+      'Zeigt dir die Anzahl Tage an, welche für den Einsatz voraussichtlich angerechnet werden. Falls während dem Einsatz Betriebsferien liegen, werden die entsprechenden Tage abgezogen, falls die Dauer zu kurz ist um diese mit Ferientagen kompensieren zu können. Feiertage innerhalb von Betriebsferien gelten auf alle Fälle als Dienstage.';
 
     var specification_options = [];
     specification_options.push(<option key={''} value="" />);
@@ -43,7 +43,7 @@ export default class Missions extends Component {
     }
 
     return (
-      <div id={'einsatzModal' + (mission != null ? mission.id : '')} className="modal fade" role="dialog">
+      <div id={'einsatzModal' + (mission != null ? mission.id : '')} className="modal fade" role="dialog" key={missionKey + '_modal'}>
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -250,7 +250,7 @@ export default class Missions extends Component {
         }
 
         missions.push(
-          <tr>
+          <tr key={m[i].id}>
             <td>{name}</td>
             <td>{moment(m[i].start, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
             <td>{moment(m[i].end, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>
@@ -273,9 +273,9 @@ export default class Missions extends Component {
                 {feedbackButton}
               </div>
             </td>
+            <td>{this.renderMissions(self, m[i], Auth.isAdmin())}</td>
           </tr>
         );
-        missions.push(this.renderMissions(self, m[i], Auth.isAdmin()));
       }
     }
 

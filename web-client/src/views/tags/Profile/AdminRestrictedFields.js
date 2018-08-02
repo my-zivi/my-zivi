@@ -6,13 +6,8 @@ export default class AdminRestrictedFields extends Component {
     let roleNames = ['', 'Admin', 'Zivi'];
 
     for (let i = 1; i < 3; i++) {
-      let isSelected = false;
-      if (parseInt(result['role'], 10) === i) {
-        isSelected = true;
-      }
-
       options.push(
-        <option key={i} value={i} selected={isSelected}>
+        <option key={i} value={i}>
           {roleNames[i]}
         </option>
       );

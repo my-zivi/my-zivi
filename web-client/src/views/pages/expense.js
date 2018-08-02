@@ -130,7 +130,7 @@ export default class ExpenseOverview extends Component {
       }
 
       tableBody.push(
-        <tr>
+        <tr key={i}>
           <td>&nbsp;</td>
           <td className="center">{sheets[i].zdp}</td>
           <td>

@@ -72,7 +72,7 @@ export default class Register extends Component {
             <p>
               Als zukünftiger Zivi musst du dich zuerst erkundigen, ob zum gewünschten Zeitpunkt ein Einsatz möglich ist. Kontaktiere
               hierfür bitte direkt{' '}
-              <a href="//stiftungswo.ch/about/meet-the-team#jumptomarc" target="_blank">
+              <a href="//stiftungswo.ch/about/meet-the-team#jumptomarc" target="_blank" rel="noopener noreferrer">
                 {' '}
                 Marc Pfeuti{' '}
               </a>
