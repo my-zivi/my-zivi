@@ -64,7 +64,7 @@ export default class ForgotPassword extends Component {
   render() {
     return (
       <Header>
-        <div className="page page__login">
+        <div className="page page__login background-image">
           <Card>
             <h2 className="form-signin-heading">Passwort vergessen</h2>
             {this.state.errorBox}
