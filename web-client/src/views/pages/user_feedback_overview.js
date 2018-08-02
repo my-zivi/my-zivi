@@ -221,7 +221,7 @@ export default class UserFeedbackOverview extends Component {
           );
         } else {
           feedbacks.push(
-            <div className="row" key={'other_single:question_' + x}>
+            <div className="row" key={'other_single_question_' + x}>
               <div className="col-xs-8">
                 <label>{answers[x].question}</label>
               </div>
