@@ -205,7 +205,7 @@ export default class MissionOverview extends Component {
               <input
                 type="checkbox"
                 name={x}
-                defaultChecked={true}
+                checked={specs[x].selected}
                 onChange={e => {
                   this.toggleSpecification(e);
                 }}
