@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import Card from '../tags/card';
 import InputField from '../tags/InputFields/InputField';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';
@@ -9,17 +9,16 @@ import Header from '../tags/header';
 import Toast from '../../utils/toast';
 import moment from 'moment-timezone';
 import { api, apiURL } from '../../utils/api';
+import { Link, withRouter } from 'react-router-dom';
 
-export default class EditExpense extends Component {
-  constructor(props, { router }) {
+class EditExpense extends Component {
+  constructor(props) {
     super(props);
 
     this.state = {
       report_sheet: null,
       force_save: false,
     };
-
-    this.router = router;
   }
 
   componentDidMount() {
@@ -128,7 +127,7 @@ export default class EditExpense extends Component {
       api()
         .delete('reportsheet/' + this.props.match.params.report_sheet_id)
         .then(response => {
-          this.router.history.push('/profile/' + this.state['report_sheet']['user']);
+          this.props.history.push('/profile/' + this.state['report_sheet']['user']);
         })
         .catch(error => {
           this.setState({ loading: false, error: null });
@@ -369,7 +368,7 @@ export default class EditExpense extends Component {
             <InputField id="document_number" label="Beleg-Nr." value={sheet.document_number} onInput={this.handleChange.bind(this)} />
 
             <div className="form-group">
-              <label className="control-label col-sm-3" for="state">
+              <label className="control-label col-sm-3" htmlFor="state">
                 Status
               </label>
               <div className="col-sm-9">
@@ -414,16 +413,9 @@ export default class EditExpense extends Component {
                 <span className="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
               </a>
               <div className="col-sm-1" />
-              <button
-                type="button"
-                name="deleteReport"
-                className="btn btn-default col-sm-2"
-                onClick={() => {
-                  this.router.history.push('/profile/' + this.state['report_sheet']['user']);
-                }}
-              >
+              <Link to={'/profile/' + this.state['report_sheet']['user']} name={'deleteReport'} className={'btn btn-default col-sm-2'}>
                 Profil anzeigen
-              </button>
+              </Link>
             </div>
             <br />
             <br />
@@ -456,3 +448,4 @@ export default class EditExpense extends Component {
     );
   }
 }
+export default withRouter(EditExpense);

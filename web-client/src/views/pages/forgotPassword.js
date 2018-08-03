@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 
 import Card from '../tags/card';
 import LoadingView from '../tags/loading-view';
@@ -64,7 +64,7 @@ export default class ForgotPassword extends Component {
   render() {
     return (
       <Header>
-        <div className="page page__login">
+        <div className="page page__login background-image">
           <Card>
             <h2 className="form-signin-heading">Passwort vergessen</h2>
             {this.state.errorBox}
@@ -78,7 +78,7 @@ export default class ForgotPassword extends Component {
                 }}
               >
                 <p>
-                  <label for="inputEmail" className="sr-only">
+                  <label htmlFor="inputEmail" className="sr-only">
                     Email
                   </label>
                   <input
@@ -87,7 +87,7 @@ export default class ForgotPassword extends Component {
                     className="form-control"
                     placeholder="Email"
                     value={this.state.email}
-                    onInput={this.handleChange.bind(this)}
+                    onChange={this.handleChange.bind(this)}
                     required
                     autoFocus
                   />

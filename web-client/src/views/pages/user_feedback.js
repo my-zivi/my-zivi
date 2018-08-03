@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import Card from '../tags/card';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';

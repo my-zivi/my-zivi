@@ -1,3 +1,4 @@
+import React from 'react';
 import InputField from './InputField';
 
 export default class InputFieldWithHelpText extends InputField {
@@ -9,7 +10,7 @@ export default class InputFieldWithHelpText extends InputField {
         type={inputType}
         id={this.props.id}
         name={this.props.id}
-        value={this.props.value}
+        value={this.props.value || ''}
         className="form-control"
         onChange={this.props.onChange}
         readOnly={this.props.disabled}

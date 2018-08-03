@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import Card from '../tags/card';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -71,9 +71,9 @@ export default class UserFeedbackOverview extends Component {
     }
   }
 
-  getChapter(title) {
+  getChapter(title, index) {
     return (
-      <div>
+      <div key={index}>
         <div className="row chapter">
           <div className="col-xs-12">
             <h3>{title}</h3>
@@ -99,7 +99,7 @@ export default class UserFeedbackOverview extends Component {
         answerClasses = ['', 'progress-bar-danger', 'progress-bar-success'];
 
         if (i === 2) {
-          cols.push(<div className={'col-xs-6'} />);
+          cols.map((data, index) => <div className={'col-xs-6'} key={index} />);
         }
       } else if (numberOfAnswers === 6) {
         answerClasses = [
@@ -122,7 +122,7 @@ export default class UserFeedbackOverview extends Component {
       }
 
       cols.push(
-        <div className={'col-xs-' + colSize}>
+        <div className={'col-xs-' + colSize} key={i}>
           <div className={'progress vertical progress-striped ' + answerClasses[i]}>
             <div className="progress-bar" style={{ height: 100 - answerPerc * 100 + '%' }}>
               {Math.round(answerPerc * 100)}
@@ -159,7 +159,7 @@ export default class UserFeedbackOverview extends Component {
 
     for (var x = 0; x < answers.length; x++) {
       if (+answers[x].new_page === 1) {
-        feedbacks.push(this.getChapter(answers[x].custom_info));
+        feedbacks.push(this.getChapter(answers[x].custom_info, x));
       }
 
       // These questions have multiple answers
@@ -184,7 +184,7 @@ export default class UserFeedbackOverview extends Component {
           if (custom_info && custom_info.choices) {
             custom_info.choices.forEach(function(element) {
               rows.push(
-                <div className="col-xs-2">
+                <div className="col-xs-2" key={element.value}>
                   <label>{element.text}</label>
                 </div>
               );
@@ -192,7 +192,7 @@ export default class UserFeedbackOverview extends Component {
           }
 
           feedbacks.push(
-            <div className="row">
+            <div className="row" key={'single_question_6_' + x}>
               <div className="col-xs-6">
                 <label>{answers[x].question}</label>
               </div>
@@ -204,7 +204,7 @@ export default class UserFeedbackOverview extends Component {
           );
         } else if (answers[x].type === TYPE_SINGLE_QUESTION_2) {
           feedbacks.push(
-            <div className="row">
+            <div className="row" key={'single_question_2_' + x}>
               <div className="col-xs-8">
                 <label>{answers[x].question}</label>
               </div>
@@ -221,7 +221,7 @@ export default class UserFeedbackOverview extends Component {
           );
         } else {
           feedbacks.push(
-            <div className="row">
+            <div className="row" key={'other_single_question_' + x}>
               <div className="col-xs-8">
                 <label>{answers[x].question}</label>
               </div>
@@ -243,7 +243,7 @@ export default class UserFeedbackOverview extends Component {
         }
 
         feedbacks.push(
-          <div>
+          <div key={'group_title_' + x}>
             <br />
             <br />
             <div className="row">
@@ -264,7 +264,7 @@ export default class UserFeedbackOverview extends Component {
         );
       } else if (answers[x].type === TYPE_TEXT) {
         feedbacks.push(
-          <div>
+          <div key={'text_question_' + x}>
             <div className="row">
               <div className="col-xs-6">
                 <label>{answers[x].question}</label>

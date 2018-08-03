@@ -1,3 +1,4 @@
+import React from 'react';
 import Card from '../tags/card';
 import Header from '../tags/header';
 

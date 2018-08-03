@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import Card from '../tags/card';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -36,7 +36,7 @@ export default class Register extends Component {
         if (error.response != null && error.response.data != null) {
           for (let item in error.response.data) {
             errorMsg.push(
-              <p>
+              <p key={item}>
                 {item}: {error.response.data[item]}
               </p>
             );
@@ -72,7 +72,7 @@ export default class Register extends Component {
             <p>
               Als zukünftiger Zivi musst du dich zuerst erkundigen, ob zum gewünschten Zeitpunkt ein Einsatz möglich ist. Kontaktiere
               hierfür bitte direkt{' '}
-              <a href="//stiftungswo.ch/about/meet-the-team#jumptomarc" target="_blank">
+              <a href="//stiftungswo.ch/about/meet-the-team#jumptomarc" target="_blank" rel="noopener noreferrer">
                 {' '}
                 Marc Pfeuti{' '}
               </a>
@@ -117,7 +117,7 @@ export default class Register extends Component {
                 <br />
 
                 <div className="form-group">
-                  <label className="control-label col-sm-3" for="zdp">
+                  <label className="control-label col-sm-3" htmlFor="zdp">
                     Zivildienstnummer (ZDP):
                   </label>
                   <div className="col-sm-9">
@@ -128,7 +128,7 @@ export default class Register extends Component {
                       id="zdp"
                       placeholder="Dies ist deine Zivildienst-Nummer, welche du auf deinem Aufgebot wiederfindest"
                       value={this.state.formData.zdp}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       min="10000"
                       max="1000000"
                       required
@@ -136,7 +136,7 @@ export default class Register extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="control-label col-sm-3" for="firstname">
+                  <label className="control-label col-sm-3" htmlFor="firstname">
                     Vorname:
                   </label>
                   <div className="col-sm-9">
@@ -147,13 +147,13 @@ export default class Register extends Component {
                       id="firstname"
                       placeholder="Dein Vorname"
                       value={this.state.formData.firstname}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       required
                     />
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="control-label col-sm-3" for="lastname">
+                  <label className="control-label col-sm-3" htmlFor="lastname">
                     Nachname:
                   </label>
                   <div className="col-sm-9">
@@ -164,13 +164,13 @@ export default class Register extends Component {
                       id="lastname"
                       placeholder="Dein Nachname"
                       value={this.state.formData.lastname}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       required
                     />
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="control-label col-sm-3" for="email">
+                  <label className="control-label col-sm-3" htmlFor="email">
                     E-Mail:
                   </label>
                   <div className="col-sm-9">
@@ -181,7 +181,7 @@ export default class Register extends Component {
                       id="email"
                       placeholder="Wird für das zukünftige Login sowie das Versenden von Systemnachrichten benötigt"
                       value={this.state.formData.email}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       required
                       autoComplete="username email"
                     />
@@ -189,7 +189,7 @@ export default class Register extends Component {
                 </div>
 
                 <div className="form-group has-feedback">
-                  <label className="control-label col-sm-3" for="password">
+                  <label className="control-label col-sm-3" htmlFor="password">
                     Passwort:
                   </label>
                   <div className="col-sm-9">
@@ -198,7 +198,7 @@ export default class Register extends Component {
                       id="password"
                       name="password"
                       value={this.state.formData.password}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       className="form-control"
                       data-minlength="7"
                       placeholder="Ein frei wählbares Passwort mit mindestens 7 Zeichen"
@@ -211,7 +211,7 @@ export default class Register extends Component {
                 </div>
 
                 <div className="form-group has-feedback">
-                  <label className="control-label col-sm-3" for="password_confirm">
+                  <label className="control-label col-sm-3" htmlFor="password_confirm">
                     Passwort Bestätigung:
                   </label>
                   <div className="col-sm-9">
@@ -220,7 +220,7 @@ export default class Register extends Component {
                       id="password_confirm"
                       name="password_confirm"
                       value={this.state.formData.password_confirm}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       className="form-control"
                       data-match="#password"
                       data-match-error="Die beiden Eingaben stimmen nicht überein"
@@ -234,7 +234,7 @@ export default class Register extends Component {
                 </div>
 
                 <div className="form-group has-feedback">
-                  <label className="control-label col-sm-3" for="community_pw">
+                  <label className="control-label col-sm-3" htmlFor="community_pw">
                     Community Passwort:
                   </label>
                   <div className="col-sm-9">
@@ -244,7 +244,7 @@ export default class Register extends Component {
                       name="community_pw"
                       placeholder="Dieses erhälst du von der Einsatzleitung welche dich berechtigt einen Account zu eröffnen"
                       value={this.state.formData.community_pw}
-                      onInput={this.handleChange.bind(this)}
+                      onChange={this.handleChange.bind(this)}
                       className="form-control"
                       required
                     />
@@ -266,7 +266,7 @@ export default class Register extends Component {
                         className="form-check-input"
                       />
                       <label className="form-check-label" htmlFor="newsletter">
-                        &nbsp;&nbsp;Ja, ich möchte Newsletter erhalten!
+                        &nbsp;&nbsp;Ja, ich möchte den Newsletter erhalten!
                       </label>
                     </div>
                   </div>

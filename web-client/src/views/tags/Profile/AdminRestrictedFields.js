@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 
 export default class AdminRestrictedFields extends Component {
   getRoleOptions(result) {
@@ -6,13 +6,8 @@ export default class AdminRestrictedFields extends Component {
     let roleNames = ['', 'Admin', 'Zivi'];
 
     for (let i = 1; i < 3; i++) {
-      let isSelected = false;
-      if (parseInt(result['role'], 10) === i) {
-        isSelected = true;
-      }
-
       options.push(
-        <option value={i} selected={isSelected}>
+        <option key={i} value={i}>
           {roleNames[i]}
         </option>
       );
@@ -26,7 +21,7 @@ export default class AdminRestrictedFields extends Component {
       return (
         <div>
           <div className="form-group">
-            <label className="control-label col-sm-3" for="role">
+            <label className="control-label col-sm-3" htmlFor="role">
               Benutzerrolle
             </label>
             <div className="col-sm-9">
@@ -36,7 +31,7 @@ export default class AdminRestrictedFields extends Component {
             </div>
           </div>
           <div className="form-group">
-            <label className="control-label col-sm-3" for="internal_comment">
+            <label className="control-label col-sm-3" htmlFor="internal_comment">
               Interne Bemerkung
             </label>
             <div className="col-sm-9">

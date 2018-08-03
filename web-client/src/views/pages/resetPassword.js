@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import Card from '../tags/card';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -45,7 +45,7 @@ export default class ResetPassword extends Component {
 
         if (error.response != null && error.response.data != null) {
           for (let item in error.response.data) {
-            errorMsg.push(<p>{error.response.data[item]}</p>);
+            errorMsg.push(<p key={item}>{error.response.data[item]}</p>);
           }
         }
 
@@ -93,7 +93,7 @@ export default class ResetPassword extends Component {
                   }}
                 >
                   <div className="form-group has-feedback">
-                    <label className="control-label col-sm-3" for="old_password">
+                    <label className="control-label col-sm-3" htmlFor="old_password">
                       Neues Passwort
                     </label>
                     <div className="col-sm-9">
@@ -102,7 +102,7 @@ export default class ResetPassword extends Component {
                         id="new_password"
                         name="new_password"
                         value={this.state.new_password}
-                        onInput={e => this.handleChange(e)}
+                        onChange={e => this.handleChange(e)}
                         className="form-control"
                         data-minlength="7"
                         placeholder=""
@@ -114,7 +114,7 @@ export default class ResetPassword extends Component {
                   </div>
 
                   <div className="form-group has-feedback">
-                    <label className="control-label col-sm-3" for="old_password">
+                    <label className="control-label col-sm-3" htmlFor="old_password">
                       Wiederholen
                     </label>
                     <div className="col-sm-9">
@@ -123,7 +123,7 @@ export default class ResetPassword extends Component {
                         id="new_password_2"
                         name="new_password_2"
                         value={this.state.new_password_2}
-                        onInput={e => this.handleChange(e)}
+                        onChange={e => this.handleChange(e)}
                         className="form-control"
                         data-match="#new_password"
                         data-match-error="Die beiden Eingaben stimmen nicht überein"

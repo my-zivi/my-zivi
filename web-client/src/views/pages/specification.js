@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import ScrollableCard from '../tags/scrollableCard';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -97,7 +97,7 @@ export default class Specifications extends Component {
     var specifications = this.state.specifications;
     for (let i = 0; i < specifications.length; i++) {
       tbody.push(
-        <tr>
+        <tr key={specifications[i].id}>
           <td className="col_a">
             <input
               type="checkbox"
@@ -108,15 +108,15 @@ export default class Specifications extends Component {
           </td>
           <td className="col_a">{specifications[i].id}</td>
           <td className="col_a">
-            <input type="text" size="20" name="name" value={specifications[i].name} onInput={e => this.handleChange(e, i)} />
+            <input type="text" size="20" name="name" value={specifications[i].name} onChange={e => this.handleChange(e, i)} />
           </td>
 
           <td className="col_a">
-            <input type="text" size="5" name="short_name" value={specifications[i].short_name} onInput={e => this.handleChange(e, i)} />
+            <input type="text" size="5" name="short_name" value={specifications[i].short_name} onChange={e => this.handleChange(e, i)} />
           </td>
 
           <td className="col_b">
-            <input type="text" size="5" name="pocket" value={specifications[i].pocket} onInput={e => this.handleChange(e, i)} />
+            <input type="text" size="5" name="pocket" value={specifications[i].pocket} onChange={e => this.handleChange(e, i)} />
           </td>
           <td className="col_a">
             <input
@@ -124,7 +124,7 @@ export default class Specifications extends Component {
               size="5"
               name="accommodation"
               value={specifications[i].accommodation}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_b">
@@ -133,7 +133,7 @@ export default class Specifications extends Component {
               size="5"
               name="working_clothes_expense"
               value={specifications[i].working_clothes_expense}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_a">
@@ -142,7 +142,7 @@ export default class Specifications extends Component {
               size="5"
               name="firstday_breakfast_expenses"
               value={specifications[i].firstday_breakfast_expenses}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_a">
@@ -151,7 +151,7 @@ export default class Specifications extends Component {
               size="5"
               name="working_breakfast_expenses"
               value={specifications[i].working_breakfast_expenses}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_a">
@@ -160,7 +160,7 @@ export default class Specifications extends Component {
               size="5"
               name="sparetime_breakfast_expenses"
               value={specifications[i].sparetime_breakfast_expenses}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_a">
@@ -169,7 +169,7 @@ export default class Specifications extends Component {
               size="5"
               name="lastday_breakfast_expenses"
               value={specifications[i].lastday_breakfast_expenses}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_b">
@@ -178,7 +178,7 @@ export default class Specifications extends Component {
               size="5"
               name="firstday_lunch_expenses"
               value={specifications[i].firstday_lunch_expenses}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_b">
@@ -187,7 +187,7 @@ export default class Specifications extends Component {
               size="5"
               name="working_lunch_expenses"
               value={specifications[i].working_lunch_expenses}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_b">
@@ -196,7 +196,7 @@ export default class Specifications extends Component {
               size="5"
               name="sparetime_lunch_expenses"
               value={specifications[i].sparetime_lunch_expenses}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_b">
@@ -205,7 +205,7 @@ export default class Specifications extends Component {
               size="5"
               name="lastday_lunch_expenses"
               value={specifications[i].lastday_lunch_expenses}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_a">
@@ -214,7 +214,7 @@ export default class Specifications extends Component {
               size="5"
               name="firstday_dinner_expenses"
               value={specifications[i].firstday_dinner_expenses}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_a">
@@ -223,7 +223,7 @@ export default class Specifications extends Component {
               size="5"
               name="working_dinner_expenses"
               value={specifications[i].working_dinner_expenses}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_a">
@@ -232,7 +232,7 @@ export default class Specifications extends Component {
               size="5"
               name="sparetime_dinner_expenses"
               value={specifications[i].sparetime_dinner_expenses}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_a">
@@ -241,7 +241,7 @@ export default class Specifications extends Component {
               size="5"
               name="lastday_dinner_expenses"
               value={specifications[i].lastday_dinner_expenses}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td className="col_a">
@@ -258,86 +258,85 @@ export default class Specifications extends Component {
       );
     }
 
-    tbody.push(
-      <tr style={{ background: 'white' }}>
-        <td colSpan="20" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
-          Pflichtenheft hinzufügen (Lediglich Zahlen und Bodenstriche sind erlaubt für die Nummer!)
-        </td>
-      </tr>
-    );
+    let inputForm = (
+      <React.Fragment>
+        <tr style={{ background: 'white' }}>
+          <td colSpan="20" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+            Pflichtenheft hinzufügen (Lediglich Zahlen und Bodenstriche sind erlaubt für die Nummer!)
+          </td>
+        </tr>
+        <tr>
+          <td className="col_a">
+            <input type="checkbox" name="active" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_a">
+            <input type="text" style={{ width: '70px' }} name="id" onChange={e => this.handleChangeNew(e)} required />
+          </td>
+          <td className="col_a">
+            <input type="text" size="20" name="name" onChange={e => this.handleChangeNew(e)} />
+          </td>
 
-    tbody.push(
-      <tr>
-        <td className="col_a">
-          <input type="checkbox" name="active" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_a">
-          <input type="text" style={{ width: '70px' }} name="id" onInput={e => this.handleChangeNew(e)} required />
-        </td>
-        <td className="col_a">
-          <input type="text" size="20" name="name" onInput={e => this.handleChangeNew(e)} />
-        </td>
+          <td className="col_a">
+            <input type="text" size="5" name="short_name" onChange={e => this.handleChangeNew(e)} />
+          </td>
 
-        <td className="col_a">
-          <input type="text" size="5" name="short_name" onInput={e => this.handleChangeNew(e)} />
-        </td>
-
-        <td className="col_b">
-          <input type="text" size="5" name="pocket" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_a">
-          <input type="text" size="5" name="accommodation" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_b">
-          <input type="text" size="5" name="working_clothes_expense" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_a">
-          <input type="text" size="5" name="firstday_breakfast_expenses" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_a">
-          <input type="text" size="5" name="working_breakfast_expenses" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_a">
-          <input type="text" size="5" name="sparetime_breakfast_expenses" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_a">
-          <input type="text" size="5" name="lastday_breakfast_expenses" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_b">
-          <input type="text" size="5" name="firstday_lunch_expenses" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_b">
-          <input type="text" size="5" name="working_lunch_expenses" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_b">
-          <input type="text" size="5" name="sparetime_lunch_expenses" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_b">
-          <input type="text" size="5" name="lastday_lunch_expenses" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_a">
-          <input type="text" size="5" name="firstday_dinner_expenses" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_a">
-          <input type="text" size="5" name="working_dinner_expenses" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_a">
-          <input type="text" size="5" name="sparetime_dinner_expenses" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_a">
-          <input type="text" size="5" name="lastday_dinner_expenses" onInput={e => this.handleChangeNew(e)} />
-        </td>
-        <td className="col_a">
-          <input
-            className="btn btn-sm"
-            type="submit"
-            value="&nbsp;hinzufügen&nbsp;"
-            onClick={() => {
-              this.add();
-            }}
-          />
-        </td>
-      </tr>
+          <td className="col_b">
+            <input type="text" size="5" name="pocket" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_a">
+            <input type="text" size="5" name="accommodation" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_b">
+            <input type="text" size="5" name="working_clothes_expense" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_a">
+            <input type="text" size="5" name="firstday_breakfast_expenses" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_a">
+            <input type="text" size="5" name="working_breakfast_expenses" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_a">
+            <input type="text" size="5" name="sparetime_breakfast_expenses" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_a">
+            <input type="text" size="5" name="lastday_breakfast_expenses" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_b">
+            <input type="text" size="5" name="firstday_lunch_expenses" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_b">
+            <input type="text" size="5" name="working_lunch_expenses" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_b">
+            <input type="text" size="5" name="sparetime_lunch_expenses" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_b">
+            <input type="text" size="5" name="lastday_lunch_expenses" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_a">
+            <input type="text" size="5" name="firstday_dinner_expenses" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_a">
+            <input type="text" size="5" name="working_dinner_expenses" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_a">
+            <input type="text" size="5" name="sparetime_dinner_expenses" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_a">
+            <input type="text" size="5" name="lastday_dinner_expenses" onChange={e => this.handleChangeNew(e)} />
+          </td>
+          <td className="col_a">
+            <input
+              className="btn btn-sm"
+              type="submit"
+              value="&nbsp;hinzufügen&nbsp;"
+              onClick={() => {
+                this.add();
+              }}
+            />
+          </td>
+        </tr>
+      </React.Fragment>
     );
 
     return (
@@ -419,7 +418,10 @@ export default class Specifications extends Component {
                   <td />
                 </tr>
               </thead>
-              <tbody>{tbody}</tbody>
+              <tbody>
+                {tbody}
+                {inputForm}
+              </tbody>
             </table>
           </ScrollableCard>
 

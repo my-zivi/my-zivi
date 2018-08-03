@@ -1,5 +1,5 @@
-import { Component } from 'inferno';
-import { Redirect } from 'inferno-router';
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import Card from '../tags/card';
 import Auth from '../../utils/auth';
@@ -95,7 +95,7 @@ export default class Login extends Component {
               <h2 className="form-signin-heading">Anmelden</h2>
               {this.state.errorBox}
               <p>
-                <label for="inputEmail" className="sr-only">
+                <label htmlFor="inputEmail" className="sr-only">
                   Email
                 </label>
                 <input
@@ -104,13 +104,13 @@ export default class Login extends Component {
                   className="form-control"
                   placeholder="Email"
                   value={this.state.email}
-                  onInput={this.handleChange.bind(this)}
+                  onChange={this.handleChange.bind(this)}
                   required
                   autoFocus
                   autoComplete="username email"
                 />
                 <br />
-                <label for="inputPassword" className="sr-only">
+                <label htmlFor="inputPassword" className="sr-only">
                   Passwort
                 </label>
                 <input
@@ -119,7 +119,7 @@ export default class Login extends Component {
                   className="form-control"
                   placeholder="Passwort"
                   value={this.state.password}
-                  onInput={this.handleChange.bind(this)}
+                  onChange={this.handleChange.bind(this)}
                   required
                   autoComplete="current-password"
                 />
