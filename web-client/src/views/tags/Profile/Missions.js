@@ -378,7 +378,7 @@ export default class Missions extends Component {
       }
 
       api()
-        .get('diensttageEndDate', { params: { start: startDate, days: self.state.result[missionKey + '_days'], long_mission } })
+        .get('diensttageEndDate', { params: { start: startDate, days: e.target.value, long_mission } })
         .then(response => {
           if (response && response.data) {
             self.state.result[missionKey + '_end'] = response.data;
