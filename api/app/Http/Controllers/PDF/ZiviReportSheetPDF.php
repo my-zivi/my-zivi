@@ -10,7 +10,6 @@ namespace App\Http\Controllers\PDF;
 
 use App\CompanyInfo;
 use App\ReportSheet;
-use App\User;
 
 class ZiviReportSheetPDF extends PDF
 {
@@ -22,6 +21,7 @@ class ZiviReportSheetPDF extends PDF
     private $comment_line_break2 = 5;       // Abstand zwischen zwei Kommentaren
     private $shade_height = 5;              // Höhe der Hintergrundbox für normale Zeilen
     private $shade_height8 = 4;             // Höhe der Hintergrundbox für Kommentarzeilen
+    private $overview_shade_width = 110;
     private $bank_shade_width = 125;
     private $additional_offset = 5;
 
@@ -49,6 +49,49 @@ class ZiviReportSheetPDF extends PDF
     public function isDone()
     {
         return $this->spesen->state == 3;
+    }
+
+    private function renderComment($comment, $start_on_current_line = false)
+    {
+        $this->pdf->SetFont('', 'I', 8);
+        $comment_width = $this->pdf->GetStringWidth($comment) + 4;
+
+        if (!$start_on_current_line) {
+            $this->y_offset = $this->y_offset + $this->comment_line_break;
+        }
+
+        // Check if comment does not exceed one line
+        if ((!$start_on_current_line && $comment_width < $this->bank_shade_width) || ($start_on_current_line && $comment_width < 100)) {
+            if ($start_on_current_line) {
+                $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
+            } else {
+                $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8 / 2);
+            }
+            $this->pdf->Cell($comment_width, $this->shade_height8, $comment, 0, 0, '', 1);
+            $this->pdf->SetFont('', '', 10);
+            return;
+        }
+
+        if ($start_on_current_line) {
+            $comment_chunks = str_split($comment, 70);
+        } else {
+            $comment_chunks = str_split($comment, 95);
+        }
+
+        $max_rendered_lines = 2;
+        for ($i = 0; $i < $max_rendered_lines; $i++) {
+            if ($i !== 0) {
+                $this->y_offset = $this->y_offset + $this->comment_line_break2;
+            }
+            if ($start_on_current_line) {
+                $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
+            } else {
+                $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8 / 2);
+            }
+            $this->pdf->Cell($this->pdf->GetStringWidth($comment_chunks[$i]) + 4, $this->shade_height8, $comment_chunks[$i], 0, 0, '', 1);
+        }
+
+        $this->pdf->SetFont('', '', 10);
     }
 
     protected function render()
@@ -88,7 +131,7 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell(0, 10, "Pflichtenheft:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
         $str = $this->spesen['einsaetze_pflichtenheft'] . " " . $this->spesen['pflichtenheft_name'];
-        $this->pdf->Cell(100, $this->shade_height, $str, 0, 0, '', 1);
+        $this->pdf->Cell($this->overview_shade_width, $this->shade_height, $str, 0, 0, '', 1);
 
         $this->y_offset = $this->y_offset + $this->line_break;
 
@@ -97,7 +140,7 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->SetFont('Arial', 'B', 10);
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
         $str = $this->user['last_name'] . " " . $this->user['first_name'];
-        $this->pdf->Cell(100, $this->shade_height, $str, 0, 0, '', 1);
+        $this->pdf->Cell($this->overview_shade_width, $this->shade_height, $str, 0, 0, '', 1);
         $this->pdf->SetFont('Arial', '', 10);
 
         $this->y_offset = $this->y_offset + $this->line_break;
@@ -106,14 +149,14 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell(0, 10, "Adresse:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
         $str = $this->user['address'] . ", " . $this->user['zip'] . " " . $this->user['city'];
-        $this->pdf->Cell(100, $this->shade_height, $str, 0, 0, '', 1);
+        $this->pdf->Cell($this->overview_shade_width, $this->shade_height, $str, 0, 0, '', 1);
 
         $this->y_offset = $this->y_offset + $this->line_break;
 
         $this->pdf->SetXY($this->left_margin, $this->y_offset);
         $this->pdf->Cell(0, 10, "ZDP:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell(100, $this->shade_height, $this->user['zdp'], 0, 0, '', 1);
+        $this->pdf->Cell($this->overview_shade_width, $this->shade_height, $this->user['zdp'], 0, 0, '', 1);
 
         $this->y_offset = $this->y_offset + $this->line_break;
 
@@ -123,7 +166,7 @@ class ZiviReportSheetPDF extends PDF
         $str = $this->getGermanDate(strtotime($this->spesen['einsaetze_start'])) . " bis ";
         $str .= $this->getGermanDate(strtotime($this->spesen['einsaetze_end']));
         $str .= " (" . $this->spesen['einsaetze_tage'] . " Tage)";
-        $this->pdf->Cell(100, $this->shade_height, $str, 0, 0, '', 1);
+        $this->pdf->Cell($this->overview_shade_width, $this->shade_height, $str, 0, 0, '', 1);
 
         $this->y_offset = $this->y_offset + $this->line_break;
 
@@ -134,7 +177,7 @@ class ZiviReportSheetPDF extends PDF
         $str = $this->getGermanDate(strtotime($this->spesen['meldeblaetter_start'])) . " bis ";
         $str .= $this->getGermanDate(strtotime($this->spesen['meldeblaetter_end']));
         $str .= " (" . $this->spesen['meldeblaetter_tage'] . " Tage)";
-        $this->pdf->Cell(100, $this->shade_height, $str, 0, 0, '', 1);
+        $this->pdf->Cell($this->overview_shade_width, $this->shade_height, $str, 0, 0, '', 1);
 
         $this->pdf->SetFont('Arial', '', 10);
 
@@ -270,27 +313,12 @@ class ZiviReportSheetPDF extends PDF
 
         $n_comments = 0;
         if (!empty($feiertage_comment)) {
-            $this->pdf->SetFont('', 'I', 8);
-            $this->y_offset = $this->y_offset + $this->comment_line_break;
-            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8 / 2);
             $str = "inkl. " . $feiertage_comment;
-            $w = $this->pdf->GetStringWidth($str) + 4;
-            if ($w > 120) {
-                $w = 120;
-            }
-            $this->pdf->Cell($w, $this->shade_height8, $str, 0, 0, '', 1);
-            $this->pdf->SetFont('', '', 10);
+            $this->renderComment($str);
             $n_comments++;
         }
 
         if ($this->spesen['add_workfree'] >= 1) {
-            $this->pdf->SetFont('', 'I', 8);
-            if ($n_comments == 0) {
-                $this->y_offset = $this->y_offset + $this->comment_line_break;
-            } else {
-                $this->y_offset = $this->y_offset + $this->comment_line_break2;
-            }
-            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8 / 2);
             $str = "inkl. " . $this->spesen['add_workfree'];
             if ($this->spesen['add_workfree'] == 1) {
                 $str = $str . " zusätzlicher arbeitsfreier Tag";
@@ -302,13 +330,7 @@ class ZiviReportSheetPDF extends PDF
             } else {
                 $str = $str . ".";
             }
-            $w = $this->pdf->GetStringWidth($str) + 4;
-            if ($w > 120) {
-                $w = 120;
-            }
-            $this->pdf->Cell($w, $this->shade_height8, $str, 0, 0, '', 1);
-            $this->pdf->SetFont('', '', 10);
-            $n_comments++;
+            $this->renderComment($str);
         }
 
         $this->y_offset = $this->y_offset + $this->line_break;
@@ -337,12 +359,8 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['total_ill']), 0, 0, 'R', 1);
 
         if (!empty($this->spesen['meldeblaetter_ill_comment'])) {
-            $this->pdf->SetFont('', 'I', '8');
-            $this->y_offset = $this->y_offset + $this->comment_line_break;
-            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8 / 2);
             $str = "Bemerkung: " . $this->spesen['meldeblaetter_ill_comment'];
-            $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
-            $this->pdf->SetFont('', '', 10);
+            $this->renderComment($str);
         }
 
         $this->y_offset = $this->y_offset + $this->line_break;
@@ -371,12 +389,8 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['total_holiday']), 0, 0, 'R', 1);
 
         if (!empty($this->spesen['meldeblaetter_holiday_comment'])) {
-            $this->pdf->SetFont('', 'I', 8);
-            $this->y_offset = $this->y_offset + $this->comment_line_break;
-            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8 / 2);
             $str = "Bemerkung: " . $this->spesen['meldeblaetter_holiday_comment'];
-            $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
-            $this->pdf->SetFont('', '', 10);
+            $this->renderComment($str);
         }
 
         $this->y_offset = $this->y_offset + $this->line_break;
@@ -404,39 +418,24 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
         $this->pdf->Cell($this->shade_width[5], $this->shade_height, "0.00", 0, 0, 'R', 1);
 
-        $n_comments = 0;
         if (!empty($urlaub_comment)) {
-            $this->pdf->SetFont('', 'I', 8);
-            $this->y_offset = $this->y_offset + $this->comment_line_break;
-            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8 / 2);
             $str = "inkl. " . $urlaub_comment;
             if ($this->spesen['meldeblaetter_companyurlaub'] == 1) {
                 $str .= " (" . $this->spesen['meldeblaetter_companyurlaub'] . " Tag)";
             } else {
                 $str .= " (" . $this->spesen['meldeblaetter_companyurlaub'] . " Tage)";
             }
-            $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
-            $this->pdf->SetFont('', '', 10);
-            $n_comments++;
+            $this->renderComment($str);
         }
 
         if (!empty($this->spesen['meldeblaetter_urlaub_comment'])) {
-            $this->pdf->SetFont('', 'I', 8);
-            if ($n_comments == 0) {
-                $this->y_offset = $this->y_offset + $this->comment_line_break;
-            } else {
-                $this->y_offset = $this->y_offset + $this->comment_line_break2;
-            }
-            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8 / 2);
             $str = "inkl. " . $this->spesen['meldeblaetter_urlaub_comment'];
             if ($this->spesen['meldeblaetter_urlaub'] == 1) {
                 $str .= " (" . $this->spesen['meldeblaetter_urlaub'] . " Tag)";
             } else {
                 $str .= " (" . $this->spesen['meldeblaetter_urlaub'] . " Tage)";
             }
-            $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
-            $this->pdf->SetFont('', '', 10);
-            $n_comments++;
+            $this->renderComment($str);
         }
 
         $this->y_offset = $this->y_offset + $this->line_break;
@@ -456,16 +455,13 @@ class ZiviReportSheetPDF extends PDF
             $str = "Keine Angaben.";
         }
         if (!empty($str)) {
-            $this->pdf->SetFont('', 'I', 8);
-            $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
-            $this->pdf->SetFont('', '', 10);
+            $this->renderComment($str, true);
         }
 
 
         $this->y_offset = $this->y_offset + $this->line_break;
 
-        // ARBEITSKLEIDER SPESEN //
+// ARBEITSKLEIDER SPESEN //
         $this->pdf->SetFont('', 'B');
         $this->pdf->SetXY($this->left_margin + 3, $this->y_offset);
         $this->pdf->Cell(3, 10, "+", 0, 0, 'R');
@@ -505,16 +501,13 @@ class ZiviReportSheetPDF extends PDF
             $this->pdf->Cell(0, 10, "Ausserordentlich");
             $this->pdf->SetFont('', '');
 
-            if (!empty($this->spesen['meldeblaetter_ausserordentlich_comment'])) {
-                $this->pdf->SetFont('', 'I', 8);
-                $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-                $str = $this->spesen['meldeblaetter_ausserordentlich_comment'];
-                $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
-                $this->pdf->SetFont('', '', 10);
-            }
-
             $this->pdf->SetXY($this->col[5], $this->y_offset+$this->shade_height/2);
             $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['meldeblaetter_ausserordentlich']), 0, 0, 'R', 1);
+
+            if (!empty($this->spesen['meldeblaetter_ausserordentlich_comment'])) {
+                $str = $this->spesen['meldeblaetter_ausserordentlich_comment'];
+                $this->renderComment($str, true);
+            }
             $this->y_offset = $this->y_offset + $this->line_break;
         }
 
