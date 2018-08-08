@@ -22,23 +22,32 @@ Die Ordner „api“ und „web-client“ haben jeweils eine Datei REAME.md mit 
 
 ## Frameworks und Dependencies
 
+### Fundamentals
+| Name | Verwendung | Informationen / Tutorials |
+| --- | --- | --- |
+| PHP | Basis für das Backend | [Basis PHP-Tutorial](https://www.tutorialspoint.com/php/index.htm)<br><br>[Sauberer PHP-Code schreiben](https://www.phptherightway.com/) |
+| Javascript (ES6) | Basis für das Frontend | [Basis-Tutorial von Mozilla](https://developer.mozilla.org/de/docs/Learn/Getting_started_with_the_web/JavaScript_basis)<br><br>[Neue Funktionen in ES6](http://es6-features.org/) |
+| Docker | Software-Virtualisierung, genutzt für die Entwicklung | [Einführung in Docker](https://docs.docker.com/get-started/)<br><br>[Einführung in docker-compose](https://docs.docker.com/compose/) |
+| Git | Versionsverwaltung | [Einführung in Git](https://git-scm.com/book/en/v2/Getting-Started-Git-Basics) |
+
 ### Backend
-| Name | Verwendung |
-| --- | --- |
-| Lumen | PHP Micro-Framework zur Datenbank-Abstraktion, MVC-konform. Lumen ist eine leichtere Version vom Laravel-Framework |
+
+| Name | Verwendung | Informationen / Tutorials |
+| --- | --- | --- |
+| Lumen | PHP Micro-Framework zur Datenbank-Abstraktion, MVC-konform. Lumen ist eine leichtere Version vom Laravel-Framework | [Offizielle Dokumentation](https://lumen.laravel.com/docs/5.6) |
 | Artisan	| Artisan ist Teil des Laravel Frameworks und bietet ein Konsolen-Interface mit nützlichen Befehlen. Wir verwenden „artisan serve“ beim Entwickeln und „artisan migrate“ für die Datenmigration. |
-| Composer | Composer ist ein serverseitiger Package Manager und verwaltet das Lumen-Framework mit allen Abhängigkeiten |
-| YWT-Auth | Tokens und Authentifizierung für Laravel |
+| Composer | Composer ist ein serverseitiger Package Manager und verwaltet das Lumen-Framework mit allen Abhängigkeiten | [Offizielle Dokumentation](https://getcomposer.org/doc/) |
+| JWT-Auth | JSON Web-Token-Authentifizierung für PHP | [Mehr zu JWT](https://jwt.io/introduction/)<br><br>[Github-Repo von jwt-auth](https://github.com/tymondesigns/jwt-auth) |
 
 ### Frontend
-| Name                    | Verwendung       |
-| --- | --- |
-| InfernoJS                  | Fork von React JS mit besserer Performance. Interface ist fast immer gleich wie React -> Bei Problem hilft eine Suche, wie das bei React funktioniert |
-| Yarn                       | Paketverwaltung und Entwicklungsserver ($yarn run watch) |
-| Babel                      | ES6 backwards compatibility |
-| Webpack                    | Bundeling JS, CSS, SASS modules |
-| IZI Toast                  | Snackbar for Error and Feedback http://izitoast.marcelodolce.com/ |
-| Survey JS                  | Darstellung der User Feedbacks |
+| Name | Verwendung | Informationen / Tutorials |
+| --- | --- | --- |
+| React | Javascript View-Library | [Erforderliche JavaScript-Kenntnisse für React](https://www.robinwieruch.de/javascript-fundamentals-react-requirements/)<br><br>[Offizielles Tutorial von React](https://reactjs.org/docs/getting-started.html)<br><br>[Detaillierte Einführung in React](https://roadtoreact.com/) |
+| Yarn | Paketverwaltung und Entwicklungsserver ($yarn run watch) | [Yarn vs. NPM](https://www.sitepoint.com/yarn-vs-npm/)<br><br>[Offizielle Website von Yarn](https://yarnpkg.com/lang/en/) |
+| Babel  | Bibliothek zur Bereitstellung von JavaScript ES6-Funktionen in älteren Browsern | [Was ist Babel?](http://nicholasjohnson.com/blog/what-is-babel/) |
+| Webpack | Bundeling JS, CSS, SASS modules | [Einführung in Webpack (komplex!)](https://survivejs.com/webpack/foreword/) |
+| IZI Toast | Snackbar for Error and Feedback | [Offizielle Webseite](http://izitoast.marcelodolce.com/) |
+| Survey JS | Darstellung der User Feedbacks | [Offizielle Webseite](https://surveyjs.io/) |
 
 ## Code Formatierung
 
