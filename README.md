@@ -6,28 +6,20 @@
 
 # SWO iZivi #
 
-iZivi ist ein Tool um Schweizer Zivildienstleistende in einem Einsatzbetrieb zu verwalten.
+iZivi ist ein Tool, um Schweizer Zivildienstleistende in einem Einsatzbetrieb zu verwalten.
 
 https://izivi.stiftungswo.ch/
 
-## Ordnerstruktur
+## Inhaltsverzeichnis
 
-Ordner | Verwendung
---- | ---
-[api](api/readme.md) | Backend
-[web-client](web-client/readme.md) | Frontend
-migration | Datenmigration von altem iZivi
-
-Die Ordner „api“ und „web-client“ haben jeweils eine Datei REAME.md mit einer Installationsanleitung. Fürs Backend gibt es eine Anleitung für Arbeiten an der Datenmigration. Diese ist nach dem Rollout 2017 nicht mehr relevant.
-
-## Frameworks und Dependencies
+## Aufbau der Applikation
 
 ### Fundamentals
 | Name | Verwendung | Informationen / Tutorials |
 | --- | --- | --- |
-| PHP | Basis für das Backend | [Basis PHP-Tutorial](https://www.tutorialspoint.com/php/index.htm)<br><br>[Sauberer PHP-Code schreiben](https://www.phptherightway.com/) |
-| Javascript (ES6) | Basis für das Frontend | [Basis-Tutorial von Mozilla](https://developer.mozilla.org/de/docs/Learn/Getting_started_with_the_web/JavaScript_basis)<br><br>[Neue Funktionen in ES6](http://es6-features.org/) |
-| Docker | Software-Virtualisierung, genutzt für die Entwicklung | [Einführung in Docker](https://docs.docker.com/get-started/)<br><br>[Einführung in docker-compose](https://docs.docker.com/compose/) |
+| PHP | Basis für das Backend | [Basis PHP-Tutorial](https://www.tutorialspoint.com/php/index.htm) <br> [Sauberer PHP-Code schreiben](https://www.phptherightway.com/) |
+| Javascript (ES6) | Basis für das Frontend | [Basis-Tutorial von Mozilla](https://developer.mozilla.org/de/docs/Learn/Getting_started_with_the_web/JavaScript_basis) <br>[Neue Funktionen in ES6](http://es6-features.org/) |
+| Docker | Software-Virtualisierung, genutzt für die Entwicklung | [Einführung in Docker](https://docs.docker.com/get-started/) <br>[Einführung in docker-compose](https://docs.docker.com/compose/) |
 | Git | Versionsverwaltung | [Einführung in Git](https://git-scm.com/book/en/v2/Getting-Started-Git-Basics) |
 
 ### Backend
@@ -37,43 +29,37 @@ Die Ordner „api“ und „web-client“ haben jeweils eine Datei REAME.md mit 
 | Lumen | PHP Micro-Framework zur Datenbank-Abstraktion, MVC-konform. Lumen ist eine leichtere Version vom Laravel-Framework | [Offizielle Dokumentation](https://lumen.laravel.com/docs/5.6) |
 | Artisan	| Artisan ist Teil des Laravel Frameworks und bietet ein Konsolen-Interface mit nützlichen Befehlen. Wir verwenden „artisan serve“ beim Entwickeln und „artisan migrate“ für die Datenmigration. |
 | Composer | Composer ist ein serverseitiger Package Manager und verwaltet das Lumen-Framework mit allen Abhängigkeiten | [Offizielle Dokumentation](https://getcomposer.org/doc/) |
-| JWT-Auth | JSON Web-Token-Authentifizierung für PHP | [Mehr zu JWT](https://jwt.io/introduction/)<br><br>[Github-Repo von jwt-auth](https://github.com/tymondesigns/jwt-auth) |
+| JWT-Auth | JSON Web-Token-Authentifizierung für PHP | [Mehr zu JWT](https://jwt.io/introduction/) <br> [Github-Repo von jwt-auth](https://github.com/tymondesigns/jwt-auth) |
 
 ### Frontend
 | Name | Verwendung | Informationen / Tutorials |
 | --- | --- | --- |
-| React | Javascript View-Library | [Erforderliche JavaScript-Kenntnisse für React](https://www.robinwieruch.de/javascript-fundamentals-react-requirements/)<br><br>[Offizielles Tutorial von React](https://reactjs.org/docs/getting-started.html)<br><br>[Detaillierte Einführung in React](https://roadtoreact.com/) |
-| Yarn | Paketverwaltung und Entwicklungsserver ($yarn run watch) | [Yarn vs. NPM](https://www.sitepoint.com/yarn-vs-npm/)<br><br>[Offizielle Website von Yarn](https://yarnpkg.com/lang/en/) |
+| React | Javascript View-Library | [Erforderliche JavaScript-Kenntnisse für React](https://www.robinwieruch.de/javascript-fundamentals-react-requirements/) <br> [Offizielles Tutorial von React (eher oberflächlich und nicht als Einsteiger zu empfehlen!)](https://reactjs.org/docs/getting-started.html) <br> [Detaillierte Einführung in React](https://roadtoreact.com/) |
+| Yarn | Paketverwaltung und Entwicklungsserver ($yarn run watch) | [Yarn vs. NPM](https://www.sitepoint.com/yarn-vs-npm/) <br> [Offizielle Website von Yarn](https://yarnpkg.com/lang/en/) |
 | Babel  | Bibliothek zur Bereitstellung von JavaScript ES6-Funktionen in älteren Browsern | [Was ist Babel?](http://nicholasjohnson.com/blog/what-is-babel/) |
 | Webpack | Bundeling JS, CSS, SASS modules | [Einführung in Webpack (komplex!)](https://survivejs.com/webpack/foreword/) |
 | IZI Toast | Snackbar for Error and Feedback | [Offizielle Webseite](http://izitoast.marcelodolce.com/) |
 | Survey JS | Darstellung der User Feedbacks | [Offizielle Webseite](https://surveyjs.io/) |
 
-## Code Formatierung
+### Komponenten
 
-Das Backend und Frontend sollen immer sauber formatiert sein (wird von Travis überprüft).
+#### Profil
+Zivis können Ihre Informationen über den Menupunkt „Profil“ anpassen. Admins können alle Profile anpassen (Menupunkt „Mitarbeiterliste“) und haben zusätzlich die Möglichkeit, interne Bemerkungen zu schreiben und Benutzerrollen anzupassen.
 
-Vor dem commiten sollten immer die formatier-tools ausgeführt werden.
+#### Mission
+Hier werden alle Einsätze aufgeführt, die einem Pflichtenheft sowie einem Zivi zugeteilt wurden.
 
-Die Anleitungen dafür befinden sich in den jeweiligen [READMES](#ordnerstruktur).
+Es gibt zusätzlich die Mission Overview, in welcher man pro Jahr sehen kann, welche Zivis wann einen Einsatz haben.
 
-## Komponenten
+#### ReportSheet
+Das ReportSheet sind die Spesenblätter. Anhand der geleisteten Tage, Ferien etc. werden die fälligen Spesen pro Monat gerechnet. Die Spesenblätter kann jeder Zivi in seinem Profil anschauen sowie den Stand der Bearbeitung.
 
-### Profil
-Zivis können Ihre Informationen über den Menupunkt „Profil“ anpassen. Admins haben Zugriff auf alle Profile anpassen (Menupunkt „Mitarbeiterliste“) und haben zusätzlich die Möglichkeit, interne Bemerkungen zu schreiben und Benutzerrollen anzupassen.
-
-### Mission
-Im alten Izivi waren das die Einsätze. Darin werden alle Einsätze aufgeführt die einem Pflichtenheft sowie einem Zivi zugeteilt wurden.
-
-### ReportSheet
-Diese Komponente entspricht der Planung. Darin werden alle Zivis aufgeführt in einer Tabelle mit allen Arbeitswochen für dieses Jahr. Somit hat man einen schnellen Überblick ob zu einem bestimmten Zeitpunkt noch Platz frei für weitere Zivis ist oder nicht.
-
-### UserFeedback
-Nach dem Einsatz sollen die Zivis jeweils ein Feedback zum Betrieb, den Einsatzleitern und allgemein dem Einsatz bei der SWO abgeben. Diese werden Anonym gespeichert und in einer Gesamtauswertung für das Jahr dargestellt. Einsicht hat hier nur der Admin, resp. der Zivi hat einsicht auf sein eigenes Feedback.
+#### UserFeedback
+Nach dem Einsatz sollen die Zivis jeweils ein Feedback zum Betrieb, den Einsatzleitern und allgemein dem Einsatz bei der SWO abgeben. Diese werden anonym gespeichert und in einer Gesamtauswertung für das Jahr dargestellt. Einsicht hat hier nur der Admin, resp. der Zivi hat Einsicht auf sein eigenes Feedback.
 
 Die Darstellung des Feedback-Moduls basiert auf SurveyJS.io
 
-#### FeedbackController::getJSONbyQuestionType()
+##### FeedbackController::getJSONbyQuestionType()
 
 Hier wird ein JSON string aus den user_feedback_questions in der Datenbank zusammengestellt. Das Feld 'type' wird dabei verwendet, um den Fragetyp zu defninieren:
 
@@ -84,18 +70,58 @@ Hier wird ein JSON string aus den user_feedback_questions in der Datenbank zusam
 5. Ja/Nein-Frage
 6. Frage mit 6 Antworten, Antworden werden im 'custom_info' angegeben
 
-#### UserFeedback (Frontend)
+##### UserFeedback (Frontend)
 
-Im Frontend wird der JSON string vom Backend angezogen. Dieser String wird an die surveyjs library weitergegeben. Surveyjs rendert dann das HTML und setzt es in den Container „surveyContainer
+Im Frontend wird der JSON-String vom Backend angezogen. Dieser String wird an die surveyjs library weitergegeben. Surveyjs rendert dann das HTML und setzt es in den Container "surveyContainer".
 
-## Development Setup
+## Installation
+### Vorbereitung
+#### Homebrew für Mac
+Fast jede Linux-Distribution wird mit einem Paketmanager ausgeliefert. Diese ermöglichen dir, bequem neue Programme zu installieren, ohne dazu eine aufwendige Installation durchführen zu müssen. Unter Mac hat die Community homebrew entwickelt, um einen solchen Paketmanager auf Mac bereitzustellen.
 
-Um das Backend (API) lokal zu installieren, folge der Anleitung im api Ordner: 
-[api/readme.md](https://github.com/stiftungswo/izivi/blob/master/api/readme.md)
+Die Installation kann im Terminal mit einem Einzeiler angestossen werden, welcher sich auf der [offiziellen Website](https://brew.sh/index_de) befindet.
 
-Um mit der Entwicklung im Frontend zu starten, folge der folgenden Anleitung: [web-client/readme.md](https://github.com/stiftungswo/izivi/blob/master/web-client/readme.md)
+#### Docker
+Installation gemäss der Installationsanleitung auf der [Website](https://docs.docker.com/install/) durchführen. Wichtig: Für manche Betriebssysteme muss docker-compose noch separat installiert werden.
 
-## Deployment
+### Backend
+1. Ins Verzeichnis des iZivi wechseln (z.B. cd ``~/src/swo/izivi``)
+2. Docker-Image der API bauen: ``docker build -t izivi_api api``
+3. composer-Abhängigkeiten mit dem neuen Image installieren lassen: ``docker run --rm -v $PWD/api:/app -w /app izivi_api composer install``
+4. Docker-Stack starten: ``docker-compose up -d``
+5. .env Datei kopieren: ``cp api/.env.example api/.env``
+6. Neuen Applikationskey erstellen (wird in die .env-Datei eingefüllt): ``docker exec izivi_api php artisan key:generate``
+7. Neuen Key für die JWT-Tokens erstellen. Dieser muss manuell in die .env-Datei eingefüllt werden: ``docker exec izivi_api php artisan jwt:secret --show``
+8. Datenbank importieren:
+    - Datenbank bei Cyon als SQL exportieren (Datenbank -> MySQL -> stiftun8_izivi2 -> Backup)
+    - PHPMyAdmin öffnen, verfügbar unter `localhost:48080`
+    - Einloggen mit Server "mariadb", Benutzername "root", Passwort leer.
+    - Neue Datenbank erstellen namens "izivi" und den Datenbankexport von Cyon importieren.
+9. Die API ist nun unter `localhost:8000` erreichbar.
+
+### Frontend
+1. NodeJS installieren: ``brew install nodejs``
+2. yarn installieren: ``brew install yarn``
+3. Ins Verzeichnis des Web-Clients wechseln: ``cd ./web-client``
+4. Abhängigkeiten installieren: ``yarn install``
+5. Entwicklungsserver starten: ``yarn run start``
+
+### Git
+1. Git Pre-Commit Hook ins .git-Verzeichnis kopieren, damit die Änderung auf allenfalls fehlerhafte Formatierung getestet werden: ``cp hooks/pre-coomit .git/hooks``
+
+## Entwicklung
+### Code-Formatierung
+
+Das Backend und Frontend sollen immer sauber formatiert sein (wird von Travis überprüft).
+
+Vor dem commiten sollten immer die formatier-tools ausgeführt werden.
+
+* Backend: `docker exec izivi_api composer run format`
+* Frontend: `docker exec izivi_web-client yarn format`
+
+Für das Backend kommt [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer) zum Einsatz, welches den Code nach [PSR-2](https://www.php-fig.org/psr/psr-2/) formatiert. Für das Frontend übernimmt [Prettier](https://prettier.io) den Job.
+
+### Deployment
 
 Travis kann das Projekt mit seinen [deploy Skript](https://github.com/stiftungswo/izivi/blob/master/ci/deploy.sh) per SSH auf einem beliebigen Webhosting automatisch deployen. Dafür müssen auf dem Zielserver unter `~/deploy` folgende Files liegen:
 
@@ -109,8 +135,39 @@ Die Variablen werden im Travis Build abgefüllt.
 
 ### Deployment at SWO
 
-Weitere Informationen im [privaten Wiki](https://wiki.stiftungswo.ch/it:sw:izivi#deployment)
+Weitere Informationen im [privaten Wiki]
+(https://wiki.stiftungswo.ch/it:sw:izivi#deployment)
 
+## Nice-to-Know
+### Backend
+#### Logging
+Um Logs auszugeben, kann der Lumen Logger verwendet werden (z.B. `\Log::warning("your message here.");`). Die Dokumentation mit mehr Informationen befindet sich [hier](https://lumen.laravel.com/docs/5.2/errors). Die Logs werden nach `api/storage/logs/` geschrieben. Dieser Ordner wird zwischen dem Docker Container und deiner lokalen Maschine synchronisiert.
+
+#### Database Abstraction Layer
+Das Projekt enthält den standardmässigen Lumen DBAL als auch Doctrine. Grund dafür ist, dass für die Modifikation von bestehenden Tabellenspalten, welche bereits Daten enthalten, dies [benötigt](https://laravel.com/docs/5.6/migrations#modifying-columns) wird.
+
+#### Manuelles Live-Deployment
+1. Alle Dateien (ausser den vendor-Ordner) auf den Server kopieren
+2. Neue .env-Datei erstellen (oder Beispiel kopieren) und für den Server anpassen. Wichtig: APP_ENV auf "production" setzen und DEBUG auf "false".
+3. Auf den Server via SSH verbinden.
+4. [Composer installieren](https://getcomposer.org/download/) und Pakete mit ``php composer.phar install`` installieren.
+5. Falls Migrationen erzeugt wurden, diese via ``php artisan migrate`` ausführen.
+6. Sicherstellen, dass die Apache-Konfiguration auf den public folder zeigt.
+
+### Frontend
+#### Manuelles Live-Deployment
+1. "BASE_URL" in src/utils/api.js anpassen.
+2. ``yarn build`` auf der lokalen Maschine ausführen.
+3. Alle Dateien auf dem Server löschen und neue Dateien kopieren.
+4. Sicherstellen, dass eine .htaccess-Datei mit folgendem Inhalt existiert.
+```
+Options -MultiViews
+RewriteEngine On
+RewriteCond %{HTTPS} =off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [QSA,L,R=301]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]
+```
 
 ## License
 
