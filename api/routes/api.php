@@ -60,7 +60,6 @@ $api->version('v1', function ($api) {
         // User - Authenticated
         $api->get('/user', function () {
             $user = JWTAuth::parseToken()->authenticate();
-            $user->missions = $user->missions;
             $user->internal_note = null;
             return response()->json($user);
         });
@@ -92,6 +91,11 @@ $api->version('v1', function ($api) {
         });
 
         // Mission - Authenticated
+        $api->get('/missions', function () {
+            $user = JWTAuth::parseToken()->authenticate();
+            return response()->json($user->missions);
+        });
+
         $api->get('/mission/{id}/draft', [
             'as' => 'api.pdf',
             'uses' => 'App\Http\Controllers\PDF\PDFController@getAufgebot'

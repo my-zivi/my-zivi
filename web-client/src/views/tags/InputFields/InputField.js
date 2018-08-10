@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 
 export default class InputField extends Component {
-  getFormGroup({ inputField, additionalContent = null, contentWidth = 8, showLabel = true, label = this.props.label }) {
+  getFormGroup({
+    inputField,
+    additionalContent = null,
+    contentWidth = 8,
+    showLabel = true,
+    label = this.props.label,
+    groupClass = this.props.groupClass,
+  }) {
     let divClass = 'col-sm-' + contentWidth;
     if (!showLabel) {
       divClass = 'col';
     }
 
     return (
-      <div className={'form-group ' + this.props.groupClass}>
+      <div className={'form-group ' + groupClass}>
         {showLabel ? (
           <label className="control-label col-sm-3" htmlFor={this.props.id}>
             {label}
