@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 export default class InputField extends Component {
-  getFormGroup(inputField, additionalContent = null, contentWidth = 8, showLabel = true, label = this.props.label) {
+  getFormGroup({ inputField, additionalContent = null, contentWidth = 8, showLabel = true, label = this.props.label }) {
     let divClass = 'col-sm-' + contentWidth;
     if (!showLabel) {
       divClass = 'col';
@@ -27,17 +27,19 @@ export default class InputField extends Component {
   render() {
     let inputType = this.lookForInputType(this.props.inputType);
 
-    return this.getFormGroup(
-      <input
-        type={inputType}
-        id={this.props.id}
-        name={this.props.id}
-        value={this.props.value || ''}
-        className="form-control"
-        onChange={this.props.onInput}
-        readOnly={this.props.disabled}
-        step={this.props.step}
-      />
-    );
+    return this.getFormGroup({
+      inputField: (
+        <input
+          type={inputType}
+          id={this.props.id}
+          name={this.props.id}
+          value={this.props.value || ''}
+          className="form-control"
+          onChange={this.props.onInput}
+          readOnly={this.props.disabled}
+          step={this.props.step}
+        />
+      ),
+    });
   }
 }

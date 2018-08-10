@@ -18,17 +18,19 @@ export default class PhoneInput extends InputField {
   }
 
   render() {
-    return this.getFormGroup(
-      <input
-        type="tel"
-        id={this.props.id}
-        name={this.props.id}
-        value={this.props.value || ''}
-        className={'form-control'}
-        onChange={e => this.props.onInput(e.target.value, undefined)}
-        onBlur={() => this.validate()}
-        readOnly={this.props.disabled}
-      />
-    );
+    return this.getFormGroup({
+      inputField: (
+        <input
+          type="tel"
+          id={this.props.id}
+          name={this.props.id}
+          value={this.props.value || ''}
+          className={'form-control'}
+          onChange={e => this.props.onInput(e.target.value, undefined)}
+          onBlur={() => this.validate()}
+          readOnly={this.props.disabled}
+        />
+      ),
+    });
   }
 }
