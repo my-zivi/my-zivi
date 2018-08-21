@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import InputField from './InputField';
 import { api } from '../../../utils/api';
 
@@ -12,7 +11,6 @@ export default class PhoneInput extends InputField {
     };
 
     this.validate = this.validate.bind(this);
-    this.onValidate = _.throttle(this.validate, 3000);
   }
 
   async validate() {
