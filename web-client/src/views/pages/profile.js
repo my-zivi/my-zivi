@@ -44,20 +44,6 @@ export default class Profile extends Component {
             <h1>Profil</h1>
 
             <div className={'container'}>
-              <h3>Persönliche Informationen</h3>
-              <p>
-                Bitte fülle die folgenden Felder zu deiner Person wahrheitsgetreu aus. Dadurch erleichterst du dir und uns den
-                administrativen Aufwand. Wir verwenden diese Informationen ausschliesslich zur Erstellung der Einsatzplanung und zur
-                administrativen Abwicklung.
-              </p>
-              <p>
-                Bitte lies dir auch die näheren Informationen zu den jeweiligen Feldern unter dem{' '}
-                <span style={{ fontSize: '1em' }} className="glyphicon glyphicon-question-sign" aria-hidden="true" /> Icon jeweils durch.
-              </p>
-              <p>
-                <b>Wichtig:</b> Vergiss nicht zu speichern (Daten speichern) bevor du die Seite verlässt oder eine Einsatzplanung erfasst.
-              </p>
-              <br />
               <User onLoading={this.onLoading} onError={this.onError} userIdParam={userIdParam} />
               <br /> <hr /> <br />
             </div>
