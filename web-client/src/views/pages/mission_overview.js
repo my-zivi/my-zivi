@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import ScrollableCard from '../tags/scrollableCard';
 import Header from '../tags/header';
 import LoadingView from '../tags/loading-view';
@@ -194,15 +194,18 @@ export default class MissionOverview extends Component {
   render() {
     var specifications = [];
     var specs = this.state.specifications;
+
+    var specIdsOfMissions = this.state.missions.map(mission => mission.specId).filter((elem, index, arr) => index === arr.indexOf(elem));
+
     for (let x = 0; x < specs.length; x++) {
-      if (specs[x].active) {
+      if (specIdsOfMissions.includes(specs[x].id)) {
         specifications.push(
-          <div className="checkbox no-print">
+          <div className="checkbox no-print" key={x}>
             <label>
               <input
                 type="checkbox"
                 name={x}
-                defaultChecked={true}
+                checked={specs[x].selected}
                 onChange={e => {
                   this.toggleSpecification(e);
                 }}
@@ -216,7 +219,11 @@ export default class MissionOverview extends Component {
 
     var yearOptions = [];
     for (let i = 2005; i <= new Date().getFullYear() + 1; i++) {
-      yearOptions.push(<option value={i}>{i}</option>);
+      yearOptions.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      );
     }
 
     var weekCount = this.state.weekCount;
@@ -239,8 +246,8 @@ export default class MissionOverview extends Component {
           weekCountSum += weekCount[specs[x].id][i];
         }
       }
-      weekHeaders.push(<td>{i}</td>);
-      averageHeaders.push(<td>{weekCountSum}</td>);
+      weekHeaders.push(<td key={i}>{i}</td>);
+      averageHeaders.push(<td key={i}>{weekCountSum}</td>);
       averageCount += weekCountSum;
       if (
         moment(startDate)
@@ -249,7 +256,11 @@ export default class MissionOverview extends Component {
       ) {
         // cell width (25px) must be the same as in mission_overview.sass
         monthHeaders.push(
-          <td style={{ fontWeight: 'bold', maxWidth: 25 * monthColCount + 'px', overflow: 'hidden' }} colSpan={monthColCount}>
+          <td
+            style={{ fontWeight: 'bold', maxWidth: 25 * monthColCount + 'px', overflow: 'hidden' }}
+            colSpan={monthColCount}
+            key={'month_header_' + i}
+          >
             {this.monthNames[prevMonth]}
           </td>
         );
@@ -260,7 +271,7 @@ export default class MissionOverview extends Component {
       startDate.setDate(startDate.getDate() + 7);
     }
     monthHeaders.push(
-      <td style={{ fontWeight: 'bold' }} colSpan={monthColCount}>
+      <td style={{ fontWeight: 'bold' }} colSpan={monthColCount} key={this.monthNames.indexOf(this.monthNames[prevMonth])}>
         {this.monthNames[prevMonth]}
       </td>
     );
@@ -314,7 +325,7 @@ export default class MissionOverview extends Component {
                   {averageHeaders}
                 </tr>
               </thead>
-              <tbody>{this.state.missions.map(row => this.isSpecSelected(row.specId) && <Row {...row} />)}</tbody>
+              <tbody>{this.state.missions.map(row => this.isSpecSelected(row.specId) && <Row key={row.zdp} {...row} />)}</tbody>
             </table>
           </ScrollableCard>
           <LoadingView loading={this.state.loadingMissions || this.state.loadingSpecifications} error={this.state.error} />
@@ -337,8 +348,10 @@ function Row({ specId, shortName, zdp, userId, userName, cells }) {
         <a href={'/profile/' + userId}>{userName}</a>
       </td>
 
-      {cells.map(({ content, ...props }) => (
-        <td {...props}>{content}</td>
+      {cells.map(({ content, ...props }, index) => (
+        <td key={index} {...props}>
+          {content}
+        </td>
       ))}
     </tr>
   );

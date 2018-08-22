@@ -3,8 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Holiday;
+use App\Mail\UpdateHoliday;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class CheckHolidayCommand extends Command
 {
@@ -42,13 +44,16 @@ class CheckHolidayCommand extends Command
         $holiday = Holiday::query()->orderBy('date_from', 'desc')->firstOrFail();
         $holidayDate = Carbon::parse($holiday->date_from);
 
-        $minDate = Carbon::now()->addMonth()->addWeeks(3);
+        $minDate = Carbon::now()->addYear();
 
         if ($holidayDate > $minDate) {
             return; // all good
         }
 
-        $this->line('Es sind nicht mehr genügend Feiertage im Dime eingetragen!');
-        $this->line('Es müssen immer für mindestens das nächste Jahr Feiertage hinterlegt sein.');
+        if (app()->environment('production')) {
+            Mail::to(env('API_MAIL_FEEDBACK', "office@stiftungswo.ch"))->send(new UpdateHoliday());
+        } else {
+            Mail::to(env('API_MAIL_FEEDBACK', "test@stiftungswo.ch"))->send(new UpdateHoliday());
+        }
     }
 }

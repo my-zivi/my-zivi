@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import Card from '../tags/card';
 import InputField from '../tags/InputFields/InputField';
 import InputCheckbox from '../tags/InputFields/InputCheckbox';
@@ -12,9 +12,10 @@ import Toast from '../../utils/toast';
 import moment from 'moment-timezone';
 import { api, apiURL } from '../../utils/api';
 import Auth from '../../utils/auth';
+import { Link } from 'react-router-dom';
 
 export default class User extends Component {
-  constructor(props, { router }) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -33,7 +34,6 @@ export default class User extends Component {
 
     this.adminFields = new AdminRestrictedFields();
     this.missionTag = new Missions();
-    this.router = router;
   }
 
   componentDidMount() {
@@ -334,7 +334,7 @@ export default class User extends Component {
                 <h3>Bank-/Postverbindung</h3>
 
                 <div className={'form-group ' + (this.validateIBAN(result.bank_iban) ? '' : 'has-warning')} id="ibanFormGroup">
-                  <label className="control-label col-sm-3" for="bank_iban">
+                  <label className="control-label col-sm-3" htmlFor="bank_iban">
                     IBAN-Nr.
                   </label>
                   <div className="col-sm-8">
@@ -342,9 +342,9 @@ export default class User extends Component {
                       type="text"
                       id="bank_iban"
                       name="bank_iban"
-                      value={result.bank_iban}
+                      value={result.bank_iban || ''}
                       className="form-control"
-                      onInput={e => this.handleIBANChange(e)}
+                      onChange={e => this.handleIBANChange(e)}
                     />
                   </div>
                   <div id="_helpiban" className="col-sm-1 hidden-xs">
@@ -354,7 +354,7 @@ export default class User extends Component {
                   </div>
                 </div>
                 <div className="form-group" id="bicFormGroup">
-                  <label className="control-label col-sm-3" for="bank_bic">
+                  <label className="control-label col-sm-3" htmlFor="bank_bic">
                     BIC/SWIFT
                   </label>
                   <div className="col-sm-8">
@@ -362,9 +362,9 @@ export default class User extends Component {
                       type="text"
                       id="bank_bic"
                       name="bank_bic"
-                      value={result.bank_bic}
+                      value={result.bank_bic || ''}
                       className="form-control"
-                      onInput={e => this.handleChange(e)}
+                      onChange={e => this.handleChange(e)}
                     />
                   </div>
                   <div id="_helpbic" className="col-sm-1 hidden-xs">
@@ -380,7 +380,7 @@ export default class User extends Component {
                 <hr />
                 <h3>Krankenkasse</h3>
                 <div className="form-group" id="healthInsuranceFormGroup">
-                  <label className="control-label col-sm-3" for="health_insurance">
+                  <label className="control-label col-sm-3" htmlFor="health_insurance">
                     Krankenkasse (Name und Ort)
                   </label>
                   <div className="col-sm-8">
@@ -388,9 +388,9 @@ export default class User extends Component {
                       type="text"
                       id="health_insurance"
                       name="health_insurance"
-                      value={result.health_insurance}
+                      value={result.health_insurance || ''}
                       className="form-control"
-                      onInput={e => this.handleIBANChange(e)}
+                      onChange={e => this.handleIBANChange(e)}
                     />
                   </div>
                   <div id="_helpiban" className="col-sm-1 hidden-xs">
@@ -403,7 +403,7 @@ export default class User extends Component {
 
                 <h3>Diverse Informationen</h3>
                 <div className="form-group">
-                  <label className="control-label col-sm-3" for="berufserfahrung">
+                  <label className="control-label col-sm-3" htmlFor="berufserfahrung">
                     Berufserfahrung
                   </label>
                   <div className="col-sm-8">
@@ -411,8 +411,8 @@ export default class User extends Component {
                       rows="4"
                       id="work_experience"
                       name="work_experience"
-                      class="form-control"
-                      value={result.work_experience}
+                      className="form-control"
+                      value={result.work_experience || ''}
                       onInput={e => this.handleChange(e)}
                     />
                   </div>
@@ -424,7 +424,7 @@ export default class User extends Component {
                 </div>
 
                 <div className="form-group">
-                  <label className="control-label col-sm-3" for="hometown">
+                  <label className="control-label col-sm-3" htmlFor="hometown">
                     Regionalzentrum
                   </label>
                   <div className="col-sm-8">
@@ -574,13 +574,9 @@ export default class User extends Component {
                             </td>
                             {Auth.isAdmin() ? (
                               <td>
-                                <button
-                                  name="editReportSheet"
-                                  className="btn btn-link btn-xs btn-warning"
-                                  onClick={() => this.router.history.push('/expense/' + obj.id)}
-                                >
+                                <Link to={'/expense/' + obj.id} className={'btn btn-link btn-xs btn-warning'} name={'editReportSheet'}>
                                   <span className="glyphicon glyphicon-edit" aria-hidden="true" /> Bearbeiten
-                                </button>
+                                </Link>
                               </td>
                             ) : null}
                           </tr>

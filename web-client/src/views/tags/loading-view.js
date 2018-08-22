@@ -1,5 +1,5 @@
-import { Component } from 'inferno';
-import { Redirect, withRouter } from 'inferno-router';
+import React, { Component } from 'react';
+import { Redirect, withRouter } from 'react-router-dom';
 import { api } from '../../utils/api';
 import Auth from '../../utils/auth';
 

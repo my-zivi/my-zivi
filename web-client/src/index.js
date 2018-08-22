@@ -1,7 +1,7 @@
 import 'babel-polyfill';
-import * as Inferno from 'inferno';
-import { Router } from 'inferno-router';
-import { initDevTools } from 'inferno-devtools';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import views from './views';
 import './index.css';
@@ -28,11 +28,7 @@ Raven.context(() => {
 
   const browserHistory = createBrowserHistory();
 
-  if (process.env.NODE_ENV !== 'production') {
-    initDevTools();
-  }
-
-  Inferno.render(<Router history={browserHistory}>{views}</Router>, document.getElementById('root'));
+  ReactDOM.render(<Router history={browserHistory}>{views}</Router>, document.getElementById('root'));
 });
 
 if (process.env.NODE_ENV === 'production') {

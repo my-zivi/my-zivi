@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import ScrollableCard from '../tags/scrollableCard';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -165,7 +165,7 @@ export default class Freeday extends Component {
             type="text"
             value={this.state.newFreeday.description}
             name="description"
-            onInput={e => this.handleChangeNew(e)}
+            onChange={e => this.handleChangeNew(e)}
           />
         </td>
         <td>
@@ -180,7 +180,7 @@ export default class Freeday extends Component {
     var freedays = this.state.freedays;
     for (let i = 0; i < freedays.length; i++) {
       tbody.push(
-        <tr>
+        <tr key={this.state.freedays[i].id}>
           <td>
             <DatePicker
               id="date_from"
@@ -209,7 +209,7 @@ export default class Freeday extends Component {
               type="text"
               name="description"
               value={freedays[i].description}
-              onInput={e => this.handleChange(e, i)}
+              onChange={e => this.handleChange(e, i)}
             />
           </td>
           <td>

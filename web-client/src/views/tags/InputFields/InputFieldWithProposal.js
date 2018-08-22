@@ -1,3 +1,4 @@
+import React from 'react';
 import InputField from './InputField';
 
 export default class InputFieldWithProposal extends InputField {
@@ -36,9 +37,9 @@ export default class InputFieldWithProposal extends InputField {
           type={inputType}
           id={this.props.id}
           name={this.props.id}
-          value={this.props.value}
+          value={this.props.value || ''}
           className="form-control"
-          onInput={this.props.onInput}
+          onChange={this.props.onInput}
           readOnly={this.props.disabled}
           step={this.props.step}
         />
@@ -72,9 +73,9 @@ export default class InputFieldWithProposal extends InputField {
         type="text"
         id={this.props.commentId}
         name={this.props.commentId}
-        value={this.props.commentValue}
+        value={this.props.commentValue || ''}
         className="form-control"
-        onInput={this.props.onInput}
+        onChange={this.props.onInput}
       />
     );
   }

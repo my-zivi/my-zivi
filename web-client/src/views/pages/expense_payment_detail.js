@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import ScrollableCard from '../tags/scrollableCard';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -124,7 +124,7 @@ export default class ExpensePaymentDetail extends Component {
                 </thead>
                 <tbody>
                   {sheets.map(sheet => (
-                    <tr>
+                    <tr key={sheet.report_sheet}>
                       <td>{sheet.zdp}</td>
                       <td>
                         <a href={'/profile/' + sheet.userid}>

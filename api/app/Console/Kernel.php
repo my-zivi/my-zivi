@@ -33,6 +33,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(SendFeedbackReminderMails::class)->daily();
+        $schedule->command(SendFeedbackReminderMails::class)->weeklyOn(0, '8:00');
+        $schedule->command(CheckHolidayCommand::class)->weeklyOn(0, '8:00');
     }
 }

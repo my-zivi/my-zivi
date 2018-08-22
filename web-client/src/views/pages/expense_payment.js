@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 import ScrollableCard from '../tags/scrollableCard';
 import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
@@ -74,7 +74,7 @@ export default class ExpensePayment extends Component {
 
     for (let i = 0; i < sheets.length; i++) {
       tableBody.push(
-        <tr>
+        <tr key={sheets[i].sheet_id}>
           <td>{sheets[i].zdp}</td>
           <td>
             <a href={'/profile/' + sheets[i].userid}>
@@ -94,7 +94,7 @@ export default class ExpensePayment extends Component {
 
     for (let i = 0; i < sheets.length; i++) {
       tableBodyInvalid.push(
-        <tr>
+        <tr key={sheets[i].sheet_id}>
           <td>{sheets[i].zdp}</td>
           <td>
             <a href={'/profile/' + sheets[i].userid}>
@@ -114,7 +114,7 @@ export default class ExpensePayment extends Component {
     var payments = this.state.report_sheets.archive;
     for (let i = payments.length - 1; i >= 0; i--) {
       tableBodyArchive.push(
-        <tr>
+        <tr key={payments[i].id}>
           <td>
             {moment
               .tz(payments[i].created_at, 'UTC')
