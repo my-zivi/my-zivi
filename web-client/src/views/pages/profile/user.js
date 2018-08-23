@@ -64,6 +64,8 @@ export default class User extends Component {
   handleChange(e) {
     if (e.target.type === 'checkbox') {
       this.changeResult(e.target.name, !this.state.user[e.target.name]);
+    } else if (e.target.hasAttribute('data-datepicker')) {
+      this.changeResult(e.target.name, DatePicker.dateFormat_CH2EN(e.target.value));
     } else {
       this.changeResult(e.target.name, e.target.value);
     }

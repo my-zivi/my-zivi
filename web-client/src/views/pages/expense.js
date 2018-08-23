@@ -389,10 +389,10 @@ export default class ExpenseOverview extends Component {
                     />
                   </td>
                   <td>
-                    <DatePicker id="start" value={null} onChange={this.handleDateChange.bind(this)} showLabel={false} />
+                    <DatePicker id="start" value={this.state.start} onChange={this.handleDateChange.bind(this)} showLabel={false} />
                   </td>
                   <td>
-                    <DatePicker id="end" value={null} onChange={this.handleDateChange.bind(this)} showLabel={false} />
+                    <DatePicker id="end" value={this.state.end} onChange={this.handleDateChange.bind(this)} showLabel={false} />
                   </td>
                   <td />
                   <td />
