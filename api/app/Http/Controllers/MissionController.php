@@ -23,6 +23,10 @@ class MissionController extends Controller
         $this->fillAttributes($mission);
 
         $user = JWTAuth::parseToken()->authenticate();
+        if ($mission->user == 'me') {
+            $mission->user = $user->id;
+        }
+
         if (!$user->isAdmin() && $user->id!=$mission->user) {
             return response("not allowed", 401);
         }

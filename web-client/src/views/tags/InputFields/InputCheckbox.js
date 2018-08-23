@@ -10,7 +10,7 @@ export default class InputCheckbox extends InputField {
         <input
           type="checkbox"
           id={this.props.id}
-          name={this.props.id}
+          name={this.props.name || this.props.id}
           checked={isChecked}
           className="form-control"
           onChange={this.props.onChange}

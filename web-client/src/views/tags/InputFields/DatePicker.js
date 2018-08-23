@@ -47,6 +47,9 @@ export default class DatePicker extends InputField {
       showLabel = this.props.showLabel;
     }
 
+    // update datepicker itself with the new date
+    window.$(this.picker).datepicker('update', DatePicker.dateFormat_EN2CH(this.props.value));
+
     return this.getFormGroup({
       inputField: (
         <div
@@ -56,14 +59,16 @@ export default class DatePicker extends InputField {
         >
           {/* todo fixme compare this onInput / onChange with original (ability to hand edit the date)*/}
           <input
-            type="text"
+            autoComplete="off"
             className="form-control"
+            data-datepicker
             id={this.props.id}
-            name={this.props.id}
-            defaultValue={dateValue}
+            name={this.props.name || this.props.id}
+            onChange={this.props.onChange}
             ref={input => (this.input = input)}
             readOnly={this.props.disabled}
-            autoComplete="off"
+            type="text"
+            value={dateValue}
           />
           <span className="input-group-addon add-on">
             <span className="glyphicon glyphicon-calendar" />

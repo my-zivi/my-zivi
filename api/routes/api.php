@@ -91,7 +91,7 @@ $api->version('v1', function ($api) {
         });
 
         // Mission - Authenticated
-        $api->get('/missions', function () {
+        $api->get('/user/missions', function () {
             $user = JWTAuth::parseToken()->authenticate();
             return response()->json($user->missions);
         });
@@ -200,9 +200,14 @@ $api->version('v1', function ($api) {
 
             $api->get('/user/{id}', function ($id) {
                 $user = App\User::find($id);
-                $user->missions = $user->missions;
                 return response()->json($user);
             });
+
+            $api->get('/user/{id}/missions', function ($id) {
+                $user = App\User::find($id);
+                return response()->json($user->missions);
+            });
+
             $api->delete('/user/{id}', function ($id) {
                 App\User::destroy($id);
                 return response("deleted");

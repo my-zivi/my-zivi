@@ -282,7 +282,7 @@ export default class User extends Component {
                 id={'work_experience'}
                 name={'work_experience'}
                 className={'form-control'}
-                value={user.work_experience}
+                value={user.work_experience || ''}
                 onChange={e => this.handleChange(e)}
               />
             </div>

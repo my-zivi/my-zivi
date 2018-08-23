@@ -10,7 +10,7 @@ export default class InputFieldWithHelpText extends InputField {
         <input
           type={inputType}
           id={this.props.id}
-          name={this.props.id}
+          name={this.props.name || this.props.id}
           value={this.props.value || ''}
           className="form-control"
           onChange={this.props.onChange}

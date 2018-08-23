@@ -3,6 +3,7 @@ import Card from '../tags/card';
 import Header from '../tags/header';
 import LoadingView from '../tags/loading-view';
 import User from './profile/user';
+import Commitment from './profile/commitment';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -45,7 +46,8 @@ export default class Profile extends Component {
 
             <div className={'container'}>
               <User onLoading={this.onLoading} onError={this.onError} userIdParam={userIdParam} />
-              <br /> <hr /> <br />
+              <hr />
+              <Commitment onLoading={this.onLoading} onError={this.onError} userIdParam={userIdParam} />
             </div>
           </Card>
 
