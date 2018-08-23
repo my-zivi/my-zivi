@@ -18,6 +18,7 @@ export default class Header extends Component {
     return (
       <React.Fragment>
         <BootstrapNavLink to="/profile">Profil</BootstrapNavLink>
+        <BootstrapNavLink to="/changePassword">Passwort ändern</BootstrapNavLink>
         <BootstrapNavLink to="/logout">Abmelden</BootstrapNavLink>
       </React.Fragment>
     );

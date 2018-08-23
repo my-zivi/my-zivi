@@ -123,8 +123,6 @@ export default class Commitment extends Component {
       return;
     }
 
-    console.log(mission.probation_period ? 'value is true' : 'value is false');
-    console.log(+mission.mission_type !== 2);
     if (moment(mission.end).isoWeekday() !== 5 && +mission.mission_type !== 2 && !mission.probation_period) {
       Toast.showError(
         'Falsches Einsatzende',
