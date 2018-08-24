@@ -23,7 +23,7 @@ class UserController extends Controller
     /**
      * Get authenticated user.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function getZivis()
     {
