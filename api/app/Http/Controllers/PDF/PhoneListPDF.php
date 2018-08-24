@@ -192,7 +192,7 @@ class PhoneListPDF extends PDF
         $pdf->Cell(0, 0, $this->typeOfNumber);
         $cx += 5;
         // the phone number should be aligned right
-        $phonecx = $cx + 25 - $pdf->GetStringWidth($phone);
+        $phonecx = $cx + 28 - $pdf->GetStringWidth($phone);
         $pdf->SetXY($phonecx, $cy);
         $pdf->Cell(0, 0, $phone);
         $cx += 35;
