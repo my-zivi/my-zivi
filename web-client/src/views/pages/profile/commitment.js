@@ -13,7 +13,7 @@ export default class Commitment extends Component {
     super(props);
 
     this.state = {
-      missions: [{ id: 'new' }],
+      missions: [{ id: 'new', specification: '0' }],
       reportSheets: [],
       specifications: [],
     };
@@ -47,7 +47,7 @@ export default class Commitment extends Component {
       .get(route)
       .then(response => {
         this.setState({
-          missions: response.data.concat([{ id: 'new' }]),
+          missions: response.data.concat([{ id: 'new', specification: '0' }]),
         });
 
         this.props.onLoading('missions', false);
