@@ -68,11 +68,11 @@ export default class Login extends Component {
     if (query.has('path')) {
       let url = query.get('path');
       if (url.startsWith('/login')) {
-        url = '/';
+        url = Auth.isAdmin() ? '/' : '/profile';
       }
       return url;
     }
-    return '/';
+    return Auth.isAdmin() ? '/' : '/profile';
   }
 
   render() {

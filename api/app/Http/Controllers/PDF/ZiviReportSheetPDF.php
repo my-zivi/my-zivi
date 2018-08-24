@@ -24,6 +24,7 @@ class ZiviReportSheetPDF extends PDF
     private $overview_shade_width = 110;
     private $bank_shade_width = 125;
     private $additional_offset = 5;
+    private $max_rendered_comment_lines = 2;
 
     private $col = array(65, 90, 113, 131, 149, 168);
     private $shade_width = array(24, 22, 17, 17, 17, 22);
@@ -78,8 +79,7 @@ class ZiviReportSheetPDF extends PDF
             $comment_chunks = str_split($comment, 95);
         }
 
-        $max_rendered_lines = 2;
-        for ($i = 0; $i < $max_rendered_lines; $i++) {
+        for ($i = 0; $i < $this->max_rendered_comment_lines; $i++) {
             if ($i !== 0) {
                 $this->y_offset = $this->y_offset + $this->comment_line_break2;
             }

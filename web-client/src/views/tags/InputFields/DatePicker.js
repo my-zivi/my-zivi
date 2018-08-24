@@ -47,30 +47,35 @@ export default class DatePicker extends InputField {
       showLabel = this.props.showLabel;
     }
 
-    return this.getFormGroup(
-      <div
-        className={'input-group input-append date ' + (this.props.disabled ? '' : 'datePicker')}
-        id="datePicker"
-        ref={picker => (this.picker = picker)}
-      >
-        {/* todo fixme compare this onInput / onChange with original (ability to hand edit the date)*/}
-        <input
-          type="text"
-          className="form-control"
-          id={this.props.id}
-          name={this.props.id}
-          defaultValue={dateValue}
-          ref={input => (this.input = input)}
-          readOnly={this.props.disabled}
-          autoComplete="off"
-        />
-        <span className="input-group-addon add-on">
-          <span className="glyphicon glyphicon-calendar" />
-        </span>
-      </div>,
-      null,
-      showLabel ? 8 : 12,
-      showLabel
-    );
+    // update datepicker itself with the new date
+    window.$(this.picker).datepicker('update', DatePicker.dateFormat_EN2CH(this.props.value));
+
+    return this.getFormGroup({
+      inputField: (
+        <div
+          className={'input-group input-append date ' + (this.props.disabled ? '' : 'datePicker')}
+          id="datePicker"
+          ref={picker => (this.picker = picker)}
+        >
+          {/* todo fixme compare this onInput / onChange with original (ability to hand edit the date)*/}
+          <input
+            autoComplete="off"
+            className="form-control"
+            data-datepicker
+            id={this.props.id}
+            name={this.props.name || this.props.id}
+            onChange={this.props.onChange}
+            ref={input => (this.input = input)}
+            readOnly={this.props.disabled}
+            type="text"
+            value={dateValue}
+          />
+          <span className="input-group-addon add-on">
+            <span className="glyphicon glyphicon-calendar" />
+          </span>
+        </div>
+      ),
+      contentWidth: showLabel ? 8 : 12,
+    });
   }
 }

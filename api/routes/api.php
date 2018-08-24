@@ -60,7 +60,6 @@ $api->version('v1', function ($api) {
         // User - Authenticated
         $api->get('/user', function () {
             $user = JWTAuth::parseToken()->authenticate();
-            $user->missions = $user->missions;
             $user->internal_note = null;
             return response()->json($user);
         });
@@ -92,6 +91,11 @@ $api->version('v1', function ($api) {
         });
 
         // Mission - Authenticated
+        $api->get('/user/missions', function () {
+            $user = JWTAuth::parseToken()->authenticate();
+            return response()->json($user->missions);
+        });
+
         $api->get('/mission/{id}/draft', [
             'as' => 'api.pdf',
             'uses' => 'App\Http\Controllers\PDF\PDFController@getAufgebot'
@@ -196,9 +200,14 @@ $api->version('v1', function ($api) {
 
             $api->get('/user/{id}', function ($id) {
                 $user = App\User::find($id);
-                $user->missions = $user->missions;
                 return response()->json($user);
             });
+
+            $api->get('/user/{id}/missions', function ($id) {
+                $user = App\User::find($id);
+                return response()->json($user->missions);
+            });
+
             $api->delete('/user/{id}', function ($id) {
                 App\User::destroy($id);
                 return response("deleted");

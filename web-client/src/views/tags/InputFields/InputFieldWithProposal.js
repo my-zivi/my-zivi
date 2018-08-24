@@ -21,7 +21,12 @@ export default class InputFieldWithProposal extends InputField {
 
     return (
       <div>
-        {this.getFormGroup(this.getMainInputField(), this.getProposalField(), 4, true, this.props.valueLabel)}
+        {this.getFormGroup({
+          inputField: this.getMainInputField(),
+          additionalContent: this.getProposalField(),
+          contentWidth: 4,
+          label: this.props.valueLabel,
+        })}
         <div className="proposalComment">{commentField}</div>
         <hr />
       </div>
