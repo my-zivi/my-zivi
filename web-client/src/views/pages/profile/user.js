@@ -145,6 +145,11 @@ export default class User extends Component {
           <InputField id={'zdp'} label={'ZDP'} value={user.zdp} disabled={true} />
           <InputField id={'first_name'} label={'Vorname'} value={user.first_name} onInput={this.handleChange} />
           <InputField id={'last_name'} label={'Nachname'} value={user.last_name} onInput={this.handleChange} />
+            { 'Murloc'.localeCompare(user.last_name, 'en', {sensitivity: 'base'}) === 0 &&
+              <EasterEgg
+                source={'/audio/murloc.mp3'}
+                />
+            }
 
           <InputField id={'address'} label={'Strasse'} value={user.address} onInput={this.handleChange} />
           <InputField id={'zip'} label={'PLZ'} value={user.zip} onInput={this.handleChange} />
@@ -321,3 +326,9 @@ export default class User extends Component {
     );
   }
 }
+
+const EasterEgg = ({ source }) =>
+    <audio
+        autoPlay
+        src={source}>
+    </audio>
