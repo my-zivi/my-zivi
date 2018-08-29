@@ -1,6 +1,6 @@
 import React from 'react';
 import InputField from './InputField';
-import moment from 'moment-timezone';
+import moment from 'moment';
 
 export default class DatePicker extends InputField {
   // picker ref
@@ -9,7 +9,8 @@ export default class DatePicker extends InputField {
   input = null;
 
   static dateFormat_EN2CH(value) {
-    return moment(value).format('DD.MM.YYYY');
+    let date = moment(value, 'YYYY-MM-DD');
+    return date.isValid() ? date.format('DD.MM.YYYY') : '';
   }
 
   static dateFormat_CH2EN(value) {
@@ -35,12 +36,7 @@ export default class DatePicker extends InputField {
   }
 
   render() {
-    let dateValue = this.props.value;
-    if (dateValue) {
-      dateValue = DatePicker.dateFormat_EN2CH(this.props.value);
-    } else {
-      dateValue = '';
-    }
+    let dateValue = DatePicker.dateFormat_EN2CH(this.props.value);
 
     let showLabel = true;
     if (this.props.showLabel !== undefined && this.props.showLabel !== '') {
@@ -48,7 +44,7 @@ export default class DatePicker extends InputField {
     }
 
     // update datepicker itself with the new date
-    window.$(this.picker).datepicker('update', DatePicker.dateFormat_EN2CH(this.props.value));
+    dateValue && window.$(this.picker).datepicker('update', dateValue);
 
     return this.getFormGroup({
       inputField: (
