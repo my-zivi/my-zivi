@@ -80,7 +80,7 @@ export default class ChangePassword extends Component {
       <Header>
         <div className="page page__user_list">
           <Card>
-            <h1>Passwort Ändern</h1>
+            <h1>Passwort ändern</h1>
             {this.state.errorBox}
             {this.state.confirmBox}
             <div className="container">
@@ -93,16 +93,7 @@ export default class ChangePassword extends Component {
                   this.save();
                 }}
               >
-                <hr />
-                <input name="id" value="00000" type="hidden" />
-                <button type="button" name="back" className="btn btn-primary" onClick={e => this.redirectBack(e)}>
-                  Abbrechen
-                </button>
-                <hr />
-
-                <h3>Passwort</h3>
-
-                <div className="form-group has-feedback">
+                <div className="form-group">
                   <label className="control-label col-sm-3" htmlFor="old_password">
                     Altes Passwort
                   </label>
@@ -121,7 +112,7 @@ export default class ChangePassword extends Component {
                 </div>
 
                 <div className="form-group has-feedback">
-                  <label className="control-label col-sm-3" htmlFor="old_password">
+                  <label className="control-label col-sm-3" htmlFor="new_password">
                     Neues Passwort
                   </label>
                   <div className="col-sm-9">
@@ -143,7 +134,7 @@ export default class ChangePassword extends Component {
                 </div>
 
                 <div className="form-group has-feedback">
-                  <label className="control-label col-sm-3" htmlFor="old_password">
+                  <label className="control-label col-sm-3" htmlFor="new_password_2">
                     Wiederholen
                   </label>
                   <div className="col-sm-9">
@@ -165,9 +156,18 @@ export default class ChangePassword extends Component {
                   <div className="help-block with-errors col-sm-9" />
                 </div>
 
-                <button type="submit" className="btn btn-primary">
-                  Absenden
-                </button>
+                <div className="form-group">
+                  <div className="col-sm-1">
+                    <button type="submit" className="btn btn-primary ">
+                      Absenden
+                    </button>
+                  </div>
+                  <div className="col-sm-1">
+                    <button type="button" name="back" className="btn btn-danger" onClick={e => this.redirectBack(e)}>
+                      Abbrechen
+                    </button>
+                  </div>
+                </div>
               </form>
             </div>
           </Card>
