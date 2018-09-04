@@ -27,6 +27,23 @@ export default class ExpenseOverview extends Component {
       time_year: new Date().getFullYear(),
       showOnlyDoneSheets: 1,
     };
+
+    this.changeTimeType = this.changeTimeType.bind(this);
+    this.changeShowOnlyDoneSheets = this.changeShowOnlyDoneSheets.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
+  }
+
+  changeShowOnlyDoneSheets(value) {
+    this.setState({
+      showOnlyDoneSheets: value,
+    });
+  }
+
+  changeTimeType(value) {
+    this.setState({
+      time_type: value,
+    });
   }
 
   componentDidMount() {
@@ -225,26 +242,13 @@ export default class ExpenseOverview extends Component {
                   </div>
                   <div className="modal-body">
                     <div className="btn-group btn-block" data-toggle="buttons">
-                      <label
-                        className="btn btn-default active"
-                        data-toggle="collapse"
-                        data-target="#datePickerContainer.in"
-                        style={{ width: '598px', borderRadius: '5px', margin: '0px' }}
-                      >
-                        <input
-                          type="radio"
-                          name="time_type"
-                          value="0"
-                          defaultChecked="true"
-                          onChange={e => {
-                            this.handleChange(e);
-                          }}
-                        />{' '}
+                      <label className="btn btn-default active" style={{ width: '100%', borderRadius: '5px', margin: '0px' }}>
                         Jahr:&nbsp;
                         <select
                           name="time_year"
                           defaultValue={curMonthDate.getFullYear()}
                           onChange={e => {
+                            this.changeTimeType(0);
                             this.handleChange(e);
                           }}
                           style={{ color: 'black' }}
@@ -253,99 +257,65 @@ export default class ExpenseOverview extends Component {
                         </select>
                       </label>
 
-                      <label
-                        className="btn btn-default"
+                      <a
+                        className={'btn btn-default'}
                         data-toggle="collapse"
                         data-target="#datePickerContainer:not(.in)"
-                        style={{ width: '598px', borderRadius: '5px', margin: '0px' }}
+                        onClick={() => this.changeTimeType(1)}
+                        style={{ width: '100%', borderRadius: '5px', margin: '0px' }}
                       >
-                        <input
-                          type="radio"
-                          name="time_type"
-                          value="1"
-                          onChange={e => {
-                            this.handleChange(e);
-                          }}
-                        />{' '}
-                        Periode:&nbsp;
-                      </label>
+                        Periode:
+                      </a>
+
                       <div id="datePickerContainer" className="panel-collapse collapse ">
                         <div className="btn-group-justified">
                           <label className="btn">
-                            <DatePicker
-                              id="time_from"
-                              label="Von"
-                              value={this.state.time_from}
-                              onChange={this.handleDateChange.bind(this)}
-                            />
+                            <DatePicker id="time_from" label="Von" value={this.state.time_from} onChange={this.handleDateChange} />
                           </label>
                           <label className="btn">
-                            <DatePicker id="time_to" label="Zu" value={this.state.time_to} onChange={this.handleDateChange.bind(this)} />
+                            <DatePicker id="time_to" label="Zu" value={this.state.time_to} onChange={this.handleDateChange} />
                           </label>
                         </div>
                       </div>
 
-                      <label
-                        className="btn btn-default"
+                      <a
+                        className={'btn btn-default'}
                         data-toggle="collapse"
                         data-target="#datePickerContainer.in"
-                        style={{ width: '598px', borderRadius: '5px', margin: '0px' }}
+                        onClick={() => this.changeTimeType(2)}
+                        style={{ width: '100%', borderRadius: '5px', margin: '0px' }}
                       >
-                        <input
-                          type="radio"
-                          name="time_type"
-                          value="2"
-                          onChange={e => {
-                            this.handleChange(e);
-                          }}
-                        />{' '}
                         {this.monthNames[curMonthDate.getMonth()] + ' ' + curMonthDate.getFullYear()}
-                      </label>
+                      </a>
 
-                      <label
-                        className="btn btn-default"
+                      <a
+                        className={'btn btn-default'}
                         data-toggle="collapse"
                         data-target="#datePickerContainer.in"
-                        style={{ width: '598px', borderRadius: '5px', margin: '0px' }}
+                        onClick={() => this.changeTimeType(3)}
+                        style={{ width: '100%', borderRadius: '5px', margin: '0px' }}
                       >
-                        <input
-                          type="radio"
-                          name="time_type"
-                          value="3"
-                          onChange={e => {
-                            this.handleChange(e);
-                          }}
-                        />{' '}
                         {this.monthNames[prevMonthDate.getMonth()] + ' ' + prevMonthDate.getFullYear()}
-                      </label>
+                      </a>
                     </div>
 
                     <br />
                     <br />
 
-                    <div className="btn-group  btn-group-justified" data-toggle="buttons">
-                      <label className="btn btn-default active">
-                        <input
-                          type="radio"
-                          name="showOnlyDoneSheets"
-                          value="1"
-                          onChange={e => {
-                            this.handleChange(e);
-                          }}
-                        />{' '}
+                    <div className="btn-group btn-group-justified">
+                      <a
+                        className={`btn btn-default ${this.state.showOnlyDoneSheets === 1 && 'active'}`}
+                        onClick={() => this.changeShowOnlyDoneSheets(1)}
+                      >
                         Erledigte Spesenblätter
-                      </label>
-                      <label className="btn btn-default">
-                        <input
-                          type="radio"
-                          name="showOnlyDoneSheets"
-                          value="0"
-                          onChange={e => {
-                            this.handleChange(e);
-                          }}
-                        />{' '}
+                      </a>
+
+                      <a
+                        className={`btn btn-default ${this.state.showOnlyDoneSheets === 0 && 'active'}`}
+                        onClick={() => this.changeShowOnlyDoneSheets(0)}
+                      >
                         Alle Spesenblätter
-                      </label>
+                      </a>
                     </div>
 
                     <br />
@@ -377,22 +347,16 @@ export default class ExpenseOverview extends Component {
                 <tr className="theader">
                   <td>&nbsp;</td>
                   <td>
-                    <input className="form-control" name="zdp" type="text" value={this.state.zdp} onChange={this.handleChange.bind(this)} />
+                    <input className="form-control" name="zdp" type="text" value={this.state.zdp} onChange={this.handleChange} />
                   </td>
                   <td>
-                    <input
-                      className="form-control"
-                      name="name"
-                      type="text"
-                      value={this.state.name}
-                      onChange={this.handleChange.bind(this)}
-                    />
+                    <input className="form-control" name="name" type="text" value={this.state.name} onChange={this.handleChange} />
                   </td>
                   <td>
-                    <DatePicker id="start" value={this.state.start} onChange={this.handleDateChange.bind(this)} showLabel={false} />
+                    <DatePicker id="start" value={this.state.start} onChange={this.handleDateChange} showLabel={false} />
                   </td>
                   <td>
-                    <DatePicker id="end" value={this.state.end} onChange={this.handleDateChange.bind(this)} showLabel={false} />
+                    <DatePicker id="end" value={this.state.end} onChange={this.handleDateChange} showLabel={false} />
                   </td>
                   <td />
                   <td />
