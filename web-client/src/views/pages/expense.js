@@ -242,7 +242,10 @@ export default class ExpenseOverview extends Component {
                   </div>
                   <div className="modal-body">
                     <div className="btn-group btn-block" data-toggle="buttons">
-                      <label className="btn btn-default active" style={{ width: '100%', borderRadius: '5px', margin: '0px' }}>
+                      <label
+                        className={`btn btn-default ${this.state.time_type === 0 && 'active'}`}
+                        style={{ width: '100%', borderRadius: '5px', margin: '0px' }}
+                      >
                         Jahr:&nbsp;
                         <select
                           name="time_year"
@@ -258,7 +261,7 @@ export default class ExpenseOverview extends Component {
                       </label>
 
                       <a
-                        className={'btn btn-default'}
+                        className={`btn btn-default ${this.state.time_type === 1 && 'active'}`}
                         data-toggle="collapse"
                         data-target="#datePickerContainer:not(.in)"
                         onClick={() => this.changeTimeType(1)}
@@ -279,7 +282,7 @@ export default class ExpenseOverview extends Component {
                       </div>
 
                       <a
-                        className={'btn btn-default'}
+                        className={`btn btn-default ${this.state.time_type === 2 && 'active'}`}
                         data-toggle="collapse"
                         data-target="#datePickerContainer.in"
                         onClick={() => this.changeTimeType(2)}
@@ -289,7 +292,7 @@ export default class ExpenseOverview extends Component {
                       </a>
 
                       <a
-                        className={'btn btn-default'}
+                        className={`btn btn-default ${this.state.time_type === 3 && 'active'}`}
                         data-toggle="collapse"
                         data-target="#datePickerContainer.in"
                         onClick={() => this.changeTimeType(3)}
