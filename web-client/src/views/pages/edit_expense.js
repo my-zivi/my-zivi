@@ -171,7 +171,7 @@ class EditExpense extends Component {
               label="Ende Einsatz"
               value={sheet.einsaetze_end}
               onChange={this.handleDateChange.bind(this)}
-              disabled="true"
+              disabled={true}
             />
             <DatePicker
               id="meldeblaetter_start"
@@ -382,45 +382,54 @@ class EditExpense extends Component {
             </div>
             <hr />
 
-            <div className="container">
-              <button type="submit" name="saveExpense" className="btn btn-primary col-sm-3">
-                <span className="glyphicon glyphicon-floppy-disk" aria-hidden="true" /> Speichern und aktualisieren
-              </button>
-              <div className="col-sm-2" />
-              <button
-                type="button"
-                name="showProfile"
-                className="btn btn-danger col-sm-2"
-                onClick={() => {
-                  this.deleteReportSheet();
-                }}
-              >
-                <span className="glyphicon glyphicon-trash" aria-hidden="true" /> Löschen
-              </button>
-              <a
-                type="button"
-                name="print"
-                className="btn btn-warning col-sm-2"
-                href={apiURL(
-                  'pdf/zivireportsheet',
-                  {
-                    reportSheetId: this.props.match.params.report_sheet_id,
-                  },
-                  true
-                )}
-                target="_blank"
-              >
-                <span className="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
-              </a>
-              <div className="col-sm-1" />
-              <Link to={'/profile/' + this.state['report_sheet']['user']} name={'deleteReport'} className={'btn btn-default col-sm-2'}>
-                Profil anzeigen
-              </Link>
+            <div className="row">
+              <div className={'col-md-4'}>
+                <button type="submit" name="saveExpense" className="btn btn-primary btn-block">
+                  <span className="glyphicon glyphicon-floppy-disk" aria-hidden="true" /> Speichern und aktualisieren
+                </button>
+              </div>
+
+              <div className={'col-md-2'}>
+                <button
+                  type="button"
+                  name="showProfile"
+                  className="btn btn-danger btn-block"
+                  onClick={() => {
+                    this.deleteReportSheet();
+                  }}
+                >
+                  <span className="glyphicon glyphicon-trash" aria-hidden="true" /> Löschen
+                </button>
+              </div>
+
+              <div className={'col-md-2'}>
+                <a
+                  type="button"
+                  name="print"
+                  className="btn btn-warning btn-block"
+                  href={apiURL(
+                    'pdf/zivireportsheet',
+                    {
+                      reportSheetId: this.props.match.params.report_sheet_id,
+                    },
+                    true
+                  )}
+                  target="_blank"
+                >
+                  <span className="glyphicon glyphicon-print" aria-hidden="true" /> Drucken
+                </a>
+              </div>
+
+              <div className={'col-md-4'}>
+                <Link to={'/profile/' + this.state['report_sheet']['user']} name={'deleteReport'} className={'btn btn-default btn-block'}>
+                  Profil anzeigen
+                </Link>
+              </div>
             </div>
-            <br />
+
             <br />
 
-            <div className="container">
+            <div className="row">
               <InputCheckbox
                 id="force_save"
                 value={this.state.force_save}

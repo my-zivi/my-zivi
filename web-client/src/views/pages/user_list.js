@@ -188,7 +188,7 @@ export default class UserList extends Component {
                     />
                   </td>
                   <td className="hidden-xs">
-                    <select className="form-control" name="group" value={this.state.group} onInput={this.handleChange.bind(this)}>
+                    <select className="form-control" name="group" value={this.state.group} onChange={this.handleChange.bind(this)}>
                       <option value="0">(Alle Gruppen)</option>
                       <option value="1">Admins</option>
                       <option value="2">Zivis</option>
