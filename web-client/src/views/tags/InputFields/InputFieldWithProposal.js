@@ -66,7 +66,7 @@ export default class InputFieldWithProposal extends InputField {
           id={'prop_' + this.props.id}
           value={proposalText + this.props.proposalValue}
           className="form-control"
-          readOnly="true"
+          readOnly={true}
         />
       </div>
     );

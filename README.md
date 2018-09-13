@@ -169,6 +169,11 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.html [QSA,L]
 ```
 
+#### Ladezeiten ermitteln
+Seit React 16.5 gibt es einen Profiler, mit welchem die Ladezeiten der einzelnen Komponenten angezeigt werden kann. Dazu die [React Dev-Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) in Chrome installieren und die Chrome-Konsole öffnen. Zum React-Tab wechseln, dort auf "Profiler" klicken und auf den Record-Button drücken. 
+
+Anschliessend kann die Seite neu geladen werden und der Record-Button erneut gedrückt werden, um die Aufzeichnung zu beenden. nun hat man eine detaillierte Ansicht aller Ladezeiten der Komponenten.
+
 ## License
 
 iZivi is licensed under the GNU General Public License v3.0 (GPLv3). [LICENSE](LICENSE)
