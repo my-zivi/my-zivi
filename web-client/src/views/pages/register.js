@@ -266,7 +266,7 @@ export default class Register extends Component {
                         className="form-check-input"
                       />
                       <label className="form-check-label" htmlFor="newsletter">
-                        &nbsp;&nbsp;Ja, ich möchte den Newsletter erhalten!
+                        &nbsp;&nbsp;Ja, ich möchte in regelmässigen Abständen einen Newsletter der Stiftung Wirtschaft & Ökologie erhalten.
                       </label>
                     </div>
                   </div>
