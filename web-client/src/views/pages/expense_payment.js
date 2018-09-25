@@ -117,9 +117,9 @@ export default class ExpensePayment extends Component {
         <tr key={payments[i].id}>
           <td>
             {moment
-              .tz(payments[i].created_at, 'UTC')
+              .tz(payments[i].created_at, 'CET')
               .tz('Europe/Zurich')
-              .format('DD.MM.YYYY H:mm')}
+              .format('DD.MM.YYYY HH:mm')}
           </td>
           <td>CHF {this.formatRappen(payments[i].amount / 100)}</td>
           <td>
