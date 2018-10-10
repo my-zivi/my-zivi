@@ -4,7 +4,7 @@
 
     ein Zivi hat gerade eben das Feedback zu seinem Einsatz abgegeben.<br><br>
 
-    Du findest die Gesamt-Evaluation unter folgendem Link: {{ $url . 'user_feedback_overview/' . $feedbackId . '.' }}<br><br>
+    Du findest die Gesamt-Evaluation unter folgendem <a href="{{ $url . 'user_feedback_overview/' . $feedbackId }}">Link.</a><br><br>
 
     Liebe Grüsse aus Schwerzenbach<br><br>
 

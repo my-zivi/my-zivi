@@ -2,7 +2,7 @@
 <body>
     <p>Hallo<br><br>
 
-    Für Deinen iZivi-Account wurde eine Zurücksetzung des Passworts angefordert. Unter {{ $url . 'resetPassword/' . $token }} kannst du dir ein neues Passwort setzen.<br><br>
+    Für Deinen iZivi-Account wurde eine Zurücksetzung des Passworts angefordert. Unter <a href="{{ $url . 'resetPassword/' . $token }}">diesem Link</a> kannst du dir ein neues Passwort setzen.<br><br>
 
     Liebe Grüsse aus Schwerzenbach<br><br>
 
