@@ -92,6 +92,7 @@ class MissionController extends Controller
         $mission->eligible_holiday = MissionController::calculateZiviHolidays($mission->long_mission, $dayCount);
     }
 
+    # TODO implement a test as soon as calculate zivi holidays got replaced (issue #78)
     public static function calculateZiviHolidays($long_mission, $dayCount)
     {
 

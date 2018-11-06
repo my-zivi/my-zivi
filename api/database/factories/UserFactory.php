@@ -32,6 +32,7 @@ $factory->define(App\User::class, function (Generator $faker) {
         'zip' => $faker->postcode,
         'birthday' => $faker->date(),
         'phone_mobile' => $faker->phoneNumber,
+        'phone_private' => $faker->phoneNumber,
         'bank_iban' => $faker->iban('CH'),
         'bank_bic' => $faker->swiftBicNumber,
         'health_insurance' => $faker->company,
@@ -39,7 +40,13 @@ $factory->define(App\User::class, function (Generator $faker) {
     ];
 });
 
-$factory->defineAs(App\User::class, 'admin', function (Generator $faker) use ($factory) {
+$factory->defineAs(App\User::class, 'user_with_admin', function () use ($factory) {
+    $user = $factory->raw(App\User::class);
+    $user['role'] = 1;
+    return $user;
+});
+
+$factory->defineAs(App\User::class, 'admin', function () use ($factory) {
     $user = $factory->raw(App\User::class);
     $user['email'] ='office@stiftungswo.ch';
     $user['password'] = app('hash')->make('GutesPasswort');

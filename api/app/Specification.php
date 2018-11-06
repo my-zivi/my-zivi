@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Specification extends Model
 {
     public $timestamps = false;
+    public $incrementing = false;
 
     protected $fillable = ['id',
                            'name ',

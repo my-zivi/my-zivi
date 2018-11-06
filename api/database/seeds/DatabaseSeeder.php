@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         // seed random data generator
         app(\Faker\Generator::class)->seed();
-        $this->call([
-            HolidayTableSeeder::class,
-            UserTableSeeder::class
-        ]);
+        factory(\App\Holiday::class, 10)->create();
+        factory(\App\ReportSheet::class, 10)->create(); // dont need to seed Mission / Specification, included in Reportsheets
+        factory(\App\User::class, 'admin')->create();
+        factory(\App\User::class, 10)->create();
     }
 }

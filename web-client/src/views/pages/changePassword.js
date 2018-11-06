@@ -45,11 +45,7 @@ export default class ChangePassword extends Component {
 
         if (error.response != null && error.response.data != null) {
           for (let item in error.response.data) {
-            errorMsg.push(
-              <p key={item}>
-                {item}: {error.response.data[item]}
-              </p>
-            );
+            errorMsg.push(<p key={item}>{error.response.data[item]}</p>);
           }
         }
 

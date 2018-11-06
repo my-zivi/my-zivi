@@ -3,3 +3,4 @@ vendor/
 .idea
 .env.testing
 .DS_Store
+test-coverage/

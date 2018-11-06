@@ -1,8 +1,11 @@
 <?php
 
-use Laravel\Lumen\Testing\DatabaseTransactions;
+namespace tests\integrations;
 
-class PhonenumberTest extends TestCase
+use Laravel\Lumen\Testing\DatabaseTransactions;
+use TestCase;
+
+class PhonenumberControllerTest extends TestCase
 {
     use DatabaseTransactions;
 

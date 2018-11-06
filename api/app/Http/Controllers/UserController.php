@@ -63,21 +63,22 @@ class UserController extends Controller
         $pw_old = $request->input("old_password");
         $pw_new = $request->input("new_password");
         $pw_new_2 = $request->input("new_password_2");
+        $errors = [];
 
         if (empty($pw_old)) {
-            $errors['Altes Passwort'] = 'Passwort darf nicht leer sein!';
+            array_push($errors, 'Altes Passwort darf nicht leer sein!');
         }
 
         if (!$this->isPasswordCorrect($user['email'], $pw_old)) {
-            $errors['Altes Passwort'] = 'Altes Passwort stimmt nicht!';
+            array_push($errors, 'Altes Passwort stimmt nicht!');
         }
 
         if ($pw_new != $pw_new_2) {
-            $errors['Neues Passwort'] = 'Die neuen Passwörter stimmen nicht überein!';
+            array_push($errors, 'Die neuen Passwörter stimmen nicht überein!');
         }
 
         if (strlen($pw_new) < AuthController::PW_MIN_LENGTH) {
-            $errors['Neues Passwort'] = AuthController::PW_LENGTH_TEXT;
+            array_push($errors, AuthController::PW_LENGTH_TEXT);
         }
 
         if (count($errors)>0) {

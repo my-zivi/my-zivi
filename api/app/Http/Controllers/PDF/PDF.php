@@ -31,7 +31,7 @@ abstract class PDF
         $this->render();
 
         $DIR_TEMP = sys_get_temp_dir();
-        $file=basename(tempnam($DIR_TEMP, 'tmp'));
+        $file=tempnam($DIR_TEMP, 'tmp');
         //Save PDF to file
         $this->pdf->Output($file, 'F');
         return $file;
@@ -44,6 +44,7 @@ abstract class PDF
     /**
      * Converts a unix timestamp to a iso date (YYYY-MM-DD).
      * @param int $timestamp A unix timestamp
+     * @return false|string
      */
     protected function timestamp2iso($timestamp)
     {

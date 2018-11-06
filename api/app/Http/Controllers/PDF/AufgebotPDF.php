@@ -179,11 +179,11 @@ class AufgebotPDF extends PDF
         $this->nextrow($row);
 
         $this->pdf->SetXY($colLeft, $row);
-        if ($this->zivi['phone_private']!=0) {
+        if ($this->zivi['phone_private'] != 0) {
             $this->pdf->Cell(0, 0, $this->zivi['phone_private']);
         }
         $this->pdf->SetXY($colRight, $row);
-        if ($this->zivi['phone_mobile']!=0) {
+        if ($this->zivi['phone_mobile'] != 0) {
             $this->pdf->Cell(0, 0, $this->zivi['phone_mobile']);
         }
         $this->nextrow($row);
@@ -271,11 +271,7 @@ class AufgebotPDF extends PDF
 
         //Angaben zum Einsatz
         $this->pdf->SetXY($colLeft + 30, $row);
-        if (strpos($this->pflichtenheft['id'], '.') !== false) {
-            $this->pdf->Cell(0, 0, substr(strval($this->pflichtenheft['id']), 0, strpos(strval($this->pflichtenheft['id']), ".")) . ' ' . $this->einsatz['name']);
-        } else {
-            $this->pdf->Cell(0, 0, strval($this->pflichtenheft['id']) . ' ' . $this->pflichtenheft['name']);
-        }
+        $this->pdf->Cell(0, 0, strval($this->pflichtenheft['id']) . ' ' . $this->pflichtenheft['name']);
         $this->nextrow($row);
         $row += 6.25;
 
@@ -308,7 +304,7 @@ class AufgebotPDF extends PDF
         // Ort und Datum Aufgebot Zivi
         $row = 269;
         $this->pdf->SetXY(30, $row);
-        $this->pdf->Cell(0, 0, $this->zivi['city']  . ", " . date("d.m.Y"));
+        $this->pdf->Cell(0, 0, $this->zivi['city'] . ", " . date("d.m.Y"));
 
         // Ort ufgebot SWO
         $this->pdf->SetXY(111, $row);
