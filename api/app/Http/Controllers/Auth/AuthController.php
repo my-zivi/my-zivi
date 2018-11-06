@@ -3,18 +3,17 @@
 namespace App\Http\Controllers\Auth;
 
 use App\CompanyInfo;
-use App\User;
+use App\Http\Controllers\Controller;
 use App\Mail\NewsletterSignup;
+use App\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\App;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Http\Controllers\Controller;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\ValidationException;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -46,10 +45,6 @@ class AuthController extends Controller
             $userPasswordInput = $this->getCredentials($request)['password'];
             $user = User::where('email', '=', Input::get("email", ""))->first();
 
-            if ($userPasswordInput === '' or $user['password'] === '') {
-                return $this->onUnauthorized();
-            }
-
             // Simple MD5 fallback with double hashing (MD5 + bcrypt) - converts MD5 to bcrypt
             if (password_verify(md5($userPasswordInput), $user['password'])) {
                 // double hashed: MD5 + bcrypt
@@ -78,6 +73,7 @@ class AuthController extends Controller
 
     public function postRegister(Request $request)
     {
+        // TODO rework this method to use the default laravel request validations
         $errors = array();
 
         if (empty($request->input("firstname"))) {
@@ -93,10 +89,10 @@ class AuthController extends Controller
             $errors['ZDP'] = 'ZDP darf nicht leer sein!';
         }
         if (empty($request->input("password"))) {
-            $errors['Passwort'] = 'Passwort darf nicht leer sein!';
+            $errors['Passwort1'] = 'Passwort darf nicht leer sein!';
         }
         if ($request->input("password")!=$request->input("password_confirm")) {
-            $errors['Passwort'] = 'Passwörter stimmen nicht überein!';
+            $errors['Passwort2'] = 'Passwörter stimmen nicht überein!';
         }
         if (strlen($request->input("password")) < AuthController::PW_MIN_LENGTH) {
             $errors['Passwort'] = AuthController::PW_LENGTH_TEXT;
@@ -179,20 +175,6 @@ class AuthController extends Controller
     protected function getCredentials(Request $request)
     {
         return $request->only('email', 'password');
-    }
-
-    /**
-     * Invalidate a token.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function deleteInvalidate()
-    {
-        $token = JWTAuth::parseToken();
-
-        $token->invalidate();
-
-        return new JsonResponse(['message' => 'token_invalidated']);
     }
 
     /**
