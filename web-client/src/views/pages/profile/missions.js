@@ -148,7 +148,7 @@ const MissionRow = ({
   const feedbackButton = moment().isSameOrAfter(moment(mission.end)) &&
     mission.feedback_done !== 1 &&
     !userIdParam && (
-      <a href={`/user_feedback/${mission.id}`} className={'btn btn-xs btn-info'}>
+      <a href={`/user_feedback/${mission.id}/0`} className={'btn btn-xs btn-info'}>
         <span className={'glyphicon glyphicon-list'} aria-hidden={'true'} /> Feedback
       </a>
     );

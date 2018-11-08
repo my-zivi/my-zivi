@@ -33,89 +33,41 @@ class FeedbackController extends Controller
     private $date_from = null;
     private $date_to = null;
     private $feedback_id = null;
-    private $questions = array();
-    private $index = 0;
-    private $output;
 
-    public function getQuestionnaireJSON()
+    public function index()
     {
-
-        $this->output = new ConsoleOutput();
-
-        $json_string = "";
-        $firstPage = true;
-        $string_start = '{"pages":[';
-        $string_end = '], "requiredText": "(*)", "showProgressBar": "top", "showQuestionNumbers": "off" }';
-        $page_start = '{"elements": [{"type":"panel", "elements":[';
-        $last_page_title = 'SWO als Einsatzbetrieb';
-       
-        $this->questions = UserFeedbackQuestion::orderBy('id', 'ASC')->get();
-        $json_string .= $string_start;
-
-        for ($this->index = 0; $this->index < count($this->questions); $this->index++) {
-            if ($this->questions[$this->index]->new_page == 1) {
-                if (!$firstPage) {
-                    $json_string = substr($json_string, 0, -1); // remove last comma
-                    $json_string .= $this->getPageEndString($last_page_title).",";
-                }
-                $last_page_title = $this->questions[$this->index]->custom_info;
-                $json_string .= $page_start;
-                $firstPage = false;
-            }
-
-            $json_string .= $this->getJSONbyQuestionType();
-        }
-
-        $json_string = substr($json_string, 0, -1); // remove last comma
-        $json_string .= $this->getPageEndString($last_page_title);
-        $json_string .= $string_end;
-
-        return new JsonResponse($json_string);
+        return UserFeedbackQuestion::all();
     }
 
-    private function getJSONbyQuestionType()
+    public function postFeedback()
     {
-        $returnString = "";
-        $requiredTag = "";
-        
-        if ($this->questions[$this->index]->required) {
-            $requiredTag = '"isRequired":"true", ';
-        }
-        
-        switch ($this->questions[$this->index]->type) {
-            case constant("TYPE_SINGLE_QUESTION"):
-                $returnString .= '{ "type":"rating", '.$requiredTag.'"name":"'.$this->questions[$this->index]->id.'", "rateValues":["1","2","3","4"], "title":"'.$this->questions[$this->index]->question.'" },';
-                break;
+        $content = Input::get();
+        $userId = JWTAuth::parseToken()->authenticate()->id;
+        $date = date("Y-m-d H:i:s");
 
-            case constant("TYPE_GROUP_QUESTION"):
-                $returnString .= '{ "type":"rating", '.$requiredTag.'"name":"'.$this->questions[$this->index]->id.'", "rateValues":["1","2","3","4"], "title":"'.$this->questions[$this->index]->question.'", "indent": "2" },';
-                break;
+        $feedbackId = Uuid::uuid();
+        $missionId = $content['missionId'];
+        $this->setMissionFeedbackDone($missionId);
 
-            case constant("TYPE_SINGLE_QUESTION_2"):
-                $returnString .= '{ "type":"rating",  '.$requiredTag.'"name":"'.$this->questions[$this->index]->id.'", "rateValues":[{"value":"1","text":"Ja"},{"value":"2","text":"Nein"}], "title":"'.$this->questions[$this->index]->question.'" },';
-                break;
+        \Log::debug("Mission " . $missionId . " has been marked as done");
 
-            case constant("TYPE_SINGLE_QUESTION_6"):
-                $returnString .= '{ "type":"radiogroup", '.$requiredTag.'"name":"'.$this->questions[$this->index]->id.'", '.$this->questions[$this->index]->custom_info.' "title":"'.$this->questions[$this->index]->question.'" },';
-                break;
-
-            case constant("TYPE_GROUP_TITLE"):
-                $returnString .= '{ "type": "html", "html": "<h4>'.$this->questions[$this->index]->question.'</h4><p class=\'btn-group\'>'.$this->questions[$this->index]->opt1.' - '.$this->questions[$this->index]->opt2.'</p>", "name": "question" },';
-                break;
-
-            case constant("TYPE_TEXT"):
-                $returnString .= '{ "type":"comment", '.$requiredTag.'"name":"'.$this->questions[$this->index]->id.'", "title":"'.$this->questions[$this->index]->question.'"},';
-                break;
+        foreach ($content['answers'] as $answer) {
+            $user_feedback = new UserFeedback();
+            $user_feedback->user = $userId;
+            $user_feedback->feedbackId = $feedbackId;
+            $user_feedback->year = $date;
+            $user_feedback->questionId = $answer['id'];
+            $user_feedback->answer = $answer['answer'];
+            $user_feedback->save();
         }
 
-        //$this->output->writeln(json_encode($this->index));
-        return $returnString;
-    }
+        \Log::debug("Feedback " . $feedbackId . " has been saved. Try to send email.");
 
-    private function getPageEndString($last_page_title)
-    {
-        return '], "title":"'.$last_page_title.'" }]}';
-        return ']}]}';
+        $this->sendEmailToMissionControl($feedbackId);
+
+        \Log::debug("Email for feedback " . $feedbackId . " has been sent");
+
+        return response("User Feedback inserted for User: " . $userId);
     }
 
     public function getFeedback($feedback_id)
@@ -151,53 +103,6 @@ class FeedbackController extends Controller
         return new JsonResponse($questions);
     }
 
-    public function putFeedback()
-    {
-        $content = Input::get();
-        $userId = JWTAuth::parseToken()->authenticate()->id;
-        $date = date("Y-m-d H:i:s");
-
-        $feedbackId = Uuid::uuid();
-        $missionId = $content['missionId'];
-        $content = $content['survey'];
-/*
-        $output = new ConsoleOutput();
-        $output->writeln(json_encode($content));
-*/
-        $this->setMissionFeedbackDone($missionId);
-
-        \Log::debug("Mission ".$missionId." has been marked as done");
-
-        foreach ($content as $key => $value) {
-            if (is_array($value)) {
-                foreach ($value as $subKey => $subValue) {
-                    $user_feedback = new UserFeedback();
-                    $user_feedback->user = $userId;
-                    $user_feedback->feedbackId = $feedbackId;
-                    $user_feedback->year = $date;
-                    $user_feedback->questionId = $subKey;
-                    $user_feedback->answer = $subValue;
-                    $user_feedback->save();
-                }
-            } else {
-                $user_feedback = new UserFeedback();
-                $user_feedback->user = $userId;
-                $user_feedback->feedbackId = $feedbackId;
-                $user_feedback->year = $date;
-                $user_feedback->questionId = $key;
-                $user_feedback->answer = $value;
-                $user_feedback->save();
-            }
-        }
-
-        \Log::debug("Feedback ".$feedbackId." has been saved. Try to send email.");
-
-        $this->sendEmailToMissionControl($feedbackId);
-
-        \Log::debug("Email for feedback ".$feedbackId." has been sent");
-
-        return response("User Feedback inserted for User: ". $userId);
-    }
 
     private function setMissionFeedbackDone($missionId)
     {
@@ -212,7 +117,7 @@ class FeedbackController extends Controller
     {
 
         $email = env('API_MAIL_FEEDBACK', null);
-        \Log::debug("Recipient for email is ".$email);
+        \Log::debug("Recipient for email is " . $email);
 
         if ($email) {
             Mail::to($email)->send(new NewUserFeedback($feedbackId));
@@ -233,7 +138,7 @@ class FeedbackController extends Controller
         $results = array();
 
         for ($i = 1; $i <= 6; $i++) {
-            if ($this->feedback_id!=null) {
+            if ($this->feedback_id != null) {
                 $results[$i] = DB::table('user_feedbacks')
                     ->where('answer', '=', $i)
                     ->where('questionId', '=', $questionId)
@@ -254,7 +159,7 @@ class FeedbackController extends Controller
 
     private function getFeedbacksTypeText($questionId)
     {
-        if ($this->feedback_id!=null) {
+        if ($this->feedback_id != null) {
             $results = DB::table('user_feedbacks')->select('answer', 'year')
                 ->where('questionId', '=', $questionId)
                 ->where('feedbackId', '=', $this->feedback_id)
@@ -269,7 +174,7 @@ class FeedbackController extends Controller
 
         $answerTexts = "";
         foreach ($results as $key => $value) {
-            $answerTexts .= "==== ".$value->year." ====\n".$value->answer."\n\n";
+            $answerTexts .= "==== " . $value->year . " ====\n" . $value->answer . "\n\n";
         }
 
         return $answerTexts;

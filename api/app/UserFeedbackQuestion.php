@@ -21,4 +21,9 @@ class UserFeedbackQuestion extends Model
                         'pos',
                         'active'
         ];
+
+    protected $casts = [
+        'new_page' => 'boolean',
+        'required' => 'boolean'
+    ];
 }

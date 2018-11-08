@@ -147,12 +147,12 @@ $api->version('v1', function ($api) {
             'uses' => 'App\Http\Controllers\PDF\PDFController@getZiviReportSheet'
         ]);
 
-        $api->put('/user/feedback', [
-            'uses' => 'App\Http\Controllers\FeedbackController@putFeedback'
+        $api->get('/user_feedback_questions', [
+            'uses' => 'App\Http\Controllers\FeedbackController@index'
         ]);
 
-        $api->get('/questionnaire', [
-            'uses' => 'App\Http\Controllers\FeedbackController@getQuestionnaireJSON'
+        $api->post('/user/feedback', [
+            'uses' => 'App\Http\Controllers\FeedbackController@postFeedback'
         ]);
 
         $api->post('/phonenumber/validate', [

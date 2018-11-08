@@ -39,7 +39,6 @@ https://izivi.stiftungswo.ch/
 | Babel  | Bibliothek zur Bereitstellung von JavaScript ES6-Funktionen in älteren Browsern | [Was ist Babel?](http://nicholasjohnson.com/blog/what-is-babel/) |
 | Webpack | Bundeling JS, CSS, SASS modules | [Einführung in Webpack (komplex!)](https://survivejs.com/webpack/foreword/) |
 | IZI Toast | Snackbar for Error and Feedback | [Offizielle Webseite](http://izitoast.marcelodolce.com/) |
-| Survey JS | Darstellung der User Feedbacks | [Offizielle Webseite](https://surveyjs.io/) |
 
 ### Komponenten
 
@@ -56,23 +55,6 @@ Das ReportSheet sind die Spesenblätter. Anhand der geleisteten Tage, Ferien etc
 
 #### UserFeedback
 Nach dem Einsatz sollen die Zivis jeweils ein Feedback zum Betrieb, den Einsatzleitern und allgemein dem Einsatz bei der SWO abgeben. Diese werden anonym gespeichert und in einer Gesamtauswertung für das Jahr dargestellt. Einsicht hat hier nur der Admin, resp. der Zivi hat Einsicht auf sein eigenes Feedback.
-
-Die Darstellung des Feedback-Moduls basiert auf SurveyJS.io
-
-##### FeedbackController::getJSONbyQuestionType()
-
-Hier wird ein JSON string aus den user_feedback_questions in der Datenbank zusammengestellt. Das Feld 'type' wird dabei verwendet, um den Fragetyp zu defninieren:
-
-1. Frage mit Antwort 1-4
-2. Überschrift (vor Unterfragen)
-3. Unterfrage
-4. Text-Frage / Kommentar
-5. Ja/Nein-Frage
-6. Frage mit 6 Antworten, Antworden werden im 'custom_info' angegeben
-
-##### UserFeedback (Frontend)
-
-Im Frontend wird der JSON-String vom Backend angezogen. Dieser String wird an die surveyjs library weitergegeben. Surveyjs rendert dann das HTML und setzt es in den Container "surveyContainer".
 
 ## Installation
 ### Vorbereitung

@@ -4,7 +4,7 @@
 
     wir danken dir herzlich für deinen Einsatz bei der Stiftung Wirtschaft und Ökologie SWO. Um besser abschätzen zu können, wie dein Einsatz bei der SWO war, bitten wir dich, unsere Evaluation auszufüllen.<br><br>
 
-    Du findest die Evaluation unter folgendem Link: <a href="{{ $url . "user_feedback/" . $mission->id }}">Zur Evaluation</a><br><br>
+    Du findest die Evaluation unter folgendem Link: <a href="{{ $url . "user_feedback/" . $mission->id . '/0' }}">Zur Evaluation</a><br><br>
 
     Herzlichen Dank für dein Feedback.<br><br>
 

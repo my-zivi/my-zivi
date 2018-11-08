@@ -1,109 +1,181 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { api } from '../../utils/api';
+import { Link, Redirect, Route, Switch } from 'react-router-dom';
+import { UserFeedbackForm } from './user_feedback_form';
 import Card from '../tags/card';
-import LoadingView from '../tags/loading-view';
 import Header from '../tags/header';
 import Toast from '../../utils/toast';
-import { api } from '../../utils/api';
+import { UserFeedbackFinish } from './UserFeedbackFinish';
 
-export default class UserFeedback extends Component {
+export default class UserFeedbackNew extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      loading: false,
-      error: null,
+      pages: [],
+      user_feedback_questions: [],
     };
-  }
 
-  sendDataToServer(survey) {
-    this.setState({ loading: true, error: null });
-
-    var missionId = this.props.match.params.missionId;
-
-    api()
-      .put('user/feedback', {
-        survey: survey.data,
-        missionId: missionId,
-      })
-      .then(() => {
-        this.setState({ loading: false });
-      })
-      .catch(error => {
-        this.setState({ error: error });
-      });
-  }
-
-  getQuestionnaireJSON() {
-    this.setState({ loading: true, error: null });
-
-    api()
-      .get('questionnaire')
-      .then(response => {
-        var newState = {
-          loading: false,
-        };
-
-        window.Survey.Survey.cssType = 'bootstrap';
-        window.Survey.defaultBootstrapCss.navigationButton = 'btn btn-success';
-
-        let surveyJSON = this.tryGetObject(response.data);
-
-        if (surveyJSON) {
-          var survey = new window.Survey.Model(surveyJSON);
-          window.$('#surveyContainer').Survey({
-            model: survey,
-            completeText: 'Danke für dein Feedback!',
-            onComplete: survey => {
-              this.sendDataToServer(survey);
-            },
-          });
-        } else {
-          Toast.showError(
-            'Problem in der Konfiguration',
-            'Die Datenbank-Konfiguration des Fragebogens stimmt nicht. Bitte melde dich bei einem Admin.',
-            null,
-            null
-          );
-        }
-
-        this.setState(newState);
-      })
-      .catch(error => {
-        this.setState({ error: error });
-      });
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 
   componentDidMount() {
-    this.getQuestionnaireJSON();
+    api()
+      .get('user_feedback_questions')
+      .then(response => {
+        this.generateInitialState(response.data.user_feedback_questions);
+      });
+  }
+
+  generateInitialState(user_feedback_questions) {
+    // find all questions with new page attribute
+    let pages = [];
+    let user_questions = [];
+    let current_page = [];
+    user_feedback_questions.forEach(question => {
+      if (question.new_page && current_page.length > 0) {
+        pages.push(current_page);
+        current_page = [];
+      }
+
+      current_page.push(question);
+      question.page = pages.length;
+      user_questions.push(question);
+    });
+    pages.push(current_page);
+
+    this.setState({ pages, user_feedback_questions: user_questions });
+  }
+
+  handleChange(question_id, value) {
+    let { user_feedback_questions } = this.state;
+    const indexOfQuestion = user_feedback_questions.findIndex(question => question.id === question_id);
+    user_feedback_questions[indexOfQuestion].answer = value;
+    this.setState({ user_feedback_questions });
+  }
+
+  handleFieldChange(question_id, event) {
+    this.handleChange(question_id, event.target.value);
+  }
+
+  submitAnswers() {
+    const {
+      match: { params },
+    } = this.props;
+    const { user_feedback_questions, pages } = this.state;
+
+    api()
+      .post('user/feedback', {
+        missionId: params.missionId,
+        answers: user_feedback_questions.filter(question => question.answer),
+      })
+      .then(() => {
+        Toast.showSuccess('Speichern erfolgreich', 'Feedback wurde erfolgreich gespeichert.');
+        this.props.history.push('/user_feedback/' + params.missionId + '/' + pages.length);
+      })
+      .catch(error => {
+        Toast.showError('Speichern fehlgeschlagen', 'Feedback konnte nicht gespeichert werden', error);
+      });
   }
 
   render() {
+    const { pages, user_feedback_questions } = this.state;
+    const {
+      match: { params },
+    } = this.props;
+
     return (
       <Header>
-        <div className="page page__user_feedback">
+        <div className={'page page__user_list'}>
           <Card>
-            <h1>Einsatz-Feedback</h1>
-            <br />
-            <div className="container">
-              <div id="surveyContainer" />
-            </div>
+            <h1>Feedback zu Einsatz abgeben</h1>
+            <p>
+              <b>Hinweis: </b>
+              Alle Fragen, welche mit (*) enden, sind erforderlich und müssen ausgefüllt werden.
+            </p>
+            <Route
+              path={'/user_feedback/:missionId/:index'}
+              children={({ match }) => {
+                return (
+                  <div className="progress">
+                    <div
+                      className="progress-bar"
+                      role="progressbar"
+                      aria-valuenow={match.params.index}
+                      aria-valuemin="0"
+                      aria-valuemax={pages.length}
+                      style={{ width: (Number(match.params.index) / pages.length) * 100 + '%' }}
+                    >
+                      <span className="sr-only">70% Complete</span>
+                    </div>
+                  </div>
+                );
+              }}
+            />
+            <Switch>
+              {pages.map((question_array, index) => (
+                <Route
+                  key={index}
+                  path={'/user_feedback/:missionId/' + index}
+                  render={() => (
+                    <UserFeedbackForm
+                      questions={question_array}
+                      handleFieldChange={this.handleFieldChange}
+                      handleChange={this.handleChange}
+                    />
+                  )}
+                />
+              ))}
+              <Route path={'/user_feedback/' + params.missionId + '/' + pages.length} render={() => <UserFeedbackFinish />} />
+              <Redirect to={'/user_feedback/' + params.missionId + '/0'} />
+            </Switch>
+            <Route
+              path={'/user_feedback/:missionId/:index'}
+              children={({ match }) => {
+                return (
+                  <div className={'btn btn-group'}>
+                    {0 < Number(match.params.index) &&
+                      Number(match.params.index) < pages.length && (
+                        <Link
+                          className={'btn btn-primary'}
+                          to={'/user_feedback/' + match.params.missionId + '/' + (Number(match.params.index) - 1)}
+                        >
+                          Zurück
+                        </Link>
+                      )}
+                    {Number(match.params.index) < pages.length - 1 &&
+                      (user_feedback_questions.some(
+                        question => question.page === Number(match.params.index) && question.required && !question.answer
+                      ) ? (
+                        <button className={'btn btn-primary'} disabled={true}>
+                          Vorwärts
+                        </button>
+                      ) : (
+                        <Link
+                          className={'btn btn-primary'}
+                          to={'/user_feedback/' + match.params.missionId + '/' + (Number(match.params.index) + 1)}
+                        >
+                          Vorwärts
+                        </Link>
+                      ))}
+
+                    {Number(match.params.index) === pages.length - 1 && (
+                      <button
+                        onClick={() => this.submitAnswers()}
+                        className={'btn btn-primary'}
+                        disabled={user_feedback_questions.some(question => question.required && !question.answer)}
+                      >
+                        Feedback absenden
+                      </button>
+                    )}
+                  </div>
+                );
+              }}
+            />
           </Card>
-          <LoadingView loading={this.state.loading} error={this.state.error} />
         </div>
       </Header>
     );
   }
-
-  tryGetObject(o) {
-    if (o && typeof o === 'object') {
-      return o;
-    }
-
-    return false;
-  }
 }
-
-/*
-// Survey example data with 3 questions
-var surveyJSON = {pages:[{name:"User_Feedback_SWO",elements:[ {type:"panel",name:"SWOalsEinsatzbetrieb",elements:[{type:"radiogroup",name:"1",title:"WiewurdestduaufdieSWOaufmerksam?",isRequired:true,choices:[{value:"1.1",text:"Kollegen"},{value:"1.2",text:"EIS"},{value:"1.3",text:"WebsiteSWO"},{value:"1.4",text:"ThomasWinter"},{value:"1.5",text:"FrühererEinsatz"},{value:"1.6",text:"Anderes"}]}]}, {type:"matrix",columns:["1","2","3","4","5"],isAllRowRequired:true,isRequired:true,name:"12",rows:[{value:"13",text:"-dieArbeitstechniken?"},{value:"14",text:"-derUmgangmitMaschinen?"},{value:"15",text:"-SinnundZweckderProjekte?"}],title:"Wieguterklärtwurde(n)..."}]}]}
-*/
