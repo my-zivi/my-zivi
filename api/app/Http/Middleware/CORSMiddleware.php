@@ -4,8 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Input;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CORSMiddleware
 {
@@ -13,7 +11,7 @@ class CORSMiddleware
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param \Closure $next
      *
      * @return mixed
      */

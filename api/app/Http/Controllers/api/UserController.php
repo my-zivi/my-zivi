@@ -1,22 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App;
+use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
-//use Laravel\Lumen\Routing\Controller as BaseController;
-use App;
-use App\User;
-use App\Http\Controllers\Auth\AuthController;
-use App\Mission;
-use App\Specification;
-use Illuminate\Support\Facades\Input;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
@@ -52,13 +47,9 @@ class UserController extends Controller
 
     public function changePassword(Request $request)
     {
-
-        /*$output = new ConsoleOutput();
-        $output->writeln("some log to console");*/
-
         $errors = array();
 
-        $user = JWTAuth::parseToken()->authenticate();
+        $user = Auth::user();
 
         $pw_old = $request->input("old_password");
         $pw_new = $request->input("new_password");
@@ -69,7 +60,7 @@ class UserController extends Controller
             array_push($errors, 'Altes Passwort darf nicht leer sein!');
         }
 
-        if (!$this->isPasswordCorrect($user['email'], $pw_old)) {
+        if (!Hash::check($request->input('old_password'), $user->password)) {
             array_push($errors, 'Altes Passwort stimmt nicht!');
         }
 
@@ -89,20 +80,6 @@ class UserController extends Controller
         $user->save();
 
         return new JsonResponse("Ihr Passwort wurde angepasst.");
-    }
-
-    private function isPasswordCorrect($email, $password)
-    {
-
-        $credentials = array (
-            'email' => $email,
-            'password' => $password,
-        );
-
-        return (JWTAuth::attempt(
-            $credentials,
-            ['isAdmin' => false]
-        ));
     }
 
     public static function updateUser(User $user)

@@ -1,19 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use \App\Mission;
+use App\Http\Controllers\Controller;
+use App\Mission;
 use App\ReportSheet;
-use Faker\Provider\Uuid;
-use Illuminate\Support\Facades\App;
-use Laravel\Lumen\Application;
-use Illuminate\Http\JsonResponse;
+use DateTime;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\DB;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use \DateTime;
 
 class MissionController extends Controller
 {
@@ -22,7 +16,7 @@ class MissionController extends Controller
         $mission = new Mission();
         $this->fillAttributes($mission);
 
-        $user = JWTAuth::parseToken()->authenticate();
+        $user = Auth::user();
         if ($mission->user == 'me') {
             $mission->user = $user->id;
         }
@@ -41,7 +35,7 @@ class MissionController extends Controller
         $this->updateReportSheets($mission);
         $this->fillAttributes($mission);
 
-        $user = JWTAuth::parseToken()->authenticate();
+        $user = Auth::user();
         if (!$user->isAdmin() && ($user->id!=$mission->user || $mission->draft!=null)) {
             return response("not allowed", 401);
         }
@@ -54,8 +48,8 @@ class MissionController extends Controller
     {
         if ($mission->draft) {
             if ($mission->end != Input::get("end", "") && $mission->end < Input::get("end", "")) {
-                $start = new DateTime($mission->end);
-                $end = new DateTime(Input::get("end", ""));
+                $start = new \DateTime($mission->end);
+                $end = new \DateTime(Input::get("end", ""));
                 $iteratorStart = $start->modify("next day");
                 $iteratorEnd = clone $iteratorStart;
                 $iteratorEnd->modify('last day of this month');

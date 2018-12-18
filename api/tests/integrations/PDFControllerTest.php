@@ -13,7 +13,7 @@ class PDFControllerTest extends TestCase
     public function testGetPhoneList()
     {
         // PDF should not render as zivi
-        $this->authJson('GET', '/api/pdf/phoneList', 'zivi')->assertResponseStatus(401);
+        $this->asUser()->json('GET', '/api/pdf/phoneList')->assertResponseStatus(401);
 
         // PDF should render als admin
         factory(\App\Mission::class, 10)->create([
@@ -44,7 +44,7 @@ class PDFControllerTest extends TestCase
             'end' => '2019-04-01'
         ]);
 
-        $this->authJson('GET', '/api/pdf/phoneList?start=2019-01-01&end=2019-04-01', 'admin')->assertResponseOk();
+        $this->asAdmin()->json('GET', '/api/pdf/phoneList?start=2019-01-01&end=2019-04-01')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }
 
@@ -56,19 +56,19 @@ class PDFControllerTest extends TestCase
             'ill_comment' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut'// to test comment wrapping
         ]);
         $zivi = \App\User::find($reportSheet->user);
-        $this->authJson('GET', '/api/pdf/zivireportsheet', $zivi, [
+        $this->asUser($zivi)->json('GET', '/api/pdf/zivireportsheet', [
             'reportSheetId' => $reportSheet->id
         ])->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
 
         // report sheet of another zivi should not available for him
         $otherReportSheet = factory(\App\ReportSheet::class)->create();
-        $this->authJson('GET', '/api/pdf/zivireportsheet', $zivi, [
+        $this->asUser($zivi)->json('GET', '/api/pdf/zivireportsheet', [
             'reportSheetId' => $otherReportSheet->id
         ])->assertResponseStatus(401);
 
         // but for the administrator
-        $this->authJson('GET', '/api/pdf/zivireportsheet', 'admin', [
+        $this->asAdmin()->json('GET', '/api/pdf/zivireportsheet', [
             'reportSheetId' => $otherReportSheet->id
         ])->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
@@ -77,14 +77,14 @@ class PDFControllerTest extends TestCase
     public function testGetSpesenstatistikNotForZivi()
     {
         // PDF should not render as zivi
-        $this->authJson('GET', '/api/pdf/statistik', 'zivi')->assertResponseStatus(401);
+        $this->asUser()->json('GET', '/api/pdf/statistik')->assertResponseStatus(401);
     }
 
     public function testGetSpesenstatistikFirstTimeType()
     {
         // PDF should render als admin
         factory(\App\ReportSheet::class, 30)->create();
-        $this->authJson('GET', '/api/pdf/statistik?time_type=1', 'admin')->assertResponseOk();
+        $this->asAdmin()->json('GET', '/api/pdf/statistik?time_type=1')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }
 
@@ -92,7 +92,7 @@ class PDFControllerTest extends TestCase
     {
         // PDF should render als admin
         factory(\App\ReportSheet::class, 30)->create();
-        $this->authJson('GET', '/api/pdf/statistik?time_type=2', 'admin')->assertResponseOk();
+        $this->asAdmin()->json('GET', '/api/pdf/statistik?time_type=2')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }
 
@@ -100,7 +100,7 @@ class PDFControllerTest extends TestCase
     {
         // PDF should render als admin
         factory(\App\ReportSheet::class, 30)->create();
-        $this->authJson('GET', '/api/pdf/statistik?time_type=3', 'admin')->assertResponseOk();
+        $this->asAdmin()->json('GET', '/api/pdf/statistik?time_type=3')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }
 
@@ -108,7 +108,7 @@ class PDFControllerTest extends TestCase
     {
         // PDF should render als admin
         factory(\App\ReportSheet::class, 30)->create();
-        $this->authJson('GET', '/api/pdf/statistik', 'admin')->assertResponseOk();
+        $this->asAdmin()->json('GET', '/api/pdf/statistik')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }
 
@@ -116,7 +116,7 @@ class PDFControllerTest extends TestCase
     {
         // PDF should render als admin
         factory(\App\ReportSheet::class, 30)->create();
-        $this->authJson('GET', '/api/pdf/statistik?showDetails=1', 'admin')->assertResponseOk();
+        $this->asAdmin()->json('GET', '/api/pdf/statistik?showDetails=1')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }
 
@@ -134,16 +134,16 @@ class PDFControllerTest extends TestCase
 
         // report sheet of a zivi should be available for himself
         $zivi = \App\User::find($mission->user);
-        $this->authJson('GET', '/api/mission/' . $mission->id . '/draft', $zivi)->assertResponseOk();
+        $this->asUser($zivi)->json('GET', '/api/mission/' . $mission->id . '/draft')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
 
         // report sheet of another zivi should not available for him
         $otherMission = factory(\App\Mission::class)->create();
-        $this->authJson('GET', '/api/mission/' . $otherMission->id . '/draft', $zivi)
+        $this->asUser($zivi)->json('GET', '/api/mission/' . $otherMission->id . '/draft')
             ->assertResponseStatus(401);
 
         // but for the administrator
-        $this->authJson('GET', '/api/mission/' . $otherMission->id . '/draft', 'admin')
+        $this->asAdmin()->json('GET', '/api/mission/' . $otherMission->id . '/draft')
             ->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }

@@ -1,23 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
+use App\Mail\NewUserFeedback;
 use App\Mission;
 use App\UserFeedback;
 use App\UserFeedbackQuestion;
-use App\Mail\NewUserFeedback;
-use Carbon\Carbon;
 use Faker\Provider\Uuid;
-use Illuminate\Support\Facades\App;
-use Laravel\Lumen\Application;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\DB;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Symfony\Component\Console\Output\ConsoleOutput;
 
 define("ONE_YEAR_IN_SEC", 60 * 60 * 24 * 365);
 
@@ -42,7 +37,7 @@ class FeedbackController extends Controller
     public function postFeedback()
     {
         $content = Input::get();
-        $userId = JWTAuth::parseToken()->authenticate()->id;
+        $userId = Auth::id();
         $date = date("Y-m-d H:i:s");
 
         $feedbackId = Uuid::uuid();

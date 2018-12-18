@@ -1,7 +1,6 @@
 <?php
 
 use App\User;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class TestCase extends Laravel\Lumen\Testing\TestCase
 {
@@ -28,30 +27,26 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
         return require __DIR__.'/../bootstrap/app.php';
     }
 
+    public function asAdmin()
+    {
+        $user = factory(User::class)->create([
+            'role' => 1
+        ]);
+        return $this->actingAs($user);
+    }
+
     /**
-     * Visit the given URI with an authenticated JSON request.
-     *
-     * @param string      $method
-     * @param string      $uri
-     * @param User|string $user
-     * @param array       $data
-     * @param array       $headers
-     *
+     * @param User|null $user
      * @return TestCase
      */
-    public function authJson($method, $uri, $user, array $data = [], array $headers = [])
+    public function asUser($user = null)
     {
-        if ($user === 'zivi') {
-            $user = factory(\App\User::class)->create();
-        } elseif ($user === 'admin') {
-            $user = User::where('email', '=', 'office@stiftungswo.ch')->first();
-            if (is_null($user)) {
-                $user = factory(\App\User::class, 'admin')->create();
-            }
+        if (!$user) {
+            $user = factory(User::class)->create([
+                'role' => 2
+            ]);
         }
-        return $this->json($method, $uri, $data, array_merge($headers, [
-                'Authorization' => 'Bearer ' . JWTAuth::fromUser($user),
-            ]));
+        return $this->actingAs($user);
     }
 
     /**

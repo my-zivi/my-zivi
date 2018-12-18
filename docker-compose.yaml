@@ -11,7 +11,7 @@ services:
     depends_on:
       - mariadb
     ports:
-      - "8000:8000"
+      - "48000:8000"
   web-client:
     image: node:10
     container_name: izivi_web-client

@@ -3,8 +3,8 @@
 namespace App;
 
 use App\CompanyInfo;
-use App\Http\Controllers\PDF\PDF;
-use App\Http\Controllers\MissionController;
+use App\Http\Controllers\API\MissionController;
+use App\Services\PDF\PDF;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTime;

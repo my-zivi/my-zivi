@@ -6,7 +6,7 @@
  * Time: 11:25 AM
  */
 
-namespace App\Http\Controllers\PDF;
+namespace App\Services\PDF;
 
 use App\Mission;
 use App\Specification;

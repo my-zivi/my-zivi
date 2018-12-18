@@ -2,9 +2,9 @@
 
 namespace tests\integrations;
 
+use Firebase\JWT\JWT;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use TestCase;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthControllerTest extends TestCase
 {
@@ -20,8 +20,6 @@ class AuthControllerTest extends TestCase
         $this->json('post', 'api/auth/login', [
             'email' => $this->faker->email,
             'password' => 'asdasd'
-        ])->seeJson([
-            'message' => 'invalid_credentials'
         ])->assertResponseStatus(401);
     }
 
@@ -38,8 +36,7 @@ class AuthControllerTest extends TestCase
         $this->json('post', 'api/auth/login', [
             'email' => $email,
             'password' => $password
-        ])
-            ->assertResponseOk();
+        ])->assertResponseOk();
     }
 
     public function testInvalidParamsLogin()
@@ -123,7 +120,7 @@ class AuthControllerTest extends TestCase
 
         $response->assertResponseStatus(401);
 
-        $response = $this->authJson('patch', "api/auth/refresh", 'zivi');
+        $response = $this->asUser()->json('patch', "api/auth/refresh");
 
         $response->seeJson([
             'message' => 'token_refreshed',
@@ -133,7 +130,17 @@ class AuthControllerTest extends TestCase
     public function testAlternateTokenParameter()
     {
         $user = factory(\App\User::class, 'user_with_admin')->create();
-        $token = JWTAuth::fromUser($user);
+        $payload = [
+            'iss' => "izivi-api", // Issuer of the token
+            'sub' => $user->id, // Subject of the token
+            'isAdmin' => $user->role == 1,
+            'iat' => time(), // Time when JWT was issued.
+            'exp' => time() + 60*60*24, // Expiration time,
+        ];
+
+        // As you can see we are passing `JWT_SECRET` as the second parameter that will
+        // be used to decode the token in the future.
+        $token = JWT::encode($payload, env('JWT_SECRET'));
 
         $this->json('get', 'api')->assertResponseStatus(401);
         $this->json('get', 'api?token=' . $token)->assertResponseOk();

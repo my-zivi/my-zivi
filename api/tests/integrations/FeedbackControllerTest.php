@@ -15,8 +15,8 @@ class FeedbackControllerTest extends TestCase
     public function testIndex()
     {
         factory(UserFeedbackQuestion::class)->create();
-        $this->authJson('GET', 'api/user_feedback_questions', 'zivi')->assertResponseOk();
-        $this->assertCount(count(UserFeedbackQuestion::all()), $this->responseToArray()['user_feedback_questions']);
+        $this->asUser()->json('GET', 'api/user_feedback_questions')->assertResponseOk();
+        $this->assertCount(count(UserFeedbackQuestion::all()), $this->responseToArray());
     }
 
     public function testGetFeedbacks()
@@ -24,10 +24,10 @@ class FeedbackControllerTest extends TestCase
          factory(UserFeedback::class)->create();
 
         // zivi should not access the feedback
-        $this->authJson('GET', 'api/user/feedback', 'zivi')->assertResponseStatus(401);
+        $this->asUser()->json('GET', 'api/user/feedback')->assertResponseStatus(401);
 
         // but admin should be abe to get the feedback
-        $this->authJson('GET', 'api/user/feedback', 'admin')->assertResponseOk();
+        $this->asAdmin()->json('GET', 'api/user/feedback')->assertResponseOk();
     }
 
     public function testGetFeedback()
@@ -35,10 +35,10 @@ class FeedbackControllerTest extends TestCase
         $feedback = factory(UserFeedback::class)->create();
 
         // zivi should not access the feedback
-        $this->authJson('GET', 'api/user/feedback/' . $feedback->feedbackId, 'zivi')->assertResponseStatus(401);
+        $this->asUser()->json('GET', 'api/user/feedback/' . $feedback->feedbackId)->assertResponseStatus(401);
 
         // but admin should be abe to get the feedback
-        $this->authJson('GET', 'api/user/feedback/' . $feedback->feedbackId, 'admin')->assertResponseOk();
+        $this->asAdmin()->json('GET', 'api/user/feedback/' . $feedback->feedbackId)->assertResponseOk();
     }
 
     public function testPostFeedback()
@@ -49,7 +49,7 @@ class FeedbackControllerTest extends TestCase
 
         $countBeforeInsert = count(UserFeedback::all());
 
-        $this->authJson('POST', 'api/user/feedback', 'zivi', [
+        $this->asUser()->json('POST', 'api/user/feedback', [
             'missionId' => $mission->id,
             'answers' => [
                 [

@@ -30,7 +30,7 @@ class PhonenumberControllerTest extends TestCase
      */
     public function testValidate($number, $valid, $formatted = '')
     {
-        $response = $this->authJson('POST', 'api/phonenumber/validate', 'zivi', [
+        $response = $this->asUser()->json('POST', 'api/phonenumber/validate', [
             'phonenumber' => $number,
         ]);
 

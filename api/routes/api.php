@@ -12,102 +12,74 @@
 */
 
 use App\CompanyInfo;
-use App\Http\Controllers\UserController;
-use Faker\Provider\Uuid;
-use Illuminate\Support\Facades\Input;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Holiday;
+use App\Http\Controllers\API\UserController;
 use App\ReportSheet;
-use App\Http\Controllers\Auth\AuthController;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Laravel\Lumen\Routing\Router;
 
-$api = app()->make(Dingo\Api\Routing\Router::class);
-
-$api->version('v1', function ($api) {
-    /** @var Dingo\Api\Routing\Router $api */
+/** @var Router $router */
+$router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($router) {
+    /** @var Router $router */
     // Auth - Public
-    $api->post('/auth/login', [
-        'as' => 'api.auth.login',
-        'uses' => 'App\Http\Controllers\Auth\AuthController@postLogin',
-    ]);
-    $api->post('/auth/register', [
-        'as' => 'api.auth.register',
-        'uses' => 'App\Http\Controllers\Auth\AuthController@postRegister'
-    ]);
-    $api->post('/auth/forgotPassword', [
-        'as' => 'api.auth.forgotpassword',
-        'uses' => 'App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail'
-    ]);
-    $api->post('/auth/resetPassword', [
-        'as' => 'api.auth.resetpassword',
-        'uses' => 'App\Http\Controllers\Auth\ForgotPasswordController@resetPassword'
-    ]);
+    $router->post('/auth/login', ['uses' => 'AuthController@postLogin']);
+    $router->post('/auth/register', ['uses' => 'AuthController@postRegister']);
+    $router->post('/auth/forgotPassword', ['uses' => 'ForgotPasswordController@sendResetLinkEmail']);
+    $router->post('/auth/resetPassword', ['uses' => 'ForgotPasswordController@resetPassword']);
 
-    $api->group([
-        'middleware' => 'api.auth',
-    ], function ($api) {
-        /** @var Dingo\Api\Routing\Router $api */
+    $router->group(['middleware' => 'auth'], function ($router) {
+        /** @var Router $router */
         // Authentication - Authenticated
-        $api->patch('/auth/refresh', [
-            'uses' => 'App\Http\Controllers\Auth\AuthController@patchRefresh',
-            'as' => 'api.auth.refresh'
-        ]);
+        $router->patch('/auth/refresh', ['uses' => 'AuthController@patchRefresh',]);
 
         // User - Authenticated
-        $api->get('/user', function () {
-            $user = JWTAuth::parseToken()->authenticate();
+        $router->get('/user', function () {
+            $user = Auth::user();
             $user->internal_note = null;
             return response()->json($user);
         });
-        $api->post('/user/me', function () {
-            $user = JWTAuth::parseToken()->authenticate();
+        $router->post('/user/me', function () {
+            $user = $user = Auth::user();
             UserController::updateUser($user);
         });
-        $api->post('/postChangePassword', [
-            'as' => 'api.user.postChangePassword',
-            'uses' => 'App\Http\Controllers\UserController@changePassword'
-        ]);
+        $router->post('/postChangePassword', ['uses' => 'UserController@changePassword']);
 
         // Specification (Pflichtenheft) - Authenticated
-        $api->get('/specification/me', function () {
-            $user = JWTAuth::parseToken()->authenticate();
+        $router->get('/specification/me', function () {
             return response()->json(
                 App\Specification::
-                    select('id', 'name', 'active')
+                select('id', 'name', 'active')
                     ->get()
             );
         });
 
         // Regionalcenter - Authenticated
-        $api->get('/regionalcenter', function () {
+        $router->get('/regionalcenter', function () {
             return response()->json(App\RegionalCenter::all());
         });
-        $api->get('/regionalcenter/{id}', function ($id) {
+        $router->get('/regionalcenter/{id}', function ($id) {
             return response()->json(App\RegionalCenter::find($id));
         });
 
         // Mission - Authenticated
-        $api->get('/user/missions', function () {
-            $user = JWTAuth::parseToken()->authenticate();
+        $router->get('/user/missions', function () {
+            $user = Auth::user();
             return response()->json($user->missions);
         });
 
-        $api->get('/mission/{id}/draft', [
-            'as' => 'api.pdf',
-            'uses' => 'App\Http\Controllers\PDF\PDFController@getAufgebot'
-        ]);
+        $router->get('/mission/{id}/draft', ['uses' => 'PDFController@getAufgebot']);
 
         // Reportsheet - Authenticated
-        $api->get('/reportsheet/user/me', function () {
-            $user = JWTAuth::parseToken()->authenticate();
+        $router->get('/reportsheet/user/me', function () {
+            $user = Auth::user();
             $reportSheets = App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                            ->select('report_sheets.id AS id', 'start', 'end', 'state')
-                            ->where('users.id', '=', $user->id)
-                            ->where('state', '>', '0')
-                            ->orderBy('start')
-                            ->orderBy('end')
-                            ->orderBy('zdp')
-                            ->get();
+                ->select('report_sheets.id AS id', 'start', 'end', 'state')
+                ->where('users.id', '=', $user->id)
+                ->where('state', '>', '0')
+                ->orderBy('start')
+                ->orderBy('end')
+                ->orderBy('zdp')
+                ->get();
 
             // Add calculated column days
             foreach ($reportSheets as $reportSheet) {
@@ -117,7 +89,7 @@ $api->version('v1', function ($api) {
         });
 
         // Service days - Authenticated
-        $api->get('/diensttage', function () {
+        $router->get('/diensttage', function () {
             $start = Input::get("start", "");
             $end = Input::get("end", "");
             $long_mission = Input::get("long_mission", false);
@@ -125,7 +97,7 @@ $api->version('v1', function ($api) {
             return response()->json(ReportSheet::getDiensttageCount($start, $end, $long_mission));
         });
 
-        $api->get('/diensttageEndDate', function () {
+        $router->get('/diensttageEndDate', function () {
             $start = Input::get("start", "");
             $days = Input::get("days", "0");
             $long_mission = Input::get("long_mission", false);
@@ -133,82 +105,64 @@ $api->version('v1', function ($api) {
             return response()->json(ReportSheet::getDiensttageEndDate($start, $days, $long_mission));
         });
 
-        $api->post('/mission', [
-            'uses' => 'App\Http\Controllers\MissionController@postMission'
+        $router->post('/mission', [
+            'uses' => 'MissionController@postMission'
         ]);
 
-        $api->put('/mission/{id}', [
-            'uses' => 'App\Http\Controllers\MissionController@putMission'
+        $router->put('/mission/{id}', [
+            'uses' => 'MissionController@putMission'
         ]);
 
         // PDF
-        $api->get('/pdf/zivireportsheet', [
-            'as' => 'api.pdf',
-            'uses' => 'App\Http\Controllers\PDF\PDFController@getZiviReportSheet'
+        $router->get('/pdf/zivireportsheet', ['uses' => 'PDFController@getZiviReportSheet']);
+
+        $router->get('/user_feedback_questions', [
+            'uses' => 'FeedbackController@index'
         ]);
 
-        $api->get('/user_feedback_questions', [
-            'uses' => 'App\Http\Controllers\FeedbackController@index'
+        $router->post('/user/feedback', [
+            'uses' => 'FeedbackController@postFeedback'
         ]);
 
-        $api->post('/user/feedback', [
-            'uses' => 'App\Http\Controllers\FeedbackController@postFeedback'
-        ]);
-
-        $api->post('/phonenumber/validate', [
-            'as' => 'api.phonenumber.validate',
-            'uses' => 'App\Http\Controllers\PhonenumberController@validatePhonenumber',
-        ]);
+        $router->post('/phonenumber/validate', ['uses' => 'PhonenumberController@validatePhonenumber']);
 
         // Admins only
-        $api->group([
-            'middleware' => 'role',
-        ], function ($api) {
-            /** @var Dingo\Api\Routing\Router $api */
+        $router->group(['middleware' => 'role'], function ($router) {
+            /** @var Router $router */
             // Root - Admins
-            $api->get('/', [
-                'uses' => 'App\Http\Controllers\APIController@getIndex',
-                'as' => 'api.index'
-            ]);
+            $router->get('/', ['uses' => 'APIController@getIndex']);
 
             // User - Admins
-            $api->get('/user/zivi', [
-                'uses' => 'App\Http\Controllers\UserController@getZivis',
-                'as' => 'api.user.getZivis'
-            ]);
+            $router->get('/user/zivi', ['uses' => 'UserController@getZivis']);
 
-            $api->get('/user/feedback', [
-                'uses' => 'App\Http\Controllers\FeedbackController@getFeedbacks',
-                'as' => 'api.feedbacks'
-            ]);
-            $api->get('/user/feedback/question', function () {
+            $router->get('/user/feedback', ['uses' => 'FeedbackController@getFeedbacks']);
+
+            $router->get('/user/feedback/question', function () {
                 $user_feedback_question = App\UserFeedbackQuestion::all();
                 return response()->json($user_feedback_question);
             });
-            $api->get('/user/feedback/{id}', [
-                'uses' => 'App\Http\Controllers\FeedbackController@getFeedback',
-                'as' => 'api.feedback'
-            ]);
-            $api->get('/user/feedback/question/{id}', function ($id) {
+            $router->get('/user/feedback/{id}', ['uses' => 'FeedbackController@getFeedback']);
+
+            $router->get('/user/feedback/question/{id}', function ($id) {
                 $user_feedback_question = App\UserFeedbackQuestion::find($id);
                 return response()->json($user_feedback_question);
             });
 
-            $api->get('/user/{id}', function ($id) {
+            $router->get('/user/{id}', function ($id) {
                 $user = App\User::find($id);
                 return response()->json($user);
             });
 
-            $api->get('/user/{id}/missions', function ($id) {
+            $router->get('/user/{id}/missions', function ($id) {
                 $user = App\User::find($id);
                 return response()->json($user->missions);
             });
 
-            $api->delete('/user/{id}', function ($id) {
+            $router->delete('/user/{id}', function ($id) {
                 App\User::destroy($id);
                 return response("deleted");
             });
-            $api->post('/user/{id}', function ($id) {
+            $router->post('/user/{id}', function ($id) {
                 $user = App\User::find($id);
                 $user->role = Input::get("role", "");
                 $user->internal_note = Input::get("internal_note", "");
@@ -217,9 +171,8 @@ $api->version('v1', function ($api) {
             });
 
 
-
             // Mission - Admins
-            $api->post('/mission/{id}/receivedDraft', function ($id) {
+            $router->post('/mission/{id}/receivedDraft', function ($id) {
                 $mission = App\Mission::find($id);
                 $mission->draft = date("Y-m-d");
                 $mission->save();
@@ -229,7 +182,7 @@ $api->version('v1', function ($api) {
                 $end = new DateTime($mission->end);
                 $reportSheetEnd = clone $start;
                 $reportSheetEnd->modify('last day of this month');
-                while ($reportSheetEnd<$end) {
+                while ($reportSheetEnd < $end) {
                     ReportSheet::add($mission, $start, $reportSheetEnd);
                     $start->modify('first day of next month');
                     $reportSheetEnd->modify('last day of next month');
@@ -240,13 +193,13 @@ $api->version('v1', function ($api) {
             });
 
             // Specification (Pflichtenheft) - Admins
-            $api->get('/specification', function () {
+            $router->get('/specification', function () {
                 return response()->json(DB::table('specifications')->select('*')->get());
             });
-            $api->get('/specification/{id}', function ($id) {
+            $router->get('/specification/{id}', function ($id) {
                 return response()->json(App\Specification::find($id));
             });
-            $api->post('/specification/{id}', function ($id) {
+            $router->post('/specification/{id}', function ($id) {
                 $spec = App\Specification::find($id);
                 $spec->accommodation = Input::get("accommodation", "");
                 $spec->active = Input::get("active", "");
@@ -272,7 +225,7 @@ $api->version('v1', function ($api) {
                 $spec->save();
                 return response("updated");
             });
-            $api->put('/specification/{id}', function ($id) {
+            $router->put('/specification/{id}', function ($id) {
 
                 if (!preg_match('/^[0-9\d_]*$/', $id)) {
                     return response()->json('Die ID enthält ungültige Zeichen!', 400);
@@ -306,15 +259,15 @@ $api->version('v1', function ($api) {
             });
 
             // Mission - Admins
-            $api->get('/missions/{year}', function ($year) {
+            $router->get('/missions/{year}', function ($year) {
                 $data = App\Mission::join('users', 'users.id', '=', 'missions.user')
-                                        ->join('specifications', 'specifications.id', '=', 'missions.specification')
-                                        ->select('*', 'users.id AS userid')
-                                        ->whereNull('missions.deleted_at')
-                                        ->whereDate('end', '>=', $year.'-01-01')
-                                        ->whereDate('start', '<=', $year.'-12-31')
-                                        ->orderBy('start')
-                                        ->get();
+                    ->join('specifications', 'specifications.id', '=', 'missions.specification')
+                    ->select('*', 'users.id AS userid')
+                    ->whereNull('missions.deleted_at')
+                    ->whereDate('end', '>=', $year . '-01-01')
+                    ->whereDate('start', '<=', $year . '-12-31')
+                    ->orderBy('start')
+                    ->get();
                 $intermediateResult = array();
                 foreach ($data as $m) {
                     if (!isset($intermediateResult[$m->userid])) {
@@ -330,22 +283,22 @@ $api->version('v1', function ($api) {
 
                 return response()->json($result);
             });
-            $api->delete('/mission/{id}', function ($id) {
+            $router->delete('/mission/{id}', function ($id) {
                 App\Mission::find($id)->delete();
                 App\ReportSheet::deleteByMission($id);
                 return response("deleted");
             });
 
             // Holiday Type - Admins
-            $api->get('/holiday_type', function () {
+            $router->get('/holiday_type', function () {
                 return response()->json(App\HolidayType::all());
             });
-            $api->get('/holiday_type/{id}', function ($id) {
+            $router->get('/holiday_type/{id}', function ($id) {
                 return response()->json(App\HolidayType::find($id));
             });
 
             // Holiday - Admins
-            $api->get('/holiday', function () {
+            $router->get('/holiday', function () {
                 $start = new DateTime();
                 $end = new DateTime();
                 $start->modify('first day of january last year');
@@ -356,7 +309,7 @@ $api->version('v1', function ($api) {
                     ->whereDate('date_from', '<=', $end)
                     ->get());
             });
-            $api->post('/holiday/{id}', function ($id) {
+            $router->post('/holiday/{id}', function ($id) {
                 $holiday = App\Holiday::find($id);
                 $holiday->date_from = Input::get("date_from");
                 $holiday->date_to = Input::get("date_to");
@@ -365,7 +318,7 @@ $api->version('v1', function ($api) {
                 $holiday->save();
                 return response("updated");
             });
-            $api->put('/holiday', function () {
+            $router->put('/holiday', function () {
                 $holiday = new App\Holiday();
                 $holiday->date_from = Input::get("date_from");
                 $holiday->date_to = Input::get("date_to");
@@ -374,30 +327,30 @@ $api->version('v1', function ($api) {
                 $holiday->save();
                 return response("inserted");
             });
-            $api->delete('/holiday/{id}', function ($id) {
+            $router->delete('/holiday/{id}', function ($id) {
                 $holiday = App\Holiday::find($id);
                 $holiday->delete();
                 return response("deleted");
             });
 
             // Role - Admins
-            $api->get('/role', function () {
+            $router->get('/role', function () {
                 return response()->json(App\Role::all());
             });
-            $api->get('/role/{id}', function ($id) {
+            $router->get('/role/{id}', function ($id) {
                 return response()->json(App\Role::find($id));
             });
 
             // Log - Admins
-            $api->get('/log', function () {
+            $router->get('/log', function () {
                 return response()->json(App\Log::all());
             });
-            $api->get('/log/{id}', function ($id) {
+            $router->get('/log/{id}', function ($id) {
                 return response()->json(App\Log::find($id));
             });
 
             // Reportsheet - Admins
-            $api->get('/reportsheet', function () {
+            $router->get('/reportsheet', function () {
                 return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                     ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'state', 'report_sheets.id AS id')
                     ->orderBy('start')
@@ -405,7 +358,7 @@ $api->version('v1', function ($api) {
                     ->orderBy('zdp')
                     ->get());
             });
-            $api->get('/reportsheet/pending', function () {
+            $router->get('/reportsheet/pending', function () {
                 return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                     ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'state', 'report_sheets.id AS id')
                     ->where('state', '!=', '3')
@@ -414,7 +367,7 @@ $api->version('v1', function ($api) {
                     ->orderBy('zdp')
                     ->get());
             });
-            $api->get('/reportsheet/current', function () {
+            $router->get('/reportsheet/current', function () {
                 return response()->json(App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                     ->select('zdp', 'users.id AS userid', 'first_name', 'last_name', 'start', 'end', 'state', 'report_sheets.id AS id')
                     ->whereDate('start', '>=', date('Y-m-d', strtotime('first day of last month')))
@@ -425,26 +378,18 @@ $api->version('v1', function ($api) {
                     ->orderBy('zdp')
                     ->get());
             });
-            $api->get('/reportsheet/payments', [
-                'uses' => 'App\Http\Controllers\PaymentController@getPaymentOverview',
-                'as' => 'api.paymentoverview'
-            ]);
-            $api->post('/reportsheet/payments/execute', [
-                'uses' => 'App\Http\Controllers\PaymentController@getIsoPaymentXml',
-                'as' => 'api.paymentexecute'
-            ]);
-            $api->get('/reportsheet/payments/{id}', [
-                'uses' => 'App\Http\Controllers\PaymentController@getArchivedPayment',
-                'as' => 'api.paymentarchived'
-            ]);
-            $api->get('/reportsheet/payments/xml/{id}', [
-                'uses' => 'App\Http\Controllers\PaymentController@getArchivedXml',
-                'as' => 'api.paymentarchivedxml'
-            ]);
-            $api->get('/reportsheet/{id}', function ($id) {
+            $router->get('/reportsheet/payments', ['uses' => 'PaymentController@getPaymentOverview']);
+
+            $router->post('/reportsheet/payments/execute', ['uses' => 'PaymentController@getIsoPaymentXml']);
+
+            $router->get('/reportsheet/payments/{id}', ['uses' => 'PaymentController@getArchivedPayment']);
+
+            $router->get('/reportsheet/payments/xml/{id}', ['uses' => 'PaymentController@getArchivedXml']);
+
+            $router->get('/reportsheet/{id}', function ($id) {
                 return response()->json(App\ReportSheet::getSpesen($id));
             });
-            $api->post('/reportsheet/{id}', function ($id) {
+            $router->post('/reportsheet/{id}', function ($id) {
                 $sheet = App\ReportSheet::find($id);
                 $sheet->work = Input::get("meldeblaetter_workdays", "");
                 $sheet->work_comment = Input::get("meldeblaetter_work_comment", "");
@@ -460,11 +405,11 @@ $api->version('v1', function ($api) {
                 $sheet->holiday_comment = Input::get("meldeblaetter_holiday_comment", "");
                 $sheet->vacation = Input::get("meldeblaetter_urlaub", "");
                 $sheet->vacation_comment = Input::get("meldeblaetter_urlaub_comment", "");
-                $sheet->clothes = Input::get("meldeblaetter_kleider", "")*100;
+                $sheet->clothes = Input::get("meldeblaetter_kleider", "") * 100;
                 $sheet->clothes_comment = Input::get("meldeblaetter_kleider_comment", "");
-                $sheet->driving_charges = Input::get("meldeblaetter_fahrspesen", "")*100;
+                $sheet->driving_charges = Input::get("meldeblaetter_fahrspesen", "") * 100;
                 $sheet->driving_charges_comment = Input::get("meldeblaetter_fahrspesen_comment", "");
-                $sheet->extraordinarily = Input::get("meldeblaetter_ausserordentlich", "")*100;
+                $sheet->extraordinarily = Input::get("meldeblaetter_ausserordentlich", "") * 100;
                 $sheet->extraordinarily_comment = Input::get("meldeblaetter_ausserordentlich_comment", "");
                 $sheet->bank_account_number = Input::get("bank_account_number", "");
                 $sheet->document_number = Input::get("document_number", "");
@@ -475,7 +420,7 @@ $api->version('v1', function ($api) {
                 $sheet->save();
                 return response("updated");
             });
-            $api->put('/reportsheet/{id}/state', function ($id) {
+            $router->put('/reportsheet/{id}/state', function ($id) {
                 $sheet = App\ReportSheet::find($id);
                 $state = Input::get("state", null);
                 if ($state === null) {
@@ -485,8 +430,8 @@ $api->version('v1', function ($api) {
                 $sheet->save();
                 return response("updated");
             });
-            $api->get('/reportsheet/user/{id}', function ($id) {
-                 $reportSheets = App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+            $router->get('/reportsheet/user/{id}', function ($id) {
+                $reportSheets = App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
                     ->select('report_sheets.id AS id', 'start', 'end', 'state')
                     ->where('users.id', '=', $id)
                     ->orderBy('start')
@@ -500,15 +445,15 @@ $api->version('v1', function ($api) {
                 return response()->json($reportSheets);
             });
 
-            $api->delete('/reportsheet/{id}', function ($id) {
+            $router->delete('/reportsheet/{id}', function ($id) {
                 App\ReportSheet::destroy($id);
                 return response("deleted");
             });
 
-            $api->put('/reportsheet', function () {
+            $router->put('/reportsheet', function () {
                 $userId = Input::get("user", "");
                 if ($userId == null) {
-                    $userId = JWTAuth::parseToken()->authenticate()->id;
+                    $userId = $user = Auth::id();
                 }
 
                 $mission = App\Mission::find(Input::get("mission", ""));
@@ -525,14 +470,13 @@ $api->version('v1', function ($api) {
             });
 
             // PDF - Admins
-            $api->get('/pdf/phoneList', [
-                'as' => 'api.pdf',
-                'uses' => 'App\Http\Controllers\PDF\PDFController@getPhoneList'
-            ]);
-            $api->get('/pdf/statistik', [
-                'as' => 'api.pdf',
-                'uses' => 'App\Http\Controllers\PDF\PDFController@getSpesenStatistik'
-            ]);
+            $router->get('/pdf/phoneList', ['uses' => 'PDFController@getPhoneList']);
+
+            $router->get('/pdf/statistik', ['uses' => 'PDFController@getSpesenStatistik']);
+        });
+
+        $router->get('/', function () use ($router) {
+            return $router->app->version();
         });
     });
 });

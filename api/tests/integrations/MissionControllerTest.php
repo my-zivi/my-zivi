@@ -14,7 +14,7 @@ class MissionControllerTest extends \TestCase
 
     public function testInvalidUserPost()
     {
-        $this->authJson('POST', '/api/mission', 'zivi', $this->missionTemplate())->assertResponseStatus(401);
+        $this->asUser()->json('POST', '/api/mission', $this->missionTemplate())->assertResponseStatus(401);
     }
 
     public function testValidUserPost()
@@ -23,27 +23,27 @@ class MissionControllerTest extends \TestCase
         $user = factory(User::class)->create();
         $template['user'] = 'me';
 
-        $this->authJson('POST', '/api/mission', $user, $template)->assertResponseOk();
+        $this->asUser($user)->json('POST', '/api/mission', $template)->assertResponseOk();
         $this->assertEquals('inserted', $this->response->getContent());
     }
 
     public function testInvalidPut()
     {
         $missionId = factory(Mission::class)->create()->id;
-        $this->authJson('PUT', '/api/mission/' . $missionId, 'zivi', $this->missionTemplate())->assertResponseStatus(401);
+        $this->asUser()->json('PUT', '/api/mission/' . $missionId, $this->missionTemplate())->assertResponseStatus(401);
     }
 
     public function testShouldUpdateReportSheets()
     {
         $template = $this->missionTemplate();
-        $this->authJson('POST', '/api/mission', 'admin', $template)->assertResponseOk();
+        $this->asAdmin()->json('POST', '/api/mission', $template)->assertResponseOk();
 
         $mission = Mission::latest()->first();
         $mission->update(['draft' => '2018-11-05']);
         $countOfMissions = ReportSheet::where('mission', "=", $mission->id)->count();
         $template['end'] = '2021-12-31';
 
-        $this->authJson('PUT', '/api/mission/' . $mission->id, 'admin', $template)->assertResponseOk();
+        $this->asAdmin()->json('PUT', '/api/mission/' . $mission->id, $template)->assertResponseOk();
         $this->assertEquals('updated', $this->response->getContent());
         $this->assertEquals($countOfMissions + 12, ReportSheet::where('mission', "=", $mission->id)->count());
     }

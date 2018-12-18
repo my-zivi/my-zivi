@@ -83,8 +83,8 @@ $app->middleware([
 ]);
 
 $app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
     'role' => App\Http\Middleware\Role::class
-//     'auth' => App\Http\Middleware\Authenticate::class
 ]);
 
 /*
@@ -99,29 +99,12 @@ $app->routeMiddleware([
 */
 
 // $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\GuardServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
-$app->configure('jwt');
-
-// Dingo Service Provider for Lumen
-$app->register(Dingo\Api\Provider\LumenServiceProvider::class);
-
-$app->withFacades(true, [
-    Tymon\JWTAuth\Facades\JWTAuth::class => 'JWTAuth',
-    Tymon\JWTAuth\Facades\JWTFactory::class => 'JWTFactory'
-]);
-
-$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
-
-app('Dingo\Api\Auth\Auth')->extend('jwt', function ($app) {
-    return new Dingo\Api\Auth\Provider\JWT($app['Tymon\JWTAuth\JWTAuth']);
-});
-
 // Lumen Generator disabled it on production if you want
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
-
 $app->register(Sentry\SentryLaravel\SentryLumenServiceProvider::class);
 
 // Register Laravel Mail component

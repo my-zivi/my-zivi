@@ -6,15 +6,15 @@
  * Time: 3:05 PM
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\CompanyInfo;
+use App\Http\Controllers\Controller;
 use App\Payment;
 use App\PaymentEntry;
 use App\ReportSheet;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 
 function scrub(string $s)

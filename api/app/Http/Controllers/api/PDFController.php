@@ -6,13 +6,16 @@
  * Time: 11:15 AM
  */
 
-namespace App\Http\Controllers\PDF;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Services\PDF\AufgebotPDF;
+use App\Services\PDF\PhoneListPDF;
+use App\Services\PDF\SpesenStatistik;
+use App\Services\PDF\ZiviReportSheetPDF;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Request;
 use Laravel\Lumen\Application;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PDFController extends Controller
 {
@@ -40,7 +43,7 @@ class PDFController extends Controller
         $reportSheet = new ZiviReportSheetPDF($reportSheetId);
 
         //Allow only admins to get reportSheets of other Users
-        $user = JWTAuth::parseToken()->authenticate();
+        $user = Auth::user();
         if ($user->role!=1 && ($user->id!=$reportSheet->getUserId() || !$reportSheet->isDone())) {
             return response("unauthorized", 401);
         }
@@ -81,7 +84,7 @@ class PDFController extends Controller
         $aufgebot = new AufgebotPDF($id);
 
         //Allow only admins to get reportSheets of other Users
-        $user = JWTAuth::parseToken()->authenticate();
+        $user = Auth::user();
         if ($user->role!=1 && $user->id!=$aufgebot->getUserId()) {
             return response("unauthorized", 401);
         }

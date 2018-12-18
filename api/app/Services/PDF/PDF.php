@@ -6,7 +6,7 @@
  * Time: 11:34 AM
  */
 
-namespace App\Http\Controllers\PDF;
+namespace App\Services\PDF;
 
 use FPDI;
 

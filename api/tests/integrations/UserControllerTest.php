@@ -15,7 +15,7 @@ class UserControllerTest extends TestCase
         factory(\App\User::class, 'user_with_admin')->times(10)->create();
         factory(\App\User::class, 10)->create();
 
-        $this->authJson('GET', 'api/user/zivi', 'admin');
+        $this->asAdmin()->json('GET', 'api/user/zivi');
         $this->assertCount(count(\App\User::all()), $this->responseToArray());
     }
 
@@ -23,7 +23,7 @@ class UserControllerTest extends TestCase
     {
         $self = factory(\App\User::class)->create();
 
-        $response = $this->authJson('GET', 'api/user', $self);
+        $response = $this->asUser($self)->json('GET', 'api/user');
 
         $response->seeJson([
             'id' => $self->id,
@@ -35,16 +35,15 @@ class UserControllerTest extends TestCase
     {
         $self = factory(\App\User::class)->create();
 
-        $response = $this->authJson('GET', 'api/user', $self);
-        $responseData = $response->response->getOriginalContent();
+        $this->asUser($self)->json('GET', 'api/user');
+        $responseData = $this->responseToArray();
 
         $new = 'test address 123';
         $responseData['address'] = $new;
 
-        $response = $this->authJson('POST', 'api/user/me', $self, $responseData);
-        $response->assertResponseOk();
+        $this->asUser($self)->json('POST', 'api/user/me', $responseData)->assertResponseOk();
 
-        $response = $this->authJson('GET', 'api/user', $self);
+        $response = $this->asUser($self)->json('GET', 'api/user');
         $response->seeJson([
             'id' => $self->id,
             'address' => $new,
@@ -59,7 +58,7 @@ class UserControllerTest extends TestCase
             'password' => app('hash')->make($old)
         ]);
 
-        $response = $this->authJson('POST', 'api/postChangePassword', $self, [
+        $response = $this->asUser($self)->json('POST', 'api/postChangePassword', [
             'old_password' => $old,
             'new_password' => $new,
             'new_password_2' => $new,
@@ -82,14 +81,14 @@ class UserControllerTest extends TestCase
     public function testChangePasswordOldPasswordEmpty()
     {
         $self = factory(\App\User::class)->create();
-        $this->authJson('POST', 'api/postChangePassword', $self, [])->assertResponseStatus(406);
+        $this->asUser($self)->json('POST', 'api/postChangePassword', [])->assertResponseStatus(406);
         $this->assertContains('Altes Passwort darf nicht leer sein!', $this->responseToArray());
     }
 
     public function testChangePasswordOldPasswordWrong()
     {
         $self = factory(\App\User::class)->create();
-        $this->authJson('POST', 'api/postChangePassword', $self, [
+        $this->asUser($self)->json('POST', 'api/postChangePassword', [
             'old_password' => 'schabdudisianidniasdasq2413'
         ])->assertResponseStatus(406);
         $this->assertContains('Altes Passwort stimmt nicht!', $this->responseToArray());
@@ -102,7 +101,7 @@ class UserControllerTest extends TestCase
             'password' => app('hash')->make($old)
         ]);
 
-        $this->authJson('POST', 'api/postChangePassword', $self, [
+        $this->asUser($self)->json('POST', 'api/postChangePassword', [
             'old_password' => $old,
             'new_password' => 'Hans',
             'new_password_2' => 'Heiri'
@@ -117,7 +116,7 @@ class UserControllerTest extends TestCase
             'password' => app('hash')->make($old)
         ]);
 
-        $this->authJson('POST', 'api/postChangePassword', $self, [
+        $this->asUser($self)->json('POST', 'api/postChangePassword', [
             'old_password' => $old,
             'new_password' => 'Hans',
             'new_password_2' => 'Hans'

@@ -1,25 +1,48 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\API;
 
 use App\CompanyInfo;
 use App\Http\Controllers\Controller;
 use App\Mail\NewsletterSignup;
 use App\User;
+use Firebase\JWT\JWT;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
     const USER_ROLE_ZIVI = 2;
     const PW_MIN_LENGTH = 7;
     const PW_LENGTH_TEXT = 'Das Passwort muss aus mindestens '.AuthController::PW_MIN_LENGTH.' Zeichen bestehen!';
+
+    // SOURCE: http://zeeshanu.info/blog/2017/09/05/jwt-authentication-for-Lumen-5.4/
+
+    /**
+     * Create a new token.
+     *
+     * @param  User $user
+     * @return string
+     */
+    protected function jwt(User $user)
+    {
+        $payload = [
+            'iss' => "izivi-api", // Issuer of the token
+            'sub' => $user->id, // Subject of the token
+            'isAdmin' => $user->role == 1,
+            'iat' => time(), // Time when JWT was issued.
+            'exp' => time() + 60*60*24, // Expiration time,
+        ];
+
+        // As you can see we are passing `JWT_SECRET` as the second parameter that will
+        // be used to decode the token in the future.
+        return JWT::encode($payload, env('JWT_SECRET'));
+    }
 
     /**
      * Handle a login request to the application.
@@ -39,36 +62,33 @@ class AuthController extends Controller
             return $e->getResponse();
         }
 
-        try {
-            // Attempt to verify the credentials and create a token for the user
-            $isAuthorized = false;
-            $userPasswordInput = $this->getCredentials($request)['password'];
-            $user = User::where('email', '=', Input::get("email", ""))->first();
+        // Find the user by email
+        $user = User::where('email', $request->input('email'))->first();
 
-            // Simple MD5 fallback with double hashing (MD5 + bcrypt) - converts MD5 to bcrypt
-            if (password_verify(md5($userPasswordInput), $user['password'])) {
-                // double hashed: MD5 + bcrypt
-                $isAuthorized = true;
-                $token = JWTAuth::fromUser($user);
-                $user->password = password_hash($userPasswordInput, PASSWORD_BCRYPT);
-                $user->save();
-            } else {
-                // single hashed: bcrypt
-                if ($token = JWTAuth::attempt($this->getCredentials($request))) {
-                    $isAuthorized = true;
-                }
-            }
-
-            if (!$isAuthorized) {
-                return $this->onUnauthorized();
-            }
-        } catch (JWTException $e) {
-            // Something went wrong whilst attempting to encode the token
-            return $this->onJwtGenerationError();
+        if (!$user) {
+            // You wil probably have some sort of helpers or whatever
+            // to make sure that you have the same response format for
+            // differents kind of responses. But let's return the
+            // below response for now.
+            return response()->json([
+                'error' => 'Email does not exist.'
+            ], 401);
         }
 
-        // All good so return the token
-        return $this->onAuthorized($token);
+        // Verify the password and generate the token
+        if (Hash::check($request->input('password'), $user->password)) {
+            return new JsonResponse([
+                'message' => 'token_generated',
+                'data' => [
+                    'token' => $this->jwt($user),
+                ]
+            ]);
+        }
+
+        // Bad Request response
+        return response()->json([
+            'error' => 'Email or password is wrong.'
+        ], 401);
     }
 
     public function postRegister(Request $request)
@@ -126,72 +146,14 @@ class AuthController extends Controller
         return $this->postLogin($request);
     }
 
-    /**
-     * What response should be returned on invalid credentials.
-     *
-     * @return JsonResponse
-     */
-    protected function onUnauthorized()
-    {
-        return new JsonResponse([
-            'message' => 'invalid_credentials'
-        ], Response::HTTP_UNAUTHORIZED);
-    }
-
-    /**
-     * What response should be returned on error while generate JWT.
-     *
-     * @return JsonResponse
-     */
-    protected function onJwtGenerationError()
-    {
-        return new JsonResponse([
-            'message' => 'could_not_create_token'
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
-    }
-
-    /**
-     * What response should be returned on authorized.
-     *
-     * @return JsonResponse
-     */
-    protected function onAuthorized($token)
-    {
-        return new JsonResponse([
-            'message' => 'token_generated',
-            'data' => [
-                'token' => $token,
-            ]
-        ]);
-    }
-
-    /**
-     * Get the needed authorization credentials from the request.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return array
-     */
-    protected function getCredentials(Request $request)
-    {
-        return $request->only('email', 'password');
-    }
-
-    /**
-     * Refresh a token.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function patchRefresh()
     {
-        $token = JWTAuth::parseToken();
-
-        $newToken = $token->refresh();
+        $user = Auth::user();
 
         return new JsonResponse([
             'message' => 'token_refreshed',
             'data' => [
-                'token' => $newToken
+                'token' => $this->jwt($user)
             ]
         ]);
     }
