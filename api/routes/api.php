@@ -35,11 +35,11 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
         // User - Authenticated
         $router->get('/user', function () {
             $user = Auth::user();
-            $user->internal_note = null;
+            unset($user->internal_note);
             return response()->json($user);
         });
         $router->post('/user/me', function () {
-            $user = $user = Auth::user();
+            $user = Auth::user();
             UserController::updateUser($user);
         });
         $router->post('/postChangePassword', ['uses' => 'UserController@changePassword']);

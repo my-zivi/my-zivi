@@ -9,7 +9,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 
@@ -22,27 +21,31 @@ class UserController extends Controller
      */
     public function getZivis()
     {
+        $usersWithLatestMission = User::all()->map(function (User $user):array {
+            $userInformation = [
+                'first_name' => $user->first_name,
+                'id' => $user->id,
+                'last_name' => $user->last_name,
+                'role' => $user->user_role->name,
+                'role_id' => $user->role,
+                'work_experience' => $user->work_experience,
+                'zdp' => $user->zdp,
+            ];
 
-        //$zivis = DB::table('users')->where('zdp', '>', 0)->get();
-        $zivis = DB::table('users')
-            ->leftJoin('missions', 'users.id', '=', 'missions.user')
-            ->groupBy('users.id')
-            ->join('roles', 'roles.id', '=', 'users.role')
-            ->whereNull('users.deleted_at')
-            ->select('users.id', 'users.zdp', 'users.first_name', 'users.last_name', 'users.work_experience', 'roles.name AS role', 'roles.id AS role_id')
-            ->selectRaw('max(missions.start) AS start')
-            ->selectRaw('max(missions.end) AS end')
-            ->selectRaw('max(missions.long_mission) AS long_mission')
-            ->orderBy('start', 'DESC')
-            ->orderBy('end', 'DESC')
-            ->orderBy('users.last_name')
-            ->get();
-        /*
-        $zivis = DB::table('missions')->get();
-        $zivis = DB::table('specifications')->get();
-        */
+            $latestMission = $user->missions->sortByDesc('start')->first();
 
-        return new JsonResponse($zivis);
+            if ($latestMission) {
+                $userInformation = array_merge($userInformation, [
+                    'end' => $latestMission->end,
+                    'long_mission' => $latestMission->long_mission,
+                    'start' => $latestMission->start,
+                ]);
+            }
+
+            return $userInformation;
+        });
+
+        return new JsonResponse($usersWithLatestMission->sortByDesc('start')->values());
     }
 
     public function changePassword(Request $request)

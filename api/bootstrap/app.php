@@ -100,11 +100,6 @@ $app->routeMiddleware([
 
 // $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\GuardServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
-
-// Lumen Generator disabled it on production if you want
-$app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 $app->register(Sentry\SentryLaravel\SentryLumenServiceProvider::class);
 
 // Register Laravel Mail component

@@ -130,13 +130,26 @@ class AuthController extends Controller
 
         $user = new User();
 
-        $user->first_name = $request->input("firstname");
-        $user->last_name = $request->input("lastname");
+        $user->address = "";
+        $user->bank_bic = "";
+        $user->bank_iban = "";
+        $user->birthday = new \DateTime();
+        $user->city = "";
         $user->email = $request->input("email");
-        $user->zdp = $request->input("zdp");
+        $user->first_name = $request->input("firstname");
+        $user->ga_travelcard = false;
+        $user->half_fare_travelcard = false;
+        $user->health_insurance = "";
+        $user->hometown = "";
+        $user->internal_note = "";
+        $user->last_name = $request->input("lastname");
         $user->password = password_hash($request->input("password"), PASSWORD_BCRYPT);
+        $user->phone_business = "";
+        $user->phone_mobile = "";
+        $user->phone_private = "";
         $user->regional_center = 1;
         $user->role = AuthController::USER_ROLE_ZIVI;
+        $user->zdp = $request->input("zdp");
         $user->save();
 
         if ($request->input("newsletter", false)) {

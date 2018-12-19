@@ -4,7 +4,7 @@ import Auth from './auth';
 
 //this will be replaced by a build script, if necessary
 const baseUrlOverride = 'BASE_URL';
-const BASE_URL = baseUrlOverride.startsWith('http') ? baseUrlOverride : 'http://localhost:8000/api/';
+const BASE_URL = baseUrlOverride.startsWith('http') ? baseUrlOverride : 'http://localhost:48000/api/';
 
 export const api = () => {
   return axios.create({

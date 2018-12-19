@@ -16,7 +16,7 @@ cache:
 
 # install programming languages
 before_install:
-  - nvm install 8.9
+  - nvm install 10
 
 install:
   - composer install -d api $COMPOSER_FLAGS

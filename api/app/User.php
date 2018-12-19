@@ -58,6 +58,11 @@ class User extends Model implements
         'remember_token',
     ];
 
+    public function user_role()
+    {
+        return $this->belongsTo(Role::class, 'role');
+    }
+
     public function missions()
     {
         return $this->hasMany('App\Mission', 'user');

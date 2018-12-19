@@ -8,7 +8,7 @@
 
 namespace App\Services\PDF;
 
-use FPDI;
+use setasign\Fpdi\Fpdi;
 
 abstract class PDF
 {

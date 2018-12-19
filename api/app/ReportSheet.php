@@ -517,7 +517,14 @@ class ReportSheet extends Model
         $sheet->user = $mission->user;
         $sheet->start = $start;
         $sheet->end = $end;
-                $sheet->bank_account_number = CompanyInfo::DEFAULT_ACCOUNT_NUMBER_REPORT_SHEETS;
+        $sheet->bank_account_number = CompanyInfo::DEFAULT_ACCOUNT_NUMBER_REPORT_SHEETS;
+        $sheet->additional_workfree = 0;
+        $sheet->driving_charges = 0;
+        $sheet->extraordinarily = 0;
+        $sheet->ill = 0;
+        $sheet->holiday = 0;
+        $sheet->state = 0;
+        $sheet->vacation = 0;
         $sheet->save();
     }
 

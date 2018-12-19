@@ -78,6 +78,8 @@ class MissionController extends Controller
         $mission->first_time = Input::get("first_time", false);
         $mission->long_mission = Input::get("long_mission", false);
         $mission->probation_period = Input::get("probation_period", false);
+        $mission->feedback_mail_sent = false;
+        $mission->feedback_done = false;
 
         $start = DateTime::createFromFormat('Y-m-d', $mission->start);
         $end = DateTime::createFromFormat('Y-m-d', $mission->end);

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\User;
 use Exception;
 use Firebase\JWT\JWT;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
 
@@ -32,23 +33,22 @@ class AuthServiceProvider extends ServiceProvider
         // should return either a User instance or null. You're free to obtain
         // the User instance via an API token or any other method necessary.
 
-        $this->app['auth']->viaRequest('jwt-auth', function () {
-            if (app('request')->header('Authorization')) {
+        $this->app['auth']->viaRequest('jwt-auth', function (Request $request) {
+            if ($request->header('Authorization')) {
                 $split = explode(' ', app('request')->header('Authorization'), 2);
                 if (sizeof($split) > 1) {
                     $token = $split[1];
                 } else {
                     return null;
                 }
-            } elseif (app('request')->query('token')) {
-                $token = app('request')->query('token');
+            } elseif ($request->query('token')) {
+                $token = $request->query('token');
             } else {
                 // Unauthorized response if token not there
                 return null;
             }
 
             try {
-                Log::debug($token);
                 $credentials = JWT::decode($token, env('JWT_SECRET'), ['HS256']);
                 $user = User::findOrFail($credentials->sub);
             } catch (Exception $e) {

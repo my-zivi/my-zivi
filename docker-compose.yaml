@@ -7,7 +7,7 @@ services:
     volumes:
       - ./api:/var/app
     working_dir: /var/app
-    command:  "php artisan serve --host=0.0.0.0"
+    command: "php -S 0.0.0.0:8000 -t ./public"
     depends_on:
       - mariadb
     ports:

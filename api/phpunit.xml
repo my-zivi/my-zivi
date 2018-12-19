@@ -16,6 +16,7 @@
     <filter>
         <whitelist>
             <directory suffix=".php">app/</directory>
+            <directory suffix=".php">routes/</directory>
         </whitelist>
     </filter>
     <php>

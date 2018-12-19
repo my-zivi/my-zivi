@@ -14,7 +14,7 @@
 Cypress.Commands.add('login', () => {
   cy.request({
     method: 'POST',
-    url: 'http://localhost:8000/api/auth/login',
+    url: 'http://localhost:48000/api/auth/login',
     form: true,
     body: {
       email: 'office@stiftungswo.ch',
