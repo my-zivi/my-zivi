@@ -13,7 +13,7 @@ function showSuccess(title, msg) {
     color: 'green',
     title: title,
     message: msg,
-    position: 'topCenter',
+    position: 'bottomLeft',
     transitionIn: 'flipInX',
     transitionOut: 'flipOutX',
     progressBarColor: 'rgb(0, 255, 0)',
