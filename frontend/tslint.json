@@ -1,0 +1,49 @@
+{
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "defaultSeverity": "warning",
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js"
+    ]
+  },
+  "rules": {
+    "interface-name": {
+      "severity": "off"
+    },
+    "object-literal-sort-keys": {
+      "severity": "off"
+    },
+    "ordered-imports": {
+      "severity": "off"
+    },
+    "comment-format": {
+      "severity": "off"
+    },
+    "jsx-boolean-value": {
+      "severity": "off"
+    },
+    "no-any": {
+      "severity": "warning"
+    },
+    "array-type": {
+      "severity": "off"
+    },
+    "max-classes-per-file": {
+      "severity": "off"
+    },
+    "member-ordering": {
+      "severity": "off"
+    },
+    "jsx-no-lambda": {
+      "severity": "off"
+    },
+    "no-non-null-assertion": {
+      "severity": "off"
+    },
+    "member-access": {
+      "severity": "off"
+    }
+  }
+}
