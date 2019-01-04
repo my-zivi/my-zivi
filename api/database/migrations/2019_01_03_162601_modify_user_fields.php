@@ -17,6 +17,11 @@ class ModifyUserFields extends Migration
             $table->string('phone')->default("");
             $table->boolean('driving_licence_b')->default(false);
             $table->boolean('driving_licence_be')->default(false);
+            $table->string('phone_mobile')->default("")->change();
+            $table->string('phone_private')->default("")->change();
+            $table->string('phone_business')->default("")->change();
+            $table->boolean('ga_travelcard')->default(false)->change();
+            $table->boolean('half_fare_travelcard')->default(false)->change();
         });
 
         // update new phone field
@@ -41,6 +46,9 @@ class ModifyUserFields extends Migration
             $table->dropColumn('phone');
             $table->dropColumn('driving_licence_b');
             $table->dropColumn('driving_licence_be');
+            $table->string('phone_mobile')->change();
+            $table->string('phone_private')->change();
+            $table->string('phone_business')->change();
         });
     }
 }
