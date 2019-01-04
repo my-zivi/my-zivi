@@ -4,13 +4,14 @@ import Navbar from 'reactstrap/lib/Navbar';
 import NavbarBrand from 'reactstrap/lib/NavbarBrand';
 import NavbarToggler from 'reactstrap/lib/NavbarToggler';
 import { inject, observer } from 'mobx-react';
-import { MainStore } from './stores/mainStore';
+import { MainStore } from '../stores/mainStore';
 import Collapse from 'reactstrap/lib/Collapse';
 import Nav from 'reactstrap/lib/Nav';
-import { ApiStore } from './stores/apiStore';
+import { ApiStore } from '../stores/apiStore';
 import NavItem from 'reactstrap/lib/NavItem';
 import { Link } from 'react-router-dom';
 import NavLink from 'reactstrap/lib/NavLink';
+import { CssBaseline } from './theme';
 
 interface NavEntryProps {
   to: string;
@@ -73,6 +74,7 @@ class Navigation extends React.Component<NavProps> {
 export class IziviLayout extends Component {
   render = () => (
     <div>
+      <CssBaseline />
       <Navigation />
       {this.props.children}
     </div>
