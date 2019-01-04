@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@sentry/browser": "^4.4.2",
+    "@types/classnames": "^2.2.6",
     "@types/jwt-decode": "^2.2.1",
     "@types/react-jss": "^8.6.0",
     "@types/react-router": "^4.4.3",
@@ -12,6 +13,7 @@
     "@types/yup": "^0.26.4",
     "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
+    "classnames": "^2.2.6",
     "formik": "^1.4.1",
     "jwt-decode": "^2.2.0",
     "mobx": "^5.8.0",

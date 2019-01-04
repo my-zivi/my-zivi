@@ -7,14 +7,14 @@ import injectSheet, { WithSheet } from 'react-jss';
 import { Theme } from '../layout/theme';
 import createStyles from '../utilities/createStyles';
 
-import bg from '../assets/bg.jpg';
+import IziviContent from '../layout/IziviContent';
+import { inject, observer } from 'mobx-react';
+import { ApiStore } from '../stores/apiStore';
+import { Link } from 'react-router-dom';
 
 const styles = (theme: Theme) =>
   createStyles({
     page: {
-      backgroundImage: `url(${bg})`,
-      backgroundSize: 'cover',
-      minHeight: '94vh',
       '& p': {
         textAlign: 'justify',
       },
@@ -34,13 +34,17 @@ const styles = (theme: Theme) =>
     },
   });
 
-interface Props extends WithSheet<typeof styles> {}
+interface Props extends WithSheet<typeof styles> {
+  apiStore?: ApiStore;
+}
 
+@inject('apiStore')
+@observer
 class HomeInner extends React.Component<Props> {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.page}>
+      <IziviContent className={classes.page} showBackgroundImage>
         <Card className={classes.card}>
           <CardBody>
             <CardSubtitle>
@@ -51,9 +55,20 @@ class HomeInner extends React.Component<Props> {
               Die SWO hat den Zivildienst mitgestaltet und bietet Zivildienstleistenden eine Vielzahl von sinnvollen Einsatzmöglichkeiten
               zugunsten einer nachhaltigen Entwicklung.
             </CardText>
+            {this.props.apiStore!.isLoggedIn || (
+              <>
+                <CardText>
+                  Bist du das erste Mal bei uns und möchtest einen Einsatz planen? Dann kannst du dich über folgenden Link{' '}
+                  <Link to={'/register'}>registrieren</Link>
+                </CardText>
+                <CardText>
+                  Falls du uns bereits bekannt bist, kannst du dich hier <Link to={'/login'}>anmelden</Link>
+                </CardText>
+              </>
+            )}
           </CardBody>
         </Card>
-      </div>
+      </IziviContent>
     );
   }
 }
