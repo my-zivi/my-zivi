@@ -211,21 +211,8 @@ class PhoneListPDF extends PDF
      */
     private function getZiviPhoneNumber(&$zivi, &$typeOfNumber)
     {
-        foreach (array("mobile", "private", "business") as $phone) {
-            if (isset($zivi["phone_".$phone]) && strlen($zivi["phone_".$phone])>0) {
-                switch ($phone) {
-                    case "mobile":
-                        $typeOfNumber = "M:";
-                        break;
-                    case "private":
-                        $typeOfNumber = "M:";
-                        break;
-                    case "business":
-                        $typeOfNumber = "M:";
-                        break;
-                }
-                return $zivi["phone_".$phone];
-            }
+        if (isset($zivi['phone']) && strlen($zivi['phone'])) {
+            return $zivi['phone'];
         }
         // no valid number available
         return "-";
