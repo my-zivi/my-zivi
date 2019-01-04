@@ -33,6 +33,7 @@ $factory->define(App\User::class, function (Generator $faker) {
         'phone' => $faker->phoneNumber,
         'driving_licence_b' => $faker->boolean,
         'driving_licence_be' => $faker->boolean,
+        'chainsaw_workshop' => $faker->boolean,
         'regional_center' => 2,
         'remember_token' => str_random(10),
         'role' => 2,

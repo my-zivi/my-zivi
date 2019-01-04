@@ -17,6 +17,7 @@ class ModifyUserFields extends Migration
             $table->string('phone')->default("");
             $table->boolean('driving_licence_b')->default(false);
             $table->boolean('driving_licence_be')->default(false);
+            $table->boolean('chainsaw_workshop')->default(false);
             $table->string('phone_mobile')->default("")->change();
             $table->string('phone_private')->default("")->change();
             $table->string('phone_business')->default("")->change();
@@ -46,6 +47,7 @@ class ModifyUserFields extends Migration
             $table->dropColumn('phone');
             $table->dropColumn('driving_licence_b');
             $table->dropColumn('driving_licence_be');
+            $table->dropColumn('chainsaw_workshop');
             $table->string('phone_mobile')->change();
             $table->string('phone_private')->change();
             $table->string('phone_business')->change();

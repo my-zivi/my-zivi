@@ -107,6 +107,7 @@ class UserController extends Controller
         // $user->other_fare_network = Input::get("other_fare_network", "");
         $user->driving_licence_b = Input::get("driving_licence_b", false);
         $user->driving_licence_be = Input::get("driving_licence_be", false);
+        $user->chainsaw_workshop = Input::get("chainsaw_workshop", false);
         $user->regional_center = Input::get("regional_center", "");
         $user->health_insurance = Input::get("health_insurance", "");
         $user->save();

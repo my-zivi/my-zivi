@@ -328,6 +328,12 @@ export default class User extends Component {
             label={'Führerausweis Kat. BE'}
             onChange={this.handleChange}
           />
+          <InputCheckbox
+            id={'chainsaw_workshop'}
+            value={user.chainsaw_workshop}
+            label={'Motorsagenkurs bereits absolviert'}
+            onChange={this.handleChange}
+          />
 
           {/* <InputCheckbox id={'half_fare_travelcard'} value={user.half_fare_travelcard} label={'Halbtax'} onChange={this.handleChange} /> */}
 
