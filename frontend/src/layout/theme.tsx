@@ -1,5 +1,6 @@
 import injectSheet from 'react-jss';
 import * as React from 'react';
+import createStyles from '../utilities/createStyles';
 
 export const theme = {
   colors: {
@@ -16,27 +17,28 @@ export const theme = {
 
 export type Theme = typeof theme;
 
-const globalStyles = (theme: Theme) => ({
-  '@global': {
-    body: {
-      margin: 0,
-      padding: 0,
-      color: theme.colors.black,
-      background: theme.colors.offwhite,
-      fontFamily: "'Helvetica Neue', Arial, Helvetica, sans-serif",
-      width: '100vw',
-      minHeight: '100vh',
-      overflowX: 'hidden' as 'hidden',
-      fontWeight: 400,
+const globalStyles = (theme: Theme) =>
+  createStyles({
+    '@global': {
+      body: {
+        margin: 0,
+        padding: 0,
+        color: theme.colors.black,
+        background: theme.colors.offwhite,
+        fontFamily: "'Helvetica Neue', Arial, Helvetica, sans-serif",
+        width: '100vw',
+        minHeight: '100vh',
+        overflowX: 'hidden',
+        fontWeight: 400,
+      },
+      a: {
+        color: theme.colors.primary,
+      },
+      'li, p': {
+        marginBottom: theme.layout.baseSpacing / 2,
+      },
     },
-    a: {
-      color: theme.colors.primary,
-    },
-    'li, p': {
-      marginBottom: theme.layout.baseSpacing / 2,
-    },
-  },
-});
+  });
 
 class CssBaselineInner extends React.Component {
   render() {

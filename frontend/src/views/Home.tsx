@@ -5,32 +5,34 @@ import CardSubtitle from 'reactstrap/lib/CardSubtitle';
 import CardText from 'reactstrap/lib/CardText';
 import injectSheet, { WithSheet } from 'react-jss';
 import { Theme } from '../layout/theme';
+import createStyles from '../utilities/createStyles';
 
 import bg from '../assets/bg.jpg';
 
-const styles = (theme: Theme) => ({
-  page: {
-    backgroundImage: `url(${bg})`,
-    backgroundSize: 'cover',
-    minHeight: '94vh',
-    '& p': {
-      textAlign: 'justify' as 'justify',
+const styles = (theme: Theme) =>
+  createStyles({
+    page: {
+      backgroundImage: `url(${bg})`,
+      backgroundSize: 'cover',
+      minHeight: '94vh',
+      '& p': {
+        textAlign: 'justify',
+      },
+      '& ul': {
+        paddingLeft: 2 * theme.layout.baseSpacing,
+        paddingRight: 2 * theme.layout.baseSpacing,
+        textAlign: 'justify',
+      },
     },
-    '& ul': {
-      paddingLeft: 2 * theme.layout.baseSpacing,
-      paddingRight: 2 * theme.layout.baseSpacing,
-      textAlign: 'justify' as 'justify',
+    card: {
+      background: 'rgba(255, 255, 255, 0.9)',
+      height: 'auto',
+      '& span': {
+        fontSize: '3rem',
+        fontWeight: 'bold',
+      },
     },
-  },
-  card: {
-    background: 'rgba(255, 255, 255, 0.9)',
-    height: 'auto',
-    '& span': {
-      fontSize: '3rem',
-      fontWeight: 'bold' as 'bold',
-    },
-  },
-});
+  });
 
 interface Props extends WithSheet<typeof styles> {}
 
