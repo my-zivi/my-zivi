@@ -57,6 +57,19 @@ export class Navigation extends React.Component<NavProps> {
           <Nav className={'ml-auto'} navbar>
             {apiStore.isLoggedIn ? (
               <>
+                {apiStore.isAdmin && (
+                  <>
+                    <NavEntry to="/users">Mitarbeiterliste</NavEntry>
+                    <NavEntry to="/phones">Telefonliste</NavEntry>
+                    <NavEntry to="/specifications">Pflichtenheft</NavEntry>
+                    <NavEntry to="/holidays">Freitage</NavEntry>
+                    <NavEntry to="/userFeedbackOverview">Einsatz Feedback</NavEntry>
+                    <NavEntry to="/missions">Planung</NavEntry>
+                    <NavEntry to="/expenses">Spesen</NavEntry>
+                  </>
+                )}
+                <NavEntry to="/profile">Profil</NavEntry>
+                <NavEntry to="/changePassword">Passwort ändern</NavEntry>
                 <NavItem>
                   <NavLink href="/logout" onClick={this.handleLogout}>
                     Abmelden
