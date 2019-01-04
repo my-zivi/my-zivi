@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { ApiStore } from '../stores/apiStore';
-import { Redirect, RouteComponentProps } from 'react-router';
-import Card from 'reactstrap/lib/Card';
+import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Field, Formik, FormikActions } from 'formik';
 import Form from 'reactstrap/lib/Form';
 import Button from 'reactstrap/lib/Button';
 import * as yup from 'yup';
 import { PasswordField, TextField } from '../form/common';
+import IziviContent from '../layout/IziviContent';
 
 const loginSchema = yup.object({
   email: yup
@@ -34,15 +34,12 @@ interface Props extends RouteComponentProps {
 export class Login extends React.Component<Props> {
   state = {
     error: null,
-    redirectToReferrer: false,
   };
 
   login = async (values: FormValues, actions: FormikActions<FormValues>) => {
     try {
       await this.props.apiStore!.postLogin(values);
-
-      //TODO instead of doing this we can just do history.push
-      this.setState({ redirectToReferrer: true });
+      this.props.history.push(this.getReferrer());
     } catch (error) {
       this.setState({ error });
     } finally {
@@ -72,41 +69,35 @@ export class Login extends React.Component<Props> {
   }
 
   render() {
-    if (this.state.redirectToReferrer) {
-      return <Redirect to={this.getReferrer()} />;
-    }
-
     return (
-      <>
-        <Card>
-          <Formik
-            initialValues={template}
-            validationSchema={loginSchema}
-            onSubmit={this.login}
-            render={formikProps => (
-              <Form onSubmit={formikProps.handleSubmit}>
-                <h2 className="form-signin-heading">Anmelden</h2>
-                {this.state.error && (
-                  <div className="alert alert-danger">
-                    <strong>Login fehlgeschlagen</strong>
-                    <br />
-                    E-Mail oder Passwort falsch!
-                  </div>
-                )}
-                <Field component={TextField} name={'email'} label={'Email'} placeholder={'zivi@example.org'} />
-                <Field component={PasswordField} name={'password'} label={'Passwort'} placeholder={'****'} />
-                <Button color={'primary'} disabled={formikProps.isSubmitting} onClick={formikProps.submitForm}>
-                  Anmelden
-                </Button>
-              </Form>
-            )}
-          />
-          <p>
-            <Link to="/forgotPassword">Passwort vergessen?</Link>
-          </p>
-        </Card>
-        {/*<LoadingView loading={this.state.loading} error={this.state.error} />*/}
-      </>
+      <IziviContent card showBackgroundImage>
+        <Formik
+          initialValues={template}
+          validationSchema={loginSchema}
+          onSubmit={this.login}
+          render={formikProps => (
+            <Form onSubmit={formikProps.handleSubmit}>
+              <h2 className="form-signin-heading">Anmelden</h2>
+              {this.state.error && (
+                <div className="alert alert-danger">
+                  <strong>Login fehlgeschlagen</strong>
+                  <br />
+                  E-Mail oder Passwort falsch!
+                </div>
+              )}
+              <Field component={TextField} name={'email'} label={'Email'} placeholder={'zivi@example.org'} />
+              <Field component={PasswordField} name={'password'} label={'Passwort'} placeholder={'****'} />
+              <Button color={'primary'} disabled={formikProps.isSubmitting} onClick={formikProps.submitForm}>
+                Anmelden
+              </Button>
+            </Form>
+          )}
+        />
+        <p>
+          <Link to="/forgotPassword">Passwort vergessen?</Link>
+        </p>
+      </IziviContent>
+      /*<LoadingView loading={this.state.loading} error={this.state.error} />*/
     );
   }
 }

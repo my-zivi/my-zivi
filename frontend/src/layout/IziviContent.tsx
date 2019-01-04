@@ -6,6 +6,8 @@ import createStyles from '../utilities/createStyles';
 import classNames from 'classnames';
 
 import bg from '../assets/bg.jpg';
+import Card from 'reactstrap/lib/Card';
+import CardBody from 'reactstrap/lib/CardBody';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -17,19 +19,36 @@ const styles = (theme: Theme) =>
       backgroundSize: 'cover',
       minHeight: '94vh',
     },
+    card: {
+      background: 'rgba(255, 255, 255, 0.9)',
+      height: 'auto',
+      '& span': {
+        fontSize: '3rem',
+        fontWeight: 'bold',
+      },
+    },
   });
 
 interface Props extends WithSheet<typeof styles> {
   children: ReactNode;
   className?: string;
   showBackgroundImage?: boolean;
+  card?: boolean;
 }
 
 class IziviContent extends Component<Props> {
   render = () => {
-    const { classes, children, showBackgroundImage } = this.props;
+    const { classes, children, showBackgroundImage, card } = this.props;
     return (
-      <div className={classNames(this.props.className, classes.container, { [classes.background]: showBackgroundImage })}>{children}</div>
+      <div className={classNames(this.props.className, classes.container, { [classes.background]: showBackgroundImage })}>
+        {card ? (
+          <Card className={classes.card}>
+            <CardBody>{children}</CardBody>
+          </Card>
+        ) : (
+          children
+        )}
+      </div>
     );
   };
 }
