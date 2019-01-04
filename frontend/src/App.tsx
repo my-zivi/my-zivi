@@ -5,13 +5,15 @@ import { IziviLayout } from './IziviLayout';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Home } from './views/Home';
+import { Login } from './views/Login';
 
 class App extends React.Component {
   public render() {
     return (
       <IziviLayout>
         <Switch>
-          <Route component={Home} />
+          <Route component={Home} exact path={'/'} />
+          <Route component={Login} exact path={'/login'} />
           <Route>
             <>404</>
           </Route>

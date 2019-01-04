@@ -5,6 +5,7 @@ import './index.css';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { Router } from 'react-router';
 import * as Sentry from '@sentry/browser';
+import { StoreProvider } from './utilities/StoreProvider';
 
 const browserHistory = createBrowserHistory();
 const sentryDSN = 'SENTRY_DSN'; //this value will be replaced by a build script
@@ -17,9 +18,11 @@ if (sentryDSN.startsWith('https')) {
 }
 
 ReactDOM.render(
-  <Router history={browserHistory}>
-    <App />
-  </Router>,
+  <StoreProvider history={browserHistory}>
+    <Router history={browserHistory}>
+      <App />
+    </Router>
+  </StoreProvider>,
   document.getElementById('root') as HTMLElement
 );
 // registerServiceWorker();
