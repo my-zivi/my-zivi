@@ -14,7 +14,7 @@ class ModifyUserFields extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('phone');
+            $table->string('phone')->default("");
             $table->boolean('driving_licence_b')->default(false);
             $table->boolean('driving_licence_be')->default(false);
         });
