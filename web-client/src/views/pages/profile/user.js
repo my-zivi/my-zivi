@@ -161,7 +161,7 @@ export default class User extends Component {
 
           <InputField inputType={'email'} id={'email'} label={'E-Mail'} value={user.email} onInput={this.handleChange} />
 
-          <PhoneInput
+          {/* <PhoneInput
             id={'phone_mobile'}
             label={'Mobiltelefonnummer'}
             value={user.phone_mobile}
@@ -187,6 +187,17 @@ export default class User extends Component {
             id={'phone_business'}
             label={'Telefon Geschäftlich'}
             value={user.phone_business}
+            addFormError={this.addFormError}
+            deleteFormError={this.deleteFormError}
+            onChange={this.handleChange}
+            changeResult={this.changeResult}
+            fieldHasError={this.fieldHasError}
+          /> */}
+
+          <PhoneInput
+            id={'phone'}
+            label={'Telefon'}
+            value={user.phone}
             addFormError={this.addFormError}
             deleteFormError={this.deleteFormError}
             onChange={this.handleChange}
@@ -303,13 +314,24 @@ export default class User extends Component {
             onChange={this.handleChange}
             selectedCenter={user.regional_center}
           />
-          <InputCheckbox id={'ga_travelcard'} value={user.ga_travelcard} label={'GA'} onChange={this.handleChange} />
+          {/* <InputCheckbox id={'ga_travelcard'} value={user.ga_travelcard} label={'GA'} onChange={this.handleChange} /> */}
 
-          <InputCheckbox id={'driving_licence'} value={user.driving_licence} label={'Führerausweis'} onChange={this.handleChange} />
+          <InputCheckbox
+            id={'driving_licence_b'}
+            value={user.driving_licence_b}
+            label={'Führerausweis Kat. B'}
+            onChange={this.handleChange}
+          />
+          <InputCheckbox
+            id={'driving_licence_be'}
+            value={user.driving_licence_be}
+            label={'Führerausweis Kat. BE'}
+            onChange={this.handleChange}
+          />
 
-          <InputCheckbox id={'half_fare_travelcard'} value={user.half_fare_travelcard} label={'Halbtax'} onChange={this.handleChange} />
+          {/* <InputCheckbox id={'half_fare_travelcard'} value={user.half_fare_travelcard} label={'Halbtax'} onChange={this.handleChange} /> */}
 
-          <InputField id={'other_fare_network'} label={'Andere Abos'} value={user.other_fare_network} onInput={this.handleChange} />
+          {/* <InputField id={'other_fare_network'} label={'Andere Abos'} value={user.other_fare_network} onInput={this.handleChange} /> */}
 
           {Auth.isAdmin() &&
             userIdParam && <ProfileAdminFields internalNote={user.internal_note || ''} userRole={user.role} onChange={this.handleChange} />}
