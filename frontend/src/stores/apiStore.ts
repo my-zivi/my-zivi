@@ -12,8 +12,11 @@ export const apiDateFormat = 'YYYY-MM-DD';
 
 const KEY_TOKEN = 'izivi_token';
 
-interface JwtToken {
-  token: string;
+interface LoginResponse {
+  data: {
+    token: string;
+  };
+  message: string;
 }
 
 export interface JwtTokenDecoded {
@@ -91,9 +94,9 @@ export class ApiStore {
 
   @action
   public async postLogin(values: { email: string; password: string }) {
-    const res = await this._api.post<JwtToken>('/auth/login', values);
+    const res = await this._api.post<LoginResponse>('/auth/login', values);
     runInAction(() => {
-      this.setToken(res.data.token);
+      this.setToken(res.data.data.token);
       this.updateSentryContext();
     });
   }
