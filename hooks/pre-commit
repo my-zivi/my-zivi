@@ -1,5 +1,6 @@
-#!/bin/sh
-jsfiles=$(git diff --cached --name-only --diff-filter=ACM "*.js" | sed s,web-client/,, | tr '\n' ' ')
+#!/bin/bash
+
+jsfiles=$(git diff --cached --name-only --diff-filter=ACM "*.ts" "*.tsx" | sed s,frontend/,, | tr '\n' ' ')
 phpfiles=$(git diff --cached --name-only --diff-filter=ACM "*.php" | sed s,api/,, | tr '\n' ' ')
 
 
@@ -10,7 +11,7 @@ if [[ ! ( -z "$jsfiles" ) ]];
 then
 
     git checkout-index --prefix=git-export-dir/ -a
-    echo "$jsfiles" | xargs docker run --rm -v $(pwd)/git-export-dir/web-client:/app -w /app node:8 npx -q prettier --list-different --print-width 140 --single-quote --trailing-comma es5
+    echo "$jsfiles" | xargs docker run --rm -v $(pwd)/git-export-dir/frontend:/app -w /app node:8 npx -q prettier --list-different --print-width 140 --single-quote --trailing-comma es5
 
     if [[ $? != 0 ]];
     then
