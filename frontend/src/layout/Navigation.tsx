@@ -40,7 +40,7 @@ interface NavProps {
 @inject('mainStore', 'apiStore')
 @observer
 export class Navigation extends React.Component<NavProps> {
-  handleLogout = (e: any) => {
+  handleLogout = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     this.props.apiStore!.logout();
   };

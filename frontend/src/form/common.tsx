@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactNode } from 'react';
+import { ReactElement } from 'react';
 import { ErrorMessage, FieldProps } from 'formik';
 import Input, { InputType } from 'reactstrap/lib/Input';
 import FormGroup from 'reactstrap/lib/FormGroup';
@@ -8,7 +8,7 @@ import FormFeedback from 'reactstrap/lib/FormFeedback';
 
 export type FormProps = {
   label: string;
-  children?: ReactNode;
+  children: ReactElement<any>; //tslint:disable-line:no-any
   required?: boolean;
   multiline?: boolean;
 } & FieldProps;
@@ -32,7 +32,7 @@ export const ValidatedFormGroupWithLabel = ({ label, field, form: { touched, err
           {label} {required && '*'}
         </Label>
       )}
-      {React.Children.map(children, e => React.cloneElement(e as any, { invalid: hasErrors }))}
+      {React.cloneElement(children, { invalid: hasErrors })}
       <ErrorMessage name={field.name} render={error => <FormFeedback valid={false}>{error}</FormFeedback>} />
     </FormGroup>
   );

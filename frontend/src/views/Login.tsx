@@ -4,7 +4,7 @@ import { ApiStore } from '../stores/apiStore';
 import { Redirect, RouteComponentProps } from 'react-router';
 import Card from 'reactstrap/lib/Card';
 import { Link } from 'react-router-dom';
-import { Field, Formik, FormikBag } from 'formik';
+import { Field, Formik, FormikActions } from 'formik';
 import Form from 'reactstrap/lib/Form';
 import Button from 'reactstrap/lib/Button';
 import * as yup from 'yup';
@@ -23,6 +23,8 @@ const template = {
   password: '',
 };
 
+type FormValues = typeof template;
+
 interface Props extends RouteComponentProps {
   apiStore?: ApiStore;
 }
@@ -35,8 +37,7 @@ export class Login extends React.Component<Props> {
     redirectToReferrer: false,
   };
 
-  login = async (values: typeof template, formikBag: FormikBag<any, any>) => {
-    console.log('loginio');
+  login = async (values: FormValues, actions: FormikActions<FormValues>) => {
     try {
       await this.props.apiStore!.postLogin(values);
 
@@ -45,12 +46,12 @@ export class Login extends React.Component<Props> {
     } catch (error) {
       this.setState({ error });
     } finally {
-      formikBag.setSubmitting(false);
+      actions.setSubmitting(false);
     }
   };
 
   getReferrer() {
-    let { state, search } = this.props.location;
+    const { state, search } = this.props.location;
     // check for referer in router state (from ProtectedRoute in index.js)
     if (state && state.referrer) {
       return state.referrer;

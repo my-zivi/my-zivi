@@ -17,14 +17,14 @@ export const theme = {
 
 export type Theme = typeof theme;
 
-const globalStyles = (theme: Theme) =>
+const globalStyles = ({ colors, layout }: Theme) =>
   createStyles({
     '@global': {
       body: {
         margin: 0,
         padding: 0,
-        color: theme.colors.black,
-        background: theme.colors.offwhite,
+        color: colors.black,
+        background: colors.offwhite,
         fontFamily: "'Helvetica Neue', Arial, Helvetica, sans-serif",
         width: '100vw',
         minHeight: '100vh',
@@ -32,10 +32,10 @@ const globalStyles = (theme: Theme) =>
         fontWeight: 400,
       },
       a: {
-        color: theme.colors.primary,
+        color: colors.primary,
       },
       'li, p': {
-        marginBottom: theme.layout.baseSpacing / 2,
+        marginBottom: layout.baseSpacing / 2,
       },
     },
   });
