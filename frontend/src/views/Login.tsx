@@ -9,6 +9,7 @@ import Button from 'reactstrap/lib/Button';
 import * as yup from 'yup';
 import { PasswordField, TextField } from '../form/common';
 import IziviContent from '../layout/IziviContent';
+import { MainStore } from '../stores/mainStore';
 
 const loginSchema = yup.object({
   email: yup
@@ -27,21 +28,22 @@ type FormValues = typeof template;
 
 interface Props extends RouteComponentProps {
   apiStore?: ApiStore;
+  mainStore?: MainStore;
 }
 
-@inject('apiStore')
+@inject('apiStore', 'mainStore')
 @observer
 export class Login extends React.Component<Props> {
-  state = {
-    error: null,
-  };
-
   login = async (values: FormValues, actions: FormikActions<FormValues>) => {
     try {
       await this.props.apiStore!.postLogin(values);
       this.props.history.push(this.getReferrer());
     } catch (error) {
-      this.setState({ error });
+      if (error.toString().includes('401')) {
+        this.props.mainStore!.displayError('Ungültiger Benutzername/Passwort');
+      } else {
+        this.props.mainStore!.displayError('Ein interner Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
+      }
     } finally {
       actions.setSubmitting(false);
     }
@@ -78,13 +80,6 @@ export class Login extends React.Component<Props> {
           render={formikProps => (
             <Form onSubmit={formikProps.handleSubmit}>
               <h2 className="form-signin-heading">Anmelden</h2>
-              {this.state.error && (
-                <div className="alert alert-danger">
-                  <strong>Login fehlgeschlagen</strong>
-                  <br />
-                  E-Mail oder Passwort falsch!
-                </div>
-              )}
               <Field component={TextField} name={'email'} label={'Email'} placeholder={'zivi@example.org'} />
               <Field component={PasswordField} name={'password'} label={'Passwort'} placeholder={'****'} />
               <Button color={'primary'} disabled={formikProps.isSubmitting} onClick={formikProps.submitForm}>

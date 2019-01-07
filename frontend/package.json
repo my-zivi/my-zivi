@@ -15,6 +15,7 @@
     "bootstrap": "^4.2.1",
     "classnames": "^2.2.6",
     "formik": "^1.4.1",
+    "izitoast": "^1.4.0",
     "jwt-decode": "^2.2.0",
     "mobx": "^5.8.0",
     "mobx-react": "^5.4.3",

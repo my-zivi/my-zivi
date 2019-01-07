@@ -1,8 +1,9 @@
 import * as React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'izitoast/dist/css/iziToast.css';
+
 import { Route, Switch } from 'react-router-dom';
 import { IziviLayout } from './layout/IziviLayout';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Home } from './views/Home';
 import { Login } from './views/Login';
 
