@@ -112,4 +112,52 @@ class UserController extends Controller
         $user->health_insurance = Input::get("health_insurance", "");
         $user->save();
     }
+
+    public function getSelf()
+    {
+        $user = User::with('missions')->find(Auth::id());
+
+        if ($user->role !== 1) {
+            unset($user->internal_note);
+        }
+
+        return $user;
+    }
+
+    public function index()
+    {
+        return User::with(['user_role', 'missions'])->get();
+    }
+
+    public function putSelf(Request $request)
+    {
+        $validatedData = $this->validateRequest($request);
+        User::find(Auth::id())->update($validatedData);
+        return self::getSelf();
+    }
+
+    private function validateRequest(Request $request)
+    {
+        // SOURCE FOR BIC REGEX: https://www.regextester.com/98275
+        return $this->validate($request, [
+            'address' => 'required|string',
+            'bank_bic' => [
+                'required', 'string', 'regex:/([a-zA-Z]{4})([a-zA-Z]{2})(([2-9a-zA-Z]{1})([0-9a-np-zA-NP-Z]{1}))((([0-9a-wy-zA-WY-Z]{1})([0-9a-zA-Z]{2}))|([xX]{3})|)/'
+            ],
+            'bank_iban' => 'required|string|regex:/^CH\d{2,2}\s{0,1}(\w{4,4}\s{0,1}){4,7}\w{0,2}$/',
+            'birthday' => 'required|date',
+            'chainsaw_workshop' => 'required|boolean',
+            'city' => 'required|string',
+            'driving_licence_b' => 'required|boolean',
+            'driving_licence_be' => 'required|boolean',
+            'first_name' => 'required|string',
+            'health_insurance' => 'required|string',
+            'hometown' => 'required|string',
+            'last_name' => 'required|string',
+            'phone' => 'required|string',
+            'regional_center' => 'required|integer',
+            'work_experience' => 'required|string',
+            'zip' => 'required|integer',
+        ]);
+    }
 }

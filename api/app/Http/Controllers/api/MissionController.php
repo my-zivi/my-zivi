@@ -5,47 +5,67 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Mission;
 use App\ReportSheet;
-use DateTime;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 class MissionController extends Controller
 {
-    public function postMission()
+    public function post(Request $request)
     {
-        $mission = new Mission();
-        $this->fillAttributes($mission);
+        $validatedData = $this->validateRequest($request);
 
-        $user = Auth::user();
-        if ($mission->user == 'me') {
-            $mission->user = $user->id;
+        if (Auth::user()->isAdmin() || Auth::id() == $validatedData['user']) {
+            $mission = new Mission($validatedData);
+            $mission->feedback_mail_sent = false;
+            $mission->feedback_done = false;
+
+            $dayCount = Carbon::parse($mission->start)->diffInDays(Carbon::parse($mission->end));
+
+            // TODO replace this implementation with the new Calculators from #78
+            $mission->eligible_holiday = MissionController::calculateZiviHolidays($mission->long_mission, $dayCount);
+
+            // TODO replace this piece as soon as the frontend implementation of the Profile view is specified
+            $user = Auth::user();
+            if ($mission->user == 'me') {
+                $mission->user = $user->id;
+            }
+
+            $mission->save();
+            return $mission;
+        } else {
+            return $this->respondWithUnauthorized();
         }
-
-        if (!$user->isAdmin() && $user->id!=$mission->user) {
-            return response("not allowed", 401);
-        }
-
-        $mission->save();
-        return response("inserted");
     }
 
-    public function putMission($id)
+    public function put($id, Request $request)
     {
-        $mission = Mission::find($id);
-        $this->updateReportSheets($mission);
-        $this->fillAttributes($mission);
+        $mission = Mission::findOrFail($id);
 
-        $user = Auth::user();
-        if (!$user->isAdmin() && ($user->id!=$mission->user || $mission->draft!=null)) {
-            return response("not allowed", 401);
+        if (Auth::user()->isAdmin() || Auth::id() == $mission->user) {
+            DB::beginTransaction();
+            try {
+                $validatedData = $this->validateRequest($request);
+                $this->updateReportSheets($mission);
+
+                $mission->update($validatedData);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                throw $e;
+            }
+            DB::commit();
+
+            return $mission;
+        } else {
+            return $this->respondWithUnauthorized();
         }
-
-        $mission->save();
-        return response("updated");
     }
 
     private function updateReportSheets(&$mission)
     {
+        // TODO move this into the model in an update hook
         if ($mission->draft) {
             if ($mission->end != Input::get("end", "") && $mission->end < Input::get("end", "")) {
                 $start = new \DateTime($mission->end);
@@ -62,30 +82,6 @@ class MissionController extends Controller
                 ReportSheet::add($mission, $iteratorStart, $end);
             }
         }
-    }
- 
-
-  /**
-  * @param $mission is passed by reference
-  */
-    private function fillAttributes(&$mission)
-    {
-        $mission->user = Input::get("user", "");
-        $mission->specification = Input::get("specification", "");
-        $mission->mission_type = Input::get("mission_type", false);
-        $mission->start = Input::get("start", "");
-        $mission->end = Input::get("end", "");
-        $mission->first_time = Input::get("first_time", false);
-        $mission->long_mission = Input::get("long_mission", false);
-        $mission->probation_period = Input::get("probation_period", false);
-        $mission->feedback_mail_sent = false;
-        $mission->feedback_done = false;
-
-        $start = DateTime::createFromFormat('Y-m-d', $mission->start);
-        $end = DateTime::createFromFormat('Y-m-d', $mission->end);
-        $dayCount = $start->diff($end)->days + 1;
-
-        $mission->eligible_holiday = MissionController::calculateZiviHolidays($mission->long_mission, $dayCount);
     }
 
     # TODO implement a test as soon as calculate zivi holidays got replaced (issue #78)
@@ -106,5 +102,19 @@ class MissionController extends Controller
             }
         }
         return 0;
+    }
+
+    private function validateRequest(Request $request)
+    {
+        return $this->validate($request, [
+            'end' => 'required|date',
+            'first_time' => 'required|boolean',
+            'long_mission' => 'required|boolean',
+            'mission_type' => 'required|integer',
+            'probation_period' => 'required|boolean',
+            'specification' => 'required|integer',
+            'start' => 'required|date',
+            'user' => 'required|integer'
+        ]);
     }
 }

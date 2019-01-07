@@ -35,23 +35,18 @@ class PDFController extends Controller
     }
 
 
-    public function getZiviReportSheet(Application $app)
+    public function getZiviReportSheet($id)
     {
+        $reportSheet = new ZiviReportSheetPDF($id);
 
-        $reportSheetId = Input::get("reportSheetId");
-
-        $reportSheet = new ZiviReportSheetPDF($reportSheetId);
-
-        //Allow only admins to get reportSheets of other Users
-        $user = Auth::user();
-        if ($user->role!=1 && ($user->id!=$reportSheet->getUserId() || !$reportSheet->isDone())) {
-            return response("unauthorized", 401);
+        if (Auth::user()->isAdmin() || (Auth::id() == $reportSheet->getUserId() && $reportSheet->isDone())) {
+            $response = response()
+                ->download($reportSheet->createPDF(), 'spesenrapport.pdf', ["Content-Type" => "application/pdf"], 'inline')
+                ->deleteFileAfterSend(true);
+            return $response;
+        } else {
+            return $this->respondWithUnauthorized();
         }
-
-        $response = response()
-            ->download($reportSheet->createPDF(), 'spesenrapport.pdf', ["Content-Type" => "application/pdf"], 'inline')
-            ->deleteFileAfterSend(true);
-        return $response;
     }
 
     public function getSpesenStatistik(Application $app)

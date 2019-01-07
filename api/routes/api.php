@@ -33,61 +33,40 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
         $router->patch('/auth/refresh', ['uses' => 'AuthController@patchRefresh',]);
 
         // User - Authenticated
-        $router->get('/user', function () {
-            $user = Auth::user();
-            unset($user->internal_note);
-            return response()->json($user);
-        });
-        $router->post('/user/me', function () {
-            $user = Auth::user();
-            UserController::updateUser($user);
-        });
-        $router->post('/postChangePassword', ['uses' => 'UserController@changePassword']);
-
-        // Specification (Pflichtenheft) - Authenticated
-        $router->get('/specification/me', function () {
-            return response()->json(
-                App\Specification::
-                select('id', 'name', 'active')
-                    ->get()
-            );
+        $router->group(['prefix' => 'missions'], function () use ($router) {
+            $router->get('/{id}/draft', ['uses' => 'PDFController@getAufgebot']);
+            $router->put('/{id}', ['uses' => 'MissionController@put']);
+            $router->post('/', ['uses' => 'MissionController@post']);
         });
 
-        // Regionalcenter - Authenticated
-        $router->get('/regionalcenter', function () {
-            return response()->json(App\RegionalCenter::all());
-        });
-        $router->get('/regionalcenter/{id}', function ($id) {
-            return response()->json(App\RegionalCenter::find($id));
+        $router->group(['prefix' => 'regional_centers'], function () use ($router) {
+            $router->get('/', ['uses' => 'RegionalCenterController@index']);
         });
 
-        // Mission - Authenticated
-        $router->get('/user/missions', function () {
-            $user = Auth::user();
-            return response()->json($user->missions);
+        $router->group(['prefix' => 'report_sheets'], function () use ($router) {
+            $router->get('/{id}/download', ['uses' => 'PDFController@getZiviReportSheet']);
+            $router->get('/', ['uses' => 'ReportSheetController@index']);
         });
 
-        $router->get('/mission/{id}/draft', ['uses' => 'PDFController@getAufgebot']);
-
-        // Reportsheet - Authenticated
-        $router->get('/reportsheet/user/me', function () {
-            $user = Auth::user();
-            $reportSheets = App\ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
-                ->select('report_sheets.id AS id', 'start', 'end', 'state')
-                ->where('users.id', '=', $user->id)
-                ->where('state', '>', '0')
-                ->orderBy('start')
-                ->orderBy('end')
-                ->orderBy('zdp')
-                ->get();
-
-            // Add calculated column days
-            foreach ($reportSheets as $reportSheet) {
-                $reportSheet['days'] = App\ReportSheet::getDiensttageCount($reportSheet->start, $reportSheet->end);
-            }
-            return response()->json($reportSheets);
+        $router->group(['prefix' => 'specifications'], function () use ($router) {
+            $router->get('/', ['uses' => 'SpecificationController@index']);
         });
 
+        $router->group(['prefix' => 'users'], function () use ($router) {
+            $router->post('/change_password', ['uses' => 'UserController@changePassword']);
+            $router->get('/me', ['uses' => 'UserController@getSelf']);
+            $router->put('/me', ['uses' => 'UserController@putSelf']);
+        });
+
+        $router->group(['prefix' => 'user_feedbacks'], function () use ($router) {
+            $router->post('/', ['uses' => 'FeedbackController@postFeedback']);
+        });
+
+        $router->group(['prefix' => 'user_feedback_questions'], function () use ($router) {
+            $router->get('/', ['uses' => 'FeedbackController@index']);
+        });
+
+        // TODO Hook diensttage and diensttageEnd into separate CalcController (from #78)
         // Service days - Authenticated
         $router->get('/diensttage', function () {
             $start = Input::get("start", "");
@@ -105,27 +84,6 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
             return response()->json(ReportSheet::getDiensttageEndDate($start, $days, $long_mission));
         });
 
-        $router->post('/mission', [
-            'uses' => 'MissionController@postMission'
-        ]);
-
-        $router->put('/mission/{id}', [
-            'uses' => 'MissionController@putMission'
-        ]);
-
-        // PDF
-        $router->get('/pdf/zivireportsheet', ['uses' => 'PDFController@getZiviReportSheet']);
-
-        $router->get('/user_feedback_questions', [
-            'uses' => 'FeedbackController@index'
-        ]);
-
-        $router->post('/user/feedback', [
-            'uses' => 'FeedbackController@postFeedback'
-        ]);
-
-        $router->post('/phonenumber/validate', ['uses' => 'PhonenumberController@validatePhonenumber']);
-
         // Admins only
         $router->group(['middleware' => 'role'], function ($router) {
             /** @var Router $router */
@@ -133,7 +91,9 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
             $router->get('/', ['uses' => 'APIController@getIndex']);
 
             // User - Admins
-            $router->get('/user/zivi', ['uses' => 'UserController@getZivis']);
+            $router->group(['prefix' => 'users'], function () use ($router) {
+                $router->get('/', ['uses' => 'UserController@index']);
+            });
 
             $router->get('/user/feedback', ['uses' => 'FeedbackController@getFeedbacks']);
 

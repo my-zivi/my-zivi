@@ -58,6 +58,14 @@ class User extends Model implements
         'remember_token',
     ];
 
+    protected $casts = [
+        'chainsaw_workshop' => 'boolean',
+        'driving_licence_b' => 'boolean',
+        'driving_licence_be' => 'boolean'
+    ];
+
+    // TODO Check phone number formatting in update hook
+
     public function user_role()
     {
         return $this->belongsTo(Role::class, 'role');

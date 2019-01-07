@@ -49,7 +49,7 @@ class FeedbackControllerTest extends TestCase
 
         $countBeforeInsert = count(UserFeedback::all());
 
-        $this->asUser()->json('POST', 'api/user/feedback', [
+        $this->asUser()->json('POST', 'api/user_feedbacks', [
             'missionId' => $mission->id,
             'answers' => [
                 [

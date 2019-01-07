@@ -56,21 +56,15 @@ class PDFControllerTest extends TestCase
             'ill_comment' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut'// to test comment wrapping
         ]);
         $zivi = \App\User::find($reportSheet->user);
-        $this->asUser($zivi)->json('GET', '/api/pdf/zivireportsheet', [
-            'reportSheetId' => $reportSheet->id
-        ])->assertResponseOk();
+        $this->asUser($zivi)->json('GET', '/api/report_sheets/' . $reportSheet->id . '/download')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
 
         // report sheet of another zivi should not available for him
         $otherReportSheet = factory(\App\ReportSheet::class)->create();
-        $this->asUser($zivi)->json('GET', '/api/pdf/zivireportsheet', [
-            'reportSheetId' => $otherReportSheet->id
-        ])->assertResponseStatus(401);
+        $this->asUser($zivi)->json('GET', '/api/report_sheets/' . $otherReportSheet->id . '/download')->assertResponseStatus(401);
 
         // but for the administrator
-        $this->asAdmin()->json('GET', '/api/pdf/zivireportsheet', [
-            'reportSheetId' => $otherReportSheet->id
-        ])->assertResponseOk();
+        $this->asAdmin()->json('GET', '/api/report_sheets/' . $otherReportSheet->id . '/download')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }
 
@@ -134,16 +128,16 @@ class PDFControllerTest extends TestCase
 
         // report sheet of a zivi should be available for himself
         $zivi = \App\User::find($mission->user);
-        $this->asUser($zivi)->json('GET', '/api/mission/' . $mission->id . '/draft')->assertResponseOk();
+        $this->asUser($zivi)->json('GET', '/api/missions/' . $mission->id . '/draft')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
 
         // report sheet of another zivi should not available for him
         $otherMission = factory(\App\Mission::class)->create();
-        $this->asUser($zivi)->json('GET', '/api/mission/' . $otherMission->id . '/draft')
+        $this->asUser($zivi)->json('GET', '/api/missions/' . $otherMission->id . '/draft')
             ->assertResponseStatus(401);
 
         // but for the administrator
-        $this->asAdmin()->json('GET', '/api/mission/' . $otherMission->id . '/draft')
+        $this->asAdmin()->json('GET', '/api/missions/' . $otherMission->id . '/draft')
             ->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }

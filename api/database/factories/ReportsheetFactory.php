@@ -20,10 +20,14 @@ $factory->define(App\ReportSheet::class, function (Generator $faker) {
         'holiday_comment' => $faker->sentence(),
         'ill' => $faker->numberBetween(0, 5),
         'ill_comment' => $faker->sentence(),
-        'mission' => factory(App\Mission::class)->create()->id,
+        'mission' => function () {
+            return factory(App\Mission::class)->create()->id;
+        },
         'start' => $faker->dateTimeBetween('-180 days', '-90 days'),
         'state' => 3,
-        'user' => factory(App\User::class)->create()->id,
+        'user' => function () {
+            return factory(App\User::class)->create()->id;
+        },
         'vacation' => $faker->numberBetween(0, 2),
         'vacation_comment' => $faker->sentence(),
         'work' => $faker->numberBetween(5, 25),

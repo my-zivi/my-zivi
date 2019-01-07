@@ -27,6 +27,10 @@ class Mission extends Model
 
     protected $appends = ['calculated_mission_days'];
 
+    protected $casts = [
+        'first_time' => 'boolean'
+    ];
+
     public function usermodel()
     {
         return $this->belongsTo('App\User', 'user');

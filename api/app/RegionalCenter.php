@@ -11,4 +11,6 @@ class RegionalCenter extends Model
                            'address',
                            'short_name'
                         ];
+
+    public $timestamps = false;
 }
