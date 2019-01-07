@@ -19,6 +19,7 @@
     "jwt-decode": "^2.2.0",
     "mobx": "^5.8.0",
     "mobx-react": "^5.4.3",
+    "moment": "^2.23.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-jss": "^8.6.1",
