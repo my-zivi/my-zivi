@@ -38,7 +38,7 @@ export class Login extends React.Component<Props> {
     try {
       await this.props.apiStore!.postLogin(values);
       this.props.history.push(this.getReferrer());
-    } catch (error) {
+    } catch ({ error }) {
       if (error.toString().includes('400')) {
         this.props.mainStore!.displayError('Ungültiger Benutzername/Passwort');
       } else {

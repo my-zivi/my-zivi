@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import { IziviLayout } from './layout/IziviLayout';
 import { Home } from './views/Home';
 import { Login } from './views/Login';
+import { ForgotPassword } from './views/ForgotPassword';
 
 class App extends React.Component {
   public render() {
@@ -14,6 +15,7 @@ class App extends React.Component {
         <Switch>
           <Route component={Home} exact path={'/'} />
           <Route component={Login} exact path={'/login'} />
+          <Route component={ForgotPassword} exact path={'/forgotPassword'} />
           <Route>
             <>404</>
           </Route>

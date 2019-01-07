@@ -75,7 +75,7 @@ export class ApiStore {
           console.log('Unathorized API access, redirect to login'); //tslint:disable-line:no-console
           this.logout();
         }
-        return Promise.reject(error);
+        return Promise.reject({ error, messages: error.response ? error.response.data : [] });
       }
     );
   }
@@ -102,6 +102,10 @@ export class ApiStore {
       this.setToken(res.data.data.token);
       this.updateSentryContext();
     });
+  }
+
+  public async postForgotPassword(email: string) {
+    await this._api.post('/auth/forgotPassword', { email });
   }
 
   private setToken(token: string) {
