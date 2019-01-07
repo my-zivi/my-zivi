@@ -72,7 +72,7 @@ class AuthController extends Controller
             // below response for now.
             return response()->json([
                 'error' => 'Email does not exist.'
-            ], 401);
+            ], 400);
         }
 
         // Verify the password and generate the token
@@ -88,7 +88,7 @@ class AuthController extends Controller
         // Bad Request response
         return response()->json([
             'error' => 'Email or password is wrong.'
-        ], 401);
+        ], 400);
     }
 
     public function postRegister(Request $request)

@@ -20,7 +20,7 @@ class AuthControllerTest extends TestCase
         $this->json('post', 'api/auth/login', [
             'email' => $this->faker->email,
             'password' => 'asdasd'
-        ])->assertResponseStatus(401);
+        ])->assertResponseStatus(400);
     }
 
     public function testCorrectLogin()
@@ -49,7 +49,7 @@ class AuthControllerTest extends TestCase
         $this->json('post', 'api/auth/login', [
             'email' => 'welcometo@jurassic.park',
             'password' => 'Welcome01'
-        ])->assertResponseStatus(401);
+        ])->assertResponseStatus(400);
     }
 
     public function testInvalidPasswordLogin()
@@ -59,7 +59,7 @@ class AuthControllerTest extends TestCase
         $this->json('post', 'api/auth/login', [
             'email' => $user->email,
             'password' => 'Welcome01'
-        ])->assertResponseStatus(401);
+        ])->assertResponseStatus(400);
     }
 
     public function testRegister()

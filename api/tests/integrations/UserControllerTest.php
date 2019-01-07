@@ -72,7 +72,7 @@ class UserControllerTest extends TestCase
         $this->json('post', 'api/auth/login', [
             'email' => $self->email,
             'password' => $old
-        ])->assertResponseStatus(401);
+        ])->assertResponseStatus(400);
 
         $this->json('post', 'api/auth/login', [
             'email' => $self->email,
