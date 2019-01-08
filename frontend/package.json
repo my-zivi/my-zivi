@@ -9,6 +9,8 @@
     "@types/react-jss": "^8.6.0",
     "@types/react-router": "^4.4.3",
     "@types/react-router-dom": "^4.3.1",
+    "@types/react-widgets": "^4.2.0",
+    "@types/react-widgets-moment": "^4.0.1",
     "@types/reactstrap": "^6.4.3",
     "@types/yup": "^0.26.4",
     "axios": "^0.18.0",
@@ -26,6 +28,8 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts-ts": "3.1.0",
+    "react-widgets": "^4.4.8",
+    "react-widgets-moment": "^4.0.24",
     "reactstrap": "^7.0.2",
     "yup": "^0.26.6"
   },

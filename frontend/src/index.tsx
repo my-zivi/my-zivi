@@ -8,6 +8,9 @@ import * as Sentry from '@sentry/browser';
 import { StoreProvider } from './utilities/StoreProvider';
 import { ThemeProvider } from 'react-jss';
 import { theme } from './layout/theme';
+import moment from 'moment';
+import 'moment/locale/de-ch';
+import momentLocalizer from 'react-widgets-moment';
 
 const browserHistory = createBrowserHistory();
 const sentryDSN = 'SENTRY_DSN'; //this value will be replaced by a build script
@@ -18,6 +21,9 @@ if (sentryDSN.startsWith('https')) {
 } else {
   console.log('no raven');
 }
+
+moment.locale('de-ch');
+momentLocalizer();
 
 ReactDOM.render(
   <StoreProvider history={browserHistory}>
