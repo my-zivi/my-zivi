@@ -41,6 +41,7 @@ abstract class PDF
      * Helpers
      */
 
+    // TODO check how we can optimize those ugly helpers
     /**
      * Converts a unix timestamp to a iso date (YYYY-MM-DD).
      * @param int $timestamp A unix timestamp

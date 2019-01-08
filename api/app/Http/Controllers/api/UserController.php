@@ -14,40 +14,6 @@ use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
-    /**
-     * Get authenticated user.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getZivis()
-    {
-        $usersWithLatestMission = User::all()->map(function (User $user):array {
-            $userInformation = [
-                'first_name' => $user->first_name,
-                'id' => $user->id,
-                'last_name' => $user->last_name,
-                'role' => $user->user_role->name,
-                'role_id' => $user->role,
-                'work_experience' => $user->work_experience,
-                'zdp' => $user->zdp,
-            ];
-
-            $latestMission = $user->missions->sortByDesc('start')->first();
-
-            if ($latestMission) {
-                $userInformation = array_merge($userInformation, [
-                    'end' => $latestMission->end,
-                    'long_mission' => $latestMission->long_mission,
-                    'start' => $latestMission->start,
-                ]);
-            }
-
-            return $userInformation;
-        });
-
-        return new JsonResponse($usersWithLatestMission->sortByDesc('start')->values());
-    }
-
     public function changePassword(Request $request)
     {
         $errors = array();
@@ -85,43 +51,25 @@ class UserController extends Controller
         return new JsonResponse("Ihr Passwort wurde angepasst.");
     }
 
-    public static function updateUser(User $user)
+    public function delete($id)
     {
-        $user->first_name = Input::get("first_name", "");
-        $user->last_name = Input::get("last_name", "");
-        $user->address = Input::get("address", "");
-        $user->city = Input::get("city", "");
-        $user->zip = Input::get("zip", "");
-        $user->hometown = Input::get("hometown", "");
-        $user->birthday = Input::get("birthday", "");
-        // $user->phone_mobile = Input::get("phone_mobile", "");
-        // $user->phone_private = Input::get("phone_private", "");
-        // $user->phone_business = Input::get("phone_business", "");
-        $user->phone = Input::get("phone");
-        $user->bank_iban = Input::get("bank_iban", "");
-        $user->bank_bic = Input::get("bank_bic", "");
-        $user->work_experience = Input::get("work_experience", "");
-        // $user->driving_licence = Input::get("driving_licence", 0);
-        // $user->ga_travelcard = Input::get("ga_travelcard", 0);
-        // $user->half_fare_travelcard = Input::get("half_fare_travelcard", 0);
-        // $user->other_fare_network = Input::get("other_fare_network", "");
-        $user->driving_licence_b = Input::get("driving_licence_b", false);
-        $user->driving_licence_be = Input::get("driving_licence_be", false);
-        $user->chainsaw_workshop = Input::get("chainsaw_workshop", false);
-        $user->regional_center = Input::get("regional_center", "");
-        $user->health_insurance = Input::get("health_insurance", "");
-        $user->save();
+        User::findOrFail($id)->delete();
+        return 'Entity deleted';
     }
 
-    public function getSelf()
+    public function get($id)
     {
-        $user = User::with('missions')->find(Auth::id());
+        $user = User::with('missions')->find($id);
 
-        if ($user->role !== 1) {
-            unset($user->internal_note);
+        if (Auth::user()->isAdmin() || $user->id == Auth::id()) {
+            if (!Auth::user()->isAdmin()) {
+                unset($user->internal_note);
+            }
+
+            return $user;
+        } else {
+            return $this->respondWithUnauthorized();
         }
-
-        return $user;
     }
 
     public function index()
@@ -129,17 +77,24 @@ class UserController extends Controller
         return User::with(['user_role', 'missions'])->get();
     }
 
-    public function putSelf(Request $request)
+    public function put($id, Request $request)
     {
-        $validatedData = $this->validateRequest($request);
-        User::find(Auth::id())->update($validatedData);
-        return self::getSelf();
+        if (Auth::user()->isAdmin()) {
+            $validatedData = $this->validate($request, array_merge($this->basicUserValidationRules(), $this->extendedUserValidationRules()));
+        } elseif (Auth::id() == $id) {
+            $validatedData = $this->validate($request, $this->basicUserValidationRules());
+        } else {
+            return $this->respondWithUnauthorized();
+        }
+
+        User::find($id)->update($validatedData);
+        return self::get($id);
     }
 
-    private function validateRequest(Request $request)
+    private function basicUserValidationRules()
     {
         // SOURCE FOR BIC REGEX: https://www.regextester.com/98275
-        return $this->validate($request, [
+        return [
             'address' => 'required|string',
             'bank_bic' => [
                 'required', 'string', 'regex:/([a-zA-Z]{4})([a-zA-Z]{2})(([2-9a-zA-Z]{1})([0-9a-np-zA-NP-Z]{1}))((([0-9a-wy-zA-WY-Z]{1})([0-9a-zA-Z]{2}))|([xX]{3})|)/'
@@ -158,6 +113,14 @@ class UserController extends Controller
             'regional_center' => 'required|integer',
             'work_experience' => 'required|string',
             'zip' => 'required|integer',
-        ]);
+        ];
+    }
+
+    private function extendedUserValidationRules()
+    {
+        return [
+            'internal_note' => 'string',
+            'role' => 'required|integer',
+        ];
     }
 }

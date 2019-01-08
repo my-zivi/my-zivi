@@ -13,6 +13,40 @@ use Illuminate\Support\Facades\Input;
 
 class MissionController extends Controller
 {
+    public function delete($id)
+    {
+        Mission::findOrFail($id)->delete();
+        ReportSheet::deleteByMission($id);
+        return response("deleted");
+    }
+
+    public function indexByYear($year)
+    {
+        // TODO remove join and work with Laravel relations instead
+        $data = Mission::join('users', 'users.id', '=', 'missions.user')
+            ->join('specifications', 'specifications.id', '=', 'missions.specification')
+            ->select('*', 'users.id AS userid')
+            ->whereNull('missions.deleted_at')
+            ->whereDate('end', '>=', $year . '-01-01')
+            ->whereDate('start', '<=', $year . '-12-31')
+            ->orderBy('start')
+            ->get();
+        $intermediateResult = array();
+        foreach ($data as $m) {
+            if (!isset($intermediateResult[$m->userid])) {
+                $intermediateResult[$m->userid] = array();
+            }
+            $intermediateResult[$m->userid][] = $m;
+        }
+
+        $result = array();
+        foreach ($intermediateResult as $m) {
+            $result[] = $m;
+        }
+
+        return response()->json($result);
+    }
+
     public function post(Request $request)
     {
         $validatedData = $this->validateRequest($request);
@@ -61,6 +95,27 @@ class MissionController extends Controller
         } else {
             return $this->respondWithUnauthorized();
         }
+    }
+
+    public function receivedDraft($id)
+    {
+        $mission = Mission::findOrFail($id);
+        $mission->draft = date("Y-m-d");
+        $mission->save();
+
+        //Add new ReportSheets
+        $start = Carbon::parse($mission->start);
+        $end = Carbon::parse($mission->end);
+
+        $reportSheetEnd = $start->copy()->modify('last day of this month');
+        while ($reportSheetEnd->lessThan($end)) {
+            ReportSheet::add($mission, $start, $reportSheetEnd);
+            $start->modify('first day of next month');
+            $reportSheetEnd->modify('last day of next month');
+        }
+        ReportSheet::add($mission, $start, $end);
+
+        return response("updated");
     }
 
     private function updateReportSheets(&$mission)

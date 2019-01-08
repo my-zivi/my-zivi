@@ -6,6 +6,7 @@ use App\Mission;
 use App\ReportSheet;
 use App\Specification;
 use App\User;
+use Carbon\Carbon;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class MissionControllerTest extends \TestCase
@@ -46,6 +47,58 @@ class MissionControllerTest extends \TestCase
         $this->asAdmin()->json('PUT', '/api/missions/' . $mission->id, $template);
         $this->assertResponseMatchesTemplate($template);
         $this->assertEquals($countOfMissions + 12, ReportSheet::where('mission', "=", $mission->id)->count());
+    }
+
+    public function testShouldMarkMissionDraftAsReceived()
+    {
+        $mission = factory(Mission::class)->create([
+            'draft' => null,
+            'end' => (new Carbon())->modify('last day of this month')->format('Y-m-d'),
+            'start' => (new Carbon())->subMonth(3)->modify('first day of this month')->format('Y-m-d')
+        ]);
+
+        $countOfReportSheetsBeforeCall = count(ReportSheet::all());
+
+        $this->asAdmin()->json('PUT', 'api/missions/' . $mission->id . '/received_draft')->assertResponseOk();
+
+        $mission->refresh();
+        $this->assertEquals((new \DateTime())->format('Y-m-d'), $mission->draft);
+        $this->assertCount($countOfReportSheetsBeforeCall + 4, ReportSheet::all());
+    }
+
+    public function testInvalidMarkMissionDraftAsReceived()
+    {
+        $mission = factory(Mission::class)->create([
+            'draft' => null,
+            'end' => (new Carbon())->modify('last day of this month')->format('Y-m-d'),
+            'start' => (new Carbon())->subMonth(3)->modify('first day of this month')->format('Y-m-d')
+        ]);
+
+        $this->asUser()->json('PUT', 'api/missions/' . $mission->id . '/received_draft')->assertResponseStatus(401);
+    }
+
+    public function testDeleteAsUser()
+    {
+        $mission = factory(Mission::class)->create();
+        $this->asUser()->json('DELETE', 'api/missions/' . $mission->id)->assertResponseStatus(401);
+    }
+
+    public function testDeleteAsAdminWithInvalidId()
+    {
+        $this->asAdmin()->json('DELETE', 'api/missions/124324252')->assertResponseStatus(404);
+    }
+
+    public function testDeleteAsAdminWithValidId()
+    {
+        $reportSheet = factory(ReportSheet::class)->create();
+
+        $countBeforeMissionDeletion = count(Mission::all());
+        $countBeforeReportSheetDeletion = count(ReportSheet::all());
+
+        $this->asAdmin()->json('DELETE', 'api/missions/' . $reportSheet->mission)->assertResponseOk();
+
+        $this->assertCount($countBeforeMissionDeletion - 1, Mission::all());
+        $this->assertCount($countBeforeReportSheetDeletion - 1, ReportSheet::all());
     }
 
     private function missionTemplate()

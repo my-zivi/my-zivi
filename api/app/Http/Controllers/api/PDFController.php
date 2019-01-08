@@ -13,6 +13,7 @@ use App\Services\PDF\AufgebotPDF;
 use App\Services\PDF\PhoneListPDF;
 use App\Services\PDF\SpesenStatistik;
 use App\Services\PDF\ZiviReportSheetPDF;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Laravel\Lumen\Application;
@@ -20,12 +21,14 @@ use Laravel\Lumen\Application;
 class PDFController extends Controller
 {
 
-    public function getPhoneList(Application $app)
+    public function getPhoneList(Request $request)
     {
-        $from = strtotime(Input::get("start", ""));
-        $to = strtotime(Input::get("end", ""));
+        $validatedData = $this->validate($request, [
+            'end' => 'required|date',
+            'start' => 'required|date',
+        ]);
 
-        $phoneList = new PhoneListPDF($from, $to);
+        $phoneList = new PhoneListPDF($validatedData['start'], $validatedData['end']);
 
         $response =  response()->download($phoneList->createPDF(), 'phonelist.pdf')
             ->deleteFileAfterSend(true);
@@ -49,22 +52,24 @@ class PDFController extends Controller
         }
     }
 
-    public function getSpesenStatistik(Application $app)
+    public function getSpesenStatistik(Request $request)
     {
-        $showOnlyDoneSheets = Input::get("showOnlyDoneSheets")==1;
-        $showDetails = Input::get("showDetails")==1;
-        $time_type = Input::get("time_type");
-        $time_from = strtotime(Input::get("time_from"));
-        $time_to = strtotime(Input::get("time_to"));
-        $time_year = Input::get("time_year");
+        $this->validate($request, [
+            'time_from' => 'date',
+            'time_to' => 'date',
+            'time_type' => 'integer',
+            'time_year' => 'integer',
+            'show_details' => 'boolean',
+            'show_only_done_sheets' => 'boolean',
+        ]);
 
         $statistik = new SpesenStatistik(
-            $showOnlyDoneSheets,
-            $showDetails,
-            $time_type,
-            $time_from,
-            $time_to,
-            $time_year
+            Input::get("show_only_done_sheets"),
+            Input::get("show_details"),
+            Input::get("time_type"),
+            strtotime(Input::get("time_from")),
+            strtotime(Input::get("time_to")),
+            Input::get("time_year")
         );
 
         $response = response()->download($statistik->createPDF(), 'statistik.pdf')

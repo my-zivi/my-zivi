@@ -10,6 +10,7 @@ namespace App\Services\PDF;
 
 use App\Mission;
 use App\Specification;
+use Carbon\Carbon;
 
 class PhoneListPDF extends PDF
 {
@@ -38,8 +39,8 @@ class PhoneListPDF extends PDF
         foreach ($specifications as $specification) {
             $zivis = Mission::join('users', 'users.id', '=', 'missions.user')
                 ->where('specification', '=', $specification->id)
-                ->whereDate('start', '<=', date('Y-m-d', $to))
-                ->whereDate('end', '>=', date('Y-m-d', $from))
+                ->whereDate('start', '<=', $to)
+                ->whereDate('end', '>=', $from)
                 ->orderBy('last_name', 'first_name')->get();
 
             if (count($zivis)>0) {
@@ -65,8 +66,8 @@ class PhoneListPDF extends PDF
         $cy = $this->__PDF_TOP;
         $pdf->SetFont('Times', 'B', 14);
         $pdf->SetXY($cx, $cy);
-        $europeanStartDate = $this->timestamp2europeDate($startDate);
-        $europeanEndDate = $this->timestamp2europeDate($endDate);
+        $europeanStartDate = Carbon::parse($startDate)->format('d.m.Y');
+        $europeanEndDate = Carbon::parse($endDate)->format('d.m.Y');
         $pdf->Cell(0, 0, "Telefonliste vom $europeanStartDate bis $europeanEndDate");
         $cy += 15;
     }

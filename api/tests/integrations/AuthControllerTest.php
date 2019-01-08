@@ -142,7 +142,7 @@ class AuthControllerTest extends TestCase
         // be used to decode the token in the future.
         $token = JWT::encode($payload, env('JWT_SECRET'));
 
-        $this->json('get', 'api')->assertResponseStatus(401);
-        $this->json('get', 'api?token=' . $token)->assertResponseOk();
+        $this->json('get', 'api/api')->assertResponseStatus(401);
+        $this->json('get', 'api/api?token=' . $token)->assertResponseOk();
     }
 }

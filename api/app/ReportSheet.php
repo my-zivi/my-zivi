@@ -51,6 +51,7 @@ class ReportSheet extends Model
         return $this->belongsTo('App\User', 'user');
     }
 
+    // TODO replace this function with a proper get method in the controller
     static function getSpesen($reportSheetId)
     {
         $reportSheet = ReportSheet::join('missions', 'missions.id', '=', 'report_sheets.mission')
@@ -531,6 +532,7 @@ class ReportSheet extends Model
     // Delete all linked report sheets to a mission when a mission is soft deleted
     public static function deleteByMission($missionId)
     {
+        // TODO remove this method and solve it through database cascade instead
         $reportSheets = ReportSheet::where('mission', '=', $missionId);
         $reportSheets->delete();
     }

@@ -24,10 +24,10 @@ class FeedbackControllerTest extends TestCase
          factory(UserFeedback::class)->create();
 
         // zivi should not access the feedback
-        $this->asUser()->json('GET', 'api/user/feedback')->assertResponseStatus(401);
+        $this->asUser()->json('GET', 'api/user_feedbacks')->assertResponseStatus(401);
 
         // but admin should be abe to get the feedback
-        $this->asAdmin()->json('GET', 'api/user/feedback')->assertResponseOk();
+        $this->asAdmin()->json('GET', 'api/user_feedbacks')->assertResponseOk();
     }
 
     public function testGetFeedback()
@@ -35,10 +35,10 @@ class FeedbackControllerTest extends TestCase
         $feedback = factory(UserFeedback::class)->create();
 
         // zivi should not access the feedback
-        $this->asUser()->json('GET', 'api/user/feedback/' . $feedback->feedbackId)->assertResponseStatus(401);
+        $this->asUser()->json('GET', 'api/user_feedbacks/' . $feedback->feedbackId)->assertResponseStatus(401);
 
         // but admin should be abe to get the feedback
-        $this->asAdmin()->json('GET', 'api/user/feedback/' . $feedback->feedbackId)->assertResponseOk();
+        $this->asAdmin()->json('GET', 'api/user_feedbacks/' . $feedback->feedbackId)->assertResponseOk();
     }
 
     public function testPostFeedback()

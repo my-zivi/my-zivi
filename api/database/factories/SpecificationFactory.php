@@ -15,7 +15,6 @@ $factory->define(App\Specification::class, function (Generator $faker) {
         'lastday_breakfast_expenses' => $faker->numberBetween(0, 9),
         'lastday_dinner_expenses' => $faker->numberBetween(0, 10),
         'lastday_lunch_expenses' => $faker->numberBetween(0, 10),
-        'manual_file' => 'conditions.pdf',
         'name' => $faker->word,
         'pocket' => $faker->numberBetween(400, 500),
         'short_name' => $faker->word,
@@ -27,7 +26,5 @@ $factory->define(App\Specification::class, function (Generator $faker) {
         'working_clothes_payment' => $faker->numberBetween(0, 250),
         'working_dinner_expenses' => $faker->numberBetween(0, 10),
         'working_lunch_expenses' => $faker->numberBetween(0, 10),
-        'working_time_model' => false,
-        'working_time_weekly' => '42h',
     ];
 });

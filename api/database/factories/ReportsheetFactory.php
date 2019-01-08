@@ -15,15 +15,16 @@ $factory->define(App\ReportSheet::class, function (Generator $faker) {
         'driving_charges_comment' => $faker->sentence(),
         'extraordinarily' => $faker->numberBetween(0, 150),
         'extraordinarily_comment' => $faker->sentence(),
-        'end' => $faker->dateTimeBetween('-60 days', '+0 days'),
+        'end' => $faker->dateTimeBetween('-60 days', '+0 days')->format('Y-m-d'),
         'holiday' => $faker->numberBetween(0, 2),
         'holiday_comment' => $faker->sentence(),
+        'ignore_first_last_day' => $faker->boolean,
         'ill' => $faker->numberBetween(0, 5),
         'ill_comment' => $faker->sentence(),
         'mission' => function () {
             return factory(App\Mission::class)->create()->id;
         },
-        'start' => $faker->dateTimeBetween('-180 days', '-90 days'),
+        'start' => $faker->dateTimeBetween('-180 days', '-90 days')->format('Y-m-d'),
         'state' => 3,
         'user' => function () {
             return factory(App\User::class)->create()->id;

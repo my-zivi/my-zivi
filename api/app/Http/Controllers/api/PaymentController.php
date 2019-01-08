@@ -27,8 +27,9 @@ function scrub(string $s)
 class PaymentController extends Controller
 {
 
-    public function getPaymentOverview()
+    public function index()
     {
+        // TODO Examine this logic and break it down into testable parts
         $openIDs = ReportSheet::select('id')
             ->where('state', '=', '1')->get();
 
@@ -70,6 +71,9 @@ class PaymentController extends Controller
         return new JsonResponse($result);
     }
 
+    // TODO instead of delivering the relevant data through the frontend, do it through backend
+    // the execute view in the frontend does not allow to modify anything, it just gives a preview of the payment
+    // so instead of relying on data from a post request, we could calculate those information directly in the backend
     public function getIsoPaymentXml()
     {
         $elements = Input::get('data');

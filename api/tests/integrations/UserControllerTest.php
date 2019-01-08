@@ -2,6 +2,7 @@
 
 namespace tests\integrations;
 
+use App\User;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use TestCase;
 
@@ -11,52 +12,96 @@ class UserControllerTest extends TestCase
 
     public function testGetIndex()
     {
-        factory(\App\User::class, 'user_with_admin')->times(10)->create();
-        factory(\App\User::class, 10)->create();
+        factory(User::class, 'user_with_admin')->times(10)->create();
+        factory(User::class, 10)->create();
 
         $this->asAdmin()->json('GET', 'api/users');
         $response = $this->responseToArray();
-        $this->assertCount(count(\App\User::all()), $response);
+        $this->assertCount(count(User::all()), $response);
         $this->assertArrayHasKey('missions', $response[0]);
         $this->assertArrayHasKey('user_role', $response[0]);
     }
 
-    public function testGetSelf()
+    public function testGetAsUser()
     {
-        $self = factory(\App\User::class)->create();
+        $self = factory(User::class)->create();
 
-        $this->asUser($self)->json('GET', 'api/users/me')->assertResponseOk();
+        $this->asUser($self)->json('GET', 'api/users/' . $self->id)->assertResponseOk();
         $response = $this->responseToArray();
 
         $this->assertEquals($self->id, $response['id']);
         $this->assertEquals($self->address, $response['address']);
         $this->assertArrayHasKey('missions', $response);
+        $this->assertArrayNotHasKey('internal_note', $response);
+    }
+    
+    public function testGetOtherUserAsNormalUser()
+    {
+        $otherGuy = factory(User::class)->create();
+        $requestingGuy = factory(User::class)->create();
+
+        $this->asUser($requestingGuy)->json('GET', 'api/users/' . $otherGuy->id)->assertResponseStatus(401);
+    }
+
+    public function testGetOtherUserAsAdmin()
+    {
+        $otherGuy = factory(User::class)->create();
+
+        $this->asAdmin()->json('GET', 'api/users/' . $otherGuy->id)->assertResponseOk();
+        $response = $this->responseToArray();
+
+        $this->assertEquals($otherGuy->id, $response['id']);
+        $this->assertEquals($otherGuy->address, $response['address']);
+        $this->assertArrayHasKey('missions', $response);
+        $this->assertArrayHasKey('internal_note', $response);
     }
 
     public function testUpdateSelf()
     {
-        $self = factory(\App\User::class)->create();
+        $self = factory(User::class)->create();
 
-        $this->asUser($self)->json('GET', 'api/users/me');
+        $this->asUser($self)->json('GET', 'api/users/' . $self->id)->assertResponseOk();
         $responseData = $this->responseToArray();
 
         $new = 'test address 123';
         $responseData['address'] = $new;
 
-        $this->asUser($self)->json('PUT', 'api/users/me', $responseData);
-
-        $this->asUser($self)->json('GET', 'api/users/me')->assertResponseOk();
+        $this->asUser($self)->json('PUT', 'api/users/' . $self->id, $responseData)->assertResponseOk();
         $response = $this->responseToArray();
 
         $this->assertEquals($self->id, $response['id']);
         $this->assertEquals($new, $response['address']);
+        $this->assertArrayNotHasKey('internal_note', $response);
+    }
+
+    public function testUpdateOtherGuyAsNormalUser()
+    {
+        $self = factory(User::class)->create();
+        $otherGuy = factory(User::class)->create();
+
+        $this->asUser($self)->json('PUT', 'api/users/' . $otherGuy->id, [])->assertResponseStatus(401);
+    }
+
+    public function testUpdateOtherGuyAsAdmin()
+    {
+        $otherGuy = factory(User::class)->create();
+
+        $otherGuyAsArray = $otherGuy->toArray();
+        $otherGuyAsArray['address'] = 'New hip address from other guy';
+        $otherGuyAsArray['internal_note'] = 'Internal note';
+
+        $this->asAdmin()->json('PUT', 'api/users/' . $otherGuy->id, $otherGuyAsArray)->assertResponseOk();
+        $response = $this->responseToArray();
+
+        $this->assertEquals('New hip address from other guy', $response['address']);
+        $this->assertEquals('Internal note', $response['internal_note']);
     }
 
     public function testValidChangePassword()
     {
         $old = 'oldpass';
         $new = 'newpass';
-        $self = factory(\App\User::class)->create([
+        $self = factory(User::class)->create([
             'password' => app('hash')->make($old)
         ]);
 
@@ -82,14 +127,14 @@ class UserControllerTest extends TestCase
 
     public function testChangePasswordOldPasswordEmpty()
     {
-        $self = factory(\App\User::class)->create();
+        $self = factory(User::class)->create();
         $this->asUser($self)->json('POST', 'api/users/change_password', [])->assertResponseStatus(406);
         $this->assertContains('Altes Passwort darf nicht leer sein!', $this->responseToArray());
     }
 
     public function testChangePasswordOldPasswordWrong()
     {
-        $self = factory(\App\User::class)->create();
+        $self = factory(User::class)->create();
         $this->asUser($self)->json('POST', 'api/users/change_password', [
             'old_password' => 'schabdudisianidniasdasq2413'
         ])->assertResponseStatus(406);
@@ -99,7 +144,7 @@ class UserControllerTest extends TestCase
     public function testChangePasswordNewPasswordsMismatch()
     {
         $old = 'oldpass';
-        $self = factory(\App\User::class)->create([
+        $self = factory(User::class)->create([
             'password' => app('hash')->make($old)
         ]);
 
@@ -114,7 +159,7 @@ class UserControllerTest extends TestCase
     public function testChangePasswordNewPasswordsTooShort()
     {
         $old = 'oldpass';
-        $self = factory(\App\User::class)->create([
+        $self = factory(User::class)->create([
             'password' => app('hash')->make($old)
         ]);
 
@@ -124,5 +169,18 @@ class UserControllerTest extends TestCase
             'new_password_2' => 'Hans'
         ])->assertResponseStatus(406);
         $this->assertContains('Das Passwort muss aus mindestens 7 Zeichen bestehen!', $this->responseToArray());
+    }
+
+    public function testInvalidDelete()
+    {
+        // can't delete because object does not exist
+        $this->asAdmin()->json('DELETE', 'api/users/1789764')->assertResponseStatus(404);
+    }
+
+    public function testValidDelete()
+    {
+        $userId = factory(User::class)->create()->id;
+        $this->asAdmin()->json('DELETE', 'api/users/' . $userId)->assertResponseOk();
+        $this->assertEquals('Entity deleted', $this->response->getContent());
     }
 }

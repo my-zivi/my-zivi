@@ -13,7 +13,7 @@ class PDFControllerTest extends TestCase
     public function testGetPhoneList()
     {
         // PDF should not render as zivi
-        $this->asUser()->json('GET', '/api/pdf/phoneList')->assertResponseStatus(401);
+        $this->asUser()->json('GET', '/api/documents/phone_list')->assertResponseStatus(401);
 
         // PDF should render als admin
         factory(\App\Mission::class, 10)->create([
@@ -44,7 +44,7 @@ class PDFControllerTest extends TestCase
             'end' => '2019-04-01'
         ]);
 
-        $this->asAdmin()->json('GET', '/api/pdf/phoneList?start=2019-01-01&end=2019-04-01')->assertResponseOk();
+        $this->asAdmin()->json('GET', '/api/documents/phone_list?start=2019-01-01&end=2019-04-01')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }
 
@@ -71,14 +71,16 @@ class PDFControllerTest extends TestCase
     public function testGetSpesenstatistikNotForZivi()
     {
         // PDF should not render as zivi
-        $this->asUser()->json('GET', '/api/pdf/statistik')->assertResponseStatus(401);
+        $this->asUser()->json('GET', '/api/documents/expenses_overview')->assertResponseStatus(401);
     }
 
     public function testGetSpesenstatistikFirstTimeType()
     {
         // PDF should render als admin
         factory(\App\ReportSheet::class, 30)->create();
-        $this->asAdmin()->json('GET', '/api/pdf/statistik?time_type=1')->assertResponseOk();
+        $this->asAdmin()->json('GET', '/api/documents/expenses_overview', [
+            'time_type' => 1
+        ])->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }
 
@@ -86,7 +88,7 @@ class PDFControllerTest extends TestCase
     {
         // PDF should render als admin
         factory(\App\ReportSheet::class, 30)->create();
-        $this->asAdmin()->json('GET', '/api/pdf/statistik?time_type=2')->assertResponseOk();
+        $this->asAdmin()->json('GET', '/api/documents/expenses_overview?time_type=2')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }
 
@@ -94,7 +96,7 @@ class PDFControllerTest extends TestCase
     {
         // PDF should render als admin
         factory(\App\ReportSheet::class, 30)->create();
-        $this->asAdmin()->json('GET', '/api/pdf/statistik?time_type=3')->assertResponseOk();
+        $this->asAdmin()->json('GET', '/api/documents/expenses_overview?time_type=3')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }
 
@@ -102,7 +104,7 @@ class PDFControllerTest extends TestCase
     {
         // PDF should render als admin
         factory(\App\ReportSheet::class, 30)->create();
-        $this->asAdmin()->json('GET', '/api/pdf/statistik')->assertResponseOk();
+        $this->asAdmin()->json('GET', '/api/documents/expenses_overview')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }
 
@@ -110,7 +112,7 @@ class PDFControllerTest extends TestCase
     {
         // PDF should render als admin
         factory(\App\ReportSheet::class, 30)->create();
-        $this->asAdmin()->json('GET', '/api/pdf/statistik?showDetails=1')->assertResponseOk();
+        $this->asAdmin()->json('GET', '/api/documents/expenses_overview?showDetails=1')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
     }
 
