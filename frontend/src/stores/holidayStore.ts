@@ -35,10 +35,6 @@ export class HolidayStore extends DomainStore<Holiday> {
     super(mainStore);
   }
 
-  public filter = (h: Holiday) => {
-    return [h.description, this.mainStore!.formatDate(h.date_from)].some(s => s.toLowerCase().includes(this.searchQuery));
-  };
-
   @action
   protected async doDelete(id: number) {
     await this.mainStore.api.delete('/holidays/' + id);

@@ -12,6 +12,7 @@ export type FormProps = {
   children: ReactElement<any>; //tslint:disable-line:no-any
   required?: boolean;
   multiline?: boolean;
+  horizontal?: boolean;
 } & FieldProps;
 
 export type InputFieldProps = {
@@ -23,7 +24,7 @@ export type InputFieldProps = {
   disabled?: boolean;
 } & FormProps;
 
-export type DateTimePickerFieldProps = FieldProps & {
+export type DateTimePickerFieldProps = FormProps & {
   label: string;
   required?: boolean;
   onChange?: (date?: Date) => void;
@@ -42,33 +43,36 @@ export type SelectFieldProps = {
   }>;
 } & InputFieldProps;
 
-export const ValidatedFormGroupWithLabel = ({ label, field, form: { touched, errors }, children, required }: FormProps) => {
+export const ValidatedFormGroupWithLabel = ({ label, field, form: { touched, errors }, children, required, horizontal }: FormProps) => {
   const hasErrors: boolean = !!errors[field.name] && !!touched[field.name];
 
+  let fieldClasses = '';
+  fieldClasses += horizontal ? 'col-md-10' : '';
+
   return (
-    <FormGroup>
+    <FormGroup row={horizontal}>
       {label && (
-        <Label for={field.name}>
+        <Label for={field.name} md={horizontal ? 2 : undefined}>
           {label} {required && '*'}
         </Label>
       )}
-      {React.cloneElement(children, { invalid: hasErrors })}
+      <div className={fieldClasses}>{React.cloneElement(children, { invalid: hasErrors })}</div>
       <ErrorMessage name={field.name} render={error => <FormFeedback valid={false}>{error}</FormFeedback>} />
     </FormGroup>
   );
 };
 
-const InputFieldWithValidation = ({ label, field, form, unit, required, multiline, ...rest }: InputFieldProps) => {
+const InputFieldWithValidation = ({ label, field, form, unit, required, multiline, horizontal, ...rest }: InputFieldProps) => {
   return (
-    <ValidatedFormGroupWithLabel label={label} field={field} form={form} required={required}>
+    <ValidatedFormGroupWithLabel label={label} field={field} form={form} required={required} horizontal={horizontal}>
       <Input {...field} value={field.value === null ? '' : field.value} {...rest} />
     </ValidatedFormGroupWithLabel>
   );
 };
 
-const SelectFieldWithValidation = ({ label, field, form, unit, required, multiline, options, ...rest }: SelectFieldProps) => {
+const SelectFieldWithValidation = ({ label, field, form, unit, required, multiline, options, horizontal, ...rest }: SelectFieldProps) => {
   return (
-    <ValidatedFormGroupWithLabel label={label} field={field} form={form} required={required}>
+    <ValidatedFormGroupWithLabel label={label} field={field} form={form} required={required} horizontal={horizontal}>
       <Input {...field} value={field.value === null ? '' : field.value} {...rest}>
         {options.map(option => (
           <option value={option.id} key={option.id}>
@@ -80,8 +84,8 @@ const SelectFieldWithValidation = ({ label, field, form, unit, required, multili
   );
 };
 
-const DateTimePickerFieldWithValidation = ({ label, field, form, required, ...rest }: DateTimePickerFieldProps) => (
-  <ValidatedFormGroupWithLabel label={label} field={field} form={form} required={required}>
+const DateTimePickerFieldWithValidation = ({ label, field, form, required, horizontal, ...rest }: DateTimePickerFieldProps) => (
+  <ValidatedFormGroupWithLabel label={label} field={field} form={form} required={required} horizontal={horizontal}>
     <DateTimePicker onChange={(date?: Date) => form.setFieldValue(field.name, date)} defaultValue={new Date(field.value)} {...rest} />
   </ValidatedFormGroupWithLabel>
 );

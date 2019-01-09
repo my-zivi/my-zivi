@@ -34,19 +34,26 @@ interface Props extends WithSheet<typeof styles> {
   className?: string;
   showBackgroundImage?: boolean;
   card?: boolean;
+  title?: string;
 }
 
 class IziviContent extends Component<Props> {
   render = () => {
-    const { classes, children, showBackgroundImage, card } = this.props;
+    const { classes, children, showBackgroundImage, card, title } = this.props;
     return (
       <div className={classNames(this.props.className, classes.container, { [classes.background]: showBackgroundImage })}>
         {card ? (
           <Card className={classes.card}>
-            <CardBody>{children}</CardBody>
+            <CardBody>
+              {title && <h1>{title}</h1>}
+              {children}
+            </CardBody>
           </Card>
         ) : (
-          children
+          <div>
+            {title && <h1>{title}</h1>}
+            {children}
+          </div>
         )}
       </div>
     );
