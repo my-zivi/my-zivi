@@ -48,7 +48,7 @@ class FeedbackController extends Controller
 
         foreach ($content['answers'] as $answer) {
             $user_feedback = new UserFeedback();
-            $user_feedback->user = $userId;
+            $user_feedback->user_id = $userId;
             $user_feedback->feedbackId = $feedbackId;
             $user_feedback->year = $date;
             $user_feedback->questionId = $answer['id'];

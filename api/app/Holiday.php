@@ -6,15 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Holiday extends Model
 {
-    protected $fillable = ['id',
-                           'date_from',
-                           'date_to',
-                           'holiday_type',
-                           'description'
-                        ];
+    protected $fillable = ['date_from', 'date_to', 'description', 'holiday_type_id' ];
 
-    public function holidayType()
+    public function holiday_type()
     {
-        return $this->belongsTo('App\HolidayType', 'holiday_type');
+        return $this->belongsTo(HolidayType::class);
     }
 }

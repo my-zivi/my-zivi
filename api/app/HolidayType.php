@@ -14,4 +14,6 @@ class HolidayType extends Model
     {
         return $this->hasMany('App\Holiday');
     }
+
+    public $timestamps = false;
 }

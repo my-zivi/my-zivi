@@ -15,8 +15,12 @@ $factory->define(App\Mission::class, function (Generator $faker) {
         'long_mission' => $faker->boolean(),
         'mission_type' => $faker->numberBetween(0, 2),
         'probation_period' => $faker->numberBetween(0, 10),
-        'specification' => factory(App\Specification::class)->create()->id,
+        'specification_id' => function () {
+            return factory(App\Specification::class)->create()->id;
+        },
         'start' => $faker->dateTimeBetween('-180 days', '-90 days'),
-        'user' => factory(App\User::class)->create()->id
+        'user_id' => function () {
+            return factory(\App\User::class)->create()->id;
+        }
     ];
 });

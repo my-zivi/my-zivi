@@ -133,7 +133,7 @@ class AuthControllerTest extends TestCase
         $payload = [
             'iss' => "izivi-api", // Issuer of the token
             'sub' => $user->id, // Subject of the token
-            'isAdmin' => $user->role == 1,
+            'isAdmin' => $user->isAdmin(),
             'iat' => time(), // Time when JWT was issued.
             'exp' => time() + 60*60*24, // Expiration time,
         ];

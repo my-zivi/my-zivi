@@ -23,8 +23,8 @@ class MissionController extends Controller
     public function indexByYear($year)
     {
         // TODO remove join and work with Laravel relations instead
-        $data = Mission::join('users', 'users.id', '=', 'missions.user')
-            ->join('specifications', 'specifications.id', '=', 'missions.specification')
+        $data = Mission::join('users', 'users.id', '=', 'missions.user_id')
+            ->join('specifications', 'specifications.id', '=', 'missions.specification_id')
             ->select('*', 'users.id AS userid')
             ->whereNull('missions.deleted_at')
             ->whereDate('end', '>=', $year . '-01-01')
@@ -51,7 +51,7 @@ class MissionController extends Controller
     {
         $validatedData = $this->validateRequest($request);
 
-        if (Auth::user()->isAdmin() || Auth::id() == $validatedData['user']) {
+        if (Auth::user()->isAdmin() || Auth::id() == $validatedData['user_id']) {
             $mission = new Mission($validatedData);
             $mission->feedback_mail_sent = false;
             $mission->feedback_done = false;
@@ -63,8 +63,8 @@ class MissionController extends Controller
 
             // TODO replace this piece as soon as the frontend implementation of the Profile view is specified
             $user = Auth::user();
-            if ($mission->user == 'me') {
-                $mission->user = $user->id;
+            if ($mission->user_id == 'me') {
+                $mission->user_id = $user->id;
             }
 
             $mission->save();
@@ -78,7 +78,7 @@ class MissionController extends Controller
     {
         $mission = Mission::findOrFail($id);
 
-        if (Auth::user()->isAdmin() || Auth::id() == $mission->user) {
+        if (Auth::user()->isAdmin() || Auth::id() == $mission->user_id) {
             DB::beginTransaction();
             try {
                 $validatedData = $this->validateRequest($request);
@@ -167,9 +167,9 @@ class MissionController extends Controller
             'long_mission' => 'required|boolean',
             'mission_type' => 'required|integer',
             'probation_period' => 'required|boolean',
-            'specification' => 'required|integer',
+            'specification_id' => 'required|integer',
             'start' => 'required|date',
-            'user' => 'required|integer'
+            'user_id' => 'required|integer'
         ]);
     }
 }

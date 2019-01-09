@@ -34,9 +34,11 @@ $factory->define(App\User::class, function (Generator $faker) {
         'driving_licence_b' => $faker->boolean,
         'driving_licence_be' => $faker->boolean,
         'chainsaw_workshop' => $faker->boolean,
-        'regional_center' => 2,
+        'regional_center_id' => function () {
+            return factory(\App\RegionalCenter::class)->create()->id;
+        },
         'remember_token' => str_random(10),
-        'role' => 2,
+        'role_id' => 2,
         'work_experience' => $faker->sentence(),
         'zdp' => $faker->randomNumber(6),
         'zip' => $faker->numberBetween(1000, 9999),
@@ -45,14 +47,14 @@ $factory->define(App\User::class, function (Generator $faker) {
 
 $factory->defineAs(App\User::class, 'user_with_admin', function () use ($factory) {
     $user = $factory->raw(App\User::class);
-    $user['role'] = 1;
+    $user['role_id'] = 1;
     return $user;
 });
 
 $factory->defineAs(App\User::class, 'admin', function () use ($factory) {
     $user = $factory->raw(App\User::class);
-    $user['email'] ='office@stiftungswo.ch';
+    $user['email'] = 'office@stiftungswo.ch';
     $user['password'] = app('hash')->make('GutesPasswort');
-    $user['role'] = 1;
+    $user['role_id'] = 1;
     return $user;
 });

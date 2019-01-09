@@ -24,7 +24,7 @@ class ReportSheetController extends Controller
     {
         if (!Auth::user()->isAdmin()) {
             // TODO Improve this piece by using Auth::user->report_sheets, then use the Laravel Collection where and select functions
-            $reportSheets = ReportSheet::join('users', 'report_sheets.user', '=', 'users.id')
+            $reportSheets = ReportSheet::join('users', 'report_sheets.user_id', '=', 'users.id')
                 ->select('report_sheets.id AS id', 'start', 'end', 'state')
                 ->where('users.id', '=', Auth::id())
                 ->where('state', '>', '0')
@@ -37,9 +37,10 @@ class ReportSheetController extends Controller
 
             return $reportSheets;
         } else {
-            return ReportSheet::with('user')->orderBy('start', 'desc')
+            return ReportSheet::join('users', 'users.id', '=', 'report_sheets.user_id')
+                ->orderBy('start', 'desc')
                 ->orderBy('end', 'desc')
-                ->orderBy('zdp')
+                ->orderBy('users.zdp')
                 ->get();
         }
     }

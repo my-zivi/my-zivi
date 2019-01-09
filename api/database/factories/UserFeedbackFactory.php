@@ -9,7 +9,9 @@ $factory->define(App\UserFeedback::class, function (Generator $faker) {
         'answer' => $faker->sentence,
         'feedbackId' => \Faker\Provider\Uuid::uuid(),
         'questionId' => factory(\App\UserFeedbackQuestion::class, 'text_question_type')->create()->id,
-        'user' => factory(\App\User::class)->create()->id,
+        'user_id' => function () {
+            return factory(\App\User::class)->create()->id;
+        },
         'year' => $faker->dateTimeBetween('-365 days', '-90 days')
     ];
 });

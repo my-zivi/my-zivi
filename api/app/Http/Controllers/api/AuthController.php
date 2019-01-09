@@ -34,7 +34,7 @@ class AuthController extends Controller
         $payload = [
             'iss' => "izivi-api", // Issuer of the token
             'sub' => $user->id, // Subject of the token
-            'isAdmin' => $user->role == 1,
+            'isAdmin' => $user->isAdmin(),
             'iat' => time(), // Time when JWT was issued.
             'exp' => time() + 60*60*24, // Expiration time,
         ];
@@ -147,8 +147,8 @@ class AuthController extends Controller
         $user->phone_business = "";
         $user->phone_mobile = "";
         $user->phone_private = "";
-        $user->regional_center = 1;
-        $user->role = AuthController::USER_ROLE_ZIVI;
+        $user->regional_center_id = 1;
+        $user->role_id = AuthController::USER_ROLE_ZIVI;
         $user->zdp = $request->input("zdp");
         $user->save();
 

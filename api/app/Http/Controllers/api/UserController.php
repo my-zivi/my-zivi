@@ -74,7 +74,7 @@ class UserController extends Controller
 
     public function index()
     {
-        return User::with(['user_role', 'missions'])->get();
+        return User::with(['role', 'missions'])->get();
     }
 
     public function put($id, Request $request)
@@ -110,7 +110,7 @@ class UserController extends Controller
             'hometown' => 'required|string',
             'last_name' => 'required|string',
             'phone' => 'required|string',
-            'regional_center' => 'required|integer',
+            'regional_center_id' => 'required|integer',
             'work_experience' => 'required|string',
             'zip' => 'required|integer',
         ];
@@ -120,7 +120,7 @@ class UserController extends Controller
     {
         return [
             'internal_note' => 'string',
-            'role' => 'required|integer',
+            'role_id' => 'required|integer',
         ];
     }
 }

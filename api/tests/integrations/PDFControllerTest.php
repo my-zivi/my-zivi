@@ -33,13 +33,13 @@ class PDFControllerTest extends TestCase
         ])->id;
 
         factory(\App\Mission::class, 2)->create([
-            'user' => $userWithoutMobileButPrivateId,
+            'user_id' => $userWithoutMobileButPrivateId,
             'start' => '2019-01-01',
             'end' => '2019-04-01'
         ]);
 
         factory(\App\Mission::class, 2)->create([
-            'user' => $userWithoutMobileButBusinessId,
+            'user_id' => $userWithoutMobileButBusinessId,
             'start' => '2019-01-01',
             'end' => '2019-04-01'
         ]);
@@ -55,7 +55,7 @@ class PDFControllerTest extends TestCase
             'driving_charges_comment' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
             'ill_comment' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut'// to test comment wrapping
         ]);
-        $zivi = \App\User::find($reportSheet->user);
+        $zivi = $reportSheet->user;
         $this->asUser($zivi)->json('GET', '/api/report_sheets/' . $reportSheet->id . '/download')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
 
@@ -121,15 +121,16 @@ class PDFControllerTest extends TestCase
         factory(Holiday::class)->create([
             'date_from' => '2020-05-06',
             'date_to' => '2020-06-06',
-            'holiday_type' => 1
+            'holiday_type_id' => 1
         ]);
+
         $mission = factory(\App\Mission::class)->create([
             'end' => '2020-12-31',
             'start' => '2020-01-01'
         ]);
 
         // report sheet of a zivi should be available for himself
-        $zivi = \App\User::find($mission->user);
+        $zivi = $mission->user;
         $this->asUser($zivi)->json('GET', '/api/missions/' . $mission->id . '/draft')->assertResponseOk();
         $this->assertTrue($this->response->headers->get('content-type') == 'application/pdf');
 

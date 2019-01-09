@@ -29,13 +29,13 @@ class AufgebotPDF extends PDF
         parent::__construct();
 
         $this->einsatz = Mission::find($missionId);
-        $this->pflichtenheft = Specification::find($this->einsatz->specification);
-        $this->zivi = User::find($this->einsatz->user);
-        $this->regionalzentrum = RegionalCenter::find($this->zivi->regional_center);
+        $this->pflichtenheft = $this->einsatz->specification;
+        $this->zivi = $this->einsatz->user;
+        $this->regionalzentrum = RegionalCenter::find($this->zivi->regional_center_id);
 
         $this->companyHolidays = Holiday::whereDate("date_from", "<=", $this->einsatz->end)
             ->whereDate("date_to", ">=", $this->einsatz->start)
-            ->where("holiday_type", "=", "1")
+            ->where("holiday_type_id", "=", "1")
             ->get();
     }
 

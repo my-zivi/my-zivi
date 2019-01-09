@@ -615,7 +615,7 @@ class SpesenStatistik extends PDF
 
     private function getMeldeblaetterInPeriod($start_TS, $end_TS)
     {
-        $query = ReportSheet::join('users', 'users.id', '=', 'report_sheets.user');
+        $query = ReportSheet::join('users', 'users.id', '=', 'report_sheets.user_id');
         if ($this->showOnlyDoneSheets) {
             $query = $query->where('report_sheets.state', '=', '3');
         }

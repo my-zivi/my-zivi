@@ -180,11 +180,11 @@ class PaymentController extends Controller
             $sheet->save();
 
             $paymentEntry = new PaymentEntry();
-            $paymentEntry->payment = $payment->id;
+            $paymentEntry->payment_id = $payment->id;
             $paymentEntry->amount = $element['amount']*100;
-            $paymentEntry->user = $element['userid'];
+            $paymentEntry->user_id = $element['userid'];
             $paymentEntry->iban = $element['iban'];
-            $paymentEntry->report_sheet = $element['sheet_id'];
+            $paymentEntry->report_sheet_id = $element['sheet_id'];
             $paymentEntry->save();
         }
 
@@ -199,10 +199,10 @@ class PaymentController extends Controller
     {
         $payment = Payment::find($id);
         $payment->sheets = PaymentEntry::
-            join('users', 'users.id', '=', 'payment_entries.user')
-            ->join('report_sheets', 'report_sheets.id', '=', 'payment_entries.report_sheet')
-            ->select('amount', 'report_sheet', 'first_name', 'last_name', 'zdp', 'users.id AS userid', 'iban', 'state')
-            ->where('payment', '=', $id)->get();
+            join('users', 'users.id', '=', 'payment_entries.user_id')
+            ->join('report_sheets', 'report_sheets.id', '=', 'payment_entries.report_sheet_id')
+            ->select('amount', 'report_sheet_id', 'first_name', 'last_name', 'zdp', 'users.id AS userid', 'iban', 'state')
+            ->where('payment_id', '=', $id)->get();
         return new JsonResponse($payment);
     }
 

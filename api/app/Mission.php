@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\ReportSheet;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -11,8 +10,8 @@ class Mission extends Model
     use SoftDeletes;
 
     protected $fillable = ['id',
-                           'user',
-                           'specification', // "Pflichtenheft"
+                           'user_id',
+                           'specification_id', // "Pflichtenheft"
                            'start',
                            'end',
                            'draft', // "Aufgebot"
@@ -31,9 +30,14 @@ class Mission extends Model
         'first_time' => 'boolean'
     ];
 
-    public function usermodel()
+    public function specification()
     {
-        return $this->belongsTo('App\User', 'user');
+        return $this->belongsTo(Specification::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function getFormattedDate($fieldName)

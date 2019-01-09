@@ -19,7 +19,7 @@ class UserControllerTest extends TestCase
         $response = $this->responseToArray();
         $this->assertCount(count(User::all()), $response);
         $this->assertArrayHasKey('missions', $response[0]);
-        $this->assertArrayHasKey('user_role', $response[0]);
+        $this->assertArrayHasKey('role', $response[0]);
     }
 
     public function testGetAsUser()

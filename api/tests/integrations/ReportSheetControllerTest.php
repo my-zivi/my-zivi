@@ -51,11 +51,11 @@ class ReportSheetControllerTest extends \TestCase
         factory(ReportSheet::class)->create();
         factory(ReportSheet::class)->create([
             'state' => 0,
-            'user' => $user->id
+            'user_id' => $user->id
         ]);
         $validReportSheet = factory(ReportSheet::class)->create([
             'state' => 3,
-            'user' => $user->id
+            'user_id' => $user->id
         ]);
 
         $this->asUser($user)->json('GET', 'api/report_sheets')->assertResponseOk();
@@ -65,6 +65,14 @@ class ReportSheetControllerTest extends \TestCase
         $this->assertEquals($validReportSheet->id, $response[0]['id']);
         $this->assertArrayNotHasKey('clothes_comment', $response[0]);
         $this->assertArrayNotHasKey('work_comment', $response[0]);
+    }
+
+    public function testIndexAsAdmin()
+    {
+        // should return all report sheets
+        factory(ReportSheet::class, 10)->create();
+        $this->asAdmin()->json('GET', 'api/report_sheets')->assertResponseOk();
+        $this->assertCount(ReportSheet::all()->count(), $this->responseToArray());
     }
 
     public function testPutAsUser()

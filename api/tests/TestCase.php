@@ -30,7 +30,7 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
     public function asAdmin()
     {
         $user = factory(User::class)->create([
-            'role' => 1
+            'role_id' => 1
         ]);
         return $this->actingAs($user);
     }
@@ -43,7 +43,7 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
     {
         if (!$user) {
             $user = factory(User::class)->create([
-                'role' => 2
+                'role_id' => 2
             ]);
         }
         return $this->actingAs($user);

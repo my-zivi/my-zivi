@@ -22,7 +22,7 @@ class MissionControllerTest extends \TestCase
     {
         $template = $this->missionTemplate();
         $user = factory(User::class)->create();
-        $template['user'] = $user->id;
+        $template['user_id'] = $user->id;
 
         $this->asUser($user)->json('POST', '/api/missions', $template)->assertResponseOk();
         $this->assertResponseMatchesTemplate($template);
@@ -41,12 +41,12 @@ class MissionControllerTest extends \TestCase
 
         $mission = Mission::latest()->first();
         $mission->update(['draft' => '2018-11-05']);
-        $countOfMissions = ReportSheet::where('mission', "=", $mission->id)->count();
+        $countOfMissions = ReportSheet::where('mission_id', "=", $mission->id)->count();
         $template['end'] = '2021-12-31';
 
         $this->asAdmin()->json('PUT', '/api/missions/' . $mission->id, $template);
         $this->assertResponseMatchesTemplate($template);
-        $this->assertEquals($countOfMissions + 12, ReportSheet::where('mission', "=", $mission->id)->count());
+        $this->assertEquals($countOfMissions + 12, ReportSheet::where('mission_id', "=", $mission->id)->count());
     }
 
     public function testShouldMarkMissionDraftAsReceived()
@@ -95,10 +95,31 @@ class MissionControllerTest extends \TestCase
         $countBeforeMissionDeletion = count(Mission::all());
         $countBeforeReportSheetDeletion = count(ReportSheet::all());
 
-        $this->asAdmin()->json('DELETE', 'api/missions/' . $reportSheet->mission)->assertResponseOk();
+        $this->asAdmin()->json('DELETE', 'api/missions/' . $reportSheet->mission_id)->assertResponseOk();
 
         $this->assertCount($countBeforeMissionDeletion - 1, Mission::all());
         $this->assertCount($countBeforeReportSheetDeletion - 1, ReportSheet::all());
+    }
+
+    public function testIndexByYearAsUser()
+    {
+        $this->asUser()->json('GET', 'api/missions/2020')->assertResponseStatus(401);
+    }
+
+    public function testIndexByYearAsAdmin()
+    {
+        // should return all missions
+        factory(Mission::class, 10)->create([
+            'end' => function () {
+                return Carbon::parse('2020-01-01')->addWeeks(rand(26, 51));
+            },
+            'start' => function () {
+                return Carbon::parse('2020-01-01')->addWeeks(rand(1, 25));
+            }
+        ]);
+        $this->asAdmin()->json('GET', 'api/missions/2020')->assertResponseOk();
+        $this->assertCount(Mission::whereDate('end', '>=', '2020-01-01')
+            ->whereDate('start', '<=', '2020-12-31')->count(), $this->responseToArray());
     }
 
     private function missionTemplate()
@@ -110,9 +131,9 @@ class MissionControllerTest extends \TestCase
             'long_mission' => false,
             'mission_type' => rand(0, 2),
             'probation_period' => false,
-            'specification' => factory(Specification::class)->create()->id,
+            'specification_id' => factory(Specification::class)->create()->id,
             'start' => '2020-01-01',
-            'user' => factory(User::class)->create()->id
+            'user_id' => factory(User::class)->create()->id
         ];
     }
 }

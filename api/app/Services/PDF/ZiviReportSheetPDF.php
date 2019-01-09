@@ -39,7 +39,7 @@ class ZiviReportSheetPDF extends PDF
 
         $this->spesen = ReportSheet::getSpesen($spesenId);
 
-        $this->user = ReportSheet::find($spesenId)->user()->first();
+        $this->user = ReportSheet::find($spesenId)->user;
     }
 
     public function getUserId()

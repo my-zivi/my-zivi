@@ -13,50 +13,29 @@ class ReportSheet extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['id',
-                           'start',
-                           'end',
-                           'user',
-                           'work',
-                           'work_comment',
-                           'national_holiday',
-                           'company_holiday',
-                           'company_holiday_comment',
-                           'workfree',
-                           'workfree_comment',
-                           'additional_workfree',
-                           'additional_workfree_comment',
-                           'ill',
-                           'ill_comment',
-                           'holiday',
-                           'holiday_comment',
-                           'vacation',
-                           'vacation_comment',
-                           'driving_charges',
-                           'driving_charges_comment',
-                           'extraordinarily',
-                           'extraordinarily_comment',
-                           'clothes',
-                           'clothes_comment',
-                           'employmentId',
-                           'bank_account_number',
-                           'document_number', // "Beleg Nummer"
-                           'state',
-                           'ignore_first_last_day',
-                        ];
+    protected $fillable = ['additional_workfree', 'additional_workfree_comment', 'bank_account_number', 'clothes',
+        'clothes_comment', 'company_holiday', 'company_holiday_comment', 'document_number', 'driving_charges',
+        'driving_charges_comment', 'end', 'extraordinarily', 'extraordinarily_comment', 'holiday', 'holiday_comment', '
+        ignore_first_last_day', 'ill', 'ill_comment', 'mission_id', 'national_holiday', 'start', 'state', 'user_id',
+        'vacation', 'vacation_comment', 'work', 'work_comment', 'workfree', 'workfree_comment',
+        ];
 
+    public function mission()
+    {
+        return $this->belongsTo(Mission::class);
+    }
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'user');
+        return $this->belongsTo(User::class);
     }
 
     // TODO replace this function with a proper get method in the controller
     static function getSpesen($reportSheetId)
     {
-        $reportSheet = ReportSheet::join('missions', 'missions.id', '=', 'report_sheets.mission')
-            ->join('specifications', 'specifications.id', '=', 'missions.specification')
-            ->join('users', 'users.id', '=', 'report_sheets.user')
+        $reportSheet = ReportSheet::join('missions', 'missions.id', '=', 'report_sheets.mission_id')
+            ->join('specifications', 'specifications.id', '=', 'missions.specification_id')
+            ->join('users', 'users.id', '=', 'report_sheets.user_id')
             ->where('report_sheets.id', '=', $reportSheetId)
             ->select(
                 'report_sheets.start AS meldeblaetter_start',
@@ -89,7 +68,7 @@ class ReportSheet extends Model
                 'missions.id AS mission_id',
                 'missions.start AS einsaetze_start',
                 'missions.end AS einsaetze_end',
-                'missions.specification AS einsaetze_pflichtenheft',
+                'missions.specification_id AS einsaetze_pflichtenheft',
                 'missions.eligible_holiday AS einsaetze_eligibleholiday',
                 'specifications.id AS pflichtenheft_id',
                 'specifications.name AS pflichtenheft_name',
@@ -130,18 +109,18 @@ class ReportSheet extends Model
         $ziviferien = $reportSheet['einsaetze_eligibleholiday'];
 
         $ziviferienbisher = ReportSheet::where('report_sheets.id', '!=', $reportSheetId)
-            ->where('mission', '=', $reportSheet['mission_id'])
-            ->groupBy('user')
+            ->where('mission_id', '=', $reportSheet['mission_id'])
+            ->groupBy('user_id')
             ->selectRaw('(SUM(company_holiday_holiday) + SUM(holiday)) AS ferienbisher')
             ->first()['ferienbisher'];
 
-        $betriebsferien = Holiday::join('holiday_types', 'holidays.holiday_type', '=', 'holiday_types.id')
+        $betriebsferien = Holiday::join('holiday_types', 'holidays.holiday_type_id', '=', 'holiday_types.id')
             ->whereDate('date_from', '<=', $reportSheet['meldeblaetter_end'])
             ->whereDate('date_to', '>=', $reportSheet['meldeblaetter_start'])
             ->where('holiday_types.name', '=', 'Betriebsferien')
             ->get();
 
-        $holiday_feiertage = Holiday::join('holiday_types', 'holidays.holiday_type', '=', 'holiday_types.id')
+        $holiday_feiertage = Holiday::join('holiday_types', 'holidays.holiday_type_id', '=', 'holiday_types.id')
             ->whereDate('date_from', '<=', $reportSheet['meldeblaetter_end'])
             ->whereDate('date_to', '>=', $reportSheet['meldeblaetter_start'])
             ->where('holiday_types.name', '=', 'Feiertag')
@@ -264,7 +243,7 @@ class ReportSheet extends Model
             $verfügbare_krankheitstage+=5;
         }
 
-        $krankheitstage_bisher = ReportSheet::selectRaw('SUM(`ill`) AS d')->where('mission', '=', $reportSheet['mission_id'])->first()['d'];
+        $krankheitstage_bisher = ReportSheet::selectRaw('SUM(`ill`) AS d')->where('mission_id', '=', $reportSheet['mission_id'])->first()['d'];
 
         $reportSheet['krankheitstage_verbleibend'] = $verfügbare_krankheitstage - $krankheitstage_bisher;
 
@@ -276,7 +255,7 @@ class ReportSheet extends Model
         $reportSheet['meldeblaetter_kleider_proposal'] = min(240, $reportSheet['meldeblaetter_kleider_proposal']);
 
         $bisher = ReportSheet::selectRaw('SUM(clothes) AS s')
-                ->where('mission', '=', $reportSheet['mission_id'])
+                ->where('mission_id', '=', $reportSheet['mission_id'])
                 ->where('start', '<', $reportSheet['meldeblaetter_start'])->first()['s'] / 100;
 
         $reportSheet['meldeblaetter_kleider_proposal'] = min($reportSheet['meldeblaetter_kleider_proposal'], 240-$bisher);
@@ -463,13 +442,13 @@ class ReportSheet extends Model
     {
         $ziviHolidays = MissionController::calculateZiviHolidays($long_mission, $dayCount);
 
-        $betriebsferien = Holiday::join('holiday_types', 'holidays.holiday_type', '=', 'holiday_types.id')
+        $betriebsferien = Holiday::join('holiday_types', 'holidays.holiday_type_id', '=', 'holiday_types.id')
           ->whereDate('date_from', '<=', $end)
           ->whereDate('date_to', '>=', $start)
           ->where('holiday_types.name', '=', 'Betriebsferien')
           ->get();
 
-        $feiertage = Holiday::join('holiday_types', 'holidays.holiday_type', '=', 'holiday_types.id')
+        $feiertage = Holiday::join('holiday_types', 'holidays.holiday_type_id', '=', 'holiday_types.id')
           ->whereDate('date_from', '<=', $end)
           ->whereDate('date_to', '>=', $start)
           ->where('holiday_types.name', '=', 'Feiertag')
@@ -514,8 +493,8 @@ class ReportSheet extends Model
     public static function add($mission, $start, $end)
     {
         $sheet = new ReportSheet();
-        $sheet->mission = $mission->id;
-        $sheet->user = $mission->user;
+        $sheet->mission_id = $mission->id;
+        $sheet->user_id = $mission->user_id;
         $sheet->start = $start;
         $sheet->end = $end;
         $sheet->bank_account_number = CompanyInfo::DEFAULT_ACCOUNT_NUMBER_REPORT_SHEETS;
@@ -533,7 +512,7 @@ class ReportSheet extends Model
     public static function deleteByMission($missionId)
     {
         // TODO remove this method and solve it through database cascade instead
-        $reportSheets = ReportSheet::where('mission', '=', $missionId);
+        $reportSheets = ReportSheet::where('mission_id', '=', $missionId);
         $reportSheets->delete();
     }
 }

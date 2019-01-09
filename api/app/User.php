@@ -22,30 +22,9 @@ class User extends Model implements
      *
      * @var array
      */
-    protected $fillable = [
-        'email',
-        'zdp',
-        'first_name',
-        'last_name',
-        'email',
-        'role',
-        'address',
-        'zip',
-        'city',
-        'birthday',
-        'hometown',
-        'phone_mobile',
-        'phone_private',
-        'phone_business',
-        'bank_iban',
-        'bank_bic',
-        'work_experience',
-        'driving_licence',
-        'ga_travelcard',
-        'half_fare_travelcard',
-        'other_fare_network',
-        'regional_center',
-        'internal_note'
+    protected $fillable = ['address', 'bank_bic', 'bank_iban', 'birthday', 'chainsaw_workshop', 'city',
+        'driving_licence_b', 'driving_licence_be', 'email', 'first_name', 'internal_note', 'hometown', 'last_name',
+        'phone', 'regional_center_id', 'role_id', 'work_experience', 'zdp', 'zip'
     ];
 
     /**
@@ -66,19 +45,24 @@ class User extends Model implements
 
     // TODO Check phone number formatting in update hook
 
-    public function user_role()
-    {
-        return $this->belongsTo(Role::class, 'role');
-    }
-
     public function missions()
     {
-        return $this->hasMany('App\Mission', 'user');
+        return $this->hasMany(Mission::class);
+    }
+
+    public function regional_center()
+    {
+        return $this->belongsTo(RegionalCenter::class);
     }
 
     public function report_sheets()
     {
-        return $this->hasMany('App\ReportSheet', 'user');
+        return $this->hasMany(ReportSheet::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 
     /**
@@ -99,7 +83,7 @@ class User extends Model implements
     public function getJWTCustomClaims()
     {
         return [
-            'isAdmin' => $this->role==1
+            'isAdmin' => $this->role_id == 1
         ];
     }
 
@@ -111,7 +95,7 @@ class User extends Model implements
     public function isAdmin()
     {
         $role_admin = Role::where('name', '=', 'admin')->first();
-        if ($this->role === $role_admin['id']) {
+        if ($this->role_id === $role_admin['id']) {
             return true;
         } else {
             return false;

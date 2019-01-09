@@ -37,8 +37,8 @@ class PhoneListPDF extends PDF
 
         $specifications = Specification::select('*', 'id')->get();
         foreach ($specifications as $specification) {
-            $zivis = Mission::join('users', 'users.id', '=', 'missions.user')
-                ->where('specification', '=', $specification->id)
+            $zivis = Mission::join('users', 'users.id', '=', 'missions.user_id')
+                ->where('specification_id', '=', $specification->id)
                 ->whereDate('start', '<=', $to)
                 ->whereDate('end', '>=', $from)
                 ->orderBy('last_name', 'first_name')->get();

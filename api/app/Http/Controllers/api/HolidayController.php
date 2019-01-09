@@ -41,7 +41,7 @@ class HolidayController extends Controller
             'date_from' => 'required|date',
             'date_to' => 'required|date',
             'description' => 'required|string',
-            'holiday_type' => 'required|integer'
+            'holiday_type_id' => 'required|integer'
         ]);
     }
 }

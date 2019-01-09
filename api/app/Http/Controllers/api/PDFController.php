@@ -85,10 +85,9 @@ class PDFController extends Controller
 
         //Allow only admins to get reportSheets of other Users
         $user = Auth::user();
-        if ($user->role!=1 && $user->id!=$aufgebot->getUserId()) {
+        if (!$user->isAdmin() && $user->id!=$aufgebot->getUserId()) {
             return response("unauthorized", 401);
         }
-
 
         $response = response()->download($aufgebot->createPDF(), 'aufgebot.pdf')
             ->deleteFileAfterSend(true);
