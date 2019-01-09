@@ -2,7 +2,7 @@ export interface Holiday {
   id?: number;
   date_from: string;
   date_to: string;
-  holiday_type: number;
+  holiday_type_id: number;
   description: string;
 }
 

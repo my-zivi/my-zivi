@@ -16,7 +16,7 @@ import moment from 'moment';
 const holidaySchema = yup.object({
   date_from: apiDate().required(),
   date_to: apiDate().required(),
-  holiday_type: yup.number().required(),
+  holiday_type_id: yup.number().required(),
   description: yup.string().required(),
 });
 
@@ -54,7 +54,7 @@ export class HolidayOverview extends React.Component<Props> {
         format: h => this.props.mainStore!.formatDate(h.date_to),
       },
       {
-        id: 'holiday_type',
+        id: 'holiday_type_id',
         numeric: false,
         label: 'Type',
       },
@@ -107,7 +107,7 @@ export class HolidayOverview extends React.Component<Props> {
               initialValues={{
                 date_from: moment().format('Y-MM-DD'),
                 date_to: moment().format('Y-MM-DD'),
-                holiday_type: 2,
+                holiday_type_id: 2,
                 description: '',
               }}
               onSubmit={this.handleAdd}
@@ -122,7 +122,7 @@ export class HolidayOverview extends React.Component<Props> {
                   <td>
                     <Field
                       component={SelectField}
-                      name={'holiday_type'}
+                      name={'holiday_type_id'}
                       options={[{ id: '1', name: 'Betriebsferien' }, { id: '2', name: 'Feiertag' }]}
                     />
                   </td>
@@ -155,7 +155,7 @@ export class HolidayOverview extends React.Component<Props> {
                     <td>
                       <Field
                         component={SelectField}
-                        name={'holiday_type'}
+                        name={'holiday_type_id'}
                         options={[{ id: '1', name: 'Betriebsferien' }, { id: '2', name: 'Feiertag' }]}
                       />
                     </td>

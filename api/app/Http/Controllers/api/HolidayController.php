@@ -16,7 +16,7 @@ class HolidayController extends Controller
 
     public function index()
     {
-        return Holiday::all();
+        return Holiday::orderBy('date_from', 'desc')->get();
     }
 
     public function post(Request $request)
