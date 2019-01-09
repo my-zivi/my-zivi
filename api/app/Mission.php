@@ -10,21 +10,20 @@ class Mission extends Model
     use SoftDeletes;
 
     protected $fillable = ['id',
-                           'user_id',
-                           'specification_id', // "Pflichtenheft"
-                           'start',
-                           'end',
-                           'draft', // "Aufgebot"
-                           'eligible_holiday',
-                           'mission_type',
-                           'first_time',
-                           'long_mission',
-                           'probation_period',
-                           'feedback_mail_sent',
-                           'feedback_done'
-                        ];
-
-    protected $appends = ['calculated_mission_days'];
+        'user_id',
+        'specification_id', // "Pflichtenheft"
+        'start',
+        'end',
+        'draft', // "Aufgebot"
+        'eligible_holiday',
+        'mission_type',
+        'first_time',
+        'long_mission',
+        'probation_period',
+        'feedback_mail_sent',
+        'feedback_done',
+        'days'
+    ];
 
     protected $casts = [
         'first_time' => 'boolean'
@@ -45,10 +44,5 @@ class Mission extends Model
         $field = $this[$fieldName];
         $date = date_create_from_format('Y-m-d', $field);
         return date_format($date, 'd.m.Y');
-    }
-
-    public function getCalculatedMissionDaysAttribute()
-    {
-        return ReportSheet::getDiensttageCount($this->start, $this->end, $this->long_mission);
     }
 }

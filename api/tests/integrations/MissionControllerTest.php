@@ -125,6 +125,7 @@ class MissionControllerTest extends \TestCase
     private function missionTemplate()
     {
         return [
+            'days' => 365,
             'draft' => true,
             'end' => '2020-12-31',
             'first_time' => false,

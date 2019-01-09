@@ -162,6 +162,7 @@ class MissionController extends Controller
     private function validateRequest(Request $request)
     {
         return $this->validate($request, [
+            'days' => 'required|integer',
             'end' => 'required|date',
             'first_time' => 'required|boolean',
             'long_mission' => 'required|boolean',

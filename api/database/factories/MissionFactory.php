@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factory;
 /** @var Factory $factory */
 $factory->define(App\Mission::class, function (Generator $faker) {
     return [
+        'days' => $faker->numberBetween(0, 360),
         'draft' => $faker->dateTimeBetween('-360 days', '-270 days'),
         'end' => $faker->dateTimeBetween('-60 days', '+90 days'),
         'eligible_holiday' => $faker->numberBetween(0, 10),
