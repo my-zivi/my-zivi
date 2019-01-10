@@ -11,6 +11,7 @@ import { Login } from './views/Login';
 import { ForgotPassword } from './views/ForgotPassword';
 import { PhoneListView } from './views/PhoneList';
 import { HolidayOverview } from './views/Holiday';
+import { NotFound } from './views/NotFound';
 
 class App extends React.Component {
   public render() {
@@ -22,9 +23,7 @@ class App extends React.Component {
           <Route component={ForgotPassword} exact path={'/forgotPassword'} />
           <Route component={PhoneListView} exact path={'/phones'} />
           <Route component={HolidayOverview} exact path={'/holidays'} />
-          <Route>
-            <>404</>
-          </Route>
+          <Route component={NotFound} />
         </Switch>
       </IziviLayout>
     );
