@@ -35,7 +35,8 @@ class HomeInner extends React.Component<Props> {
     return (
       <IziviContent className={classes.page} card showBackgroundImage>
         <CardSubtitle>
-          <span>iZivi</span> ist ein Tool der SWO zur Erfassung und Planung von Zivildienst-Einsätzen
+          <span style={{ fontSize: '3rem', fontWeight: 'bold' }}>iZivi</span> ist ein Tool der SWO zur Erfassung und Planung von
+          Zivildienst-Einsätzen
         </CardSubtitle>
         <CardText>
           Seit 1996 können Militärpflichtige, die den Militärdienst aus Gewissensgründen ablehnen, einen zivilen Ersatzdienst leisten. Die

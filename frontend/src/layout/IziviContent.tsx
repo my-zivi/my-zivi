@@ -22,10 +22,6 @@ const styles = (theme: Theme) =>
     card: {
       background: 'rgba(255, 255, 255, 0.9)',
       height: 'auto',
-      '& span': {
-        fontSize: '3rem',
-        fontWeight: 'bold',
-      },
     },
   });
 
