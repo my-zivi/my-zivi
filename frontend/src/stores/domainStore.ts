@@ -111,7 +111,7 @@ export class DomainStore<T, OverviewType = T> {
     throw new Error('Not implemented');
   }
 
-  public async displayLoading<T>(f: () => Promise<T>) {
+  public async displayLoading<P>(f: () => Promise<P>) {
     //TODO: trigger loading indicator in MainStore
     await f();
   }
