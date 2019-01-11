@@ -70,8 +70,8 @@ export class PhoneListView extends React.Component<Props> {
             <Form>
               <Row>
                 <Col xs="12">
-                  <Field component={DatePickerField} label={'Anfang'} name={'date_from'} horizontal={{ labelWidth: 2, fieldWidth: 10 }} />
-                  <Field component={DatePickerField} label={'Ende'} name={'date_to'} horizontal={{ labelWidth: 2, fieldWidth: 10 }} />
+                  <Field horizontal component={DatePickerField} label={'Anfang'} name={'date_from'} />
+                  <Field horizontal component={DatePickerField} label={'Ende'} name={'date_to'} />
                 </Col>
               </Row>
               <Row>

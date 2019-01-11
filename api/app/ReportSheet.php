@@ -4,6 +4,7 @@ namespace App;
 
 use App\CompanyInfo;
 use App\Http\Controllers\API\MissionController;
+use App\Services\Calculator\ProposedReportSheetValuesCalculator;
 use App\Services\PDF\PDF;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,6 +13,12 @@ use \DateTime;
 class ReportSheet extends Model
 {
     use SoftDeletes;
+
+    protected $casts = [
+        'end' => 'date',
+        'ignore_first_last_day' => 'boolean',
+        'start' => 'date'
+    ];
 
     protected $fillable = ['additional_workfree', 'additional_workfree_comment', 'bank_account_number', 'clothes',
         'clothes_comment', 'company_holiday', 'company_holiday_comment', 'document_number', 'driving_charges',
@@ -28,6 +35,16 @@ class ReportSheet extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getDurationAttribute()
+    {
+        return $this->start->diffInDays($this->end->copy()->addDay());
+    }
+
+    public function getProposedValuesAttribute()
+    {
+        return ProposedReportSheetValuesCalculator::propose($this);
     }
 
     // TODO replace this function with a proper get method in the controller

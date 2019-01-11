@@ -42,6 +42,7 @@ class IziviContent extends Component<Props> {
           <Card className={classes.card}>
             <CardBody>
               {title && <h1>{title}</h1>}
+              <br />
               {children}
             </CardBody>
           </Card>

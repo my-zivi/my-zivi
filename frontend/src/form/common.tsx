@@ -6,6 +6,9 @@ import FormGroup from 'reactstrap/lib/FormGroup';
 import Label from 'reactstrap/lib/Label';
 import FormFeedback from 'reactstrap/lib/FormFeedback';
 import { DateTimePicker } from 'react-widgets';
+import Col from 'reactstrap/lib/Col';
+import InputGroup from 'reactstrap/lib/InputGroup';
+import InputGroupAddon from 'reactstrap/lib/InputGroupAddon';
 
 export type FormProps = {
   label?: string;
@@ -13,6 +16,7 @@ export type FormProps = {
   required?: boolean;
   multiline?: boolean;
   horizontal?: boolean;
+  appendedLabel?: string;
 } & FieldProps;
 
 export type InputFieldProps = {
@@ -43,28 +47,71 @@ export type SelectFieldProps = {
   }>;
 } & InputFieldProps;
 
-export const ValidatedFormGroupWithLabel = ({ label, field, form: { touched, errors }, children, required, horizontal }: FormProps) => {
-  const hasErrors: boolean = !!errors[field.name] && !!touched[field.name];
+interface ClonedFieldProps {
+  children: ReactElement<any>; //tslint:disable-line:no-any
+  invalid: boolean;
+}
 
-  let fieldClasses = '';
-  fieldClasses += horizontal ? 'col-md-10' : '';
+const withInputGroupAddon = (appendedLabel: string) => (wrappedComponent: React.ReactNode) => (
+  <InputGroup>
+    {wrappedComponent}
+    <InputGroupAddon addonType={'append'}>{appendedLabel}</InputGroupAddon>
+  </InputGroup>
+);
+
+const withColumn = () => (wrappedComponent: React.ReactNode) => <Col md={9}>{wrappedComponent}</Col>;
+
+const ClonedField = ({ children, invalid }: ClonedFieldProps) => React.cloneElement(children, { invalid });
+
+export const ValidatedFormGroupWithLabel = ({
+  label,
+  field,
+  form: { touched, errors },
+  children,
+  required,
+  horizontal,
+  appendedLabel,
+}: FormProps) => {
+  const hasErrors: boolean = !!errors[field.name] && !!touched[field.name];
+  const clonedField = <ClonedField children={children} invalid={hasErrors} />;
 
   return (
     <FormGroup row={horizontal}>
       {label && (
-        <Label for={field.name} md={horizontal ? 2 : undefined}>
+        <Label for={field.name} md={horizontal ? 3 : undefined}>
           {label} {required && '*'}
         </Label>
       )}
-      <div className={fieldClasses}>{React.cloneElement(children, { invalid: hasErrors })}</div>
+      {Boolean(appendedLabel) && horizontal && withColumn()(withInputGroupAddon(appendedLabel!)(clonedField))}
+      {Boolean(appendedLabel) && !horizontal && withInputGroupAddon(appendedLabel!)(clonedField)}
+      {!Boolean(appendedLabel) && horizontal && withColumn()(clonedField)}
+      {!Boolean(appendedLabel) && !horizontal && clonedField}
+
       <ErrorMessage name={field.name} render={error => <FormFeedback valid={false}>{error}</FormFeedback>} />
     </FormGroup>
   );
 };
 
-const InputFieldWithValidation = ({ label, field, form, unit, required, multiline, horizontal, ...rest }: InputFieldProps) => {
+const InputFieldWithValidation = ({
+  label,
+  field,
+  form,
+  unit,
+  required,
+  multiline,
+  horizontal,
+  appendedLabel,
+  ...rest
+}: InputFieldProps) => {
   return (
-    <ValidatedFormGroupWithLabel label={label} field={field} form={form} required={required} horizontal={horizontal}>
+    <ValidatedFormGroupWithLabel
+      label={label}
+      field={field}
+      form={form}
+      required={required}
+      horizontal={horizontal}
+      appendedLabel={appendedLabel}
+    >
       <Input {...field} value={field.value === null ? '' : field.value} {...rest} />
     </ValidatedFormGroupWithLabel>
   );
@@ -89,6 +136,8 @@ const DateTimePickerFieldWithValidation = ({ label, field, form, required, horiz
     <DateTimePicker onChange={(date?: Date) => form.setFieldValue(field.name, date)} defaultValue={new Date(field.value)} {...rest} />
   </ValidatedFormGroupWithLabel>
 );
+
+export const CheckboxField = (props: InputFieldProps) => <InputFieldWithValidation type={'checkbox'} {...props} />;
 
 export const EmailField = (props: InputFieldProps) => <InputFieldWithValidation type={'email'} {...props} />;
 

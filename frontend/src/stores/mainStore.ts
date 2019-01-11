@@ -1,8 +1,9 @@
 import { displayError, displaySuccess, displayWarning } from '../utilities/notification';
 import { observable, action } from 'mobx';
-import { ApiStore } from './apiStore';
+import { ApiStore, baseUrl } from './apiStore';
 import { History } from 'history';
 import { Formatter } from 'src/utilities/formatter';
+import { buildURL } from '../utilities/helpers';
 
 export class MainStore {
   @observable
@@ -33,4 +34,11 @@ export class MainStore {
   public displayWarning = displayWarning;
   public displaySuccess = displaySuccess;
   public displayError = displayError;
+
+  public apiURL(path: string, params: object = {}, includeAuth: boolean = true): string {
+    return buildURL(baseUrl + '/' + path, {
+      ...params,
+      token: includeAuth ? this.apiStore.token : undefined,
+    });
+  }
 }

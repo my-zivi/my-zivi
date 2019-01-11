@@ -6,10 +6,11 @@ import { FormikSubmitDetector } from './FormikSubmitDetector';
 import IziviContent from '../layout/IziviContent';
 
 export interface FormViewProps<T> {
-  onSubmit: (values: T) => Promise<void>;
-  submitted?: boolean;
-  loading?: boolean;
   card?: boolean;
+  onSubmit: (values: T) => Promise<void>;
+  loading?: boolean;
+  title?: string;
+  submitted?: boolean;
 }
 
 interface Props<T> extends FormViewProps<T> {
@@ -27,10 +28,10 @@ export class FormView<Values = object, ExtraProps = {}> extends React.Component<
 
   public render() {
     // tslint:disable-next-line:no-any ; need this so we can spread into ...rest
-    const { appBarButtons, ...rest } = this.props as any;
+    const { title, ...rest } = this.props as any;
     return this.props.loading ? (
       <>
-        <IziviContent>
+        <IziviContent title={title}>
           <p>Laden ... (eine lange Zeit)</p>
         </IziviContent>
       </>
@@ -42,7 +43,9 @@ export class FormView<Values = object, ExtraProps = {}> extends React.Component<
         render={(formikProps: FormikProps<Values>) => (
           <FormikSubmitDetector {...formikProps}>
             <Prompt when={!this.props.submitted && formikProps.dirty} message={() => 'Änderungen verwerfen?'} />
-            <IziviContent card={this.props.card}>{this.props.render(formikProps)}</IziviContent>
+            <IziviContent card={this.props.card} title={title}>
+              {this.props.render(formikProps)}
+            </IziviContent>
           </FormikSubmitDetector>
         )}
       />

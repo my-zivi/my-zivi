@@ -11,6 +11,8 @@ import { Login } from './views/Login';
 import { ForgotPassword } from './views/ForgotPassword';
 import { PhoneListView } from './views/PhoneList';
 import { HolidayOverview } from './views/Holiday';
+import { ProtectedRoute } from './utilities/ProtectedRoute';
+import { ReportSheetUpdate } from './views/report_sheets/ReportSheetUpdate';
 import { NotFound } from './views/NotFound';
 
 class App extends React.Component {
@@ -21,8 +23,9 @@ class App extends React.Component {
           <Route component={Home} exact path={'/'} />
           <Route component={Login} exact path={'/login'} />
           <Route component={ForgotPassword} exact path={'/forgotPassword'} />
-          <Route component={PhoneListView} exact path={'/phones'} />
           <Route component={HolidayOverview} exact path={'/holidays'} />
+          <Route component={PhoneListView} exact path={'/phones'} />
+          <ProtectedRoute requiresAdmin component={ReportSheetUpdate} exact path={'/report_sheets/:id'} />
           <Route component={NotFound} />
         </Switch>
       </IziviLayout>
