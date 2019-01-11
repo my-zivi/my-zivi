@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx';
+import { computed, observable } from 'mobx';
 import { MainStore } from './mainStore';
 import { DomainStore } from './domainStore';
 import { ReportSheet } from '../types';
@@ -35,18 +35,20 @@ export class ReportSheetStore extends DomainStore<ReportSheet> {
     super(mainStore);
   }
 
-  @action
   protected async doDelete(id: number) {
     await this.mainStore.api.delete('/report_sheets/' + id);
   }
 
-  @action
+  protected async doFetchAll(): Promise<void> {
+    const res = await this.mainStore.api.get<ReportSheet[]>('/report_sheets');
+    this.reportSheets = res.data;
+  }
+
   protected async doFetchOne(id: number) {
     const res = await this.mainStore.api.get<ReportSheet>('/report_sheets/' + id);
     this.reportSheet = res.data;
   }
 
-  @action
   protected async doPut(entity: ReportSheet): Promise<void> {
     const res = await this.mainStore.api.put<ReportSheet>('/report_sheets/' + entity.id, entity);
     this.reportSheet = res.data;

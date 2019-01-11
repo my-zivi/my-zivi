@@ -65,7 +65,7 @@ export class Navigation extends React.Component<NavProps> {
                     <NavEntry to="/holidays">Freitage</NavEntry>
                     <NavEntry to="/userFeedbackOverview">Einsatz Feedback</NavEntry>
                     <NavEntry to="/missions">Planung</NavEntry>
-                    <NavEntry to="/expenses">Spesen</NavEntry>
+                    <NavEntry to="/report_sheets">Spesen</NavEntry>
                   </>
                 )}
                 <NavEntry to="/profile">Profil</NavEntry>

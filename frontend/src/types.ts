@@ -65,6 +65,7 @@ export interface User {
   id?: number;
   first_name: string;
   last_name: string;
+  zdp: number;
 }
 
 export interface Listing {

@@ -28,11 +28,11 @@ export class FormView<Values = object, ExtraProps = {}> extends React.Component<
 
   public render() {
     // tslint:disable-next-line:no-any ; need this so we can spread into ...rest
-    const { title, ...rest } = this.props as any;
+    const { loading, title, ...rest } = this.props as any;
     return this.props.loading ? (
       <>
-        <IziviContent title={title}>
-          <p>Laden ... (eine lange Zeit)</p>
+        <IziviContent loading={loading} title={title}>
+          <br />
         </IziviContent>
       </>
     ) : (

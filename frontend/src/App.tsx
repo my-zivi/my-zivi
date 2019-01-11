@@ -14,6 +14,7 @@ import { HolidayOverview } from './views/Holiday';
 import { ProtectedRoute } from './utilities/ProtectedRoute';
 import { ReportSheetUpdate } from './views/report_sheets/ReportSheetUpdate';
 import { NotFound } from './views/NotFound';
+import { ReportSheetOverview } from './views/report_sheets/ReportSheetOverview';
 
 class App extends React.Component {
   public render() {
@@ -25,6 +26,7 @@ class App extends React.Component {
           <Route component={ForgotPassword} exact path={'/forgotPassword'} />
           <Route component={HolidayOverview} exact path={'/holidays'} />
           <Route component={PhoneListView} exact path={'/phones'} />
+          <ProtectedRoute requiresAdmin component={ReportSheetOverview} exact path={'/report_sheets'} />
           <ProtectedRoute requiresAdmin component={ReportSheetUpdate} exact path={'/report_sheets/:id'} />
           <Route component={NotFound} />
         </Switch>

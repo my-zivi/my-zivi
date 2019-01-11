@@ -37,10 +37,9 @@ class ReportSheetController extends Controller
 
             return $reportSheets;
         } else {
-            return ReportSheet::join('users', 'users.id', '=', 'report_sheets.user_id')
+            return ReportSheet::with('user')
                 ->orderBy('start', 'desc')
                 ->orderBy('end', 'desc')
-                ->orderBy('users.zdp')
                 ->get();
         }
     }

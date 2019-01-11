@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import bg from '../assets/bg.jpg';
 import Card from 'reactstrap/lib/Card';
 import CardBody from 'reactstrap/lib/CardBody';
+import { LoadingInformation } from './LoadingInformation';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -31,11 +32,14 @@ interface Props extends WithSheet<typeof styles> {
   showBackgroundImage?: boolean;
   card?: boolean;
   title?: string;
+  loading?: boolean;
 }
 
 class IziviContent extends Component<Props> {
   render = () => {
-    const { classes, children, showBackgroundImage, card, title } = this.props;
+    const { classes, children, loading, showBackgroundImage, card, title } = this.props;
+    const content = loading ? <LoadingInformation /> : children;
+
     return (
       <div className={classNames(this.props.className, classes.container, { [classes.background]: showBackgroundImage })}>
         {card ? (
@@ -43,13 +47,13 @@ class IziviContent extends Component<Props> {
             <CardBody>
               {title && <h1>{title}</h1>}
               <br />
-              {children}
+              {content}
             </CardBody>
           </Card>
         ) : (
           <div>
             {title && <h1>{title}</h1>}
-            {children}
+            {content}
           </div>
         )}
       </div>
