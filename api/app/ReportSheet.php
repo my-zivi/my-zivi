@@ -64,12 +64,12 @@ class ReportSheet extends Model
 
     public function getHolidaysCostsAttribute()
     {
-        return $this->mission->specification->daily_cost_spare_time * ($this->holiday + $this->company_holiday_holiday);
+        return $this->mission->specification->daily_spare_time_costs * ($this->holiday + $this->company_holiday_holiday);
     }
 
     public function getIllDaysCostsAttribute()
     {
-        return $this->mission->specification->daily_cost_spare_time * $this->ill;
+        return $this->mission->specification->daily_spare_time_costs * $this->ill;
     }
 
     public function getNormalWorkDaysAttribute()
@@ -109,12 +109,12 @@ class ReportSheet extends Model
 
     public function getWorkDaysCostsAttribute()
     {
-        return $this->normal_work_days * $this->mission->specification->daily_cost_work_time;
+        return $this->normal_work_days * $this->mission->specification->daily_work_time_costs;
     }
 
     public function getWorkFreeDaysCostsAttribute()
     {
-        return $this->mission->specification->daily_cost_spare_time * ($this->workfree + $this->additional_workfree);
+        return $this->mission->specification->daily_spare_time_costs * ($this->workfree + $this->additional_workfree);
     }
 
     // TODO replace this function with a proper get method in the controller

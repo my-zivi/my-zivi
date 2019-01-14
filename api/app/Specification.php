@@ -54,12 +54,12 @@ class Specification extends Model
         return $this->pocket + $this->accommodation + $this->lastday_breakfast_expenses + $this->lastday_lunch_expenses + $this->lastday_dinner_expenses;
     }
 
-    public function getDailyCostSpareTimeAttribute()
+    public function getDailySpareTimeCostsAttribute()
     {
         return $this->pocket + $this->accommodation + $this->sparetime_breakfast_expenses + $this->sparetime_lunch_expenses + $this->sparetime_dinner_expenses;
     }
 
-    public function getDailyCostWorkTimeAttribute()
+    public function getDailyWorkTimeCostsAttribute()
     {
         return $this->pocket + $this->accommodation + $this->working_breakfast_expenses + $this->working_lunch_expenses + $this->working_dinner_expenses;
     }
