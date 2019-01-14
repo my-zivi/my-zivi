@@ -14,6 +14,7 @@ import { inject, observer } from 'mobx-react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { ReportSheetStore } from '../../stores/reportSheetStore';
 import { MainStore } from '../../stores/mainStore';
+import CurrencyField from '../../form/CurrencyField';
 
 type Props = {
   mainStore?: MainStore;
@@ -52,21 +53,21 @@ class ReportSheetFormInner extends React.Component<Props> {
 
             <Field
               horizontal
-              appendedLabel={`Vorschlag: ${reportSheet.proposed_values.workdays} Tage`}
+              appendedLabels={[`Vorschlag: ${reportSheet.proposed_values.workdays} Tage`]}
               component={NumberField}
               name={'work'}
               label={'Gearbeitet'}
             />
             <Field
               horizontal
-              appendedLabel={`Vorschlag: ${reportSheet.proposed_values.work_free_days} Tage`}
+              appendedLabels={[`Vorschlag: ${reportSheet.proposed_values.work_free_days} Tage`]}
               component={NumberField}
               name={'workfree'}
               label={'Arbeitsfrei'}
             />
             <Field
               horizontal
-              appendedLabel={`Übriges Guthaben: ${reportSheet.proposed_values.illness_days_left} Tage`}
+              appendedLabels={[`Übriges Guthaben: ${reportSheet.proposed_values.illness_days_left} Tage`]}
               component={NumberField}
               name={'ill'}
               label={'Krank'}
@@ -81,14 +82,14 @@ class ReportSheetFormInner extends React.Component<Props> {
 
             <Field
               horizontal
-              appendedLabel={`Vorschlag: ${reportSheet.proposed_values.company_holidays_as_zivi_vacations} Tage`}
+              appendedLabels={[`Vorschlag: ${reportSheet.proposed_values.company_holidays_as_zivi_vacations} Tage`]}
               component={NumberField}
               name={'company_holiday_vacation'}
               label={'Betriebsferien (Urlaub)'}
             />
             <Field
               horizontal
-              appendedLabel={`Vorschlag: ${reportSheet.proposed_values.company_holidays_as_zivi_holidays} Tage`}
+              appendedLabels={[`Vorschlag: ${reportSheet.proposed_values.company_holidays_as_zivi_holidays} Tage`]}
               component={NumberField}
               name={'company_holiday_holiday'}
               label={'Betriebsferien (Ferien)'}
@@ -108,8 +109,8 @@ class ReportSheetFormInner extends React.Component<Props> {
 
             <Field
               horizontal
-              appendedLabel={`Vorschlag: ${reportSheet.proposed_values.costs_clothes} Fr.`}
-              component={NumberField}
+              appendedLabels={[`Vorschlag: ${reportSheet.proposed_values.costs_clothes} CHF`]}
+              component={CurrencyField}
               name={'clothes'}
               label={'Kleiderspesen'}
             />
@@ -132,7 +133,7 @@ class ReportSheetFormInner extends React.Component<Props> {
               name={'ignore_first_last_day'}
               label={'Erster / Letzter Tag nicht speziell behandeln'}
             />
-            <Field disabled horizontal component={NumberField} name={'extraordinarily'} label={'Total (WIP)'} />
+            <Field disabled horizontal component={CurrencyField} name={'total_costs'} label={'Total'} />
             <Field horizontal component={TextField} name={'bank_account_number'} label={'Konto-Nr.'} />
             <Field horizontal component={NumberField} name={'document_number'} label={'Beleg-Nr.'} />
             <Field

@@ -17,7 +17,7 @@ class ReportSheetController extends Controller
 
     public function get($id)
     {
-        return ReportSheet::with('mission', 'mission.specification', 'user')->findOrFail($id)->append(['duration', 'proposed_values']);
+        return ReportSheet::with('mission', 'mission.specification', 'user')->findOrFail($id)->append(['duration', 'proposed_values', 'total_costs']);
     }
 
     public function index()

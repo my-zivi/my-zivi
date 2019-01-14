@@ -37,14 +37,49 @@ class ReportSheet extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getIllDaysCostsAttribute()
+    {
+        return $this->mission->specification->daily_cost_spare_time * $this->ill;
+    }
+
     public function getDurationAttribute()
     {
         return $this->start->diffInDays($this->end->copy()->addDay());
     }
 
+    public function getHolidaysCostsAttribute()
+    {
+        return $this->mission->specification->daily_cost_spare_time * ($this->holiday + $this->company_holiday_holiday);
+    }
+
     public function getProposedValuesAttribute()
     {
         return ProposedReportSheetValuesCalculator::propose($this);
+    }
+
+    public function getTotalCostsAttribute()
+    {
+        return $this->ill_days_costs + $this->holidays_costs + $this->work_days_costs + $this->work_free_days_costs;
+    }
+
+    public function getWorkDaysCostsAttribute()
+    {
+        $normalWorkDays = $this->work;
+
+        if (!$this->ignore_first_last_day && $this->start->eq($this->mission->start)) {
+            $normalWorkDays--;
+        }
+
+        if (!$this->ignore_first_last_day && $this->end->eq($this->mission->end)) {
+            $normalWorkDays--;
+        }
+
+        return $normalWorkDays * $this->mission->specification->daily_cost_work_time;
+    }
+
+    public function getWorkFreeDaysCostsAttribute()
+    {
+        return $this->mission->specification->daily_cost_spare_time * ($this->workfree + $this->additional_workfree);
     }
 
     // TODO replace this function with a proper get method in the controller

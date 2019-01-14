@@ -43,4 +43,14 @@ class Specification extends Model
         'working_time_model' => false,
         'working_time_weekly' => '42h',
     ];
+
+    public function getDailyCostSpareTimeAttribute()
+    {
+        return $this->pocket + $this->accommodation + $this->sparetime_breakfast_expenses + $this->sparetime_lunch_expenses + $this->sparetime_dinner_expenses;
+    }
+
+    public function getDailyCostWorkTimeAttribute()
+    {
+        return $this->pocket + $this->accommodation + $this->working_breakfast_expenses + $this->working_lunch_expenses + $this->working_dinner_expenses;
+    }
 }

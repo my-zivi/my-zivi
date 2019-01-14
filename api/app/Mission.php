@@ -26,7 +26,9 @@ class Mission extends Model
     ];
 
     protected $casts = [
-        'first_time' => 'boolean'
+        'end' => 'date',
+        'first_time' => 'boolean',
+        'start' => 'date'
     ];
 
     public function report_sheets()

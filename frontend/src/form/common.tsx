@@ -16,7 +16,7 @@ export type FormProps = {
   required?: boolean;
   multiline?: boolean;
   horizontal?: boolean;
-  appendedLabel?: string;
+  appendedLabels?: string[];
 } & FieldProps;
 
 export type InputFieldProps = {
@@ -52,10 +52,14 @@ interface ClonedFieldProps {
   invalid: boolean;
 }
 
-const withInputGroupAddon = (appendedLabel: string) => (wrappedComponent: React.ReactNode) => (
+const withInputGroupAddon = (appendedLabels: string[]) => (wrappedComponent: React.ReactNode) => (
   <InputGroup>
     {wrappedComponent}
-    <InputGroupAddon addonType={'append'}>{appendedLabel}</InputGroupAddon>
+    {appendedLabels.map((label: string, index) => (
+      <InputGroupAddon key={index} addonType={'append'}>
+        {label}
+      </InputGroupAddon>
+    ))}
   </InputGroup>
 );
 
@@ -70,10 +74,11 @@ export const ValidatedFormGroupWithLabel = ({
   children,
   required,
   horizontal,
-  appendedLabel,
+  appendedLabels,
 }: FormProps) => {
   const hasErrors: boolean = !!errors[field.name] && !!touched[field.name];
   const clonedField = <ClonedField children={children} invalid={hasErrors} />;
+  const labels = Boolean(appendedLabels) ? appendedLabels : [];
 
   return (
     <FormGroup row={horizontal}>
@@ -82,17 +87,17 @@ export const ValidatedFormGroupWithLabel = ({
           {label} {required && '*'}
         </Label>
       )}
-      {Boolean(appendedLabel) && horizontal && withColumn()(withInputGroupAddon(appendedLabel!)(clonedField))}
-      {Boolean(appendedLabel) && !horizontal && withInputGroupAddon(appendedLabel!)(clonedField)}
-      {!Boolean(appendedLabel) && horizontal && withColumn()(clonedField)}
-      {!Boolean(appendedLabel) && !horizontal && clonedField}
+      {labels!.length > 0 && horizontal && withColumn()(withInputGroupAddon(labels!)(clonedField))}
+      {labels!.length > 0 && !horizontal && withInputGroupAddon(labels!)(clonedField)}
+      {labels!.length <= 0 && horizontal && withColumn()(clonedField)}
+      {labels!.length <= 0 && !horizontal && clonedField}
 
       <ErrorMessage name={field.name} render={error => <FormFeedback valid={false}>{error}</FormFeedback>} />
     </FormGroup>
   );
 };
 
-const InputFieldWithValidation = ({
+export const InputFieldWithValidation = ({
   label,
   field,
   form,
@@ -100,7 +105,7 @@ const InputFieldWithValidation = ({
   required,
   multiline,
   horizontal,
-  appendedLabel,
+  appendedLabels,
   ...rest
 }: InputFieldProps) => {
   return (
@@ -110,7 +115,7 @@ const InputFieldWithValidation = ({
       form={form}
       required={required}
       horizontal={horizontal}
-      appendedLabel={appendedLabel}
+      appendedLabels={appendedLabels}
     >
       <Input {...field} value={field.value === null ? '' : field.value} {...rest} />
     </ValidatedFormGroupWithLabel>

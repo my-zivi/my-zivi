@@ -45,6 +45,7 @@ export interface ReportSheet {
   ill: number;
   mission: Mission;
   start: string;
+  total_costs: number;
   user: User;
   vacation: number;
   vacation_comment: string;
