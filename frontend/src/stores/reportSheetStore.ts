@@ -1,7 +1,8 @@
-import { computed, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { MainStore } from './mainStore';
 import { DomainStore } from './domainStore';
 import { ReportSheet } from '../types';
+import { AxiosResponse } from 'axios';
 
 export class ReportSheetStore extends DomainStore<ReportSheet> {
   protected get entityName() {
@@ -47,6 +48,20 @@ export class ReportSheetStore extends DomainStore<ReportSheet> {
   protected async doFetchOne(id: number) {
     const res = await this.mainStore.api.get<ReportSheet>('/report_sheets/' + id);
     this.reportSheet = res.data;
+  }
+
+  @action
+  public async fetchToBePaidAll(): Promise<void> {
+    try {
+      this.reportSheets = [];
+      await this.mainStore.api.get<ReportSheet[]>('/report_sheets').then((response: AxiosResponse<ReportSheet[]>) => {
+        this.reportSheets = response.data.filter((r: ReportSheet) => r.state === 1);
+      });
+    } catch (e) {
+      this.mainStore.displayError(`${this.entityName.plural} konnten nicht geladen werden.`);
+      console.error(e);
+      throw e;
+    }
   }
 
   protected async doPut(entity: ReportSheet): Promise<void> {

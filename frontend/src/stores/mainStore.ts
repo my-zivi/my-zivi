@@ -41,4 +41,9 @@ export class MainStore {
       token: includeAuth ? this.apiStore.token : undefined,
     });
   }
+
+  public validateIBAN(value: string) {
+    const regex = new RegExp('^CH\\d{2,2}\\s{0,1}(\\w{4,4}\\s{0,1}){4,7}\\w{0,2}$', 'g');
+    return regex.test(value);
+  }
 }

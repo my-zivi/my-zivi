@@ -29,46 +29,7 @@ class PaymentController extends Controller
 
     public function index()
     {
-        // TODO Examine this logic and break it down into testable parts
-        $openIDs = ReportSheet::select('id')
-            ->where('state', '=', '1')->get();
-
-        $result = array();
-        $result["valid"] = array();
-        $result["invalid"] = array();
-
-        foreach ($openIDs as $id) {
-            $sheet = ReportSheet::getSpesen($id->id);
-            $item = array();
-            $item['userid'] = $sheet['user'];
-            $item['zdp'] = $sheet['zdp'];
-            $item['first_name'] = $sheet['first_name'];
-            $item['last_name'] = $sheet['last_name'];
-            $item['address'] = $sheet['address'];
-            $item['zip'] = $sheet['zip'];
-            $item['city'] = $sheet['city'];
-            $item['iban'] = strtoupper(str_replace(' ', '', $sheet['iban']));
-            $item['bic'] = $sheet['bic'];
-            $item['amount'] = $sheet['total'];
-            $item['sheet_id'] = $id->id;
-
-            if (strlen($item['address'])==0 || strlen($item['zip'])==0 || strlen($item['city'])==0) {
-                $item['reason'] = "Adresse unvollständig";
-            }
-            if (strlen($item['iban'])==0 || !(new \IBAN($item['iban']))->VerifyMachineFormatOnly()) {
-                $item['reason'] = "IBAN fehlt oder hat ungültiges Format";
-            }
-
-            if (isset($item['reason'])) {
-                $result["invalid"][] = $item;
-            } else {
-                $result["valid"][] = $item;
-            }
-        }
-
-        $result["archive"] = Payment::all();
-
-        return new JsonResponse($result);
+        return Payment::all();
     }
 
     // TODO instead of delivering the relevant data through the frontend, do it through backend

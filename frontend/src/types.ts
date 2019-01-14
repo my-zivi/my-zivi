@@ -17,6 +17,12 @@ export interface Mission {
   start: string;
 }
 
+export interface Payment {
+  id?: number;
+  amount: number;
+  created_at: string;
+}
+
 export interface ProposedReportSheetValues {
   company_holidays_as_zivi_holidays: number;
   company_holidays_as_zivi_vacations: number;
@@ -45,6 +51,7 @@ export interface ReportSheet {
   ill: number;
   mission: Mission;
   start: string;
+  state: number;
   total_costs: number;
   user: User;
   vacation: number;
@@ -64,9 +71,13 @@ export interface Specification {
 
 export interface User {
   id?: number;
+  address: string;
+  city: string;
+  bank_iban: string;
   first_name: string;
   last_name: string;
   zdp: number;
+  zip: number | null;
 }
 
 export interface Listing {

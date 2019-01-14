@@ -6,6 +6,7 @@ import { MainStore } from '../stores/mainStore';
 import { Formatter } from './formatter';
 import { HolidayStore } from 'src/stores/holidayStore';
 import { ReportSheetStore } from '../stores/reportSheetStore';
+import { PaymentStore } from '../stores/paymentStore';
 
 interface Props {
   history: History;
@@ -16,6 +17,7 @@ export class StoreProvider extends React.Component<Props> {
     apiStore: ApiStore;
     mainStore: MainStore;
     holidayStore: HolidayStore;
+    paymentStore: PaymentStore;
     reportSheetStore: ReportSheetStore;
   };
 
@@ -30,6 +32,7 @@ export class StoreProvider extends React.Component<Props> {
       apiStore,
       mainStore,
       holidayStore: new HolidayStore(mainStore),
+      paymentStore: new PaymentStore(mainStore),
       reportSheetStore: new ReportSheetStore(mainStore),
     };
   }

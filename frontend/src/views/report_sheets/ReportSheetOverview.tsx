@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react';
 import { ReportSheetStore } from '../../stores/reportSheetStore';
 import { Link } from 'react-router-dom';
 import { MainStore } from '../../stores/mainStore';
+import Button from 'reactstrap/lib/Button';
 
 interface Props {
   mainStore?: MainStore;
@@ -53,7 +54,11 @@ export class ReportSheetOverview extends React.Component<Props> {
             <Link to={'/report_sheets/' + e.id}>Spesenblatt bearbeiten</Link>
           </>
         )}
-      />
+      >
+        <Button tag={Link} to={'/payments'}>
+          Auszahlungen
+        </Button>
+      </Overview>
     );
   }
 }

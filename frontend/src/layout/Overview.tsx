@@ -9,7 +9,7 @@ import IziviContent from './IziviContent';
 interface Props<ListingType> {
   //tslint:disable-next-line:no-any ; the first type doesn't matter at all here and makes typing much more verbose
   store: DomainStore<any, ListingType>;
-  title: string;
+  title?: string;
   children?: React.ReactNode;
   renderActions?: (e: ListingType) => React.ReactNode;
   columns?: Array<Column<ListingType>>;
@@ -46,6 +46,8 @@ export default class Overview<ListingType extends Listing> extends React.Compone
 
     return (
       <IziviContent card loading={this.state.loading} title={this.props.title}>
+        {this.props.children} <br />
+        <br />
         {this.props.columns && (
           <OverviewTable
             columns={this.props.columns}
@@ -54,7 +56,6 @@ export default class Overview<ListingType extends Listing> extends React.Compone
             onClickRow={this.handleClick}
           />
         )}
-        {this.props.children}
       </IziviContent>
     );
   }

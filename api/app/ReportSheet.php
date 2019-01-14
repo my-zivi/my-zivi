@@ -14,6 +14,10 @@ class ReportSheet extends Model
 {
     use SoftDeletes;
 
+    protected $appends = [
+        'total_costs'
+    ];
+
     protected $casts = [
         'end' => 'date',
         'ignore_first_last_day' => 'boolean',
