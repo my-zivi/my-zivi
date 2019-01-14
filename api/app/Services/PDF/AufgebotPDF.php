@@ -249,9 +249,9 @@ class AufgebotPDF extends PDF
         $this->nextrow($row);
 
         $this->pdf->SetXY($colLeft, $row);
-        $this->pdf->Cell(0, 0, $this->einsatz->getFormattedDate('start'));
+        $this->pdf->Cell(0, 0, $this->einsatz->start->format('DD.MM.YYYY'));
         $this->pdf->SetXY($colRight, $row);
-        $this->pdf->Cell(0, 0, $this->einsatz->getFormattedDate('end'));
+        $this->pdf->Cell(0, 0, $this->einsatz->end->format('DD.MM.YYYY'));
         $this->nextrow($row);
 
         $row = 201;
