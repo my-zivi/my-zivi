@@ -31,15 +31,16 @@ class ZiviReportSheetPDF extends PDF
     private $col_title = array("Taschengeld", "Unterkunft", "Morgen", "Mittag", "Abend", "Total");
 
     private $user;
-    private $spesen;
+    private $reportSheet;
+    private $specification;
 
-    public function __construct($spesenId)
+    public function __construct($reportSheetId)
     {
         parent::__construct();
 
-        $this->spesen = ReportSheet::getSpesen($spesenId);
-
-        $this->user = ReportSheet::find($spesenId)->user;
+        $this->reportSheet = ReportSheet::find($reportSheetId);
+        $this->user = $this->reportSheet->user;
+        $this->specification = $this->reportSheet->mission->specification;
     }
 
     public function getUserId()
@@ -47,9 +48,10 @@ class ZiviReportSheetPDF extends PDF
         return $this->user->id;
     }
 
+    // TODO remove this from here when we rewrite the PDF generation
     public function isDone()
     {
-        return $this->spesen->state == 3;
+        return $this->reportSheet->state == 3;
     }
 
     private function renderComment($comment, $start_on_current_line = false)
@@ -111,10 +113,10 @@ class ZiviReportSheetPDF extends PDF
         $this->y_offset = $this->y_offset + 18;
 
         $warn_str = "";
-        if ($this->spesen['meldeblaetter_tage'] != $this->spesen['sum_tage']) {
+        if ($this->reportSheet->duration != $this->reportSheet->charged_days) {
             $warn_str .= "Summe der Tage ist falsch! ";
         }
-        if ($this->spesen['arbeitstage'] < 0) {
+        if ($this->reportSheet->work < 0) {
             $warn_str .= "Arbeitstage kleiner als 0!";
         }
         if (!empty($warn_str)) {
@@ -130,7 +132,7 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->SetXY($this->left_margin, $this->y_offset);
         $this->pdf->Cell(0, 10, "Pflichtenheft:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-        $str = $this->spesen['einsaetze_pflichtenheft'] . " " . $this->spesen['pflichtenheft_name'];
+        $str = $this->specification->id . " " . $this->specification->name;
         $this->pdf->Cell($this->overview_shade_width, $this->shade_height, $str, 0, 0, '', 1);
 
         $this->y_offset = $this->y_offset + $this->line_break;
@@ -139,7 +141,7 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell(0, 10, "Name, Vorname:");
         $this->pdf->SetFont('Arial', 'B', 10);
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-        $str = $this->user['last_name'] . " " . $this->user['first_name'];
+        $str = $this->user->last_name . " " . $this->user->first_name;
         $this->pdf->Cell($this->overview_shade_width, $this->shade_height, $str, 0, 0, '', 1);
         $this->pdf->SetFont('Arial', '', 10);
 
@@ -148,7 +150,7 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->SetXY($this->left_margin, $this->y_offset);
         $this->pdf->Cell(0, 10, "Adresse:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-        $str = $this->user['address'] . ", " . $this->user['zip'] . " " . $this->user['city'];
+        $str = $this->user->address . ", " . $this->user->zip . " " . $this->user->city;
         $this->pdf->Cell($this->overview_shade_width, $this->shade_height, $str, 0, 0, '', 1);
 
         $this->y_offset = $this->y_offset + $this->line_break;
@@ -156,16 +158,16 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->SetXY($this->left_margin, $this->y_offset);
         $this->pdf->Cell(0, 10, "ZDP:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->overview_shade_width, $this->shade_height, $this->user['zdp'], 0, 0, '', 1);
+        $this->pdf->Cell($this->overview_shade_width, $this->shade_height, $this->user->zdp, 0, 0, '', 1);
 
         $this->y_offset = $this->y_offset + $this->line_break;
 
         $this->pdf->SetXY($this->left_margin, $this->y_offset);
         $this->pdf->Cell(0, 10, "Gesamteinsatz:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-        $str = $this->getGermanDate(strtotime($this->spesen['einsaetze_start'])) . " bis ";
-        $str .= $this->getGermanDate(strtotime($this->spesen['einsaetze_end']));
-        $str .= " (" . $this->spesen['einsaetze_tage'] . " Tage)";
+        $str = $this->getGermanDate($this->reportSheet->mission->start->timestamp) . " bis ";
+        $str .= $this->getGermanDate($this->reportSheet->mission->end->timestamp);
+        $str .= " (" . $this->reportSheet->mission->days . " Tage)";
         $this->pdf->Cell($this->overview_shade_width, $this->shade_height, $str, 0, 0, '', 1);
 
         $this->y_offset = $this->y_offset + $this->line_break;
@@ -174,9 +176,9 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell(0, 10, "Meldeperiode:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
         $this->pdf->SetFont('Arial', 'B', 10);
-        $str = $this->getGermanDate(strtotime($this->spesen['meldeblaetter_start'])) . " bis ";
-        $str .= $this->getGermanDate(strtotime($this->spesen['meldeblaetter_end']));
-        $str .= " (" . $this->spesen['meldeblaetter_tage'] . " Tage)";
+        $str = $this->getGermanDate($this->reportSheet->start->timestamp) . " bis ";
+        $str .= $this->getGermanDate($this->reportSheet->end->timestamp);
+        $str .= " (" . $this->reportSheet->duration . " Tage)";
         $this->pdf->Cell($this->overview_shade_width, $this->shade_height, $str, 0, 0, '', 1);
 
         $this->pdf->SetFont('Arial', '', 10);
@@ -220,96 +222,97 @@ class ZiviReportSheetPDF extends PDF
         $this->y_offset = $this->y_offset + 1.25 * $this->line_break;
 //-- MG.16.02.2011 -->
 
-        if ($this->spesen['bolListFirstDay']) {
+        if (!$this->reportSheet->ignore_first_last_day) {
             $this->pdf->SetFont('', 'B');
             $this->pdf->SetXY($this->left_margin + 3, $this->y_offset);
-            $this->pdf->Cell(3, 10, strval($this->spesen['intFirstDays']), 0, 0, 'R', false, '', true);
+            $this->pdf->Cell(3, 10, strval($this->reportSheet->first_day), 0, 0, 'R', false, '', true);
             $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
             $this->pdf->Cell(0, 10, "Erster Arbeitstag");
             $this->pdf->SetFont('', '');
             $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_pocket'] / 100), 0, 0, '', 1);
+            $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->specification->pocket / 100), 0, 0, '', 1);
             $this->pdf->SetXY($this->col[1], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_accommodation'] / 100), 0, 0, '', 1);
+            $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->specification->accomodation / 100), 0, 0, '', 1);
             $this->pdf->SetXY($this->col[2], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_firstday_breakfast_expenses'] / 100), 0, 0, '', 1);
+            $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->specification->firstday_breakfast_expenses / 100), 0, 0, '', 1);
             $this->pdf->SetXY($this->col[3], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_firstday_lunch_expenses'] / 100), 0, 0, '', 1);
+            $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->specification->firstday_lunch_expenses / 100), 0, 0, '', 1);
             $this->pdf->SetXY($this->col[4], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_firstday_dinner_expenses'] / 100), 0, 0, '', 1);
+            $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->specification->firstday_dinner_expenses / 100), 0, 0, '', 1);
             $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['intFirstDays'] * $this->spesen['firstday_sum']), 0, 0, 'R', 1);
+            $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->reportSheet->first_day_costs / 100), 0, 0, 'R', 1);
             $this->y_offset = $this->y_offset + $this->line_break;
         }
 
         $this->pdf->SetFont('', 'B');
         $this->pdf->SetXY($this->left_margin + 3, $this->y_offset);
-        $this->pdf->Cell(3, 10, strval($this->spesen['arbeitstage']), 0, 0, 'R', false, '', true);
+        $this->pdf->Cell(3, 10, strval($this->reportSheet->normal_work_days), 0, 0, 'R', false, '', true);
         $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
-        if ($this->spesen['arbeitstage'] == 1) {
+        if ($this->reportSheet->work == 1) {
             $this->pdf->Cell(0, 10, "Arbeitstag");
         } else {
             $this->pdf->Cell(0, 10, "Arbeitstage");
         }
         $this->pdf->SetFont('', '');
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_pocket'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->specification->pocket / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[1], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_accommodation'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->specification->accomodation / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[2], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_working_breakfast_expenses'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->specification->working_breakfast_expenses / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[3], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_working_lunch_expenses'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->specification->working_lunch_expenses / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[4], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_working_dinner_expenses'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->specification->working_dinner_expenses / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['arbeitstage'] * $this->spesen['workday_sum']), 0, 0, 'R', 1);
+        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->reportSheet->work_days_costs / 100), 0, 0, 'R', 1);
         $this->y_offset = $this->y_offset + $this->line_break;
 
-        if ($this->spesen['bolListLastDay']) {
+        if (!$this->reportSheet->ignore_first_last_day) {
             $this->pdf->SetFont('', 'B');
             $this->pdf->SetXY($this->left_margin + 3, $this->y_offset);
-            $this->pdf->Cell(3, 10, strval($this->spesen['intLastDays']), 0, 0, 'R', false, '', true);
+            $this->pdf->Cell(3, 10, strval($this->reportSheet->last_day), 0, 0, 'R', false, '', true);
             $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
             $this->pdf->Cell(0, 10, "Letzter Arbeitstag");
             $this->pdf->SetFont('', '');
             $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_pocket'] / 100), 0, 0, '', 1);
+            $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->specification->pocket / 100), 0, 0, '', 1);
             $this->pdf->SetXY($this->col[1], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_accommodation'] / 100), 0, 0, '', 1);
+            $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->specification->accomodation / 100), 0, 0, '', 1);
             $this->pdf->SetXY($this->col[2], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_lastday_breakfast_expenses'] / 100), 0, 0, '', 1);
+            $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->specification->lastday_breakfast_expenses / 100), 0, 0, '', 1);
             $this->pdf->SetXY($this->col[3], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_lastday_lunch_expenses'] / 100), 0, 0, '', 1);
+            $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->specification->lastday_lunch_expenses / 100), 0, 0, '', 1);
             $this->pdf->SetXY($this->col[4], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_lastday_dinner_expenses'] / 100), 0, 0, '', 1);
+            $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->specification->lastday_dinner_expenses / 100), 0, 0, '', 1);
             $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
-            $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['intLastDays'] * $this->spesen['lastday_sum']), 0, 0, 'R', 1);
+            $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->reportSheet->last_day_costs / 100), 0, 0, 'R', 1);
             $this->y_offset = $this->y_offset + $this->line_break;
         }
+
 //<-- MG.16.02.2011 --
         $this->pdf->SetFont('', 'B');
         $this->pdf->SetXY($this->left_margin + 3, $this->y_offset);
-        $this->pdf->Cell(3, 10, strval($this->spesen['arbeitsfreie_tage']), 0, 0, 'R', false, '', true);
+        $this->pdf->Cell(3, 10, strval($this->reportSheet->workfree + $this->reportSheet->additional_workfree), 0, 0, 'R', false, '', true);
         $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
-        if ($this->spesen['arbeitsfreie_tage'] == 1) {
+        if ($this->reportSheet->workfree + $this->reportSheet->additional_workfree == 1) {
             $this->pdf->Cell(0, 10, "Arbeitsfreier Tag");
         } else {
             $this->pdf->Cell(0, 10, "Arbeitsfreie Tage");
         }
         $this->pdf->SetFont('', '');
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_pocket'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->specification->pocket / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[1], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_accommodation'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->specification->accomodation / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[2], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_breakfast_expenses'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->specification->sparetime_breakfast_expenses / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[3], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_lunch_expenses'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->specification->sparetime_lunch_expenses / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[4], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_dinner_expenses'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->specification->sparetime_dinner_expenses / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['total_workfree']), 0, 0, 'R', 1);
+        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->reportSheet->work_free_days_costs / 100), 0, 0, 'R', 1);
 
         $n_comments = 0;
         if (!empty($feiertage_comment)) {
@@ -318,15 +321,15 @@ class ZiviReportSheetPDF extends PDF
             $n_comments++;
         }
 
-        if ($this->spesen['add_workfree'] >= 1) {
-            $str = "inkl. " . $this->spesen['add_workfree'];
-            if ($this->spesen['add_workfree'] == 1) {
+        if ($this->reportSheet->additional_workfree >= 1) {
+            $str = "inkl. " . $this->reportSheet->additional_workfree;
+            if ($this->reportSheet->additional_workfree == 1) {
                 $str = $str . " zusätzlicher arbeitsfreier Tag";
             } else {
                 $str = $str . " zusätzliche arbeitsfreie Tage";
             }
-            if (!empty($this->spesen['meldeblaetter_add_workfree_comment'])) {
-                $str = $str . " (" . $this->spesen['meldeblaetter_add_workfree_comment'] . ")";
+            if (!empty($this->reportSheet->additional_workfree_comment)) {
+                $str = $str . " (" . $this->reportSheet->additional_workfree_comment . ")";
             } else {
                 $str = $str . ".";
             }
@@ -337,29 +340,29 @@ class ZiviReportSheetPDF extends PDF
 
         $this->pdf->SetFont('', 'B');
         $this->pdf->SetXY($this->left_margin + 3, $this->y_offset);
-        $this->pdf->Cell(3, 10, $this->spesen['krankheitstage'], 0, 0, 'R', false, '', true);
+        $this->pdf->Cell(3, 10, $this->reportSheet->ill, 0, 0, 'R', false, '', true);
         $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
-        if ($this->spesen['krankheitstage'] == 1) {
+        if ($this->reportSheet->ill == 1) {
             $this->pdf->Cell(0, 10, "Krankheitstag");
         } else {
             $this->pdf->Cell(0, 10, "Krankheitstage");
         }
         $this->pdf->SetFont('', '');
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_pocket'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->specification->pocket / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[1], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_accommodation'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->specification->accomodation/ 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[2], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_breakfast_expenses'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->specification->sparetime_breakfast_expenses / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[3], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_lunch_expenses'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->specification->sparetime_lunch_expenses / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[4], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_dinner_expenses'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->specification->sparetime_dinner_expenses / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['total_ill']), 0, 0, 'R', 1);
+        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->reportSheet->ill_days_costs / 100), 0, 0, 'R', 1);
 
-        if (!empty($this->spesen['meldeblaetter_ill_comment'])) {
-            $str = "Bemerkung: " . $this->spesen['meldeblaetter_ill_comment'];
+        if (!empty($this->reportSheet->ill_comment)) {
+            $str = "Bemerkung: " . $this->reportSheet->ill_comment;
             $this->renderComment($str);
         }
 
@@ -367,29 +370,29 @@ class ZiviReportSheetPDF extends PDF
 
         $this->pdf->SetFont('', 'B');
         $this->pdf->SetXY($this->left_margin + 3, $this->y_offset);
-        $this->pdf->Cell(3, 10, $this->spesen['ferientage'], 0, 0, 'R', false, '', true);
+        $this->pdf->Cell(3, 10, $this->reportSheet->holiday + $this->reportSheet->company_holiday_holiday, 0, 0, 'R', false, '', true);
         $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
-        if ($this->spesen['ferientage'] == 1) {
+        if ($this->reportSheet->holiday + $this->reportSheet->company_holiday_holiday == 1) {
             $this->pdf->Cell(0, 10, "Ferientag");
         } else {
             $this->pdf->Cell(0, 10, "Ferientage");
         }
         $this->pdf->SetFont('', '');
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_pocket'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[0], $this->shade_height, $this->getRoundedRappen($this->specification->pocket / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[1], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_accommodation'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[1], $this->shade_height, $this->getRoundedRappen($this->specification->accomodation/ 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[2], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_breakfast_expenses'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[2], $this->shade_height, $this->getRoundedRappen($this->specification->sparetime_breakfast_expenses / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[3], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_lunch_expenses'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[3], $this->shade_height, $this->getRoundedRappen($this->specification->sparetime_lunch_expenses / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[4], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->spesen['pflichtenheft_sparetime_dinner_expenses'] / 100), 0, 0, '', 1);
+        $this->pdf->Cell($this->shade_width[4], $this->shade_height, $this->getRoundedRappen($this->specification->sparetime_dinner_expenses / 100), 0, 0, '', 1);
         $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['total_holiday']), 0, 0, 'R', 1);
+        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->reportSheet->holidays_costs / 100), 0, 0, 'R', 1);
 
-        if (!empty($this->spesen['meldeblaetter_holiday_comment'])) {
-            $str = "Bemerkung: " . $this->spesen['meldeblaetter_holiday_comment'];
+        if (!empty($this->reportSheet['meldeblaetter_holiday_comment'])) {
+            $str = "Bemerkung: " . $this->reportSheet['meldeblaetter_holiday_comment'];
             $this->renderComment($str);
         }
 
@@ -397,9 +400,9 @@ class ZiviReportSheetPDF extends PDF
 
         $this->pdf->SetFont('', 'B');
         $this->pdf->SetXY($this->left_margin + 3, $this->y_offset);
-        $this->pdf->Cell(3, 10, $this->spesen['urlaubstage'], 0, 0, 'R', false, '', true);
+        $this->pdf->Cell(3, 10, $this->reportSheet->vacation + $this->reportSheet->company_holiday_vacation, 0, 0, 'R', false, '', true);
         $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
-        if ($this->spesen['urlaubstage'] == 1) {
+        if ($this->reportSheet->vacation + $this->reportSheet->company_holiday_vacation == 1) {
             $this->pdf->Cell(0, 10, "Urlaubstag");
         } else {
             $this->pdf->Cell(0, 10, "Urlaubstage");
@@ -418,22 +421,22 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
         $this->pdf->Cell($this->shade_width[5], $this->shade_height, "0.00", 0, 0, 'R', 1);
 
-        if (!empty($urlaub_comment)) {
-            $str = "inkl. " . $urlaub_comment;
-            if ($this->spesen['meldeblaetter_companyurlaub'] == 1) {
-                $str .= " (" . $this->spesen['meldeblaetter_companyurlaub'] . " Tag)";
+        if (!empty($this->reportSheet->company_holiday_vacation)) {
+            $str = "inkl. " . $this->reportSheet->company_holiday_vacation;
+            if ($this->reportSheet->company_holiday_holiday == 1) {
+                $str .= " (" . $this->reportSheet->company_holiday_vacation . " Tag)";
             } else {
-                $str .= " (" . $this->spesen['meldeblaetter_companyurlaub'] . " Tage)";
+                $str .= " (" . $this->reportSheet->company_holiday_vacation . " Tage)";
             }
             $this->renderComment($str);
         }
 
-        if (!empty($this->spesen['meldeblaetter_urlaub_comment'])) {
-            $str = "inkl. " . $this->spesen['meldeblaetter_urlaub_comment'];
-            if ($this->spesen['meldeblaetter_urlaub'] == 1) {
-                $str .= " (" . $this->spesen['meldeblaetter_urlaub'] . " Tag)";
+        if (!empty($this->reportSheet->vacation_comment)) {
+            $str = "inkl. " . $this->reportSheet->vacation_comment;
+            if ($this->reportSheet->vacation == 1) {
+                $str .= " (" . $this->reportSheet->vacation . " Tag)";
             } else {
-                $str .= " (" . $this->spesen['meldeblaetter_urlaub'] . " Tage)";
+                $str .= " (" . $this->reportSheet->vacation . " Tage)";
             }
             $this->renderComment($str);
         }
@@ -448,16 +451,16 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell(0, 10, "Fahrspesen");
         $this->pdf->SetFont('', '', 10);
         $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['meldeblaetter_fahrspesen']), 0, 0, 'R', 1);
-        $str = $this->spesen['meldeblaetter_fahrspesen_comment'];
-        if (empty($this->spesen['meldeblaetter_fahrspesen'])
-            & empty($this->spesen['meldeblaetter_fahrspesen_comment'])) {
+        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->reportSheet->driving_charges), 0, 0, 'R', 1);
+
+        $str = $this->reportSheet->driving_charges_comment;
+        if (empty($this->reportSheet->driving_charges)
+            & empty($this->reportSheet->driving_charges_comment)) {
             $str = "Keine Angaben.";
         }
         if (!empty($str)) {
             $this->renderComment($str, true);
         }
-
 
         $this->y_offset = $this->y_offset + $this->line_break;
 
@@ -469,19 +472,17 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell(0, 10, "Arbeitskleider");
         $this->pdf->SetFont('', 'I', 8);
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
-        if ($this->spesen['arbeitskleider_tage'] == 1) {
-            //$str = "Für " . $arbeitskleider_tage . " anrechenbarer Tag (Fr. 60.- pro 26 Tage / max. Fr. 240.- total)";
-            $str = "CHF " . $this->getRoundedRappen($this->spesen['pflichtenheft_clothes_expense'] / 100) . "/Tag für " . $this->spesen['arbeitskleider_tage'] . " anrechenbaren Tag";
+        if ($this->reportSheet->clothes_days == 1) {
+            $str = "CHF " . $this->getRoundedRappen($this->specification->working_clothes_expense / 100) . "/Tag für " . $this->reportSheet->clothes_days . " anrechenbaren Tag";
         } else {
-            //$str = "Für " . $arbeitskleider_tage . " anrechenbare Tage (Fr. 60.- pro 26 Tage / max. Fr. 240.- total)";
-            $str = "CHF " . $this->getRoundedRappen($this->spesen['pflichtenheft_clothes_expense'] / 100) . "/Tag für " . $this->spesen['arbeitskleider_tage'] . " anrechenbare Tage";
+            $str = "CHF " . $this->getRoundedRappen($this->specification->working_clothes_expense / 100) . "/Tag für " . $this->reportSheet->clothes_days . " anrechenbare Tage";
         }
         $this->pdf->Cell($this->pdf->GetStringWidth($str) + 4, $this->shade_height8, $str, 0, 0, '', 1);
         $this->pdf->SetFont('', '', 10);
         $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
-        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['total_arbeitskleider']), 0, 0, 'R', 1);
+        $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->reportSheet->clothes / 100), 0, 0, 'R', 1);
 
-        if ($this->spesen['meldeblaetter_kleider'] == 240) {
+        if ($this->reportSheet->clothes == 24000) {
             $this->pdf->SetFont('', 'I', 8);
             $this->y_offset = $this->y_offset + $this->comment_line_break;
             $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height8 / 2);
@@ -493,19 +494,19 @@ class ZiviReportSheetPDF extends PDF
         $this->y_offset = $this->y_offset + $this->line_break;
 
 // AUSSERORDENTLICHE SPESEN //
-        if (!empty($this->spesen['meldeblaetter_ausserordentlich'])) {
+        if (!empty($this->reportSheet->extraordinarily)) {
             $this->pdf->SetFont('', 'B');
-            $this->pdf->SetXY($this->left_margin+3, $this->y_offset);
+            $this->pdf->SetXY($this->left_margin + 3, $this->y_offset);
             $this->pdf->Cell(3, 10, "+", 0, 0, 'R');
             $this->pdf->SetXY($this->left_margin + 6, $this->y_offset);
             $this->pdf->Cell(0, 10, "Ausserordentlich");
             $this->pdf->SetFont('', '');
 
-            $this->pdf->SetXY($this->col[5], $this->y_offset+$this->shade_height/2);
-            $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->spesen['meldeblaetter_ausserordentlich']), 0, 0, 'R', 1);
+            $this->pdf->SetXY($this->col[5], $this->y_offset + $this->shade_height / 2);
+            $this->pdf->Cell($this->shade_width[5], $this->shade_height, $this->getRoundedRappen($this->reportSheet->extraordinarily / 100), 0, 0, 'R', 1);
 
-            if (!empty($this->spesen['meldeblaetter_ausserordentlich_comment'])) {
-                $str = $this->spesen['meldeblaetter_ausserordentlich_comment'];
+            if (!empty($this->reportSheet->extraordinarily_comment)) {
+                $str = $this->reportSheet->extraordinarily_comment;
                 $this->renderComment($str, true);
             }
             $this->y_offset = $this->y_offset + $this->line_break;
@@ -518,7 +519,7 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->SetXY($this->col[4], $this->y_offset);
         $this->pdf->Cell(0, 10, "Gesamt:");
         $this->pdf->SetXY($this->col[5], $this->y_offset);
-        $this->pdf->Cell($this->shade_width[5], 10, $this->getRoundedRappen($this->spesen['total']), 0, 0, 'R', 0);
+        $this->pdf->Cell($this->shade_width[5], 10, $this->getRoundedRappen($this->reportSheet->total_costs / 100), 0, 0, 'R', 0);
         $this->pdf->SetLineWidth(0.2);
         $ll = $this->shade_width[4] + $this->shade_width[5] + 2;
         $this->pdf->Line($this->col[4], $this->y_offset, $this->col[4] + $ll, $this->y_offset);
@@ -534,8 +535,8 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell(0, 10, "Bankverbindung:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
         $str = "";
-        if ($this->user["bank_iban"] != '') {
-            $str .= $this->user["bank_iban"] . "\n";
+        if ($this->user->bank_iban != '') {
+            $str .= $this->user->bank_iban . "\n";
             $this->additional_offset += 5;
         }
         $this->pdf->MultiCell($this->bank_shade_width, $this->shade_height, $str, 0, '', 1);
@@ -547,7 +548,7 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell(0, 10, "Konto-Nr.:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
         $this->pdf->SetFont('', '', '10');
-        $this->pdf->Cell($this->bank_shade_width, $this->shade_height, $this->spesen['bank_account_number'], 0, 0, '', 1);
+        $this->pdf->Cell($this->bank_shade_width, $this->shade_height, $this->reportSheet->bank_account_number, 0, 0, '', 1);
 
         $this->y_offset = $this->y_offset + $this->line_break;
 
@@ -556,9 +557,9 @@ class ZiviReportSheetPDF extends PDF
         $this->pdf->Cell(0, 10, "Beleg-Nr.:");
         $this->pdf->SetXY($this->col[0], $this->y_offset + $this->shade_height / 2);
         $this->pdf->SetFont('', '', '10');
-        $this->pdf->Cell($this->bank_shade_width, $this->shade_height, $this->spesen['document_number'], 0, 0, '', 1);
+        $this->pdf->Cell($this->bank_shade_width, $this->shade_height, $this->reportSheet->document_number, 0, 0, '', 1);
 
-        $this->y_offset = $this->y_offset + $this->line_break*2;
+        $this->y_offset = $this->y_offset + $this->line_break * 2;
 
         if ($this->y_offset > 250) {
             $this->pdf->AddPage();

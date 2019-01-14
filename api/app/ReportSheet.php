@@ -37,9 +37,14 @@ class ReportSheet extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getIllDaysCostsAttribute()
+    public function getChargedDaysAttribute()
     {
-        return $this->mission->specification->daily_cost_spare_time * $this->ill;
+        return $this->work + $this->workfree + $this->additional_workfree + $this->ill + $this->holiday + $this->company_holiday_holiday + $this->vacation + $this->company_holiday_vacation;
+    }
+
+    public function getClothesDaysAttribute()
+    {
+        return $this->work + $this->workfree + $this->holiday + $this->ill;
     }
 
     public function getDurationAttribute()
@@ -47,22 +52,27 @@ class ReportSheet extends Model
         return $this->start->diffInDays($this->end->copy()->addDay());
     }
 
+    public function getFirstDayAttribute()
+    {
+        return $this->start->eq($this->mission->start) && !$this->ignore_first_last_day ? 1 : 0;
+    }
+
+    public function getFirstDayCostsAttribute()
+    {
+        return $this->first_day * $this->mission->specification->daily_first_day_costs;
+    }
+
     public function getHolidaysCostsAttribute()
     {
         return $this->mission->specification->daily_cost_spare_time * ($this->holiday + $this->company_holiday_holiday);
     }
 
-    public function getProposedValuesAttribute()
+    public function getIllDaysCostsAttribute()
     {
-        return ProposedReportSheetValuesCalculator::propose($this);
+        return $this->mission->specification->daily_cost_spare_time * $this->ill;
     }
 
-    public function getTotalCostsAttribute()
-    {
-        return $this->ill_days_costs + $this->holidays_costs + $this->work_days_costs + $this->work_free_days_costs;
-    }
-
-    public function getWorkDaysCostsAttribute()
+    public function getNormalWorkDaysAttribute()
     {
         $normalWorkDays = $this->work;
 
@@ -74,7 +84,32 @@ class ReportSheet extends Model
             $normalWorkDays--;
         }
 
-        return $normalWorkDays * $this->mission->specification->daily_cost_work_time;
+        return $normalWorkDays;
+    }
+
+    public function getLastDayAttribute()
+    {
+        return $this->end->eq($this->mission->end) && !$this->ignore_first_last_day ? 1 : 0;
+    }
+
+    public function getLastDayCostsAttribute()
+    {
+        return $this->last_day * $this->mission->specification->daily_last_day_costs;
+    }
+
+    public function getProposedValuesAttribute()
+    {
+        return ProposedReportSheetValuesCalculator::propose($this);
+    }
+
+    public function getTotalCostsAttribute()
+    {
+        return $this->ill_days_costs + $this->holidays_costs + $this->work_days_costs + $this->work_free_days_costs + $this->driving_charges + $this->clothes + $this->extraordinarily + $this->first_day_costs + $this->last_day_costs;
+    }
+
+    public function getWorkDaysCostsAttribute()
+    {
+        return $this->normal_work_days * $this->mission->specification->daily_cost_work_time;
     }
 
     public function getWorkFreeDaysCostsAttribute()
