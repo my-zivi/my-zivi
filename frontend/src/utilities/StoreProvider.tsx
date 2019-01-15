@@ -7,6 +7,7 @@ import { Formatter } from './formatter';
 import { HolidayStore } from 'src/stores/holidayStore';
 import { ReportSheetStore } from '../stores/reportSheetStore';
 import { PaymentStore } from '../stores/paymentStore';
+import { UserStore } from 'src/stores/userStore';
 
 interface Props {
   history: History;
@@ -19,6 +20,7 @@ export class StoreProvider extends React.Component<Props> {
     holidayStore: HolidayStore;
     paymentStore: PaymentStore;
     reportSheetStore: ReportSheetStore;
+    userStore: UserStore;
   };
 
   constructor(props: Props) {
@@ -34,6 +36,7 @@ export class StoreProvider extends React.Component<Props> {
       holidayStore: new HolidayStore(mainStore),
       paymentStore: new PaymentStore(mainStore),
       reportSheetStore: new ReportSheetStore(mainStore),
+      userStore: new UserStore(mainStore),
     };
   }
   render() {

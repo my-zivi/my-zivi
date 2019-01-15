@@ -1,39 +1,39 @@
 version: "3.1"
 services:
-  api:
-    build:
-        context: ./api
-    container_name: izivi_api
-    volumes:
-      - ./api:/var/app
-    working_dir: /var/app
-    command: "php -S 0.0.0.0:8000 -t ./public"
-    depends_on:
-      - mariadb
-    ports:
-      - "48000:8000"
-  web-client:
-    image: node:10
-    container_name: izivi_web-client
-    volumes:
-      - ./web-client:/var/web-client
-    working_dir: /var/web-client
-    ports:
-      - "43000:3000"
-    command: bash -c "yarn install && yarn run start"
-  mariadb:
-    image: mariadb:10
-    container_name: izivi_db
-    environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=1
-    ports:
-      - "43306:3306"
-    volumes:
-      - ./database:/var/lib/mysql
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: izivi_phpmyadmin
-    environment:
-     - PMA_ARBITRARY=1
-    ports:
-     - 48080:80
+    api:
+        build:
+            context: ./api
+        container_name: izivi_api
+        volumes:
+            - ./api:/var/app
+        working_dir: /var/app
+        command: "php -S 0.0.0.0:8000 -t ./public"
+        depends_on:
+            - mariadb
+        ports:
+            - "48000:8000"
+    web-client:
+        image: node:10
+        container_name: izivi_web-client
+        volumes:
+            - ./frontend:/var/frontend
+        working_dir: /var/frontend
+        ports:
+            - "43000:3000"
+        command: bash -c "yarn install && yarn run start"
+    mariadb:
+        image: mariadb:10
+        container_name: izivi_db
+        environment:
+            - MYSQL_ALLOW_EMPTY_PASSWORD=1
+        ports:
+            - "43306:3306"
+        volumes:
+            - ./database:/var/lib/mysql
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: izivi_phpmyadmin
+        environment:
+            - PMA_ARBITRARY=1
+        ports:
+            - 48080:80

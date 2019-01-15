@@ -8,7 +8,7 @@ import { apiDate } from '../utilities/validationHelpers';
 import * as yup from 'yup';
 import moment from 'moment';
 import { FormikActions, Formik, Field } from 'formik';
-import { DatePickerField } from 'src/form/common';
+import { DatePickerField } from 'src/form/DatePickerField';
 import Form from 'reactstrap/lib/Form';
 import Button from 'reactstrap/lib/Button';
 import Row from 'reactstrap/lib/Row';
@@ -48,7 +48,7 @@ export class PhoneListView extends React.Component<Props> {
 
   render() {
     return (
-      <IziviContent title="Telefonliste">
+      <IziviContent card title="Telefonliste">
         <p>
           Geben Sie ein Anfangsdatum und ein Enddatum ein um eine Telefonliste mit allen Zivis zu erhalten, die in diesem Zeitraum arbeiten.
         </p>

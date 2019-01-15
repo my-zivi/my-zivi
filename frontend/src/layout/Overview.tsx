@@ -14,6 +14,8 @@ interface Props<ListingType> {
   renderActions?: (e: ListingType) => React.ReactNode;
   columns?: Array<Column<ListingType>>;
   onClickRow?: ((e: ListingType) => void) | string;
+  firstRow?: React.ReactNode;
+  filter?: boolean;
   mainStore?: MainStore;
 }
 
@@ -26,7 +28,12 @@ interface State {
 export default class Overview<ListingType extends Listing> extends React.Component<Props<ListingType>, State> {
   constructor(props: Props<ListingType>) {
     super(props);
-    props.store!.fetchAll().then(() => this.setState({ loading: false }));
+    props.store!.fetchAll().then(() => {
+      this.setState({ loading: false });
+      if (this.props.filter) {
+        this.props.store!.filter();
+      }
+    });
     this.state = {
       loading: true,
     };
@@ -42,7 +49,7 @@ export default class Overview<ListingType extends Listing> extends React.Compone
   };
 
   public render() {
-    const entities = this.props.store!.entities;
+    const entities = this.props.filter ? this.props.store!.filteredEntities : this.props.store!.entities;
 
     return (
       <IziviContent card loading={this.state.loading} title={this.props.title}>
@@ -54,6 +61,7 @@ export default class Overview<ListingType extends Listing> extends React.Compone
             renderActions={this.props.renderActions}
             data={entities}
             onClickRow={this.handleClick}
+            firstRow={this.props.firstRow}
           />
         )}
       </IziviContent>

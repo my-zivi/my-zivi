@@ -21,6 +21,7 @@ interface TableProps<T> {
   renderActions?: (e: T) => React.ReactNode;
   data: Array<T>;
   onClickRow?: (e: T, index: number) => void;
+  firstRow?: React.ReactNode;
 }
 
 @observer
@@ -44,6 +45,7 @@ export class OverviewTable<T> extends React.Component<TableProps<T>> {
           </tr>
         </thead>
         <tbody>
+          {this.props.firstRow && <>{this.props.firstRow}</>}
           {data.map((row, index) => (
             <SafeClickableTableRow key={index} onClick={this.handleRowClick(row, index)}>
               {columns.map(col => (

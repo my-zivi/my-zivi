@@ -17,6 +17,7 @@ import { NotFound } from './views/NotFound';
 import { ReportSheetOverview } from './views/report_sheets/ReportSheetOverview';
 import { PaymentOverview } from './views/payments/PaymentOverview';
 import { PaymentDetail } from './views/payments/PaymentDetail';
+import { UserOverview } from './views/users/UserOverview';
 import { Icons } from './utilities/Icon';
 
 Icons();
@@ -35,6 +36,8 @@ class App extends React.Component {
           <ProtectedRoute requiresAdmin component={PaymentDetail} exact path={'/payments/:id'} />
           <ProtectedRoute requiresAdmin component={ReportSheetOverview} exact path={'/report_sheets'} />
           <ProtectedRoute requiresAdmin component={ReportSheetUpdate} exact path={'/report_sheets/:id'} />
+          <ProtectedRoute requiresAdmin component={UserOverview} exact path={'/users'} />
+          <ProtectedRoute requiresAdmin component={UserOverview} exact path={'/users/:id'} />
           <Route component={NotFound} />
         </Switch>
       </IziviLayout>

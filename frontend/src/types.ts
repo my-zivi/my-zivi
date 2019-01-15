@@ -77,13 +77,76 @@ export interface Specification {
 
 export interface User {
   id?: number;
-  address: string;
-  city: string;
-  bank_iban: string;
+  email: string;
+  role_id: number;
+  zdp: number;
   first_name: string;
   last_name: string;
-  zdp: number;
+  address: string;
   zip: number | null;
+  city: string;
+  hometown: string;
+  hometown_canton: number | null;
+  canton: number | null;
+  birthday: string;
+  phone_mobile: string;
+  phone_private: string;
+  phone_business: string;
+  bank_iban: string;
+  bank_bic: string;
+  health_insurance: string;
+  work_experience: null | string;
+  driving_licence: number | null;
+  ga_travelcard: number;
+  half_fare_travelcard: number;
+  other_fare_network: null | string;
+  regional_center_id: number;
+  internal_note: string;
+  phone: string;
+  driving_licence_b: boolean;
+  driving_licence_be: boolean;
+  chainsaw_workshop: boolean;
+  role: Role;
+  start: null | string;
+  end: null | string;
+  active: boolean;
+  missions: Mission[];
+}
+
+export interface UserFilter {
+  zdp: string;
+  name: string;
+  date_from: string;
+  date_to: string;
+  active: boolean;
+  role: string;
+}
+
+export interface Mission {
+  id?: number;
+  user_id: number;
+  specification_id: string;
+  start: string;
+  end: string;
+  draft: null | string;
+  days: number;
+  eligible_holiday: number;
+  mission_type: number | null;
+  first_time: boolean;
+  long_mission: number;
+  probation_period: number;
+  feedback_mail_sent: number;
+  feedback_done: number;
+}
+
+export interface Role {
+  id: number;
+  name: UserRoleName;
+}
+
+export enum UserRoleName {
+  Admin = 'admin',
+  Zivi = 'zivi',
 }
 
 export interface Listing {

@@ -1,5 +1,5 @@
 //tslint:disable:no-console
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { MainStore } from './mainStore';
 
 /**
@@ -23,6 +23,11 @@ export class DomainStore<T, OverviewType = T> {
   public get entities(): Array<OverviewType> {
     throw new Error('Not implemented');
   }
+
+  @observable
+  public filteredEntities: OverviewType[] = [];
+
+  public filter: () => void;
 
   @action
   public async fetchAll() {
