@@ -27,6 +27,11 @@ function scrub(string $s)
 class PaymentController extends Controller
 {
 
+    public function get($id)
+    {
+        return Payment::with(['payment_entries', 'payment_entries.user', 'payment_entries.report_sheet'])->findOrFail($id);
+    }
+
     public function index()
     {
         return Payment::all();

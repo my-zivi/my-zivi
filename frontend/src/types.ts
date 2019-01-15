@@ -21,8 +21,14 @@ export interface Payment {
   id?: number;
   amount: number;
   created_at: string;
+  payment_entries: PaymentEntry[];
 }
 
+export interface PaymentEntry {
+  id?: number;
+  report_sheet: ReportSheet;
+  user: User;
+}
 export interface ProposedReportSheetValues {
   company_holidays_as_zivi_holidays: number;
   company_holidays_as_zivi_vacations: number;

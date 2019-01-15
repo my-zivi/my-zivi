@@ -111,7 +111,7 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
 
             $router->group(['prefix' => 'payments'], function () use ($router) {
                 $router->get('/{id}/xml', ['uses' => 'PaymentController@getArchivedXml']);
-                $router->get('/{id}', ['uses' => 'PaymentController@getArchivedPayment']);
+                $router->get('/{id}', ['uses' => 'PaymentController@get']);
                 $router->post('/execute', ['uses' => 'PaymentController@getIsoPaymentXml']);
                 $router->get('/', ['uses' => 'PaymentController@index']);
             });
@@ -119,6 +119,7 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
             $router->group(['prefix' => 'report_sheets'], function () use ($router) {
                 $router->get('/{id}', ['uses' => 'ReportSheetController@get']);
                 $router->put('/{id}', ['uses' => 'ReportSheetController@put']);
+                $router->put('/{id}/state', ['uses' => 'ReportSheetController@putState']);
                 $router->delete('/{id}', ['uses' => 'ReportSheetController@delete']);
             });
 

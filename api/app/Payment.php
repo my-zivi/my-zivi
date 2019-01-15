@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    protected $fillable = ['id',
-                           'xml',
-                            'amount'
-                        ];
+    protected $fillable = ['amount', 'xml'];
+
+    public function payment_entries()
+    {
+        return $this->hasMany(PaymentEntry::class);
+    }
 }

@@ -39,4 +39,9 @@ export class PaymentStore extends DomainStore<Payment> {
     const res = await this.mainStore.api.get<Payment[]>('/payments');
     this.payments = res.data;
   }
+
+  protected async doFetchOne(id: number): Promise<void> {
+    const res = await this.mainStore.api.get<Payment>('/payments/' + id);
+    this.payment = res.data;
+  }
 }

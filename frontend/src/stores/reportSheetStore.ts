@@ -1,3 +1,4 @@
+//tslint:disable:no-console
 import { action, computed, observable } from 'mobx';
 import { MainStore } from './mainStore';
 import { DomainStore } from './domainStore';
@@ -67,5 +68,13 @@ export class ReportSheetStore extends DomainStore<ReportSheet> {
   protected async doPut(entity: ReportSheet): Promise<void> {
     const res = await this.mainStore.api.put<ReportSheet>('/report_sheets/' + entity.id, entity);
     this.reportSheet = res.data;
+  }
+
+  @action
+  public async putState(id: number, state: number): Promise<void> {
+    return this.displayLoading(async () => {
+      await this.mainStore.api.put<ReportSheet>('/report_sheets/' + id + '/state', { state });
+      this.mainStore.displaySuccess(`${this.entityName.singular} wurde bestätigt.`);
+    });
   }
 }

@@ -118,7 +118,7 @@ export class PaymentOverview extends React.Component<Props, State> {
           data={this.props.paymentStore!.payments}
           renderActions={(p: Payment) => (
             <>
-              <a href={'#'}>Details (TODO!)</a>
+              <Link to={'/payments/' + p.id}>Details</Link>
             </>
           )}
         />

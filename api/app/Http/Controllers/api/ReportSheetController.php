@@ -55,6 +55,19 @@ class ReportSheetController extends Controller
         return $this->get($id);
     }
 
+    public function putState($id, Request $request)
+    {
+        $validatedData = $this->validate($request, [
+            'state' => 'required|integer'
+        ]);
+
+        $reportSheet = ReportSheet::findOrFail($id);
+        $reportSheet->state = $validatedData['state'];
+        $reportSheet->save();
+
+        return response("updated");
+    }
+
     private function validateRequest(Request $request)
     {
         return $this->validate($request, [
