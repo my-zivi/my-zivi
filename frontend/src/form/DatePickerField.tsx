@@ -4,13 +4,14 @@ import injectSheet, { WithSheet } from 'react-jss';
 import { DateTimePicker } from 'react-widgets';
 import createStyles from 'src/utilities/createStyles';
 
-const datePickerStyle = createStyles({
-  tableFix: {
-    '& th, & td': {
-      padding: '0.25em',
+const datePickerStyle = () =>
+  createStyles({
+    tableFix: {
+      '& th, & td': {
+        padding: '0.25em',
+      },
     },
-  },
-});
+  });
 
 export type DateTimePickerFieldProps = FormProps & {
   label: string;
@@ -45,14 +46,14 @@ const DateTimePickerFieldWithValidationInner = ({ label, field, form, required, 
     </ValidatedFormGroupWithLabel>
   </span>
 );
-const DateTimePickerFieldWithValidation = injectSheet(datePickerStyle)(DateTimePickerFieldWithValidationInner as any);
+const DateTimePickerFieldWithValidation = injectSheet(datePickerStyle)(DateTimePickerFieldWithValidationInner);
 
 const DatePickerInputInner = ({ classes, ...props }: DatePickerInnerInputProps) => (
   <span className={classes.tableFix}>
     <DatePickerDefaults {...props} />
   </span>
 );
-const DatePickerInputSheeted = injectSheet(datePickerStyle)(DatePickerInputInner as any);
+const DatePickerInputSheeted = injectSheet(datePickerStyle)(DatePickerInputInner);
 export const DatePickerInput = (props: DatePickerDefaultProps) => <DatePickerInputSheeted {...props} />;
 
 export const DatePickerField = (props: DateTimePickerFieldProps) => <DateTimePickerFieldWithValidation {...props} />;
