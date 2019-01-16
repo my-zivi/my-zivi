@@ -55,22 +55,22 @@ class PDFController extends Controller
     public function getSpesenStatistik(Request $request)
     {
         // because we use a get request, the bool are sent as string, which ends up kinda ugly
-        $validatedData = $this->validate($request, [
-            'date_from' => 'required|date',
-            'date_to' => 'required|date',
-            'time_type' => 'required|integer',
-            'detail_view' => 'required|string',
-            'only_done_sheets' => 'required|string',
-            'year' => 'required|integer',
+        $this->validate($request, [
+            'date_from' => 'date',
+            'date_to' => 'date',
+            'time_type' => 'integer',
+            'detail_view' => 'string',
+            'only_done_sheets' => 'string',
+            'year' => 'integer',
         ]);
 
         $statistik = new SpesenStatistik(
-            $validatedData['only_done_sheets'] === 'true',
-            $validatedData['detail_view'] === 'true',
-            $validatedData['time_type'],
-            $validatedData['date_from'],
-            $validatedData['date_to'],
-            $validatedData['year']
+            Input::get("only_done_sheets") === 'true',
+            Input::get("detail_view") === 'true',
+            Input::get("time_type"),
+            strtotime(Input::get("date_from")),
+            strtotime(Input::get("date_to")),
+            Input::get("year")
         );
 
         $response = response()->download($statistik->createPDF(), 'statistik.pdf')

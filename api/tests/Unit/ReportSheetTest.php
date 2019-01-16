@@ -64,7 +64,7 @@ class ReportSheetTest extends \TestCase
             'start' => '2019-01-01'
         ]);
 
-        $this->assertEquals(1, $reportSheet->first_day);
+        $this->assertEquals(1, $reportSheet->refresh()->first_day);
 
         $reportSheet->ignore_first_last_day = true;
         $this->assertEquals(0, $reportSheet->first_day);
@@ -91,7 +91,7 @@ class ReportSheetTest extends \TestCase
             'start' => '2019-01-01'
         ]);
 
-        $this->assertEquals(18300, $reportSheet->first_day_costs);
+        $this->assertEquals(18300, $reportSheet->refresh()->first_day_costs);
 
         $reportSheet->ignore_first_last_day = true;
         $this->assertEquals(0, $reportSheet->first_day);
@@ -117,7 +117,7 @@ class ReportSheetTest extends \TestCase
             'mission_id' => $missionId,
         ]);
 
-        $this->assertEquals(20 * 23300, $reportSheet->holidays_costs);
+        $this->assertEquals(20 * 23300, $reportSheet->refresh()->holidays_costs);
     }
 
     public function testGetIllDaysCostsAttribute()
@@ -139,7 +139,7 @@ class ReportSheetTest extends \TestCase
             'mission_id' => $missionId,
         ]);
 
-        $this->assertEquals(10 * 23300, $reportSheet->ill_days_costs);
+        $this->assertEquals(10 * 23300, $reportSheet->refresh()->ill_days_costs);
     }
 
     public function testGetNormalWorkDaysAttribute()
@@ -175,7 +175,7 @@ class ReportSheetTest extends \TestCase
             'mission_id' => $mission->id
         ]);
 
-        $this->assertEquals(1, $reportSheet->last_day);
+        $this->assertEquals(1, $reportSheet->refresh()->last_day);
 
         $reportSheet->ignore_first_last_day = true;
         $this->assertEquals(0, $reportSheet->last_day);
@@ -202,7 +202,7 @@ class ReportSheetTest extends \TestCase
             'mission_id' => $missionId,
         ]);
 
-        $this->assertEquals(18300, $reportSheet->last_day_costs);
+        $this->assertEquals(18300, $reportSheet->refresh()->last_day_costs);
 
         $reportSheet->ignore_first_last_day = true;
         $this->assertEquals(0, $reportSheet->last_day_costs);
@@ -235,11 +235,11 @@ class ReportSheetTest extends \TestCase
             'ill' => 10,
             'mission_id' => $missionId,
             'ignore_first_last_day' => true,
-            'work' => 12.5,
+            'work' => 12,
             'workfree' => 15
         ]);
 
-        $this->assertEquals(10 * 23300 + 20 * 23300 + 12.5 * 23300 + 20 * 23300 + 12000 + 24000 - 6000, $reportSheet->total_costs);
+        $this->assertEquals(10 * 23300 + 20 * 23300 + 12 * 23300 + 20 * 23300 + 12000 + 24000 - 6000, $reportSheet->refresh()->total_costs);
     }
 
     public function testGetWorkDaysCostsAttribute()
@@ -261,13 +261,13 @@ class ReportSheetTest extends \TestCase
             'ignore_first_last_day' => true,
             'mission_id' => $missionId,
             'start' => '1998-05-06',
-            'work' => 12.5
+            'work' => 12
         ]);
 
-        $this->assertEquals(12.5 * 3300, $reportSheet->work_days_costs);
+        $this->assertEquals(12 * 3300, $reportSheet->refresh()->work_days_costs);
 
         $reportSheet->ignore_first_last_day = false;
-        $this->assertEquals(11.5 * 3300, $reportSheet->work_days_costs);
+        $this->assertEquals(11 * 3300, $reportSheet->work_days_costs);
     }
 
     public function testGetWorkFreeDaysCostsAttribute()
@@ -282,7 +282,7 @@ class ReportSheetTest extends \TestCase
 
         $missionId = factory(Mission::class)->create([
             'specification_id' => $specificationId,
-        ]);
+        ])->id;
 
         $reportSheet = factory(ReportSheet::class)->create([
             'additional_workfree' => 5,
@@ -290,6 +290,6 @@ class ReportSheetTest extends \TestCase
             'workfree' => 15
         ]);
 
-        $this->assertEquals(20 * 23300, $reportSheet->work_free_days_costs);
+        $this->assertEquals(20 * 23300, $reportSheet->refresh()->work_free_days_costs);
     }
 }

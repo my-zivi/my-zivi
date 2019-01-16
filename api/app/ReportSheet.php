@@ -108,7 +108,11 @@ class ReportSheet extends Model
 
     public function getTotalCostsAttribute()
     {
-        return $this->ill_days_costs + $this->holidays_costs + $this->work_days_costs + $this->work_free_days_costs + $this->driving_charges + $this->clothes + $this->extraordinarily + $this->first_day_costs + $this->last_day_costs;
+        if ($this->mission && $this->mission->specification) {
+            return $this->ill_days_costs + $this->holidays_costs + $this->work_days_costs + $this->work_free_days_costs + $this->driving_charges + $this->clothes + $this->extraordinarily + $this->first_day_costs + $this->last_day_costs;
+        } else {
+            return 0;
+        }
     }
 
     public function getWorkDaysCostsAttribute()

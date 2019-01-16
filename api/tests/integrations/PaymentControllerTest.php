@@ -28,7 +28,8 @@ class PaymentControllerTest extends \TestCase
         $this->asAdmin()->json('GET', 'api/payments/' . $payment->id)->assertResponseOk();
         $response = $this->responseToArray();
 
-        $this->assertCount(10, $response['sheets']);
+        $this->assertEquals($payment->id, $response['id']);
+        $this->assertCount(10, $response['payment_entries']);
     }
 
     public function testGetXmlAsUser()
@@ -97,11 +98,8 @@ class PaymentControllerTest extends \TestCase
 
     public function testIndexAsAdmin()
     {
-        factory(Payment::class, 10);
-        factory(ReportSheet::class, 10)->create([
-            'state' => 1
-        ]);
-
+        factory(Payment::class, 10)->create();
         $this->asAdmin()->json('GET', 'api/payments')->assertResponseOk();
+        $this->assertCount(10, $this->responseToArray());
     }
 }
