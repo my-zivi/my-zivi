@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\CompanyInfo;
 use App\Http\Controllers\Controller;
 use App\Mission;
 use App\ReportSheet;
@@ -109,18 +110,17 @@ class MissionController extends Controller
 
         $reportSheetEnd = $start->copy()->modify('last day of this month');
         while ($reportSheetEnd->lessThan($end)) {
-            ReportSheet::add($mission, $start, $reportSheetEnd);
+            $this->createReportSheet($mission, $start, $reportSheetEnd);
             $start->modify('first day of next month');
             $reportSheetEnd->modify('last day of next month');
         }
-        ReportSheet::add($mission, $start, $end);
+        $this->createReportSheet($mission, $start, $end);
 
         return response("updated");
     }
 
     private function updateReportSheets(&$mission)
     {
-        // TODO move this into the model in an update hook
         if ($mission->draft) {
             if ($mission->end != Input::get("end", "") && $mission->end < Input::get("end", "")) {
                 $start = new \DateTime($mission->end);
@@ -130,11 +130,11 @@ class MissionController extends Controller
                 $iteratorEnd->modify('last day of this month');
 
                 while ($iteratorEnd<$end) {
-                    ReportSheet::add($mission, $iteratorStart, $iteratorEnd);
+                    $this->createReportSheet($mission, $iteratorStart, $iteratorEnd);
                     $iteratorStart->modify('first day of next month');
                     $iteratorEnd->modify('last day of next month');
                 }
-                ReportSheet::add($mission, $iteratorStart, $end);
+                $this->createReportSheet($mission, $iteratorStart, $end);
             }
         }
     }
@@ -157,6 +157,24 @@ class MissionController extends Controller
             }
         }
         return 0;
+    }
+
+    private function createReportSheet($mission, $start, $end)
+    {
+        $reportSheet = new ReportSheet();
+        $reportSheet->mission_id = $mission->id;
+        $reportSheet->user_id = $mission->user_id;
+        $reportSheet->start = $start;
+        $reportSheet->end = $end;
+        $reportSheet->bank_account_number = CompanyInfo::DEFAULT_ACCOUNT_NUMBER_REPORT_SHEETS;
+        $reportSheet->additional_workfree = 0;
+        $reportSheet->driving_charges = 0;
+        $reportSheet->extraordinarily = 0;
+        $reportSheet->ill = 0;
+        $reportSheet->holiday = 0;
+        $reportSheet->state = 0;
+        $reportSheet->vacation = 0;
+        $reportSheet->save();
     }
 
     private function validateRequest(Request $request)

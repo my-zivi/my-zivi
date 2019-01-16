@@ -256,24 +256,6 @@ class ReportSheet extends Model
         return $datetime->format('Y-m-d');
     }
 
-    public static function add($mission, $start, $end)
-    {
-        $sheet = new ReportSheet();
-        $sheet->mission_id = $mission->id;
-        $sheet->user_id = $mission->user_id;
-        $sheet->start = $start;
-        $sheet->end = $end;
-        $sheet->bank_account_number = CompanyInfo::DEFAULT_ACCOUNT_NUMBER_REPORT_SHEETS;
-        $sheet->additional_workfree = 0;
-        $sheet->driving_charges = 0;
-        $sheet->extraordinarily = 0;
-        $sheet->ill = 0;
-        $sheet->holiday = 0;
-        $sheet->state = 0;
-        $sheet->vacation = 0;
-        $sheet->save();
-    }
-
     // Delete all linked report sheets to a mission when a mission is soft deleted
     public static function deleteByMission($missionId)
     {
