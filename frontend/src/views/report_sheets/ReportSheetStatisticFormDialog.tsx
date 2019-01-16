@@ -1,0 +1,105 @@
+import * as React from 'react';
+import Modal from 'reactstrap/lib/Modal';
+import ModalBody from 'reactstrap/lib/ModalBody';
+import ModalFooter from 'reactstrap/lib/ModalFooter';
+import { Button, ModalHeader } from 'reactstrap';
+import { Field, Formik } from 'formik';
+import { SelectField } from '../../form/common';
+import moment from 'moment';
+import { MainStore } from '../../stores/mainStore';
+import { CheckboxField } from '../../form/CheckboxField';
+import { DatePickerField } from '../../form/DatePickerField';
+
+const yearOptions = () => {
+  const listOfYears = [];
+  for (let i = 2005; i < moment().year() + 3; i++) {
+    listOfYears.push({
+      id: i,
+      name: i,
+    });
+  }
+
+  return listOfYears;
+};
+
+interface Props {
+  isOpen: boolean;
+  mainStore: MainStore;
+  toggle: () => void;
+}
+
+export class ReportSheetStatisticFormDialog extends React.Component<Props> {
+  public render() {
+    const { isOpen, mainStore, toggle } = this.props;
+
+    return (
+      <Modal isOpen={isOpen}>
+        <ModalHeader>Spesenstatistik erstellen</ModalHeader>
+        <Formik
+          initialValues={{
+            date_from: moment()
+              .startOf('year')
+              .format('Y-MM-DD'),
+            date_to: moment()
+              .endOf('year')
+              .format('Y-MM-DD'),
+            detail_view: true,
+            only_done_sheets: true,
+            time_type: '0',
+            year: moment().year(),
+          }}
+          onSubmit={() => {
+            /* nothing happens here because I didn't want to write the onChange handler myself */
+          }}
+          render={formikProps => (
+            <>
+              <ModalBody>
+                <Field
+                  horizontal
+                  component={SelectField}
+                  name={'time_type'}
+                  options={[
+                    { id: '0', name: 'Gesamtes Jahr' },
+                    { id: '1', name: 'Von / Bis' },
+                    { id: '2', name: moment().format('MMMM YYYY') },
+                    {
+                      id: '3',
+                      name: moment()
+                        .subtract(1, 'month')
+                        .format('MMMM YYYY'),
+                    },
+                  ]}
+                  label={'Zeitspanne'}
+                />
+
+                {formikProps.values.time_type === '0' && (
+                  <Field horizontal component={SelectField} name={'year'} options={yearOptions()} label={'Jahr'} />
+                )}
+
+                {formikProps.values.time_type === '1' && (
+                  <>
+                    <Field horizontal component={DatePickerField} name={'date_from'} label={'Start'} />
+                    <Field horizontal component={DatePickerField} name={'date_to'} label={'Ende'} />
+                  </>
+                )}
+
+                <Field component={CheckboxField} name={'only_done_sheets'} label={'Nur erledigte Spesenblätter anzeigen?'} />
+
+                <Field component={CheckboxField} name={'detail_view'} label={'Detaillierte Ansicht anzeigen?'} />
+              </ModalBody>
+
+              <ModalFooter>
+                <Button href={mainStore.apiURL('documents/expenses_overview', formikProps.values)} tag={'a'} target={'_blank'}>
+                  PDF generieren
+                </Button>{' '}
+                <Button color="danger" onClick={toggle}>
+                  Abbrechen
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        />
+      </Modal>
+    );
+  }
+}

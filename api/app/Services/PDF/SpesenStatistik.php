@@ -10,6 +10,7 @@ namespace App\Services\PDF;
 
 use App\CompanyInfo;
 use App\ReportSheet;
+use Carbon\Carbon;
 
 class SpesenStatistik extends PDF
 {
@@ -47,7 +48,7 @@ class SpesenStatistik extends PDF
     private $TITLE_BOX_COLOR_G = 240;
     private $TITLE_BOX_COLOR_B = 230;
     private $TITLE_BOX_HEIGHT = 10;
-    
+
     private $LINE_BREAK;
     private $LINE_BREAK_ROW2ROW;
     private $LINE_BREAK_HEADER;
@@ -87,36 +88,34 @@ class SpesenStatistik extends PDF
         $this->showDetails = $showDetails;
         $this->time_type = $time_type;
         $this->time_year = $time_year;
-        $this->time_from = $time_from;
-        $this->time_to = $time_to;
+        $this->time_from = Carbon::parse($time_from);
+        $this->time_to = Carbon::parse($time_to);
     }
 
     protected function render()
     {
 
         if ($this->time_type == 1) {
-            $start_TS = $this->time_from;
-            $end_TS = $this->time_to;
-            $period = date("d.m.Y", $start_TS) . " - " . date("d.m.Y", $end_TS);
+            $start_TS = Carbon::parse($this->time_from);
+            $end_TS = Carbon::parse($this->time_to);
+            $period = $start_TS->format('d.m.y') . " - " . $end_TS->format('d.m.y');
             $this->TITLE_GESAMT = "  Zivi-Spesen Gesamtstatistik  (Zeitperiode: $period)";
             $this->TITLE_DETAIL = "  Zivi-Spesen Detailübersicht  (Zeitperiode: $period)";
         } elseif ($this->time_type == 2) {
-            $TS = time();
-            $start_TS = strtotime(date("Y-m-01"), $TS);
-            $end_TS = strtotime(date("Y-m-t"), $TS);
-            $period = $this->getGermanMonth($TS) . " " . date("Y", $TS);
+            $start_TS = (new Carbon())->startOfMonth();
+            $end_TS = (new Carbon())->endOfMonth();
+            $period = $this->getGermanMonth($start_TS->format('m')) . " " . $start_TS->format('Y');
             $this->TITLE_GESAMT = "  Zivi-Spesen Gesamtstatistik  (Aktive Zivis - $period)";
             $this->TITLE_DETAIL = "  Zivi-Spesen Detailübersicht  (Aktive Zivis - $period)";
         } elseif ($this->time_type == 3) {
-            $TS = mktime(0, 0, 0, date("m") - 1, date("d"), date("Y"));
-            $start_TS = strtotime(date("Y-m-01", $TS), $TS);
-            $end_TS = strtotime(date("Y-m-t", $TS), $TS);
-            $period = $this->getGermanMonth($TS) . " " . date("Y", $TS);
+            $start_TS = (new Carbon())->subMonth()->startOfMonth();
+            $end_TS = (new Carbon())->subMonth()->endOfMonth();
+            $period = $this->getGermanMonth($start_TS->format('m')) . " " . $start_TS->format('Y');
             $this->TITLE_GESAMT = "  Zivi-Spesen Gesamtstatistik  (Aktive Zivis - $period)";
             $this->TITLE_DETAIL = "  Zivi-Spesen Detailübersicht  (Aktive Zivis - $period)";
         } else {
-            $start_TS = strtotime($this->time_year . '-01-01');
-            $end_TS = strtotime($this->time_year . '-12-31');
+            $start_TS = Carbon::createFromDate($this->time_year, 01, 01);
+            $end_TS = Carbon::createFromDate($this->time_year, 12, 31);
             $this->TITLE_GESAMT = "  Zivi-Spesen Gesamtstatistik  (Jahr $this->time_year)";
             $this->TITLE_DETAIL = "  Zivi-Spesen Detailübersicht  (Jahr $this->time_year)";
         }
@@ -262,9 +261,9 @@ class SpesenStatistik extends PDF
         $this->pdf->Cell($this->COL_WIDTH, 0, strval($sum_tage['urlaubstage']), 0, 0, 'R');
         $this->pdf->SetXY($this->COL3_X, $this->OFFSET_Y);
         $this->pdf->Cell($this->COL_WIDTH, 0, $this->getRoundedRappen($sum_geld['urlaubstage']), 0, 0, 'R');
-        $this->OFFSET_Y += $this->LINE_BREAK_ROW2ROW/2 + 2;
+        $this->OFFSET_Y += $this->LINE_BREAK_ROW2ROW / 2 + 2;
         $this->pdf->Line($this->COL1_X, $this->OFFSET_Y, $this->COL3_X + $this->COL_WIDTH, $this->OFFSET_Y);
-        $this->OFFSET_Y += $this->LINE_BREAK_ROW2ROW/2 + 2;
+        $this->OFFSET_Y += $this->LINE_BREAK_ROW2ROW / 2 + 2;
         $this->pdf->SetFont($this->FONT, 'B', $this->FONT_SIZE_NORMAL);
         $this->pdf->SetXY($this->COL1_X, $this->OFFSET_Y);
         $this->pdf->Cell($this->COL_WIDTH, 0, "Fahrspesen:");
@@ -328,11 +327,11 @@ class SpesenStatistik extends PDF
         $this->SUBTOTAL_COLOR_G = 210;
         $this->SUBTOTAL_COLOR_B = 210;
 
-        $COL_LBL    = array('ID', 'Name', 'Meldeperiode', 'Arbeitstage', 'Arbeitsfrei', 'Krankheit', 'Ferientage', 'Urlaubstage', 'Wegspesen', 'Kleider', 'Extra', 'Total');
-        $COL_UNIT   = array('', '', '', '', '', '', 'Tage', 'Fr.', 'Tage', 'Fr.', 'Tage', 'Fr.', 'Tage', 'Fr.', 'Tage', 'Fr.', '', 'Fr.', 'Tage', 'Fr.', '', 'Fr.', 'Tage', 'Fr.');
-        $COL_LBL_X  = array(0, 12, 50, 75, 97, 119, 141, 163, 187, 209, 230, 245);
+        $COL_LBL = array('ID', 'Name', 'Meldeperiode', 'Arbeitstage', 'Arbeitsfrei', 'Krankheit', 'Ferientage', 'Urlaubstage', 'Wegspesen', 'Kleider', 'Extra', 'Total');
+        $COL_UNIT = array('', '', '', '', '', '', 'Tage', 'Fr.', 'Tage', 'Fr.', 'Tage', 'Fr.', 'Tage', 'Fr.', 'Tage', 'Fr.', '', 'Fr.', 'Tage', 'Fr.', '', 'Fr.', 'Tage', 'Fr.');
+        $COL_LBL_X = array(0, 12, 50, 75, 97, 119, 141, 163, 187, 209, 230, 245);
         $COL_UNIT_X = array();
-        $SHADE_LBL  = array();
+        $SHADE_LBL = array();
         $SHADE_UNIT = array();
 
         // Generiere automatische Schattierungsbreiten //
@@ -340,14 +339,14 @@ class SpesenStatistik extends PDF
             $w = $COL_LBL_X[$i + 1] - $COL_LBL_X[$i] - $this->SHADE_SPACE;
             $COL_UNIT_X[] = $COL_LBL_X[$i];
             $COL_UNIT_X[] = $COL_LBL_X[$i] + $w * $this->WEIGHT_TAGE + $this->SHADE_SPACE / 4;
-            $SHADE_LBL[]  = $w;
+            $SHADE_LBL[] = $w;
             $SHADE_UNIT[] = $w * $this->WEIGHT_TAGE - $this->SHADE_SPACE / 4;
             $SHADE_UNIT[] = $w * $this->WEIGHT_FR - $this->SHADE_SPACE / 4;
         }
         $w = ($this->PAGE_WIDTH_L - $this->MARGIN_RIGHT - $this->MARGIN_LEFT) - $COL_LBL_X[count($COL_LBL_X) - 1];
         $COL_UNIT_X[] = $COL_LBL_X[count($COL_LBL_X) - 1];
         $COL_UNIT_X[] = $COL_LBL_X[count($COL_LBL_X) - 1] + $w * $this->WEIGHT_TAGE + $this->SHADE_SPACE / 4;
-        $SHADE_LBL[]  = $w;
+        $SHADE_LBL[] = $w;
         $SHADE_UNIT[] = $w * $this->WEIGHT_TAGE - $this->SHADE_SPACE / 4;
         $SHADE_UNIT[] = $w * $this->WEIGHT_FR - $this->SHADE_SPACE / 4;
 
@@ -424,7 +423,7 @@ class SpesenStatistik extends PDF
                 $this->pdf->SetFillColor($this->ROW_COLOR_R, $this->ROW_COLOR_G, $this->ROW_COLOR_B);
             }
             $this->pdf->SetXY($this->MARGIN_LEFT + $COL_LBL_X[2], $this->OFFSET_Y);
-            $str = date("d.m.y", $blatt['start']) . " - " . date("d.m.y", $blatt['end']);
+            $str = $blatt['start']->format('d.m.y') . " - " . $blatt['end']->format('d.m.y');
             $this->pdf->Cell($SHADE_LBL[2], $this->SHADE_HEIGHT_TABLE, $str, 0, 0, 'L', 1);
             $i = 6;
             foreach ($geld as $key => $value) {
@@ -482,7 +481,7 @@ class SpesenStatistik extends PDF
             $this->pdf->SetXY($this->MARGIN_LEFT + $COL_LBL_X[$i + 3], $this->OFFSET_Y);
             $str = strval($sum_tage[$tage_keys[$i]]);
             $this->pdf->Cell($SHADE_LBL[$i + 3], 4, $str, 0, 0, 'R', 1);
-            $this->pdf->SetXY($this->MARGIN_LEFT + $COL_LBL_X[$i + 3], $this->OFFSET_Y + $this->LINE_BREAK_ROW2ROW *1.2);
+            $this->pdf->SetXY($this->MARGIN_LEFT + $COL_LBL_X[$i + 3], $this->OFFSET_Y + $this->LINE_BREAK_ROW2ROW * 1.2);
             $str = $this->getRoundedRappen($sum_geld[$geld_keys[$i]]);
             $this->pdf->Cell($SHADE_LBL[$i + 3], 4, $str, 0, 0, 'R', 1);
         }
@@ -522,7 +521,7 @@ class SpesenStatistik extends PDF
         $this->pdf->SetFont($this->FONT, 'B', $this->FONT_SIZE_SMALL);
         for ($i = 0; $i < min(count($COL_LBL_X), count($COL_LBL)); $i++) {
             $this->pdf->SetXY($this->MARGIN_LEFT + $COL_LBL_X[$i], $this->OFFSET_Y);
-            $align ="L";
+            $align = "L";
             if ($i == 11) {
                 $align = "R";
             }
@@ -601,27 +600,29 @@ class SpesenStatistik extends PDF
 
     private function generateEmptyGeldOrTageArray()
     {
-        return array('arbeitstage'      => 0,
+        return array('arbeitstage' => 0,
             'arbeitsfreietage' => 0,
-            'krankheitstage'   => 0,
-            'ferientage'       => 0,
-            'urlaubstage'      => 0,
-            'fahrspesen'       => 0,
-            'arbeitskleider'   => 0,
+            'krankheitstage' => 0,
+            'ferientage' => 0,
+            'urlaubstage' => 0,
+            'fahrspesen' => 0,
+            'arbeitskleider' => 0,
             'ausserordentlich' => 0,
-            'sum'              => 0
+            'sum' => 0
         );
     }
 
-    private function getMeldeblaetterInPeriod($start_TS, $end_TS)
+    private function getMeldeblaetterInPeriod(Carbon $start_TS, Carbon $end_TS)
     {
         $query = ReportSheet::join('users', 'users.id', '=', 'report_sheets.user_id');
+
         if ($this->showOnlyDoneSheets) {
             $query = $query->where('report_sheets.state', '=', '3');
         }
+
         $result = $query
-            ->whereDate('report_sheets.start', '<=', date("Y-m-d", $end_TS))
-            ->whereDate('report_sheets.end', '>=', date("Y-m-d", $start_TS))
+            ->whereDate('report_sheets.start', '<=', $end_TS->format('Y-m-d'))
+            ->whereDate('report_sheets.end', '>=', $start_TS->format('Y-m-d'))
             ->orderBy('users.last_name')
             ->orderBy('users.first_name')
             ->orderBy('users.zdp')
@@ -666,45 +667,35 @@ class SpesenStatistik extends PDF
     private function getSpesenDetails($meldeblatt)
     {
 
-        $spesen = ReportSheet::getSpesen($meldeblatt);
+        $spesen = ReportSheet::findOrFail($meldeblatt);
 
         // Add first & last day to arbeitstage, since they are not considered yet in getSpesen.
-        $tage = array('arbeitstage' => $spesen['arbeitstage'] + $spesen['intFirstDays'] + $spesen['intLastDays'],
-            'arbeitsfreietage' => $spesen['arbeitsfreie_tage'],
-            'krankheitstage' => $spesen['krankheitstage'],
-            'ferientage' => $spesen['ferientage'],
-            'urlaubstage' => $spesen['urlaubstage'],
-            'arbeitskleider' => $spesen['arbeitstage'] + $spesen['intFirstDays'] + $spesen['intLastDays'] + $spesen['arbeitsfreie_tage'] + $spesen['krankheitstage'] + $spesen['ferientage']
+        $tage = array('arbeitstage' => $spesen->work + $spesen->first_day + $spesen->last_day,
+            'arbeitsfreietage' => $spesen->workfree + $spesen->additional_workfree,
+            'krankheitstage' => $spesen->ill,
+            'ferientage' => $spesen->holiday + $spesen->company_holiday_holiday,
+            'urlaubstage' => $spesen->vacation + $spesen->company_holiday_vacation,
+            'arbeitskleider' => $spesen->clothes_days
         );
 
-        $geld_arbeitstage = $spesen['arbeitstage']*$spesen['workday_sum'];
-        if ($spesen['firstday_sum'] != $spesen['workday_sum']) {
-            if (strtotime($spesen['meldeblaetter_start']) == strtotime($spesen['einsaetze_start'])) {
-                $geld_arbeitstage += $spesen['firstday_sum'];
-            }
-        }
-        if ($spesen['lastday_sum'] != $spesen['workday_sum']) {
-            if (strtotime($spesen['meldeblaetter_end']) == strtotime($spesen['einsaetze_end'])) {
-                $geld_arbeitstage += $spesen['lastday_sum'];
-            }
-        }
+        $geld_arbeitstage = $spesen->work_days_costs + $spesen->first_day_costs + $spesen->last_day_costs;
 
-        $geld = array('arbeitstage' => $this->getRoundedRappen($geld_arbeitstage),
-            'arbeitsfreietage' => $this->getRoundedRappen($spesen['arbeitsfreie_tage'] * $spesen['sparetime_sum']),
-            'krankheitstage' => $this->getRoundedRappen($spesen['krankheitstage'] * $spesen['sparetime_sum']),
-            'ferientage' => $this->getRoundedRappen($spesen['ferientage'] * $spesen['sparetime_sum']),
+        $geld = array('arbeitstage' => $this->getRoundedRappen($geld_arbeitstage / 100),
+            'arbeitsfreietage' => $this->getRoundedRappen($spesen->work_free_days_costs / 100),
+            'krankheitstage' => $this->getRoundedRappen($spesen->ill_days_costs / 100),
+            'ferientage' => $this->getRoundedRappen($spesen->holidays_costs / 100),
             'urlaubstage' => 0,
-            'fahrspesen' => $this->getRoundedRappen($spesen['meldeblaetter_fahrspesen']),
-            'arbeitskleider' => $this->getRoundedRappen($spesen['meldeblaetter_kleider']),
-            'ausserordentlich' => $this->getRoundedRappen($spesen['meldeblaetter_ausserordentlich'])
+            'fahrspesen' => $this->getRoundedRappen($spesen->driving_charges  / 100),
+            'arbeitskleider' => $this->getRoundedRappen($spesen->clothes / 100),
+            'ausserordentlich' => $this->getRoundedRappen($spesen->extraordinarily / 100)
         );
 
         $geld['sum'] = $geld['arbeitstage'] + $geld['arbeitsfreietage'] + $geld['krankheitstage']
             + $geld['ferientage'] + $geld['fahrspesen'] + $geld['arbeitskleider']
             + $geld['ausserordentlich'];
-        $tage['sum'] = $spesen['arbeitstage'] + $spesen['arbeitsfreie_tage'] + $spesen['urlaubstage'] + $spesen['ferientage'] + $spesen['krankheitstage'] + $spesen['intFirstDays'] + $spesen['intLastDays'];
+        $tage['sum'] = $tage['arbeitstage'] + $tage['arbeitsfreietage'] + $tage['urlaubstage'] + $tage['ferientage'] + $tage['krankheitstage'];
 
-        return(array('tage' => $tage, 'geld' => $geld));
+        return (array('tage' => $tage, 'geld' => $geld));
     }
 
     private function countMeldeblaetterOf($meldeblaetter, $ziviID)

@@ -3,7 +3,7 @@ import { ReportSheetWithProposedValues } from '../../types';
 import { FormView, FormViewProps } from '../../form/FormView';
 import { Field, FormikProps } from 'formik';
 import Form from 'reactstrap/lib/Form';
-import { CheckboxField, NumberField, SelectField, TextField } from '../../form/common';
+import { NumberField, SelectField, TextField } from '../../form/common';
 import { DatePickerField } from '../../form/DatePickerField';
 import { empty } from '../../utilities/helpers';
 import { SolidHorizontalRow } from '../../layout/SolidHorizontalRow';
@@ -16,6 +16,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { ReportSheetStore } from '../../stores/reportSheetStore';
 import { MainStore } from '../../stores/mainStore';
 import CurrencyField from '../../form/CurrencyField';
+import { CheckboxField } from '../../form/CheckboxField';
 
 type Props = {
   mainStore?: MainStore;

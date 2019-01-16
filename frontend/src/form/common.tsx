@@ -126,8 +126,6 @@ const SelectFieldWithValidation = ({ label, field, form, unit, required, multili
   );
 };
 
-export const CheckboxField = (props: InputFieldProps) => <InputFieldWithValidation type={'checkbox'} {...props} />;
-
 export const EmailField = (props: InputFieldProps) => <InputFieldWithValidation type={'email'} {...props} />;
 
 export const NumberField = (props: InputFieldProps) => <InputFieldWithValidation type={'number'} {...props} />;

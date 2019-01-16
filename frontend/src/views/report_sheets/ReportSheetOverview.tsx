@@ -6,15 +6,20 @@ import { ReportSheetStore } from '../../stores/reportSheetStore';
 import { Link } from 'react-router-dom';
 import { MainStore } from '../../stores/mainStore';
 import Button from 'reactstrap/lib/Button';
+import { ReportSheetStatisticFormDialog } from './ReportSheetStatisticFormDialog';
 
 interface Props {
   mainStore?: MainStore;
   reportSheetStore?: ReportSheetStore;
 }
 
+interface State {
+  modalOpen: boolean;
+}
+
 @inject('mainStore', 'reportSheetStore')
 @observer
-export class ReportSheetOverview extends React.Component<Props> {
+export class ReportSheetOverview extends React.Component<Props, State> {
   public columns: Array<Column<ReportSheet>>;
 
   constructor(props: Props) {
@@ -41,6 +46,14 @@ export class ReportSheetOverview extends React.Component<Props> {
         format: (r: ReportSheet) => this.props.mainStore!.formatDate(r.end),
       },
     ];
+
+    this.state = {
+      modalOpen: false,
+    };
+  }
+
+  protected toggle() {
+    this.setState({ modalOpen: !this.state.modalOpen });
   }
 
   public render() {
@@ -55,9 +68,11 @@ export class ReportSheetOverview extends React.Component<Props> {
           </>
         )}
       >
+        <Button onClick={() => this.toggle()}>Spesenstatistik generieren</Button> <br /> <br />
         <Button tag={Link} to={'/payments'}>
           Auszahlungen
         </Button>
+        <ReportSheetStatisticFormDialog isOpen={this.state.modalOpen} mainStore={this.props.mainStore!} toggle={() => this.toggle()} />
       </Overview>
     );
   }

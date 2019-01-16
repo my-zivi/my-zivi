@@ -30,7 +30,7 @@ class PDFController extends Controller
 
         $phoneList = new PhoneListPDF($validatedData['start'], $validatedData['end']);
 
-        $response =  response()->download($phoneList->createPDF(), 'phonelist.pdf')
+        $response = response()->download($phoneList->createPDF(), 'phonelist.pdf')
             ->deleteFileAfterSend(true);
         $response->headers->set("Content-Type", "application/pdf");
         $response->headers->set("Content-Disposition", "inline");
@@ -54,22 +54,23 @@ class PDFController extends Controller
 
     public function getSpesenStatistik(Request $request)
     {
-        $this->validate($request, [
-            'time_from' => 'date',
-            'time_to' => 'date',
-            'time_type' => 'integer',
-            'time_year' => 'integer',
-            'show_details' => 'boolean',
-            'show_only_done_sheets' => 'boolean',
+        // because we use a get request, the bool are sent as string, which ends up kinda ugly
+        $validatedData = $this->validate($request, [
+            'date_from' => 'required|date',
+            'date_to' => 'required|date',
+            'time_type' => 'required|integer',
+            'detail_view' => 'required|string',
+            'only_done_sheets' => 'required|string',
+            'year' => 'required|integer',
         ]);
 
         $statistik = new SpesenStatistik(
-            Input::get("show_only_done_sheets"),
-            Input::get("show_details"),
-            Input::get("time_type"),
-            strtotime(Input::get("time_from")),
-            strtotime(Input::get("time_to")),
-            Input::get("time_year")
+            $validatedData['only_done_sheets'] === 'true',
+            $validatedData['detail_view'] === 'true',
+            $validatedData['time_type'],
+            $validatedData['date_from'],
+            $validatedData['date_to'],
+            $validatedData['year']
         );
 
         $response = response()->download($statistik->createPDF(), 'statistik.pdf')
@@ -85,7 +86,7 @@ class PDFController extends Controller
 
         //Allow only admins to get reportSheets of other Users
         $user = Auth::user();
-        if (!$user->isAdmin() && $user->id!=$aufgebot->getUserId()) {
+        if (!$user->isAdmin() && $user->id != $aufgebot->getUserId()) {
             return response("unauthorized", 401);
         }
 
