@@ -28,12 +28,12 @@ export class ReportSheetOverview extends React.Component<Props, State> {
       {
         id: 'zdp',
         label: 'ZDP',
-        format: (r: ReportSheet) => <>{String(r.user.zdp)}</>,
+        format: (r: ReportSheet) => String(r.user.zdp),
       },
       {
         id: 'first_name',
         label: 'Name',
-        format: (r: ReportSheet) => <>{`${r.user.first_name} ${r.user.last_name}`}</>,
+        format: (r: ReportSheet) => `${r.user.first_name} ${r.user.last_name}`,
       },
       {
         id: 'start',
@@ -69,9 +69,6 @@ export class ReportSheetOverview extends React.Component<Props, State> {
         )}
       >
         <Button onClick={() => this.toggle()}>Spesenstatistik generieren</Button> <br /> <br />
-        <Button tag={Link} to={'/payments'}>
-          Auszahlungen
-        </Button>
         <ReportSheetStatisticFormDialog isOpen={this.state.modalOpen} mainStore={this.props.mainStore!} toggle={() => this.toggle()} />
       </Overview>
     );
