@@ -118,10 +118,10 @@
     "@sentry/types" "4.4.2"
     tslib "^1.9.3"
 
-"@types/classnames@^2.2.6":
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.6.tgz#dbe8a666156d556ed018e15a4c65f08937c3f628"
-  integrity sha512-XHcYvVdbtAxVstjKxuULYqYaWIzHR15yr1pZj4fnGChuBVJlIAp9StJna0ZJNSgxPh4Nac2FL4JM3M11Tm6fqQ==
+"@types/classnames@^2.2.7":
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.7.tgz#fb68cc9be8487e6ea5b13700e759bfbab7e0fefd"
+  integrity sha512-rzOhiQ55WzAiFgXRtitP/ZUT8iVNyllEpylJ5zHzR4vArUvMB39GTk+Zon/uAM0JxEFAWnwsxC2gH8s+tZ3Myg==
 
 "@types/history@*":
   version "4.7.2"
@@ -229,10 +229,10 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/reactstrap@^6.4.3":
-  version "6.4.3"
-  resolved "https://registry.yarnpkg.com/@types/reactstrap/-/reactstrap-6.4.3.tgz#b6e1a0944d876726c76c5cb74c48bef02e56b4f9"
-  integrity sha512-+L26oBxuQRfGCbnWiyzY/u7wZl0pZRMjBnOuQpA1XegD/g3/wc9lDL+14hnWUIaJ/vacEQDrDIEOByGLmtIohg==
+"@types/reactstrap@^6.4.4":
+  version "6.4.4"
+  resolved "https://registry.yarnpkg.com/@types/reactstrap/-/reactstrap-6.4.4.tgz#a3a87b81ea295596d8c7a0106f54b0dd9cfce647"
+  integrity sha512-UlR5HIitjdbce/+INRwvqq6UZEjpB0hCnbTBalZbTCLGKqWQDZcCxsy5+R/IJFb+Hv6zmGsz6TlDwnikK9D7IQ==
   dependencies:
     "@types/react" "*"
     popper.js "^1.14.1"
