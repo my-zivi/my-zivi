@@ -39,6 +39,11 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
             $router->post('/', ['uses' => 'MissionController@post']);
         });
 
+        $router->group(['prefix' => 'mission_days'], function () use ($router) {
+            $router->get('/eligible_days', ['uses' => 'MissionDayController@eligibleDays']);
+            $router->get('/possible_end_date', ['uses' => 'MissionDayController@possibleEndDate']);
+        });
+
         $router->group(['prefix' => 'regional_centers'], function () use ($router) {
             $router->get('/', ['uses' => 'RegionalCenterController@index']);
         });
@@ -64,24 +69,6 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
 
         $router->group(['prefix' => 'user_feedback_questions'], function () use ($router) {
             $router->get('/', ['uses' => 'FeedbackController@index']);
-        });
-
-        // TODO Hook diensttage and diensttageEnd into separate CalcController (from #78)
-        // Service days - Authenticated
-        $router->get('/diensttage', function () {
-            $start = Input::get("start", "");
-            $end = Input::get("end", "");
-            $long_mission = Input::get("long_mission", false);
-
-            return response()->json(ReportSheet::getDiensttageCount($start, $end, $long_mission));
-        });
-
-        $router->get('/diensttageEndDate', function () {
-            $start = Input::get("start", "");
-            $days = Input::get("days", "0");
-            $long_mission = Input::get("long_mission", false);
-
-            return response()->json(ReportSheet::getDiensttageEndDate($start, $days, $long_mission));
         });
 
         // Admins only

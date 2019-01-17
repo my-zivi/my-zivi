@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\ReportSheet;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,9 +32,9 @@ class ReportSheetController extends Controller
                 ->get();
 
             // Add calculated column days
-            foreach ($reportSheets as $reportSheet) {
-                $reportSheet['days'] = ReportSheet::getDiensttageCount($reportSheet->start, $reportSheet->end);
-            }
+            $reportSheets->each(function ($r) {
+                $r->append('duration');
+            });
 
             return $reportSheets;
         } else {
