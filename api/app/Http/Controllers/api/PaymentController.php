@@ -29,7 +29,13 @@ class PaymentController extends Controller
 
     public function get($id)
     {
-        return Payment::with(['payment_entries', 'payment_entries.user', 'payment_entries.report_sheet'])->findOrFail($id);
+        $payment = Payment::with(['payment_entries', 'payment_entries.user', 'payment_entries.report_sheet'])->findOrFail($id);
+
+        $payment->payment_entries->each(function ($pe) {
+            $pe->report_sheet->append('total_costs');
+        });
+
+        return $payment;
     }
 
     public function index()

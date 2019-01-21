@@ -89,7 +89,7 @@ export class PaymentOverview extends React.Component<Props, State> {
     };
   }
 
-  public componentWillMount(): void {
+  public componentDidMount(): void {
     Promise.all([this.props.paymentStore!.fetchAll(), this.props.reportSheetStore!.fetchToBePaidAll()]).then(() => {
       this.setState({ loading: false });
     });
@@ -98,11 +98,11 @@ export class PaymentOverview extends React.Component<Props, State> {
   public render() {
     return (
       <IziviContent card loading={this.state.loading} title={'Auszahlungen'}>
-        {this.props.reportSheetStore!.reportSheets.length > 0 ? (
+        {this.props.reportSheetStore!.toBePaidReportSheets.length > 0 ? (
           <>
             <OverviewTable
               columns={this.reportSheetColumns}
-              data={this.props.reportSheetStore!.reportSheets}
+              data={this.props.reportSheetStore!.toBePaidReportSheets}
               renderActions={(r: ReportSheet) => <Link to={'/report_sheets/' + r.id}>Spesenblatt</Link>}
             />
             <Button color={'primary'}>Zahlungsdatei generieren (TODO)</Button>

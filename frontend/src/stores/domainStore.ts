@@ -30,9 +30,9 @@ export class DomainStore<T, OverviewType = T> {
   public filter: () => void;
 
   @action
-  public async fetchAll() {
+  public async fetchAll(params: object = {}) {
     try {
-      await this.doFetchAll();
+      await this.doFetchAll(params);
     } catch (e) {
       this.mainStore.displayError(`${this.entityName.plural} konnten nicht geladen werden.`);
       console.error(e);
@@ -40,7 +40,7 @@ export class DomainStore<T, OverviewType = T> {
     }
   }
 
-  protected async doFetchAll() {
+  protected async doFetchAll(params: object = {}) {
     throw new Error('Not implemented');
   }
 

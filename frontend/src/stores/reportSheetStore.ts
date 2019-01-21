@@ -2,10 +2,9 @@
 import { action, computed, observable } from 'mobx';
 import { MainStore } from './mainStore';
 import { DomainStore } from './domainStore';
-import { ReportSheet } from '../types';
-import { AxiosResponse } from 'axios';
+import { ReportSheet, ReportSheetListing } from '../types';
 
-export class ReportSheetStore extends DomainStore<ReportSheet> {
+export class ReportSheetStore extends DomainStore<ReportSheet, ReportSheetListing> {
   protected get entityName() {
     return {
       singular: 'Das Spesenblatt',
@@ -14,7 +13,7 @@ export class ReportSheetStore extends DomainStore<ReportSheet> {
   }
 
   @computed
-  get entities(): Array<ReportSheet> {
+  get entities(): Array<ReportSheetListing> {
     return this.reportSheets;
   }
 
@@ -28,7 +27,10 @@ export class ReportSheetStore extends DomainStore<ReportSheet> {
   }
 
   @observable
-  public reportSheets: ReportSheet[] = [];
+  public toBePaidReportSheets: ReportSheet[] = [];
+
+  @observable
+  public reportSheets: ReportSheetListing[] = [];
 
   @observable
   public reportSheet?: ReportSheet;
@@ -41,8 +43,8 @@ export class ReportSheetStore extends DomainStore<ReportSheet> {
     await this.mainStore.api.delete('/report_sheets/' + id);
   }
 
-  protected async doFetchAll(): Promise<void> {
-    const res = await this.mainStore.api.get<ReportSheet[]>('/report_sheets');
+  protected async doFetchAll(params: object = {}): Promise<void> {
+    const res = await this.mainStore.api.get<ReportSheetListing[]>('/report_sheets', { params: { ...params } });
     this.reportSheets = res.data;
   }
 
@@ -54,10 +56,9 @@ export class ReportSheetStore extends DomainStore<ReportSheet> {
   @action
   public async fetchToBePaidAll(): Promise<void> {
     try {
-      this.reportSheets = [];
-      await this.mainStore.api.get<ReportSheet[]>('/report_sheets').then((response: AxiosResponse<ReportSheet[]>) => {
-        this.reportSheets = response.data.filter((r: ReportSheet) => r.state === 1);
-      });
+      this.toBePaidReportSheets = [];
+      const response = await this.mainStore.api.get<ReportSheet[]>('/report_sheets', { params: { state: 'ready_for_payment' } });
+      this.toBePaidReportSheets = response.data;
     } catch (e) {
       this.mainStore.displayError(`${this.entityName.plural} konnten nicht geladen werden.`);
       console.error(e);

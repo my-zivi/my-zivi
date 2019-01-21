@@ -70,6 +70,16 @@ export interface ReportSheetWithProposedValues extends ReportSheet {
   proposed_values: ProposedReportSheetValues;
 }
 
+export interface ReportSheetListing {
+  id: number;
+  end: string;
+  first_name: string;
+  last_name: string;
+  start: string;
+  state: number;
+  zdp: number;
+}
+
 export interface Specification {
   id?: number;
   name: string;

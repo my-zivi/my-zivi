@@ -7,6 +7,7 @@ use App\ReportSheet;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class ReportSheetController extends Controller
 {
@@ -21,7 +22,7 @@ class ReportSheetController extends Controller
         return ReportSheet::with('mission', 'mission.specification', 'user')->findOrFail($id)->append(['duration', 'proposed_values', 'total_costs']);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         if (!Auth::user()->isAdmin()) {
             // TODO Improve this piece by using Auth::user->report_sheets, then use the Laravel Collection where and select functions
@@ -38,10 +39,28 @@ class ReportSheetController extends Controller
 
             return $reportSheets;
         } else {
-            return ReportSheet::with('user')
+            $validatedData = $this->validate($request, [
+                'state' => [ Rule::in(['current', 'pending', 'ready_for_payment']), ]
+            ]);
+
+            if (!empty($validatedData['state']) && $validatedData['state'] === 'ready_for_payment') {
+                return ReportSheet::with('user')->where('state', '=', 1)->get()->each->append('total_costs');
+            }
+
+            $builder = ReportSheet::join('users', 'users.id', '=', 'report_sheets.user_id')
                 ->orderBy('start', 'desc')
-                ->orderBy('end', 'desc')
-                ->get();
+                ->orderBy('end', 'desc');
+
+
+            if (!empty($validatedData['state'])) {
+                if ($validatedData['state'] === 'pending') {
+                    $builder = $builder->where('report_sheets.state', '!=', 3);
+                } elseif ($validatedData['state'] === 'current') {
+                    $builder = $builder->where('report_sheets.state', '=', 0);
+                }
+            }
+
+            return $builder->get([ 'end', 'users.first_name as first_name', 'report_sheets.id as id', 'users.last_name as last_name', 'start', 'users.zdp as zdp']);
         }
     }
 

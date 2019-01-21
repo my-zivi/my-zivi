@@ -75,6 +75,82 @@ class ReportSheetControllerTest extends \TestCase
         $this->assertCount(ReportSheet::all()->count(), $this->responseToArray());
     }
 
+    public function testIndexAsAdminCurrentFilter()
+    {
+        factory(ReportSheet::class, 5)->create([
+            'state' => 3
+        ]);
+
+        factory(ReportSheet::class, 5)->create([
+            'state' => 2
+        ]);
+
+        factory(ReportSheet::class, 5)->create([
+            'state' => 1
+        ]);
+
+        factory(ReportSheet::class, 5)->create([
+            'state' => 0
+        ]);
+
+        $this->asAdmin()->json('GET', 'api/report_sheets', [
+            'state' => 'current'
+        ])->assertResponseOk();
+        $this->assertCount(5, $this->responseToArray());
+    }
+
+    public function testIndexAsAdminPendingFilter()
+    {
+        factory(ReportSheet::class, 5)->create([
+            'state' => 3
+        ]);
+
+        factory(ReportSheet::class, 5)->create([
+            'state' => 2
+        ]);
+
+        factory(ReportSheet::class, 5)->create([
+            'state' => 1
+        ]);
+
+        factory(ReportSheet::class, 5)->create([
+            'state' => 0
+        ]);
+
+        $this->asAdmin()->json('GET', 'api/report_sheets', [
+            'state' => 'pending'
+        ])->assertResponseOk();
+        $this->assertCount(15, $this->responseToArray());
+    }
+
+    public function testIndexAsAdminReadyForPaymentFilter()
+    {
+        factory(ReportSheet::class, 5)->create([
+            'state' => 3
+        ]);
+
+        factory(ReportSheet::class, 5)->create([
+            'state' => 2
+        ]);
+
+        factory(ReportSheet::class, 5)->create([
+            'state' => 1
+        ]);
+
+        factory(ReportSheet::class, 5)->create([
+            'state' => 0
+        ]);
+
+        $this->asAdmin()->json('GET', 'api/report_sheets', [
+            'state' => 'ready_for_payment'
+        ])->assertResponseOk();
+        $response = $this->responseToArray();
+
+        $this->assertCount(5, $response);
+        $this->assertArrayHasKey('user', $response[0]);
+        $this->assertArrayHasKey('total_costs', $response[0]);
+    }
+
     public function testPutAsUser()
     {
         $reportSheet = factory(ReportSheet::class)->create()->toArray();
