@@ -7,12 +7,13 @@ import { RouteComponentProps } from 'react-router';
 import { apiDate } from '../utilities/validationHelpers';
 import * as yup from 'yup';
 import moment from 'moment';
-import { FormikActions, Formik, Field } from 'formik';
+import { FormikActions, Formik } from 'formik';
 import { DatePickerField } from 'src/form/DatePickerField';
 import Form from 'reactstrap/lib/Form';
 import Button from 'reactstrap/lib/Button';
 import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
+import { WiredField } from '../form/formik';
 
 const phonelistSchema = yup.object({
   date_from: apiDate().required(),
@@ -70,8 +71,8 @@ export class PhoneListView extends React.Component<Props> {
             <Form>
               <Row>
                 <Col xs="12">
-                  <Field horizontal component={DatePickerField} label={'Anfang'} name={'date_from'} />
-                  <Field horizontal component={DatePickerField} label={'Ende'} name={'date_to'} />
+                  <WiredField horizontal component={DatePickerField} label={'Anfang'} name={'date_from'} />
+                  <WiredField horizontal component={DatePickerField} label={'Ende'} name={'date_to'} />
                 </Col>
               </Row>
               <Row>

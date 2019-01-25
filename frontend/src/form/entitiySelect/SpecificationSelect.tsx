@@ -2,9 +2,8 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import Input from 'reactstrap/lib/Input';
 import { SpecificationStore } from 'src/stores/specificationStore';
-import { FieldProps } from 'formik';
 import Label from 'reactstrap/lib/Label';
-import { withColumn } from '../common';
+import { IziviCustomFieldProps, withColumn } from '../common';
 import FormGroup from 'reactstrap/lib/FormGroup';
 import { Specification } from 'src/types';
 
@@ -13,7 +12,7 @@ type Props = {
   label?: string;
   required?: boolean;
   horizontal?: boolean;
-} & FieldProps;
+} & IziviCustomFieldProps<string>;
 
 @inject('specificationStore')
 @observer
@@ -28,11 +27,11 @@ export class SpecificationSelect extends React.Component<Props> {
   }
 
   public render() {
-    const { field, label, horizontal, required } = this.props;
+    const { name, value, onChange, label, horizontal, required } = this.props;
 
     const SpecificationSelectInner = () => (
-      <Input {...field} type={'select'}>
-        <option value="" key="-1" />
+      <Input value={value} onChange={e => onChange(e.target.value)} type={'select'}>
+        <option value="" />
         {this.options.map(option => (
           <option value={option.value} key={option.value}>
             {option.label}
@@ -43,7 +42,7 @@ export class SpecificationSelect extends React.Component<Props> {
 
     return (
       <FormGroup row={horizontal}>
-        <Label for={field.name} md={horizontal ? 3 : undefined}>
+        <Label for={name} md={horizontal ? 3 : undefined}>
           {label} {required && '*'}
         </Label>
         {horizontal && withColumn()(<SpecificationSelectInner />)}

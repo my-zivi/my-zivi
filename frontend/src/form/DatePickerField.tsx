@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormProps, ValidatedFormGroupWithLabel } from './common';
+import { IziviCustomFieldProps, IziviFormControl } from './common';
 import injectSheet, { WithSheet } from 'react-jss';
 import { DateTimePicker } from 'react-widgets';
 import createStyles from 'src/utilities/createStyles';
@@ -13,14 +13,12 @@ const datePickerStyle = () =>
     },
   });
 
-export type DateTimePickerFieldProps = FormProps & {
+export type DateTimePickerFieldProps = IziviCustomFieldProps<Date | undefined> & {
   label: string;
   required?: boolean;
-  onChange?: (date?: Date) => void;
   time?: boolean;
   editFormat?: string;
   format?: string;
-  value: Date;
   delayed?: boolean;
   disabled?: boolean;
 } & WithSheet<typeof datePickerStyle>;
@@ -39,15 +37,19 @@ const DatePickerDefaults = (props: DatePickerDefaultProps) => (
   <DateTimePicker time={false} editFormat={'DD.MM.YYYY'} format={'DD.MM.YYYY'} {...props} />
 );
 
-const DateTimePickerFieldWithValidationInner = ({ label, field, form, required, horizontal, ...rest }: DateTimePickerFieldProps) => (
+const DateTimePickerFieldWithValidationInner = ({
+  label,
+  value,
+  onChange,
+  required,
+  horizontal,
+  errorMessage,
+  ...rest
+}: DateTimePickerFieldProps) => (
   <span className={rest.classes.tableFix}>
-    <ValidatedFormGroupWithLabel label={label} field={field} form={form} required={required} horizontal={horizontal}>
-      <DatePickerDefaults
-        onChange={(date?: Date) => form.setFieldValue(field.name, date)}
-        value={field.value !== null ? new Date(field.value) : null}
-        {...rest}
-      />
-    </ValidatedFormGroupWithLabel>
+    <IziviFormControl label={label} required={required} horizontal={horizontal} errorMessage={errorMessage}>
+      <DatePickerDefaults onChange={(date?: Date) => onChange(date)} value={value ? new Date(value) : undefined} {...rest} />
+    </IziviFormControl>
   </span>
 );
 const DateTimePickerFieldWithValidation = injectSheet(datePickerStyle)(DateTimePickerFieldWithValidationInner);

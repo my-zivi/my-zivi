@@ -2,13 +2,14 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { ApiStore } from '../stores/apiStore';
 import { RouteComponentProps } from 'react-router';
-import { Field, Formik, FormikActions } from 'formik';
+import { Formik, FormikActions } from 'formik';
 import Form from 'reactstrap/lib/Form';
 import Button from 'reactstrap/lib/Button';
 import * as yup from 'yup';
 import { TextField } from '../form/common';
 import IziviContent from '../layout/IziviContent';
 import { MainStore } from '../stores/mainStore';
+import { WiredField } from '../form/formik';
 
 const forgotSchema = yup.object({
   email: yup
@@ -63,7 +64,7 @@ export class ForgotPassword extends React.Component<Props> {
                   Sie haben eine E-Mail mit einem Link zum Passwort-Reset erhalten.
                 </div>
               )}
-              <Field component={TextField} name={'email'} label={'Email'} placeholder={'zivi@example.org'} />
+              <WiredField component={TextField} name={'email'} label={'Email'} placeholder={'zivi@example.org'} />
               <Button color={'primary'} disabled={formikProps.isSubmitting} onClick={formikProps.submitForm}>
                 Weiter
               </Button>

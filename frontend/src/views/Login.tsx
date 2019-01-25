@@ -3,13 +3,14 @@ import { inject, observer } from 'mobx-react';
 import { ApiStore } from '../stores/apiStore';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Field, Formik, FormikActions } from 'formik';
+import { Formik, FormikActions } from 'formik';
 import Form from 'reactstrap/lib/Form';
 import Button from 'reactstrap/lib/Button';
 import * as yup from 'yup';
 import { PasswordField, TextField } from '../form/common';
 import IziviContent from '../layout/IziviContent';
 import { MainStore } from '../stores/mainStore';
+import { WiredField } from '../form/formik';
 
 const loginSchema = yup.object({
   email: yup
@@ -80,8 +81,8 @@ export class Login extends React.Component<Props> {
           render={formikProps => (
             <Form onSubmit={formikProps.handleSubmit}>
               <h2 className="form-signin-heading">Anmelden</h2>
-              <Field component={TextField} name={'email'} label={'Email'} placeholder={'zivi@example.org'} />
-              <Field component={PasswordField} name={'password'} label={'Passwort'} placeholder={'****'} />
+              <WiredField component={TextField} name={'email'} label={'Email'} placeholder={'zivi@example.org'} />
+              <WiredField component={PasswordField} name={'password'} label={'Passwort'} placeholder={'****'} />
               <Button color={'primary'} disabled={formikProps.isSubmitting} onClick={formikProps.submitForm}>
                 Anmelden
               </Button>

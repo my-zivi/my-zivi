@@ -123,7 +123,7 @@ class MissionSubformInner extends React.Component<Props, MissionSubformState> {
                   </Button>
                   <MissionModal
                     onSubmit={(mission: Mission) =>
-                      missionStore!.put(mission).then(() => {
+                      missionStore!.put(missionSchema.cast(mission)).then(() => {
                         userStore!.fetchOne(m.user_id);
                       })
                     }

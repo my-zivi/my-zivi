@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { ErrorMessage, FieldProps } from 'formik';
 import Input, { InputType } from 'reactstrap/lib/Input';
 import FormGroup from 'reactstrap/lib/FormGroup';
 import Label from 'reactstrap/lib/Label';
@@ -9,33 +8,43 @@ import Col from 'reactstrap/lib/Col';
 import InputGroup from 'reactstrap/lib/InputGroup';
 import InputGroupAddon from 'reactstrap/lib/InputGroupAddon';
 
-export type FormProps = {
+export interface SharedProps {
   label?: string;
   required?: boolean;
   multiline?: boolean;
   horizontal?: boolean;
   appendedLabels?: string[];
-} & FieldProps;
+  errorMessage?: string;
+  name?: string;
+}
 
-type FormPropsWithChildren = {
-  children: ReactElement<any>; //tslint:disable-line:no-any
-} & FormProps;
+export interface IziviFormControlProps extends SharedProps {
+  children: React.ReactElement<any>;
+  errorMessage?: string;
+}
 
-export type InputFieldProps = {
-  type: InputType;
-  unit?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value?: string;
-  delayed?: boolean;
+export interface IziviFieldProps extends SharedProps {
+  type?: InputType;
   disabled?: boolean;
-} & FormProps;
+  onBlur?: () => void;
+}
 
 export type SelectFieldProps = {
   options: Array<{
     id: string;
     name: string;
   }>;
-} & InputFieldProps;
+} & IziviInputFieldProps;
+
+export interface IziviInputFieldProps<T = string> extends IziviFieldProps {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value: T;
+}
+
+export interface IziviCustomFieldProps<T, OutputValue = T> extends IziviFieldProps {
+  value: T;
+  onChange: (value: OutputValue) => void;
+}
 
 interface ClonedFieldProps {
   children: ReactElement<any>; //tslint:disable-line:no-any
@@ -57,23 +66,14 @@ export const withColumn = () => (wrappedComponent: React.ReactNode) => <Col md={
 
 const ClonedField = ({ children, invalid }: ClonedFieldProps) => React.cloneElement(children, { invalid });
 
-export const ValidatedFormGroupWithLabel = ({
-  label,
-  field,
-  form: { touched, errors },
-  children,
-  required,
-  horizontal,
-  appendedLabels,
-}: FormPropsWithChildren) => {
-  const hasErrors: boolean = !!errors[field.name] && !!touched[field.name];
-  const clonedField = <ClonedField children={children} invalid={hasErrors} />;
+export const IziviFormControl = ({ label, children, required, horizontal, appendedLabels, name, errorMessage }: IziviFormControlProps) => {
+  const clonedField = <ClonedField children={children} invalid={Boolean(errorMessage)} />;
   const labels = Boolean(appendedLabels) ? appendedLabels : [];
 
   return (
     <FormGroup row={horizontal}>
       {label && (
-        <Label for={field.name} md={horizontal ? 3 : undefined}>
+        <Label for={name} md={horizontal ? 3 : undefined}>
           {label} {required && '*'}
         </Label>
       )}
@@ -82,58 +82,50 @@ export const ValidatedFormGroupWithLabel = ({
       {labels!.length <= 0 && horizontal && withColumn()(clonedField)}
       {labels!.length <= 0 && !horizontal && clonedField}
 
-      <ErrorMessage name={field.name} render={error => <FormFeedback valid={false}>{error}</FormFeedback>} />
+      {errorMessage && <FormFeedback valid={false}>{errorMessage}</FormFeedback>}
     </FormGroup>
   );
 };
 
-export const InputFieldWithValidation = ({
+export const IziviInputField = ({
   label,
-  field,
-  form,
-  unit,
   required,
   multiline,
   horizontal,
   appendedLabels,
+  value,
+  errorMessage,
   ...rest
-}: InputFieldProps) => {
+}: IziviInputFieldProps & Partial<IziviFormControlProps>) => {
   return (
-    <ValidatedFormGroupWithLabel
-      label={label}
-      field={field}
-      form={form}
-      required={required}
-      horizontal={horizontal}
-      appendedLabels={appendedLabels}
-    >
-      <Input {...field} value={field.value === null ? '' : field.value} {...rest} type={multiline ? 'textarea' : rest.type} />
-    </ValidatedFormGroupWithLabel>
+    <IziviFormControl label={label} required={required} horizontal={horizontal} appendedLabels={appendedLabels} errorMessage={errorMessage}>
+      <Input value={value === null ? '' : value} {...rest} type={multiline ? 'textarea' : rest.type} />
+    </IziviFormControl>
   );
 };
 
-const SelectFieldWithValidation = ({ label, field, form, unit, required, multiline, options, horizontal, ...rest }: SelectFieldProps) => {
+const SelectFieldWithValidation = ({ label, required, multiline, options, horizontal, value, errorMessage, ...rest }: SelectFieldProps) => {
   return (
-    <ValidatedFormGroupWithLabel label={label} field={field} form={form} required={required} horizontal={horizontal}>
-      <Input {...field} value={field.value === null ? '' : field.value} {...rest}>
+    <IziviFormControl label={label} required={required} horizontal={horizontal} errorMessage={errorMessage}>
+      <Input value={value === null ? '' : value} {...rest}>
         {options.map(option => (
           <option value={option.id} key={option.id}>
             {option.name}
           </option>
         ))}
       </Input>
-    </ValidatedFormGroupWithLabel>
+    </IziviFormControl>
   );
 };
 
-export const EmailField = (props: InputFieldProps) => <InputFieldWithValidation type={'email'} {...props} />;
+export const EmailField = (props: IziviInputFieldProps) => <IziviInputField type={'email'} {...props} />;
 
-export const NumberField = (props: InputFieldProps) => <InputFieldWithValidation type={'number'} {...props} />;
+export const NumberField = (props: IziviInputFieldProps) => <IziviInputField type={'number'} {...props} />;
 
-export const PasswordField = (props: InputFieldProps) => <InputFieldWithValidation type={'password'} {...props} />;
+export const PasswordField = (props: IziviInputFieldProps) => <IziviInputField type={'password'} {...props} />;
 
-export const TextField = (props: InputFieldProps & { multiline?: boolean }) => <InputFieldWithValidation type={'text'} {...props} />;
+export const TextField = (props: IziviInputFieldProps & { multiline?: boolean }) => <IziviInputField type={'text'} {...props} />;
 
-export const DateField = (props: InputFieldProps) => <InputFieldWithValidation type={'date'} {...props} />;
+export const DateField = (props: IziviInputFieldProps) => <IziviInputField type={'date'} {...props} />;
 
 export const SelectField = (props: SelectFieldProps) => <SelectFieldWithValidation type={'select'} {...props} />;

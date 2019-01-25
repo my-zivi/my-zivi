@@ -3,12 +3,13 @@ import Modal from 'reactstrap/lib/Modal';
 import ModalBody from 'reactstrap/lib/ModalBody';
 import ModalFooter from 'reactstrap/lib/ModalFooter';
 import { Button, ModalHeader } from 'reactstrap';
-import { Field, Formik } from 'formik';
+import { Formik } from 'formik';
 import { SelectField } from '../../form/common';
 import moment from 'moment';
 import { MainStore } from '../../stores/mainStore';
 import { CheckboxField } from '../../form/CheckboxField';
 import { DatePickerField } from '../../form/DatePickerField';
+import { WiredField } from '../../form/formik';
 
 const yearOptions = () => {
   const listOfYears = [];
@@ -54,7 +55,7 @@ export class ReportSheetStatisticFormDialog extends React.Component<Props> {
           render={formikProps => (
             <>
               <ModalBody>
-                <Field
+                <WiredField
                   horizontal
                   component={SelectField}
                   name={'time_type'}
@@ -73,19 +74,19 @@ export class ReportSheetStatisticFormDialog extends React.Component<Props> {
                 />
 
                 {formikProps.values.time_type === '0' && (
-                  <Field horizontal component={SelectField} name={'year'} options={yearOptions()} label={'Jahr'} />
+                  <WiredField horizontal component={SelectField} name={'year'} options={yearOptions()} label={'Jahr'} />
                 )}
 
                 {formikProps.values.time_type === '1' && (
                   <>
-                    <Field horizontal component={DatePickerField} name={'date_from'} label={'Start'} />
-                    <Field horizontal component={DatePickerField} name={'date_to'} label={'Ende'} />
+                    <WiredField horizontal component={DatePickerField} name={'date_from'} label={'Start'} />
+                    <WiredField horizontal component={DatePickerField} name={'date_to'} label={'Ende'} />
                   </>
                 )}
 
-                <Field component={CheckboxField} name={'only_done_sheets'} label={'Nur erledigte Spesenblätter anzeigen?'} />
+                <WiredField component={CheckboxField} name={'only_done_sheets'} label={'Nur erledigte Spesenblätter anzeigen?'} />
 
-                <Field component={CheckboxField} name={'detail_view'} label={'Detaillierte Ansicht anzeigen?'} />
+                <WiredField component={CheckboxField} name={'detail_view'} label={'Detaillierte Ansicht anzeigen?'} />
               </ModalBody>
 
               <ModalFooter>

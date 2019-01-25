@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ReportSheetWithProposedValues } from '../../types';
 import { FormView, FormViewProps } from '../../form/FormView';
-import { Field, FormikProps } from 'formik';
+import { FormikProps } from 'formik';
 import Form from 'reactstrap/lib/Form';
 import { NumberField, SelectField, TextField } from '../../form/common';
 import { DatePickerField } from '../../form/DatePickerField';
@@ -17,6 +17,7 @@ import { ReportSheetStore } from '../../stores/reportSheetStore';
 import { MainStore } from '../../stores/mainStore';
 import CurrencyField from '../../form/CurrencyField';
 import { CheckboxField } from '../../form/CheckboxField';
+import { WiredField } from '../../form/formik';
 
 type Props = {
   mainStore?: MainStore;
@@ -41,33 +42,39 @@ class ReportSheetFormInner extends React.Component<Props> {
         validationSchema={reportSheetSchema}
         render={(formikProps: FormikProps<ReportSheetWithProposedValues>) => (
           <Form>
-            <Field disabled horizontal component={TextField} name={'mission.specification.name'} label={'Pflichtenheft'} />
-            <Field disabled horizontal component={DatePickerField} name={'mission.start'} label={'Beginn Einsatz'} />
-            <Field disabled horizontal component={DatePickerField} name={'mission.end'} label={'Ende Einsatz'} />
+            <WiredField disabled horizontal component={TextField} name={'mission.specification.name'} label={'Pflichtenheft'} />
+            <WiredField disabled horizontal component={DatePickerField} name={'mission.start'} label={'Beginn Einsatz'} />
+            <WiredField disabled horizontal component={DatePickerField} name={'mission.end'} label={'Ende Einsatz'} />
 
-            <Field horizontal component={DatePickerField} name={'start'} label={'Start Spesenblattperiode'} />
-            <Field horizontal component={DatePickerField} name={'end'} label={'Ende Spesenblattperiode'} />
+            <WiredField horizontal component={DatePickerField} name={'start'} label={'Start Spesenblattperiode'} />
+            <WiredField horizontal component={DatePickerField} name={'end'} label={'Ende Spesenblattperiode'} />
 
-            <Field disabled horizontal component={NumberField} name={'mission.eligible_holiday'} label={'Ferienanspruch für Einsatz'} />
-            <Field disabled horizontal component={NumberField} name={'duration'} label={'Dauer Spesenblattperiode'} />
+            <WiredField
+              disabled
+              horizontal
+              component={NumberField}
+              name={'mission.eligible_holiday'}
+              label={'Ferienanspruch für Einsatz'}
+            />
+            <WiredField disabled horizontal component={NumberField} name={'duration'} label={'Dauer Spesenblattperiode'} />
 
             <SolidHorizontalRow />
 
-            <Field
+            <WiredField
               horizontal
               appendedLabels={[`Vorschlag: ${reportSheet.proposed_values.workdays} Tage`]}
               component={NumberField}
               name={'work'}
               label={'Gearbeitet'}
             />
-            <Field
+            <WiredField
               horizontal
               appendedLabels={[`Vorschlag: ${reportSheet.proposed_values.work_free_days} Tage`]}
               component={NumberField}
               name={'workfree'}
               label={'Arbeitsfrei'}
             />
-            <Field
+            <WiredField
               horizontal
               appendedLabels={[`Übriges Guthaben: ${reportSheet.proposed_values.illness_days_left} Tage`]}
               component={NumberField}
@@ -77,19 +84,19 @@ class ReportSheetFormInner extends React.Component<Props> {
 
             <SolidHorizontalRow />
 
-            <Field horizontal component={NumberField} name={'additional_workfree'} label={'Zusätzlich arbeitsfrei'} />
-            <Field horizontal component={TextField} name={'additional_workfree_comment'} label={'Bemerkung'} />
+            <WiredField horizontal component={NumberField} name={'additional_workfree'} label={'Zusätzlich arbeitsfrei'} />
+            <WiredField horizontal component={TextField} name={'additional_workfree_comment'} label={'Bemerkung'} />
 
             <SolidHorizontalRow />
 
-            <Field
+            <WiredField
               horizontal
               appendedLabels={[`Vorschlag: ${reportSheet.proposed_values.company_holidays_as_zivi_vacations} Tage`]}
               component={NumberField}
               name={'company_holiday_vacation'}
               label={'Betriebsferien (Urlaub)'}
             />
-            <Field
+            <WiredField
               horizontal
               appendedLabels={[`Vorschlag: ${reportSheet.proposed_values.company_holidays_as_zivi_holidays} Tage`]}
               component={NumberField}
@@ -99,17 +106,17 @@ class ReportSheetFormInner extends React.Component<Props> {
 
             <SolidHorizontalRow />
 
-            <Field horizontal component={NumberField} name={'vacation'} label={'Ferien'} />
-            <Field horizontal component={TextField} name={'vacation_comment'} label={'Bemerkung'} />
+            <WiredField horizontal component={NumberField} name={'vacation'} label={'Ferien'} />
+            <WiredField horizontal component={TextField} name={'vacation_comment'} label={'Bemerkung'} />
 
             <SolidHorizontalRow />
 
-            <Field horizontal component={NumberField} name={'holiday'} label={'Persönlicher Urlaub'} />
-            <Field horizontal component={TextField} name={'holiday_comment'} label={'Bemerkung'} />
+            <WiredField horizontal component={NumberField} name={'holiday'} label={'Persönlicher Urlaub'} />
+            <WiredField horizontal component={TextField} name={'holiday_comment'} label={'Bemerkung'} />
 
             <SolidHorizontalRow />
 
-            <Field
+            <WiredField
               horizontal
               appendedLabels={[`Vorschlag: ${reportSheet.proposed_values.costs_clothes} CHF`]}
               component={CurrencyField}
@@ -119,26 +126,26 @@ class ReportSheetFormInner extends React.Component<Props> {
 
             <SolidHorizontalRow />
 
-            <Field horizontal component={NumberField} name={'driving_charges'} label={'Fahrspesen'} />
-            <Field horizontal component={TextField} name={'driving_charges_comment'} label={'Bemerkung'} />
+            <WiredField horizontal component={NumberField} name={'driving_charges'} label={'Fahrspesen'} />
+            <WiredField horizontal component={TextField} name={'driving_charges_comment'} label={'Bemerkung'} />
 
             <SolidHorizontalRow />
 
-            <Field horizontal component={NumberField} name={'extraordinarily'} label={'Ausserordentliche Spesen'} />
-            <Field horizontal component={TextField} name={'extraordinarily_comment'} label={'Bemerkung'} />
+            <WiredField horizontal component={NumberField} name={'extraordinarily'} label={'Ausserordentliche Spesen'} />
+            <WiredField horizontal component={TextField} name={'extraordinarily_comment'} label={'Bemerkung'} />
 
             <SolidHorizontalRow />
 
-            <Field
+            <WiredField
               horizontal
               component={CheckboxField}
               name={'ignore_first_last_day'}
               label={'Erster / Letzter Tag nicht speziell behandeln'}
             />
-            <Field disabled horizontal component={CurrencyField} name={'total_costs'} label={'Total'} />
-            <Field horizontal component={TextField} name={'bank_account_number'} label={'Konto-Nr.'} />
-            <Field horizontal component={NumberField} name={'document_number'} label={'Beleg-Nr.'} />
-            <Field
+            <WiredField disabled horizontal component={CurrencyField} name={'total_costs'} label={'Total'} />
+            <WiredField horizontal component={TextField} name={'bank_account_number'} label={'Konto-Nr.'} />
+            <WiredField horizontal component={NumberField} name={'document_number'} label={'Beleg-Nr.'} />
+            <WiredField
               horizontal
               component={SelectField}
               name={'state'}

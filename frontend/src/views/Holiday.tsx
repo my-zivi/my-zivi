@@ -8,11 +8,12 @@ import { MainStore } from 'src/stores/mainStore';
 import { Column, Holiday } from 'src/types';
 import { TextField, SelectField } from 'src/form/common';
 import { DatePickerField } from 'src/form/DatePickerField';
-import { Field, Formik, FormikActions } from 'formik';
+import { Formik, FormikActions } from 'formik';
 import Button from 'reactstrap/lib/Button';
 import { apiDate } from '../utilities/validationHelpers';
 import * as yup from 'yup';
 import moment from 'moment';
+import { WiredField } from '../form/formik';
 
 const holidaySchema = yup.object({
   date_from: apiDate().required(),
@@ -115,20 +116,20 @@ export class HolidayOverview extends React.Component<Props> {
               render={formikProps => (
                 <tr>
                   <td>
-                    <Field component={DatePickerField} name={'date_from'} />
+                    <WiredField component={DatePickerField} name={'date_from'} />
                   </td>
                   <td>
-                    <Field component={DatePickerField} name={'date_to'} />
+                    <WiredField component={DatePickerField} name={'date_to'} />
                   </td>
                   <td>
-                    <Field
+                    <WiredField
                       component={SelectField}
                       name={'holiday_type_id'}
                       options={[{ id: '1', name: 'Betriebsferien' }, { id: '2', name: 'Feiertag' }]}
                     />
                   </td>
                   <td>
-                    <Field component={TextField} name={'description'} />
+                    <WiredField component={TextField} name={'description'} />
                   </td>
                   <td>
                     <Button color={'success'} disabled={formikProps.isSubmitting} onClick={formikProps.submitForm}>
@@ -148,20 +149,20 @@ export class HolidayOverview extends React.Component<Props> {
                 render={formikProps => (
                   <tr>
                     <td>
-                      <Field component={DatePickerField} name={'date_from'} />
+                      <WiredField component={DatePickerField} name={'date_from'} />
                     </td>
                     <td>
-                      <Field component={DatePickerField} name={'date_to'} />
+                      <WiredField component={DatePickerField} name={'date_to'} />
                     </td>
                     <td>
-                      <Field
+                      <WiredField
                         component={SelectField}
                         name={'holiday_type_id'}
                         options={[{ id: '1', name: 'Betriebsferien' }, { id: '2', name: 'Feiertag' }]}
                       />
                     </td>
                     <td>
-                      <Field component={TextField} name={'description'} />
+                      <WiredField component={TextField} name={'description'} />
                     </td>
                     <td>
                       <Button color={'success'} disabled={formikProps.isSubmitting} onClick={formikProps.submitForm}>
