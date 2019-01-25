@@ -21,7 +21,7 @@ class ReportSheet extends Model
     ];
 
     protected $fillable = ['additional_workfree', 'additional_workfree_comment', 'bank_account_number', 'clothes',
-        'clothes_comment', 'company_holiday', 'company_holiday_comment', 'document_number', 'driving_charges',
+        'clothes_comment', 'company_holiday_holiday', 'company_holiday_vacation', 'company_holiday_comment', 'document_number', 'driving_charges',
         'driving_charges_comment', 'end', 'extraordinarily', 'extraordinarily_comment', 'holiday', 'holiday_comment', '
         ignore_first_last_day', 'ill', 'ill_comment', 'mission_id', 'national_holiday', 'start', 'state', 'user_id',
         'vacation', 'vacation_comment', 'work', 'work_comment', 'workfree', 'workfree_comment',

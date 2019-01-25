@@ -175,7 +175,6 @@ class ReportSheetControllerTest extends \TestCase
 
         $this->asAdmin()->json('PUT', 'api/report_sheets/' . $originalReportSheet->id, $reportSheetTemplate)->assertResponseOk();
 
-        // TODO uncomment this line as soon as the get request for report_sheets is fixed
-        //$this->assertResponseMatchesTemplate($reportSheetTemplate, true);
+        $this->assertResponseMatchesTemplate($reportSheetTemplate, true);
     }
 }

@@ -91,6 +91,7 @@ class ReportSheetController extends Controller
     private function validateRequest(Request $request)
     {
         return $this->validate($request, [
+            'additional_workfree' => 'integer|nullable',
             'additional_workfree_comment' => 'string|nullable',
             'bank_account_number' => 'required|string',
             'clothes' => 'integer|nullable',
