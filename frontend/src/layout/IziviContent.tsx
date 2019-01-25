@@ -13,7 +13,9 @@ import { LoadingInformation } from './LoadingInformation';
 const styles = (theme: Theme) =>
   createStyles({
     container: {
-      padding: `${theme.layout.baseSpacing}px ${2 * theme.layout.baseSpacing}px`,
+      '@media (min-width: 1024px)': {
+        padding: `${theme.layout.baseSpacing}px ${2 * theme.layout.baseSpacing}px`,
+      },
     },
     background: {
       backgroundImage: `url(${bg})`,

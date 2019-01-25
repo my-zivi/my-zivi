@@ -46,4 +46,8 @@ export class MainStore {
     const regex = new RegExp('^CH\\d{2,2}\\s{0,1}(\\w{4,4}\\s{0,1}){4,7}\\w{0,2}$', 'g');
     return regex.test(value);
   }
+
+  public isAdmin() {
+    return this.apiStore.isAdmin;
+  }
 }

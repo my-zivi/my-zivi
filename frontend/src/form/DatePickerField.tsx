@@ -30,7 +30,7 @@ export interface DatePickerDefaultProps {
   editFormat?: string;
   format?: string;
   onChange?: (d: Date) => void;
-  defaultValue?: Date;
+  value?: Date;
 }
 
 export type DatePickerInnerInputProps = DatePickerDefaultProps & WithSheet<typeof datePickerStyle>;
@@ -42,7 +42,11 @@ const DatePickerDefaults = (props: DatePickerDefaultProps) => (
 const DateTimePickerFieldWithValidationInner = ({ label, field, form, required, horizontal, ...rest }: DateTimePickerFieldProps) => (
   <span className={rest.classes.tableFix}>
     <ValidatedFormGroupWithLabel label={label} field={field} form={form} required={required} horizontal={horizontal}>
-      <DatePickerDefaults onChange={(date?: Date) => form.setFieldValue(field.name, date)} defaultValue={new Date(field.value)} {...rest} />
+      <DatePickerDefaults
+        onChange={(date?: Date) => form.setFieldValue(field.name, date)}
+        value={field.value !== null ? new Date(field.value) : null}
+        {...rest}
+      />
     </ValidatedFormGroupWithLabel>
   </span>
 );

@@ -8,15 +8,6 @@ export interface Holiday {
   description: string;
 }
 
-export interface Mission {
-  id?: number;
-  duration: number;
-  eligible_holiday: number;
-  end: string;
-  specification: Specification;
-  start: string;
-}
-
 export interface Payment {
   id?: number;
   amount: number;
@@ -83,10 +74,30 @@ export interface ReportSheetListing {
 export interface Specification {
   id?: number;
   name: string;
+  short_name: string;
+  working_clothes_payment: null | string;
+  working_clothes_expense: number;
+  working_breakfast_expenses: number;
+  working_lunch_expenses: number;
+  working_dinner_expenses: number;
+  sparetime_breakfast_expenses: number;
+  sparetime_lunch_expenses: number;
+  sparetime_dinner_expenses: number;
+  firstday_breakfast_expenses: number;
+  firstday_lunch_expenses: number;
+  firstday_dinner_expenses: number;
+  lastday_breakfast_expenses: number;
+  lastday_lunch_expenses: number;
+  lastday_dinner_expenses: number;
+  working_time_model: number;
+  working_time_weekly: string;
+  accommodation: number;
+  pocket: number;
+  active: boolean;
 }
 
 export interface User {
-  id?: number;
+  id: number;
   email: string;
   role_id: number;
   zdp: number;
@@ -135,18 +146,18 @@ export interface UserFilter {
 export interface Mission {
   id?: number;
   user_id: number;
-  specification_id: string;
-  start: string;
-  end: string;
-  draft: null | string;
-  days: number;
-  eligible_holiday: number;
+  specification_id: number;
   mission_type: number | null;
+  start: string | null;
+  end: string | null;
+  days: number;
   first_time: boolean;
-  long_mission: number;
-  probation_period: number;
-  feedback_mail_sent: number;
-  feedback_done: number;
+  long_mission: boolean;
+  probation_period: boolean;
+  draft: null | string;
+  eligible_holiday: number;
+  feedback_mail_sent: boolean;
+  feedback_done: boolean;
 }
 
 export interface Role {

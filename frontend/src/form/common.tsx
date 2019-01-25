@@ -53,7 +53,7 @@ const withInputGroupAddon = (appendedLabels: string[]) => (wrappedComponent: Rea
   </InputGroup>
 );
 
-const withColumn = () => (wrappedComponent: React.ReactNode) => <Col md={9}>{wrappedComponent}</Col>;
+export const withColumn = () => (wrappedComponent: React.ReactNode) => <Col md={9}>{wrappedComponent}</Col>;
 
 const ClonedField = ({ children, invalid }: ClonedFieldProps) => React.cloneElement(children, { invalid });
 
@@ -107,7 +107,7 @@ export const InputFieldWithValidation = ({
       horizontal={horizontal}
       appendedLabels={appendedLabels}
     >
-      <Input {...field} value={field.value === null ? '' : field.value} {...rest} />
+      <Input {...field} value={field.value === null ? '' : field.value} {...rest} type={multiline ? 'textarea' : rest.type} />
     </ValidatedFormGroupWithLabel>
   );
 };

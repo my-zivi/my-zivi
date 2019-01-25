@@ -28,7 +28,7 @@ export class FormView<Values = object, ExtraProps = {}> extends React.Component<
 
   public render() {
     // tslint:disable-next-line:no-any ; need this so we can spread into ...rest
-    const { loading, title, ...rest } = this.props as any;
+    const { loading, title, children, ...rest } = this.props as any;
     return this.props.loading ? (
       <>
         <IziviContent loading={loading} title={title}>
@@ -36,19 +36,19 @@ export class FormView<Values = object, ExtraProps = {}> extends React.Component<
         </IziviContent>
       </>
     ) : (
-      <Formik
-        {...rest}
-        enableReinitialize
-        onSubmit={this.handleSubmit}
-        render={(formikProps: FormikProps<Values>) => (
-          <FormikSubmitDetector {...formikProps}>
-            <Prompt when={!this.props.submitted && formikProps.dirty} message={() => 'Änderungen verwerfen?'} />
-            <IziviContent card={this.props.card} title={title}>
+      <IziviContent card={this.props.card} title={title}>
+        <Formik
+          {...rest}
+          onSubmit={this.handleSubmit}
+          render={(formikProps: FormikProps<Values>) => (
+            <FormikSubmitDetector {...formikProps}>
+              <Prompt when={!this.props.submitted && formikProps.dirty} message={() => 'Änderungen verwerfen?'} />
               {this.props.render(formikProps)}
-            </IziviContent>
-          </FormikSubmitDetector>
-        )}
-      />
+            </FormikSubmitDetector>
+          )}
+        />
+        {children}
+      </IziviContent>
     );
   }
 }

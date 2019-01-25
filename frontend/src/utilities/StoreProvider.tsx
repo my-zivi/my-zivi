@@ -8,6 +8,8 @@ import { HolidayStore } from 'src/stores/holidayStore';
 import { ReportSheetStore } from '../stores/reportSheetStore';
 import { PaymentStore } from '../stores/paymentStore';
 import { UserStore } from 'src/stores/userStore';
+import { MissionStore } from 'src/stores/missionStore';
+import { SpecificationStore } from 'src/stores/specificationStore';
 
 interface Props {
   history: History;
@@ -21,6 +23,8 @@ export class StoreProvider extends React.Component<Props> {
     paymentStore: PaymentStore;
     reportSheetStore: ReportSheetStore;
     userStore: UserStore;
+    missionStore: MissionStore;
+    specificationStore: SpecificationStore;
   };
 
   constructor(props: Props) {
@@ -37,6 +41,8 @@ export class StoreProvider extends React.Component<Props> {
       paymentStore: new PaymentStore(mainStore),
       reportSheetStore: new ReportSheetStore(mainStore),
       userStore: new UserStore(mainStore),
+      missionStore: new MissionStore(mainStore),
+      specificationStore: new SpecificationStore(mainStore),
     };
   }
   render() {

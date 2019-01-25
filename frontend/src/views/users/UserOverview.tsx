@@ -7,6 +7,7 @@ import { MainStore } from '../../stores/mainStore';
 import { UserStore } from '../../stores/userStore';
 import { DatePickerInput } from 'src/form/DatePickerField';
 import Input from 'reactstrap/lib/Input';
+import FormGroup from 'reactstrap/lib/FormGroup';
 
 interface Props {
   mainStore?: MainStore;
@@ -89,7 +90,7 @@ export class UserOverview extends React.Component<Props> {
             </td>
             <td>
               <DatePickerInput
-                defaultValue={new Date(this.props.userStore!.userFilters.date_from)}
+                value={new Date(this.props.userStore!.userFilters.date_from)}
                 onChange={(d: Date) => {
                   this.props.userStore!.updateFilters({
                     date_from: d.toISOString(),
@@ -99,7 +100,7 @@ export class UserOverview extends React.Component<Props> {
             </td>
             <td>
               <DatePickerInput
-                defaultValue={new Date(this.props.userStore!.userFilters.date_to)}
+                value={new Date(this.props.userStore!.userFilters.date_to)}
                 onChange={(d: Date) => {
                   this.props.userStore!.updateFilters({
                     date_to: d.toISOString(),
@@ -108,14 +109,16 @@ export class UserOverview extends React.Component<Props> {
               />
             </td>
             <td>
-              <Input
-                type={'checkbox'}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  this.props.userStore!.updateFilters({
-                    active: e.target.checked,
-                  });
-                }}
-              />
+              <FormGroup check>
+                <Input
+                  type={'checkbox'}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    this.props.userStore!.updateFilters({
+                      active: e.target.checked,
+                    });
+                  }}
+                />
+              </FormGroup>
             </td>
             <td>
               <Input

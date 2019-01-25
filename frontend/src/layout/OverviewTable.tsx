@@ -35,7 +35,7 @@ export class OverviewTable<T> extends React.Component<TableProps<T>> {
   public render() {
     const { columns, data } = this.props;
     return (
-      <Table>
+      <Table responsive>
         <thead>
           <tr>
             {columns.map(col => (

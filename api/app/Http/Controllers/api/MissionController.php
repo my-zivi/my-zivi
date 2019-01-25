@@ -116,7 +116,7 @@ class MissionController extends Controller
         }
         $this->createReportSheet($mission, $start, $end);
 
-        return response("updated");
+        return $mission;
     }
 
     private function updateReportSheets(&$mission)

@@ -85,15 +85,20 @@ export class UserStore extends DomainStore<User> {
     this.users = res.data;
   }
 
+  protected async doFetchOne(id: number) {
+    const res = await this.mainStore.api.get<User>('/users/' + id);
+    this.user = res.data;
+  }
+
   @action
-  protected async doPost(holiday: User) {
-    const response = await this.mainStore.api.post<User[]>('/users', holiday);
+  protected async doPost(user: User) {
+    const response = await this.mainStore.api.post<User[]>('/users', user);
     this.users = response.data;
   }
 
   @action
-  protected async doPut(holiday: User) {
-    const response = await this.mainStore.api.put<User[]>('/users/' + holiday.id, holiday);
+  protected async doPut(user: User) {
+    const response = await this.mainStore.api.put<User[]>('/users/' + user.id, user);
     this.users = response.data;
   }
 
