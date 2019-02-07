@@ -63,7 +63,7 @@ export class Navigation extends React.Component<NavProps> {
                     <NavEntry to="/phones">Telefonliste</NavEntry>
                     <NavEntry to="/specifications">Pflichtenheft</NavEntry>
                     <NavEntry to="/holidays">Freitage</NavEntry>
-                    <NavEntry to="/userFeedbackOverview">Einsatz Feedback</NavEntry>
+                    <NavEntry to="/user_feedbacks">Einsatz Feedback</NavEntry>
                     <NavEntry to="/missions">Planung</NavEntry>
                     <NavEntry to="/report_sheets">Spesen</NavEntry>
                     <NavEntry to={'/payments'}>Auszahlungen</NavEntry>

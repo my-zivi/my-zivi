@@ -165,6 +165,29 @@ export interface Role {
   name: UserRoleName;
 }
 
+export interface UserFeedback {
+  id?: number;
+}
+
+export interface UserQuestionWithAnswers {
+  id?: number;
+  answers: UserQuestionAnswers;
+  custom_info: string;
+  opt1: string;
+  opt2: string;
+  question: string;
+  type: number;
+}
+
+export interface UserQuestionAnswers {
+  1: number;
+  2: number;
+  3: number;
+  4: number;
+  5: number;
+  6: number;
+}
+
 export enum UserRoleName {
   Admin = 'admin',
   Zivi = 'zivi',

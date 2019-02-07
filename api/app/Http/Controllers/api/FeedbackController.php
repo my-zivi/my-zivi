@@ -7,6 +7,7 @@ use App\Mail\NewUserFeedback;
 use App\Mission;
 use App\UserFeedback;
 use App\UserFeedbackQuestion;
+use Carbon\Carbon;
 use Faker\Provider\Uuid;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -134,13 +135,13 @@ class FeedbackController extends Controller
 
         for ($i = 1; $i <= 6; $i++) {
             if ($this->feedback_id != null) {
-                $results[$i] = DB::table('user_feedbacks')
+                $results[strval($i)] = DB::table('user_feedbacks')
                     ->where('answer', '=', $i)
                     ->where('questionId', '=', $questionId)
                     ->where('feedbackId', '=', $this->feedback_id)
                     ->get()->count();
             } else {
-                $results[$i] = DB::table('user_feedbacks')
+                $results[strval($i)] = DB::table('user_feedbacks')
                     ->where('answer', '=', $i)
                     ->where('questionId', '=', $questionId)
                     ->whereDate('year', '>=', $this->date_from)
@@ -167,9 +168,11 @@ class FeedbackController extends Controller
                 ->get();
         }
 
-        $answerTexts = "";
+        $answerTexts = [];
+        $i = 0;
         foreach ($results as $key => $value) {
-            $answerTexts .= "==== " . $value->year . " ====\n" . $value->answer . "\n\n";
+            $answerTexts[$i] = $value->year . ": " . $value->answer;
+            $i++;
         }
 
         return $answerTexts;

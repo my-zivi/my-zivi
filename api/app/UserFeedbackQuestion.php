@@ -26,4 +26,9 @@ class UserFeedbackQuestion extends Model
         'new_page' => 'boolean',
         'required' => 'boolean'
     ];
+
+    public function user_feedbacks()
+    {
+        return $this->hasMany(UserFeedbackQuestion::class, 'questionId');
+    }
 }
