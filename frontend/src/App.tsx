@@ -21,6 +21,7 @@ import { UserOverview } from './views/users/UserOverview';
 import { Icons } from './utilities/Icon';
 import { UserUpdate } from './views/users/UserUpdate';
 import { UserFeedbackOverview } from './views/user_feedback_overview/UserFeedbackOverview';
+import { MissionOverview } from './views/mission_overview/MissionOverview';
 
 Icons();
 
@@ -35,6 +36,7 @@ class App extends React.Component {
           <Route component={HolidayOverview} exact path={'/holidays'} />
           <Route component={PhoneListView} exact path={'/phones'} />
           <ProtectedRoute requiresAdmin component={PaymentOverview} exact path={'/payments'} />
+          <ProtectedRoute requiresAdmin component={MissionOverview} exact path={'/missions'} />
           <ProtectedRoute requiresAdmin component={PaymentDetail} exact path={'/payments/:id'} />
           <ProtectedRoute requiresAdmin component={ReportSheetOverview} exact path={'/report_sheets'} />
           <ProtectedRoute requiresAdmin component={ReportSheetUpdate} exact path={'/report_sheets/:id'} />

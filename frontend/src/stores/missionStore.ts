@@ -48,6 +48,12 @@ export class MissionStore extends DomainStore<Mission> {
   }
 
   @action
+  public async fetchByYear(year: string) {
+    const res = await this.mainStore.api.get<Mission[]>('/missions/' + year);
+    this.missions = res.data;
+  }
+
+  @action
   protected async doPost(holiday: Mission) {
     const response = await this.mainStore.api.post<Mission[]>('/missions', holiday);
     this.missions = response.data;

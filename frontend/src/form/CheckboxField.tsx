@@ -24,7 +24,8 @@ export const CheckboxField = ({ value, onChange, name, horizontal, label, requir
           {horizontal && label}
           {!horizontal && (
             <>
-              <Input checked={value} onChange={() => onChange(!value)} invalid={hasErrors} type="checkbox" /> {label} {required && '*'}
+              <Input id={name} checked={value} onChange={() => onChange(!value)} invalid={hasErrors} type="checkbox" /> {label}{' '}
+              {required && '*'}
             </>
           )}
         </Label>
@@ -33,7 +34,7 @@ export const CheckboxField = ({ value, onChange, name, horizontal, label, requir
         <Col md={9}>
           <FormGroup check>
             <Label check>
-              <Input checked={value} onChange={() => onChange(!value)} invalid={hasErrors} type="checkbox" />
+              <Input id={name} checked={value} onChange={() => onChange(!value)} invalid={hasErrors} type="checkbox" />
             </Label>
           </FormGroup>
         </Col>

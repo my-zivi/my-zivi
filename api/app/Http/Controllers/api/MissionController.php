@@ -23,29 +23,13 @@ class MissionController extends Controller
 
     public function indexByYear($year)
     {
-        // TODO remove join and work with Laravel relations instead
-        $data = Mission::join('users', 'users.id', '=', 'missions.user_id')
-            ->join('specifications', 'specifications.id', '=', 'missions.specification_id')
-            ->select('*', 'users.id AS userid')
-            ->whereNull('missions.deleted_at')
+        $data = Mission::with(['specification', 'user'])
             ->whereDate('end', '>=', $year . '-01-01')
             ->whereDate('start', '<=', $year . '-12-31')
             ->orderBy('start')
             ->get();
-        $intermediateResult = array();
-        foreach ($data as $m) {
-            if (!isset($intermediateResult[$m->userid])) {
-                $intermediateResult[$m->userid] = array();
-            }
-            $intermediateResult[$m->userid][] = $m;
-        }
 
-        $result = array();
-        foreach ($intermediateResult as $m) {
-            $result[] = $m;
-        }
-
-        return response()->json($result);
+        return response()->json($data);
     }
 
     public function post(Request $request)

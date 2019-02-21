@@ -158,6 +158,8 @@ export interface Mission {
   eligible_holiday: number;
   feedback_mail_sent: boolean;
   feedback_done: boolean;
+  user?: User;
+  specification?: Specification;
 }
 
 export interface Role {
