@@ -6,7 +6,7 @@ php:
 stages:
   - test
   - name: deploy
-    if: branch = master OR branch = production OR branch =~ \b-DEPLOY\b
+    if: branch = master OR branch = production OR branch =~ \b-DEPLOY\b OR branch = ts
 
 cache:
   directories:

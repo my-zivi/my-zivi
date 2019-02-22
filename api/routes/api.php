@@ -34,7 +34,6 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
 
         // User - Authenticated
         $router->group(['prefix' => 'missions'], function () use ($router) {
-            $router->get('/{year}', ['uses' => 'MissionController@indexByYear']);
             $router->get('/{id}/draft', ['uses' => 'PDFController@getAufgebot']);
             $router->put('/{id}', ['uses' => 'MissionController@put']);
             $router->post('/', ['uses' => 'MissionController@post']);
