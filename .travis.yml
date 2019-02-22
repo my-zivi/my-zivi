@@ -21,15 +21,13 @@ before_install:
 install:
   - composer install -d api $COMPOSER_FLAGS
   - npm install -g yarn
-  - yarn --cwd web-client install
+  - yarn --cwd frontend install
 
 jobs:
   include:
     # run the test steps
     - stage: test
-      script: ./ci/test_frontend.sh
-      name: "Run automated tests for frontend"
-    - script: ./ci/test_backend.sh
+      script: ./ci/test_backend.sh
       name: "Run automated tests for backend"
     - script: ./ci/check_format.sh
       name: "Check formatting of front- and backend"
