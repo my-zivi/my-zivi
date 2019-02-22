@@ -1,7 +1,7 @@
 #!/bin/bash -vue
 
 # do build the frontend first
-cd web-client && yarn build && cd -
+cd frontend && yarn build && cd -
 
 if [ ! -f $HOME/.ssh/id_rsa ]; then
   echo "Setting up SSH key"
@@ -31,13 +31,13 @@ TMP=izivi_deploy_tmp_${TRAVIS_BRANCH}_${TRAVIS_COMMIT}
 BACKUP_DIR=./backup/izivi/$ENVIRONMENT
 
 # upload and move folders
-cp web-client/htaccess.dist web-client/build/.htaccess && \
+cp frontend/htaccess.dist frontend/build/.htaccess && \
 ssh $TARGET mkdir -p ${PROJECT_DIR} ${PROJECT_DIR}.bak && \
 rsync -ra --exclude '.git' --exclude 'node_modules' . $TARGET:$TMP && \
-ssh $TARGET sed -i'' "s/COMMIT_ID/$TRAVIS_COMMIT/" $TMP/web-client/build/static/js/main.*.js && \
-ssh $TARGET sed -i'' "s/ENVIRONMENT/$ENVIRONMENT/" $TMP/web-client/build/static/js/main.*.js && \
-ssh $TARGET sed -i'' "s,BASE_URL,$API_URL," $TMP/web-client/build/static/js/main.*.js && \
-ssh $TARGET sed -i'' "s,SENTRY_DSN,$SENTRY_DSN_PUBLIC," $TMP/web-client/build/static/js/main.*.js && \
+ssh $TARGET sed -i'' "s/COMMIT_ID/$TRAVIS_COMMIT/" $TMP/frontend/build/static/js/main.*.js && \
+ssh $TARGET sed -i'' "s/ENVIRONMENT/$ENVIRONMENT/" $TMP/frontend/build/static/js/main.*.js && \
+ssh $TARGET sed -i'' "s,BASE_URL,$API_URL," $TMP/frontend/build/static/js/main.*.js && \
+ssh $TARGET sed -i'' "s,SENTRY_DSN,$SENTRY_DSN_PUBLIC," $TMP/frontend/build/static/js/main.*.js && \
 ssh $TARGET cp $CONFIG_FILE $TMP/api/.env && \
 ssh $TARGET rm -r ${PROJECT_DIR}.bak && \
 ssh $TARGET mv $PROJECT_DIR ${PROJECT_DIR}.bak && \
