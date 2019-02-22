@@ -1,5 +1,15 @@
 #!/bin/bash -vue
 
+case $1 in
+  "test")
+    echo "Treating Warnings AS Warnings"
+    CI=false
+    ;;
+  *)
+    echo "Treating Warnings AS ERRORS"
+    ;;
+esac
+
 # do build the frontend first
 cd frontend && yarn build && cd -
 
