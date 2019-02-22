@@ -16,6 +16,7 @@ import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
 import Button from 'reactstrap/lib/Button';
 import { LoadingInformation } from '../../layout/LoadingInformation';
+import { ReactNode } from 'react';
 
 const styles = () =>
   createStyles({
@@ -57,9 +58,17 @@ interface MissionOverviewState {
   loadingSpecifications: boolean;
   selectedSpecifications: Map<number, boolean>;
   fetchYear: string;
+  allCells: Map<number, Array<any>>;
+  missionCells: Map<number, ReactNode>;
+  monthHeaders: Array<ReactNode>;
+  weekHeaders: Array<ReactNode>;
+  averageCount: number;
+  averageHeaders: Array<ReactNode>;
 }
 
-const cookiePrefix = 'mission-overview-checkbox-';
+const cookiePrefixSpec = 'mission-overview-checkbox-';
+const cookieYear = 'mission-overview-year';
+const currYear = new Date().getFullYear();
 
 @inject('userStore', 'missionStore', 'specificationStore')
 class MissionOverviewContent extends React.Component<MissionOverviewProps, MissionOverviewState> {
@@ -69,71 +78,51 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     this.state = {
       loadingMissions: true,
       loadingSpecifications: true,
-      fetchYear: '2019',
+      fetchYear: window.localStorage.getItem(cookieYear) == null ? '2019' : window.localStorage.getItem(cookieYear)!,
       selectedSpecifications: new Map<number, boolean>(),
+      allCells: new Map<number, Array<any>>(),
+      monthHeaders: [],
+      weekHeaders: [],
+      averageCount: 0,
+      averageHeaders: [],
+      missionCells: new Map<number, ReactNode>(),
     };
 
     this.props.specificationStore!.fetchAll().then(() => {
       this.props.specificationStore!.entities.forEach(spec => {
         let newSpecs = this.state.selectedSpecifications;
         newSpecs[spec.id!] =
-          window.localStorage.getItem(cookiePrefix + spec.id!) == null
+          window.localStorage.getItem(cookiePrefixSpec + spec.id!) == null
             ? true
-            : window.localStorage.getItem(cookiePrefix + spec.id!) == 'true';
+            : window.localStorage.getItem(cookiePrefixSpec + spec.id!) == 'true';
         this.setState({ selectedSpecifications: newSpecs, loadingSpecifications: false });
       });
     });
 
     this.props.missionStore!.fetchByYear(this.state.fetchYear).then(() => {
+      this.calculateMissionCells();
       this.setState({ loadingMissions: false });
     });
   }
 
-  componentDidMount(): void {
-    //this.setState({ loading: true });
-  }
-
-  changeSelectedSpecifications(v: boolean, id: number) {
-    let newSpec = this.state.selectedSpecifications;
-    newSpec[id] = v;
-    this.setState({ selectedSpecifications: newSpec });
-    window.localStorage.setItem(cookiePrefix + id, v.toString());
-  }
-
-  selectYear(year: string) {
-    this.setState({ loadingMissions: true, fetchYear: year }, () => {
-      this.props.missionStore!.fetchByYear(year).then(() => {
-        this.setState({ loadingMissions: false });
-      });
-    });
-  }
-
-  monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-
-  render() {
-    let specIdsOfMissions = this.props
-      .missionStore!.entities.map(mission => mission.specification_id)
-      .filter((elem, index, arr) => index === arr.indexOf(elem));
-    specIdsOfMissions.sort();
-
-    const { classes, specificationStore } = this.props;
+  calculateMissionCells(): void {
+    let fetchYear = parseInt(this.state.fetchYear);
+    const { classes } = this.props;
 
     let weekCount = new Map<number, Map<number, number>>();
-    for (let spec of specificationStore!.entities) {
+    for (let spec of this.props.specificationStore!.entities) {
       weekCount[spec.id!] = [];
       for (let i = 1; i <= 52; i++) {
         weekCount[spec.id!][i] = 0;
       }
     }
 
-    let currYear = new Date().getFullYear();
-
     let startDates: Array<string> = [];
     let endDates: Array<string> = [];
 
     for (let x = 1; x <= 52; x++) {
-      startDates[x] = moment(currYear + ' ' + x + ' 1', 'YYYY WW E').format('DD.MM.YYYY');
-      endDates[x] = moment(currYear + ' ' + x + ' 5', 'YYYY WW E').format('DD.MM.YYYY');
+      startDates[x] = moment(fetchYear + ' ' + x + ' 1', 'YYYY WW E').format('DD.MM.YYYY');
+      endDates[x] = moment(fetchYear + ' ' + x + ' 5', 'YYYY WW E').format('DD.MM.YYYY');
     }
 
     let averageCount = 0;
@@ -151,7 +140,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     for (let i = 1; i <= 52; i++) {
       let weekCountSum = 0;
 
-      specificationStore!.entities.forEach(val => {
+      this.props.specificationStore!.entities.forEach(val => {
         if (this.state.selectedSpecifications[val.id!] && weekCount[val.id!]) {
           weekCountSum += weekCount[val.id!][i];
         }
@@ -199,6 +188,123 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
         {this.monthNames[prevMonth]}
       </td>
     );
+
+    let allCells = new Map<number, Array<Object>>();
+
+    let missionCells = new Map<number, ReactNode>();
+
+    this.props.missionStore!.entities.forEach(mission => {
+      ///
+      let cells = [];
+
+      //let missionCounter = 0;
+
+      for (let weekNr = 1; weekNr <= 52; weekNr++) {
+        let popOverStart = startDates[weekNr];
+        let popOverEnd = endDates[weekNr];
+
+        let curMission = mission;
+
+        let startWeek = moment(curMission.start!).isoWeek();
+        if (new Date(curMission.start!).getFullYear() < fetchYear) {
+          startWeek = -1;
+        }
+        let endWeek = moment(curMission.end!).isoWeek();
+        if (new Date(curMission.end!).getFullYear() > fetchYear) {
+          endWeek = 55;
+        }
+
+        if (weekNr < startWeek || weekNr > endWeek) {
+          cells.push({
+            className: classes.rowTd,
+            title: popOverStart + ' - ' + popOverEnd,
+            content: '',
+          });
+        } else {
+          if (weekCount[curMission.specification_id]) {
+            weekCount[curMission.specification_id][weekNr]++;
+          }
+          if (weekNr === startWeek) {
+            cells.push({
+              className: classes.rowTd + ' ' + (curMission.draft == null ? classes.einsatzDraft : classes.einsatz),
+              title: popOverStart + ' - ' + popOverEnd,
+              content: new Date(curMission.start!).getDate().toString(),
+            });
+          } else if (weekNr === endWeek) {
+            cells.push({
+              className: classes.rowTd + ' ' + (curMission.draft == null ? classes.einsatzDraft : classes.einsatz),
+              title: popOverStart + ' - ' + popOverEnd,
+              content: new Date(curMission.end!).getDate().toString(),
+            });
+          } else {
+            cells.push({
+              className: classes.rowTd + ' ' + (curMission.draft == null ? classes.einsatzDraft : classes.einsatz),
+              title: popOverStart + ' - ' + popOverEnd,
+              content: 'x',
+            });
+          }
+
+          // if (x === endWeek && missionCounter < mission.length - 1) {
+          //   missionCounter++;
+          // }
+        }
+      }
+
+      allCells.set(mission.id!, cells);
+
+      let filledCells: Array<ReactNode> = [];
+
+      cells.forEach(({ content, ...props }, index) => {
+        filledCells.push(
+          <td key={index} {...props}>
+            {content}
+          </td>
+        );
+      });
+
+      missionCells.set(mission.id!, <MissionRow key={mission.id!} mission={mission} cells={filledCells} classes={classes} />);
+    });
+
+    this.setState({
+      allCells: allCells,
+      averageHeaders: averageHeaders,
+      averageCount: averageCount,
+      weekHeaders: weekHeaders,
+      monthHeaders: monthHeaders,
+      missionCells: missionCells,
+    });
+  }
+
+  componentDidMount(): void {
+    //this.setState({ loading: true });
+  }
+
+  changeSelectedSpecifications(v: boolean, id: number) {
+    let newSpec = this.state.selectedSpecifications;
+    newSpec[id] = v;
+    this.setState({ selectedSpecifications: newSpec });
+    window.localStorage.setItem(cookiePrefixSpec + id, v.toString());
+  }
+
+  selectYear(year: string) {
+    window.localStorage.setItem(cookieYear, year);
+    this.setState({ loadingMissions: true, fetchYear: year }, () => {
+      this.props.missionStore!.fetchByYear(year).then(() => {
+        this.calculateMissionCells();
+        this.setState({ loadingMissions: false });
+      });
+    });
+  }
+
+  monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+
+  render() {
+    let specIdsOfMissions = this.props
+      .missionStore!.entities.map(mission => mission.specification_id)
+      .filter((elem, index, arr) => index === arr.indexOf(elem));
+    specIdsOfMissions.sort();
+
+    const { classes, specificationStore } = this.props;
 
     //
 
@@ -282,34 +388,24 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
                   <td colSpan={3} rowSpan={2} className={classes.rowTd}>
                     Name
                   </td>
-                  {monthHeaders}
+                  {this.state.monthHeaders}
                 </tr>
-                <tr>{weekHeaders}</tr>
+                <tr>{this.state.weekHeaders}</tr>
                 <tr>
                   <td
                     colSpan={3}
                     style={{ textAlign: 'left', paddingLeft: '8px !important', fontWeight: 'bold' }}
                     className={classes.rowTd}
                   >
-                    Ø / Woche: {(averageCount / 52).toFixed(2)}
+                    Ø / Woche: {(this.state.averageCount / 52).toFixed(2)}
                   </td>
-                  {averageHeaders}
+                  {this.state.averageHeaders}
                 </tr>
               </thead>
               <tbody>
                 {this.props.missionStore!.entities.map(mission => {
                   if (this.state.selectedSpecifications[mission.specification_id]) {
-                    return (
-                      <MissionRow
-                        key={mission.id}
-                        mission={mission}
-                        startDates={startDates}
-                        endDates={endDates}
-                        weekCount={weekCount}
-                        year={parseInt(this.state.fetchYear)}
-                        classes={classes}
-                      />
-                    );
+                    return this.state.missionCells.get(mission.id!);
                   }
                   return;
                 })}
@@ -336,10 +432,7 @@ export const MissionOverview = injectSheet(styles)(MissionOverviewContent);
 
 interface MissionRowProps {
   mission: Mission;
-  startDates: Array<string>;
-  endDates: Array<string>;
-  weekCount: Map<number, Map<number, number>>;
-  year: number;
+  cells: Array<any>;
   classes: Record<string, string>;
 }
 
@@ -347,62 +440,6 @@ function MissionRow(props: MissionRowProps) {
   const { classes } = props;
 
   ///
-  let cells = [];
-
-  //let missionCounter = 0;
-
-  for (let weekNr = 1; weekNr <= 52; weekNr++) {
-    let popOverStart = props.startDates[weekNr];
-    let popOverEnd = props.endDates[weekNr];
-
-    let curMission = props.mission;
-    if (!curMission) {
-      continue;
-    }
-    let startWeek = moment(curMission.start!).isoWeek();
-    if (new Date(curMission.start!).getFullYear() < props.year) {
-      startWeek = -1;
-    }
-    let endWeek = moment(curMission.end!).isoWeek();
-    if (new Date(curMission.end!).getFullYear() > props.year) {
-      endWeek = 55;
-    }
-
-    if (weekNr < startWeek || weekNr > endWeek) {
-      cells.push({
-        className: classes.rowTd,
-        title: popOverStart + ' - ' + popOverEnd,
-        content: '',
-      });
-    } else {
-      if (props.weekCount[curMission.specification_id]) {
-        props.weekCount[curMission.specification_id][weekNr]++;
-      }
-      if (weekNr === startWeek) {
-        cells.push({
-          className: classes.rowTd + ' ' + (curMission.draft == null ? classes.einsatzDraft : classes.einsatz),
-          title: popOverStart + ' - ' + popOverEnd,
-          content: new Date(curMission.start!).getDate().toString(),
-        });
-      } else if (weekNr === endWeek) {
-        cells.push({
-          className: classes.rowTd + ' ' + (curMission.draft == null ? classes.einsatzDraft : classes.einsatz),
-          title: popOverStart + ' - ' + popOverEnd,
-          content: new Date(curMission.end!).getDate().toString(),
-        });
-      } else {
-        cells.push({
-          className: classes.rowTd + ' ' + (curMission.draft == null ? classes.einsatzDraft : classes.einsatz),
-          title: popOverStart + ' - ' + popOverEnd,
-          content: 'x',
-        });
-      }
-
-      // if (x === endWeek && missionCounter < mission.length - 1) {
-      //   missionCounter++;
-      // }
-    }
-  }
 
   ///
 
@@ -418,11 +455,7 @@ function MissionRow(props: MissionRowProps) {
         <a href={'/users/' + props.mission.user_id}>{props.mission.user!.first_name + ' ' + props.mission.user!.last_name}</a>
       </td>
 
-      {cells.map(({ content, ...props }, index) => (
-        <td key={index} {...props}>
-          {content}
-        </td>
-      ))}
+      {props.cells}
     </tr>
   );
 }
