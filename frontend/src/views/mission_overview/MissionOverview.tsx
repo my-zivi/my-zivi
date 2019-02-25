@@ -17,6 +17,8 @@ import Col from 'reactstrap/lib/Col';
 import Button from 'reactstrap/lib/Button';
 import { LoadingInformation } from '../../layout/LoadingInformation';
 import { ReactNode } from 'react';
+import Container from 'reactstrap/lib/Container';
+import { MissionRow } from './MissionRow';
 
 const styles = () =>
   createStyles({
@@ -58,43 +60,45 @@ interface MissionOverviewState {
   loadingSpecifications: boolean;
   selectedSpecifications: Map<number, boolean>;
   fetchYear: string;
-  allCells: Map<number, Array<any>>;
   missionCells: Map<number, ReactNode>;
   monthHeaders: Array<ReactNode>;
   weekHeaders: Array<ReactNode>;
-  averageCount: number;
+  totalCount: number;
   averageHeaders: Array<ReactNode>;
+  weekCount: Map<number, Map<number, number>>;
 }
-
-const cookiePrefixSpec = 'mission-overview-checkbox-';
-const cookieYear = 'mission-overview-year';
-const currYear = new Date().getFullYear();
 
 @inject('userStore', 'missionStore', 'specificationStore')
 class MissionOverviewContent extends React.Component<MissionOverviewProps, MissionOverviewState> {
+  cookiePrefixSpec = 'mission-overview-checkbox-';
+  cookieYear = 'mission-overview-year';
+  currYear = new Date().getFullYear();
+  monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+
   constructor(props: MissionOverviewProps) {
     super(props);
 
     this.state = {
       loadingMissions: true,
       loadingSpecifications: true,
-      fetchYear: window.localStorage.getItem(cookieYear) == null ? '2019' : window.localStorage.getItem(cookieYear)!,
+      fetchYear:
+        window.localStorage.getItem(this.cookieYear) == null ? this.currYear.toString() : window.localStorage.getItem(this.cookieYear)!,
       selectedSpecifications: new Map<number, boolean>(),
-      allCells: new Map<number, Array<any>>(),
       monthHeaders: [],
       weekHeaders: [],
-      averageCount: 0,
+      totalCount: 0,
       averageHeaders: [],
       missionCells: new Map<number, ReactNode>(),
+      weekCount: new Map<number, Map<number, number>>(),
     };
 
     this.props.specificationStore!.fetchAll().then(() => {
       this.props.specificationStore!.entities.forEach(spec => {
         let newSpecs = this.state.selectedSpecifications;
         newSpecs[spec.id!] =
-          window.localStorage.getItem(cookiePrefixSpec + spec.id!) == null
+          window.localStorage.getItem(this.cookiePrefixSpec + spec.id!) === null
             ? true
-            : window.localStorage.getItem(cookiePrefixSpec + spec.id!) == 'true';
+            : window.localStorage.getItem(this.cookiePrefixSpec + spec.id!) === 'true';
         this.setState({ selectedSpecifications: newSpecs, loadingSpecifications: false });
       });
     });
@@ -105,10 +109,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     });
   }
 
-  calculateMissionCells(): void {
-    let fetchYear = parseInt(this.state.fetchYear);
-    const { classes } = this.props;
-
+  resetWeekCount(): void {
     let weekCount = new Map<number, Map<number, number>>();
     for (let spec of this.props.specificationStore!.entities) {
       weekCount[spec.id!] = [];
@@ -116,6 +117,19 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
         weekCount[spec.id!][i] = 0;
       }
     }
+
+    this.state = {
+      ...this.state,
+      weekCount: weekCount,
+    };
+  }
+
+  calculateMissionCells(): void {
+    let fetchYear = parseInt(this.state.fetchYear);
+    const { classes } = this.props;
+
+    this.resetWeekCount();
+    let weekCount = this.state.weekCount;
 
     let startDates: Array<string> = [];
     let endDates: Array<string> = [];
@@ -125,10 +139,199 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
       endDates[x] = moment(fetchYear + ' ' + x + ' 5', 'YYYY WW E').format('DD.MM.YYYY');
     }
 
-    let averageCount = 0;
+    let missionCells = new Map<number, ReactNode>();
+
+    let doneMissions: number[] = [];
+
+    this.props.missionStore!.entities.forEach(mission => {
+      let cells: ReactNode[] = [];
+
+      // if we've already added the row for this user and specification, cancel
+      if (doneMissions.includes(mission.id!)) {
+        return;
+      }
+
+      // getting all missions of current user with same specification
+      let currMissions = this.props.missionStore!.entities.filter(val => {
+        if (val.user_id == mission.user_id && val.specification_id == mission.specification_id) {
+          doneMissions.push(val.id!);
+          return true;
+        }
+        return false;
+      });
+
+      for (let currWeek = 1; currWeek <= 52; currWeek++) {
+        let popOverStart = startDates[currWeek];
+        let popOverEnd = endDates[currWeek];
+
+        // no mission in that week
+        if (!this.isWeekDuringAMission(currWeek, currMissions)) {
+          cells.push(
+            <td key={currWeek} title={popOverStart + ' - ' + popOverEnd} className={classes.rowTd}>
+              {''}
+            </td>
+          );
+        } else {
+          if (weekCount[mission.specification_id]) {
+            weekCount[mission.specification_id][currWeek]++;
+          }
+          let einsatz = this.isWeekADraft(currWeek, currMissions) ? classes.einsatzDraft : classes.einsatz;
+          if (this.isWeekAStartWeek(currWeek, currMissions)) {
+            cells.push(
+              <td key={currWeek} title={popOverStart + ' - ' + popOverEnd} className={classes.rowTd + ' ' + einsatz}>
+                {new Date(mission.start!).getDate().toString()}
+              </td>
+            );
+          } else if (this.isWeekAnEndWeek(currWeek, currMissions)) {
+            cells.push(
+              <td key={currWeek} title={popOverStart + ' - ' + popOverEnd} className={classes.rowTd + ' ' + einsatz}>
+                {new Date(mission.end!).getDate().toString()}
+              </td>
+            );
+          } else {
+            cells.push(
+              <td key={currWeek} title={popOverStart + ' - ' + popOverEnd} className={classes.rowTd + ' ' + einsatz}>
+                {'x'}
+              </td>
+            );
+          }
+        }
+      }
+
+      missionCells.set(mission.id!, <MissionRow key={'mission-row-' + mission.id!} mission={mission} cells={cells} classes={classes} />);
+    });
+
+    this.setState(
+      {
+        weekCount: weekCount,
+        missionCells: missionCells,
+      },
+      () => {
+        this.updateAverageHeaders();
+        this.setWeekAndMonthHeaders();
+      }
+    );
+  }
+
+  changeSelectedSpecifications(v: boolean, id: number) {
+    let newSpec = this.state.selectedSpecifications;
+    newSpec[id] = v;
+    this.setState({ selectedSpecifications: newSpec }, () => this.updateAverageHeaders());
+    window.localStorage.setItem(this.cookiePrefixSpec + id, v.toString());
+  }
+
+  selectYear(year: string) {
+    window.localStorage.setItem(this.cookieYear, year);
+    this.setState({ loadingMissions: true, fetchYear: year }, () => {
+      this.props.missionStore!.fetchByYear(year).then(() => {
+        this.calculateMissionCells();
+        this.setState({ loadingMissions: false });
+      });
+    });
+  }
+
+  render() {
+    // Specifications that are in use by at least one mission
+    let specIdsOfMissions = this.props
+      .missionStore!.entities.map(mission => mission.specification_id)
+      .filter((elem, index, arr) => index === arr.indexOf(elem));
+    specIdsOfMissions.sort();
+
+    const { classes, specificationStore } = this.props;
+
+    return (
+      <IziviContent loading={this.state.loadingSpecifications} title={'Planung'} card={true}>
+        <Container fluid={true}>
+          <Row style={{ marginBottom: '2vh' }}>
+            <Col sm="12" md="2">
+              <div>
+                {/* All years from 2005 to next year */}
+                <SelectField
+                  options={Array.from(Array(this.currYear - 2003).keys())
+                    .map(k => {
+                      return {
+                        id: (2005 + k).toString(),
+                        name: (2005 + k).toString(),
+                      };
+                    })
+                    .reverse()}
+                  onChange={e => this.selectYear(e.target.value)}
+                  value={this.state.fetchYear}
+                />
+              </div>
+            </Col>
+
+            <Col sm="12" md="8">
+              <div>
+                {// Mapping a CheckboxField to every specfication in use
+                specIdsOfMissions.map(id => {
+                  let currSpec = specificationStore!.entities.filter(spec => spec.id! === id)[0];
+                  return (
+                    <CheckboxField
+                      key={currSpec.id!}
+                      onChange={(v: boolean) => this.changeSelectedSpecifications(v, currSpec.id!)}
+                      name={currSpec.id!.toString()}
+                      value={this.state.selectedSpecifications[currSpec.id!]}
+                      label={currSpec.name}
+                      horizontal={false}
+                    />
+                  );
+                })}
+              </div>
+            </Col>
+
+            <Col sm="12" md="2">
+              <Button>Drucken</Button>
+            </Col>
+          </Row>
+
+          {this.state.loadingMissions ? (
+            <LoadingInformation />
+          ) : (
+            <Row>
+              <Table responsive={true} className={'table table-striped table-bordered table-no-padding'} id="mission_overview_table">
+                <thead>
+                  <tr>
+                    <td colSpan={3} rowSpan={2} className={classes.rowTd}>
+                      Name
+                    </td>
+                    {this.state.monthHeaders}
+                  </tr>
+                  <tr>{this.state.weekHeaders}</tr>
+                  <tr>
+                    <td
+                      colSpan={3}
+                      style={{ textAlign: 'left', paddingLeft: '8px !important', fontWeight: 'bold', whiteSpace: 'nowrap' }}
+                      className={classes.rowTd}
+                    >
+                      Ø / Woche: {(this.state.totalCount / 52).toFixed(2)}
+                    </td>
+                    {this.state.averageHeaders}
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.props.missionStore!.entities.map(mission => {
+                    if (this.state.selectedSpecifications[mission.specification_id]) {
+                      return this.state.missionCells.get(mission.id!);
+                    }
+                    return;
+                  })}
+                </tbody>
+              </Table>
+            </Row>
+          )}
+        </Container>
+      </IziviContent>
+    );
+  }
+
+  setWeekAndMonthHeaders(): void {
+    const { classes } = this.props;
+
     let weekHeaders = [];
-    let averageHeaders = [];
     let monthHeaders = [];
+    let monthColCount = 0;
+
     let startDate = new Date(this.state.fetchYear + '-01-01');
     while (moment(startDate).isoWeek() > 50) {
       startDate.setDate(startDate.getDate() + 1);
@@ -136,26 +339,13 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     let prevMonth = moment(startDate)
       .isoWeekday(1)
       .month();
-    let monthColCount = 0;
-    for (let i = 1; i <= 52; i++) {
-      let weekCountSum = 0;
 
-      this.props.specificationStore!.entities.forEach(val => {
-        if (this.state.selectedSpecifications[val.id!] && weekCount[val.id!]) {
-          weekCountSum += weekCount[val.id!][i];
-        }
-      });
+    for (let i = 1; i <= 52; i++) {
       weekHeaders.push(
         <td className={classes.rowTd} key={i}>
           {i}
         </td>
       );
-      averageHeaders.push(
-        <td className={classes.rowTd} key={i}>
-          {weekCountSum}
-        </td>
-      );
-      averageCount += weekCountSum;
       if (
         moment(startDate)
           .isoWeekday(1)
@@ -178,6 +368,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
       monthColCount++;
       startDate.setDate(startDate.getDate() + 7);
     }
+
     monthHeaders.push(
       <td
         className={classes.rowTd}
@@ -189,273 +380,120 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
       </td>
     );
 
-    let allCells = new Map<number, Array<Object>>();
+    this.setState({ monthHeaders: monthHeaders, weekHeaders: weekHeaders });
+  }
 
-    let missionCells = new Map<number, ReactNode>();
+  updateAverageHeaders(): void {
+    const { classes } = this.props;
+    let averageHeaders = [];
+    let totalCount = 0;
+    let weekCount = this.state.weekCount;
+    for (let i = 1; i <= 52; i++) {
+      let weekCountSum = 0;
 
-    this.props.missionStore!.entities.forEach(mission => {
-      ///
-      let cells = [];
-
-      //let missionCounter = 0;
-
-      for (let weekNr = 1; weekNr <= 52; weekNr++) {
-        let popOverStart = startDates[weekNr];
-        let popOverEnd = endDates[weekNr];
-
-        let curMission = mission;
-
-        let startWeek = moment(curMission.start!).isoWeek();
-        if (new Date(curMission.start!).getFullYear() < fetchYear) {
-          startWeek = -1;
+      this.props.specificationStore!.entities.forEach(val => {
+        if (this.state.selectedSpecifications[val.id!] && weekCount[val.id!]) {
+          weekCountSum += weekCount[val.id!][i];
         }
-        let endWeek = moment(curMission.end!).isoWeek();
-        if (new Date(curMission.end!).getFullYear() > fetchYear) {
-          endWeek = 55;
-        }
+      });
+      averageHeaders.push(
+        <td className={classes.rowTd} key={i}>
+          {weekCountSum}
+        </td>
+      );
+      totalCount += weekCountSum;
+    }
+    this.setState({ averageHeaders: averageHeaders, totalCount: totalCount });
+  }
 
-        if (weekNr < startWeek || weekNr > endWeek) {
-          cells.push({
-            className: classes.rowTd,
-            title: popOverStart + ' - ' + popOverEnd,
-            content: '',
-          });
-        } else {
-          if (weekCount[curMission.specification_id]) {
-            weekCount[curMission.specification_id][weekNr]++;
-          }
-          if (weekNr === startWeek) {
-            cells.push({
-              className: classes.rowTd + ' ' + (curMission.draft == null ? classes.einsatzDraft : classes.einsatz),
-              title: popOverStart + ' - ' + popOverEnd,
-              content: new Date(curMission.start!).getDate().toString(),
-            });
-          } else if (weekNr === endWeek) {
-            cells.push({
-              className: classes.rowTd + ' ' + (curMission.draft == null ? classes.einsatzDraft : classes.einsatz),
-              title: popOverStart + ' - ' + popOverEnd,
-              content: new Date(curMission.end!).getDate().toString(),
-            });
-          } else {
-            cells.push({
-              className: classes.rowTd + ' ' + (curMission.draft == null ? classes.einsatzDraft : classes.einsatz),
-              title: popOverStart + ' - ' + popOverEnd,
-              content: 'x',
-            });
-          }
-
-          // if (x === endWeek && missionCounter < mission.length - 1) {
-          //   missionCounter++;
-          // }
-        }
+  isWeekADraft(currWeek: number, currMissions: Mission[]): boolean {
+    let draft = false;
+    currMissions.forEach(currMission => {
+      if (this.isWeekDuringMission(currWeek, currMission)) {
+        draft = currMission.draft == null;
       }
-
-      allCells.set(mission.id!, cells);
-
-      let filledCells: Array<ReactNode> = [];
-
-      cells.forEach(({ content, ...props }, index) => {
-        filledCells.push(
-          <td key={index} {...props}>
-            {content}
-          </td>
-        );
-      });
-
-      missionCells.set(mission.id!, <MissionRow key={mission.id!} mission={mission} cells={filledCells} classes={classes} />);
     });
+    return draft;
+  }
 
-    this.setState({
-      allCells: allCells,
-      averageHeaders: averageHeaders,
-      averageCount: averageCount,
-      weekHeaders: weekHeaders,
-      monthHeaders: monthHeaders,
-      missionCells: missionCells,
+  isWeekStartWeek(currWeek: number, currMission: Mission): boolean {
+    return currWeek == this.getStartWeek(currMission);
+  }
+
+  isWeekAStartWeek(currWeek: number, currMissions: Mission[]): boolean {
+    let ret = false;
+    currMissions.forEach(currMission => {
+      if (this.isWeekStartWeek(currWeek, currMission)) {
+        ret = true;
+      }
     });
+    return ret;
   }
 
-  componentDidMount(): void {
-    //this.setState({ loading: true });
+  isWeekMiddleWeek(currWeek: number, currMission: Mission): boolean {
+    let startWeek = this.getStartWeek(currMission);
+    let endWeek = this.getEndWeek(currMission);
+
+    return currWeek > startWeek && currWeek < endWeek;
   }
 
-  changeSelectedSpecifications(v: boolean, id: number) {
-    let newSpec = this.state.selectedSpecifications;
-    newSpec[id] = v;
-    this.setState({ selectedSpecifications: newSpec });
-    window.localStorage.setItem(cookiePrefixSpec + id, v.toString());
+  // isWeekAMiddleWeek(currWeek: number, currMissions: Mission[]): boolean {
+  //   let ret = false;
+  //   currMissions.forEach((currMission) => {
+  //     if (this.isWeekMiddleWeek(currWeek, currMission)) {
+  //       ret = true;
+  //     }
+  //   });
+  //   return ret;
+  // }
+
+  isWeekEndWeek(currWeek: number, currMission: Mission): boolean {
+    return currWeek == this.getEndWeek(currMission);
   }
 
-  selectYear(year: string) {
-    window.localStorage.setItem(cookieYear, year);
-    this.setState({ loadingMissions: true, fetchYear: year }, () => {
-      this.props.missionStore!.fetchByYear(year).then(() => {
-        this.calculateMissionCells();
-        this.setState({ loadingMissions: false });
-      });
+  isWeekAnEndWeek(currWeek: number, currMissions: Mission[]): boolean {
+    let ret = false;
+    currMissions.forEach(currMission => {
+      if (this.isWeekEndWeek(currWeek, currMission)) {
+        ret = true;
+      }
     });
+    return ret;
   }
 
-  monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-
-  render() {
-    let specIdsOfMissions = this.props
-      .missionStore!.entities.map(mission => mission.specification_id)
-      .filter((elem, index, arr) => index === arr.indexOf(elem));
-    specIdsOfMissions.sort();
-
-    const { classes, specificationStore } = this.props;
-
-    //
-
+  isWeekDuringMission(currWeek: number, currMission: Mission): boolean {
     return (
-      <IziviContent loading={this.state.loadingSpecifications} title={'Planung'} card={true}>
-        {/*<Container>*/}
-        <Row style={{ marginBottom: '2vh' }}>
-          <Col sm="12" md="2">
-            <div>
-              <SelectField
-                options={Array.from(Array(currYear - 2003).keys())
-                  .map(k => {
-                    return {
-                      id: (2005 + k).toString(),
-                      name: (2005 + k).toString(),
-                    };
-                  })
-                  .reverse()}
-                onChange={e => this.selectYear(e.target.value)}
-                value={this.state.fetchYear}
-              />
-              {/*<select onChange={e => this.selectYear(e.target.value)} defaultValue={this.state.fetchYear}>*/}
-              {/*{yearOptions}*/}
-              {/*</select>*/}
-            </div>
-          </Col>
-          <Col sm="12" md="8">
-            <div>
-              {specIdsOfMissions.map(v => {
-                let currSpec = specificationStore!.entities.filter(spec => spec.id! === v)[0];
-                return (
-                  <CheckboxField
-                    key={currSpec.id!}
-                    onChange={(v: boolean) => this.changeSelectedSpecifications(v, currSpec.id!)}
-                    name={currSpec.id!.toString()}
-                    value={this.state.selectedSpecifications[currSpec.id!]}
-                    label={currSpec.name}
-                    horizontal={false}
-                  />
-                );
-              })
-              // specificationStore!.entities.filter((spec) => {
-              //   return spec.active;
-              // }).map((spec) => (
-              //   <CheckboxField
-              //     key={spec.id!}
-              //     onChange={(v: boolean) => this.changeSelectedSpecifications(v, spec.id!)}
-              //     name={spec.id!.toString()}
-              //     value={this.state.selectedSpecifications[spec.id!]}
-              //     label={spec.name}
-              //     horizontal={false}
-              //   />
-              // ))
-              }
-              {/*<CheckboxField id={72466}*/}
-              {/*onChange={(v: boolean) => this.changeSelectedSpecifications(v, 'F')}*/}
-              {/*name={'F'} checked={this.state.selectedSpecifications['F']}*/}
-              {/*label={'Feldarbeiten (ab 06.07.2016)'}/>*/}
-              {/*<MissionTypeCheckbox id={72467}*/}
-              {/*onChange={(e: any, sn: string) => this.changeSelectedSpecifications(e, sn)}*/}
-              {/*name={'A'} checked={this.state.selectedSpecifications['A']}*/}
-              {/*label={'Admin (ab 06.07.2016)'}/>*/}
-              {/*<MissionTypeCheckbox id={72468}*/}
-              {/*onChange={(e: any, sn: string) => this.changeSelectedSpecifications(e, sn)}*/}
-              {/*name={'K'} checked={this.state.selectedSpecifications['K']}*/}
-              {/*label={'Admin; Ressourcen-, Arten- und Naturschutz (ab 06.07.2016)'}/>*/}
-            </div>
-          </Col>
-          <Col sm="12" md="2">
-            <Button>Drucken</Button>
-          </Col>
-        </Row>
-
-        {this.state.loadingMissions ? (
-          <LoadingInformation />
-        ) : (
-          <Row>
-            <Table responsive={true} className={'table table-striped table-bordered table-no-padding'} id="mission_overview_table">
-              <thead>
-                <tr>
-                  <td colSpan={3} rowSpan={2} className={classes.rowTd}>
-                    Name
-                  </td>
-                  {this.state.monthHeaders}
-                </tr>
-                <tr>{this.state.weekHeaders}</tr>
-                <tr>
-                  <td
-                    colSpan={3}
-                    style={{ textAlign: 'left', paddingLeft: '8px !important', fontWeight: 'bold' }}
-                    className={classes.rowTd}
-                  >
-                    Ø / Woche: {(this.state.averageCount / 52).toFixed(2)}
-                  </td>
-                  {this.state.averageHeaders}
-                </tr>
-              </thead>
-              <tbody>
-                {this.props.missionStore!.entities.map(mission => {
-                  if (this.state.selectedSpecifications[mission.specification_id]) {
-                    return this.state.missionCells.get(mission.id!);
-                  }
-                  return;
-                })}
-                <tr>
-                  {/*<td>Mission Length: {this.props.missionStore!.entities.length}</td>*/}
-                  {/*{*/}
-                  {/*this.props.missionStore!.entities.map(mission =>*/}
-                  {/*<td>{mission.user!.first_name}</td>*/}
-                  {/*)*/}
-                  {/*}*/}
-                </tr>
-              </tbody>
-            </Table>
-          </Row>
-        )}
-
-        {/*</Container>*/}
-      </IziviContent>
+      this.isWeekStartWeek(currWeek, currMission) ||
+      this.isWeekMiddleWeek(currWeek, currMission) ||
+      this.isWeekEndWeek(currWeek, currMission)
     );
+  }
+
+  isWeekDuringAMission(currWeek: number, currMissions: Mission[]): boolean {
+    let ret = false;
+    currMissions.forEach(currMission => {
+      if (this.isWeekDuringMission(currWeek, currMission)) {
+        ret = true;
+      }
+    });
+    return ret;
+  }
+
+  getStartWeek(mission: Mission): number {
+    let startWeek = moment(mission.start!).isoWeek();
+    if (new Date(mission.start!).getFullYear() < parseInt(this.state.fetchYear)) {
+      startWeek = -1;
+    }
+    return startWeek;
+  }
+
+  getEndWeek(mission: Mission): number {
+    let endWeek = moment(mission.end!).isoWeek();
+    if (new Date(mission.end!).getFullYear() > parseInt(this.state.fetchYear)) {
+      endWeek = 55;
+    }
+    return endWeek;
   }
 }
 
 export const MissionOverview = injectSheet(styles)(MissionOverviewContent);
-
-interface MissionRowProps {
-  mission: Mission;
-  cells: Array<any>;
-  classes: Record<string, string>;
-}
-
-function MissionRow(props: MissionRowProps) {
-  const { classes } = props;
-
-  ///
-
-  ///
-
-  return (
-    <tr className={'mission-row-' + props.mission.specification_id}>
-      <td className={classes.shortName + ' ' + classes.rowTd}>{props.mission.specification!.short_name}</td>
-
-      <td className={classes.zdp + ' ' + classes.rowTd}>
-        <div className="no-print">{props.mission.user!.zdp}</div>
-      </td>
-
-      <td className={classes.namen + ' ' + classes.rowTd}>
-        <a href={'/users/' + props.mission.user_id}>{props.mission.user!.first_name + ' ' + props.mission.user!.last_name}</a>
-      </td>
-
-      {props.cells}
-    </tr>
-  );
-}
