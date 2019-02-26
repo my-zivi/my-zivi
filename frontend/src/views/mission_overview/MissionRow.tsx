@@ -1,8 +1,11 @@
-import { Mission } from '../../types';
 import * as React from 'react';
 
 interface MissionRowProps {
-  mission: Mission;
+  specification_id: number;
+  shortName: string;
+  user_id: number;
+  zdp: number;
+  userName: string;
   cells: Array<any>;
   classes: Record<string, string>;
 }
@@ -11,15 +14,15 @@ function MissionRow(props: MissionRowProps) {
   const { classes } = props;
 
   return (
-    <tr className={'mission-row-' + props.mission.specification_id}>
-      <td className={classes.shortName + ' ' + classes.rowTd}>{props.mission.specification!.short_name}</td>
+    <tr className={'mission-row-' + props.specification_id}>
+      <td className={classes.shortName + ' ' + classes.rowTd}>{props.shortName}</td>
 
       <td className={classes.zdp + ' ' + classes.rowTd}>
-        <div className="no-print">{props.mission.user!.zdp}</div>
+        <div className="no-print">{props.zdp}</div>
       </td>
 
       <td className={classes.namen + ' ' + classes.rowTd}>
-        <a href={'/users/' + props.mission.user_id}>{props.mission.user!.first_name + ' ' + props.mission.user!.last_name}</a>
+        <a href={'/users/' + props.user_id}>{props.userName}</a>
       </td>
       {props.cells}
     </tr>
