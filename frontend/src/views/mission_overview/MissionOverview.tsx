@@ -58,11 +58,11 @@ interface MissionOverviewState {
   loadingSpecifications: boolean;
   selectedSpecifications: Map<number, boolean>;
   fetchYear: string;
-  missionCells: Map<number, ReactNode>;
+  missionRows: Map<number, ReactNode>;
   monthHeaders: Array<ReactNode>;
   weekHeaders: Array<ReactNode>;
   totalCount: number;
-  averageHeaders: Array<ReactNode>;
+  weekTotalHeaders: Array<ReactNode>;
   weekCount: Map<number, Map<number, number>>;
 }
 
@@ -85,8 +85,8 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
       monthHeaders: [],
       weekHeaders: [],
       totalCount: 0,
-      averageHeaders: [],
-      missionCells: new Map<number, ReactNode>(),
+      weekTotalHeaders: [],
+      missionRows: new Map<number, ReactNode>(),
       weekCount: new Map<number, Map<number, number>>(),
     };
 
@@ -102,13 +102,13 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     });
 
     this.props.missionStore!.fetchByYear(this.state.fetchYear).then(() => {
-      this.calculateMissionCells();
+      this.calculateMissionRows();
       this.setState({ loadingMissions: false });
     });
   }
 
-  calculateMissionCells(): void {
-    let fetchYear = parseInt(this.state.fetchYear);
+  calculateMissionRows(): void {
+    const fetchYear = parseInt(this.state.fetchYear);
     const { classes } = this.props;
 
     let weekCount = this.getEmptyWeekCount();
@@ -121,12 +121,12 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
       endDates[x] = moment(fetchYear + ' ' + x + ' 5', 'YYYY WW E').format('DD.MM.YYYY');
     }
 
-    let missionCells = new Map<number, ReactNode>();
+    let missionRows = new Map<number, ReactNode>();
 
     let doneMissions: number[] = [];
 
     this.props.missionStore!.entities.forEach(mission => {
-      // if we've already added the row for this user and specification, cancel
+      // if we've already added the row for this user and specification, skiip
       if (doneMissions.includes(mission.id!)) {
         return;
       }
@@ -140,51 +140,10 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
         return false;
       });
 
-      let cells: ReactNode[] = [];
-      // filling MissionRow for currMissions
-      for (let currWeek = 1; currWeek <= 52; currWeek++) {
-        let popOverStart = startDates[currWeek];
-        let popOverEnd = endDates[currWeek];
-        let title = popOverStart + ' - ' + popOverEnd;
+      let cells = this.getMissionCells(startDates, endDates, currMissions, weekCount);
 
-        if (!this.isWeekDuringAMission(currWeek, currMissions)) {
-          // no mission in this week
-          cells.push(
-            <td title={title} className={classes.rowTd}>
-              {''}
-            </td>
-          );
-        } else {
-          // mission in this week, increasing weekCount for this specification
-          if (weekCount[mission.specification_id]) {
-            weekCount[mission.specification_id][currWeek]++;
-          }
-          // different styling depending on whether the mission is a draft or not
-          let einsatz = this.isWeekADraft(currWeek, currMissions) ? classes.einsatzDraft : classes.einsatz;
-          if (this.isWeekAStartWeek(currWeek, currMissions)) {
-            cells.push(
-              <td title={title} className={classes.rowTd + ' ' + einsatz}>
-                {this.getStartDateOfCurrentMission(currWeek, currMissions).toString()}
-              </td>
-            );
-          } else if (this.isWeekAnEndWeek(currWeek, currMissions)) {
-            cells.push(
-              <td title={title} className={classes.rowTd + ' ' + einsatz}>
-                {this.getEndDateOfCurrentMission(currWeek, currMissions).toString()}
-              </td>
-            );
-          } else {
-            // Week must be during a mission, but not the ending or starting week
-            cells.push(
-              <td title={title} className={classes.rowTd + ' ' + einsatz}>
-                {'x'}
-              </td>
-            );
-          }
-        }
-      }
-
-      missionCells.set(
+      // can use any mission in currMissions here, because user and specification are the same for each mission in array
+      missionRows.set(
         mission.id!,
         <MissionRow
           key={'mission-row-' + mission.id!}
@@ -202,7 +161,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     this.setState(
       {
         weekCount,
-        missionCells,
+        missionRows: missionRows,
       },
       () => {
         this.updateAverageHeaders();
@@ -222,7 +181,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     window.localStorage.setItem(this.cookieYear, year);
     this.setState({ loadingMissions: true, fetchYear: year }, () => {
       this.props.missionStore!.fetchByYear(year).then(() => {
-        this.calculateMissionCells();
+        this.calculateMissionRows();
         this.setState({ loadingMissions: false });
       });
     });
@@ -304,13 +263,13 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
                     >
                       Ø / Woche: {(this.state.totalCount / 52).toFixed(2)}
                     </td>
-                    {this.state.averageHeaders}
+                    {this.state.weekTotalHeaders}
                   </tr>
                 </thead>
                 <tbody>
                   {this.props.missionStore!.entities.map(mission => {
                     if (this.state.selectedSpecifications[mission.specification_id]) {
-                      return this.state.missionCells.get(mission.id!);
+                      return this.state.missionRows.get(mission.id!);
                     }
                     return;
                   })}
@@ -330,51 +289,64 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     let monthHeaders = [];
     let monthColCount = 0;
 
-    let startDate = new Date(this.state.fetchYear + '-01-01');
-    while (moment(startDate).isoWeek() > 50) {
-      startDate.setDate(startDate.getDate() + 1);
-    }
-    let prevMonth = moment(startDate)
+    // let currDate = new Date(this.state.fetchYear + '-01-01');
+    // while (moment(currDate).isoWeek() > 50) {
+    //   currDate.setDate(currDate.getDate() + 1);
+    // }
+
+    // setting currDate to monday in fetchYear's ISO week 1
+    let currDate = moment()
+      .year(parseInt(this.state.fetchYear))
+      .isoWeek(1)
+      .isoWeekday(1)
+      .toDate();
+    //get month of monday in currDate's week (= fetchYear's week 1)
+    let currMonth = moment(currDate)
       .isoWeekday(1)
       .month();
 
-    for (let i = 1; i <= 52; i++) {
+    // looping through every week of the year
+    for (let currWeek = 1; currWeek <= 52; currWeek++) {
       weekHeaders.push(
-        <td className={classes.rowTd} key={i}>
-          {i}
+        <td className={classes.rowTd} key={currWeek}>
+          {currWeek}
         </td>
       );
       if (
-        moment(startDate)
+        moment(currDate)
           .isoWeekday(1)
-          .month() !== prevMonth
+          .month() !== currMonth
       ) {
-        // cell width (25px) must be the same as in mission_overview.sass
+        // if we're in a new month
         monthHeaders.push(
           <td
             className={classes.rowTd}
             style={{ fontWeight: 'bold', maxWidth: 25 * monthColCount + 'px', overflow: 'hidden', wordWrap: 'normal' }}
             colSpan={monthColCount}
-            key={'month_header_' + i}
+            key={'month_header_' + currWeek}
           >
-            {this.monthNames[prevMonth]}
+            {this.monthNames[currMonth]}
           </td>
         );
         monthColCount = 0;
-        prevMonth = startDate.getMonth();
+        // setting currMonth to the new month
+        currMonth = moment(currDate).month();
       }
+      // making month cell bigger by one col, to fit one week
       monthColCount++;
-      startDate.setDate(startDate.getDate() + 7);
+      // increasing date by a week
+      currDate.setDate(currDate.getDate() + 7);
     }
 
+    // pushing final month
     monthHeaders.push(
       <td
         className={classes.rowTd}
         style={{ fontWeight: 'bold' }}
         colSpan={monthColCount}
-        key={this.monthNames.indexOf(this.monthNames[prevMonth])}
+        key={this.monthNames.indexOf(this.monthNames[currMonth])}
       >
-        {this.monthNames[prevMonth]}
+        {this.monthNames[currMonth]}
       </td>
     );
 
@@ -383,115 +355,112 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
 
   updateAverageHeaders(): void {
     const { classes } = this.props;
-    let averageHeaders = [];
+    let weekTotalHeaders = [];
     let totalCount = 0;
-    let weekCount = this.state.weekCount;
-    for (let i = 1; i <= 52; i++) {
+    for (let currWeek = 1; currWeek <= 52; currWeek++) {
       let weekCountSum = 0;
 
-      this.props.specificationStore!.entities.forEach(val => {
-        if (this.state.selectedSpecifications[val.id!] && weekCount[val.id!]) {
-          weekCountSum += weekCount[val.id!][i];
+      this.props.specificationStore!.entities.forEach(spec => {
+        if (this.state.selectedSpecifications[spec.id!]) {
+          weekCountSum += this.state.weekCount[spec.id!][currWeek];
         }
       });
-      averageHeaders.push(
-        <td className={classes.rowTd} key={i}>
+      weekTotalHeaders.push(
+        <td className={classes.rowTd} key={currWeek}>
           {weekCountSum}
         </td>
       );
       totalCount += weekCountSum;
     }
-    this.setState({ averageHeaders: averageHeaders, totalCount: totalCount });
+    this.setState({ weekTotalHeaders: weekTotalHeaders, totalCount: totalCount });
   }
 
-  getStartDateOfCurrentMission(currWeek: number, currMissions: Mission[]): number {
-    let ret: number = 0;
-    currMissions.forEach(currMission => {
-      if (this.isWeekDuringMission(currWeek, currMission)) {
-        ret = new Date(currMission.start!).getDate();
+  getMissionCells(
+    startDates: string[],
+    endDates: string[],
+    currMissions: Mission[],
+    weekCount: Map<number, Map<number, number>>
+  ): ReactNode[] {
+    let cells: ReactNode[] = [];
+    const { classes } = this.props;
+
+    // filling MissionRow for currMissions
+    for (let currWeek = 1; currWeek <= 52; currWeek++) {
+      let popOverStart = startDates[currWeek];
+      let popOverEnd = endDates[currWeek];
+      let title = popOverStart + ' - ' + popOverEnd;
+
+      let currMission = this.getActiveMissionInWeek(currWeek, currMissions);
+
+      if (currMission == null) {
+        // no mission in this week
+        cells.push(
+          <td key={currWeek} title={title} className={classes.rowTd}>
+            {''}
+          </td>
+        );
+      } else {
+        // mission in this week
+        if (weekCount[currMission.specification_id]) {
+          // increasing weekCount for this specification
+          weekCount[currMission.specification_id][currWeek]++;
+        }
+
+        // different styling depending on whether the mission is a draft or not
+        let einsatz = currMission.draft == null ? classes.einsatzDraft : classes.einsatz;
+
+        if (this.isWeekStartWeek(currWeek, currMission)) {
+          let content = new Date(currMission.start!).getDate().toString();
+          cells.push(
+            <td key={currWeek} title={title} className={classes.rowTd + ' ' + einsatz}>
+              {content}
+            </td>
+          );
+        } else if (this.isWeekEndWeek(currWeek, currMission)) {
+          let content = new Date(currMission.end!).getDate().toString();
+          cells.push(
+            <td key={currWeek} title={title} className={classes.rowTd + ' ' + einsatz}>
+              {content}
+            </td>
+          );
+        } else {
+          // Week must be during a mission, but not the ending or starting week
+          cells.push(
+            <td key={currWeek} title={title} className={classes.rowTd + ' ' + einsatz}>
+              {'x'}
+            </td>
+          );
+        }
       }
-    });
-    return ret;
+    }
+
+    return cells;
   }
 
-  getEndDateOfCurrentMission(currWeek: number, currMissions: Mission[]): number {
-    let ret: number = 0;
-    currMissions.forEach(currMission => {
-      if (this.isWeekDuringMission(currWeek, currMission)) {
-        ret = new Date(currMission.end!).getDate();
-      }
-    });
-    return ret;
+  isWeekStartWeek(week: number, mission: Mission): boolean {
+    return week == this.getStartWeek(mission);
   }
 
-  isWeekADraft(currWeek: number, currMissions: Mission[]): boolean {
-    let draft = false;
-    currMissions.forEach(currMission => {
-      if (this.isWeekDuringMission(currWeek, currMission)) {
-        draft = currMission.draft == null;
-      }
-    });
-    return draft;
+  isWeekMiddleWeek(week: number, mission: Mission): boolean {
+    let startWeek = this.getStartWeek(mission);
+    let endWeek = this.getEndWeek(mission);
+
+    return week > startWeek && week < endWeek;
   }
 
-  isWeekStartWeek(currWeek: number, currMission: Mission): boolean {
-    return currWeek == this.getStartWeek(currMission);
+  isWeekEndWeek(week: number, mission: Mission): boolean {
+    return week == this.getEndWeek(mission);
   }
 
-  isWeekAStartWeek(currWeek: number, currMissions: Mission[]): boolean {
-    let ret = false;
-    currMissions.forEach(currMission => {
-      if (this.isWeekStartWeek(currWeek, currMission)) {
-        ret = true;
-      }
-    });
-    return ret;
+  isWeekDuringMission(week: number, mission: Mission): boolean {
+    return this.isWeekStartWeek(week, mission) || this.isWeekMiddleWeek(week, mission) || this.isWeekEndWeek(week, mission);
   }
 
-  isWeekMiddleWeek(currWeek: number, currMission: Mission): boolean {
-    let startWeek = this.getStartWeek(currMission);
-    let endWeek = this.getEndWeek(currMission);
-
-    return currWeek > startWeek && currWeek < endWeek;
-  }
-
-  // isWeekAMiddleWeek(currWeek: number, currMissions: Mission[]): boolean {
-  //   let ret = false;
-  //   currMissions.forEach((currMission) => {
-  //     if (this.isWeekMiddleWeek(currWeek, currMission)) {
-  //       ret = true;
-  //     }
-  //   });
-  //   return ret;
-  // }
-
-  isWeekEndWeek(currWeek: number, currMission: Mission): boolean {
-    return currWeek == this.getEndWeek(currMission);
-  }
-
-  isWeekAnEndWeek(currWeek: number, currMissions: Mission[]): boolean {
-    let ret = false;
-    currMissions.forEach(currMission => {
-      if (this.isWeekEndWeek(currWeek, currMission)) {
-        ret = true;
-      }
-    });
-    return ret;
-  }
-
-  isWeekDuringMission(currWeek: number, currMission: Mission): boolean {
-    return (
-      this.isWeekStartWeek(currWeek, currMission) ||
-      this.isWeekMiddleWeek(currWeek, currMission) ||
-      this.isWeekEndWeek(currWeek, currMission)
-    );
-  }
-
-  isWeekDuringAMission(currWeek: number, currMissions: Mission[]): boolean {
-    let ret = false;
-    currMissions.forEach(currMission => {
-      if (this.isWeekDuringMission(currWeek, currMission)) {
-        ret = true;
+  getActiveMissionInWeek(week: number, missions: Mission[]): Mission | null {
+    let ret: Mission | null = null;
+    missions.forEach(mission => {
+      if (this.isWeekDuringMission(week, mission)) {
+        ret = mission;
       }
     });
     return ret;

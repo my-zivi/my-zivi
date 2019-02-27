@@ -4,23 +4,32 @@ import Label from 'reactstrap/lib/Label';
 import Input from 'reactstrap/lib/Input';
 import Col from 'reactstrap/lib/Col';
 import { IziviCustomFieldProps } from './common';
+import injectSheet, { WithSheet } from 'react-jss';
+import createStyles from '../utilities/createStyles';
 
-// The checkbox requires it's own kind of "logic" to render
+const styles = () =>
+  createStyles({
+    noselect: {
+      userSelect: 'none',
+    },
+  });
+
+// The checkbox requires its own kind of "logic" to render
 // we can't wrap it into our common stuff in common.tsx
 // so it has its own sets of props
 
-interface CheckboxFieldProps extends IziviCustomFieldProps<boolean> {
+interface CheckboxFieldProps extends IziviCustomFieldProps<boolean>, WithSheet<typeof styles> {
   horizontal?: boolean;
   label: string;
   required?: boolean;
 }
 
-export const CheckboxField = ({ value, onChange, name, horizontal, label, required, errorMessage }: CheckboxFieldProps) => {
+export const CheckboxFieldContent = ({ value, onChange, name, horizontal, label, required, errorMessage, classes }: CheckboxFieldProps) => {
   const hasErrors = Boolean(errorMessage);
   return (
     <FormGroup check={!horizontal} row={horizontal}>
       {label && (
-        <Label check={!horizontal} for={name} md={horizontal ? 3 : undefined}>
+        <Label className={classes.noselect} check={!horizontal} for={name} md={horizontal ? 3 : undefined}>
           {horizontal && label}
           {!horizontal && (
             <>
@@ -33,7 +42,7 @@ export const CheckboxField = ({ value, onChange, name, horizontal, label, requir
       {horizontal && (
         <Col md={9}>
           <FormGroup check>
-            <Label check>
+            <Label className={classes.noselect} check>
               <Input id={name} checked={value} onChange={() => onChange(!value)} invalid={hasErrors} type="checkbox" />
             </Label>
           </FormGroup>
@@ -42,3 +51,5 @@ export const CheckboxField = ({ value, onChange, name, horizontal, label, requir
     </FormGroup>
   );
 };
+
+export const CheckboxField = injectSheet(styles)(CheckboxFieldContent);
