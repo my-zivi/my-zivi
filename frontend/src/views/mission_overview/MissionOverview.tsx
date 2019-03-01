@@ -45,6 +45,15 @@ const styles = () =>
     },
     einsatz: {
       background: '#0c6',
+      composes: 'einsatz',
+    },
+    '@global': {
+      '@media print': {
+        '.table td.einsatz': {
+          // here media print styling for einsatz. (!important)
+          backgroundColor: 'blue!important',
+        },
+      },
     },
   });
 
