@@ -6,7 +6,7 @@ import { MissionStore } from '../../stores/missionStore';
 import moment from 'moment';
 import { Mission } from '../../types';
 import { SelectField } from '../../form/common';
-import createStyles from '../../utilities/createStyles';
+
 import { WithSheet } from 'react-jss';
 import injectSheet from 'react-jss';
 import Table from 'reactstrap/lib/Table';
@@ -18,46 +18,9 @@ import { LoadingInformation } from '../../layout/LoadingInformation';
 import { ReactNode } from 'react';
 import Container from 'reactstrap/lib/Container';
 import { MissionRow } from './MissionRow';
+import { MissionStyles } from './MissionStyles';
 
-const styles = () =>
-  createStyles({
-    rowTd: {
-      padding: '5px 1px !important',
-      fontSize: '14px',
-      textAlign: 'center',
-      minWidth: '25px',
-    },
-    shortName: {
-      minWidth: '40px',
-      width: '40px',
-    },
-    zdp: {
-      minWidth: '100px',
-      width: '100px',
-    },
-    namen: {
-      minWidth: '150px',
-      width: '150px',
-      textAlign: 'left',
-    },
-    einsatzDraft: {
-      background: '#fc9',
-    },
-    einsatz: {
-      background: '#0c6',
-      composes: 'einsatz',
-    },
-    '@global': {
-      '@media print': {
-        '.table td.einsatz': {
-          // here media print styling for einsatz. (!important)
-          backgroundColor: 'blue!important',
-        },
-      },
-    },
-  });
-
-interface MissionOverviewProps extends WithSheet<typeof styles> {
+interface MissionOverviewProps extends WithSheet<typeof MissionStyles> {
   specificationStore?: SpecificationStore;
   missionStore?: MissionStore;
 }
@@ -79,7 +42,7 @@ interface MissionOverviewState {
 class MissionOverviewContent extends React.Component<MissionOverviewProps, MissionOverviewState> {
   cookiePrefixSpec = 'mission-overview-checkbox-';
   cookieYear = 'mission-overview-year';
-  currYear = new Date().getFullYear();
+  currYear = moment().year(); //new Date().getFullYear();
   monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 
   constructor(props: MissionOverviewProps) {
@@ -98,7 +61,33 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
       missionRows: new Map<number, ReactNode>(),
       weekCount: new Map<number, Map<number, number>>(),
     };
+  }
 
+  componentDidMount(): void {
+    this.loadSpecifications();
+    this.loadMissions();
+  }
+
+  scrollTableHeader(table: HTMLTableElement | null) {
+    if (table !== null) {
+      const onScroll = () => {
+        const offset = window.pageYOffset;
+        const tableOffsetTop = table!.getBoundingClientRect().top + window.pageYOffset;
+        const thead = table!.querySelector('thead');
+
+        if (offset > tableOffsetTop) {
+          thead!.style.top = `${offset - tableOffsetTop}px`;
+        } else {
+          thead!.style.top = '0';
+        }
+      };
+
+      document.addEventListener('scroll', onScroll);
+      onScroll();
+    }
+  }
+
+  loadSpecifications() {
     this.props.specificationStore!.fetchAll().then(() => {
       let newSpecs = this.state.selectedSpecifications;
       this.props.specificationStore!.entities.forEach(spec => {
@@ -109,10 +98,14 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
       });
       this.setState({ selectedSpecifications: newSpecs, loadingSpecifications: false });
     });
+  }
 
+  loadMissions() {
     this.props.missionStore!.fetchByYear(this.state.fetchYear).then(() => {
       this.calculateMissionRows();
-      this.setState({ loadingMissions: false });
+      this.setState({ loadingMissions: false }, () => {
+        this.scrollTableHeader(document.querySelector('table'));
+      });
     });
   }
 
@@ -206,9 +199,9 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     const { classes, specificationStore } = this.props;
 
     return (
-      <IziviContent loading={this.state.loadingSpecifications} title={'Planung'} card={true}>
+      <IziviContent loading={this.state.loadingSpecifications} title={'Einsatzübersicht'} card={true}>
         <Container fluid={true}>
-          <Row style={{ marginBottom: '2vh' }}>
+          <Row className={classes.filter} style={{ marginBottom: '2vh' }}>
             <Col sm="12" md="2">
               <div>
                 {/* All years from 2005 to next year */}
@@ -247,7 +240,13 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
             </Col>
 
             <Col sm="12" md="2">
-              <Button>Drucken</Button>
+              <Button
+                onClick={() => {
+                  window.print();
+                }}
+              >
+                Drucken
+              </Button>
             </Col>
           </Row>
 
@@ -255,10 +254,10 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
             <LoadingInformation />
           ) : (
             <Row>
-              <Table responsive={true} className={'table table-striped table-bordered table-no-padding'} id="mission_overview_table">
+              <Table responsive={true} striped={true} bordered={true} className={'table-no-padding'} id="mission_overview_table">
                 <thead>
                   <tr>
-                    <td colSpan={3} rowSpan={2} className={classes.rowTd}>
+                    <td colSpan={3} rowSpan={2} className={classes.rowTd + ' mo-name-header'}>
                       Name
                     </td>
                     {this.state.monthHeaders}
@@ -419,14 +418,18 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
         let einsatz = currMission.draft == null ? classes.einsatzDraft : classes.einsatz;
 
         if (this.isWeekStartWeek(currWeek, currMission)) {
-          let content = new Date(currMission.start!).getDate().toString();
+          let content = moment(currMission.start!)
+            .date()
+            .toString(); //new Date(currMission.start!).getDate().toString();
           cells.push(
             <td key={currWeek} title={title} className={classes.rowTd + ' ' + einsatz}>
               {content}
             </td>
           );
         } else if (this.isWeekEndWeek(currWeek, currMission)) {
-          let content = new Date(currMission.end!).getDate().toString();
+          let content = moment(currMission.end!)
+            .date()
+            .toString(); //new Date(currMission.end!).getDate().toString();
           cells.push(
             <td key={currWeek} title={title} className={classes.rowTd + ' ' + einsatz}>
               {content}
@@ -477,7 +480,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
 
   getStartWeek(mission: Mission): number {
     let startWeek = moment(mission.start!).isoWeek();
-    if (new Date(mission.start!).getFullYear() < parseInt(this.state.fetchYear)) {
+    if (moment(mission.start!).year() < parseInt(this.state.fetchYear)) {
       startWeek = -1;
     }
     return startWeek;
@@ -485,7 +488,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
 
   getEndWeek(mission: Mission): number {
     let endWeek = moment(mission.end!).isoWeek();
-    if (new Date(mission.end!).getFullYear() > parseInt(this.state.fetchYear)) {
+    if (moment(mission.end!).year() > parseInt(this.state.fetchYear)) {
       endWeek = 55;
     }
     return endWeek;
@@ -503,4 +506,4 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
   }
 }
 
-export const MissionOverview = injectSheet(styles)(MissionOverviewContent);
+export const MissionOverview = injectSheet(MissionStyles)(MissionOverviewContent);

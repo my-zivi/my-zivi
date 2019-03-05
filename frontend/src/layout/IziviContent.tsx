@@ -16,6 +16,7 @@ const styles = (theme: Theme) =>
       '@media (min-width: 1024px)': {
         padding: `${theme.layout.baseSpacing}px ${2 * theme.layout.baseSpacing}px`,
       },
+      composes: 'mo-container',
     },
     background: {
       backgroundImage: `url(${bg})`,
@@ -38,6 +39,15 @@ interface Props extends WithSheet<typeof styles> {
 }
 
 class IziviContent extends Component<Props> {
+  constructor(props: Props) {
+    super(props);
+    if (this.props.title) {
+      document.title = `iZivi - ${this.props.title}`;
+    } else {
+      document.title = `iZivi`;
+    }
+  }
+
   render = () => {
     const { classes, children, loading, showBackgroundImage, card, title } = this.props;
     const content = loading ? <LoadingInformation /> : children;
