@@ -39,8 +39,7 @@ interface Props extends WithSheet<typeof styles> {
 }
 
 class IziviContent extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
+  updateTitle() {
     if (this.props.title) {
       document.title = `iZivi - ${this.props.title}`;
     } else {
@@ -49,6 +48,7 @@ class IziviContent extends Component<Props> {
   }
 
   render = () => {
+    this.updateTitle();
     const { classes, children, loading, showBackgroundImage, card, title } = this.props;
     const content = loading ? <LoadingInformation /> : children;
 

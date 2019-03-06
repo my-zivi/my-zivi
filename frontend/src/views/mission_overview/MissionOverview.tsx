@@ -109,6 +109,24 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     });
   }
 
+  changeSelectedSpecifications(v: boolean, id: number) {
+    let newSpec = this.state.selectedSpecifications;
+    newSpec[id] = v;
+    this.setState({ selectedSpecifications: newSpec }, () => this.updateAverageHeaders());
+    window.localStorage.setItem(this.cookiePrefixSpec + id, v.toString());
+  }
+
+  selectYear(year: string) {
+    window.localStorage.setItem(this.cookieYear, year);
+    this.setState({ loadingMissions: true, fetchYear: year }, () => {
+      this.loadMissions();
+      // this.props.missionStore!.fetchByYear(year).then(() => {
+      //   this.calculateMissionRows();
+      //   this.setState({ loadingMissions: false });
+      // });
+    });
+  }
+
   calculateMissionRows(): void {
     const fetchYear = parseInt(this.state.fetchYear);
     const { classes } = this.props;
@@ -172,23 +190,6 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     );
   }
 
-  changeSelectedSpecifications(v: boolean, id: number) {
-    let newSpec = this.state.selectedSpecifications;
-    newSpec[id] = v;
-    this.setState({ selectedSpecifications: newSpec }, () => this.updateAverageHeaders());
-    window.localStorage.setItem(this.cookiePrefixSpec + id, v.toString());
-  }
-
-  selectYear(year: string) {
-    window.localStorage.setItem(this.cookieYear, year);
-    this.setState({ loadingMissions: true, fetchYear: year }, () => {
-      this.props.missionStore!.fetchByYear(year).then(() => {
-        this.calculateMissionRows();
-        this.setState({ loadingMissions: false });
-      });
-    });
-  }
-
   render() {
     // Specifications that are in use by at least one mission
     let specIdsOfMissions = this.props
@@ -198,8 +199,10 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
 
     const { classes, specificationStore } = this.props;
 
+    const title = 'Einsatzübersicht';
+
     return (
-      <IziviContent loading={this.state.loadingSpecifications} title={'Einsatzübersicht'} card={true}>
+      <IziviContent loading={this.state.loadingSpecifications} title={title} card={true}>
         <Container fluid={true}>
           <Row className={classes.filter} style={{ marginBottom: '2vh' }}>
             <Col sm="12" md="2">
