@@ -104,6 +104,24 @@ export class ApiStore {
     });
   }
 
+  @action
+  public async postRegister(values: {
+    zdp: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    password_confirm: string;
+    community_pw: string;
+    newsletter: boolean;
+  }) {
+    const res = await this._api.post<LoginResponse>('/auth/register', values);
+    runInAction(() => {
+      this.setToken(res.data.data.token);
+      this.updateSentryContext();
+    });
+  }
+
   public async postForgotPassword(email: string) {
     await this._api.post('/auth/forgotPassword', { email });
   }

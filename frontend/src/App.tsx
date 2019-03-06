@@ -22,6 +22,7 @@ import { Icons } from './utilities/Icon';
 import { UserUpdate } from './views/users/UserUpdate';
 import { UserFeedbackOverview } from './views/user_feedback_overview/UserFeedbackOverview';
 import { MissionOverview } from './views/mission_overview/MissionOverview';
+import { Register } from './views/Register';
 
 Icons();
 
@@ -32,6 +33,7 @@ class App extends React.Component {
         <Switch>
           <Route component={Home} exact path={'/'} />
           <Route component={Login} exact path={'/login'} />
+          <Route component={Register} exact path={'/register'} />
           <Route component={ForgotPassword} exact path={'/forgotPassword'} />
           <Route component={HolidayOverview} exact path={'/holidays'} />
           <Route component={PhoneListView} exact path={'/phones'} />
