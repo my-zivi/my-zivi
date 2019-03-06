@@ -23,6 +23,7 @@ import { UserUpdate } from './views/users/UserUpdate';
 import { UserFeedbackOverview } from './views/user_feedback_overview/UserFeedbackOverview';
 import { MissionOverview } from './views/mission_overview/MissionOverview';
 import { Register } from './views/Register';
+import { ChangePassword } from './views/ChangePassword';
 
 Icons();
 
@@ -37,6 +38,7 @@ class App extends React.Component {
           <Route component={ForgotPassword} exact path={'/forgotPassword'} />
           <Route component={HolidayOverview} exact path={'/holidays'} />
           <Route component={PhoneListView} exact path={'/phones'} />
+          <ProtectedRoute component={ChangePassword} exact path={'/changePassword'} />
           <ProtectedRoute requiresAdmin component={PaymentOverview} exact path={'/payments'} />
           <ProtectedRoute requiresAdmin component={MissionOverview} exact path={'/missions'} />
           <ProtectedRoute requiresAdmin component={PaymentDetail} exact path={'/payments/:id'} />

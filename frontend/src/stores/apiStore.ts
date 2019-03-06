@@ -122,6 +122,11 @@ export class ApiStore {
     });
   }
 
+  @action
+  public async postChangePassword(values: { old_password: string; new_password: string; new_password_2: string }) {
+    await this._api.post('/users/change_password', values);
+  }
+
   public async postForgotPassword(email: string) {
     await this._api.post('/auth/forgotPassword', { email });
   }
