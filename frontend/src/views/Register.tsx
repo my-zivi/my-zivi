@@ -3,7 +3,7 @@ import IziviContent from '../layout/IziviContent';
 import { Component, ReactNode } from 'react';
 import Container from 'reactstrap/lib/Container';
 import { WiredField } from '../form/formik';
-import { PasswordField, TextField } from '../form/common';
+import { NumberField, PasswordField, TextField } from '../form/common';
 import { Formik, FormikActions } from 'formik';
 import Button from 'reactstrap/lib/Button';
 import * as yup from 'yup';
@@ -135,7 +135,7 @@ class Register extends Component<RegisterProps> {
                   <br />
                   <WiredField
                     horizontal={true}
-                    component={TextField}
+                    component={NumberField}
                     name={'zdp'}
                     label={'Zivildienstnummer (ZDP)'}
                     placeholder={'Dies ist deine Zivildienst-Nummer, welche du auf deinem Aufgebot wiederfindest'}
@@ -168,7 +168,7 @@ class Register extends Component<RegisterProps> {
                     component={PasswordField}
                     name={'community_pw'}
                     label={'Community Passwort'}
-                    placeholder={'Dieses erhälst du von der Einsatzleitung welche dich berechtigt einen Account zu eröffnen'}
+                    placeholder={'Dieses erhältst du von der Einsatzleitung welche dich berechtigt einen Account zu eröffnen'}
                   />
                   <WiredField
                     horizontal={true}
