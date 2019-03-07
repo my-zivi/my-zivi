@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/stiftungswo/izivi.svg?branch=master)](https://travis-ci.org/stiftungswo/izivi)
+[![Build Status](https://travis-ci.org/stiftungswo/izivi.svg?branch=ts)](https://travis-ci.org/stiftungswo/izivi)
 [![codecov](https://codecov.io/gh/stiftungswo/izivi/branch/master/graph/badge.svg)](https://codecov.io/gh/stiftungswo/izivi)
 
 
@@ -87,7 +87,7 @@ Installation gemäss der Installationsanleitung auf der [Website](https://docs.d
 5. Entwicklungsserver starten: ``yarn run start``
 
 ### Git
-1. Git Pre-Commit Hook ins .git-Verzeichnis kopieren, damit die Änderung auf allenfalls fehlerhafte Formatierung getestet werden: ``cp hooks/pre-coomit .git/hooks``
+1. Git Pre-Commit Hook ins .git-Verzeichnis kopieren, damit die Änderung auf allenfalls fehlerhafte Formatierung getestet werden: ``ln -s $(pwd)/hooks/pre-commit $(pwd)/.git/hooks``
 
 ## Entwicklung
 ### Code-Formatierung
@@ -103,13 +103,13 @@ Für das Backend kommt [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer) zu
 
 ### Deployment
 
-Travis kann das Projekt mit seinen [deploy Skript](https://github.com/stiftungswo/izivi/blob/master/ci/deploy.sh) per SSH auf einem beliebigen Webhosting automatisch deployen. Dafür müssen auf dem Zielserver unter `~/deploy` folgende Files liegen:
+Travis kann das Projekt mit seinem [deploy Skript](https://github.com/stiftungswo/izivi/blob/ts/ci/deploy.sh) per SSH auf einem beliebigen Webhosting automatisch deployen. Dafür müssen auf dem Zielserver unter `~/deploy` folgende Files liegen:
 
-* izivi.prod.env (orientiert sich an [.env.example](https://github.com/stiftungswo/izivi/blob/master/api/.env.example)
+* izivi.prod.env (orientiert sich an [.env.example](https://github.com/stiftungswo/izivi/blob/ts/api/.env.example)
 
 ### Sentry
 
-Fehler auf Produktivsystemen werden auf Sentry geloggt wenn eine valide  `SENTRY_DSN` gesetzt ist. Siehe [Config](https://github.com/stiftungswo/izivi/blob/master/api/.env.example)
+Fehler auf Produktivsystemen werden auf Sentry geloggt wenn eine valide  `SENTRY_DSN` gesetzt ist. Siehe [Config](https://github.com/stiftungswo/izivi/blob/ts/api/.env.example)
 
 Die Variablen werden im Travis Build abgefüllt.
 
