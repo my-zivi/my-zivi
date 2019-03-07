@@ -51,7 +51,7 @@ const styles = () =>
     },
   });
 
-@inject('mainStore', 'reportSheetStore', 'specificationStore', 'userStore')
+@inject('mainStore', 'missionStore', 'specificationStore', 'userStore')
 class MissionSubformInner extends React.Component<Props, MissionSubformState> {
   constructor(props: Props) {
     super(props);

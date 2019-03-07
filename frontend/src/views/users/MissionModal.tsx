@@ -29,7 +29,7 @@ export interface MissionModalProps<T> {
   missionStore?: MissionStore;
 }
 
-@inject('reportSheetStore')
+@inject('missionStore')
 export class MissionModal extends React.Component<MissionModalProps<Mission>> {
   private initialValues: Mission;
   private autoUpdate = true;
