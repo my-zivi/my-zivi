@@ -20,7 +20,7 @@ import * as React from 'react';
 import { MissionStore } from 'src/stores/missionStore';
 import { WiredField } from '../../form/formik';
 
-export interface MissionSubFormInnnerProps<T> {
+export interface MissionModalProps<T> {
   onSubmit: (values: T) => Promise<void>;
   user: User;
   values?: Mission;
@@ -29,11 +29,11 @@ export interface MissionSubFormInnnerProps<T> {
   missionStore?: MissionStore;
 }
 
-@inject('missionStore')
-export class MissionModal extends React.Component<MissionSubFormInnnerProps<Mission>> {
+@inject('reportSheetStore')
+export class MissionModal extends React.Component<MissionModalProps<Mission>> {
   private initialValues: Mission;
   private autoUpdate = true;
-  constructor(props: MissionSubFormInnnerProps<Mission>) {
+  constructor(props: MissionModalProps<Mission>) {
     super(props);
     this.initialValues = props.values
       ? props.values

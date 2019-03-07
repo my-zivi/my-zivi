@@ -21,6 +21,7 @@ import { MissionModal } from './MissionModal';
 import { missionSchema } from './schemas';
 import { UserStore } from 'src/stores/userStore';
 import { DeleteButton } from '../../form/DeleteButton';
+import Tooltip from 'reactstrap/lib/Tooltip';
 
 interface Props extends WithSheet<typeof styles> {
   mainStore?: MainStore;
@@ -33,6 +34,7 @@ interface Props extends WithSheet<typeof styles> {
 interface MissionSubformState {
   mission_id?: number;
   new_mission: boolean;
+  openTooltips: Array<boolean>;
 }
 
 const styles = () =>
@@ -49,12 +51,12 @@ const styles = () =>
     },
   });
 
-@inject('mainStore', 'missionStore', 'specificationStore', 'userStore')
+@inject('mainStore', 'reportSheetStore', 'specificationStore', 'userStore')
 class MissionSubformInner extends React.Component<Props, MissionSubformState> {
   constructor(props: Props) {
     super(props);
 
-    this.state = { mission_id: undefined, new_mission: false };
+    this.state = { mission_id: undefined, new_mission: false, openTooltips: [] };
   }
 
   public render() {
@@ -100,7 +102,21 @@ class MissionSubformInner extends React.Component<Props, MissionSubformState> {
                 {
                   id: 'draft_date',
                   label: '',
-                  format: (m: Mission) => <FontAwesomeIcon icon={m.draft ? CheckSquareRegularIcon : SquareRegularIcon} />,
+                  format: (m: Mission) => (
+                    <>
+                      <span id={'reportSheetState' + m.id}>
+                        <FontAwesomeIcon icon={m.draft ? CheckSquareRegularIcon : SquareRegularIcon} color={m.draft ? 'green' : 'black'} />
+                      </span>
+                      <Tooltip
+                        placement="bottom"
+                        target={'reportSheetState' + m.id}
+                        isOpen={this.state.openTooltips[m.id!]}
+                        toggle={() => this.handleOpenTooltip(m.id!)}
+                      >
+                        Aufgebot erhalten
+                      </Tooltip>
+                    </>
+                  ),
                 },
               ]}
               renderActions={(m: Mission) => (
@@ -165,6 +181,18 @@ class MissionSubformInner extends React.Component<Props, MissionSubformState> {
 
   handleClose = (_?: React.MouseEvent<HTMLButtonElement>) => {
     this.setState({ mission_id: undefined });
+  };
+
+  handleOpenTooltip = (id: number): void => {
+    let opens = this.state.openTooltips;
+
+    if (opens[id]) {
+      opens[id] = !opens[id];
+    } else {
+      opens[id] = true;
+    }
+
+    this.setState({ openTooltips: opens });
   };
 }
 

@@ -47,11 +47,11 @@ export interface ReportSheet {
   holiday_comment: string;
   ignore_first_last_day: boolean;
   ill: number;
-  mission: Mission;
+  mission?: Mission;
   start: string;
   state: number;
-  total_costs: number;
-  user: User;
+  total_costs?: number;
+  user?: User;
   vacation: number;
   vacation_comment: string;
   work: number;
@@ -133,6 +133,7 @@ export interface User {
   end: null | string;
   active: boolean;
   missions: Mission[];
+  report_sheets: ReportSheet[];
 }
 
 export interface UserFilter {

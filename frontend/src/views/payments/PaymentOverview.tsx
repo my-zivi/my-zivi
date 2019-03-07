@@ -45,17 +45,17 @@ export class PaymentOverview extends React.Component<Props, State> {
       {
         id: 'zdp',
         label: 'ZDP',
-        format: (r: ReportSheet) => r.user.zdp,
+        format: (r: ReportSheet) => (r.user ? r.user.zdp : ''),
       },
       {
         id: 'full_name',
         label: 'Name',
-        format: (r: ReportSheet) => `${r.user.first_name} ${r.user.last_name}`,
+        format: (r: ReportSheet) => (r.user ? `${r.user.first_name} ${r.user.last_name}` : ''),
       },
       {
         id: 'iban',
         label: 'IBAN',
-        format: (r: ReportSheet) => r.user.bank_iban,
+        format: (r: ReportSheet) => (r.user ? r.user.bank_iban : ''),
       },
       {
         id: 'total_costs',
@@ -67,13 +67,13 @@ export class PaymentOverview extends React.Component<Props, State> {
         label: 'Bemerkungen',
         format: (r: ReportSheet) => (
           <>
-            {(r.user.address === '' || r.user.city === '' || !r.user.zip) && (
+            {r.user && (r.user.address === '' || r.user.city === '' || !r.user.zip) && (
               <>
                 <p>Adresse unvollständig!</p>
                 <br />
               </>
             )}
-            {!this.props.mainStore!.validateIBAN(r.user.bank_iban) && (
+            {!this.props.mainStore!.validateIBAN(r.user ? r.user.bank_iban : '') && (
               <>
                 <p>IBAN hat ein ungültiges Format!</p>
                 <br />

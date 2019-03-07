@@ -38,7 +38,7 @@ interface MissionOverviewState {
   weekCount: Map<number, Map<number, number>>;
 }
 
-@inject('missionStore', 'specificationStore')
+@inject('reportSheetStore', 'specificationStore')
 class MissionOverviewContent extends React.Component<MissionOverviewProps, MissionOverviewState> {
   cookiePrefixSpec = 'mission-overview-checkbox-';
   cookieYear = 'mission-overview-year';

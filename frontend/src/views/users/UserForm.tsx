@@ -19,6 +19,7 @@ import { CheckboxField } from 'src/form/CheckboxField';
 import { MissionSubform } from './MissionSubform';
 import { SpecificationStore } from 'src/stores/specificationStore';
 import { WiredField } from '../../form/formik';
+import { ReportSheetSubform } from './ReportSheetSubform';
 
 type Props = {
   mainStore?: MainStore;
@@ -115,6 +116,9 @@ class UserFormInner extends React.Component<Props> {
         >
           <SolidHorizontalRow />
           <MissionSubform user={user} />
+
+          <SolidHorizontalRow />
+          <ReportSheetSubform user={user} />
         </FormView>
       </>
     );

@@ -8,9 +8,25 @@ import { faCheckSquare } from '@fortawesome/free-regular-svg-icons/faCheckSquare
 import { faPrint } from '@fortawesome/free-solid-svg-icons/faPrint';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons/faPlusSquare';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/faTrashAlt';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner';
+import { faClock } from '@fortawesome/free-regular-svg-icons/faClock';
+import { faHourglass } from '@fortawesome/free-regular-svg-icons/faHourglass';
 
 export const Icons = () => {
-  library.add(faCheck, faExclamation, faSquare, faSync, faEdit, faCheckSquare, faPrint, faPlusSquare, faTrashAlt);
+  library.add(
+    faCheck,
+    faExclamation,
+    faSquare,
+    faSync,
+    faEdit,
+    faCheckSquare,
+    faPrint,
+    faPlusSquare,
+    faTrashAlt,
+    faSpinner,
+    faClock,
+    faHourglass
+  );
 };
 
 const CheckSolidIcon: IconLookup = {
@@ -58,6 +74,21 @@ const TrashAltRegularIcon: IconLookup = {
   iconName: 'trash-alt',
 };
 
+const SpinnerSolidIcon: IconLookup = {
+  prefix: 'fas',
+  iconName: 'spinner',
+};
+
+const ClockRegularIcon: IconLookup = {
+  prefix: 'far',
+  iconName: 'clock',
+};
+
+const HourGlassRegularIcon: IconLookup = {
+  prefix: 'far',
+  iconName: 'hourglass',
+};
+
 export {
   CheckSolidIcon,
   ExclamationSolidIcon,
@@ -68,4 +99,7 @@ export {
   PrintSolidIcon,
   PlusSquareRegularIcon,
   TrashAltRegularIcon,
+  SpinnerSolidIcon,
+  ClockRegularIcon,
+  HourGlassRegularIcon,
 };
