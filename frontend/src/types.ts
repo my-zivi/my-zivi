@@ -37,6 +37,7 @@ export interface ReportSheet {
   bank_account_number: string;
   clothes: number;
   company_holiday_holiday: number;
+  company_holiday_vacation: number;
   driving_charges: number;
   driving_charges_comment: string;
   extraordinarily: number;
