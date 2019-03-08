@@ -8,7 +8,7 @@ export const reportSheetSchema = yup.object({
   additional_workfree: yup
     .number()
     .required()
-    .test('test-total-days', '', function() {
+    .test('test-total-days', errorMsg, function() {
       return validateTotal(this.parent);
     }),
   additional_workfree_comment: yup.string().nullable(true),
@@ -69,9 +69,13 @@ export const reportSheetSchema = yup.object({
     .test('test-total-days', errorMsg, function() {
       return validateTotal(this.parent);
     }),
+  safe_override: yup.bool(),
 });
 
 const validateTotal = function(parent: any): boolean {
+  if (parent.safe_override) {
+    return true;
+  }
   let duration = moment.duration(moment(parent.end).diff(moment(parent.start))).asDays() + 1;
   let totalDays = 0;
   totalDays += parent.work + parent.workfree + parent.additional_workfree + parent.ill;

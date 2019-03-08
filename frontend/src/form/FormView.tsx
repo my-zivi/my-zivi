@@ -31,7 +31,7 @@ export class FormView<Values = object, ExtraProps = {}> extends React.Component<
     const { loading, title, children, ...rest } = this.props as any;
     return this.props.loading ? (
       <>
-        <IziviContent loading={loading} title={title}>
+        <IziviContent card={this.props.card} loading={loading} title={title}>
           <br />
         </IziviContent>
       </>

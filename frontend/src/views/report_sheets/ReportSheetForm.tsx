@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReportSheetWithProposedValues } from '../../types';
+import { FormValues, ReportSheetWithProposedValues } from '../../types';
 import { FormView, FormViewProps } from '../../form/FormView';
 import { FormikProps } from 'formik';
 import Form from 'reactstrap/lib/Form';
@@ -26,18 +26,39 @@ type Props = {
 } & FormViewProps<ReportSheetWithProposedValues> &
   RouteComponentProps;
 
+interface ReportSheetFormState {
+  safeOverride: boolean;
+}
+
 @inject('mainStore', 'reportSheetStore')
 @observer
-class ReportSheetFormInner extends React.Component<Props> {
+class ReportSheetFormInner extends React.Component<Props, ReportSheetFormState> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      safeOverride: false,
+    };
+  }
+
   public render() {
     const { mainStore, onSubmit, reportSheet, reportSheetStore, title } = this.props;
+
+    const template = {
+      safe_override: false,
+      ...reportSheet,
+    };
 
     return (
       <FormView
         card
         loading={empty(reportSheet) || this.props.loading}
-        initialValues={reportSheet}
-        onSubmit={onSubmit}
+        initialValues={template}
+        onSubmit={(fv: FormValues) => {
+          let rs: ReportSheetWithProposedValues = {
+            ...fv,
+          };
+          return onSubmit(rs);
+        }}
         title={title}
         validationSchema={reportSheetSchema}
         render={(formikProps: FormikProps<ReportSheetWithProposedValues>) => (
@@ -164,11 +185,37 @@ class ReportSheetFormInner extends React.Component<Props> {
             <SolidHorizontalRow />
 
             <Row>
-              <Col md={3}>
-                <Button block color={'primary'} onClick={formikProps.submitForm}>
-                  Speichern
-                </Button>
-              </Col>
+              {this.state.safeOverride ? (
+                <Col md={3}>
+                  <Button
+                    block
+                    color={'primary'}
+                    onClick={() => {
+                      formikProps.setFieldValue('safe_override', true);
+                      formikProps.validateForm().then(() => {
+                        formikProps.submitForm();
+                      });
+                    }}
+                  >
+                    Speichern erzwingen
+                  </Button>
+                </Col>
+              ) : (
+                <Col md={3}>
+                  <Button
+                    block
+                    color={'primary'}
+                    onClick={() => {
+                      formikProps.submitForm();
+                      if (!formikProps.isValid) {
+                        this.setState({ safeOverride: true });
+                      }
+                    }}
+                  >
+                    Speichern
+                  </Button>
+                </Col>
+              )}
 
               <Col md={3}>
                 <Button

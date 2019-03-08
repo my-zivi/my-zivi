@@ -129,18 +129,24 @@ class ReportSheetSubformInner extends React.Component<Props, ReportSheetSubformS
                 },
               ]}
               renderActions={(reportSheet: ReportSheet) => (
-                <div className={classes.hideButtonText}>
-                  <Button
-                    color={'link'}
-                    href={mainStore!.apiURL('report_sheets/' + String(reportSheet.id!) + '/download')}
-                    tag={'a'}
-                    target={'_blank'}
-                  >
-                    <FontAwesomeIcon icon={PrintSolidIcon} /> <span>Drucken</span>
-                  </Button>
-                  <Button color={'warning'} href={'/report_sheets/' + reportSheet.id} tag={'a'} target={'_blank'}>
-                    <FontAwesomeIcon icon={EditSolidIcon} /> <span>Bearbeiten</span>
-                  </Button>
+                <div>
+                  {mainStore!.isAdmin() ? (
+                    <div className={classes.hideButtonText}>
+                      <Button
+                        color={'link'}
+                        href={mainStore!.apiURL('report_sheets/' + String(reportSheet.id!) + '/download')}
+                        tag={'a'}
+                        target={'_blank'}
+                      >
+                        <FontAwesomeIcon icon={PrintSolidIcon} /> <span>Drucken</span>
+                      </Button>
+                      <Button color={'warning'} href={'/report_sheets/' + reportSheet.id} tag={'a'} target={'_blank'}>
+                        <FontAwesomeIcon icon={EditSolidIcon} /> <span>Bearbeiten</span>
+                      </Button>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               )}
             />

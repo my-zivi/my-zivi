@@ -127,16 +127,22 @@ class MissionSubformInner extends React.Component<Props, MissionSubformState> {
                   <Button color={'warning'} type={'button'} onClick={() => this.handleOpen(m.id)}>
                     <FontAwesomeIcon icon={EditSolidIcon} /> <span>Bearbeiten</span>
                   </Button>{' '}
-                  <DeleteButton
-                    onConfirm={() => {
-                      missionStore!.delete(m.id!);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={TrashAltRegularIcon} /> <span>Löschen</span>
-                  </DeleteButton>{' '}
-                  <Button color={'success'} type={'button'}>
-                    <FontAwesomeIcon icon={PlusSquareRegularIcon} /> <span>Spesenblatt</span>
-                  </Button>
+                  {mainStore!.isAdmin() ? (
+                    <>
+                      <DeleteButton
+                        onConfirm={() => {
+                          missionStore!.delete(m.id!);
+                        }}
+                      >
+                        <FontAwesomeIcon icon={TrashAltRegularIcon} /> <span>Löschen</span>
+                      </DeleteButton>{' '}
+                      <Button color={'success'} type={'button'}>
+                        <FontAwesomeIcon icon={PlusSquareRegularIcon} /> <span>Spesenblatt</span>
+                      </Button>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                   <MissionModal
                     onSubmit={(mission: Mission) =>
                       missionStore!.put(missionSchema.cast(mission)).then(() => {

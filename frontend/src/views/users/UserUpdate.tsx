@@ -12,6 +12,7 @@ interface UserDetailRouterProps {
 
 interface Props extends RouteComponentProps<UserDetailRouterProps> {
   userStore?: UserStore;
+  userId?: number;
 }
 
 @inject('userStore')
@@ -19,7 +20,11 @@ interface Props extends RouteComponentProps<UserDetailRouterProps> {
 export class UserUpdate extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    props.userStore!.fetchOne(Number(props.match.params.id));
+    if (props.userId) {
+      props.userStore!.fetchOne(props.userId);
+    } else {
+      props.userStore!.fetchOne(Number(props.match.params.id));
+    }
   }
 
   public handleSubmit = (user: User) => {
