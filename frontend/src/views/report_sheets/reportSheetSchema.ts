@@ -1,8 +1,9 @@
 import * as yup from 'yup';
 import { apiDate } from '../../utilities/validationHelpers';
 import moment from 'moment';
+import { ReportSheet } from '../../types';
 
-const errorMsg = 'Das Total der Tage muss gleich gross wie die Spesenblattdauer sein.';
+const errorMsg = 'Das Total der Tage muss gleich der Spesenblattdauer sein.';
 
 export const reportSheetSchema = yup.object({
   additional_workfree: yup
@@ -72,11 +73,15 @@ export const reportSheetSchema = yup.object({
   safe_override: yup.bool(),
 });
 
-const validateTotal = function(parent: any): boolean {
+interface ReportSheetShemaWithSafeOverride extends ReportSheet {
+  safe_override: boolean;
+}
+
+const validateTotal = (parent: ReportSheetShemaWithSafeOverride): boolean => {
   if (parent.safe_override) {
     return true;
   }
-  let duration = moment.duration(moment(parent.end).diff(moment(parent.start))).asDays() + 1;
+  const duration = moment.duration(moment(parent.end).diff(moment(parent.start))).asDays() + 1;
   let totalDays = 0;
   totalDays += parent.work + parent.workfree + parent.additional_workfree + parent.ill;
   totalDays += parent.holiday + parent.vacation;

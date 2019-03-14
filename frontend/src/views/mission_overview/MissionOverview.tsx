@@ -89,7 +89,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
 
   loadSpecifications() {
     this.props.specificationStore!.fetchAll().then(() => {
-      let newSpecs = this.state.selectedSpecifications;
+      const newSpecs = this.state.selectedSpecifications;
       this.props.specificationStore!.entities.forEach(spec => {
         newSpecs[spec.id!] =
           window.localStorage.getItem(this.cookiePrefixSpec + spec.id!) === null
@@ -110,7 +110,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
   }
 
   changeSelectedSpecifications(v: boolean, id: number) {
-    let newSpec = this.state.selectedSpecifications;
+    const newSpec = this.state.selectedSpecifications;
     newSpec[id] = v;
     this.setState({ selectedSpecifications: newSpec }, () => this.updateAverageHeaders());
     window.localStorage.setItem(this.cookiePrefixSpec + id, v.toString());
@@ -128,22 +128,22 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
   }
 
   calculateMissionRows(): void {
-    const fetchYear = parseInt(this.state.fetchYear);
+    const fetchYear = parseInt(this.state.fetchYear, 10);
     const { classes } = this.props;
 
-    let weekCount = this.getEmptyWeekCount();
+    const weekCount = this.getEmptyWeekCount();
 
     // First and last date of weeks for popOver
-    let startDates: Array<string> = [];
-    let endDates: Array<string> = [];
+    const startDates: Array<string> = [];
+    const endDates: Array<string> = [];
     for (let x = 1; x <= 52; x++) {
       startDates[x] = moment(fetchYear + ' ' + x + ' 1', 'YYYY WW E').format('DD.MM.YYYY');
       endDates[x] = moment(fetchYear + ' ' + x + ' 5', 'YYYY WW E').format('DD.MM.YYYY');
     }
 
-    let missionRows = new Map<number, ReactNode>();
+    const missionRows = new Map<number, ReactNode>();
 
-    let doneMissions: number[] = [];
+    const doneMissions: number[] = [];
 
     this.props.missionStore!.entities.forEach(mission => {
       // if we've already added the row for this user and specification, skiip
@@ -152,15 +152,15 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
       }
 
       // getting all missions of current user with same specification
-      let currMissions = this.props.missionStore!.entities.filter(val => {
-        if (val.user_id == mission.user_id && val.specification_id == mission.specification_id) {
+      const currMissions = this.props.missionStore!.entities.filter(val => {
+        if (val.user_id === mission.user_id && val.specification_id === mission.specification_id) {
           doneMissions.push(val.id!);
           return true;
         }
         return false;
       });
 
-      let cells = this.getMissionCells(startDates, endDates, currMissions, weekCount);
+      const cells = this.getMissionCells(startDates, endDates, currMissions, weekCount);
 
       // can use any mission in currMissions here, because user and specification are the same for each mission in array
       missionRows.set(
@@ -181,7 +181,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     this.setState(
       {
         weekCount,
-        missionRows: missionRows,
+        missionRows,
       },
       () => {
         this.updateAverageHeaders();
@@ -192,7 +192,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
 
   render() {
     // Specifications that are in use by at least one mission
-    let specIdsOfMissions = this.props
+    const specIdsOfMissions = this.props
       .missionStore!.entities.map(mission => mission.specification_id)
       .filter((elem, index, arr) => index === arr.indexOf(elem));
     specIdsOfMissions.sort();
@@ -227,7 +227,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
               <div>
                 {// Mapping a CheckboxField to every specfication in use
                 specIdsOfMissions.map(id => {
-                  let currSpec = specificationStore!.entities.filter(spec => spec.id! === id)[0];
+                  const currSpec = specificationStore!.entities.filter(spec => spec.id! === id)[0];
                   return (
                     <CheckboxField
                       key={currSpec.id!}
@@ -296,8 +296,8 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
   setWeekAndMonthHeaders(): void {
     const { classes } = this.props;
 
-    let weekHeaders = [];
-    let monthHeaders = [];
+    const weekHeaders = [];
+    const monthHeaders = [];
     let monthColCount = 0;
 
     // let currDate = new Date(this.state.fetchYear + '-01-01');
@@ -306,8 +306,8 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     // }
 
     // setting currDate to monday in fetchYear's ISO week 1
-    let currDate = moment()
-      .year(parseInt(this.state.fetchYear))
+    const currDate = moment()
+      .year(parseInt(this.state.fetchYear, 10))
       .isoWeek(1)
       .isoWeekday(1)
       .toDate();
@@ -361,12 +361,12 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
       </td>
     );
 
-    this.setState({ monthHeaders: monthHeaders, weekHeaders: weekHeaders });
+    this.setState({ monthHeaders, weekHeaders });
   }
 
   updateAverageHeaders(): void {
     const { classes } = this.props;
-    let weekTotalHeaders = [];
+    const weekTotalHeaders = [];
     let totalCount = 0;
     for (let currWeek = 1; currWeek <= 52; currWeek++) {
       let weekCountSum = 0;
@@ -383,7 +383,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
       );
       totalCount += weekCountSum;
     }
-    this.setState({ weekTotalHeaders: weekTotalHeaders, totalCount: totalCount });
+    this.setState({ weekTotalHeaders, totalCount });
   }
 
   getMissionCells(
@@ -392,16 +392,16 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     currMissions: Mission[],
     weekCount: Map<number, Map<number, number>>
   ): ReactNode[] {
-    let cells: ReactNode[] = [];
+    const cells: ReactNode[] = [];
     const { classes } = this.props;
 
     // filling MissionRow for currMissions
     for (let currWeek = 1; currWeek <= 52; currWeek++) {
-      let popOverStart = startDates[currWeek];
-      let popOverEnd = endDates[currWeek];
-      let title = popOverStart + ' - ' + popOverEnd;
+      const popOverStart = startDates[currWeek];
+      const popOverEnd = endDates[currWeek];
+      const title = popOverStart + ' - ' + popOverEnd;
 
-      let currMission = this.getActiveMissionInWeek(currWeek, currMissions);
+      const currMission = this.getActiveMissionInWeek(currWeek, currMissions);
 
       if (currMission == null) {
         // no mission in this week
@@ -418,10 +418,10 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
         }
 
         // different styling depending on whether the mission is a draft or not
-        let einsatz = currMission.draft == null ? classes.einsatzDraft : classes.einsatz;
+        const einsatz = currMission.draft == null ? classes.einsatzDraft : classes.einsatz;
 
         if (this.isWeekStartWeek(currWeek, currMission)) {
-          let content = moment(currMission.start!)
+          const content = moment(currMission.start!)
             .date()
             .toString(); //new Date(currMission.start!).getDate().toString();
           cells.push(
@@ -430,7 +430,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
             </td>
           );
         } else if (this.isWeekEndWeek(currWeek, currMission)) {
-          let content = moment(currMission.end!)
+          const content = moment(currMission.end!)
             .date()
             .toString(); //new Date(currMission.end!).getDate().toString();
           cells.push(
@@ -453,18 +453,18 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
   }
 
   isWeekStartWeek(week: number, mission: Mission): boolean {
-    return week == this.getStartWeek(mission);
+    return week === this.getStartWeek(mission);
   }
 
   isWeekMiddleWeek(week: number, mission: Mission): boolean {
-    let startWeek = this.getStartWeek(mission);
-    let endWeek = this.getEndWeek(mission);
+    const startWeek = this.getStartWeek(mission);
+    const endWeek = this.getEndWeek(mission);
 
     return week > startWeek && week < endWeek;
   }
 
   isWeekEndWeek(week: number, mission: Mission): boolean {
-    return week == this.getEndWeek(mission);
+    return week === this.getEndWeek(mission);
   }
 
   isWeekDuringMission(week: number, mission: Mission): boolean {
@@ -483,7 +483,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
 
   getStartWeek(mission: Mission): number {
     let startWeek = moment(mission.start!).isoWeek();
-    if (moment(mission.start!).year() < parseInt(this.state.fetchYear)) {
+    if (moment(mission.start!).year() < parseInt(this.state.fetchYear, 10)) {
       startWeek = -1;
     }
     return startWeek;
@@ -491,15 +491,15 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
 
   getEndWeek(mission: Mission): number {
     let endWeek = moment(mission.end!).isoWeek();
-    if (moment(mission.end!).year() > parseInt(this.state.fetchYear)) {
+    if (moment(mission.end!).year() > parseInt(this.state.fetchYear, 10)) {
       endWeek = 55;
     }
     return endWeek;
   }
 
   getEmptyWeekCount(): Map<number, Map<number, number>> {
-    let weekCount = new Map<number, Map<number, number>>();
-    for (let spec of this.props.specificationStore!.entities) {
+    const weekCount = new Map<number, Map<number, number>>();
+    for (const spec of this.props.specificationStore!.entities) {
       weekCount[spec.id!] = [];
       for (let i = 1; i <= 52; i++) {
         weekCount[spec.id!][i] = 0;

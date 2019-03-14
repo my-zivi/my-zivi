@@ -3,10 +3,13 @@ import { Component } from 'react';
 
 class LoadingInformation extends Component {
   componentDidMount(): void {
-    let loadingDots = document.getElementById('loading-dots');
-    window.setInterval(function() {
-      if (loadingDots!.innerHTML.length > 3) loadingDots!.innerHTML = '';
-      else loadingDots!.innerHTML += '.';
+    const loadingDots = document.getElementById('loading-dots');
+    window.setInterval(() => {
+      if (loadingDots!.innerHTML.length > 3) {
+        loadingDots!.innerHTML = '';
+      } else {
+        loadingDots!.innerHTML += '.';
+      }
     }, 100);
   }
 

@@ -31,6 +31,7 @@ const styles = () =>
           display: 'none',
         },
       },
+      marginTop: '-0.5rem',
     },
   });
 
@@ -127,19 +128,30 @@ class ReportSheetSubformInner extends React.Component<Props, ReportSheetSubformS
                     );
                   },
                 },
+                {
+                  id: 'print',
+                  label: 'Drucken',
+                  format: reportSheet =>
+                    reportSheet.state === 3 && mainStore!.isAdmin() ? (
+                      <div className={classes.hideButtonText}>
+                        <Button
+                          color={'link'}
+                          href={mainStore!.apiURL('report_sheets/' + String(reportSheet.id!) + '/download')}
+                          tag={'a'}
+                          target={'_blank'}
+                        >
+                          <FontAwesomeIcon icon={PrintSolidIcon} /> <span>Drucken</span>
+                        </Button>
+                      </div>
+                    ) : (
+                      <></>
+                    ),
+                },
               ]}
               renderActions={(reportSheet: ReportSheet) => (
                 <div>
                   {mainStore!.isAdmin() ? (
                     <div className={classes.hideButtonText}>
-                      <Button
-                        color={'link'}
-                        href={mainStore!.apiURL('report_sheets/' + String(reportSheet.id!) + '/download')}
-                        tag={'a'}
-                        target={'_blank'}
-                      >
-                        <FontAwesomeIcon icon={PrintSolidIcon} /> <span>Drucken</span>
-                      </Button>
                       <Button color={'warning'} href={'/report_sheets/' + reportSheet.id} tag={'a'} target={'_blank'}>
                         <FontAwesomeIcon icon={EditSolidIcon} /> <span>Bearbeiten</span>
                       </Button>
@@ -158,7 +170,7 @@ class ReportSheetSubformInner extends React.Component<Props, ReportSheetSubformS
   }
 
   handleOpenTooltip = (id: number): void => {
-    let opens = this.state.openTooltips;
+    const opens = this.state.openTooltips;
 
     if (opens[id]) {
       opens[id] = !opens[id];

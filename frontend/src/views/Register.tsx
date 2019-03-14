@@ -58,7 +58,6 @@ interface RegisterProps extends RouteComponentProps {
 class Register extends Component<RegisterProps> {
   login = async (values: FormValues, actions: FormikActions<FormValues>) => {
     try {
-      console.log(values);
       await this.props.apiStore!.postRegister(values);
       this.props.history.push(this.getReferrer());
     } catch ({ error }) {

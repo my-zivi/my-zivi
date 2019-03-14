@@ -54,7 +54,7 @@ class ReportSheetFormInner extends React.Component<Props, ReportSheetFormState> 
         loading={empty(reportSheet) || this.props.loading}
         initialValues={template}
         onSubmit={(fv: FormValues) => {
-          let rs: ReportSheetWithProposedValues = {
+          const rs: ReportSheetWithProposedValues = {
             ...fv,
           };
           return onSubmit(rs);

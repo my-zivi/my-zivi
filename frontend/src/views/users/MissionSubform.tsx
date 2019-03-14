@@ -48,6 +48,7 @@ const styles = () =>
           display: 'none',
         },
       },
+      marginTop: '-0.5rem',
     },
   });
 
@@ -190,7 +191,7 @@ class MissionSubformInner extends React.Component<Props, MissionSubformState> {
   };
 
   handleOpenTooltip = (id: number): void => {
-    let opens = this.state.openTooltips;
+    const opens = this.state.openTooltips;
 
     if (opens[id]) {
       opens[id] = !opens[id];

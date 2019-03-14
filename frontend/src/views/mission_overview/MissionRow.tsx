@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ReactNode } from 'react';
 
 interface MissionRowProps {
   specification_id: number;
@@ -6,7 +7,7 @@ interface MissionRowProps {
   user_id: number;
   zdp: number;
   userName: string;
-  cells: Array<any>;
+  cells: Array<ReactNode>;
   classes: Record<string, string>;
 }
 
