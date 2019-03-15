@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ReactNode } from 'react';
 
 interface MissionRowProps {
-  specification_id: number;
+  specification_id: string;
   shortName: string;
   user_id: number;
   zdp: number;

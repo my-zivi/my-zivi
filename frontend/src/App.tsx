@@ -24,6 +24,7 @@ import { UserFeedbackOverview } from './views/user_feedback_overview/UserFeedbac
 import { MissionOverview } from './views/mission_overview/MissionOverview';
 import { Register } from './views/Register';
 import { ChangePassword } from './views/ChangePassword';
+import { SpecificationsOverview } from './views/specification/SpecificationsOverview';
 
 Icons();
 
@@ -47,6 +48,7 @@ class App extends React.Component {
           <ProtectedRoute requiresAdmin component={UserFeedbackOverview} exact path={'/user_feedbacks'} />
           <ProtectedRoute requiresAdmin component={UserOverview} exact path={'/users'} />
           <ProtectedRoute requiresAdmin component={UserUpdate} exact path={'/users/:id'} />
+          <ProtectedRoute requiresAdmin component={SpecificationsOverview} exact path={'/specifications'} />
           <Route component={NotFound} />
         </Switch>
       </IziviLayout>

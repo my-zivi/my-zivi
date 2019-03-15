@@ -98,7 +98,7 @@ export class DomainStore<T, OverviewType = T> {
   }
 
   @action
-  public async delete(id: number) {
+  public async delete(id: number | string) {
     this.displayLoading(async () => {
       try {
         await this.doDelete(id);
@@ -112,7 +112,7 @@ export class DomainStore<T, OverviewType = T> {
   }
 
   @action
-  protected async doDelete(id: number) {
+  protected async doDelete(id: number | string) {
     throw new Error('Not implemented');
   }
 

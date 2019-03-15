@@ -73,7 +73,7 @@ export interface ReportSheetListing {
 }
 
 export interface Specification {
-  id?: number;
+  id?: string;
   name: string;
   short_name: string;
   working_clothes_payment: null | string;
@@ -148,7 +148,7 @@ export interface UserFilter {
 export interface Mission {
   id?: number;
   user_id: number;
-  specification_id: number;
+  specification_id: string;
   mission_type: number | null;
   start: string | null;
   end: string | null;
@@ -207,6 +207,10 @@ export interface Column<T> {
   numeric?: boolean;
   label: string;
   format?: (t: T) => React.ReactNode;
+  span?: {
+    col?: number;
+    row?: number;
+  };
 }
 
 export type ActionButtonAction = (() => void) | string;

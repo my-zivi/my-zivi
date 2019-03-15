@@ -11,6 +11,7 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/faTrashAlt';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner';
 import { faClock } from '@fortawesome/free-regular-svg-icons/faClock';
 import { faHourglass } from '@fortawesome/free-regular-svg-icons/faHourglass';
+import { faSave } from '@fortawesome/free-regular-svg-icons/faSave';
 
 export const Icons = () => {
   library.add(
@@ -25,7 +26,8 @@ export const Icons = () => {
     faTrashAlt,
     faSpinner,
     faClock,
-    faHourglass
+    faHourglass,
+    faSave
   );
 };
 
@@ -89,6 +91,11 @@ const HourGlassRegularIcon: IconLookup = {
   iconName: 'hourglass',
 };
 
+const SaveRegularIcon: IconLookup = {
+  prefix: 'far',
+  iconName: 'save',
+};
+
 export {
   CheckSolidIcon,
   ExclamationSolidIcon,
@@ -102,4 +109,5 @@ export {
   SpinnerSolidIcon,
   ClockRegularIcon,
   HourGlassRegularIcon,
+  SaveRegularIcon,
 };

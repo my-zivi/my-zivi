@@ -38,7 +38,7 @@ export class MissionModal extends React.Component<MissionModalProps<Mission>> {
     this.initialValues = props.values
       ? props.values
       : {
-          specification_id: 0,
+          specification_id: '',
           mission_type: 0,
           start: null,
           end: null,

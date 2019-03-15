@@ -22,9 +22,20 @@ interface CheckboxFieldProps extends IziviCustomFieldProps<boolean>, WithSheet<t
   horizontal?: boolean;
   label: string;
   required?: boolean;
+  className?: string;
 }
 
-export const CheckboxFieldContent = ({ value, onChange, name, horizontal, label, required, errorMessage, classes }: CheckboxFieldProps) => {
+export const CheckboxFieldContent = ({
+  value,
+  onChange,
+  name,
+  horizontal,
+  label,
+  required,
+  errorMessage,
+  classes,
+  className,
+}: CheckboxFieldProps) => {
   const hasErrors = Boolean(errorMessage);
   return (
     <FormGroup check={!horizontal} row={horizontal}>
@@ -47,6 +58,16 @@ export const CheckboxFieldContent = ({ value, onChange, name, horizontal, label,
             </Label>
           </FormGroup>
         </Col>
+      )}
+      {!horizontal && !label && (
+        <Input
+          className={'position-static ' + className}
+          id={name}
+          checked={value}
+          onChange={() => onChange(!value)}
+          invalid={hasErrors}
+          type="checkbox"
+        />
       )}
     </FormGroup>
   );

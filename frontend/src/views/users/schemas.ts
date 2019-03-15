@@ -18,7 +18,7 @@ export const userSchema = yup.object({
 });
 
 export const missionSchema = yup.object({
-  specification_id: yup.number(),
+  specification_id: yup.string(),
   mission_type: yup.number(),
   start: apiDate().required(),
   end: apiDate().required(),

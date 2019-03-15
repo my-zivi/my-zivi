@@ -39,6 +39,7 @@ export type SelectFieldProps = {
 export interface IziviInputFieldProps<T = string> extends IziviFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: T;
+  size?: number;
 }
 
 export interface IziviCustomFieldProps<T, OutputValue = T> extends IziviFieldProps {

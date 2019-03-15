@@ -27,9 +27,13 @@ interface Props extends RouteComponentProps {
   mainStore?: MainStore;
 }
 
+interface State {
+  loading: boolean;
+}
+
 @inject('holidayStore', 'mainStore')
 @observer
-export class HolidayOverview extends React.Component<Props> {
+export class HolidayOverview extends React.Component<Props, State> {
   public columns: Array<Column<Holiday>> = [];
 
   constructor(props: Props) {
@@ -94,7 +98,7 @@ export class HolidayOverview extends React.Component<Props> {
     const holidayStore = this.props.holidayStore!;
 
     return (
-      <IziviContent>
+      <IziviContent loading={this.state.loading} title={'Freitage'} card={true}>
         <Table>
           <thead>
             <tr>

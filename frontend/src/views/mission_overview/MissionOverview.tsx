@@ -109,7 +109,7 @@ class MissionOverviewContent extends React.Component<MissionOverviewProps, Missi
     });
   }
 
-  changeSelectedSpecifications(v: boolean, id: number) {
+  changeSelectedSpecifications(v: boolean, id: string) {
     const newSpec = this.state.selectedSpecifications;
     newSpec[id] = v;
     this.setState({ selectedSpecifications: newSpec }, () => this.updateAverageHeaders());
