@@ -105,6 +105,7 @@ $app->register(Sentry\SentryLaravel\SentryLumenServiceProvider::class);
 // Register Laravel Mail component
 $app->configure('mail');
 $app->register(Illuminate\Mail\MailServiceProvider::class);
+$app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

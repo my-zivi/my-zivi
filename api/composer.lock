@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95ca9cab6819b43f101059929e61c467",
+    "content-hash": "d6204bfb6206ff8a2ddd2c8ab1a0a288",
     "packages": [
+        {
+            "name": "appzcoder/lumen-routes-list",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/appzcoder/lumen-route-list.git",
+                "reference": "4d6a1452849dabecc148e2663fa5cb29d5516c84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/appzcoder/lumen-route-list/zipball/4d6a1452849dabecc148e2663fa5cb29d5516c84",
+                "reference": "4d6a1452849dabecc148e2663fa5cb29d5516c84",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Appzcoder\\LumenRoutesList\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sohel Amin",
+                    "email": "sohelamincse@gmail.com",
+                    "homepage": "http://www.appzcoder.com"
+                }
+            ],
+            "description": "Display the route list of Lumen",
+            "keywords": [
+                "lumen",
+                "route list"
+            ],
+            "time": "2017-09-22T05:31:37+00:00"
+        },
         {
             "name": "doctrine/cache",
             "version": "v1.8.0",
