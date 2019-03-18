@@ -77,6 +77,7 @@ export class UserStore extends DomainStore<User> {
   protected async doDelete(id: number) {
     await this.mainStore.api.delete('/users/' + id);
     await this.doFetchAll();
+    await this.filter();
   }
 
   @action

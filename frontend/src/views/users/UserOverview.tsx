@@ -8,6 +8,7 @@ import { UserStore } from '../../stores/userStore';
 import { DatePickerInput } from 'src/form/DatePickerField';
 import Input from 'reactstrap/lib/Input';
 import FormGroup from 'reactstrap/lib/FormGroup';
+import Button from 'reactstrap/lib/Button';
 
 interface Props {
   mainStore?: MainStore;
@@ -60,11 +61,18 @@ export class UserOverview extends React.Component<Props> {
         columns={this.columns}
         store={this.props.userStore!}
         title={'Benutzer'}
-        // renderActions={(e: User) => (
-        //   <>
-        //     <Link to={'/users/' + e.id}>Benutzer bearbeiten</Link>
-        //   </>
-        // )}
+        renderActions={(e: User) => (
+          <>
+            <Button
+              color={'danger'}
+              onClick={() => {
+                this.props.userStore!.delete(e.id!);
+              }}
+            >
+              Löschen
+            </Button>
+          </>
+        )}
         filter={true}
         firstRow={
           <tr>
@@ -76,6 +84,7 @@ export class UserOverview extends React.Component<Props> {
                     zdp: e.target.value,
                   });
                 }}
+                value={this.props.userStore!.userFilters.zdp || ''}
               />
             </td>
             <td>
@@ -86,6 +95,7 @@ export class UserOverview extends React.Component<Props> {
                     name: e.target.value,
                   });
                 }}
+                value={this.props.userStore!.userFilters.name}
               />
             </td>
             <td>
@@ -117,6 +127,7 @@ export class UserOverview extends React.Component<Props> {
                       active: e.target.checked,
                     });
                   }}
+                  checked={this.props.userStore!.userFilters.active}
                 />
               </FormGroup>
             </td>
@@ -128,6 +139,7 @@ export class UserOverview extends React.Component<Props> {
                     role: e.target.value,
                   });
                 }}
+                value={this.props.userStore!.userFilters.role || ''}
               >
                 {[{ id: '', name: 'Alle' }, { id: 'zivi', name: 'Zivi' }, { id: 'admin', name: 'Admin' }].map(option => (
                   <option value={option.id} key={option.id}>
