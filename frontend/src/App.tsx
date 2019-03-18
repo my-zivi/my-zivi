@@ -25,6 +25,7 @@ import { MissionOverview } from './views/mission_overview/MissionOverview';
 import { Register } from './views/Register';
 import { ChangePassword } from './views/ChangePassword';
 import { SpecificationsOverview } from './views/specification/SpecificationsOverview';
+import { ProfileOverview } from './views/users/ProfileOverview';
 
 Icons();
 
@@ -39,6 +40,7 @@ class App extends React.Component {
           <Route component={ForgotPassword} exact path={'/forgotPassword'} />
           <Route component={HolidayOverview} exact path={'/holidays'} />
           <Route component={PhoneListView} exact path={'/phones'} />
+          <Route component={ProfileOverview} exact path={'/profile'} />
           <ProtectedRoute component={ChangePassword} exact path={'/changePassword'} />
           <ProtectedRoute requiresAdmin component={PaymentOverview} exact path={'/payments'} />
           <ProtectedRoute requiresAdmin component={MissionOverview} exact path={'/missions'} />

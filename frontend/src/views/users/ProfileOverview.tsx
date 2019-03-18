@@ -1,13 +1,24 @@
 import * as React from 'react';
-import { UserOverview } from './UserOverview';
+import { UserUpdate } from './UserUpdate';
+import { RouteComponentProps } from 'react-router';
+import { inject } from 'mobx-react';
+import { ApiStore } from '../../stores/apiStore';
 
-interface ProfileOverviewProps {}
+interface ProfileOverviewProps extends RouteComponentProps {
+  apiStore?: ApiStore;
+}
 
+@inject('apiStore')
 class ProfileOverview extends React.Component<ProfileOverviewProps> {
-  componentDidMount(): void {}
-
   render(): React.ReactNode {
-    return <UserOverview />;
+    return (
+      <UserUpdate
+        history={this.props.history}
+        location={this.props.location}
+        match={this.props.match}
+        userId={this.props.apiStore!.userId}
+      />
+    );
   }
 }
 
