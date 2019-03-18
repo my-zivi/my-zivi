@@ -19,6 +19,7 @@ import { CheckboxField } from 'src/form/CheckboxField';
 import * as React from 'react';
 import { MissionStore } from 'src/stores/missionStore';
 import { WiredField } from '../../form/formik';
+import { MainStore } from '../../stores/mainStore';
 
 export interface MissionModalProps<T> {
   onSubmit: (values: T) => Promise<void>;
@@ -27,12 +28,14 @@ export interface MissionModalProps<T> {
   onClose: (e?: React.MouseEvent<HTMLButtonElement>) => void;
   isOpen: boolean;
   missionStore?: MissionStore;
+  mainStore?: MainStore;
 }
 
-@inject('missionStore')
+@inject('missionStore', 'mainStore')
 export class MissionModal extends React.Component<MissionModalProps<Mission>> {
   private initialValues: Mission;
   private autoUpdate = true;
+
   constructor(props: MissionModalProps<Mission>) {
     super(props);
     this.initialValues = props.values
@@ -53,6 +56,7 @@ export class MissionModal extends React.Component<MissionModalProps<Mission>> {
           user_id: props.user.id,
         };
   }
+
   handleMissionDateRangeChange: OnChange<Mission> = async (current, next, formik) => {
     if (this.autoUpdate) {
       if (current.values.start !== next.values.start || current.values.end !== next.values.end) {
@@ -83,6 +87,7 @@ export class MissionModal extends React.Component<MissionModalProps<Mission>> {
     }
     this.autoUpdate = true;
   }, 500);
+
   render() {
     const { onSubmit, onClose, isOpen } = this.props;
     return (
@@ -120,8 +125,13 @@ export class MissionModal extends React.Component<MissionModalProps<Mission>> {
               <ModalFooter>
                 <Button color="primary" onClick={formikProps.submitForm}>
                   Daten speichern
-                </Button>{' '}
-                <Button color="secondary">Aufgebot erhalten</Button>
+                </Button>
+                {this.props.mainStore!.isAdmin() && (
+                  <>
+                    {' '}
+                    <Button color="secondary">Aufgebot erhalten</Button>
+                  </>
+                )}
               </ModalFooter>
             </Modal>
           )}
