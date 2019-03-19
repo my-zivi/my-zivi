@@ -106,6 +106,7 @@ $app->register(Sentry\SentryLaravel\SentryLumenServiceProvider::class);
 $app->configure('mail');
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 $app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
+$app->register(\Laravel\Tinker\TinkerServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
