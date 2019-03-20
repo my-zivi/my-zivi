@@ -16,7 +16,7 @@ import { SolidHorizontalRow } from '../../layout/SolidHorizontalRow';
 import { userSchema } from './schemas';
 import { UserStore } from 'src/stores/userStore';
 import { CheckboxField } from 'src/form/CheckboxField';
-import { MissionSubform } from './MissionSubform';
+import { MissionSubform } from './mission_subform/MissionSubform';
 import { SpecificationStore } from 'src/stores/specificationStore';
 import { WiredField } from '../../form/formik';
 import { ReportSheetSubform } from './ReportSheetSubform';

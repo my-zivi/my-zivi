@@ -38,23 +38,21 @@ export class MissionModal extends React.Component<MissionModalProps<Mission>> {
 
   constructor(props: MissionModalProps<Mission>) {
     super(props);
-    this.initialValues = props.values
-      ? props.values
-      : {
-          specification_id: '',
-          mission_type: 0,
-          start: null,
-          end: null,
-          days: 0,
-          first_time: false,
-          long_mission: false,
-          probation_period: false,
-          draft: null,
-          eligible_holiday: 0,
-          feedback_done: false,
-          feedback_mail_sent: false,
-          user_id: props.user.id,
-        };
+    this.initialValues = props.values || {
+      specification_id: '',
+      mission_type: 0,
+      start: null,
+      end: null,
+      days: 0,
+      first_time: false,
+      long_mission: false,
+      probation_period: false,
+      draft: null,
+      eligible_holiday: 0,
+      feedback_done: false,
+      feedback_mail_sent: false,
+      user_id: props.user.id,
+    };
   }
 
   handleMissionDateRangeChange: OnChange<Mission> = async (current, next, formik) => {
@@ -71,6 +69,7 @@ export class MissionModal extends React.Component<MissionModalProps<Mission>> {
       }
     }
   };
+
   private updateDays = debounce(async (start: string, end: string, formik: FormikProps<Mission>) => {
     this.autoUpdate = false;
     const data = await this.props.missionStore!.calcEligibleDays(moment(start).format(apiDateFormat), moment(end).format(apiDateFormat));
@@ -79,6 +78,7 @@ export class MissionModal extends React.Component<MissionModalProps<Mission>> {
     }
     this.autoUpdate = true;
   }, 500);
+
   private updateEnd = debounce(async (start: string, days: number, formik: FormikProps<Mission>) => {
     this.autoUpdate = false;
     const data = await this.props.missionStore!.calcPossibleEndDate(moment(start).format(apiDateFormat), days);
