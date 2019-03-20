@@ -4,7 +4,8 @@ import { Mission, Specification, User } from '../../../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   CheckSquareRegularIcon,
-  EditSolidIcon, PlusSquareRegularIcon,
+  EditSolidIcon,
+  PlusSquareRegularIcon,
   PrintSolidIcon,
   SquareRegularIcon,
   TrashAltRegularIcon,
@@ -40,17 +41,7 @@ function onMissionTableSubmit(missionStore?: MissionStore, userStore?: UserStore
 }
 
 export default (params: OverviewTableParams) => {
-  const {
-    user,
-    mainStore,
-    missionStore,
-    classes,
-    userStore,
-    specificationStore,
-    onModalOpen,
-    onModalClose,
-    missionModalIsOpen,
-  } = params;
+  const { user, mainStore, missionStore, classes, userStore, specificationStore, onModalOpen, onModalClose, missionModalIsOpen } = params;
 
   return (
     <OverviewTable
@@ -80,32 +71,28 @@ export default (params: OverviewTableParams) => {
           format: (m: Mission) => (
             <>
               <span id={`reportSheetState-${m.id}`}>
-                <FontAwesomeIcon icon={m.draft ? CheckSquareRegularIcon : SquareRegularIcon}
-                                 color={m.draft ? 'green' : 'black'}/>
+                <FontAwesomeIcon icon={m.draft ? CheckSquareRegularIcon : SquareRegularIcon} color={m.draft ? 'green' : 'black'} />
               </span>
-              <UncontrolledTooltip target={`reportSheetState-${m.id}`}>
-                Aufgebot erhalten
-              </UncontrolledTooltip>
+              <UncontrolledTooltip target={`reportSheetState-${m.id}`}>Aufgebot erhalten</UncontrolledTooltip>
             </>
           ),
         },
       ]}
       renderActions={(mission: Mission) => (
         <div className={classes.hideButtonText}>
-          <a className={'btn btn-link'} href={mainStore!.apiURL('missions/' + mission.id + '/draft', {}, true)}
-             target={'_blank'}>
-            <FontAwesomeIcon icon={PrintSolidIcon}/> <span>Drucken</span>
+          <a className={'btn btn-link'} href={mainStore!.apiURL('missions/' + mission.id + '/draft', {}, true)} target={'_blank'}>
+            <FontAwesomeIcon icon={PrintSolidIcon} /> <span>Drucken</span>
           </a>
-          <Button color={'warning'} type={'button'} onClick={() => onModalOpen(mission)}>
-            <FontAwesomeIcon icon={EditSolidIcon}/> <span>Bearbeiten</span>
-          </Button>{' '}
+          <Button color={'warning'} type={'button'} className="mr-1" onClick={() => onModalOpen(mission)}>
+            <FontAwesomeIcon icon={EditSolidIcon} /> <span>Bearbeiten</span>
+          </Button>
           {mainStore!.isAdmin() ? (
             <>
               <DeleteButton onConfirm={() => missionStore!.delete(mission.id!)}>
-                <FontAwesomeIcon icon={TrashAltRegularIcon}/> <span>Löschen</span>
+                <FontAwesomeIcon icon={TrashAltRegularIcon} /> <span>Löschen</span>
               </DeleteButton>{' '}
               <Button color={'success'} type={'button'}>
-                <FontAwesomeIcon icon={PlusSquareRegularIcon}/> <span>Spesenblatt</span>
+                <FontAwesomeIcon icon={PlusSquareRegularIcon} /> <span>Spesenblatt</span>
               </Button>
             </>
           ) : (
@@ -122,4 +109,4 @@ export default (params: OverviewTableParams) => {
       )}
     />
   );
-}
+};
