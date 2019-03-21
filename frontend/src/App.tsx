@@ -26,6 +26,7 @@ import { Register } from './views/Register';
 import { ChangePassword } from './views/ChangePassword';
 import { SpecificationsOverview } from './views/specification/SpecificationsOverview';
 import { ProfileOverview } from './views/users/ProfileOverview';
+import { MissionFeedback } from './views/users/mission_feedback/MissionFeedback';
 
 Icons();
 
@@ -42,6 +43,7 @@ class App extends React.Component {
           <Route component={PhoneListView} exact path={'/phones'} />
           <Route component={ProfileOverview} exact path={'/profile'} />
           <ProtectedRoute component={ChangePassword} exact path={'/changePassword'} />
+          <ProtectedRoute component={MissionFeedback} exact path={'/mission/:id/feedback'} />
           <ProtectedRoute requiresAdmin component={PaymentOverview} exact path={'/payments'} />
           <ProtectedRoute requiresAdmin component={MissionOverview} exact path={'/missions'} />
           <ProtectedRoute requiresAdmin component={PaymentDetail} exact path={'/payments/:id'} />

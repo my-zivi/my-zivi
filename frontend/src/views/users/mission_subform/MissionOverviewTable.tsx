@@ -22,6 +22,7 @@ import { UserStore } from '../../../stores/userStore';
 import { SpecificationStore } from '../../../stores/specificationStore';
 import { UncontrolledTooltip } from 'reactstrap';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 interface OverviewTableParams extends WithSheet<string, {}> {
   mainStore?: MainStore;
@@ -43,14 +44,17 @@ function onMissionTableSubmit(missionStore?: MissionStore, userStore?: UserStore
 }
 
 function renderFeedbackButton(mission: Mission) {
+  console.log(mission.user);
   if (mission.feedback_done || moment().isBefore(moment(mission.end!))) {
     return;
   }
 
   return (
-    <Button color={'info'} type={'button'} className="mr-1">
-      <FontAwesomeIcon icon={MailSolidIcon} /> <span>Feedback senden</span>
-    </Button>
+    <Link to={`/mission/${mission.id}/feedback`}>
+      <Button color={'info'} type={'button'} className="mr-1">
+        <FontAwesomeIcon icon={MailSolidIcon} /> <span>Feedback senden</span>
+      </Button>
+    </Link>
   );
 }
 
