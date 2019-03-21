@@ -4,13 +4,13 @@ import { MissionStore } from '../../../stores/missionStore';
 import * as React from 'react';
 import { Mission, User } from '../../../types';
 import { inject } from 'mobx-react';
-import { SpecificationStore } from 'src/stores/specificationStore';
+import { SpecificationStore } from '../../../stores/specificationStore';
 import injectSheet, { WithSheet } from 'react-jss';
-import createStyles from 'src/utilities/createStyles';
+import createStyles from '../../../utilities/createStyles';
 import { MissionModal } from '../MissionModal';
 import { missionSchema } from '../schemas';
-import { UserStore } from 'src/stores/userStore';
 import MissionOverviewTable from './MissionOverviewTable';
+import { UserStore } from '../../../stores/userStore';
 
 interface Props extends WithSheet<typeof styles> {
   mainStore?: MainStore;

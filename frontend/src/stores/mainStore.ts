@@ -2,7 +2,7 @@ import { displayError, displaySuccess, displayWarning } from '../utilities/notif
 import { observable, action } from 'mobx';
 import { ApiStore, baseUrl } from './apiStore';
 import { History } from 'history';
-import { Formatter } from 'src/utilities/formatter';
+import { Formatter } from '../utilities/formatter';
 import { buildURL } from '../utilities/helpers';
 
 export class MainStore {

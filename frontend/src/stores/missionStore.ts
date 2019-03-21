@@ -53,6 +53,12 @@ export class MissionStore extends DomainStore<Mission> {
     this.missions = res.data;
   }
 
+  // @action
+  // public async doFetchOne(id: number) {
+  //   const response = await this.mainStore.api.get<Mission>('/missions/' + id);
+  //   this.mission = response.data;
+  // }
+
   @action
   protected async doPost(holiday: Mission) {
     const response = await this.mainStore.api.post<Mission[]>('/missions', holiday);

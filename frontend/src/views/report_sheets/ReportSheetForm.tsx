@@ -61,7 +61,7 @@ class ReportSheetFormInner extends React.Component<Props, ReportSheetFormState> 
         }}
         title={title}
         validationSchema={reportSheetSchema}
-        render={(formikProps: FormikProps<ReportSheetWithProposedValues>) => (
+        render={(formikProps: FormikProps<{}>): React.ReactNode => (
           <Form>
             <WiredField disabled horizontal component={TextField} name={'mission.specification.name'} label={'Pflichtenheft'} />
             <WiredField disabled horizontal component={DatePickerField} name={'mission.start'} label={'Beginn Einsatz'} />

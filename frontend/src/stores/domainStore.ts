@@ -27,7 +27,7 @@ export class DomainStore<T, OverviewType = T> {
   @observable
   public filteredEntities: OverviewType[] = [];
 
-  public filter: () => void;
+  public filter: () => void = () => {};
 
   @action
   public async fetchAll(params: object = {}) {

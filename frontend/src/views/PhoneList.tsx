@@ -8,7 +8,7 @@ import { apiDate } from '../utilities/validationHelpers';
 import * as yup from 'yup';
 import moment from 'moment';
 import { FormikActions, Formik } from 'formik';
-import { DatePickerField } from 'src/form/DatePickerField';
+import { DatePickerField } from '../form/DatePickerField';
 import Form from 'reactstrap/lib/Form';
 import Button from 'reactstrap/lib/Button';
 import Row from 'reactstrap/lib/Row';

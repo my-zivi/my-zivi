@@ -48,6 +48,10 @@ export class ApiStore {
   }
 
   constructor(private history: History) {
+    this._api = axios.create({
+      baseURL: baseUrl,
+    });
+
     this.restoreApiToken();
     this.updateSentryContext();
     this.initializeApiClient(this._token);
@@ -61,9 +65,6 @@ export class ApiStore {
   }
 
   private initializeApiClient(token: string | null) {
-    this._api = axios.create({
-      baseURL: baseUrl,
-    });
     this.setAuthHeader(token);
 
     this._api.interceptors.response.use(

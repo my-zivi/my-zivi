@@ -1,12 +1,12 @@
 import { MainStore } from '../../stores/mainStore';
 import * as React from 'react';
 import { User, ReportSheet } from '../../types';
-import { OverviewTable } from 'src/layout/OverviewTable';
-import { EditSolidIcon, CheckSquareRegularIcon, ClockRegularIcon, HourGlassRegularIcon, PrintSolidIcon } from 'src/utilities/Icon';
+import { OverviewTable } from '../../layout/OverviewTable';
+import { EditSolidIcon, CheckSquareRegularIcon, ClockRegularIcon, HourGlassRegularIcon, PrintSolidIcon } from '../../utilities/Icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { inject } from 'mobx-react';
 import injectSheet, { WithSheet } from 'react-jss';
-import createStyles from 'src/utilities/createStyles';
+import createStyles from '../../utilities/createStyles';
 import moment from 'moment';
 import Tooltip from 'reactstrap/lib/Tooltip';
 import Button from 'reactstrap/lib/Button';

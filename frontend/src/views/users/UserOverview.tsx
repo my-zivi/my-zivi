@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import { MainStore } from '../../stores/mainStore';
 import { UserStore } from '../../stores/userStore';
-import { DatePickerInput } from 'src/form/DatePickerField';
+import { DatePickerInput } from '../../form/DatePickerField';
 import Input from 'reactstrap/lib/Input';
 import FormGroup from 'reactstrap/lib/FormGroup';
 import Button from 'reactstrap/lib/Button';

@@ -4,12 +4,12 @@ import { Provider } from 'mobx-react';
 import { History } from 'history';
 import { MainStore } from '../stores/mainStore';
 import { Formatter } from './formatter';
-import { HolidayStore } from 'src/stores/holidayStore';
+import { HolidayStore } from '../stores/holidayStore';
 import { ReportSheetStore } from '../stores/reportSheetStore';
 import { PaymentStore } from '../stores/paymentStore';
-import { UserStore } from 'src/stores/userStore';
-import { MissionStore } from 'src/stores/missionStore';
-import { SpecificationStore } from 'src/stores/specificationStore';
+import { UserStore } from '../stores/userStore';
+import { MissionStore } from '../stores/missionStore';
+import { SpecificationStore } from '../stores/specificationStore';
 import { UserFeedbackStore } from '../stores/userFeedbackStore';
 
 interface Props {

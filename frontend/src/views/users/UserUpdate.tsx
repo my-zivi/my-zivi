@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router';
 import { FormValues, User } from '../../types';
 import { toJS } from 'mobx';
 import { UserForm } from './UserForm';
-import { UserStore } from 'src/stores/userStore';
+import { UserStore } from '../../stores/userStore';
 
 interface UserDetailRouterProps {
   id?: string;
