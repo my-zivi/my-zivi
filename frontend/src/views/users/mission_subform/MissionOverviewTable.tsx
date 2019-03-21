@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   CheckSquareRegularIcon,
   EditSolidIcon,
+  MailSolidIcon,
   PlusSquareRegularIcon,
   PrintSolidIcon,
   SquareRegularIcon,
@@ -20,8 +21,9 @@ import { MissionStore } from '../../../stores/missionStore';
 import { UserStore } from '../../../stores/userStore';
 import { SpecificationStore } from '../../../stores/specificationStore';
 import { UncontrolledTooltip } from 'reactstrap';
+import moment from 'moment';
 
-interface OverviewTableParams extends WithSheet<any> {
+interface OverviewTableParams extends WithSheet<string, {}> {
   mainStore?: MainStore;
   missionStore?: MissionStore;
   userStore?: UserStore;
@@ -38,6 +40,18 @@ function onMissionTableSubmit(missionStore?: MissionStore, userStore?: UserStore
       void userStore!.fetchOne(mission.user_id);
     }) as Promise<void>;
   };
+}
+
+function renderFeedbackButton(mission: Mission) {
+  if (mission.feedback_done || moment().isBefore(moment(mission.end!))) {
+    return;
+  }
+
+  return (
+    <Button color={'info'} type={'button'} className="mr-1">
+      <FontAwesomeIcon icon={MailSolidIcon} /> <span>Feedback senden</span>
+    </Button>
+  );
 }
 
 export default (params: OverviewTableParams) => {
@@ -86,7 +100,8 @@ export default (params: OverviewTableParams) => {
           <Button color={'warning'} type={'button'} className="mr-1" onClick={() => onModalOpen(mission)}>
             <FontAwesomeIcon icon={EditSolidIcon} /> <span>Bearbeiten</span>
           </Button>
-          {mainStore!.isAdmin() ? (
+          {renderFeedbackButton(mission)}
+          {mainStore!.isAdmin() && (
             <>
               <DeleteButton onConfirm={() => missionStore!.delete(mission.id!)}>
                 <FontAwesomeIcon icon={TrashAltRegularIcon} /> <span>Löschen</span>
@@ -95,8 +110,6 @@ export default (params: OverviewTableParams) => {
                 <FontAwesomeIcon icon={PlusSquareRegularIcon} /> <span>Spesenblatt</span>
               </Button>
             </>
-          ) : (
-            <></>
           )}
           <MissionModal
             onSubmit={onMissionTableSubmit(missionStore, userStore)}

@@ -12,6 +12,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner';
 import { faClock } from '@fortawesome/free-regular-svg-icons/faClock';
 import { faHourglass } from '@fortawesome/free-regular-svg-icons/faHourglass';
 import { faSave } from '@fortawesome/free-regular-svg-icons/faSave';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 
 export const Icons = () => {
   library.add(
@@ -27,7 +28,8 @@ export const Icons = () => {
     faSpinner,
     faClock,
     faHourglass,
-    faSave
+    faSave,
+    faEnvelope
   );
 };
 
@@ -96,6 +98,11 @@ const SaveRegularIcon: IconLookup = {
   iconName: 'save',
 };
 
+const MailSolidIcon: IconLookup = {
+  prefix: 'fas',
+  iconName: 'envelope',
+};
+
 export {
   CheckSolidIcon,
   ExclamationSolidIcon,
@@ -110,4 +117,5 @@ export {
   ClockRegularIcon,
   HourGlassRegularIcon,
   SaveRegularIcon,
+  MailSolidIcon,
 };
