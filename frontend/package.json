@@ -36,7 +36,8 @@
     "build": "react-scripts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
-    "format": "tslint --project . -t verbose"
+    "format": "tslint --project . -t verbose --fix",
+    "lint": "tslint --project . -t verbose"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.7",
