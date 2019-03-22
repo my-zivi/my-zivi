@@ -1,5 +1,5 @@
-import injectSheet from 'react-jss';
 import * as React from 'react';
+import injectSheet from 'react-jss';
 import createStyles from '../utilities/createStyles';
 
 export const theme = {
@@ -20,7 +20,7 @@ export type Theme = typeof theme;
 const globalStyles = ({ colors, layout }: Theme) =>
   createStyles({
     '@global': {
-      body: {
+      'body': {
         margin: 0,
         padding: 0,
         color: colors.black,
@@ -31,7 +31,7 @@ const globalStyles = ({ colors, layout }: Theme) =>
         overflowX: 'hidden',
         fontWeight: 400,
       },
-      a: {
+      'a': {
         color: colors.primary,
       },
       'li, p': {

@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { SpecificationStore } from '../../stores/specificationStore';
-import { inject } from 'mobx-react';
-import IziviContent from '../../layout/IziviContent';
-import { Specification } from '../../types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Formik, FormikActions } from 'formik';
-import { MainStore } from '../../stores/mainStore';
-import { WiredField } from '../../form/formik';
-import { TextField } from '../../form/common';
+import { inject } from 'mobx-react';
+import * as React from 'react';
+import injectSheet, { WithSheet } from 'react-jss';
 import Button from 'reactstrap/lib/Button';
 import Table from 'reactstrap/lib/Table';
-import { CheckboxField } from '../../form/CheckboxField';
-import injectSheet, { WithSheet } from 'react-jss';
-import specificationSchema from './specificationSchema';
-import specificationStyles from './specificationOverviewStyle';
-import { PlusSquareRegularIcon, SaveRegularIcon, TrashAltRegularIcon } from '../../utilities/Icon';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tooltip from 'reactstrap/lib/Tooltip';
+import { CheckboxField } from '../../form/CheckboxField';
+import { TextField } from '../../form/common';
+import { WiredField } from '../../form/formik';
+import IziviContent from '../../layout/IziviContent';
+import { MainStore } from '../../stores/mainStore';
+import { SpecificationStore } from '../../stores/specificationStore';
+import { Specification } from '../../types';
+import { PlusSquareRegularIcon, SaveRegularIcon, TrashAltRegularIcon } from '../../utilities/Icon';
+import specificationStyles from './specificationOverviewStyle';
+import specificationSchema from './specificationSchema';
 
 interface SpecificationProps extends WithSheet<typeof specificationStyles> {
   specificationStore?: SpecificationStore;
@@ -24,10 +24,10 @@ interface SpecificationProps extends WithSheet<typeof specificationStyles> {
 
 interface SpecificationState {
   loading: boolean;
-  openThTooltips: Array<Array<boolean>>;
+  openThTooltips: boolean[][];
 }
 
-interface th<T> {
+interface Th<T> {
   label: string;
   tooltip?: string;
   span?: {
@@ -39,7 +39,7 @@ interface th<T> {
 
 @inject('specificationStore', 'mainStore')
 export class SpecificationsOverviewInner extends React.Component<SpecificationProps, SpecificationState> {
-  public columns: Array<Array<th<Specification>>> = [];
+  columns: Array<Array<Th<Specification>>> = [];
 
   constructor(props: SpecificationProps) {
     super(props);
@@ -166,25 +166,21 @@ export class SpecificationsOverviewInner extends React.Component<SpecificationPr
   handleThTooltip = (row: number, id: number): void => {
     const opens = this.state.openThTooltips;
 
-    if (opens[row][id]) {
-      opens[row][id] = !opens[row][id];
-    } else {
-      opens[row][id] = true;
-    }
+    opens[row][id] = opens[row][id] ? !opens[row][id] : true;
 
     this.setState({ openThTooltips: opens });
-  };
+  }
 
   handleSubmit = async (entity: Specification, actions: FormikActions<Specification>) => {
     this.props.specificationStore!.put(specificationSchema.cast(entity)).then(() => actions.setSubmitting(false));
-  };
+  }
 
   handleAdd = async (entity: Specification, actions: FormikActions<Specification>) => {
     await this.props.specificationStore!.post(specificationSchema.cast(entity)).then(() => {
       actions.setSubmitting(false);
       actions.resetForm();
     });
-  };
+  }
 
   render() {
     const entities = this.props.specificationStore!.entities;
@@ -199,7 +195,7 @@ export class SpecificationsOverviewInner extends React.Component<SpecificationPr
               const thClass = colI === 0 ? classes.th : classes.secondTh;
 
               return (
-                <tr>
+                <tr key={colI}>
                   {' '}
                   {col.map((th, thI) => {
                     let content = <>{th.label}</>;
@@ -322,9 +318,9 @@ export class SpecificationsOverviewInner extends React.Component<SpecificationPr
   }
 }
 
-interface specFormFieldProps extends WithSheet<typeof specificationStyles> {}
+interface SpecFormFieldProps extends WithSheet<typeof specificationStyles> {}
 
-const SpecificationFormFields = ({ classes }: specFormFieldProps) => (
+const SpecificationFormFields = ({ classes }: SpecFormFieldProps) => (
   <>
     <td className={classes.rowTd}>
       <WiredField className={classes.checkboxes} component={CheckboxField} name={'active'} />

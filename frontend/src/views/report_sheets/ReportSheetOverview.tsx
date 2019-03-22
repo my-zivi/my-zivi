@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { Column, ReportSheetListing } from '../../types';
 import { inject, observer } from 'mobx-react';
-import { ReportSheetStore } from '../../stores/reportSheetStore';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { MainStore } from '../../stores/mainStore';
 import Button from 'reactstrap/lib/Button';
-import { ReportSheetStatisticFormDialog } from './ReportSheetStatisticFormDialog';
 import ButtonGroup from 'reactstrap/lib/ButtonGroup';
-import { OverviewTable } from '../../layout/OverviewTable';
 import IziviContent from '../../layout/IziviContent';
+import { OverviewTable } from '../../layout/OverviewTable';
+import { MainStore } from '../../stores/mainStore';
+import { ReportSheetStore } from '../../stores/reportSheetStore';
+import { Column, ReportSheetListing } from '../../types';
+import { ReportSheetStatisticFormDialog } from './ReportSheetStatisticFormDialog';
 
 interface Props {
   mainStore?: MainStore;
@@ -24,7 +24,7 @@ interface State {
 @inject('mainStore', 'reportSheetStore')
 @observer
 export class ReportSheetOverview extends React.Component<Props, State> {
-  public columns: Array<Column<ReportSheetListing>>;
+  columns: Array<Column<ReportSheetListing>>;
 
   constructor(props: Props) {
     super(props);
@@ -57,23 +57,19 @@ export class ReportSheetOverview extends React.Component<Props, State> {
     };
   }
 
-  public componentDidMount(): void {
+  componentDidMount(): void {
     this.loadContent();
   }
 
-  public loadContent = () => {
+  loadContent = () => {
     this.props.reportSheetStore!.fetchAll({ state: this.state.reportSheetStateFilter }).then(() => this.setState({ loading: false }));
-  };
-
-  public updateSheetFilter = (state: string | null) => {
-    this.setState({ loading: true, reportSheetStateFilter: state }, () => this.loadContent());
-  };
-
-  protected toggle() {
-    this.setState({ modalOpen: !this.state.modalOpen });
   }
 
-  public render() {
+  updateSheetFilter = (state: string | null) => {
+    this.setState({ loading: true, reportSheetStateFilter: state }, () => this.loadContent());
+  }
+
+  render() {
     return (
       <IziviContent card loading={this.state.loading} title={'Spesen'}>
         <Button outline onClick={() => this.toggle()}>
@@ -112,5 +108,9 @@ export class ReportSheetOverview extends React.Component<Props, State> {
         />
       </IziviContent>
     );
+  }
+
+  protected toggle() {
+    this.setState({ modalOpen: !this.state.modalOpen });
   }
 }

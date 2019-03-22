@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { ReportSheetForm } from './ReportSheetForm';
-import { ReportSheetStore } from '../../stores/reportSheetStore';
-import { inject, observer } from 'mobx-react';
-import { RouteComponentProps } from 'react-router';
-import { FormValues, ReportSheet } from '../../types';
 import { toJS } from 'mobx';
+import { inject, observer } from 'mobx-react';
+import * as React from 'react';
+import { RouteComponentProps } from 'react-router';
+import { ReportSheetStore } from '../../stores/reportSheetStore';
+import { FormValues, ReportSheet } from '../../types';
+import { ReportSheetForm } from './ReportSheetForm';
 
 interface ReportSheetDetailRouterProps {
   id?: string;
@@ -22,21 +22,22 @@ export class ReportSheetUpdate extends React.Component<Props> {
     props.reportSheetStore!.fetchOne(Number(props.match.params.id));
   }
 
-  public handleSubmit = (reportSheet: ReportSheet) => {
+  handleSubmit = (reportSheet: ReportSheet) => {
     return this.props.reportSheetStore!.put(reportSheet);
-  };
+  }
 
-  public get reportSheet() {
+  get reportSheet() {
     const reportSheet = this.props.reportSheetStore!.reportSheet;
     if (reportSheet) {
       return toJS(reportSheet);
-      //it's important to detach the mobx proxy before passing it into formik - formik's deepClone can fall into endless recursions with those proxies.
+      // it's important to detach the mobx proxy before passing it into formik
+      // formik's deepClone can fall into endless recursions with those proxies.
     } else {
       return undefined;
     }
   }
 
-  public render() {
+  render() {
     const reportSheet = this.reportSheet;
 
     return (

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import IziviContent from '../layout/IziviContent';
 import { Link } from 'react-router-dom';
+import IziviContent from '../layout/IziviContent';
 
 export class NotFound extends React.Component {
   render() {

@@ -1,25 +1,25 @@
+import { Formik, FormikProps } from 'formik';
+import debounce from 'lodash.debounce';
+import { inject } from 'mobx-react';
+import moment from 'moment';
+import * as React from 'react';
+import Alert from 'reactstrap/lib/Alert';
 import Button from 'reactstrap/lib/Button';
-import { Mission, User } from '../../types';
+import Form from 'reactstrap/lib/Form';
 import Modal from 'reactstrap/lib/Modal';
-import ModalHeader from 'reactstrap/lib/ModalHeader';
 import ModalBody from 'reactstrap/lib/ModalBody';
 import ModalFooter from 'reactstrap/lib/ModalFooter';
-import { inject } from 'mobx-react';
-import { Formik, FormikProps } from 'formik';
-import Form from 'reactstrap/lib/Form';
-import Alert from 'reactstrap/lib/Alert';
+import ModalHeader from 'reactstrap/lib/ModalHeader';
+import { CheckboxField } from '../../form/CheckboxField';
 import { SelectField, TextField } from '../../form/common';
 import { DatePickerField } from '../../form/DatePickerField';
 import { SpecificationSelect } from '../../form/entitiySelect/SpecificationSelect';
-import Effect, { OnChange } from '../../utilities/Effect';
-import moment from 'moment';
-import { apiDateFormat } from '../../stores/apiStore';
-import debounce from 'lodash.debounce';
-import { CheckboxField } from '../../form/CheckboxField';
-import * as React from 'react';
-import { MissionStore } from '../../stores/missionStore';
 import { WiredField } from '../../form/formik';
+import { apiDateFormat } from '../../stores/apiStore';
 import { MainStore } from '../../stores/mainStore';
+import { MissionStore } from '../../stores/missionStore';
+import { Mission, User } from '../../types';
+import Effect, { OnChange } from '../../utilities/Effect';
 
 export interface MissionModalProps<T> {
   onSubmit: (values: T) => Promise<void>;
@@ -35,6 +35,24 @@ export interface MissionModalProps<T> {
 export class MissionModal extends React.Component<MissionModalProps<Mission>> {
   private initialValues: Mission;
   private autoUpdate = true;
+
+  private updateDays = debounce(async (start: string, end: string, formik: FormikProps<Mission>) => {
+    this.autoUpdate = false;
+    const data = await this.props.missionStore!.calcEligibleDays(moment(start).format(apiDateFormat), moment(end).format(apiDateFormat));
+    if (data) {
+      formik.setFieldValue('days', data);
+    }
+    this.autoUpdate = true;
+  }, 500);
+
+  private updateEnd = debounce(async (start: string, days: number, formik: FormikProps<Mission>) => {
+    this.autoUpdate = false;
+    const data = await this.props.missionStore!.calcPossibleEndDate(moment(start).format(apiDateFormat), days);
+    if (data) {
+      formik.setFieldValue('end', data);
+    }
+    this.autoUpdate = true;
+  }, 500);
 
   constructor(props: MissionModalProps<Mission>) {
     super(props);
@@ -68,25 +86,7 @@ export class MissionModal extends React.Component<MissionModalProps<Mission>> {
         }
       }
     }
-  };
-
-  private updateDays = debounce(async (start: string, end: string, formik: FormikProps<Mission>) => {
-    this.autoUpdate = false;
-    const data = await this.props.missionStore!.calcEligibleDays(moment(start).format(apiDateFormat), moment(end).format(apiDateFormat));
-    if (data) {
-      formik.setFieldValue('days', data);
-    }
-    this.autoUpdate = true;
-  }, 500);
-
-  private updateEnd = debounce(async (start: string, days: number, formik: FormikProps<Mission>) => {
-    this.autoUpdate = false;
-    const data = await this.props.missionStore!.calcPossibleEndDate(moment(start).format(apiDateFormat), days);
-    if (data) {
-      formik.setFieldValue('end', data);
-    }
-    this.autoUpdate = true;
-  }, 500);
+  }
 
   render() {
     const { onSubmit, onClose, isOpen } = this.props;

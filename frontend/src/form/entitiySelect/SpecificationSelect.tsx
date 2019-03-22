@@ -1,11 +1,11 @@
-import React from 'react';
 import { inject, observer } from 'mobx-react';
-import Input from 'reactstrap/lib/Input';
-import { SpecificationStore } from '../../stores/specificationStore';
-import Label from 'reactstrap/lib/Label';
-import { IziviCustomFieldProps, withColumn } from '../common';
+import React from 'react';
 import FormGroup from 'reactstrap/lib/FormGroup';
+import Input from 'reactstrap/lib/Input';
+import Label from 'reactstrap/lib/Label';
+import { SpecificationStore } from '../../stores/specificationStore';
 import { Specification } from '../../types';
+import { IziviCustomFieldProps, withColumn } from '../common';
 
 type Props = {
   specificationStore?: SpecificationStore;
@@ -17,7 +17,7 @@ type Props = {
 @inject('specificationStore')
 @observer
 export class SpecificationSelect extends React.Component<Props> {
-  public get options() {
+  get options() {
     return this.props
       .specificationStore!.entities.filter((sp: Specification) => sp.active)
       .map(e => ({
@@ -26,7 +26,7 @@ export class SpecificationSelect extends React.Component<Props> {
       }));
   }
 
-  public render() {
+  render() {
     const { name, value, onChange, label, horizontal, required } = this.props;
 
     const SpecificationSelectInner = () => (

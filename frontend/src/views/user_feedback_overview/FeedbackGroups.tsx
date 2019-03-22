@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { UserQuestionWithAnswers } from '../../types';
-import Progress from 'reactstrap/lib/Progress';
 import ListGroup from 'reactstrap/lib/ListGroup';
 import ListGroupItem from 'reactstrap/lib/ListGroupItem';
+import Progress from 'reactstrap/lib/Progress';
+import { UserQuestionWithAnswers } from '../../types';
 
 interface FeedbackTitleProps {
   opt1?: string;

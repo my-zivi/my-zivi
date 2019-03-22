@@ -1,16 +1,16 @@
-import * as React from 'react';
+import { Formik, FormikActions } from 'formik';
 import { inject, observer } from 'mobx-react';
-import { ApiStore } from '../stores/apiStore';
+import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Formik, FormikActions } from 'formik';
-import Form from 'reactstrap/lib/Form';
 import Button from 'reactstrap/lib/Button';
+import Form from 'reactstrap/lib/Form';
 import * as yup from 'yup';
 import { PasswordField, TextField } from '../form/common';
-import IziviContent from '../layout/IziviContent';
-import { MainStore } from '../stores/mainStore';
 import { WiredField } from '../form/formik';
+import IziviContent from '../layout/IziviContent';
+import { ApiStore } from '../stores/apiStore';
+import { MainStore } from '../stores/mainStore';
 
 const loginSchema = yup.object({
   email: yup
@@ -48,7 +48,7 @@ export class Login extends React.Component<Props> {
     } finally {
       actions.setSubmitting(false);
     }
-  };
+  }
 
   getReferrer() {
     const { state, search } = this.props.location;

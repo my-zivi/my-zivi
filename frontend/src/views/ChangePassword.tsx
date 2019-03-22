@@ -1,15 +1,14 @@
+import { Formik, FormikActions } from 'formik';
+import { inject, observer } from 'mobx-react';
 import * as React from 'react';
-import { Component } from 'react';
+import { Form } from 'reactstrap';
+import Button from 'reactstrap/lib/Button';
+import * as yup from 'yup';
+import { PasswordField } from '../form/common';
+import { WiredField } from '../form/formik';
 import IziviContent from '../layout/IziviContent';
 import { ApiStore } from '../stores/apiStore';
-import { inject, observer } from 'mobx-react';
-import * as yup from 'yup';
-import { Formik, FormikActions } from 'formik';
-import { WiredField } from '../form/formik';
-import { PasswordField } from '../form/common';
-import Button from 'reactstrap/lib/Button';
 import { MainStore } from '../stores/mainStore';
-import { Form } from 'reactstrap';
 
 const changePasswordSchema = yup.object({
   old_password: yup.string().required('Pflichtfeld'),
@@ -45,7 +44,7 @@ interface ChangePasswordState {
 
 @inject('apiStore', 'mainStore')
 @observer
-class ChangePassword extends Component<ChangePasswordProps, ChangePasswordState> {
+class ChangePassword extends React.Component<ChangePasswordProps, ChangePasswordState> {
   constructor(props: ChangePasswordProps) {
     super(props);
     this.state = {
@@ -66,7 +65,7 @@ class ChangePassword extends Component<ChangePasswordProps, ChangePasswordState>
     } finally {
       actions.setSubmitting(false);
     }
-  };
+  }
 
   render(): React.ReactNode {
     return (

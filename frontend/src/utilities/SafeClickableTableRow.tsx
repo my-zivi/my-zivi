@@ -1,14 +1,13 @@
 import * as React from 'react';
-import { RefObject } from 'react';
 
-//tslint:disable:no-any
+// tslint:disable:no-any
 
 /**
  * This TR's onClick only triggers when the TR or its direct TD children are clicked.
  * Any other elements (like buttons inside a cell) won't trigger it.
  */
 export class SafeClickableTableRow extends React.Component<any> {
-  public ref: RefObject<any>;
+  ref: React.RefObject<any>;
 
   constructor(props: any) {
     super(props);
@@ -20,10 +19,8 @@ export class SafeClickableTableRow extends React.Component<any> {
     const children = Array.from(tr.children);
     if (e.target === tr || children.find(el => el === e.target)) {
       this.props.onClick(e);
-    } else {
-      // console.log("NOPE", this.ref, e)
     }
-  };
+  }
 
   render = () => {
     const { children, ...rest } = this.props;
@@ -32,5 +29,5 @@ export class SafeClickableTableRow extends React.Component<any> {
         {children}
       </tr>
     );
-  };
+  }
 }

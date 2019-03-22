@@ -1,15 +1,15 @@
-import { MainStore } from '../../stores/mainStore';
-import * as React from 'react';
-import { User, ReportSheet } from '../../types';
-import { OverviewTable } from '../../layout/OverviewTable';
-import { EditSolidIcon, CheckSquareRegularIcon, ClockRegularIcon, HourGlassRegularIcon, PrintSolidIcon } from '../../utilities/Icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { inject } from 'mobx-react';
-import injectSheet, { WithSheet } from 'react-jss';
-import createStyles from '../../utilities/createStyles';
 import moment from 'moment';
-import Tooltip from 'reactstrap/lib/Tooltip';
+import * as React from 'react';
+import injectSheet, { WithSheet } from 'react-jss';
 import Button from 'reactstrap/lib/Button';
+import Tooltip from 'reactstrap/lib/Tooltip';
+import { OverviewTable } from '../../layout/OverviewTable';
+import { MainStore } from '../../stores/mainStore';
+import { ReportSheet, User } from '../../types';
+import createStyles from '../../utilities/createStyles';
+import { CheckSquareRegularIcon, ClockRegularIcon, EditSolidIcon, HourGlassRegularIcon, PrintSolidIcon } from '../../utilities/Icon';
 
 interface Props extends WithSheet<typeof styles> {
   mainStore?: MainStore;
@@ -17,7 +17,7 @@ interface Props extends WithSheet<typeof styles> {
 }
 
 interface ReportSheetSubformState {
-  openTooltips: Array<boolean>;
+  openTooltips: boolean[];
 }
 
 const styles = () =>
@@ -31,7 +31,7 @@ const styles = () =>
           display: 'none',
         },
       },
-      marginTop: '-0.5rem',
+      'marginTop': '-0.5rem',
     },
   });
 
@@ -43,7 +43,7 @@ class ReportSheetSubformInner extends React.Component<Props, ReportSheetSubformS
     this.state = { openTooltips: [] };
   }
 
-  public render() {
+  render() {
     const { user, mainStore, classes } = this.props;
 
     return (
@@ -172,14 +172,10 @@ class ReportSheetSubformInner extends React.Component<Props, ReportSheetSubformS
   handleOpenTooltip = (id: number): void => {
     const opens = this.state.openTooltips;
 
-    if (opens[id]) {
-      opens[id] = !opens[id];
-    } else {
-      opens[id] = true;
-    }
+    opens[id] = opens[id] ? !opens[id] : true;
 
     this.setState({ openTooltips: opens });
-  };
+  }
 }
 
 export const ReportSheetSubform = injectSheet(styles)(ReportSheetSubformInner);

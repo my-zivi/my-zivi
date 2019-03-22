@@ -1,6 +1,6 @@
-import * as React from 'react';
 import { Field, FieldProps, getIn } from 'formik';
-import { IziviInputFieldProps, IziviFormControlProps } from './common';
+import * as React from 'react';
+import { IziviFormControlProps, IziviInputFieldProps } from './common';
 
 const wireFormik = ({ delayed = false } = {}) => (Component: React.ComponentType<IziviFormControlProps & IziviInputFieldProps>) => ({
   form,
@@ -9,7 +9,7 @@ const wireFormik = ({ delayed = false } = {}) => (Component: React.ComponentType
 }: IziviFormControlProps & FieldProps) => {
   const touched = getIn(form.touched, field.name);
   const error = getIn(form.errors, field.name);
-  //tslint:disable-next-line:no-any
+  // tslint:disable-next-line:no-any
   const handleChange = (x: any) => {
     if (x === null) {
       form.setFieldValue(field.name, null);
@@ -27,7 +27,7 @@ const wireFormik = ({ delayed = false } = {}) => (Component: React.ComponentType
   return <Component errorMessage={touched && error ? error : undefined} {...field} onChange={handleChange} onBlur={handleBlur} {...rest} />;
 };
 
-type WiredFieldProps = any; //tslint:disable-line:no-any ; formik field does this, so we do too
+type WiredFieldProps = any; // tslint:disable-line:no-any ; formik field does this, so we do too
 
 export class WiredField extends React.Component<WiredFieldProps, { component: React.ReactType }> {
   componentWillMount() {

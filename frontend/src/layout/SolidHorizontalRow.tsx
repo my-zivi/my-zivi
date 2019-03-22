@@ -1,6 +1,6 @@
 import * as React from 'react';
-import createStyles from '../utilities/createStyles';
 import injectSheet, { WithSheet } from 'react-jss';
+import createStyles from '../utilities/createStyles';
 
 const styles = () =>
   createStyles({

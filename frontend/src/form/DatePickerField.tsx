@@ -1,8 +1,8 @@
 import React from 'react';
-import { IziviCustomFieldProps, IziviFormControl } from './common';
 import injectSheet, { WithSheet } from 'react-jss';
 import { DateTimePicker } from 'react-widgets';
 import createStyles from '../utilities/createStyles';
+import { IziviCustomFieldProps, IziviFormControl } from './common';
 
 const datePickerStyle = () =>
   createStyles({

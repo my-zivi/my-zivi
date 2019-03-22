@@ -1,7 +1,7 @@
 import { action, computed, observable } from 'mobx';
-import { MainStore } from './mainStore';
-import { DomainStore } from './domainStore';
 import { Mission } from '../types';
+import { DomainStore } from './domainStore';
+import { MainStore } from './mainStore';
 
 export class MissionStore extends DomainStore<Mission> {
   protected get entityName() {
@@ -12,7 +12,7 @@ export class MissionStore extends DomainStore<Mission> {
   }
 
   @computed
-  get entities(): Array<Mission> {
+  get entities(): Mission[] {
     return this.missions;
   }
 
@@ -26,13 +26,35 @@ export class MissionStore extends DomainStore<Mission> {
   }
 
   @observable
-  public missions: Mission[] = [];
+  missions: Mission[] = [];
 
   @observable
-  public mission?: Mission;
+  mission?: Mission;
 
   constructor(mainStore: MainStore) {
     super(mainStore);
+  }
+
+  @action
+  async fetchByYear(year: string) {
+    const res = await this.mainStore.api.get<Mission[]>('/missions/' + year);
+    this.missions = res.data;
+  }
+
+  async calcEligibleDays(start: string, end: string) {
+    const response = await this.mainStore.api.get<EligibleDays>('/mission_days/eligible_days?start=' + start + '&end=' + end);
+    return response.data;
+  }
+
+  async calcPossibleEndDate(start: string, days: number) {
+    const response = await this.mainStore.api.get<PossibleEndDate>('/mission_days/possible_end_date?start=' + start + '&days=' + days);
+    return response.data;
+  }
+
+  @action
+  async doPutDraft(id: number) {
+    const response = await this.mainStore.api.get<Mission>('/missions/' + id + '/draft');
+    return response.data;
   }
 
   @action
@@ -44,12 +66,6 @@ export class MissionStore extends DomainStore<Mission> {
   @action
   protected async doFetchAll() {
     const res = await this.mainStore.api.get<Mission[]>('/missions');
-    this.missions = res.data;
-  }
-
-  @action
-  public async fetchByYear(year: string) {
-    const res = await this.mainStore.api.get<Mission[]>('/missions/' + year);
     this.missions = res.data;
   }
 
@@ -69,22 +85,6 @@ export class MissionStore extends DomainStore<Mission> {
   protected async doPut(holiday: Mission) {
     const response = await this.mainStore.api.put<Mission[]>('/missions/' + holiday.id, holiday);
     this.missions = response.data;
-  }
-
-  public async calcEligibleDays(start: string, end: string) {
-    const response = await this.mainStore.api.get<EligibleDays>('/mission_days/eligible_days?start=' + start + '&end=' + end);
-    return response.data;
-  }
-
-  public async calcPossibleEndDate(start: string, days: number) {
-    const response = await this.mainStore.api.get<PossibleEndDate>('/mission_days/possible_end_date?start=' + start + '&days=' + days);
-    return response.data;
-  }
-
-  @action
-  public async doPutDraft(id: number) {
-    const response = await this.mainStore.api.get<Mission>('/missions/' + id + '/draft');
-    return response.data;
   }
 }
 

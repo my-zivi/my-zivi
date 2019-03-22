@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { PaymentEntry } from '../../types';
-import { inject, observer } from 'mobx-react';
-import { PaymentStore } from '../../stores/paymentStore';
-import { MainStore } from '../../stores/mainStore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { CheckSolidIcon, ExclamationSolidIcon, SquareRegularIcon, SyncSolidIcon } from '../../utilities/Icon';
-import { ReportSheetStore } from '../../stores/reportSheetStore';
+import { inject, observer } from 'mobx-react';
+import * as React from 'react';
 import Button from 'reactstrap/lib/Button';
+import { MainStore } from '../../stores/mainStore';
+import { PaymentStore } from '../../stores/paymentStore';
+import { ReportSheetStore } from '../../stores/reportSheetStore';
+import { PaymentEntry } from '../../types';
+import { CheckSolidIcon, ExclamationSolidIcon, SquareRegularIcon, SyncSolidIcon } from '../../utilities/Icon';
 
 interface Props {
   mainStore?: MainStore;
@@ -30,7 +30,7 @@ export class ReportSheetConfirmer extends React.Component<Props, State> {
     };
   }
 
-  public updateState(sheetId: number, state: number) {
+  updateState(sheetId: number, state: number) {
     this.props
       .reportSheetStore!.putState(sheetId, state)
       .then(() => this.setState({ reportSheetState: state }))
@@ -41,7 +41,7 @@ export class ReportSheetConfirmer extends React.Component<Props, State> {
       });
   }
 
-  public render() {
+  render() {
     switch (this.state.reportSheetState) {
       case -2:
         return (

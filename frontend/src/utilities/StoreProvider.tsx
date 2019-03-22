@@ -1,16 +1,16 @@
+import { History } from 'history';
+import { Provider } from 'mobx-react';
 import * as React from 'react';
 import { ApiStore } from '../stores/apiStore';
-import { Provider } from 'mobx-react';
-import { History } from 'history';
-import { MainStore } from '../stores/mainStore';
-import { Formatter } from './formatter';
 import { HolidayStore } from '../stores/holidayStore';
-import { ReportSheetStore } from '../stores/reportSheetStore';
-import { PaymentStore } from '../stores/paymentStore';
-import { UserStore } from '../stores/userStore';
+import { MainStore } from '../stores/mainStore';
 import { MissionStore } from '../stores/missionStore';
+import { PaymentStore } from '../stores/paymentStore';
+import { ReportSheetStore } from '../stores/reportSheetStore';
 import { SpecificationStore } from '../stores/specificationStore';
 import { UserFeedbackStore } from '../stores/userFeedbackStore';
+import { UserStore } from '../stores/userStore';
+import { Formatter } from './formatter';
 
 interface Props {
   history: History;

@@ -1,13 +1,12 @@
+import classNames from 'classnames';
 import * as React from 'react';
-import { Component, ReactNode } from 'react';
-import { Theme } from './theme';
 import injectSheet, { WithSheet } from 'react-jss';
 import createStyles from '../utilities/createStyles';
-import classNames from 'classnames';
+import { Theme } from './theme';
 
-import bg from '../assets/bg.jpg';
 import Card from 'reactstrap/lib/Card';
 import CardBody from 'reactstrap/lib/CardBody';
+import bg from '../assets/bg.jpg';
 import { LoadingInformation } from './LoadingInformation';
 
 const styles = (theme: Theme) =>
@@ -16,7 +15,7 @@ const styles = (theme: Theme) =>
       '@media (min-width: 1024px)': {
         padding: `${theme.layout.baseSpacing}px ${2 * theme.layout.baseSpacing}px`,
       },
-      composes: 'mo-container',
+      'composes': 'mo-container',
     },
     background: {
       backgroundImage: `url(${bg})`,
@@ -30,7 +29,7 @@ const styles = (theme: Theme) =>
   });
 
 interface Props extends WithSheet<typeof styles> {
-  children: ReactNode;
+  children: React.ReactNode;
   className?: string;
   showBackgroundImage?: boolean;
   card?: boolean;
@@ -38,13 +37,9 @@ interface Props extends WithSheet<typeof styles> {
   loading?: boolean;
 }
 
-class IziviContent extends Component<Props> {
+class IziviContent extends React.Component<Props> {
   updateTitle() {
-    if (this.props.title) {
-      document.title = `iZivi - ${this.props.title}`;
-    } else {
-      document.title = `iZivi`;
-    }
+    document.title = this.props.title ? `iZivi - ${this.props.title}` : 'iZivi';
   }
 
   render = () => {
@@ -70,7 +65,7 @@ class IziviContent extends Component<Props> {
         )}
       </div>
     );
-  };
+  }
 }
 
 export default injectSheet(styles)(IziviContent);

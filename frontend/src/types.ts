@@ -215,8 +215,9 @@ export interface Column<T> {
 
 export type ActionButtonAction = (() => void) | string;
 
-//tslint:disable-next-line:no-any ; really don't care for that type, and it comes from deep inside Formik
+// tslint:disable-next-line:no-any ; really don't care for that type, and it comes from deep inside Formik
 export type HandleFormikSubmit<Values> = (values: Values, formikBag: FormikBag<any, Values>) => void;
 
-//tslint:disable-next-line:no-any ; If we'd type thoroughly we'd need to create a type for each models representation in a form / yup validation schema
+// If we'd type thoroughly we'd need to create a type for each models representation in a form / yup validation schema
+// tslint:disable-next-line:no-any
 export type FormValues = any;

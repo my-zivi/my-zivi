@@ -1,13 +1,13 @@
+import { inject, observer } from 'mobx-react';
 import * as React from 'react';
+import injectSheet, { WithSheet } from 'react-jss';
+import { Link } from 'react-router-dom';
 import CardSubtitle from 'reactstrap/lib/CardSubtitle';
 import CardText from 'reactstrap/lib/CardText';
-import injectSheet, { WithSheet } from 'react-jss';
-import { Theme } from '../layout/theme';
-import createStyles from '../utilities/createStyles';
 import IziviContent from '../layout/IziviContent';
-import { inject, observer } from 'mobx-react';
+import { Theme } from '../layout/theme';
 import { ApiStore } from '../stores/apiStore';
-import { Link } from 'react-router-dom';
+import createStyles from '../utilities/createStyles';
 
 const styles = (theme: Theme) =>
   createStyles({
