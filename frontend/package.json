@@ -32,11 +32,11 @@
     "yup": "^0.26.6"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
-    "format": "prettier --write \"{src,cypress}/**/*.ts\" \"{src,cypress}/**/*.tsx\""
+    "format": "tslint --project . -t verbose"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.7",
@@ -53,7 +53,8 @@
     "@types/react-widgets-moment": "^4.0.1",
     "@types/reactstrap": "^6.4.4",
     "@types/yup": "^0.26.4",
-    "prettier": "^1.15.3",
+    "tslint": "^5.14.0",
+    "tslint-react": "^3.6.0",
     "typescript": "^3.3.4000"
   },
   "browserslist": [
