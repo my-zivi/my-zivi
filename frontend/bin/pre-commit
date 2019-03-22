@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "Fetching dependencies ..."
+yarn global add tslint typescript tslint-react 1>/dev/null
+
+echo "\nLinting TS files ..."
+tslint --project . -t verbose $(echo \"$1\" | xargs)
