@@ -23,6 +23,7 @@ import { ReportSheetOverview } from './views/report_sheets/ReportSheetOverview';
 import { ReportSheetUpdate } from './views/report_sheets/ReportSheetUpdate';
 import { SpecificationsOverview } from './views/specification/SpecificationsOverview';
 import { UserFeedbackOverview } from './views/user_feedback_overview/UserFeedbackOverview';
+import { MissionFeedback } from './views/users/mission_feedback/MissionFeedback';
 import { ProfileOverview } from './views/users/ProfileOverview';
 import { UserOverview } from './views/users/UserOverview';
 import { UserUpdate } from './views/users/UserUpdate';
