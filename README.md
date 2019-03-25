@@ -64,6 +64,9 @@ Die Installation kann im Terminal mit einem Einzeiler angestossen werden, welche
 #### Docker
 Installation gemäss der Installationsanleitung auf der [Website](https://docs.docker.com/install/) durchführen. Wichtig: Für manche Betriebssysteme muss docker-compose noch separat installiert werden.
 
+#### Installationsskript
+Die Punkte `Backend` und `Git` können mit `./setup-dev.sh` im iZivi-Verzeichnis automatisch ausgeführt werden.
+
 ### Backend
 1. Ins Verzeichnis des iZivi wechseln (z.B. cd ``~/src/swo/izivi``)
 2. Docker-Image der API bauen: ``docker build -t izivi_api api``
@@ -77,14 +80,8 @@ Installation gemäss der Installationsanleitung auf der [Website](https://docs.d
     - PHPMyAdmin öffnen, verfügbar unter `localhost:48080`
     - Einloggen mit Server "mariadb", Benutzername "root", Passwort leer.
     - Neue Datenbank erstellen namens "izivi" und den Datenbankexport von Cyon importieren.
-9. Die API ist nun unter `localhost:8000` erreichbar.
+9. Die API ist nun unter `localhost:48000` erreichbar.
 
-### Frontend
-1. NodeJS installieren: ``brew install nodejs``
-2. yarn installieren: ``brew install yarn``
-3. Ins Verzeichnis des Web-Clients wechseln: ``cd ./web-client``
-4. Abhängigkeiten installieren: ``yarn install``
-5. Entwicklungsserver starten: ``yarn run start``
 
 ### Git
 1. Git Pre-Commit Hook ins .git-Verzeichnis kopieren, damit die Änderung auf allenfalls fehlerhafte Formatierung getestet werden: ``ln -s $(pwd)/hooks/pre-commit $(pwd)/.git/hooks``
