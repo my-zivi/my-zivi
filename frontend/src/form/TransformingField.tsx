@@ -11,20 +11,20 @@ interface Props<T> extends TransformingFieldProps<T> {
 }
 
 export class TransformingField<T> extends React.Component<Props<T>> {
+  get format() {
+    return this.props.value === null || this.props.value === undefined ? '' : this.props.toString(this.props.value);
+  }
+
+  state = {
+    representation: '',
+  };
+
   constructor(props: Props<T>) {
     super(props);
     this.state.representation = this.format;
   }
 
-  public state = {
-    representation: '',
-  };
-
-  public get format() {
-    return this.props.value === null || this.props.value === undefined ? '' : this.props.toString(this.props.value);
-  }
-
-  public handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const representation = e.target.value;
     this.setState({ representation });
     if (representation === '') {
@@ -32,10 +32,10 @@ export class TransformingField<T> extends React.Component<Props<T>> {
     } else {
       this.props.onChange(this.props.toValue(representation));
     }
-  };
+  }
 
-  public render = () => {
+  render = () => {
     const { toValue, toString, ...rest } = this.props;
     return <UnsafeIziviInputField {...rest} value={this.state.representation} onChange={this.handleChange} />;
-  };
+  }
 }

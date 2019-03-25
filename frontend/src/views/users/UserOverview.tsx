@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { Column, User } from '../../types';
-import Overview from '../../layout/Overview';
 import { inject, observer } from 'mobx-react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
+import Button from 'reactstrap/lib/Button';
+import FormGroup from 'reactstrap/lib/FormGroup';
+import Input from 'reactstrap/lib/Input';
+import { DatePickerInput } from '../../form/DatePickerField';
+import Overview from '../../layout/Overview';
 import { MainStore } from '../../stores/mainStore';
 import { UserStore } from '../../stores/userStore';
-import { DatePickerInput } from 'src/form/DatePickerField';
-import Input from 'reactstrap/lib/Input';
-import FormGroup from 'reactstrap/lib/FormGroup';
-import Button from 'reactstrap/lib/Button';
+import { Column, User } from '../../types';
 
 interface Props {
   mainStore?: MainStore;
@@ -18,7 +18,7 @@ interface Props {
 @inject('mainStore', 'userStore')
 @observer
 export class UserOverview extends React.Component<Props> {
-  public columns: Array<Column<User>>;
+  columns: Array<Column<User>>;
 
   constructor(props: Props) {
     super(props);
@@ -55,7 +55,7 @@ export class UserOverview extends React.Component<Props> {
     ];
   }
 
-  public render() {
+  render() {
     return (
       <Overview
         columns={this.columns}

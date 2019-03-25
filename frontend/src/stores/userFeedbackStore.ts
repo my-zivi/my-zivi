@@ -1,15 +1,15 @@
-import { DomainStore } from './domainStore';
-import { UserFeedback, UserQuestionWithAnswers } from '../types';
 import { computed, observable } from 'mobx';
+import { UserFeedback, UserQuestionWithAnswers } from '../types';
+import { DomainStore } from './domainStore';
 
 export class UserFeedbackStore extends DomainStore<UserFeedback, UserQuestionWithAnswers> {
   @computed
-  get entities(): Array<UserQuestionWithAnswers> {
+  get entities(): UserQuestionWithAnswers[] {
     return this.userFeedbacks;
   }
 
   @observable
-  public userFeedbacks: UserQuestionWithAnswers[] = [];
+  userFeedbacks: UserQuestionWithAnswers[] = [];
 
   protected async doFetchAll(params: object = {}): Promise<void> {
     const res = await this.mainStore.api.get<UserQuestionWithAnswers[]>('/user_feedbacks', { params: { ...params } });

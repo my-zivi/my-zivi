@@ -1,19 +1,19 @@
-import * as React from 'react';
+import { Formik, FormikActions } from 'formik';
 import { inject, observer } from 'mobx-react';
-import IziviContent from '../layout/IziviContent';
-import { MainStore } from '../stores/mainStore';
-import { ApiStore, baseUrl } from '../stores/apiStore';
-import { RouteComponentProps } from 'react-router';
-import { apiDate } from '../utilities/validationHelpers';
-import * as yup from 'yup';
 import moment from 'moment';
-import { FormikActions, Formik } from 'formik';
-import { DatePickerField } from 'src/form/DatePickerField';
-import Form from 'reactstrap/lib/Form';
+import * as React from 'react';
+import { RouteComponentProps } from 'react-router';
 import Button from 'reactstrap/lib/Button';
-import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
+import Form from 'reactstrap/lib/Form';
+import Row from 'reactstrap/lib/Row';
+import * as yup from 'yup';
+import { DatePickerField } from '../form/DatePickerField';
 import { WiredField } from '../form/formik';
+import IziviContent from '../layout/IziviContent';
+import { ApiStore, baseUrl } from '../stores/apiStore';
+import { MainStore } from '../stores/mainStore';
+import { apiDate } from '../utilities/validationHelpers';
 
 const phonelistSchema = yup.object({
   date_from: apiDate().required(),
@@ -45,7 +45,7 @@ export class PhoneListView extends React.Component<Props> {
       actions.setSubmitting(false);
       win.focus();
     }
-  };
+  }
 
   render() {
     return (

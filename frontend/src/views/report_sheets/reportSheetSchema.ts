@@ -1,7 +1,7 @@
-import * as yup from 'yup';
-import { apiDate } from '../../utilities/validationHelpers';
 import moment from 'moment';
+import * as yup from 'yup';
 import { ReportSheet } from '../../types';
+import { apiDate } from '../../utilities/validationHelpers';
 
 const errorMsg = 'Das Total der Tage muss gleich der Spesenblattdauer sein.';
 

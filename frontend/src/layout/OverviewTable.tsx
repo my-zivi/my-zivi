@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { SafeClickableTableRow } from '../utilities/SafeClickableTableRow';
 import { observer } from 'mobx-react';
-import { Column } from '../types';
+import * as React from 'react';
 import Table from 'reactstrap/lib/Table';
+import { Column } from '../types';
+import { SafeClickableTableRow } from '../utilities/SafeClickableTableRow';
 
-//tslint:disable:no-any ; this is adapted from the docs. It should be typed eventually.
+// tslint:disable:no-any ; this is adapted from the docs. It should be typed eventually.
 
 function format<T>(def: Column<T>, row: T): React.ReactNode {
   if (def.format) {
@@ -14,25 +14,25 @@ function format<T>(def: Column<T>, row: T): React.ReactNode {
   }
 }
 
-//tslint:enable:no-any
+// tslint:enable:no-any
 
 interface TableProps<T> {
   columns: Array<Column<T>>;
   renderActions?: (e: T) => React.ReactNode;
-  data: Array<T>;
+  data: T[];
   onClickRow?: (e: T, index: number) => void;
   firstRow?: React.ReactNode;
 }
 
 @observer
 export class OverviewTable<T> extends React.Component<TableProps<T>> {
-  public handleRowClick = (row: T, index: number) => (e: React.MouseEvent<HTMLElement>) => {
+  handleRowClick = (row: T, index: number) => (e: React.MouseEvent<HTMLElement>) => {
     if (this.props.onClickRow) {
       this.props.onClickRow(row, index);
     }
-  };
+  }
 
-  public render() {
+  render() {
     const { columns, data } = this.props;
     return (
       <Table responsive>

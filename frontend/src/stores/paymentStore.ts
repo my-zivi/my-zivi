@@ -1,7 +1,7 @@
 import { computed, observable } from 'mobx';
-import { MainStore } from './mainStore';
-import { DomainStore } from './domainStore';
 import { Payment } from '../types';
+import { DomainStore } from './domainStore';
+import { MainStore } from './mainStore';
 
 export class PaymentStore extends DomainStore<Payment> {
   protected get entityName() {
@@ -12,7 +12,7 @@ export class PaymentStore extends DomainStore<Payment> {
   }
 
   @computed
-  get entities(): Array<Payment> {
+  get entities(): Payment[] {
     return this.payments;
   }
 
@@ -26,10 +26,10 @@ export class PaymentStore extends DomainStore<Payment> {
   }
 
   @observable
-  public payments: Payment[] = [];
+  payments: Payment[] = [];
 
   @observable
-  public payment?: Payment;
+  payment?: Payment;
 
   constructor(mainStore: MainStore) {
     super(mainStore);

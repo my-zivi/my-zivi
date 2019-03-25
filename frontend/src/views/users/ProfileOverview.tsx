@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { UserUpdate } from './UserUpdate';
-import { RouteComponentProps } from 'react-router';
 import { inject } from 'mobx-react';
+import * as React from 'react';
+import { RouteComponentProps } from 'react-router';
 import { ApiStore } from '../../stores/apiStore';
+import { UserUpdate } from './UserUpdate';
 
 interface ProfileOverviewProps extends RouteComponentProps {
   apiStore?: ApiStore;

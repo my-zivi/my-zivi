@@ -1,20 +1,19 @@
-import NavItem from 'reactstrap/lib/NavItem';
-import { Link, Route } from 'react-router-dom';
-import * as React from 'react';
-import { ReactNode } from 'react';
 import { inject, observer } from 'mobx-react';
+import * as React from 'react';
+import { Link, Route } from 'react-router-dom';
+import Collapse from 'reactstrap/lib/Collapse';
+import Nav from 'reactstrap/lib/Nav';
 import Navbar from 'reactstrap/lib/Navbar';
 import NavbarBrand from 'reactstrap/lib/NavbarBrand';
 import NavbarToggler from 'reactstrap/lib/NavbarToggler';
-import Collapse from 'reactstrap/lib/Collapse';
-import Nav from 'reactstrap/lib/Nav';
+import NavItem from 'reactstrap/lib/NavItem';
 import NavLink from 'reactstrap/lib/NavLink';
-import { MainStore } from '../stores/mainStore';
 import { ApiStore } from '../stores/apiStore';
+import { MainStore } from '../stores/mainStore';
 
 interface NavEntryProps {
   to: string;
-  children: ReactNode;
+  children: React.ReactNode;
   exact?: boolean;
 }
 
@@ -43,7 +42,7 @@ export class Navigation extends React.Component<NavProps> {
   handleLogout = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     this.props.apiStore!.logout();
-  };
+  }
 
   render() {
     const mainStore = this.props.mainStore!;

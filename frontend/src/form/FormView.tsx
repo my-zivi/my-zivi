@@ -1,9 +1,9 @@
 import { Formik, FormikConfig, FormikProps } from 'formik';
 import * as React from 'react';
 import { Prompt } from 'react-router';
+import IziviContent from '../layout/IziviContent';
 import { HandleFormikSubmit } from '../types';
 import { FormikSubmitDetector } from './FormikSubmitDetector';
-import IziviContent from '../layout/IziviContent';
 
 export interface FormViewProps<T> {
   card?: boolean;
@@ -18,16 +18,7 @@ interface Props<T> extends FormViewProps<T> {
 }
 
 export class FormView<Values = object, ExtraProps = {}> extends React.Component<FormikConfig<Values> & ExtraProps & Props<Values>> {
-  private handleSubmit: HandleFormikSubmit<Values> = async (values, formikBag) => {
-    try {
-      await this.props.onSubmit(this.props.validationSchema.cast(values));
-    } finally {
-      formikBag.setSubmitting(false);
-    }
-  };
-
-  public render() {
-    // tslint:disable-next-line:no-any ; need this so we can spread into ...rest
+  render() {
     const { loading, title, children, ...rest } = this.props as any;
     return this.props.loading ? (
       <>
@@ -50,5 +41,13 @@ export class FormView<Values = object, ExtraProps = {}> extends React.Component<
         {children}
       </IziviContent>
     );
+  }
+
+  private handleSubmit: HandleFormikSubmit<Values> = async (values, formikBag) => {
+    try {
+      await this.props.onSubmit(this.props.validationSchema.cast(values));
+    } finally {
+      formikBag.setSubmitting(false);
+    }
   }
 }

@@ -1,13 +1,13 @@
-import * as React from 'react';
-import IziviContent from '../../layout/IziviContent';
-import { PaymentStore } from '../../stores/paymentStore';
 import { inject, observer } from 'mobx-react';
-import { Column, Payment, ReportSheet } from '../../types';
-import { MainStore } from '../../stores/mainStore';
-import { OverviewTable } from '../../layout/OverviewTable';
-import { ReportSheetStore } from '../../stores/reportSheetStore';
-import Button from 'reactstrap/lib/Button';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
+import Button from 'reactstrap/lib/Button';
+import IziviContent from '../../layout/IziviContent';
+import { OverviewTable } from '../../layout/OverviewTable';
+import { MainStore } from '../../stores/mainStore';
+import { PaymentStore } from '../../stores/paymentStore';
+import { ReportSheetStore } from '../../stores/reportSheetStore';
+import { Column, Payment, ReportSheet } from '../../types';
 
 interface Props {
   mainStore?: MainStore;
@@ -22,8 +22,8 @@ interface State {
 @inject('mainStore', 'paymentStore', 'reportSheetStore')
 @observer
 export class PaymentOverview extends React.Component<Props, State> {
-  public paymentColumns: Array<Column<Payment>>;
-  public reportSheetColumns: Array<Column<ReportSheet>>;
+  paymentColumns: Array<Column<Payment>>;
+  reportSheetColumns: Array<Column<ReportSheet>>;
 
   constructor(props: Props) {
     super(props);
@@ -89,13 +89,13 @@ export class PaymentOverview extends React.Component<Props, State> {
     };
   }
 
-  public componentDidMount(): void {
+  componentDidMount(): void {
     Promise.all([this.props.paymentStore!.fetchAll(), this.props.reportSheetStore!.fetchToBePaidAll()]).then(() => {
       this.setState({ loading: false });
     });
   }
 
-  public render() {
+  render() {
     return (
       <IziviContent card loading={this.state.loading} title={'Auszahlungen'}>
         {this.props.reportSheetStore!.toBePaidReportSheets.length > 0 ? (

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-jsfiles=$(git diff --cached --name-only --diff-filter=ACM "*.ts" "*.tsx" | sed s,frontend/,, | tr '\n' ' ')
+jsfiles=$(git diff --cached --name-only --diff-filter=ACM "*.ts" "*.tsx" | sed s,frontend/,,)
 phpfiles=$(git diff --cached --name-only --diff-filter=ACM "*.php" | sed s,api/,, | tr '\n' ' ')
 
 
@@ -9,9 +9,9 @@ exitstatus=0
 
 if [[ ! ( -z "$jsfiles" ) ]];
 then
-
     git checkout-index --prefix=git-export-dir/ -a
-    echo "$jsfiles" | xargs docker run --rm -v $(pwd)/git-export-dir/frontend:/app -w /app node:8 npx -q prettier --list-different --print-width 140 --single-quote --trailing-comma es5
+
+    docker run --rm -v $(pwd)/git-export-dir/frontend:/app -w /app node:8 bin/pre-commit "$jsfiles"
 
     if [[ $? != 0 ]];
     then
@@ -19,7 +19,6 @@ then
         echo "js files were not properly formatted, please format them with:"
         echo "yarn format"
         echo
-
 
         exitstatus=1
     fi

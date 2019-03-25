@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Component } from 'react';
 
-class LoadingInformation extends Component {
+class LoadingInformation extends React.Component {
   componentDidMount(): void {
     const loadingDots = document.getElementById('loading-dots');
     window.setInterval(() => {

@@ -1,19 +1,19 @@
-import * as React from 'react';
-import { inject, observer } from 'mobx-react';
-import { HolidayStore } from '../stores/holidayStore';
-import { RouteComponentProps } from 'react-router';
-import IziviContent from '../layout/IziviContent';
-import Table from 'reactstrap/lib/Table';
-import { MainStore } from 'src/stores/mainStore';
-import { Column, Holiday } from 'src/types';
-import { TextField, SelectField } from 'src/form/common';
-import { DatePickerField } from 'src/form/DatePickerField';
 import { Formik, FormikActions } from 'formik';
-import Button from 'reactstrap/lib/Button';
-import { apiDate } from '../utilities/validationHelpers';
-import * as yup from 'yup';
+import { inject, observer } from 'mobx-react';
 import moment from 'moment';
+import * as React from 'react';
+import { RouteComponentProps } from 'react-router';
+import Button from 'reactstrap/lib/Button';
+import Table from 'reactstrap/lib/Table';
+import * as yup from 'yup';
+import { SelectField, TextField } from '../form/common';
+import { DatePickerField } from '../form/DatePickerField';
 import { WiredField } from '../form/formik';
+import IziviContent from '../layout/IziviContent';
+import { HolidayStore } from '../stores/holidayStore';
+import { MainStore } from '../stores/mainStore';
+import { Column, Holiday } from '../types';
+import { apiDate } from '../utilities/validationHelpers';
 
 const holidaySchema = yup.object({
   date_from: apiDate().required(),
@@ -34,7 +34,7 @@ interface State {
 @inject('holidayStore', 'mainStore')
 @observer
 export class HolidayOverview extends React.Component<Props, State> {
-  public columns: Array<Column<Holiday>> = [];
+  columns: Array<Column<Holiday>> = [];
 
   constructor(props: Props) {
     super(props);
@@ -84,14 +84,14 @@ export class HolidayOverview extends React.Component<Props, State> {
 
   handleSubmit = async (entity: Holiday, actions: FormikActions<Holiday>) => {
     this.props.holidayStore!.put(holidaySchema.cast(entity)).then(() => actions.setSubmitting(false));
-  };
+  }
 
   handleAdd = async (entity: Holiday, actions: FormikActions<Holiday>) => {
     await this.props.holidayStore!.post(holidaySchema.cast(entity)).then(() => {
       actions.setSubmitting(false);
       actions.resetForm();
     });
-  };
+  }
 
   render() {
     const entities = this.props.holidayStore!.entities;

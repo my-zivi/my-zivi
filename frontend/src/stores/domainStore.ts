@@ -1,36 +1,37 @@
-//tslint:disable:no-console
+// tslint:disable:no-console
 import { action, observable } from 'mobx';
 import { MainStore } from './mainStore';
 
 /**
- * This class wraps all common store functions with success/error popups. The desired methods that start with "do" should be overriden in the specific stores.
+ * This class wraps all common store functions with success/error popups.
+ * The desired methods that start with "do" should be overriden in the specific stores.
  */
 export class DomainStore<T, OverviewType = T> {
-  constructor(protected mainStore: MainStore) {}
-
   protected get entityName() {
     return { singular: 'Die Entität', plural: 'Die Entitäten' };
   }
 
-  public get entity(): T | undefined {
+  get entity(): T | undefined {
     throw new Error('Not implemented');
   }
 
-  public set entity(e: T | undefined) {
+  set entity(e: T | undefined) {
     throw new Error('Not implemented');
   }
 
-  public get entities(): Array<OverviewType> {
+  get entities(): OverviewType[] {
     throw new Error('Not implemented');
   }
 
   @observable
-  public filteredEntities: OverviewType[] = [];
+  filteredEntities: OverviewType[] = [];
 
-  public filter: () => void;
+  constructor(protected mainStore: MainStore) {}
+
+  filter: () => void = () => {}; // tslint:disable-line no-empty
 
   @action
-  public async fetchAll(params: object = {}) {
+  async fetchAll(params: object = {}) {
     try {
       await this.doFetchAll(params);
     } catch (e) {
@@ -40,12 +41,8 @@ export class DomainStore<T, OverviewType = T> {
     }
   }
 
-  protected async doFetchAll(params: object = {}) {
-    throw new Error('Not implemented');
-  }
-
   @action
-  public async fetchOne(id: number) {
+  async fetchOne(id: number) {
     try {
       this.entity = undefined;
       return await this.doFetchOne(id);
@@ -56,12 +53,8 @@ export class DomainStore<T, OverviewType = T> {
     }
   }
 
-  protected async doFetchOne(id: number): Promise<T | void> {
-    throw new Error('Not implemented');
-  }
-
   @action
-  public async post(entity: T) {
+  async post(entity: T) {
     this.displayLoading(async () => {
       try {
         await this.doPost(entity);
@@ -74,12 +67,8 @@ export class DomainStore<T, OverviewType = T> {
     });
   }
 
-  protected async doPost(entity: T) {
-    throw new Error('Not implemented');
-  }
-
   @action
-  public async put(entity: T) {
+  async put(entity: T) {
     this.displayLoading(async () => {
       try {
         await this.doPut(entity);
@@ -93,12 +82,7 @@ export class DomainStore<T, OverviewType = T> {
   }
 
   @action
-  protected async doPut(entity: T) {
-    throw new Error('Not implemented');
-  }
-
-  @action
-  public async delete(id: number | string) {
+  async delete(id: number | string) {
     this.displayLoading(async () => {
       try {
         await this.doDelete(id);
@@ -111,17 +95,12 @@ export class DomainStore<T, OverviewType = T> {
     });
   }
 
-  @action
-  protected async doDelete(id: number | string) {
-    throw new Error('Not implemented');
-  }
-
-  public async displayLoading<P>(f: () => Promise<P>) {
-    //TODO: trigger loading indicator in MainStore
+  async displayLoading<P>(f: () => Promise<P>) {
+    // TODO: trigger loading indicator in MainStore
     await f();
   }
 
-  public async notifyProgress<P>(f: () => Promise<P>, { errorMessage = 'Fehler!', successMessage = 'Erfolg!' } = {}) {
+  async notifyProgress<P>(f: () => Promise<P>, { errorMessage = 'Fehler!', successMessage = 'Erfolg!' } = {}) {
     this.displayLoading(async () => {
       try {
         await f();
@@ -136,5 +115,27 @@ export class DomainStore<T, OverviewType = T> {
         throw e;
       }
     });
+  }
+
+  protected async doFetchAll(params: object = {}) {
+    throw new Error('Not implemented');
+  }
+
+  protected async doFetchOne(id: number): Promise<T | void> {
+    throw new Error('Not implemented');
+  }
+
+  protected async doPost(entity: T) {
+    throw new Error('Not implemented');
+  }
+
+  @action
+  protected async doPut(entity: T) {
+    throw new Error('Not implemented');
+  }
+
+  @action
+  protected async doDelete(id: number | string) {
+    throw new Error('Not implemented');
   }
 }

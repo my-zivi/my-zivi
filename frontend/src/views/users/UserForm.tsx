@@ -1,25 +1,25 @@
+import { FormikProps } from 'formik';
+import { inject, observer } from 'mobx-react';
+import * as React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
 import Button from 'reactstrap/lib/Button';
 import Col from 'reactstrap/lib/Col';
 import Form from 'reactstrap/lib/Form';
 import Row from 'reactstrap/lib/Row';
-import { NumberField, TextField, SelectField } from '../../form/common';
-import * as React from 'react';
+import { CheckboxField } from '../../form/CheckboxField';
+import { NumberField, SelectField, TextField } from '../../form/common';
 import { DatePickerField } from '../../form/DatePickerField';
-import { empty } from '../../utilities/helpers';
-import { FormikProps } from 'formik';
-import { FormView, FormViewProps } from '../../form/FormView';
-import { inject, observer } from 'mobx-react';
-import { MainStore } from '../../stores/mainStore';
-import { User } from '../../types';
-import { RouteComponentProps, withRouter } from 'react-router';
-import { SolidHorizontalRow } from '../../layout/SolidHorizontalRow';
-import { userSchema } from './schemas';
-import { UserStore } from 'src/stores/userStore';
-import { CheckboxField } from 'src/form/CheckboxField';
-import { MissionSubform } from './mission_subform/MissionSubform';
-import { SpecificationStore } from 'src/stores/specificationStore';
 import { WiredField } from '../../form/formik';
+import { FormView, FormViewProps } from '../../form/FormView';
+import { SolidHorizontalRow } from '../../layout/SolidHorizontalRow';
+import { MainStore } from '../../stores/mainStore';
+import { SpecificationStore } from '../../stores/specificationStore';
+import { UserStore } from '../../stores/userStore';
+import { User } from '../../types';
+import { empty } from '../../utilities/helpers';
+import { MissionSubform } from './mission_subform/MissionSubform';
 import { ReportSheetSubform } from './ReportSheetSubform';
+import { userSchema } from './schemas';
 
 type Props = {
   mainStore?: MainStore;
@@ -32,11 +32,11 @@ type Props = {
 @inject('mainStore', 'userStore', 'specificationStore')
 @observer
 class UserFormInner extends React.Component<Props> {
-  componentWillMount = () => {
+  componentWillMount() {
     this.props.specificationStore!.fetchAll();
-  };
+  }
 
-  public render() {
+  render() {
     const { onSubmit, user, title, mainStore } = this.props;
 
     return (
@@ -45,10 +45,10 @@ class UserFormInner extends React.Component<Props> {
           card
           loading={empty(user) || this.props.loading}
           initialValues={user}
-          onSubmit={onSubmit}
+          onSubmit={(_: object): Promise<void> => onSubmit(user)}
           title={title}
           validationSchema={userSchema}
-          render={(formikProps: FormikProps<User>) => (
+          render={(formikProps: FormikProps<{}>) => (
             <Form>
               <h3>Persönliche Informationen</h3>
               <p>

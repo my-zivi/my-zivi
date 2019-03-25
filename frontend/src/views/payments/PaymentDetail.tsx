@@ -1,13 +1,13 @@
+import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { inject, observer } from 'mobx-react';
-import { PaymentStore } from '../../stores/paymentStore';
-import { Column, PaymentEntry } from '../../types';
+import Button from 'reactstrap/lib/Button';
 import IziviContent from '../../layout/IziviContent';
 import { OverviewTable } from '../../layout/OverviewTable';
 import { MainStore } from '../../stores/mainStore';
+import { PaymentStore } from '../../stores/paymentStore';
+import { Column, PaymentEntry } from '../../types';
 import { ReportSheetConfirmer } from './ReportSheetConfirmer';
-import Button from 'reactstrap/lib/Button';
 
 interface PaymentDetailRouterProps {
   id?: string;
@@ -25,7 +25,7 @@ interface State {
 @inject('mainStore', 'paymentStore')
 @observer
 class PaymentDetailInner extends React.Component<Props, State> {
-  public columns: Array<Column<PaymentEntry>>;
+  columns: Array<Column<PaymentEntry>>;
 
   constructor(props: Props) {
     super(props);
@@ -59,7 +59,7 @@ class PaymentDetailInner extends React.Component<Props, State> {
     };
   }
 
-  public render() {
+  render() {
     const payment = this.props.paymentStore!.payment;
     const title = payment
       ? `Auszahlung vom ${this.props.mainStore!.formatDate(payment.created_at)}`

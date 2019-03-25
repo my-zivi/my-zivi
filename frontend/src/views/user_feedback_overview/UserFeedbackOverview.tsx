@@ -1,7 +1,13 @@
-import * as React from 'react';
+import { Formik } from 'formik';
 import { inject, observer } from 'mobx-react';
-import { UserFeedbackStore } from '../../stores/userFeedbackStore';
+import moment from 'moment';
+import * as React from 'react';
+import Button from 'reactstrap/lib/Button';
+import { DatePickerInput } from '../../form/DatePickerField';
+import { WiredField } from '../../form/formik';
 import IziviContent from '../../layout/IziviContent';
+import { MainStore } from '../../stores/mainStore';
+import { UserFeedbackStore } from '../../stores/userFeedbackStore';
 import { UserQuestionWithAnswers } from '../../types';
 import {
   FeedbackTitle,
@@ -11,12 +17,6 @@ import {
   Type5FeedbackGroup,
   Type6FeedbackGroup,
 } from './FeedbackGroups';
-import { Formik } from 'formik';
-import moment from 'moment';
-import { WiredField } from '../../form/formik';
-import { DatePickerInput } from '../../form/DatePickerField';
-import { MainStore } from '../../stores/mainStore';
-import Button from 'reactstrap/lib/Button';
 
 interface Props {
   mainStore?: MainStore;
@@ -45,17 +45,17 @@ export class UserFeedbackOverview extends React.Component<Props, State> {
     };
   }
 
-  public componentDidMount(): void {
+  componentDidMount(): void {
     this.updateData(initialValues);
   }
 
-  public updateData = (props: { date_from: string; date_to: string }) => {
+  updateData = (props: { date_from: string; date_to: string }) => {
     this.setState({ loading: true }, () => {
       this.props.userFeedbackStore!.fetchAll(props).then(() => this.setState({ loading: false }));
     });
-  };
+  }
 
-  public render() {
+  render() {
     return (
       <IziviContent card title={'Einsatzfeedbacks'}>
         <Formik

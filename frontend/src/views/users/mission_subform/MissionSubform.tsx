@@ -1,15 +1,15 @@
+import { inject } from 'mobx-react';
+import * as React from 'react';
+import injectSheet, { WithSheet } from 'react-jss';
 import Button from 'reactstrap/lib/Button';
 import { MainStore } from '../../../stores/mainStore';
 import { MissionStore } from '../../../stores/missionStore';
-import * as React from 'react';
+import { SpecificationStore } from '../../../stores/specificationStore';
+import { UserStore } from '../../../stores/userStore';
 import { Mission, User } from '../../../types';
-import { inject } from 'mobx-react';
-import { SpecificationStore } from 'src/stores/specificationStore';
-import injectSheet, { WithSheet } from 'react-jss';
-import createStyles from 'src/utilities/createStyles';
+import createStyles from '../../../utilities/createStyles';
 import { MissionModal } from '../MissionModal';
 import { missionSchema } from '../schemas';
-import { UserStore } from 'src/stores/userStore';
 import MissionOverviewTable from './MissionOverviewTable';
 
 interface Props extends WithSheet<typeof styles> {
@@ -36,7 +36,7 @@ const styles = () =>
           display: 'none',
         },
       },
-      marginTop: '-0.5rem',
+      'marginTop': '-0.5rem',
     },
   });
 
@@ -48,7 +48,7 @@ class MissionSubformInner extends React.Component<Props, MissionSubformState> {
     this.state = { mission_id: undefined, new_mission: false };
   }
 
-  public render() {
+  render() {
     const { user, missionStore, mainStore, userStore, specificationStore, classes, theme } = this.props;
 
     return (

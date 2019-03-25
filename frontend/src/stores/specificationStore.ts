@@ -1,7 +1,7 @@
 import { action, computed, observable } from 'mobx';
-import { MainStore } from './mainStore';
-import { DomainStore } from './domainStore';
 import { Specification } from '../types';
+import { DomainStore } from './domainStore';
+import { MainStore } from './mainStore';
 
 export class SpecificationStore extends DomainStore<Specification> {
   protected get entityName() {
@@ -12,7 +12,7 @@ export class SpecificationStore extends DomainStore<Specification> {
   }
 
   @computed
-  get entities(): Array<Specification> {
+  get entities(): Specification[] {
     return this.specifications;
   }
 
@@ -26,10 +26,10 @@ export class SpecificationStore extends DomainStore<Specification> {
   }
 
   @observable
-  public specifications: Specification[] = [];
+  specifications: Specification[] = [];
 
   @observable
-  public specification?: Specification;
+  specification?: Specification;
 
   constructor(mainStore: MainStore) {
     super(mainStore);

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import FormGroup from 'reactstrap/lib/FormGroup';
-import Label from 'reactstrap/lib/Label';
-import Input from 'reactstrap/lib/Input';
-import Col from 'reactstrap/lib/Col';
-import { IziviCustomFieldProps } from './common';
 import injectSheet, { WithSheet } from 'react-jss';
+import Col from 'reactstrap/lib/Col';
+import FormGroup from 'reactstrap/lib/FormGroup';
+import Input from 'reactstrap/lib/Input';
+import Label from 'reactstrap/lib/Label';
 import createStyles from '../utilities/createStyles';
+import { IziviCustomFieldProps } from './common';
 
 const styles = () =>
   createStyles({
@@ -14,8 +14,8 @@ const styles = () =>
     },
   });
 
-// The checkbox requires its own kind of "logic" to render
-// we can't wrap it into our common stuff in common.tsx
+// The checkbox requires its own kind of "logic" to render
+// we can't wrap it into our common stuff in common.tsx
 // so it has its own sets of props
 
 interface CheckboxFieldProps extends IziviCustomFieldProps<boolean>, WithSheet<typeof styles> {

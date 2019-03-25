@@ -1,14 +1,13 @@
 import * as React from 'react';
-import { Component } from 'react';
-import { CssBaseline } from './theme';
 import { Navigation } from './Navigation';
+import { CssBaseline } from './theme';
 
-export class IziviLayout extends Component {
+export class IziviLayout extends React.Component {
   render = () => (
     <div>
       <CssBaseline />
       <Navigation />
       {this.props.children}
     </div>
-  );
+  )
 }

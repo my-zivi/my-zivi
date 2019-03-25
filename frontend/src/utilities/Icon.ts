@@ -1,18 +1,18 @@
-import { library, IconLookup } from '@fortawesome/fontawesome-svg-core';
-import { faSync } from '@fortawesome/free-solid-svg-icons/faSync';
-import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
-import { faSquare } from '@fortawesome/free-regular-svg-icons/faSquare';
-import { faExclamation } from '@fortawesome/free-solid-svg-icons/faExclamation';
-import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
+import { IconLookup, library } from '@fortawesome/fontawesome-svg-core';
 import { faCheckSquare } from '@fortawesome/free-regular-svg-icons/faCheckSquare';
-import { faPrint } from '@fortawesome/free-solid-svg-icons/faPrint';
-import { faPlusSquare } from '@fortawesome/free-regular-svg-icons/faPlusSquare';
-import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/faTrashAlt';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner';
 import { faClock } from '@fortawesome/free-regular-svg-icons/faClock';
 import { faHourglass } from '@fortawesome/free-regular-svg-icons/faHourglass';
+import { faPlusSquare } from '@fortawesome/free-regular-svg-icons/faPlusSquare';
 import { faSave } from '@fortawesome/free-regular-svg-icons/faSave';
+import { faSquare } from '@fortawesome/free-regular-svg-icons/faSquare';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/faTrashAlt';
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
+import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
+import { faExclamation } from '@fortawesome/free-solid-svg-icons/faExclamation';
+import { faPrint } from '@fortawesome/free-solid-svg-icons/faPrint';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner';
+import { faSync } from '@fortawesome/free-solid-svg-icons/faSync';
 
 export const Icons = () => {
   library.add(
@@ -29,7 +29,7 @@ export const Icons = () => {
     faClock,
     faHourglass,
     faSave,
-    faEnvelope
+    faEnvelope,
   );
 };
 

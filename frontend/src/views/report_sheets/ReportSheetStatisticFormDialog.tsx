@@ -1,15 +1,15 @@
+import { Formik } from 'formik';
+import moment from 'moment';
 import * as React from 'react';
+import { Button, ModalHeader } from 'reactstrap';
 import Modal from 'reactstrap/lib/Modal';
 import ModalBody from 'reactstrap/lib/ModalBody';
 import ModalFooter from 'reactstrap/lib/ModalFooter';
-import { Button, ModalHeader } from 'reactstrap';
-import { Formik } from 'formik';
-import { SelectField } from '../../form/common';
-import moment from 'moment';
-import { MainStore } from '../../stores/mainStore';
 import { CheckboxField } from '../../form/CheckboxField';
+import { SelectField } from '../../form/common';
 import { DatePickerField } from '../../form/DatePickerField';
 import { WiredField } from '../../form/formik';
+import { MainStore } from '../../stores/mainStore';
 
 const yearOptions = () => {
   const listOfYears = [];
@@ -30,7 +30,7 @@ interface Props {
 }
 
 export class ReportSheetStatisticFormDialog extends React.Component<Props> {
-  public render() {
+  render() {
     const { isOpen, mainStore, toggle } = this.props;
 
     return (

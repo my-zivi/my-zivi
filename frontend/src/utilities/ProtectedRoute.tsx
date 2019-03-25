@@ -12,7 +12,7 @@ interface ProtectedRouteProps extends RouteProps {
 @inject('apiStore')
 @observer
 export class ProtectedRoute extends React.Component<ProtectedRouteProps> {
-  public protect = (props: RouteComponentProps) => {
+  protect = (props: RouteComponentProps) => {
     const login = {
       pathname: '/login',
       state: { referrer: props.location!.pathname },
@@ -36,9 +36,9 @@ export class ProtectedRoute extends React.Component<ProtectedRouteProps> {
       apiStore.logout(false);
       return <Redirect to={login} />;
     }
-  };
+  }
 
-  public render() {
+  render() {
     return <Route {...this.props} component={undefined} render={this.protect} />;
   }
 }

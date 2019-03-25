@@ -1,7 +1,16 @@
-import { OverviewTable } from '../../../layout/OverviewTable';
-import Button from 'reactstrap/lib/Button';
-import { Mission, Specification, User } from '../../../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import moment from 'moment';
+import * as React from 'react';
+import { WithSheet } from 'react-jss';
+import { UncontrolledTooltip } from 'reactstrap';
+import Button from 'reactstrap/lib/Button';
+import { DeleteButton } from '../../../form/DeleteButton';
+import { OverviewTable } from '../../../layout/OverviewTable';
+import { MainStore } from '../../../stores/mainStore';
+import { MissionStore } from '../../../stores/missionStore';
+import { SpecificationStore } from '../../../stores/specificationStore';
+import { UserStore } from '../../../stores/userStore';
+import { Mission, Specification, User } from '../../../types';
 import {
   CheckSquareRegularIcon,
   EditSolidIcon,
@@ -11,19 +20,8 @@ import {
   SquareRegularIcon,
   TrashAltRegularIcon,
 } from '../../../utilities/Icon';
-import { DeleteButton } from '../../../form/DeleteButton';
 import { MissionModal } from '../MissionModal';
 import { missionSchema } from '../schemas';
-import * as React from 'react';
-import { WithSheet } from 'react-jss';
-import { MainStore } from '../../../stores/mainStore';
-import { MissionStore } from '../../../stores/missionStore';
-import { UserStore } from '../../../stores/userStore';
-import { SpecificationStore } from '../../../stores/specificationStore';
-import { UncontrolledTooltip } from 'reactstrap';
-import moment from 'moment';
-import { Link } from 'react-router-dom';
-
 interface OverviewTableParams extends WithSheet<string, {}> {
   mainStore?: MainStore;
   missionStore?: MissionStore;
@@ -56,6 +54,13 @@ function renderFeedbackButton(mission: Mission) {
       </Button>
     </Link>
   );
+}
+
+async function onMissionDeleteConfirm(mission: Mission, missionStore: MissionStore, userStore: UserStore) {
+  console.dir(mission); // tslint:disable-line
+  (window as any).mission = mission;
+  await missionStore.delete(mission.id!);
+  await userStore.fetchOne(mission.user_id);
 }
 
 export default (params: OverviewTableParams) => {
@@ -107,7 +112,7 @@ export default (params: OverviewTableParams) => {
           {renderFeedbackButton(mission)}
           {mainStore!.isAdmin() && (
             <>
-              <DeleteButton onConfirm={() => missionStore!.delete(mission.id!)}>
+              <DeleteButton onConfirm={() => onMissionDeleteConfirm(mission, missionStore!, userStore!)}>
                 <FontAwesomeIcon icon={TrashAltRegularIcon} /> <span>Löschen</span>
               </DeleteButton>{' '}
               <Button color={'success'} type={'button'}>

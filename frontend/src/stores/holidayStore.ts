@@ -1,7 +1,7 @@
 import { action, computed, observable } from 'mobx';
-import { MainStore } from './mainStore';
-import { DomainStore } from './domainStore';
 import { Holiday } from '../types';
+import { DomainStore } from './domainStore';
+import { MainStore } from './mainStore';
 
 export class HolidayStore extends DomainStore<Holiday> {
   protected get entityName() {
@@ -12,7 +12,7 @@ export class HolidayStore extends DomainStore<Holiday> {
   }
 
   @computed
-  get entities(): Array<Holiday> {
+  get entities(): Holiday[] {
     return this.holidays;
   }
 
@@ -26,10 +26,10 @@ export class HolidayStore extends DomainStore<Holiday> {
   }
 
   @observable
-  public holidays: Holiday[] = [];
+  holidays: Holiday[] = [];
 
   @observable
-  public holiday?: Holiday;
+  holiday?: Holiday;
 
   constructor(mainStore: MainStore) {
     super(mainStore);

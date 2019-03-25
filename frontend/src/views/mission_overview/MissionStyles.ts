@@ -2,37 +2,37 @@ import createStyles from '../../utilities/createStyles';
 
 const MissionStyles = () =>
   createStyles({
-    rowTd: {
+    'rowTd': {
       padding: '5px 1px !important',
       fontSize: '14px',
       textAlign: 'center',
       minWidth: '25px',
       composes: 'mo-rowTd',
     },
-    shortName: {
+    'shortName': {
       minWidth: '40px',
       width: '40px',
       composes: 'mo-shortname',
     },
-    zdp: {
+    'zdp': {
       minWidth: '100px',
       width: '100px',
       composes: 'mo-zdp',
     },
-    namen: {
+    'namen': {
       minWidth: '150px',
       width: '150px',
       textAlign: 'left',
       composes: 'mo-namen',
     },
-    einsatzDraft: {
+    'einsatzDraft': {
       background: '#fc9',
     },
-    einsatz: {
+    'einsatz': {
       background: '#0c6',
       composes: 'mo-einsatz',
     },
-    filter: {
+    'filter': {
       composes: 'mo-filter',
     },
     '@global': {
@@ -40,7 +40,7 @@ const MissionStyles = () =>
         'thead, tbody': {
           display: 'block',
         },
-        thead: {
+        'thead': {
           position: 'relative',
           top: '0px',
           backgroundColor: 'white',
@@ -59,7 +59,7 @@ const MissionStyles = () =>
           padding: '1px 1px 1px 1px !important',
           minWidth: '0px!important',
         },
-        td: {
+        'td': {
           fontSize: '6pt !important',
         },
         '.mo-namen': {

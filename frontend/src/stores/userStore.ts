@@ -1,9 +1,9 @@
-import { action, computed, observable, reaction } from 'mobx';
-import { MainStore } from './mainStore';
-import { DomainStore } from './domainStore';
-import { User, UserFilter } from '../types';
-import moment from 'moment';
 import debounce from 'lodash.debounce';
+import { action, computed, observable, reaction } from 'mobx';
+import moment from 'moment';
+import { User, UserFilter } from '../types';
+import { DomainStore } from './domainStore';
+import { MainStore } from './mainStore';
 
 export class UserStore extends DomainStore<User> {
   protected get entityName() {
@@ -14,7 +14,7 @@ export class UserStore extends DomainStore<User> {
   }
 
   @computed
-  get entities(): Array<User> {
+  get entities(): User[] {
     return this.users;
   }
 
@@ -28,82 +28,15 @@ export class UserStore extends DomainStore<User> {
   }
 
   @observable
-  public users: User[] = [];
+  users: User[] = [];
 
   @observable
-  public user?: User;
+  user?: User;
 
   @observable
-  public userFilters: UserFilter;
+  userFilters: UserFilter;
 
-  constructor(mainStore: MainStore) {
-    super(mainStore);
-    this.userFilters = observable.object({
-      zdp: '',
-      name: '',
-      date_from: moment()
-        .subtract(1, 'year')
-        .date(0)
-        .format('Y-MM-DD'),
-      date_to: moment()
-        .add(5, 'year')
-        .date(0)
-        .format('Y-MM-DD'),
-      active: false,
-      role: '',
-    });
-
-    reaction(
-      () => [
-        this.userFilters.zdp,
-        this.userFilters.name,
-        this.userFilters.date_from,
-        this.userFilters.date_to,
-        this.userFilters.active,
-        this.userFilters.role,
-      ],
-      () => {
-        this.filter();
-      }
-    );
-  }
-
-  @action
-  public updateFilters(updates: Partial<UserFilter>) {
-    this.userFilters = Object.assign(this.userFilters, updates);
-  }
-
-  @action
-  protected async doDelete(id: number) {
-    await this.mainStore.api.delete('/users/' + id);
-    await this.doFetchAll();
-    await this.filter();
-  }
-
-  @action
-  protected async doFetchAll() {
-    const res = await this.mainStore.api.get<User[]>('/users');
-    this.users = res.data;
-  }
-
-  protected async doFetchOne(id: number) {
-    const res = await this.mainStore.api.get<User>('/users/' + id);
-    this.user = res.data;
-  }
-
-  @action
-  protected async doPost(user: User) {
-    const response = await this.mainStore.api.post<User[]>('/users', user);
-    this.users = response.data;
-  }
-
-  @action
-  protected async doPut(user: User) {
-    const response = await this.mainStore.api.put<User[]>('/users/' + user.id, user);
-    this.users = response.data;
-  }
-
-  public filter = debounce(() => {
+  filter = debounce(() => {
     this.filteredEntities = this.users
       .filter((u: User) => {
         const { zdp, name, date_from, date_to, active, role } = this.userFilters;
@@ -140,4 +73,71 @@ export class UserStore extends DomainStore<User> {
         return moment(a.start).isBefore(b.start) ? 1 : -1;
       });
   }, 100);
+
+  constructor(mainStore: MainStore) {
+    super(mainStore);
+    this.userFilters = observable.object({
+      zdp: '',
+      name: '',
+      date_from: moment()
+        .subtract(1, 'year')
+        .date(0)
+        .format('Y-MM-DD'),
+      date_to: moment()
+        .add(5, 'year')
+        .date(0)
+        .format('Y-MM-DD'),
+      active: false,
+      role: '',
+    });
+
+    reaction(
+      () => [
+        this.userFilters.zdp,
+        this.userFilters.name,
+        this.userFilters.date_from,
+        this.userFilters.date_to,
+        this.userFilters.active,
+        this.userFilters.role,
+      ],
+      () => {
+        this.filter();
+      },
+    );
+  }
+
+  @action
+  updateFilters(updates: Partial<UserFilter>) {
+    this.userFilters = {...this.userFilters, ...updates};
+  }
+
+  @action
+  protected async doDelete(id: number) {
+    await this.mainStore.api.delete('/users/' + id);
+    await this.doFetchAll();
+    await this.filter();
+  }
+
+  @action
+  protected async doFetchAll() {
+    const res = await this.mainStore.api.get<User[]>('/users');
+    this.users = res.data;
+  }
+
+  protected async doFetchOne(id: number) {
+    const res = await this.mainStore.api.get<User>('/users/' + id);
+    this.user = res.data;
+  }
+
+  @action
+  protected async doPost(user: User) {
+    const response = await this.mainStore.api.post<User[]>('/users', user);
+    this.users = response.data;
+  }
+
+  @action
+  protected async doPut(user: User) {
+    const response = await this.mainStore.api.put<User[]>('/users/' + user.id, user);
+    this.users = response.data;
+  }
 }

@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
-import Input, { InputType } from 'reactstrap/lib/Input';
-import FormGroup from 'reactstrap/lib/FormGroup';
-import Label from 'reactstrap/lib/Label';
-import FormFeedback from 'reactstrap/lib/FormFeedback';
 import Col from 'reactstrap/lib/Col';
+import FormFeedback from 'reactstrap/lib/FormFeedback';
+import FormGroup from 'reactstrap/lib/FormGroup';
+import Input, { InputType } from 'reactstrap/lib/Input';
 import InputGroup from 'reactstrap/lib/InputGroup';
 import InputGroupAddon from 'reactstrap/lib/InputGroupAddon';
+import Label from 'reactstrap/lib/Label';
 
 export interface SharedProps {
   label?: string;
@@ -48,7 +47,7 @@ export interface IziviCustomFieldProps<T, OutputValue = T> extends IziviFieldPro
 }
 
 interface ClonedFieldProps {
-  children: ReactElement<any>; //tslint:disable-line:no-any
+  children: React.ReactElement<any>; // tslint:disable-line:no-any
   invalid: boolean;
 }
 

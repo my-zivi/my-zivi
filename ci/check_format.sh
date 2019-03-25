@@ -18,7 +18,8 @@ fi
 
 # check frontend (web-client)
 cd frontend
-npx -q prettier --list-different --print-width 140 --single-quote --trailing-comma es5 "{src,cypress}/**/*.{ts,tsx}"
+yarn install
+yarn run lint
 if [ $? -ne 0 ]; then
   echo "Web-client is not properly formatted. Please reformat and commit again. See https://github.com/stiftungswo/izivi/tree/master/web-client#formatting"
   exit 1;

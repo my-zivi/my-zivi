@@ -1,8 +1,8 @@
 import React from 'react';
-import { IziviCustomFieldProps, IziviFormControl } from './common';
 import injectSheet, { WithSheet } from 'react-jss';
 import { DateTimePicker } from 'react-widgets';
-import createStyles from 'src/utilities/createStyles';
+import createStyles from '../utilities/createStyles';
+import { IziviCustomFieldProps, IziviFormControl } from './common';
 
 const datePickerStyle = () =>
   createStyles({
@@ -34,7 +34,7 @@ export interface DatePickerDefaultProps {
 export type DatePickerInnerInputProps = DatePickerDefaultProps & WithSheet<typeof datePickerStyle>;
 
 const DatePickerDefaults = (props: DatePickerDefaultProps) => (
-  <DateTimePicker time={false} editFormat={'DD.MM.YYYY'} format={'DD.MM.YYYY'} {...props} />
+  <DateTimePicker time={false} editFormat={'DD.MM.YYYY'} format={'DD.MM.YYYY'} {...(props as any)} />
 );
 
 const DateTimePickerFieldWithValidationInner = ({

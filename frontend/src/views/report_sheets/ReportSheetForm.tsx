@@ -1,23 +1,23 @@
-import * as React from 'react';
-import { FormValues, ReportSheetWithProposedValues } from '../../types';
-import { FormView, FormViewProps } from '../../form/FormView';
 import { FormikProps } from 'formik';
-import Form from 'reactstrap/lib/Form';
-import { NumberField, SelectField, TextField } from '../../form/common';
-import { DatePickerField } from '../../form/DatePickerField';
-import { empty } from '../../utilities/helpers';
-import { SolidHorizontalRow } from '../../layout/SolidHorizontalRow';
-import Row from 'reactstrap/lib/Row';
-import Col from 'reactstrap/lib/Col';
-import Button from 'reactstrap/lib/Button';
-import { reportSheetSchema } from './reportSheetSchema';
 import { inject, observer } from 'mobx-react';
+import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { ReportSheetStore } from '../../stores/reportSheetStore';
-import { MainStore } from '../../stores/mainStore';
-import CurrencyField from '../../form/CurrencyField';
+import Button from 'reactstrap/lib/Button';
+import Col from 'reactstrap/lib/Col';
+import Form from 'reactstrap/lib/Form';
+import Row from 'reactstrap/lib/Row';
 import { CheckboxField } from '../../form/CheckboxField';
+import { NumberField, SelectField, TextField } from '../../form/common';
+import CurrencyField from '../../form/CurrencyField';
+import { DatePickerField } from '../../form/DatePickerField';
 import { WiredField } from '../../form/formik';
+import { FormView, FormViewProps } from '../../form/FormView';
+import { SolidHorizontalRow } from '../../layout/SolidHorizontalRow';
+import { MainStore } from '../../stores/mainStore';
+import { ReportSheetStore } from '../../stores/reportSheetStore';
+import { FormValues, ReportSheetWithProposedValues } from '../../types';
+import { empty } from '../../utilities/helpers';
+import { reportSheetSchema } from './reportSheetSchema';
 
 type Props = {
   mainStore?: MainStore;
@@ -40,7 +40,7 @@ class ReportSheetFormInner extends React.Component<Props, ReportSheetFormState> 
     };
   }
 
-  public render() {
+  render() {
     const { mainStore, onSubmit, reportSheet, reportSheetStore, title } = this.props;
 
     const template = {
@@ -61,7 +61,7 @@ class ReportSheetFormInner extends React.Component<Props, ReportSheetFormState> 
         }}
         title={title}
         validationSchema={reportSheetSchema}
-        render={(formikProps: FormikProps<ReportSheetWithProposedValues>) => (
+        render={(formikProps: FormikProps<{}>): React.ReactNode => (
           <Form>
             <WiredField disabled horizontal component={TextField} name={'mission.specification.name'} label={'Pflichtenheft'} />
             <WiredField disabled horizontal component={DatePickerField} name={'mission.start'} label={'Beginn Einsatz'} />
