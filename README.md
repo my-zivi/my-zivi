@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/stiftungswo/izivi.svg?branch=ts)](https://travis-ci.org/stiftungswo/izivi)
+[![Build Status](https://semaphoreci.com/api/v1/stiftungswo/izivi/branches/ts/badge.svg)](https://semaphoreci.com/stiftungswo/izivi)
 [![codecov](https://codecov.io/gh/stiftungswo/izivi/branch/master/graph/badge.svg)](https://codecov.io/gh/stiftungswo/izivi)
 
 
@@ -99,11 +99,11 @@ Vor dem commiten sollten immer die formatier-tools ausgeführt werden.
 * Backend: `docker exec izivi_api composer run format`
 * Frontend: `docker exec izivi_web-client yarn format`
 
-Für das Backend kommt [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer) zum Einsatz, welches den Code nach [PSR-2](https://www.php-fig.org/psr/psr-2/) formatiert. Für das Frontend übernimmt [Prettier](https://prettier.io) den Job.
+Für das Backend kommt [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer) zum Einsatz, welches den Code nach [PSR-2](https://www.php-fig.org/psr/psr-2/) formatiert. Für das Frontend übernimmt [TSLint](https://palantir.github.io/tslint/) den Job.
 
 ### Deployment
 
-Travis kann das Projekt mit seinem [deploy Skript](https://github.com/stiftungswo/izivi/blob/ts/ci/deploy.sh) per SSH auf einem beliebigen Webhosting automatisch deployen. Dafür müssen auf dem Zielserver unter `~/deploy` folgende Files liegen:
+Semaphore kann das Projekt mit seinem [deploy Skript](https://github.com/stiftungswo/izivi/blob/ts/ci/deploy.sh) per SSH auf einem beliebigen Webhosting automatisch deployen. Dafür müssen auf dem Zielserver unter `~/deploy` folgende Files liegen:
 
 * izivi.prod.env (orientiert sich an [.env.example](https://github.com/stiftungswo/izivi/blob/ts/api/.env.example)
 
