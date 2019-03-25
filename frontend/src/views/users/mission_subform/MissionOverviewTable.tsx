@@ -42,7 +42,6 @@ function onMissionTableSubmit(missionStore?: MissionStore, userStore?: UserStore
 }
 
 function renderFeedbackButton(mission: Mission) {
-  console.log(mission.user);
   if (mission.feedback_done || moment().isBefore(moment(mission.end!))) {
     return;
   }

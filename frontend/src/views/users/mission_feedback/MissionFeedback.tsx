@@ -1,9 +1,9 @@
+import { inject } from 'mobx-react';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { inject } from 'mobx-react';
+import { Progress } from 'reactstrap';
 import IziviContent from '../../../layout/IziviContent';
 import { UserFeedbackStore } from '../../../stores/userFeedbackStore';
-import { Progress } from 'reactstrap';
 import { FeedbackPage } from './FeedbackPage';
 
 interface MissionFeedbackProps extends RouteComponentProps<{ id?: string }> {
