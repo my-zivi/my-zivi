@@ -16,7 +16,9 @@ echo "Linking pre-commit hook..."
 ln -s $(pwd)/hooks/pre-commit $(pwd)/.git/hooks
 
 
-echo "Getting up to date izivi dump..."
+echo "Getting up to date izivi dump from Cyon..."
+docker-compose up -d
+sleep 120
 
 createDBAndFillWithDump() {
   docker exec izivi_db mysql -u root --execute="CREATE DATABASE izivi;";
@@ -39,16 +41,22 @@ if [[ $docker_has_izivi_db ]]; then
   mysql_has_izivi_db=$(docker exec izivi_db mysql -u root --execute="SHOW DATABASES LIKE 'izivi';")
 
   if [[ $mysql_has_izivi_db ]]; then
-    docker exec izivi_db mysql -u root --execute="DROP DATABASE izivi;"
-    createDBAndFillWithDump
+    echo "izivi db already exists!"
+    read -e -p "Override: [y|N] " override
+
+    case "$override" in
+      [yY]|1)
+        docker exec izivi_db mysql -u root --execute="DROP DATABASE izivi;"
+        createDBAndFillWithDump
+        ;;
+      *)
+        echo ""
+        ;;
+    esac
   else
     createDBAndFillWithDump
   fi
 else
   echo "No running izivi_db container found! Please start this first"
 fi
-
-
-
-
 
