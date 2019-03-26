@@ -73,14 +73,12 @@ Die Punkte `Backend` und `Git` können mit `./setup-dev.sh` im iZivi-Verzeichnis
 3. composer-Abhängigkeiten mit dem neuen Image installieren lassen: ``docker run --rm -v $PWD/api:/app -w /app izivi_api composer install``
 4. Docker-Stack starten: ``docker-compose up -d``
 5. .env Datei kopieren: ``cp api/.env.example api/.env``
-6. Neuen Applikationskey erstellen (wird in die .env-Datei eingefüllt): ``docker exec izivi_api php artisan key:generate``
-7. Neuen Key für die JWT-Tokens erstellen. Dieser muss manuell in die .env-Datei eingefüllt werden: ``docker exec izivi_api php artisan jwt:secret --show``
-8. Datenbank importieren:
+6. Datenbank importieren:
     - Datenbank bei Cyon als SQL exportieren (Datenbank -> MySQL -> stiftun8_izivi2 -> Backup)
     - PHPMyAdmin öffnen, verfügbar unter `localhost:48080`
     - Einloggen mit Server "mariadb", Benutzername "root", Passwort leer.
     - Neue Datenbank erstellen namens "izivi" und den Datenbankexport von Cyon importieren.
-9. Die API ist nun unter `localhost:48000` erreichbar.
+7. Die API ist nun unter `localhost:48000` erreichbar.
 
 
 ### Git
