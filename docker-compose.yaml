@@ -3,6 +3,7 @@ services:
     api:
         build:
             context: ./api
+            dockerfile: dev.Dockerfile
         container_name: izivi_api
         volumes:
             - ./api:/var/app
