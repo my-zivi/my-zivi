@@ -38,7 +38,7 @@ export class PhoneListView extends React.Component<Props> {
     const inputs = phonelistSchema.cast(entity);
     const secret = this.props.apiStore!.token;
 
-    const url = `${base}documents/phone_list?start=${inputs.date_from}&end=${inputs.date_to}&token=${secret}`;
+    const url = `${base}/documents/phone_list?start=${inputs.date_from}&end=${inputs.date_to}&token=${secret}`;
 
     const win = window.open(url, '_blank');
     if (win) {

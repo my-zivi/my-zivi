@@ -4,8 +4,8 @@ if [[ $(pwd) != $(git rev-parse --show-toplevel) || $(basename $(pwd)) != "izivi
     exit 1
 fi
 
-echo "Building izivi_api image..."
-docker build -t izivi_api api
+#echo "Building izivi_api image..."
+#docker build -t izivi_api api
 echo "Installing composer dependencies..."
 docker run --rm -v $PWD/api:/app -w /app izivi_api composer install
 echo "Booting docker-compose stack..."

@@ -24,6 +24,9 @@ class MissionController extends Controller
     public function indexByYear($year)
     {
         $data = Mission::with(['specification', 'user'])
+            ->whereHas('user', function ($query) {
+                return $query->whereNull('deleted_at');
+            })
             ->whereDate('end', '>=', $year . '-01-01')
             ->whereDate('start', '<=', $year . '-12-31')
             ->orderBy('start')

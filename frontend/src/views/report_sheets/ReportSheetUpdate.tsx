@@ -48,7 +48,7 @@ export class ReportSheetUpdate extends React.Component<Props> {
           reportSheet
             ? reportSheet.user
               ? `Spesenblatt von ${reportSheet.user.first_name} ${reportSheet.user.last_name} bearbeiten`
-              : 'Spesenbaltt bearbeiten'
+              : 'Spesenblatt bearbeiten'
             : 'Spesenblatt wird geladen'
         }
       />
