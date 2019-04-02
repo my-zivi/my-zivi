@@ -113,6 +113,7 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
             $router->group(['prefix' => 'specifications'], function () use ($router) {
                 $router->post('/', ['uses' => 'SpecificationController@post']);
                 $router->put('/{id}', ['uses' => 'SpecificationController@put']);
+                $router->delete('/{id}', ['uses' => 'SpecificationController@delete']);
             });
 
             $router->group(['prefix' => 'users'], function () use ($router) {

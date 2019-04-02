@@ -13,7 +13,7 @@ import IziviContent from '../../layout/IziviContent';
 import { MainStore } from '../../stores/mainStore';
 import { SpecificationStore } from '../../stores/specificationStore';
 import { Specification } from '../../types';
-import { PlusSquareRegularIcon, SaveRegularIcon, TrashAltRegularIcon } from '../../utilities/Icon';
+import { PlusSquareRegularIcon, SaveRegularIcon } from '../../utilities/Icon';
 import specificationStyles from './specificationOverviewStyle';
 import specificationSchema from './specificationSchema';
 
@@ -184,7 +184,7 @@ export class SpecificationsOverviewInner extends React.Component<SpecificationPr
 
   render() {
     const entities = this.props.specificationStore!.entities;
-    const { classes, specificationStore } = this.props!;
+    const { classes } = this.props!;
     const { openThTooltips } = this.state;
 
     return (
@@ -196,7 +196,7 @@ export class SpecificationsOverviewInner extends React.Component<SpecificationPr
 
               return (
                 <tr key={colI}>
-                  {' '}
+                  {/*{' '}*/}
                   {col.map((th, thI) => {
                     let content = <>{th.label}</>;
 
@@ -219,7 +219,7 @@ export class SpecificationsOverviewInner extends React.Component<SpecificationPr
                     return (
                       <th
                         className={thClass}
-                        key={th.label}
+                        key={thI}
                         rowSpan={th.span ? th.span.row || 1 : 1}
                         colSpan={th.span ? th.span.col || 1 : 1}
                       >
@@ -295,18 +295,20 @@ export class SpecificationsOverviewInner extends React.Component<SpecificationPr
                         <FontAwesomeIcon icon={SaveRegularIcon} />
                       </Button>
                     </td>
-                    <td className={classes.buttonsTd}>
-                      <Button
-                        className={classes.smallFontSize}
-                        color={'danger'}
-                        disabled={formikProps.isSubmitting}
-                        onClick={() => {
-                          specificationStore!.delete(specification.id!);
-                        }}
-                      >
-                        <FontAwesomeIcon icon={TrashAltRegularIcon} />
-                      </Button>
-                    </td>
+                    {/*<td className={classes.buttonsTd}>*/}
+                      {/*<Button*/}
+                        {/*className={classes.smallFontSize}*/}
+                        {/*color={'danger'}*/}
+                        {/*disabled={formikProps.isSubmitting}*/}
+                        {/*onClick={() => {*/}
+                          {/*this.setState({loading: true}, () => {*/}
+                            {/*specificationStore!.delete(specification.id!).then(() => this.setState({loading: false}));*/}
+                          {/*});*/}
+                        {/*}}*/}
+                      {/*>*/}
+                        {/*<FontAwesomeIcon icon={TrashAltRegularIcon} />*/}
+                      {/*</Button>*/}
+                    {/*</td>*/}
                   </tr>
                 )}
               />
@@ -326,58 +328,58 @@ const SpecificationFormFields = ({ classes }: SpecFormFieldProps) => (
       <WiredField className={classes.checkboxes} component={CheckboxField} name={'active'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'id'} size={3} />
+      <WiredField className={classes.inputs} component={TextField} name={'id'} size={'3'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'name'} size={20} />
+      <WiredField className={classes.inputs} component={TextField} name={'name'} size={'20'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'short_name'} size={1} />
+      <WiredField className={classes.inputs} component={TextField} name={'short_name'} size={'1'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'pocket'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'pocket'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'accommodation'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'accommodation'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'working_clothes_expense'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'working_clothes_expense'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'firstday_breakfast_expenses'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'firstday_breakfast_expenses'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'working_breakfast_expenses'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'working_breakfast_expenses'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'sparetime_breakfast_expenses'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'sparetime_breakfast_expenses'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'lastday_breakfast_expenses'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'lastday_breakfast_expenses'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'firstday_breakfast_expenses'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'firstday_breakfast_expenses'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'working_breakfast_expenses'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'working_breakfast_expenses'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'sparetime_breakfast_expenses'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'sparetime_breakfast_expenses'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'lastday_breakfast_expenses'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'lastday_breakfast_expenses'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'firstday_dinner_expenses'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'firstday_dinner_expenses'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'working_dinner_expenses'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'working_dinner_expenses'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'sparetime_dinner_expenses'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'sparetime_dinner_expenses'} size={'5'} />
     </td>
     <td className={classes.rowTd}>
-      <WiredField className={classes.inputs} component={TextField} name={'lastday_dinner_expenses'} size={5} />
+      <WiredField className={classes.inputs} component={TextField} name={'lastday_dinner_expenses'} size={'5'} />
     </td>
   </>
 );
