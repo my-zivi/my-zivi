@@ -295,20 +295,6 @@ export class SpecificationsOverviewInner extends React.Component<SpecificationPr
                         <FontAwesomeIcon icon={SaveRegularIcon} />
                       </Button>
                     </td>
-                    {/*<td className={classes.buttonsTd}>*/}
-                      {/*<Button*/}
-                        {/*className={classes.smallFontSize}*/}
-                        {/*color={'danger'}*/}
-                        {/*disabled={formikProps.isSubmitting}*/}
-                        {/*onClick={() => {*/}
-                          {/*this.setState({loading: true}, () => {*/}
-                            {/*specificationStore!.delete(specification.id!).then(() => this.setState({loading: false}));*/}
-                          {/*});*/}
-                        {/*}}*/}
-                      {/*>*/}
-                        {/*<FontAwesomeIcon icon={TrashAltRegularIcon} />*/}
-                      {/*</Button>*/}
-                    {/*</td>*/}
                   </tr>
                 )}
               />

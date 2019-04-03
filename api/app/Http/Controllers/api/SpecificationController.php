@@ -34,12 +34,6 @@ class SpecificationController extends Controller
         return $this->index();
     }
 
-    public function delete($id)
-    {
-        Specification::findOrFail($id)->delete();
-        return 'Entity deleted';
-    }
-
     private function validateRequest(Request $request)
     {
         return $this->validate($request, [
