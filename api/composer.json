@@ -16,7 +16,8 @@
         "laravel/tinker": "^1.0",
         "sentry/sentry-laravel": "^0.11.0",
         "setasign/fpdi-fpdf": "^2.1",
-        "vlucas/phpdotenv": "~2.2"
+        "vlucas/phpdotenv": "~2.2",
+        "ext-iconv": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
