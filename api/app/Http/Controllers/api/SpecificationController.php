@@ -54,7 +54,7 @@ class SpecificationController extends Controller
             'sparetime_lunch_expenses' => 'required|integer',
             'working_breakfast_expenses' => 'required|integer',
             'working_clothes_expense' => 'required|integer',
-            'working_clothes_payment' => 'integer|nullable',
+            'working_clothes_payment' => 'string|nullable',
             'working_dinner_expenses' => 'required|integer',
             'working_lunch_expenses' => 'required|integer',
         ]);

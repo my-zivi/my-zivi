@@ -22,7 +22,7 @@ const specificationSchema = yup.object({
   lastday_dinner_expenses: yup.number().required(),
   working_time_model: yup.number().required(),
   accommodation: yup.number().required(),
-  working_clothes_payment: yup.string(),
+  working_clothes_payment: yup.string().nullable(),
   working_time_weekly: yup.string(),
   pocket: yup.number().required(),
   active: yup.boolean(),

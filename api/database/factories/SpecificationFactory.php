@@ -23,7 +23,7 @@ $factory->define(App\Specification::class, function (Generator $faker) {
         'sparetime_lunch_expenses' => $faker->numberBetween(0, 10),
         'working_breakfast_expenses' => $faker->numberBetween(0, 9),
         'working_clothes_expense' => $faker->numberBetween(0, 5),
-        'working_clothes_payment' => $faker->numberBetween(0, 250),
+        'working_clothes_payment' => $faker->word,
         'working_dinner_expenses' => $faker->numberBetween(0, 10),
         'working_lunch_expenses' => $faker->numberBetween(0, 10),
     ];
