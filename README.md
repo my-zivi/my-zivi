@@ -91,8 +91,8 @@ Das Backend und Frontend sollen immer sauber formatiert sein (wird von Travis ü
 
 Vor dem commiten sollten immer die formatier-tools ausgeführt werden.
 
-* Backend: `docker exec izivi_api composer run format`
-* Frontend: `docker exec izivi_web-client yarn format`
+* Backend: `docker-compose exec api composer run format`
+* Frontend: `docker-compose exec web-client yarn format`
 
 Für das Backend kommt [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer) zum Einsatz, welches den Code nach [PSR-2](https://www.php-fig.org/psr/psr-2/) formatiert. Für das Frontend übernimmt [TSLint](https://palantir.github.io/tslint/) den Job.
 

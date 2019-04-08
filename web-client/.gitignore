@@ -1,6 +1,0 @@
-node_modules/
-.DS_Store
-*.log
-build
-src/styles/**/*.css
-src/index.css
