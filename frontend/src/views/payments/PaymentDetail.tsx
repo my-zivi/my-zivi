@@ -1,6 +1,7 @@
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
+import {Link} from 'react-router-dom';
 import Button from 'reactstrap/lib/Button';
 import IziviContent from '../../layout/IziviContent';
 import { OverviewTable } from '../../layout/OverviewTable';
@@ -40,7 +41,9 @@ class PaymentDetailInner extends React.Component<Props, State> {
       {
         id: 'full_name',
         label: 'Name',
-        format: (p: PaymentEntry) => `${p.user.first_name} ${p.user.last_name}`,
+        format: (p: PaymentEntry) => (
+          <Link to={'/users/' + p.user.id}>{p.user.first_name} {p.user.last_name}</Link>
+        ),
       },
       {
         id: 'iban',
@@ -50,7 +53,9 @@ class PaymentDetailInner extends React.Component<Props, State> {
       {
         id: 'total_costs',
         label: 'Betrag',
-        format: (p: PaymentEntry) => this.props.mainStore!.formatCurrency(p.report_sheet.total_costs),
+        format: (p: PaymentEntry) => (
+          <Link to={'/report_sheets/' + p.report_sheet.id}>{this.props.mainStore!.formatCurrency(p.report_sheet.total_costs)}</Link>
+        ),
       },
     ];
 

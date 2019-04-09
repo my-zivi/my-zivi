@@ -47,20 +47,23 @@ class ReportSheetController extends Controller
                 return ReportSheet::with('user')->where('state', '=', 1)->get()->each->append('total_costs');
             }
 
-            $builder = ReportSheet::join('users', 'users.id', '=', 'report_sheets.user_id')
-                ->orderBy('start', 'desc')
-                ->orderBy('end', 'desc');
+            $builder = ReportSheet::with('user:first_name,last_name,zdp,id')
+                ->orderBy('start', 'asc')
+                ->orderBy('end', 'asc');
 
 
             if (!empty($validatedData['state'])) {
                 if ($validatedData['state'] === 'pending') {
                     $builder = $builder->where('report_sheets.state', '!=', 3);
                 } elseif ($validatedData['state'] === 'current') {
-                    $builder = $builder->where('report_sheets.state', '=', 0);
+                    $builder = $builder->where('report_sheets.state', '=', 0)
+                        ->whereDate('start', '>=', date('Y-m-d', strtotime('first day of last month')))
+                        ->whereDate('end', '<', date('Y-m-d', strtotime('first day of next month')));
                 }
             }
 
-            return $builder->get([ 'end', 'users.first_name as first_name', 'report_sheets.id as id', 'users.last_name as last_name', 'start', 'users.zdp as zdp']);
+            return $builder->get([ 'end', 'report_sheets.id as id', 'start', 'user_id']);
+//            select([ 'end', 'report_sheets.id as id', 'start', 'user_id'])
         }
     }
 

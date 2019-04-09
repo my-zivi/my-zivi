@@ -30,13 +30,14 @@ if [[ ! ( -z "$phpfiles" ) ]];
 then
 
     [ ! -d git-export-dir/ ] && git checkout-index --prefix=git-export-dir/ -a
-    echo "$phpfiles" | xargs docker run --rm  -v $(pwd)/git-export-dir/api:/app -w /app texthtml/phpcs:3.2.3 phpcs --standard=psr2 | grep "PHPCBF CAN FIX" > /dev/null
+    docker run --rm  -v $(pwd)/git-export-dir/api:/app -v $(pwd)/api/vendor:/app/vendor -w /app izivi_api composer run lint
 
-    if [[ $? -eq 0 ]];
+    if [[ $? -ne 0 ]];
     then
         echo
         echo "php files were not properly formatted, please format them with:"
         echo "composer run format"
+        echo "(or run composer install first)"
         echo
 
         exitstatus=1

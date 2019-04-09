@@ -43,8 +43,7 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-$app->withFacades();
-
+$app->withFacades(true, ['TwigBridge\Facade\Twig' => 'Twig']);
 $app->withEloquent();
 /*
 |--------------------------------------------------------------------------
@@ -107,6 +106,8 @@ $app->configure('mail');
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 $app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
 $app->register(\Laravel\Tinker\TinkerServiceProvider::class);
+$app->register(\TwigBridge\ServiceProvider::class);
+$app->configure('twigbridge');
 
 /*
 |--------------------------------------------------------------------------

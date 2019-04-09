@@ -9,7 +9,7 @@ use App\User;
 use Carbon\Carbon;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class MissionControllerTest extends \TestCase
+class MissionControllerTest extends \Tests\TestCase
 {
     use DatabaseTransactions;
 

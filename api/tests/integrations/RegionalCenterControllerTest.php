@@ -5,7 +5,7 @@ namespace Tests\Integrations;
 use App\RegionalCenter;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class RegionalCenterControllerTest extends \TestCase
+class RegionalCenterControllerTest extends \Tests\TestCase
 {
     use DatabaseTransactions;
 

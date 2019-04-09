@@ -1,11 +1,13 @@
 <?php
 
+namespace Tests\Unit\Services\Calculator;
+
 use App\Holiday;
 use App\HolidayType;
 use App\Services\Calculator\MissionDaysCalculator;
 use Carbon\Carbon;
 
-class MissionDaysCalculatorTest extends TestCase
+class MissionDaysCalculatorTest extends \Tests\TestCase
 {
     use \Laravel\Lumen\Testing\DatabaseTransactions;
 

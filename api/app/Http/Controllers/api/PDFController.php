@@ -68,8 +68,8 @@ class PDFController extends Controller
             Input::get("only_done_sheets") === 'true',
             Input::get("detail_view") === 'true',
             Input::get("time_type"),
-            strtotime(Input::get("date_from")),
-            strtotime(Input::get("date_to")),
+            Input::get("date_from"),
+            Input::get("date_to"),
             Input::get("year")
         );
 

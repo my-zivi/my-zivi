@@ -7,7 +7,7 @@ use App\ReportSheet;
 use App\Specification;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class ReportSheetTest extends \TestCase
+class ReportSheetTest extends \Tests\TestCase
 {
     use DatabaseTransactions;
 

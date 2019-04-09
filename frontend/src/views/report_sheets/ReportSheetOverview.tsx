@@ -32,11 +32,14 @@ export class ReportSheetOverview extends React.Component<Props, State> {
       {
         id: 'zdp',
         label: 'ZDP',
+        format: (r: ReportSheetListing) => r.user.zdp,
       },
       {
         id: 'first_name',
         label: 'Name',
-        format: (r: ReportSheetListing) => `${r.first_name} ${r.last_name}`,
+        format: (r: ReportSheetListing) => (
+          <Link to={'/users/' + r.user_id!}>{r.user.first_name} {r.user.last_name}</Link>
+        ),
       },
       {
         id: 'start',

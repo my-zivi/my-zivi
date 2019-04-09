@@ -15,7 +15,7 @@ class PaymentEntry extends Model
         'user_id',
     ];
 
-    public function report_sheet()
+    public function reportSheet()
     {
         return $this->belongsTo(ReportSheet::class);
     }

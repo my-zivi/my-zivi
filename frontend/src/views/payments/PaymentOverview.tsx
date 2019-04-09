@@ -105,7 +105,14 @@ export class PaymentOverview extends React.Component<Props, State> {
               data={this.props.reportSheetStore!.toBePaidReportSheets}
               renderActions={(r: ReportSheet) => <Link to={'/report_sheets/' + r.id}>Spesenblatt</Link>}
             />
-            <Button color={'primary'}>Zahlungsdatei generieren (TODO)</Button>
+            <Button
+              color={'primary'}
+              href={this.props.mainStore!.apiURL('payments/execute')}
+              tag={'a'}
+              target={'_blank'}
+            >
+              Zahlungsdatei generieren
+            </Button>
           </>
         ) : (
           'Keine Spesen zur Auszahlung bereit.'

@@ -1,8 +1,10 @@
 <?php
 
+namespace Tests;
+
 use App\User;
 
-class TestCase extends Laravel\Lumen\Testing\TestCase
+class TestCase extends \Laravel\Lumen\Testing\TestCase
 {
 
     /**
@@ -14,7 +16,7 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
 
     public function setUp()
     {
-        $this->faker = Faker\Factory::create();
+        $this->faker = \Faker\Factory::create();
         parent::setUp();
     }
     /**
@@ -54,7 +56,7 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
      */
     public function responseToArray()
     {
-        return json_decode($this->response->getContent(), true);
+        return \json_decode($this->response->getContent(), true);
     }
 
     public function assertResponseMatchesTemplate(array $template = [], $ignoreMetadata = false)

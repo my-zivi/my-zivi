@@ -27,7 +27,7 @@ class UserFeedbackQuestion extends Model
         'required' => 'boolean',
     ];
 
-    public function user_feedbacks()
+    public function userFeedbacks()
     {
         return $this->hasMany(UserFeedbackQuestion::class, 'questionId');
     }

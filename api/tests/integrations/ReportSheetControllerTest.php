@@ -6,7 +6,7 @@ use App\ReportSheet;
 use App\User;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class ReportSheetControllerTest extends \TestCase
+class ReportSheetControllerTest extends \Tests\TestCase
 {
     use DatabaseTransactions;
 

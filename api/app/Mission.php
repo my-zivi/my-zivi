@@ -32,7 +32,7 @@ class Mission extends Model
         'start'      => 'date',
     ];
 
-    public function report_sheets()
+    public function reportSheets()
     {
         return $this->hasMany(ReportSheet::class);
     }
@@ -75,14 +75,14 @@ class Mission extends Model
 
     public function getPaidClothesExpensesAttribute()
     {
-        return $this->report_sheets->map(function ($reportSheet) {
+        return $this->reportSheets->map(function ($reportSheet) {
             return $reportSheet->clothes;
         })->sum();
     }
 
     public function getTakenIllnessDaysAttribute()
     {
-        return $this->report_sheets->map(function ($reportSheet) {
+        return $this->reportSheets->map(function ($reportSheet) {
             return $reportSheet->ill;
         })->sum();
     }
@@ -90,7 +90,7 @@ class Mission extends Model
     public function getTakenHolidaysAttribute()
     {
         if ($this->days >= 180) {
-            return $this->report_sheets->map(function ($reportSheet) {
+            return $this->reportSheets->map(function ($reportSheet) {
                 return $reportSheet->holiday;
             })->sum();
         } else {

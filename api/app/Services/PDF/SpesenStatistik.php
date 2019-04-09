@@ -119,7 +119,6 @@ class SpesenStatistik extends PDF
             $this->TITLE_GESAMT = "  Zivi-Spesen Gesamtstatistik  (Jahr $this->time_year)";
             $this->TITLE_DETAIL = "  Zivi-Spesen Detailübersicht  (Jahr $this->time_year)";
         }
-
         $this->pdf->SetAutoPageBreak(false);
 
         if ($this->showDetails) {

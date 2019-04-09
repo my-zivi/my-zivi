@@ -6,7 +6,7 @@ use App\User;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use TestCase;
 
-class UserControllerTest extends TestCase
+class UserControllerTest extends \Tests\TestCase
 {
     use DatabaseTransactions;
 

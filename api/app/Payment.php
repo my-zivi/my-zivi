@@ -11,8 +11,19 @@ class Payment extends Model
         'xml',
     ];
 
-    public function payment_entries()
+    protected $appends = ['amount'];
+
+    public function paymentEntries()
     {
         return $this->hasMany(PaymentEntry::class);
+    }
+
+    public function getAmountAttribute()
+    {
+        if ($this->paymentEntries->isEmpty()) {
+            return 0;
+        }
+
+        return $this->paymentEntries->sum('reportSheet.total_costs');
     }
 }

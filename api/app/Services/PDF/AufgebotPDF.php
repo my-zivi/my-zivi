@@ -46,43 +46,49 @@ class AufgebotPDF extends PDF
 
     protected function render()
     {
-        /*$this->zivi = array("health_insurance"=>"KPT","kontoNr"=>"43", "id"=>"36680", "street"=>"asd", "zip"=>"sadjl", "city"=>"jasd", "phoneP"=>"asdljk", "phoneM"=>"asjl");
-        $this->zivi = array("lastname"=>"rösch", "firstname"=>"simon","email"=>"bsad@absdl.ch");*/
-        $companyHolidays = array();
-
-
         $row = 0;
         $colLeft = 65;
         $colRight = 140;
 
-        $__WORKING_BREAKFAST = array(
-            "basex" => 68.4,
-            "basey" => 57.7,
-            "dbAttributeName" => "working_breakfast_expenses");
-        $__WORKING_LUNCH = array(
-            "basex" => 68.4,
-            "basey" => 70.8,
-            "dbAttributeName" => "working_lunch_expenses");
-        $__WORKING_DINNER = array(
-            "basex" => 68.4,
-            "basey" => 84.3,
-            "dbAttributeName" => "working_dinner_expenses");
-        $__SPARETIME_BREAKFAST = array(
-            "basex" => 112.9,
-            "basey" => 57.7,
-            "dbAttributeName" => "sparetime_breakfast_expenses");
-        $__SPARETIME_LUNCH = array(
-            "basex" => 112.9,
-            "basey" => 70.8,
-            "dbAttributeName" => "sparetime_lunch_expenses");
-        $__SPARETIME_DINNER = array(
-            "basex" => 112.9,
-            "basey" => 84.3,
-            "dbAttributeName" => "sparetime_dinner_expenses");
+        $__WORKING_BREAKFAST = [
+            "basex"           => 68.4,
+            "basey"           => 57.7,
+            "dbAttributeName" => "working_breakfast_expenses",
+        ];
+        $__WORKING_LUNCH = [
+            "basex"           => 68.4,
+            "basey"           => 70.8,
+            "dbAttributeName" => "working_lunch_expenses",
+        ];
+        $__WORKING_DINNER = [
+            "basex"           => 68.4,
+            "basey"           => 84.3,
+            "dbAttributeName" => "working_dinner_expenses",
+        ];
+        $__SPARETIME_BREAKFAST = [
+            "basex"           => 112.9,
+            "basey"           => 57.7,
+            "dbAttributeName" => "sparetime_breakfast_expenses",
+        ];
+        $__SPARETIME_LUNCH = [
+            "basex"           => 112.9,
+            "basey"           => 70.8,
+            "dbAttributeName" => "sparetime_lunch_expenses",
+        ];
+        $__SPARETIME_DINNER = [
+            "basex"           => 112.9,
+            "basey"           => 84.3,
+            "dbAttributeName" => "sparetime_dinner_expenses",
+        ];
 
-        $lunchchoices = array(
-            $__WORKING_BREAKFAST, $__WORKING_LUNCH, $__WORKING_DINNER,
-            $__SPARETIME_BREAKFAST, $__SPARETIME_LUNCH, "");
+        $lunchchoices = [
+            $__WORKING_BREAKFAST,
+            $__WORKING_LUNCH,
+            $__WORKING_DINNER,
+            $__SPARETIME_BREAKFAST,
+            $__SPARETIME_LUNCH,
+            "",
+        ];
 
         $__WORKING_TIME_MODEL_DB_ATTRIBUTE_NAME = "working_time_model";
         $__WORKING_TIME_MODEL_POSITION[0]["cx"] = 111.0;

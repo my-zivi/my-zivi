@@ -59,7 +59,7 @@ class UserController extends Controller
 
     public function get($id)
     {
-        $user = User::with(['missions', 'report_sheets'])->find($id);
+        $user = User::with(['missions', 'reportSheets'])->find($id);
 
         if (Auth::user()->isAdmin() || $user->id == Auth::id()) {
             if (!Auth::user()->isAdmin()) {

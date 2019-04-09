@@ -105,9 +105,9 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
             });
 
             $router->group(['prefix' => 'payments'], function () use ($router) {
+                $router->get('/execute', ['uses' => 'PaymentController@getIsoPaymentXml']);
                 $router->get('/{id}/xml', ['uses' => 'PaymentController@getArchivedXml']);
                 $router->get('/{id}', ['uses' => 'PaymentController@get']);
-                $router->post('/execute', ['uses' => 'PaymentController@getIsoPaymentXml']);
                 $router->get('/', ['uses' => 'PaymentController@index']);
             });
 

@@ -17,9 +17,9 @@ abstract class PDF
     public function __construct($landscape = false)
     {
         if ($landscape) {
-            $this->pdf = new utfFPDI('L');
+            $this->pdf = new UtfFPDI('L');
         } else {
-            $this->pdf = new utfFPDI();
+            $this->pdf = new UtfFPDI();
         }
     }
 
@@ -112,7 +112,7 @@ abstract class PDF
     protected function getGermanMonth($timestamp)
     {
         $month_str = "";
-        switch (date("m", $timestamp)) {
+        switch ($timestamp) {
             case 1:
                 $month_str = "Januar";
                 break;
@@ -156,26 +156,5 @@ abstract class PDF
     public static function getRoundedRappen($val)
     {
         return number_format(round($val * 20) / 20, 2, '.', '');
-    }
-}
-
-class utfFPDI extends FPDI
-{
-
-    function Cell($w, $h = 0, $txt = "", $border = 0, $ln = 0, $align = '', $fill = false, $link = '', $allowStringOverflow = false)
-    {
-        if (!empty($txt)) {
-            if (mb_detect_encoding($txt, 'UTF-8', false)) {
-                $txt = iconv('UTF-8', 'windows-1252', $txt);
-            }
-            if ($w>0 && !$allowStringOverflow) {
-                $textwidth = $this->getstringwidth($txt);
-                while ($textwidth>$w) {              // loop until textwidth is shorter than cell width
-                    $txt=substr($txt, 0, -1);             // strip last char
-                    $textwidth = $this->getstringwidth($txt); // read text width again
-                }
-            }
-        }
-        parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link);
     }
 }

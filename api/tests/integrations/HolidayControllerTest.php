@@ -5,7 +5,7 @@ namespace Tests\Integrations;
 use App\Holiday;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class HolidayControllerTest extends \TestCase
+class HolidayControllerTest extends \Tests\TestCase
 {
     use DatabaseTransactions;
 

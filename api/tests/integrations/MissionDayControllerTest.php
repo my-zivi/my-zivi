@@ -2,7 +2,7 @@
 
 namespace Tests\Integration;
 
-class MissionDayControllerTest extends \TestCase
+class MissionDayControllerTest extends \Tests\TestCase
 {
     public function testInvalidEligibleDays()
     {

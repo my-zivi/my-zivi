@@ -2,30 +2,54 @@
 
 namespace App;
 
-use App\CompanyInfo;
-use App\Http\Controllers\API\MissionController;
 use App\Services\Calculator\ProposedReportSheetValuesCalculator;
-use App\Services\PDF\PDF;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use \DateTime;
 
 class ReportSheet extends Model
 {
     use SoftDeletes;
 
     protected $casts = [
-        'end' => 'date',
+        'end'                   => 'date',
         'ignore_first_last_day' => 'boolean',
-        'start' => 'date'
+        'start'                 => 'date',
     ];
 
-    protected $fillable = ['additional_workfree', 'additional_workfree_comment', 'bank_account_number', 'clothes',
-        'clothes_comment', 'company_holiday_holiday', 'company_holiday_vacation', 'company_holiday_comment', 'document_number', 'driving_charges',
-        'driving_charges_comment', 'end', 'extraordinarily', 'extraordinarily_comment', 'holiday', 'holiday_comment', '
-        ignore_first_last_day', 'ill', 'ill_comment', 'mission_id', 'national_holiday', 'start', 'state', 'user_id',
-        'vacation', 'vacation_comment', 'work', 'work_comment', 'workfree', 'workfree_comment',
-        ];
+    protected $fillable = [
+        'additional_workfree',
+        'additional_workfree_comment',
+        'bank_account_number',
+        'clothes',
+        'clothes_comment',
+        'company_holiday_holiday',
+        'company_holiday_vacation',
+        'company_holiday_comment',
+        'document_number',
+        'driving_charges',
+        'driving_charges_comment',
+        'end',
+        'extraordinarily',
+        'extraordinarily_comment',
+        'holiday',
+        'holiday_comment',
+        'ignore_first_last_day',
+        'ill',
+        'ill_comment',
+        'mission_id',
+        'national_holiday',
+        'start',
+        'state',
+        'user_id',
+        'vacation',
+        'vacation_comment',
+        'work',
+        'work_comment',
+        'workfree',
+        'workfree_comment',
+    ];
+
+    protected $appends = ['total_costs'];
 
     public function mission()
     {
@@ -35,6 +59,11 @@ class ReportSheet extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function paymentEntry()
+    {
+        return $this->hasOne(PaymentEntry::class);
     }
 
     public function getChargedDaysAttribute()

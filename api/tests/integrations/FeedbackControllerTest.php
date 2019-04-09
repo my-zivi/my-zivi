@@ -8,7 +8,7 @@ use App\UserFeedbackQuestion;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use TestCase;
 
-class FeedbackControllerTest extends TestCase
+class FeedbackControllerTest extends \Tests\TestCase
 {
     use DatabaseTransactions;
 

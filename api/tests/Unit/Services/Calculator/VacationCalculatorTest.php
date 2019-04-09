@@ -8,7 +8,7 @@ use App\Services\Calculator\VacationCalculator;
 use Carbon\Carbon;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class VacationCalculatorTest extends \TestCase
+class VacationCalculatorTest extends \Tests\TestCase
 {
     use DatabaseTransactions;
 

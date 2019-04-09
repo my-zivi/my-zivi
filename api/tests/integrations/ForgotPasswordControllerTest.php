@@ -4,7 +4,7 @@ namespace Tests\Integrations;
 
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class ForgotPasswordControllerTest extends \TestCase
+class ForgotPasswordControllerTest extends \Tests\TestCase
 {
     use DatabaseTransactions;
 

@@ -13,7 +13,7 @@ class Holiday extends Model
         'holiday_type_id',
     ];
 
-    public function holiday_type()
+    public function holidayType()
     {
         return $this->belongsTo(HolidayType::class);
     }

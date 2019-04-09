@@ -6,7 +6,7 @@ use Firebase\JWT\JWT;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use TestCase;
 
-class AuthControllerTest extends TestCase
+class AuthControllerTest extends \Tests\TestCase
 {
     use DatabaseTransactions;
 

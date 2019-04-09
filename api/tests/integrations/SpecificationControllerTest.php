@@ -5,7 +5,7 @@ namespace Tests\Integrations;
 use App\Specification;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class SpecificationControllerTest extends \TestCase
+class SpecificationControllerTest extends \Tests\TestCase
 {
     use DatabaseTransactions;
 

@@ -16,6 +16,7 @@ use App\ReportSheet;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
+use Twig;
 
 function scrub(string $s)
 {
@@ -29,13 +30,7 @@ class PaymentController extends Controller
 
     public function get($id)
     {
-        $payment = Payment::with(['payment_entries', 'payment_entries.user', 'payment_entries.report_sheet'])->findOrFail($id);
-
-        $payment->payment_entries->each(function ($pe) {
-            $pe->report_sheet->append('total_costs');
-        });
-
-        return $payment;
+        return Payment::with(['paymentEntries', 'paymentEntries.user', 'paymentEntries.reportSheet'])->findOrFail($id);
     }
 
     public function index()
@@ -43,129 +38,33 @@ class PaymentController extends Controller
         return Payment::all();
     }
 
-    // TODO instead of delivering the relevant data through the frontend, do it through backend
-    // the execute view in the frontend does not allow to modify anything, it just gives a preview of the payment
-    // so instead of relying on data from a post request, we could calculate those information directly in the backend
+
     public function getIsoPaymentXml()
     {
-        $elements = Input::get('data');
-        $total = 0;
-        $skipped = 0;
-        foreach ($elements as $key => $element) {
-            if ($element['amount'] <= 0) {
-                $elements[$key]['skip'] = true;
-                $skipped++;
-            }
-            $total += $element['amount'];
-        }
-
-        $id = date('Ymd').".".rand(1, 100000000);
-
-
-        $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<Document xmlns=\"http://www.six-interbank-clearing.com/de/pain.001.001.03.ch.02.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.six-interbank-clearing.com/de/pain.001.001.03.ch.02.xsd  pain.001.001.03.ch.02.xsd\">
-	<CstmrCdtTrfInitn>
-		<GrpHdr>
-			<MsgId>SWO-M-".$id."</MsgId>
-			<CreDtTm>".date('c')."</CreDtTm>
-			<NbOfTxs>".(count($elements) - $skipped)."</NbOfTxs>
-			<CtrlSum>".$total."</CtrlSum>
-			<InitgPty>
-				<Nm>".CompanyInfo::COMPANY_NAME."</Nm>
-			</InitgPty>
-		</GrpHdr>
-		<PmtInf>
-			<PmtInfId>SWO-P-".$id."</PmtInfId>
-			<PmtMtd>TRF</PmtMtd>
-			<ReqdExctnDt>".date('Y-m-d')."</ReqdExctnDt>
-			<Dbtr>
-				<Nm>".CompanyInfo::COMPANY_NAME."</Nm>
-			</Dbtr>
-			<DbtrAcct>
-				<Id>
-					<IBAN>".CompanyInfo::SPESEN_PAYMENT_IBAN."</IBAN>
-				</Id>
-			</DbtrAcct>
-			<DbtrAgt>
-				<FinInstnId>
-					<BIC>".CompanyInfo::SPESEN_PAYMENT_BIC."</BIC>
-				</FinInstnId>
-			</DbtrAgt>";
-
-
-        foreach ($elements as $key => $element) {
-            if (isset($element['skip']) && $element['skip']) {
-                continue;
-            }
-            // IID oder Clearing-Nummer: https://www.moneytoday.ch/lexikon/iid/
-            // kann anstelle von BIC benutzt werden
-            $iid = substr($element['iban'], 4, 5);
-            $xml .= "
-			<CdtTrfTxInf>
-				<PmtId>
-					<InstrId>SWO-I-".$id."-".$key."</InstrId>
-					<EndToEndId>SWO-E-".$id."-".$key."</EndToEndId>
-				</PmtId>
-				<Amt>
-					<InstdAmt Ccy=\"CHF\">".$element['amount']."</InstdAmt>
-				</Amt>
-				<CdtrAgt>
-					<FinInstnId>
-						<ClrSysMmbId>
-						    <ClrSysId>
-						        <Cd>CHBCC</Cd>
-                            </ClrSysId>
-                            <MmbId>$iid</MmbId>
-                        </ClrSysMmbId>
-					</FinInstnId>
-				</CdtrAgt>
-				<Cdtr>
-					<Nm>".scrub($element['first_name'])." ".scrub($element['last_name'])."</Nm>
-					<PstlAdr>
-						<StrtNm>".scrub($element['address'])."</StrtNm>
-						<PstCd>".scrub($element['zip'])."</PstCd>
-						<TwnNm>".scrub($element['city'])."</TwnNm>
-						<Ctry>CH</Ctry>
-					</PstlAdr>
-				</Cdtr>
-				<CdtrAcct>
-					<Id>
-						<IBAN>".$element['iban']."</IBAN>
-					</Id>
-				</CdtrAcct>
-			</CdtTrfTxInf>";
-        }
-
-        $xml .= "
-		</PmtInf>
-	</CstmrCdtTrfInitn>
-</Document>";
+        $openSheets = ReportSheet::with('user')->where('state', '=', '1')->get();
+        $validSheets = $openSheets->where('total_costs', '>', 0);
 
         $payment = new Payment();
-        $payment->xml = $xml;
-        $payment->amount = $total*100;
+        $payment->xml = "";
         $payment->save();
 
-        foreach ($elements as $element) {
-            $sheet = ReportSheet::find($element['sheet_id']);
+        $openSheets->each(function ($sheet) use ($payment) {
             $sheet->state = 2;
             $sheet->save();
 
             $paymentEntry = new PaymentEntry();
             $paymentEntry->payment_id = $payment->id;
-            $paymentEntry->amount = $element['amount']*100;
-            $paymentEntry->user_id = $element['userid'];
-            $paymentEntry->iban = $element['iban'];
-            $paymentEntry->report_sheet_id = $element['sheet_id'];
+            $paymentEntry->amount = $sheet->total_costs;
+            $paymentEntry->user_id = $sheet->user_id;
+            $paymentEntry->iban = $sheet->user->clean_iban;
+            $paymentEntry->report_sheet_id = $sheet->id;
             $paymentEntry->save();
-        }
+        });
 
-        return [
-            'xml'      => $xml,
-            'filename' => $this->generatePaymentName($payment),
-        ];
+        return (new Response($this->renderPaymentXml($validSheets), 200))
+            ->header('Content-Type', 'application/xml')
+            ->header('Content-Disposition', 'attachment; filename="'.$this->generatePaymentName($payment).'"');
     }
-
 
     public function getArchivedPayment($id)
     {
@@ -180,10 +79,36 @@ class PaymentController extends Controller
 
     public function getArchivedXml($id)
     {
-        $payment = Payment::find($id);
-        return (new Response($payment->xml, 200))
+        $payment = Payment::select(['id', 'updated_at'])->find($id);
+        $sheets = ReportSheet::whereHas('paymentEntry.payment', function ($query) use ($id) {
+            return $query->where('id', $id);
+        })->get();
+        $validSheets = $sheets->where('total_costs', '>', 0);
+
+        return (new Response($this->renderPaymentXml($validSheets), 200))
             ->header('Content-Type', 'application/xml')
             ->header('Content-Disposition', 'attachment; filename="'.$this->generatePaymentName($payment).'"');
+    }
+
+
+    private function renderPaymentXml($validSheets)
+    {
+        $ci = [
+            "company_name"        => CompanyInfo::COMPANY_NAME,
+            "spesen_payment_iban" => CompanyInfo::SPESEN_PAYMENT_IBAN,
+            "spesen_payment_bic"  => CompanyInfo::SPESEN_PAYMENT_BIC,
+        ];
+
+        $data = [
+            "validSheets" => $validSheets,
+            "ci"          => $ci,
+            "total"       => $validSheets->sum('total_costs'),
+            "id"          => date('Ymd').".".rand(1, 100000000),
+        ];
+
+        $twigXml = Twig::render('payment', $data);
+
+        return $twigXml;
     }
 
     private function generatePaymentName(Payment $payment)

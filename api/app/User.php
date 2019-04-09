@@ -74,12 +74,12 @@ class User extends Model implements
         return $this->hasMany(Mission::class);
     }
 
-    public function regional_center()
+    public function regionalCenter()
     {
         return $this->belongsTo(RegionalCenter::class);
     }
 
-    public function report_sheets()
+    public function reportSheets()
     {
         return $this->hasMany(ReportSheet::class);
     }
@@ -128,6 +128,11 @@ class User extends Model implements
             return $today->between($lastMission->end, $lastMission->start);
         }
         return false;
+    }
+
+    public function getCleanIbanAttribute()
+    {
+        return str_replace(' ', '', $this->bank_iban);
     }
 
     /**

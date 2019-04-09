@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use App\Specification;
 
-class SpecificationTest extends \TestCase
+class SpecificationTest extends \Tests\TestCase
 {
     public function testGetDailyFirstDayCosts()
     {

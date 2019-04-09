@@ -65,11 +65,10 @@ export interface ReportSheetWithProposedValues extends ReportSheet {
 export interface ReportSheetListing {
   id: number;
   end: string;
-  first_name: string;
-  last_name: string;
   start: string;
   state: number;
-  zdp: number;
+  user_id?: number;
+  user: User;
 }
 
 export interface Specification {

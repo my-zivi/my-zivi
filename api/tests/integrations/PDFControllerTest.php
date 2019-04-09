@@ -6,7 +6,7 @@ use App\Holiday;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use TestCase;
 
-class PDFControllerTest extends TestCase
+class PDFControllerTest extends \Tests\TestCase
 {
     use DatabaseTransactions;
 
