@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "47e1aaa8b6d0547a40dd9a83858a8a06",
+    "content-hash": "e5cbead717d0f86bd4fd9360f784b51f",
     "packages": [
         {
             "name": "appzcoder/lumen-routes-list",
@@ -787,7 +787,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stiftungswo/swo-laravel-coding-standard.git",
-                "reference": "4b4256918718ff70b110a28f2d9eded17ad3a7a8"
+                "reference": "54cfdfb461d849d1ef7ba1b78b9694b226a573ab"
             },
             "require-dev": {
                 "phpunit/phpunit": "^6.5",
@@ -807,7 +807,7 @@
                 }
             ],
             "description": "Laravel 5 Coding Standard for PHP_CodeSniffer 3.",
-            "time": "2019-04-09T11:49:12+00:00"
+            "time": "2019-04-09T14:47:39+00:00"
         },
         {
             "name": "illuminate/auth",
@@ -5925,5 +5925,7 @@
         "php": ">=7.1.3",
         "ext-iconv": "*"
     },
-    "platform-dev": []
+    "platform-dev": {
+        "ext-json": "*"
+    }
 }

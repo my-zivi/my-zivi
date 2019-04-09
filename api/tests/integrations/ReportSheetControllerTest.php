@@ -96,7 +96,7 @@ class ReportSheetControllerTest extends \Tests\TestCase
         $this->asAdmin()->json('GET', 'api/report_sheets', [
             'state' => 'current',
         ])->assertResponseOk();
-        $this->assertCount(5, $this->responseToArray());
+        $this->assertCount(0, $this->responseToArray());
     }
 
     public function testIndexAsAdminPendingFilter()
