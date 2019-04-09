@@ -18,7 +18,8 @@
         "setasign/fpdi-fpdf": "^2.1",
         "vlucas/phpdotenv": "~2.2",
         "ext-iconv": "*",
-        "rcrowe/twigbridge": "^0.9.9"
+        "rcrowe/twigbridge": "^0.9.9",
+        "greynoise-design/laravel-coding-standard": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -44,8 +45,8 @@
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
-        "format": "phpcbf --standard=psr2 --ignore=vendor .",
-        "lint": "phpcs -n --standard=psr2 --ignore=vendor ."
+        "format": "phpcbf --standard=vendor/greynoise-design/laravel-coding-standard/GreynoiseLaravel/ruleset.xml --ignore=vendor .",
+        "lint": "phpcs -n -s --standard=vendor/greynoise-design/laravel-coding-standard/GreynoiseLaravel/ruleset.xml --ignore=vendor ."
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -53,5 +54,11 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true
-    }
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/stiftungswo/swo-laravel-coding-standard.git"
+        }
+    ]
 }

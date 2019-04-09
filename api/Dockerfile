@@ -1,6 +1,6 @@
 FROM php:7.1-cli
 
-RUN apt-get update && apt-get install -y unzip
+RUN apt-get update && apt-get install -y unzip git
 
 RUN docker-php-ext-install pdo pdo_mysql && \
     php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php && \
