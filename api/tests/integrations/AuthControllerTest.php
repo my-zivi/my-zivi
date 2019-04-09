@@ -18,8 +18,8 @@ class AuthControllerTest extends TestCase
     public function testLoginWithWrongValidation()
     {
         $this->json('post', 'api/auth/login', [
-            'email' => $this->faker->email,
-            'password' => 'asdasd'
+            'email'    => $this->faker->email,
+            'password' => 'asdasd',
         ])->assertResponseStatus(400);
     }
 
@@ -29,13 +29,13 @@ class AuthControllerTest extends TestCase
         $password = str_random(8);
 
         factory(\App\User::class)->create([
-            'email' => $email,
-            'password' => app('hash')->make($password)
-        ]);
+                                     'email'    => $email,
+                                     'password' => app('hash')->make($password),
+                                 ]);
 
         $this->json('post', 'api/auth/login', [
-            'email' => $email,
-            'password' => $password
+            'email'    => $email,
+            'password' => $password,
         ])->assertResponseOk();
     }
 
@@ -47,8 +47,8 @@ class AuthControllerTest extends TestCase
     public function testInvalidEmailLogin()
     {
         $this->json('post', 'api/auth/login', [
-            'email' => 'welcometo@jurassic.park',
-            'password' => 'Welcome01'
+            'email'    => 'welcometo@jurassic.park',
+            'password' => 'Welcome01',
         ])->assertResponseStatus(400);
     }
 
@@ -57,22 +57,22 @@ class AuthControllerTest extends TestCase
         $user = factory(\App\User::class)->create();
 
         $this->json('post', 'api/auth/login', [
-            'email' => $user->email,
-            'password' => 'Welcome01'
+            'email'    => $user->email,
+            'password' => 'Welcome01',
         ])->assertResponseStatus(400);
     }
 
     public function testRegister()
     {
         $formData = [
-            'zdp' => '123456',
-            'firstname' => 'Max',
-            'lastname' => 'Mustermann',
-            'email' => 'foo@example.com',
-            'password' => 'test1234',
+            'zdp'              => '123456',
+            'firstname'        => 'Max',
+            'lastname'         => 'Mustermann',
+            'email'            => 'foo@example.com',
+            'password'         => 'test1234',
             'password_confirm' => 'test1234',
-            'community_pw' => 'swoswo',
-            'newsletter' => true
+            'community_pw'     => 'swoswo',
+            'newsletter'       => true,
         ];
 
         $response = $this->json('post', 'api/auth/register', $formData);
@@ -82,7 +82,7 @@ class AuthControllerTest extends TestCase
         ])->assertResponseOk();
 
         $this->json('post', 'api/auth/login', [
-            'email' => $formData['email'],
+            'email'    => $formData['email'],
             'password' => $formData['password'],
         ])->assertResponseOk();
     }
@@ -90,7 +90,7 @@ class AuthControllerTest extends TestCase
     public function testInvalidRegister()
     {
         $this->json('post', 'api/auth/register', [
-            'password_confirm' => 'Welcome01'
+            'password_confirm' => 'Welcome01',
         ])->assertResponseStatus(406);
         $response = $this->responseToArray();
 
@@ -108,7 +108,7 @@ class AuthControllerTest extends TestCase
     {
         $userEmail = factory(\App\User::class)->create()->email;
         $this->json('post', 'api/auth/register', [
-            'email' => $userEmail
+            'email' => $userEmail,
         ])->assertResponseStatus(406);
 
         $this->assertContains('Ein Nutzer für diese E-Mail Adresse existiert bereits!', $this->responseToArray());
@@ -131,11 +131,11 @@ class AuthControllerTest extends TestCase
     {
         $user = factory(\App\User::class, 'user_with_admin')->create();
         $payload = [
-            'iss' => "izivi-api", // Issuer of the token
-            'sub' => $user->id, // Subject of the token
+            'iss'     => "izivi-api", // Issuer of the token
+            'sub'     => $user->id, // Subject of the token
             'isAdmin' => $user->isAdmin(),
-            'iat' => time(), // Time when JWT was issued.
-            'exp' => time() + 60*60*24, // Expiration time,
+            'iat'     => time(), // Time when JWT was issued.
+            'exp'     => time() + 60*60*24, // Expiration time,
         ];
 
         // As you can see we are passing `JWT_SECRET` as the second parameter that will

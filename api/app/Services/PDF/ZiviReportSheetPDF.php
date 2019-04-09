@@ -26,9 +26,30 @@ class ZiviReportSheetPDF extends PDF
     private $additional_offset = 5;
     private $max_rendered_comment_lines = 2;
 
-    private $col = array(65, 90, 113, 131, 149, 168);
-    private $shade_width = array(24, 22, 17, 17, 17, 22);
-    private $col_title = array("Taschengeld", "Unterkunft", "Morgen", "Mittag", "Abend", "Total");
+    private $col = [
+        65,
+        90,
+        113,
+        131,
+        149,
+        168,
+    ];
+    private $shade_width = [
+        24,
+        22,
+        17,
+        17,
+        17,
+        22,
+    ];
+    private $col_title = [
+        "Taschengeld",
+        "Unterkunft",
+        "Morgen",
+        "Mittag",
+        "Abend",
+        "Total",
+    ];
 
     private $user;
     private $reportSheet;

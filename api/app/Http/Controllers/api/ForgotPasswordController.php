@@ -22,7 +22,7 @@ class ForgotPasswordController extends Controller
 
         $email = $request->only('email')['email'];
 
-        $errors = array();
+        $errors = [];
 
         if (User::where('email', '=', $email)->first()==null) {
             $errors[] = "Für diese E-Mailadresse besteht kein Account.";
@@ -62,7 +62,7 @@ class ForgotPasswordController extends Controller
 
     public function resetPassword(Request $request)
     {
-        $errors = array();
+        $errors = [];
 
         $password = Input::get("new_password");
 

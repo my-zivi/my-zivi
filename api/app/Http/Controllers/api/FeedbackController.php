@@ -131,7 +131,7 @@ class FeedbackController extends Controller
     */
     private function getFeedbacksTypeRange($questionId)
     {
-        $results = array();
+        $results = [];
 
         for ($i = 1; $i <= 6; $i++) {
             if ($this->feedback_id != null) {

@@ -50,12 +50,12 @@ class ReportSheetControllerTest extends \TestCase
 
         factory(ReportSheet::class)->create();
         factory(ReportSheet::class)->create([
-            'state' => 0,
-            'user_id' => $user->id
-        ]);
+                                       'state'   => 0,
+                                       'user_id' => $user->id,
+                                   ]);
         $validReportSheet = factory(ReportSheet::class)->create([
-            'state' => 3,
-            'user_id' => $user->id
+            'state'   => 3,
+            'user_id' => $user->id,
         ]);
 
         $this->asUser($user)->json('GET', 'api/report_sheets')->assertResponseOk();
@@ -78,23 +78,23 @@ class ReportSheetControllerTest extends \TestCase
     public function testIndexAsAdminCurrentFilter()
     {
         factory(ReportSheet::class, 5)->create([
-            'state' => 3
-        ]);
+                                          'state' => 3,
+                                      ]);
 
         factory(ReportSheet::class, 5)->create([
-            'state' => 2
-        ]);
+                                          'state' => 2,
+                                      ]);
 
         factory(ReportSheet::class, 5)->create([
-            'state' => 1
-        ]);
+                                          'state' => 1,
+                                      ]);
 
         factory(ReportSheet::class, 5)->create([
-            'state' => 0
-        ]);
+                                          'state' => 0,
+                                      ]);
 
         $this->asAdmin()->json('GET', 'api/report_sheets', [
-            'state' => 'current'
+            'state' => 'current',
         ])->assertResponseOk();
         $this->assertCount(5, $this->responseToArray());
     }
@@ -102,23 +102,23 @@ class ReportSheetControllerTest extends \TestCase
     public function testIndexAsAdminPendingFilter()
     {
         factory(ReportSheet::class, 5)->create([
-            'state' => 3
-        ]);
+                                          'state' => 3,
+                                      ]);
 
         factory(ReportSheet::class, 5)->create([
-            'state' => 2
-        ]);
+                                          'state' => 2,
+                                      ]);
 
         factory(ReportSheet::class, 5)->create([
-            'state' => 1
-        ]);
+                                          'state' => 1,
+                                      ]);
 
         factory(ReportSheet::class, 5)->create([
-            'state' => 0
-        ]);
+                                          'state' => 0,
+                                      ]);
 
         $this->asAdmin()->json('GET', 'api/report_sheets', [
-            'state' => 'pending'
+            'state' => 'pending',
         ])->assertResponseOk();
         $this->assertCount(15, $this->responseToArray());
     }
@@ -126,23 +126,23 @@ class ReportSheetControllerTest extends \TestCase
     public function testIndexAsAdminReadyForPaymentFilter()
     {
         factory(ReportSheet::class, 5)->create([
-            'state' => 3
-        ]);
+                                          'state' => 3,
+                                      ]);
 
         factory(ReportSheet::class, 5)->create([
-            'state' => 2
-        ]);
+                                          'state' => 2,
+                                      ]);
 
         factory(ReportSheet::class, 5)->create([
-            'state' => 1
-        ]);
+                                          'state' => 1,
+                                      ]);
 
         factory(ReportSheet::class, 5)->create([
-            'state' => 0
-        ]);
+                                          'state' => 0,
+                                      ]);
 
         $this->asAdmin()->json('GET', 'api/report_sheets', [
-            'state' => 'ready_for_payment'
+            'state' => 'ready_for_payment',
         ])->assertResponseOk();
         $response = $this->responseToArray();
 

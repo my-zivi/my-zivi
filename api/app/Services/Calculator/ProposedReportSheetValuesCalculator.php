@@ -20,15 +20,15 @@ class ProposedReportSheetValuesCalculator
         $specification = $mission->specification;
 
         $proposedValues = [
-            'company_holidays_as_zivi_holidays' => 0,
+            'company_holidays_as_zivi_holidays'  => 0,
             'company_holidays_as_zivi_vacations' => 0,
-            'costs_clothes' => 0,
-            'costs_sparetime' => 0,
-            'holidays_left' => $mission->eligible_holiday - $mission->taken_holidays,
-            'illness_days_left' => $mission->illness_days_left,
-            'total' => 0,
-            'workdays' => 0,
-            'work_free_days' => 0
+            'costs_clothes'                      => 0,
+            'costs_sparetime'                    => 0,
+            'holidays_left'                      => $mission->eligible_holiday - $mission->taken_holidays,
+            'illness_days_left'                  => $mission->illness_days_left,
+            'total'                              => 0,
+            'workdays'                           => 0,
+            'work_free_days'                     => 0,
         ];
 
         // Calculate worked days
@@ -76,8 +76,16 @@ class ProposedReportSheetValuesCalculator
         }
 
         return !is_null(Holiday::where([
-            ['date_from', '<=', $date],
-            ['date_to', '>=', $date]
+            [
+                'date_from',
+                '<=',
+                $date,
+            ],
+            [
+                'date_to',
+                '>=',
+                $date,
+            ],
         ])->whereNotIn('holiday_type_id', [$companyVacationType->id])->first());
     }
 
@@ -90,9 +98,21 @@ class ProposedReportSheetValuesCalculator
         }
 
         return !is_null(Holiday::where([
-            ['holiday_type_id','=', $companyVacationType->id],
-            ['date_from', '<=', $date],
-            ['date_to', '>=', $date]
+            [
+                'holiday_type_id',
+                '=',
+                $companyVacationType->id,
+            ],
+            [
+                'date_from',
+                '<=',
+                $date,
+            ],
+            [
+                'date_to',
+                '>=',
+                $date,
+            ],
         ])->first());
     }
 }

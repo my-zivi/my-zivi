@@ -33,7 +33,7 @@ class PhoneListPDF extends PDF
         parent::__construct(true);
         $this->startDate = $from;
         $this->endDate = $to;
-        $this->zivis = array();
+        $this->zivis = [];
 
         $specifications = Specification::select('*', 'id')->get();
         foreach ($specifications as $specification) {
@@ -44,7 +44,10 @@ class PhoneListPDF extends PDF
                 ->orderBy('last_name', 'first_name')->get();
 
             if (count($zivis)>0) {
-                $this->zivis[] = array("pflichtenheftName" => $specification->name, "zivis" => $zivis);
+                $this->zivis[] = [
+                    "pflichtenheftName" => $specification->name,
+                    "zivis"             => $zivis,
+                ];
             }
         }
 
@@ -85,6 +88,7 @@ class PhoneListPDF extends PDF
 
     /**
      * Prints the information of all zivis of one pflichtenheft
+     *
      * @param FPDF $pdf The PDF document
      * @param string $pflichtenheftName The name of the pflichtenheft
      * @param array $zivis The zivis which work in a certain pflichtenheft
@@ -129,6 +133,7 @@ class PhoneListPDF extends PDF
 
     /**
      * Adds a new page to the document and places cursor to the top of it
+     *
      * @param FPDF $pdf The PDF document
      * @param int $cx The x-coordinate where the row is printed
      * @param int $cy The y-coordinate where the row is printed
@@ -167,6 +172,7 @@ class PhoneListPDF extends PDF
 
     /**
      * Prints a row of the phone list
+     *
      * @param FPDF $pdf The PDF document
      * @param array $zivi The zivi which is displayed in the row
      * @param int $cx The x-coordinate where the row is printed
@@ -207,7 +213,8 @@ class PhoneListPDF extends PDF
     /**
      * Gets the best suitable phone number of a Zivi
      * 1. priority: Mobile phone, 2. priority: Private, 3. priority: Business
-     * @param array $zivi The zivi with the phone number
+     *
+     * @param  array $zivi The zivi with the phone number
      * @return String with the phone number
      */
     private function getZiviPhoneNumber(&$zivi, &$typeOfNumber)

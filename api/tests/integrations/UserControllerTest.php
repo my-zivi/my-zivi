@@ -102,12 +102,12 @@ class UserControllerTest extends TestCase
         $old = 'oldpass';
         $new = 'newpass';
         $self = factory(User::class)->create([
-            'password' => app('hash')->make($old)
+            'password' => app('hash')->make($old),
         ]);
 
         $response = $this->asUser($self)->json('POST', 'api/users/change_password', [
-            'old_password' => $old,
-            'new_password' => $new,
+            'old_password'   => $old,
+            'new_password'   => $new,
             'new_password_2' => $new,
         ]);
 
@@ -115,13 +115,13 @@ class UserControllerTest extends TestCase
         $this->assertSame('Ihr Passwort wurde angepasst.', $response->response->getOriginalContent());
 
         $this->json('post', 'api/auth/login', [
-            'email' => $self->email,
-            'password' => $old
+            'email'    => $self->email,
+            'password' => $old,
         ])->assertResponseStatus(400);
 
         $this->json('post', 'api/auth/login', [
-            'email' => $self->email,
-            'password' => $new
+            'email'    => $self->email,
+            'password' => $new,
         ])->assertResponseOk();
     }
 
@@ -136,7 +136,7 @@ class UserControllerTest extends TestCase
     {
         $self = factory(User::class)->create();
         $this->asUser($self)->json('POST', 'api/users/change_password', [
-            'old_password' => 'schabdudisianidniasdasq2413'
+            'old_password' => 'schabdudisianidniasdasq2413',
         ])->assertResponseStatus(406);
         $this->assertContains('Altes Passwort stimmt nicht!', $this->responseToArray());
     }
@@ -145,13 +145,13 @@ class UserControllerTest extends TestCase
     {
         $old = 'oldpass';
         $self = factory(User::class)->create([
-            'password' => app('hash')->make($old)
+            'password' => app('hash')->make($old),
         ]);
 
         $this->asUser($self)->json('POST', 'api/users/change_password', [
-            'old_password' => $old,
-            'new_password' => 'Hans',
-            'new_password_2' => 'Heiri'
+            'old_password'   => $old,
+            'new_password'   => 'Hans',
+            'new_password_2' => 'Heiri',
         ])->assertResponseStatus(406);
         $this->assertContains('Die neuen Passwörter stimmen nicht überein!', $this->responseToArray());
     }
@@ -160,13 +160,13 @@ class UserControllerTest extends TestCase
     {
         $old = 'oldpass';
         $self = factory(User::class)->create([
-            'password' => app('hash')->make($old)
+            'password' => app('hash')->make($old),
         ]);
 
         $this->asUser($self)->json('POST', 'api/users/change_password', [
-            'old_password' => $old,
-            'new_password' => 'Hans',
-            'new_password_2' => 'Hans'
+            'old_password'   => $old,
+            'new_password'   => 'Hans',
+            'new_password_2' => 'Hans',
         ])->assertResponseStatus(406);
         $this->assertContains('Das Passwort muss aus mindestens 7 Zeichen bestehen!', $this->responseToArray());
     }

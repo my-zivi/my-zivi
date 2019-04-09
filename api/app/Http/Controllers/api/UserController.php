@@ -16,7 +16,7 @@ class UserController extends Controller
 {
     public function changePassword(Request $request)
     {
-        $errors = array();
+        $errors = [];
 
         $user = Auth::user();
 
@@ -95,24 +95,26 @@ class UserController extends Controller
     {
         // SOURCE FOR BIC REGEX: https://www.regextester.com/98275
         return [
-            'address' => 'required|string',
-            'bank_bic' => [
-                'required', 'string', 'regex:/([a-zA-Z]{4})([a-zA-Z]{2})(([2-9a-zA-Z]{1})([0-9a-np-zA-NP-Z]{1}))((([0-9a-wy-zA-WY-Z]{1})([0-9a-zA-Z]{2}))|([xX]{3})|)/'
+            'address'            => 'required|string',
+            'bank_bic'           => [
+                'required',
+                'string',
+                'regex:/([a-zA-Z]{4})([a-zA-Z]{2})(([2-9a-zA-Z]{1})([0-9a-np-zA-NP-Z]{1}))((([0-9a-wy-zA-WY-Z]{1})([0-9a-zA-Z]{2}))|([xX]{3})|)/',
             ],
-            'bank_iban' => 'required|string|regex:/^CH\d{2,2}\s{0,1}(\w{4,4}\s{0,1}){4,7}\w{0,2}$/',
-            'birthday' => 'required|date',
-            'chainsaw_workshop' => 'required|boolean',
-            'city' => 'required|string',
-            'driving_licence_b' => 'required|boolean',
+            'bank_iban'          => 'required|string|regex:/^CH\d{2,2}\s{0,1}(\w{4,4}\s{0,1}){4,7}\w{0,2}$/',
+            'birthday'           => 'required|date',
+            'chainsaw_workshop'  => 'required|boolean',
+            'city'               => 'required|string',
+            'driving_licence_b'  => 'required|boolean',
             'driving_licence_be' => 'required|boolean',
-            'first_name' => 'required|string',
-            'health_insurance' => 'required|string',
-            'hometown' => 'required|string',
-            'last_name' => 'required|string',
-            'phone' => 'required|string',
+            'first_name'         => 'required|string',
+            'health_insurance'   => 'required|string',
+            'hometown'           => 'required|string',
+            'last_name'          => 'required|string',
+            'phone'              => 'required|string',
             'regional_center_id' => 'required|integer',
-            'work_experience' => 'required|string',
-            'zip' => 'required|integer',
+            'work_experience'    => 'required|string',
+            'zip'                => 'required|integer',
         ];
     }
 
@@ -120,7 +122,7 @@ class UserController extends Controller
     {
         return [
             'internal_note' => 'string',
-            'role_id' => 'required|integer',
+            'role_id'       => 'required|integer',
         ];
     }
 }

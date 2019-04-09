@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Log extends Model
 {
-    protected $fillable = ['id',
-                           'ip',
-                           'user',
-                           'message'
-                        ];
+    protected $fillable = [
+        'id',
+        'ip',
+        'user',
+        'message',
+    ];
 }

@@ -18,9 +18,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Laravel\Lumen\Routing\Router;
 
-/** @var Router $router */
+/**
+ * @var Router $router
+*/
 $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($router) {
-    /** @var Router $router */
+    /**
+ * @var Router $router
+*/
     // Auth - Public
     $router->post('/auth/login', ['uses' => 'AuthController@postLogin']);
     $router->post('/auth/register', ['uses' => 'AuthController@postRegister']);
@@ -28,9 +32,11 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
     $router->post('/auth/resetPassword', ['uses' => 'ForgotPasswordController@resetPassword']);
 
     $router->group(['middleware' => 'auth'], function ($router) {
-        /** @var Router $router */
+        /**
+ * @var Router $router
+*/
         // Authentication - Authenticated
-        $router->patch('/auth/refresh', ['uses' => 'AuthController@patchRefresh',]);
+        $router->patch('/auth/refresh', ['uses' => 'AuthController@patchRefresh']);
 
         // User - Authenticated
         $router->group(['prefix' => 'missions'], function () use ($router) {
@@ -73,7 +79,9 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
 
         // Admins only
         $router->group(['middleware' => 'role'], function ($router) {
-            /** @var Router $router */
+            /**
+ * @var Router $router
+*/
             // Root - Admins
             $router->get('/api', ['uses' => 'APIController@getIndex']);
 

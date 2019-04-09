@@ -9,7 +9,8 @@ class Mission extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['id',
+    protected $fillable = [
+        'id',
         'user_id',
         'specification_id', // "Pflichtenheft"
         'start',
@@ -22,13 +23,13 @@ class Mission extends Model
         'probation_period',
         'feedback_mail_sent',
         'feedback_done',
-        'days'
+        'days',
     ];
 
     protected $casts = [
-        'end' => 'date',
+        'end'        => 'date',
         'first_time' => 'boolean',
-        'start' => 'date'
+        'start'      => 'date',
     ];
 
     public function report_sheets()

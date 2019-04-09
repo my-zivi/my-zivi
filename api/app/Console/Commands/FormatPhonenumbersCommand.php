@@ -61,12 +61,12 @@ class FormatPhonenumbersCommand extends Command
                             $user[$key] = $formatted;
 
                             $result[] = [
-                                'id' => $user->id,
-                                'name' => $user->first_name . ' ' . $user->last_name,
-                                'status' => 'formatted',
+                                'id'          => $user->id,
+                                'name'        => $user->first_name . ' ' . $user->last_name,
+                                'status'      => 'formatted',
                                 'number_type' => substr($key, 6),
-                                'before' => $number,
-                                'after' => $formatted,
+                                'before'      => $number,
+                                'after'       => $formatted,
                             ];
                         }
                     }
@@ -75,12 +75,12 @@ class FormatPhonenumbersCommand extends Command
                 }
                 if (!$valid) {
                     $result[] = [
-                        'id' => $user->id,
-                        'name' => $user->first_name . ' ' . $user->last_name,
-                        'status' => 'invalid',
+                        'id'          => $user->id,
+                        'name'        => $user->first_name . ' ' . $user->last_name,
+                        'status'      => 'invalid',
                         'number_type' => substr($key, 6),
-                        'before' => $number,
-                        'after' => '',
+                        'before'      => $number,
+                        'after'       => '',
                     ];
                 }
             }
@@ -111,7 +111,12 @@ class FormatPhonenumbersCommand extends Command
 
         if (!empty($table)) {
             $this->table([
-                'ID', 'User', 'Status', 'Typ', 'Vorher', 'Nacher',
+                'ID',
+                'User',
+                'Status',
+                'Typ',
+                'Vorher',
+                'Nacher',
             ], $table, 'compact');
         }
 

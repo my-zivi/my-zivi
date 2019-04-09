@@ -44,7 +44,8 @@ abstract class PDF
     // TODO check how we can optimize those ugly helpers
     /**
      * Converts a unix timestamp to a iso date (YYYY-MM-DD).
-     * @param int $timestamp A unix timestamp
+     *
+     * @param  int $timestamp A unix timestamp
      * @return false|string
      */
     protected function timestamp2iso($timestamp)

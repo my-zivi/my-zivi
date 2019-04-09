@@ -32,11 +32,11 @@ class AuthController extends Controller
     protected function jwt(User $user)
     {
         $payload = [
-            'iss' => "izivi-api", // Issuer of the token
-            'sub' => $user->id, // Subject of the token
+            'iss'     => "izivi-api", // Issuer of the token
+            'sub'     => $user->id, // Subject of the token
             'isAdmin' => $user->isAdmin(),
-            'iat' => time(), // Time when JWT was issued.
-            'exp' => time() + 60*60*24, // Expiration time,
+            'iat'     => time(), // Time when JWT was issued.
+            'exp'     => time() + 60*60*24, // Expiration time,
         ];
 
         // As you can see we are passing `JWT_SECRET` as the second parameter that will
@@ -55,7 +55,7 @@ class AuthController extends Controller
     {
         try {
             $this->validate($request, [
-                'email' => 'required|email|max:255',
+                'email'    => 'required|email|max:255',
                 'password' => 'required',
             ]);
         } catch (ValidationException $e) {
@@ -71,7 +71,7 @@ class AuthController extends Controller
             // differents kind of responses. But let's return the
             // below response for now.
             return response()->json([
-                'error' => 'Email does not exist.'
+                'error' => 'Email does not exist.',
             ], 400);
         }
 
@@ -79,22 +79,22 @@ class AuthController extends Controller
         if (Hash::check($request->input('password'), $user->password)) {
             return new JsonResponse([
                 'message' => 'token_generated',
-                'data' => [
+                'data'    => [
                     'token' => $this->jwt($user),
-                ]
+                ],
             ]);
         }
 
         // Bad Request response
         return response()->json([
-            'error' => 'Email or password is wrong.'
+            'error' => 'Email or password is wrong.',
         ], 400);
     }
 
     public function postRegister(Request $request)
     {
         // TODO rework this method to use the default laravel request validations
-        $errors = array();
+        $errors = [];
 
         if (empty($request->input("firstname"))) {
             $errors['Vorname'] = 'Vorname darf nicht leer sein!';
@@ -165,9 +165,9 @@ class AuthController extends Controller
 
         return new JsonResponse([
             'message' => 'token_refreshed',
-            'data' => [
-                'token' => $this->jwt($user)
-            ]
+            'data'    => [
+                'token' => $this->jwt($user),
+            ],
         ]);
     }
 }

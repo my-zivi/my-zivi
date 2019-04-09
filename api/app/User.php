@@ -23,9 +23,26 @@ class User extends Model implements
      *
      * @var array
      */
-    protected $fillable = ['address', 'bank_bic', 'bank_iban', 'birthday', 'chainsaw_workshop', 'city',
-        'driving_licence_b', 'driving_licence_be', 'email', 'first_name', 'internal_note', 'hometown', 'last_name',
-        'phone', 'regional_center_id', 'role_id', 'work_experience', 'zdp', 'zip',
+    protected $fillable = [
+        'address',
+        'bank_bic',
+        'bank_iban',
+        'birthday',
+        'chainsaw_workshop',
+        'city',
+        'driving_licence_b',
+        'driving_licence_be',
+        'email',
+        'first_name',
+        'internal_note',
+        'hometown',
+        'last_name',
+        'phone',
+        'regional_center_id',
+        'role_id',
+        'work_experience',
+        'zdp',
+        'zip',
     ];
 
     protected $appends = [
@@ -45,8 +62,8 @@ class User extends Model implements
     ];
 
     protected $casts = [
-        'chainsaw_workshop' => 'boolean',
-        'driving_licence_b' => 'boolean',
+        'chainsaw_workshop'  => 'boolean',
+        'driving_licence_b'  => 'boolean',
         'driving_licence_be' => 'boolean',
     ];
 

@@ -12,8 +12,8 @@ class MissionDayController extends Controller
     public function eligibleDays(Request $request)
     {
         $validatedData = $this->validate($request, [
-           'end' => 'required|date',
-           'start' => 'required|date'
+            'end'   => 'required|date',
+            'start' => 'required|date',
         ]);
 
         $carbonizedStart = Carbon::parse($validatedData['start']);
@@ -25,8 +25,8 @@ class MissionDayController extends Controller
     public function possibleEndDate(Request $request)
     {
         $validatedData = $this->validate($request, [
-            'days' => 'required|integer',
-            'start' => 'required|date'
+            'days'  => 'required|integer',
+            'start' => 'required|date',
         ]);
 
         $carbonizedStart = Carbon::parse($validatedData['start']);

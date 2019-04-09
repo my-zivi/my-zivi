@@ -161,7 +161,7 @@ class PaymentController extends Controller
         }
 
         return [
-            'xml' => $xml,
+            'xml'      => $xml,
             'filename' => $this->generatePaymentName($payment),
         ];
     }

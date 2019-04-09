@@ -30,20 +30,20 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
     public function asAdmin()
     {
         $user = factory(User::class)->create([
-            'role_id' => 1
+            'role_id' => 1,
         ]);
         return $this->actingAs($user);
     }
 
     /**
-     * @param User|null $user
+     * @param  User|null $user
      * @return TestCase
      */
     public function asUser($user = null)
     {
         if (!$user) {
             $user = factory(User::class)->create([
-                'role_id' => 2
+                'role_id' => 2,
             ]);
         }
         return $this->actingAs($user);

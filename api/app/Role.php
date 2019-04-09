@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    protected $fillable = ['id',
-                           'name',
-                           'hierarchy'
-                        ];
+    protected $fillable = [
+        'id',
+        'name',
+        'hierarchy',
+    ];
 }

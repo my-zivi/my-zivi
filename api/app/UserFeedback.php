@@ -8,7 +8,12 @@ class UserFeedback extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['answer', 'questionId', 'user_id', 'year' ];
+    protected $fillable = [
+        'answer',
+        'questionId',
+        'user_id',
+        'year',
+    ];
 
     public function user()
     {

@@ -51,15 +51,15 @@ class FeedbackControllerTest extends TestCase
 
         $this->asUser()->json('POST', 'api/user_feedbacks', [
             'missionId' => $mission->id,
-            'answers' => [
+            'answers'   => [
                 [
-                    'id' => $userFeedbackQuestion1->id,
-                    'answer' => 'some value'
+                    'id'     => $userFeedbackQuestion1->id,
+                    'answer' => 'some value',
                 ], [
-                    'id' => $userFeedbackQuestion2->id,
-                    'answer' => 'some other value'
-                ]
-            ]
+                    'id'     => $userFeedbackQuestion2->id,
+                    'answer' => 'some other value',
+                ],
+            ],
         ])->assertResponseOk();
 
         $this->assertCount($countBeforeInsert + 2, UserFeedback::all());

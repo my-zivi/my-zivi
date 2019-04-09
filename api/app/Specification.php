@@ -9,7 +9,8 @@ class Specification extends Model
     public $timestamps = false;
     public $incrementing = false;
 
-    protected $fillable = ['id',
+    protected $fillable = [
+        'id',
         'name',
         'short_name',
         'working_clothes_payment',
@@ -31,16 +32,16 @@ class Specification extends Model
         'accommodation',
         'pocket',
         'manualfile',
-        'active'
+        'active',
     ];
 
     protected $casts = [
-        'active' => 'boolean'
+        'active' => 'boolean',
     ];
 
     protected $attributes = [
-        'manual_file' => 'conditions.pdf',
-        'working_time_model' => false,
+        'manual_file'         => 'conditions.pdf',
+        'working_time_model'  => false,
         'working_time_weekly' => '42h',
     ];
 

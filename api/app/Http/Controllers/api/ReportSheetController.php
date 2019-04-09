@@ -40,7 +40,7 @@ class ReportSheetController extends Controller
             return $reportSheets;
         } else {
             $validatedData = $this->validate($request, [
-                'state' => [ Rule::in(['current', 'pending', 'ready_for_payment']), ]
+                'state' => [ Rule::in(['current', 'pending', 'ready_for_payment']) ],
             ]);
 
             if (!empty($validatedData['state']) && $validatedData['state'] === 'ready_for_payment') {
@@ -78,7 +78,7 @@ class ReportSheetController extends Controller
     public function putState($id, Request $request)
     {
         $validatedData = $this->validate($request, [
-            'state' => 'required|integer'
+            'state' => 'required|integer',
         ]);
 
         $reportSheet = ReportSheet::findOrFail($id);
@@ -91,33 +91,33 @@ class ReportSheetController extends Controller
     private function validateRequest(Request $request)
     {
         return $this->validate($request, [
-            'additional_workfree' => 'integer|nullable',
+            'additional_workfree'         => 'integer|nullable',
             'additional_workfree_comment' => 'string|nullable',
-            'bank_account_number' => 'required|string',
-            'clothes' => 'integer|nullable',
-            'clothes_comment' => 'string|nullable',
-            'company_holiday_vacation' => 'integer|nullable',
-            'company_holiday_comment' => 'string|nullable',
-            'company_holiday_holiday' => 'integer|nullable',
-            'document_number' => 'integer|nullable',
-            'driving_charges' => 'required|integer',
-            'driving_charges_comment' => 'string|nullable',
-            'end' => 'required|date',
-            'extraordinarily' => 'required|integer',
-            'extraordinarily_comment' => 'string|nullable',
-            'holiday' => 'required|integer',
-            'holiday_comment' => 'string|nullable',
-            'ignore_first_last_day' => 'required|boolean',
-            'ill' => 'required|integer',
-            'ill_comment' => 'string|nullable',
-            'start' => 'required|date',
-            'state' => 'required|integer',
-            'vacation' => 'required|integer',
-            'vacation_comment' => 'string|nullable',
-            'work' => 'integer|nullable',
-            'work_comment' => 'string|nullable',
-            'workfree' => 'integer|nullable',
-            'workfree_comment' => 'string|nullable'
+            'bank_account_number'         => 'required|string',
+            'clothes'                     => 'integer|nullable',
+            'clothes_comment'             => 'string|nullable',
+            'company_holiday_vacation'    => 'integer|nullable',
+            'company_holiday_comment'     => 'string|nullable',
+            'company_holiday_holiday'     => 'integer|nullable',
+            'document_number'             => 'integer|nullable',
+            'driving_charges'             => 'required|integer',
+            'driving_charges_comment'     => 'string|nullable',
+            'end'                         => 'required|date',
+            'extraordinarily'             => 'required|integer',
+            'extraordinarily_comment'     => 'string|nullable',
+            'holiday'                     => 'required|integer',
+            'holiday_comment'             => 'string|nullable',
+            'ignore_first_last_day'       => 'required|boolean',
+            'ill'                         => 'required|integer',
+            'ill_comment'                 => 'string|nullable',
+            'start'                       => 'required|date',
+            'state'                       => 'required|integer',
+            'vacation'                    => 'required|integer',
+            'vacation_comment'            => 'string|nullable',
+            'work'                        => 'integer|nullable',
+            'work_comment'                => 'string|nullable',
+            'workfree'                    => 'integer|nullable',
+            'workfree_comment'            => 'string|nullable',
         ]);
     }
 }

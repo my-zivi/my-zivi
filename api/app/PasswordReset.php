@@ -14,7 +14,8 @@ class PasswordReset extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['email',
-        'token'
+    protected $fillable = [
+        'email',
+        'token',
     ];
 }

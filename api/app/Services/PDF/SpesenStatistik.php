@@ -327,12 +327,63 @@ class SpesenStatistik extends PDF
         $this->SUBTOTAL_COLOR_G = 210;
         $this->SUBTOTAL_COLOR_B = 210;
 
-        $COL_LBL = array('ID', 'Name', 'Meldeperiode', 'Arbeitstage', 'Arbeitsfrei', 'Krankheit', 'Ferientage', 'Urlaubstage', 'Wegspesen', 'Kleider', 'Extra', 'Total');
-        $COL_UNIT = array('', '', '', '', '', '', 'Tage', 'Fr.', 'Tage', 'Fr.', 'Tage', 'Fr.', 'Tage', 'Fr.', 'Tage', 'Fr.', '', 'Fr.', 'Tage', 'Fr.', '', 'Fr.', 'Tage', 'Fr.');
-        $COL_LBL_X = array(0, 12, 50, 75, 97, 119, 141, 163, 187, 209, 230, 245);
-        $COL_UNIT_X = array();
-        $SHADE_LBL = array();
-        $SHADE_UNIT = array();
+        $COL_LBL = [
+            'ID',
+            'Name',
+            'Meldeperiode',
+            'Arbeitstage',
+            'Arbeitsfrei',
+            'Krankheit',
+            'Ferientage',
+            'Urlaubstage',
+            'Wegspesen',
+            'Kleider',
+            'Extra',
+            'Total',
+        ];
+        $COL_UNIT = [
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            'Tage',
+            'Fr.',
+            'Tage',
+            'Fr.',
+            'Tage',
+            'Fr.',
+            'Tage',
+            'Fr.',
+            'Tage',
+            'Fr.',
+            '',
+            'Fr.',
+            'Tage',
+            'Fr.',
+            '',
+            'Fr.',
+            'Tage',
+            'Fr.',
+        ];
+        $COL_LBL_X = [
+            0,
+            12,
+            50,
+            75,
+            97,
+            119,
+            141,
+            163,
+            187,
+            209,
+            230,
+            245,
+        ];
+        $COL_UNIT_X = [];
+        $SHADE_LBL = [];
+        $SHADE_UNIT = [];
 
         // Generiere automatische Schattierungsbreiten //
         for ($i = 0; $i < count($COL_LBL_X) - 1; $i++) {
@@ -600,16 +651,17 @@ class SpesenStatistik extends PDF
 
     private function generateEmptyGeldOrTageArray()
     {
-        return array('arbeitstage' => 0,
+        return [
+            'arbeitstage'      => 0,
             'arbeitsfreietage' => 0,
-            'krankheitstage' => 0,
-            'ferientage' => 0,
-            'urlaubstage' => 0,
-            'fahrspesen' => 0,
-            'arbeitskleider' => 0,
+            'krankheitstage'   => 0,
+            'ferientage'       => 0,
+            'urlaubstage'      => 0,
+            'fahrspesen'       => 0,
+            'arbeitskleider'   => 0,
             'ausserordentlich' => 0,
-            'sum' => 0
-        );
+            'sum'              => 0,
+        ];
     }
 
     private function getMeldeblaetterInPeriod(Carbon $start_TS, Carbon $end_TS)
@@ -670,32 +722,34 @@ class SpesenStatistik extends PDF
         $spesen = ReportSheet::findOrFail($meldeblatt);
 
         // Add first & last day to arbeitstage, since they are not considered yet in getSpesen.
-        $tage = array('arbeitstage' => $spesen->work + $spesen->first_day + $spesen->last_day,
+        $tage = [
+            'arbeitstage'      => $spesen->work + $spesen->first_day + $spesen->last_day,
             'arbeitsfreietage' => $spesen->workfree + $spesen->additional_workfree,
-            'krankheitstage' => $spesen->ill,
-            'ferientage' => $spesen->holiday + $spesen->company_holiday_holiday,
-            'urlaubstage' => $spesen->vacation + $spesen->company_holiday_vacation,
-            'arbeitskleider' => $spesen->clothes_days
-        );
+            'krankheitstage'   => $spesen->ill,
+            'ferientage'       => $spesen->holiday + $spesen->company_holiday_holiday,
+            'urlaubstage'      => $spesen->vacation + $spesen->company_holiday_vacation,
+            'arbeitskleider'   => $spesen->clothes_days,
+        ];
 
         $geld_arbeitstage = $spesen->work_days_costs + $spesen->first_day_costs + $spesen->last_day_costs;
 
-        $geld = array('arbeitstage' => $this->getRoundedRappen($geld_arbeitstage / 100),
+        $geld = [
+            'arbeitstage'      => $this->getRoundedRappen($geld_arbeitstage / 100),
             'arbeitsfreietage' => $this->getRoundedRappen($spesen->work_free_days_costs / 100),
-            'krankheitstage' => $this->getRoundedRappen($spesen->ill_days_costs / 100),
-            'ferientage' => $this->getRoundedRappen($spesen->holidays_costs / 100),
-            'urlaubstage' => 0,
-            'fahrspesen' => $this->getRoundedRappen($spesen->driving_charges  / 100),
-            'arbeitskleider' => $this->getRoundedRappen($spesen->clothes / 100),
-            'ausserordentlich' => $this->getRoundedRappen($spesen->extraordinarily / 100)
-        );
+            'krankheitstage'   => $this->getRoundedRappen($spesen->ill_days_costs / 100),
+            'ferientage'       => $this->getRoundedRappen($spesen->holidays_costs / 100),
+            'urlaubstage'      => 0,
+            'fahrspesen'       => $this->getRoundedRappen($spesen->driving_charges  / 100),
+            'arbeitskleider'   => $this->getRoundedRappen($spesen->clothes / 100),
+            'ausserordentlich' => $this->getRoundedRappen($spesen->extraordinarily / 100),
+        ];
 
         $geld['sum'] = $geld['arbeitstage'] + $geld['arbeitsfreietage'] + $geld['krankheitstage']
             + $geld['ferientage'] + $geld['fahrspesen'] + $geld['arbeitskleider']
             + $geld['ausserordentlich'];
         $tage['sum'] = $tage['arbeitstage'] + $tage['arbeitsfreietage'] + $tage['urlaubstage'] + $tage['ferientage'] + $tage['krankheitstage'];
 
-        return (array('tage' => $tage, 'geld' => $geld));
+        return (['tage' => $tage, 'geld' => $geld]);
     }
 
     private function countMeldeblaetterOf($meldeblaetter, $ziviID)
@@ -711,7 +765,7 @@ class SpesenStatistik extends PDF
 
     private function countNumberOfZivis($meldeblaetter)
     {
-        $eunik = array();
+        $eunik = [];
         foreach ($meldeblaetter as $blatt) {
             if (array_search($blatt['ziviId'], $eunik) === false) {
                 $eunik[] = $blatt['ziviId'];

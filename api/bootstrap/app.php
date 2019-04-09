@@ -83,8 +83,8 @@ $app->middleware([
 ]);
 
 $app->routeMiddleware([
-    'auth' => App\Http\Middleware\Authenticate::class,
-    'role' => App\Http\Middleware\Role::class
+   'auth' => App\Http\Middleware\Authenticate::class,
+   'role' => App\Http\Middleware\Role::class,
 ]);
 
 /*
@@ -120,7 +120,7 @@ $app->register(\Laravel\Tinker\TinkerServiceProvider::class);
 */
 
 $app->router->group([
-    'namespace' => 'App\Http\Controllers'
+   'namespace' => 'App\Http\Controllers',
 ], function ($router) {
     require __DIR__.'/../routes/api.php';
 });

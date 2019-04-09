@@ -6,7 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaymentEntry extends Model
 {
-    protected $fillable = ['amount','iban', 'id', 'payment_id', 'report_sheet_id', 'user_id'];
+    protected $fillable = [
+        'amount',
+        'iban',
+        'id',
+        'payment_id',
+        'report_sheet_id',
+        'user_id',
+    ];
 
     public function report_sheet()
     {

@@ -24,7 +24,7 @@ class PDFController extends Controller
     public function getPhoneList(Request $request)
     {
         $validatedData = $this->validate($request, [
-            'end' => 'required|date',
+            'end'   => 'required|date',
             'start' => 'required|date',
         ]);
 
@@ -56,12 +56,12 @@ class PDFController extends Controller
     {
         // because we use a get request, the bool are sent as string, which ends up kinda ugly
         $this->validate($request, [
-            'date_from' => 'date',
-            'date_to' => 'date',
-            'time_type' => 'integer',
-            'detail_view' => 'string',
+            'date_from'        => 'date',
+            'date_to'          => 'date',
+            'time_type'        => 'integer',
+            'detail_view'      => 'string',
             'only_done_sheets' => 'string',
-            'year' => 'integer',
+            'year'             => 'integer',
         ]);
 
         $statistik = new SpesenStatistik(

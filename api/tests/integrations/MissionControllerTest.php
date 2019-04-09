@@ -53,8 +53,8 @@ class MissionControllerTest extends \TestCase
     {
         $mission = factory(Mission::class)->create([
             'draft' => null,
-            'end' => (new Carbon())->modify('last day of this month')->format('Y-m-d'),
-            'start' => (new Carbon())->subMonth(3)->modify('first day of this month')->format('Y-m-d')
+            'end'   => (new Carbon())->modify('last day of this month')->format('Y-m-d'),
+            'start' => (new Carbon())->subMonth(3)->modify('first day of this month')->format('Y-m-d'),
         ]);
 
         $countOfReportSheetsBeforeCall = count(ReportSheet::all());
@@ -70,8 +70,8 @@ class MissionControllerTest extends \TestCase
     {
         $mission = factory(Mission::class)->create([
             'draft' => null,
-            'end' => (new Carbon())->modify('last day of this month')->format('Y-m-d'),
-            'start' => (new Carbon())->subMonth(3)->modify('first day of this month')->format('Y-m-d')
+            'end'   => (new Carbon())->modify('last day of this month')->format('Y-m-d'),
+            'start' => (new Carbon())->subMonth(3)->modify('first day of this month')->format('Y-m-d'),
         ]);
 
         $this->asUser()->json('PUT', 'api/missions/' . $mission->id . '/received_draft')->assertResponseStatus(401);
@@ -110,13 +110,13 @@ class MissionControllerTest extends \TestCase
     {
         // should return all missions
         factory(Mission::class, 10)->create([
-            'end' => function () {
-                return Carbon::parse('2020-01-01')->addWeeks(rand(26, 51));
-            },
-            'start' => function () {
-                return Carbon::parse('2020-01-01')->addWeeks(rand(1, 25));
-            }
-        ]);
+                                       'end'   => function () {
+                                        return Carbon::parse('2020-01-01')->addWeeks(rand(26, 51));
+                                       },
+                                       'start' => function () {
+                                        return Carbon::parse('2020-01-01')->addWeeks(rand(1, 25));
+                                       },
+                                   ]);
         $this->asAdmin()->json('GET', 'api/missions/2020')->assertResponseOk();
         $this->assertCount(Mission::whereDate('end', '>=', '2020-01-01')
             ->whereDate('start', '<=', '2020-12-31')->count(), $this->responseToArray());
@@ -125,16 +125,16 @@ class MissionControllerTest extends \TestCase
     private function missionTemplate()
     {
         return [
-            'days' => 365,
-            'draft' => true,
-            'end' => '2020-12-31',
-            'first_time' => false,
-            'long_mission' => false,
-            'mission_type' => rand(0, 2),
+            'days'             => 365,
+            'draft'            => true,
+            'end'              => '2020-12-31',
+            'first_time'       => false,
+            'long_mission'     => false,
+            'mission_type'     => rand(0, 2),
             'probation_period' => false,
             'specification_id' => factory(Specification::class)->create()->id,
-            'start' => '2020-01-01',
-            'user_id' => factory(User::class)->create()->id
+            'start'            => '2020-01-01',
+            'user_id'          => factory(User::class)->create()->id,
         ];
     }
 }

@@ -36,10 +36,10 @@ class VacationCalculatorTest extends \TestCase
         $generalHolidayTypeId = factory(HolidayType::class)->create()->id;
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-04-13',
-            'date_to' => '2020-04-17',
-            'holiday_type_id' => $generalHolidayTypeId
-        ]);
+                                   'date_from'       => '2020-04-13',
+                                   'date_to'         => '2020-04-17',
+                                   'holiday_type_id' => $generalHolidayTypeId,
+                               ]);
 
         $this->assertEquals(0, VacationCalculator::calculatePublicHolidays(new Carbon('2020-04-06'), new Carbon('2020-04-10')));
     }
@@ -49,10 +49,10 @@ class VacationCalculatorTest extends \TestCase
         $generalHolidayTypeId = factory(HolidayType::class)->create()->id;
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-04-13',
-            'date_to' => '2020-04-17',
-            'holiday_type_id' => $generalHolidayTypeId
-        ]);
+                                   'date_from'       => '2020-04-13',
+                                   'date_to'         => '2020-04-17',
+                                   'holiday_type_id' => $generalHolidayTypeId,
+                               ]);
 
         $this->assertEquals(3, VacationCalculator::calculatePublicHolidays(new Carbon('2020-04-06'), new Carbon('2020-04-15')));
     }
@@ -62,10 +62,10 @@ class VacationCalculatorTest extends \TestCase
         $generalHolidayTypeId = factory(HolidayType::class)->create()->id;
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-04-06',
-            'date_to' => '2020-04-17',
-            'holiday_type_id' => $generalHolidayTypeId
-        ]);
+                                   'date_from'       => '2020-04-06',
+                                   'date_to'         => '2020-04-17',
+                                   'holiday_type_id' => $generalHolidayTypeId,
+                               ]);
 
         $this->assertEquals(6, VacationCalculator::calculatePublicHolidays(new Carbon('2020-04-09'), new Carbon('2020-04-16')));
     }
@@ -75,16 +75,16 @@ class VacationCalculatorTest extends \TestCase
         $generalHolidayTypeId = factory(HolidayType::class)->create()->id;
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-04-06',
-            'date_to' => '2020-04-17',
-            'holiday_type_id' => $generalHolidayTypeId
-        ]);
+                                   'date_from'       => '2020-04-06',
+                                   'date_to'         => '2020-04-17',
+                                   'holiday_type_id' => $generalHolidayTypeId,
+                               ]);
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-04-12',
-            'date_to' => '2020-04-27',
-            'holiday_type_id' => $generalHolidayTypeId
-        ]);
+                                   'date_from'       => '2020-04-12',
+                                   'date_to'         => '2020-04-27',
+                                   'holiday_type_id' => $generalHolidayTypeId,
+                               ]);
 
         $this->assertEquals(6, VacationCalculator::calculatePublicHolidays(new Carbon('2020-04-09'), new Carbon('2020-04-16')));
     }
@@ -94,10 +94,10 @@ class VacationCalculatorTest extends \TestCase
         $generalHolidayTypeId = factory(HolidayType::class)->create()->id;
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-04-09',
-            'date_to' => '2020-04-09',
-            'holiday_type_id' => $generalHolidayTypeId
-        ]);
+                                   'date_from'       => '2020-04-09',
+                                   'date_to'         => '2020-04-09',
+                                   'holiday_type_id' => $generalHolidayTypeId,
+                               ]);
 
         $this->assertEquals(1, VacationCalculator::calculatePublicHolidays(new Carbon('2020-04-09'), new Carbon('2020-04-16')));
     }
@@ -107,10 +107,10 @@ class VacationCalculatorTest extends \TestCase
         $generalHolidayTypeId = factory(HolidayType::class)->create()->id;
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-04-09',
-            'date_to' => '2020-04-10',
-            'holiday_type_id' => $generalHolidayTypeId
-        ]);
+                                   'date_from'       => '2020-04-09',
+                                   'date_to'         => '2020-04-10',
+                                   'holiday_type_id' => $generalHolidayTypeId,
+                               ]);
 
         $this->assertEquals(2, VacationCalculator::calculatePublicHolidays(new Carbon('2020-04-09'), new Carbon('2020-04-16')));
     }
@@ -121,16 +121,16 @@ class VacationCalculatorTest extends \TestCase
         $generalHolidayTypeId = factory(HolidayType::class)->create()->id;
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-03-30',
-            'date_to' => '2020-04-03',
-            'holiday_type_id' => $companyVacationTypeId
-        ]);
+                                   'date_from'       => '2020-03-30',
+                                   'date_to'         => '2020-04-03',
+                                   'holiday_type_id' => $companyVacationTypeId,
+                               ]);
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-04-30',
-            'date_to' => '2020-05-03',
-            'holiday_type_id' => $generalHolidayTypeId
-        ]);
+                                   'date_from'       => '2020-04-30',
+                                   'date_to'         => '2020-05-03',
+                                   'holiday_type_id' => $generalHolidayTypeId,
+                               ]);
 
         $this->assertEquals(5, VacationCalculator::calculateCompanyVacations(new Carbon('2020-03-30'), new Carbon('2020-04-03')));
     }
@@ -141,16 +141,16 @@ class VacationCalculatorTest extends \TestCase
         $generalHolidayTypeId = factory(HolidayType::class)->create()->id;
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-03-30',
-            'date_to' => '2020-04-03',
-            'holiday_type_id' => $companyVacationTypeId
-        ]);
+                                   'date_from'       => '2020-03-30',
+                                   'date_to'         => '2020-04-03',
+                                   'holiday_type_id' => $companyVacationTypeId,
+                               ]);
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-04-01',
-            'date_to' => '2020-05-03',
-            'holiday_type_id' => $generalHolidayTypeId
-        ]);
+                                   'date_from'       => '2020-04-01',
+                                   'date_to'         => '2020-05-03',
+                                   'holiday_type_id' => $generalHolidayTypeId,
+                               ]);
 
         $this->assertEquals(2, VacationCalculator::calculateCompanyVacations(new Carbon('2020-03-30'), new Carbon('2020-04-03')));
     }
@@ -161,16 +161,16 @@ class VacationCalculatorTest extends \TestCase
         $generalHolidayTypeId = factory(HolidayType::class)->create()->id;
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-03-30',
-            'date_to' => '2020-04-11',
-            'holiday_type_id' => $companyVacationTypeId
-        ]);
+                                   'date_from'       => '2020-03-30',
+                                   'date_to'         => '2020-04-11',
+                                   'holiday_type_id' => $companyVacationTypeId,
+                               ]);
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-04-06',
-            'date_to' => '2020-04-11',
-            'holiday_type_id' => $generalHolidayTypeId
-        ]);
+                                   'date_from'       => '2020-04-06',
+                                   'date_to'         => '2020-04-11',
+                                   'holiday_type_id' => $generalHolidayTypeId,
+                               ]);
 
         $this->assertEquals(5, VacationCalculator::calculateCompanyVacations(new Carbon('2020-03-30'), new Carbon('2020-04-11')));
     }
@@ -181,16 +181,16 @@ class VacationCalculatorTest extends \TestCase
         $generalHolidayTypeId = factory(HolidayType::class)->create()->id;
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-02-28',
-            'date_to' => '2020-05-11',
-            'holiday_type_id' => $companyVacationTypeId
-        ]);
+                                   'date_from'       => '2020-02-28',
+                                   'date_to'         => '2020-05-11',
+                                   'holiday_type_id' => $companyVacationTypeId,
+                               ]);
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-04-06',
-            'date_to' => '2020-04-11',
-            'holiday_type_id' => $generalHolidayTypeId
-        ]);
+                                   'date_from'       => '2020-04-06',
+                                   'date_to'         => '2020-04-11',
+                                   'holiday_type_id' => $generalHolidayTypeId,
+                               ]);
 
         $this->assertEquals(5, VacationCalculator::calculateCompanyVacations(new Carbon('2020-03-30'), new Carbon('2020-04-11')));
     }
@@ -201,22 +201,22 @@ class VacationCalculatorTest extends \TestCase
         $generalHolidayTypeId = factory(HolidayType::class)->create()->id;
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-02-28',
-            'date_to' => '2020-05-11',
-            'holiday_type_id' => $companyVacationTypeId
-        ]);
+                                   'date_from'       => '2020-02-28',
+                                   'date_to'         => '2020-05-11',
+                                   'holiday_type_id' => $companyVacationTypeId,
+                               ]);
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-04-06',
-            'date_to' => '2020-04-11',
-            'holiday_type_id' => $generalHolidayTypeId
-        ]);
+                                   'date_from'       => '2020-04-06',
+                                   'date_to'         => '2020-04-11',
+                                   'holiday_type_id' => $generalHolidayTypeId,
+                               ]);
 
         factory(Holiday::class)->create([
-            'date_from' => '2020-04-09',
-            'date_to' => '2020-04-15',
-            'holiday_type_id' => $generalHolidayTypeId
-        ]);
+                                   'date_from'       => '2020-04-09',
+                                   'date_to'         => '2020-04-15',
+                                   'holiday_type_id' => $generalHolidayTypeId,
+                               ]);
 
         $this->assertEquals(5, VacationCalculator::calculateCompanyVacations(new Carbon('2020-03-30'), new Carbon('2020-04-11')));
     }

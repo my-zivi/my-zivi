@@ -11,7 +11,7 @@ class ForgotPasswordControllerTest extends \TestCase
     public function testInvalidMailForReset()
     {
         $this->json('POST', 'api/auth/forgotPassword', [
-            'email' => 'is@this.sparta'
+            'email' => 'is@this.sparta',
         ])->assertResponseStatus(406);
         $this->assertContains('Für diese E-Mailadresse besteht kein Account.', $this->responseToArray());
     }
@@ -20,7 +20,7 @@ class ForgotPasswordControllerTest extends \TestCase
     {
         $userEmail = factory(\App\User::class)->create()->email;
         $this->json('POST', 'api/auth/forgotPassword', [
-            'email' => $userEmail
+            'email' => $userEmail,
         ])->assertResponseOk();
         $this->assertContains('sent', $this->response->getContent());
     }
@@ -28,8 +28,8 @@ class ForgotPasswordControllerTest extends \TestCase
     public function testResetPasswordWrongPasswords()
     {
         $this->json('POST', 'api/auth/resetPassword', [
-            'new_password' => 'Welcome01',
-            'new_password_2' => 'Welcome02'
+            'new_password'   => 'Welcome01',
+            'new_password_2' => 'Welcome02',
         ])->assertResponseStatus(406);
         $this->assertContains('Passwörter stimmen nicht überein!', $this->responseToArray());
     }
@@ -37,8 +37,8 @@ class ForgotPasswordControllerTest extends \TestCase
     public function testResetPasswordInvalidToken()
     {
         $this->json('POST', 'api/auth/resetPassword', [
-            'new_password' => 'Welcome01',
-            'new_password_2' => 'Welcome01'
+            'new_password'   => 'Welcome01',
+            'new_password_2' => 'Welcome01',
         ])->assertResponseStatus(406);
         $this->assertContains('Ungültiges Token', $this->responseToArray());
     }
@@ -51,15 +51,15 @@ class ForgotPasswordControllerTest extends \TestCase
         ]);
 
         $this->json('POST', 'api/auth/resetPassword', [
-            'new_password' => 'Welcome01',
+            'new_password'   => 'Welcome01',
             'new_password_2' => 'Welcome01',
-            'code' => $passwordReset->token,
+            'code'           => $passwordReset->token,
         ])->assertResponseOk();
 
         // check that the login works with the new password
         $this->json('post', 'api/auth/login', [
-            'email' => $user->email,
-            'password' => 'Welcome01'
+            'email'    => $user->email,
+            'password' => 'Welcome01',
         ])->assertResponseOk();
     }
 }

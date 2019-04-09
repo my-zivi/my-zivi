@@ -38,10 +38,10 @@ class HolidayController extends Controller
     private function validateRequest(Request $request)
     {
         return $this->validate($request, [
-            'date_from' => 'required|date',
-            'date_to' => 'required|date',
-            'description' => 'required|string',
-            'holiday_type_id' => 'required|integer'
+            'date_from'       => 'required|date',
+            'date_to'         => 'required|date',
+            'description'     => 'required|string',
+            'holiday_type_id' => 'required|integer',
         ]);
     }
 }
