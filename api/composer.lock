@@ -787,7 +787,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stiftungswo/swo-laravel-coding-standard.git",
-                "reference": "0d347ceb2a5d86a4a00201f1f3a1c9521d4b8177"
+                "reference": "4b4256918718ff70b110a28f2d9eded17ad3a7a8"
             },
             "require-dev": {
                 "phpunit/phpunit": "^6.5",
@@ -807,7 +807,7 @@
                 }
             ],
             "description": "Laravel 5 Coding Standard for PHP_CodeSniffer 3.",
-            "time": "2019-04-08T14:44:00+00:00"
+            "time": "2019-04-09T11:49:12+00:00"
         },
         {
             "name": "illuminate/auth",
