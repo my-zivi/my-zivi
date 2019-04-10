@@ -1,11 +1,11 @@
-<?xml version="1.0\" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Document xmlns="http://www.six-interbank-clearing.com/de/pain.001.001.03.ch.02.xsd"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://www.six-interbank-clearing.com/de/pain.001.001.03.ch.02.xsd  pain.001.001.03.ch.02.xsd">
     <CstmrCdtTrfInitn>
         <GrpHdr>
             <MsgId>SWO-M-{{ id }}</MsgId>
-            <CreDtTm>{{ 'now' | date('c') }}</CreDtTm>
+            <CreDtTm>{{ xmlDate.format('c') }}</CreDtTm>
             <NbOfTxs>{{ validSheets.count }}</NbOfTxs>
             <CtrlSum>{{ total/100 }}</CtrlSum>
             <InitgPty>
@@ -15,7 +15,7 @@
         <PmtInf>
             <PmtInfId>SWO-P-{{ id }}</PmtInfId>
             <PmtMtd>TRF</PmtMtd>
-            <ReqdExctnDt>{{ 'now' | date('Y-m-d') }}</ReqdExctnDt>
+            <ReqdExctnDt>{{ xmlDate.format('Y-m-d') }}</ReqdExctnDt>
             <Dbtr>
                 <Nm>{{ ci.company_name }}</Nm>
             </Dbtr>
@@ -29,41 +29,43 @@
                     <BIC>{{ ci.spesen_payment_bic }}</BIC>
                 </FinInstnId>
             </DbtrAgt>
-            {% for sheet in validSheets %}
-                {% set idKey = id ~ '-' ~ loop.index0 %}{% set user = sheet.user %}<CdtTrfTxInf>
-                    <PmtId>
-                        <InstrId>SWO-I-{{ idKey }}</InstrId>
-                        <EndToEndId>SWO-E-{{ idKey }}</EndToEndId>
-                    </PmtId>
-                    <Amt>
-                        <InstdAmt Ccy="CHF">{{ sheet.total_costs / 100 }}</InstdAmt>
-                    </Amt>
-                    <CdtrAgt>
-                        <FinInstnId>
-                            <ClrSysMmbId>
-                                <ClrSysId>
-                                    <Cd>CHBCC</Cd>
-                                </ClrSysId>
-                                <MmbId>{{ user.clean_iban | slice(4, 5) }}</MmbId>
-                            </ClrSysMmbId>
-                        </FinInstnId>
-                    </CdtrAgt>
-                    <Cdtr>
-                        <Nm>{{ user.first_name | scrub }} {{ user.last_name | scrub }}</Nm>
-                        <PstlAdr>
-                            <StrtNm>{{ user.address | scrub }}</StrtNm>
-                            <PstCd>{{ user.zip | scrub }}</PstCd>
-                            <TwnNm>{{ user.city | scrub }}</TwnNm>
-                            <Ctry>CH</Ctry>
-                        </PstlAdr>
-                    </Cdtr>
-                    <CdtrAcct>
-                        <Id>
-                            <IBAN>{{ user.clean_iban }}</IBAN>
-                        </Id>
-                    </CdtrAcct>
-                </CdtTrfTxInf>
-            {% endfor %}
+{% for sheet in validSheets %}
+{% set idKey = id ~ '-' ~ loop.index0 %}
+{% set user = sheet.user %}
+            <CdtTrfTxInf>
+                <PmtId>
+                    <InstrId>SWO-I-{{ idKey }}</InstrId>
+                    <EndToEndId>SWO-E-{{ idKey }}</EndToEndId>
+                </PmtId>
+                <Amt>
+                    <InstdAmt Ccy="CHF">{{ sheet.total_costs / 100 }}</InstdAmt>
+                </Amt>
+                <CdtrAgt>
+                    <FinInstnId>
+                        <ClrSysMmbId>
+                            <ClrSysId>
+                                <Cd>CHBCC</Cd>
+                            </ClrSysId>
+                            <MmbId>{{ user.clean_iban | slice(4, 5) }}</MmbId>
+                        </ClrSysMmbId>
+                    </FinInstnId>
+                </CdtrAgt>
+                <Cdtr>
+                    <Nm>{{ user.first_name | scrub }} {{ user.last_name | scrub }}</Nm>
+                    <PstlAdr>
+                        <StrtNm>{{ user.address | scrub }}</StrtNm>
+                        <PstCd>{{ user.zip | scrub }}</PstCd>
+                        <TwnNm>{{ user.city | scrub }}</TwnNm>
+                        <Ctry>CH</Ctry>
+                    </PstlAdr>
+                </Cdtr>
+                <CdtrAcct>
+                    <Id>
+                        <IBAN>{{ user.clean_iban }}</IBAN>
+                    </Id>
+                </CdtrAcct>
+            </CdtTrfTxInf>
+{% endfor %}
         </PmtInf>
     </CstmrCdtTrfInitn>
 </Document>

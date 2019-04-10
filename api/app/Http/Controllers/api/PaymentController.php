@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Payment;
 use App\PaymentEntry;
 use App\ReportSheet;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
@@ -45,7 +46,8 @@ class PaymentController extends Controller
         $validSheets = $openSheets->where('total_costs', '>', 0);
 
         $payment = new Payment();
-        $payment->xml = "";
+        $payment->xml_id = date('Ymd').".".rand(1, 100000000);
+        $payment->xml_date = Carbon::parse('now')->format('c');
         $payment->save();
 
         $openSheets->each(function ($sheet) use ($payment) {
@@ -61,7 +63,9 @@ class PaymentController extends Controller
             $paymentEntry->save();
         });
 
-        return (new Response($this->renderPaymentXml($validSheets), 200))
+        $xml = $this->renderPaymentXml($validSheets, $payment->xml_id, Carbon::parse($payment->xml_date));
+
+        return (new Response($xml, 200))
             ->header('Content-Type', 'application/xml')
             ->header('Content-Disposition', 'attachment; filename="'.$this->generatePaymentName($payment).'"');
     }
@@ -79,19 +83,21 @@ class PaymentController extends Controller
 
     public function getArchivedXml($id)
     {
-        $payment = Payment::select(['id', 'updated_at'])->find($id);
+        $payment = Payment::select(['id', 'xml_id', 'xml_date', 'updated_at'])->find($id);
         $sheets = ReportSheet::whereHas('paymentEntry.payment', function ($query) use ($id) {
             return $query->where('id', $id);
         })->get();
         $validSheets = $sheets->where('total_costs', '>', 0);
 
-        return (new Response($this->renderPaymentXml($validSheets), 200))
+        $xml = $this->renderPaymentXml($validSheets, $payment->xml_id, Carbon::parse($payment->xml_date));
+
+        return (new Response($xml, 200))
             ->header('Content-Type', 'application/xml')
             ->header('Content-Disposition', 'attachment; filename="'.$this->generatePaymentName($payment).'"');
     }
 
 
-    private function renderPaymentXml($validSheets)
+    private function renderPaymentXml($validSheets, $xml_id, $xml_date)
     {
         $ci = [
             "company_name"        => CompanyInfo::COMPANY_NAME,
@@ -103,7 +109,8 @@ class PaymentController extends Controller
             "validSheets" => $validSheets,
             "ci"          => $ci,
             "total"       => $validSheets->sum('total_costs'),
-            "id"          => date('Ymd').".".rand(1, 100000000),
+            "id"          => $xml_id,
+            "xmlDate"     => $xml_date,
         ];
 
         $twigXml = Twig::render('payment', $data);

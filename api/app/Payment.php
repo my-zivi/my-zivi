@@ -11,6 +11,11 @@ class Payment extends Model
         'xml',
     ];
 
+    protected $hidden = [
+        'xml',
+        'xml_id',
+    ];
+
     protected $appends = ['amount'];
 
     public function paymentEntries()
