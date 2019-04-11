@@ -14,8 +14,8 @@ class RemoveXmlFromPaymentsAndAddId extends Migration
     public function up()
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->string('xml_id');
-            $table->string('xml_date');
+            $table->string('xml_id')->default('2017-01-01.123456789');
+            $table->string('xml_date')->default('2017-01-01');
         });
 
         $payments = \App\Payment::get();

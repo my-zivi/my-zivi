@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Factory;
 $factory->define(App\Payment::class, function (Generator $faker) {
     return [
 //        'amount' => $faker->numberBetween(800000, 1500000),
-        'xml' => $faker->sentence,
+//        'xml' => $faker->sentence,
     ];
 });
