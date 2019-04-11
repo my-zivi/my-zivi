@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Factory;
 $factory->define(App\User::class, function (Generator $faker) {
     return [
         'address' => $faker->streetAddress,
-        'bank_bic' => $faker->swiftBicNumber,
+        'bank_bic' => \Faker\Provider\Payment::regexify("^[a-zA-Z]{6}[2-9a-zA-Z][0-9a-nA-Np-zP-Z]([a-zA-Z0-9]{3}|[xX]{3})?$"),
         'bank_iban' => $faker->iban('CH'),
         'birthday' => $faker->date(),
         'city' => $faker->city,
