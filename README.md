@@ -1,4 +1,4 @@
-[![Build Status](https://semaphoreci.com/api/v1/stiftungswo/izivi/branches/ts/badge.svg)](https://semaphoreci.com/stiftungswo/izivi)
+[![Build Status](https://semaphoreci.com/api/v1/stiftungswo/betterizivi/branches/develop/badge.svg)](https://semaphoreci.com/stiftungswo/betterizivi)
 [![codecov](https://codecov.io/gh/stiftungswo/izivi/branch/master/graph/badge.svg)](https://codecov.io/gh/stiftungswo/izivi)
 
 
