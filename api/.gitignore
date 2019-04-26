@@ -1,6 +1,10 @@
-vendor/
-.env
-.idea
-.env.testing
-.DS_Store
-test-coverage/
+/.bundle
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+/storage/*
+!/storage/.keep
+/coverage/
+.byebug_history
+/config/master.key
