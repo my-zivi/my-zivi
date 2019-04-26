@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 
-set -exo pipefile
+set -exo pipefail
 
 bundle exec rspec
