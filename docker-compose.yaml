@@ -4,27 +4,29 @@ services:
         build:
             context: ./api
             dockerfile: dev.Dockerfile
-        container_name: izivi_api
+        container_name: better_izivi_api
         volumes:
-            - ./api:/var/app
-        working_dir: /var/app
-        command: "php -S 0.0.0.0:8000 -t ./public"
+            - ./api:/api
+        working_dir: /api
+        command: "rails server -p 8000 -b 0.0.0.0"
         depends_on:
-            - mariadb
+            - mysql
         ports:
-            - "48000:8000"
-    web-client:
+            - "28000:8000"
+        environment:
+            - DATABASE_HOST=mysql
+    frontend:
         image: node:10
-        container_name: izivi_web-client
+        container_name: better_izivi_frontend
         volumes:
             - ./frontend:/var/frontend
         working_dir: /var/frontend
         ports:
             - "43000:3000"
         command: bash -c "yarn install && yarn run start"
-    mariadb:
+    mysql:
         image: mariadb:10
-        container_name: izivi_db
+        container_name: better_izivi_db
         environment:
             - MYSQL_ALLOW_EMPTY_PASSWORD=1
         ports:
