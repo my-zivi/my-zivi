@@ -1,0 +1,51 @@
+require:
+  - rubocop-performance
+  - rubocop-rspec
+
+Rails:
+  Enabled: true
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Metrics/LineLength:
+  Max: 120
+
+Style/Documentation:
+  Enabled: false
+
+Style/MixinUsage:
+  Exclude:
+    - 'bin/setup'
+    - 'bin/update'
+
+Style/NonNilCheck:
+  IncludeSemanticChanges: true
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'config/environments/**/*.rb'
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/DescribedClass:
+  SkipBlocks: true
+
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/requests/**/*'
+
+RSpec/NestedGroups:
+  Max: 5
+
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'log/**/*'
+    - 'public/**/*'
+    - 'tmp/**/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
