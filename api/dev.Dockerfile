@@ -7,4 +7,7 @@ RUN gem install bundler -v "2.0.1" --no-document
 COPY Gemfile* ./
 RUN bundle install
 
+RUN wget -O /tmp/wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
+RUN chmod +x /tmp/wait-for-it.sh
+
 EXPOSE 3000

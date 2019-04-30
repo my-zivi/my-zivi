@@ -8,7 +8,6 @@ services:
         volumes:
             - ./api:/api
         working_dir: /api
-        command: "rails server -p 8000 -b 0.0.0.0"
         depends_on:
             - mysql
         ports:
@@ -25,7 +24,6 @@ services:
         working_dir: /var/frontend
         ports:
             - "43000:3000"
-        command: bash -c "yarn install && yarn run start"
     mysql:
         image: mariadb:10.2.23
         container_name: better_izivi_db
@@ -35,10 +33,3 @@ services:
             - "43306:3306"
         volumes:
             - ./database:/var/lib/mysql
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        container_name: better_izivi_phpmyadmin
-        environment:
-            - PMA_ARBITRARY=1
-        ports:
-            - 48080:80
