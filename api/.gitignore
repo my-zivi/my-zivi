@@ -8,3 +8,4 @@
 /coverage/
 .byebug_history
 /config/master.key
+spec/examples.txt

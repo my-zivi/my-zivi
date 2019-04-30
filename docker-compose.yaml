@@ -24,7 +24,7 @@ services:
             - ./frontend:/var/frontend
         working_dir: /var/frontend
         ports:
-            - "43000:3000"
+            - "23000:3000"
         command: bash -c "yarn install && yarn run start"
     mysql:
         image: mariadb:10.2.23
@@ -32,7 +32,7 @@ services:
         environment:
             - MYSQL_ALLOW_EMPTY_PASSWORD=yes
         ports:
-            - "43306:3306"
+            - "23306:3306"
         volumes:
             - ./database:/var/lib/mysql
     phpmyadmin:
@@ -41,4 +41,4 @@ services:
         environment:
             - PMA_ARBITRARY=1
         ports:
-            - 48080:80
+            - 28080:80
