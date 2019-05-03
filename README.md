@@ -1,6 +1,5 @@
 [![Build Status](https://semaphoreci.com/api/v1/stiftungswo/betterizivi/branches/develop/badge.svg)](https://semaphoreci.com/stiftungswo/betterizivi)
-[![codecov](https://codecov.io/gh/stiftungswo/izivi/branch/master/graph/badge.svg)](https://codecov.io/gh/stiftungswo/izivi)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/7a21d731d88b5281dae7/maintainability)](https://codeclimate.com/github/stiftungswo/betterIzivi/maintainability)
 
 # SWO iZivi #
 
