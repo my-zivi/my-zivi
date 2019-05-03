@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 2019_04_30_121050) do
     t.date "ending", null: false
     t.bigint "user_id", null: false
     t.integer "work_days", null: false
-    t.string "work_comment"
     t.integer "company_holiday_unpaid_days", default: 0
     t.integer "company_holiday_paid_days", default: 0
     t.string "company_holiday_comment"
@@ -64,11 +63,11 @@ ActiveRecord::Schema.define(version: 2019_04_30_121050) do
     t.string "short_name", null: false
     t.integer "working_clothes_expenses", null: false
     t.integer "accommodation_expenses", null: false
-    t.json "work_days_expenses", null: false
-    t.json "paid_vacation_expense", null: false
-    t.json "first_day_expense", null: false
-    t.json "last_day_expense", null: false
-    t.string "language", default: "de"
+    t.text "work_days_expenses", limit: 4294967295, null: false, collation: "utf8mb4_bin"
+    t.text "paid_vacation_expense", limit: 4294967295, null: false, collation: "utf8mb4_bin"
+    t.text "first_day_expense", limit: 4294967295, null: false, collation: "utf8mb4_bin"
+    t.text "last_day_expense", limit: 4294967295, null: false, collation: "utf8mb4_bin"
+    t.string "location", default: "zh"
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -8,17 +8,17 @@ class ServiceSpecification < ApplicationRecord
   serialize :first_day_expense, Hash
   serialize :last_day_expense, Hash
 
-  enum language: {
-    german: 'de',
-    french: 'fr'
-  }
+  enum location: {
+    valais: 'vs',
+    zurich: 'zh'
+  }, _prefix: true
 
   has_many :services, dependent: :restrict_with_error
 
   validates :short_name, :name, :accommodation_expenses,
             :working_clothes_expenses, :work_days_expenses,
             :paid_vacation_expense, :first_day_expense,
-            :last_day_expense, presence: true
+            :last_day_expense, :location, presence: true
 
   validate :validate_work_days_expenses
   validate :validate_paid_vacation_expense

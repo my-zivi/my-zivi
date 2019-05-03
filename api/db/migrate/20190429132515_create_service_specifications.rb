@@ -9,7 +9,7 @@
       t.json :paid_vacation_expense, null: false
       t.json :first_day_expense, null: false
       t.json :last_day_expense, null: false
-      t.string :language, default: 'de'
+      t.string :location, default: 'zh'
       t.boolean :active, default: true
 
       t.timestamps
