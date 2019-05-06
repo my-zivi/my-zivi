@@ -1,5 +1,0 @@
-Reporter:
-
----
-
-Dein Issue hier
