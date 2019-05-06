@@ -10,3 +10,6 @@ en:
               bad_length: bad length
               bad_chars: bad chars
               unknown_country_code: unknown country code
+  service_calculator:
+    invalid_required_service_days: Invalid service days
+    end_date_cannot_be_on_weekend: Service end date can't be on a weekend
