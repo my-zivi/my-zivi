@@ -1,0 +1,1731 @@
+[
+  {
+    "id": "1",
+    "beginning": "2005-12-27",
+    "ending": "2005-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "2",
+    "beginning": "2004-12-27",
+    "ending": "2004-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "3",
+    "beginning": "2007-01-01",
+    "ending": "2007-01-02",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "4",
+    "beginning": "2007-12-24",
+    "ending": "2008-01-02",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "5",
+    "beginning": "2008-12-29",
+    "ending": "2008-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "6",
+    "beginning": "2009-12-28",
+    "ending": "2009-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "7",
+    "beginning": "2010-12-27",
+    "ending": "2010-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "8",
+    "beginning": "2011-12-27",
+    "ending": "2011-12-30",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "9",
+    "beginning": "2012-12-24",
+    "ending": "2012-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "10",
+    "beginning": "2013-12-27",
+    "ending": "2013-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "11",
+    "beginning": "2014-12-29",
+    "ending": "2014-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "12",
+    "beginning": "2015-12-28",
+    "ending": "2015-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "13",
+    "beginning": "2016-12-27",
+    "ending": "2016-12-30",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "14",
+    "beginning": "2017-12-27",
+    "ending": "2017-12-29",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "16",
+    "beginning": "2004-04-12",
+    "ending": "2004-04-12",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "17",
+    "beginning": "2004-04-09",
+    "ending": "2004-04-09",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "18",
+    "beginning": "2004-01-01",
+    "ending": "2004-01-01",
+    "holiday_type": 2,
+    "description": "Neujahr"
+  },
+  {
+    "id": "19",
+    "beginning": "2004-01-02",
+    "ending": "2004-01-02",
+    "holiday_type": 2,
+    "description": "Berchtoldstag"
+  },
+  {
+    "id": "20",
+    "beginning": "2004-05-01",
+    "ending": "2004-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "21",
+    "beginning": "2004-08-01",
+    "ending": "2004-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "22",
+    "beginning": "2004-12-25",
+    "ending": "2004-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachten"
+  },
+  {
+    "id": "23",
+    "beginning": "2004-12-26",
+    "ending": "2004-12-26",
+    "holiday_type": 2,
+    "description": "Stefanstag"
+  },
+  {
+    "id": "24",
+    "beginning": "2005-01-01",
+    "ending": "2005-01-01",
+    "holiday_type": 2,
+    "description": "Neujahr"
+  },
+  {
+    "id": "25",
+    "beginning": "2005-01-02",
+    "ending": "2005-01-02",
+    "holiday_type": 2,
+    "description": "Berchtoldstag"
+  },
+  {
+    "id": "26",
+    "beginning": "2005-03-25",
+    "ending": "2005-03-25",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "27",
+    "beginning": "2005-03-28",
+    "ending": "2005-03-28",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "28",
+    "beginning": "2005-05-01",
+    "ending": "2005-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "29",
+    "beginning": "2005-05-05",
+    "ending": "2005-05-05",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "30",
+    "beginning": "2005-05-16",
+    "ending": "2005-05-16",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "31",
+    "beginning": "2005-08-01",
+    "ending": "2005-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "32",
+    "beginning": "2005-12-25",
+    "ending": "2005-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachten"
+  },
+  {
+    "id": "33",
+    "beginning": "2005-12-26",
+    "ending": "2005-12-26",
+    "holiday_type": 2,
+    "description": "Stefanstag"
+  },
+  {
+    "id": "34",
+    "beginning": "2006-01-01",
+    "ending": "2006-01-01",
+    "holiday_type": 2,
+    "description": "Neujahr"
+  },
+  {
+    "id": "35",
+    "beginning": "2006-01-02",
+    "ending": "2006-01-02",
+    "holiday_type": 2,
+    "description": "Berchtoldstag"
+  },
+  {
+    "id": "36",
+    "beginning": "2006-04-14",
+    "ending": "2006-04-14",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "37",
+    "beginning": "2006-04-17",
+    "ending": "2006-04-17",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "38",
+    "beginning": "2006-05-01",
+    "ending": "2006-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "39",
+    "beginning": "2006-06-05",
+    "ending": "2006-06-05",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "40",
+    "beginning": "2006-08-01",
+    "ending": "2006-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "41",
+    "beginning": "2006-12-25",
+    "ending": "2006-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachten"
+  },
+  {
+    "id": "42",
+    "beginning": "2006-12-26",
+    "ending": "2006-12-26",
+    "holiday_type": 2,
+    "description": "Stefanstag"
+  },
+  {
+    "id": "43",
+    "beginning": "2007-01-01",
+    "ending": "2007-01-01",
+    "holiday_type": 2,
+    "description": "Neujahr"
+  },
+  {
+    "id": "44",
+    "beginning": "2007-01-02",
+    "ending": "2007-01-02",
+    "holiday_type": 2,
+    "description": "Berchtoldstag"
+  },
+  {
+    "id": "45",
+    "beginning": "2007-04-06",
+    "ending": "2007-04-06",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "46",
+    "beginning": "2007-04-09",
+    "ending": "2007-04-09",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "47",
+    "beginning": "2007-05-01",
+    "ending": "2007-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "48",
+    "beginning": "2007-05-17",
+    "ending": "2007-05-17",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "49",
+    "beginning": "2007-05-28",
+    "ending": "2007-05-28",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "50",
+    "beginning": "2007-08-01",
+    "ending": "2007-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "51",
+    "beginning": "2007-12-25",
+    "ending": "2007-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachten"
+  },
+  {
+    "id": "52",
+    "beginning": "2007-12-26",
+    "ending": "2007-12-26",
+    "holiday_type": 2,
+    "description": "Stefanstag"
+  },
+  {
+    "id": "53",
+    "beginning": "2008-01-01",
+    "ending": "2008-01-01",
+    "holiday_type": 2,
+    "description": "Neujahr"
+  },
+  {
+    "id": "54",
+    "beginning": "2008-01-02",
+    "ending": "2008-01-02",
+    "holiday_type": 2,
+    "description": "Berchtoldstag"
+  },
+  {
+    "id": "55",
+    "beginning": "2008-03-21",
+    "ending": "2008-03-21",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "56",
+    "beginning": "2008-03-04",
+    "ending": "2008-03-04",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "57",
+    "beginning": "2008-05-01",
+    "ending": "2008-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "58",
+    "beginning": "2008-05-12",
+    "ending": "2008-05-12",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "59",
+    "beginning": "2008-08-01",
+    "ending": "2008-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "60",
+    "beginning": "2008-12-25",
+    "ending": "2008-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachten"
+  },
+  {
+    "id": "61",
+    "beginning": "2008-12-26",
+    "ending": "2008-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "62",
+    "beginning": "2009-01-01",
+    "ending": "2009-01-01",
+    "holiday_type": 2,
+    "description": "Neujahr"
+  },
+  {
+    "id": "63",
+    "beginning": "2009-01-02",
+    "ending": "2009-01-02",
+    "holiday_type": 2,
+    "description": "Berchtoldstag"
+  },
+  {
+    "id": "64",
+    "beginning": "2009-04-10",
+    "ending": "2009-04-10",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "65",
+    "beginning": "2009-04-13",
+    "ending": "2009-04-13",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "66",
+    "beginning": "2009-05-01",
+    "ending": "2009-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "67",
+    "beginning": "2009-05-21",
+    "ending": "2009-05-21",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "68",
+    "beginning": "2009-06-01",
+    "ending": "2009-06-01",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "69",
+    "beginning": "2009-12-25",
+    "ending": "2009-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachten"
+  },
+  {
+    "id": "70",
+    "beginning": "2010-01-01",
+    "ending": "2010-01-01",
+    "holiday_type": 2,
+    "description": "Neujahr"
+  },
+  {
+    "id": "71",
+    "beginning": "2010-04-02",
+    "ending": "2010-04-02",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "72",
+    "beginning": "2010-04-05",
+    "ending": "2010-04-05",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "73",
+    "beginning": "2010-05-13",
+    "ending": "2010-05-13",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "74",
+    "beginning": "2010-05-24",
+    "ending": "2010-05-24",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "75",
+    "beginning": "2011-04-22",
+    "ending": "2011-04-22",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "76",
+    "beginning": "2011-04-25",
+    "ending": "2011-04-25",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "77",
+    "beginning": "2011-06-02",
+    "ending": "2011-06-02",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "78",
+    "beginning": "2011-06-13",
+    "ending": "2011-06-13",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "79",
+    "beginning": "2011-08-01",
+    "ending": "2011-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "80",
+    "beginning": "2011-12-26",
+    "ending": "2011-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "81",
+    "beginning": "2012-04-06",
+    "ending": "2012-04-06",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "82",
+    "beginning": "2012-04-09",
+    "ending": "2012-04-09",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "83",
+    "beginning": "2012-05-01",
+    "ending": "2012-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "84",
+    "beginning": "2012-05-17",
+    "ending": "2012-05-17",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "85",
+    "beginning": "2012-05-28",
+    "ending": "2012-05-28",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "86",
+    "beginning": "2012-08-01",
+    "ending": "2012-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "87",
+    "beginning": "2012-12-25",
+    "ending": "2012-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachten"
+  },
+  {
+    "id": "88",
+    "beginning": "2012-12-26",
+    "ending": "2012-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "89",
+    "beginning": "2012-01-02",
+    "ending": "2012-01-02",
+    "holiday_type": 2,
+    "description": "Berchtoldstag"
+  },
+  {
+    "id": "90",
+    "beginning": "2013-01-02",
+    "ending": "2013-01-02",
+    "holiday_type": 2,
+    "description": "Bertholdtag"
+  },
+  {
+    "id": "91",
+    "beginning": "2013-05-01",
+    "ending": "2013-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "92",
+    "beginning": "2013-08-01",
+    "ending": "2013-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "93",
+    "beginning": "2013-12-25",
+    "ending": "2013-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachten"
+  },
+  {
+    "id": "94",
+    "beginning": "2013-12-26",
+    "ending": "2013-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "95",
+    "beginning": "2013-01-01",
+    "ending": "2013-01-01",
+    "holiday_type": 2,
+    "description": "Neujahr"
+  },
+  {
+    "id": "96",
+    "beginning": "2013-05-20",
+    "ending": "2013-05-20",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "97",
+    "beginning": "2013-05-09",
+    "ending": "2013-05-09",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "98",
+    "beginning": "2013-04-01",
+    "ending": "2013-04-01",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "99",
+    "beginning": "2013-03-29",
+    "ending": "2013-03-29",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "100",
+    "beginning": "2014-01-01",
+    "ending": "2014-01-01",
+    "holiday_type": 2,
+    "description": "Neujahr"
+  },
+  {
+    "id": "101",
+    "beginning": "2014-01-02",
+    "ending": "2014-01-02",
+    "holiday_type": 2,
+    "description": "Berchtoldstag"
+  },
+  {
+    "id": "102",
+    "beginning": "2014-04-18",
+    "ending": "2014-04-18",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "103",
+    "beginning": "2014-04-21",
+    "ending": "2014-04-21",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "104",
+    "beginning": "2014-05-01",
+    "ending": "2014-05-01",
+    "holiday_type": 2,
+    "description": "1. Mai"
+  },
+  {
+    "id": "105",
+    "beginning": "2014-05-29",
+    "ending": "2014-05-29",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "106",
+    "beginning": "2014-06-09",
+    "ending": "2014-06-09",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "107",
+    "beginning": "2014-08-01",
+    "ending": "2014-08-01",
+    "holiday_type": 2,
+    "description": "1. August"
+  },
+  {
+    "id": "108",
+    "beginning": "2014-12-25",
+    "ending": "2014-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachten"
+  },
+  {
+    "id": "109",
+    "beginning": "2014-12-26",
+    "ending": "2014-12-26",
+    "holiday_type": 2,
+    "description": "Stefanstag"
+  },
+  {
+    "id": "110",
+    "beginning": "2015-01-01",
+    "ending": "2015-01-01",
+    "holiday_type": 2,
+    "description": "Neujahr"
+  },
+  {
+    "id": "111",
+    "beginning": "2015-01-02",
+    "ending": "2015-01-02",
+    "holiday_type": 2,
+    "description": "Berchtoldstag"
+  },
+  {
+    "id": "112",
+    "beginning": "2015-04-03",
+    "ending": "2015-04-03",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "113",
+    "beginning": "2015-04-06",
+    "ending": "2015-04-06",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "114",
+    "beginning": "2015-05-01",
+    "ending": "2015-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "115",
+    "beginning": "2015-05-14",
+    "ending": "2015-05-14",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "116",
+    "beginning": "2015-05-25",
+    "ending": "2015-05-25",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "117",
+    "beginning": "2015-12-25",
+    "ending": "2015-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachten"
+  },
+  {
+    "id": "118",
+    "beginning": "2016-01-01",
+    "ending": "2016-01-01",
+    "holiday_type": 2,
+    "description": "Neujahr"
+  },
+  {
+    "id": "119",
+    "beginning": "2016-01-02",
+    "ending": "2016-01-02",
+    "holiday_type": 2,
+    "description": "Berchtoldstag"
+  },
+  {
+    "id": "120",
+    "beginning": "2016-03-25",
+    "ending": "2016-03-25",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "121",
+    "beginning": "2016-03-28",
+    "ending": "2016-03-28",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "122",
+    "beginning": "2016-05-01",
+    "ending": "2016-05-01",
+    "holiday_type": 2,
+    "description": "1. Mai"
+  },
+  {
+    "id": "123",
+    "beginning": "2016-05-05",
+    "ending": "2016-05-05",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "124",
+    "beginning": "2016-05-16",
+    "ending": "2016-05-16",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "125",
+    "beginning": "2016-08-01",
+    "ending": "2016-08-01",
+    "holiday_type": 2,
+    "description": "1. August"
+  },
+  {
+    "id": "126",
+    "beginning": "2016-12-25",
+    "ending": "2016-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachten"
+  },
+  {
+    "id": "127",
+    "beginning": "2016-12-26",
+    "ending": "2016-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "128",
+    "beginning": "2017-01-01",
+    "ending": "2017-01-01",
+    "holiday_type": 2,
+    "description": "Neujahr"
+  },
+  {
+    "id": "129",
+    "beginning": "2017-05-01",
+    "ending": "2017-05-01",
+    "holiday_type": 2,
+    "description": "1. Mai"
+  },
+  {
+    "id": "130",
+    "beginning": "2017-05-25",
+    "ending": "2017-05-25",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "131",
+    "beginning": "2017-06-05",
+    "ending": "2017-06-05",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "132",
+    "beginning": "2017-08-01",
+    "ending": "2017-08-01",
+    "holiday_type": 2,
+    "description": "1. August"
+  },
+  {
+    "id": "133",
+    "beginning": "2017-01-02",
+    "ending": "2017-01-02",
+    "holiday_type": 2,
+    "description": "Berchtoldstag"
+  },
+  {
+    "id": "134",
+    "beginning": "2017-04-14",
+    "ending": "2017-04-14",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "135",
+    "beginning": "2017-04-17",
+    "ending": "2017-04-17",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "136",
+    "beginning": "2017-06-05",
+    "ending": "2017-06-05",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "137",
+    "beginning": "2017-12-25",
+    "ending": "2017-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachten"
+  },
+  {
+    "id": "138",
+    "beginning": "2017-12-26",
+    "ending": "2017-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "143",
+    "beginning": "2018-01-01",
+    "ending": "2018-01-01",
+    "holiday_type": 2,
+    "description": "Neujahrstag"
+  },
+  {
+    "id": "144",
+    "beginning": "2018-03-30",
+    "ending": "2018-03-30",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "145",
+    "beginning": "2018-04-02",
+    "ending": "2018-04-02",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "146",
+    "beginning": "2018-05-01",
+    "ending": "2018-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "147",
+    "beginning": "2018-05-10",
+    "ending": "2018-05-10",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "148",
+    "beginning": "2018-05-21",
+    "ending": "2018-05-21",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "149",
+    "beginning": "2018-08-01",
+    "ending": "2018-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "150",
+    "beginning": "2018-12-25",
+    "ending": "2018-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachtstag"
+  },
+  {
+    "id": "151",
+    "beginning": "2018-12-26",
+    "ending": "2018-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "152",
+    "beginning": "2018-12-24",
+    "ending": "2018-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "153",
+    "beginning": "2019-01-01",
+    "ending": "2019-01-01",
+    "holiday_type": 2,
+    "description": "Neujahrstag"
+  },
+  {
+    "id": "154",
+    "beginning": "2019-04-19",
+    "ending": "2019-04-19",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "155",
+    "beginning": "2019-04-22",
+    "ending": "2019-04-22",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "156",
+    "beginning": "2019-05-01",
+    "ending": "2019-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "157",
+    "beginning": "2019-05-30",
+    "ending": "2019-05-30",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "158",
+    "beginning": "2019-06-10",
+    "ending": "2019-06-10",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "159",
+    "beginning": "2019-08-01",
+    "ending": "2019-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "160",
+    "beginning": "2019-12-25",
+    "ending": "2019-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachtstag"
+  },
+  {
+    "id": "161",
+    "beginning": "2019-12-26",
+    "ending": "2019-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "162",
+    "beginning": "2019-12-27",
+    "ending": "2019-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "163",
+    "beginning": "2020-01-01",
+    "ending": "2020-01-01",
+    "holiday_type": 2,
+    "description": "Neujahrstag"
+  },
+  {
+    "id": "164",
+    "beginning": "2020-04-10",
+    "ending": "2020-04-10",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "165",
+    "beginning": "2020-04-13",
+    "ending": "2020-04-13",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "166",
+    "beginning": "2020-05-01",
+    "ending": "2020-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "167",
+    "beginning": "2020-05-21",
+    "ending": "2020-05-21",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "168",
+    "beginning": "2020-06-01",
+    "ending": "2020-06-01",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "169",
+    "beginning": "2020-08-01",
+    "ending": "2020-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "170",
+    "beginning": "2020-12-25",
+    "ending": "2020-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachtstag"
+  },
+  {
+    "id": "171",
+    "beginning": "2020-12-26",
+    "ending": "2020-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "172",
+    "beginning": "2020-12-27",
+    "ending": "2020-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "173",
+    "beginning": "2021-01-01",
+    "ending": "2021-01-01",
+    "holiday_type": 2,
+    "description": "Neujahrstag"
+  },
+  {
+    "id": "174",
+    "beginning": "2021-04-02",
+    "ending": "2021-04-02",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "175",
+    "beginning": "2021-04-05",
+    "ending": "2021-04-05",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "176",
+    "beginning": "2021-05-01",
+    "ending": "2021-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "177",
+    "beginning": "2021-05-13",
+    "ending": "2021-05-13",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "178",
+    "beginning": "2021-05-24",
+    "ending": "2021-05-24",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "179",
+    "beginning": "2021-08-01",
+    "ending": "2021-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "180",
+    "beginning": "2021-12-25",
+    "ending": "2021-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachtstag"
+  },
+  {
+    "id": "181",
+    "beginning": "2021-12-26",
+    "ending": "2021-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "182",
+    "beginning": "2021-12-27",
+    "ending": "2021-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "183",
+    "beginning": "2022-01-01",
+    "ending": "2022-01-01",
+    "holiday_type": 2,
+    "description": "Neujahrstag"
+  },
+  {
+    "id": "184",
+    "beginning": "2022-04-15",
+    "ending": "2022-04-15",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "185",
+    "beginning": "2022-04-18",
+    "ending": "2022-04-18",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "186",
+    "beginning": "2022-05-01",
+    "ending": "2022-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "187",
+    "beginning": "2022-05-26",
+    "ending": "2022-05-26",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "188",
+    "beginning": "2022-06-06",
+    "ending": "2022-06-06",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "189",
+    "beginning": "2022-08-01",
+    "ending": "2022-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "190",
+    "beginning": "2022-12-25",
+    "ending": "2022-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachtstag"
+  },
+  {
+    "id": "191",
+    "beginning": "2022-12-26",
+    "ending": "2022-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "192",
+    "beginning": "2022-12-27",
+    "ending": "2022-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "193",
+    "beginning": "2023-01-01",
+    "ending": "2023-01-01",
+    "holiday_type": 2,
+    "description": "Neujahrstag"
+  },
+  {
+    "id": "194",
+    "beginning": "2023-04-07",
+    "ending": "2023-04-07",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "195",
+    "beginning": "2023-04-10",
+    "ending": "2023-04-10",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "196",
+    "beginning": "2023-05-01",
+    "ending": "2023-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "197",
+    "beginning": "2023-05-18",
+    "ending": "2023-05-18",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "198",
+    "beginning": "2023-05-29",
+    "ending": "2023-05-29",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "199",
+    "beginning": "2023-08-01",
+    "ending": "2023-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "200",
+    "beginning": "2023-12-25",
+    "ending": "2023-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachtstag"
+  },
+  {
+    "id": "201",
+    "beginning": "2023-12-26",
+    "ending": "2023-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "202",
+    "beginning": "2023-12-27",
+    "ending": "2023-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "203",
+    "beginning": "2024-01-01",
+    "ending": "2024-01-01",
+    "holiday_type": 2,
+    "description": "Neujahrstag"
+  },
+  {
+    "id": "204",
+    "beginning": "2024-03-29",
+    "ending": "2024-03-29",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "205",
+    "beginning": "2024-04-01",
+    "ending": "2024-04-01",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "206",
+    "beginning": "2024-05-01",
+    "ending": "2024-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "207",
+    "beginning": "2024-05-09",
+    "ending": "2024-05-09",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "208",
+    "beginning": "2024-05-20",
+    "ending": "2024-05-20",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "209",
+    "beginning": "2024-08-01",
+    "ending": "2024-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "210",
+    "beginning": "2024-12-25",
+    "ending": "2024-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachtstag"
+  },
+  {
+    "id": "211",
+    "beginning": "2024-12-26",
+    "ending": "2024-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "212",
+    "beginning": "2024-12-27",
+    "ending": "2024-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "213",
+    "beginning": "2025-01-01",
+    "ending": "2025-01-01",
+    "holiday_type": 2,
+    "description": "Neujahrstag"
+  },
+  {
+    "id": "214",
+    "beginning": "2025-04-18",
+    "ending": "2025-04-18",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "215",
+    "beginning": "2025-04-21",
+    "ending": "2025-04-21",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "216",
+    "beginning": "2025-05-01",
+    "ending": "2025-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "217",
+    "beginning": "2025-05-29",
+    "ending": "2025-05-29",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "218",
+    "beginning": "2025-06-09",
+    "ending": "2025-06-09",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "219",
+    "beginning": "2025-08-01",
+    "ending": "2025-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "220",
+    "beginning": "2025-12-25",
+    "ending": "2025-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachtstag"
+  },
+  {
+    "id": "221",
+    "beginning": "2025-12-26",
+    "ending": "2025-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "222",
+    "beginning": "2025-12-27",
+    "ending": "2025-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "223",
+    "beginning": "2026-01-01",
+    "ending": "2026-01-01",
+    "holiday_type": 2,
+    "description": "Neujahrstag"
+  },
+  {
+    "id": "224",
+    "beginning": "2026-04-03",
+    "ending": "2026-04-03",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "225",
+    "beginning": "2026-04-06",
+    "ending": "2026-04-06",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "226",
+    "beginning": "2026-05-01",
+    "ending": "2026-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "227",
+    "beginning": "2026-05-14",
+    "ending": "2026-05-14",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "228",
+    "beginning": "2026-05-25",
+    "ending": "2026-05-25",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "229",
+    "beginning": "2026-08-01",
+    "ending": "2026-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "230",
+    "beginning": "2026-12-25",
+    "ending": "2026-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachtstag"
+  },
+  {
+    "id": "231",
+    "beginning": "2026-12-26",
+    "ending": "2026-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "232",
+    "beginning": "2026-12-27",
+    "ending": "2026-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "233",
+    "beginning": "2027-01-01",
+    "ending": "2027-01-01",
+    "holiday_type": 2,
+    "description": "Neujahrstag"
+  },
+  {
+    "id": "234",
+    "beginning": "2027-03-26",
+    "ending": "2027-03-26",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "235",
+    "beginning": "2027-03-29",
+    "ending": "2027-03-29",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "236",
+    "beginning": "2027-05-01",
+    "ending": "2027-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "237",
+    "beginning": "2027-05-06",
+    "ending": "2027-05-06",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "238",
+    "beginning": "2027-05-17",
+    "ending": "2027-05-17",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "239",
+    "beginning": "2027-08-01",
+    "ending": "2027-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "240",
+    "beginning": "2027-12-25",
+    "ending": "2027-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachtstag"
+  },
+  {
+    "id": "241",
+    "beginning": "2027-12-26",
+    "ending": "2027-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "242",
+    "beginning": "2027-12-27",
+    "ending": "2027-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  },
+  {
+    "id": "243",
+    "beginning": "2028-01-01",
+    "ending": "2028-01-01",
+    "holiday_type": 2,
+    "description": "Neujahrstag"
+  },
+  {
+    "id": "244",
+    "beginning": "2028-04-14",
+    "ending": "2028-04-14",
+    "holiday_type": 2,
+    "description": "Karfreitag"
+  },
+  {
+    "id": "245",
+    "beginning": "2028-04-17",
+    "ending": "2028-04-17",
+    "holiday_type": 2,
+    "description": "Ostermontag"
+  },
+  {
+    "id": "246",
+    "beginning": "2028-05-01",
+    "ending": "2028-05-01",
+    "holiday_type": 2,
+    "description": "Tag der Arbeit"
+  },
+  {
+    "id": "247",
+    "beginning": "2028-05-25",
+    "ending": "2028-05-25",
+    "holiday_type": 2,
+    "description": "Auffahrt"
+  },
+  {
+    "id": "248",
+    "beginning": "2028-06-05",
+    "ending": "2028-06-05",
+    "holiday_type": 2,
+    "description": "Pfingstmontag"
+  },
+  {
+    "id": "249",
+    "beginning": "2028-08-01",
+    "ending": "2028-08-01",
+    "holiday_type": 2,
+    "description": "Nationalfeiertag"
+  },
+  {
+    "id": "250",
+    "beginning": "2028-12-25",
+    "ending": "2028-12-25",
+    "holiday_type": 2,
+    "description": "Weihnachtstag"
+  },
+  {
+    "id": "251",
+    "beginning": "2028-12-26",
+    "ending": "2028-12-26",
+    "holiday_type": 2,
+    "description": "Stephanstag"
+  },
+  {
+    "id": "252",
+    "beginning": "2028-12-27",
+    "ending": "2028-12-31",
+    "holiday_type": 1,
+    "description": "Betriebsferien"
+  }
+]
