@@ -22,6 +22,7 @@ end
 group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'debase'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-byebug'
@@ -30,6 +31,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rspec', require: false
+  gem 'ruby-debug-ide'
 end
 
 group :development do
