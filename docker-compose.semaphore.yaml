@@ -27,7 +27,7 @@ services:
         ports:
             - "43000:3000"
     mysql:
-        image: mariadb:10.2.23
+        image: mariadb:10.3.14
         container_name: better_izivi_db
         environment:
             - MYSQL_ALLOW_EMPTY_PASSWORD=yes
