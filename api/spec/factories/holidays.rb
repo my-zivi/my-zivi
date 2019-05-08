@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :holiday do
     beginning { '2019-04-10' }
     ending { '2019-04-20' }
-    holiday_type { Holiday.holiday_types[:company_holiday] }
+    holiday_type { :company_holiday }
     description { 'MyString' }
   end
 end

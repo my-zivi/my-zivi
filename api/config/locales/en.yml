@@ -2,6 +2,13 @@ en:
   activerecord:
     errors:
       models:
+        holiday:
+          attributes:
+            beginning:
+              invalid_date: invalid date
+            ending:
+              before_beginning: before beginning
+              invalid_date: invalid date
         user:
           attributes:
             bank_iban:

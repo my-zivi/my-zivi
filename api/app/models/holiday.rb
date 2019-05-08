@@ -2,7 +2,7 @@
 
 class Holiday < ApplicationRecord
   include Concerns::PositiveTimeSpanValidatable
-
+  validates :beginning, :ending, timeliness: { type: :date }
   validates :beginning, :ending, :description, :holiday_type, presence: true
 
   enum holiday_type: {

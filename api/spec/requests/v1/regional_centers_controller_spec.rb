@@ -7,7 +7,7 @@ RSpec.describe V1::RegionalCentersController, type: :request do
     subject { response }
 
     let(:regional_center) { create :regional_center }
-    let(:response_json) { JSON.parse(response.body, symbolize_names: true) }
+    let(:response_json) { parse_response_json(response) }
 
     before do
       regional_center
