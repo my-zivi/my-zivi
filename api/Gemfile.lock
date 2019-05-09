@@ -57,6 +57,9 @@ GEM
       msgpack (~> 1.0)
     brakeman (4.5.0)
     builder (3.2.3)
+    bullet (6.0.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     byebug (11.0.1)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
@@ -257,6 +260,7 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode-display_width (1.5.0)
+    uniform_notifier (1.12.1)
     validates_timeliness (4.0.2)
       timeliness (~> 0.3.7)
     warden (1.2.8)
@@ -278,6 +282,7 @@ DEPENDENCIES
   binding_of_caller
   bootsnap (>= 1.1.0)
   brakeman
+  bullet
   byebug
   debase
   devise-jwt (~> 0.5.9)
