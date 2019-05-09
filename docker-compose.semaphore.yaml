@@ -6,6 +6,7 @@ services:
             dockerfile: dev.Dockerfile
             cache_from:
               - better_izivi_api
+              - ruby:2.5.1
         container_name: better_izivi_api
         volumes:
             - ./api:/api
@@ -14,10 +15,7 @@ services:
             - mysql
         ports:
             - "28000:8000"
-        environment:
-            - DATABASE_HOST=mysql
-            - DATABASE_USERNAME=root
-            - DATABASE_PASSWORD=
+        env_file: 'api/.env.semaphore'
     frontend:
         image: node:10
         container_name: better_izivi_frontend

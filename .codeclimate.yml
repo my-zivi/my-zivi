@@ -4,4 +4,5 @@ plugins:
     config: frontend/tslint.json
   rubocop:
     enabled: true
-    config: api/.rubocop.yml
+    config: api/.rubocop_base.yml
+    channel: rubocop-0-67
