@@ -15,11 +15,11 @@ module Concerns
     private
 
     def render_json_error(error)
-      render json: { status: 'error', error: error.message }, status: :not_found
+      render json: { error: error.message }, status: :not_found
     end
 
     def render_validation_error(error)
-      render json: { status: 'error', errors: error.validation_errors }, status: :bad_request
+      render json: { errors: error.validation_errors }, status: :bad_request
     end
   end
 end

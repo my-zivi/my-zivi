@@ -22,10 +22,7 @@ RSpec.shared_examples_for 'renders a validation error response' do
   end
 
   it 'renders error structure' do
-    expect(parse_response_json(response)).to include(
-      status: 'error',
-      errors: be_an_instance_of(Hash)
-    )
+    expect(parse_response_json(response)).to include(errors: be_an_instance_of(Hash))
   end
 end
 
@@ -37,10 +34,7 @@ RSpec.shared_examples_for 'renders a not found error response' do
   end
 
   it 'renders error structure' do
-    expect(parse_response_json(response)).to include(
-      status: 'error',
-      error: be_an_instance_of(String)
-    )
+    expect(parse_response_json(response)).to include(error: be_an_instance_of(String))
   end
 end
 

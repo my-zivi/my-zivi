@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module V1
-  class HolidaysController < ApplicationController
+  class HolidaysController < APIController
     before_action :set_holiday, only: %i[update destroy]
 
     def index
