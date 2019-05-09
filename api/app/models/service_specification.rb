@@ -4,9 +4,9 @@ class ServiceSpecification < ApplicationRecord
   ALLOWED_EXPENSE_KEYS = %i[breakfast lunch dinner].freeze
 
   serialize :work_days_expenses, Hash
-  serialize :paid_vacation_expense, Hash
-  serialize :first_day_expense, Hash
-  serialize :last_day_expense, Hash
+  serialize :paid_vacation_expenses, Hash
+  serialize :first_day_expenses, Hash
+  serialize :last_day_expenses, Hash
 
   enum location: {
     valais: 'vs',
@@ -17,13 +17,13 @@ class ServiceSpecification < ApplicationRecord
 
   validates :short_name, :name, :accommodation_expenses,
             :working_clothes_expenses, :work_days_expenses,
-            :paid_vacation_expense, :first_day_expense,
-            :last_day_expense, :location, presence: true
+            :paid_vacation_expenses, :first_day_expenses,
+            :last_day_expenses, :location, presence: true
 
   validate :validate_work_days_expenses
-  validate :validate_paid_vacation_expense
-  validate :validate_first_day_expense
-  validate :validate_last_day_expense
+  validate :validate_paid_vacation_expenses
+  validate :validate_first_day_expenses
+  validate :validate_last_day_expenses
 
   private
 
@@ -32,19 +32,19 @@ class ServiceSpecification < ApplicationRecord
     validate_numericality_of_json(:work_days_expenses)
   end
 
-  def validate_paid_vacation_expense
-    validate_json_format(:paid_vacation_expense)
-    validate_numericality_of_json(:paid_vacation_expense)
+  def validate_paid_vacation_expenses
+    validate_json_format(:paid_vacation_expenses)
+    validate_numericality_of_json(:paid_vacation_expenses)
   end
 
-  def validate_first_day_expense
-    validate_json_format(:first_day_expense)
-    validate_numericality_of_json(:first_day_expense)
+  def validate_first_day_expenses
+    validate_json_format(:first_day_expenses)
+    validate_numericality_of_json(:first_day_expenses)
   end
 
-  def validate_last_day_expense
-    validate_json_format(:last_day_expense)
-    validate_numericality_of_json(:last_day_expense)
+  def validate_last_day_expenses
+    validate_json_format(:last_day_expenses)
+    validate_numericality_of_json(:last_day_expenses)
   end
 
   def validate_json_format(attribute)

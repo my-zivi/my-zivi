@@ -9,8 +9,8 @@ FactoryBot.define do
     location { ServiceSpecification.locations[:zh] }
     active { false }
     work_days_expenses { { breakfast: 400, lunch: 900, dinner: 700 } }
-    paid_vacation_expense { { breakfast: 400, lunch: 900, dinner: 700 } }
-    first_day_expense { { breakfast: 400, lunch: 900, dinner: 700 } }
-    last_day_expense { { breakfast: 400, lunch: 900, dinner: 700 } }
+    paid_vacation_expenses { { breakfast: 400, lunch: 900, dinner: 700 } }
+    first_day_expenses { { breakfast: 400, lunch: 900, dinner: 700 } }
+    last_day_expenses { { breakfast: 400, lunch: 900, dinner: 700 } }
   end
 end

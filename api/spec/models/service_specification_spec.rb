@@ -8,9 +8,9 @@ RSpec.describe ServiceSpecification, type: :model do
   it { is_expected.to validate_presence_of :accommodation_expenses }
   it { is_expected.to validate_presence_of :working_clothes_expenses }
   it { is_expected.to validate_presence_of :work_days_expenses }
-  it { is_expected.to validate_presence_of :paid_vacation_expense }
-  it { is_expected.to validate_presence_of :first_day_expense }
-  it { is_expected.to validate_presence_of :last_day_expense }
+  it { is_expected.to validate_presence_of :paid_vacation_expenses }
+  it { is_expected.to validate_presence_of :first_day_expenses }
+  it { is_expected.to validate_presence_of :last_day_expenses }
 
   describe '#work_days_expenses' do
     subject { service_specification.tap(&:validate).errors.added? :work_days_expenses, error_key }

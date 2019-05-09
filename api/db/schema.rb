@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_07_093510) do
+ActiveRecord::Schema.define(version: 2019_05_09_144757) do
 
   create_table "expense_sheets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "beginning", null: false
@@ -63,10 +63,10 @@ ActiveRecord::Schema.define(version: 2019_05_07_093510) do
     t.string "short_name", null: false
     t.integer "working_clothes_expenses", null: false
     t.integer "accommodation_expenses", null: false
-    t.json "work_days_expenses", null: false
-    t.json "paid_vacation_expense", null: false
-    t.json "first_day_expense", null: false
-    t.json "last_day_expense", null: false
+    t.text "work_days_expenses", limit: 4294967295, null: false, collation: "utf8mb4_bin"
+    t.text "paid_vacation_expenses", limit: 4294967295, null: false
+    t.text "first_day_expenses", limit: 4294967295, null: false
+    t.text "last_day_expenses", limit: 4294967295, null: false
     t.string "location", default: "zh"
     t.boolean "active", default: true
     t.datetime "created_at", null: false
