@@ -23,13 +23,13 @@ services:
             - ./frontend:/var/frontend
         working_dir: /var/frontend
         ports:
-            - "43000:3000"
+            - "23000:3000"
     mysql:
         image: mariadb:10.3.14
         container_name: better_izivi_db
         environment:
             - MYSQL_ALLOW_EMPTY_PASSWORD=yes
         ports:
-            - "43306:3306"
+            - "23306:3306"
         volumes:
             - ./database:/var/lib/mysql
