@@ -13,8 +13,6 @@ services:
         working_dir: /api
         depends_on:
             - mysql
-        ports:
-            - "28000:8000"
         env_file: 'api/.env.semaphore'
     frontend:
         image: node:10
@@ -22,14 +20,11 @@ services:
         volumes:
             - ./frontend:/var/frontend
         working_dir: /var/frontend
-        ports:
-            - "23000:3000"
     mysql:
         image: mariadb:10.3.14
         container_name: better_izivi_db
         environment:
             - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-        ports:
-            - "23306:3306"
         volumes:
             - ./database:/var/lib/mysql
+
