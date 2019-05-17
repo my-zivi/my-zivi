@@ -12,6 +12,9 @@ RSpec.describe ServiceSpecification, type: :model do
   it { is_expected.to validate_presence_of :first_day_expenses }
   it { is_expected.to validate_presence_of :last_day_expenses }
 
+  it { is_expected.to validate_numericality_of(:accommodation_expenses).only_integer }
+  it { is_expected.to validate_numericality_of(:working_clothes_expenses).only_integer }
+
   describe '#work_days_expenses' do
     subject { service_specification.tap(&:validate).errors.added? :work_days_expenses, error_key }
 

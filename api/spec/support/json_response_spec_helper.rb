@@ -4,13 +4,19 @@ def parse_response_json(response)
   JSON.parse(response.body, symbolize_names: true)
 end
 
+def is_a_boolean?(value)
+  value.in? [true, false]
+end
+
 def extract_to_json(resource, *keys)
   resource
     .reload
     .attributes
     .symbolize_keys
     .slice(*keys)
-    .map { |key, value| [key, (value.is_a?(Integer) ? value : value.to_s)] }
+    .map do |key, value|
+      [key, (value.is_a?(Integer) || is_a_boolean?(value) || value.is_a?(Hash) ? value : value.to_s)]
+    end
     .to_h
 end
 
