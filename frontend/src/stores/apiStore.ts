@@ -7,7 +7,7 @@ import moment from 'moment';
 
 // this will be replaced by a build script, if necessary
 const baseUrlOverride = 'BASE_URL';
-export const baseUrl = baseUrlOverride.startsWith('http') ? baseUrlOverride : 'http://localhost:48000/api';
+export const baseUrl = baseUrlOverride.startsWith('http') ? baseUrlOverride : 'http://localhost:28000/v1';
 
 export const apiDateFormat = 'YYYY-MM-DD';
 
@@ -83,21 +83,24 @@ export class ApiStore {
   }
 
   @action
-  logout(redirect = true): void {
+  async logout(redirect = true) {
+    await this._api.delete('/users/sign_out');
+
     localStorage.removeItem(KEY_TOKEN);
     this._token = '';
     this.setAuthHeader(null);
     if (redirect) {
       this.history.push('/');
     }
+
     this.updateSentryContext();
   }
 
   @action
   async postLogin(values: { email: string; password: string }) {
-    const res = await this._api.post<LoginResponse>('/auth/login', values);
+    const res = await this._api.post<LoginResponse>('/users/sign_in', { user: values });
     runInAction(() => {
-      this.setToken(res.data.data.token);
+      this.setToken(res.headers.authorization);
       this.updateSentryContext();
     });
   }
@@ -113,7 +116,7 @@ export class ApiStore {
     community_pw: string;
     newsletter: boolean;
   }) {
-    const res = await this._api.post<LoginResponse>('/auth/register', values);
+    const res = await this._api.post<LoginResponse>('/users', values);
     runInAction(() => {
       this.setToken(res.data.data.token);
       this.updateSentryContext();
@@ -154,7 +157,9 @@ export class ApiStore {
   }
 
   private setAuthHeader(token: string | null) {
-    this._api.defaults.headers.Authorization = token ? 'Bearer ' + token : '';
+    if (token) {
+      this._api.defaults.headers.Authorization = token;
+    }
   }
 
   private setToken(token: string) {

@@ -14,6 +14,8 @@ class ApplicationController < ActionController::API
 
   respond_to :json
 
+  private
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: PERMITTED_USER_KEYS)
   end
