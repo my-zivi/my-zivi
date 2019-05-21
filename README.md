@@ -24,7 +24,7 @@ https://izivi.stiftungswo.ch/
 | Name | Verwendung | Informationen / Tutorials |
 | --- | --- | --- |
 | Ruby on Rails | Ruby Framework zur Datenbank-Abstraktion, MVC-konform. | [Offizielle Dokumentation](https://guides.rubyonrails.org/) |
-| RSpec	| RSpec wird für das Testing von Ruby-Code verwendet. |
+| RSpec	| RSpec wird für das Testing von Ruby-Code verwendet. | [RSpec tutorial](https://www.rubyguides.com/2018/07/rspec-tutorial/)
 
 ### Frontend
 | Name | Verwendung | Informationen / Tutorials |
