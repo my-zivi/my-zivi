@@ -5,10 +5,10 @@
       t.string :short_name, null: false
       t.integer :working_clothes_expenses, null: false
       t.integer :accommodation_expenses, null: false
-      t.json :work_days_expenses, null: false
-      t.json :paid_vacation_expense, null: false
-      t.json :first_day_expense, null: false
-      t.json :last_day_expense, null: false
+      t.text :work_days_expenses, null: false
+      t.text :paid_vacation_expense, null: false
+      t.text :first_day_expense, null: false
+      t.text :last_day_expense, null: false
       t.string :location, default: 'zh'
       t.boolean :active, default: true
 

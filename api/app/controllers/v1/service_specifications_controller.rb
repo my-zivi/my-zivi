@@ -10,10 +10,10 @@ module V1
     ].freeze
 
     PERMITTED_SERVICE_SPECIFICATION_JSON_KEYS = {
-      work_days_expenses: %i[breakfast lunch dinner],
-      paid_vacation_expenses: %i[breakfast lunch dinner],
-      first_day_expenses: %i[breakfast lunch dinner],
-      last_day_expenses: %i[breakfast lunch dinner]
+      work_days_expenses: %w[breakfast lunch dinner],
+      paid_vacation_expenses: %w[breakfast lunch dinner],
+      first_day_expenses: %w[breakfast lunch dinner],
+      last_day_expenses: %w[breakfast lunch dinner]
     }.freeze
 
     def index
@@ -54,7 +54,7 @@ module V1
                          .to_h
 
       sanitized_params.map do |key, value|
-        is_json_key = PERMITTED_SERVICE_SPECIFICATION_JSON_KEYS.as_json.key? key
+        is_json_key = PERMITTED_SERVICE_SPECIFICATION_JSON_KEYS.key? key.to_sym
         value = is_json_key ? json_string_to_integer(value) : value
 
         [key, value]
@@ -62,9 +62,7 @@ module V1
     end
 
     def json_string_to_integer(json)
-      json.map do |json_key, json_value|
-        [json_key.to_sym, json_value.to_i]
-      end.to_h
+      json.map { |json_key, json_value| [json_key, json_value.to_i] }.to_h
     end
   end
 end
