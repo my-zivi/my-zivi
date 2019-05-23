@@ -16,11 +16,11 @@ class ServiceSpecification < ApplicationRecord
   has_many :services, dependent: :restrict_with_error
 
   validates :short_name, :name, :accommodation_expenses,
-            :working_clothes_expenses, :work_days_expenses,
+            :work_clothing_expenses, :work_days_expenses,
             :paid_vacation_expenses, :first_day_expenses,
             :last_day_expenses, :location, presence: true
 
-  validates :accommodation_expenses, :working_clothes_expenses, numericality: { only_integer: true }
+  validates :accommodation_expenses, :work_clothing_expenses, numericality: { only_integer: true }
 
   validate :validate_work_days_expenses
   validate :validate_paid_vacation_expenses

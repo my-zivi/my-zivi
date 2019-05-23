@@ -10,30 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_09_144757) do
+ActiveRecord::Schema.define(version: 2019_05_23_141711) do
 
   create_table "expense_sheets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "beginning", null: false
     t.date "ending", null: false
     t.bigint "user_id", null: false
     t.integer "work_days", null: false
-    t.integer "company_holiday_unpaid_days", default: 0
-    t.integer "company_holiday_paid_days", default: 0
+    t.integer "unpaid_company_holiday_days", default: 0
+    t.integer "paid_company_holiday_days", default: 0
     t.string "company_holiday_comment"
     t.integer "workfree_days", default: 0
-    t.integer "ill_days", default: 0
-    t.string "ill_comment"
+    t.integer "sick_days", default: 0
+    t.string "sick_comment"
     t.integer "personal_vacation_days", default: 0
     t.integer "paid_vacation_days", default: 0
     t.string "paid_vacation_comment"
     t.integer "unpaid_vacation_days", default: 0
     t.string "unpaid_vacation_comment"
-    t.integer "driving_charges", default: 0
-    t.string "driving_charges_comment"
-    t.integer "extraordinarily_expenses", default: 0
-    t.string "extraordinarily_expenses_comment"
-    t.integer "clothes_expenses", default: 0
-    t.string "clothes_expenses_comment"
+    t.integer "driving_expenses", default: 0
+    t.string "driving_expenses_comment"
+    t.integer "extraordinary_expenses", default: 0
+    t.string "extraordinary_expenses_comment"
+    t.integer "clothing_expenses", default: 0
+    t.string "clothing_expenses_comment"
     t.string "bank_account_number", null: false
     t.integer "state", default: 0
     t.datetime "created_at", null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2019_05_09_144757) do
   create_table "service_specifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "short_name", null: false
-    t.integer "working_clothes_expenses", null: false
+    t.integer "work_clothing_expenses", null: false
     t.integer "accommodation_expenses", null: false
     t.text "work_days_expenses", null: false
     t.text "paid_vacation_expenses", null: false

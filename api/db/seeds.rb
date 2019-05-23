@@ -66,7 +66,7 @@ ExpenseSheet.create!(
 service_specification = ServiceSpecification.create!(
   name: 'Gruppeneinsätze, Feldarbeiten',
   short_name: 'F',
-  working_clothes_expenses: 230,
+  work_clothing_expenses: 230,
   accommodation_expenses: 0,
   work_days_expenses: { breakfast: 300, lunch: 900, dinner: 700 },
   paid_vacation_expenses: { breakfast: 300, lunch: 900, dinner: 700 },

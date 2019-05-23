@@ -5,7 +5,7 @@ module V1
     before_action :set_service_specification, only: %i[update]
 
     PERMITTED_SERVICE_SPECIFICATION_KEYS = %i[
-      name short_name working_clothes_expenses
+      name short_name work_clothing_expenses
       accommodation_expenses location active
     ].freeze
 

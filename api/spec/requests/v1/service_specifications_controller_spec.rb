@@ -36,7 +36,7 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
             id: ServiceSpecification.last.id,
             name: params[:name],
             short_name: params[:short_name],
-            working_clothes_expenses: params[:working_clothes_expenses].to_i,
+            work_clothing_expenses: params[:work_clothing_expenses].to_i,
             accommodation_expenses: params[:accommodation_expenses].to_i,
             location: params[:location],
             active: params[:active],
@@ -88,7 +88,7 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
           extract_to_json(service_specification,
                           :name,
                           :short_name,
-                          :working_clothes_expenses,
+                          :work_clothing_expenses,
                           :accommodation_expenses,
                           :location,
                           :active)
@@ -117,7 +117,7 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
       end
 
       context 'with invalid params' do
-        let(:params) { { working_clothes_expenses: 'ab' } }
+        let(:params) { { work_clothing_expenses: 'ab' } }
 
         it_behaves_like 'renders a validation error response' do
           let(:request) { put_request }
@@ -126,7 +126,7 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
         it 'renders all validation errors' do
           put_request
           expect(parse_response_json(response)[:errors]).to include(
-            working_clothes_expenses: be_an_instance_of(Array)
+            work_clothing_expenses: be_an_instance_of(Array)
           )
         end
       end
