@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_23_141711) do
+ActiveRecord::Schema.define(version: 2019_05_23_144551) do
 
   create_table "expense_sheets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "beginning", null: false
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_05_23_141711) do
     t.integer "state", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "payment_timestamp"
     t.index ["user_id"], name: "index_expense_sheets_on_user_id"
   end
 
