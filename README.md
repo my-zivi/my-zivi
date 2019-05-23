@@ -103,8 +103,8 @@ Das Backend und Frontend sollen immer sauber formatiert sein (wird von der CI ü
 
 Vor dem Commiten sollten immer die Formatier-Tools ausgeführt werden.
 
-* Backend: `docker-compose exec rubocop -a`
-* Frontend: `docker-compose exec web-client yarn format`
+* Backend: `docker-compose exec api rubocop -a`
+* Frontend: `docker-compose exec frontend yarn format`
 
 Für das Backend kommt [rubocop](https://github.com/rubocop-hq/rubocop) zum Einsatz und für das Frontend übernimmt [TSLint](https://palantir.github.io/tslint/) den Job.
 
