@@ -138,7 +138,7 @@ RSpec.describe V1::HolidaysController, type: :request do
 
   context 'when no user is signed in' do
     describe '#index' do
-      it_behaves_like 'protected resource' do
+      it_behaves_like 'login protected resource' do
         let(:request) { get v1_holidays_path }
       end
     end
@@ -147,7 +147,7 @@ RSpec.describe V1::HolidaysController, type: :request do
       let(:params) { attributes_for(:holiday) }
       let(:request) { post v1_holidays_path(holiday: params) }
 
-      it_behaves_like 'protected resource'
+      it_behaves_like 'login protected resource'
 
       it 'does not create a new holiday' do
         expect { request }.not_to change(Holiday, :count)
@@ -159,7 +159,7 @@ RSpec.describe V1::HolidaysController, type: :request do
       let(:request) { put v1_holiday_path(holiday, params: { holiday: params }) }
       let(:params) { { description: 'New description' } }
 
-      it_behaves_like 'protected resource'
+      it_behaves_like 'login protected resource'
 
       it 'does not update the holiday' do
         expect { request }.not_to(change { holiday.reload.description })
@@ -170,7 +170,7 @@ RSpec.describe V1::HolidaysController, type: :request do
       let!(:holiday) { create :holiday }
       let(:request) { delete v1_holiday_path(holiday) }
 
-      it_behaves_like 'protected resource'
+      it_behaves_like 'login protected resource'
 
       it 'does not delete the holiday' do
         expect { request }.not_to change(Holiday, :count)

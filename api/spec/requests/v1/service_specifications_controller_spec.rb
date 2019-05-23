@@ -141,7 +141,7 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
 
   context 'when no user is signed in' do
     describe '#index' do
-      it_behaves_like 'protected resource' do
+      it_behaves_like 'login protected resource' do
         let(:request) { get v1_service_specifications_path }
       end
     end
@@ -150,7 +150,7 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
       let(:params) { attributes_for(:service_specification) }
       let(:request) { post v1_service_specifications_path(service_specification: params) }
 
-      it_behaves_like 'protected resource'
+      it_behaves_like 'login protected resource'
 
       it 'does not create a new service specification' do
         expect { request }.not_to change(ServiceSpecification, :count)
@@ -164,7 +164,7 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
       end
       let(:params) { { name: 'New name' } }
 
-      it_behaves_like 'protected resource'
+      it_behaves_like 'login protected resource'
 
       it 'does not update the service specification' do
         expect { request }.not_to(change { service_specification.reload.name })

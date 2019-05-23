@@ -11,7 +11,7 @@ class CreateServices < ActiveRecord::Migration[5.2]
       t.boolean :first_swo_service, null: false
       t.boolean :long_service, null: false
       t.boolean :probation_service, null: false
-      t.boolean :feedback_mail_sent, null: false
+      t.boolean :feedback_mail_sent, null: false, default: false
 
       t.timestamps
     end

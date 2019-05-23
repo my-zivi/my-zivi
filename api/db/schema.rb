@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2019_05_09_144757) do
     t.boolean "first_swo_service", null: false
     t.boolean "long_service", null: false
     t.boolean "probation_service", null: false
-    t.boolean "feedback_mail_sent", null: false
+    t.boolean "feedback_mail_sent", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["service_specification_id"], name: "index_services_on_service_specification_id"

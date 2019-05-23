@@ -1,14 +1,15 @@
 en:
   activerecord:
     errors:
+      messages:
+        not_a_monday: not a monday
+        not_a_friday: not a friday
+        invalid_date: invalid date
       models:
         holiday:
           attributes:
-            beginning:
-              invalid_date: invalid date
             ending:
               before_beginning: before beginning
-              invalid_date: invalid date
         user:
           attributes:
             bank_iban:
@@ -20,3 +21,5 @@ en:
   service_calculator:
     invalid_required_service_days: Invalid service days
     end_date_cannot_be_on_weekend: Service end date can't be on a weekend
+  errors:
+    authorization_error: You are not authorized to perform this action

@@ -37,7 +37,7 @@ RSpec.describe V1::RegionalCentersController, type: :request do
 
   context 'when user is not signed in' do
     describe '#index' do
-      it_behaves_like 'protected resource' do
+      it_behaves_like 'login protected resource' do
         let(:request) { get v1_regional_centers_path }
       end
     end

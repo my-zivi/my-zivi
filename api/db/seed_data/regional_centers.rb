@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 RegionalCenter.create!(
   name: 'Rüti',
-  address: 'Vollzugsstelle für den Zivildienst ZIVI, Regionalzentrum Rüti (ZH), Spitalstrasse 31, Postfach, 8630 Rüti (ZH)',
+  address: 'Vollzugsstelle für den Zivildienst ZIVI, ' \
+                 'Regionalzentrum Rüti (ZH), ' \
+                 'Spitalstrasse 31, Postfach, ' \
+                 '8630 Rüti (ZH)',
   short_name: 'Ru'
 )
 

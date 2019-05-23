@@ -8,15 +8,19 @@ def is_a_boolean?(value)
   value.in? [true, false]
 end
 
+def convert_to_json_value(value)
+  return value if value.is_a?(Integer) || is_a_boolean?(value) || value.is_a?(Hash)
+
+  value.to_s
+end
+
 def extract_to_json(resource, *keys)
   resource
     .reload
     .attributes
     .symbolize_keys
     .slice(*keys)
-    .map do |key, value|
-      [key, (value.is_a?(Integer) || is_a_boolean?(value) || value.is_a?(Hash) ? value : value.to_s)]
-    end
+    .map { |key, value| [key, convert_to_json_value(value)] }
     .to_h
 end
 
@@ -29,24 +33,5 @@ RSpec.shared_examples_for 'renders a validation error response' do
 
   it 'renders error structure' do
     expect(parse_response_json(response)).to include(errors: be_an_instance_of(Hash))
-  end
-end
-
-RSpec.shared_examples_for 'renders a not found error response' do
-  before { request }
-
-  it 'renders a 404 Not Found error' do
-    expect(response).to have_http_status :not_found
-  end
-
-  it 'renders error structure' do
-    expect(parse_response_json(response)).to include(error: be_an_instance_of(String))
-  end
-end
-
-RSpec.shared_examples_for 'renders a successful http status code' do
-  it 'renders a success http status code' do
-    request
-    expect(response).to be_successful
   end
 end

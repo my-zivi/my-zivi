@@ -7,12 +7,14 @@ RSpec.describe Service, type: :model do
   it { is_expected.to validate_presence_of :beginning }
   it { is_expected.to validate_presence_of :user }
   it { is_expected.to validate_presence_of :eligible_personal_vacation_days }
-  it { is_expected.to validate_presence_of :feedback_mail_sent }
-  it { is_expected.to validate_presence_of :first_swo_service }
-  it { is_expected.to validate_presence_of :long_service }
-  it { is_expected.to validate_presence_of :probation_service }
   it { is_expected.to validate_presence_of :service_specification }
   it { is_expected.to validate_presence_of :service_type }
+
+  it 'validates numericality of #eligible_personal_vacation_days' do
+    expect(described_class.new).to validate_numericality_of(:eligible_personal_vacation_days)
+      .only_integer
+      .is_greater_than_or_equal_to(0)
+  end
 
   it_behaves_like 'validates that the ending is after beginning' do
     let(:model) { build(:service, beginning: beginning, ending: ending) }

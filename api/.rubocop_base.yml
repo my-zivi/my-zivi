@@ -49,5 +49,6 @@ AllCops:
     - 'log/**/*'
     - 'public/**/*'
     - 'tmp/**/*'
-    - 'db/**/*'
+    - 'db/migrate/*'
+    - 'db/schema.rb'
     - 'vendor/**/*'
