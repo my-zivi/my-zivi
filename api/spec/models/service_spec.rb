@@ -25,7 +25,7 @@ RSpec.describe Service, type: :model do
     let(:beginning) { Time.zone.today.beginning_of_week }
 
     it 'returns the duration of the service' do
-      expect(service.duration).to eq 26
+      expect(service.duration).to eq 27
     end
   end
 

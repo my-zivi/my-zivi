@@ -24,7 +24,7 @@ class Service < ApplicationRecord
   validate :beginning_is_monday
 
   def duration
-    (ending - beginning).to_i
+    (ending - beginning).to_i + 1
   end
 
   private
