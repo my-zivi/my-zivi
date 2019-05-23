@@ -28,6 +28,4 @@ RSpec.describe V1::ServicesController, type: :routing do
       expect(delete: '/v1/services/1').to route_to('v1/services#destroy', id: '1', format: :json)
     end
   end
-
-  # TODO: Add routing specs for other routes
 end
