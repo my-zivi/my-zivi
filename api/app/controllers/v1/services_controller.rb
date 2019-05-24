@@ -25,7 +25,6 @@ module V1
 
       raise ValidationError, @service.errors unless @service.save
 
-      # TODO: Return :created in every #create
       render :show, status: :created
     end
 

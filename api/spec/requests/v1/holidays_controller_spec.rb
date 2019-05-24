@@ -114,12 +114,8 @@ RSpec.describe V1::HolidaysController, type: :request do
 
       it { is_expected.to change(Holiday, :count).by(-1) }
 
-      it 'returns the deleted resource' do
-        expected_response = extract_to_json(holiday, :id, :beginning, :ending, :description)
-
-        delete_request
-
-        expect(parse_response_json(response)).to include(expected_response)
+      it_behaves_like 'renders a successful http status code' do
+        let(:request) { delete_request }
       end
 
       context 'when the requested resource does not exist' do
