@@ -11,7 +11,6 @@ FactoryBot.define do
     workfree_days { 2 }
     sick_days { 0 }
     sick_comment { 'MyString' }
-    personal_vacation_days { 0 }
     paid_vacation_days { 0 }
     paid_vacation_comment { 'MyString' }
     unpaid_vacation_days { 0 }

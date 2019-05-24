@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_23_144551) do
+ActiveRecord::Schema.define(version: 2019_05_24_071100) do
 
   create_table "expense_sheets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "beginning", null: false
@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 2019_05_23_144551) do
     t.integer "workfree_days", default: 0
     t.integer "sick_days", default: 0
     t.string "sick_comment"
-    t.integer "personal_vacation_days", default: 0
     t.integer "paid_vacation_days", default: 0
     t.string "paid_vacation_comment"
     t.integer "unpaid_vacation_days", default: 0
