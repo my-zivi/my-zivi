@@ -5,7 +5,6 @@ FactoryBot.define do
     beginning { '2018-11-05' }
     ending { '2019-08-02' }
     confirmation_date { '2018-11-01' }
-    eligible_personal_vacation_days { 14 }
     service_type { :normal }
     first_swo_service { true }
     long_service { true }

@@ -10,31 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_24_071100) do
+ActiveRecord::Schema.define(version: 2019_05_24_090147) do
 
   create_table "expense_sheets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "beginning", null: false
     t.date "ending", null: false
     t.bigint "user_id", null: false
     t.integer "work_days", null: false
-    t.integer "unpaid_company_holiday_days", default: 0
-    t.integer "paid_company_holiday_days", default: 0
+    t.integer "unpaid_company_holiday_days", default: 0, null: false
+    t.integer "paid_company_holiday_days", default: 0, null: false
     t.string "company_holiday_comment"
-    t.integer "workfree_days", default: 0
-    t.integer "sick_days", default: 0
+    t.integer "workfree_days", default: 0, null: false
+    t.integer "sick_days", default: 0, null: false
     t.string "sick_comment"
-    t.integer "paid_vacation_days", default: 0
+    t.integer "paid_vacation_days", default: 0, null: false
     t.string "paid_vacation_comment"
-    t.integer "unpaid_vacation_days", default: 0
+    t.integer "unpaid_vacation_days", default: 0, null: false
     t.string "unpaid_vacation_comment"
-    t.integer "driving_expenses", default: 0
+    t.integer "driving_expenses", default: 0, null: false
     t.string "driving_expenses_comment"
-    t.integer "extraordinary_expenses", default: 0
+    t.integer "extraordinary_expenses", default: 0, null: false
     t.string "extraordinary_expenses_comment"
-    t.integer "clothing_expenses", default: 0
+    t.integer "clothing_expenses", default: 0, null: false
     t.string "clothing_expenses_comment"
     t.string "bank_account_number", null: false
-    t.integer "state", default: 0
+    t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "payment_timestamp"
@@ -79,11 +79,10 @@ ActiveRecord::Schema.define(version: 2019_05_24_071100) do
     t.date "beginning", null: false
     t.date "ending", null: false
     t.date "confirmation_date"
-    t.integer "eligible_personal_vacation_days", null: false
     t.integer "service_type", default: 0, null: false
-    t.boolean "first_swo_service", null: false
-    t.boolean "long_service", null: false
-    t.boolean "probation_service", null: false
+    t.boolean "first_swo_service", default: true, null: false
+    t.boolean "long_service", default: false, null: false
+    t.boolean "probation_service", default: false, null: false
     t.boolean "feedback_mail_sent", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

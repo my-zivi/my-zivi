@@ -164,7 +164,7 @@ RSpec.describe V1::ServicesController, type: :request do
       context 'when params are invalid' do
         let(:params) do
           valid_params.merge(
-            beginning: Time.zone.today.to_s, ending: 'I am invalid', eligible_personal_vacation_days: -1
+            beginning: Time.zone.today.end_of_week.to_s, ending: 'I am invalid'
           )
         end
 
@@ -179,8 +179,7 @@ RSpec.describe V1::ServicesController, type: :request do
             post_request
             expect(parse_response_json(response)[:errors]).to include(
               beginning: be_an_instance_of(Array),
-              ending: be_an_instance_of(Array),
-              eligible_personal_vacation_days: be_an_instance_of(Array)
+              ending: be_an_instance_of(Array)
             )
           end
         end
@@ -245,7 +244,7 @@ RSpec.describe V1::ServicesController, type: :request do
 
       context 'with invalid params' do
         let(:user) { create :user, :admin }
-        let(:params) { { eligible_personal_vacation_days: 'invalid' } }
+        let(:params) { { ending: 'invalid' } }
 
         it_behaves_like 'renders a validation error response' do
           let(:request) { put_request }
@@ -254,7 +253,7 @@ RSpec.describe V1::ServicesController, type: :request do
         it 'renders all validation errors' do
           put_request
           expect(parse_response_json(response)[:errors]).to include(
-            eligible_personal_vacation_days: be_an_instance_of(Array)
+            ending: be_an_instance_of(Array)
           )
         end
       end
