@@ -55,21 +55,19 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
 
         it { is_expected.to change(ServiceSpecification, :count).by(0) }
 
-        describe 'returned error' do
-          it_behaves_like 'renders a validation error response' do
-            let(:request) { post_request }
-          end
+        it_behaves_like 'renders a validation error response' do
+          let(:request) { post_request }
+        end
 
-          it 'renders all validation errors', :aggregate_failures do
-            post_request
-            errors = parse_response_json(response)[:errors]
+        it 'renders all validation errors', :aggregate_failures do
+          post_request
+          errors = parse_response_json(response)[:errors]
 
-            expect(errors).to include(
-              short_name: be_an_instance_of(Array),
-              accommodation_expenses: be_an_instance_of(Array)
-            )
-            expect(errors.length).to eq 2
-          end
+          expect(errors).to include(
+            short_name: be_an_instance_of(Array),
+            accommodation_expenses: be_an_instance_of(Array)
+          )
+          expect(errors.length).to eq 2
         end
       end
     end

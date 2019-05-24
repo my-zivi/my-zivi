@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :service_specification do
     name { 'MyString' }
-    short_name { 'MyString' }
+    short_name { 'M' }
     work_clothing_expenses { 1000 }
     accommodation_expenses { 0 }
     location { 'zurich' }

@@ -22,7 +22,7 @@ FactoryBot.define do
     clothing_expenses { 3200 }
     clothing_expenses_comment { 'MyString' }
     bank_account_number { 'MyString' }
-    state { ExpenseSheet.states[:open] }
+    state { :open }
     user
 
     trait :with_sick_days do
@@ -30,15 +30,15 @@ FactoryBot.define do
     end
 
     trait :ready_for_payment do
-      state { ExpenseSheet.states[:ready_for_payment] }
+      state { :ready_for_payment }
     end
 
     trait :payment_in_progress do
-      state { ExpenseSheet.states[:payment_in_progress] }
+      state { :payment_in_progress }
     end
 
     trait :paid do
-      state { ExpenseSheet.states[:paid] }
+      state { :paid }
     end
   end
 end
