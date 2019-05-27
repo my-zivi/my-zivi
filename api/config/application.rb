@@ -35,5 +35,9 @@ module Api
       host: ENV.fetch('APP_HOST') { 'localhost' },
       port: ENV.fetch('APP_POST') { 3000 }
     }
+
+    config.i18n.default_locale = :de
+    config.i18n.fallbacks = %i[de en]
+    config.time_zone = 'Bern'
   end
 end

@@ -27,6 +27,10 @@ class ServiceSpecification < ApplicationRecord
   validate :validate_first_day_expenses
   validate :validate_last_day_expenses
 
+  def title
+    "#{id} #{name}"
+  end
+
   private
 
   def validate_work_days_expenses

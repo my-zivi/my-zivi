@@ -16,8 +16,8 @@ Service.create!(
       feedback_mail_sent: false
     },
     {
-      user: User.find_by(email: 'zivi2@example.com'),
-      service_specification: ServiceSpecification.first,
+      user: User.find_by(email: 'zivi_francise@france.ch'),
+      service_specification: ServiceSpecification.last,
       beginning: beginning,
       ending: beginning + 3.weeks + 4.days,
       confirmation_date: beginning - 1.month,

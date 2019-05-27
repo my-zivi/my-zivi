@@ -31,4 +31,10 @@ RSpec.describe User, type: :model do
     it { is_expected.not_to allow_value('XX9300762011623852957').for(:bank_iban) }
     it { is_expected.to allow_value('CH9300762011623852957').for(:bank_iban) }
   end
+
+  describe '#zip_with_city' do
+    subject { build(:user, zip: 6274, city: 'RSpec-Hausen').zip_with_city }
+
+    it { is_expected.to eq '6274 RSpec-Hausen' }
+  end
 end

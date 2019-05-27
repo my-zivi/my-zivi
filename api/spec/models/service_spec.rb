@@ -23,7 +23,7 @@ RSpec.describe Service, type: :model do
   end
 
   describe '#eligible_personal_vacation_days' do
-    let(:service) { build(:service, beginning: beginning, ending: beginning + 209.days) }
+    let(:service) { build(:service, :long, beginning: beginning, ending: beginning + 209.days) }
     let(:beginning) { Time.zone.today.beginning_of_week }
 
     it 'returns the eligible personal vacation days of the service' do

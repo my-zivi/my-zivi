@@ -1,6 +1,6 @@
 FROM ruby:2.5.1
 
-RUN apt-get update && apt-get install -y mysql-client
+RUN apt-get update && apt-get install -y mysql-client pdftk
 
 RUN wget -O /tmp/wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
 RUN chmod +x /tmp/wait-for-it.sh

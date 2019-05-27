@@ -34,6 +34,10 @@ class Service < ApplicationRecord
     long_service? ? calculate_eligible_personal_vacation_days : 0
   end
 
+  def conventional_service?
+    !probation_service? && !long_service?
+  end
+
   private
 
   def beginning_is_monday

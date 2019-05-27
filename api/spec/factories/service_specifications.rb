@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :service_specification do
-    name { 'MyString' }
+    name { 'MyServiceSpecification' }
     short_name { 'M' }
     work_clothing_expenses { 1000 }
     accommodation_expenses { 0 }
@@ -12,5 +12,9 @@ FactoryBot.define do
     paid_vacation_expenses { { breakfast: 400, lunch: 900, dinner: 700 } }
     first_day_expenses { { breakfast: 400, lunch: 900, dinner: 700 } }
     last_day_expenses { { breakfast: 400, lunch: 900, dinner: 700 } }
+
+    trait :valais do
+      location { 'valais' }
+    end
   end
 end

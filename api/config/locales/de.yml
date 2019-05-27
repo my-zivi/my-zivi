@@ -1,0 +1,28 @@
+de:
+  date:
+    formats:
+      default: '%d.%m.%Y'
+  activerecord:
+    errors:
+      messages:
+        not_a_monday: kein Montag
+        not_a_friday: kein Freitag
+        invalid_date: ungültiges Datum
+      models:
+        holiday:
+          attributes:
+            ending:
+              before_beginning: vor Start
+        user:
+          attributes:
+            bank_iban:
+              bad_check_digits: ungültige Prüffziffer
+              bad_format: ungültiges Format
+              bad_length: ungültige Länge
+              bad_chars: ungültige Zeichen
+              unknown_country_code: unbekannter Landescode
+  service_calculator:
+    invalid_required_service_days: Ungültige Einsatztage
+    end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
+  errors:
+    authorization_error: Sie haben nicht die benötigten Rechte für diese Anfrage

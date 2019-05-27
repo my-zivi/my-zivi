@@ -1,0 +1,28 @@
+de:
+  date:
+    formats:
+      default: '%d.%m.%Y'
+  activerecord:
+    errors:
+      messages:
+        not_a_monday: pas de lundi
+        not_a_friday: pas de vendredi
+        invalid_date: date erronée
+      models:
+        holiday:
+          attributes:
+            ending:
+              before_beginning: avant le début
+        user:
+          attributes:
+            bank_iban:
+              bad_check_digits: chiffre de contrôle non valide
+              bad_format: format incorrect
+              bad_length: longueur incorrecte
+              bad_chars: caractères invalides
+              unknown_country_code: code de pays inconnu
+  service_calculator:
+    invalid_required_service_days: Jours du service non valables
+    end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
+  errors:
+    authorization_error: Vous n'avez pas les droits requis pour cette demande.
