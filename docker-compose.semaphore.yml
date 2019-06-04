@@ -4,12 +4,10 @@ services:
         build:
             context: ./api
             dockerfile: dev.Dockerfile
-            cache_from:
-              - better_izivi_api
-              - ruby:2.5.1
         container_name: better_izivi_api
         volumes:
             - ./api:/api
+            - ${SEMAPHORE_CACHE_DIR}/bundle:/bundle
         working_dir: /api
         depends_on:
             - mysql
@@ -19,6 +17,7 @@ services:
         container_name: better_izivi_frontend
         volumes:
             - ./frontend:/var/frontend
+            - ${SEMAPHORE_CACHE_DIR}/node_modules:/var/node_modules
         working_dir: /var/frontend
     mysql:
         image: mariadb:10.3.14
