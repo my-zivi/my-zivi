@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :service_specifications, only: %i[index create update]
     resources :expense_sheets
     resources :services
+    get 'payments/pain', to: 'payments#export', as: 'pain_export'
   end
 
   scope :v1 do

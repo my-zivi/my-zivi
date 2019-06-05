@@ -30,6 +30,10 @@ class User < ApplicationRecord
 
   validate :validate_iban
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   def zip_with_city
     "#{zip} #{city}"
   end

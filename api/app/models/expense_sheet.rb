@@ -27,4 +27,8 @@ class ExpenseSheet < ApplicationRecord
     payment_in_progress: 2,
     paid: 3
   }
+
+  def full_amount
+    10_000 # TODO: implement correct calculator
+  end
 end

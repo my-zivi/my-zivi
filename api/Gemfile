@@ -4,6 +4,11 @@ source 'https://rubygems.org'
 
 ruby '2.5.1'
 
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
+  "https://github.com/#{repo_name}.git"
+end
+
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise-jwt', '~> 0.5.9'
 gem 'dotenv-rails'
@@ -14,6 +19,7 @@ gem 'pdf-forms'
 gem 'puma', '~> 3.11'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.2.2'
+gem 'sepa_king', github: 'salesking/sepa_king', ref: '0658339'
 gem 'validates_timeliness'
 
 group :production do

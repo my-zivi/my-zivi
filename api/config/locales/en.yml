@@ -23,3 +23,5 @@ en:
     end_date_cannot_be_on_weekend: Service end date can't be on a weekend
   errors:
     authorization_error: You are not authorized to perform this action
+  payment:
+    expenses_from: Expenses from %{from_date}

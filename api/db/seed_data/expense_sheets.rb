@@ -22,3 +22,12 @@ ExpenseSheet.create!(
   work_days: (at_beginning_of_month..at_end_of_month).count(&method(:count_workdays)),
   bank_account_number: User.second.bank_iban
 )
+
+ExpenseSheet.create!(
+  user: User.second,
+  beginning: at_beginning_of_month,
+  ending: at_end_of_month,
+  work_days: (at_beginning_of_month..at_end_of_month).count(&method(:count_workdays)),
+  bank_account_number: User.second.bank_iban,
+  state: :ready_for_payment
+)

@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/salesking/sepa_king.git
+  revision: 0658339c0a8a14268c202bdf879cd04429c7abb5
+  ref: 0658339
+  specs:
+    sepa_king (0.11.2)
+      activemodel (>= 3.1)
+      iban-tools
+      nokogiri
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -312,6 +322,7 @@ DEPENDENCIES
   rubocop-rspec
   ruby-debug-ide
   sentry-raven
+  sepa_king!
   shoulda-matchers
   simplecov
   spring

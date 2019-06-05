@@ -26,3 +26,5 @@ de:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
   errors:
     authorization_error: Sie haben nicht die benötigten Rechte für diese Anfrage
+  payment:
+    expenses_from: Spesen vom %{from_date}
