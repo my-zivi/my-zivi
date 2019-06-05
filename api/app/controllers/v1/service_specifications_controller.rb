@@ -2,6 +2,7 @@
 
 module V1
   class ServiceSpecificationsController < APIController
+    before_action :authorize_admin!, except: :index
     before_action :set_service_specification, only: %i[update]
 
     PERMITTED_SERVICE_SPECIFICATION_KEYS = %i[
@@ -19,8 +20,6 @@ module V1
     def index
       @service_specifications = ServiceSpecification.all
     end
-
-    # TODO: admin protect create, update
 
     def create
       @service_specification = ServiceSpecification.new(service_specification_params)
