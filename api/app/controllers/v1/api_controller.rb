@@ -2,10 +2,8 @@
 
 module V1
   class APIController < ApplicationController
-    before_action :authenticate_user!
+    include AdminAuthorizable
 
-    def authorize_admin!
-      raise AuthorizationError unless current_user.admin?
-    end
+    before_action :authenticate_user!
   end
 end

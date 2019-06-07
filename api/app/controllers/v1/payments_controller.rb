@@ -2,7 +2,10 @@
 
 module V1
   class PaymentsController < ApplicationController
+    include AdminAuthorizable
+
     before_action :authenticate_from_params!
+    before_action :authorize_admin!
 
     def export
       sheets = ExpenseSheet.includes(:user).ready_for_payment
