@@ -1,0 +1,3 @@
+GET {{url}}/payments/pain?token={{stripped_auth_token}}
+
+###

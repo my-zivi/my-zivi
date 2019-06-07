@@ -1,0 +1,4 @@
+GET {{url}}/holidays
+Authorization: {{auth_token}}
+
+###

@@ -1,0 +1,4 @@
+DELETE {{url}}/services/3
+Authorization: {{auth_token}}
+
+###

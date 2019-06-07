@@ -1,0 +1,36 @@
+PUT {{url}}/service_specifications/1
+Authorization: {{auth_token}}
+Content-Type: application/json
+
+{
+  "service_specification": {
+    "name": "23232323",
+    "short_name": "F",
+    "working_clothes_expenses": 2600,
+    "accommodation_expenses": 0,
+    "location": "zh",
+    "active": "true",
+    "work_days_expenses": {
+      "breakfast": 600,
+      "lunch": 900,
+      "dinner": 500
+    },
+    "paid_vacation_expenses": {
+      "breakfast": 600,
+      "lunch": 900,
+      "dinner": 500
+    },
+    "first_day_expenses": {
+      "breakfast": 0,
+      "lunch": 900,
+      "dinner": 500
+    },
+    "last_day_expenses": {
+      "breakfast": 600,
+      "lunch": 900,
+      "dinner": 0
+    }
+  }
+}
+
+###

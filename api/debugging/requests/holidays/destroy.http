@@ -1,0 +1,4 @@
+DELETE {{url}}/holidays/253
+Authorization: {{auth_token}}
+
+###

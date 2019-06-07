@@ -1,0 +1,4 @@
+GET {{url}}/services?year=2019
+Authorization: {{auth_token}}
+
+###

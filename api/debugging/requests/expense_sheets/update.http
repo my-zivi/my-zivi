@@ -1,0 +1,7 @@
+PUT {{url}}/expense_sheets/1
+Authorization: {{auth_token}}
+Content-Type: application/json
+
+{
+  "driving_expenses": 800
+}

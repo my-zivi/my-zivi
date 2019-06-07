@@ -1,0 +1,4 @@
+GET {{url}}/service_specifications
+Authorization: {{auth_token}}
+
+###

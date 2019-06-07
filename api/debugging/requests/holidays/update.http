@@ -1,0 +1,11 @@
+PUT {{url}}/holidays/1
+Authorization: {{auth_token}}
+Content-Type: application/json
+
+{
+  "holiday": {
+    "description": "Neue Deskription"
+  }
+}
+
+###

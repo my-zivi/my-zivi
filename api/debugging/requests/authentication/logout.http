@@ -1,0 +1,9 @@
+DELETE {{url}}/users/sign_out
+Authorization: {{auth_token}}
+
+> {%
+  client.global.clear('auth_token');
+  client.global.clear('stripped_auth_token');
+%}
+
+###

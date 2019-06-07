@@ -1,0 +1,5 @@
+DELETE {{url}}/expense_sheets/2
+Authorization: {{auth_token}}
+
+###
+

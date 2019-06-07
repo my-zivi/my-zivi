@@ -1,0 +1,4 @@
+GET {{url}}/regional_centers
+Authorization: {{auth_token}}
+
+###
