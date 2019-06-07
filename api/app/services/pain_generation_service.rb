@@ -13,6 +13,8 @@ class PainGenerationService
     sepa_credit_transfer
   end
 
+  private
+
   def build_transaction(sheet)
     user = sheet.user
 
