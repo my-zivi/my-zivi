@@ -58,6 +58,7 @@ class ServiceCalculator
     REVERSED_CONVERTED_LOOKUP_TABLE.key service_duration
   end
 
+  # :reek:FeatureEnvy
   def calculate_linear_ending_date(required_service_days)
     ending = @beginning_date + required_service_days.days - 1.day
     return ending unless ending.on_weekend?

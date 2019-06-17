@@ -20,6 +20,7 @@ module Concerns
       render json: { error: error.message }, status: :not_found
     end
 
+    # :reek:FeatureEnvy
     def render_validation_error(error)
       json = { errors: (error.is_a?(ArgumentError) ? [error.message] : error.validation_errors) }
       render json: json, status: :bad_request

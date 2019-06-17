@@ -56,6 +56,7 @@ module V1
       end.to_h
     end
 
+    # :reek:UtilityFunction
     def json_string_to_integer(json)
       json.map { |json_key, json_value| [json_key, json_value.to_i] }.to_h
     end

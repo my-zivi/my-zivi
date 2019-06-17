@@ -15,6 +15,7 @@ class PainGenerationService
 
   private
 
+  # :reek:FeatureEnvy
   def build_transaction(sheet)
     user = sheet.user
 

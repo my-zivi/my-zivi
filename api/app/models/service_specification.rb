@@ -70,6 +70,7 @@ class ServiceSpecification < ApplicationRecord
     errors.add(attribute, :not_an_unsigned_integer) unless values_numeric?(self[attribute].values)
   end
 
+  # :reek:UtilityFunction
   def values_numeric?(values)
     values.all? { |value| value.is_a?(Integer) && !value.negative? }
   end

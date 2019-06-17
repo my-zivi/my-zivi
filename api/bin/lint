@@ -4,3 +4,4 @@ set -exo pipefail
 
 bundle exec rubocop -D
 bundle exec brakeman -q -z --no-summary --no-pager
+bundle exec reek
