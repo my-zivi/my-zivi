@@ -3,10 +3,6 @@
 class Service < ApplicationRecord
   FRIDAY_WEEKDAY = Date::DAYNAMES.index('Friday').freeze
   MONDAY_WEEKDAY = Date::DAYNAMES.index('Monday').freeze
-  LONG_MISSION_BASE_DURATION = 180
-  BASE_HOLIDAY_DAYS = 8
-  ADDITIONAL_HOLIDAY_DAYS_PER_MONTH = 2
-  DAYS_PER_MONTH = 30
 
   include Concerns::PositiveTimeSpanValidatable
 
@@ -31,12 +27,12 @@ class Service < ApplicationRecord
     .where(arel_table[:ending].lteq(ending))
   end)
 
-  def duration
-    (ending - beginning).to_i + 1
+  def service_days
+    ServiceCalculator.new(beginning).calculate_chargeable_service_days(ending)
   end
 
   def eligible_personal_vacation_days
-    long_service? ? calculate_eligible_personal_vacation_days : 0
+    ServiceCalculator.new(beginning).calculate_eligible_personal_vacation_days(service_days)
   end
 
   def conventional_service?
@@ -51,11 +47,5 @@ class Service < ApplicationRecord
 
   def ending_is_friday
     errors.add(:ending, :not_a_friday) unless ending.present? && ending.wday == FRIDAY_WEEKDAY
-  end
-
-  def calculate_eligible_personal_vacation_days
-    additional_days = duration - LONG_MISSION_BASE_DURATION
-    additional_holiday_days = (additional_days / DAYS_PER_MONTH.to_f).floor * ADDITIONAL_HOLIDAY_DAYS_PER_MONTH
-    BASE_HOLIDAY_DAYS + additional_holiday_days
   end
 end

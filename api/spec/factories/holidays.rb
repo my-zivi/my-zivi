@@ -7,4 +7,8 @@ FactoryBot.define do
     holiday_type { :company_holiday }
     description { 'MyString' }
   end
+
+  trait :public_holiday do
+    holiday_type { :public_holiday }
+  end
 end

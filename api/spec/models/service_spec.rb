@@ -14,16 +14,16 @@ RSpec.describe Service, type: :model do
   end
 
   describe '#duration' do
-    let(:service) { build(:service, beginning: beginning, ending: beginning + 26.days) }
+    let(:service) { build(:service, beginning: beginning, ending: beginning + 25.days) }
     let(:beginning) { Time.zone.today.beginning_of_week }
 
-    it 'returns the duration of the service' do
-      expect(service.duration).to eq 27
+    it 'returns the service days of the service' do
+      expect(service.service_days).to eq 26
     end
   end
 
   describe '#eligible_personal_vacation_days' do
-    let(:service) { build(:service, :long, beginning: beginning, ending: beginning + 209.days) }
+    let(:service) { build(:service, :long, beginning: beginning, ending: beginning + 214.days) }
     let(:beginning) { Time.zone.today.beginning_of_week }
 
     it 'returns the eligible personal vacation days of the service' do
