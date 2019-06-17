@@ -1,0 +1,11 @@
+GET {{url}}/phone_list.pdf?token={{stripped_auth_token}}
+Content-Type: application/json
+
+{
+  "phone_list": {
+    "beginning": "2019-06-17",
+    "ending": "2019-06-28"
+  }
+}
+
+###

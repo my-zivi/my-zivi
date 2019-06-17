@@ -28,3 +28,8 @@ fr:
     authorization_error: Vous n'avez pas les droits requis pour cette demande.
   payment:
     expenses_from: Frais du %{from_date}
+  pdfs:
+    phone_list:
+      filename: 'Liste_téléphonique_%{today}.pdf'
+      title: 'Liste téléphonique de %{beginning} à %{ending}'
+      header: 'Généré sur %{date}'

@@ -37,25 +37,25 @@ class ServicePdfFormFiller
   end
 
   def load_user_fields
-    convert_to_form_fields_hash(ServicePdfFields::USER_FORM_FIELDS) do |key, value|
+    convert_to_form_fields_hash(ServicePdfFormFields::USER_FORM_FIELDS) do |key, value|
       [value, @service.user.public_send(key)]
     end
   end
 
   def load_service_date_fields
-    convert_to_form_fields_hash(ServicePdfFields::SERVICE_DATE_FORM_FIELDS) do |key, value|
+    convert_to_form_fields_hash(ServicePdfFormFields::SERVICE_DATE_FORM_FIELDS) do |key, value|
       [value, I18n.l(@service.public_send(key))]
     end
   end
 
   def load_service_checkboxes
-    convert_to_form_fields_hash(ServicePdfFields::SERVICE_CHECKBOX_FIELDS) do |key, value|
+    convert_to_form_fields_hash(ServicePdfFormFields::SERVICE_CHECKBOX_FIELDS) do |key, value|
       [value, (@service.public_send(:"#{key}?") ? 'On' : 'Off')]
     end
   end
 
   def load_service_specification_fields
-    convert_to_form_fields_hash(ServicePdfFields::SERVICE_SPECIFICATION_FORM_FIELDS) do |key, value|
+    convert_to_form_fields_hash(ServicePdfFormFields::SERVICE_SPECIFICATION_FORM_FIELDS) do |key, value|
       [value, @service.service_specification.public_send(key)]
     end
   end

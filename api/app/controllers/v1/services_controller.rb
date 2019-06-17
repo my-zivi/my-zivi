@@ -2,6 +2,8 @@
 
 module V1
   class ServicesController < APIController
+    include Concerns::AdminAuthorizable
+
     PERMITTED_SERVICE_PARAMS = %i[
       user_id service_specification_id
       beginning ending confirmation_date

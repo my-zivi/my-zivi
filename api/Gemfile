@@ -21,6 +21,8 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.2.2'
 gem 'sepa_king', github: 'salesking/sepa_king', ref: '0658339'
 gem 'validates_timeliness'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 group :production do
   gem 'lograge'

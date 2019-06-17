@@ -18,6 +18,16 @@ en:
               bad_length: bad length
               bad_chars: bad chars
               unknown_country_code: unknown country code
+    models:
+      user: User
+      attributes:
+        user:
+          first_name: First name
+          last_name: Last name
+          address: Address
+          zip_with_city: ZIP / City
+          phone: Phone
+          email: Email
   service_calculator:
     invalid_required_service_days: Invalid service days
     end_date_cannot_be_on_weekend: Service end date can't be on a weekend
@@ -25,3 +35,8 @@ en:
     authorization_error: You are not authorized to perform this action
   payment:
     expenses_from: Expenses from %{from_date}
+  pdfs:
+    phone_list:
+      filename: 'Phonelist_%{today}.pdf'
+      title: 'Phonelist from %{beginning} to %{ending}'
+      header: 'Generated on %{date}'

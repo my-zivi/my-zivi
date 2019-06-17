@@ -1,0 +1,84 @@
+<% content_for :title, I18n.t('pdfs.phone_list.title', beginning: I18n.l(phone_list.beginning), ending: I18n.l(phone_list.ending)) %>
+
+<style>
+  header {
+    text-align: right;
+  }
+
+  h2 {
+    margin: 10px 0 60px 0;
+  }
+
+  table {
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: collapse;
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside:avoid;
+    page-break-after:auto;
+  }
+
+  tr th {
+    text-align: left;
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    padding: .75rem;
+    border-top: 1px solid #dee2e6;
+  }
+
+  tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+  }
+
+  tbody td {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+
+  th:nth-child(5),
+  td:nth-child(5) {
+    text-align: right;
+    padding-right: 35px;
+  }
+</style>
+
+<header>
+  <%= I18n.t('pdfs.phone_list.header', date: I18n.l(Time.zone.today)) %>
+</header>
+<h2>
+  <%= yield :title %>
+</h2>
+
+<% specifications.each do |name, services| %>
+  <h4><%= name %></h4>
+  <table>
+    <thead>
+      <tr>
+        <th><%= I18n.t('activerecord.models.attributes.user.last_name') %></th>
+        <th><%= I18n.t('activerecord.models.attributes.user.first_name') %></th>
+        <th><%= I18n.t('activerecord.models.attributes.user.address') %></th>
+        <th><%= I18n.t('activerecord.models.attributes.user.zip_with_city') %></th>
+        <th><%= I18n.t('activerecord.models.attributes.user.phone') %></th>
+        <th><%= I18n.t('activerecord.models.attributes.user.email') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% services.each do |service| %>
+        <tr>
+          <td><%= service.user.first_name %></td>
+          <td><%= service.user.last_name %></td>
+          <td><%= service.user.address %></td>
+          <td><%= service.user.zip_with_city %></td>
+          <td><%= service.user.phone %></td>
+          <td><%= service.user.email %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

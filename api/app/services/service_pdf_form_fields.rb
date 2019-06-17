@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ServicePdfFields
+module ServicePdfFormFields
   USER_FORM_FIELDS = {
     fr: {
       zdp: 'N',
