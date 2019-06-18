@@ -13,6 +13,17 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
 
       context 'when user is admin' do
         let(:user) { create :user, :admin }
+        let!(:expense_sheets) { create_list :expense_sheet, 3 }
+        let(:json_expense_sheets) do
+          expense_sheets.map do |expense_sheet|
+            extract_to_json(expense_sheet).except(:created_at, :updated_at)
+          end
+        end
+
+        it 'returns all expense sheets', :aggregate_failures do
+          request
+          expect(parse_response_json(response)).to include(*json_expense_sheets)
+        end
 
         it_behaves_like 'renders a successful http status code' do
           before { create :expense_sheet }

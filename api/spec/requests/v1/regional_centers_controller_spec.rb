@@ -7,13 +7,12 @@ RSpec.describe V1::RegionalCentersController, type: :request do
     describe '#index' do
       subject { response }
 
-      let(:regional_center) { create :regional_center }
+      let!(:regional_center) { create :regional_center }
       let(:user) { create :user, regional_center: regional_center }
       let(:response_json) { parse_response_json(response) }
 
       before do
         sign_in user
-        regional_center
 
         get v1_regional_centers_path
       end

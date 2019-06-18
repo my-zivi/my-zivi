@@ -23,6 +23,7 @@ FactoryBot.define do
     clothing_expenses_comment { 'MyString' }
     bank_account_number { 'MyString' }
     state { :open }
+    payment_timestamp { nil }
     user
 
     trait :with_sick_days do
