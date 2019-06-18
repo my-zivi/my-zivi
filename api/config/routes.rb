@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :service_specifications, only: %i[index create update]
     resources :expense_sheets
     resources :services
+    resources :users, only: :show
     get 'payments/pain', to: 'payments#export', as: 'pain_export'
     get 'phone_list', to: 'phone_list#index'
   end

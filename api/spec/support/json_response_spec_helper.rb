@@ -15,11 +15,9 @@ def convert_to_json_value(value)
 end
 
 def extract_to_json(resource, *keys)
-  resource
-    .reload
-    .attributes
-    .symbolize_keys
-    .slice(*keys)
+  extracted = resource.reload.attributes.symbolize_keys
+  extracted
+    .slice(*(keys.empty? ? extracted.keys : keys))
     .map { |key, value| [key, convert_to_json_value(value)] }
     .to_h
 end

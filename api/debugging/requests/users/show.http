@@ -1,0 +1,4 @@
+GET {{url}}/users/1
+Authorization: {{auth_token}}
+
+###
