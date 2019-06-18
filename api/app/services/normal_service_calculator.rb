@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class NormalServiceCalculator
-  include Concerns::CompanyHolidayCalculationHelper
-
   LONG_MISSION_BASE_DURATION = 180
   BASE_HOLIDAY_DAYS = 8
   ADDITIONAL_HOLIDAY_DAYS_PER_MONTH = 2
@@ -41,7 +39,9 @@ class NormalServiceCalculator
   private
 
   def calculate_unpaid_days(service_days, ending_date)
-    company_holiday_days = calculate_company_holiday_days_during_service(@beginning_date, ending_date)
+    company_holiday_days = CompanyHolidayCalculator
+                           .new(@beginning_date, ending_date)
+                           .calculate_company_holiday_days_during_service
     paid_vacation_days = calculate_eligible_personal_vacation_days service_days
     [0, company_holiday_days - paid_vacation_days].max
   end

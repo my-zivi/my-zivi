@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ServiceCalculator
-  include Concerns::CompanyHolidayCalculationHelper
-
   LINEAR_CALCULATION_THRESHOLD = 26
 
   def initialize(beginning_date)
