@@ -2,7 +2,7 @@
 
 module V1
   class ServiceSpecificationsController < APIController
-    include Concerns::AdminAuthorizable
+    include V1::Concerns::AdminAuthorizable
 
     before_action :authorize_admin!, except: :index
     before_action :set_service_specification, only: %i[update]
