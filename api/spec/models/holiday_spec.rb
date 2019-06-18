@@ -12,42 +12,59 @@ RSpec.describe Holiday, type: :model do
     let(:model) { build(:holiday, beginning: beginning, ending: ending) }
   end
 
+  describe '#range' do
+    subject(:holiday) { create(:holiday, beginning: beginning, ending: ending) }
+
+    let(:beginning) { Date.parse('2019-04-10') }
+    let(:ending) { Date.parse('2019-04-20') }
+
+    it 'returns range of beginning and ending' do
+      expect(holiday.range).to eq beginning..ending
+    end
+  end
+
   describe '#work_days' do
     let(:holiday) { create(:holiday, beginning: Date.parse('2019-04-10'), ending: Date.parse('2019-04-20')) }
-    let(:public_holidays) do
-      [
-        create(:holiday, :public_holiday, beginning: holiday.beginning, ending: holiday.beginning),
-        create(:holiday, :public_holiday, beginning: holiday.beginning + 3, ending: holiday.beginning + 5)
-      ]
-    end
 
     context 'with two public holidays' do
-      expected_work_days = [
-        Date.parse('2019-04-11'),
-        Date.parse('2019-04-12'),
-        Date.parse('2019-04-16'),
-        Date.parse('2019-04-17'),
-        Date.parse('2019-04-18'),
-        Date.parse('2019-04-19')
-      ]
-      it { expect(holiday.work_days(public_holidays)).to eq expected_work_days }
+      let(:public_holidays) do
+        [
+          create(:holiday, :public_holiday, beginning: holiday.beginning, ending: holiday.beginning),
+          create(:holiday, :public_holiday, beginning: holiday.beginning + 3, ending: holiday.beginning + 5)
+        ]
+      end
+
+      let(:expected_work_days) do
+        [
+          Date.parse('2019-04-11'),
+          Date.parse('2019-04-12'),
+          Date.parse('2019-04-16'),
+          Date.parse('2019-04-17'),
+          Date.parse('2019-04-18'),
+          Date.parse('2019-04-19')
+        ]
+      end
+
+      it 'returns only work days without public holidays' do
+        expect(holiday.work_days(public_holidays)).to eq expected_work_days
+      end
     end
 
     context 'with no public holidays' do
-      let(:public_holidays) { [] }
+      let(:expected_work_days) do
+        [
+          Date.parse('2019-04-10'),
+          Date.parse('2019-04-11'),
+          Date.parse('2019-04-12'),
+          Date.parse('2019-04-15'),
+          Date.parse('2019-04-16'),
+          Date.parse('2019-04-17'),
+          Date.parse('2019-04-18'),
+          Date.parse('2019-04-19')
+        ]
+      end
 
-      expected_work_days = [
-        Date.parse('2019-04-10'),
-        Date.parse('2019-04-11'),
-        Date.parse('2019-04-12'),
-        Date.parse('2019-04-15'),
-        Date.parse('2019-04-16'),
-        Date.parse('2019-04-17'),
-        Date.parse('2019-04-18'),
-        Date.parse('2019-04-19')
-      ]
-
-      it { expect(holiday.work_days(public_holidays)).to eq expected_work_days }
+      it { expect(holiday.work_days([])).to eq expected_work_days }
     end
   end
 end
