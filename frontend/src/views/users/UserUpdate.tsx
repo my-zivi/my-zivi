@@ -20,11 +20,8 @@ interface Props extends RouteComponentProps<UserDetailRouterProps> {
 export class UserUpdate extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    if (props.userId) {
-      props.userStore!.fetchOne(props.userId);
-    } else {
-      props.userStore!.fetchOne(Number(props.match.params.id));
-    }
+
+    props.userStore!.fetchOne(props.userId ? props.userId : Number(props.match.params.id));
   }
 
   handleSubmit = (user: User) => {

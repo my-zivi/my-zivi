@@ -63,9 +63,9 @@ class ReportSheetFormInner extends React.Component<Props, ReportSheetFormState> 
         validationSchema={reportSheetSchema}
         render={(formikProps: FormikProps<{}>): React.ReactNode => (
           <Form>
-            <WiredField disabled horizontal component={TextField} name={'mission.specification.name'} label={'Pflichtenheft'} />
-            <WiredField disabled horizontal component={DatePickerField} name={'mission.start'} label={'Beginn Einsatz'} />
-            <WiredField disabled horizontal component={DatePickerField} name={'mission.end'} label={'Ende Einsatz'} />
+            <WiredField disabled horizontal component={TextField} name={'service.specification.name'} label={'Pflichtenheft'} />
+            <WiredField disabled horizontal component={DatePickerField} name={'service.beginning'} label={'Beginn Einsatz'} />
+            <WiredField disabled horizontal component={DatePickerField} name={'service.ending'} label={'Ende Einsatz'} />
 
             <WiredField horizontal component={DatePickerField} name={'start'} label={'Start Spesenblattperiode'} />
             <WiredField horizontal component={DatePickerField} name={'end'} label={'Ende Spesenblattperiode'} />
@@ -74,7 +74,7 @@ class ReportSheetFormInner extends React.Component<Props, ReportSheetFormState> 
               disabled
               horizontal
               component={NumberField}
-              name={'mission.eligible_holiday'}
+              name={'service.eligible_holiday'}
               label={'Ferienanspruch für Einsatz'}
             />
             <WiredField disabled horizontal component={NumberField} name={'duration'} label={'Dauer Spesenblattperiode'} />

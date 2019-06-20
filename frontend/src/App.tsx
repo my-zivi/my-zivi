@@ -13,7 +13,6 @@ import { ForgotPassword } from './views/ForgotPassword';
 import { HolidayOverview } from './views/Holiday';
 import { Home } from './views/Home';
 import { Login } from './views/Login';
-import { MissionOverview } from './views/mission_overview/MissionOverview';
 import { NotFound } from './views/NotFound';
 import { PaymentDetail } from './views/payments/PaymentDetail';
 import { PaymentOverview } from './views/payments/PaymentOverview';
@@ -21,10 +20,11 @@ import { PhoneListView } from './views/PhoneList';
 import { Register } from './views/Register';
 import { ReportSheetOverview } from './views/report_sheets/ReportSheetOverview';
 import { ReportSheetUpdate } from './views/report_sheets/ReportSheetUpdate';
+import { ServiceOverview } from './views/service_overview/ServiceOverview';
 import { SpecificationsOverview } from './views/specification/SpecificationsOverview';
 import { UserFeedbackOverview } from './views/user_feedback_overview/UserFeedbackOverview';
-import { MissionFeedback } from './views/users/mission_feedback/MissionFeedback';
 import { ProfileOverview } from './views/users/ProfileOverview';
+import { ServiceFeedback } from './views/users/service_feedback/ServiceFeedback';
 import { UserOverview } from './views/users/UserOverview';
 import { UserUpdate } from './views/users/UserUpdate';
 
@@ -43,9 +43,9 @@ class App extends React.Component {
           <Route component={PhoneListView} exact path={'/phones'} />
           <Route component={ProfileOverview} exact path={'/profile'} />
           <ProtectedRoute component={ChangePassword} exact path={'/changePassword'} />
-          <ProtectedRoute component={MissionFeedback} exact path={'/mission/:id/feedback'} />
+          <ProtectedRoute component={ServiceFeedback} exact path={'/service/:id/feedback'} />
           <ProtectedRoute requiresAdmin component={PaymentOverview} exact path={'/payments'} />
-          <ProtectedRoute requiresAdmin component={MissionOverview} exact path={'/missions'} />
+          <ProtectedRoute requiresAdmin component={ServiceOverview} exact path={'/services'} />
           <ProtectedRoute requiresAdmin component={PaymentDetail} exact path={'/payments/:id'} />
           <ProtectedRoute requiresAdmin component={ReportSheetOverview} exact path={'/report_sheets'} />
           <ProtectedRoute requiresAdmin component={ReportSheetUpdate} exact path={'/report_sheets/:id'} />

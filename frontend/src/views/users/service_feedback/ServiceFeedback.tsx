@@ -6,13 +6,13 @@ import IziviContent from '../../../layout/IziviContent';
 import { UserFeedbackStore } from '../../../stores/userFeedbackStore';
 import { FeedbackPage } from './FeedbackPage';
 
-interface MissionFeedbackProps extends RouteComponentProps<{ id?: string }> {
+interface ServiceFeedbackProps extends RouteComponentProps<{ id?: string }> {
   userFeedbackStore?: UserFeedbackStore;
 }
 
-@inject('missionStore')
-export class MissionFeedback extends React.Component<MissionFeedbackProps> {
-  constructor(props: MissionFeedbackProps) {
+@inject('serviceStore')
+export class ServiceFeedback extends React.Component<ServiceFeedbackProps> {
+  constructor(props: ServiceFeedbackProps) {
     super(props);
   }
 

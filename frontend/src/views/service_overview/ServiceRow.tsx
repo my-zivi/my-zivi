@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface MissionRowProps {
+interface ServiceRowProps {
   specification_id: string;
   shortName: string;
   user_id: number;
@@ -10,11 +10,11 @@ interface MissionRowProps {
   classes: Record<string, string>;
 }
 
-function MissionRow(props: MissionRowProps) {
+function ServiceRow(props: ServiceRowProps) {
   const { classes } = props;
 
   return (
-    <tr className={'mission-row-' + props.specification_id}>
+    <tr className={'service-row-' + props.specification_id}>
       <td className={classes.shortName + ' ' + classes.rowTd}>{props.shortName}</td>
 
       <td className={classes.zdp + ' ' + classes.rowTd}>
@@ -29,4 +29,4 @@ function MissionRow(props: MissionRowProps) {
   );
 }
 
-export { MissionRow };
+export { ServiceRow };

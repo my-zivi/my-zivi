@@ -141,7 +141,7 @@ export class UserOverview extends React.Component<Props> {
                 }}
                 value={this.props.userStore!.userFilters.role || ''}
               >
-                {[{ id: '', name: 'Alle' }, { id: 'zivi', name: 'Zivi' }, { id: 'admin', name: 'Admin' }].map(option => (
+                {[{ id: '', name: 'Alle' }, { id: 'civil_servant', name: 'Zivi' }, { id: 'admin', name: 'Admin' }].map(option => (
                   <option value={option.id} key={option.id}>
                     {option.name}
                   </option>

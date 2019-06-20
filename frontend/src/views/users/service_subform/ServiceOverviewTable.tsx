@@ -8,10 +8,10 @@ import Button from 'reactstrap/lib/Button';
 import { DeleteButton } from '../../../form/DeleteButton';
 import { OverviewTable } from '../../../layout/OverviewTable';
 import { MainStore } from '../../../stores/mainStore';
-import { MissionStore } from '../../../stores/missionStore';
+import { ServiceStore } from '../../../stores/serviceStore';
 import { SpecificationStore } from '../../../stores/specificationStore';
 import { UserStore } from '../../../stores/userStore';
-import { Mission, Specification, User } from '../../../types';
+import { Service, Specification, User } from '../../../types';
 import {
   CheckSquareRegularIcon,
   EditSolidIcon,
@@ -21,35 +21,35 @@ import {
   SquareRegularIcon,
   TrashAltRegularIcon,
 } from '../../../utilities/Icon';
-import { MissionModal } from '../MissionModal';
-import { missionSchema } from '../schemas';
+import { serviceSchema } from '../schemas';
+import { ServiceModal } from '../service_modal/ServiceModal';
 
 interface OverviewTableParams extends WithSheet<string, {}> {
   mainStore?: MainStore;
-  missionStore?: MissionStore;
+  serviceStore?: ServiceStore;
   userStore?: UserStore;
   specificationStore?: SpecificationStore;
   user: User;
-  onModalOpen: (mission: Mission) => void;
+  onModalOpen: (service: Service) => void;
   onModalClose: (_?: React.MouseEvent<HTMLButtonElement>) => void;
-  missionModalIsOpen: boolean;
+  serviceModalIsOpen: boolean;
 }
 
-function onMissionTableSubmit(missionStore?: MissionStore, userStore?: UserStore) {
-  return (mission: Mission) => {
-    return missionStore!.put(missionSchema.cast(mission)).then(() => {
-      void userStore!.fetchOne(mission.user_id);
+function onServiceTableSubmit(serviceStore?: ServiceStore, userStore?: UserStore) {
+  return (service: Service) => {
+    return serviceStore!.put(serviceSchema.cast(service)).then(() => {
+      void userStore!.fetchOne(service.user_id);
     }) as Promise<void>;
   };
 }
 
-function renderFeedbackButton(mission: Mission) {
-  if (mission.feedback_done || moment().isBefore(moment(mission.end!))) {
+function renderFeedbackButton(service: Service) {
+  if (service.feedback_done || moment().isBefore(moment(service.ending!))) {
     return;
   }
 
   return (
-    <Link to={`/mission/${mission.id}/feedback`}>
+    <Link to={`/service/${service.id}/feedback`}>
       <Button color={'info'} type={'button'} className="mr-1">
         <FontAwesomeIcon icon={MailSolidIcon} /> <span>Feedback senden</span>
       </Button>
@@ -57,63 +57,66 @@ function renderFeedbackButton(mission: Mission) {
   );
 }
 
-async function onMissionDeleteConfirm(mission: Mission, missionStore: MissionStore, userStore: UserStore) {
-  console.dir(mission); // tslint:disable-line
-  (window as any).mission = mission;
-  await missionStore.delete(mission.id!);
-  await userStore.fetchOne(mission.user_id);
+async function onServiceDeleteConfirm(service: Service, serviceStore: ServiceStore, userStore: UserStore) {
+  console.dir(service); // tslint:disable-line
+  (window as any).service = service;
+  await serviceStore.delete(service.id!);
+  await userStore.fetchOne(service.user_id);
 }
 
 export default (params: OverviewTableParams) => {
-  const { user, mainStore, missionStore, classes, userStore, specificationStore, onModalOpen, onModalClose, missionModalIsOpen } = params;
+  const { user, mainStore, serviceStore, classes, userStore, specificationStore, onModalOpen, onModalClose, serviceModalIsOpen } = params;
 
   return (
     <OverviewTable
-      data={user.missions}
+      data={user.services}
       columns={[
         {
           id: 'specification',
           label: 'Pflichtenheft',
-          format: (m: Mission) => {
+          format: (m: Service) => {
             const spec = specificationStore!.entities.find((sp: Specification) => sp.id === m.specification_id);
             return `${spec ? spec.name : ''} (${m.specification_id})`;
           },
         },
         {
-          id: 'start',
+          id: 'beginning',
           label: 'Start',
-          format: (mission: Mission) => (mission.start ? mainStore!.formatDate(mission.start) : ''),
+          format: (service: Service) => (service.beginning ? mainStore!.formatDate(service.beginning) : ''),
         },
         {
-          id: 'end',
+          id: 'ending',
           label: 'Ende',
-          format: (mission: Mission) => (mission.end ? mainStore!.formatDate(mission.end) : ''),
+          format: (service: Service) => (service.ending ? mainStore!.formatDate(service.ending) : ''),
         },
         {
           id: 'draft_date',
           label: '',
-          format: (m: Mission) => (
+          format: (service: Service) => (
             <>
-              <span id={`reportSheetState-${m.id}`}>
-                <FontAwesomeIcon icon={m.draft ? CheckSquareRegularIcon : SquareRegularIcon} color={m.draft ? 'green' : 'black'} />
+              <span id={`reportSheetState-${service.id}`}>
+                <FontAwesomeIcon
+                  icon={service.confirmation_date ? CheckSquareRegularIcon : SquareRegularIcon}
+                  color={service.confirmation_date ? 'green' : 'black'}
+                />
               </span>
-              <UncontrolledTooltip target={`reportSheetState-${m.id}`}>Aufgebot erhalten</UncontrolledTooltip>
+              <UncontrolledTooltip target={`reportSheetState-${service.id}`}>Aufgebot erhalten</UncontrolledTooltip>
             </>
           ),
         },
       ]}
-      renderActions={(mission: Mission) => (
+      renderActions={(service: Service) => (
         <div className={classes.hideButtonText}>
-          <a className={'btn btn-link'} href={mainStore!.apiURL('missions/' + mission.id + '/draft', {}, true)} target={'_blank'}>
+          <a className={'btn btn-link'} href={mainStore!.apiURL('services/' + service.id + '/draft', {}, true)} target={'_blank'}>
             <FontAwesomeIcon icon={PrintSolidIcon} /> <span>Drucken</span>
           </a>
-          <Button color={'warning'} type={'button'} className="mr-1" onClick={() => onModalOpen(mission)}>
+          <Button color={'warning'} type={'button'} className="mr-1" onClick={() => onModalOpen(service)}>
             <FontAwesomeIcon icon={EditSolidIcon} /> <span>Bearbeiten</span>
           </Button>
-          {renderFeedbackButton(mission)}
+          {renderFeedbackButton(service)}
           {mainStore!.isAdmin() && (
             <>
-              <DeleteButton onConfirm={() => onMissionDeleteConfirm(mission, missionStore!, userStore!)}>
+              <DeleteButton onConfirm={() => onServiceDeleteConfirm(service, serviceStore!, userStore!)}>
                 <FontAwesomeIcon icon={TrashAltRegularIcon} /> <span>Löschen</span>
               </DeleteButton>{' '}
               <Button color={'success'} type={'button'}>
@@ -121,12 +124,12 @@ export default (params: OverviewTableParams) => {
               </Button>
             </>
           )}
-          <MissionModal
-            onSubmit={onMissionTableSubmit(missionStore, userStore)}
+          <ServiceModal
+            onSubmit={onServiceTableSubmit(serviceStore, userStore)}
             user={user}
-            values={mission}
+            values={service}
             onClose={onModalClose}
-            isOpen={missionModalIsOpen}
+            isOpen={serviceModalIsOpen}
           />
         </div>
       )}

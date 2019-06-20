@@ -1,6 +1,6 @@
 import createStyles from '../../utilities/createStyles';
 
-const MissionStyles = () =>
+const ServiceStyles = () =>
   createStyles({
     'rowTd': {
       padding: '5px 1px !important',
@@ -95,4 +95,4 @@ const MissionStyles = () =>
     },
   });
 
-export { MissionStyles };
+export { ServiceStyles };

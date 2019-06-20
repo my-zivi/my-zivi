@@ -17,9 +17,9 @@ import { SpecificationStore } from '../../stores/specificationStore';
 import { UserStore } from '../../stores/userStore';
 import { User } from '../../types';
 import { empty } from '../../utilities/helpers';
-import { MissionSubform } from './mission_subform/MissionSubform';
-import { ReportSheetSubform } from './ReportSheetSubform';
+// import { ReportSheetSubform } from './ReportSheetSubform';
 import { userSchema } from './schemas';
+import { ServiceSubform } from './service_subform/ServiceSubform';
 
 type Props = {
   mainStore?: MainStore;
@@ -115,10 +115,10 @@ class UserFormInner extends React.Component<Props> {
           )}
         >
           <SolidHorizontalRow />
-          <MissionSubform user={user} />
+          <ServiceSubform user={user} />
 
           <SolidHorizontalRow />
-          <ReportSheetSubform user={user} />
+          {/*<ReportSheetSubform user={user} />*/}
         </FormView>
       </>
     );
