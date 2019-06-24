@@ -2,8 +2,15 @@
 
 module V1
   class UsersController < APIController
-    before_action :set_user
-    before_action :protect_foreign_resource!, if: -> { current_user.civil_servant? }
+    include V1::Concerns::AdminAuthorizable
+
+    before_action :set_user, only: :show
+    before_action :protect_foreign_resource!, if: -> { current_user.civil_servant? }, only: :show
+    before_action :authorize_admin!, only: :index
+
+    def index
+      @users = User.all
+    end
 
     def show
       render partial: 'shared/users/user', locals: { user: @user }

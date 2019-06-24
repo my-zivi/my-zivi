@@ -37,4 +37,30 @@ RSpec.describe User, type: :model do
 
     it { is_expected.to eq '6274 RSpec-Hausen' }
   end
+
+  describe '#full_name' do
+    subject { build(:user, first_name: 'Peter', last_name: 'Zivi').full_name }
+
+    it { is_expected.to eq 'Peter Zivi' }
+  end
+
+  describe 'JWT payload' do
+    let(:payload) { Warden::JWTAuth::UserEncoder.new.call(user, :user, nil).second }
+
+    context 'when user is admin' do
+      let(:user) { create :user, :admin }
+
+      it 'has #true isAdmin payload' do
+        expect(payload).to include isAdmin: true
+      end
+    end
+
+    context 'when user is civil servant' do
+      let(:user) { create :user }
+
+      it 'has #false isAdmin payload' do
+        expect(payload).to include isAdmin: false
+      end
+    end
+  end
 end

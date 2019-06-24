@@ -38,6 +38,10 @@ class User < ApplicationRecord
     "#{zip} #{city}"
   end
 
+  def jwt_payload
+    { isAdmin: admin? }
+  end
+
   private
 
   def validate_iban
