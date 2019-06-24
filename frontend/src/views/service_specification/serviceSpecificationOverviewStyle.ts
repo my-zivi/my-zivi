@@ -1,6 +1,6 @@
 import createStyles from '../../utilities/createStyles';
 
-const specificationStyles = () =>
+const serviceSpecificationStyles = () =>
   createStyles({
     smallFontSize: {
       fontSize: '14px',
@@ -38,4 +38,4 @@ const specificationStyles = () =>
     },
   });
 
-export default specificationStyles;
+export default serviceSpecificationStyles;

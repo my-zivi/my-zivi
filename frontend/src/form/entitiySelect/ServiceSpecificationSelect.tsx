@@ -3,33 +3,35 @@ import React from 'react';
 import FormGroup from 'reactstrap/lib/FormGroup';
 import Input from 'reactstrap/lib/Input';
 import Label from 'reactstrap/lib/Label';
-import { SpecificationStore } from '../../stores/specificationStore';
-import { Specification } from '../../types';
+import { ServiceSpecificationStore } from '../../stores/serviceSpecificationStore';
+import { ServiceSpecification } from '../../types';
 import { IziviCustomFieldProps, withColumn } from '../common';
 
 type Props = {
-  specificationStore?: SpecificationStore;
+  serviceSpecificationStore?: ServiceSpecificationStore;
   label?: string;
   required?: boolean;
   horizontal?: boolean;
 } & IziviCustomFieldProps<string>;
 
-@inject('specificationStore')
+@inject('serviceSpecificationStore')
 @observer
-export class SpecificationSelect extends React.Component<Props> {
+export class ServiceSpecificationSelect extends React.Component<Props> {
   get options() {
     return this.props
-      .specificationStore!.entities.filter((sp: Specification) => sp.active)
-      .map(e => ({
-        value: e.id,
-        label: e.name,
+      .serviceSpecificationStore!
+      .entities
+      .filter((serviceSpecification: ServiceSpecification) => serviceSpecification.active)
+      .map(serviceSpecification => ({
+        value: serviceSpecification.id,
+        label: serviceSpecification.name,
       }));
   }
 
   render() {
     const { name, value, onChange, label, horizontal, required } = this.props;
 
-    const SpecificationSelectInner = () => (
+    const ServiceSpecificationSelectInner = () => (
       <Input value={value} onChange={e => onChange(e.target.value)} type={'select'}>
         <option value="" />
         {this.options.map(option => (
@@ -45,8 +47,8 @@ export class SpecificationSelect extends React.Component<Props> {
         <Label for={name} md={horizontal ? 3 : undefined}>
           {label} {required && '*'}
         </Label>
-        {horizontal && withColumn()(<SpecificationSelectInner />)}
-        {!horizontal && <SpecificationSelectInner />}
+        {horizontal && withColumn()(<ServiceSpecificationSelectInner />)}
+        {!horizontal && <ServiceSpecificationSelectInner />}
       </FormGroup>
     );
   }

@@ -8,10 +8,10 @@ import Button from 'reactstrap/lib/Button';
 import { DeleteButton } from '../../../form/DeleteButton';
 import { OverviewTable } from '../../../layout/OverviewTable';
 import { MainStore } from '../../../stores/mainStore';
+import { ServiceSpecificationStore } from '../../../stores/serviceSpecificationStore';
 import { ServiceStore } from '../../../stores/serviceStore';
-import { SpecificationStore } from '../../../stores/specificationStore';
 import { UserStore } from '../../../stores/userStore';
-import { Service, Specification, User } from '../../../types';
+import { Service, ServiceSpecification, User } from '../../../types';
 import {
   CheckSquareRegularIcon,
   EditSolidIcon,
@@ -28,7 +28,7 @@ interface OverviewTableParams extends WithSheet<string, {}> {
   mainStore?: MainStore;
   serviceStore?: ServiceStore;
   userStore?: UserStore;
-  specificationStore?: SpecificationStore;
+  serviceSpecificationStore?: ServiceSpecificationStore;
   user: User;
   onModalOpen: (service: Service) => void;
   onModalClose: (_?: React.MouseEvent<HTMLButtonElement>) => void;
@@ -65,18 +65,28 @@ async function onServiceDeleteConfirm(service: Service, serviceStore: ServiceSto
 }
 
 export default (params: OverviewTableParams) => {
-  const { user, mainStore, serviceStore, classes, userStore, specificationStore, onModalOpen, onModalClose, serviceModalIsOpen } = params;
+  const {
+    user,
+    mainStore,
+    serviceStore,
+    classes,
+    userStore,
+    serviceSpecificationStore,
+    onModalOpen,
+    onModalClose,
+    serviceModalIsOpen,
+  } = params;
 
   return (
     <OverviewTable
       data={user.services}
       columns={[
         {
-          id: 'specification',
+          id: 'serviceSpecification',
           label: 'Pflichtenheft',
           format: (m: Service) => {
-            const spec = specificationStore!.entities.find((sp: Specification) => sp.id === m.specification_id);
-            return `${spec ? spec.name : ''} (${m.specification_id})`;
+            const spec = serviceSpecificationStore!.entities.find((sp: ServiceSpecification) => sp.id === m.service_specification_id);
+            return `${spec ? spec.name : ''} (${m.service_specification_id})`;
           },
         },
         {

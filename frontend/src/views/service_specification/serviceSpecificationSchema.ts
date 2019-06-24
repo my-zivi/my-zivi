@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-const specificationSchema = yup.object({
+const serviceSpecificationSchema = yup.object({
   id: yup
     .string()
     .matches(/[0-9_]+/, 'Die ID muss aus Zahlen und Bodenstrichen bestehen.')
@@ -28,4 +28,4 @@ const specificationSchema = yup.object({
   active: yup.boolean(),
 });
 
-export default specificationSchema;
+export default serviceSpecificationSchema;

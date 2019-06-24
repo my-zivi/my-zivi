@@ -11,18 +11,18 @@ import { TextField } from '../../form/common';
 import { WiredField } from '../../form/formik';
 import IziviContent from '../../layout/IziviContent';
 import { MainStore } from '../../stores/mainStore';
-import { SpecificationStore } from '../../stores/specificationStore';
-import { Specification } from '../../types';
+import { ServiceSpecificationStore } from '../../stores/serviceSpecificationStore';
+import { ServiceSpecification } from '../../types';
 import { PlusSquareRegularIcon, SaveRegularIcon } from '../../utilities/Icon';
-import specificationStyles from './specificationOverviewStyle';
-import specificationSchema from './specificationSchema';
+import serviceSpecificationStyles from './serviceSpecificationOverviewStyle';
+import serviceSpecificationSchema from './serviceSpecificationSchema';
 
-interface SpecificationProps extends WithSheet<typeof specificationStyles> {
-  specificationStore?: SpecificationStore;
+interface ServiceSpecificationProps extends WithSheet<typeof serviceSpecificationStyles> {
+  serviceSpecificationStore?: ServiceSpecificationStore;
   mainStore?: MainStore;
 }
 
-interface SpecificationState {
+interface ServiceSpecificationState {
   loading: boolean;
   openThTooltips: boolean[][];
 }
@@ -37,14 +37,14 @@ interface Th<T> {
   className?: string;
 }
 
-@inject('specificationStore', 'mainStore')
-export class SpecificationsOverviewInner extends React.Component<SpecificationProps, SpecificationState> {
-  columns: Array<Array<Th<Specification>>> = [];
+@inject('serviceSpecificationStore', 'mainStore')
+export class ServiceSpecificationsOverviewInner extends React.Component<ServiceSpecificationProps, ServiceSpecificationState> {
+  columns: Array<Array<Th<ServiceSpecification>>> = [];
 
-  constructor(props: SpecificationProps) {
+  constructor(props: ServiceSpecificationProps) {
     super(props);
 
-    this.props.specificationStore!.fetchAll().then(() => {
+    this.props.serviceSpecificationStore!.fetchAll().then(() => {
       this.setState({ loading: false });
     });
 
@@ -171,19 +171,19 @@ export class SpecificationsOverviewInner extends React.Component<SpecificationPr
     this.setState({ openThTooltips: opens });
   }
 
-  handleSubmit = async (entity: Specification, actions: FormikActions<Specification>) => {
-    this.props.specificationStore!.put(specificationSchema.cast(entity)).then(() => actions.setSubmitting(false));
+  handleSubmit = async (entity: ServiceSpecification, actions: FormikActions<ServiceSpecification>) => {
+    this.props.serviceSpecificationStore!.put(serviceSpecificationSchema.cast(entity)).then(() => actions.setSubmitting(false));
   }
 
-  handleAdd = async (entity: Specification, actions: FormikActions<Specification>) => {
-    await this.props.specificationStore!.post(specificationSchema.cast(entity)).then(() => {
+  handleAdd = async (entity: ServiceSpecification, actions: FormikActions<ServiceSpecification>) => {
+    await this.props.serviceSpecificationStore!.post(serviceSpecificationSchema.cast(entity)).then(() => {
       actions.setSubmitting(false);
       actions.resetForm();
     });
   }
 
   render() {
-    const entities = this.props.specificationStore!.entities;
+    const entities = this.props.serviceSpecificationStore!.entities;
     const { classes } = this.props!;
     const { openThTooltips } = this.state;
 
@@ -233,7 +233,7 @@ export class SpecificationsOverviewInner extends React.Component<SpecificationPr
           </thead>
           <tbody>
             <Formik
-              validationSchema={specificationSchema}
+              validationSchema={serviceSpecificationSchema}
               initialValues={{
                 id: '',
                 name: '',
@@ -261,7 +261,7 @@ export class SpecificationsOverviewInner extends React.Component<SpecificationPr
               onSubmit={this.handleAdd}
               render={formikProps => (
                 <tr>
-                  <SpecificationFormFields {...this.props} />
+                  <ServiceSpecificationFormFields {...this.props} />
                   <td className={classes.buttonsTd}>
                     <Button
                       className={classes.smallFontSize}
@@ -276,15 +276,15 @@ export class SpecificationsOverviewInner extends React.Component<SpecificationPr
                 </tr>
               )}
             />
-            {entities.map(specification => (
+            {entities.map(serviceSpecification => (
               <Formik
-                key={specification.id}
-                validationSchema={specificationSchema}
-                initialValues={specification}
+                key={serviceSpecification.id}
+                validationSchema={serviceSpecificationSchema}
+                initialValues={serviceSpecification}
                 onSubmit={this.handleSubmit}
                 render={formikProps => (
                   <tr>
-                    <SpecificationFormFields {...this.props} />
+                    <ServiceSpecificationFormFields {...this.props} />
                     <td className={classes.buttonsTd}>
                       <Button
                         className={classes.smallFontSize}
@@ -306,9 +306,9 @@ export class SpecificationsOverviewInner extends React.Component<SpecificationPr
   }
 }
 
-interface SpecFormFieldProps extends WithSheet<typeof specificationStyles> {}
+interface SpecFormFieldProps extends WithSheet<typeof serviceSpecificationStyles> {}
 
-const SpecificationFormFields = ({ classes }: SpecFormFieldProps) => (
+const ServiceSpecificationFormFields = ({ classes }: SpecFormFieldProps) => (
   <>
     <td className={classes.rowTd}>
       <WiredField className={classes.checkboxes} component={CheckboxField} name={'active'} />
@@ -370,4 +370,4 @@ const SpecificationFormFields = ({ classes }: SpecFormFieldProps) => (
   </>
 );
 
-export const SpecificationsOverview = injectSheet(specificationStyles)(SpecificationsOverviewInner);
+export const ServiceSpecificationsOverview = injectSheet(serviceSpecificationStyles)(ServiceSpecificationsOverviewInner);

@@ -18,7 +18,7 @@ export const userSchema = yup.object({
 });
 
 export const serviceSchema = yup.object({
-  specification_id: yup.string(),
+  service_specification_id: yup.string(),
   service_type: yup.number(),
   beginning: apiDate().required(),
   ending: apiDate().required(),

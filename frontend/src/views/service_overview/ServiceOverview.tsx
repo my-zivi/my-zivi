@@ -12,21 +12,21 @@ import { CheckboxField } from '../../form/CheckboxField';
 import { SelectField } from '../../form/common';
 import IziviContent from '../../layout/IziviContent';
 import { LoadingInformation } from '../../layout/LoadingInformation';
+import { ServiceSpecificationStore } from '../../stores/serviceSpecificationStore';
 import { ServiceStore } from '../../stores/serviceStore';
-import { SpecificationStore } from '../../stores/specificationStore';
 import { Service } from '../../types';
 import { ServiceRow } from './ServiceRow';
 import { ServiceStyles } from './ServiceStyles';
 
 interface ServiceOverviewProps extends WithSheet<typeof ServiceStyles> {
-  specificationStore?: SpecificationStore;
+  serviceSpecificationStore?: ServiceSpecificationStore;
   serviceStore?: ServiceStore;
 }
 
 interface ServiceOverviewState {
   loadingServices: boolean;
-  loadingSpecifications: boolean;
-  selectedSpecifications: Map<number, boolean>;
+  loadingServiceSpecifications: boolean;
+  selectedServiceSpecifications: Map<number, boolean>;
   fetchYear: string;
   serviceRows: Map<number, React.ReactNode>;
   monthHeaders: React.ReactNode[];
@@ -36,7 +36,7 @@ interface ServiceOverviewState {
   weekCount: Map<number, Map<number, number>>;
 }
 
-@inject('serviceStore', 'specificationStore')
+@inject('serviceStore', 'serviceSpecificationStore')
 class ServiceOverviewContent extends React.Component<ServiceOverviewProps, ServiceOverviewState> {
   cookiePrefixSpec = 'service-overview-checkbox-';
   cookieYear = 'service-overview-year';
@@ -49,9 +49,9 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
     const localCookieYear = window.localStorage.getItem(this.cookieYear);
     this.state = {
       loadingServices: true,
-      loadingSpecifications: true,
+      loadingServiceSpecifications: true,
       fetchYear: localCookieYear == null ? this.currYear.toString() : localCookieYear!,
-      selectedSpecifications: new Map<number, boolean>(),
+      selectedServiceSpecifications: new Map<number, boolean>(),
       monthHeaders: [],
       weekHeaders: [],
       totalCount: 0,
@@ -62,7 +62,7 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
   }
 
   componentDidMount(): void {
-    this.loadSpecifications();
+    this.loadServiceSpecifications();
     this.loadServices();
   }
 
@@ -81,16 +81,16 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
     }
   }
 
-  loadSpecifications() {
-    this.props.specificationStore!.fetchAll().then(() => {
-      const newSpecs = this.state.selectedSpecifications;
-      this.props.specificationStore!.entities.forEach(spec => {
+  loadServiceSpecifications() {
+    this.props.serviceSpecificationStore!.fetchAll().then(() => {
+      const newSpecs = this.state.selectedServiceSpecifications;
+      this.props.serviceSpecificationStore!.entities.forEach(spec => {
         newSpecs[spec.id!] =
           window.localStorage.getItem(this.cookiePrefixSpec + spec.id!) === null
             ? true
             : window.localStorage.getItem(this.cookiePrefixSpec + spec.id!) === 'true';
       });
-      this.setState({ selectedSpecifications: newSpecs, loadingSpecifications: false });
+      this.setState({ selectedServiceSpecifications: newSpecs, loadingServiceSpecifications: false });
     });
   }
 
@@ -103,10 +103,10 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
     });
   }
 
-  changeSelectedSpecifications(v: boolean, id: string) {
-    const newSpec = this.state.selectedSpecifications;
+  changeSelectedServiceSpecifications(v: boolean, id: string) {
+    const newSpec = this.state.selectedServiceSpecifications;
     newSpec[id] = v;
-    this.setState({ selectedSpecifications: newSpec }, () => this.updateAverageHeaders());
+    this.setState({ selectedServiceSpecifications: newSpec }, () => this.updateAverageHeaders());
     window.localStorage.setItem(this.cookiePrefixSpec + id, v.toString());
   }
 
@@ -136,14 +136,14 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
     const doneServices: number[] = [];
 
     this.props.serviceStore!.entities.forEach(service => {
-      // if we've already added the row for this user and specification, skip
+      // if we've already added the row for this user and serviceSpecification, skip
       if (doneServices.includes(service.id!)) {
         return;
       }
 
-      // getting all services of current user with same specification
+      // getting all services of current user with same serviceSpecification
       const currServices = this.props.serviceStore!.entities.filter(val => {
-        if (val.user_id === service.user_id && val.specification_id === service.specification_id) {
+        if (val.user_id === service.user_id && val.service_specification_id === service.service_specification_id) {
           doneServices.push(val.id!);
           return true;
         }
@@ -152,15 +152,15 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
 
       const cells = this.getServiceCells(startDates, endDates, currServices, weekCount);
 
-      // can use any service in currServices here, because user and specification are the same for each service in array
+      // can use any service in currServices here, because user and serviceSpecification are the same for each service in array
       // TODO: Make it work
       serviceRows.set(
         service.id!,
         (
           <ServiceRow
             key={'service-row-' + service.id!}
-            shortName={service.specification!.short_name}
-            specification_id={service.specification_id}
+            shortName={service.service_specification!.short_name}
+            service_specification_id={service.service_specification_id}
             user_id={service.user_id}
             zdp={1234}
             userName={'Hanspeter'}
@@ -184,18 +184,18 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
   }
 
   render() {
-    // Specifications that are in use by at least one service
+    // ServiceSpecifications that are in use by at least one service
     const specIdsOfServices = this.props
-      .serviceStore!.entities.map(service => service.specification_id)
+      .serviceStore!.entities.map(service => service.service_specification_id)
       .filter((elem, index, arr) => index === arr.indexOf(elem));
     specIdsOfServices.sort();
 
-    const { classes, specificationStore } = this.props;
+    const { classes, serviceSpecificationStore } = this.props;
 
     const title = 'Einsatzübersicht';
 
     return (
-      <IziviContent loading={this.state.loadingSpecifications} title={title} card={true}>
+      <IziviContent loading={this.state.loadingServiceSpecifications} title={title} card={true}>
         <Container fluid={true}>
           <Row className={classes.filter} style={{ marginBottom: '2vh' }}>
             <Col sm="12" md="2">
@@ -218,15 +218,15 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
 
             <Col sm="12" md="8">
               <div>
-                {// Mapping a CheckboxField to every specification in use
+                {// Mapping a CheckboxField to every serviceSpecification in use
                 specIdsOfServices.map(id => {
-                  const currSpec = specificationStore!.entities.filter(spec => spec.id! === id)[0];
+                  const currSpec = serviceSpecificationStore!.entities.filter(spec => spec.id! === id)[0];
                   return (
                     <CheckboxField
                       key={currSpec.id!}
-                      onChange={(v: boolean) => this.changeSelectedSpecifications(v, currSpec.id!)}
+                      onChange={(v: boolean) => this.changeSelectedServiceSpecifications(v, currSpec.id!)}
                       name={currSpec.id!.toString()}
-                      value={this.state.selectedSpecifications[currSpec.id!]}
+                      value={this.state.selectedServiceSpecifications[currSpec.id!]}
                       label={currSpec.name}
                       horizontal={false}
                     />
@@ -272,7 +272,7 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
                 </thead>
                 <tbody>
                   {this.props.serviceStore!.entities.map(service => {
-                    if (this.state.selectedSpecifications[service.specification_id]) {
+                    if (this.state.selectedServiceSpecifications[service.service_specification_id]) {
                       return this.state.serviceRows.get(service.id!);
                     }
                     return;
@@ -365,8 +365,8 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
     for (let currWeek = 1; currWeek <= 52; currWeek++) {
       let weekCountSum = 0;
 
-      this.props.specificationStore!.entities.forEach(spec => {
-        if (this.state.selectedSpecifications[spec.id!]) {
+      this.props.serviceSpecificationStore!.entities.forEach(spec => {
+        if (this.state.selectedServiceSpecifications[spec.id!]) {
           weekCountSum += this.state.weekCount[spec.id!][currWeek];
         }
       });
@@ -410,9 +410,9 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
         );
       } else {
         // service in this week
-        if (weekCount[currService.specification_id]) {
-          // increasing weekCount for this specification
-          weekCount[currService.specification_id][currWeek]++;
+        if (weekCount[currService.service_specification_id]) {
+          // increasing weekCount for this serviceSpecification
+          weekCount[currService.service_specification_id][currWeek]++;
         }
 
         // different styling depending on whether the service is a draft or not
@@ -503,7 +503,7 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
 
   getEmptyWeekCount(): Map<number, Map<number, number>> {
     const weekCount = new Map<number, Map<number, number>>();
-    for (const spec of this.props.specificationStore!.entities) {
+    for (const spec of this.props.serviceSpecificationStore!.entities) {
       weekCount[spec.id!] = [];
       for (let i = 1; i <= 52; i++) {
         weekCount[spec.id!][i] = 0;

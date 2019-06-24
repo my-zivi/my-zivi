@@ -21,7 +21,7 @@ import { Register } from './views/Register';
 import { ReportSheetOverview } from './views/report_sheets/ReportSheetOverview';
 import { ReportSheetUpdate } from './views/report_sheets/ReportSheetUpdate';
 import { ServiceOverview } from './views/service_overview/ServiceOverview';
-import { SpecificationsOverview } from './views/specification/SpecificationsOverview';
+import { ServiceSpecificationsOverview } from './views/service_specification/ServiceSpecificationsOverview';
 import { UserFeedbackOverview } from './views/user_feedback_overview/UserFeedbackOverview';
 import { ProfileOverview } from './views/users/ProfileOverview';
 import { ServiceFeedback } from './views/users/service_feedback/ServiceFeedback';
@@ -52,7 +52,7 @@ class App extends React.Component {
           <ProtectedRoute requiresAdmin component={UserFeedbackOverview} exact path={'/user_feedbacks'} />
           <ProtectedRoute requiresAdmin component={UserOverview} exact path={'/users'} />
           <ProtectedRoute requiresAdmin component={UserUpdate} exact path={'/users/:id'} />
-          <ProtectedRoute requiresAdmin component={SpecificationsOverview} exact path={'/specifications'} />
+          <ProtectedRoute requiresAdmin component={ServiceSpecificationsOverview} exact path={'/serviceSpecifications'} />
           <Route component={NotFound} />
         </Switch>
       </IziviLayout>

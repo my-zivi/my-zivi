@@ -6,8 +6,8 @@ import { HolidayStore } from '../stores/holidayStore';
 import { MainStore } from '../stores/mainStore';
 import { PaymentStore } from '../stores/paymentStore';
 import { ReportSheetStore } from '../stores/reportSheetStore';
+import { ServiceSpecificationStore } from '../stores/serviceSpecificationStore';
 import { ServiceStore } from '../stores/serviceStore';
-import { SpecificationStore } from '../stores/specificationStore';
 import { UserFeedbackStore } from '../stores/userFeedbackStore';
 import { UserStore } from '../stores/userStore';
 import { Formatter } from './formatter';
@@ -26,7 +26,7 @@ export class StoreProvider extends React.Component<Props> {
     userFeedbackStore: UserFeedbackStore;
     userStore: UserStore;
     serviceStore: ServiceStore;
-    specificationStore: SpecificationStore;
+    serviceSpecificationStore: ServiceSpecificationStore;
   };
 
   constructor(props: Props) {
@@ -45,7 +45,7 @@ export class StoreProvider extends React.Component<Props> {
       userFeedbackStore: new UserFeedbackStore(mainStore),
       userStore: new UserStore(mainStore),
       serviceStore: new ServiceStore(mainStore),
-      specificationStore: new SpecificationStore(mainStore),
+      serviceSpecificationStore: new ServiceSpecificationStore(mainStore),
     };
   }
   render() {

@@ -71,7 +71,7 @@ export interface ReportSheetListing {
   user: User;
 }
 
-export interface Specification {
+export interface ServiceSpecification {
   id?: string;
   name: string;
   short_name: string;
@@ -150,8 +150,8 @@ export interface Service {
   long_service: boolean;
   service_type: number | null;
   probation_period: boolean;
-  specification?: Specification;
-  specification_id: string;
+  service_specification?: ServiceSpecification;
+  service_specification_id: string;
   user_id: number;
 }
 

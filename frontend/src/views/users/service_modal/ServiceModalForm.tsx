@@ -4,7 +4,7 @@ import Form from 'reactstrap/lib/Form';
 import { CheckboxField } from '../../../form/CheckboxField';
 import { SelectField, TextField } from '../../../form/common';
 import { DatePickerField } from '../../../form/DatePickerField';
-import { SpecificationSelect } from '../../../form/entitiySelect/SpecificationSelect';
+import { ServiceSpecificationSelect } from '../../../form/entitiySelect/ServiceSpecificationSelect';
 import { WiredField } from '../../../form/formik';
 import { Service } from '../../../types';
 import Effect, { OnChange } from '../../../utilities/Effect';
@@ -20,7 +20,7 @@ export const ServiceModalForm = (props: { serviceDateRangeChangeHandler: OnChang
           Einsatztage werden gerechnet, oder die gewünschten Einsatztage eingeben, und das Enddatum wird berechnet. In beiden
           Fällen musst du das Startdatum bereits eingegeben haben.
         </Alert>
-        <WiredField horizontal component={SpecificationSelect} name={'specification_id'} label={'Pflichtenheft'}/>
+        <WiredField horizontal component={ServiceSpecificationSelect} name={'service_specification_id'} label={'Pflichtenheft'}/>
         <WiredField
           horizontal
           component={SelectField}

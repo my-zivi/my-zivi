@@ -63,7 +63,7 @@ class ReportSheetFormInner extends React.Component<Props, ReportSheetFormState> 
         validationSchema={reportSheetSchema}
         render={(formikProps: FormikProps<{}>): React.ReactNode => (
           <Form>
-            <WiredField disabled horizontal component={TextField} name={'service.specification.name'} label={'Pflichtenheft'} />
+            <WiredField disabled horizontal component={TextField} name={'service.serviceSpecification.name'} label={'Pflichtenheft'} />
             <WiredField disabled horizontal component={DatePickerField} name={'service.beginning'} label={'Beginn Einsatz'} />
             <WiredField disabled horizontal component={DatePickerField} name={'service.ending'} label={'Ende Einsatz'} />
 

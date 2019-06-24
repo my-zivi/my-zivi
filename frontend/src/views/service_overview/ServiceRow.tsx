@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface ServiceRowProps {
-  specification_id: string;
+  service_specification_id: string;
   shortName: string;
   user_id: number;
   zdp: number;
@@ -14,7 +14,7 @@ function ServiceRow(props: ServiceRowProps) {
   const { classes } = props;
 
   return (
-    <tr className={'service-row-' + props.specification_id}>
+    <tr className={'service-row-' + props.service_specification_id}>
       <td className={classes.shortName + ' ' + classes.rowTd}>{props.shortName}</td>
 
       <td className={classes.zdp + ' ' + classes.rowTd}>

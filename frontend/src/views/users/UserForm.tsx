@@ -13,7 +13,7 @@ import { WiredField } from '../../form/formik';
 import { FormView, FormViewProps } from '../../form/FormView';
 import { SolidHorizontalRow } from '../../layout/SolidHorizontalRow';
 import { MainStore } from '../../stores/mainStore';
-import { SpecificationStore } from '../../stores/specificationStore';
+import { ServiceSpecificationStore } from '../../stores/serviceSpecificationStore';
 import { UserStore } from '../../stores/userStore';
 import { User } from '../../types';
 import { empty } from '../../utilities/helpers';
@@ -25,15 +25,15 @@ type Props = {
   mainStore?: MainStore;
   user: User;
   userStore?: UserStore;
-  specificationStore?: SpecificationStore;
+  serviceSpecificationStore?: ServiceSpecificationStore;
 } & FormViewProps<User> &
   RouteComponentProps;
 
-@inject('mainStore', 'userStore', 'specificationStore')
+@inject('mainStore', 'userStore', 'serviceSpecificationStore')
 @observer
 class UserFormInner extends React.Component<Props> {
   componentWillMount() {
-    this.props.specificationStore!.fetchAll();
+    this.props.serviceSpecificationStore!.fetchAll();
   }
 
   render() {
