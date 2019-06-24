@@ -21,6 +21,10 @@ fr:
               bad_length: longueur incorrecte
               bad_chars: caractères invalides
               unknown_country_code: code de pays inconnu
+        expense_sheet:
+          attributes:
+            state:
+              invalid_state_change: changement de statut invalide
   service_calculator:
     invalid_required_service_days: Jours du service non valables
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.

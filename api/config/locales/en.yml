@@ -18,6 +18,10 @@ en:
               bad_length: bad length
               bad_chars: bad chars
               unknown_country_code: unknown country code
+        expense_sheet:
+          attributes:
+            state:
+              invalid_state_change: Invalid state change
     models:
       user: User
       attributes:

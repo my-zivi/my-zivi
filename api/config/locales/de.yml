@@ -21,6 +21,10 @@ de:
               bad_length: ungültige Länge
               bad_chars: ungültige Zeichen
               unknown_country_code: unbekannter Landescode
+        expense_sheet:
+          attributes:
+            state:
+              invalid_state_change: Ungültiger Statuswechsel
     models:
       user: Benutzer
       attributes:
