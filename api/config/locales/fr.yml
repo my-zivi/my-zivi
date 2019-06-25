@@ -1,14 +1,16 @@
+---
 fr:
-  date:
-    formats:
-      default: '%d.%m.%Y'
   activerecord:
     errors:
       messages:
-        not_a_monday: pas de lundi
-        not_a_friday: pas de vendredi
         invalid_date: date erronée
+        not_a_friday: pas de vendredi
+        not_a_monday: pas de lundi
       models:
+        expense_sheet:
+          attributes:
+            state:
+              invalid_state_change: Changement d'état invalide
         holiday:
           attributes:
             ending:
@@ -16,24 +18,44 @@ fr:
         user:
           attributes:
             bank_iban:
+              bad_chars: caractères invalides
               bad_check_digits: chiffre de contrôle non valide
               bad_format: format incorrect
               bad_length: longueur incorrecte
-              bad_chars: caractères invalides
               unknown_country_code: code de pays inconnu
+    models:
+      attributes:
         expense_sheet:
           attributes:
             state:
               invalid_state_change: changement de statut invalide
-  service_calculator:
-    invalid_required_service_days: Jours du service non valables
-    end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
+        user:
+          address: Adresse
+          email: e-mail
+          first_name: Prénom
+          last_name: Nom de famille
+          phone: Numéro de téléphone
+          zip_with_city: Code postal / Ville
+      service_specification: spécification d'encart
+      user: Utilisateur
+  date:
+    formats:
+      default: "%d.%m.%Y"
   errors:
     authorization_error: Vous n'avez pas les droits requis pour cette demande.
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:
+    expense_sheet:
+      filename: Portrait_des_dépenses_%{today}.pdf
+      header: 'Rapport des dépenses d’établissement d’affectation 423 - SWO, Bahnstrasse
+        18b, 8603 Schwerzenbach '
+      title: Rapport_de_dépenses_de_%{full_name}.pdf
     phone_list:
-      filename: 'Liste_téléphonique_%{today}.pdf'
-      title: 'Liste téléphonique de %{beginning} à %{ending}'
-      header: 'Généré sur %{date}'
+      filename: Liste_téléphonique_%{today}.pdf
+      header: Généré sur %{date}
+      title: Liste téléphonique de %{beginning} à %{ending}
+  service_calculator:
+    end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin
+      de semaine.
+    invalid_required_service_days: Jours du service non valables

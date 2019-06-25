@@ -1,11 +1,16 @@
+---
 en:
   activerecord:
     errors:
       messages:
-        not_a_monday: not a monday
-        not_a_friday: not a friday
         invalid_date: invalid date
+        not_a_friday: not a friday
+        not_a_monday: not a monday
       models:
+        expense_sheet:
+          attributes:
+            state:
+              invalid_state_change: Invalid state change
         holiday:
           attributes:
             ending:
@@ -13,34 +18,43 @@ en:
         user:
           attributes:
             bank_iban:
+              bad_chars: bad chars
               bad_check_digits: bad check digits
               bad_format: bad format
               bad_length: bad length
-              bad_chars: bad chars
               unknown_country_code: unknown country code
+    models:
+      attributes:
         expense_sheet:
           attributes:
             state:
               invalid_state_change: Invalid state change
-    models:
-      user: User
-      attributes:
         user:
+          address: Address
+          email: Email
           first_name: First name
           last_name: Last name
-          address: Address
-          zip_with_city: ZIP / City
           phone: Phone
-          email: Email
-  service_calculator:
-    invalid_required_service_days: Invalid service days
-    end_date_cannot_be_on_weekend: Service end date can't be on a weekend
+          zip_with_city: ZIP / City
+      service_specification: service specification
+      user: User
+  date:
+    formats:
+      default: "%d.%m.%Y"
   errors:
     authorization_error: You are not authorized to perform this action
   payment:
     expenses_from: Expenses from %{from_date}
   pdfs:
+    expense_sheet:
+      filename: ExpenseSheet_%{today}.pdf
+      header: Expense report of the service company 423 - SWO, Bahnstrasse 18b, 8603
+        Schwerzenbach
+      title: Expense_report_of_%{full_name}.pdf
     phone_list:
-      filename: 'Phonelist_%{today}.pdf'
-      title: 'Phonelist from %{beginning} to %{ending}'
-      header: 'Generated on %{date}'
+      filename: Phonelist_%{today}.pdf
+      header: Generated on %{date}
+      title: Phonelist from %{beginning} to %{ending}
+  service_calculator:
+    end_date_cannot_be_on_weekend: Service end date can't be on a weekend
+    invalid_required_service_days: Invalid service days

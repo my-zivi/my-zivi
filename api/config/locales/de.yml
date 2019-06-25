@@ -1,14 +1,16 @@
+---
 de:
-  date:
-    formats:
-      default: '%d.%m.%Y'
   activerecord:
     errors:
       messages:
-        not_a_monday: kein Montag
-        not_a_friday: kein Freitag
         invalid_date: ungültiges Datum
+        not_a_friday: kein Freitag
+        not_a_monday: kein Montag
       models:
+        expense_sheet:
+          attributes:
+            state:
+              invalid_state_change: Ungültiger Statuswechsel
         holiday:
           attributes:
             ending:
@@ -16,34 +18,46 @@ de:
         user:
           attributes:
             bank_iban:
+              bad_chars: ungültige Zeichen
               bad_check_digits: ungültige Prüffziffer
               bad_format: ungültiges Format
               bad_length: ungültige Länge
-              bad_chars: ungültige Zeichen
               unknown_country_code: unbekannter Landescode
+    models:
+      attributes:
         expense_sheet:
           attributes:
             state:
-              invalid_state_change: Ungültiger Statuswechsel
-    models:
-      user: Benutzer
-      attributes:
+              invalid_state_change: Changement d'état invalide
         user:
+          address: Adresse
+          email: Email
           first_name: Vorname
           last_name: Nachname
-          address: Adresse
-          zip_with_city: PLZ / Ort
           phone: Telefonnummer
-          email: Email
-  service_calculator:
-    invalid_required_service_days: Ungültige Einsatztage
-    end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
+          zip_with_city: PLZ / Ort
+      service_specification: Pflichtenheft
+      user: Benutzer
+  date:
+    formats:
+      default: "%d.%m.%Y"
   errors:
     authorization_error: Sie haben nicht die benötigten Rechte für diese Anfrage
+    messages:
+      not_saved:
+        one: {}
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:
+    expense_sheet:
+      filename: Spesenrapport_%{today}.pdf
+      header: 'Spesenrapport des Einsatzbetriebes 423 - SWO, Bahnstrasse 18b, 8603
+        Schwerzenbach '
+      title: Spesenrapport_von_%{full_name}.pdf
     phone_list:
-      filename: 'Telefonliste_%{today}.pdf'
-      title: 'Telefonliste vom %{beginning} bis %{ending}'
-      header: 'Stand vom %{date}'
+      filename: Telefonliste_%{today}.pdf
+      header: Stand vom %{date}
+      title: Telefonliste vom %{beginning} bis %{ending}
+  service_calculator:
+    end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
+    invalid_required_service_days: Ungültige Einsatztage
