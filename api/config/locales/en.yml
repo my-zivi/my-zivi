@@ -23,6 +23,8 @@ en:
               bad_format: bad format
               bad_length: bad length
               unknown_country_code: unknown country code
+            base:
+              cant_delete_himself: You cannot delete yourself
     models:
       attributes:
         expense_sheet:

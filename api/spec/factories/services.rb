@@ -27,5 +27,9 @@ FactoryBot.define do
     trait :valais do
       association :service_specification, factory: %i[service_specification valais]
     end
+
+    trait :last do
+      service_type { :last }
+    end
   end
 end

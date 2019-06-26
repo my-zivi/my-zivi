@@ -81,7 +81,6 @@ class UserFormInner extends React.Component<Props> {
               <h3>Bank-/Postverbindung</h3>
 
               <WiredField horizontal component={TextField} name={'bank_iban'} label={'IBAN-Nummer'} />
-              <WiredField horizontal component={TextField} name={'bank_bic'} label={'BIC / SWIFT'} />
 
               <SolidHorizontalRow />
               <h3>Krankenkasse</h3>

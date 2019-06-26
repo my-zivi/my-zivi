@@ -42,6 +42,10 @@ class User < ApplicationRecord
     { isAdmin: admin? }
   end
 
+  def active?
+    services.at_date(Time.zone.today).any?
+  end
+
   private
 
   def validate_iban

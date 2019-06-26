@@ -84,16 +84,22 @@ export class ApiStore {
 
   @action
   async logout(redirect = true) {
-    await this._api.delete('/users/sign_out');
+    try {
+      await this._api.delete('/users/sign_out');
+    } catch (e) {
+      // tslint:disable-next-line:no-console
+      console.error(e);
+      throw e;
+    } finally {
+      localStorage.removeItem(KEY_TOKEN);
+      this._token = '';
+      this.setAuthHeader(null);
+      if (redirect) {
+        this.history.push('/');
+      }
 
-    localStorage.removeItem(KEY_TOKEN);
-    this._token = '';
-    this.setAuthHeader(null);
-    if (redirect) {
-      this.history.push('/');
+      this.updateSentryContext();
     }
-
-    this.updateSentryContext();
   }
 
   @action

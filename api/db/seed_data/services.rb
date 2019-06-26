@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 beginning = Time.zone.today.at_beginning_of_week - 4.weeks
+beginning2 = Time.zone.today.at_beginning_of_week + 1.week
+
 Service.create!(
   [
     {
@@ -23,6 +25,18 @@ Service.create!(
       confirmation_date: beginning - 1.month,
       service_type: :normal,
       first_swo_service: true,
+      long_service: false,
+      probation_service: false,
+      feedback_mail_sent: false
+    },
+    {
+      user: User.find_by(email: 'zivi_francise@france.ch'),
+      service_specification: ServiceSpecification.last,
+      beginning: beginning2,
+      ending: beginning2 + 3.weeks + 4.days,
+      confirmation_date: beginning2 - 1.month,
+      service_type: :normal,
+      first_swo_service: false,
       long_service: false,
       probation_service: false,
       feedback_mail_sent: false

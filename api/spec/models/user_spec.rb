@@ -44,6 +44,33 @@ RSpec.describe User, type: :model do
     it { is_expected.to eq 'Peter Zivi' }
   end
 
+  describe '#active?' do
+    subject { user.active? }
+
+    let(:user) { create(:user, services: [service]) }
+    let(:ending) { (beginning + 1.week).at_end_of_week - 2.days }
+    let(:service) { create :service, beginning: beginning, ending: ending }
+
+    context 'when the user\'s currently doing civil service' do
+      let(:beginning) { Time.zone.today.at_beginning_of_week }
+
+      it { is_expected.to eq true }
+    end
+
+    context 'when the user is not doing civil service' do
+      let(:beginning) { Time.zone.today.at_beginning_of_week + 1.week }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'when the civil service he\'s currently doing ends today' do
+      let(:beginning) { Time.zone.today.at_beginning_of_week - 1.week }
+      let(:service) { create :service, :last, beginning: beginning, ending: Time.zone.today }
+
+      it { is_expected.to eq true }
+    end
+  end
+
   describe 'JWT payload' do
     let(:payload) { Warden::JWTAuth::UserEncoder.new.call(user, :user, nil).second }
 

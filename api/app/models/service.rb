@@ -27,6 +27,9 @@ class Service < ApplicationRecord
     .where(arel_table[:ending].lteq(ending))
   end)
 
+  scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
+  scope :chronologically, -> { order(:beginning, :ending) }
+
   def service_days
     ServiceCalculator.new(beginning).calculate_chargeable_service_days(ending)
   end

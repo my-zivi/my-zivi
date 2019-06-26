@@ -88,7 +88,11 @@ export class DomainStore<T, OverviewType = T> {
         await this.doDelete(id);
         this.mainStore.displaySuccess(`${this.entityName.singular} wurde gelöscht.`);
       } catch (e) {
-        this.mainStore.displayError(`${this.entityName.singular} konnte nicht gelöscht werden.`);
+        let reason = `${this.entityName.singular} konnte nicht gelöscht werden.`;
+        if ('messages' in e && 'errors' in e.messages) {
+          reason = e.messages.errors.base || reason;
+        }
+        this.mainStore.displayError(reason);
         console.error(e);
         throw e;
       }

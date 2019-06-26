@@ -13,7 +13,6 @@ export const userSchema = yup.object({
   email: yup.string().required(),
   phone: yup.string().required(),
   bank_iban: yup.string().required(),
-  bank_bic: yup.string().required(),
   health_insurance: yup.string().required(),
 });
 

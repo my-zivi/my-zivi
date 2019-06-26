@@ -9,6 +9,7 @@ import Overview from '../../layout/Overview';
 import { MainStore } from '../../stores/mainStore';
 import { UserStore } from '../../stores/userStore';
 import { Column, User } from '../../types';
+import { translateUserRole } from '../../utilities/helpers';
 
 interface Props {
   mainStore?: MainStore;
@@ -36,12 +37,12 @@ export class UserOverview extends React.Component<Props> {
       {
         id: 'start',
         label: 'Von',
-        format: (u: User) => (u.start ? this.props.mainStore!.formatDate(u.start) : ''),
+        format: (u: User) => (u.beginning ? this.props.mainStore!.formatDate(u.beginning) : ''),
       },
       {
         id: 'end',
         label: 'Bis',
-        format: (u: User) => (u.end ? this.props.mainStore!.formatDate(u.end) : ''),
+        format: (u: User) => (u.ending ? this.props.mainStore!.formatDate(u.ending) : ''),
       },
       {
         id: 'active',
@@ -50,7 +51,7 @@ export class UserOverview extends React.Component<Props> {
       {
         id: 'userRole',
         label: 'Gruppe',
-        format: (u: User) => <>{`${u.role.name}`}</>,
+        format: translateUserRole,
       },
     ];
   }
@@ -61,17 +62,10 @@ export class UserOverview extends React.Component<Props> {
         columns={this.columns}
         store={this.props.userStore!}
         title={'Benutzer'}
-        renderActions={(e: User) => (
-          <>
-            <Button
-              color={'danger'}
-              onClick={() => {
-                this.props.userStore!.delete(e.id!);
-              }}
-            >
-              Löschen
-            </Button>
-          </>
+        renderActions={(user: User) => (
+          <Button color={'danger'} onClick={() => this.props.userStore!.delete(user.id!)}>
+            Löschen
+          </Button>
         )}
         filter={true}
         firstRow={

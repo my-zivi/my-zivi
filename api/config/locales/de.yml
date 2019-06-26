@@ -23,6 +23,8 @@ de:
               bad_format: ungültiges Format
               bad_length: ungültige Länge
               unknown_country_code: unbekannter Landescode
+            base:
+              cant_delete_himself: Du kannst dich nicht selbst löschen
     models:
       attributes:
         expense_sheet:

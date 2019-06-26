@@ -1,4 +1,3 @@
----
 fr:
   activerecord:
     errors:
@@ -23,6 +22,8 @@ fr:
               bad_format: format incorrect
               bad_length: longueur incorrecte
               unknown_country_code: code de pays inconnu
+            base:
+              cant_delete_himself: Tu ne peux pas t'effacer toi-même
     models:
       attributes:
         expense_sheet:
