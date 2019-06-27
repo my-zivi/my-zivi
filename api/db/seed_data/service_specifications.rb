@@ -4,6 +4,7 @@ ServiceSpecification.create!(
   [
     {
       name: 'Gruppeneinsätze, Feldarbeiten',
+      identification_number: '19532',
       short_name: 'F',
       work_clothing_expenses: 230,
       accommodation_expenses: 0,
@@ -16,6 +17,7 @@ ServiceSpecification.create!(
     },
     {
       name: 'Feldarbeiten (ab 06.07.2016)',
+      identification_number: '72466',
       short_name: 'F',
       work_clothing_expenses: 0,
       accommodation_expenses: 0,
@@ -28,6 +30,7 @@ ServiceSpecification.create!(
     },
     {
       name: 'VS Feldarbeiten',
+      identification_number: '82844',
       short_name: 'W',
       work_clothing_expenses: 230,
       accommodation_expenses: 0,

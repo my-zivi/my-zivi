@@ -23,7 +23,7 @@ export class ServiceSpecificationSelect extends React.Component<Props> {
       .entities
       .filter((serviceSpecification: ServiceSpecification) => serviceSpecification.active)
       .map(serviceSpecification => ({
-        value: serviceSpecification.id,
+        value: serviceSpecification.identification_number,
         label: serviceSpecification.name,
       }));
   }

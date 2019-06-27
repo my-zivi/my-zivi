@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe ServiceSpecification, type: :model do
   it { is_expected.to validate_presence_of :short_name }
   it { is_expected.to validate_presence_of :name }
+  it { is_expected.to validate_presence_of :identification_number }
   it { is_expected.to validate_presence_of :accommodation_expenses }
   it { is_expected.to validate_presence_of :work_clothing_expenses }
   it { is_expected.to validate_presence_of :work_days_expenses }
@@ -14,6 +15,7 @@ RSpec.describe ServiceSpecification, type: :model do
 
   it { is_expected.to validate_numericality_of(:accommodation_expenses).only_integer }
   it { is_expected.to validate_numericality_of(:work_clothing_expenses).only_integer }
+  it { is_expected.to validate_length_of(:identification_number).is_at_least(5).is_at_most(7) }
 
   describe '#work_days_expenses' do
     subject { service_specification.tap(&:validate).errors.added? :work_days_expenses, error_key }
@@ -67,7 +69,7 @@ RSpec.describe ServiceSpecification, type: :model do
   end
 
   describe '#title' do
-    subject { build(:service_specification, id: 7346, name: 'MyRSpecSpecification').title }
+    subject { build(:service_specification, identification_number: 7346, name: 'MyRSpecSpecification').title }
 
     it { is_expected.to eq '7346 MyRSpecSpecification' }
   end

@@ -15,12 +15,14 @@ class ServiceSpecification < ApplicationRecord
 
   has_many :services, dependent: :restrict_with_error
 
-  validates :short_name, :name, :accommodation_expenses,
+  validates :accommodation_expenses, :first_day_expenses,
+            :identification_number, :last_day_expenses,
+            :location, :name, :paid_vacation_expenses,
             :work_clothing_expenses, :work_days_expenses,
-            :paid_vacation_expenses, :first_day_expenses,
-            :last_day_expenses, :location, presence: true
+            :short_name, presence: true
 
   validates :accommodation_expenses, :work_clothing_expenses, numericality: { only_integer: true }
+  validates :identification_number, length: { minimum: 5, maximum: 7 }
 
   validate :validate_work_days_expenses
   validate :validate_paid_vacation_expenses
@@ -28,7 +30,7 @@ class ServiceSpecification < ApplicationRecord
   validate :validate_last_day_expenses
 
   def title
-    "#{id} #{name}"
+    "#{identification_number} #{name}"
   end
 
   private

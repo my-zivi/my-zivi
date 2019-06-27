@@ -235,7 +235,7 @@ export class ServiceSpecificationsOverviewInner extends React.Component<ServiceS
             <Formik
               validationSchema={serviceSpecificationSchema}
               initialValues={{
-                id: '',
+                identification_number: '',
                 name: '',
                 short_name: '',
                 accommodation: 0,
@@ -278,7 +278,7 @@ export class ServiceSpecificationsOverviewInner extends React.Component<ServiceS
             />
             {entities.map(serviceSpecification => (
               <Formik
-                key={serviceSpecification.id}
+                key={serviceSpecification.identification_number}
                 validationSchema={serviceSpecificationSchema}
                 initialValues={serviceSpecification}
                 onSubmit={this.handleSubmit}

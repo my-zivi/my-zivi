@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 const serviceSpecificationSchema = yup.object({
-  id: yup
+  identification_number: yup
     .string()
     .matches(/[0-9_]+/, 'Die ID muss aus Zahlen und Bodenstrichen bestehen.')
     .required(),

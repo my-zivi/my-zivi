@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_24_090147) do
+ActiveRecord::Schema.define(version: 2019_06_27_105124) do
 
   create_table "expense_sheets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "beginning", null: false
@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(version: 2019_05_24_090147) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "identification_number", null: false
+    t.index ["identification_number"], name: "index_service_specifications_on_identification_number", unique: true
   end
 
   create_table "services", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

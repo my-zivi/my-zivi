@@ -72,7 +72,7 @@ export interface ReportSheetListing {
 }
 
 export interface ServiceSpecification {
-  id?: string;
+  identification_number?: string;
   name: string;
   short_name: string;
   working_clothes_payment: null | string;
@@ -149,6 +149,24 @@ export interface Service {
   service_specification?: ServiceSpecification;
   service_specification_id: string;
   user_id: number;
+}
+
+export interface ServiceCollection {
+  id?: number;
+  beginning: string | null;
+  ending: string | null;
+  confirmation_date: string | null;
+  service_specification: {
+    identification_number: string;
+    name: string | null;
+    short_name: string | null;
+  };
+  user: {
+    id: number;
+    first_name: string | null;
+    last_name: string | null;
+    zdp: number;
+  };
 }
 
 export interface UserFeedback {

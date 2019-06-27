@@ -55,7 +55,7 @@ export class ServiceSpecificationStore extends DomainStore<ServiceSpecification>
 
   @action
   protected async doPut(serviceSpecification: ServiceSpecification) {
-    const url = `/service_specifications/${serviceSpecification.id}`;
+    const url = `/service_specifications/${serviceSpecification.identification_number}`;
     const response = await this.mainStore.api.put<ServiceSpecification[]>(url, serviceSpecification);
     this.serviceSpecifications = response.data;
   }

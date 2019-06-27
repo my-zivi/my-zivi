@@ -16,7 +16,8 @@ module V1
     before_action :authorize_admin!, only: :index
 
     def index
-      @services = Service.all
+      year = filter_params[:year]
+      @services = year.present? ? Service.at_year(year.to_i) : Service.all
     end
 
     def show; end
@@ -47,6 +48,10 @@ module V1
 
     def set_service
       @service = Service.find(params[:id])
+    end
+
+    def filter_params
+      params.permit(:year)
     end
 
     def service_params

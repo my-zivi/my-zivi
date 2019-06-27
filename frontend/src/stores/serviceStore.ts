@@ -1,9 +1,9 @@
 import { action, computed, observable } from 'mobx';
-import { Service } from '../types';
+import { Service, ServiceCollection } from '../types';
 import { DomainStore } from './domainStore';
 import { MainStore } from './mainStore';
 
-export class ServiceStore extends DomainStore<Service> {
+export class ServiceStore extends DomainStore<Service, ServiceCollection> {
   protected get entityName() {
     return {
       singular: 'Der Zivildiensteinsatz',
@@ -12,7 +12,7 @@ export class ServiceStore extends DomainStore<Service> {
   }
 
   @computed
-  get entities(): Service[] {
+  get entities(): ServiceCollection[] {
     return this.services;
   }
 
@@ -21,12 +21,12 @@ export class ServiceStore extends DomainStore<Service> {
     return this.service;
   }
 
-  set entity(holiday: Service | undefined) {
-    this.service = holiday;
+  set entity(service: Service | undefined) {
+    this.service = service;
   }
 
   @observable
-  services: Service[] = [];
+  services: ServiceCollection[] = [];
 
   @observable
   service?: Service;
@@ -37,7 +37,7 @@ export class ServiceStore extends DomainStore<Service> {
 
   @action
   async fetchByYear(year: string) {
-    const res = await this.mainStore.api.get<Service[]>('/services/' + year);
+    const res = await this.mainStore.api.get<ServiceCollection[]>('/services/?year=' + year);
     this.services = res.data;
   }
 
@@ -66,7 +66,7 @@ export class ServiceStore extends DomainStore<Service> {
 
   @action
   protected async doFetchAll() {
-    const res = await this.mainStore.api.get<Service[]>('/services');
+    const res = await this.mainStore.api.get<ServiceCollection[]>('/services');
     this.services = res.data;
   }
 
@@ -77,14 +77,14 @@ export class ServiceStore extends DomainStore<Service> {
   // }
 
   @action
-  protected async doPost(holiday: Service) {
-    const response = await this.mainStore.api.post<Service[]>('/services', holiday);
+  protected async doPost(service: Service) {
+    const response = await this.mainStore.api.post<ServiceCollection[]>('/services', service);
     this.services = response.data;
   }
 
   @action
-  protected async doPut(holiday: Service) {
-    const response = await this.mainStore.api.put<Service[]>('/services/' + holiday.id, holiday);
+  protected async doPut(service: Service) {
+    const response = await this.mainStore.api.put<ServiceCollection[]>('/services/' + service.id, service);
     this.services = response.data;
   }
 }

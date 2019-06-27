@@ -14,7 +14,7 @@ import IziviContent from '../../layout/IziviContent';
 import { LoadingInformation } from '../../layout/LoadingInformation';
 import { ServiceSpecificationStore } from '../../stores/serviceSpecificationStore';
 import { ServiceStore } from '../../stores/serviceStore';
-import { Service } from '../../types';
+import { ServiceCollection } from '../../types';
 import { ServiceRow } from './ServiceRow';
 import { ServiceStyles } from './ServiceStyles';
 
@@ -85,10 +85,10 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
     this.props.serviceSpecificationStore!.fetchAll().then(() => {
       const newSpecs = this.state.selectedServiceSpecifications;
       this.props.serviceSpecificationStore!.entities.forEach(spec => {
-        newSpecs[spec.id!] =
-          window.localStorage.getItem(this.cookiePrefixSpec + spec.id!) === null
+        newSpecs[spec.identification_number!] =
+          window.localStorage.getItem(this.cookiePrefixSpec + spec.identification_number!) === null
             ? true
-            : window.localStorage.getItem(this.cookiePrefixSpec + spec.id!) === 'true';
+            : window.localStorage.getItem(this.cookiePrefixSpec + spec.identification_number!) === 'true';
       });
       this.setState({ selectedServiceSpecifications: newSpecs, loadingServiceSpecifications: false });
     });
@@ -143,7 +143,10 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
 
       // getting all services of current user with same serviceSpecification
       const currServices = this.props.serviceStore!.entities.filter(val => {
-        if (val.user_id === service.user_id && val.service_specification_id === service.service_specification_id) {
+        if (
+          val.user.id === service.user.id &&
+          val.service_specification.identification_number === service.service_specification.identification_number
+        ) {
           doneServices.push(val.id!);
           return true;
         }
@@ -159,11 +162,11 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
         (
           <ServiceRow
             key={'service-row-' + service.id!}
-            shortName={service.service_specification!.short_name}
-            service_specification_id={service.service_specification_id}
-            user_id={service.user_id}
-            zdp={1234}
-            userName={'Hanspeter'}
+            shortName={service.service_specification!.short_name!}
+            service_specification_id={service.service_specification.identification_number}
+            user_id={service.user.id}
+            zdp={service.user.zdp}
+            userName={`${service.user.first_name} ${service.user.last_name}`}
             cells={cells}
             classes={classes}
           />
@@ -186,7 +189,7 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
   render() {
     // ServiceSpecifications that are in use by at least one service
     const specIdsOfServices = this.props
-      .serviceStore!.entities.map(service => service.service_specification_id)
+      .serviceStore!.entities.map(service => service.service_specification.identification_number)
       .filter((elem, index, arr) => index === arr.indexOf(elem));
     specIdsOfServices.sort();
 
@@ -220,13 +223,15 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
               <div>
                 {// Mapping a CheckboxField to every serviceSpecification in use
                 specIdsOfServices.map(id => {
-                  const currSpec = serviceSpecificationStore!.entities.filter(spec => spec.id! === id)[0];
+                  const currSpec = serviceSpecificationStore!
+                    .entities
+                    .filter(spec => spec.identification_number === id)[0];
                   return (
                     <CheckboxField
-                      key={currSpec.id!}
-                      onChange={(v: boolean) => this.changeSelectedServiceSpecifications(v, currSpec.id!)}
-                      name={currSpec.id!.toString()}
-                      value={this.state.selectedServiceSpecifications[currSpec.id!]}
+                      key={currSpec.identification_number!}
+                      onChange={(v: boolean) => this.changeSelectedServiceSpecifications(v, currSpec.identification_number!)}
+                      name={currSpec.identification_number!.toString()}
+                      value={this.state.selectedServiceSpecifications[currSpec.identification_number!]}
                       label={currSpec.name}
                       horizontal={false}
                     />
@@ -236,13 +241,7 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
             </Col>
 
             <Col sm="12" md="2">
-              <Button
-                onClick={() => {
-                  window.print();
-                }}
-              >
-                Drucken
-              </Button>
+              <Button onClick={window.print}>Drucken</Button>
             </Col>
           </Row>
 
@@ -272,7 +271,7 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
                 </thead>
                 <tbody>
                   {this.props.serviceStore!.entities.map(service => {
-                    if (this.state.selectedServiceSpecifications[service.service_specification_id]) {
+                    if (this.state.selectedServiceSpecifications[service.service_specification.identification_number]) {
                       return this.state.serviceRows.get(service.id!);
                     }
                     return;
@@ -366,8 +365,8 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
       let weekCountSum = 0;
 
       this.props.serviceSpecificationStore!.entities.forEach(spec => {
-        if (this.state.selectedServiceSpecifications[spec.id!]) {
-          weekCountSum += this.state.weekCount[spec.id!][currWeek];
+        if (this.state.selectedServiceSpecifications[spec.identification_number!]) {
+          weekCountSum += this.state.weekCount[spec.identification_number!][currWeek];
         }
       });
       weekTotalHeaders.push(
@@ -385,7 +384,7 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
   getServiceCells(
     startDates: string[],
     endDates: string[],
-    currServices: Service[],
+    currServices: ServiceCollection[],
     weekCount: Map<number, Map<number, number>>,
   ): React.ReactNode[] {
     const cells: React.ReactNode[] = [];
@@ -410,9 +409,9 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
         );
       } else {
         // service in this week
-        if (weekCount[currService.service_specification_id]) {
+        if (weekCount[currService.service_specification.identification_number]) {
           // increasing weekCount for this serviceSpecification
-          weekCount[currService.service_specification_id][currWeek]++;
+          weekCount[currService.service_specification.identification_number][currWeek]++;
         }
 
         // different styling depending on whether the service is a draft or not
@@ -456,27 +455,27 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
     return cells;
   }
 
-  isWeekStartWeek(week: number, service: Service): boolean {
+  isWeekStartWeek(week: number, service: ServiceCollection): boolean {
     return week === this.getStartWeek(service);
   }
 
-  isWeekMiddleWeek(week: number, service: Service): boolean {
+  isWeekMiddleWeek(week: number, service: ServiceCollection): boolean {
     const startWeek = this.getStartWeek(service);
     const endWeek = this.getEndWeek(service);
 
     return week > startWeek && week < endWeek;
   }
 
-  isWeekEndWeek(week: number, service: Service): boolean {
+  isWeekEndWeek(week: number, service: ServiceCollection): boolean {
     return week === this.getEndWeek(service);
   }
 
-  isWeekDuringService(week: number, service: Service): boolean {
+  isWeekDuringService(week: number, service: ServiceCollection): boolean {
     return this.isWeekStartWeek(week, service) || this.isWeekMiddleWeek(week, service) || this.isWeekEndWeek(week, service);
   }
 
-  getActiveServiceInWeek(week: number, services: Service[]): Service | null {
-    let ret: Service | null = null;
+  getActiveServiceInWeek(week: number, services: ServiceCollection[]): ServiceCollection | null {
+    let ret: ServiceCollection | null = null;
     services.forEach(service => {
       if (this.isWeekDuringService(week, service)) {
         ret = service;
@@ -485,7 +484,7 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
     return ret;
   }
 
-  getStartWeek(service: Service): number {
+  getStartWeek(service: ServiceCollection): number {
     let startWeek = moment(service.beginning!).isoWeek();
     if (moment(service.beginning!).year() < parseInt(this.state.fetchYear, 10)) {
       startWeek = -1;
@@ -493,7 +492,7 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
     return startWeek;
   }
 
-  getEndWeek(service: Service): number {
+  getEndWeek(service: ServiceCollection): number {
     let endWeek = moment(service.ending!).isoWeek();
     if (moment(service.ending!).year() > parseInt(this.state.fetchYear, 10)) {
       endWeek = 55;
@@ -504,9 +503,9 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
   getEmptyWeekCount(): Map<number, Map<number, number>> {
     const weekCount = new Map<number, Map<number, number>>();
     for (const spec of this.props.serviceSpecificationStore!.entities) {
-      weekCount[spec.id!] = [];
+      weekCount[spec.identification_number!] = [];
       for (let i = 1; i <= 52; i++) {
-        weekCount[spec.id!][i] = 0;
+        weekCount[spec.identification_number!][i] = 0;
       }
     }
     return weekCount;

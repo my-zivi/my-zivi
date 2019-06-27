@@ -13,6 +13,19 @@ RSpec.describe Service, type: :model do
     let(:model) { build(:service, beginning: beginning, ending: ending) }
   end
 
+  describe '#at_year' do
+    subject(:services) { Service.at_year(2018) }
+
+    before do
+      create_pair :service, beginning: '2018-11-05', ending: '2018-11-30'
+      create :service, beginning: '2017-02-06', ending: '2017-02-24'
+    end
+
+    it 'returns only services in this year' do
+      expect(services.count).to eq 2
+    end
+  end
+
   describe '#duration' do
     let(:service) { build(:service, beginning: beginning, ending: beginning + 25.days) }
     let(:beginning) { Time.zone.today.beginning_of_week }

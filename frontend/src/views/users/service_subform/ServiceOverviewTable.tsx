@@ -84,9 +84,11 @@ export default (params: OverviewTableParams) => {
         {
           id: 'serviceSpecification',
           label: 'Pflichtenheft',
-          format: (m: Service) => {
-            const spec = serviceSpecificationStore!.entities.find((sp: ServiceSpecification) => sp.id === m.service_specification_id);
-            return `${spec ? spec.name : ''} (${m.service_specification_id})`;
+          format: (service: Service) => {
+            const spec = serviceSpecificationStore!
+              .entities
+              .find((specification: ServiceSpecification) => specification.identification_number === service.service_specification_id);
+            return `${spec ? spec.name : ''} (${service.service_specification_id})`;
           },
         },
         {
