@@ -49,8 +49,8 @@ export class HolidayStore extends DomainStore<Holiday> {
 
   @action
   protected async doPost(holiday: Holiday) {
-    const response = await this.mainStore.api.post<Holiday[]>('/holidays', holiday);
-    this.holidays = response.data;
+    const response = await this.mainStore.api.post<Holiday>('/holidays', holiday);
+    this.holidays.unshift(response.data);
   }
 
   @action

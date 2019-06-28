@@ -9,22 +9,35 @@ RSpec.describe V1::HolidaysController, type: :request do
     before { sign_in user }
 
     describe '#index' do
+      subject(:json_response) { parse_response_json(response) }
+
       let(:request) { get v1_holidays_path }
-      let!(:holidays) { create_list :holiday, 3 }
+      let(:newer_beginning) { Date.parse(attributes_for(:holiday)[:beginning]) + 1.week }
+      let(:newer_holiday) { create(:holiday, beginning: newer_beginning, ending: newer_beginning + 2.days) }
       let(:json_holidays) do
         holidays.map do |holiday|
           extract_to_json(holiday).except(:created_at, :updated_at)
         end
       end
 
-      it 'returns all holidays' do
-        request
-        expect(parse_response_json(response)).to include(*json_holidays)
+      let!(:holidays) do
+        create_list(:holiday, 2).push(newer_holiday)
       end
 
-      it_behaves_like 'renders a successful http status code' do
-        before { create :holiday }
+      it 'returns all holidays', :aggregate_failures do
+        request
+        expect(json_response.length).to eq 3
+        expect(json_response).to include(*json_holidays)
       end
+
+      it 'orders response reversed chronologically', :aggregate_failures do
+        request
+        expect(json_response.first[:beginning]).to eq newer_beginning.to_s
+        expect(json_response.second[:beginning]).to eq holidays.second.beginning.to_s
+        expect(json_response.last[:beginning]).to eq holidays.first.beginning.to_s
+      end
+
+      it_behaves_like 'renders a successful http status code'
     end
 
     describe '#create' do

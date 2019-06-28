@@ -16,8 +16,8 @@ import { Column, Holiday } from '../types';
 import { apiDate } from '../utilities/validationHelpers';
 
 const holidaySchema = yup.object({
-  date_from: apiDate().required(),
-  date_to: apiDate().required(),
+  beginning: apiDate().required(),
+  ending: apiDate().required(),
   holiday_type_id: yup.number().required(),
   description: yup.string().required(),
 });
@@ -48,16 +48,16 @@ export class HolidayOverview extends React.Component<Props, State> {
 
     this.columns = [
       {
-        id: 'date_from',
+        id: 'beginning',
         numeric: false,
-        label: 'Datum Start',
-        format: h => this.props.mainStore!.formatDate(h.date_from),
+        label: 'Start',
+        format: holiday => this.props.mainStore!.formatDate(holiday.beginning),
       },
       {
-        id: 'date_to',
+        id: 'ending',
         numeric: false,
-        label: 'Datum Ende',
-        format: h => this.props.mainStore!.formatDate(h.date_to),
+        label: 'Ende',
+        format: holiday => this.props.mainStore!.formatDate(holiday.ending),
       },
       {
         id: 'holiday_type_id',
@@ -82,12 +82,12 @@ export class HolidayOverview extends React.Component<Props, State> {
     ];
   }
 
-  handleSubmit = async (entity: Holiday, actions: FormikActions<Holiday>) => {
-    this.props.holidayStore!.put(holidaySchema.cast(entity)).then(() => actions.setSubmitting(false));
+  handleSubmit = async (holiday: Holiday, actions: FormikActions<Holiday>) => {
+    this.props.holidayStore!.put(holidaySchema.cast(holiday)).then(() => actions.setSubmitting(false));
   }
 
-  handleAdd = async (entity: Holiday, actions: FormikActions<Holiday>) => {
-    await this.props.holidayStore!.post(holidaySchema.cast(entity)).then(() => {
+  handleAdd = async (holiday: Holiday, actions: FormikActions<Holiday>) => {
+    await this.props.holidayStore!.post(holidaySchema.cast(holiday)).then(() => {
       actions.setSubmitting(false);
       actions.resetForm();
     });
@@ -111,8 +111,8 @@ export class HolidayOverview extends React.Component<Props, State> {
             <Formik
               validationSchema={holidaySchema}
               initialValues={{
-                date_from: moment().format('Y-MM-DD'),
-                date_to: moment().format('Y-MM-DD'),
+                beginning: moment().format('Y-MM-DD'),
+                ending: moment().format('Y-MM-DD'),
                 holiday_type_id: 2,
                 description: '',
               }}
@@ -120,10 +120,10 @@ export class HolidayOverview extends React.Component<Props, State> {
               render={formikProps => (
                 <tr>
                   <td>
-                    <WiredField component={DatePickerField} name={'date_from'} />
+                    <WiredField component={DatePickerField} name={'beginning'} />
                   </td>
                   <td>
-                    <WiredField component={DatePickerField} name={'date_to'} />
+                    <WiredField component={DatePickerField} name={'ending'} />
                   </td>
                   <td>
                     <WiredField
@@ -153,10 +153,10 @@ export class HolidayOverview extends React.Component<Props, State> {
                 render={formikProps => (
                   <tr>
                     <td>
-                      <WiredField component={DatePickerField} name={'date_from'} />
+                      <WiredField component={DatePickerField} name={'beginning'} />
                     </td>
                     <td>
-                      <WiredField component={DatePickerField} name={'date_to'} />
+                      <WiredField component={DatePickerField} name={'ending'} />
                     </td>
                     <td>
                       <WiredField

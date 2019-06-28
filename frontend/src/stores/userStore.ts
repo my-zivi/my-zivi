@@ -38,12 +38,12 @@ export class UserStore extends DomainStore<User> {
 
   filter = debounce(() => {
     this.filteredEntities = this.users.filter((user: User) => {
-        const { zdp, name, date_from, date_to, active, role } = this.userFilters;
+        const { zdp, name, beginning, ending, active, role } = this.userFilters;
         switch (true) {
           case zdp && !user.zdp.toString().startsWith(zdp.toString()):
           case name && !(user.first_name + ' ' + user.last_name).toLowerCase().includes(name.toLowerCase()):
-          case date_from && user.beginning && moment(user.beginning).isBefore(moment(date_from)):
-          case date_to && user.ending && moment(user.ending).isAfter(moment(date_to)):
+          case beginning && user.beginning && moment(user.beginning).isBefore(moment(beginning)):
+          case ending && user.ending && moment(user.ending).isAfter(moment(ending)):
           case active && !user.active:
             return false;
           default:
@@ -69,11 +69,11 @@ export class UserStore extends DomainStore<User> {
     this.userFilters = observable.object({
       zdp: '',
       name: '',
-      date_from: moment()
+      beginning: moment()
         .subtract(1, 'year')
         .date(0)
         .format('Y-MM-DD'),
-      date_to: moment()
+      ending: moment()
         .add(5, 'year')
         .date(0)
         .format('Y-MM-DD'),
@@ -85,8 +85,8 @@ export class UserStore extends DomainStore<User> {
       () => [
         this.userFilters.zdp,
         this.userFilters.name,
-        this.userFilters.date_from,
-        this.userFilters.date_to,
+        this.userFilters.beginning,
+        this.userFilters.ending,
         this.userFilters.active,
         this.userFilters.role,
       ],

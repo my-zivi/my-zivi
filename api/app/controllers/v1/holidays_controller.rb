@@ -5,7 +5,7 @@ module V1
     before_action :set_holiday, only: %i[update destroy]
 
     def index
-      @holidays = Holiday.all
+      @holidays = Holiday.order(beginning: :desc).all
     end
 
     def create

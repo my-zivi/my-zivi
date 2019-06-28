@@ -2,8 +2,8 @@ import { FormikBag } from 'formik';
 
 export interface Holiday {
   id?: number;
-  date_from: string;
-  date_to: string;
+  beginning: string;
+  ending: string;
   holiday_type_id: number;
   description: string;
 }
@@ -127,8 +127,8 @@ export interface User {
 export interface UserFilter {
   zdp: string;
   name: string;
-  date_from: string;
-  date_to: string;
+  beginning: string;
+  ending: string;
   active: boolean;
   role: string;
 }
