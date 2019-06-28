@@ -86,19 +86,15 @@ export class ApiStore {
   async logout(redirect = true) {
     try {
       await this._api.delete('/users/sign_out');
+      this.removeAuthorizationToken();
+
+      if (redirect) {
+        this.history.push('/');
+      }
     } catch (e) {
       // tslint:disable-next-line:no-console
       console.error(e);
       throw e;
-    } finally {
-      localStorage.removeItem(KEY_TOKEN);
-      this._token = '';
-      this.setAuthHeader(null);
-      if (redirect) {
-        this.history.push('/');
-      }
-
-      this.updateSentryContext();
     }
   }
 
@@ -138,6 +134,13 @@ export class ApiStore {
     await this._api.post('/auth/forgotPassword', { email });
   }
 
+  private removeAuthorizationToken() {
+    localStorage.removeItem(KEY_TOKEN);
+    this._token = '';
+    this.setAuthHeader(null);
+    this.updateSentryContext();
+  }
+
   private restoreApiToken() {
     const token = localStorage.getItem(KEY_TOKEN);
     if (token) {
@@ -154,8 +157,13 @@ export class ApiStore {
       },
       (error: AxiosError) => {
         if (error.response && error.response.status === 401) {
-          console.log('Unathorized API access, redirect to login'); // tslint:disable-line:no-console
-          this.logout();
+          console.log('Unauthorized API access, redirect to login'); // tslint:disable-line:no-console
+          if (error.config.url && !/\/users\/sign_out$/.test(error.config.url)) {
+            this.logout().catch(this.removeAuthorizationToken.bind(this));
+          } else {
+            this.removeAuthorizationToken();
+            this.history.push('/');
+          }
         }
         return Promise.reject({ error, messages: error.response ? error.response.data : [] });
       },
