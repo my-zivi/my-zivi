@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  scope :v1 do
+    devise_for :users, defaults: { format: :json }
+  end
+
   namespace :v1, defaults: { format: :json } do
     resources :regional_centers, only: :index
     resources :holidays, only: %i[index create update destroy]
@@ -10,9 +14,5 @@ Rails.application.routes.draw do
     resources :users, only: %i[show index destroy]
     get 'payments/pain', to: 'payments#export', as: 'pain_export'
     get 'phone_list', to: 'phone_list#index'
-  end
-
-  scope :v1 do
-    devise_for :users, defaults: { format: :json }
   end
 end
