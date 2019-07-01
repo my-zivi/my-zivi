@@ -11,6 +11,7 @@ module Concerns
         klass.rescue_from(ValidationError) { |error| render_validation_error(error) }
         klass.rescue_from(ArgumentError) { |error| render_validation_error(error) }
         klass.rescue_from(AuthorizationError) { |_error| render_authorization_error }
+        klass.rescue_from(CalculationError) { |error| render_calculation_error(error) }
       end
     end
 
@@ -28,6 +29,10 @@ module Concerns
 
     def render_authorization_error
       render json: { error: I18n.t('errors.authorization_error') }, status: :unauthorized
+    end
+
+    def render_calculation_error(error)
+      render json: { error: error.message }, status: :bad_request
     end
   end
 end

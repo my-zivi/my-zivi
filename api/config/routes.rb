@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :holidays, only: %i[index create update destroy]
     resources :service_specifications, only: %i[index create update]
     resources :expense_sheets
+    get 'services/calculate_service_days', to: 'service_calculator#calculate_service_days'
+    get 'services/calculate_ending', to: 'service_calculator#calculate_ending'
     resources :services
     resources :users, only: %i[show index destroy]
     get 'payments/pain', to: 'payments#export', as: 'pain_export'

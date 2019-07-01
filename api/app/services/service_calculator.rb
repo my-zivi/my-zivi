@@ -8,7 +8,9 @@ class ServiceCalculator
   end
 
   def calculate_ending_date(required_service_days)
-    raise I18n.t('service_calculator.invalid_required_service_days') unless required_service_days.positive?
+    unless required_service_days.positive?
+      raise CalculationError, I18n.t('service_calculator.invalid_required_service_days')
+    end
 
     if required_service_days < LINEAR_CALCULATION_THRESHOLD
       short_service_calculator.calculate_ending_date required_service_days
@@ -18,7 +20,7 @@ class ServiceCalculator
   end
 
   def calculate_chargeable_service_days(ending_date)
-    raise I18n.t('service_calculator.end_date_cannot_be_on_weekend') if ending_date.on_weekend?
+    raise CalculationError, I18n.t('service_calculator.end_date_cannot_be_on_weekend') if ending_date.on_weekend?
 
     duration = (ending_date - @beginning_date).to_i + 1
 
