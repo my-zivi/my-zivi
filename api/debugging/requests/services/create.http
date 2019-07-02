@@ -11,8 +11,7 @@ Content-Type: application/json
     "first_swo_service": "true",
     "long_service": "false",
     "probation_service": "false",
-    "service_specification_id": "1",
-    "user_id": "1"
+    "service_specification_identification_number": "72466"
   }
 }
 

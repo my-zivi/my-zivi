@@ -55,19 +55,27 @@ module V1
     end
 
     def service_params
-      service_params = params.require(:service)
-      permitted_params = service_params.permit(*PERMITTED_SERVICE_PARAMS).to_h
+      sanitize_service_params(params.require(:service).permit(*PERMITTED_SERVICE_PARAMS).to_h)
+    end
+
+    def sanitize_service_params(permitted_params)
       permitted_params[:user_id] = current_user.id unless current_user.admin?
+      permitted_params.except!(:confirmation_date) unless current_user.admin?
 
-      specification_params = service_params.permit(*PERMITTED_SERVICE_SPECIFICATION_PARAMS)
-      identification_number = specification_params[:service_specification_identification_number]
+      associate_service_specification(permitted_params)
+    end
 
-      if identification_number.present?
-        service_specification = ServiceSpecification.find_by(identification_number: identification_number)
-        permitted_params[:service_specification] = service_specification
-      end
+    def associate_service_specification(service_params)
+      identification_number = service_specification_params[:service_specification_identification_number]
 
-      permitted_params
+      return service_params if identification_number.blank?
+
+      service_specification = ServiceSpecification.find_by(identification_number: identification_number)
+      service_params.merge(service_specification: service_specification)
+    end
+
+    def service_specification_params
+      params.require(:service).permit(*PERMITTED_SERVICE_SPECIFICATION_PARAMS)
     end
   end
 end
