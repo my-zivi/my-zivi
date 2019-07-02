@@ -147,7 +147,7 @@ export interface Service {
   service_type: number | null;
   probation_period: boolean;
   service_specification?: ServiceSpecification;
-  service_specification_id: string;
+  service_specification_identification_number: string;
   user_id: number;
 }
 

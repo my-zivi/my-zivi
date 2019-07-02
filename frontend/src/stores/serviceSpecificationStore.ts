@@ -49,7 +49,8 @@ export class ServiceSpecificationStore extends DomainStore<ServiceSpecification>
 
   @action
   protected async doPost(serviceSpecification: ServiceSpecification) {
-    const response = await this.mainStore.api.post<ServiceSpecification[]>('/service_specifications', serviceSpecification);
+    const data = { service_specification: serviceSpecification };
+    const response = await this.mainStore.api.post<ServiceSpecification[]>('/service_specifications', data);
     this.serviceSpecifications = response.data;
   }
 

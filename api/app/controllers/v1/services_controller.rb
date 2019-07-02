@@ -4,10 +4,10 @@ module V1
   class ServicesController < APIController
     include V1::Concerns::AdminAuthorizable
 
+    PERMITTED_SERVICE_SPECIFICATION_PARAMS = %i[service_specification_identification_number].freeze
     PERMITTED_SERVICE_PARAMS = %i[
-      user_id service_specification_id
-      beginning ending confirmation_date
-      service_type first_swo_service long_service probation_service
+      user_id beginning ending confirmation_date service_type
+      first_swo_service long_service probation_service
       feedback_mail_sent
     ].freeze
 
@@ -55,8 +55,17 @@ module V1
     end
 
     def service_params
-      permitted_params = params.require(:service).permit(*PERMITTED_SERVICE_PARAMS).to_h
+      service_params = params.require(:service)
+      permitted_params = service_params.permit(*PERMITTED_SERVICE_PARAMS).to_h
       permitted_params[:user_id] = current_user.id unless current_user.admin?
+
+      specification_params = service_params.permit(*PERMITTED_SERVICE_SPECIFICATION_PARAMS)
+      identification_number = specification_params[:service_specification_identification_number]
+
+      if identification_number.present?
+        service_specification = ServiceSpecification.find_by(identification_number: identification_number)
+        permitted_params[:service_specification] = service_specification
+      end
 
       permitted_params
     end

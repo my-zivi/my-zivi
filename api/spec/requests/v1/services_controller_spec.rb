@@ -59,7 +59,7 @@ RSpec.describe V1::ServicesController, type: :request do
       end
     end
 
-    describe 'GET #show' do
+    describe '#show' do
       let(:request) { get v1_service_path service }
 
       before { request }
@@ -67,8 +67,8 @@ RSpec.describe V1::ServicesController, type: :request do
       context 'when the user has permission to view its own resource' do
         let(:service) { create :service, user: user }
         let(:expected_response) do
-          extract_to_json(service, :id, :user_id, :service_specification_id, :beginning,
-                          :ending, :confirmation_date, :eligible_personal_vacation_days,
+          extract_to_json(service, :id, :user_id, :service_specification_identification_number,
+                          :beginning, :ending, :confirmation_date, :eligible_personal_vacation_days,
                           :service_type, :first_swo_service, :long_service,
                           :probation_service, :feedback_mail_sent)
         end
@@ -111,7 +111,7 @@ RSpec.describe V1::ServicesController, type: :request do
       let(:valid_params) do
         attributes_for(:service, service_type: 'normal')
           .merge(
-            service_specification_id: service_specification.id,
+            service_specification_identification_number: service_specification.identification_number,
             user_id: user.id
           )
       end
@@ -122,7 +122,6 @@ RSpec.describe V1::ServicesController, type: :request do
         let(:expected_returned_attributes) do
           %i[
             user_id
-            service_specification_id
             beginning
             ending
             confirmation_date
@@ -144,7 +143,9 @@ RSpec.describe V1::ServicesController, type: :request do
         it 'returns the created service' do
           post_request
           expect(parse_response_json(response)).to include(
-            params.slice(*expected_returned_attributes).merge(id: Service.last.id)
+            params.slice(*expected_returned_attributes).merge(
+              service_specification_identification_number: Service.last.identification_number
+            )
           )
         end
 
@@ -211,7 +212,7 @@ RSpec.describe V1::ServicesController, type: :request do
         let(:new_service_date) { service.beginning - 3.days }
         let(:params) { { confirmation_date: new_service_date } }
         let(:expected_attributes) do
-          extract_to_json(service, :id, :user_id, :service_specification_id, :beginning,
+          extract_to_json(service, :id, :user_id, :service_specification_identification_number, :beginning,
                           :ending, :confirmation_date, :eligible_personal_vacation_days,
                           :service_type, :first_swo_service, :long_service,
                           :probation_service, :feedback_mail_sent)

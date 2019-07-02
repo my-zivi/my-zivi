@@ -78,7 +78,7 @@ export class ServiceStore extends DomainStore<Service, ServiceCollection> {
 
   @action
   protected async doPost(service: Service) {
-    const response = await this.mainStore.api.post<ServiceCollection[]>('/services', service);
+    const response = await this.mainStore.api.post<ServiceCollection[]>('/services', { service });
     this.services = response.data;
   }
 

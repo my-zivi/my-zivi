@@ -51,7 +51,7 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
   constructor(props: ServiceModalProps<Service>) {
     super(props);
     this.initialValues = props.values || {
-      service_specification_id: '',
+      service_specification_identification_number: '',
       service_type: 0,
       beginning: null,
       ending: null,

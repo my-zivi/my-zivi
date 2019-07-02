@@ -20,7 +20,12 @@ export const ServiceModalForm = (props: { serviceDateRangeChangeHandler: OnChang
           Einsatztage werden gerechnet, oder die gewünschten Einsatztage eingeben, und das Enddatum wird berechnet. In beiden
           Fällen musst du das Startdatum bereits eingegeben haben.
         </Alert>
-        <WiredField horizontal component={ServiceSpecificationSelect} name={'service_specification_id'} label={'Pflichtenheft'}/>
+        <WiredField
+          horizontal
+          component={ServiceSpecificationSelect}
+          name={'service_specification_identification_number'}
+          label={'Pflichtenheft'}
+        />
         <WiredField
           horizontal
           component={SelectField}
