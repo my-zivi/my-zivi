@@ -137,6 +137,7 @@ export class ApiStore {
   private removeAuthorizationToken() {
     localStorage.removeItem(KEY_TOKEN);
     this._token = '';
+    this._api.defaults.headers.Authorization = undefined;
     this.setAuthHeader(null);
     this.updateSentryContext();
   }
