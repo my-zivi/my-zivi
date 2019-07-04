@@ -4,7 +4,7 @@ LABEL maintainer="SWO"
 LABEL version="0.1"
 LABEL description="Izivi backend"
 
-RUN apk update && apk add mysql-client build-base mariadb-dev pdftk
+RUN apk update && apk add mysql-client build-base mariadb-dev pdftk git
 
 ENV BUNDLER_VERSION=2.0.1
 RUN gem install bundler -v "2.0.1" --no-document
