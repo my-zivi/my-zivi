@@ -37,6 +37,10 @@ class ServiceCalculator
     normal_service_calculator.calculate_eligible_personal_vacation_days service_days
   end
 
+  # def calculate_workfree_days_in_range(range)
+  #   Holiday.select(&:public_holiday).select(&:work_days)
+  # end
+
   private
 
   def short_service_calculator

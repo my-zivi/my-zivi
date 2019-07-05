@@ -27,17 +27,17 @@ class ShortServiceCalculator
     raise I18n.t('service_calculator.invalid_required_service_days') unless required_service_days.positive?
 
     temp_ending_date = calculate_irregular_ending_date required_service_days
-    unpaid_days = CompanyHolidayCalculator
+    unpaid_days = HolidayCalculator
                   .new(@beginning_date, temp_ending_date)
-                  .calculate_company_holiday_days_during_service
+                  .calculate_company_holiday_days
     temp_ending_date + unpaid_days.days
   end
 
   def calculate_chargeable_service_days(ending_date)
     duration = (ending_date - @beginning_date).to_i + 1
-    unpaid_days = CompanyHolidayCalculator
+    unpaid_days = HolidayCalculator
                   .new(@beginning_date, ending_date)
-                  .calculate_company_holiday_days_during_service
+                  .calculate_company_holiday_days
     service_days_lookup(duration) - unpaid_days
   end
 

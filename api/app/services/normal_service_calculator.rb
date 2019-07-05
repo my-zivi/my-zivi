@@ -39,9 +39,9 @@ class NormalServiceCalculator
   private
 
   def calculate_unpaid_days(service_days, ending_date)
-    company_holiday_days = CompanyHolidayCalculator
+    company_holiday_days = HolidayCalculator
                            .new(@beginning_date, ending_date)
-                           .calculate_company_holiday_days_during_service
+                           .calculate_company_holiday_days
     paid_vacation_days = calculate_eligible_personal_vacation_days service_days
     [0, company_holiday_days - paid_vacation_days].max
   end

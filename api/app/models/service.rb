@@ -22,6 +22,7 @@ class Service < ApplicationRecord
   validate :ending_is_friday, unless: :last_civil_service?
   validate :beginning_is_monday
 
+  # TODO: use Concern
   scope :in_date_range, (lambda do |beginning, ending|
     where(arel_table[:beginning].gteq(beginning))
     .where(arel_table[:ending].lteq(ending))
