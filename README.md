@@ -1,4 +1,4 @@
-[![Build Status](https://semaphoreci.com/api/v1/stiftungswo/betterizivi/branches/develop/badge.svg)](https://semaphoreci.com/stiftungswo/better-izivi)
+[![Build Status](https://semaphoreci.com/api/v1/stiftungswo/better-izivi/branches/develop/badge.svg)](https://semaphoreci.com/stiftungswo/better-izivi)
 [![Maintainability](https://api.codeclimate.com/v1/badges/27054911086cc6862839/maintainability)](https://codeclimate.com/github/stiftungswo/better-izivi/maintainability)
 
 # SWO iZivi #
