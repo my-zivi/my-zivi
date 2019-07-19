@@ -86,9 +86,9 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # CORS configuration
-  config.middleware.insert_before 0, 'Rack::Cors' do
+  config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins '*'
+      origins ENV['FRONTEND_URL']
       resource '/assets/*', headers: :any, methods: %i[get options]
     end
   end
