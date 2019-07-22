@@ -5,6 +5,7 @@ class Service < ApplicationRecord
   MONDAY_WEEKDAY = Date::DAYNAMES.index('Monday').freeze
 
   include Concerns::PositiveTimeSpanValidatable
+  include Concerns::DateRangeFilterable
 
   belongs_to :user
   belongs_to :service_specification
@@ -22,14 +23,10 @@ class Service < ApplicationRecord
   validate :ending_is_friday, unless: :last_civil_service?
   validate :beginning_is_monday
 
-  # TODO: use Concern
-  scope :in_date_range, (lambda do |beginning, ending|
-    where(arel_table[:beginning].gteq(beginning))
-    .where(arel_table[:ending].lteq(ending))
-  end)
-
   scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
   scope :chronologically, -> { order(:beginning, :ending) }
+  # TODO: Check if this is correct (my opinion: should be touching_date_range, because Services with a beginning in
+  # last year and ending in current_year should be included in at_year(current_year) too)
   scope :at_year, ->(year) { in_date_range(Date.new(year), Date.new(year).at_end_of_year) }
 
   delegate :identification_number, to: :service_specification

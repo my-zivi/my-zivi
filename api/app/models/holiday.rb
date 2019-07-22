@@ -2,17 +2,14 @@
 
 class Holiday < ApplicationRecord
   include Concerns::PositiveTimeSpanValidatable
+  include Concerns::DateRangeFilterable
+
   validates :beginning, :ending, timeliness: { type: :date }
   validates :beginning, :ending, :description, :holiday_type, presence: true
 
   enum holiday_type: {
     company_holiday: 1,
     public_holiday: 2
-  }
-
-  # TODO: use Concern
-  scope :soft_in_date_range, lambda { |beginning, ending|
-    where(arel_table[:beginning].lteq(ending)).where(arel_table[:ending].gteq(beginning))
   }
 
   def work_days(public_holidays = nil)
