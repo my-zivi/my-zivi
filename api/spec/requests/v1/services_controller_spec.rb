@@ -258,9 +258,12 @@ RSpec.describe V1::ServicesController, type: :request do
 
         context 'when an admin user updates a service of a foreign person' do
           let(:user) { create :user, :admin }
+          let(:params) { { confirmation_date: new_confirmation_date, beginning: '2018-01-01', ending: '2018-01-26' } }
           let!(:service) { create :service, :unconfirmed, user: create(:user) }
 
           it { is_expected.to(change { service.reload.confirmation_date }.to(new_confirmation_date)) }
+
+          it { is_expected.to change(ExpenseSheet, :count).by 1 }
 
           it_behaves_like 'renders a successful http status code' do
             let(:request) { put_request }
