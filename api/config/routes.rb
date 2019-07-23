@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     get 'services/calculate_service_days', to: 'service_calculator#calculate_service_days'
     get 'services/calculate_ending', to: 'service_calculator#calculate_ending'
     resources :services
-    resources :users, only: %i[show index destroy]
+    resources :users, except: :create
     get 'payments/pain', to: 'payments#export', as: 'pain_export'
     get 'phone_list', to: 'phone_list#index'
   end

@@ -1,0 +1,11 @@
+PUT {{url}}/users/1
+Authorization: {{auth_token}}
+Content-Type: application/json
+
+{
+  "user": {
+    "first_name": "Updated Zivi"
+  }
+}
+
+###

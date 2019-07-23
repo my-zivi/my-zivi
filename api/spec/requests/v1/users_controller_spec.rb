@@ -118,6 +118,78 @@ RSpec.describe V1::UsersController, type: :request do
     end
   end
 
+  describe '#update' do
+    let(:request) { put v1_user_path(updated_user), params: { user: params } }
+    let(:params) { { first_name: 'Updated first name' } }
+
+    context 'when a civil servant is logged in' do
+      let(:civil_servant) { create(:user) }
+
+      before { sign_in civil_servant }
+
+      context 'when he tries to update himself' do
+        subject { -> { request } }
+
+        let(:updated_user) { civil_servant }
+
+        context 'when the updated data is correct' do
+          it_behaves_like 'renders a successful http status code'
+
+          it { is_expected.to change { updated_user.reload.first_name }.to params[:first_name] }
+        end
+
+        context 'when the updated data is incorrect' do
+          let(:params) { { first_name: nil } }
+
+          it_behaves_like 'renders a validation error response'
+
+          it { is_expected.not_to(change { updated_user.reload.first_name }) }
+
+          it 'returns the error' do
+            request
+            expect(parse_response_json(response)).to include(
+              errors: {
+                first_name: be_an_instance_of(Array)
+              }
+            )
+          end
+        end
+      end
+
+      context 'when he tries to update a user other than himself' do
+        subject { -> { request } }
+
+        let(:updated_user) { create :user }
+
+        it_behaves_like 'admin protected resource'
+
+        it { is_expected.not_to(change { updated_user.reload.first_name }) }
+      end
+    end
+
+    context 'when an admin is logged in' do
+      subject { -> { request } }
+
+      let(:updated_user) { create :user }
+
+      before { sign_in create(:user, :admin) }
+
+      it_behaves_like 'renders a successful http status code'
+
+      it { is_expected.to change { updated_user.reload.first_name }.to params[:first_name] }
+    end
+
+    context 'when no user is logged in' do
+      subject { -> { request } }
+
+      let(:updated_user) { create :user }
+
+      it_behaves_like 'login protected resource'
+
+      it { is_expected.not_to(change { updated_user.reload.first_name }) }
+    end
+  end
+
   describe '#destroy' do
     let(:request) { delete v1_user_path(requested_user) }
     let!(:requested_user) { create :user }
