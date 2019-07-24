@@ -17,7 +17,7 @@ interface Props<T> extends FormViewProps<T> {
   render: (props: FormikProps<T>) => React.ReactNode;
 }
 
-export class FormView<Values = object, ExtraProps = {}> extends React.Component<FormikConfig<Values> & ExtraProps & Props<Values>> {
+export class FormView<Values, ExtraProps = {}> extends React.Component<FormikConfig<Values> & ExtraProps & Props<Values>> {
   render() {
     const { loading, title, children, ...rest } = this.props as any;
     return this.props.loading ? (

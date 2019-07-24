@@ -5,6 +5,7 @@ import { ApiStore } from '../stores/apiStore';
 import { HolidayStore } from '../stores/holidayStore';
 import { MainStore } from '../stores/mainStore';
 import { PaymentStore } from '../stores/paymentStore';
+import { RegionalCenterStore } from '../stores/regionalCenterStore';
 import { ReportSheetStore } from '../stores/reportSheetStore';
 import { ServiceSpecificationStore } from '../stores/serviceSpecificationStore';
 import { ServiceStore } from '../stores/serviceStore';
@@ -27,6 +28,7 @@ export class StoreProvider extends React.Component<Props> {
     userStore: UserStore;
     serviceStore: ServiceStore;
     serviceSpecificationStore: ServiceSpecificationStore;
+    regionalCenterStore: RegionalCenterStore;
   };
 
   constructor(props: Props) {
@@ -46,6 +48,7 @@ export class StoreProvider extends React.Component<Props> {
       userStore: new UserStore(mainStore),
       serviceStore: new ServiceStore(mainStore),
       serviceSpecificationStore: new ServiceSpecificationStore(mainStore),
+      regionalCenterStore: new RegionalCenterStore(mainStore),
     };
   }
   render() {

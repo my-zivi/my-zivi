@@ -6,8 +6,9 @@ module Concerns
 
     PERMITTED_USER_KEYS = %i[
       regional_center_id first_name last_name
-      address bank_iban birthday city
+      address bank_iban birthday city chainsaw_workshop
       health_insurance zip hometown phone zdp
+      driving_licence_b driving_licence_be work_experience
     ].freeze
 
     included do

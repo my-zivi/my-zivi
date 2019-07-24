@@ -138,6 +138,13 @@ RSpec.describe V1::UsersController, type: :request do
           it { is_expected.to change { updated_user.reload.first_name }.to params[:first_name] }
         end
 
+        context 'when he tries to update an admin protected field' do
+          let(:params) { { internal_note: 'Restricted', role: 'admin' } }
+
+          it { is_expected.not_to(change { updated_user.reload.internal_note }) }
+          it { is_expected.not_to(change { updated_user.reload.role }) }
+        end
+
         context 'when the updated data is incorrect' do
           let(:params) { { first_name: nil } }
 
@@ -177,6 +184,16 @@ RSpec.describe V1::UsersController, type: :request do
       it_behaves_like 'renders a successful http status code'
 
       it { is_expected.to change { updated_user.reload.first_name }.to params[:first_name] }
+
+      context 'when he tries to update admin protected fields' do
+        let(:params) { { internal_note: 'Restricted', role: 'admin' } }
+
+        it 'changes #role and #internal_note' do
+          expect { request }.to change { updated_user.reload.internal_note }.to(params[:internal_note]).and(
+            change { updated_user.reload.admin? }.from(false).to(true)
+          )
+        end
+      end
     end
 
     context 'when no user is logged in' do

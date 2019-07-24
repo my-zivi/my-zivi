@@ -124,6 +124,13 @@ export interface User {
   zip: number | null;
 }
 
+export interface RegionalCenter {
+  name: string;
+  address: string;
+  short_name: string;
+  id: number;
+}
+
 export interface UserFilter {
   zdp: string;
   name: string;

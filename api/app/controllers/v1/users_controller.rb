@@ -2,6 +2,9 @@
 
 module V1
   class UsersController < APIController
+    ADDITIONAL_PERMITTED_USER_PARAMS = [:email].freeze
+    ADMIN_RESTRICTED_USER_PARAMS = %i[internal_note role].freeze
+
     include V1::Concerns::AdminAuthorizable
 
     before_action :set_user, only: %i[show update destroy]
@@ -44,7 +47,10 @@ module V1
     end
 
     def user_params
-      params.require(:user).permit(*::Concerns::DeviseUserParamsRegistrable::PERMITTED_USER_KEYS)
+      permitted_keys = ::Concerns::DeviseUserParamsRegistrable::PERMITTED_USER_KEYS + ADDITIONAL_PERMITTED_USER_PARAMS
+      permitted_keys.push(ADMIN_RESTRICTED_USER_PARAMS) if current_user.admin?
+
+      params.require(:user).permit(*permitted_keys)
     end
   end
 end

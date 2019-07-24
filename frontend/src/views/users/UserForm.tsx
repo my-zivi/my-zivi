@@ -13,6 +13,7 @@ import { WiredField } from '../../form/formik';
 import { FormView, FormViewProps } from '../../form/FormView';
 import { SolidHorizontalRow } from '../../layout/SolidHorizontalRow';
 import { MainStore } from '../../stores/mainStore';
+import { RegionalCenterStore } from '../../stores/regionalCenterStore';
 import { ServiceSpecificationStore } from '../../stores/serviceSpecificationStore';
 import { UserStore } from '../../stores/userStore';
 import { User } from '../../types';
@@ -26,14 +27,16 @@ type Props = {
   user: User;
   userStore?: UserStore;
   serviceSpecificationStore?: ServiceSpecificationStore;
+  regionalCenterStore?: RegionalCenterStore;
 } & FormViewProps<User> &
   RouteComponentProps;
 
-@inject('mainStore', 'userStore', 'serviceSpecificationStore')
+@inject('mainStore', 'userStore', 'serviceSpecificationStore', 'regionalCenterStore')
 @observer
 class UserFormInner extends React.Component<Props> {
   componentWillMount() {
-    this.props.serviceSpecificationStore!.fetchAll();
+    void this.props.serviceSpecificationStore!.fetchAll();
+    void this.props.regionalCenterStore!.fetchAll();
   }
 
   render() {
@@ -41,14 +44,14 @@ class UserFormInner extends React.Component<Props> {
 
     return (
       <>
-        <FormView
+        <FormView<User>
           card
           loading={empty(user) || this.props.loading}
           initialValues={user}
-          onSubmit={(_: object): Promise<void> => onSubmit(user)}
+          onSubmit={(updatedUser: User): Promise<void> => onSubmit(updatedUser as User)}
           title={title}
           validationSchema={userSchema}
-          render={(formikProps: FormikProps<{}>) => (
+          render={(formikProps: FormikProps<User>) => (
             <Form>
               <h3>Persönliche Informationen</h3>
               <p>
@@ -91,23 +94,36 @@ class UserFormInner extends React.Component<Props> {
               <h3>Diverse Informationen</h3>
 
               <WiredField horizontal multiline={true} component={TextField} name={'work_experience'} label={'Berufserfahrung'} />
-              <WiredField horizontal component={SelectField} name={'regional_center_id'} label={'Regionalzentrum'} options={[]} />
+              <WiredField
+                horizontal
+                component={SelectField}
+                name={'regional_center_id'}
+                label={'Regionalzentrum'}
+                options={this.props.regionalCenterStore!.entities.map(({ id, name }) => ({ id, name }))}
+              />
               <WiredField horizontal component={CheckboxField} name={'driving_licence_b'} label={'Führerausweis Kat. B'} />
               <WiredField horizontal component={CheckboxField} name={'driving_licence_be'} label={'Führerausweis Kat. BE'} />
               <WiredField horizontal component={CheckboxField} name={'chainsaw_workshop'} label={'Motorsägekurs bereits absolviert'} />
 
               {mainStore!.isAdmin() && (
                 <>
-                  <WiredField horizontal component={SelectField} name={'work_experience'} label={'Benutzerrolle'} options={[]} />
+                  <WiredField
+                    horizontal
+                    component={SelectField}
+                    name={'role'}
+                    label={'Benutzerrolle'}
+                    options={[
+                      {id: 'admin', name: 'Admin'},
+                      {id: 'civil_servant', name: 'Zivildienstleistender'},
+                    ]}
+                  />
                   <WiredField horizontal multiline={true} component={TextField} name={'internal_note'} label={'Interne Bemerkung'} />
                 </>
               )}
 
               <Row>
                 <Col md={2}>
-                  <Button block color={'primary'} onClick={formikProps.submitForm}>
-                    Speichern
-                  </Button>
+                  <Button block color={'primary'} onClick={formikProps.submitForm}>Speichern</Button>
                 </Col>
               </Row>
             </Form>
