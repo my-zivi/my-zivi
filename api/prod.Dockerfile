@@ -4,14 +4,20 @@ LABEL maintainer="SWO"
 LABEL version="0.1"
 LABEL description="Izivi backend"
 
-RUN apk update && apk add mysql-client build-base mariadb-dev pdftk git
-
 ENV BUNDLER_VERSION=2.0.1
+ENV RAILS_ENV=production
+
 RUN gem install bundler -v "2.0.1" --no-document
 WORKDIR /api
 COPY Gemfile* ./
-RUN bundle install
+
+RUN apk update && apk add pdftk mariadb-client-libs
+RUN apk add --virtual "temporary" build-base git mariadb-dev; \
+     bundle install --without development:test --deployment --jobs=2; \
+     apk del temporary; \
+     rm -rf /var/cache/apk/*
+
 COPY . /api
 
 EXPOSE 3000
-CMD ["rails", "server", "-p", "3000", "-b", "0.0.0.0"]
+CMD ["bin/rails", "server", "-p", "3000", "-b", "0.0.0.0", "-e", "production"]
