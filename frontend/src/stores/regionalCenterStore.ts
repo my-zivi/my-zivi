@@ -1,7 +1,6 @@
-import { action, computed, observable } from 'mobx';
+import { computed, observable } from 'mobx';
 import { RegionalCenter } from '../types';
 import { DomainStore } from './domainStore';
-import { MainStore } from './mainStore';
 
 export class RegionalCenterStore extends DomainStore<RegionalCenter> {
   protected get entityName() {
@@ -16,16 +15,12 @@ export class RegionalCenterStore extends DomainStore<RegionalCenter> {
     return this.regionalCenters;
   }
 
+  set entities(entities: RegionalCenter[]) {
+    this.regionalCenters = entities;
+  }
+
   @observable
   regionalCenters: RegionalCenter[] = [];
 
-  constructor(mainStore: MainStore) {
-    super(mainStore);
-  }
-
-  @action
-  protected async doFetchAll() {
-    const res = await this.mainStore.api.get<RegionalCenter[]>('/regional_centers');
-    this.regionalCenters = res.data;
-  }
+  protected entitiesURL = '/regional_centers/';
 }

@@ -10,7 +10,7 @@ import { Icons } from './utilities/Icon';
 import { ProtectedRoute } from './utilities/ProtectedRoute';
 import { ChangePassword } from './views/ChangePassword';
 import { ForgotPassword } from './views/ForgotPassword';
-import { HolidayOverview } from './views/Holiday';
+import { HolidayOverview } from './views/holidays/HolidayOverview';
 import { Home } from './views/Home';
 import { Login } from './views/Login';
 import { NotFound } from './views/NotFound';

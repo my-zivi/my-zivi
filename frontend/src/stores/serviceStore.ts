@@ -16,6 +16,10 @@ export class ServiceStore extends DomainStore<Service, ServiceCollection> {
     return this.services;
   }
 
+  set entities(entities: ServiceCollection[]) {
+    this.services = entities;
+  }
+
   @computed
   get entity(): Service | undefined {
     return this.service;
@@ -30,6 +34,9 @@ export class ServiceStore extends DomainStore<Service, ServiceCollection> {
 
   @observable
   service?: Service;
+
+  protected entitiesURL = '/services/';
+  protected entityURL = '/services/';
 
   constructor(mainStore: MainStore) {
     super(mainStore);
@@ -58,18 +65,6 @@ export class ServiceStore extends DomainStore<Service, ServiceCollection> {
     return response.data;
   }
 
-  @action
-  protected async doDelete(id: number) {
-    await this.mainStore.api.delete('/services/' + id);
-    await this.doFetchAll();
-  }
-
-  @action
-  protected async doFetchAll() {
-    const res = await this.mainStore.api.get<ServiceCollection[]>('/services');
-    this.services = res.data;
-  }
-
   // @action
   // public async doFetchOne(id: number) {
   //   const response = await this.mainStore.api.get<Service>('/services/' + id);
@@ -78,12 +73,14 @@ export class ServiceStore extends DomainStore<Service, ServiceCollection> {
 
   @action
   protected async doPost(service: Service) {
+    // Todo: Implement
     const response = await this.mainStore.api.post<ServiceCollection[]>('/services', { service });
     this.services = response.data;
   }
 
   @action
   protected async doPut(service: Service) {
+    // Todo: Implement
     const response = await this.mainStore.api.put<ServiceCollection[]>('/services/' + service.id, service);
     this.services = response.data;
   }

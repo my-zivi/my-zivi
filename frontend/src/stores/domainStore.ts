@@ -1,21 +1,22 @@
 // tslint:disable:no-console
 import { action, observable } from 'mobx';
+import { noop } from 'mobx/lib/utils/utils';
 import { MainStore } from './mainStore';
 
 /**
  * This class wraps all common store functions with success/error popups.
  * The desired methods that start with "do" should be overriden in the specific stores.
  */
-export class DomainStore<T, OverviewType = T> {
+export class DomainStore<SingleType, OverviewType = SingleType> {
   protected get entityName() {
     return { singular: 'Die Entität', plural: 'Die Entitäten' };
   }
 
-  get entity(): T | undefined {
+  get entity(): SingleType | undefined {
     throw new Error('Not implemented');
   }
 
-  set entity(e: T | undefined) {
+  set entity(e: SingleType | undefined) {
     throw new Error('Not implemented');
   }
 
@@ -23,12 +24,19 @@ export class DomainStore<T, OverviewType = T> {
     throw new Error('Not implemented');
   }
 
+  set entities(entities: OverviewType[]) {
+    throw new Error('Not implemented');
+  }
+
   @observable
   filteredEntities: OverviewType[] = [];
 
-  constructor(protected mainStore: MainStore) {}
+  filter: () => void = noop;
 
-  filter: () => void = () => {}; // tslint:disable-line no-empty
+  protected entitiesURL?: string = '';
+  protected entityURL?: string = '';
+
+  constructor(protected mainStore: MainStore) {}
 
   @action
   async fetchAll(params: object = {}) {
@@ -54,7 +62,7 @@ export class DomainStore<T, OverviewType = T> {
   }
 
   @action
-  async post(entity: T) {
+  async post(entity: SingleType) {
     this.displayLoading(async () => {
       try {
         await this.doPost(entity);
@@ -68,7 +76,7 @@ export class DomainStore<T, OverviewType = T> {
   }
 
   @action
-  async put(entity: T) {
+  async put(entity: SingleType) {
     this.displayLoading(async () => {
       try {
         await this.doPut(entity);
@@ -122,24 +130,56 @@ export class DomainStore<T, OverviewType = T> {
   }
 
   protected async doFetchAll(params: object = {}) {
-    throw new Error('Not implemented');
+    if (!this.entitiesURL) {
+      throw new Error('Not implemented');
+    }
+
+    const res = await this.mainStore.api.get<OverviewType[]>(this.entitiesURL);
+    this.entities = res.data;
   }
 
-  protected async doFetchOne(id: number): Promise<T | void> {
-    throw new Error('Not implemented');
+  protected async doFetchOne(id: number): Promise<SingleType | void> {
+    if (!this.entityURL) {
+      throw new Error('Not implemented');
+    }
+
+    const res = await this.mainStore.api.get<SingleType>(this.entityURL + id);
+    this.entity = res.data;
   }
 
-  protected async doPost(entity: T) {
-    throw new Error('Not implemented');
+  protected async doPost(entity: SingleType) {
+    if (!this.entitiesURL) {
+      throw new Error('Not implemented');
+    }
+
+    const response = await this.mainStore.api.post<OverviewType>(this.entitiesURL, entity);
+    this.entities.push(response.data);
   }
 
   @action
-  protected async doPut(entity: T) {
-    throw new Error('Not implemented');
+  protected async doPut(entity: SingleType) {
+    if (!this.entityURL || !('id' in entity)) {
+      throw new Error('Not implemented');
+    }
+
+    const entityWithId = entity as SingleType & { id: any };
+
+    const response = await this.mainStore.api.put<SingleType>(this.entitiesURL + entityWithId.id, entity);
+    this.entity = response.data;
+
+    if (this.entities.length > 0) {
+      this.entities.findIndex(value => (value as any).id === entityWithId.id);
+    }
   }
 
   @action
   protected async doDelete(id: number | string) {
-    throw new Error('Not implemented');
+    if (!this.entityURL) {
+      throw new Error('Not implemented');
+    }
+
+    await this.mainStore.api.delete(this.entityURL + id);
+    await this.doFetchAll();
+    await this.filter();
   }
 }

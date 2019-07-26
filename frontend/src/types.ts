@@ -4,7 +4,7 @@ export interface Holiday {
   id?: number;
   beginning: string;
   ending: string;
-  holiday_type_id: number;
+  holiday_type: 'public_holiday' | 'company_holiday';
   description: string;
 }
 

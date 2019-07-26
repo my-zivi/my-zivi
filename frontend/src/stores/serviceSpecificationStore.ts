@@ -16,6 +16,10 @@ export class ServiceSpecificationStore extends DomainStore<ServiceSpecification>
     return this.serviceSpecifications;
   }
 
+  set entities(entities: ServiceSpecification[]) {
+    this.serviceSpecifications = entities;
+  }
+
   @computed
   get entity(): ServiceSpecification | undefined {
     return this.serviceSpecification;
@@ -31,20 +35,11 @@ export class ServiceSpecificationStore extends DomainStore<ServiceSpecification>
   @observable
   serviceSpecification?: ServiceSpecification;
 
+  protected entitiesURL = '/service_specifications/';
+  protected entityURL = '/service_specifications/';
+
   constructor(mainStore: MainStore) {
     super(mainStore);
-  }
-
-  @action
-  protected async doDelete(id: number) {
-    await this.mainStore.api.delete('/service_specifications/' + id);
-    await this.doFetchAll();
-  }
-
-  @action
-  protected async doFetchAll() {
-    const response = await this.mainStore.api.get<ServiceSpecification[]>('/service_specifications');
-    this.serviceSpecifications = response.data;
   }
 
   @action

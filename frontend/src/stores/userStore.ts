@@ -18,6 +18,10 @@ export class UserStore extends DomainStore<User> {
     return this.users;
   }
 
+  set entities(users: User[]) {
+    this.users = users;
+  }
+
   @computed
   get entity(): User | undefined {
     return this.user;
@@ -64,6 +68,9 @@ export class UserStore extends DomainStore<User> {
       });
   }, 100);
 
+  protected entityURL = '/users/';
+  protected entitiesURL = '/users/';
+
   constructor(mainStore: MainStore) {
     super(mainStore);
     this.userFilters = observable.object({
@@ -97,35 +104,5 @@ export class UserStore extends DomainStore<User> {
   @action
   updateFilters(updates: Partial<UserFilter>) {
     this.userFilters = {...this.userFilters, ...updates};
-  }
-
-  @action
-  protected async doDelete(id: number) {
-    await this.mainStore.api.delete('/users/' + id);
-    await this.doFetchAll();
-    await this.filter();
-  }
-
-  @action
-  protected async doFetchAll() {
-    const res = await this.mainStore.api.get<User[]>('/users');
-    this.users = res.data;
-  }
-
-  protected async doFetchOne(id: number) {
-    const res = await this.mainStore.api.get<User>('/users/' + id);
-    this.user = res.data;
-  }
-
-  @action
-  protected async doPost(user: User) {
-    const response = await this.mainStore.api.post<User[]>('/users', user);
-    this.users = response.data;
-  }
-
-  @action
-  protected async doPut(user: User) {
-    const response = await this.mainStore.api.put<User[]>('/users/' + user.id, user);
-    this.users = response.data;
   }
 }

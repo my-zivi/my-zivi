@@ -6,6 +6,7 @@ Content-Type: application/json
   "service_specification": {
     "name": "Feldarbeiten",
     "short_name": "F",
+    "identification_number": "12345",
     "work_clothing_expenses": 2600,
     "accommodation_expenses": 0,
     "location": "zh",
