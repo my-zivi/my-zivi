@@ -37,6 +37,7 @@ module Api
     }
 
     config.i18n.default_locale = :de
+    config.i18n.available_locales = %i[fr de en]
     config.i18n.fallbacks = %i[de en]
     config.time_zone = 'Bern'
   end
