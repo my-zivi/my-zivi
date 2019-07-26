@@ -1,11 +1,11 @@
 // tslint:disable:no-console
 import { action, observable } from 'mobx';
-import { noop } from 'mobx/lib/utils/utils';
+import { noop } from '../utilities/helpers';
 import { MainStore } from './mainStore';
 
 /**
  * This class wraps all common store functions with success/error popups.
- * The desired methods that start with "do" should be overriden in the specific stores.
+ * The desired methods that start with "do" should be overridden in the specific stores.
  */
 export class DomainStore<SingleType, OverviewType = SingleType> {
   protected get entityName() {

@@ -17,4 +17,7 @@ export const translateUserRole = (user: User) => {
   }
 };
 
+// tslint:disable-next-line:no-empty
+export const noop = () => {};
+
 export { default as buildURL } from 'axios/lib/helpers/buildURL';

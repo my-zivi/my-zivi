@@ -34,9 +34,7 @@ interface State {
 export class HolidayOverview extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.props.holidayStore!.fetchAll().then(() => {
-      this.setState({ loading: false });
-    });
+    this.props.holidayStore!.fetchAll().then(() => this.setState({ loading: false }));
 
     this.state = {
       loading: true,
