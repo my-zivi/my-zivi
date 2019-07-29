@@ -12,7 +12,6 @@ import { DatePickerField } from '../form/DatePickerField';
 import { WiredField } from '../form/formik';
 import IziviContent from '../layout/IziviContent';
 import { ApiStore, baseUrl } from '../stores/apiStore';
-import { MainStore } from '../stores/mainStore';
 import { apiDate } from '../utilities/validationHelpers';
 
 const phonelistSchema = yup.object({
@@ -27,17 +26,16 @@ interface PhoneList {
 
 interface Props extends RouteComponentProps {
   apiStore?: ApiStore;
-  mainStore?: MainStore;
 }
 
-@inject('apiStore', 'mainStore')
+@inject('apiStore')
 @observer
 export class PhoneListView extends React.Component<Props> {
   handleSubmit = async (entity: PhoneList, actions: FormikActions<PhoneList>) => {
     const inputs = phonelistSchema.cast(entity);
-    const secret = this.props.apiStore!.token;
-
-    const url = `${baseUrl}/documents/phone_list?start=${inputs.beginning}&end=${inputs.ending}&token=${secret}`;
+    const rawToken = this.props.apiStore!.token.split(' ')[1];
+    let url = `${baseUrl}/phone_list.pdf`;
+    url += `?phone_list[beginning]=${inputs.beginning}&phone_list[ending]=${inputs.ending}&token=${rawToken}`;
 
     const win = window.open(url, '_blank');
     if (win) {
