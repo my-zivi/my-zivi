@@ -16,13 +16,13 @@ gem 'iban-tools'
 gem 'jbuilder'
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 gem 'pdf-forms'
+gem 'prawn'
+gem 'prawn-table'
 gem 'puma', '~> 3.11'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.2.2'
 gem 'sepa_king', github: 'salesking/sepa_king', ref: '0658339'
 gem 'validates_timeliness'
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
 
 group :production do
   gem 'lograge'
@@ -56,6 +56,7 @@ group :development do
 end
 
 group :test do
+  gem 'pdf-inspector', require: 'pdf/inspector'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
 end

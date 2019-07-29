@@ -1,3 +1,4 @@
+---
 fr:
   activerecord:
     errors:
@@ -28,29 +29,84 @@ fr:
       attributes:
         expense_sheet:
           attributes:
+            accommodation_expenses: Hébergement
+            driving_expenses: Frais de conduite
+            paid_vacation_days:
+              one: Jour fériés
+              other: Jours fériés
+            pocket_money: Argent de poche
+            sick_days:
+              one: Jour de congé de maladie
+              other: Jours de congé de maladie
             state:
               invalid_state_change: changement de statut invalide
+            unpaid_vacation_days:
+              one: Jour de congé
+              other: Jours de congé
+            work_clothing_expenses: Vêtements de travail
+            work_days:
+              one: Jour de travail
+              other: Jours de travail
+            workfree_days:
+              one: Jour de congé
+              other: Jours de congé
+        service_specification:
+          expense_keys:
+            breakfast: Matinée
+            dinner: Soir
+            lunch: Midi
         user:
           address: Adresse
+          bank_iban: Compte en banque
           email: e-mail
           first_name: Prénom
           last_name: Nom de famille
           phone: Numéro de téléphone
+          zdp: N° de civiliste
           zip_with_city: Code postal / Ville
-      service_specification: spécification d'encart
+      service_specification: spécification du service
       user: Utilisateur
   date:
     formats:
       default: "%d.%m.%Y"
+      long: "%d.%b.%Y"
   errors:
     authorization_error: Vous n'avez pas les droits requis pour cette demande.
+    format_error: Vous avez demandé un format invalide
+  expense_sheet_calculator:
+    errors:
+      unknown_day_type: Ungültiger Spesentagestyp
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:
     expense_sheet:
+      expense_table:
+        footer:
+          total: Total
+        headers:
+          full_amount: Total
+        row_headers:
+          first_work_days: Premier jour de travail
+          last_work_days: Dernier jour de travail
+        supplement:
+          unpaid_vacation_comment: incl. %{comment}
       filename: Portrait_des_dépenses_%{today}.pdf
       header: 'Rapport des dépenses d’établissement d’affectation 423 - SWO, Bahnstrasse
         18b, 8603 Schwerzenbach '
+      info_block:
+        footer:
+          bank_account_number: N° de compte
+        header:
+          complete_service:
+            label: Service complet
+            value:
+              one: "%{beginning} à %{ending} (%{duration} jour)"
+              other: "%{beginning} à %{ending} (%{duration} jours)"
+          expense_sheet_time_duration:
+            label: Période du rapport
+            value:
+              one: "<b>%{beginning} à %{ending} (%{duration} jour)</b>"
+              other: "<b>%{beginning} à %{ending} (%{duration} jours)</b>"
       title: Rapport_de_dépenses_de_%{full_name}.pdf
     phone_list:
       filename: Liste_téléphonique_%{today}.pdf

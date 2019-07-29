@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe V1::PhoneListController, type: :request do
-  describe '#index' do
-    let(:request) { get(v1_phone_list_path(format: :pdf), params: params) }
+  describe '#show' do
+    let(:request) { get(v1_phone_list_export_path(format: :pdf, params: params)) }
     let(:beginning) { '2018-11-05' }
     let(:ending) { '2018-11-30' }
     let(:params) do
@@ -44,6 +44,12 @@ RSpec.describe V1::PhoneListController, type: :request do
           let(:ending) { '' }
 
           it { is_expected.to raise_exception ActionController::ParameterMissing }
+        end
+
+        context 'when an invalid format is requested' do
+          let(:request) { get(v1_phone_list_export_path, params: params) }
+
+          it_behaves_like 'format protected resource'
         end
       end
 

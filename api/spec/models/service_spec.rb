@@ -44,6 +44,28 @@ RSpec.describe Service, type: :model do
     end
   end
 
+  describe '#expense_sheets' do
+    subject { service.expense_sheets }
+
+    let(:beginning) { (Time.zone.today - 3.months).beginning_of_week }
+    let(:ending) { (Time.zone.today - 1.week).end_of_week - 2.days }
+
+    let(:user) { create :user }
+    let(:service) { create(:service, user: user, beginning: beginning, ending: ending) }
+
+    context 'when it has one expense_sheet' do
+      let(:expense_sheet) { create :expense_sheet, user: user, beginning: beginning, ending: ending }
+
+      it { is_expected.to eq [expense_sheet] }
+    end
+
+    context 'when it has multiple expense_sheets' do
+      let(:expense_sheets) { create_list :expense_sheet, 3, user: user, beginning: beginning, ending: ending }
+
+      it { is_expected.to eq expense_sheets }
+    end
+  end
+
   describe 'ending_is_friday validation' do
     subject { build(:service, ending: ending).tap(&:validate).errors.added? :ending, :not_a_friday }
 

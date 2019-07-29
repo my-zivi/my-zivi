@@ -2,6 +2,7 @@
 
 class ExpenseSheet < ApplicationRecord
   include Concerns::PositiveTimeSpanValidatable
+  include Concerns::DateRangeFilterable
 
   belongs_to :user
 
@@ -30,11 +31,45 @@ class ExpenseSheet < ApplicationRecord
     paid: 3
   }
 
-  def full_amount
-    10_000 # TODO: implement correct calculator
+  scope :before_date, (->(date) { where(arel_table[:ending].lt(date)) })
+
+  delegate :calculate_chargeable_days,
+           :calculate_first_day,
+           :calculate_full_expenses,
+           :calculate_last_day,
+           :calculate_paid_vacation_days,
+           :calculate_sick_days,
+           :calculate_unpaid_vacation_days,
+           :calculate_work_clothing_expenses,
+           :calculate_work_days,
+           :calculate_workfree_days,
+           to: :values_calculator
+
+  def service
+    @service ||= user.services.including_date_range(beginning, ending).first
+  end
+
+  def duration
+    (ending - beginning).to_i + 1
+  end
+
+  def work_days_count
+    work_days - [at_service_beginning?, at_service_ending?].count(&:itself)
+  end
+
+  def at_service_beginning?
+    beginning == service.beginning
+  end
+
+  def at_service_ending?
+    ending == service.ending
   end
 
   private
+
+  def values_calculator
+    @values_calculator ||= ExpenseSheetCalculatorService.new(self)
+  end
 
   def legitimate_state_change
     return if [

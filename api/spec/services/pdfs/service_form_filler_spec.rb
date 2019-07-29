@@ -2,16 +2,19 @@
 
 require 'rails_helper'
 
-RSpec.describe ServicePdfFormFiller, type: :service do
+RSpec.describe Pdfs::ServiceFormFiller, type: :service do
   describe '#fill_service_agreement' do
     subject(:form_filler) { instance_double(PdfForms::PdftkWrapper, fill_form: true) }
 
-    let(:fill_service) { ServicePdfFormFiller.new(service) }
-    let(:service) { create :service }
+    let(:fill_service) { Pdfs::ServiceFormFiller.new(service) }
+    let(:service) { create :service, beginning: '2018-12-24', ending: '2019-01-04' }
     let(:user) { service.user }
-    let(:file_path) { ServicePdfFormFiller::GERMAN_FILE_PATH }
+    let(:file_path) { Pdfs::ServiceFormFiller::GERMAN_FILE_PATH }
+    let(:company_holiday) { create :holiday, beginning: '2018-12-28', ending: '2019-01-02' }
 
     before do
+      company_holiday
+
       allow(PdfForms).to receive(:new).and_return form_filler
 
       fill_service.fill_service_agreement
@@ -34,7 +37,9 @@ RSpec.describe ServicePdfFormFiller, type: :service do
           'Einsatz' => 'On',
           'Probeeinsatz' => 'Off',
           'obligatorischer Langer Einsatz oder Teil davon' => 'Off',
-          26 => service.service_specification.title
+          26 => service.service_specification.title,
+          27 => I18n.l(company_holiday.beginning),
+          28 => I18n.l(company_holiday.ending)
         }
       end
 
@@ -45,8 +50,8 @@ RSpec.describe ServicePdfFormFiller, type: :service do
     end
 
     context 'when it is french' do
-      let(:service) { create(:service, :valais) }
-      let(:file_path) { ServicePdfFormFiller::FRENCH_FILE_PATH }
+      let(:service) { create(:service, :valais, beginning: '2018-12-24', ending: '2019-01-04') }
+      let(:file_path) { Pdfs::ServiceFormFiller::FRENCH_FILE_PATH }
 
       let(:expected_fields) do
         {
@@ -64,7 +69,9 @@ RSpec.describe ServicePdfFormFiller, type: :service do
           'affectation' => 'On',
           'affectation à lessai' => 'Off',
           'affectation longue obligatoire ou partie de celleci' => 'Off',
-          'Cahier des charges' => service.service_specification.title
+          'Cahier des charges' => service.service_specification.title,
+          'Fermeture1' => I18n.l(company_holiday.beginning),
+          'Fermeture2' => I18n.l(company_holiday.ending)
         }
       end
 

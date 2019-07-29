@@ -2,3 +2,7 @@ GET {{url}}/expense_sheets/1
 Authorization: {{auth_token}}
 
 ###
+
+GET {{url}}/expense_sheets/3.pdf?token={{stripped_auth_token}}
+
+###

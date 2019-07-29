@@ -125,4 +125,98 @@ RSpec.describe ExpenseSheet, type: :model do
       end
     end
   end
+
+  describe '#duration' do
+    let(:expense_sheet) { build :expense_sheet, beginning: beginning, ending: ending }
+    let(:beginning) { Time.zone.today }
+    let(:ending) { beginning + 2.days }
+
+    it 'returns duration' do
+      expect(expense_sheet.duration).to eq 3
+    end
+  end
+
+  describe '#at_service_beginning?' do
+    let(:expense_sheet) { create :expense_sheet, expense_sheet_data }
+    let(:service) { create :service, service_data }
+
+    let(:service_data) do
+      {
+        beginning: Date.parse('2018-01-01'),
+        ending: Date.parse('2018-08-03')
+      }
+    end
+
+    context 'when expense_sheet is at beginning of service' do
+      let(:expense_sheet_data) do
+        {
+          beginning: Date.parse('2018-01-01'),
+          ending: Date.parse('2018-01-31'),
+          work_days: 23,
+          user: service.user
+        }
+      end
+
+      it 'returns true' do
+        expect(expense_sheet.at_service_beginning?).to eq true
+      end
+    end
+
+    context 'when expense_sheet is not at beginning of service' do
+      let(:expense_sheet_data) do
+        {
+          beginning: Date.parse('2018-02-01'),
+          ending: Date.parse('2018-02-28'),
+          work_days: 23,
+          user: service.user
+        }
+      end
+
+      it 'returns false' do
+        expect(expense_sheet.at_service_beginning?).to eq false
+      end
+    end
+  end
+
+  describe '#at_service_ending?' do
+    let(:expense_sheet) { create :expense_sheet, expense_sheet_data }
+    let(:service) { create :service, service_data }
+
+    let(:service_data) do
+      {
+        beginning: Date.parse('2018-01-01'),
+        ending: Date.parse('2018-08-03')
+      }
+    end
+
+    context 'when expense_sheet is at ending of service' do
+      let(:expense_sheet_data) do
+        {
+          beginning: Date.parse('2018-01-08'),
+          ending: Date.parse('2018-08-03'),
+          work_days: 3,
+          user: service.user
+        }
+      end
+
+      it 'returns true' do
+        expect(expense_sheet.at_service_ending?).to eq true
+      end
+    end
+
+    context 'when expense_sheet is not at ending of service' do
+      let(:expense_sheet_data) do
+        {
+          beginning: Date.parse('2018-02-01'),
+          ending: Date.parse('2018-02-28'),
+          work_days: 23,
+          user: service.user
+        }
+      end
+
+      it 'returns false' do
+        expect(expense_sheet.at_service_ending?).to eq false
+      end
+    end
+  end
 end

@@ -43,6 +43,10 @@ class Service < ApplicationRecord
     !probation_service? && !long_service?
   end
 
+  def expense_sheets
+    @expense_sheets ||= user.expense_sheets.in_date_range(beginning, ending)
+  end
+
   private
 
   def beginning_is_monday

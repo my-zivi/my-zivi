@@ -5,12 +5,5 @@ module V1
     include V1::Concerns::ParamsAuthenticatable
 
     before_action :authenticate_from_params!
-
-    protected
-
-    def render_pdf(filename:, pdf:)
-      response.set_header('Content-Disposition', "inline; filename=#{filename}")
-      render plain: pdf
-    end
   end
 end

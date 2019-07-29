@@ -29,32 +29,88 @@ de:
       attributes:
         expense_sheet:
           attributes:
+            accommodation_expenses: Unterkunft
+            driving_expenses: Fahrspesen
+            paid_vacation_days:
+              one: Ferientag
+              other: Ferientage
+            pocket_money: Taschengeld
+            sick_days:
+              one: Krankheitstag
+              other: Krankheitstage
             state:
-              invalid_state_change: Changement d'état invalide
+              invalid_state_change: Ungültige Statusänderung
+            unpaid_vacation_days:
+              one: Urlaubstag
+              other: Urlaubstage
+            work_clothing_expenses: Arbeitskleider
+            work_days:
+              one: Arbeitstag
+              other: Arbeitstage
+            workfree_days:
+              one: Arbeitsfreier Tag
+              other: Arbeitsfreie Tage
+        service_specification:
+          expense_keys:
+            breakfast: Morgen
+            dinner: Abend
+            lunch: Mittag
         user:
           address: Adresse
+          bank_iban: Bankverbindung
           email: Email
           first_name: Vorname
           last_name: Nachname
           phone: Telefonnummer
+          zdp: ZDP-Nr.
           zip_with_city: PLZ / Ort
       service_specification: Pflichtenheft
       user: Benutzer
   date:
     formats:
       default: "%d.%m.%Y"
+      long: "%d.%b.%Y"
   errors:
     authorization_error: Sie haben nicht die benötigten Rechte für diese Anfrage
-    messages:
-      not_saved:
-        one: {}
+    format_error: Sie haben ein ungültiges Format angefordert
+  expense_sheet_calculator:
+    errors:
+      unknown_day_type: Ungültiger Spesentagestyp
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:
     expense_sheet:
+      expense_table:
+        footer:
+          total: Gesamt
+        headers:
+          full_amount: Total
+        row_headers:
+          first_work_days: Erster Arbeitstag
+          last_work_days: Letzter Arbeitstag
+        supplement:
+          unpaid_vacation_comment: inkl. %{comment}
+          work_clothing_expenses_comment:
+            one: CHF %{amount}/Tag für %{count} anrechenbarer Tag
+            other: CHF %{amount}/Tag für %{count} anrechenbare Tage
+          driving_expenses_comment_empty: Keine Angaben
       filename: Spesenrapport_%{today}.pdf
       header: 'Spesenrapport des Einsatzbetriebes 423 - SWO, Bahnstrasse 18b, 8603
         Schwerzenbach '
+      info_block:
+        footer:
+          bank_account_number: 'Konto-Nr.:'
+        header:
+          complete_service:
+            label: Gesamteinsatz
+            value:
+              one: "%{beginning} bis %{ending} (%{duration} Tag)"
+              other: "%{beginning} bis %{ending} (%{duration} Tage)"
+          expense_sheet_time_duration:
+            label: Meldeperiode
+            value:
+              one: "<b>%{beginning} bis %{ending} (%{duration} Tag)</b>"
+              other: "<b>%{beginning} bis %{ending} (%{duration} Tage)</b>"
       title: Spesenrapport_von_%{full_name}.pdf
     phone_list:
       filename: Telefonliste_%{today}.pdf

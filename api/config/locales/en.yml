@@ -29,29 +29,84 @@ en:
       attributes:
         expense_sheet:
           attributes:
+            accommodation_expenses: Accommodation
+            driving_expenses: Driving expenses
+            paid_vacation_days:
+              one: Paid vacation day
+              other: Paid vacation days
+            pocket_money: Pocket money
+            sick_days:
+              one: Sick day
+              other: Sick days
             state:
               invalid_state_change: Invalid state change
+            unpaid_vacation_days:
+              one: Unpaid vacation day
+              other: Unpaid vacation days
+            work_clothing_expenses: Work clothing expenses
+            work_days:
+              one: Work day
+              other: Work days
+            workfree_days:
+              one: Workfree day
+              other: Workfree days
+        service_specification:
+          expense_keys:
+            breakfast: Breakfast
+            dinner: Dinner
+            lunch: Lunch
         user:
           address: Address
+          bank_iban: Bank account
           email: Email
           first_name: First name
           last_name: Last name
           phone: Phone
+          zdp: Civil servant number
           zip_with_city: ZIP / City
       service_specification: service specification
       user: User
   date:
     formats:
       default: "%d.%m.%Y"
+      long: "%d.%b.%Y"
   errors:
     authorization_error: You are not authorized to perform this action
+    format_error: You requested an invalid format
+  expense_sheet_calculator:
+    errors:
+      unknown_day_type: Ungültiger Spesentagestyp
   payment:
     expenses_from: Expenses from %{from_date}
   pdfs:
     expense_sheet:
+      expense_table:
+        footer:
+          total: Total
+        headers:
+          full_amount: Total
+        row_headers:
+          first_work_days: First work day
+          last_work_days: Last work day
+        supplement:
+          unpaid_vacation_comment: incl. %{comment}
       filename: ExpenseSheet_%{today}.pdf
       header: Expense report of the service company 423 - SWO, Bahnstrasse 18b, 8603
         Schwerzenbach
+      info_block:
+        footer:
+          bank_account_number: 'Account-No:'
+        header:
+          complete_service:
+            label: Full service
+            value:
+              one: "<b>%{beginning} to %{ending} (%{duration} day)</b>"
+              other: "<b>%{beginning} to %{ending} (%{duration} days)</b>"
+          expense_sheet_time_duration:
+            label: Reporting period
+            value:
+              one: "%{beginning} to %{ending} (%{duration} day)"
+              other: "%{beginning} to %{ending} (%{duration} days)"
       title: Expense_report_of_%{full_name}.pdf
     phone_list:
       filename: Phonelist_%{today}.pdf

@@ -5,16 +5,17 @@ module V1
     include V1::Concerns::AdminAuthorizable
 
     before_action :authorize_admin!
-    before_action :load_specifications, only: :index
+    before_action :load_specifications, only: :show
 
-    def index
+    def show
       respond_to do |format|
         format.pdf do
-          generator = TemplatePdfGeneratorService.new('v1/phone_list/index', pdf_locals, 'Landscape')
-          render_pdf(
-            filename: I18n.t('pdfs.phone_list.filename', today: I18n.l(Time.zone.today)),
-            pdf: generator.generate_pdf
-          )
+          pdf = Pdfs::PhoneListService.new(@specifications, sanitized_filters)
+
+          send_data pdf.render,
+                    filename: I18n.t('pdfs.phone_list.filename', today: I18n.l(Time.zone.today)),
+                    type: 'application/pdf',
+                    disposition: 'inline'
         end
       end
     end
@@ -23,15 +24,9 @@ module V1
 
     def load_specifications
       @specifications = Service.in_date_range(sanitized_filters.beginning, sanitized_filters.ending)
-                               .includes(:user, :service_specification)
+                               .includes(:service_specification, :user)
                                .order('service_specification_id')
                                .group_by { |service| service.service_specification.name }
-    end
-
-    def pdf_locals
-      {
-        phone_list: sanitized_filters, specifications: @specifications
-      }
     end
 
     # :reek:FeatureEnvy
