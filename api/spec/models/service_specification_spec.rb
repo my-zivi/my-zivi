@@ -17,6 +17,12 @@ RSpec.describe ServiceSpecification, type: :model do
   it { is_expected.to validate_numericality_of(:work_clothing_expenses).only_integer }
   it { is_expected.to validate_length_of(:identification_number).is_at_least(5).is_at_most(7) }
 
+  describe '#pocket_money' do
+    subject { build(:service_specification).pocket_money }
+
+    it { is_expected.to eq ServiceSpecification::POCKET_MONEY }
+  end
+
   describe '#work_days_expenses' do
     subject { service_specification.tap(&:validate).errors.added? :work_days_expenses, error_key }
 

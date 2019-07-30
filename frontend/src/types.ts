@@ -71,28 +71,23 @@ export interface ReportSheetListing {
   user: User;
 }
 
+export interface DailyExpense {
+  breakfast: number;
+  lunch: number;
+  dinner: number;
+}
+
 export interface ServiceSpecification {
   identification_number?: string;
   name: string;
   short_name: string;
-  working_clothes_payment: null | string;
-  working_clothes_expense: number;
-  working_breakfast_expenses: number;
-  working_lunch_expenses: number;
-  working_dinner_expenses: number;
-  sparetime_breakfast_expenses: number;
-  sparetime_lunch_expenses: number;
-  sparetime_dinner_expenses: number;
-  firstday_breakfast_expenses: number;
-  firstday_lunch_expenses: number;
-  firstday_dinner_expenses: number;
-  lastday_breakfast_expenses: number;
-  lastday_lunch_expenses: number;
-  lastday_dinner_expenses: number;
-  working_time_model: number;
-  working_time_weekly: string;
-  accommodation: number;
-  pocket: number;
+  work_clothing_expenses: number;
+  work_days_expenses: DailyExpense;
+  paid_vacation_expenses: DailyExpense;
+  first_day_expenses: DailyExpense;
+  last_day_expenses: DailyExpense;
+  accommodation_expenses: number;
+  pocket_money: number;
   active: boolean;
 }
 

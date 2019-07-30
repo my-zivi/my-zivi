@@ -1,5 +1,11 @@
 import * as yup from 'yup';
 
+const dailyExpenseSchema = yup.object({
+  breakfast: yup.number().required(),
+  lunch: yup.number().required(),
+  dinner: yup.number().required(),
+});
+
 const serviceSpecificationSchema = yup.object({
   identification_number: yup
     .string()
@@ -7,24 +13,13 @@ const serviceSpecificationSchema = yup.object({
     .required(),
   name: yup.string().required(),
   short_name: yup.string().required(),
-  working_clothes_expense: yup.number().required(),
-  working_breakfast_expenses: yup.number().required(),
-  working_lunch_expenses: yup.number().required(),
-  working_dinner_expenses: yup.number().required(),
-  sparetime_breakfast_expenses: yup.number().required(),
-  sparetime_lunch_expenses: yup.number().required(),
-  sparetime_dinner_expenses: yup.number().required(),
-  firstday_breakfast_expenses: yup.number().required(),
-  firstday_lunch_expenses: yup.number().required(),
-  firstday_dinner_expenses: yup.number().required(),
-  lastday_breakfast_expenses: yup.number().required(),
-  lastday_lunch_expenses: yup.number().required(),
-  lastday_dinner_expenses: yup.number().required(),
-  working_time_model: yup.number().required(),
-  accommodation: yup.number().required(),
-  working_clothes_payment: yup.string().nullable(),
-  working_time_weekly: yup.string(),
-  pocket: yup.number().required(),
+  work_clothing_expenses: yup.number().required(),
+  work_days_expenses: dailyExpenseSchema,
+  paid_vacation_expenses: dailyExpenseSchema,
+  first_day_expenses: dailyExpenseSchema,
+  last_day_expenses: dailyExpenseSchema,
+  accommodation_expenses: yup.number().required(),
+  pocket_money: yup.number().required(),
   active: yup.boolean(),
 });
 

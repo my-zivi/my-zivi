@@ -13,7 +13,8 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
       let!(:service_specifications) { create_list :service_specification, 3 }
       let(:json_service_specifications) do
         service_specifications.map do |service_specification|
-          extract_to_json(service_specification).except(:created_at, :updated_at)
+          extract_to_json(service_specification).except(:created_at, :updated_at, :id)
+                                                .merge(pocket_money: ServiceSpecification::POCKET_MONEY)
         end
       end
 
@@ -39,6 +40,20 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
         context 'when params are valid' do
           let(:params) { attributes_for(:service_specification) }
 
+          let(:expected_returned_json_keys) do
+            %i[
+              identification_number
+              name
+              short_name
+              location
+              active
+              work_days_expenses
+              paid_vacation_expenses
+              first_day_expenses
+              last_day_expenses
+            ]
+          end
+
           it_behaves_like 'renders a successful http status code' do
             let(:request) { post_request }
           end
@@ -47,18 +62,12 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
 
           it 'returns the created service specification' do
             post_request
+            # noinspection RubyResolve
             expect(parse_response_json(response)).to include(
-              id: ServiceSpecification.last.id,
-              name: params[:name],
-              short_name: params[:short_name],
-              work_clothing_expenses: params[:work_clothing_expenses].to_i,
-              accommodation_expenses: params[:accommodation_expenses].to_i,
-              location: params[:location],
-              active: params[:active],
-              work_days_expenses: params[:work_days_expenses],
-              paid_vacation_expenses: params[:paid_vacation_expenses],
-              first_day_expenses: params[:first_day_expenses],
-              last_day_expenses: params[:last_day_expenses]
+              params
+                .slice(*expected_returned_json_keys)
+                .merge(params.slice(:work_clothing_expenses, :accommodation_expenses).transform_values(&:to_i))
+                .merge(pocket_money: ServiceSpecification::POCKET_MONEY)
             )
           end
         end
