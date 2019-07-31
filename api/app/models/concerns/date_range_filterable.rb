@@ -18,7 +18,7 @@ module Concerns
       end)
 
       # All instances whose beginning and ending range is fully or partially covering the passed date range
-      scope :touching_date_range, (lambda do |beginning, ending|
+      scope :overlapping_date_range, (lambda do |beginning, ending|
         where(arel_table[:beginning].lteq(ending))
           .where(arel_table[:ending].gteq(beginning))
       end)

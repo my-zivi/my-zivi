@@ -25,7 +25,7 @@ class Service < ApplicationRecord
 
   scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
   scope :chronologically, -> { order(:beginning, :ending) }
-  # TODO: Check if this is correct (my opinion: should be touching_date_range, because Services with a beginning in
+  # TODO: Check if this is correct (my opinion: should be overlapping_date_range, because Services with a beginning in
   # last year and ending in current_year should be included in at_year(current_year) too)
   scope :at_year, ->(year) { in_date_range(Date.new(year), Date.new(year).at_end_of_year) }
 

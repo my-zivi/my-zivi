@@ -4,7 +4,7 @@ class HolidayCalculator
   def initialize(beginning, ending)
     @beginning = beginning
     @ending = ending
-    @all_holidays = Holiday.touching_date_range(@beginning, @ending)
+    @all_holidays = Holiday.overlapping_date_range(@beginning, @ending)
   end
 
   def calculate_company_holiday_days

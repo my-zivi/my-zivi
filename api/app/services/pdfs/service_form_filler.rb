@@ -62,7 +62,7 @@ module Pdfs
     end
 
     def load_company_holiday_fields
-      company_holiday = Holiday.touching_date_range(@service.beginning, @service.ending)
+      company_holiday = Holiday.overlapping_date_range(@service.beginning, @service.ending)
                                .select(&:company_holiday?).first
       return {} if company_holiday.nil?
 
