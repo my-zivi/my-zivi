@@ -1,4 +1,5 @@
 // tslint:disable:no-console
+import { template } from 'lodash';
 import { action, observable } from 'mobx';
 import { noop } from '../utilities/helpers';
 import { MainStore } from './mainStore';
@@ -28,6 +29,38 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
     throw new Error('Not implemented');
   }
 
+  private static buildErrorMessage(e: { messages: any }, defaultMessage: string) {
+    if ('messages' in e) {
+      return this.buildServerErrorMessage(e, defaultMessage);
+    }
+
+    return defaultMessage;
+  }
+
+  private static buildServerErrorMessage(e: { messages: any }, defaultMessage: string) {
+    if ('error' in e.messages) {
+      return `${defaultMessage}: ${e.messages.error}`;
+    } else if ('human_readable_descriptions' in e.messages) {
+      return this.buildHumanReadableErrorList(e, defaultMessage);
+    } else if ('errors' in e.messages && typeof e.messages.errors === 'string') {
+      return `${defaultMessage}: ${e.messages.errors}`;
+    }
+
+    return defaultMessage;
+  }
+
+  private static buildHumanReadableErrorList(e: { messages: any }, defaultMessage: string) {
+    const errorMessageTemplate = `
+              <ul class="mt-1 mb-0">
+                <% _.forEach(messages, message => {%>
+                    <li><%- message %></li>
+                <%});%>
+              </ul>
+            `;
+
+    return `${defaultMessage}:` + template(errorMessageTemplate)({ messages: e.messages.human_readable_descriptions });
+  }
+
   @observable
   filteredEntities: OverviewType[] = [];
 
@@ -43,7 +76,7 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
     try {
       await this.doFetchAll(params);
     } catch (e) {
-      this.mainStore.displayError(`${this.entityName.plural} konnten nicht geladen werden.`);
+      this.mainStore.displayError(DomainStore.buildErrorMessage(e, `${this.entityName.plural} konnten nicht geladen werden`));
       console.error(e);
       throw e;
     }
@@ -55,7 +88,7 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
       this.entity = undefined;
       return await this.doFetchOne(id);
     } catch (e) {
-      this.mainStore.displayError(`${this.entityName.plural} konnten nicht geladen werden.`);
+      this.mainStore.displayError(DomainStore.buildErrorMessage(e, `${this.entityName.singular} konnte nicht geladen werden`));
       console.error(e);
       throw e;
     }
@@ -68,8 +101,7 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
         await this.doPost(entity);
         this.mainStore.displaySuccess(`${this.entityName.singular} wurde gespeichert.`);
       } catch (e) {
-        this.mainStore.displayError(`${this.entityName.singular} konnte nicht gespeichert werden.`);
-        console.error(e);
+        this.mainStore.displayError(DomainStore.buildErrorMessage(e, `${this.entityName.singular} konnte nicht gespeichert werden`));
         throw e;
       }
     });
@@ -82,7 +114,7 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
         await this.doPut(entity);
         this.mainStore.displaySuccess(`${this.entityName.singular} wurde gespeichert.`);
       } catch (e) {
-        this.mainStore.displayError(`${this.entityName.singular} konnte nicht gespeichert werden.`);
+        this.mainStore.displayError(DomainStore.buildErrorMessage(e, `${this.entityName.singular} konnte nicht gespeichert werden`));
         console.error(e);
         throw e;
       }
@@ -96,11 +128,7 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
         await this.doDelete(id);
         this.mainStore.displaySuccess(`${this.entityName.singular} wurde gelöscht.`);
       } catch (e) {
-        let reason = `${this.entityName.singular} konnte nicht gelöscht werden.`;
-        if ('messages' in e && 'errors' in e.messages) {
-          reason = e.messages.errors.base || reason;
-        }
-        this.mainStore.displayError(reason);
+        this.mainStore.displayError(DomainStore.buildErrorMessage(e, `${this.entityName.singular} konnte nicht gelöscht werden`));
         console.error(e);
         throw e;
       }

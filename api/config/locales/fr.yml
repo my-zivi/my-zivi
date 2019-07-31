@@ -26,46 +26,103 @@ fr:
             base:
               cant_delete_himself: Tu ne peux pas t'effacer toi-même
     models:
-      attributes:
-        expense_sheet:
-          attributes:
-            accommodation_expenses: Hébergement
-            driving_expenses: Frais de conduite
-            paid_vacation_days:
-              one: Jour fériés
-              other: Jours fériés
-            pocket_money: Argent de poche
-            sick_days:
-              one: Jour de congé de maladie
-              other: Jours de congé de maladie
-            state:
-              invalid_state_change: changement de statut invalide
-            unpaid_vacation_days:
-              one: Jour de congé
-              other: Jours de congé
-            work_clothing_expenses: Vêtements de travail
-            work_days:
-              one: Jour de travail
-              other: Jours de travail
-            workfree_days:
-              one: Jour de congé
-              other: Jours de congé
-        service_specification:
-          expense_keys:
-            breakfast: Matinée
-            dinner: Soir
-            lunch: Midi
-        user:
-          address: Adresse
-          bank_iban: Compte en banque
-          email: e-mail
-          first_name: Prénom
-          last_name: Nom de famille
-          phone: Numéro de téléphone
-          zdp: N° de civiliste
-          zip_with_city: Code postal / Ville
       service_specification: spécification du service
       user: Utilisateur
+      expense_sheet: Note de frais
+      holiday: Vaccances
+      regional_center: Centre régional
+      service: Service
+    attributes:
+      expense_sheet:
+        attributes:
+          beginning: Début
+          ending: Fin
+          unpaid_company_holiday_days: Congés d'entreprise non payés
+          paid_company_holiday_days: Congés payés
+          company_holiday_comment:  Commentaire sur les vacances en entreprise
+          sick_comment: Commentaire sur la maladie
+          paid_vacation_comment: Congés payés - commentaire
+          unpaid_vacation_comment: Unbezahlte Ferien - Commentaire
+          driving_expenses_comment: Commentaire sur les frais de déplacement
+          extraordinary_expenses: Frais extraordinaires
+          extraordinary_expenses_comment: Frais extraordinaires - Commentaire
+          clothing_expenses: Frais d'habillement
+          clothing_expenses_comment: Frais d'habillement - Commentaire
+          bank_account_number: Numéro de compte bancaire
+          accommodation_expenses: Hébergement
+          driving_expenses: Frais de conduite
+          paid_vacation_days:
+            one: Jour fériés
+            other: Jours fériés
+          pocket_money: Argent de poche
+          sick_days:
+            one: Jour de congé de maladie
+            other: Jours de congé de maladie
+          state: Statut
+          unpaid_vacation_days:
+            one: Jour de congé
+            other: Jours de congé
+          work_clothing_expenses: Vêtements de travail
+          work_days:
+            one: Jour de travail
+            other: Jours de travail
+          workfree_days:
+            one: Jour de congé
+            other: Jours de congé
+      service_specification:
+        name: Nom
+        short_name: Nom court
+        work_clothing_expenses: les frais d'habillement
+        accommodation_expenses: frais d'hébergement
+        work_days_expenses: frais par jour
+        paid_vacation_expenses: Frais de vacances payés
+        first_day_expenses: Frais pour le premier jour
+        last_day_expenses: Frais pour le dernier jour
+        location: lieu
+        active: activé
+        identification_number: Identifikationsnummer
+        expense_keys:
+          breakfast: Matinée
+          dinner: Soir
+          lunch: Midi
+      user:
+        address: Adresse
+        bank_iban: Compte en banque
+        email: E-Mail
+        first_name: Prénom
+        last_name: Nom de famille
+        phone: Numéro de téléphone
+        zdp: N° de civiliste
+        zip_with_city: Code postal / Ville
+        zip: Code postal
+        role: Rôle
+        city: Ville
+        hometown: Ville natale
+        birthday: Anniversaire
+        health_insurance: L'assurance maladie
+        work_experience: Expérience de travail
+        driving_licence_b: Permis de conduire catégorie B
+        driving_licence_be: Permis de conduire catégorie BE
+        internal_note: Note interne
+        chainsaw_workshop: Atelier de scie à chaîne
+      holiday:
+        beginning: Début
+        ending: Fin
+        holiday_type: Type de vacances
+        description: Description
+      regional_center:
+        name: Nom
+        address: Adresse
+        short_name: Nom court
+      service:
+        beginning: Début
+        ending: Fin
+        confirmation_date: date de confirmation
+        service_type: Type de service
+        first_swo_service: Premier service de SWO
+        long_service: Service long
+        probation_service: Jours d’affectation à l’essai
+        feedback_mail_sent: E-mail de feedback envoyé
   date:
     formats:
       default: "%d.%m.%Y"
@@ -75,7 +132,7 @@ fr:
     format_error: Vous avez demandé un format invalide
   expense_sheet_calculator:
     errors:
-      unknown_day_type: Ungültiger Spesentagestyp
+      unknown_day_type: Type de problème invalide
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:

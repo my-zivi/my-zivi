@@ -43,7 +43,8 @@ module V1
     def protect_self_deletion!
       return unless @user.id == current_user.id
 
-      raise ValidationError, base: I18n.t('activerecord.errors.models.user.attributes.base.cant_delete_himself')
+      deletion_error_message = I18n.t('activerecord.errors.models.user.attributes.base.cant_delete_himself')
+      raise ValidationError.new({ base: deletion_error_message }, [deletion_error_message])
     end
 
     def user_params

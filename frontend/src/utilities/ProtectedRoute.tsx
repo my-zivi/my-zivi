@@ -33,7 +33,7 @@ export class ProtectedRoute extends React.Component<ProtectedRouteProps> {
         return <Component {...props} />;
       }
     } else {
-      apiStore.logout(false);
+      void apiStore.logout(false);
       return <Redirect to={login} />;
     }
   }

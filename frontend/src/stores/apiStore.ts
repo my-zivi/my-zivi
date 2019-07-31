@@ -73,6 +73,8 @@ export class ApiStore {
   }
 
   constructor(private history: History) {
+    // TODO: Pass real language
+    axios.defaults.params = { locale: 'de' };
     this._api = axios.create({
       baseURL: baseUrl,
     });

@@ -26,46 +26,103 @@ en:
             base:
               cant_delete_himself: You cannot delete yourself
     models:
-      attributes:
-        expense_sheet:
-          attributes:
-            accommodation_expenses: Accommodation
-            driving_expenses: Driving expenses
-            paid_vacation_days:
-              one: Paid vacation day
-              other: Paid vacation days
-            pocket_money: Pocket money
-            sick_days:
-              one: Sick day
-              other: Sick days
-            state:
-              invalid_state_change: Invalid state change
-            unpaid_vacation_days:
-              one: Unpaid vacation day
-              other: Unpaid vacation days
-            work_clothing_expenses: Work clothing expenses
-            work_days:
-              one: Work day
-              other: Work days
-            workfree_days:
-              one: Workfree day
-              other: Workfree days
-        service_specification:
-          expense_keys:
-            breakfast: Breakfast
-            dinner: Dinner
-            lunch: Lunch
-        user:
-          address: Address
-          bank_iban: Bank account
-          email: Email
-          first_name: First name
-          last_name: Last name
-          phone: Phone
-          zdp: Civil servant number
-          zip_with_city: ZIP / City
-      service_specification: service specification
+      service_specification: Service specification
       user: User
+      expense_sheet: Expense sheet
+      holiday: Holiday
+      regional_center: Regional center
+      service: Service
+    attributes:
+      expense_sheet:
+        attributes:
+          beginning: Beginning
+          ending: Ending
+          unpaid_company_holiday_days: Unpaid company holiday days
+          paid_company_holiday_days: Paid company holiday days
+          company_holiday_comment:  Company holiday comment
+          sick_comment: Sick comment
+          paid_vacation_comment: Paid vacation comment
+          unpaid_vacation_comment: Unpaid vacation comment
+          driving_expenses_comment: Driving expenses comment
+          extraordinary_expenses: Extraordinary expenses
+          extraordinary_expenses_comment: Extraordinary expenses comment
+          clothing_expenses: Clothing expenses
+          clothing_expenses_comment: Clothing expenses comment
+          bank_account_number: Bank account number
+          accommodation_expenses: Accommodation
+          driving_expenses: Driving expenses
+          paid_vacation_days:
+            one: Paid vacation day
+            other: Paid vacation days
+          pocket_money: Pocket money
+          sick_days:
+            one: Sick day
+            other: Sick days
+          state: Status
+          unpaid_vacation_days:
+            one: Unpaid vacation day
+            other: Unpaid vacation days
+          work_clothing_expenses: Work clothing expenses
+          work_days:
+            one: Work day
+            other: Work days
+          workfree_days:
+            one: Workfree day
+            other: Workfree days
+      service_specification:
+        name: Name
+        short_name: Short name
+        work_clothing_expenses: Work clothing expenses
+        accommodation_expenses: Accommodation expenses
+        work_days_expenses: Work days expenses
+        paid_vacation_expenses: Paid vacation expenses
+        first_day_expenses: First day expenses
+        last_day_expenses: Last day expenses
+        location: Location
+        active: Active
+        identification_number: Identification number
+        expense_keys:
+          breakfast: Breakfast
+          dinner: Dinner
+          lunch: Lunch
+      user:
+        address: Address
+        bank_iban: IBAN account number
+        email: Email
+        first_name: First name
+        last_name: Last name
+        phone: Phone
+        zdp: Civil servant number
+        zip_with_city: ZIP / City
+        zip: Zip
+        role: Role
+        city: City
+        hometown: Hometown
+        birthday: Birthday
+        health_insurance: Health insurance
+        work_experience: Work experience
+        driving_licence_b: Driving licence B
+        driving_licence_be: Driving licence BE
+        internal_note: Internal note
+        chainsaw_workshop: Chainsaw workshop
+      holiday:
+        beginning: Beginning
+        ending: Ending
+        holiday_type: Holiday type
+        description: Description
+      regional_center:
+        name: Name
+        address: Address
+        short_name: Short name
+      service:
+        beginning: Beginning
+        ending: Ending
+        confirmation_date: Confirmation date
+        service_type: Service type
+        first_swo_service: First SWO service
+        long_service: Long service
+        probation_service: Probation service
+        feedback_mail_sent: Feedback mail sent
   date:
     formats:
       default: "%d.%m.%Y"

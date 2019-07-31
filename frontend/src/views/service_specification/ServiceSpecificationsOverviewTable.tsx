@@ -1,3 +1,4 @@
+import { ary, compact, flatMap, partial } from 'lodash';
 import * as React from 'react';
 import { WithSheet } from 'react-jss';
 import Table from 'reactstrap/lib/Table';
@@ -41,12 +42,7 @@ const TableHeaderTooltip: React.FunctionComponent<{tableHeader: TableHeader, id:
     return (
       <>
         <div id={params.id}>{params.children}</div>
-        <Tooltip
-          placement="bottom"
-          target={params.id}
-          isOpen={isOpen}
-          toggle={() => setIsOpen(!isOpen)}
-        >
+        <Tooltip placement="bottom" target={params.id} isOpen={isOpen} toggle={ary(partial(setIsOpen, !isOpen), 0)}>
           {params.tableHeader.tooltip}
         </Tooltip>
       </>
@@ -58,7 +54,9 @@ const TableHeaderTooltip: React.FunctionComponent<{tableHeader: TableHeader, id:
 
 const OverviewTableHeader = (params: { tableHeaderClasses: string[] }) => {
   const [mainTableHeaderClass, secondaryTableHeaderClass] = params.tableHeaderClasses;
-  const secondaryTableHeaders = COLUMNS.reduce<TableHeader[]>((headers, current) => [...headers, ...(current.subcolumns || [])], []);
+  const secondaryTableHeaders = compact(
+    flatMap<TableHeader[], TableHeader | undefined>(COLUMNS, header => (header as TableHeader).subcolumns),
+  );
 
   const layout = [
     { class: mainTableHeaderClass, columns: COLUMNS },

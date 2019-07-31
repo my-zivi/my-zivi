@@ -7,12 +7,12 @@ module Pdfs
     include Prawn::View
 
     TABLE_HEADER = [
-      I18n.t('activerecord.models.attributes.user.last_name'),
-      I18n.t('activerecord.models.attributes.user.first_name'),
-      I18n.t('activerecord.models.attributes.user.address'),
-      I18n.t('activerecord.models.attributes.user.zip_with_city'),
-      I18n.t('activerecord.models.attributes.user.phone'),
-      I18n.t('activerecord.models.attributes.user.email')
+      I18n.t('activerecord.attributes.user.last_name'),
+      I18n.t('activerecord.attributes.user.first_name'),
+      I18n.t('activerecord.attributes.user.address'),
+      I18n.t('activerecord.attributes.user.zip_with_city'),
+      I18n.t('activerecord.attributes.user.phone'),
+      I18n.t('activerecord.attributes.user.email')
     ].freeze
 
     def initialize(service_specifications, dates)

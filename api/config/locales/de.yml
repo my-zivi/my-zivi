@@ -26,46 +26,102 @@ de:
             base:
               cant_delete_himself: Du kannst dich nicht selbst löschen
     models:
-      attributes:
-        expense_sheet:
-          attributes:
-            accommodation_expenses: Unterkunft
-            driving_expenses: Fahrspesen
-            paid_vacation_days:
-              one: Ferientag
-              other: Ferientage
-            pocket_money: Taschengeld
-            sick_days:
-              one: Krankheitstag
-              other: Krankheitstage
-            state:
-              invalid_state_change: Ungültige Statusänderung
-            unpaid_vacation_days:
-              one: Urlaubstag
-              other: Urlaubstage
-            work_clothing_expenses: Arbeitskleider
-            work_days:
-              one: Arbeitstag
-              other: Arbeitstage
-            workfree_days:
-              one: Arbeitsfreier Tag
-              other: Arbeitsfreie Tage
-        service_specification:
-          expense_keys:
-            breakfast: Morgen
-            dinner: Abend
-            lunch: Mittag
-        user:
-          address: Adresse
-          bank_iban: Bankverbindung
-          email: Email
-          first_name: Vorname
-          last_name: Nachname
-          phone: Telefonnummer
-          zdp: ZDP-Nr.
-          zip_with_city: PLZ / Ort
       service_specification: Pflichtenheft
       user: Benutzer
+      expense_sheet: Spesenblatt
+      holiday: Ferien
+      regional_center: Regionalzentrum
+      service: Einsatz
+    attributes:
+      expense_sheet:
+        beginning: Anfang
+        ending: Ende
+        unpaid_company_holiday_days: Unbezahlte Betriebsferientage
+        paid_company_holiday_days: Bezahlte Betriebsferientage
+        company_holiday_comment:  Betriebsferien Kommentar
+        sick_comment: Krankheitskommentar
+        paid_vacation_comment: Bezahlte Ferien - Kommentar
+        unpaid_vacation_comment: Unbezahlte Ferien - Kommentar
+        driving_expenses_comment: Fahrspesenkommentar
+        extraordinary_expenses: Ausserordentliche Spesen
+        extraordinary_expenses_comment: Ausserordentliche Spesen - Kommentar
+        clothing_expenses: Kleiderspesen
+        clothing_expenses_comment: Kleiderspesen - Kommentar
+        bank_account_number: Bankkonto Nummer
+        accommodation_expenses: Unterkunft
+        driving_expenses: Fahrspesen
+        paid_vacation_days:
+          one: Ferientag
+          other: Ferientage
+        pocket_money: Taschengeld
+        sick_days:
+          one: Krankheitstag
+          other: Krankheitstage
+        state: Status
+        unpaid_vacation_days:
+          one: Urlaubstag
+          other: Urlaubstage
+        work_clothing_expenses: Arbeitskleider
+        work_days:
+          one: Arbeitstag
+          other: Arbeitstage
+        workfree_days:
+          one: Arbeitsfreier Tag
+          other: Arbeitsfreie Tage
+      service_specification:
+        name: Name
+        short_name: Kurzname
+        work_clothing_expenses: Kleiderspesen
+        accommodation_expenses: Unterkunftsspesen
+        work_days_expenses: Arbeitstagesspesen
+        paid_vacation_expenses: Bezahlte Ferienspesen
+        first_day_expenses: Spesen für den ersten Tag
+        last_day_expenses: Spesen für den letzten Tag
+        location: Ort
+        active: Aktiv
+        identification_number: Identifikationsnummer
+        expense_keys:
+          breakfast: Morgen
+          dinner: Abend
+          lunch: Mittag
+      user:
+        address: Adresse
+        bank_iban: Bankverbindung
+        email: Email
+        first_name: Vorname
+        last_name: Nachname
+        phone: Telefonnummer
+        zdp: ZDP-Nr.
+        zip_with_city: PLZ / Ort
+        zip: PLZ
+        role: Rolle
+        city: Stadt
+        hometown: Heimatstadt
+        birthday: Geburtstag
+        health_insurance: Krankenkasse
+        work_experience: Arbeitserfahrung
+        driving_licence_b: Führerschein Kat. B
+        driving_licence_be: Führerschein Kat. BE
+        internal_note: Interne Notiz
+        chainsaw_workshop: Motorsägenworkshop
+      holiday:
+        beginning: Anfang
+        ending: Ende
+        holiday_type: Ferien Typ
+        description: Beschreibung
+      regional_center:
+        name: Name
+        address: Adresse
+        short_name: Kurzname
+      service:
+        beginning: Anfang
+        ending: Ende
+        confirmation_date: Bestätigungsdatum
+        service_type: Einsatztyp
+        first_swo_service: Erster SWO Einsatz
+        long_service: Langer Einsatz
+        probation_service: Probeeinsatz
+        feedback_mail_sent: Feedback E-Mail versendet
   date:
     formats:
       default: "%d.%m.%Y"

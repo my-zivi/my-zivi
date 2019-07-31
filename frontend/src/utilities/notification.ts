@@ -7,7 +7,7 @@ const defaults: IziToastSettings = {
   transitionIn: 'flipInX',
   transitionOut: 'flipOutX',
   layout: 2,
-  timeout: 2000,
+  // timeout: 2000,
 };
 
 export function displaySuccess(message: string) {

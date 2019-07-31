@@ -21,6 +21,7 @@ gem 'prawn-table'
 gem 'puma', '~> 3.11'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.2.2'
+gem 'rails-i18n'
 gem 'sepa_king', github: 'salesking/sepa_king', ref: '0658339'
 gem 'validates_timeliness'
 
@@ -59,6 +60,7 @@ group :test do
   gem 'pdf-inspector', require: 'pdf/inspector'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'test-prof'
 end
 
 gem 'tzinfo-data'

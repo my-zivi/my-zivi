@@ -242,6 +242,13 @@ RSpec.describe V1::UsersController, type: :request do
         it 'does not delete the user' do
           expect { request }.not_to change(User, :count)
         end
+
+        it 'renders deletion error message' do
+          request
+          expect(parse_response_json(response)[:human_readable_descriptions]).to eq(
+            [I18n.t('activerecord.errors.models.user.attributes.base.cant_delete_himself')]
+          )
+        end
       end
 
       context 'when the user has associated services' do

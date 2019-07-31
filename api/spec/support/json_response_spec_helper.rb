@@ -31,6 +31,9 @@ RSpec.shared_examples_for 'renders a validation error response' do
   end
 
   it 'renders error structure' do
-    expect(parse_response_json(response)).to include(errors: be_an_instance_of(Hash))
+    expect(parse_response_json(response)).to include(
+      errors: be_an_instance_of(Hash),
+      human_readable_descriptions: be_an_instance_of(Array)
+    )
   end
 end

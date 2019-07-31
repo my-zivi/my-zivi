@@ -25,7 +25,7 @@ module Concerns
 
     # :reek:FeatureEnvy
     def render_validation_error(error)
-      json = { errors: (error.is_a?(ArgumentError) ? [error.message] : error.validation_errors) }
+      json = error.is_a?(ArgumentError) ? { errors: [error.message] } : error.to_h
       render json: json, status: :bad_request
     end
 
