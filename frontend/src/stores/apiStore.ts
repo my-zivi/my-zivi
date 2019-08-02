@@ -128,8 +128,8 @@ export class ApiStore {
   }
 
   @action
-  async postChangePassword(values: { old_password: string; new_password: string; new_password_2: string }) {
-    await this._api.post('/users/change_password', values);
+  async putChangePassword(values: { current_password: string; password: string; password_confirmation: string }) {
+    await this._api.put('/users', { user: values });
   }
 
   async postForgotPassword(email: string) {

@@ -1,5 +1,5 @@
 // tslint:disable:no-console
-import { template } from 'lodash';
+import * as _ from 'lodash';
 import { action, observable } from 'mobx';
 import { noop } from '../utilities/helpers';
 import { MainStore } from './mainStore';
@@ -29,8 +29,8 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
     throw new Error('Not implemented');
   }
 
-  private static buildErrorMessage(e: { messages: any }, defaultMessage: string) {
-    if ('messages' in e) {
+  static buildErrorMessage(e: { messages: any }, defaultMessage: string) {
+    if ('messages' in e && typeof e.messages === 'object') {
       return this.buildServerErrorMessage(e, defaultMessage);
     }
 
@@ -41,15 +41,26 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
     if ('error' in e.messages) {
       return `${defaultMessage}: ${e.messages.error}`;
     } else if ('human_readable_descriptions' in e.messages) {
-      return this.buildHumanReadableErrorList(e, defaultMessage);
-    } else if ('errors' in e.messages && typeof e.messages.errors === 'string') {
-      return `${defaultMessage}: ${e.messages.errors}`;
+      return this.buildErrorList(e.messages.human_readable_descriptions, defaultMessage);
+    } else if ('errors' in e.messages) {
+      return this.buildMiscErrorListMessage(e, defaultMessage);
     }
 
     return defaultMessage;
   }
 
-  private static buildHumanReadableErrorList(e: { messages: any }, defaultMessage: string) {
+  private static buildMiscErrorListMessage(e: { messages: any }, defaultMessage: string) {
+    if (typeof e.messages.errors === 'string') {
+      return `${defaultMessage}: ${e.messages.errors}`;
+    } else if (typeof e.messages.errors === 'object') {
+      const errors: { [index: string]: string } = e.messages.errors;
+      return this.buildErrorList(_.map(errors, (value, key) => this.humanize(key) + ' ' + value), defaultMessage);
+    } else {
+      return defaultMessage;
+    }
+  }
+
+  private static buildErrorList(messages: string[], defaultMessage: string) {
     const errorMessageTemplate = `
               <ul class="mt-1 mb-0">
                 <% _.forEach(messages, message => {%>
@@ -58,7 +69,11 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
               </ul>
             `;
 
-    return `${defaultMessage}:` + template(errorMessageTemplate)({ messages: e.messages.human_readable_descriptions });
+    return `${defaultMessage}:` + _.template(errorMessageTemplate)({ messages });
+  }
+
+  private static humanize(key: string) {
+    return _.capitalize(_.lowerCase(key));
   }
 
   @observable
