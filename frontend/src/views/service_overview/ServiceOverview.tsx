@@ -241,7 +241,7 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
             </Col>
 
             <Col sm="12" md="2">
-              <Button onClick={window.print}>Drucken</Button>
+              <Button onClick={() => window.print()}>Drucken</Button>
             </Col>
           </Row>
 
