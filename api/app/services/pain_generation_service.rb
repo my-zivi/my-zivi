@@ -22,7 +22,7 @@ class PainGenerationService
     {
       name: user.full_name,
       iban: user.bank_iban,
-      amount: sheet.calculate_full_expenses,
+      amount: sheet.calculate_full_expenses / 100.to_f,
       currency: 'CHF',
       remittance_information: I18n.t('payment.expenses_from', from_date: I18n.l(sheet.beginning, format: '%B %Y')),
       requested_date: Time.zone.today,

@@ -28,7 +28,7 @@ RSpec.describe PainGenerationService, type: :service do
     context 'when there is one expense sheet' do
       let(:expected_fields) do
         {
-          amount: expense_sheet.calculate_full_expenses,
+          amount: expense_sheet.calculate_full_expenses / 100.to_f,
           batch_booking: true,
           currency: 'CHF',
           iban: user.bank_iban,

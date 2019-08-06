@@ -1,5 +1,8 @@
 ---
 fr:
+  attributes:
+    payment_timestamp: Horodatage du paiement
+    state: Statut
   activerecord:
     errors:
       messages:
@@ -10,7 +13,7 @@ fr:
         expense_sheet:
           attributes:
             state:
-              invalid_state_change: Changement d'état invalide
+              invalid_state_change: changement d'état invalide
         holiday:
           attributes:
             ending:
@@ -130,11 +133,17 @@ fr:
   errors:
     authorization_error: Vous n'avez pas les droits requis pour cette demande.
     format_error: Vous avez demandé un format invalide
+  expense_sheet:
+    errors:
+      already_paid: Feuille de dépenses déjà payée
   expense_sheet_calculator:
     errors:
       unknown_day_type: Type de problème invalide
   payment:
     expenses_from: Frais du %{from_date}
+    errors:
+      not_found: Paiement non trouvé
+      ready_not_found: Aucune feuille de dépenses prête à être payée n'a été trouvée
   pdfs:
     expense_sheet:
       expense_table:

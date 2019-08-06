@@ -25,6 +25,29 @@ RSpec.describe ExpenseSheet, type: :model do
     let(:model) { build(:expense_sheet, beginning: beginning, ending: ending) }
   end
 
+  describe '#destroy' do
+    let!(:expense_sheet) { create :expense_sheet }
+
+    context 'when the expense sheet is not already paid' do
+      it 'destroys the expense_sheet' do
+        expect { expense_sheet.destroy }.to change(ExpenseSheet, :count).by(-1)
+      end
+    end
+
+    context 'when the expense sheet is already paid' do
+      let!(:expense_sheet) { create :expense_sheet, :paid }
+
+      it 'does not destroy the expense_sheet' do
+        expect { expense_sheet.destroy }.not_to change(ExpenseSheet, :count)
+      end
+
+      it 'returns an error' do
+        expense_sheet.destroy
+        expect(expense_sheet.errors[:base]).to include(I18n.t('expense_sheet.errors.already_paid'))
+      end
+    end
+  end
+
   describe '#state' do
     subject { !expense_sheet.errors.added?(:state, :invalid_state_change) }
 

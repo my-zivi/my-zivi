@@ -51,8 +51,8 @@ RSpec.describe Pdfs::ExpenseSheet::GeneratorService, type: :service do
           '0', 'Urlaubstage', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00',
           'inkl. MyString',
           '+', 'Fahrspesen', 'MyString', '20.00',
-          '+', 'Arbeitskleider', 'CHF 2.30/Tag für 27 anrechenbare Tage', '62.10',
-          'Gesamt:', '778.10',
+          '+', 'Arbeitskleider', 'CHF 2.30/Tag für 27 anrechenbare Tage', '32.00',
+          'Gesamt:', '748.00',
           'Bankverbindung:', 'CH93 0076 2011 6238 5295 7',
           'Konto-Nr.::', '4470 (200)'
         ]
@@ -75,7 +75,7 @@ RSpec.describe Pdfs::ExpenseSheet::GeneratorService, type: :service do
 
         let(:expected_texts) do
           [
-            'CHF 10.00/Tag für 27 anrechenbare Tage', '240.00'
+            'CHF 10.00/Tag für 27 anrechenbare Tage', '32.00'
           ]
         end
 

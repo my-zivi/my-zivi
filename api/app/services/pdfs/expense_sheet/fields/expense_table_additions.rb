@@ -44,7 +44,7 @@ module Pdfs
             end,
             ExpenseTable::COLUMN_WIDTHS[5..-2].sum => '',
             ExpenseTable::COLUMN_WIDTHS[-1] => lambda do |expense_sheet|
-              Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.calculate_work_clothing_expenses.to_d)
+              Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.clothing_expenses.to_d)
             end
           }
         ].freeze

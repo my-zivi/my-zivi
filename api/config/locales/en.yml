@@ -1,5 +1,8 @@
 ---
 en:
+  attributes:
+    payment_timestamp: Payment timestamp
+    state: State
   activerecord:
     errors:
       messages:
@@ -10,7 +13,7 @@ en:
         expense_sheet:
           attributes:
             state:
-              invalid_state_change: Invalid state change
+              invalid_state_change: invalid state change
         holiday:
           attributes:
             ending:
@@ -58,7 +61,7 @@ en:
           sick_days:
             one: Sick day
             other: Sick days
-          state: Status
+          state: State
           unpaid_vacation_days:
             one: Unpaid vacation day
             other: Unpaid vacation days
@@ -130,11 +133,17 @@ en:
   errors:
     authorization_error: You are not authorized to perform this action
     format_error: You requested an invalid format
+  expense_sheet:
+    errors:
+      already_paid: Expense sheet has already been paid
   expense_sheet_calculator:
     errors:
       unknown_day_type: Ungültiger Spesentagestyp
   payment:
     expenses_from: Expenses from %{from_date}
+    errors:
+      not_found: Payment not found
+      ready_not_found: No ready for payment expense sheets found
   pdfs:
     expense_sheet:
       expense_table:

@@ -23,6 +23,10 @@ class ExpenseSheet < ApplicationRecord
             numericality: { only_integer: true }
 
   validate :legitimate_state_change, if: :state_changed?
+  validates :payment_timestamp, presence: true, if: -> { state.in?(%w[payment_in_progress paid]) }
+  validates :payment_timestamp, inclusion: { in: [nil] }, if: -> { state.in?(%w[open ready_for_payment]) }
+
+  before_destroy :legitimate_destroy
 
   enum state: {
     open: 0,
@@ -30,6 +34,10 @@ class ExpenseSheet < ApplicationRecord
     payment_in_progress: 2,
     paid: 3
   }
+
+  scope :in_payment, ->(payment_timestamp) { includes(:user).where(payment_timestamp: payment_timestamp) }
+
+  scope :payment_issued, -> { includes(:user).where.not(payment_timestamp: [nil]) }
 
   scope :before_date, (->(date) { where(arel_table[:ending].lt(date)) })
 
@@ -66,6 +74,13 @@ class ExpenseSheet < ApplicationRecord
   end
 
   private
+
+  def legitimate_destroy
+    return unless paid?
+
+    errors.add(:base, I18n.t('expense_sheet.errors.already_paid'))
+    throw :abort
+  end
 
   def values_calculator
     @values_calculator ||= ExpenseSheetCalculatorService.new(self)

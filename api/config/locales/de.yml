@@ -1,5 +1,8 @@
 ---
 de:
+  attributes:
+    payment_timestamp: Auszahlungszeitstempel
+    state: Status
   activerecord:
     errors:
       messages:
@@ -10,7 +13,7 @@ de:
         expense_sheet:
           attributes:
             state:
-              invalid_state_change: Ungültiger Statuswechsel
+              invalid_state_change: ungültiger Statuswechsel
         holiday:
           attributes:
             ending:
@@ -57,7 +60,6 @@ de:
         sick_days:
           one: Krankheitstag
           other: Krankheitstage
-        state: Status
         unpaid_vacation_days:
           one: Urlaubstag
           other: Urlaubstage
@@ -129,11 +131,17 @@ de:
   errors:
     authorization_error: Sie haben nicht die benötigten Rechte für diese Anfrage
     format_error: Sie haben ein ungültiges Format angefordert
+  expense_sheet:
+    errors:
+      already_paid: Spesenblatt wurde bereits ausgezahlt
   expense_sheet_calculator:
     errors:
       unknown_day_type: Ungültiger Spesentagestyp
   payment:
     expenses_from: Spesen vom %{from_date}
+    errors:
+      not_found: Auszahlung nicht gefunden
+      ready_not_found: Keine für Auszahlung bereiten Spesenblätter gefunden
   pdfs:
     expense_sheet:
       expense_table:

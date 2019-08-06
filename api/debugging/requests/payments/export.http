@@ -1,0 +1,3 @@
+GET {{url}}/payments/1564479407.xml?token={{stripped_auth_token}}
+
+###

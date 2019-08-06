@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# TODO: Check if it generates ExpenseSheet of a single-month service
 RSpec.describe ExpenseSheetGenerator, type: :service do
   subject { -> { create_expense_sheets } }
 

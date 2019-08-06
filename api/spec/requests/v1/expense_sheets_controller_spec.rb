@@ -165,6 +165,14 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
           let(:request) { delete_request }
         end
 
+        context 'when the expense_sheet is already paid' do
+          let(:expense_sheet) { create :expense_sheet, :paid }
+
+          it_behaves_like 'renders a validation error response' do
+            let(:request) { delete_request }
+          end
+        end
+
         context 'when the requested resource does not exist' do
           let(:request) { delete v1_expense_sheet_path(-2) }
 

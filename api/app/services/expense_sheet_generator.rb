@@ -8,7 +8,7 @@ class ExpenseSheetGenerator
   def create_expense_sheets
     grouped_days = group_days_by_month(@service.beginning..@service.ending)
 
-    grouped_days.each do |month_days|
+    grouped_days.map do |month_days|
       beginning = month_days.first
       ending = month_days.last
       create_expense_sheet(beginning, ending)

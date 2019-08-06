@@ -115,7 +115,7 @@ RSpec.describe ExpenseSheetCalculatorService, type: :service do
     end
 
     describe '#calculate_full_expenses' do
-      let(:expected_values) { 69_130 }
+      let(:expected_values) { 65_200 }
 
       it 'returns correct values' do
         expect(calculator.calculate_full_expenses).to eq expected_values
