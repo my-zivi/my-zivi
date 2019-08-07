@@ -54,7 +54,7 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
       return `${defaultMessage}: ${e.messages.errors}`;
     } else if (typeof e.messages.errors === 'object') {
       const errors: { [index: string]: string } = e.messages.errors;
-      return this.buildErrorList(_.map(errors, (value, key) => this.humanize(key) + ' ' + value), defaultMessage);
+      return this.buildErrorList(_.map(errors, (value, key) => this.humanize(key, value)), defaultMessage);
     } else {
       return defaultMessage;
     }
@@ -72,8 +72,9 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
     return `${defaultMessage}:` + _.template(errorMessageTemplate)({ messages });
   }
 
-  private static humanize(key: string) {
-    return _.capitalize(_.lowerCase(key));
+  private static humanize(key: string, errors: string[] | string) {
+    const description = Array.isArray(errors) ? errors.join(', ') : errors;
+    return _.capitalize(_.lowerCase(key)) + ' ' + description;
   }
 
   @observable

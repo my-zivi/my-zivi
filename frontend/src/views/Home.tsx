@@ -47,7 +47,7 @@ class HomeInner extends React.Component<Props> {
           <>
             <CardText>
               Bist du das erste Mal bei uns und möchtest einen Einsatz planen? Dann kannst du dich über folgenden Link{' '}
-              <Link to={'/register'}>registrieren</Link>
+              <Link to={'/register/1'}>registrieren</Link>
             </CardText>
             <CardText>
               Falls du uns bereits bekannt bist, kannst du dich hier <Link to={'/login'}>anmelden</Link>

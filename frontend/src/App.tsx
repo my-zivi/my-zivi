@@ -17,7 +17,7 @@ import { NotFound } from './views/NotFound';
 import { PaymentDetail } from './views/payments/PaymentDetail';
 import { PaymentOverview } from './views/payments/PaymentOverview';
 import { PhoneListView } from './views/PhoneList';
-import { Register } from './views/Register';
+import { Register } from './views/register/Register';
 import { ReportSheetOverview } from './views/report_sheets/ReportSheetOverview';
 import { ReportSheetUpdate } from './views/report_sheets/ReportSheetUpdate';
 import { ServiceOverview } from './views/service_overview/ServiceOverview';
@@ -37,7 +37,7 @@ class App extends React.Component {
         <Switch>
           <Route component={Home} exact path={'/'} />
           <Route component={Login} exact path={'/login'} />
-          <Route component={Register} exact path={'/register'} />
+          <Route component={Register} exact path={'/register/:page'} />
           <Route component={ForgotPassword} exact path={'/forgotPassword'} />
           <Route component={HolidayOverview} exact path={'/holidays'} />
           <Route component={PhoneListView} exact path={'/phones'} />

@@ -112,17 +112,26 @@ export class ApiStore {
   @action
   async postRegister(values: {
     zdp: string;
-    firstname: string;
-    lastname: string;
+    first_name: string;
+    last_name: string;
     email: string;
+    address: string,
     password: string;
     password_confirm: string;
-    community_pw: string;
+    community_password: string;
     newsletter: boolean;
+    bank_iban: string;
+    birthday: string,
+    city: string,
+    zip: string,
+    hometown: string,
+    phone: string,
+    health_insurance: string,
   }) {
-    const res = await this._api.post<LoginResponse>('/users', values);
+    const trimmedIBAN = values.bank_iban.replace(/\s+/g, '');
+    const res = await this._api.post<LoginResponse>('/users', { user: { ...values, bank_iban: trimmedIBAN } });
     runInAction(() => {
-      this.setToken(res.data.data.token);
+      this.setToken(res.headers.authorization);
       this.updateSentryContext();
     });
   }

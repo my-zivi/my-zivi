@@ -1,22 +1,13 @@
 import * as React from 'react';
+import { Spinner } from '../utilities/Spinner';
 
-class LoadingInformation extends React.Component {
-  componentDidMount(): void {
-    const loadingDots = document.getElementById('loading-dots');
-    window.setInterval(() => {
-      if (loadingDots!.innerHTML.length > 3) {
-        loadingDots!.innerHTML = '';
-      } else {
-        loadingDots!.innerHTML += '.';
-      }
-    }, 100);
-  }
-
+class LoadingInformation extends React.Component<{ message?: string, className?: any }> {
   render(): React.ReactNode {
     return (
-      <>
-        Inhalt wird geladen, einen Moment <span id={'loading-dots'}>.</span>
-      </>
+      <div className={this.props.className}>
+        <Spinner size="sm" color="primary" className="mr-2" />
+        {this.props.message || 'Inhalt wird geladen, einen Moment'}
+      </div>
     );
   }
 }

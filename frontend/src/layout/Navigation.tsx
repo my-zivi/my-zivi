@@ -78,7 +78,7 @@ export class Navigation extends React.Component<NavProps> {
               </>
             ) : (
               <>
-                <NavEntry to="/register">Registrieren</NavEntry>
+                <NavEntry to="/register/1">Registrieren</NavEntry>
                 <NavEntry to="/login">Anmelden</NavEntry>
               </>
             )}
