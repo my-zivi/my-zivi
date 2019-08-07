@@ -144,3 +144,9 @@ en:
       expense_table:
         supplement:
           unpaid_vacation_comment: {}
+  registrations:
+    errors:
+      community_password:
+        not_valid:
+          single: invalid
+          full: Community password is invalid

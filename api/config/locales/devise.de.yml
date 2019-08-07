@@ -145,3 +145,9 @@ de:
       not_saved:
         one: "%{resource} konnte aufgrund eines Fehlers nicht gespeichert werden:"
         other: "%{count} Fehler verhinderten das Speichern von %{resource}:"
+  registrations:
+    errors:
+      community_password:
+        not_valid:
+          single: nicht gültig
+          full: Community Passwort ist nicht gültig

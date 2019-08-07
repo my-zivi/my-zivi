@@ -2,7 +2,9 @@
 
 Rails.application.routes.draw do
   scope :v1 do
-    devise_for :users, defaults: { format: :json }
+    devise_for :users, defaults: { format: :json }, controllers: {
+      registrations: 'devise_overrides/registrations'
+    }
   end
 
   namespace :v1, defaults: { format: :json } do

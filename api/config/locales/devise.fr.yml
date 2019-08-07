@@ -147,3 +147,9 @@ fr:
           :'
         other: "%{count} erreurs ont empêché ce (cet ou cette) %{resource} d’être
           enregistré(e) :"
+  registrations:
+    errors:
+      community_password:
+        not_valid:
+          single: n'est pas valide
+          full: Le mot de passe de la communauté n'est pas valide
