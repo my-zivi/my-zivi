@@ -28,7 +28,7 @@ class NormalServiceCalculator
     duration - calculate_unpaid_days(dirty_service_days, ending_date)
   end
 
-  def calculate_eligible_personal_vacation_days(service_days)
+  def calculate_eligible_paid_vacation_days(service_days)
     return 0 if service_days < 180
 
     additional_days = service_days - LONG_MISSION_BASE_DURATION
@@ -42,7 +42,7 @@ class NormalServiceCalculator
     company_holiday_days = HolidayCalculator
                            .new(@beginning_date, ending_date)
                            .calculate_company_holiday_days
-    paid_vacation_days = calculate_eligible_personal_vacation_days service_days
+    paid_vacation_days = calculate_eligible_paid_vacation_days service_days
     [0, company_holiday_days - paid_vacation_days].max
   end
 end

@@ -31,10 +31,10 @@ class ServiceCalculator
     end
   end
 
-  def calculate_eligible_personal_vacation_days(service_days)
+  def calculate_eligible_paid_vacation_days(service_days)
     return 0 if service_days < 180
 
-    normal_service_calculator.calculate_eligible_personal_vacation_days service_days
+    normal_service_calculator.calculate_eligible_paid_vacation_days service_days
   end
 
   # def calculate_workfree_days_in_range(range)

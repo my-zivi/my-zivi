@@ -68,7 +68,7 @@ RSpec.describe V1::ServicesController, type: :request do
         let(:service) { create :service, user: user }
         let(:expected_response) do
           extract_to_json(service, :id, :user_id, :service_specification_identification_number,
-                          :beginning, :ending, :confirmation_date, :eligible_personal_vacation_days,
+                          :beginning, :ending, :confirmation_date, :eligible_paid_vacation_days,
                           :service_type, :first_swo_service, :long_service,
                           :probation_service, :feedback_mail_sent)
         end
@@ -125,7 +125,7 @@ RSpec.describe V1::ServicesController, type: :request do
             beginning
             ending
             confirmation_date
-            eligible_personal_vacation_days
+            eligible_paid_vacation_days
             service_type
             first_swo_service
             long_service
@@ -223,7 +223,7 @@ RSpec.describe V1::ServicesController, type: :request do
         let(:params) { { beginning: new_service_date, confirmation_date: new_confirmation_date } }
         let(:expected_attributes) do
           extract_to_json(service, :id, :user_id, :service_specification_identification_number, :beginning,
-                          :ending, :confirmation_date, :eligible_personal_vacation_days,
+                          :ending, :confirmation_date, :eligible_paid_vacation_days,
                           :service_type, :first_swo_service, :long_service,
                           :probation_service, :feedback_mail_sent)
         end

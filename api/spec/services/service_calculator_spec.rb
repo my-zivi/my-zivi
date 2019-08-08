@@ -14,7 +14,7 @@ RSpec.describe ServiceCalculator, type: :service do
     instance_double NormalServiceCalculator,
                     calculate_ending_date: true,
                     calculate_chargeable_service_days: true,
-                    calculate_eligible_personal_vacation_days: true
+                    calculate_eligible_paid_vacation_days: true
   end
 
   before do
@@ -58,18 +58,18 @@ RSpec.describe ServiceCalculator, type: :service do
     end
   end
 
-  describe '#calculate_eligible_personal_vacation_days' do
+  describe '#calculate_eligible_paid_vacation_days' do
     context 'when service days are 180 or over' do
-      before { service_calculator.calculate_eligible_personal_vacation_days(180) }
+      before { service_calculator.calculate_eligible_paid_vacation_days(180) }
 
       it 'routes to NormalServiceCalculator' do
-        expect(normal_service_calculator).to have_received(:calculate_eligible_personal_vacation_days).with(180)
+        expect(normal_service_calculator).to have_received(:calculate_eligible_paid_vacation_days).with(180)
       end
     end
 
     context 'when service days are under 180' do
       it 'returns 0' do
-        days = service_calculator.calculate_eligible_personal_vacation_days(179)
+        days = service_calculator.calculate_eligible_paid_vacation_days(179)
         expect(days).to eq(0)
       end
     end

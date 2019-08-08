@@ -33,8 +33,8 @@ class Service < ApplicationRecord
     ServiceCalculator.new(beginning).calculate_chargeable_service_days(ending)
   end
 
-  def eligible_personal_vacation_days
-    ServiceCalculator.new(beginning).calculate_eligible_personal_vacation_days(service_days)
+  def eligible_paid_vacation_days
+    ServiceCalculator.new(beginning).calculate_eligible_paid_vacation_days(service_days)
   end
 
   def conventional_service?
