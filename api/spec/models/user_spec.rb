@@ -90,4 +90,16 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#self.validate_given_params' do
+    subject(:errors) { User.validate_given_params(params) }
+
+    let(:params) { { bank_iban: '' } }
+
+    it 'validates only the given fields', :aggregate_failures do
+      expect(errors.added?(:bank_iban, :blank)).to eq true
+      expect(errors.added?(:bank_iban, :too_short)).to eq true
+      expect(errors.to_h.keys).to eq [:bank_iban]
+    end
+  end
 end

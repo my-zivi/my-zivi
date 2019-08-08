@@ -24,6 +24,8 @@ def extract_to_json(resource, *keys)
 end
 
 RSpec.shared_examples_for 'renders a validation error response' do
+  let(:json_response) { parse_response_json(response) }
+
   before { request }
 
   it 'renders an http error' do
@@ -31,9 +33,9 @@ RSpec.shared_examples_for 'renders a validation error response' do
   end
 
   it 'renders error structure' do
-    expect(parse_response_json(response)).to include(
-      errors: be_an_instance_of(Hash),
-      human_readable_descriptions: be_an_instance_of(Array)
+    expect(json_response).to include(
+      errors: be_an_instance_of(Hash).and(have_at_least(1).items),
+      human_readable_descriptions: be_an_instance_of(Array).and(have_at_least(1).items)
     )
   end
 end

@@ -2,6 +2,9 @@
 
 Rails.application.routes.draw do
   scope :v1 do
+    devise_scope :user do
+      get 'users/validate', to: 'devise_overrides/registrations#validate'
+    end
     devise_for :users, defaults: { format: :json }, controllers: {
       registrations: 'devise_overrides/registrations'
     }

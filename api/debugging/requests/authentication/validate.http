@@ -1,0 +1,12 @@
+GET {{url}}/users/validate?locale=de
+Content-Type: application/json
+
+{
+  "user": {
+    "community_password": "passwort",
+    "first_name": "",
+    "zdp": "121676"
+  }
+}
+
+###

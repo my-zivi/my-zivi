@@ -46,6 +46,16 @@ class User < ApplicationRecord
     services.at_date(Time.zone.today).any?
   end
 
+  def self.validate_given_params(user_params)
+    errors = User.new(user_params).tap(&:validate).errors
+
+    errors.each do |attribute, _error|
+      errors.delete attribute unless attribute.to_s.in?(user_params.keys.map(&:to_s))
+    end
+
+    errors
+  end
+
   private
 
   def validate_iban
