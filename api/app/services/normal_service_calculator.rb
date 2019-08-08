@@ -29,7 +29,7 @@ class NormalServiceCalculator
   end
 
   def calculate_eligible_paid_vacation_days(service_days)
-    return 0 if service_days < 180
+    return 0 if service_days < LONG_MISSION_BASE_DURATION
 
     additional_days = service_days - LONG_MISSION_BASE_DURATION
     additional_holiday_days = ([0, additional_days].max / DAYS_PER_MONTH.to_f).floor * ADDITIONAL_HOLIDAY_DAYS_PER_MONTH

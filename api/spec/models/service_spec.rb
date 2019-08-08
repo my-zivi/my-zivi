@@ -27,7 +27,7 @@ RSpec.describe Service, type: :model do
     end
   end
 
-  describe '#duration' do
+  describe '#service_days' do
     let(:service) { build(:service, beginning: beginning, ending: beginning + 25.days) }
     let(:beginning) { Time.zone.today.beginning_of_week }
 
@@ -42,6 +42,23 @@ RSpec.describe Service, type: :model do
 
     it 'returns the eligible personal vacation days of the service' do
       expect(service.eligible_paid_vacation_days).to eq 10
+    end
+  end
+
+  describe '#eligible_sick_days' do
+    let(:service) { build(:service, beginning: beginning, ending: beginning + 25.days) }
+    let(:beginning) { Time.zone.today.beginning_of_week }
+    let(:service_calculator) { instance_double ServiceCalculator }
+
+    before do
+      allow(ServiceCalculator).to receive(:new).and_return service_calculator
+      allow(service_calculator).to receive(:calculate_chargeable_service_days).and_return 26
+      allow(service_calculator).to receive(:calculate_eligible_sick_days)
+    end
+
+    it 'calls ServiceCalculator#calculate_eligible_sick_days' do
+      service.eligible_sick_days
+      expect(service_calculator).to have_received(:calculate_eligible_sick_days).with 26
     end
   end
 

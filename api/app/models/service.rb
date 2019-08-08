@@ -30,11 +30,15 @@ class Service < ApplicationRecord
   delegate :identification_number, to: :service_specification
 
   def service_days
-    ServiceCalculator.new(beginning).calculate_chargeable_service_days(ending)
+    service_calculator.calculate_chargeable_service_days(ending)
   end
 
   def eligible_paid_vacation_days
-    ServiceCalculator.new(beginning).calculate_eligible_paid_vacation_days(service_days)
+    service_calculator.calculate_eligible_paid_vacation_days(service_days)
+  end
+
+  def eligible_sick_days
+    service_calculator.calculate_eligible_sick_days(service_days)
   end
 
   def conventional_service?
@@ -46,6 +50,10 @@ class Service < ApplicationRecord
   end
 
   private
+
+  def service_calculator
+    @service_calculator ||= ServiceCalculator.new(beginning)
+  end
 
   def beginning_is_monday
     errors.add(:beginning, :not_a_monday) unless beginning.present? && beginning.wday == MONDAY_WEEKDAY
