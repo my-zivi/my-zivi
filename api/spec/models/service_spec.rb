@@ -18,11 +18,12 @@ RSpec.describe Service, type: :model do
 
     before do
       create_pair :service, beginning: '2018-11-05', ending: '2018-11-30'
+      create :service, beginning: '2017-02-06', ending: '2018-01-05'
       create :service, beginning: '2017-02-06', ending: '2017-02-24'
     end
 
-    it 'returns only services in this year' do
-      expect(services.count).to eq 2
+    it 'returns only services that are at least partially in this year' do
+      expect(services.count).to eq 3
     end
   end
 
