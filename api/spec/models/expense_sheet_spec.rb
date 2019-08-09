@@ -159,6 +159,16 @@ RSpec.describe ExpenseSheet, type: :model do
     end
   end
 
+  describe '#total_paid_vacation_days' do
+    subject { expense_sheet.total_paid_vacation_days }
+
+    let(:expense_sheet) do
+      create :expense_sheet, paid_vacation_days: 2, paid_company_holiday_days: 1, unpaid_company_holiday_days: 3
+    end
+
+    it { is_expected.to eq 3 }
+  end
+
   describe '#at_service_beginning?' do
     let(:expense_sheet) { create :expense_sheet, expense_sheet_data }
     let(:service) { create :service, service_data }

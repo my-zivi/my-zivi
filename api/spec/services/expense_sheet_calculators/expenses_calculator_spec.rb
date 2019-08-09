@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe ExpenseSheetCalculatorService, type: :service do
-  let(:calculator) { ExpenseSheetCalculatorService.new(expense_sheet) }
+RSpec.describe ExpenseSheetCalculators::ExpensesCalculator, type: :service do
+  let(:calculator) { described_class.new(expense_sheet) }
 
   let(:expense_sheet) { create :expense_sheet, expense_sheet_data }
   let(:service) { create :service, service_data }
@@ -123,8 +123,13 @@ RSpec.describe ExpenseSheetCalculatorService, type: :service do
     end
 
     describe '#calculate_chargeable_days' do
+      before do
+        expense_sheet.unpaid_company_holiday_days = 1
+        expense_sheet.unpaid_vacation_days = 2
+      end
+
       it 'returns correct number of chareable days' do
-        expect(calculator.calculate_chargeable_days).to eq 31
+        expect(calculator.calculate_chargeable_days).to eq 28
       end
     end
   end

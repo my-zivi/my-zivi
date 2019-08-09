@@ -8,10 +8,6 @@ class ServiceCalculator
     @beginning_date = beginning_date
   end
 
-  def calculate_eligible_sick_days(service_days)
-    service_days / SERVICE_DAYS_PER_SICK_DAY
-  end
-
   def calculate_ending_date(required_service_days)
     unless required_service_days.positive?
       raise CalculationError, I18n.t('service_calculator.invalid_required_service_days')
@@ -42,9 +38,9 @@ class ServiceCalculator
     normal_service_calculator.calculate_eligible_paid_vacation_days service_days
   end
 
-  # def calculate_workfree_days_in_range(range)
-  #   Holiday.select(&:public_holiday).select(&:work_days)
-  # end
+  def calculate_eligible_sick_days(service_days)
+    service_days / SERVICE_DAYS_PER_SICK_DAY
+  end
 
   private
 

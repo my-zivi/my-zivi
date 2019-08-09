@@ -41,6 +41,9 @@ class ExpenseSheet < ApplicationRecord
 
   scope :before_date, (->(date) { where(arel_table[:ending].lt(date)) })
 
+  # ExpenseSheets which can be used in calculations
+  scope :relevant_for_calculations, -> { where.not(state: :open) }
+
   delegate :calculate_chargeable_days,
            :calculate_first_day,
            :calculate_full_expenses,
@@ -59,6 +62,14 @@ class ExpenseSheet < ApplicationRecord
 
   def duration
     (ending - beginning).to_i + 1
+  end
+
+  def total_paid_vacation_days
+    paid_vacation_days + paid_company_holiday_days
+  end
+
+  def total_unpaid_vacation_days
+    unpaid_vacation_days + unpaid_company_holiday_days
   end
 
   def work_days_count
@@ -83,7 +94,7 @@ class ExpenseSheet < ApplicationRecord
   end
 
   def values_calculator
-    @values_calculator ||= ExpenseSheetCalculatorService.new(self)
+    @values_calculator ||= ExpenseSheetCalculators::ExpensesCalculator.new(self)
   end
 
   def legitimate_state_change
