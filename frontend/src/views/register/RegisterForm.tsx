@@ -64,7 +64,7 @@ interface RegisterFormProps extends RouteComponentProps<{ page?: string | undefi
   onSubmit: (values: FormValues, formikActions: FormikActions<FormValues>) => void;
 }
 
-export const RegisterForm = ({ onSubmit, match }: RegisterFormProps) => {
+export const RegisterForm = ({ onSubmit, match, history }: RegisterFormProps) => {
   const componentOnPage = withPage(RegisterFormInner);
   const currentPage = parseInt(match.params.page!, 10) || 1;
   return (

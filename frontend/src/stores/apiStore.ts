@@ -33,10 +33,6 @@ export interface JwtTokenDecoded {
 }
 
 export class ApiStore {
-  private _api: AxiosInstance; // tslint:disable-line:variable-name
-
-  @observable
-  private _token: string = ''; // tslint:disable-line:variable-name
 
   @computed
   get token() {
@@ -71,6 +67,15 @@ export class ApiStore {
   get userInfo(): JwtTokenDecoded | null {
     return this.token ? jwt_decode(this._token) : null;
   }
+
+  static formatIBAN(iban: string) {
+    return iban.replace(/\s+/g, '');
+  }
+
+  private _api: AxiosInstance; // tslint:disable-line:variable-name
+
+  @observable
+  private _token: string = ''; // tslint:disable-line:variable-name
 
   constructor(private history: History) {
     // TODO: Pass real language
@@ -128,7 +133,7 @@ export class ApiStore {
     phone: string,
     health_insurance: string,
   }) {
-    const trimmedIBAN = values.bank_iban.replace(/\s+/g, '');
+    const trimmedIBAN = ApiStore.formatIBAN(values.bank_iban);
     const res = await this._api.post<LoginResponse>('/users', { user: { ...values, bank_iban: trimmedIBAN } });
     runInAction(() => {
       this.setToken(res.headers.authorization);

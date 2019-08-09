@@ -53,7 +53,7 @@ RSpec.describe Devise::RegistrationsController, type: :request do
   describe '#validate' do
     subject(:response_json) { parse_response_json(response) }
 
-    let(:request) { get users_validate_path params: { user: params } }
+    let(:request) { post users_validate_path params: { user: params } }
 
     before { request }
 
@@ -73,6 +73,20 @@ RSpec.describe Devise::RegistrationsController, type: :request do
 
     context 'when the community password is wrong' do
       let(:params) { { community_password: 'this is not the actual password' } }
+
+      it_behaves_like 'renders a validation error response'
+      it 'renders the correct error', :aggregate_failures do
+        expect(response_json[:errors]).to eq(
+          community_password: I18n.t('registrations.errors.community_password.not_valid.single')
+        )
+        expect(response_json[:human_readable_descriptions]).to eq(
+          [I18n.t('registrations.errors.community_password.not_valid.full')]
+        )
+      end
+    end
+
+    context 'when the community password is empty' do
+      let(:params) { { community_password: '' } }
 
       it_behaves_like 'renders a validation error response'
       it 'renders the correct error', :aggregate_failures do

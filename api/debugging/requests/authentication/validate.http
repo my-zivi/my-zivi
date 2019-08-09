@@ -1,4 +1,4 @@
-GET {{url}}/users/validate?locale=de
+POST {{url}}/users/validate?locale=de
 Content-Type: application/json
 
 {

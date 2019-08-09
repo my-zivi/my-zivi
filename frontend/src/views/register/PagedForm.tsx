@@ -1,60 +1,96 @@
 import { FormikProps } from 'formik';
-import { curryRight } from 'lodash';
+import * as H from 'history';
+import { clamp, curryRight } from 'lodash';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Button from 'reactstrap/lib/Button';
 import Form from 'reactstrap/lib/Form';
+import { Spinner } from '../../utilities/Spinner';
 import { FormValues as RegisterFormValues } from './RegisterForm';
-import { WithPageValidationsProps } from './ValidatablePage';
+import { ValidatablePageRefType, WithPageValidationsProps } from './ValidatablePage';
 
 interface PagedFormProps {
   formikProps: FormikProps<RegisterFormValues>;
-  pages: Array<React.ComponentType<WithPageValidationsProps>>;
+  pages: Array<React.RefForwardingComponent<ValidatablePageRefType, WithPageValidationsProps>>;
   currentPage: number;
+  history: H.History;
 }
 
-function getNextButton(toPage: number, currentPageIsValid: boolean) {
-  const title = currentPageIsValid ? undefined : 'Das Formular hat noch ungültige Felder';
+const getNextButton = (isDisabled: boolean, onClick: () => void) => {
+  const title = isDisabled ? 'Das Formular hat noch ungültige Felder' : undefined;
   return (
-    <Link to={`/register/${toPage}`}>
-      <Button disabled={!currentPageIsValid} title={title}>Vorwärts</Button>
-    </Link>
+    <Button
+      disabled={isDisabled}
+      onClick={() => onClick()}
+      title={title}
+    >
+      Vorwärts
+    </Button>
   );
-}
+};
 
-function getSubmitButton(formikProps: FormikProps<RegisterFormValues>, currentPageIsValid: boolean) {
+const getSubmitButton = (formikProps: FormikProps<RegisterFormValues>, isDisabled: boolean, onClick: () => void) => {
   return (
     <Button
       color={'primary'}
-      disabled={formikProps.isSubmitting || !currentPageIsValid}
-      onClick={formikProps.submitForm}
+      disabled={formikProps.isSubmitting || isDisabled}
+      onClick={onClick}
     >
       Registrieren
     </Button>
   );
-}
-
-export const PagedForm: React.FunctionComponent<PagedFormProps> = props => {
-  const { formikProps, pages, currentPage } = props;
-  const [currentPageIsValid, setCurrentPageValidity] = React.useState(false);
-
-  const sanitizedPage = Math.max(Math.min(currentPage, pages.length), 1);
-  const CurrentPage = pages[sanitizedPage - 1];
-  const isLast = currentPage === pages.length;
-
-  const nextButton = getNextButton(sanitizedPage + 1, currentPageIsValid);
-  const submitButton = getSubmitButton(formikProps, currentPageIsValid);
-
-  return (
-    <Form onSubmit={formikProps.handleSubmit}>
-      <CurrentPage onValidityChange={setCurrentPageValidity}/>
-      <Link to={`/register/${sanitizedPage - 1}`}>
-        <Button disabled={sanitizedPage === 1} className={'mr-2'}>Zurück</Button>
-      </Link>
-      {isLast ? submitButton : nextButton}
-    </Form>
-  );
 };
+
+export class PagedForm extends React.Component<PagedFormProps, { currentPageIsValid: boolean, isValidating: boolean }> {
+  private ref = React.createRef<ValidatablePageRefType>();
+
+  get sanitizedPage() {
+    return clamp(this.props.currentPage, 1, this.props.pages.length);
+  }
+
+  constructor(props: PagedFormProps) {
+    super(props);
+
+    this.state = { currentPageIsValid: false, isValidating: false };
+  }
+
+  validateWithServer = (successCallback: () => void) => {
+    this.setState({ isValidating: true });
+    this.ref.current!.validateWithServer()
+      .then(isValid => this.setState({ isValidating: false }, isValid ? successCallback : undefined))
+      .catch(() => this.setState({ isValidating: false }));
+  }
+
+  nextButtonClicked = () => {
+    this.validateWithServer(() => this.props.history.push(`/register/${this.sanitizedPage + 1}`));
+  }
+
+  submitButtonClicked = () => {
+    this.validateWithServer(this.props.formikProps.submitForm);
+  }
+
+  render() {
+    const { formikProps, pages, currentPage } = this.props;
+
+    const CurrentPageComponent = pages[this.sanitizedPage - 1];
+    const isLast = currentPage === pages.length;
+
+    const isDisabled = !this.state.currentPageIsValid || this.state.isValidating;
+    const nextButton = getNextButton(isDisabled, this.nextButtonClicked);
+    const submitButton = getSubmitButton(formikProps, isDisabled, this.submitButtonClicked);
+
+    return (
+      <Form onSubmit={formikProps.handleSubmit}>
+        <CurrentPageComponent onValidityChange={valid => this.setState({ currentPageIsValid: valid })} ref={this.ref}/>
+        <Link to={`/register/${this.sanitizedPage - 1}`}>
+          <Button disabled={this.sanitizedPage === 1} className={'mr-2'}>Zurück</Button>
+        </Link>
+        {isLast ? submitButton : nextButton}
+        {this.state.isValidating && <Spinner size="sm" className="ml-3" />}
+      </Form>
+    );
+  }
+}
 
 const withPageImplementation = (page: number, EnhancedComponent: React.ComponentType<any & { currentPage: number }>) =>
   (props: any) => <EnhancedComponent currentPage={page} {...props} />;
