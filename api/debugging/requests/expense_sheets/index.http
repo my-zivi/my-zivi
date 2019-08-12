@@ -2,3 +2,9 @@ GET {{url}}/expense_sheets
 Authorization: {{auth_token}}
 
 ###
+
+GET {{url}}/expense_sheets?filter=ready_for_payment
+Authorization: {{auth_token}}
+
+###
+

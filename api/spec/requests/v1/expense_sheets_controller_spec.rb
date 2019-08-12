@@ -13,20 +13,85 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
 
       context 'when user is admin' do
         let(:user) { create :user, :admin }
-        let!(:expense_sheets) { create_list :expense_sheet, 3 }
-        let(:json_expense_sheets) do
+        let(:expense_sheets) { create_list :expense_sheet, 3 }
+        let!(:json_expense_sheets) do
           expense_sheets.map do |expense_sheet|
             extract_to_json(expense_sheet).except(:created_at, :updated_at)
           end
         end
 
-        it 'returns all expense sheets', :aggregate_failures do
+        it 'returns all expense sheets' do
           request
           expect(parse_response_json(response)).to include(*json_expense_sheets)
         end
 
         it_behaves_like 'renders a successful http status code' do
           before { create :expense_sheet }
+        end
+
+        context 'with no valid filter' do
+          let(:request) { get v1_expense_sheets_path(filter: 'invalid filter') }
+
+          it 'returns all expense sheets' do
+            request
+            expect(parse_response_json(response)).to include(*json_expense_sheets)
+          end
+        end
+
+        context 'with current filter' do
+          let(:request) { get v1_expense_sheets_path(filter: 'current') }
+          let(:included_beginning) { Time.zone.today - 2.months }
+          let(:included_ending) { Time.zone.today.at_end_of_month }
+          let(:expense_sheets) do
+            create_list(:expense_sheet, 3, beginning: included_beginning, ending: included_ending)
+          end
+          let(:excluded_beginning) { Time.zone.today + 2.months }
+          let(:excluded_ending) { Time.zone.today + 3.months }
+
+          before do
+            create :expense_sheet, :payment_in_progress
+            create :expense_sheet, :paid
+            create :expense_sheet, :ready_for_payment, beginning: excluded_beginning, ending: excluded_ending
+            create :expense_sheet, beginning: excluded_beginning, ending: excluded_ending
+          end
+
+          it 'returns only the filtered expense_sheets' do
+            request
+            expect(parse_response_json(response)).to eq(json_expense_sheets)
+          end
+        end
+
+        context 'with pending filter' do
+          let(:request) { get v1_expense_sheets_path(filter: 'pending') }
+          let(:expense_sheets) do
+            create_list(:expense_sheet, 3).append(*create_list(:expense_sheet, 2, :ready_for_payment))
+          end
+
+          before do
+            create :expense_sheet, :payment_in_progress
+            create :expense_sheet, :paid
+          end
+
+          it 'returns only the filtered expense_sheets' do
+            request
+            expect(parse_response_json(response)).to eq(json_expense_sheets)
+          end
+        end
+
+        context 'with ready_for_payment filter' do
+          let(:request) { get v1_expense_sheets_path(filter: 'ready_for_payment') }
+          let(:expense_sheets) { create_list(:expense_sheet, 2, :ready_for_payment) }
+
+          before do
+            create :expense_sheet, :payment_in_progress
+            create :expense_sheet, :paid
+            create :expense_sheet
+          end
+
+          it 'returns only the filtered expense_sheets' do
+            request
+            expect(parse_response_json(response)).to eq(json_expense_sheets)
+          end
         end
       end
 

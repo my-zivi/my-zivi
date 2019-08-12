@@ -21,7 +21,7 @@ module V1
     ].freeze
 
     def index
-      @expense_sheets = ExpenseSheet.all
+      @expense_sheets = filtered_expense_sheets
     end
 
     def show
@@ -60,12 +60,29 @@ module V1
 
     private
 
+    def filtered_expense_sheets
+      case filter_param
+      when 'current'
+        ExpenseSheet.open.before_date(Time.zone.today.at_end_of_month + 1.day)
+      when 'pending'
+        ExpenseSheet.where(state: %i[open ready_for_payment])
+      when 'ready_for_payment'
+        ExpenseSheet.ready_for_payment
+      else
+        ExpenseSheet.all
+      end
+    end
+
     def set_expense_sheet
       @expense_sheet = ExpenseSheet.find(params[:id])
     end
 
     def expense_sheet_params
       params.require(:expense_sheet).permit(*PERMITTED_EXPENSE_SHEET_KEYS)
+    end
+
+    def filter_param
+      params[:filter]
     end
   end
 end
