@@ -37,7 +37,10 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "format": "tslint --project . -t verbose --fix",
-    "lint": "tslint --project . -t verbose"
+    "lint": "tslint --project . -t verbose",
+    "cypress:open": "cypress open",
+    "cypress": "cypress run",
+    "cypress:ci": "yarn run build && start-server-and-test 'node_modules/.bin/serve -s build -p 3001' http://localhost:3001 cypress"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.7",
@@ -54,6 +57,10 @@
     "@types/react-widgets-moment": "^4.0.1",
     "@types/reactstrap": "^6.4.4",
     "@types/yup": "^0.26.4",
+    "cypress": "^3.4.1",
+    "json-server": "^0.15.0",
+    "serve": "^11.1.0",
+    "start-server-and-test": "^1.10.0",
     "tslint": "^5.14.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.3.4000"

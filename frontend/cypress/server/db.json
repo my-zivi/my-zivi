@@ -1,0 +1,76 @@
+{
+  "regional_centers": [
+    {
+      "name": "Rüti",
+      "address": "Vollzugsstelle für den Zivildienst ZIVI, Regionalzentrum Rüti (ZH), Spitalstrasse 31, Postfach, 8630 Rüti (ZH)",
+      "short_name": "Ru",
+      "id": 1
+    },
+    {
+      "name": "Thun",
+      "address": "Vollzugsstelle für den Zivildienst ZIVI, Regionalzentrum Thun, Malerweg 6, 3600 Thun",
+      "short_name": "Th",
+      "id": 2
+    }
+  ],
+  "users": [
+    {
+      "id": 23,
+      "address": "Mainstreet 1809",
+      "bank_iban": "CH9300762011623852957",
+      "birthday": "1999-08-11",
+      "chainsaw_workshop": false,
+      "city": "Entenhausen",
+      "driving_licence_b": false,
+      "driving_licence_be": false,
+      "email": "peter.parker@example.com",
+      "first_name": "Peter",
+      "health_insurance": "Ziviinsurance, Zivistrasse 95",
+      "hometown": "Gotham",
+      "internal_note": null,
+      "last_name": "Parker",
+      "phone": "0791234567",
+      "regional_center_id": 2,
+      "role": "civil_servant",
+      "work_experience": null,
+      "zdp": 120000,
+      "zip": 1234,
+      "services": [],
+      "beginning": null,
+      "ending": null,
+      "active": false
+    }
+  ],
+  "service_specifications": [
+    {
+      "accommodation_expenses": 0,
+      "active": true,
+      "first_day_expenses": {
+        "breakfast": 0,
+        "lunch": 900,
+        "dinner": 700
+      },
+      "identification_number": "19532",
+      "last_day_expenses": {
+        "breakfast": 400,
+        "lunch": 900,
+        "dinner": 0
+      },
+      "location": "zurich",
+      "name": "Gruppeneinsätze, Feldarbeiten",
+      "paid_vacation_expenses": {
+        "breakfast": 400,
+        "lunch": 900,
+        "dinner": 700
+      },
+      "short_name": "F",
+      "work_clothing_expenses": 230,
+      "work_days_expenses": {
+        "breakfast": 400,
+        "lunch": 900,
+        "dinner": 700
+      },
+      "pocket_money": 500
+    }
+  ]
+}
