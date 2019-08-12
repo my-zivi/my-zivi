@@ -1,3 +1,4 @@
 {
-  "authorization_token": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc0FkbWluIjpmYWxzZSwic3ViIjoiMjMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE1NjU2MDE1NTQsImV4cCI6MTU2NTY4Nzk1NCwianRpIjoiYWFlMDcxYTEtMWU3OC00Yzk3LWJkZjQtNDQ2ZTQ2NTQ1OTI2In0.W3dFR3undLiqBdfcXw5vG-8LWk2sHJCce7x-vKeuOKY"
+  "authorization_token": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc0FkbWluIjpmYWxzZSwic3ViIjoiMjMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE1NjU2MDE1NTQsImV4cCI6MTU2NTY4Nzk1NCwianRpIjoiYWFlMDcxYTEtMWU3OC00Yzk3LWJkZjQtNDQ2ZTQ2NTQ1OTI2In0.W3dFR3undLiqBdfcXw5vG-8LWk2sHJCce7x-vKeuOKY",
+  "password": "Pa$$w0rd"
 }

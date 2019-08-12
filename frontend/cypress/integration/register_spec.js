@@ -1,3 +1,5 @@
+const defaultValues = require('../server/defaults');
+
 describe('Registering', function() {
   after(() => {
     // remove form persistence information from localStorage to enable second run
@@ -19,8 +21,8 @@ describe('Registering', function() {
     cy.get('input[name="last_name"]').type('Parker');
     cy.get('input[name="email"]').type('peter.parker@example.com');
     cy.get('input[name="birthday"]').type('12.08.1999');
-    cy.get('input[name="password"]').type('Pa$$w0rd');
-    cy.get('input[name="password_confirm"]').type('Pa$$w0rd');
+    cy.get('input[name="password"]').type(defaultValues.password);
+    cy.get('input[name="password_confirm"]').type(defaultValues.password);
     cy.get('.container > form > button').contains('Vorwärts').click();
 
     // Contact Information

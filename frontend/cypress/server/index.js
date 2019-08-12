@@ -6,25 +6,41 @@ const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, 'db.json'));
 jsonServer.defaults({ noCors: true });
 
+function appendAccessControlHeaders(res) {
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Expose-Headers', 'Authorization, Content-Disposition');
+}
+
 server.post('/v1/users/validate', (_, res) => {
   console.log('POST /v1/users/validate 204 :no_content');
-  res.set('Access-Control-Allow-Origin', '*');
+  appendAccessControlHeaders(res);
   res.status(204);
   res.send('');
 });
 
+function appendAuthorizationHeader(res) {
+  res.set('Authorization', defaultValues.authorization_token);
+}
+
 server.post('/v1/users', (req, res) => {
   console.log('POST /v1/users 201 :created');
-  res.set('Access-Control-Allow-Origin', '*');
-  res.set('Access-Control-Expose-Headers', 'Authorization, Content-Disposition');
-  res.set('Authorization', defaultValues.authorization_token);
+  appendAccessControlHeaders(res);
+  appendAuthorizationHeader(res);
   res.status(201);
   res.send(JSON.stringify(defaultUser));
 });
 
+server.post('/v1/users/sign_in', (req, res) => {
+  console.log('POST /v1/users/sign_in 200 :ok');
+  appendAccessControlHeaders(res);
+  appendAuthorizationHeader(res);
+  res.status(200);
+  res.jsonp(defaultUser);
+});
+
 server.use(jsonServer.defaults());
 server.use((req, res, next) => {
-  res.set('Access-Control-Allow-Origin', '*');
+  appendAccessControlHeaders(res);
   next();
 });
 

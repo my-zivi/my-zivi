@@ -8,7 +8,7 @@ import { MainStore } from './mainStore';
 export class UserStore extends DomainStore<User> {
   protected get entityName() {
     return {
-      singular: 'Der Beutzer',
+      singular: 'Der Benutzer',
       plural: 'Die Benutzer',
     };
   }
