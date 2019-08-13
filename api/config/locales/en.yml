@@ -9,6 +9,7 @@ en:
         invalid_date: invalid date
         not_a_friday: not a friday
         not_a_monday: not a monday
+        overlaps_service: overlaps existing Service
       models:
         expense_sheet:
           attributes:

@@ -9,6 +9,7 @@ fr:
         invalid_date: date erronée
         not_a_friday: pas de vendredi
         not_a_monday: pas de lundi
+        overlaps_service: couvert Service existanteuse
       models:
         expense_sheet:
           attributes:

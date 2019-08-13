@@ -22,6 +22,7 @@ class Service < ApplicationRecord
 
   validate :ending_is_friday, unless: :last_civil_service?
   validate :beginning_is_monday
+  validate :no_overlapping_service
 
   scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
   scope :chronologically, -> { order(:beginning, :ending) }
@@ -63,6 +64,12 @@ class Service < ApplicationRecord
 
   def service_calculator
     @service_calculator ||= ServiceCalculator.new(beginning)
+  end
+
+  def no_overlapping_service
+    overlaps_other_service = Service.where(user: user).where.not(id: id).overlapping_date_range(beginning, ending).any?
+
+    errors.add(:beginning, :overlaps_service) if overlaps_other_service
   end
 
   def beginning_is_monday

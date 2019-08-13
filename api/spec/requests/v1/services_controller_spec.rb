@@ -11,7 +11,12 @@ RSpec.describe V1::ServicesController, type: :request do
     describe '#index' do
       subject(:json_response) { parse_response_json(response) }
 
-      let!(:services) { create_pair :service, beginning: '2018-11-05', ending: '2018-11-30', user: user }
+      let!(:services) do
+        [
+          create(:service, beginning: '2018-11-05', ending: '2018-11-30', user: user),
+          create(:service, beginning: '2018-12-03', ending: '2018-12-28', user: user)
+        ]
+      end
       let(:request) { get v1_services_path }
       let(:first_service_json) do
         extract_to_json(services.first, :beginning, :ending, :confirmation_date, :id)

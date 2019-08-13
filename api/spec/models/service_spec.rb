@@ -152,4 +152,28 @@ RSpec.describe Service, type: :model do
       it { is_expected.to be true }
     end
   end
+
+  describe 'no_overlapping_service validation' do
+    subject { service.tap(&:validate).errors.added? :beginning, :overlaps_service }
+
+    let(:service) { build(:service, beginning: beginning, ending: ending, user: user) }
+    let(:user) { create :user }
+    let(:service_range) { get_service_range months: 2 }
+    let(:beginning) { service_range.begin }
+    let(:ending) { service_range.end }
+    let(:other_beginning) { (service_range.begin - 2.months).at_beginning_of_week }
+    let(:other_ending) { (service_range.begin - 1.month).at_end_of_week - 2.days }
+
+    before { create :service, user: user, beginning: other_beginning, ending: other_ending }
+
+    context 'when there is no overlapping service' do
+      it { is_expected.to be false }
+    end
+
+    context 'when there is no overlapping service' do
+      let(:other_ending) { service_range.begin.at_end_of_week - 2.days }
+
+      it { is_expected.to be true }
+    end
+  end
 end
