@@ -5,17 +5,38 @@ require 'rails_helper'
 RSpec.describe ExpenseSheetCalculators::RemainingDaysCalculator, type: :service do
   let(:calculator) { described_class.new(service) }
   let(:service) { instance_double Service }
+  let(:eligible_sick_days) { 0 }
+  let(:used_sick_days) { 0 }
+  let(:eligible_paid_vacation_days) { 0 }
+  let(:used_paid_vacation_days) { 0 }
+
+  before do
+    allow(service).to receive(:eligible_sick_days).and_return(eligible_sick_days)
+    allow(service).to receive(:used_sick_days).and_return(used_sick_days)
+    allow(service).to receive(:eligible_paid_vacation_days).and_return(eligible_paid_vacation_days)
+    allow(service).to receive(:used_paid_vacation_days).and_return(used_paid_vacation_days)
+  end
+
+  describe '#remaining_days' do
+    subject { calculator.remaining_days }
+
+    let(:eligible_sick_days) { 6 }
+    let(:used_sick_days) { 1 }
+    let(:eligible_paid_vacation_days) { 8 }
+    let(:used_paid_vacation_days) { 7 }
+
+    let(:expected_remaining_days) do
+      {
+        paid_vacation_days: 1,
+        sick_days: 5
+      }
+    end
+
+    it { is_expected.to eq expected_remaining_days }
+  end
 
   describe '#remaining_sick_days' do
     subject { calculator.remaining_sick_days }
-
-    let(:eligible_sick_days) { 0 }
-    let(:used_sick_days) { 0 }
-
-    before do
-      allow(service).to receive(:eligible_sick_days).and_return(eligible_sick_days)
-      allow(service).to receive(:used_sick_days).and_return(used_sick_days)
-    end
 
     context 'without eligible_sick_days' do
       it { is_expected.to eq 0 }
@@ -38,14 +59,6 @@ RSpec.describe ExpenseSheetCalculators::RemainingDaysCalculator, type: :service 
 
   describe '#remaining_paid_vacation_days' do
     subject { calculator.remaining_paid_vacation_days }
-
-    let(:eligible_paid_vacation_days) { 0 }
-    let(:used_paid_vacation_days) { 0 }
-
-    before do
-      allow(service).to receive(:eligible_paid_vacation_days).and_return(eligible_paid_vacation_days)
-      allow(service).to receive(:used_paid_vacation_days).and_return(used_paid_vacation_days)
-    end
 
     context 'without eligible_paid_vacation_days' do
       it { is_expected.to eq 0 }

@@ -13,6 +13,22 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
   let(:expected_work_days) { 20 }
   let(:expected_workfree_days) { 6 }
 
+  describe '#suggestions' do
+    subject { calculator.suggestions }
+
+    let(:expected_suggestions) do
+      {
+        clothing_expenses: 5980,
+        paid_company_holiday_days: 0,
+        unpaid_company_holiday_days: 0,
+        work_days: 20,
+        workfree_days: 6
+      }
+    end
+
+    it { is_expected.to eq expected_suggestions }
+  end
+
   describe '#suggested_work_days' do
     let(:day_calculator) { instance_double(DayCalculator, calculate_work_days: expected_work_days) }
 

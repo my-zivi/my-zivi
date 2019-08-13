@@ -13,6 +13,16 @@ module ExpenseSheetCalculators
       @expense_sheet = expense_sheet
     end
 
+    def suggestions
+      {
+        work_days: suggested_work_days,
+        workfree_days: suggested_workfree_days,
+        paid_company_holiday_days: suggested_paid_company_holiday_days,
+        unpaid_company_holiday_days: suggested_unpaid_company_holiday_days,
+        clothing_expenses: suggested_clothing_expenses
+      }
+    end
+
     def suggested_unpaid_company_holiday_days
       company_holiday_days = day_calculator.calculate_company_holiday_days
       return 0 if company_holiday_days.zero?

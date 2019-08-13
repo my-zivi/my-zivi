@@ -7,7 +7,7 @@ module V1
 
     before_action :authenticate_user!, unless: -> { request.format.pdf? }
     before_action :authenticate_from_params!, if: -> { request.format.pdf? }
-    before_action :set_expense_sheet, only: %i[show update destroy]
+    before_action :set_expense_sheet, only: %i[show update destroy hints]
     before_action :authorize_admin!
 
     PERMITTED_EXPENSE_SHEET_KEYS = %i[
@@ -37,6 +37,13 @@ module V1
                     disposition: 'inline'
         end
       end
+    end
+
+    def hints
+      suggestions = ExpenseSheetCalculators::SuggestionsCalculator.new(@expense_sheet).suggestions
+      remaining_days = ExpenseSheetCalculators::RemainingDaysCalculator.new(@expense_sheet.service).remaining_days
+
+      render :hints, locals: { suggestions: suggestions, remaining_days: remaining_days }
     end
 
     def create

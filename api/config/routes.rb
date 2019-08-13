@@ -14,7 +14,9 @@ Rails.application.routes.draw do
     resources :regional_centers, only: :index
     resources :holidays, only: %i[index create update destroy]
     resources :service_specifications, only: %i[index create update]
-    resources :expense_sheets
+    resources :expense_sheets do
+      get 'hints', on: :member
+    end
     get 'services/calculate_service_days', to: 'service_calculator#calculate_service_days'
     get 'services/calculate_ending', to: 'service_calculator#calculate_ending'
     resources :services

@@ -100,6 +100,49 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
       end
     end
 
+    describe '#hints' do
+      let(:service) { create :service }
+      let!(:expense_sheet) do
+        create :expense_sheet, user: service.user, beginning: service.beginning, ending: service.ending
+      end
+      let(:request) { get hints_v1_expense_sheet_path(expense_sheet) }
+
+      context 'when user is admin' do
+        subject { -> { request } }
+
+        let(:user) { create :user, :admin }
+        let(:suggestions_calculator) do
+          instance_double(ExpenseSheetCalculators::SuggestionsCalculator, suggestions: expected_suggestions)
+        end
+        let(:remaining_days_calculator) do
+          instance_double(ExpenseSheetCalculators::RemainingDaysCalculator, remaining_days: expected_remaining_days)
+        end
+        let(:expected_suggestions) { { work_days: 20 } }
+        let(:expected_remaining_days) { { sick_days: 6 } }
+
+        before do
+          allow(ExpenseSheetCalculators::SuggestionsCalculator).to receive(:new)
+            .with(expense_sheet).and_return(suggestions_calculator)
+          allow(ExpenseSheetCalculators::RemainingDaysCalculator).to receive(:new)
+            .with(service).and_return(remaining_days_calculator)
+        end
+
+        it_behaves_like 'renders a successful http status code'
+
+        it 'returns the correct hints' do
+          request
+          expect(parse_response_json(response)).to eq(
+            suggestions: expected_suggestions,
+            remaining_days: expected_remaining_days
+          )
+        end
+      end
+
+      context 'when user is not admin' do
+        it_behaves_like 'admin protected resource'
+      end
+    end
+
     describe '#create' do
       context 'when user is admin' do
         subject { -> { post_request } }

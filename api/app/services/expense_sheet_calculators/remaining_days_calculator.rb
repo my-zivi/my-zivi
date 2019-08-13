@@ -6,6 +6,13 @@ module ExpenseSheetCalculators
       @service = service
     end
 
+    def remaining_days
+      {
+        sick_days: remaining_sick_days,
+        paid_vacation_days: remaining_paid_vacation_days
+      }
+    end
+
     def remaining_sick_days
       eligible = @service.eligible_sick_days
       used = @service.used_sick_days

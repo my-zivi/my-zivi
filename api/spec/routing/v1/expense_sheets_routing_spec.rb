@@ -27,5 +27,9 @@ RSpec.describe V1::ExpenseSheetsController, type: :routing do
     it 'routes to #destroy' do
       expect(delete: '/v1/expense_sheets/1').to route_to('v1/expense_sheets#destroy', id: '1', format: :json)
     end
+
+    it 'routes to #hints' do
+      expect(get: '/v1/expense_sheets/1/hints').to route_to('v1/expense_sheets#hints', id: '1', format: :json)
+    end
   end
 end
