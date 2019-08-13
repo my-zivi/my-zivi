@@ -155,6 +155,8 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
           )
         end
 
+        before { create :service, user: user, beginning: '2019-04-29', ending: '2019-05-10' }
+
         context 'when params are valid' do
           it_behaves_like 'renders a successful http status code' do
             let(:request) { post_request }
@@ -203,7 +205,13 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
     end
 
     describe '#update' do
-      let!(:expense_sheet) { create :expense_sheet }
+      let!(:service) do
+        create :service,
+               beginning: expense_sheet.beginning.at_beginning_of_week,
+               ending: expense_sheet.ending.at_end_of_week - 2.days,
+               user: expense_sheet.user
+      end
+      let(:expense_sheet) { create :expense_sheet }
 
       context 'when user is admin' do
         let(:user) { create :user, :admin }
@@ -214,7 +222,7 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
 
           let(:params) { { driving_expenses: 6969 } }
           let(:expected_attributes) do
-            extract_to_json(expense_sheet, :beginning, :ending, :driving_expenses, :id)
+            extract_to_json(expense_sheet, :beginning, :ending, :driving_expenses, :id).merge(service_id: service.id)
           end
 
           it { is_expected.to(change { expense_sheet.reload.driving_expenses }.to(6969)) }
@@ -296,6 +304,43 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
         it_behaves_like 'admin protected resource' do
           let(:request) { delete v1_expense_sheet_path(expense_sheet) }
         end
+      end
+    end
+
+    describe '#show' do
+      subject { -> { request } }
+
+      let!(:service) do
+        create :service,
+               beginning: expense_sheet.beginning.at_beginning_of_week,
+               ending: expense_sheet.ending.at_end_of_week - 2.days,
+               user: expense_sheet.user
+      end
+      let(:expense_sheet) { create :expense_sheet }
+      let(:request) { get v1_expense_sheet_path(expense_sheet) }
+
+      context 'when user is admin' do
+        let(:user) { create :user, :admin }
+        let(:expected_response) do
+          extract_to_json(expense_sheet).except(:created_at, :updated_at).merge(service_id: service.id)
+        end
+
+        it_behaves_like 'renders a successful http status code'
+
+        it 'returns the expected response' do
+          request
+          expect(parse_response_json(response)).to eq expected_response
+        end
+
+        context 'when the requested resource does not exist' do
+          let(:request) { get v1_expense_sheet_path(-2) }
+
+          it_behaves_like 'renders a not found error response'
+        end
+      end
+
+      context 'when user is not admin' do
+        it_behaves_like 'admin protected resource'
       end
     end
   end
