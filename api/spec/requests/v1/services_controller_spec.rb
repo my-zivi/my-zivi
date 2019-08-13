@@ -228,7 +228,7 @@ RSpec.describe V1::ServicesController, type: :request do
                           :probation_service, :feedback_mail_sent)
         end
 
-        context 'when a non-admin user updates it\'s own service' do
+        context 'when a non-admin user updates their own service' do
           it { is_expected.to(change { service.reload.beginning }.to(new_service_date)) }
 
           it_behaves_like 'renders a successful http status code' do
@@ -244,6 +244,16 @@ RSpec.describe V1::ServicesController, type: :request do
             expect { put_request }.not_to(change { service.reload.confirmation_date })
             expect(parse_response_json(response)[:confirmation_date]).to eq(nil)
           end
+        end
+
+        context 'when a non-admin user updates their own confirmed service' do
+          let!(:service) { create :service, user: user }
+
+          it_behaves_like 'admin protected resource' do
+            let(:request) { put_request }
+          end
+
+          it { is_expected.not_to(change { service.reload.confirmation_date }) }
         end
 
         context 'when a non-admin user tries to update other\'s service' do
@@ -272,6 +282,21 @@ RSpec.describe V1::ServicesController, type: :request do
           it 'returns the updated service' do
             put_request
             expect(parse_response_json(response)).to include(expected_attributes)
+          end
+        end
+
+        context 'when an admin user updates the ending of a service' do
+          let(:user) { create :user, :admin }
+          let!(:service) { create :service, user: create(:user) }
+          let(:params) { { ending: new_ending } }
+          let(:new_ending) { (service.ending + 2.months).at_end_of_week - 2.days }
+          let(:expense_sheet_generator) { instance_double(ExpenseSheetGenerator, create_missing_expense_sheets: nil) }
+
+          before { allow(ExpenseSheetGenerator).to receive(:new).with(service).and_return(expense_sheet_generator) }
+
+          it 'calls create_missing_expense_sheets' do
+            put_request
+            expect(expense_sheet_generator).to have_received(:create_missing_expense_sheets)
           end
         end
       end

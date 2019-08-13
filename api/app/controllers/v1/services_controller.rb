@@ -14,6 +14,7 @@ module V1
     before_action :set_service, only: %i[show update destroy]
     before_action :protect_foreign_resource!, except: %i[index create], unless: -> { current_user.admin? }
     before_action :authorize_admin!, only: :index
+    before_action :protect_confirmed_service!, only: :update, unless: -> { current_user.admin? }
 
     def index
       year = filter_params[:year]
@@ -31,11 +32,13 @@ module V1
     end
 
     def update
-      generate_sheets = @service.confirmation_date.blank? && service_params[:confirmation_date].present?
+      generate_all_sheets = generate_all_sheets?
+      generate_missing_sheets = generate_missing_sheets?
 
       raise ValidationError, @service.errors unless @service.update(service_params)
 
-      ExpenseSheetGenerator.new(@service).create_expense_sheets if generate_sheets
+      ExpenseSheetGenerator.new(@service).create_expense_sheets if generate_all_sheets
+      ExpenseSheetGenerator.new(@service).create_missing_expense_sheets if generate_missing_sheets
 
       render :show
     end
@@ -46,8 +49,23 @@ module V1
 
     private
 
+    def generate_all_sheets?
+      @service.confirmation_date.blank? && service_params[:confirmation_date].present?
+    end
+
+    def generate_missing_sheets?
+      new_ending = service_params[:ending]
+      return false if new_ending.blank?
+
+      @service.confirmation_date.present? && Date.parse(new_ending) > @service.ending_was
+    end
+
     def protect_foreign_resource!
       raise AuthorizationError unless @service.user.id == current_user.id
+    end
+
+    def protect_confirmed_service!
+      raise AuthorizationError if @service.confirmation_date.present?
     end
 
     def set_service

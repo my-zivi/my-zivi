@@ -2,26 +2,46 @@
 
 require 'rails_helper'
 
-# TODO: Check if it generates ExpenseSheet of a single-month service
 RSpec.describe ExpenseSheetGenerator, type: :service do
-  subject { -> { create_expense_sheets } }
-
   let(:service) { create :service, :long, beginning: '2018-01-01', ending: '2018-06-29' }
-  let(:expense_sheet_generator) { ExpenseSheetGenerator.new(service) }
-  let(:create_expense_sheets) { expense_sheet_generator.create_expense_sheets }
+  let(:expense_sheet_generator) { described_class.new(service) }
 
   describe '#create_expense_sheets' do
+    subject { -> { create_expense_sheets } }
+
+    let(:create_expense_sheets) { expense_sheet_generator.create_expense_sheets }
+
     it { is_expected.to change(ExpenseSheet, :count).by(6) }
 
     it 'sets constant bank_account_number', :aggregate_failures do
+      create_expense_sheets
       ExpenseSheet.all.each do |expense_sheet|
         expect(expense_sheet.bank_account_number).to eq '4470 (200)'
       end
     end
 
     it 'sets correct user', :aggregate_failures do
+      create_expense_sheets
       ExpenseSheet.all.each do |expense_sheet|
         expect(expense_sheet.user).to eq service.user
+      end
+    end
+
+    context 'with a single month service' do
+      subject do
+        -> { expense_sheet_generator.create_expense_sheets beginning: service.beginning, ending: service.ending }
+      end
+
+      let(:service) { create :service, beginning: '2018-01-01', ending: '2018-01-26' }
+
+      it { is_expected.to change(ExpenseSheet, :count).by(1) }
+
+      it 'creates the correct ExpenseSheet', :aggregate_failures do
+        create_expense_sheets
+        expect(ExpenseSheet.first.beginning).to eq Date.parse('2018-01-01')
+        expect(ExpenseSheet.first.ending).to eq Date.parse('2018-01-26')
+        expect(ExpenseSheet.first.work_days).to eq 20
+        expect(ExpenseSheet.first.workfree_days).to eq 6
       end
     end
 
@@ -124,6 +144,31 @@ RSpec.describe ExpenseSheetGenerator, type: :service do
         expect(ExpenseSheet.last.ending).to eq Date.parse('2018-06-29')
         expect(ExpenseSheet.last.work_days).to eq 7
         expect(ExpenseSheet.last.workfree_days).to eq 22
+      end
+    end
+  end
+
+  describe '#create_missing_expense_sheets' do
+    context 'when there are previous expense_sheets' do
+      before do
+        expense_sheet_generator.create_expense_sheets
+        service.update ending: service.ending + 28.days
+        allow(expense_sheet_generator).to receive(:create_expense_sheets)
+      end
+
+      it 'calls create_expense_sheets with the correct arguments' do
+        expense_sheet_generator.create_missing_expense_sheets
+        expect(expense_sheet_generator).to have_received(:create_expense_sheets)
+          .with(beginning: Date.parse('2018-06-30'))
+      end
+    end
+
+    context 'when there are no previous expense_sheets' do
+      before { allow(expense_sheet_generator).to receive(:create_expense_sheets) }
+
+      it 'calls create_expense_sheets with the correct arguments' do
+        expense_sheet_generator.create_missing_expense_sheets
+        expect(expense_sheet_generator).to have_received(:create_expense_sheets).with(no_args)
       end
     end
   end
