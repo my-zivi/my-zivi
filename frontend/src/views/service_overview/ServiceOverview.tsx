@@ -198,7 +198,7 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
     const title = 'Einsatzübersicht';
 
     return (
-      <IziviContent loading={this.state.loadingServiceSpecifications} title={title} card={true}>
+      <IziviContent loading={this.state.loadingServiceSpecifications} title={title} card={true} fullscreen>
         <Container fluid={true}>
           <Row className={classes.filter} style={{ marginBottom: '2vh' }}>
             <Col sm="12" md="2">

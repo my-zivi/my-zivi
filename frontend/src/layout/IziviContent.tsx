@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import injectSheet, { WithSheet } from 'react-jss';
-import createStyles from '../utilities/createStyles';
-import { Theme } from './theme';
 
 import Card from 'reactstrap/lib/Card';
 import CardBody from 'reactstrap/lib/CardBody';
 import bg from '../assets/bg.jpg';
+import createStyles from '../utilities/createStyles';
 import { LoadingInformation } from './LoadingInformation';
+import { Theme } from './theme';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -34,6 +34,7 @@ interface Props extends WithSheet<typeof styles> {
   showBackgroundImage?: boolean;
   card?: boolean;
   title?: string;
+  fullscreen?: boolean;
   loading?: boolean;
 }
 
@@ -46,9 +47,15 @@ class IziviContent extends React.Component<Props> {
     this.updateTitle();
     const { classes, children, loading, showBackgroundImage, card, title } = this.props;
     const content = loading ? <LoadingInformation /> : children;
+    const klassNames = classNames(
+      this.props.className,
+      classes.container,
+      { [classes.background]: showBackgroundImage },
+      (!this.props.showBackgroundImage && !this.props.fullscreen ? 'container' : undefined),
+    );
 
     return (
-      <div className={classNames(this.props.className, classes.container, { [classes.background]: showBackgroundImage })}>
+      <div className={klassNames}>
         {card ? (
           <Card className={classes.card}>
             <CardBody>

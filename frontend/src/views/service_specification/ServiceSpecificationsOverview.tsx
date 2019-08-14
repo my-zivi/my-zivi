@@ -67,7 +67,7 @@ export class ServiceSpecificationsOverviewInner extends React.Component<ServiceS
     const entities = this.props.serviceSpecificationStore!.entities;
 
     return (
-      <IziviContent loading={this.state.loading} title={'Pflichtenheft'} card={true}>
+      <IziviContent loading={this.state.loading} title={'Pflichtenheft'} card={true} fullscreen>
         <ServiceSpecificationsOverviewTable classes={this.props.classes} theme={this.props.theme}>
           <Formik
             validationSchema={serviceSpecificationSchema}
