@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { inject } from 'mobx-react';
-import moment from 'moment';
 import * as React from 'react';
 import injectSheet, { WithSheet } from 'react-jss';
 import Button from 'reactstrap/lib/Button';
@@ -8,7 +7,7 @@ import Tooltip from 'reactstrap/lib/Tooltip';
 import { LoadingInformation } from '../../layout/LoadingInformation';
 import { OverviewTable } from '../../layout/OverviewTable';
 import { MainStore } from '../../stores/mainStore';
-import { ExpenseSheet, ExpenseSheetListing, ExpenseSheetState, ShortExpenseSheetListing, User } from '../../types';
+import { ExpenseSheetState, ShortExpenseSheetListing, User } from '../../types';
 import createStyles from '../../utilities/createStyles';
 import { CheckSquareRegularIcon, ClockRegularIcon, EditSolidIcon, HourGlassRegularIcon, PrintSolidIcon } from '../../utilities/Icon';
 
@@ -91,7 +90,7 @@ class ExpenseSheetSubformInner extends React.Component<Props, ExpenseSheetSubfor
           <OverviewTable
             data={user.expense_sheets}
             columns={this.getColumns()}
-            renderActions={(expenseSheet: ExpenseSheetListing) => (
+            renderActions={(expenseSheet: ShortExpenseSheetListing) => (
               <div>
                 {mainStore!.isAdmin() && (
                   <div className={classes.hideButtonText}>

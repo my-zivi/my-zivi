@@ -83,7 +83,11 @@ export interface ShortExpenseSheetListing {
 }
 
 export interface ExpenseSheetListing extends ShortExpenseSheetListing {
-  // TODO: Add this to the index of expense sheets
+  user: {
+    id: number;
+    full_name: string;
+    zdp: number;
+  };
 }
 
 export interface DailyExpense {

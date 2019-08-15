@@ -19,8 +19,15 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
         let(:total) { 74_500 }
         let!(:json_expense_sheets) do
           expense_sheets.map do |expense_sheet|
-            extract_to_json(expense_sheet).except(:created_at, :updated_at)
-                                          .merge(duration: expense_sheet.duration, total: total)
+            extract_to_json(expense_sheet, :id, :beginning, :ending, :state)
+              .merge(
+                duration: expense_sheet.duration,
+                user: {
+                  id: expense_sheet.user.id,
+                  full_name: expense_sheet.user.full_name,
+                  zdp: expense_sheet.user.zdp
+                }
+              )
           end
         end
 

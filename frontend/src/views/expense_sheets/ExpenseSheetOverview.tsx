@@ -32,25 +32,24 @@ export class ExpenseSheetOverview extends React.Component<Props, State> {
       {
         id: 'zdp',
         label: 'ZDP',
-        format: (r: ExpenseSheetListing) => 'r.user.zdp', // TODO: Fix it
+        format: ({ user: { zdp } }: ExpenseSheetListing) => zdp,
       },
       {
         id: 'first_name',
         label: 'Name',
-        format: (r: ExpenseSheetListing) => (
-          /*<Link to={'/users/' + r.user_id!}>{r.user.first_name} {r.user.last_name}</Link> TODO: Fix it*/
-          <p>Empty</p>
+        format: ({ user: { id, full_name } }: ExpenseSheetListing) => (
+          <Link to={'/users/' + id}>{full_name}</Link>
         ),
       },
       {
         id: 'start',
         label: 'Von',
-        format: (r: ExpenseSheetListing) => this.props.mainStore!.formatDate(r.beginning),
+        format: ({ beginning }: ExpenseSheetListing) => this.props.mainStore!.formatDate(beginning),
       },
       {
         id: 'end',
         label: 'Bis',
-        format: (r: ExpenseSheetListing) => this.props.mainStore!.formatDate(r.ending),
+        format: ({ ending }: ExpenseSheetListing) => this.props.mainStore!.formatDate(ending),
       },
     ];
 
@@ -76,11 +75,10 @@ export class ExpenseSheetOverview extends React.Component<Props, State> {
   render() {
     return (
       <IziviContent card loading={this.state.loading} title={'Spesen'}>
-        <Button outline onClick={() => this.toggle()}>
+        <Button outline className="mb-4 d-block" onClick={() => this.toggle()}>
           Spesenstatistik generieren
-        </Button>{' '}
-        <br /> <br />
-        <ButtonGroup>
+        </Button>
+        <ButtonGroup className="mb-4">
           <Button
             outline={this.state.expenseSheetStateFilter !== null}
             color={this.state.expenseSheetStateFilter === null ? 'primary' : 'secondary'}
@@ -103,8 +101,7 @@ export class ExpenseSheetOverview extends React.Component<Props, State> {
             Aktuelle Spesenblätter
           </Button>
         </ButtonGroup>
-        <ExpenseSheetStatisticFormDialog isOpen={this.state.modalOpen} mainStore={this.props.mainStore!} toggle={() => this.toggle()} />
-        <br /> <br />
+        <ExpenseSheetStatisticFormDialog isOpen={this.state.modalOpen} mainStore={this.props.mainStore!} toggle={() => this.toggle()}/>
         <OverviewTable
           columns={this.columns}
           data={this.props.expenseSheetStore!.expenseSheets}
