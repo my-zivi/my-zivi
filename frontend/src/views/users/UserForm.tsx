@@ -18,7 +18,7 @@ import { ServiceSpecificationStore } from '../../stores/serviceSpecificationStor
 import { UserStore } from '../../stores/userStore';
 import { User } from '../../types';
 import { empty } from '../../utilities/helpers';
-// import { ReportSheetSubform } from './ReportSheetSubform';
+import { ExpenseSheetSubform } from './ExpenseSheetSubform';
 import { userSchema } from './schemas';
 import { ServiceSubform } from './service_subform/ServiceSubform';
 
@@ -133,7 +133,7 @@ class UserFormInner extends React.Component<Props> {
           <ServiceSubform user={user} />
 
           <SolidHorizontalRow />
-          {/*<ReportSheetSubform user={user} />*/}
+          <ExpenseSheetSubform user={user} />
         </FormView>
       </>
     );

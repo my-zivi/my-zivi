@@ -12,12 +12,23 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
       let(:request) { get v1_expense_sheets_path }
 
       context 'when user is admin' do
-        let(:user) { create :user, :admin }
-        let(:expense_sheets) { create_list :expense_sheet, 3 }
+        let!(:user) { create :user, :admin }
+        let(:expense_sheets) { create_list :expense_sheet, 3, user: user }
+        let(:service_beginning) { expense_sheets.first.beginning.at_beginning_of_week }
+        let(:service_ending) { expense_sheets.first.ending.at_end_of_week - 2.days }
+        let(:total) { 74_500 }
         let!(:json_expense_sheets) do
           expense_sheets.map do |expense_sheet|
             extract_to_json(expense_sheet).except(:created_at, :updated_at)
+                                          .merge(duration: expense_sheet.duration, total: total)
           end
+        end
+
+        before do
+          create :service,
+                 beginning: service_beginning,
+                 ending: service_ending,
+                 user: user
         end
 
         it 'returns all expense sheets' do
@@ -26,7 +37,7 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
         end
 
         it_behaves_like 'renders a successful http status code' do
-          before { create :expense_sheet }
+          before { expense_sheets }
         end
 
         context 'with no valid filter' do
@@ -42,11 +53,14 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
           let(:request) { get v1_expense_sheets_path(filter: 'current') }
           let(:included_beginning) { Time.zone.today - 2.months }
           let(:included_ending) { Time.zone.today.at_end_of_month }
-          let(:expense_sheets) do
-            create_list(:expense_sheet, 3, beginning: included_beginning, ending: included_ending)
-          end
           let(:excluded_beginning) { Time.zone.today + 2.months }
           let(:excluded_ending) { Time.zone.today + 3.months }
+          let(:service_beginning) { included_beginning.at_beginning_of_week }
+          let(:service_ending) { (excluded_ending + 1.week).at_end_of_week - 2.days }
+          let(:total) { 75_200 }
+          let(:expense_sheets) do
+            create_list(:expense_sheet, 3, beginning: included_beginning, ending: included_ending, user: user)
+          end
 
           before do
             create :expense_sheet, :payment_in_progress
@@ -64,7 +78,8 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
         context 'with pending filter' do
           let(:request) { get v1_expense_sheets_path(filter: 'pending') }
           let(:expense_sheets) do
-            create_list(:expense_sheet, 3).append(*create_list(:expense_sheet, 2, :ready_for_payment))
+            create_list(:expense_sheet, 3, user: user)
+              .append(*create_list(:expense_sheet, 2, :ready_for_payment, user: user))
           end
 
           before do
@@ -80,7 +95,7 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
 
         context 'with ready_for_payment filter' do
           let(:request) { get v1_expense_sheets_path(filter: 'ready_for_payment') }
-          let(:expense_sheets) { create_list(:expense_sheet, 2, :ready_for_payment) }
+          let(:expense_sheets) { create_list(:expense_sheet, 2, :ready_for_payment, user: user) }
 
           before do
             create :expense_sheet, :payment_in_progress
@@ -322,7 +337,9 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
       context 'when user is admin' do
         let(:user) { create :user, :admin }
         let(:expected_response) do
-          extract_to_json(expense_sheet).except(:created_at, :updated_at).merge(service_id: service.id)
+          extract_to_json(expense_sheet)
+            .except(:created_at, :updated_at)
+            .merge(service_id: service.id, duration: 31, total: 74_500)
         end
 
         it_behaves_like 'renders a successful http status code'

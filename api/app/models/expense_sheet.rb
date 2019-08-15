@@ -56,6 +56,8 @@ class ExpenseSheet < ApplicationRecord
            :calculate_workfree_days,
            to: :values_calculator
 
+  alias total calculate_full_expenses
+
   def service
     @service ||= user.services.including_date_range(beginning, ending).first
   end

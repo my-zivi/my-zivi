@@ -17,58 +17,73 @@ export interface Payment {
 
 export interface PaymentEntry {
   id?: number;
-  report_sheet: ReportSheet;
+  expense_sheet: ExpenseSheet;
   user: User;
 }
-export interface ProposedReportSheetValues {
-  company_holidays_as_zivi_holidays: number;
-  company_holidays_as_zivi_vacations: number;
-  costs_clothes: number;
-  holidays_left: number;
-  illness_days_left: number;
-  work_free_days: number;
-  workdays: number;
-}
 
-export interface ReportSheet {
+export interface ExpenseSheet {
   id?: number;
-  additional_workfree: number;
-  additional_workfree_comment: string;
   bank_account_number: string;
-  clothes: number;
-  company_holiday_holiday: number;
-  company_holiday_vacation: number;
-  driving_charges: number;
-  driving_charges_comment: string;
-  extraordinarily: number;
-  extraordinarily_comment: string;
-  end: string;
-  holiday: number;
-  holiday_comment: string;
+  beginning: string;
+  clothing_expenses: number;
+  clothing_expenses_comment: string;
+  company_holiday_comment: string;
+  driving_expenses: number;
+  driving_expenses_comment: string;
+  duration: number;
+  ending: string;
+  extraordinary_expenses: number;
+  extraordinary_expenses_comment: string;
   ignore_first_last_day: boolean;
-  ill: number;
+  paid_company_holiday_days: number;
+  paid_vacation_comment: string;
+  paid_vacation_days: number;
+  payment_timestamp?: Date;
   service?: Service;
-  start: string;
-  state: number;
-  total_costs?: number;
-  user?: User;
-  vacation: number;
-  vacation_comment: string;
-  work: number;
-  workfree: number;
+  service_id: number;
+  sick_comment: string;
+  sick_days: number;
+  state: ExpenseSheetState;
+  total?: number;
+  unpaid_company_holiday_days: number;
+  unpaid_vacation_comment: string;
+  unpaid_vacation_days: number;
+  user_id: number;
+  work_days: number;
+  workfree_days: number;
 }
 
-export interface ReportSheetWithProposedValues extends ReportSheet {
-  proposed_values: ProposedReportSheetValues;
+export interface ExpenseSheetHints {
+  suggestions: {
+    work_days: number;
+    workfree_days: number;
+    paid_company_holiday_days: number;
+    unpaid_company_holiday_days: number;
+    clothing_expenses: number;
+  };
+  remaining_days: {
+    sick_days: number;
+    paid_vacation_days: number;
+  };
 }
 
-export interface ReportSheetListing {
+export enum ExpenseSheetState {
+  open = 'open',
+  ready_for_payment = 'ready_for_payment',
+  payment_in_progress = 'payment_in_progress',
+  paid = 'paid',
+}
+
+export interface ShortExpenseSheetListing {
   id: number;
-  end: string;
-  start: string;
-  state: number;
-  user_id?: number;
-  user: User;
+  ending: string;
+  beginning: string;
+  state: ExpenseSheetState;
+  duration: number;
+}
+
+export interface ExpenseSheetListing extends ShortExpenseSheetListing {
+  // TODO: Add this to the index of expense sheets
 }
 
 export interface DailyExpense {
@@ -110,7 +125,7 @@ export interface User {
   last_name: string;
   phone: string;
   regional_center_id: number;
-  report_sheets: ReportSheet[];
+  expense_sheets: ShortExpenseSheetListing[];
   role: 'admin' | 'civil_servant';
   services: Service[];
   beginning: null | string;
@@ -137,19 +152,21 @@ export interface UserFilter {
 
 export interface Service {
   id?: number;
-  beginning: string | null;
+  beginning: Date | null;
   days: number;
   confirmation_date: null | string;
-  eligible_holiday: number;
-  ending: string | null;
+  eligible_paid_vacation_days: number;
+  ending: Date | null;
   feedback_done: boolean;
   feedback_mail_sent: boolean;
   first_swo_service: boolean;
   long_service: boolean;
   service_type: number | null;
   probation_period: boolean;
-  service_specification?: ServiceSpecification;
-  service_specification_identification_number: string;
+  service_specification: {
+    identification_number: string;
+    name: string;
+  };
   user_id: number;
 }
 
@@ -192,11 +209,6 @@ export interface UserQuestionAnswers {
   4: number;
   5: number;
   6: number;
-}
-
-export enum UserRoleName {
-  Admin = 'admin',
-  Zivi = 'civil_servant',
 }
 
 export interface Listing {

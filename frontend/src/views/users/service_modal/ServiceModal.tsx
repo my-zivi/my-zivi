@@ -30,7 +30,7 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
   private readonly initialValues: Service;
   private autoUpdate = true;
 
-  private updateDays = debounce(async (start: string, end: string, formik: FormikProps<Service>) => {
+  private updateDays = debounce(async (start: Date, end: Date, formik: FormikProps<Service>) => {
     this.autoUpdate = false;
     const data = await this.props.serviceStore!.calcEligibleDays(moment(start).format(apiDateFormat), moment(end).format(apiDateFormat));
     if (data) {
@@ -39,7 +39,7 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
     this.autoUpdate = true;
   }, 500);
 
-  private updateEnd = debounce(async (start: string, days: number, formik: FormikProps<Service>) => {
+  private updateEnding = debounce(async (start: Date, days: number, formik: FormikProps<Service>) => {
     this.autoUpdate = false;
     const data = await this.props.serviceStore!.calcPossibleEndDate(moment(start).format(apiDateFormat), days);
     if (data) {
@@ -51,7 +51,10 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
   constructor(props: ServiceModalProps<Service>) {
     super(props);
     this.initialValues = props.values || {
-      service_specification_identification_number: '',
+      service_specification: {
+        identification_number: '',
+        name: '',
+      },
       service_type: 0,
       beginning: null,
       ending: null,
@@ -60,7 +63,7 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
       long_service: false,
       probation_period: false,
       confirmation_date: null,
-      eligible_holiday: 0,
+      eligible_paid_vacation_days: 0,
       feedback_done: false,
       feedback_mail_sent: false,
       user_id: props.user.id,
@@ -76,7 +79,7 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
       }
       if (current.values.beginning !== next.values.beginning || current.values.days !== next.values.days) {
         if (next.values.beginning && next.values.days) {
-          await this.updateEnd(next.values.beginning, next.values.days, formik);
+          await this.updateEnding(next.values.beginning, next.values.days, formik);
         }
       }
     }

@@ -39,6 +39,10 @@ export class ApiStore {
     return this._token;
   }
 
+  get rawToken() {
+    return this.token.split(' ')[1];
+  }
+
   get api() {
     return this._api;
   }

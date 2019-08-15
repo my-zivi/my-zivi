@@ -33,7 +33,7 @@ interface Props extends RouteComponentProps {
 export class PhoneListView extends React.Component<Props> {
   handleSubmit = async (entity: PhoneList, actions: FormikActions<PhoneList>) => {
     const inputs = phonelistSchema.cast(entity);
-    const rawToken = this.props.apiStore!.token.split(' ')[1];
+    const rawToken = this.props.apiStore!.rawToken;
     let url = `${baseUrl}/phone_list.pdf`;
     url += `?phone_list[beginning]=${inputs.beginning}&phone_list[ending]=${inputs.ending}&token=${rawToken}`;
 

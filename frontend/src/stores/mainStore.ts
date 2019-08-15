@@ -38,7 +38,7 @@ export class MainStore {
   apiURL(path: string, params: object = {}, includeAuth: boolean = true): string {
     return buildURL(baseUrl + '/' + path, {
       ...params,
-      token: includeAuth ? this.apiStore.token : undefined,
+      token: includeAuth ? this.apiStore.rawToken : undefined,
     });
   }
 

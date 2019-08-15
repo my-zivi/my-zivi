@@ -35,6 +35,15 @@
       "work_experience": null,
       "zdp": 120000,
       "zip": 1234,
+      "expense_sheets": [
+        {
+          "id": 1,
+          "beginning": "2019-07-15",
+          "ending": "2019-08-02",
+          "duration": 19,
+          "state": "open"
+        }
+      ],
       "services": [
         {
           "id": 1,
@@ -48,7 +57,10 @@
           "long_service": false,
           "probation_service": false,
           "feedback_mail_sent": false,
-          "service_specification_identification_number": "19532"
+          "service_specification": {
+            "identification_number": "19532",
+            "name": "My Service Specification"
+          }
         }
       ],
       "beginning": null,
@@ -86,6 +98,15 @@
         "dinner": 700
       },
       "pocket_money": 500
+    }
+  ],
+  "expense_sheets": [
+    {
+      "id": 1,
+      "beginning": "2019-07-01",
+      "ending": "2019-07-19",
+      "duration": 19,
+      "state": "open"
     }
   ]
 }

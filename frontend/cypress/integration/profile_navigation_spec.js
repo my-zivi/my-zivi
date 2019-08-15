@@ -11,6 +11,6 @@ describe('Profile navigation spec', () => {
   });
 
   it('it has a services list', () => {
-    cy.get('#root table td').contains('Gruppeneinsätze, Feldarbeiten');
+    cy.get('#root table td:nth-child(1)').contains('Gruppeneinsätze, Feldarbeiten');
   });
 });

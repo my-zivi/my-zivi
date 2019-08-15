@@ -88,34 +88,34 @@ export default (params: OverviewTableParams) => {
             const spec = serviceSpecificationStore!
               .entities
               .find((specification: ServiceSpecification) => {
-                  return specification.identification_number === service.service_specification_identification_number;
+                  return specification.identification_number === service.service_specification.identification_number;
                 },
               );
-            return `${spec ? spec.name : ''} (${service.service_specification_identification_number})`;
+            return `${spec ? spec.name : ''} (${service.service_specification.identification_number})`;
           },
         },
         {
           id: 'beginning',
           label: 'Start',
-          format: (service: Service) => (service.beginning ? mainStore!.formatDate(service.beginning) : ''),
+          format: (service: Service) => (service.beginning ? mainStore!.formatDate(moment(service.beginning)) : ''),
         },
         {
           id: 'ending',
           label: 'Ende',
-          format: (service: Service) => (service.ending ? mainStore!.formatDate(service.ending) : ''),
+          format: (service: Service) => (service.ending ? mainStore!.formatDate(moment(service.ending)) : ''),
         },
         {
           id: 'draft_date',
           label: '',
           format: (service: Service) => (
             <>
-              <span id={`reportSheetState-${service.id}`}>
+              <span id={`expenseSheetState-${service.id}`}>
                 <FontAwesomeIcon
                   icon={service.confirmation_date ? CheckSquareRegularIcon : SquareRegularIcon}
                   color={service.confirmation_date ? 'green' : 'black'}
                 />
               </span>
-              <UncontrolledTooltip target={`reportSheetState-${service.id}`}>Aufgebot erhalten</UncontrolledTooltip>
+              <UncontrolledTooltip target={`expenseSheetState-${service.id}`}>Aufgebot erhalten</UncontrolledTooltip>
             </>
           ),
         },

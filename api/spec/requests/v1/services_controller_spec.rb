@@ -149,7 +149,10 @@ RSpec.describe V1::ServicesController, type: :request do
           post_request
           expect(parse_response_json(response)).to include(
             params.slice(*expected_returned_attributes).merge(
-              service_specification_identification_number: Service.last.identification_number
+              service_specification: {
+                identification_number: Service.last.identification_number,
+                name: Service.last.service_specification.name
+              }
             )
           )
         end

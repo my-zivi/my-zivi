@@ -13,6 +13,8 @@ module V1
         raise AuthorizationError
       end
 
+      private
+
       def token
         params.require(:token)
       end

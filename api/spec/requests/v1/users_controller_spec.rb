@@ -70,14 +70,19 @@ RSpec.describe V1::UsersController, type: :request do
   end
 
   describe '#index' do
-    let!(:user) { create :user }
-    let!(:admin_user) { create :user, :admin }
+    let!(:user) { create :user, expense_sheets: [create(:expense_sheet)] }
+    let!(:admin_user) { create :user, :admin, expense_sheets: [create(:expense_sheet)] }
     let(:request) { get v1_users_path }
     let(:expected_successful_response_json) do
       [user, admin_user].map do |current_user|
         extract_to_json(current_user)
           .merge(
             services: be_an_instance_of(Array),
+            expense_sheets: contain_exactly(
+              extract_to_json(current_user.expense_sheets.first)
+                .slice(:beginning, :ending, :id, :state)
+                .merge(duration: current_user.expense_sheets.first.duration)
+            ),
             beginning: convert_to_json_value(current_user.services.chronologically.last.beginning),
             ending: convert_to_json_value(current_user.services.chronologically.last.ending.to_s),
             active: false
@@ -105,7 +110,7 @@ RSpec.describe V1::UsersController, type: :request do
     end
 
     context 'when an admin is logged in' do
-      subject { parse_response_json(response) }
+      subject(:json_response) { parse_response_json(response) }
 
       before do
         sign_in admin_user
@@ -114,7 +119,9 @@ RSpec.describe V1::UsersController, type: :request do
 
       it_behaves_like 'renders a successful http status code'
 
-      it { is_expected.to include(*expected_successful_response_json) }
+      it('returns expected JSON response') do
+        expect(json_response).to include(*expected_successful_response_json)
+      end
     end
   end
 

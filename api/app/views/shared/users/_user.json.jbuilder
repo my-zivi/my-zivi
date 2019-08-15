@@ -10,6 +10,10 @@ json.services do
   json.array! user.services, partial: 'v1/services/service', as: :service
 end
 
+json.expense_sheets do
+  json.array! user.expense_sheets, :id, :beginning, :ending, :duration, :state
+end
+
 json.beginning user.services.chronologically.last&.beginning
 json.ending user.services.chronologically.last&.ending
 json.active user.active?

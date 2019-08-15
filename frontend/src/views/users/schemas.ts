@@ -17,7 +17,10 @@ export const userSchema = yup.object({
 });
 
 export const serviceSchema = yup.object({
-  service_specification_identification_number: yup.string(),
+  service_specification: yup.object({
+    identification_number: yup.string(),
+    name: yup.string(),
+  }),
   service_type: yup.number(),
   beginning: apiDate().required(),
   ending: apiDate().required(),
@@ -26,7 +29,7 @@ export const serviceSchema = yup.object({
   long_service: yup.boolean(),
   probation_period: yup.boolean(),
   confirmation_date: yup.string().nullable(true),
-  eligible_holiday: yup.number(),
+  eligible_paid_vacation_days: yup.number(),
   feedback_done: yup.boolean(),
   feedback_mail_sent: yup.boolean(),
   user_id: yup.number().required(),

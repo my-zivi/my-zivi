@@ -29,7 +29,7 @@ interface Props {
   toggle: () => void;
 }
 
-export class ReportSheetStatisticFormDialog extends React.Component<Props> {
+export class ExpenseSheetStatisticFormDialog extends React.Component<Props> {
   render() {
     const { isOpen, mainStore, toggle } = this.props;
 
