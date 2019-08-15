@@ -13,7 +13,7 @@ RSpec.describe Holiday, type: :model do
   end
 
   describe '#range' do
-    subject(:holiday) { create(:holiday, beginning: beginning, ending: ending) }
+    subject(:holiday) { build(:holiday, beginning: beginning, ending: ending) }
 
     let(:beginning) { Date.parse('2019-04-10') }
     let(:ending) { Date.parse('2019-04-20') }
@@ -25,7 +25,7 @@ RSpec.describe Holiday, type: :model do
 
   describe '#work_days' do
     context 'when holiday is a company holiday' do
-      let(:holiday) { create(:holiday, beginning: Date.parse('2019-04-10'), ending: Date.parse('2019-04-20')) }
+      let(:holiday) { build(:holiday, beginning: Date.parse('2019-04-10'), ending: Date.parse('2019-04-20')) }
 
       context 'with two public holidays' do
         let(:public_holidays) do
@@ -36,14 +36,14 @@ RSpec.describe Holiday, type: :model do
         end
 
         let(:expected_work_days) do
-          [
-            Date.parse('2019-04-11'),
-            Date.parse('2019-04-12'),
-            Date.parse('2019-04-16'),
-            Date.parse('2019-04-17'),
-            Date.parse('2019-04-18'),
-            Date.parse('2019-04-19')
-          ]
+          %w[
+            2019-04-11
+            2019-04-12
+            2019-04-16
+            2019-04-17
+            2019-04-18
+            2019-04-19
+          ].map { |date| Date.parse date }
         end
 
         it 'returns only work days without public holidays' do
@@ -53,16 +53,16 @@ RSpec.describe Holiday, type: :model do
 
       context 'with no public holidays' do
         let(:expected_work_days) do
-          [
-            Date.parse('2019-04-10'),
-            Date.parse('2019-04-11'),
-            Date.parse('2019-04-12'),
-            Date.parse('2019-04-15'),
-            Date.parse('2019-04-16'),
-            Date.parse('2019-04-17'),
-            Date.parse('2019-04-18'),
-            Date.parse('2019-04-19')
-          ]
+          %w[
+            2019-04-10
+            2019-04-11
+            2019-04-12
+            2019-04-15
+            2019-04-16
+            2019-04-17
+            2019-04-18
+            2019-04-19
+          ].map { |date| Date.parse date }
         end
 
         it { expect(holiday.work_days([])).to eq expected_work_days }

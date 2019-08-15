@@ -19,7 +19,7 @@ RSpec.describe Service, type: :model do
   end
 
   describe 'memoization' do
-    let(:service) { create :service }
+    let(:service) { build :service }
     let(:used_days_calculator) { instance_double ExpenseSheetCalculators::UsedDaysCalculator }
     let(:remaining_days_calculator) { instance_double ExpenseSheetCalculators::RemainingDaysCalculator }
 

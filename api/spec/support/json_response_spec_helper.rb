@@ -19,8 +19,7 @@ def extract_to_json(resource, *keys)
   extracted = resource.reload.attributes.symbolize_keys
   extracted
     .slice(*(keys.empty? ? extracted.keys : keys))
-    .map { |key, value| [key, convert_to_json_value(value)] }
-    .to_h
+    .transform_values(&method(:convert_to_json_value))
 end
 
 RSpec.shared_examples_for 'renders a validation error response' do

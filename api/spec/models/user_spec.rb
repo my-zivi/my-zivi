@@ -75,7 +75,7 @@ RSpec.describe User, type: :model do
     let(:payload) { Warden::JWTAuth::UserEncoder.new.call(user, :user, nil).second }
 
     context 'when user is admin' do
-      let(:user) { create :user, :admin }
+      let(:user) { build_stubbed :user, :admin }
 
       it 'has #true isAdmin payload' do
         expect(payload).to include isAdmin: true
