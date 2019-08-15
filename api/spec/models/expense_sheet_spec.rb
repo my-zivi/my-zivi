@@ -3,23 +3,39 @@
 require 'rails_helper'
 
 RSpec.describe ExpenseSheet, type: :model do
-  it { is_expected.to validate_presence_of :beginning }
-  it { is_expected.to validate_presence_of :ending }
-  it { is_expected.to validate_presence_of :user }
-  it { is_expected.to validate_presence_of :work_days }
-  it { is_expected.to validate_presence_of :bank_account_number }
-  it { is_expected.to validate_presence_of :state }
+  describe 'validations' do
+    subject(:model) { described_class.new }
 
-  it { is_expected.to validate_numericality_of(:work_days).only_integer }
-  it { is_expected.to validate_numericality_of(:workfree_days).only_integer }
-  it { is_expected.to validate_numericality_of(:sick_days).only_integer }
-  it { is_expected.to validate_numericality_of(:paid_vacation_days).only_integer }
-  it { is_expected.to validate_numericality_of(:unpaid_vacation_days).only_integer }
-  it { is_expected.to validate_numericality_of(:driving_expenses).only_integer }
-  it { is_expected.to validate_numericality_of(:extraordinary_expenses).only_integer }
-  it { is_expected.to validate_numericality_of(:clothing_expenses).only_integer }
-  it { is_expected.to validate_numericality_of(:unpaid_company_holiday_days).only_integer }
-  it { is_expected.to validate_numericality_of(:paid_company_holiday_days).only_integer }
+    let(:only_integer_fields) do
+      %i[
+        work_days
+        workfree_days
+        sick_days
+        paid_vacation_days
+        unpaid_vacation_days
+        driving_expenses
+        extraordinary_expenses
+        clothing_expenses
+        unpaid_company_holiday_days
+        paid_company_holiday_days
+      ]
+    end
+
+    it_behaves_like 'validates presence of required fields', %i[
+      beginning
+      ending
+      user
+      work_days
+      bank_account_number
+      state
+    ]
+
+    it 'validates the correctness of numerical fields correctly', :aggregate_failures do
+      only_integer_fields.each do |field|
+        expect(model).to validate_numericality_of(field).only_integer
+      end
+    end
+  end
 
   it_behaves_like 'validates that the ending is after beginning' do
     let(:model) { build(:expense_sheet, beginning: beginning, ending: ending) }

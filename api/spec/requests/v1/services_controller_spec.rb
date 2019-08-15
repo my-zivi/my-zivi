@@ -279,9 +279,10 @@ RSpec.describe V1::ServicesController, type: :request do
           let(:params) { { confirmation_date: new_confirmation_date, beginning: '2018-01-01', ending: '2018-01-26' } }
           let!(:service) { create :service, :unconfirmed, user: create(:user) }
 
-          it { is_expected.to(change { service.reload.confirmation_date }.to(new_confirmation_date)) }
-
-          it { is_expected.to change(ExpenseSheet, :count).by 1 }
+          it 'updates confirmation date and adds an expense sheet' do
+            expect { put_request }.to(change { service.reload.confirmation_date }.to(new_confirmation_date)
+                                  .and(change(ExpenseSheet, :count).by(1)))
+          end
 
           it_behaves_like 'renders a successful http status code' do
             let(:request) { put_request }

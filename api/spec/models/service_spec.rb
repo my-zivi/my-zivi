@@ -3,19 +3,25 @@
 require 'rails_helper'
 
 RSpec.describe Service, type: :model do
-  it { is_expected.to validate_presence_of :ending }
-  it { is_expected.to validate_presence_of :beginning }
-  it { is_expected.to validate_presence_of :user }
-  it { is_expected.to validate_presence_of :service_specification }
-  it { is_expected.to validate_presence_of :service_type }
+  describe 'validations' do
+    it_behaves_like 'validates presence of required fields', %i[
+      ending
+      beginning
+      user
+      service_specification
+      service_type
+    ]
+  end
 
   describe 'delegated methods' do
-    subject { create :service }
+    subject(:service) { described_class.new }
 
-    it { is_expected.to delegate_method(:used_sick_days).to(:used_days_calculator) }
-    it { is_expected.to delegate_method(:used_paid_vacation_days).to(:used_days_calculator) }
-    it { is_expected.to delegate_method(:remaining_sick_days).to(:remaining_days_calculator) }
-    it { is_expected.to delegate_method(:remaining_paid_vacation_days).to(:remaining_days_calculator) }
+    it 'delegates the correct methods to calculators', :aggregate_failures do
+      expect(service).to delegate_method(:used_sick_days).to(:used_days_calculator)
+      expect(service).to delegate_method(:used_paid_vacation_days).to(:used_days_calculator)
+      expect(service).to delegate_method(:remaining_sick_days).to(:remaining_days_calculator)
+      expect(service).to delegate_method(:remaining_paid_vacation_days).to(:remaining_days_calculator)
+    end
   end
 
   describe 'memoization' do

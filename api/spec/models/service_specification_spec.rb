@@ -3,19 +3,27 @@
 require 'rails_helper'
 
 RSpec.describe ServiceSpecification, type: :model do
-  it { is_expected.to validate_presence_of :short_name }
-  it { is_expected.to validate_presence_of :name }
-  it { is_expected.to validate_presence_of :identification_number }
-  it { is_expected.to validate_presence_of :accommodation_expenses }
-  it { is_expected.to validate_presence_of :work_clothing_expenses }
-  it { is_expected.to validate_presence_of :work_days_expenses }
-  it { is_expected.to validate_presence_of :paid_vacation_expenses }
-  it { is_expected.to validate_presence_of :first_day_expenses }
-  it { is_expected.to validate_presence_of :last_day_expenses }
+  describe 'validations' do
+    subject(:model) { described_class.new }
 
-  it { is_expected.to validate_numericality_of(:accommodation_expenses).only_integer }
-  it { is_expected.to validate_numericality_of(:work_clothing_expenses).only_integer }
-  it { is_expected.to validate_length_of(:identification_number).is_at_least(5).is_at_most(7) }
+    it_behaves_like 'validates presence of required fields', %i[
+      short_name
+      name
+      identification_number
+      accommodation_expenses
+      work_clothing_expenses
+      work_days_expenses
+      paid_vacation_expenses
+      first_day_expenses
+      last_day_expenses
+    ]
+
+    it 'validates the correctness of numerical fields', :aggregate_failures do
+      expect(model).to validate_numericality_of(:accommodation_expenses).only_integer
+      expect(model).to validate_numericality_of(:work_clothing_expenses).only_integer
+      expect(model).to validate_length_of(:identification_number).is_at_least(5).is_at_most(7)
+    end
+  end
 
   describe '#pocket_money' do
     subject { build(:service_specification).pocket_money }

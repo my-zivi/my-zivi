@@ -148,8 +148,13 @@ RSpec.describe V1::UsersController, type: :request do
         context 'when he tries to update an admin protected field' do
           let(:params) { { internal_note: 'Restricted', role: 'admin' } }
 
-          it { is_expected.not_to(change { updated_user.reload.internal_note }) }
-          it { is_expected.not_to(change { updated_user.reload.role }) }
+          it 'does not change the internal notes field' do
+            expect { request }.not_to(change { updated_user.reload.internal_note })
+          end
+
+          it 'does not update the role' do
+            expect { request }.not_to(change { updated_user.reload.role })
+          end
         end
 
         context 'when the updated data is incorrect' do
