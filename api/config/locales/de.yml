@@ -1,9 +1,96 @@
 ---
 de:
-  attributes:
-    payment_timestamp: Auszahlungszeitstempel
-    state: Status
   activerecord:
+    attributes:
+      expense_sheet:
+        accommodation_expenses: Unterkunft
+        bank_account_number: Bankkonto Nummer
+        beginning: Anfang
+        clothing_expenses: Kleiderspesen
+        clothing_expenses_comment: Kleiderspesen - Kommentar
+        company_holiday_comment: Betriebsferien Kommentar
+        driving_expenses: Fahrspesen
+        driving_expenses_comment: Fahrspesenkommentar
+        ending: Ende
+        extraordinary_expenses: Ausserordentliche Spesen
+        extraordinary_expenses_comment: Ausserordentliche Spesen - Kommentar
+        paid_company_holiday_days: Bezahlte Betriebsferientage
+        paid_vacation_comment: Bezahlte Ferien - Kommentar
+        paid_vacation_days:
+          one: Ferientag
+          other: Ferientage
+        pocket_money: Taschengeld
+        sick_comment: Krankheitskommentar
+        sick_days:
+          one: Krankheitstag
+          other: Krankheitstage
+        state: Status
+        unpaid_company_holiday_days: Unbezahlte Betriebsferientage
+        unpaid_vacation_comment: Unbezahlte Ferien - Kommentar
+        unpaid_vacation_days:
+          one: Urlaubstag
+          other: Urlaubstage
+        work_clothing_expenses: Arbeitskleider
+        work_days:
+          one: Arbeitstag
+          other: Arbeitstage
+        workfree_days:
+          one: Arbeitsfreier Tag
+          other: Arbeitsfreie Tage
+      holiday:
+        beginning: Anfang
+        description: Beschreibung
+        ending: Ende
+        holiday_type: Ferien Typ
+      regional_center:
+        address: Adresse
+        name: Name
+        short_name: Kurzname
+      service:
+        beginning: Anfang
+        confirmation_date: Bestätigungsdatum
+        ending: Ende
+        feedback_mail_sent: Feedback E-Mail versendet
+        first_swo_service: Erster SWO Einsatz
+        long_service: Langer Einsatz
+        probation_service: Probeeinsatz
+        service_type: Einsatztyp
+      service_specification:
+        accommodation_expenses: Unterkunftsspesen
+        active: Aktiv
+        expense_keys:
+          breakfast: Morgen
+          dinner: Abend
+          lunch: Mittag
+        first_day_expenses: Spesen für den ersten Tag
+        identification_number: Identifikationsnummer
+        last_day_expenses: Spesen für den letzten Tag
+        location: Ort
+        name: Name
+        paid_vacation_expenses: Bezahlte Ferienspesen
+        short_name: Kurzname
+        work_clothing_expenses: Kleiderspesen
+        work_days_expenses: Arbeitstagesspesen
+      user:
+        address: Adresse
+        bank_iban: Bankverbindung
+        birthday: Geburtstag
+        chainsaw_workshop: Motorsägenworkshop
+        city: Stadt
+        driving_licence_b: Führerschein Kat. B
+        driving_licence_be: Führerschein Kat. BE
+        email: Email
+        first_name: Vorname
+        health_insurance: Krankenkasse
+        hometown: Heimatstadt
+        internal_note: Interne Notiz
+        last_name: Nachname
+        phone: Telefonnummer
+        role: Rolle
+        work_experience: Arbeitserfahrung
+        zdp: ZDP-Nr.
+        zip: PLZ
+        zip_with_city: PLZ / Ort
     errors:
       messages:
         invalid_date: ungültiges Datum
@@ -30,101 +117,15 @@ de:
             base:
               cant_delete_himself: Du kannst dich nicht selbst löschen
     models:
-      service_specification: Pflichtenheft
-      user: Benutzer
       expense_sheet: Spesenblatt
       holiday: Ferien
       regional_center: Regionalzentrum
       service: Einsatz
-    attributes:
-      expense_sheet:
-        beginning: Anfang
-        ending: Ende
-        unpaid_company_holiday_days: Unbezahlte Betriebsferientage
-        paid_company_holiday_days: Bezahlte Betriebsferientage
-        company_holiday_comment:  Betriebsferien Kommentar
-        sick_comment: Krankheitskommentar
-        paid_vacation_comment: Bezahlte Ferien - Kommentar
-        unpaid_vacation_comment: Unbezahlte Ferien - Kommentar
-        driving_expenses_comment: Fahrspesenkommentar
-        extraordinary_expenses: Ausserordentliche Spesen
-        extraordinary_expenses_comment: Ausserordentliche Spesen - Kommentar
-        clothing_expenses: Kleiderspesen
-        clothing_expenses_comment: Kleiderspesen - Kommentar
-        bank_account_number: Bankkonto Nummer
-        accommodation_expenses: Unterkunft
-        driving_expenses: Fahrspesen
-        paid_vacation_days:
-          one: Ferientag
-          other: Ferientage
-        pocket_money: Taschengeld
-        sick_days:
-          one: Krankheitstag
-          other: Krankheitstage
-        unpaid_vacation_days:
-          one: Urlaubstag
-          other: Urlaubstage
-        work_clothing_expenses: Arbeitskleider
-        work_days:
-          one: Arbeitstag
-          other: Arbeitstage
-        workfree_days:
-          one: Arbeitsfreier Tag
-          other: Arbeitsfreie Tage
-      service_specification:
-        name: Name
-        short_name: Kurzname
-        work_clothing_expenses: Kleiderspesen
-        accommodation_expenses: Unterkunftsspesen
-        work_days_expenses: Arbeitstagesspesen
-        paid_vacation_expenses: Bezahlte Ferienspesen
-        first_day_expenses: Spesen für den ersten Tag
-        last_day_expenses: Spesen für den letzten Tag
-        location: Ort
-        active: Aktiv
-        identification_number: Identifikationsnummer
-        expense_keys:
-          breakfast: Morgen
-          dinner: Abend
-          lunch: Mittag
-      user:
-        address: Adresse
-        bank_iban: Bankverbindung
-        email: Email
-        first_name: Vorname
-        last_name: Nachname
-        phone: Telefonnummer
-        zdp: ZDP-Nr.
-        zip_with_city: PLZ / Ort
-        zip: PLZ
-        role: Rolle
-        city: Stadt
-        hometown: Heimatstadt
-        birthday: Geburtstag
-        health_insurance: Krankenkasse
-        work_experience: Arbeitserfahrung
-        driving_licence_b: Führerschein Kat. B
-        driving_licence_be: Führerschein Kat. BE
-        internal_note: Interne Notiz
-        chainsaw_workshop: Motorsägenworkshop
-      holiday:
-        beginning: Anfang
-        ending: Ende
-        holiday_type: Ferien Typ
-        description: Beschreibung
-      regional_center:
-        name: Name
-        address: Adresse
-        short_name: Kurzname
-      service:
-        beginning: Anfang
-        ending: Ende
-        confirmation_date: Bestätigungsdatum
-        service_type: Einsatztyp
-        first_swo_service: Erster SWO Einsatz
-        long_service: Langer Einsatz
-        probation_service: Probeeinsatz
-        feedback_mail_sent: Feedback E-Mail versendet
+      service_specification: Pflichtenheft
+      user: Benutzer
+  attributes:
+    payment_timestamp: Auszahlungszeitstempel
+    state: Status
   date:
     formats:
       default: "%d.%m.%Y"
@@ -139,10 +140,10 @@ de:
     errors:
       unknown_day_type: Ungültiger Spesentagestyp
   payment:
-    expenses_from: Spesen vom %{from_date}
     errors:
       not_found: Auszahlung nicht gefunden
       ready_not_found: Keine für Auszahlung bereiten Spesenblätter gefunden
+    expenses_from: Spesen vom %{from_date}
   pdfs:
     expense_sheet:
       expense_table:
@@ -154,14 +155,13 @@ de:
           first_work_days: Erster Arbeitstag
           last_work_days: Letzter Arbeitstag
         supplement:
+          driving_expenses_comment_empty: Keine Angaben
           unpaid_vacation_comment: inkl. %{comment}
           work_clothing_expenses_comment:
             one: CHF %{amount}/Tag für %{count} anrechenbarer Tag
             other: CHF %{amount}/Tag für %{count} anrechenbare Tage
-          driving_expenses_comment_empty: Keine Angaben
       filename: Spesenrapport_%{today}.pdf
-      header: 'Spesenrapport des Einsatzbetriebes 423 - SWO, Bahnstrasse 18b, 8603
-        Schwerzenbach '
+      header: 'Spesenrapport des Einsatzbetriebes 423 - SWO, Bahnstrasse 18b, 8603 Schwerzenbach '
       info_block:
         footer:
           bank_account_number: 'Konto-Nr.:'
