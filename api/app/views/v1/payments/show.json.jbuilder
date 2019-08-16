@@ -5,8 +5,7 @@ json.state @payment.state
 json.total @payment.total
 json.expense_sheets do
   json.array! @payment.expense_sheets do |sheet|
-    json.extract! sheet, :id
-    json.full_expenses sheet.calculate_full_expenses
+    json.extract! sheet, :id, :total
     json.user do
       json.extract! sheet.user, :zdp, :full_name, :id, :bank_iban
     end

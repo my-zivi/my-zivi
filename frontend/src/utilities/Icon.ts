@@ -10,6 +10,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons/faUser';
 import { faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons/faAngleDoubleLeft';
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons/faAngleDoubleRight';
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
+import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload';
 import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import { faExclamation } from '@fortawesome/free-solid-svg-icons/faExclamation';
@@ -26,6 +27,7 @@ export const Icons = () => {
     faEdit,
     faCheckSquare,
     faPrint,
+    faDownload,
     faUser,
     faPlusSquare,
     faAngleDoubleRight,
@@ -52,6 +54,11 @@ const ExclamationSolidIcon: IconLookup = {
 const SquareRegularIcon: IconLookup = {
   prefix: 'far',
   iconName: 'square',
+};
+
+const DownloadIcon: IconLookup = {
+  prefix: 'fas',
+  iconName: 'download',
 };
 
 const SyncSolidIcon: IconLookup = {
@@ -148,4 +155,5 @@ export {
   HourGlassRegularIcon,
   SaveRegularIcon,
   MailSolidIcon,
+  DownloadIcon,
 };

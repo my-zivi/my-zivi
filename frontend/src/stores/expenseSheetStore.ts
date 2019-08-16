@@ -28,7 +28,7 @@ export class ExpenseSheetStore extends DomainStore<ExpenseSheet, ExpenseSheetLis
   }
 
   @observable
-  toBePaidExpenseSheets: ExpenseSheet[] = [];
+  toBePaidExpenseSheets: ExpenseSheetListing[] = [];
 
   @observable
   expenseSheets: ExpenseSheetListing[] = [];
@@ -46,7 +46,7 @@ export class ExpenseSheetStore extends DomainStore<ExpenseSheet, ExpenseSheetLis
   async fetchToBePaidAll(): Promise<void> {
     try {
       this.toBePaidExpenseSheets = [];
-      const response = await this.mainStore.api.get<ExpenseSheet[]>('/expense_sheets', { params: { filter: 'ready_for_payment' } });
+      const response = await this.mainStore.api.get<ExpenseSheetListing[]>('/expense_sheets', { params: { filter: 'ready_for_payment' } });
       this.toBePaidExpenseSheets = response.data;
     } catch (e) {
       this.mainStore.displayError(`${this.entityName.plural} konnten nicht geladen werden.`);

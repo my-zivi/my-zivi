@@ -46,7 +46,7 @@ class App extends React.Component {
           <ProtectedRoute component={ServiceFeedback} exact path={'/service/:id/feedback'} />
           <ProtectedRoute requiresAdmin component={PaymentOverview} exact path={'/payments'} />
           <ProtectedRoute requiresAdmin component={ServiceOverview} exact path={'/services'} />
-          <ProtectedRoute requiresAdmin component={PaymentDetail} exact path={'/payments/:id'} />
+          <ProtectedRoute requiresAdmin component={PaymentDetail} exact path={'/payments/:timestamp'} />
           <ProtectedRoute requiresAdmin component={ExpenseSheetOverview} exact path={'/expense_sheets'} />
           <ProtectedRoute requiresAdmin component={ExpenseSheetUpdate} exact path={'/expense_sheets/:id'} />
           <ProtectedRoute requiresAdmin component={UserFeedbackOverview} exact path={'/user_feedbacks'} />

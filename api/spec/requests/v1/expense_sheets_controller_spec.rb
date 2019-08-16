@@ -12,21 +12,19 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
       let(:request) { get v1_expense_sheets_path }
 
       context 'when user is admin' do
-        let!(:user) { create :user, :admin }
-        let(:expense_sheets) { create_list :expense_sheet, 3, user: user }
-        let(:service_beginning) { expense_sheets.first.beginning.at_beginning_of_week }
-        let(:service_ending) { expense_sheets.first.ending.at_end_of_week - 2.days }
+        let(:user) { create :user, :admin }
+        let!(:expense_sheets) { create_list :expense_sheet, 3, user: user }
+        let(:service_beginning) { expense_sheets.first.beginning.at_beginning_of_week - 1.week }
+        let(:service_ending) { expense_sheets.first.ending.at_end_of_week - 2.days + 1.week }
         let(:total) { 74_500 }
-        let!(:json_expense_sheets) do
+        let(:json_expense_sheets) do
           expense_sheets.map do |expense_sheet|
             extract_to_json(expense_sheet, :id, :beginning, :ending, :state)
               .merge(
                 duration: expense_sheet.duration,
-                user: {
-                  id: expense_sheet.user.id,
-                  full_name: expense_sheet.user.full_name,
-                  zdp: expense_sheet.user.zdp
-                }
+                total: expense_sheet.total,
+                user: extract_to_json(expense_sheet.user, :id, :zdp, :bank_iban, :address, :city, :zip)
+                        .merge(full_name: expense_sheet.user.full_name)
               )
           end
         end
@@ -35,7 +33,8 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
           create :service,
                  beginning: service_beginning,
                  ending: service_ending,
-                 user: user
+                 user: user,
+                 service_specification: create(:service_specification)
         end
 
         it 'returns all expense sheets' do

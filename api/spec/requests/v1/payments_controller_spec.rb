@@ -92,7 +92,7 @@ RSpec.describe V1::PaymentsController, type: :request do
               total: payment.total,
               expense_sheets: payment.expense_sheets.map do |expense_sheet|
                 extract_to_json(expense_sheet, :id)
-                  .merge(full_expenses: expense_sheet.calculate_full_expenses)
+                  .merge(total: expense_sheet.total)
                   .merge(user: expected_user_response)
               end
             }
@@ -168,7 +168,7 @@ RSpec.describe V1::PaymentsController, type: :request do
             total: payment.total,
             expense_sheets: payment.expense_sheets.map do |expense_sheet|
               extract_to_json(expense_sheet, :id)
-                .merge(full_expenses: expense_sheet.calculate_full_expenses)
+                .merge(total: expense_sheet.total)
                 .merge(user: expected_user_response)
             end
           }
@@ -266,7 +266,7 @@ RSpec.describe V1::PaymentsController, type: :request do
             total: payment.total,
             expense_sheets: payment.expense_sheets.map do |expense_sheet|
               extract_to_json(expense_sheet, :id)
-                .merge(full_expenses: expense_sheet.calculate_full_expenses)
+                .merge(total: expense_sheet.total)
                 .merge(user: expected_user_response)
             end
           }
@@ -355,7 +355,7 @@ RSpec.describe V1::PaymentsController, type: :request do
             total: expense_sheets.sum(&:calculate_full_expenses),
             expense_sheets: expense_sheets.map do |expense_sheet|
               extract_to_json(expense_sheet, :id)
-                .merge(full_expenses: expense_sheet.calculate_full_expenses)
+                .merge(total: expense_sheet.total)
                 .merge(user: expected_user_response)
             end
           }

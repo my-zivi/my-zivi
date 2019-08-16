@@ -10,6 +10,11 @@ export class MainStore {
     return this.apiStore.api;
   }
 
+  static validateIBAN(value: string) {
+    const regex = new RegExp('^CH\\d{2}\\s?(\\w{4}\\s?){4,7}\\w{0,2}$', 'g');
+    return regex.test(value);
+  }
+
   @observable
   navOpen = false;
 
@@ -40,11 +45,6 @@ export class MainStore {
       ...params,
       token: includeAuth ? this.apiStore.rawToken : undefined,
     });
-  }
-
-  validateIBAN(value: string) {
-    const regex = new RegExp('^CH\\d{2}\\s?(\\w{4}\\s?){4,7}\\w{0,2}$', 'g');
-    return regex.test(value);
   }
 
   isAdmin() {

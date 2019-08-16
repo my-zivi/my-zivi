@@ -8,17 +8,28 @@ export interface Holiday {
   description: string;
 }
 
-export interface Payment {
-  id?: number;
-  amount: number;
-  created_at: string;
-  payment_entries: PaymentEntry[];
+export enum PaymentState {
+  payment_in_progress = 'payment_in_progress',
+  paid = 'paid',
 }
 
-export interface PaymentEntry {
+export interface Payment {
   id?: number;
-  expense_sheet: ExpenseSheet;
-  user: User;
+  total: number;
+  state: PaymentState;
+  payment_timestamp: number;
+  expense_sheets: PaymentExpenseSheet[];
+}
+
+export interface PaymentExpenseSheet {
+  id?: number;
+  total: number;
+  user: {
+    id: number;
+    bank_iban: string;
+    full_name: string;
+    zdp: number;
+  };
 }
 
 export interface ExpenseSheet {
@@ -39,7 +50,6 @@ export interface ExpenseSheet {
   paid_vacation_comment: string;
   paid_vacation_days: number;
   payment_timestamp?: Date;
-  service?: Service;
   service_id: number;
   sick_comment: string;
   sick_days: number;
@@ -83,10 +93,15 @@ export interface ShortExpenseSheetListing {
 }
 
 export interface ExpenseSheetListing extends ShortExpenseSheetListing {
+  total: number;
   user: {
     id: number;
+    address: string;
+    bank_iban: string;
+    city: string;
     full_name: string;
     zdp: number;
+    zip: number;
   };
 }
 
