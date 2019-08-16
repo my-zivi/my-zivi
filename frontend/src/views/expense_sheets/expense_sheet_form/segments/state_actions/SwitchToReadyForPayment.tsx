@@ -18,7 +18,7 @@ export const SwitchToReadyForPayment = ({ expenseSheetStore }: SwitchToReadyForP
       disabled={isLoading}
       onClick={() => {
         setIsLoading(true);
-        expenseSheetStore.putState(ExpenseSheetState.payment_in_progress).catch(() => setIsLoading(false));
+        expenseSheetStore.putState(ExpenseSheetState.ready_for_payment).catch(() => setIsLoading(false));
         // If the state update was successful, this button will be replaced with a new component.
         // Hence, we don't need to update the state again on success
       }}
