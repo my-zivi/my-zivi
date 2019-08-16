@@ -6,6 +6,9 @@ import { faPlusSquare } from '@fortawesome/free-regular-svg-icons/faPlusSquare';
 import { faSave } from '@fortawesome/free-regular-svg-icons/faSave';
 import { faSquare } from '@fortawesome/free-regular-svg-icons/faSquare';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/faTrashAlt';
+import { faUser } from '@fortawesome/free-regular-svg-icons/faUser';
+import { faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons/faAngleDoubleLeft';
+import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons/faAngleDoubleRight';
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
@@ -23,7 +26,10 @@ export const Icons = () => {
     faEdit,
     faCheckSquare,
     faPrint,
+    faUser,
     faPlusSquare,
+    faAngleDoubleRight,
+    faAngleDoubleLeft,
     faTrashAlt,
     faSpinner,
     faClock,
@@ -61,6 +67,26 @@ const EditSolidIcon: IconLookup = {
 const CheckSquareRegularIcon: IconLookup = {
   prefix: 'far',
   iconName: 'check-square',
+};
+
+const CheckRegularIcon: IconLookup = {
+  prefix: 'fas',
+  iconName: 'check',
+};
+
+const DoubleAngleRightIcon: IconLookup = {
+  prefix: 'fas',
+  iconName: 'angle-double-right',
+};
+
+const DoubleAngleLeftIcon: IconLookup = {
+  prefix: 'fas',
+  iconName: 'angle-double-left',
+};
+
+const UserIcon: IconLookup = {
+  prefix: 'far',
+  iconName: 'user',
 };
 
 const PrintSolidIcon: IconLookup = {
@@ -114,6 +140,10 @@ export {
   PlusSquareRegularIcon,
   TrashAltRegularIcon,
   SpinnerSolidIcon,
+  UserIcon,
+  DoubleAngleRightIcon,
+  DoubleAngleLeftIcon,
+  CheckRegularIcon,
   ClockRegularIcon,
   HourGlassRegularIcon,
   SaveRegularIcon,

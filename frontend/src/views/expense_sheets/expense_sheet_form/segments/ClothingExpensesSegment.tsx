@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { NumberField, TextField } from '../../../../form/common';
 import CurrencyField from '../../../../form/CurrencyField';
 import { WiredField } from '../../../../form/formik';
 import { MainStore } from '../../../../stores/mainStore';

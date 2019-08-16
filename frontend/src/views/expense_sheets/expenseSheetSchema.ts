@@ -1,6 +1,6 @@
 import moment from 'moment';
 import * as yup from 'yup';
-import { ExpenseSheet, ExpenseSheetState } from '../../types';
+import { ExpenseSheet} from '../../types';
 import { apiDate } from '../../utilities/validationHelpers';
 
 const errorMsg = 'Das Total der Tage muss gleich der Spesenblattdauer sein.';
@@ -43,7 +43,6 @@ export const expenseSheetSchema = yup.object({
     }),
   sick_comment: yup.string().nullable(true),
   beginning: apiDate().required(),
-  state: yup.string().required().oneOf(Object.values(ExpenseSheetState)),
   paid_vacation_days: yup
     .number()
     .required()

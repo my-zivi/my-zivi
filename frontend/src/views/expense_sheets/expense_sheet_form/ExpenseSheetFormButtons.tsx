@@ -6,7 +6,12 @@ import Col from 'reactstrap/lib/Col';
 import Row from 'reactstrap/lib/Row';
 import { MainStore } from '../../../stores/mainStore';
 import { ExpenseSheet, Service } from '../../../types';
-import { ExclamationSolidIcon, PrintSolidIcon, SaveRegularIcon, TrashAltRegularIcon } from '../../../utilities/Icon';
+import {
+  ExclamationSolidIcon,
+  PrintSolidIcon,
+  SaveRegularIcon,
+  TrashAltRegularIcon, UserIcon,
+} from '../../../utilities/Icon';
 
 type func = () => void;
 
@@ -57,7 +62,7 @@ function getPrintButton(mainStore: MainStore, expenseSheetId?: number) {
 function getProfileButton(userId: number) {
   return (
     <Link to={'/users/' + userId} style={{ textDecoration: 'none' }}>
-      <Button block>Profil anzeigen</Button>
+      <Button block><FontAwesomeIcon icon={UserIcon}/> Profil anzeigen</Button>
     </Link>
   );
 }
@@ -73,7 +78,7 @@ export const ExpenseSheetFormButtons = (props: ExpenseSheetFormButtonsProps) => 
   return (
     <Row>
       {buttons.map((button, index) => (
-        <Col md={3} key={index}>
+        <Col key={index} className="mt-3">
           {button}
         </Col>
       ))}

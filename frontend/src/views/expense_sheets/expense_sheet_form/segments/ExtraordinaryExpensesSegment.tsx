@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Form from 'reactstrap/lib/Form';
-import { NumberField, TextField } from '../../../../form/common';
+import { TextField } from '../../../../form/common';
 import CurrencyField from '../../../../form/CurrencyField';
 import { WiredField } from '../../../../form/formik';
 import { expenseSheetFormSegment } from './expenseSheetFormSegment';

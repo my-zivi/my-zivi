@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { CheckboxField } from '../../../form/CheckboxField';
-import { NumberField, PasswordField, TextField } from '../../../form/common';
+import { TextField } from '../../../form/common';
 import { WiredField } from '../../../form/formik';
 
 export const BankAndInsurancePage = () => {

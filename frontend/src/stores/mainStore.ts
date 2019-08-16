@@ -43,7 +43,7 @@ export class MainStore {
   }
 
   validateIBAN(value: string) {
-    const regex = new RegExp('^CH\\d{2,2}\\s{0,1}(\\w{4,4}\\s{0,1}){4,7}\\w{0,2}$', 'g');
+    const regex = new RegExp('^CH\\d{2}\\s?(\\w{4}\\s?){4,7}\\w{0,2}$', 'g');
     return regex.test(value);
   }
 

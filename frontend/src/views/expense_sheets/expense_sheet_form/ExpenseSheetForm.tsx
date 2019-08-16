@@ -7,21 +7,11 @@ import { FormView, FormViewProps } from '../../../form/FormView';
 import { ExpenseSheetStore } from '../../../stores/expenseSheetStore';
 import { MainStore } from '../../../stores/mainStore';
 import { ExpenseSheet, ExpenseSheetHints, FormValues, Service } from '../../../types';
-import { Formatter } from '../../../utilities/formatter';
 import { empty } from '../../../utilities/helpers';
 import { expenseSheetSchema } from '../expenseSheetSchema';
 import { ExpenseSheetFormButtons } from './ExpenseSheetFormButtons';
-import {
-  AbsolvedDaysBreakdownSegment,
-  ClothingExpensesSegment,
-  CompanyHolidaysSegment,
-  DrivingExpensesSegment,
-  ExtraordinaryExpensesSegment,
-  FooterSegment,
-  GeneralSegment,
-  PaidVacationSegment,
-  UnpaidVacationSegment,
-} from './segments';
+import { ExpenseSheetFormHeader } from './ExpenseSheetFormHeader';
+import * as FormSegments from './segments';
 
 type Props = {
   mainStore?: MainStore;
@@ -39,14 +29,6 @@ interface ExpenseSheetFormState {
 @inject('mainStore', 'expenseSheetStore')
 @observer
 class ExpenseSheetFormInner extends React.Component<Props, ExpenseSheetFormState> {
-  static formatDate(date: Date | null) {
-    if (!date) {
-      return 'Unbekannt';
-    }
-
-    return new Formatter().formatDate(date.toString());
-  }
-
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -55,7 +37,7 @@ class ExpenseSheetFormInner extends React.Component<Props, ExpenseSheetFormState
   }
 
   render() {
-    const { mainStore, onSubmit, expenseSheet, service, hints, title } = this.props;
+    const { mainStore, onSubmit, expenseSheet, service, hints, title, expenseSheetStore } = this.props;
 
     const template = {
       safe_override: false,
@@ -72,21 +54,18 @@ class ExpenseSheetFormInner extends React.Component<Props, ExpenseSheetFormState
         validationSchema={expenseSheetSchema}
         render={(formikProps: FormikProps<{}>): React.ReactNode => (
           <Form>
-            <h5 className="mb-5 text-secondary">
-              Für den Einsatz
-              "{service.service_specification.name}"
-              vom {ExpenseSheetFormInner.formatDate(service.beginning)} bis {ExpenseSheetFormInner.formatDate(service.ending)}
-            </h5>
+            <ExpenseSheetFormHeader service={service} expenseSheetState={expenseSheet.state}/>
 
-            <GeneralSegment service={service}/>
-            <AbsolvedDaysBreakdownSegment hints={hints}/>
-            <CompanyHolidaysSegment hints={hints}/>
-            <PaidVacationSegment/>
-            <UnpaidVacationSegment/>
-            <ClothingExpensesSegment hints={hints} mainStore={mainStore!}/>
-            <DrivingExpensesSegment/>
-            <ExtraordinaryExpensesSegment/>
-            <FooterSegment/>
+            <FormSegments.GeneralSegment service={service}/>
+            <FormSegments.AbsolvedDaysBreakdownSegment hints={hints}/>
+            <FormSegments.CompanyHolidaysSegment hints={hints}/>
+            <FormSegments.PaidVacationSegment/>
+            <FormSegments.UnpaidVacationSegment/>
+            <FormSegments.ClothingExpensesSegment hints={hints} mainStore={mainStore!}/>
+            <FormSegments.DrivingExpensesSegment/>
+            <FormSegments.ExtraordinaryExpensesSegment/>
+            <FormSegments.FooterSegment/>
+            <FormSegments.StateSegment expenseSheetState={expenseSheet.state} expenseSheetStore={expenseSheetStore!}/>
 
             <ExpenseSheetFormButtons
               safeOverride={this.state.safeOverride}

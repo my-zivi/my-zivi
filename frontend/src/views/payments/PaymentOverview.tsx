@@ -1,13 +1,7 @@
-import { inject, observer } from 'mobx-react';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import Button from 'reactstrap/lib/Button';
-import IziviContent from '../../layout/IziviContent';
-import { OverviewTable } from '../../layout/OverviewTable';
 import { ExpenseSheetStore } from '../../stores/expenseSheetStore';
 import { MainStore } from '../../stores/mainStore';
 import { PaymentStore } from '../../stores/paymentStore';
-import { Column, ExpenseSheet, Payment } from '../../types';
 
 interface Props {
   mainStore?: MainStore;

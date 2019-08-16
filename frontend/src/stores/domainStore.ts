@@ -112,7 +112,7 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
 
   @action
   async post(entity: SingleType) {
-    this.displayLoading(async () => {
+    await this.displayLoading(async () => {
       try {
         await this.doPost(entity);
         this.mainStore.displaySuccess(`${this.entityName.singular} wurde gespeichert.`);
@@ -125,7 +125,7 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
 
   @action
   async put(entity: SingleType) {
-    this.displayLoading(async () => {
+    await this.displayLoading(async () => {
       try {
         await this.doPut(entity);
         this.mainStore.displaySuccess(`${this.entityName.singular} wurde gespeichert.`);
@@ -139,7 +139,7 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
 
   @action
   async delete(id: number | string) {
-    this.displayLoading(async () => {
+    await this.displayLoading(async () => {
       try {
         await this.doDelete(id);
         this.mainStore.displaySuccess(`${this.entityName.singular} wurde gelöscht.`);
@@ -157,7 +157,7 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
   }
 
   async notifyProgress<P>(f: () => Promise<P>, { errorMessage = 'Fehler!', successMessage = 'Erfolg!' } = {}) {
-    this.displayLoading(async () => {
+    await this.displayLoading(async () => {
       try {
         await f();
         if (successMessage) {

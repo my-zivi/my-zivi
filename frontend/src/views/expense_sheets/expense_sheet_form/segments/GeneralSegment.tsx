@@ -7,7 +7,7 @@ import { Service } from '../../../../types';
 import { expenseSheetFormSegment } from './expenseSheetFormSegment';
 
 export const GeneralSegment = expenseSheetFormSegment(
-  ({service}: { service: Service }) => (
+  ({ service }: { service: Service }) => (
     <>
       <WiredField horizontal component={DatePickerField} name={'beginning'} label={'Start Spesenblattperiode'}/>
       <WiredField horizontal component={DatePickerField} name={'ending'} label={'Ende Spesenblattperiode'}/>

@@ -38,7 +38,7 @@ export class ExpenseSheetConfirmer extends React.Component<Props, State> {
   updateState(sheetId: number, state: ExpenseSheetState) {
     this.setState({ expenseSheetState: TransmissionState.loading });
     this.props
-      .expenseSheetStore!.putState(sheetId, state)
+      .expenseSheetStore!.putState(state, sheetId)
       .then(() => this.setState({ expenseSheetState: state }))
       .catch(error => {
         this.props.mainStore!.displayError('Der Eintrag konnte nicht aktualisiert werden.');
