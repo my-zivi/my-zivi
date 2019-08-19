@@ -92,7 +92,7 @@ class PaymentDetailInner extends React.Component<Props & WithSheet<typeof paymen
   render() {
     const payment = this.props.paymentStore!.payment;
     return (
-      <IziviContent card loading={this.state.loading}>
+      <IziviContent card loading={this.state.loading} backButtonPath="/payments">
         {this.state.canceled && <div className={this.props.classes.cancelBadge}>Abgebrochen</div>}
         <div className={this.state.canceled ? this.props.classes.canceledDetailCard : undefined}>
           <Badge pill className="mb-2">{payment ? stateTranslation(payment!.state) : ''}</Badge>

@@ -9,6 +9,7 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/faTrashAlt';
 import { faUser } from '@fortawesome/free-regular-svg-icons/faUser';
 import { faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons/faAngleDoubleLeft';
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons/faAngleDoubleRight';
+import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons/faArrowCircleLeft';
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload';
 import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
@@ -34,6 +35,7 @@ export const Icons = () => {
     faAngleDoubleLeft,
     faTrashAlt,
     faSpinner,
+    faArrowCircleLeft,
     faClock,
     faHourglass,
     faSave,
@@ -59,6 +61,11 @@ const SquareRegularIcon: IconLookup = {
 const DownloadIcon: IconLookup = {
   prefix: 'fas',
   iconName: 'download',
+};
+
+const ArrowLeftIcon: IconLookup = {
+  prefix: 'fas',
+  iconName: 'arrow-circle-left',
 };
 
 const SyncSolidIcon: IconLookup = {
@@ -156,4 +163,5 @@ export {
   SaveRegularIcon,
   MailSolidIcon,
   DownloadIcon,
+  ArrowLeftIcon,
 };
