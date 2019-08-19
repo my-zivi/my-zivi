@@ -16,7 +16,7 @@ import { HolidayOverview } from './views/holidays/HolidayOverview';
 import { Home } from './views/Home';
 import { Login } from './views/Login';
 import { NotFound } from './views/NotFound';
-import { PaymentDetail } from './views/payments/PaymentDetail';
+import { PaymentDetail } from './views/payments/detail/PaymentDetail';
 import { PaymentOverview } from './views/payments/PaymentOverview';
 import { PhoneListView } from './views/PhoneList';
 import { Register } from './views/register/Register';
