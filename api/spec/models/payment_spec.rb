@@ -20,7 +20,7 @@ RSpec.describe Payment, type: :model do
     {}
   end
   let(:payment) do
-    Payment.new({ expense_sheets: initial_expense_sheets }.merge(initial_payment_state))
+    described_class.new({ expense_sheets: initial_expense_sheets }.merge(initial_payment_state))
   end
   let(:created_payment) { payment.tap(&:save) }
 
@@ -185,7 +185,7 @@ RSpec.describe Payment, type: :model do
 
   describe '.find' do
     let(:payment_timestamp_to_find) { created_payment.payment_timestamp }
-    let(:found_payment) { Payment.find(payment_timestamp_to_find) }
+    let(:found_payment) { described_class.find(payment_timestamp_to_find) }
 
     context 'with an existing payment_timestamp' do
       it 'returns the correct payment' do
@@ -195,7 +195,7 @@ RSpec.describe Payment, type: :model do
 
     context 'with a non-existent payment_timestamp' do
       let(:payment_timestamp_to_find) { 1.hour.ago }
-      let(:found_payment) { Payment.find(payment_timestamp_to_find) }
+      let(:found_payment) { described_class.find(payment_timestamp_to_find) }
 
       it 'raises a RecordNotFound exception' do
         expect { found_payment }.to raise_exception ActiveRecord::RecordNotFound
@@ -204,7 +204,7 @@ RSpec.describe Payment, type: :model do
   end
 
   describe '.all' do
-    let(:found_payments) { Payment.all }
+    let(:found_payments) { described_class.all }
 
     context 'with existing payments' do
       let!(:payments) do

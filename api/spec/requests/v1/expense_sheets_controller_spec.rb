@@ -166,8 +166,6 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
 
     describe '#create' do
       context 'when user is admin' do
-        subject { -> { post_request } }
-
         let(:user) { create :user, :admin }
         let(:post_request) { post v1_expense_sheets_path(expense_sheet: params) }
         let(:params) do
@@ -183,7 +181,9 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
             let(:request) { post_request }
           end
 
-          it { is_expected.to change(ExpenseSheet, :count).by(1) }
+          it 'creates a new expense sheet' do
+            expect { post_request }.to change(ExpenseSheet, :count).by(1)
+          end
 
           it 'returns the created expense_sheet' do
             post_request
@@ -201,7 +201,9 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
         context 'when params are invalid' do
           let(:params) { { driving_expenses: 'aa', ending: 'I am invalid' } }
 
-          it { is_expected.to change(ExpenseSheet, :count).by(0) }
+          it 'does not create a new expense sheet' do
+            expect { post_request }.to change(ExpenseSheet, :count).by(0)
+          end
 
           it_behaves_like 'renders a validation error response' do
             let(:request) { post_request }
@@ -239,14 +241,14 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
         let(:put_request) { put v1_expense_sheet_path(expense_sheet, params: { expense_sheet: params }) }
 
         context 'with valid params' do
-          subject { -> { put_request } }
-
           let(:params) { { driving_expenses: 6969 } }
           let(:expected_attributes) do
             extract_to_json(expense_sheet, :beginning, :ending, :driving_expenses, :id).merge(service_id: service.id)
           end
 
-          it { is_expected.to(change { expense_sheet.reload.driving_expenses }.to(6969)) }
+          it 'does update the driving expenses' do
+            expect { put_request }.to(change { expense_sheet.reload.driving_expenses }.to(6969))
+          end
 
           it_behaves_like 'renders a successful http status code' do
             let(:request) { put_request }
@@ -291,12 +293,12 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
       let!(:expense_sheet) { create :expense_sheet }
 
       context 'when user is admin' do
-        subject { -> { delete_request } }
-
         let(:user) { create :user, :admin }
         let(:delete_request) { delete v1_expense_sheet_path(expense_sheet) }
 
-        it { is_expected.to change(ExpenseSheet, :count).by(-1) }
+        it 'deletes the expense sheet' do
+          expect { delete_request }.to change(ExpenseSheet, :count).by(-1)
+        end
 
         it_behaves_like 'renders a successful http status code' do
           let(:request) { delete_request }
@@ -329,8 +331,6 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
     end
 
     describe '#show' do
-      subject { -> { request } }
-
       let!(:service) do
         create :service,
                beginning: expense_sheet.beginning.at_beginning_of_week,
@@ -446,11 +446,11 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
     end
 
     context 'when no token is provided' do
-      subject { -> { request } }
-
       let(:token) { nil }
 
-      it { is_expected.to raise_exception ActionController::ParameterMissing }
+      it 'raises a parameter exception' do
+        expect { request }.to raise_exception ActionController::ParameterMissing
+      end
     end
 
     context 'when an invalid token is provided' do

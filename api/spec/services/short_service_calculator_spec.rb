@@ -7,7 +7,7 @@ RSpec.describe ShortServiceCalculator, type: :service do
     subject { calculated_ending_day }
 
     let(:beginning) { Date.parse('2018-01-01') }
-    let(:short_service_calculator) { ShortServiceCalculator.new(beginning) }
+    let(:short_service_calculator) { described_class.new(beginning) }
     let(:required_service_days) { 26 }
     let(:calculated_ending_day) { short_service_calculator.calculate_ending_date(required_service_days) }
 
@@ -105,7 +105,7 @@ RSpec.describe ShortServiceCalculator, type: :service do
     subject { calculate_chargeable_service_days }
 
     let(:beginning) { Date.parse('2018-01-01') }
-    let(:short_service_calculator) { ShortServiceCalculator.new(beginning) }
+    let(:short_service_calculator) { described_class.new(beginning) }
     let(:ending) { beginning }
     let(:calculate_chargeable_service_days) { short_service_calculator.calculate_chargeable_service_days(ending) }
 

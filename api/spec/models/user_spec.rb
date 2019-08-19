@@ -104,7 +104,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#self.validate_given_params' do
-    subject(:errors) { User.validate_given_params(params) }
+    subject(:errors) { described_class.validate_given_params(params) }
 
     let(:params) { { bank_iban: '' } }
 

@@ -41,8 +41,6 @@ RSpec.describe V1::HolidaysController, type: :request do
     end
 
     describe '#create' do
-      subject { -> { post_request } }
-
       let(:post_request) { post v1_holidays_path(holiday: params) }
 
       context 'when params are valid' do
@@ -52,7 +50,9 @@ RSpec.describe V1::HolidaysController, type: :request do
           let(:request) { post_request }
         end
 
-        it { is_expected.to change(Holiday, :count).by(1) }
+        it 'creates a holiday' do
+          expect { post_request }.to change(Holiday, :count).by(1)
+        end
 
         it 'returns the created holiday' do
           post_request
@@ -69,7 +69,9 @@ RSpec.describe V1::HolidaysController, type: :request do
       context 'when params are invalid' do
         let(:params) { { description: '', ending: 'I am invalid' } }
 
-        it { is_expected.to change(Holiday, :count).by(0) }
+        it 'does not create a holiday' do
+          expect { post_request }.to change(Holiday, :count).by(0)
+        end
 
         it_behaves_like 'renders a validation error response' do
           let(:request) { post_request }
@@ -91,12 +93,12 @@ RSpec.describe V1::HolidaysController, type: :request do
       let(:put_request) { put v1_holiday_path(holiday, params: { holiday: params }) }
 
       context 'with valid params' do
-        subject { -> { put_request } }
-
         let(:params) { { description: 'New description' } }
         let(:expected_attributes) { extract_to_json(holiday, :beginning, :ending, :description, :holiday_type, :id) }
 
-        it { is_expected.to(change { holiday.reload.description }.to('New description')) }
+        it 'updates the holiday description' do
+          expect { put_request }.to(change { holiday.reload.description }.to('New description'))
+        end
 
         it_behaves_like 'renders a successful http status code' do
           let(:request) { put_request }
@@ -131,12 +133,12 @@ RSpec.describe V1::HolidaysController, type: :request do
     end
 
     describe '#destroy' do
-      subject { -> { delete_request } }
-
       let!(:holiday) { create :holiday }
       let(:delete_request) { delete v1_holiday_path(holiday) }
 
-      it { is_expected.to change(Holiday, :count).by(-1) }
+      it 'deletes the holiday' do
+        expect { delete_request }.to change(Holiday, :count).by(-1)
+      end
 
       it_behaves_like 'renders a successful http status code' do
         let(:request) { delete_request }

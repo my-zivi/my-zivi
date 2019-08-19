@@ -9,7 +9,7 @@ RSpec.describe Pdfs::ExpenseSheet::GeneratorService, type: :service do
 
       after { I18n.locale = I18n.default_locale }
 
-      let(:pdf) { Pdfs::ExpenseSheet::GeneratorService.new(expense_sheet).render }
+      let(:pdf) { described_class.new(expense_sheet).render }
       let(:expense_sheet) { create :expense_sheet, expense_sheet_data }
       let(:service) { create :service, service_data }
       let(:service_specification) { create :service_specification, identification_number: 82_846 }

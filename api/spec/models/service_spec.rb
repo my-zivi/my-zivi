@@ -57,7 +57,7 @@ RSpec.describe Service, type: :model do
   end
 
   describe '#at_year' do
-    subject(:services) { Service.at_year(2018) }
+    subject(:services) { described_class.at_year(2018) }
 
     before do
       create_pair :service, beginning: '2018-11-05', ending: '2018-11-30'

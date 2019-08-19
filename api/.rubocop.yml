@@ -1,9 +1,13 @@
+inherit_from:
+  - .rubocop_todo.yml
+  - .rubocop_base.yml
+
 require:
   - rubocop-performance
   - rubocop-rails
   - 'test_prof/rubocop'
 
-inherit_from: .rubocop_base.yml
+
 
 RSpec/AggregateFailures:
   Enabled: true

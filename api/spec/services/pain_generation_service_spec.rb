@@ -22,7 +22,7 @@ RSpec.describe PainGenerationService, type: :service do
 
       allow(SEPA::CreditTransfer).to receive(:new).and_return transaction_adder
 
-      PainGenerationService.new([expense_sheet]).generate_pain
+      described_class.new([expense_sheet]).generate_pain
     end
 
     context 'when there is one expense sheet' do

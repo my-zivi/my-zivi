@@ -6,7 +6,7 @@ RSpec.describe Pdfs::ServiceFormFiller, type: :service do
   describe '#fill_service_agreement' do
     subject(:form_filler) { instance_double(PdfForms::PdftkWrapper, fill_form: true) }
 
-    let(:fill_service) { Pdfs::ServiceFormFiller.new(service) }
+    let(:fill_service) { described_class.new(service) }
     let(:service) { create :service, beginning: '2018-12-24', ending: '2019-01-04' }
     let(:user) { service.user }
     let(:file_path) { Pdfs::ServiceFormFiller::GERMAN_FILE_PATH }

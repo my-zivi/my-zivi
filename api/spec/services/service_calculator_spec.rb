@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ServiceCalculator, type: :service do
   let(:beginning) { Date.parse('2018-01-01') }
-  let(:service_calculator) { ServiceCalculator.new(beginning) }
+  let(:service_calculator) { described_class.new(beginning) }
   let(:short_service_calculator) do
     instance_double ShortServiceCalculator,
                     calculate_ending_date: true,

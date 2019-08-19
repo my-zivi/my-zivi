@@ -32,11 +32,11 @@ RSpec.describe Devise::RegistrationsController, type: :request do
       end
 
       context 'with some missing parameters' do
-        subject { -> { request } }
-
         let(:params) { attributes_for(:user).slice(:first_name, :last_name) }
 
-        it { is_expected.not_to change(User, :count) }
+        it 'does not create a user' do
+          expect { request }.not_to change(User, :count)
+        end
       end
     end
 
@@ -45,7 +45,10 @@ RSpec.describe Devise::RegistrationsController, type: :request do
 
       let(:sent_community_password) { 'I am an invalid community password' }
 
-      it { is_expected.not_to change(User, :count) }
+      it 'does not create a user' do
+        expect { request }.not_to change(User, :count)
+      end
+
       it_behaves_like 'renders a validation error response'
     end
   end

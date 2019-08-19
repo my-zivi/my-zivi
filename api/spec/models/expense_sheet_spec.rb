@@ -46,7 +46,7 @@ RSpec.describe ExpenseSheet, type: :model do
 
     context 'when the expense sheet is not already paid' do
       it 'destroys the expense_sheet' do
-        expect { expense_sheet.destroy }.to change(ExpenseSheet, :count).by(-1)
+        expect { expense_sheet.destroy }.to change(described_class, :count).by(-1)
       end
     end
 
@@ -54,7 +54,7 @@ RSpec.describe ExpenseSheet, type: :model do
       let!(:expense_sheet) { create :expense_sheet, :paid }
 
       it 'does not destroy the expense_sheet' do
-        expect { expense_sheet.destroy }.not_to change(ExpenseSheet, :count)
+        expect { expense_sheet.destroy }.not_to change(described_class, :count)
       end
 
       it 'returns an error' do

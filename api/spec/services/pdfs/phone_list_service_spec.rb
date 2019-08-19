@@ -12,7 +12,7 @@ RSpec.describe Pdfs::PhoneListService, type: :service do
 
       after { I18n.locale = I18n.default_locale }
 
-      let(:pdf) { Pdfs::PhoneListService.new(phone_list_service_specifications, phone_list_dates).render }
+      let(:pdf) { described_class.new(phone_list_service_specifications, phone_list_dates).render }
       let(:user) { create :user }
       let(:phone_list_dates) do
         OpenStruct.new(
