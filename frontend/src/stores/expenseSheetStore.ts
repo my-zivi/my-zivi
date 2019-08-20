@@ -18,6 +18,10 @@ export class ExpenseSheetStore extends DomainStore<ExpenseSheet, ExpenseSheetLis
     return this.expenseSheets;
   }
 
+  set entities(entities: ExpenseSheetListing[]) {
+    this.expenseSheets = entities;
+  }
+
   @computed
   get entity(): ExpenseSheet | undefined {
     return this.expenseSheet;
@@ -37,6 +41,9 @@ export class ExpenseSheetStore extends DomainStore<ExpenseSheet, ExpenseSheetLis
   expenseSheet?: ExpenseSheet;
 
   hints?: ExpenseSheetHints;
+
+  protected entityURL = '/expense_sheets/';
+  protected entitiesURL = '/expense_sheets/';
 
   constructor(mainStore: MainStore) {
     super(mainStore);
@@ -88,22 +95,8 @@ export class ExpenseSheetStore extends DomainStore<ExpenseSheet, ExpenseSheetLis
     }
   }
 
-  protected async doDelete(id: number) {
-    await this.mainStore.api.delete('/expense_sheets/' + id);
-  }
-
   protected async doFetchAll(params: object = {}): Promise<void> {
     const res = await this.mainStore.api.get<ExpenseSheetListing[]>('/expense_sheets', { params: { ...params } });
     this.expenseSheets = res.data;
-  }
-
-  protected async doFetchOne(id: number) {
-    const res = await this.mainStore.api.get<ExpenseSheet>('/expense_sheets/' + id);
-    this.expenseSheet = res.data;
-  }
-
-  protected async doPut(entity: ExpenseSheet): Promise<void> {
-    const res = await this.mainStore.api.put<ExpenseSheet>('/expense_sheets/' + entity.id, entity);
-    this.expenseSheet = res.data;
   }
 }
