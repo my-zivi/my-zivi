@@ -2,7 +2,6 @@
 
 class ServiceCalculator
   LINEAR_CALCULATION_THRESHOLD = 26
-  SERVICE_DAYS_PER_SICK_DAY = 5
 
   def initialize(beginning_date)
     @beginning_date = beginning_date
@@ -39,7 +38,7 @@ class ServiceCalculator
   end
 
   def calculate_eligible_sick_days(service_days)
-    service_days / SERVICE_DAYS_PER_SICK_DAY
+    SickDaysCalculator.calculate_eligible_sick_days(service_days)
   end
 
   private

@@ -76,11 +76,15 @@ RSpec.describe ServiceCalculator, type: :service do
   end
 
   describe '#calculate_eligible_sick_days' do
-    it 'returns the eligible sick days' do
-      (1..30).each do |service_days|
-        eligible_sick_days = service_calculator.calculate_eligible_sick_days(service_days)
-        expect(eligible_sick_days).to eq(service_days / ServiceCalculator::SERVICE_DAYS_PER_SICK_DAY)
-      end
+    let(:service_days) { 20 }
+
+    before do
+      allow(SickDaysCalculator).to receive(:calculate_eligible_sick_days)
+      service_calculator.calculate_eligible_sick_days(service_days)
+    end
+
+    it 'calls SickDaysCalculator.calculate_eligible_sick_days' do
+      expect(SickDaysCalculator).to have_received(:calculate_eligible_sick_days).with(service_days)
     end
   end
 end
