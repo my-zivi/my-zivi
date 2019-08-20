@@ -139,6 +139,9 @@ de:
   expense_sheet_calculator:
     errors:
       unknown_day_type: Ungültiger Spesentagestyp
+  feedback_mailer:
+    feedback_reminder_mail:
+      subject: Deine Meinung ist uns wichtig
   payment:
     errors:
       not_found: Auszahlung nicht gefunden

@@ -139,6 +139,9 @@ fr:
   expense_sheet_calculator:
     errors:
       unknown_day_type: Type de problème invalide
+  feedback_mailer:
+    feedback_reminder_mail:
+      subject: Votre opinion est importante pour nous
   payment:
     errors:
       not_found: Paiement non trouvé

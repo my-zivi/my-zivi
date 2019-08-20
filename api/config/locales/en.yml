@@ -139,6 +139,9 @@ en:
   expense_sheet_calculator:
     errors:
       unknown_day_type: Ungültiger Spesentagestyp
+  feedback_mailer:
+    feedback_reminder_mail:
+      subject: Your opinion matters to us
   payment:
     errors:
       not_found: Payment not found

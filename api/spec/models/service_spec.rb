@@ -127,6 +127,31 @@ RSpec.describe Service, type: :model do
     end
   end
 
+  describe '#send_feedback_reminder' do
+    subject(:service) { build :service, user: build(:user) }
+
+    let(:envs) do
+      {
+        FEEDBACK_MAIL_SURVEY_URL: 'http://example.com?service_id=%<service_id>s',
+        MAIL_SENDER: 'from@example.com'
+      }
+    end
+
+    it 'sends a mail to the user' do
+      ClimateControl.modify envs do
+        expect { service.send_feedback_reminder }.to(
+          change { ActionMailer::Base.deliveries.count }.by(1)
+        )
+      end
+    end
+
+    it 'sets #feedback_mail_sent to true' do
+      ClimateControl.modify envs do
+        expect { service.send_feedback_reminder }.to change(service, :feedback_mail_sent).from(false).to(true)
+      end
+    end
+  end
+
   describe 'ending_is_friday validation' do
     subject { build(:service, ending: ending).tap(&:validate).errors.added? :ending, :not_a_friday }
 
