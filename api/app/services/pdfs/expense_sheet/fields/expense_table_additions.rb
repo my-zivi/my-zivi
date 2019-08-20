@@ -46,6 +46,25 @@ module Pdfs
             ExpenseTable::COLUMN_WIDTHS[-1] => lambda do |expense_sheet|
               Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.clothing_expenses.to_d)
             end
+          },
+          {
+            ExpenseTable::COLUMN_WIDTHS[0] => lambda do |expense_sheet|
+              return '' if expense_sheet.extraordinary_expenses.zero?
+
+              '+'
+            end,
+            ExpenseTable::COLUMN_WIDTHS[1] => lambda do |expense_sheet|
+              return '' if expense_sheet.extraordinary_expenses.zero?
+
+              I18n.t('activerecord.attributes.expense_sheet.extraordinary_expenses')
+            end,
+            ExpenseTable::COLUMN_WIDTHS[2..4].sum => ->(expense_sheet) { expense_sheet.extraordinary_expenses_comment },
+            ExpenseTable::COLUMN_WIDTHS[5..-2].sum => '',
+            ExpenseTable::COLUMN_WIDTHS[-1] => lambda do |expense_sheet|
+              return '' if expense_sheet.extraordinary_expenses.zero?
+
+              Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.extraordinary_expenses.to_d)
+            end
           }
         ].freeze
 
