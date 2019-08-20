@@ -19,7 +19,7 @@ RSpec.describe Pdfs::ExpenseSheet::GeneratorService, type: :service do
           beginning: Date.parse('2018-01-01'),
           ending: Date.parse('2018-01-27'),
           extraordinary_expenses: 0,
-          extraordinary_expenses_comment: '',
+          extraordinary_expenses_comment: nil,
           user: service.user
         }
       end
