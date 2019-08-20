@@ -27,22 +27,22 @@ export class UserOverview extends React.Component<Props> {
       {
         id: 'zdp',
         label: 'ZDP',
-        format: (u: User) => <>{String(u.zdp)}</>,
+        format: ({ zdp }: User) => zdp,
       },
       {
         id: 'name',
         label: 'Name',
-        format: (u: User) => <Link to={'/users/' + u.id}>{`${u.first_name} ${u.last_name}`}</Link>,
+        format: (user: User) => <Link to={'/users/' + user.id}>{`${user.first_name} ${user.last_name}`}</Link>,
       },
       {
         id: 'start',
         label: 'Von',
-        format: (u: User) => (u.beginning ? this.props.mainStore!.formatDate(u.beginning) : ''),
+        format: (user: User) => (user.beginning ? this.props.mainStore!.formatDate(user.beginning) : ''),
       },
       {
         id: 'end',
         label: 'Bis',
-        format: (u: User) => (u.ending ? this.props.mainStore!.formatDate(u.ending) : ''),
+        format: (user: User) => (user.ending ? this.props.mainStore!.formatDate(user.ending) : ''),
       },
       {
         id: 'active',
@@ -73,10 +73,8 @@ export class UserOverview extends React.Component<Props> {
             <td>
               <Input
                 type={'text'}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  this.props.userStore!.updateFilters({
-                    zdp: e.target.value,
-                  });
+                onChange={({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+                  this.props.userStore!.updateFilters({ zdp: value });
                 }}
                 value={this.props.userStore!.userFilters.zdp || ''}
               />
@@ -84,10 +82,8 @@ export class UserOverview extends React.Component<Props> {
             <td>
               <Input
                 type={'text'}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  this.props.userStore!.updateFilters({
-                    name: e.target.value,
-                  });
+                onChange={({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+                  this.props.userStore!.updateFilters({ name: value });
                 }}
                 value={this.props.userStore!.userFilters.name}
               />
@@ -95,9 +91,9 @@ export class UserOverview extends React.Component<Props> {
             <td>
               <DatePickerInput
                 value={new Date(this.props.userStore!.userFilters.beginning)}
-                onChange={(d: Date) => {
+                onChange={(date: Date) => {
                   this.props.userStore!.updateFilters({
-                    beginning: d.toISOString(),
+                    beginning: date.toISOString(),
                   });
                 }}
               />
@@ -105,9 +101,9 @@ export class UserOverview extends React.Component<Props> {
             <td>
               <DatePickerInput
                 value={new Date(this.props.userStore!.userFilters.ending)}
-                onChange={(d: Date) => {
+                onChange={(date: Date) => {
                   this.props.userStore!.updateFilters({
-                    ending: d.toISOString(),
+                    ending: date.toISOString(),
                   });
                 }}
               />
@@ -116,10 +112,8 @@ export class UserOverview extends React.Component<Props> {
               <FormGroup check>
                 <Input
                   type={'checkbox'}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    this.props.userStore!.updateFilters({
-                      active: e.target.checked,
-                    });
+                  onChange={({ target: { checked } }: React.ChangeEvent<HTMLInputElement>) => {
+                    this.props.userStore!.updateFilters({ active: checked });
                   }}
                   checked={this.props.userStore!.userFilters.active}
                 />
@@ -128,10 +122,8 @@ export class UserOverview extends React.Component<Props> {
             <td>
               <Input
                 type={'select'}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  this.props.userStore!.updateFilters({
-                    role: e.target.value,
-                  });
+                onChange={({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+                  this.props.userStore!.updateFilters({ role: value });
                 }}
                 value={this.props.userStore!.userFilters.role || ''}
               >
