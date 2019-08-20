@@ -7,11 +7,11 @@ RSpec.describe ExpenseSheetGenerator, type: :service do
   let(:expense_sheet_generator) { described_class.new(service) }
 
   describe '#create_expense_sheets' do
-    subject { -> { create_expense_sheets } }
-
     let(:create_expense_sheets) { expense_sheet_generator.create_expense_sheets }
 
-    it { is_expected.to change(ExpenseSheet, :count).by(6) }
+    it 'creates 6 new expense sheets' do
+      expect { create_expense_sheets }.to change(ExpenseSheet, :count).by(6)
+    end
 
     it 'sets constant bank_account_number', :aggregate_failures do
       create_expense_sheets
@@ -28,13 +28,13 @@ RSpec.describe ExpenseSheetGenerator, type: :service do
     end
 
     context 'with a single month service' do
-      subject do
-        -> { expense_sheet_generator.create_expense_sheets beginning: service.beginning, ending: service.ending }
-      end
-
       let(:service) { create :service, beginning: '2018-01-01', ending: '2018-01-26' }
 
-      it { is_expected.to change(ExpenseSheet, :count).by(1) }
+      it 'creates one new expense sheet' do
+        expect do
+          expense_sheet_generator.create_expense_sheets beginning: service.beginning, ending: service.ending
+        end.to change(ExpenseSheet, :count).by(1)
+      end
 
       it 'creates the correct ExpenseSheet', :aggregate_failures do
         create_expense_sheets

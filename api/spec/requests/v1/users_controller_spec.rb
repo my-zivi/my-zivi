@@ -135,14 +135,14 @@ RSpec.describe V1::UsersController, type: :request do
       before { sign_in civil_servant }
 
       context 'when he tries to update himself' do
-        subject { -> { request } }
-
         let(:updated_user) { civil_servant }
 
         context 'when the updated data is correct' do
           it_behaves_like 'renders a successful http status code'
 
-          it { is_expected.to change { updated_user.reload.first_name }.to params[:first_name] }
+          it 'updates the user' do
+            expect { request }.to change { updated_user.reload.first_name }.to params[:first_name]
+          end
         end
 
         context 'when he tries to update an admin protected field' do
@@ -162,7 +162,9 @@ RSpec.describe V1::UsersController, type: :request do
 
           it_behaves_like 'renders a validation error response'
 
-          it { is_expected.not_to(change { updated_user.reload.first_name }) }
+          it 'does not update the user' do
+            expect { request }.not_to(change { updated_user.reload.first_name })
+          end
 
           it 'returns the error' do
             request
@@ -182,20 +184,22 @@ RSpec.describe V1::UsersController, type: :request do
 
         it_behaves_like 'admin protected resource'
 
-        it { is_expected.not_to(change { updated_user.reload.first_name }) }
+        it 'does not update the user' do
+          expect { request }.not_to(change { updated_user.reload.first_name })
+        end
       end
     end
 
     context 'when an admin is logged in' do
-      subject { -> { request } }
-
       let(:updated_user) { create :user }
 
       before { sign_in create(:user, :admin) }
 
       it_behaves_like 'renders a successful http status code'
 
-      it { is_expected.to change { updated_user.reload.first_name }.to params[:first_name] }
+      it 'does update the user' do
+        expect { request }.to change { updated_user.reload.first_name }.to params[:first_name]
+      end
 
       context 'when he tries to update admin protected fields' do
         let(:params) { { internal_note: 'Restricted', role: 'admin' } }
@@ -209,13 +213,13 @@ RSpec.describe V1::UsersController, type: :request do
     end
 
     context 'when no user is logged in' do
-      subject { -> { request } }
-
       let(:updated_user) { create :user }
 
       it_behaves_like 'login protected resource'
 
-      it { is_expected.not_to(change { updated_user.reload.first_name }) }
+      it 'does not update the user' do
+        expect { request }.not_to(change { updated_user.reload.first_name })
+      end
     end
   end
 

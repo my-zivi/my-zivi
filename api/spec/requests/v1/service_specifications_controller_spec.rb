@@ -30,8 +30,6 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
     end
 
     describe '#create' do
-      subject { -> { post_request } }
-
       let(:post_request) { post v1_service_specifications_path(service_specification: params) }
 
       context 'when user is admin' do
@@ -58,7 +56,9 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
             let(:request) { post_request }
           end
 
-          it { is_expected.to change(ServiceSpecification, :count).by(1) }
+          it 'creates a new ServiceSpecification' do
+            expect { post_request }.to change(ServiceSpecification, :count).by(1)
+          end
 
           it 'returns the created service specification' do
             post_request
@@ -77,7 +77,9 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
             attributes_for(:service_specification).merge(short_name: '', accommodation_expenses: 'I am invalid')
           end
 
-          it { is_expected.to change(ServiceSpecification, :count).by(0) }
+          it 'does not create a new ServiceSpecification' do
+            expect { post_request }.to change(ServiceSpecification, :count).by(0)
+          end
 
           it_behaves_like 'renders a validation error response' do
             let(:request) { post_request }
@@ -119,8 +121,6 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
         let(:user) { create :user, :admin }
 
         context 'with valid params' do
-          subject { -> { put_request } }
-
           let(:params) { { name: 'New name' } }
           let(:expected_attributes) do
             extract_to_json(service_specification,
@@ -132,7 +132,9 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
                             :active)
           end
 
-          it { is_expected.to(change { service_specification.reload.name }.to('New name')) }
+          it 'updates service_specification name' do
+            expect { put_request }.to(change { service_specification.reload.name }.to('New name'))
+          end
 
           it_behaves_like 'renders a successful http status code' do
             let(:request) { put_request }

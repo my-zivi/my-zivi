@@ -6,16 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 35
-RSpec/ImplicitBlockExpectation:
-  Exclude:
-    - 'spec/requests/v1/payments_controller_spec.rb'
-    - 'spec/requests/v1/phone_list_controller_spec.rb'
-    - 'spec/requests/v1/service_specifications_controller_spec.rb'
-    - 'spec/requests/v1/services_controller_spec.rb'
-    - 'spec/requests/v1/users_controller_spec.rb'
-    - 'spec/services/expense_sheet_generator_spec.rb'
-
 # Offense count: 2
 RSpec/SubjectStub:
   Exclude:

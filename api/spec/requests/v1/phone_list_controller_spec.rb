@@ -31,19 +31,19 @@ RSpec.describe V1::PhoneListController, type: :request do
         end
 
         context 'when no beginning is provided' do
-          subject { -> { request } }
-
           let(:beginning) { '' }
 
-          it { is_expected.to raise_exception ActionController::ParameterMissing }
+          it 'raises ParameterMissing exception' do
+            expect { request }.to raise_exception ActionController::ParameterMissing
+          end
         end
 
         context 'when no ending is provided' do
-          subject { -> { request } }
-
           let(:ending) { '' }
 
-          it { is_expected.to raise_exception ActionController::ParameterMissing }
+          it 'raises ParameterMissing exception' do
+            expect { request }.to raise_exception ActionController::ParameterMissing
+          end
         end
 
         context 'when an invalid format is requested' do
@@ -59,11 +59,11 @@ RSpec.describe V1::PhoneListController, type: :request do
     end
 
     context 'when no token is provided' do
-      subject { -> { request } }
-
       let(:token) { nil }
 
-      it { is_expected.to raise_exception ActionController::ParameterMissing }
+      it 'raises ParameterMissing exception' do
+        expect { request }.to raise_exception ActionController::ParameterMissing
+      end
     end
 
     context 'when an invalid token is provided' do

@@ -42,11 +42,11 @@ RSpec.describe V1::PaymentsController, type: :request do
       end
 
       context 'when no token is provided' do
-        subject { -> { request } }
-
         let(:token) { nil }
 
-        it { is_expected.to raise_exception ActionController::ParameterMissing }
+        it 'raises ParameterMissing exception' do
+          expect { request }.to raise_exception ActionController::ParameterMissing
+        end
       end
 
       context 'when an invalid token is provided' do
