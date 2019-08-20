@@ -6,9 +6,9 @@ RSpec.describe V1::ServiceCalculatorController, type: :request do
   subject(:json_response) { parse_response_json(response) }
 
   let(:beginning) { '2018-01-01' }
-  let(:service_days_request) { get v1_services_calculate_service_days_path(beginning: beginning, ending: ending) }
+  let(:service_days_request) { get calculate_service_days_v1_services_path(beginning: beginning, ending: ending) }
   let(:ending) { '2018-01-26' }
-  let(:ending_request) { get v1_services_calculate_ending_path(beginning: beginning, service_days: service_days) }
+  let(:ending_request) { get calculate_ending_v1_services_path(beginning: beginning, service_days: service_days) }
   let(:service_days) { 26 }
 
   context 'when the user is signed in' do

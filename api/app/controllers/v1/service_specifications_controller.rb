@@ -42,8 +42,8 @@ module V1
     private
 
     def set_service_specification
-      # TODO: Find by identification number and adapt frontend
-      @service_specification = ServiceSpecification.find(params[:id])
+      identification_number = params[:identification_number]
+      @service_specification = ServiceSpecification.find_by!(identification_number: identification_number)
     end
 
     def service_specification_params

@@ -38,6 +38,10 @@ class ServiceSpecification < ApplicationRecord
     POCKET_MONEY
   end
 
+  def to_param
+    identification_number
+  end
+
   private
 
   def validate_work_days_expenses
