@@ -9,8 +9,8 @@ import { WiredField } from '../../../form/formik';
 import { Service } from '../../../types';
 import Effect, { OnChange } from '../../../utilities/Effect';
 
-export const ServiceModalForm = (props: { serviceDateRangeChangeHandler: OnChange<Service> }) => {
-  const { serviceDateRangeChangeHandler } = props;
+export const ServiceModalForm = (props: { serviceDateRangeChangeHandler: OnChange<Service>, isAdmin: boolean }) => {
+  const { serviceDateRangeChangeHandler, isAdmin } = props;
 
   return (
     <>
@@ -35,7 +35,7 @@ export const ServiceModalForm = (props: { serviceDateRangeChangeHandler: OnChang
         />
         <Effect onChange={serviceDateRangeChangeHandler}/>
         <WiredField horizontal component={DatePickerField} name={'beginning'} label={'Einsatzbeginn'}/>
-        <WiredField horizontal component={DatePickerField} name={'ending'} label={'Einsatzende'}/>
+        <WiredField horizontal component={DatePickerField} name={'ending'} label={'Einsatzende'} disabled={!isAdmin}/>
         <WiredField horizontal component={TextField} name={'days'} label={'Einsatztage'}/>
         <WiredField horizontal component={CheckboxField} name={'first_swo_service'} label={'Erster SWO Einsatz?'}/>
         <WiredField horizontal component={CheckboxField} name={'long_service'} label={'Langer Einsatz?'}/>

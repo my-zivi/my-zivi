@@ -86,7 +86,7 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
   }
 
   render() {
-    const { onSubmit, onClose, isOpen } = this.props;
+    const { onSubmit, onClose, isOpen, mainStore } = this.props;
 
     if (!isOpen) {
       return <></>;
@@ -100,7 +100,7 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
           <Modal isOpen toggle={onClose}>
             <ModalHeader toggle={onClose}>Zivildiensteinsatz</ModalHeader>
             <ModalBody>
-              <ServiceModalForm serviceDateRangeChangeHandler={this.handleServiceDateRangeChange}/>
+              <ServiceModalForm serviceDateRangeChangeHandler={this.handleServiceDateRangeChange} isAdmin={mainStore!.isAdmin()}/>
             </ModalBody>
             <ModalFooter>
               <Button color="primary" onClick={formikProps.submitForm}>
