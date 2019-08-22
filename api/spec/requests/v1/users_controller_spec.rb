@@ -11,7 +11,7 @@ RSpec.describe V1::UsersController, type: :request do
     let(:expected_successful_response_json) do
       extract_to_json(requested_user)
         .except(
-          :created_at, :encrypted_password,
+          :created_at, :encrypted_password, :legacy_password,
           :reset_password_sent_at, :reset_password_token,
           :updated_at
         ).merge(
@@ -87,7 +87,7 @@ RSpec.describe V1::UsersController, type: :request do
             ending: convert_to_json_value(current_user.services.chronologically.last.ending.to_s),
             active: false
           ).except(
-            :created_at, :encrypted_password,
+            :created_at, :encrypted_password, :legacy_password,
             :reset_password_sent_at, :reset_password_token,
             :updated_at
           )

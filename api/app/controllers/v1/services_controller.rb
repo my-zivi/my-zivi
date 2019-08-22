@@ -18,7 +18,7 @@ module V1
 
     def index
       year = filter_params[:year]
-      @services = year.present? ? Service.at_year(year.to_i) : Service.all
+      @services = year.present? ? Service.at_year(year.to_i).order(:beginning) : Service.all
     end
 
     def show; end

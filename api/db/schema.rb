@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_27_105124) do
+ActiveRecord::Schema.define(version: 2019_08_22_113623) do
 
   create_table "expense_sheets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "beginning", null: false
@@ -51,9 +51,9 @@ ActiveRecord::Schema.define(version: 2019_06_27_105124) do
   end
 
   create_table "regional_centers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.string "short_name"
+    t.string "name", null: false
+    t.string "address", null: false
+    t.string "short_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 2019_06_27_105124) do
     t.text "work_experience"
     t.boolean "driving_licence_b", default: false, null: false
     t.boolean "driving_licence_be", default: false, null: false
-    t.bigint "regional_center_id"
+    t.bigint "regional_center_id", null: false
     t.text "internal_note"
     t.boolean "chainsaw_workshop", default: false, null: false
     t.datetime "created_at", null: false
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 2019_06_27_105124) do
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
+    t.string "legacy_password"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["regional_center_id"], name: "index_users_on_regional_center_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
