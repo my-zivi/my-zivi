@@ -70,7 +70,7 @@ class Service < ApplicationRecord
   end
 
   def service_calculator
-    @service_calculator ||= ServiceCalculator.new(beginning)
+    @service_calculator ||= ServiceCalculator.new(beginning, last_civil_service?)
   end
 
   def no_overlapping_service

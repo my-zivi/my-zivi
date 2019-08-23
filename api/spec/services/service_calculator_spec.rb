@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe ServiceCalculator, type: :service do
   let(:beginning) { Date.parse('2018-01-01') }
-  let(:service_calculator) { described_class.new(beginning) }
+  let(:service_calculator) { described_class.new(beginning, last_civil_service) }
+  let(:last_civil_service) { false }
   let(:short_service_calculator) do
     instance_double ShortServiceCalculator,
                     calculate_ending_date: true,
@@ -42,7 +43,7 @@ RSpec.describe ServiceCalculator, type: :service do
 
   describe '#calculate_chargeable_service_days' do
     context 'when duration is 26 or over' do
-      before { service_calculator.calculate_chargeable_service_days(beginning + 25) }
+      before { service_calculator.calculate_chargeable_service_days(beginning + 25.days) }
 
       it 'routes to NormalServiceCalculator' do
         expect(normal_service_calculator).to have_received(:calculate_chargeable_service_days).with(beginning + 25)
@@ -50,10 +51,30 @@ RSpec.describe ServiceCalculator, type: :service do
     end
 
     context 'when duration is under 26' do
-      before { service_calculator.calculate_chargeable_service_days(beginning + 24) }
+      before { service_calculator.calculate_chargeable_service_days(beginning + 24.days) }
 
       it 'routes to ShortServiceCalculator' do
         expect(short_service_calculator).to have_received(:calculate_chargeable_service_days).with(beginning + 24)
+      end
+    end
+
+    context 'when duration is invalid' do
+      context 'when is not a last civil service' do
+        it 'raises error' do
+          expect do
+            service_calculator.calculate_chargeable_service_days(beginning + 27.days)
+          end.to raise_error CalculationError
+        end
+      end
+
+      context 'when is a last civil service' do
+        let(:last_civil_service) { true }
+
+        it 'does not raises error' do
+          expect do
+            service_calculator.calculate_chargeable_service_days(beginning + 27.days)
+          end.not_to raise_error
+        end
       end
     end
   end

@@ -32,7 +32,7 @@ RSpec.describe NormalServiceCalculator, type: :service do
       context 'when ending is between 25 and 354 days after beginning' do
         let(:start_range) { beginning + 25.days }
         let(:end_range) { beginning + 354.days }
-        let(:week_days_range) { (start_range..end_range).reject(&:on_weekend?) }
+        let(:week_days_range) { (start_range..end_range) }
 
         it 'returns the chargeable service days', :aggregate_failures do
           week_days_range.each do |ending|
@@ -102,6 +102,12 @@ RSpec.describe NormalServiceCalculator, type: :service do
         let(:required_service_days) { 54 }
 
         it { is_expected.to eq(Date.parse('2018-03-05')) }
+      end
+
+      context 'when service days are 55' do
+        let(:required_service_days) { 55 }
+
+        it { is_expected.to eq(Date.parse('2018-03-06')) }
       end
 
       context 'when service days are 179' do

@@ -20,8 +20,6 @@ class NormalServiceCalculator
   end
 
   def calculate_chargeable_service_days(ending_date)
-    raise I18n.t('service_calculator.end_date_cannot_be_on_weekend') if ending_date.on_weekend?
-
     duration = (ending_date - @beginning_date).to_i + 1
     dirty_service_days = duration - calculate_unpaid_days(duration, ending_date)
     # Call calculate_unpaid_days again, in case personal_vacation_days changed

@@ -17,7 +17,7 @@ module V1
     private
 
     def service_calculator
-      @service_calculator ||= ServiceCalculator.new(Date.parse(service_calculator_params[:beginning]))
+      @service_calculator ||= ServiceCalculator.new(Date.parse(service_calculator_params[:beginning]), true)
     end
 
     def service_calculator_params
