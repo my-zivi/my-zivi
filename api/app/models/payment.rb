@@ -38,6 +38,8 @@ class Payment
     return false unless valid?
 
     @expense_sheets.map(&:save).all?
+  rescue ActiveRecord::ReadOnlyRecord
+    false
   end
 
   def confirm

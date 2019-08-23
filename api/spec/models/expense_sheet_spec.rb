@@ -268,4 +268,30 @@ RSpec.describe ExpenseSheet, type: :model do
       end
     end
   end
+
+  describe 'update' do
+    context 'when state is paid' do
+      let(:expense_sheet) { create :expense_sheet, :paid }
+
+      it 'prevents an update' do
+        expect { expense_sheet.update(sick_comment: 'blubb') }.to raise_error ActiveRecord::ReadOnlyRecord
+      end
+    end
+
+    context 'when updating to paid state' do
+      let(:expense_sheet) { create :expense_sheet, :payment_in_progress }
+
+      it 'prevents an update' do
+        expect { expense_sheet.update(state: 'paid') }.not_to raise_error
+      end
+    end
+
+    context 'when state is not paid' do
+      let(:expense_sheet) { create :expense_sheet, :payment_in_progress }
+
+      it 'prevents an update' do
+        expect { expense_sheet.update(sick_comment: 'blubb') }.not_to raise_error
+      end
+    end
+  end
 end

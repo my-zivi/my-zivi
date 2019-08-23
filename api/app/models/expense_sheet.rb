@@ -86,6 +86,10 @@ class ExpenseSheet < ApplicationRecord
     ending == service.ending
   end
 
+  def readonly?
+    paid? && !state_changed?
+  end
+
   private
 
   def legitimate_destroy

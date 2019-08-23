@@ -17,7 +17,10 @@ def hash_of_payment(payment)
 end
 
 def create_payment(state: :payment_in_progress, payment_timestamp: Time.zone.now)
-  expense_sheets = create_expense_sheets(state: state)
+  previous_state = ExpenseSheet.states.key(ExpenseSheet.states[state] - 1)
+  expense_sheets = create_expense_sheets(state: previous_state)
+
+  # saving issues state update to requested state
   Payment.new(expense_sheets: expense_sheets, state: state, payment_timestamp: payment_timestamp).tap(&:save)
 end
 

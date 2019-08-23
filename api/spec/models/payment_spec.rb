@@ -9,20 +9,25 @@ RSpec.describe Payment, type: :model do
   let!(:initial_expense_sheets) do
     expense_sheets_array = ExpenseSheetGenerator.new(service).create_expense_sheets
     ExpenseSheet.where(id: expense_sheets_array.map(&:id)).all.tap do |relation|
-      relation.update_all state: initial_expense_sheet_state
+      timestamp = initial_expense_sheet_state == :paid ? payment_timestamp : nil
+      relation.update_all state: initial_expense_sheet_state, payment_timestamp: timestamp
     end
   end
   let(:initial_expense_sheet_state) { :ready_for_payment }
 
-  let(:initial_payment_state) do
-    return { state: initial_expense_sheet_state } if initial_expense_sheet_state == :paid
+  let(:payment_timestamp) { Time.zone.local(2019) }
+  let(:initial_payment_timestamp) { { payment_timestamp: payment_timestamp } }
+  let(:initial_payment_state) { initial_expense_sheet_state == :paid ? { state: initial_expense_sheet_state } : {} }
 
-    {}
-  end
-  let(:payment) do
-    described_class.new({ expense_sheets: initial_expense_sheets }.merge(initial_payment_state))
-  end
   let(:created_payment) { payment.tap(&:save) }
+  let(:payment) do
+    options = { expense_sheets: initial_expense_sheets }
+              .merge(initial_payment_state)
+
+    options.merge!(initial_payment_timestamp) if initial_expense_sheet_state == :paid
+
+    described_class.new(options)
+  end
 
   describe '#initialize' do
     let(:expected_states) { [:ready_for_payment] }
@@ -32,7 +37,7 @@ RSpec.describe Payment, type: :model do
       expect(payment.state).to eq :payment_in_progress
     end
 
-    it 'doesnt update expense sheets' do
+    it %(doesn't update expense sheets) do
       expect(all_expense_sheet_states_of_payment(payment)).to eq expected_states
     end
   end
@@ -89,7 +94,7 @@ RSpec.describe Payment, type: :model do
         expect { created_payment.save }.to change(all_states_lambda, :call).to expected_states
       end
 
-      it 'doesnt update expense sheets payment timestamp' do
+      it %(doesn't update expense sheets payment timestamp) do
         expect(all_payment_timestamps_lambda.call).to eq expected_payment_timestamps
       end
     end
@@ -101,11 +106,11 @@ RSpec.describe Payment, type: :model do
 
       before { created_payment.state = new_state }
 
-      it 'doesnt update expense sheets state' do
+      it %(doesn't update expense sheets state) do
         expect(all_expense_sheet_states_of_payment(created_payment)).to eq expected_states
       end
 
-      it 'doesnt update expense sheets payment timestamp' do
+      it %(doesn't update expense sheets payment timestamp) do
         expect(all_expense_sheet_payment_timestamps_of_payment(created_payment)).to eq expected_payment_timestamps
       end
     end
@@ -118,7 +123,7 @@ RSpec.describe Payment, type: :model do
       expect { created_payment.confirm }.to change(created_payment, :state).to :paid
     end
 
-    it 'doesnt change payment timestamp' do
+    it %(doesn't change payment timestamp) do
       expect { created_payment.confirm }.not_to change(created_payment, :payment_timestamp)
     end
 
@@ -159,11 +164,11 @@ RSpec.describe Payment, type: :model do
       let(:expected_states) { [initial_expense_sheet_state] }
       let(:expected_payment_timestamps) { [payment.payment_timestamp.to_i] }
 
-      it 'doesnt change expense sheets state' do
+      it %(doesn't change expense sheets state) do
         expect(all_expense_sheet_states_of_payment(created_payment)).to eq expected_states
       end
 
-      it 'doesnt change expense sheets payment_timestamp' do
+      it %(doesn't change expense sheets payment_timestamp) do
         expect(all_expense_sheet_payment_timestamps_of_payment(created_payment)).to eq expected_payment_timestamps
       end
     end
@@ -262,7 +267,7 @@ RSpec.describe Payment, type: :model do
         expect(payment.valid?).to eq true
       end
 
-      it 'doesnt add anything to errors' do
+      it %(doesn't add anything to errors) do
         expect(payment.tap(&:validate).errors.size).to eq 0
       end
     end

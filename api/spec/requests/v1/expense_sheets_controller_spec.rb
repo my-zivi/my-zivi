@@ -260,6 +260,20 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
           end
         end
 
+        context 'when state is paid' do
+          let(:params) { { driving_expenses: 6969 } }
+          let(:expense_sheet) { create :expense_sheet, :paid }
+
+          it 'does not update the expense sheet' do
+            expect { put_request }.not_to(change(expense_sheet, :reload))
+          end
+
+          it 'renders error structure' do
+            put_request
+            expect(parse_response_json(response)).to include(error: be_an_instance_of(String))
+          end
+        end
+
         context 'with invalid params' do
           let(:params) { { driving_expenses: 'a' } }
 

@@ -14,6 +14,7 @@ module Concerns
         klass.rescue_from(AuthorizationError) { |_error| render_authorization_error }
         klass.rescue_from(ActionController::UnknownFormat) { |_error| render_format_error }
         klass.rescue_from(CalculationError) { |error| render_calculation_error(error) }
+        klass.rescue_from(ActiveRecord::ReadOnlyRecord) { |error| render_json_error(error) }
       end
     end
 
