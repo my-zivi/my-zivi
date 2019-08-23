@@ -35,6 +35,24 @@ RSpec.describe User, type: :model do
         expect(model).to allow_value('CH9300762011623852957').for(:bank_iban)
       end
     end
+
+    describe '#legacy_password' do
+      context 'when the encrypted password is blank' do
+        subject(:model) { described_class.new(encrypted_password: '') }
+
+        it 'requires a legacy password' do
+          expect(model).to validate_presence_of(:legacy_password)
+        end
+      end
+
+      context 'when the encrypted password is present' do
+        subject(:model) { described_class.new(encrypted_password: 'pass') }
+
+        it 'does not require a legacy password' do
+          expect(model).not_to validate_presence_of(:legacy_password)
+        end
+      end
+    end
   end
 
   it do
@@ -112,6 +130,96 @@ RSpec.describe User, type: :model do
       expect(errors.added?(:bank_iban, :blank)).to eq true
       expect(errors.added?(:bank_iban, :too_short)).to eq true
       expect(errors.to_h.keys).to eq [:bank_iban]
+    end
+  end
+
+  describe '#reset_password' do
+    subject(:user) { create :user, legacy_password: 'I am a cool password hash' }
+
+    let(:new_password) { 'even more secure new password' }
+
+    it 'sets legacy password to nil' do
+      expect { user.reset_password(new_password, new_password) }.to change(user, :legacy_password).to nil
+    end
+
+    it 'updates password' do
+      expect { user.reset_password(new_password, new_password) }.to change(user, :password)
+    end
+  end
+
+  describe '#valid_password?' do
+    subject(:authentication) { user.valid_password?(plain_password) }
+
+    let(:plain_password) { '123456' }
+
+    context 'when a legacy password exists' do
+      let(:user) { create :user, legacy_password: legacy_password, encrypted_password: '' }
+      let(:legacy_password) { '$2a$11$FzM.25l8i27t5qYVNyj8eOblnwgVG2RnU316Jvi5wUieZlqGy.jJC' }
+
+      context 'when the plain password matches hash' do
+        let(:plain_password) { '123456' }
+
+        it 'authenticates correctly' do
+          expect(authentication).to eq true
+        end
+
+        it 'removes the legacy password' do
+          expect { authentication }.to change(user, :legacy_password).from(legacy_password).to(nil)
+        end
+
+        it 'sets a freshly hashed password' do
+          expect { authentication }.to change(user, :encrypted_password).from('')
+        end
+
+        context 'when the user has invalid attributes' do
+          before do
+            user.bank_iban = 'invalid'
+            user.save validate: false
+          end
+
+          it 'still authenticates correctly' do
+            expect(authentication).to eq true
+          end
+        end
+      end
+
+      context 'when the plain password does not match hash' do
+        let(:plain_password) { 'invalid password' }
+
+        it 'rejects authentication request' do
+          expect(authentication).to eq false
+        end
+
+        it 'does not touch #legacy_password or #encrypted_password', :aggregate_failures do
+          expect { authentication }.not_to(change(user, :legacy_password))
+          expect { authentication }.not_to(change(user, :encrypted_password))
+        end
+      end
+    end
+
+    context 'when no legacy password is present' do
+      let(:user) { create :user, legacy_password: nil, encrypted_password: new_hash }
+      let(:new_hash) { '$2a$11$wpxRzqV4VXgwAuCCDl8SweyRZ9ZFlDZhWL/a0J/jUcKa02K9lSxta' }
+
+      before do
+        allow(user).to receive(:valid_legacy_password?)
+        allow(Devise).to receive(:secure_compare)
+      end
+
+      it 'does not authenticate using legacy method' do
+        authentication
+        expect(user).not_to have_received :valid_legacy_password?
+      end
+
+      it 'does not touch #legacy_password or #encrypted_password', :aggregate_failures do
+        expect { authentication }.not_to(change(user, :legacy_password))
+        expect { authentication }.not_to(change(user, :encrypted_password))
+      end
+
+      it 'still calls authentication comparision' do
+        authentication
+        expect(Devise).to have_received(:secure_compare).once
+      end
     end
   end
 end
