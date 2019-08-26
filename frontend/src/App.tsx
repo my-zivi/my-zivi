@@ -8,6 +8,7 @@ import { IziviLayout } from './layout/IziviLayout';
 
 import { Icons } from './utilities/Icon';
 import { ProtectedRoute } from './utilities/ProtectedRoute';
+import { ChangeForgottenPassword } from './views/ChangeForgottenPassword';
 import { ChangePassword } from './views/ChangePassword';
 import { ExpenseSheetOverview } from './views/expense_sheets/ExpenseSheetOverview';
 import { ExpenseSheetUpdate } from './views/expense_sheets/ExpenseSheetUpdate';
@@ -38,7 +39,8 @@ class App extends React.Component {
           <Route component={Home} exact path={'/'} />
           <Route component={Login} exact path={'/login'} />
           <Route component={Register} exact path={'/register/:page'} />
-          <Route component={ForgotPassword} exact path={'/forgotPassword'} />
+          <Route component={ForgotPassword} exact path={'/users/password/reset'} />
+          <Route component={ChangeForgottenPassword} exact path={'/users/password/edit/:reset_password_token'} />
           <Route component={HolidayOverview} exact path={'/holidays'} />
           <Route component={PhoneListView} exact path={'/phones'} />
           <Route component={ProfileOverview} exact path={'/profile'} />

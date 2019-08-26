@@ -150,8 +150,12 @@ export class ApiStore {
     await this._api.put('/users', { user: values });
   }
 
-  async postForgotPassword(email: string) {
-    await this._api.post('/auth/forgotPassword', { email });
+  async postForgotPassword(data: { reset_password_token: string, password: string, password_confirmation: string } | { email: string }) {
+    if ('email' in data) {
+      await this._api.post('/users/password', { user: data });
+    } else {
+      await this._api.put('/users/password', { user: data });
+    }
   }
 
   private removeAuthorizationToken() {

@@ -90,7 +90,7 @@ export class Login extends React.Component<Props> {
           )}
         />
         <p>
-          <Link to="/forgotPassword">Passwort vergessen?</Link>
+          <Link to="/users/password/reset">Passwort vergessen?</Link>
         </p>
       </IziviContent>
       /*<LoadingView loading={this.state.loading} error={this.state.error} />*/
