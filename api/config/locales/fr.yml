@@ -147,6 +147,7 @@ fr:
       not_found: Paiement non trouvé
       ready_not_found: Aucune feuille de dépenses prête à être payée n'a été trouvée
     expenses_from: Frais du %{from_date}
+    pain_filename: Frais_du_%{from_date}.xml
   pdfs:
     expense_sheet:
       expense_table:

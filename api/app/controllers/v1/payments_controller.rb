@@ -17,7 +17,9 @@ module V1
           render :show
         end
         format.xml do
-          render plain: generate_pain, content_type: :xml
+          send_data generate_pain, disposition: 'attachment',
+                                   filename: I18n.t('payment.pain_filename',
+                                                    from_date: I18n.l(@payment.payment_timestamp, format: '%d.%m.%Y'))
         end
       end
     end

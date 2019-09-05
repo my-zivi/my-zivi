@@ -147,6 +147,7 @@ en:
       not_found: Payment not found
       ready_not_found: No ready for payment expense sheets found
     expenses_from: Expenses from %{from_date}
+    pain_filename: Expenses_from_%{from_date}.xml
   pdfs:
     expense_sheet:
       expense_table:

@@ -147,6 +147,7 @@ de:
       not_found: Auszahlung nicht gefunden
       ready_not_found: Keine für Auszahlung bereiten Spesenblätter gefunden
     expenses_from: Spesen vom %{from_date}
+    pain_filename: Spesen_vom_%{from_date}.xml
   pdfs:
     expense_sheet:
       expense_table:
