@@ -110,8 +110,6 @@ GEM
     coderay (1.1.2)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    combine_pdf (1.0.16)
-      ruby-rc4 (>= 0.1.5)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
     debase (0.2.4)
@@ -393,7 +391,6 @@ DEPENDENCIES
   bullet
   byebug
   climate_control
-  combine_pdf
   debase
   devise!
   devise-jwt (~> 0.6.0)
