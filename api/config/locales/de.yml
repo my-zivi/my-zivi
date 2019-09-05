@@ -184,6 +184,11 @@ de:
       filename: Telefonliste_%{today}.pdf
       header: Stand vom %{date}
       title: Telefonliste vom %{beginning} bis %{ending}
+    service_agreement:
+      body_content: |-
+        Lieber Zivi
+        Bitte sende die unterzeichnete Einsatzvereinbarung an obige Adresse. Wenn du ein Fenstercouvert mit Fenster links oder rechts verwendest, kannst du dieses Deckblatt falten und in das Couvert stecken. Die Adresse ist richtig platziert. Die Adresse unten rechts wird von uns benutzt um die Einsatzvereinbarung an die Regionalstelle weiterzuleiten. Ganz am Ende findest du ein Informationsblatt, das dir Auskunft über den Ablauf deines Einsatzes gibt. Gib bitte den Talon darin am ersten Einsatztag unterschrieben dem Einsatzleiter ab.
+      filename: Einsatzvereinbarung_von_%{full_name}.pdf
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage

@@ -6,6 +6,7 @@ module Pdfs
   module ExpenseSheet
     class GeneratorService
       include Prawn::View
+      include ::Pdfs::PrawnHelper
       include TableGenerator
       include HeaderGeneratorHelper
       include HeaderInfoBlockGenerator
@@ -15,6 +16,8 @@ module Pdfs
 
       def initialize(expense_sheet)
         @expense_sheet = expense_sheet
+
+        update_font_families
 
         header
         body
@@ -44,13 +47,6 @@ module Pdfs
         fill_color color
         fill_rectangle pos, size[:width], size[:height]
         fill_color Colors::BLACK
-      end
-
-      def cursor_save
-        cursor.tap do |old_cursor|
-          yield
-          move_cursor_to old_cursor
-        end
       end
 
       def cursor_save_text_box(*text_box_args)

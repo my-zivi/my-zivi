@@ -184,6 +184,11 @@ fr:
       filename: Liste_téléphonique_%{today}.pdf
       header: Généré sur %{date}
       title: Liste téléphonique de %{beginning} à %{ending}
+    service_agreement:
+      body_content: |-
+        Chère Zivi
+        Veuillez envoyer l'accord de mission signé à l'adresse ci-dessus. Si vous utilisez une enveloppe à fenêtre à fenêtre gauche ou droite, vous pouvez plier cette page de garde et la mettre dans l'enveloppe. L'adresse est placée correctement. L'adresse en bas à droite est utilisée par nous pour transmettre l'accord de mission au bureau régional. A la toute fin, vous trouverez une fiche d'information, qui vous donne des informations sur le déroulement de votre mission. Veuillez remettre le talon signé à l'officier responsable le premier jour de la mission.
+      filename: Accord_de_mission_de_%{full_name}.pdf
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
     invalid_required_service_days: Jours du service non valables

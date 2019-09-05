@@ -122,7 +122,7 @@ export default (params: OverviewTableParams) => {
       ]}
       renderActions={(service: Service) => (
         <div className={classes.hideButtonText}>
-          <a className={'btn btn-link'} href={mainStore!.apiURL('services/' + service.id + '/draft', {}, true)} target={'_blank'}>
+          <a className={'btn btn-link'} href={mainStore!.apiURL('services/' + service.id + '.pdf', {}, true)} target={'_blank'}>
             <FontAwesomeIcon icon={PrintSolidIcon} /> <span>Drucken</span>
           </a>
           <Button color={'warning'} type={'button'} className="mr-1" onClick={() => onModalOpen(service)}>

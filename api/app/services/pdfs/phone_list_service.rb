@@ -5,6 +5,7 @@ require 'prawn'
 module Pdfs
   class PhoneListService
     include Prawn::View
+    include Pdfs::PrawnHelper
 
     TABLE_HEADER = [
       I18n.t('activerecord.attributes.user.last_name'),
@@ -19,6 +20,8 @@ module Pdfs
       @beginning = dates.beginning
       @ending = dates.ending
       @service_specifications = service_specifications
+
+      update_font_families
 
       header
       content_table

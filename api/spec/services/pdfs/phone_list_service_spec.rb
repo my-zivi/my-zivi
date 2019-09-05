@@ -41,7 +41,7 @@ RSpec.describe Pdfs::PhoneListService, type: :service do
           'Telefonliste vom 01.01.2017 bis 31.12.2018',
           'MyServiceSpecification',
           'Nachname', 'Vorname', 'Adresse', 'PLZ / Ort', 'Telefonnummer', 'Email',
-          'Zivi', 'Mustermann', 'Bahnstrasse 18b', '8603 Schwerzenbach', '+41 (0) 76 123 45', '67', user.email
+          'Zivi', 'Mustermann', 'Bahnstrasse 18b', '8603 Schwerzenbach', '+41 (0) 76 123 45 67', user.email
         ]
       end
 

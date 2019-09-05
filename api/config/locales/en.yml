@@ -184,6 +184,11 @@ en:
       filename: Phonelist_%{today}.pdf
       header: Generated on %{date}
       title: Phonelist from %{beginning} to %{ending}
+    service_agreement:
+      body_content: |-
+        Dear Zivis
+        Please send the signed Mission Agreement to the above address. If you use a window envelope with left or right window, you can fold this cover sheet and put it in the envelope. The address is placed correctly. The address at the bottom right will be used by us to forward the Mission Agreement to the regional office. At the very end you will find an information sheet, which gives you information about the process of your mission. Please hand in the signed talon to the officer in charge on the first day of the mission.
+      filename: Service_agreement_of_%{full_name}.pdf
   service_calculator:
     end_date_cannot_be_on_weekend: Service end date can't be on a weekend
     invalid_required_service_days: Invalid service days

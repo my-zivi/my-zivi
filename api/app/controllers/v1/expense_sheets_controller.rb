@@ -4,6 +4,7 @@ module V1
   class ExpenseSheetsController < ApplicationController
     include V1::Concerns::AdminAuthorizable
     include V1::Concerns::ParamsAuthenticatable
+    include V1::Concerns::JsonAndPdfRespondable
 
     before_action :authenticate_user!, unless: -> { request.format.pdf? }
     before_action :authenticate_from_params!, if: -> { request.format.pdf? }
@@ -25,17 +26,11 @@ module V1
     end
 
     def show
-      respond_to do |format|
-        format.json
-        format.pdf do
-          pdf = Pdfs::ExpenseSheet::GeneratorService.new(@expense_sheet)
-
-          send_data pdf.render,
-                    filename: I18n.t('pdfs.expense_sheet.filename', today: @expense_sheet.user.full_name),
-                    type: 'application/pdf',
-                    disposition: 'inline'
-        end
-      end
+      respond_to_json_and_pdf(
+        Pdfs::ExpenseSheet::GeneratorService,
+        I18n.t('pdfs.expense_sheet.filename', today: @expense_sheet.user.full_name),
+        @expense_sheet
+      )
     end
 
     def hints

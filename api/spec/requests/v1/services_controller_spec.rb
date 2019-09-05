@@ -11,52 +11,11 @@ RSpec.describe V1::ServicesController, type: :request do
     describe '#index' do
       subject(:json_response) { parse_response_json(response) }
 
-      let!(:services) do
-        [
-          create(:service, beginning: '2018-11-05', ending: '2018-11-30', user: user),
-          create(:service, beginning: '2018-12-03', ending: '2018-12-28', user: user)
-        ]
-      end
       let(:request) { get v1_services_path }
-      let(:first_service_json) do
-        extract_to_json(services.first, :beginning, :ending, :confirmation_date, :id)
-          .merge(service_specification: extract_to_json(services.first.service_specification,
-                                                        :name, :short_name, :identification_number))
-          .merge(user: extract_to_json(services.first.user, :id, :first_name, :last_name, :zdp))
-      end
 
-      let(:second_service_json) do
-        extract_to_json(services.second, :beginning, :ending, :confirmation_date, :id)
-          .merge(service_specification: extract_to_json(services.second.service_specification,
-                                                        :name, :short_name, :identification_number))
-          .merge(user: extract_to_json(services.second.user, :id, :first_name, :last_name, :zdp))
-      end
-
-      context 'when the user is admin' do
-        let(:user) { create :user, :admin }
-
-        before do
-          create :service, beginning: '2019-06-17', ending: '2019-06-28', user: user
-          request
-        end
-
-        it_behaves_like 'renders a successful http status code'
-
-        it 'returns the correct data', :aggregate_failures do
-          expect(json_response.length).to eq 3
-          expect(json_response).to include(first_service_json)
-          expect(json_response).to include(second_service_json)
-        end
-
-        context 'with a year filter' do
-          let(:request) { get v1_services_path(params: { year: 2018 }) }
-
-          it 'only returns services of year 2018' do
-            expect(json_response.length).to eq 2
-            expect(json_response).to include(first_service_json)
-            expect(json_response).to include(second_service_json)
-          end
-        end
+      before do
+        create(:service, beginning: '2018-11-05', ending: '2018-11-30', user: user)
+        create(:service, beginning: '2018-12-03', ending: '2018-12-28', user: user)
       end
 
       context 'when user is not admin' do
@@ -65,30 +24,23 @@ RSpec.describe V1::ServicesController, type: :request do
     end
 
     describe '#show' do
-      let(:request) { get v1_service_path service }
+      context 'when the json format is requested' do
+        let(:request) { get v1_service_path service, format: :json }
 
-      before { request }
+        before { request }
 
-      context 'when the user has permission to view its own resource' do
-        let(:service) { create :service, user: user }
-        let(:expected_response) do
-          extract_to_json(service, :id, :user_id, :service_specification_identification_number,
-                          :beginning, :ending, :confirmation_date, :eligible_paid_vacation_days,
-                          :service_type, :first_swo_service, :long_service,
-                          :probation_service, :feedback_mail_sent)
-        end
+        context 'when the user has permission to view its own resource' do
+          let(:service) { create :service, user: user }
+          let(:expected_response) do
+            extract_to_json(service, :id, :user_id, :service_specification_identification_number,
+                            :beginning, :ending, :confirmation_date, :eligible_paid_vacation_days,
+                            :service_type, :first_swo_service, :long_service,
+                            :probation_service, :feedback_mail_sent)
+          end
 
-        it_behaves_like 'renders a successful http status code'
+          it_behaves_like 'renders a successful http status code'
 
-        it 'renders the correct response' do
-          expect(parse_response_json(response)).to include(expected_response)
-        end
-
-        context 'when the user is admin' do
-          let(:user) { create(:user, :admin) }
-          let(:service) { create :service, user: create(:user) }
-
-          it 'is able to view services from different people' do
+          it 'renders the correct response' do
             expect(parse_response_json(response)).to include(expected_response)
           end
         end
@@ -98,12 +50,43 @@ RSpec.describe V1::ServicesController, type: :request do
             let(:request) { get v1_service_path(-2) }
           end
         end
+
+        context 'when a non-admin user requests a service which is not his own' do
+          let(:service) { create :service, user: create(:user) }
+
+          it_behaves_like 'admin protected resource'
+        end
       end
 
-      context 'when a non-admin user requests a service which is not his own' do
-        let(:service) { create :service, user: create(:user) }
+      context 'when the pdf format is requested' do
+        let(:request) { get v1_service_path service, format: :pdf, params: { token: token } }
+        let(:token) { generate_jwt_token_for_user(user) }
 
-        it_behaves_like 'admin protected resource'
+        before { request }
+
+        context 'when the user has permission to view its own resource' do
+          let(:service) { create :service, user: user }
+          let(:expected_response) do
+            extract_to_json(service, :id, :user_id, :service_specification_identification_number,
+                            :beginning, :ending, :confirmation_date, :eligible_paid_vacation_days,
+                            :service_type, :first_swo_service, :long_service,
+                            :probation_service, :feedback_mail_sent)
+          end
+
+          it_behaves_like 'renders a successful http status code'
+        end
+
+        context 'when the requested resource does not exist' do
+          it_behaves_like 'renders a not found error response' do
+            let(:request) { get v1_service_path(-2) }
+          end
+        end
+
+        context 'when a non-admin user requests a service which is not his own' do
+          let(:service) { create :service, user: create(:user) }
+
+          it { expect(response).to have_http_status(:unauthorized) }
+        end
       end
     end
 
@@ -178,20 +161,6 @@ RSpec.describe V1::ServicesController, type: :request do
           it 'ignores confirmation date' do
             post_request
             expect(parse_response_json(response)[:confirmation_date]).to eq nil
-          end
-        end
-
-        context 'when a admin user tries to create a service for another user' do
-          let(:user) { create :user, :admin }
-          let(:other_user) { create :user }
-          let(:params) { valid_params.merge(user_id: other_user.id) }
-
-          it 'creates the service in the name of the other user' do
-            expect { post_request }.to(change { other_user.reload.services.count }.by(1))
-          end
-
-          it 'does not create the service in the name of the logged in user' do
-            expect { post_request }.not_to(change { user.reload.services.count })
           end
         end
       end
@@ -281,41 +250,6 @@ RSpec.describe V1::ServicesController, type: :request do
             expect { put_request }.not_to(change { service.reload.confirmation_date })
           end
         end
-
-        context 'when an admin user updates a service of a foreign person' do
-          let(:user) { create :user, :admin }
-          let(:params) { { confirmation_date: new_confirmation_date, beginning: '2018-01-01', ending: '2018-01-26' } }
-          let!(:service) { create :service, :unconfirmed, user: create(:user) }
-
-          it 'updates confirmation date and adds an expense sheet' do
-            expect { put_request }.to(change { service.reload.confirmation_date }.to(new_confirmation_date)
-                                  .and(change(ExpenseSheet, :count).by(1)))
-          end
-
-          it_behaves_like 'renders a successful http status code' do
-            let(:request) { put_request }
-          end
-
-          it 'returns the updated service' do
-            put_request
-            expect(parse_response_json(response)).to include(expected_attributes)
-          end
-        end
-
-        context 'when an admin user updates the ending of a service' do
-          let(:user) { create :user, :admin }
-          let!(:service) { create :service, user: create(:user) }
-          let(:params) { { ending: new_ending } }
-          let(:new_ending) { (service.ending + 2.months).at_end_of_week - 2.days }
-          let(:expense_sheet_generator) { instance_double(ExpenseSheetGenerator, create_missing_expense_sheets: nil) }
-
-          before { allow(ExpenseSheetGenerator).to receive(:new).with(service).and_return(expense_sheet_generator) }
-
-          it 'calls create_missing_expense_sheets' do
-            put_request
-            expect(expense_sheet_generator).to have_received(:create_missing_expense_sheets)
-          end
-        end
       end
 
       context 'with invalid params' do
@@ -369,6 +303,192 @@ RSpec.describe V1::ServicesController, type: :request do
         end
       end
 
+      context 'when the requested resource does not exist' do
+        let(:request) { delete v1_service_path(-1) }
+
+        it_behaves_like 'renders a not found error response'
+      end
+    end
+  end
+
+  context 'when admin is signed in' do
+    let(:user) { create :user, :admin }
+
+    before { sign_in user }
+
+    describe '#index' do
+      subject(:json_response) { parse_response_json(response) }
+
+      let!(:services) do
+        [
+          create(:service, beginning: '2018-11-05', ending: '2018-11-30', user: user),
+          create(:service, beginning: '2018-12-03', ending: '2018-12-28', user: user)
+        ]
+      end
+      let(:request) { get v1_services_path }
+      let(:first_service_json) do
+        extract_to_json(services.first, :beginning, :ending, :confirmation_date, :id)
+          .merge(service_specification: extract_to_json(services.first.service_specification,
+                                                        :name, :short_name, :identification_number))
+          .merge(user: extract_to_json(services.first.user, :id, :first_name, :last_name, :zdp))
+      end
+
+      let(:second_service_json) do
+        extract_to_json(services.second, :beginning, :ending, :confirmation_date, :id)
+          .merge(service_specification: extract_to_json(services.second.service_specification,
+                                                        :name, :short_name, :identification_number))
+          .merge(user: extract_to_json(services.second.user, :id, :first_name, :last_name, :zdp))
+      end
+
+      context 'when the user is admin' do
+        let(:user) { create :user, :admin }
+
+        before do
+          create :service, beginning: '2019-06-17', ending: '2019-06-28', user: user
+          request
+        end
+
+        it_behaves_like 'renders a successful http status code'
+
+        it 'returns the correct data', :aggregate_failures do
+          expect(json_response.length).to eq 3
+          expect(json_response).to include(first_service_json)
+          expect(json_response).to include(second_service_json)
+        end
+
+        context 'with a year filter' do
+          let(:request) { get v1_services_path(params: { year: 2018 }) }
+
+          it 'only returns services of year 2018' do
+            expect(json_response.length).to eq 2
+            expect(json_response).to include(first_service_json)
+            expect(json_response).to include(second_service_json)
+          end
+        end
+      end
+    end
+
+    describe '#show' do
+      context 'when the json format is requested' do
+        let(:request) { get v1_service_path service, format: :json }
+
+        before { request }
+
+        context 'when the user is admin' do
+          let(:service) { create :service, user: create(:user) }
+
+          it 'is able to load services pdf from another user' do
+            expect(response).to be_successful
+          end
+        end
+      end
+
+      context 'when the pdf format is requested' do
+        let(:request) { get v1_service_path service, format: :pdf, params: { token: token } }
+        let(:token) { generate_jwt_token_for_user(user) }
+
+        before { request }
+
+        context 'when the user is admin' do
+          let(:service) { create :service, user: create(:user) }
+
+          it 'is able to view services from different people' do
+            expect(response).to be_successful
+          end
+
+          it 'returns a content type pdf' do
+            expect(response.headers['Content-Type']).to include 'pdf'
+          end
+        end
+      end
+    end
+
+    describe '#create' do
+      subject { -> { post_request } }
+
+      let(:service_specification) { create :service_specification }
+      let(:post_request) { post v1_services_path(service: params) }
+
+      let(:valid_params) do
+        attributes_for(:service, :unconfirmed, service_type: 'normal')
+          .merge(
+            service_specification_identification_number: service_specification.identification_number,
+            user_id: user.id
+          )
+      end
+
+      context 'when a admin user tries to create a service for another user with valid params' do
+        let(:user) { create :user, :admin }
+        let(:other_user) { create :user }
+        let(:params) { valid_params.merge(user_id: other_user.id) }
+
+        it 'creates the service in the name of the other user' do
+          expect { post_request }.to(change { other_user.reload.services.count }.by(1))
+        end
+
+        it 'does not create the service in the name of the logged in user' do
+          expect { post_request }.not_to(change { user.reload.services.count })
+        end
+      end
+    end
+
+    describe '#update' do
+      let!(:service) { create :service, :unconfirmed, user: user }
+      let(:put_request) { put v1_service_path(service, params: { service: params }) }
+
+      context 'with valid params' do
+        let(:new_service_date) { service.beginning - 7.days }
+        let(:new_confirmation_date) { service.beginning - 8.days }
+        let(:expected_attributes) do
+          extract_to_json(service, :id, :user_id, :service_specification_identification_number, :beginning,
+                          :ending, :confirmation_date, :eligible_paid_vacation_days,
+                          :service_type, :first_swo_service, :long_service,
+                          :probation_service, :feedback_mail_sent)
+        end
+
+        context 'when an admin user updates a service of a foreign person' do
+          let(:user) { create :user, :admin }
+          let(:params) { { confirmation_date: new_confirmation_date, beginning: '2018-01-01', ending: '2018-01-26' } }
+          let!(:service) { create :service, :unconfirmed, user: create(:user) }
+
+          it 'updates confirmation date and adds an expense sheet' do
+            expect { put_request }.to(change { service.reload.confirmation_date }.to(new_confirmation_date)
+                                        .and(change(ExpenseSheet, :count).by(1)))
+          end
+
+          it_behaves_like 'renders a successful http status code' do
+            let(:request) { put_request }
+          end
+
+          it 'returns the updated service' do
+            put_request
+            expect(parse_response_json(response)).to include(expected_attributes)
+          end
+        end
+
+        context 'when an admin user updates the ending of a service' do
+          let(:user) { create :user, :admin }
+          let!(:service) { create :service, user: create(:user) }
+          let(:params) { { ending: new_ending } }
+          let(:new_ending) { (service.ending + 2.months).at_end_of_week - 2.days }
+          let(:expense_sheet_generator) { instance_double(ExpenseSheetGenerator, create_missing_expense_sheets: nil) }
+
+          before { allow(ExpenseSheetGenerator).to receive(:new).with(service).and_return(expense_sheet_generator) }
+
+          it 'calls create_missing_expense_sheets' do
+            put_request
+            expect(expense_sheet_generator).to have_received(:create_missing_expense_sheets)
+          end
+        end
+      end
+    end
+
+    describe '#destroy' do
+      let(:delete_request) { delete v1_service_path service }
+      let(:service) { create :service, user: user }
+
+      before { service }
+
       context 'when an admin user tries to delete a foreign service' do
         let(:user) { create :user, :admin }
         let(:service) { create :service, user: create(:user) }
@@ -380,12 +500,6 @@ RSpec.describe V1::ServicesController, type: :request do
         it_behaves_like 'renders a successful http status code' do
           let(:request) { delete_request }
         end
-      end
-
-      context 'when the requested resource does not exist' do
-        let(:request) { delete v1_service_path(-1) }
-
-        it_behaves_like 'renders a not found error response'
       end
     end
   end
