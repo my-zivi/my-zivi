@@ -13,7 +13,7 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
       let!(:service_specifications) { create_list :service_specification, 3 }
       let(:json_service_specifications) do
         service_specifications.map do |service_specification|
-          extract_to_json(service_specification).except(:created_at, :updated_at, :id)
+          extract_to_json(service_specification).except(:created_at, :updated_at)
                                                 .merge(pocket_money: ServiceSpecification::POCKET_MONEY)
         end
       end

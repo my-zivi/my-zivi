@@ -3,6 +3,7 @@
 class Service < ApplicationRecord
   FRIDAY_WEEKDAY = Date::DAYNAMES.index('Friday').freeze
   MONDAY_WEEKDAY = Date::DAYNAMES.index('Monday').freeze
+  MIN_SERVICE_LENGTH = 26
 
   include Concerns::PositiveTimeSpanValidatable
   include Concerns::DateRangeFilterable
@@ -23,6 +24,7 @@ class Service < ApplicationRecord
   validate :ending_is_friday, unless: :last_civil_service?
   validate :beginning_is_monday
   validate :no_overlapping_service
+  validate :length_is_valid
 
   scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
   scope :chronologically, -> { order(:beginning, :ending) }
@@ -85,5 +87,11 @@ class Service < ApplicationRecord
 
   def ending_is_friday
     errors.add(:ending, :not_a_friday) unless ending.present? && ending.wday == FRIDAY_WEEKDAY
+  end
+
+  def length_is_valid
+    return if ending.blank? || beginning.blank? || last_civil_service?
+
+    errors.add(:service_days, :invalid_length) if (ending - beginning).to_i + 1 < MIN_SERVICE_LENGTH
   end
 end

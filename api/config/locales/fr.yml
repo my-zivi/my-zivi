@@ -54,6 +54,7 @@ fr:
         first_swo_service: Premier service de SWO
         long_service: Service long
         probation_service: Jours d’affectation à l’essai
+        service_days: Durée de service
         service_type: Type de service
       service_specification:
         accommodation_expenses: frais d'hébergement
@@ -106,6 +107,10 @@ fr:
           attributes:
             ending:
               before_beginning: avant le début
+        service:
+          attributes:
+            service_days:
+              invalid_length: ne peut être inférieure à 26 jours.
         user:
           attributes:
             bank_iban:

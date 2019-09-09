@@ -29,7 +29,7 @@ export class UserUpdate extends React.Component<Props> {
   }
 
   get user() {
-    const user = this.props.userStore!.user;
+    const user = this.props.userStore!.entity;
     if (user) {
       return toJS(user);
       // it's important to detach the mobx proxy before passing it into formik

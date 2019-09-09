@@ -62,6 +62,7 @@
     "serve": "^11.1.0",
     "start-server-and-test": "^1.10.0",
     "tslint": "^5.14.0",
+    "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.3.4000"
   },

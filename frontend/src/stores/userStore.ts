@@ -103,6 +103,6 @@ export class UserStore extends DomainStore<User> {
 
   @action
   updateFilters(updates: Partial<UserFilter>) {
-    this.userFilters = {...this.userFilters, ...updates};
+    this.userFilters = { ...this.userFilters, ...updates };
   }
 }

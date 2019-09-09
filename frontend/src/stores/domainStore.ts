@@ -173,6 +173,7 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
     });
   }
 
+  @action
   protected async doFetchAll(params: object = {}) {
     if (!this.entitiesURL) {
       throw new Error('Not implemented');
@@ -182,6 +183,7 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
     this.entities = res.data;
   }
 
+  @action
   protected async doFetchOne(id: number): Promise<SingleType | void> {
     if (!this.entityURL) {
       throw new Error('Not implemented');
@@ -191,6 +193,7 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
     this.entity = res.data;
   }
 
+  @action
   protected async doPost(entity: SingleType) {
     if (!this.entitiesURL) {
       throw new Error('Not implemented');

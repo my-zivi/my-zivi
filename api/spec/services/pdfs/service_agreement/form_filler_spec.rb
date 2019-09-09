@@ -7,10 +7,10 @@ RSpec.describe Pdfs::ServiceAgreement::FormFiller, type: :service do
     let(:pdf) { described_class.new(service).render }
     let(:service) { create :service, service_data.merge(service_data_defaults) }
     let(:user) { service.user }
-    let!(:company_holiday) { create :holiday, beginning: '2018-12-28', ending: '2019-01-02' }
+    let!(:company_holiday) { create :holiday, beginning: '2018-12-07', ending: '2019-01-02' }
 
     let(:service_data) { {} }
-    let(:service_data_defaults) { { beginning: '2018-12-24', ending: '2019-01-04' } }
+    let(:service_data_defaults) { { beginning: '2018-12-10', ending: '2019-01-18' } }
 
     let(:pdf_page_inspector) { PDF::Inspector::Page.analyze(pdf) }
     let(:pdf_xobjects_inspector) { PDF::Inspector::XObject.analyze(pdf) }

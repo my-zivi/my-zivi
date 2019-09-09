@@ -1,6 +1,6 @@
 import moment from 'moment';
 import * as yup from 'yup';
-import { ExpenseSheet} from '../../types';
+import { ExpenseSheet } from '../../types';
 import { apiDate } from '../../utilities/validationHelpers';
 
 const errorMsg = 'Das Total der Tage muss gleich der Spesenblattdauer sein.';

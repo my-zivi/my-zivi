@@ -57,6 +57,7 @@
           "long_service": false,
           "probation_service": false,
           "feedback_mail_sent": false,
+          "service_specification_id": 1,
           "service_specification": {
             "identification_number": "19532",
             "name": "My Service Specification"
@@ -70,6 +71,7 @@
   ],
   "service_specifications": [
     {
+      "id": 1,
       "accommodation_expenses": 0,
       "active": true,
       "first_day_expenses": {

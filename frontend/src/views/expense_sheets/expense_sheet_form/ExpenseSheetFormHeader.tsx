@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Badge from 'reactstrap/lib/Badge';
-import { ExpenseSheetState, Service } from '../../../types';
+import { ExpenseSheetState, Service, ServiceSpecification } from '../../../types';
 import { Formatter } from '../../../utilities/formatter';
 import { stateTranslation } from '../../../utilities/helpers';
 
@@ -12,11 +12,16 @@ const formatDate = (date: Date | null) => {
   return new Formatter().formatDate(date.toString());
 };
 
-export const ExpenseSheetFormHeader = (props: { service: Service, expenseSheetState: ExpenseSheetState }) => {
+interface ExpenseSheetFormHederProps {
+  service: Service;
+  expenseSheetState: ExpenseSheetState;
+  serviceSpecification: ServiceSpecification;
+}
+export const ExpenseSheetFormHeader = (props: ExpenseSheetFormHederProps) => {
   return (
     <h5 className="mb-5 text-secondary">
       Für den Einsatz{' '}
-      <span className="text-body">{props.service.service_specification.name}</span>
+      <span className="text-body">{props.serviceSpecification.name}</span>
       {' '}vom{' '}
       <span className="text-body">{formatDate(props.service.beginning)}</span>
       {' '}bis{' '}

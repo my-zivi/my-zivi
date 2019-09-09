@@ -33,34 +33,33 @@ export interface PaymentExpenseSheet {
 }
 
 export interface ExpenseSheet {
-  id?: number;
+  id: number;
   bank_account_number: string;
-  beginning: string;
+  beginning: Date;
   clothing_expenses: number;
-  clothing_expenses_comment: string;
-  company_holiday_comment: string;
+  clothing_expenses_comment: null;
+  company_holiday_comment: null;
   driving_expenses: number;
-  driving_expenses_comment: string;
+  driving_expenses_comment: null;
   duration: number;
-  ending: string;
+  ending: Date;
   extraordinary_expenses: number;
-  extraordinary_expenses_comment: string;
-  ignore_first_last_day: boolean;
+  extraordinary_expenses_comment: null;
   paid_company_holiday_days: number;
-  paid_vacation_comment: string;
+  paid_vacation_comment: null;
   paid_vacation_days: number;
-  payment_timestamp?: Date;
-  service_id: number;
-  sick_comment: string;
+  payment_timestamp: null;
+  sick_comment: null;
   sick_days: number;
   state: ExpenseSheetState;
-  total?: number;
+  total: number;
   unpaid_company_holiday_days: number;
-  unpaid_vacation_comment: string;
+  unpaid_vacation_comment: null;
   unpaid_vacation_days: number;
   user_id: number;
   work_days: number;
   workfree_days: number;
+  service_id: number;
 }
 
 export interface ExpenseSheetHints {
@@ -112,7 +111,8 @@ export interface DailyExpense {
 }
 
 export interface ServiceSpecification {
-  identification_number?: string;
+  id: number;
+  identification_number?: number;
   name: string;
   short_name: string;
   work_clothing_expenses: number;
@@ -172,19 +172,19 @@ export interface UserFilter {
 export interface Service {
   id?: number;
   beginning: Date | null;
-  days: number;
+  service_days: number;
   confirmation_date: null | string;
   eligible_paid_vacation_days: number;
   ending: Date | null;
-  feedback_done: boolean;
-  feedback_mail_sent: boolean;
   first_swo_service: boolean;
   long_service: boolean;
-  service_type: number | null;
+  service_type: string | null;
   probation_period: boolean;
+  service_specification_id: number;
   service_specification: {
-    identification_number: string;
-    name: string;
+    identification_number: number;
+    name: string | undefined;
+    short_name: string | undefined;
   };
   user_id: number;
 }
@@ -195,9 +195,9 @@ export interface ServiceCollection {
   ending: string | null;
   confirmation_date: string | null;
   service_specification: {
-    identification_number: string;
-    name: string | null;
-    short_name: string | null;
+    identification_number: number;
+    name: string | undefined;
+    short_name: string | undefined;
   };
   user: {
     id: number;

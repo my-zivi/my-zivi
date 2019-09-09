@@ -6,7 +6,8 @@ import Form from 'reactstrap/lib/Form';
 import { FormView, FormViewProps } from '../../../form/FormView';
 import { ExpenseSheetStore } from '../../../stores/expenseSheetStore';
 import { MainStore } from '../../../stores/mainStore';
-import { ExpenseSheet, ExpenseSheetHints, FormValues, Service } from '../../../types';
+import { ServiceSpecificationStore } from '../../../stores/serviceSpecificationStore';
+import { ExpenseSheet, ExpenseSheetHints, FormValues, Service, ServiceSpecification } from '../../../types';
 import { empty } from '../../../utilities/helpers';
 import { expenseSheetSchema } from '../expenseSheetSchema';
 import { ExpenseSheetFormButtons } from './ExpenseSheetFormButtons';
@@ -19,32 +20,44 @@ type Props = {
   hints: ExpenseSheetHints;
   service: Service;
   expenseSheetStore?: ExpenseSheetStore;
+  serviceSpecificationStore: ServiceSpecificationStore;
 } & FormViewProps<ExpenseSheet> &
   RouteComponentProps;
 
 interface ExpenseSheetFormState {
+  loading: boolean;
   safeOverride: boolean;
 }
 
-@inject('mainStore', 'expenseSheetStore')
+@inject('mainStore', 'expenseSheetStore', 'serviceSpecificationStore')
 @observer
 class ExpenseSheetFormInner extends React.Component<Props, ExpenseSheetFormState> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      loading: true,
       safeOverride: false,
     };
   }
 
   render() {
-    const { mainStore, onSubmit, expenseSheet, service, hints, title, expenseSheetStore } = this.props;
+    const { loading, mainStore, onSubmit, expenseSheet, service, hints, title, expenseSheetStore, serviceSpecificationStore } = this.props;
 
     const template = {
       safe_override: false,
       ...expenseSheet,
     };
 
-    return (
+    if (!loading) {
+      serviceSpecificationStore!.fetchOne(service.service_specification_id).then(() => {
+        this.setState({
+          loading: false,
+        });
+      });
+    }
+
+    return empty(expenseSheet) || this.props.loading ?
+      (<></>) : (
       <FormView
         card
         loading={empty(expenseSheet) || this.props.loading}
@@ -54,7 +67,11 @@ class ExpenseSheetFormInner extends React.Component<Props, ExpenseSheetFormState
         validationSchema={expenseSheetSchema}
         render={(formikProps: FormikProps<{}>): React.ReactNode => (
           <Form>
-            <ExpenseSheetFormHeader service={service} expenseSheetState={expenseSheet.state}/>
+            <ExpenseSheetFormHeader
+              service={service}
+              expenseSheetState={expenseSheet.state}
+              serviceSpecification={serviceSpecificationStore.entity!}
+            />
 
             <FormSegments.GeneralSegment service={service}/>
             <FormSegments.AbsolvedDaysBreakdownSegment hints={hints}/>

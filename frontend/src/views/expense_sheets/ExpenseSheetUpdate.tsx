@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ExpenseSheetStore } from '../../stores/expenseSheetStore';
+import { ServiceSpecificationStore } from '../../stores/serviceSpecificationStore';
 import { ServiceStore } from '../../stores/serviceStore';
 import { UserStore } from '../../stores/userStore';
 import { ExpenseSheet, FormValues } from '../../types';
@@ -16,9 +17,10 @@ interface Props extends RouteComponentProps<ExpenseSheetDetailRouterProps> {
   expenseSheetStore?: ExpenseSheetStore;
   userStore?: UserStore;
   serviceStore?: ServiceStore;
+  serviceSpecificationStore?: ServiceSpecificationStore;
 }
 
-@inject('expenseSheetStore', 'userStore', 'serviceStore')
+@inject('expenseSheetStore', 'userStore', 'serviceStore', 'serviceSpecificationStore')
 @observer
 export class ExpenseSheetUpdate extends React.Component<Props, { loading: boolean }> {
   constructor(props: Props) {
@@ -55,7 +57,7 @@ export class ExpenseSheetUpdate extends React.Component<Props, { loading: boolea
   }
 
   get user() {
-    return this.props.userStore!.user;
+    return this.props.userStore!.entity;
   }
 
   render() {
@@ -67,7 +69,8 @@ export class ExpenseSheetUpdate extends React.Component<Props, { loading: boolea
         onSubmit={this.handleSubmit}
         expenseSheet={expenseSheet as FormValues}
         hints={this.props.expenseSheetStore!.hints!}
-        service={this.props.serviceStore!.service!}
+        service={this.props.serviceStore!.entity!}
+        serviceSpecificationStore={this.props.serviceSpecificationStore!}
         title={
           expenseSheet
             ? this.user

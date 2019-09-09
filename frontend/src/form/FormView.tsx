@@ -19,26 +19,25 @@ interface Props<T> extends FormViewProps<T> {
 
 export class FormView<Values, ExtraProps = {}> extends React.Component<FormikConfig<Values> & ExtraProps & Props<Values>> {
   render() {
-    const { loading, title, children, ...rest } = this.props as any;
-    return this.props.loading ? (
-      <>
-        <IziviContent card={this.props.card} loading={loading} title={title}>
-          <br />
-        </IziviContent>
-      </>
-    ) : (
-      <IziviContent card={this.props.card} title={title}>
-        <Formik
-          {...rest}
-          onSubmit={this.handleSubmit}
-          render={(formikProps: FormikProps<Values>) => (
-            <FormikSubmitDetector {...formikProps}>
-              <Prompt when={!this.props.submitted && formikProps.dirty} message={() => 'Änderungen verwerfen?'} />
-              {this.props.render(formikProps)}
-            </FormikSubmitDetector>
-          )}
-        />
-        {children}
+    const { loading, title, children, ...rest } = this.props;
+    return (
+      <IziviContent card={this.props.card} loading={loading} title={title}>
+        {!this.props.loading &&
+          <>
+            <Formik
+              {...rest}
+              onSubmit={this.handleSubmit}
+              render={(formikProps: FormikProps<Values>) => (
+                <FormikSubmitDetector {...formikProps}>
+                  <Prompt when={!this.props.submitted && formikProps.dirty} message={() => 'Änderungen verwerfen?'}/>
+                  {this.props.render(formikProps)}
+                </FormikSubmitDetector>
+              )}
+            />
+            {children}
+          </>
+        }
+
       </IziviContent>
     );
   }

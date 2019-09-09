@@ -4,8 +4,8 @@ RSpec.shared_examples_for 'validates that the ending is after beginning' do
   describe '#ending' do
     subject { model.tap(&:validate).errors.added? :ending, :before_beginning }
 
-    let(:beginning) { Time.zone.today }
-    let(:ending) { beginning + 2.days }
+    let(:beginning) { Time.zone.today.at_beginning_of_week }
+    let(:ending) { beginning.at_end_of_week - 2.days }
 
     context 'when ending is after beginning' do
       it { is_expected.to be false }

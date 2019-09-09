@@ -30,20 +30,41 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
   private readonly initialValues: Service;
   private autoUpdate = true;
 
-  private updateDays = debounce(async (start: Date, end: Date, formik: FormikProps<Service>) => {
-    this.autoUpdate = false;
-    const data = await this.props.serviceStore!.calcEligibleDays(moment(start).format(apiDateFormat), moment(end).format(apiDateFormat));
-    if (data) {
-      formik.setFieldValue('days', data);
-    }
-    this.autoUpdate = true;
-  }, 500);
+  private changeMapToUpdateField = [
+    {
+      changes: ['beginning', 'ending'],
+      updateField: 'service_days',
+    },
+    {
+      changes: ['beginning', 'service_days'],
+      updateField: 'ending',
+    },
+  ];
 
-  private updateEnding = debounce(async (start: Date, days: number, formik: FormikProps<Service>) => {
+  private updateEndingOrServiceDays = debounce(async (current, next, formik) => {
     this.autoUpdate = false;
-    const data = await this.props.serviceStore!.calcPossibleEndDate(moment(start).format(apiDateFormat), days);
-    if (data) {
-      formik.setFieldValue('ending', data);
+    const values = {
+      beginning: next.values.beginning,
+    };
+    for (const map of this.changeMapToUpdateField) {
+      const [firstIndex, secondIndex] = map.changes;
+
+      if (!next.values[firstIndex] || !next.values[secondIndex]) {
+        continue;
+      }
+
+      const firstIndexUnchanged = current.values[firstIndex] === next.values[firstIndex];
+      const secondIndexUnchanged = current.values[secondIndex] === next.values[secondIndex];
+      if (firstIndexUnchanged && secondIndexUnchanged) {
+        continue;
+      }
+
+      values[secondIndex] = next.values[secondIndex];
+      const data = await this.props.serviceStore!.calcServiceDaysOrEnding(values);
+      if (data && data.result) {
+        formik.setFieldValue(map.updateField, data.result);
+      }
+      break;
     }
     this.autoUpdate = true;
   }, 500);
@@ -51,37 +72,28 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
   constructor(props: ServiceModalProps<Service>) {
     super(props);
     this.initialValues = props.values || {
-      service_specification: {
-        identification_number: '',
-        name: '',
-      },
-      service_type: 0,
+      service_specification_id: -1,
+      service_type: 'normal',
       beginning: null,
       ending: null,
-      days: 0,
+      service_days: 0,
       first_swo_service: false,
       long_service: false,
       probation_period: false,
       confirmation_date: null,
       eligible_paid_vacation_days: 0,
-      feedback_done: false,
-      feedback_mail_sent: false,
       user_id: props.user.id,
+      service_specification: {
+        identification_number: -1,
+        name: undefined,
+        short_name: undefined,
+      },
     };
   }
 
   handleServiceDateRangeChange: OnChange<Service> = async (current, next, formik) => {
     if (this.autoUpdate) {
-      if (current.values.beginning !== next.values.beginning || current.values.ending !== next.values.ending) {
-        if (next.values.beginning && next.values.ending) {
-          await this.updateDays(next.values.beginning, next.values.ending, formik);
-        }
-      }
-      if (current.values.beginning !== next.values.beginning || current.values.days !== next.values.days) {
-        if (next.values.beginning && next.values.days) {
-          await this.updateEnding(next.values.beginning, next.values.days, formik);
-        }
-      }
+      await this.updateEndingOrServiceDays(current, next, formik);
     }
   }
 
@@ -106,7 +118,7 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
               <Button color="primary" onClick={formikProps.submitForm}>
                 Daten speichern
               </Button>
-              {this.props.mainStore!.isAdmin() && (
+              {(this.props.mainStore!.isAdmin() && this.props.values && this.props.values.confirmation_date == null) && (
                 <>
                   {' '}
                   <Button color="secondary">Aufgebot erhalten</Button>

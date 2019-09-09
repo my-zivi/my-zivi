@@ -15,7 +15,7 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
         let(:user) { create :user, :admin }
         let!(:expense_sheets) { create_list :expense_sheet, 3, user: user }
         let(:service_beginning) { expense_sheets.first.beginning.at_beginning_of_week - 1.week }
-        let(:service_ending) { expense_sheets.first.ending.at_end_of_week - 2.days + 1.week }
+        let(:service_ending) { expense_sheets.first.ending.at_end_of_week - 2.days + 3.weeks }
         let(:total) { 74_500 }
         let(:json_expense_sheets) do
           expense_sheets.map do |expense_sheet|
@@ -174,7 +174,7 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
           )
         end
 
-        before { create :service, user: user, beginning: '2019-04-29', ending: '2019-05-10' }
+        before { create :service, user: user, beginning: '2019-04-29', ending: '2019-05-24' }
 
         context 'when params are valid' do
           it_behaves_like 'renders a successful http status code' do

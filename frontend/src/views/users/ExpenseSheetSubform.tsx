@@ -144,7 +144,7 @@ class ExpenseSheetSubformInner extends React.Component<Props, ExpenseSheetSubfor
         <div className={this.props.classes.hideButtonText}>
           <Button
             color={'link'}
-            href={this.props.mainStore!.apiURL('expense_sheets/' + String(expenseSheet.id!) + '/download')}
+            href={this.props.mainStore!.apiURL(`expense_sheets/${expenseSheet.id!}.pdf`)}
             tag={'a'}
             target={'_blank'}
           >

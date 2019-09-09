@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :service do
-    beginning { '2018-11-05' }
+    beginning { '2018-10-29' }
     ending { '2018-11-30' }
-    confirmation_date { '2018-11-01' }
+    confirmation_date { '2018-09-15' }
     service_type { :normal }
     first_swo_service { true }
     long_service { false }

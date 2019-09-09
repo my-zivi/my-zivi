@@ -54,6 +54,7 @@ de:
         first_swo_service: Erster SWO Einsatz
         long_service: Langer Einsatz
         probation_service: Probeeinsatz
+        service_days: Einsatzdauer
         service_type: Einsatztyp
       service_specification:
         accommodation_expenses: Unterkunftsspesen
@@ -106,6 +107,10 @@ de:
           attributes:
             ending:
               before_beginning: vor Start
+        service:
+          attributes:
+            service_days:
+              invalid_length: kann nicht kürzer als 26 Tage sein.
         user:
           attributes:
             bank_iban:

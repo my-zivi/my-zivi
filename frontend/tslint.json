@@ -1,7 +1,7 @@
 
 {
   "extends": [
-    "tslint:latest", "tslint-react"
+    "tslint:latest", "tslint-react", "tslint-eslint-rules"
   ],
   "rules": {
     "member-access": [true, "no-public"],
@@ -16,6 +16,7 @@
     "max-line-length": [true, 140],
     "jsx-no-multiline-js": false,
     "jsx-no-lambda": false,
-    "jsx-boolean-value": false
+    "jsx-boolean-value": false,
+    "object-curly-spacing": true
   }
 }

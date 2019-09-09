@@ -35,7 +35,7 @@ RSpec.describe V1::ServicesController, type: :request do
             extract_to_json(service, :id, :user_id, :service_specification_identification_number,
                             :beginning, :ending, :confirmation_date, :eligible_paid_vacation_days,
                             :service_type, :first_swo_service, :long_service,
-                            :probation_service, :feedback_mail_sent)
+                            :probation_service)
           end
 
           it_behaves_like 'renders a successful http status code'
@@ -70,7 +70,7 @@ RSpec.describe V1::ServicesController, type: :request do
             extract_to_json(service, :id, :user_id, :service_specification_identification_number,
                             :beginning, :ending, :confirmation_date, :eligible_paid_vacation_days,
                             :service_type, :first_swo_service, :long_service,
-                            :probation_service, :feedback_mail_sent)
+                            :probation_service)
           end
 
           it_behaves_like 'renders a successful http status code'
@@ -97,9 +97,9 @@ RSpec.describe V1::ServicesController, type: :request do
       let(:post_request) { post v1_services_path(service: params) }
 
       let(:valid_params) do
-        attributes_for(:service, :unconfirmed, service_type: 'normal')
+        attributes_for(:service, :unconfirmed)
           .merge(
-            service_specification_identification_number: service_specification.identification_number,
+            service_specification_id: service_specification.id,
             user_id: user.id
           )
       end
@@ -118,7 +118,6 @@ RSpec.describe V1::ServicesController, type: :request do
             first_swo_service
             long_service
             probation_service
-            feedback_mail_sent
           ]
         end
 
@@ -138,7 +137,7 @@ RSpec.describe V1::ServicesController, type: :request do
                 identification_number: Service.last.identification_number,
                 name: Service.last.service_specification.name
               }
-            )
+            ).transform_values { |value| value.is_a?(Symbol) ? value.to_s : value }
           )
         end
 
@@ -204,7 +203,7 @@ RSpec.describe V1::ServicesController, type: :request do
           extract_to_json(service, :id, :user_id, :service_specification_identification_number, :beginning,
                           :ending, :confirmation_date, :eligible_paid_vacation_days,
                           :service_type, :first_swo_service, :long_service,
-                          :probation_service, :feedback_mail_sent)
+                          :probation_service)
         end
 
         context 'when a non-admin user updates their own service' do
@@ -321,20 +320,26 @@ RSpec.describe V1::ServicesController, type: :request do
 
       let!(:services) do
         [
-          create(:service, beginning: '2018-11-05', ending: '2018-11-30', user: user),
-          create(:service, beginning: '2018-12-03', ending: '2018-12-28', user: user)
+          create(:service, beginning: '2018-10-01', ending: '2018-11-02', user: user),
+          create(:service, beginning: '2018-11-05', ending: '2018-12-28', user: user)
         ]
       end
       let(:request) { get v1_services_path }
       let(:first_service_json) do
-        extract_to_json(services.first, :beginning, :ending, :confirmation_date, :id)
+        extract_to_json(
+          services.first,
+          :beginning, :ending, :confirmation_date, :id, :service_specification_id, :service_type
+        )
           .merge(service_specification: extract_to_json(services.first.service_specification,
                                                         :name, :short_name, :identification_number))
           .merge(user: extract_to_json(services.first.user, :id, :first_name, :last_name, :zdp))
       end
 
       let(:second_service_json) do
-        extract_to_json(services.second, :beginning, :ending, :confirmation_date, :id)
+        extract_to_json(
+          services.second,
+          :beginning, :ending, :confirmation_date, :id, :service_specification_id, :service_type
+        )
           .merge(service_specification: extract_to_json(services.second.service_specification,
                                                         :name, :short_name, :identification_number))
           .merge(user: extract_to_json(services.second.user, :id, :first_name, :last_name, :zdp))
@@ -344,7 +349,7 @@ RSpec.describe V1::ServicesController, type: :request do
         let(:user) { create :user, :admin }
 
         before do
-          create :service, beginning: '2019-06-17', ending: '2019-06-28', user: user
+          create :service, beginning: '2019-05-27', ending: '2019-06-28', user: user
           request
         end
 
@@ -410,9 +415,9 @@ RSpec.describe V1::ServicesController, type: :request do
       let(:post_request) { post v1_services_path(service: params) }
 
       let(:valid_params) do
-        attributes_for(:service, :unconfirmed, service_type: 'normal')
+        attributes_for(:service, :unconfirmed, first_swo_service: false)
           .merge(
-            service_specification_identification_number: service_specification.identification_number,
+            service_specification_id: service_specification.id,
             user_id: user.id
           )
       end
@@ -443,7 +448,7 @@ RSpec.describe V1::ServicesController, type: :request do
           extract_to_json(service, :id, :user_id, :service_specification_identification_number, :beginning,
                           :ending, :confirmation_date, :eligible_paid_vacation_days,
                           :service_type, :first_swo_service, :long_service,
-                          :probation_service, :feedback_mail_sent)
+                          :probation_service)
         end
 
         context 'when an admin user updates a service of a foreign person' do

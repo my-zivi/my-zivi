@@ -95,7 +95,7 @@ RSpec.describe User, type: :model do
     subject { user.active? }
 
     let(:user) { create(:user, services: [service]) }
-    let(:ending) { (beginning + 1.week).at_end_of_week - 2.days }
+    let(:ending) { (beginning + 4.weeks).at_end_of_week - 2.days }
     let(:service) { create :service, beginning: beginning, ending: ending }
 
     context 'when the user\'s currently doing civil service' do

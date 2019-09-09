@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface ServiceRowProps {
-  service_specification_identification_number: string;
+  service_specification_identification_number: number;
   shortName: string;
   user_id: number;
   zdp: number;

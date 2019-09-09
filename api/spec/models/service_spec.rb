@@ -53,7 +53,7 @@ RSpec.describe Service, type: :model do
   end
 
   it_behaves_like 'validates that the ending is after beginning' do
-    let(:model) { build(:service, beginning: beginning, ending: ending) }
+    let(:model) { build(:service, :last, beginning: beginning, ending: ending) }
   end
 
   describe '#at_year' do
@@ -62,7 +62,7 @@ RSpec.describe Service, type: :model do
     before do
       create_pair :service, beginning: '2018-11-05', ending: '2018-11-30'
       create :service, beginning: '2017-02-06', ending: '2018-01-05'
-      create :service, beginning: '2017-02-06', ending: '2017-02-24'
+      create :service, beginning: '2017-02-06', ending: '2017-03-24'
     end
 
     it 'returns only services that are at least partially in this year' do
@@ -169,9 +169,13 @@ RSpec.describe Service, type: :model do
   end
 
   describe 'beginning_is_monday validation' do
-    subject { build(:service, beginning: beginning).tap(&:validate).errors.added? :beginning, :not_a_monday }
+    subject do
+      build(:service, beginning: beginning, ending: ending)
+        .tap(&:validate).errors.added? :beginning, :not_a_monday
+    end
 
     let(:beginning) { Time.zone.today.at_beginning_of_week }
+    let(:ending) { (beginning + 4.weeks).at_end_of_week - 2.days }
 
     context 'when beginning is a monday' do
       it { is_expected.to be false }
@@ -205,6 +209,42 @@ RSpec.describe Service, type: :model do
       let(:other_ending) { service_range.begin.at_end_of_week - 2.days }
 
       it { is_expected.to be true }
+    end
+  end
+
+  describe 'length_is_valid validation' do
+    subject { service.tap(&:validate).errors.added? :service_days, :invalid_length }
+
+    let(:service) { build(:service, beginning: beginning, ending: ending, user: user) }
+    let(:user) { create :user }
+    let(:service_range) { get_service_range months: 2 }
+    let(:beginning) { service_range.begin }
+    let(:ending) { service_range.end }
+
+    context 'when service is normal' do
+      context 'when service has a length that is bigger then 26 days' do
+        it { is_expected.to be false }
+      end
+
+      context 'when service has a length that is less then 26 days' do
+        let(:service_range) { Date.parse('2018-01-01')..Date.parse('2018-01-19') }
+
+        it { is_expected.to be true }
+      end
+    end
+
+    context 'when service is last' do
+      let(:service) { build(:service, beginning: beginning, ending: ending, user: user, service_type: :last) }
+
+      context 'when service has a length that is bigger then 26 days' do
+        it { is_expected.to be false }
+      end
+
+      context 'when service has a length that is less then 26 days' do
+        let(:service_range) { Date.parse('2018-01-01')..Date.parse('2018-01-19') }
+
+        it { is_expected.to be false }
+      end
     end
   end
 end

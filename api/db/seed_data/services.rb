@@ -9,7 +9,7 @@ Service.create!(
       user: User.find_by(email: 'zivi@example.com'),
       service_specification: ServiceSpecification.first,
       beginning: beginning,
-      ending: beginning + 2.weeks + 4.days,
+      ending: beginning + 25.days,
       confirmation_date: beginning - 1.month,
       service_type: :normal,
       first_swo_service: true,
