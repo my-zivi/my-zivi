@@ -13,9 +13,7 @@ module V1
       @payment = Payment.find(payment_timestamp_param)
 
       respond_to do |format|
-        format.json do
-          render :show
-        end
+        format.json
         format.xml do
           send_data generate_pain, disposition: 'attachment',
                                    filename: I18n.t('payment.pain_filename',
