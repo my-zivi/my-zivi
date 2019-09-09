@@ -53,6 +53,23 @@ RSpec.describe User, type: :model do
         end
       end
     end
+
+    describe '#email' do
+      let(:valid_emails) { %w[valid@email.org a@b.c something+other@gmail.com me@subdomain.domain.co.in] }
+      let(:invalid_emails) { %w[invalid @hello.com me@.ch 1234 .ch email@email@gmail.com email@invalid+domain.com] }
+
+      it 'allows valid emails', :aggregate_failures do
+        valid_emails.each do |valid_email|
+          expect(model).to allow_value(valid_email).for :email
+        end
+      end
+
+      it 'does not allow valid emails', :aggregate_failures do
+        invalid_emails.each do |invalid_email|
+          expect(model).not_to allow_value(invalid_email).for :email
+        end
+      end
+    end
   end
 
   it do

@@ -28,6 +28,7 @@ class User < ApplicationRecord
   validates :zdp, numericality: { greater_than: 25_000, less_than: 999_999, only_integer: true }
   validates :zip, numericality: { only_integer: true }
   validates :bank_iban, format: { with: /\ACH\d{2}(\w{4}){4,7}\w{0,2}\z/ }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   validates :legacy_password, presence: true, if: -> { encrypted_password.blank? }
 
