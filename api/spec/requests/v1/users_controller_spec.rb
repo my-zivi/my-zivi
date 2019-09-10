@@ -18,7 +18,8 @@ RSpec.describe V1::UsersController, type: :request do
           beginning: nil,
           ending: nil,
           services: [],
-          active: false
+          active: false,
+          bank_iban: requested_user.prettified_bank_iban
         )
     end
 
@@ -85,7 +86,8 @@ RSpec.describe V1::UsersController, type: :request do
             ),
             beginning: convert_to_json_value(current_user.services.chronologically.last.beginning),
             ending: convert_to_json_value(current_user.services.chronologically.last.ending.to_s),
-            active: false
+            active: false,
+            bank_iban: current_user.prettified_bank_iban
           ).except(
             :created_at, :encrypted_password, :legacy_password,
             :reset_password_sent_at, :reset_password_token,
@@ -119,7 +121,7 @@ RSpec.describe V1::UsersController, type: :request do
 
       it_behaves_like 'renders a successful http status code'
 
-      it('returns expected JSON response') do
+      it 'returns expected JSON response' do
         expect(json_response).to include(*expected_successful_response_json)
       end
     end
@@ -127,7 +129,9 @@ RSpec.describe V1::UsersController, type: :request do
 
   describe '#update' do
     let(:request) { put v1_user_path(updated_user), params: { user: params } }
-    let(:params) { { first_name: 'Updated first name' } }
+    let(:params) do
+      { first_name: 'Updated first name', bank_iban: 'CH56 0483 5012 3456 7800 9' }
+    end
 
     context 'when a civil servant is logged in' do
       let(:civil_servant) { create(:user) }
@@ -141,7 +145,9 @@ RSpec.describe V1::UsersController, type: :request do
           it_behaves_like 'renders a successful http status code'
 
           it 'updates the user' do
-            expect { request }.to change { updated_user.reload.first_name }.to params[:first_name]
+            expect { request }.to change { updated_user.reload.first_name }.to(params[:first_name]).and(
+              change { updated_user.reload.bank_iban }.to(User.strip_iban(params[:bank_iban]))
+            )
           end
         end
 

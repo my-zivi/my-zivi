@@ -3,10 +3,12 @@
 # Legacy password authentication was extracted to concern so that if it is no longer needed,
 # the file can just be deleted and the method removed from user.rb
 
+require 'bcrypt'
+
 module Concerns
   module LegacyPasswordAuthenticatable
     def valid_legacy_password?(plain_password)
-      password = BCrypt::Engine.hash_secret(plain_password, BCrypt::Password.new(legacy_password).salt)
+      password = ::BCrypt::Engine.hash_secret(plain_password, ::BCrypt::Password.new(legacy_password).salt)
 
       if Devise.secure_compare(password, legacy_password)
         migrate_legacy_password(plain_password)

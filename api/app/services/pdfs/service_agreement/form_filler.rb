@@ -10,7 +10,7 @@ module Pdfs
 
       def initialize(service)
         @service = service
-        @pdftk = PdfForms.new('/usr/bin/pdftk')
+        @pdftk = PdfForms.new(ENV.fetch('PDFTK_BIN_PATH', '/usr/bin/pdftk'))
       end
 
       def render

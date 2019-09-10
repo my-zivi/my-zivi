@@ -305,6 +305,9 @@ Devise.setup do |config|
   # config.sign_in_after_change_password = true
 end
 
+require 'devise/mailer'
+require_relative '../../app/helpers/devise/reset_password_instructions_helper'
+
 Devise::Mailer.class_eval do
-  helper :'devise/reset_password_instructions'
+  helper Devise::ResetPasswordInstructionsHelper
 end

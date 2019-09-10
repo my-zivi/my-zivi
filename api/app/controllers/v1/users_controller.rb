@@ -51,7 +51,14 @@ module V1
       permitted_keys = ::Concerns::DeviseUserParamsRegistrable::PERMITTED_USER_KEYS + ADDITIONAL_PERMITTED_USER_PARAMS
       permitted_keys.push(ADMIN_RESTRICTED_USER_PARAMS) if current_user.admin?
 
-      params.require(:user).permit(*permitted_keys)
+      format_iban(params.require(:user).permit(*permitted_keys))
+    end
+
+    # :reek:UtilityFunction
+    def format_iban(params)
+      bank_iban = params[:bank_iban]
+      params[:bank_iban] = User.strip_iban(bank_iban) if bank_iban.present?
+      params
     end
   end
 end

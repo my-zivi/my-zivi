@@ -23,6 +23,13 @@ RSpec.describe User, type: :model do
       phone
     ]
 
+    it 'validates numericality of ZDP' do
+      expect(described_class.new).to validate_numericality_of(:zdp)
+        .only_integer
+        .is_less_than(999_999)
+        .is_greater_than(10_000)
+    end
+
     describe '#bank_iban' do
       it 'does not allow invalid values', :aggregate_failures do
         expect(model).not_to allow_value('CH93 0076 2011 6238 5295 7').for(:bank_iban)
@@ -70,19 +77,71 @@ RSpec.describe User, type: :model do
         end
       end
     end
-  end
 
-  it do
-    expect(described_class.new).to validate_numericality_of(:zdp)
-      .only_integer
-      .is_less_than(999_999)
-      .is_greater_than(25_000)
+    context 'when some validations would be invalid' do
+      let(:user) { create :user, legacy_password: 'my legacy hash' }
+
+      before do
+        user.bank_iban = 'invalid'
+        user.health_insurance = ''
+        user.save validate: false
+      end
+
+      context 'when only password was set/reset' do
+        it 'still updates the password' do
+          expect { user.update(encrypted_password: 'myencrypted', legacy_password: nil) }.to(
+            change(user, :encrypted_password).and(change(user, :legacy_password))
+          )
+        end
+      end
+
+      context 'when something else was changed along with a new password' do
+        let(:update_user) { user.update(encrypted_password: 'myencrypted', first_name: 'New name') }
+
+        it 'still validates' do
+          expect { update_user }.not_to(change { user.reload.encrypted_password })
+        end
+
+        it 'is invalid' do
+          update_user
+          expect(user.valid?).to eq false
+        end
+      end
+
+      context 'when some field other than the password was changed' do
+        let(:update_user) { user.update(first_name: 'New name', last_name: 'name') }
+
+        it 'does not allow a change', :aggregate_failures do
+          expect { update_user }.not_to(change { user.reload.first_name })
+        end
+
+        it 'is invalid' do
+          update_user
+          expect(user.valid?).to eq false
+        end
+      end
+    end
   end
 
   describe '#zip_with_city' do
     subject { build(:user, zip: 6274, city: 'RSpec-Hausen').zip_with_city }
 
     it { is_expected.to eq '6274 RSpec-Hausen' }
+  end
+
+  describe '#self.strip_iban' do
+    it 'removes whitespaces from iban' do
+      expect(described_class.strip_iban(' CH56 0483 5012 3456 7800 9')).to eq 'CH5604835012345678009'
+    end
+  end
+
+  describe '#prettified_bank_iban' do
+    subject { build(:user, bank_iban: ugly_iban).prettified_bank_iban }
+
+    let(:ugly_iban) { 'CH5604835012345678009' }
+    let(:nice_iban) { 'CH56 0483 5012 3456 7800 9' }
+
+    it { is_expected.to eq nice_iban }
   end
 
   describe '#full_name' do
