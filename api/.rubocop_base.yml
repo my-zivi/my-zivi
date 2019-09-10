@@ -27,6 +27,7 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
     - 'config/environments/**/*.rb'
     - 'config/routes.rb'
+    - 'lib/tasks/v1_migration.rake'
 
 Metrics/MethodLength:
   Max: 12
@@ -43,6 +44,10 @@ RSpec/ExampleLength:
 
 RSpec/NestedGroups:
   Max: 5
+
+Rails/Output:
+  Exclude:
+    - 'lib/v1/data_migrator.rb'
 
 AllCops:
   Exclude:

@@ -11,8 +11,6 @@
 
 SET sql_mode = '';
 
-USE stiftun8_izivi;
-
 -- -----------------------------
 -- === DROP ALL FOREIGN KEYS ===
 -- -----------------------------
@@ -78,6 +76,15 @@ DELETE report_sheets FROM report_sheets
     WHERE missions.deleted_at IS NOT NULL;
 DELETE FROM missions WHERE deleted_at IS NOT NULL;
 
+
+-- --------------------------------------
+-- === DROP USERS WITH DUPLICATE ZDP ===
+-- --------------------------------------
+
+DELETE FROM users WHERE id = 1052;
+DELETE FROM users WHERE id = 1024;
+UPDATE users SET users.zdp = 10 WHERE users.id = 251;
+UPDATE users SET users.zdp = 11 WHERE users.id = 517;
 
 -- -------------------------
 -- === ALTER USERS TABLE ===

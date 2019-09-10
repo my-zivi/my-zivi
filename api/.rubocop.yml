@@ -6,7 +6,5 @@ require:
   - rubocop-rails
   - 'test_prof/rubocop'
 
-
-
 RSpec/AggregateFailures:
   Enabled: true
