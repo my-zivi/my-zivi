@@ -3,6 +3,10 @@ const defaultValues = require('../server/defaults');
 Cypress.Commands.add('login', () => {
   localStorage.setItem('izivi_token', defaultValues.authorization_token);
 });
+
+Cypress.Commands.add('loginAdmin', () => {
+  localStorage.setItem('izivi_token', defaultValues.admin_authorization_token);
+});
 //
 //
 // -- This is a child command --

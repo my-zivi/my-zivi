@@ -19,4 +19,4 @@ exclude_patterns:
   - "**/tests/"
   - "**/vendor/"
   - "**/*.d.ts"
-
+  - "frontend/cypress/integration/*"

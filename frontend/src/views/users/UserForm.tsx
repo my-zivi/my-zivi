@@ -47,7 +47,7 @@ class UserFormInner extends React.Component<Props> {
         card
         loading={empty(user) || this.props.loading}
         initialValues={user}
-        onSubmit={(updatedUser: User) => onSubmit(updatedUser as User)}
+        onSubmit={(updatedUser: User) => onSubmit(updatedUser)}
         title={title}
         validationSchema={userSchema}
         render={(formikProps: FormikProps<User>) => (

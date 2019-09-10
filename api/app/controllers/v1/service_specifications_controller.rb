@@ -4,13 +4,13 @@ module V1
   class ServiceSpecificationsController < APIController
     include V1::Concerns::AdminAuthorizable
 
-    before_action :authorize_admin!, except: :index
-    before_action :set_service_specification, only: %i[update]
+    before_action :authorize_admin!, except: %i[index show]
+    before_action :set_service_specification, only: %i[show update]
 
     PERMITTED_SERVICE_SPECIFICATION_KEYS = %i[
       name short_name work_clothing_expenses
       accommodation_expenses location active
-      identification_number
+      identification_number id
     ].freeze
 
     PERMITTED_SERVICE_SPECIFICATION_JSON_KEYS = {
@@ -23,6 +23,8 @@ module V1
     def index
       @service_specifications = ServiceSpecification.all
     end
+
+    def show; end
 
     def create
       @service_specification = ServiceSpecification.new(service_specification_params)
@@ -42,8 +44,7 @@ module V1
     private
 
     def set_service_specification
-      identification_number = params[:identification_number]
-      @service_specification = ServiceSpecification.find_by!(identification_number: identification_number)
+      @service_specification = ServiceSpecification.find(params[:id])
     end
 
     def service_specification_params

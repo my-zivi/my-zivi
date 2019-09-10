@@ -7,7 +7,7 @@ import { FormikSubmitDetector } from './FormikSubmitDetector';
 
 export interface FormViewProps<T> {
   card?: boolean;
-  onSubmit: (values: T) => Promise<void>;
+  onSubmit: (values: T, formikProps?: FormikProps<T>) => Promise<void>;
   loading?: boolean;
   title?: string;
   submitted?: boolean;
@@ -44,7 +44,7 @@ export class FormView<Values, ExtraProps = {}> extends React.Component<FormikCon
 
   private handleSubmit: HandleFormikSubmit<Values> = async (values, formikBag) => {
     try {
-      await this.props.onSubmit(this.props.validationSchema.cast(values));
+      await this.props.onSubmit(this.props.validationSchema.cast(values), formikBag);
     } finally {
       formikBag.setSubmitting(false);
     }

@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment';
 import * as React from 'react';
 import { WithSheet } from 'react-jss';
-import { Link } from 'react-router-dom';
 import { UncontrolledTooltip } from 'reactstrap';
 import Button from 'reactstrap/lib/Button';
 import { DeleteButton } from '../../../form/DeleteButton';
@@ -12,11 +11,10 @@ import { MainStore } from '../../../stores/mainStore';
 import { ServiceSpecificationStore } from '../../../stores/serviceSpecificationStore';
 import { ServiceStore } from '../../../stores/serviceStore';
 import { UserStore } from '../../../stores/userStore';
-import { ExpenseSheet, ExpenseSheetState, Service, ServiceSpecification, User } from '../../../types';
+import { ExpenseSheet, Service, ServiceSpecification, User } from '../../../types';
 import {
   CheckSquareRegularIcon,
   EditSolidIcon,
-  MailSolidIcon,
   PlusSquareRegularIcon,
   PrintSolidIcon,
   SquareRegularIcon,
@@ -40,48 +38,18 @@ interface OverviewTableParams extends WithSheet<string, {}> {
 function onServiceTableSubmit(serviceStore?: ServiceStore, userStore?: UserStore) {
   return (service: Service) => {
     return serviceStore!.put(serviceSchema.cast(service)).then(() => {
-      void userStore!.fetchOne(service.user_id);
+      userStore!.fetchOne(service.user_id);
     }) as Promise<void>;
   };
 }
 
-const expenseSheetTemplate: ExpenseSheet = {
-  bank_account_number: '',
-  beginning: new Date(),
-  clothing_expenses: 0,
-  clothing_expenses_comment: null,
-  company_holiday_comment: null,
-  driving_expenses: 0,
-  driving_expenses_comment: null,
-  duration: 0,
-  ending: new Date(),
-  extraordinary_expenses: 0,
-  extraordinary_expenses_comment: null,
-  id: 0,
-  paid_company_holiday_days: 0,
-  paid_vacation_comment: null,
-  paid_vacation_days: 0,
-  payment_timestamp: null,
-  service_id: 0,
-  sick_comment: null,
-  sick_days: 0,
-  state: ExpenseSheetState.open,
-  total: 0,
-  unpaid_company_holiday_days: 0,
-  unpaid_vacation_comment: null,
-  unpaid_vacation_days: 0,
-  user_id: 0,
-  work_days: 0,
-  workfree_days: 0,
-};
-
-function onServiceAddExpenseSheet(service: Service, expenseSheetStore: ExpenseSheetStore) {
-  expenseSheetStore.post(expenseSheetTemplate).then(window.location.reload);
+function onServiceAddExpenseSheet(service: Service, expenseSheetStore: ExpenseSheetStore, userStore: UserStore) {
+  expenseSheetStore.createAdditional(service.id!).then(value => {
+    userStore.fetchOne(service.user_id);
+  });
 }
 
 async function onServiceDeleteConfirm(service: Service, serviceStore: ServiceStore, userStore: UserStore) {
-  console.dir(service); // tslint:disable-line
-  (window as any).service = service;
   await serviceStore.delete(service.id!);
   await userStore.fetchOne(service.user_id);
 }
@@ -158,7 +126,7 @@ export default (params: OverviewTableParams) => {
       <Button color={'warning'} type={'button'} className="mr-1" onClick={() => onModalOpen(service)}>
         <FontAwesomeIcon icon={EditSolidIcon}/> <span>Bearbeiten</span>
       </Button>
-      );
+    );
   }
 
   function adminButtons(service: Service) {
@@ -167,13 +135,18 @@ export default (params: OverviewTableParams) => {
         <DeleteButton onConfirm={() => onServiceDeleteConfirm(service, serviceStore!, userStore!)}>
           <FontAwesomeIcon icon={TrashAltRegularIcon}/> <span>Löschen</span>
         </DeleteButton>{' '}
-        <Button
-          onClick={() => onServiceAddExpenseSheet(service, expenseSheetStore!)}
-          color={'success'}
-          type={'button'}
-        >
-          <FontAwesomeIcon icon={PlusSquareRegularIcon}/> <span>Spesenblatt</span>
-        </Button>
+        {
+          service.confirmation_date !== null && (
+            <Button
+              onClick={() => onServiceAddExpenseSheet(service, expenseSheetStore!, userStore!)}
+              color={'success'}
+              type={'button'}
+            >
+              <FontAwesomeIcon icon={PlusSquareRegularIcon}/> <span>Spesenblatt</span>
+            </Button>
+          )
+        }
+
       </>
     );
   }

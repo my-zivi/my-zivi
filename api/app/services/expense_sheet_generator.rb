@@ -26,6 +26,11 @@ class ExpenseSheetGenerator
     create_expense_sheets beginning: new_beginning
   end
 
+  def create_additional_expense_sheet
+    last_ending = @service.expense_sheets.max_by(&:ending).ending
+    create_expense_sheet(last_ending, last_ending)
+  end
+
   private
 
   def group_days_by_month(days)

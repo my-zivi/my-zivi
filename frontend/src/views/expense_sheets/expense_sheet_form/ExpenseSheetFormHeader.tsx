@@ -12,12 +12,12 @@ const formatDate = (date: Date | null) => {
   return new Formatter().formatDate(date.toString());
 };
 
-interface ExpenseSheetFormHederProps {
+interface ExpenseSheetFormHeaderProps {
   service: Service;
   expenseSheetState: ExpenseSheetState;
   serviceSpecification: ServiceSpecification;
 }
-export const ExpenseSheetFormHeader = (props: ExpenseSheetFormHederProps) => {
+export const ExpenseSheetFormHeader = (props: ExpenseSheetFormHeaderProps) => {
   return (
     <h5 className="mb-5 text-secondary">
       Für den Einsatz{' '}

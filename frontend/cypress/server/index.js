@@ -44,6 +44,22 @@ server.use((req, res, next) => {
   next();
 });
 
+server.get('/v1/expense_sheets/:expensesheetId/hints', (req, res) => {
+  res.jsonp({
+    "suggestions": {
+      "work_days": 20,
+      "workfree_days": 6,
+      "paid_company_holiday_days": 0,
+      "unpaid_company_holiday_days": 0,
+      "clothing_expenses": 5980
+    },
+    "remaining_days": {
+      "sick_days": 5,
+      "paid_vacation_days": 0
+    }
+  })
+})
+
 server.use('/v1', router);
 server.listen(28000, () => {
   console.log('JSON Server is running on port 28000');

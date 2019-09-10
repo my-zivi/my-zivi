@@ -7,7 +7,7 @@ import { MainStore } from '../../../stores/mainStore';
 import { ServiceSpecificationStore } from '../../../stores/serviceSpecificationStore';
 import { ServiceStore } from '../../../stores/serviceStore';
 import { UserStore } from '../../../stores/userStore';
-import { Service, User } from '../../../types';
+import { ExpenseSheet, ExpenseSheetState, Service, User } from '../../../types';
 import createStyles from '../../../utilities/createStyles';
 import { serviceSchema } from '../schemas';
 import { ServiceModal } from '../service_modal/ServiceModal';

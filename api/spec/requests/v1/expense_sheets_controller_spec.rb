@@ -167,16 +167,14 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
     describe '#create' do
       context 'when user is admin' do
         let(:user) { create :user, :admin }
-        let(:post_request) { post v1_expense_sheets_path(expense_sheet: params) }
-        let(:params) do
-          attributes_for(:expense_sheet).merge(
-            user_id: user.id, beginning: '2019-04-29', ending: '2019-05-05', state: 'open'
-          )
+        let!(:service) { create :service }
+        let(:post_request) { post v1_expense_sheets_path(service_id: service.id) }
+
+        before do
+          ExpenseSheetGenerator.new(service).create_expense_sheets
         end
 
-        before { create :service, user: user, beginning: '2019-04-29', ending: '2019-05-24' }
-
-        context 'when params are valid' do
+        context 'when a service_id is provided' do
           it_behaves_like 'renders a successful http status code' do
             let(:request) { post_request }
           end
@@ -188,41 +186,26 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
           it 'returns the created expense_sheet' do
             post_request
             expect(parse_response_json(response)).to include(
-              id: ExpenseSheet.last.id,
-              beginning: params[:beginning],
-              ending: params[:ending],
-              state: params[:state],
-              workfree_days: params[:workfree_days],
-              user_id: params[:user_id]
+              beginning: service.ending.to_s,
+              ending: service.ending.to_s
             )
           end
         end
 
-        context 'when params are invalid' do
-          let(:params) { { driving_expenses: 'aa', ending: 'I am invalid' } }
+        context 'when no service_id is provided' do
+          let(:post_request) { post v1_expense_sheets_path }
 
           it 'does not create a new expense sheet' do
             expect { post_request }.to change(ExpenseSheet, :count).by(0)
-          end
-
-          it_behaves_like 'renders a validation error response' do
-            let(:request) { post_request }
-          end
-
-          it 'renders all validation errors' do
-            post_request
-            expect(parse_response_json(response)[:errors]).to include(
-              ending: be_an_instance_of(Array),
-              beginning: be_an_instance_of(Array),
-              driving_expenses: be_an_instance_of(Array)
-            )
           end
         end
       end
 
       context 'when user is not admin' do
+        let(:service) { create :service }
+
         it_behaves_like 'admin protected resource' do
-          let(:request) { post v1_expense_sheets_path }
+          let(:request) { post v1_expense_sheets_path(service_id: service.id) }
         end
       end
     end
@@ -390,8 +373,10 @@ RSpec.describe V1::ExpenseSheetsController, type: :request do
     end
 
     describe '#create' do
-      let(:params) { attributes_for(:expense_sheet) }
-      let(:request) { post v1_expense_sheets_path(expense_sheet: params) }
+      let(:service) { create :service }
+
+      let(:params) { { service_id: service.id } }
+      let(:request) { post v1_expense_sheets_path(params) }
 
       it_behaves_like 'login protected resource'
 

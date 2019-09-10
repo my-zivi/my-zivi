@@ -95,6 +95,12 @@ export class ExpenseSheetStore extends DomainStore<ExpenseSheet, ExpenseSheetLis
     }
   }
 
+  @action
+  async createAdditional(serviceId: number) {
+    const res = await this.mainStore.api.post<ExpenseSheet>('/expense_sheets/', { service_id: serviceId });
+    this.mainStore.displaySuccess(`${this.entityName.singular} wurde erstellt.`);
+  }
+
   protected async doFetchAll(params: object = {}): Promise<void> {
     const res = await this.mainStore.api.get<ExpenseSheetListing[]>('/expense_sheets', { params: { ...params } });
     this.expenseSheets = res.data;

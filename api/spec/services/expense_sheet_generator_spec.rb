@@ -149,17 +149,26 @@ RSpec.describe ExpenseSheetGenerator, type: :service do
   end
 
   describe '#create_missing_expense_sheets' do
+    let(:create_missing_expense_sheets) { expense_sheet_generator.create_missing_expense_sheets }
+
     context 'when there are previous expense_sheets' do
       before do
         expense_sheet_generator.create_expense_sheets
         service.update ending: service.ending + 28.days
-        allow(expense_sheet_generator).to receive(:create_expense_sheets)
       end
 
-      it 'calls create_expense_sheets with the correct arguments' do
-        expense_sheet_generator.create_missing_expense_sheets
-        expect(expense_sheet_generator).to have_received(:create_expense_sheets)
-          .with(beginning: Date.parse('2018-06-30'))
+      context 'when create_expense_sheets is mocked' do
+        before { allow(expense_sheet_generator).to receive(:create_expense_sheets) }
+
+        it 'calls create_expense_sheets with the correct arguments' do
+          create_missing_expense_sheets
+          expect(expense_sheet_generator).to have_received(:create_expense_sheets)
+            .with(beginning: Date.parse('2018-06-30'))
+        end
+      end
+
+      it 'creates 2 new expense sheets' do
+        expect { create_missing_expense_sheets }.to change(ExpenseSheet, :count).by(2)
       end
     end
 
@@ -167,9 +176,29 @@ RSpec.describe ExpenseSheetGenerator, type: :service do
       before { allow(expense_sheet_generator).to receive(:create_expense_sheets) }
 
       it 'calls create_expense_sheets with the correct arguments' do
-        expense_sheet_generator.create_missing_expense_sheets
+        create_missing_expense_sheets
         expect(expense_sheet_generator).to have_received(:create_expense_sheets).with(no_args)
       end
+    end
+  end
+
+  describe '#create_additional_expense_sheet' do
+    let(:create_additional_expense_sheet) { expense_sheet_generator.create_additional_expense_sheet }
+
+    before { expense_sheet_generator.create_expense_sheets }
+
+    context 'when create_expense_sheets is mocked' do
+      before { allow(expense_sheet_generator).to receive(:create_expense_sheet) }
+
+      it 'calls create_expense_sheets with the correct arguments' do
+        create_additional_expense_sheet
+        expect(expense_sheet_generator).to have_received(:create_expense_sheet)
+          .with(service.ending, service.ending)
+      end
+    end
+
+    it 'creates a new expense_sheet' do
+      expect { create_additional_expense_sheet }.to change(ExpenseSheet, :count).by(1)
     end
   end
 end

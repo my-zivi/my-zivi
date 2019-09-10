@@ -33,28 +33,28 @@ export interface PaymentExpenseSheet {
 }
 
 export interface ExpenseSheet {
-  id: number;
+  id?: number;
   bank_account_number: string;
   beginning: Date;
   clothing_expenses: number;
-  clothing_expenses_comment: null;
-  company_holiday_comment: null;
+  clothing_expenses_comment?: string;
+  company_holiday_comment?: string;
   driving_expenses: number;
-  driving_expenses_comment: null;
+  driving_expenses_comment?: string;
   duration: number;
   ending: Date;
   extraordinary_expenses: number;
-  extraordinary_expenses_comment: null;
+  extraordinary_expenses_comment?: string;
   paid_company_holiday_days: number;
-  paid_vacation_comment: null;
+  paid_vacation_comment?: string;
   paid_vacation_days: number;
-  payment_timestamp: null;
-  sick_comment: null;
+  payment_timestamp?: Date;
+  sick_comment?: string;
   sick_days: number;
   state: ExpenseSheetState;
   total: number;
   unpaid_company_holiday_days: number;
-  unpaid_vacation_comment: null;
+  unpaid_vacation_comment?: string;
   unpaid_vacation_days: number;
   user_id: number;
   work_days: number;
@@ -112,7 +112,7 @@ export interface DailyExpense {
 
 export interface ServiceSpecification {
   id: number;
-  identification_number?: number;
+  identification_number?: string;
   name: string;
   short_name: string;
   work_clothing_expenses: number;
@@ -182,7 +182,7 @@ export interface Service {
   probation_period: boolean;
   service_specification_id: number;
   service_specification: {
-    identification_number: number;
+    identification_number: string;
     name: string | undefined;
     short_name: string | undefined;
   };
@@ -195,7 +195,7 @@ export interface ServiceCollection {
   ending: string | null;
   confirmation_date: string | null;
   service_specification: {
-    identification_number: number;
+    identification_number: string;
     name: string | undefined;
     short_name: string | undefined;
   };

@@ -1,4 +1,6 @@
 {
   "authorization_token": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc0FkbWluIjpmYWxzZSwic3ViIjoiMjMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE1NjU2MDE1NTQsImV4cCI6MTU2NTY4Nzk1NCwianRpIjoiYWFlMDcxYTEtMWU3OC00Yzk3LWJkZjQtNDQ2ZTQ2NTQ1OTI2In0.W3dFR3undLiqBdfcXw5vG-8LWk2sHJCce7x-vKeuOKY",
-  "password": "Pa$$w0rd"
+  "password": "Pa$$w0rd",
+  "admin_authorization_token": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc0FkbWluIjp0cnVlLCJzdWIiOiI0Iiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNTY4MTE0NDI4LCJleHAiOjE1NjgyMDA4MjgsImp0aSI6IjlkNzFmOTg3LWMyNjItNGY2ZC05YTI5LWIwZGI2M2FhMTRkYiJ9.BRf8Gi8znLEFaAYrRXJhNWTmhGiAEE_BH9Ux6hm3rg4",
+  "admin_password": "123456"
 }
