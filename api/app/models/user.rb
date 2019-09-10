@@ -24,6 +24,7 @@ class User < ApplicationRecord
             :address, :bank_iban, :birthday,
             :city, :health_insurance, :role,
             :zip, :hometown, :phone, presence: true, unless: :only_password_changed?
+  validates :email, :zdp, uniqueness: { case_sensitive: false }
 
   validates :zdp, numericality: {
     greater_than: 10_000,

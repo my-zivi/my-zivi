@@ -30,6 +30,16 @@ RSpec.describe User, type: :model do
         .is_greater_than(10_000)
     end
 
+    describe 'uniqueness validations' do
+      subject(:user) { build(:user) }
+
+      it 'validates uniqueness of #email and #zdp', :aggregate_failures do
+        %i[email zdp].each do |field|
+          expect(user).to validate_uniqueness_of(field).case_insensitive
+        end
+      end
+    end
+
     describe '#bank_iban' do
       it 'does not allow invalid values', :aggregate_failures do
         expect(model).not_to allow_value('CH93 0076 2011 6238 5295 7').for(:bank_iban)

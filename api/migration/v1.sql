@@ -365,6 +365,7 @@ ALTER TABLE users
     ADD CONSTRAINT index_users_on_reset_password_token UNIQUE (reset_password_token),
     ADD CONSTRAINT fk_rails_0402495f12 FOREIGN KEY (regional_center_id) REFERENCES REGIONAL_CENTERS (id);
 CREATE INDEX index_users_on_regional_center_id ON users (regional_center_id);
+CREATE INDEX index_users_on_zdp ON users (zdp);
 
 ALTER TABLE services
     ADD CONSTRAINT fk_rails_51a813203f FOREIGN KEY (user_id) REFERENCES users (id),

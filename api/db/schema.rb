@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_22_113623) do
+ActiveRecord::Schema.define(version: 2019_09_10_072623) do
 
   create_table "expense_sheets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "beginning", null: false
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_113623) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["regional_center_id"], name: "index_users_on_regional_center_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["zdp"], name: "index_users_on_zdp", unique: true
   end
 
   create_table "whitelisted_jwts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
