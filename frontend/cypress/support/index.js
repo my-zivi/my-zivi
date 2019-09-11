@@ -13,6 +13,18 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+before(() => {
+  cy.request('/db:remove');
+});
+
+afterEach(() => {
+  cy.request('/db:reset');
+});
+
+after(() => {
+  cy.request('/db:remove');
+});
+
 // Import commands.js using ES2015 syntax:
 import './commands'
 

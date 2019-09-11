@@ -1,7 +1,10 @@
 describe('Profile navigation spec', () => {
-  it('can update profile information', () => {
+  beforeEach(() => {
     cy.login();
     cy.visit('/profile');
+  });
+
+  it('can update profile information', () => {
     cy.get('#root .card-body form')
       .contains('Persönliche Informationen');
     cy.get('input[name="first_name"]').clear().type('New first Name');
