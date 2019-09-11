@@ -111,7 +111,7 @@ export interface DailyExpense {
 }
 
 export interface ServiceSpecification {
-  id: number;
+  id?: number;
   identification_number?: string;
   name: string;
   short_name: string;

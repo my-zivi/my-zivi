@@ -54,7 +54,7 @@ class App extends React.Component {
           <ProtectedRoute requiresAdmin component={UserFeedbackOverview} exact path={'/user_feedbacks'} />
           <ProtectedRoute requiresAdmin component={UserOverview} exact path={'/users'} />
           <ProtectedRoute requiresAdmin component={UserUpdate} exact path={'/users/:id'} />
-          <ProtectedRoute requiresAdmin component={ServiceSpecificationsOverview} exact path={'/serviceSpecifications'} />
+          <ProtectedRoute requiresAdmin component={ServiceSpecificationsOverview} exact path={'/service_specifications'} />
           <Route component={NotFound} />
         </Switch>
       </IziviLayout>

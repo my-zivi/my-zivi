@@ -54,7 +54,7 @@ export class HolidayOverview extends React.Component<Props, State> {
   }
 
   render() {
-    const entities = this.props.holidayStore!.entities;
+    const holidays = this.props.holidayStore!.entities;
     const holidayStore = this.props.holidayStore!;
 
     return (
@@ -77,7 +77,7 @@ export class HolidayOverview extends React.Component<Props, State> {
               />
             )}
           />
-          {entities.map(holiday => (
+          {holidays.map(holiday => (
             <Formik
               key={holiday.id}
               validationSchema={holidaySchema}

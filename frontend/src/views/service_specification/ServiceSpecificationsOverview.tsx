@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Formik, FormikActions } from 'formik';
-import { inject } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import injectSheet, { WithSheet } from 'react-jss';
 import Button from 'reactstrap/lib/Button';
@@ -16,8 +16,8 @@ import { ServiceSpecificationOverviewTableRowFields } from './ServiceSpecificati
 
 const INITIAL_DAILY_EXPENSES_FORM_VALUES = Object.freeze({ breakfast: 0, lunch: 0, dinner: 0 });
 const INITIAL_FORM_VALUES = Object.freeze({
-  id: -1,
-  identification_number: undefined,
+  id: undefined,
+  identification_number: '',
   name: '',
   short_name: '',
   work_clothing_expenses: 0,
@@ -40,6 +40,7 @@ interface ServiceSpecificationState {
 }
 
 @inject('serviceSpecificationStore', 'mainStore')
+@observer
 export class ServiceSpecificationsOverviewInner extends React.Component<ServiceSpecificationProps, ServiceSpecificationState> {
   constructor(props: ServiceSpecificationProps) {
     super(props);
@@ -65,7 +66,7 @@ export class ServiceSpecificationsOverviewInner extends React.Component<ServiceS
   }
 
   render() {
-    const entities = this.props.serviceSpecificationStore!.entities;
+    const serviceSpecifications = this.props.serviceSpecificationStore!.entities;
 
     return (
       <IziviContent loading={this.state.loading} title={'Pflichtenheft'} card={true} fullscreen>
@@ -91,7 +92,7 @@ export class ServiceSpecificationsOverviewInner extends React.Component<ServiceS
               </tr>
             )}
           />
-          {entities.map(serviceSpecification => (
+          {serviceSpecifications.map(serviceSpecification => (
             <Formik
               key={serviceSpecification.identification_number}
               validationSchema={serviceSpecificationSchema}
