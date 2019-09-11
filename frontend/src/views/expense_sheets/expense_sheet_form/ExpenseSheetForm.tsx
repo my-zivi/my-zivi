@@ -97,7 +97,7 @@ class ExpenseSheetFormInner extends React.Component<Props, ExpenseSheetFormState
 
   private async onDeleteButtonClicked() {
     await this.props.expenseSheetStore!.delete(this.props.expenseSheet.id!);
-    this.props.history.push('/expense_sheets');
+    this.props.history.push(`/users/${this.props.expenseSheet.user_id}`);
   }
 
   private onSaveButtonClicked(formikProps: FormikProps<{}>) {

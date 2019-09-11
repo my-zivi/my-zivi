@@ -226,7 +226,11 @@ export class DomainStore<SingleType, OverviewType = SingleType> {
     }
 
     await this.mainStore.api.delete(this.entityURL + id);
-    await this.doFetchAll();
+
+    if (this.entities && this.entities.length > 0 && 'id' in this.entities[0]) {
+      this.entities = _.reject(this.entities, entity => (entity as OverviewType & { id: number }).id === id);
+    }
+
     await this.filter();
   }
 }
