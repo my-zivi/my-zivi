@@ -71,8 +71,17 @@ RSpec.describe V1::UsersController, type: :request do
   end
 
   describe '#index' do
-    let!(:user) { create :user, expense_sheets: [create(:expense_sheet)] }
-    let!(:admin_user) { create :user, :admin, expense_sheets: [create(:expense_sheet)] }
+    before do
+      create :service, user: user
+      create :service, user: admin_user
+
+      create :expense_sheet, user: user
+      create :expense_sheet, user: admin_user
+    end
+
+    let!(:user) { create :user }
+    let!(:admin_user) { create :user, :admin }
+
     let(:request) { get v1_users_path }
     let(:expected_successful_response_json) do
       [user, admin_user].map do |current_user|
@@ -94,11 +103,6 @@ RSpec.describe V1::UsersController, type: :request do
             :updated_at
           )
       end
-    end
-
-    before do
-      create :service, user: user
-      create :service, user: admin_user
     end
 
     context 'when no user is logged in' do

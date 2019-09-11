@@ -23,6 +23,7 @@ class ExpenseSheet < ApplicationRecord
             numericality: { only_integer: true }
 
   validate :legitimate_state_change, if: :state_changed?
+  validate :included_in_service_date_range
   validates :payment_timestamp, presence: true, if: -> { state.in?(%w[payment_in_progress paid]) }
   validates :payment_timestamp, inclusion: { in: [nil] }, if: -> { state.in?(%w[open ready_for_payment]) }
 
@@ -59,6 +60,8 @@ class ExpenseSheet < ApplicationRecord
   alias total calculate_full_expenses
 
   def service
+    return if user.nil?
+
     @service ||= user.services.including_date_range(beginning, ending).first
   end
 
@@ -123,5 +126,9 @@ class ExpenseSheet < ApplicationRecord
 
   def state_payment_in_progress_to_paid_or_ready_for_payment?
     state.in?(%w[paid ready_for_payment]) && state_was.in?(%w[payment_in_progress])
+  end
+
+  def included_in_service_date_range
+    errors.add(:base, I18n.t('expense_sheet.errors.outside_service_date_range')) if service.nil?
   end
 end

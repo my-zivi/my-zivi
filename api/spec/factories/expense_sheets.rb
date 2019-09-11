@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :expense_sheet do
-    beginning { Time.zone.today.beginning_of_week - 26.days }
-    ending { Time.zone.today.end_of_week - 2.days }
+    beginning { '2018-11-05' }
+    ending { '2018-11-30' }
     work_days { 26 - sick_days }
     unpaid_company_holiday_days { 0 }
     paid_company_holiday_days { 0 }

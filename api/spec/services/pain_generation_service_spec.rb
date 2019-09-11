@@ -4,25 +4,19 @@ require 'rails_helper'
 
 RSpec.describe PainGenerationService, type: :service do
   describe '#generate_transaction' do
-    let(:transaction_adder) { instance_double(SEPA::CreditTransfer, add_transaction: true) }
-    let(:user) { create :user }
-
-    let(:beginning) { (Time.zone.today - 3.months).beginning_of_week }
-    let(:ending) { (Time.zone.today - 1.week).end_of_week - 2.days }
-
-    let!(:expense_sheet) do
-      create :expense_sheet, :ready_for_payment, user: user, beginning: beginning, ending: ending
-    end
-
     before do
-      create :service,
-             beginning: beginning,
-             ending: ending,
-             user: user
+      create :service, user: user
 
       allow(SEPA::CreditTransfer).to receive(:new).and_return transaction_adder
 
       described_class.new([expense_sheet]).generate_pain
+    end
+
+    let(:transaction_adder) { instance_double(SEPA::CreditTransfer, add_transaction: true) }
+
+    let(:user) { create :user }
+    let(:expense_sheet) do
+      create :expense_sheet, :ready_for_payment, user: user
     end
 
     context 'when there is one expense sheet' do

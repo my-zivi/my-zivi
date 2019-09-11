@@ -94,6 +94,7 @@ de:
         zip_with_city: PLZ / Ort
     errors:
       messages:
+        before_beginning: vor Start
         invalid_date: ungültiges Datum
         not_a_friday: kein Freitag
         not_a_monday: kein Montag
@@ -103,10 +104,6 @@ de:
           attributes:
             state:
               invalid_state_change: ungültiger Statuswechsel
-        holiday:
-          attributes:
-            ending:
-              before_beginning: vor Start
         service:
           attributes:
             service_days:
@@ -141,6 +138,7 @@ de:
   expense_sheet:
     errors:
       already_paid: Spesenblatt wurde bereits ausgezahlt
+      outside_service_date_range: Spesenblatt kann nicht ausserhalb des Einsatzzeitraums sein
   expense_sheet_calculator:
     errors:
       unknown_day_type: Ungültiger Spesentagestyp

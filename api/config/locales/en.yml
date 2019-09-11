@@ -94,6 +94,7 @@ en:
         zip_with_city: ZIP / City
     errors:
       messages:
+        before_beginning: before beginning
         invalid_date: invalid date
         not_a_friday: not a friday
         not_a_monday: not a monday
@@ -103,10 +104,6 @@ en:
           attributes:
             state:
               invalid_state_change: invalid state change
-        holiday:
-          attributes:
-            ending:
-              before_beginning: before beginning
         service:
           attributes:
             service_days:
@@ -141,6 +138,7 @@ en:
   expense_sheet:
     errors:
       already_paid: Expense sheet has already been paid
+      outside_service_date_range: Expense sheet cannot be outside the period of use
   expense_sheet_calculator:
     errors:
       unknown_day_type: Ungültiger Spesentagestyp

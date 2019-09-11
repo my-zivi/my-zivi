@@ -65,6 +65,10 @@ RSpec.describe V1::PaymentsController, type: :request do
         before { sign_in user }
 
         context 'when there is a payment' do
+          before do
+            create :service, user: user, beginning: beginning, ending: ending
+          end
+
           let!(:payment) do
             Payment.new(expense_sheets: expense_sheets, payment_timestamp: payment_timestamp).tap(&:save)
           end
@@ -96,10 +100,6 @@ RSpec.describe V1::PaymentsController, type: :request do
                   .merge(user: expected_user_response)
               end
             }
-          end
-
-          before do
-            create :service, user: user, beginning: beginning, ending: ending
           end
 
           it_behaves_like 'renders a successful http status code'
@@ -141,6 +141,10 @@ RSpec.describe V1::PaymentsController, type: :request do
       before { sign_in user }
 
       context 'when there is a payment' do
+        before do
+          create :service, user: user, beginning: beginning, ending: ending
+        end
+
         let!(:payment) do
           Payment.new(expense_sheets: expense_sheets, payment_timestamp: payment_timestamp).tap(&:save)
         end
@@ -172,10 +176,6 @@ RSpec.describe V1::PaymentsController, type: :request do
                 .merge(user: expected_user_response)
             end
           }
-        end
-
-        before do
-          create :service, user: user, beginning: beginning, ending: ending
         end
 
         it_behaves_like 'renders a successful http status code'
@@ -239,6 +239,10 @@ RSpec.describe V1::PaymentsController, type: :request do
       before { sign_in user }
 
       context 'when there is a payment' do
+        before do
+          create :service, user: user, beginning: beginning, ending: ending
+        end
+
         let!(:payment) do
           Payment.new(expense_sheets: expense_sheets, payment_timestamp: payment_timestamp).tap(&:save)
         end
@@ -270,10 +274,6 @@ RSpec.describe V1::PaymentsController, type: :request do
                 .merge(user: expected_user_response)
             end
           }
-        end
-
-        before do
-          create :service, user: user, beginning: beginning, ending: ending
         end
 
         it_behaves_like 'renders a successful http status code'
@@ -331,6 +331,11 @@ RSpec.describe V1::PaymentsController, type: :request do
       before { sign_in user }
 
       context 'when there are ready expense_sheets' do
+        before do
+          create :service, user: user, beginning: beginning, ending: ending
+          allow(Time.zone).to receive(:now).and_return(payment_timestamp)
+        end
+
         let!(:expense_sheets) do
           [
             create(:expense_sheet, :ready_for_payment,
@@ -359,11 +364,6 @@ RSpec.describe V1::PaymentsController, type: :request do
                 .merge(user: expected_user_response)
             end
           }
-        end
-
-        before do
-          create :service, user: user, beginning: beginning, ending: ending
-          allow(Time.zone).to receive(:now).and_return(payment_timestamp)
         end
 
         it_behaves_like 'renders a successful http status code'

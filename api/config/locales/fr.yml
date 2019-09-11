@@ -94,6 +94,7 @@ fr:
         zip_with_city: Code postal / Ville
     errors:
       messages:
+        before_beginning: avant le début
         invalid_date: date erronée
         not_a_friday: pas de vendredi
         not_a_monday: pas de lundi
@@ -103,10 +104,6 @@ fr:
           attributes:
             state:
               invalid_state_change: changement d'état invalide
-        holiday:
-          attributes:
-            ending:
-              before_beginning: avant le début
         service:
           attributes:
             service_days:
@@ -141,6 +138,7 @@ fr:
   expense_sheet:
     errors:
       already_paid: Feuille de dépenses déjà payée
+      outside_service_date_range: La feuille de dépenses ne peut pas être en dehors de la période du service civil
   expense_sheet_calculator:
     errors:
       unknown_day_type: Type de problème invalide
