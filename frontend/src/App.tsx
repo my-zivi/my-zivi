@@ -31,8 +31,12 @@ import { UserUpdate } from './views/users/UserUpdate';
 
 Icons();
 
+const feedbacksUrl = 'FEEDBACKS_URL';
+
 class App extends React.Component {
   render() {
+    const feedbacksUrlValid = feedbacksUrl.startsWith('https');
+
     return (
       <IziviLayout>
         <Switch>
@@ -44,6 +48,10 @@ class App extends React.Component {
           <Route component={HolidayOverview} exact path={'/holidays'} />
           <Route component={PhoneListView} exact path={'/phones'} />
           <Route component={ProfileOverview} exact path={'/profile'} />
+          {feedbacksUrlValid && (
+              <Route component={() => { window.location.href = feedbacksUrl; return null; }} exact path={'/feedbacks'}/>
+            )
+          }
           <ProtectedRoute component={ChangePassword} exact path={'/changePassword'} />
           <ProtectedRoute requiresAdmin component={PaymentOverview} exact path={'/payments'} />
           <ProtectedRoute requiresAdmin component={ServiceOverview} exact path={'/services'} />

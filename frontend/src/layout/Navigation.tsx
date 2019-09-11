@@ -65,7 +65,7 @@ export class Navigation extends React.Component<NavProps> {
                     <NavEntry to="/phones">Telefonliste</NavEntry>
                     <NavEntry to="/service_specifications">Pflichtenheft</NavEntry>
                     <NavEntry to="/holidays">Freitage</NavEntry>
-                    {feedbacksUrlValid && (<NavEntry to={feedbacksUrl}>Einsatz Feedback</NavEntry>) }
+                    {feedbacksUrlValid && (<NavEntry to={'/feedbacks'}>Einsatz Feedback</NavEntry>)}
                     <NavEntry to="/services">Planung</NavEntry>
                     <NavEntry to="/expense_sheets">Spesen</NavEntry>
                     <NavEntry to={'/payments'}>Auszahlungen</NavEntry>
