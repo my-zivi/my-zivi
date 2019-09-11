@@ -13,7 +13,7 @@ module V1
     before_action :protect_self_deletion!, only: :destroy
 
     def index
-      @users = User.all
+      @users = User.all.includes(:services)
     end
 
     def show

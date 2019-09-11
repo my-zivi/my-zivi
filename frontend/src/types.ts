@@ -125,9 +125,10 @@ export interface ServiceSpecification {
   active: boolean;
 }
 
+type UserRole = 'admin' | 'civil_servant';
+
 export interface User {
   id: number;
-  active: boolean;
   address: string;
   bank_iban: string;
   birthday: string;
@@ -136,7 +137,6 @@ export interface User {
   driving_licence_b: boolean;
   driving_licence_be: boolean;
   email: string;
-  ending: null | string;
   first_name: string;
   health_insurance: string;
   hometown: string;
@@ -145,12 +145,21 @@ export interface User {
   phone: string;
   regional_center_id: number;
   expense_sheets: ShortExpenseSheetListing[];
-  role: 'admin' | 'civil_servant';
+  role: UserRole;
   services: Service[];
-  beginning: null | string;
   work_experience: null | string;
   zdp: number;
   zip: number | null;
+}
+
+export interface UserOverview {
+  id: number;
+  active: boolean;
+  beginning: string;
+  ending: string;
+  full_name: string;
+  role: UserRole;
+  zdp: number;
 }
 
 export interface RegionalCenter {

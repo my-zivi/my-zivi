@@ -1,11 +1,11 @@
 import debounce from 'lodash.debounce';
 import { action, computed, observable, reaction } from 'mobx';
 import moment from 'moment';
-import { User, UserFilter } from '../types';
+import { User, UserFilter, UserOverview } from '../types';
 import { DomainStore } from './domainStore';
 import { MainStore } from './mainStore';
 
-export class UserStore extends DomainStore<User> {
+export class UserStore extends DomainStore<User, UserOverview> {
   protected get entityName() {
     return {
       singular: 'Der Benutzer',
@@ -14,11 +14,11 @@ export class UserStore extends DomainStore<User> {
   }
 
   @computed
-  get entities(): User[] {
+  get entities(): UserOverview[] {
     return this.users;
   }
 
-  set entities(users: User[]) {
+  set entities(users: UserOverview[]) {
     this.users = users;
   }
 
@@ -32,7 +32,7 @@ export class UserStore extends DomainStore<User> {
   }
 
   @observable
-  users: User[] = [];
+  users: UserOverview[] = [];
 
   @observable
   user?: User;
@@ -41,11 +41,11 @@ export class UserStore extends DomainStore<User> {
   userFilters: UserFilter;
 
   filter = debounce(() => {
-    this.filteredEntities = this.users.filter((user: User) => {
+    this.filteredEntities = this.users.filter((user: UserOverview) => {
         const { zdp, name, beginning, ending, active, role } = this.userFilters;
         switch (true) {
           case zdp && !user.zdp.toString().startsWith(zdp.toString()):
-          case name && !(user.first_name + ' ' + user.last_name).toLowerCase().includes(name.toLowerCase()):
+          case name && !user.full_name.toLowerCase().includes(name.toLowerCase()):
           case beginning && user.beginning && moment(user.beginning).isBefore(moment(beginning)):
           case ending && user.ending && moment(user.ending).isAfter(moment(ending)):
           case active && !user.active:
@@ -53,18 +53,17 @@ export class UserStore extends DomainStore<User> {
           default:
             return !(role && user.role !== role);
         }
-      })
-      .sort((a: User, b: User) => {
-        if (!a.beginning && b.beginning) {
+      }).sort((leftUser: UserOverview, rightUser: UserOverview) => {
+        if (!leftUser.beginning && rightUser.beginning) {
           return 1;
         }
-        if (!b.beginning && a.beginning) {
+        if (!rightUser.beginning && leftUser.beginning) {
           return -1;
         }
-        if (!b.beginning || !a.beginning) {
+        if (!rightUser.beginning || !leftUser.beginning) {
           return 0;
         }
-        return moment(a.beginning).isBefore(b.beginning) ? 1 : -1;
+        return moment(leftUser.beginning).isBefore(rightUser.beginning) ? 1 : -1;
       });
   }, 100);
 

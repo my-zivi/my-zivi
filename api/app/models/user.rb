@@ -75,7 +75,15 @@ class User < ApplicationRecord
   end
 
   def active?
-    services.at_date(Time.zone.today).any?
+    active_service.present?
+  end
+
+  def active_service
+    services.find { |service| Time.zone.today.in? service.date_range }
+  end
+
+  def next_service
+    services.select(&:in_future?).min_by(&:beginning)
   end
 
   # TODO: Remove this

@@ -1,5 +1,5 @@
 // tslint:disable-next-line:no-any
-import { ExpenseSheetState, PaymentState, User } from '../types';
+import { ExpenseSheetState, PaymentState, User, UserOverview } from '../types';
 
 export const empty = (value: any) => {
   if (!value) {
@@ -8,8 +8,8 @@ export const empty = (value: any) => {
   return value.length === 0;
 };
 
-export const translateUserRole = (user: User) => {
-  switch (user.role) {
+export const translateUserRole = ({ role }: User | UserOverview) => {
+  switch (role) {
     case 'admin':
       return 'Admin';
     case 'civil_servant':

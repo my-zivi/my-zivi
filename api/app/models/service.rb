@@ -3,7 +3,7 @@
 class Service < ApplicationRecord
   FRIDAY_WEEKDAY = Date::DAYNAMES.index('Friday').freeze
   MONDAY_WEEKDAY = Date::DAYNAMES.index('Monday').freeze
-  MIN_SERVICE_LENGTH = 26
+  MIN_NORMAL_SERVICE_LENGTH = 26
 
   include Concerns::PositiveTimeSpanValidatable
   include Concerns::DateRangeFilterable
@@ -61,6 +61,14 @@ class Service < ApplicationRecord
     Rails.logger.info "Sent reminder to #{user.email} (Service id ##{id})"
   end
 
+  def in_future?
+    beginning > Time.zone.today
+  end
+
+  def date_range
+    beginning..ending
+  end
+
   private
 
   def remaining_days_calculator
@@ -92,6 +100,6 @@ class Service < ApplicationRecord
   def length_is_valid
     return if ending.blank? || beginning.blank? || last_civil_service?
 
-    errors.add(:service_days, :invalid_length) if (ending - beginning).to_i + 1 < MIN_SERVICE_LENGTH
+    errors.add(:service_days, :invalid_length) if (ending - beginning).to_i + 1 < MIN_NORMAL_SERVICE_LENGTH
   end
 end

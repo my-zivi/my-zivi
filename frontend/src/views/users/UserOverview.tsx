@@ -8,7 +8,7 @@ import { DatePickerInput } from '../../form/DatePickerField';
 import Overview from '../../layout/Overview';
 import { MainStore } from '../../stores/mainStore';
 import { UserStore } from '../../stores/userStore';
-import { Column, User } from '../../types';
+import { Column, UserOverview as UserOverviewType } from '../../types';
 import { translateUserRole } from '../../utilities/helpers';
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 @inject('mainStore', 'userStore')
 @observer
 export class UserOverview extends React.Component<Props> {
-  columns: Array<Column<User>>;
+  columns: Array<Column<UserOverviewType>>;
 
   constructor(props: Props) {
     super(props);
@@ -27,22 +27,22 @@ export class UserOverview extends React.Component<Props> {
       {
         id: 'zdp',
         label: 'ZDP',
-        format: ({ zdp }: User) => zdp,
+        format: ({ zdp }: UserOverviewType) => zdp,
       },
       {
         id: 'name',
         label: 'Name',
-        format: (user: User) => <Link to={'/users/' + user.id}>{`${user.first_name} ${user.last_name}`}</Link>,
+        format: (user: UserOverviewType) => <Link to={'/users/' + user.id}>{`${user.full_name}`}</Link>,
       },
       {
         id: 'start',
         label: 'Von',
-        format: (user: User) => (user.beginning ? this.props.mainStore!.formatDate(user.beginning) : ''),
+        format: (user: UserOverviewType) => (user.beginning ? this.props.mainStore!.formatDate(user.beginning) : ''),
       },
       {
         id: 'end',
         label: 'Bis',
-        format: (user: User) => (user.ending ? this.props.mainStore!.formatDate(user.ending) : ''),
+        format: (user: UserOverviewType) => (user.ending ? this.props.mainStore!.formatDate(user.ending) : ''),
       },
       {
         id: 'active',
@@ -62,7 +62,7 @@ export class UserOverview extends React.Component<Props> {
         columns={this.columns}
         store={this.props.userStore!}
         title={'Benutzer'}
-        renderActions={(user: User) => (
+        renderActions={(user: UserOverviewType) => (
           <Button color={'danger'} onClick={() => this.props.userStore!.delete(user.id!)}>
             Löschen
           </Button>

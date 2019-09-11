@@ -15,10 +15,7 @@ RSpec.describe V1::UsersController, type: :request do
           :reset_password_sent_at, :reset_password_token,
           :updated_at
         ).merge(
-          beginning: nil,
-          ending: nil,
           services: [],
-          active: false,
           bank_iban: requested_user.prettified_bank_iban
         )
     end
@@ -71,38 +68,30 @@ RSpec.describe V1::UsersController, type: :request do
   end
 
   describe '#index' do
-    before do
-      create :service, user: user
-      create :service, user: admin_user
-
-      create :expense_sheet, user: user
-      create :expense_sheet, user: admin_user
-    end
-
     let!(:user) { create :user }
     let!(:admin_user) { create :user, :admin }
 
     let(:request) { get v1_users_path }
     let(:expected_successful_response_json) do
       [user, admin_user].map do |current_user|
-        extract_to_json(current_user)
+        extract_to_json(current_user, :id, :zdp, :role)
           .merge(
-            services: be_an_instance_of(Array),
-            expense_sheets: contain_exactly(
-              extract_to_json(current_user.expense_sheets.first)
-                .slice(:beginning, :ending, :id, :state)
-                .merge(duration: current_user.expense_sheets.first.duration)
-            ),
-            beginning: convert_to_json_value(current_user.services.chronologically.last.beginning),
-            ending: convert_to_json_value(current_user.services.chronologically.last.ending.to_s),
-            active: false,
-            bank_iban: current_user.prettified_bank_iban
-          ).except(
-            :created_at, :encrypted_password, :legacy_password,
-            :reset_password_sent_at, :reset_password_token,
-            :updated_at
+            beginning: convert_to_json_value(current_user.services.last.beginning),
+            ending: convert_to_json_value(current_user.services.last.ending.to_s),
+            active: current_user.active?,
+            full_name: current_user.full_name
           )
       end
+    end
+
+    let(:now) { Time.zone.today }
+
+    before do
+      create :service, user: user, beginning: (now - 4.weeks).at_beginning_of_week, ending: now.at_end_of_week + 5.days
+      create(:service,
+             user: admin_user,
+             beginning: (now + 1.month).at_beginning_of_week,
+             ending: (now + 2.months).at_end_of_week - 2.days)
     end
 
     context 'when no user is logged in' do
