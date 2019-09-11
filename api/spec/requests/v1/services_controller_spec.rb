@@ -308,6 +308,35 @@ RSpec.describe V1::ServicesController, type: :request do
         it_behaves_like 'renders a not found error response'
       end
     end
+
+    describe '#confirm' do
+      let(:confirm_request) { put service_confirm_v1_service_path service }
+      let(:service) { create :service, :unconfirmed, user: user }
+
+      before { service }
+
+      context 'when the user confirms his own service' do
+        it 'does not update the confirmation_date the Service' do
+          expect { request }.not_to(change { service.reload.confirmation_date })
+        end
+
+        it_behaves_like 'admin protected resource' do
+          let(:request) { confirm_request }
+        end
+      end
+
+      context 'when a non-admin user tries to confirm a foreign service' do
+        let(:service) { create :service, :unconfirmed, user: create(:user) }
+
+        it 'does not update the confirmation_date the Service' do
+          expect { request }.not_to(change { service.reload.confirmation_date })
+        end
+
+        it_behaves_like 'admin protected resource' do
+          let(:request) { confirm_request }
+        end
+      end
+    end
   end
 
   context 'when admin is signed in' do
@@ -507,6 +536,33 @@ RSpec.describe V1::ServicesController, type: :request do
         end
       end
     end
+
+    describe '#confirm' do
+      let(:confirm_request) { put service_confirm_v1_service_path service }
+      let!(:service) { create :service, :unconfirmed, user: user }
+
+      context 'when the user confirm his own service' do
+        it 'does update the confirmation_date the Service' do
+          expect { confirm_request }.to(change { service.reload.confirmation_date })
+        end
+
+        it_behaves_like 'renders a successful http status code' do
+          let(:request) { confirm_request }
+        end
+      end
+
+      context 'when a admin user tries to confirm a foreign service' do
+        let(:service) { create :service, :unconfirmed, user: create(:user) }
+
+        it 'does update the confirmation_date the Service' do
+          expect { confirm_request }.to(change { service.reload.confirmation_date })
+        end
+
+        it_behaves_like 'renders a successful http status code' do
+          let(:request) { confirm_request }
+        end
+      end
+    end
   end
 
   context 'when no user is signed in' do
@@ -559,6 +615,17 @@ RSpec.describe V1::ServicesController, type: :request do
 
       it 'does not destroy the service' do
         expect { request }.not_to change(Service, :count)
+      end
+
+      it_behaves_like 'login protected resource'
+    end
+
+    describe '#confirm' do
+      let!(:service) { create :service, :unconfirmed }
+      let(:request) { put service_confirm_v1_service_path service }
+
+      it 'does not update the service' do
+        expect { request }.not_to(change { service.reload.confirmation_date })
       end
 
       it_behaves_like 'login protected resource'

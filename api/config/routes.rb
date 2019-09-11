@@ -25,6 +25,7 @@ Rails.application.routes.draw do
         get 'calculate_service_days', to: 'service_calculator#calculate_service_days'
         get 'calculate_ending', to: 'service_calculator#calculate_ending'
       end
+      put 'confirm', to: 'services#confirm', as: 'service_confirm', on: :member
     end
 
     get 'phone_list', to: 'phone_list#show', as: 'phone_list_export'

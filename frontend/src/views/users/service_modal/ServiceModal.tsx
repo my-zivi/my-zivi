@@ -1,14 +1,12 @@
 import { Formik, FormikProps } from 'formik';
 import debounce from 'lodash.debounce';
 import { inject } from 'mobx-react';
-import moment from 'moment';
 import * as React from 'react';
 import Button from 'reactstrap/lib/Button';
 import Modal from 'reactstrap/lib/Modal';
 import ModalBody from 'reactstrap/lib/ModalBody';
 import ModalFooter from 'reactstrap/lib/ModalFooter';
 import ModalHeader from 'reactstrap/lib/ModalHeader';
-import { apiDateFormat } from '../../../stores/apiStore';
 import { MainStore } from '../../../stores/mainStore';
 import { ServiceStore } from '../../../stores/serviceStore';
 import { Service, User } from '../../../types';
@@ -19,7 +17,7 @@ import { ServiceModalForm } from './ServiceModalForm';
 export interface ServiceModalProps<T> {
   onSubmit: (values: T) => Promise<void>;
   user: User;
-  values?: Service;
+  service?: Service;
   onClose: (e?: React.MouseEvent<HTMLButtonElement>) => void;
   isOpen: boolean;
   serviceStore?: ServiceStore;
@@ -72,7 +70,7 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
 
   constructor(props: ServiceModalProps<Service>) {
     super(props);
-    this.initialValues = props.values || {
+    this.initialValues = props.service || {
       service_specification_id: -1,
       service_type: 'normal',
       beginning: null,
@@ -99,7 +97,7 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
   }
 
   render() {
-    const { onSubmit, onClose, isOpen, mainStore } = this.props;
+    const { onSubmit, onClose, isOpen } = this.props;
 
     if (!isOpen) {
       return <></>;
@@ -120,10 +118,12 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
               <Button color="primary" onClick={formikProps.submitForm}>
                 Daten speichern
               </Button>
-              {(this.props.mainStore!.isAdmin() && this.props.values && this.props.values.confirmation_date == null) && (
+              {(this.props.mainStore!.isAdmin() && this.props.service && this.props.service.confirmation_date == null) && (
                 <>
                   {' '}
-                  <Button color="secondary">Aufgebot erhalten</Button>
+                  <Button color="secondary" onClick={this.onConfirmationPut}>
+                    Aufgebot erhalten
+                  </Button>
                 </>
               )}
             </ModalFooter>
@@ -131,5 +131,14 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>> {
         )}
       />
     );
+  }
+
+  onConfirmationPut = () => {
+    this.props.serviceStore!.doConfirmPut(this.props.service!.id!).then(() => {
+      this.props.mainStore!.displaySuccess('Speichern erfolgreich');
+
+      // TODO: remove reload (layzness)
+      setTimeout(() => window.location.reload(), 2000);
+    });
   }
 }

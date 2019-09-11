@@ -168,7 +168,7 @@ export default (params: OverviewTableParams) => {
         <ServiceModal
           onSubmit={onServiceTableSubmit(serviceStore, userStore)}
           user={user}
-          values={service}
+          service={service}
           onClose={onModalClose}
           isOpen={serviceModalId === service.id}
         />

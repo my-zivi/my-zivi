@@ -66,10 +66,9 @@ export class ServiceStore extends DomainStore<Service, ServiceCollection> {
   }
 
   @action
-  async doPutDraft(id: number) {
-    // TODO: Adapt to normal PUT
-    const response = await this.mainStore.api.get<Service>('/services/' + id + '/draft');
-    return response.data;
+  async doConfirmPut(id: number) {
+    const response = await this.mainStore.api.put<Service>('/services/' + id + '/confirm');
+    this.service = response.data;
   }
 
   @action
@@ -87,8 +86,7 @@ export class ServiceStore extends DomainStore<Service, ServiceCollection> {
   }
 
   private async callServiceCalculator<ReturnType>(url: string) {
-    const response = await this.mainStore.api.
-    get<ReturnType>(url);
+    const response = await this.mainStore.api.get<ReturnType>(url);
     return response.data;
   }
 }

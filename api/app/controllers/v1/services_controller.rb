@@ -14,9 +14,9 @@ module V1
 
     before_action :authenticate_user!, unless: -> { request.format.pdf? }
     before_action :authenticate_from_params!, only: :show, if: -> { request.format.pdf? }
-    before_action :set_service, only: %i[show update destroy]
+    before_action :set_service, only: %i[show update destroy confirm]
     before_action :protect_foreign_resource!, except: %i[index create], unless: -> { current_user.admin? }
-    before_action :authorize_admin!, only: :index
+    before_action :authorize_admin!, only: %i[index confirm]
     before_action :protect_confirmed_service!, only: :update, unless: -> { current_user.admin? }
 
     def index
@@ -54,6 +54,12 @@ module V1
 
     def destroy
       raise ValidationError, @service.errors unless @service.destroy
+    end
+
+    def confirm
+      raise ValidationError, @service.errors unless @service.update(confirmation_date: Time.zone.now)
+
+      render :show
     end
 
     private

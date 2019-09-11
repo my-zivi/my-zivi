@@ -27,5 +27,9 @@ RSpec.describe V1::ServicesController, type: :routing do
     it 'routes to #destroy' do
       expect(delete: '/v1/services/1').to route_to('v1/services#destroy', id: '1', format: :json)
     end
+
+    it 'routes to #confirm' do
+      expect(put: '/v1/services/1/confirm').to route_to('v1/services#confirm', id: '1', format: :json)
+    end
   end
 end
