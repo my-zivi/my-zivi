@@ -2,3 +2,13 @@ GET {{url}}/payments
 Authorization: {{auth_token}}
 
 ###
+
+GET {{url}}/payments?filter[state]=payment_in_progress
+Authorization: {{auth_token}}
+
+###
+
+GET {{url}}/payments?filter[year_span]=3
+Authorization: {{auth_token}}
+
+###

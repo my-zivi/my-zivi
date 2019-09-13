@@ -212,22 +212,52 @@ RSpec.describe Payment, type: :model do
     let(:found_payments) { described_class.all }
 
     context 'with existing payments' do
-      let!(:payments) do
-        iota = 0
-        payment_in_progress_payments = Array.new(4).map do
-          iota += 1
-          create_payment payment_timestamp: Time.zone.now + iota.hours
-        end
-        paid_payments = Array.new(2).map do
-          iota += 1
-          create_payment state: :paid, payment_timestamp: Time.zone.now + iota.hours
-        end
+      subject(:returned_payments) { found_payments.map(&method(:hash_of_payment)) }
 
-        payment_in_progress_payments.push(*paid_payments)
+      let(:user) { create :user }
+      let(:services) do
+        [
+          create(:service, :long, beginning: Date.parse('2018-01-01'), ending: Date.parse('2018-06-29'), user: user),
+          create(:service, :long, beginning: Date.parse('2019-01-07'), ending: Date.parse('2019-02-01'), user: user)
+        ]
       end
 
+      let(:expected_return_value) { expected_payments.map(&method(:hash_of_payment)) }
+      let(:expected_payments) { payments }
+      let(:payment_in_progress_payments) do
+        (1..3).to_a.reverse.map do |iota|
+          create_payment payment_timestamp: Time.zone.now + iota.hours, service: services.first
+        end
+      end
+
+      let(:paid_payments) do
+        (4..5).to_a.reverse.map do |iota|
+          create_payment state: :paid, payment_timestamp: Time.zone.now + iota.hours, service: services.second
+        end
+      end
+
+      let!(:payments) { paid_payments + payment_in_progress_payments }
+
       it 'returns all corresponding payments' do
-        expect(found_payments.map(&method(:hash_of_payment))).to eq payments.map(&method(:hash_of_payment))
+        expect(returned_payments).to eq expected_return_value
+      end
+
+      context 'with :paid state filter' do
+        let(:found_payments) { described_class.all [state: :paid] }
+        let(:expected_payments) { paid_payments }
+
+        it 'returns all corresponding payments' do
+          expect(returned_payments).to eq expected_return_value
+        end
+      end
+
+      context 'with :payment_in_progress state filter' do
+        let(:found_payments) { described_class.all [state: :payment_in_progress] }
+        let(:expected_payments) { payment_in_progress_payments }
+
+        it 'returns all corresponding payments' do
+          expect(returned_payments).to eq expected_return_value
+        end
       end
     end
 

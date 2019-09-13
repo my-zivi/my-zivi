@@ -3,6 +3,7 @@
 class ExpenseSheet < ApplicationRecord
   include Concerns::PositiveTimeSpanValidatable
   include Concerns::DateRangeFilterable
+  include Concerns::ExpenseSheet::StateMachine
 
   belongs_to :user
 
@@ -22,10 +23,9 @@ class ExpenseSheet < ApplicationRecord
             :paid_company_holiday_days,
             numericality: { only_integer: true }
 
-  validate :legitimate_state_change, if: :state_changed?
-  validate :included_in_service_date_range
   validates :payment_timestamp, presence: true, if: -> { state.in?(%w[payment_in_progress paid]) }
   validates :payment_timestamp, inclusion: { in: [nil] }, if: -> { state.in?(%w[open ready_for_payment]) }
+  validate :included_in_service_date_range
 
   before_destroy :legitimate_destroy
 
@@ -37,10 +37,9 @@ class ExpenseSheet < ApplicationRecord
   }
 
   scope :in_payment, ->(payment_timestamp) { includes(:user).where(payment_timestamp: payment_timestamp) }
-
   scope :payment_issued, -> { includes(:user).where.not(payment_timestamp: [nil]) }
-
-  scope :before_date, (->(date) { where(arel_table[:ending].lt(date)) })
+  scope :before_date, ->(date) { where(arel_table[:ending].lt(date)) }
+  scope :filtered_by, ->(filters) { filters.reduce(self) { |query, filter| query.where(filter) } if filters.present? }
 
   # ExpenseSheets which can be used in calculations
   scope :relevant_for_calculations, -> { where.not(state: :open) }
@@ -62,7 +61,8 @@ class ExpenseSheet < ApplicationRecord
   def service
     return if user.nil?
 
-    @service ||= user.services.including_date_range(beginning, ending).first
+    services = user.services
+    @service ||= services.loaded? ? eager_loaded_service(services) : fetch_service(services)
   end
 
   def duration
@@ -95,6 +95,14 @@ class ExpenseSheet < ApplicationRecord
 
   private
 
+  def fetch_service(services)
+    services.including_date_range(beginning, ending).first
+  end
+
+  def eager_loaded_service(services)
+    services.select { |service| service.beginning <= beginning && service.ending >= ending }.first
+  end
+
   def legitimate_destroy
     return unless paid?
 
@@ -104,28 +112,6 @@ class ExpenseSheet < ApplicationRecord
 
   def values_calculator
     @values_calculator ||= ExpenseSheetCalculators::ExpensesCalculator.new(self)
-  end
-
-  def legitimate_state_change
-    return if [
-      state_ready_for_payment_or_open_to_ready_for_payment_or_open?,
-      state_ready_for_payment_to_payment_in_progress?,
-      state_payment_in_progress_to_paid_or_ready_for_payment?
-    ].one?
-
-    errors.add(:state, :invalid_state_change)
-  end
-
-  def state_ready_for_payment_or_open_to_ready_for_payment_or_open?
-    state.in?(%w[open ready_for_payment]) && state_was.in?(%w[open ready_for_payment])
-  end
-
-  def state_ready_for_payment_to_payment_in_progress?
-    state.in?(%w[payment_in_progress]) && state_was.in?(%w[ready_for_payment])
-  end
-
-  def state_payment_in_progress_to_paid_or_ready_for_payment?
-    state.in?(%w[paid ready_for_payment]) && state_was.in?(%w[payment_in_progress])
   end
 
   def included_in_service_date_range

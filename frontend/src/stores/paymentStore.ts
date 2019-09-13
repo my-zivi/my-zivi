@@ -1,4 +1,4 @@
-import { computed, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import moment from 'moment';
 import { ExpenseSheetState, Payment, PaymentState } from '../types';
 import { DomainStore } from './domainStore';
@@ -44,6 +44,9 @@ export class PaymentStore extends DomainStore<Payment> {
   @observable
   payment?: Payment;
 
+  protected entityURL = '/payments/';
+  protected entitiesURL = '/payments/';
+
   constructor(mainStore: MainStore) {
     super(mainStore);
   }
@@ -87,13 +90,16 @@ export class PaymentStore extends DomainStore<Payment> {
     }
   }
 
-  protected async doFetchAll(): Promise<void> {
-    const res = await this.mainStore.api.get<Payment[]>('/payments');
-    this.payments = res.data;
-  }
-
-  protected async doFetchOne(timestamp: number): Promise<void> {
-    const res = await this.mainStore.api.get<Payment>('/payments/' + timestamp);
-    this.payment = res.data;
+  @action
+  async fetchAllWithYearDelta(delta: number) {
+    try {
+      const res = await this.mainStore.api.get<Payment[]>(`/payments?filter[year_delta]=${delta}`);
+      this.payments = [...this.payments, ...res.data];
+    } catch (e) {
+      this.mainStore.displayError(DomainStore.buildErrorMessage(e, `${this.entityName.plural} konnten nicht geladen werden`));
+      // tslint:disable-next-line:no-console
+      console.error(e);
+      throw e;
+    }
   }
 }

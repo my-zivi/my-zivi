@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/plataformatec/devise.git
-  revision: 12fc5b76d89cf6e9c47289416fb24bf1a85f03da
+  revision: 098345aace53d4ddf88e04f1eb2680e2676e8c28
   branch: master
   specs:
-    devise (4.6.2)
+    devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
@@ -378,7 +378,7 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
-    zeitwerk (2.1.9)
+    zeitwerk (2.1.10)
 
 PLATFORMS
   ruby

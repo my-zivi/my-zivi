@@ -7,7 +7,7 @@ namespace :v1_migration do
   task strip_iban: :environment do
     puts 'Stripping IBANs...'
     User.all.each do |user|
-      user.bank_iban = user.bank_iban.gsub(/\s+/, '')
+      user.bank_iban = user.bank_iban.gsub(/\s+/, '').upcase
       user.save validate: false
     end
   end
