@@ -83,14 +83,14 @@ export class Login extends React.Component<Props> {
               <h2 className="form-signin-heading">Anmelden</h2>
               <WiredField component={TextField} name={'email'} label={'Email'} placeholder={'zivi@example.org'} />
               <WiredField component={PasswordField} name={'password'} label={'Passwort'} placeholder={'****'} />
-              <Button color={'primary'} disabled={formikProps.isSubmitting} onClick={formikProps.submitForm}>
+              <Button color={'primary'} disabled={formikProps.isSubmitting} onClick={formikProps.submitForm} type="submit">
                 Anmelden
               </Button>
             </Form>
           )}
         />
         <p>
-          <Link to="/forgotPassword">Passwort vergessen?</Link>
+          <Link to="/users/password/reset">Passwort vergessen?</Link>
         </p>
       </IziviContent>
       /*<LoadingView loading={this.state.loading} error={this.state.error} />*/

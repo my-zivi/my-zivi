@@ -8,7 +8,8 @@ import { DatePickerInput } from '../../form/DatePickerField';
 import Overview from '../../layout/Overview';
 import { MainStore } from '../../stores/mainStore';
 import { UserStore } from '../../stores/userStore';
-import { Column, User } from '../../types';
+import { Column, UserOverview as UserOverviewType } from '../../types';
+import { translateUserRole } from '../../utilities/helpers';
 
 interface Props {
   mainStore?: MainStore;
@@ -18,7 +19,7 @@ interface Props {
 @inject('mainStore', 'userStore')
 @observer
 export class UserOverview extends React.Component<Props> {
-  columns: Array<Column<User>>;
+  columns: Array<Column<UserOverviewType>>;
 
   constructor(props: Props) {
     super(props);
@@ -26,22 +27,22 @@ export class UserOverview extends React.Component<Props> {
       {
         id: 'zdp',
         label: 'ZDP',
-        format: (u: User) => <>{String(u.zdp)}</>,
+        format: ({ zdp }: UserOverviewType) => zdp,
       },
       {
         id: 'name',
         label: 'Name',
-        format: (u: User) => <Link to={'/users/' + u.id}>{`${u.first_name} ${u.last_name}`}</Link>,
+        format: (user: UserOverviewType) => <Link to={'/users/' + user.id}>{`${user.full_name}`}</Link>,
       },
       {
         id: 'start',
         label: 'Von',
-        format: (u: User) => (u.start ? this.props.mainStore!.formatDate(u.start) : ''),
+        format: (user: UserOverviewType) => (user.beginning ? this.props.mainStore!.formatDate(user.beginning) : ''),
       },
       {
         id: 'end',
         label: 'Bis',
-        format: (u: User) => (u.end ? this.props.mainStore!.formatDate(u.end) : ''),
+        format: (user: UserOverviewType) => (user.ending ? this.props.mainStore!.formatDate(user.ending) : ''),
       },
       {
         id: 'active',
@@ -50,7 +51,7 @@ export class UserOverview extends React.Component<Props> {
       {
         id: 'userRole',
         label: 'Gruppe',
-        format: (u: User) => <>{`${u.role.name}`}</>,
+        format: translateUserRole,
       },
     ];
   }
@@ -61,17 +62,10 @@ export class UserOverview extends React.Component<Props> {
         columns={this.columns}
         store={this.props.userStore!}
         title={'Benutzer'}
-        renderActions={(e: User) => (
-          <>
-            <Button
-              color={'danger'}
-              onClick={() => {
-                this.props.userStore!.delete(e.id!);
-              }}
-            >
-              Löschen
-            </Button>
-          </>
+        renderActions={(user: UserOverviewType) => (
+          <Button color={'danger'} onClick={() => this.props.userStore!.delete(user.id!)}>
+            Löschen
+          </Button>
         )}
         filter={true}
         firstRow={
@@ -79,10 +73,8 @@ export class UserOverview extends React.Component<Props> {
             <td>
               <Input
                 type={'text'}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  this.props.userStore!.updateFilters({
-                    zdp: e.target.value,
-                  });
+                onChange={({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+                  this.props.userStore!.updateFilters({ zdp: value });
                 }}
                 value={this.props.userStore!.userFilters.zdp || ''}
               />
@@ -90,30 +82,28 @@ export class UserOverview extends React.Component<Props> {
             <td>
               <Input
                 type={'text'}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  this.props.userStore!.updateFilters({
-                    name: e.target.value,
-                  });
+                onChange={({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+                  this.props.userStore!.updateFilters({ name: value });
                 }}
                 value={this.props.userStore!.userFilters.name}
               />
             </td>
             <td>
               <DatePickerInput
-                value={new Date(this.props.userStore!.userFilters.date_from)}
-                onChange={(d: Date) => {
+                value={new Date(this.props.userStore!.userFilters.beginning)}
+                onChange={(date: Date) => {
                   this.props.userStore!.updateFilters({
-                    date_from: d.toISOString(),
+                    beginning: date.toISOString(),
                   });
                 }}
               />
             </td>
             <td>
               <DatePickerInput
-                value={new Date(this.props.userStore!.userFilters.date_to)}
-                onChange={(d: Date) => {
+                value={new Date(this.props.userStore!.userFilters.ending)}
+                onChange={(date: Date) => {
                   this.props.userStore!.updateFilters({
-                    date_to: d.toISOString(),
+                    ending: date.toISOString(),
                   });
                 }}
               />
@@ -122,10 +112,8 @@ export class UserOverview extends React.Component<Props> {
               <FormGroup check>
                 <Input
                   type={'checkbox'}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    this.props.userStore!.updateFilters({
-                      active: e.target.checked,
-                    });
+                  onChange={({ target: { checked } }: React.ChangeEvent<HTMLInputElement>) => {
+                    this.props.userStore!.updateFilters({ active: checked });
                   }}
                   checked={this.props.userStore!.userFilters.active}
                 />
@@ -134,14 +122,12 @@ export class UserOverview extends React.Component<Props> {
             <td>
               <Input
                 type={'select'}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  this.props.userStore!.updateFilters({
-                    role: e.target.value,
-                  });
+                onChange={({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+                  this.props.userStore!.updateFilters({ role: value });
                 }}
                 value={this.props.userStore!.userFilters.role || ''}
               >
-                {[{ id: '', name: 'Alle' }, { id: 'zivi', name: 'Zivi' }, { id: 'admin', name: 'Admin' }].map(option => (
+                {[{ id: '', name: 'Alle' }, { id: 'civil_servant', name: 'Zivi' }, { id: 'admin', name: 'Admin' }].map(option => (
                   <option value={option.id} key={option.id}>
                     {option.name}
                   </option>

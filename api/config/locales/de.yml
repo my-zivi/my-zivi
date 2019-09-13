@@ -1,0 +1,198 @@
+---
+de:
+  activerecord:
+    attributes:
+      expense_sheet:
+        accommodation_expenses: Unterkunft
+        bank_account_number: Bankkonto Nummer
+        beginning: Anfang
+        clothing_expenses: Kleiderspesen
+        clothing_expenses_comment: Kleiderspesen - Kommentar
+        company_holiday_comment: Betriebsferien Kommentar
+        driving_expenses: Fahrspesen
+        driving_expenses_comment: Fahrspesenkommentar
+        ending: Ende
+        extraordinary_expenses: Ausserordentliche Spesen
+        extraordinary_expenses_comment: Ausserordentliche Spesen - Kommentar
+        paid_company_holiday_days: Bezahlte Betriebsferientage
+        paid_vacation_comment: Bezahlte Ferien - Kommentar
+        paid_vacation_days:
+          one: Ferientag
+          other: Ferientage
+        pocket_money: Taschengeld
+        sick_comment: Krankheitskommentar
+        sick_days:
+          one: Krankheitstag
+          other: Krankheitstage
+        state: Status
+        unpaid_company_holiday_days: Unbezahlte Betriebsferientage
+        unpaid_vacation_comment: Unbezahlte Ferien - Kommentar
+        unpaid_vacation_days:
+          one: Urlaubstag
+          other: Urlaubstage
+        work_clothing_expenses: Arbeitskleider
+        work_days:
+          one: Arbeitstag
+          other: Arbeitstage
+        workfree_days:
+          one: Arbeitsfreier Tag
+          other: Arbeitsfreie Tage
+      holiday:
+        beginning: Anfang
+        description: Beschreibung
+        ending: Ende
+        holiday_type: Ferien Typ
+      regional_center:
+        address: Adresse
+        name: Name
+        short_name: Kurzname
+      service:
+        beginning: Anfang
+        confirmation_date: Bestätigungsdatum
+        ending: Ende
+        feedback_mail_sent: Feedback E-Mail versendet
+        first_swo_service: Erster SWO Einsatz
+        long_service: Langer Einsatz
+        probation_service: Probeeinsatz
+        service_days: Einsatzdauer
+        service_type: Einsatztyp
+      service_specification:
+        accommodation_expenses: Unterkunftsspesen
+        active: Aktiv
+        expense_keys:
+          breakfast: Morgen
+          dinner: Abend
+          lunch: Mittag
+        first_day_expenses: Spesen für den ersten Tag
+        identification_number: Identifikationsnummer
+        last_day_expenses: Spesen für den letzten Tag
+        location: Ort
+        name: Name
+        paid_vacation_expenses: Bezahlte Ferienspesen
+        short_name: Kurzname
+        work_clothing_expenses: Kleiderspesen
+        work_days_expenses: Arbeitstagesspesen
+      user:
+        address: Adresse
+        bank_iban: Bankverbindung
+        birthday: Geburtstag
+        chainsaw_workshop: Motorsägenworkshop
+        city: Stadt
+        driving_licence_b: Führerschein Kat. B
+        driving_licence_be: Führerschein Kat. BE
+        email: Email
+        first_name: Vorname
+        health_insurance: Krankenkasse
+        hometown: Heimatstadt
+        internal_note: Interne Notiz
+        last_name: Nachname
+        phone: Telefonnummer
+        role: Rolle
+        work_experience: Arbeitserfahrung
+        zdp: ZDP-Nr.
+        zip: PLZ
+        zip_with_city: PLZ / Ort
+    errors:
+      messages:
+        before_beginning: vor Start
+        invalid_date: ungültiges Datum
+        not_a_friday: kein Freitag
+        not_a_monday: kein Montag
+        overlaps_service: überlappt existierenden Service
+      models:
+        expense_sheet:
+          attributes:
+            state:
+              invalid_state_change: ungültiger Statuswechsel
+        service:
+          attributes:
+            service_days:
+              invalid_length: kann nicht kürzer als 26 Tage sein.
+        user:
+          attributes:
+            bank_iban:
+              bad_chars: ungültige Zeichen
+              bad_check_digits: ungültige Prüffziffer
+              bad_format: ungültiges Format
+              bad_length: ungültige Länge
+              unknown_country_code: unbekannter Landescode
+            base:
+              cant_delete_himself: Du kannst dich nicht selbst löschen
+    models:
+      expense_sheet: Spesenblatt
+      holiday: Ferien
+      regional_center: Regionalzentrum
+      service: Einsatz
+      service_specification: Pflichtenheft
+      user: Benutzer
+  attributes:
+    payment_timestamp: Auszahlungszeitstempel
+    state: Status
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      long: "%d.%b.%Y"
+  errors:
+    authorization_error: Sie haben nicht die benötigten Rechte für diese Anfrage
+    format_error: Sie haben ein ungültiges Format angefordert
+  expense_sheet:
+    errors:
+      already_paid: Spesenblatt wurde bereits ausgezahlt
+      outside_service_date_range: Spesenblatt kann nicht ausserhalb des Einsatzzeitraums sein
+  expense_sheet_calculator:
+    errors:
+      unknown_day_type: Ungültiger Spesentagestyp
+  feedback_mailer:
+    feedback_reminder_mail:
+      subject: Deine Meinung ist uns wichtig
+  payment:
+    errors:
+      not_found: Auszahlung nicht gefunden
+      ready_not_found: Keine für Auszahlung bereiten Spesenblätter gefunden
+    expenses_from: Spesen vom %{from_date}
+    pain_filename: Spesen_vom_%{from_date}.xml
+  pdfs:
+    expense_sheet:
+      expense_table:
+        footer:
+          total: Gesamt
+        headers:
+          full_amount: Total
+        row_headers:
+          first_work_days: Erster Arbeitstag
+          last_work_days: Letzter Arbeitstag
+        supplement:
+          driving_expenses_comment_empty: Keine Angaben
+          unpaid_vacation_comment: inkl. %{comment}
+          work_clothing_expenses_comment:
+            one: CHF %{amount}/Tag für %{count} anrechenbarer Tag
+            other: CHF %{amount}/Tag für %{count} anrechenbare Tage
+      filename: Spesenrapport_%{today}.pdf
+      header: 'Spesenrapport des Einsatzbetriebes 423 - SWO, Bahnstrasse 18b, 8603 Schwerzenbach '
+      info_block:
+        footer:
+          bank_account_number: 'Konto-Nr.:'
+        header:
+          complete_service:
+            label: Gesamteinsatz
+            value:
+              one: "%{beginning} bis %{ending} (%{duration} Tag)"
+              other: "%{beginning} bis %{ending} (%{duration} Tage)"
+          expense_sheet_time_duration:
+            label: Meldeperiode
+            value:
+              one: "<b>%{beginning} bis %{ending} (%{duration} Tag)</b>"
+              other: "<b>%{beginning} bis %{ending} (%{duration} Tage)</b>"
+      title: Spesenrapport_von_%{full_name}.pdf
+    phone_list:
+      filename: Telefonliste_%{today}.pdf
+      header: Stand vom %{date}
+      title: Telefonliste vom %{beginning} bis %{ending}
+    service_agreement:
+      body_content: |-
+        Lieber Zivi
+        Bitte sende die unterzeichnete Einsatzvereinbarung an obige Adresse. Wenn du ein Fenstercouvert mit Fenster links oder rechts verwendest, kannst du dieses Deckblatt falten und in das Couvert stecken. Die Adresse ist richtig platziert. Die Adresse unten rechts wird von uns benutzt um die Einsatzvereinbarung an die Regionalstelle weiterzuleiten. Ganz am Ende findest du ein Informationsblatt, das dir Auskunft über den Ablauf deines Einsatzes gibt. Gib bitte den Talon darin am ersten Einsatztag unterschrieben dem Einsatzleiter ab.
+      filename: Einsatzvereinbarung_von_%{full_name}.pdf
+  service_calculator:
+    end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
+    invalid_required_service_days: Ungültige Einsatztage

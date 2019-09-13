@@ -20,11 +20,8 @@ interface Props extends RouteComponentProps<UserDetailRouterProps> {
 export class UserUpdate extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    if (props.userId) {
-      props.userStore!.fetchOne(props.userId);
-    } else {
-      props.userStore!.fetchOne(Number(props.match.params.id));
-    }
+
+    props.userStore!.fetchOne(props.userId ? props.userId : Number(props.match.params.id));
   }
 
   handleSubmit = (user: User) => {
@@ -32,7 +29,7 @@ export class UserUpdate extends React.Component<Props> {
   }
 
   get user() {
-    const user = this.props.userStore!.user;
+    const user = this.props.userStore!.entity;
     if (user) {
       return toJS(user);
       // it's important to detach the mobx proxy before passing it into formik

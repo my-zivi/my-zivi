@@ -1,0 +1,4 @@
+GET {{url}}/expense_sheets/1/hints
+Authorization: {{auth_token}}
+
+###

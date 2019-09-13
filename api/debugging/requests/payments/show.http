@@ -1,0 +1,4 @@
+GET {{url}}/payments/1564472351
+Authorization: {{auth_token}}
+
+###

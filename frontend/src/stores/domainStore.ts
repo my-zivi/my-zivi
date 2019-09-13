@@ -1,21 +1,23 @@
 // tslint:disable:no-console
+import * as _ from 'lodash';
 import { action, observable } from 'mobx';
+import { noop } from '../utilities/helpers';
 import { MainStore } from './mainStore';
 
 /**
  * This class wraps all common store functions with success/error popups.
- * The desired methods that start with "do" should be overriden in the specific stores.
+ * The desired methods that start with "do" should be overridden in the specific stores.
  */
-export class DomainStore<T, OverviewType = T> {
+export class DomainStore<SingleType, OverviewType = SingleType> {
   protected get entityName() {
     return { singular: 'Die Entität', plural: 'Die Entitäten' };
   }
 
-  get entity(): T | undefined {
+  get entity(): SingleType | undefined {
     throw new Error('Not implemented');
   }
 
-  set entity(e: T | undefined) {
+  set entity(e: SingleType | undefined) {
     throw new Error('Not implemented');
   }
 
@@ -23,19 +25,74 @@ export class DomainStore<T, OverviewType = T> {
     throw new Error('Not implemented');
   }
 
+  set entities(entities: OverviewType[]) {
+    throw new Error('Not implemented');
+  }
+
+  static buildErrorMessage(e: { messages: any }, defaultMessage: string) {
+    if ('messages' in e && typeof e.messages === 'object') {
+      return this.buildServerErrorMessage(e, defaultMessage);
+    }
+
+    return defaultMessage;
+  }
+
+  private static buildServerErrorMessage(e: { messages: any }, defaultMessage: string) {
+    if ('error' in e.messages) {
+      return `${defaultMessage}: ${e.messages.error}`;
+    } else if ('human_readable_descriptions' in e.messages) {
+      return this.buildErrorList(e.messages.human_readable_descriptions, defaultMessage);
+    } else if ('errors' in e.messages) {
+      return this.buildMiscErrorListMessage(e, defaultMessage);
+    }
+
+    return defaultMessage;
+  }
+
+  private static buildMiscErrorListMessage(e: { messages: any }, defaultMessage: string) {
+    if (typeof e.messages.errors === 'string') {
+      return `${defaultMessage}: ${e.messages.errors}`;
+    } else if (typeof e.messages.errors === 'object') {
+      const errors: { [index: string]: string } = e.messages.errors;
+      return this.buildErrorList(_.map(errors, (value, key) => this.humanize(key, value)), defaultMessage);
+    } else {
+      return defaultMessage;
+    }
+  }
+
+  private static buildErrorList(messages: string[], defaultMessage: string) {
+    const errorMessageTemplate = `
+              <ul class="mt-1 mb-0">
+                <% _.forEach(messages, message => {%>
+                    <li><%- message %></li>
+                <%});%>
+              </ul>
+            `;
+
+    return `${defaultMessage}:` + _.template(errorMessageTemplate)({ messages });
+  }
+
+  private static humanize(key: string, errors: string[] | string) {
+    const description = Array.isArray(errors) ? errors.join(', ') : errors;
+    return _.capitalize(_.lowerCase(key)) + ' ' + description;
+  }
+
   @observable
   filteredEntities: OverviewType[] = [];
 
-  constructor(protected mainStore: MainStore) {}
+  filter: () => void = noop;
 
-  filter: () => void = () => {}; // tslint:disable-line no-empty
+  protected entitiesURL?: string = '';
+  protected entityURL?: string = '';
+
+  constructor(protected mainStore: MainStore) {}
 
   @action
   async fetchAll(params: object = {}) {
     try {
       await this.doFetchAll(params);
     } catch (e) {
-      this.mainStore.displayError(`${this.entityName.plural} konnten nicht geladen werden.`);
+      this.mainStore.displayError(DomainStore.buildErrorMessage(e, `${this.entityName.plural} konnten nicht geladen werden`));
       console.error(e);
       throw e;
     }
@@ -47,34 +104,33 @@ export class DomainStore<T, OverviewType = T> {
       this.entity = undefined;
       return await this.doFetchOne(id);
     } catch (e) {
-      this.mainStore.displayError(`${this.entityName.plural} konnten nicht geladen werden.`);
+      this.mainStore.displayError(DomainStore.buildErrorMessage(e, `${this.entityName.singular} konnte nicht geladen werden`));
       console.error(e);
       throw e;
     }
   }
 
   @action
-  async post(entity: T) {
-    this.displayLoading(async () => {
+  async post(entity: SingleType) {
+    await this.displayLoading(async () => {
       try {
         await this.doPost(entity);
         this.mainStore.displaySuccess(`${this.entityName.singular} wurde gespeichert.`);
       } catch (e) {
-        this.mainStore.displayError(`${this.entityName.singular} konnte nicht gespeichert werden.`);
-        console.error(e);
+        this.mainStore.displayError(DomainStore.buildErrorMessage(e, `${this.entityName.singular} konnte nicht gespeichert werden`));
         throw e;
       }
     });
   }
 
   @action
-  async put(entity: T) {
-    this.displayLoading(async () => {
+  async put(entity: SingleType) {
+    await this.displayLoading(async () => {
       try {
         await this.doPut(entity);
         this.mainStore.displaySuccess(`${this.entityName.singular} wurde gespeichert.`);
       } catch (e) {
-        this.mainStore.displayError(`${this.entityName.singular} konnte nicht gespeichert werden.`);
+        this.mainStore.displayError(DomainStore.buildErrorMessage(e, `${this.entityName.singular} konnte nicht gespeichert werden`));
         console.error(e);
         throw e;
       }
@@ -83,12 +139,12 @@ export class DomainStore<T, OverviewType = T> {
 
   @action
   async delete(id: number | string) {
-    this.displayLoading(async () => {
+    await this.displayLoading(async () => {
       try {
         await this.doDelete(id);
         this.mainStore.displaySuccess(`${this.entityName.singular} wurde gelöscht.`);
       } catch (e) {
-        this.mainStore.displayError(`${this.entityName.singular} konnte nicht gelöscht werden.`);
+        this.mainStore.displayError(DomainStore.buildErrorMessage(e, `${this.entityName.singular} konnte nicht gelöscht werden`));
         console.error(e);
         throw e;
       }
@@ -101,7 +157,7 @@ export class DomainStore<T, OverviewType = T> {
   }
 
   async notifyProgress<P>(f: () => Promise<P>, { errorMessage = 'Fehler!', successMessage = 'Erfolg!' } = {}) {
-    this.displayLoading(async () => {
+    await this.displayLoading(async () => {
       try {
         await f();
         if (successMessage) {
@@ -117,25 +173,64 @@ export class DomainStore<T, OverviewType = T> {
     });
   }
 
+  @action
   protected async doFetchAll(params: object = {}) {
-    throw new Error('Not implemented');
-  }
+    if (!this.entitiesURL) {
+      throw new Error('Not implemented');
+    }
 
-  protected async doFetchOne(id: number): Promise<T | void> {
-    throw new Error('Not implemented');
-  }
-
-  protected async doPost(entity: T) {
-    throw new Error('Not implemented');
+    const res = await this.mainStore.api.get<OverviewType[]>(this.entitiesURL);
+    this.entities = res.data;
   }
 
   @action
-  protected async doPut(entity: T) {
-    throw new Error('Not implemented');
+  protected async doFetchOne(id: number): Promise<SingleType | void> {
+    if (!this.entityURL) {
+      throw new Error('Not implemented');
+    }
+
+    const res = await this.mainStore.api.get<SingleType>(this.entityURL + id);
+    this.entity = res.data;
+  }
+
+  @action
+  protected async doPost(entity: SingleType) {
+    if (!this.entitiesURL) {
+      throw new Error('Not implemented');
+    }
+
+    const response = await this.mainStore.api.post<OverviewType>(this.entitiesURL, entity);
+    this.entities.push(response.data);
+  }
+
+  @action
+  protected async doPut(entity: SingleType) {
+    if (!this.entityURL || !('id' in entity)) {
+      throw new Error('Not implemented');
+    }
+
+    const entityWithId = entity as SingleType & { id: any };
+
+    const response = await this.mainStore.api.put<SingleType>(this.entitiesURL + entityWithId.id, entity);
+    this.entity = response.data;
+
+    if (this.entities.length > 0) {
+      this.entities.findIndex(value => (value as any).id === entityWithId.id);
+    }
   }
 
   @action
   protected async doDelete(id: number | string) {
-    throw new Error('Not implemented');
+    if (!this.entityURL) {
+      throw new Error('Not implemented');
+    }
+
+    await this.mainStore.api.delete(this.entityURL + id);
+
+    if (this.entities && this.entities.length > 0 && 'id' in this.entities[0]) {
+      this.entities = _.reject(this.entities, entity => (entity as OverviewType & { id: number }).id === id);
+    }
+
+    await this.filter();
   }
 }

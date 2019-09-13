@@ -2,170 +2,218 @@ import { FormikBag } from 'formik';
 
 export interface Holiday {
   id?: number;
-  date_from: string;
-  date_to: string;
-  holiday_type_id: number;
+  beginning: string;
+  ending: string;
+  holiday_type: 'public_holiday' | 'company_holiday';
   description: string;
+}
+
+export enum PaymentState {
+  payment_in_progress = 'payment_in_progress',
+  paid = 'paid',
 }
 
 export interface Payment {
   id?: number;
-  amount: number;
-  created_at: string;
-  payment_entries: PaymentEntry[];
+  total: number;
+  state: PaymentState;
+  payment_timestamp: number;
+  expense_sheets: PaymentExpenseSheet[];
 }
 
-export interface PaymentEntry {
+export interface PaymentExpenseSheet {
   id?: number;
-  report_sheet: ReportSheet;
-  user: User;
-}
-export interface ProposedReportSheetValues {
-  company_holidays_as_zivi_holidays: number;
-  company_holidays_as_zivi_vacations: number;
-  costs_clothes: number;
-  holidays_left: number;
-  illness_days_left: number;
-  work_free_days: number;
-  workdays: number;
+  total: number;
+  user: {
+    id: number;
+    bank_iban: string;
+    full_name: string;
+    zdp: number;
+  };
 }
 
-export interface ReportSheet {
+export interface ExpenseSheet {
   id?: number;
-  additional_workfree: number;
-  additional_workfree_comment: string;
   bank_account_number: string;
-  clothes: number;
-  company_holiday_holiday: number;
-  company_holiday_vacation: number;
-  driving_charges: number;
-  driving_charges_comment: string;
-  extraordinarily: number;
-  extraordinarily_comment: string;
-  end: string;
-  holiday: number;
-  holiday_comment: string;
-  ignore_first_last_day: boolean;
-  ill: number;
-  mission?: Mission;
-  start: string;
-  state: number;
-  total_costs?: number;
-  user?: User;
-  vacation: number;
-  vacation_comment: string;
-  work: number;
-  workfree: number;
+  beginning: Date;
+  clothing_expenses: number;
+  clothing_expenses_comment?: string;
+  company_holiday_comment?: string;
+  driving_expenses: number;
+  driving_expenses_comment?: string;
+  duration: number;
+  ending: Date;
+  extraordinary_expenses: number;
+  extraordinary_expenses_comment?: string;
+  paid_company_holiday_days: number;
+  paid_vacation_comment?: string;
+  paid_vacation_days: number;
+  payment_timestamp?: Date;
+  sick_comment?: string;
+  sick_days: number;
+  state: ExpenseSheetState;
+  total: number;
+  unpaid_company_holiday_days: number;
+  unpaid_vacation_comment?: string;
+  unpaid_vacation_days: number;
+  user_id: number;
+  work_days: number;
+  workfree_days: number;
+  service_id: number;
 }
 
-export interface ReportSheetWithProposedValues extends ReportSheet {
-  proposed_values: ProposedReportSheetValues;
+export interface ExpenseSheetHints {
+  suggestions: {
+    work_days: number;
+    workfree_days: number;
+    paid_company_holiday_days: number;
+    unpaid_company_holiday_days: number;
+    clothing_expenses: number;
+  };
+  remaining_days: {
+    sick_days: number;
+    paid_vacation_days: number;
+  };
 }
 
-export interface ReportSheetListing {
+export enum ExpenseSheetState {
+  open = 'open',
+  ready_for_payment = 'ready_for_payment',
+  payment_in_progress = 'payment_in_progress',
+  paid = 'paid',
+}
+
+export interface ShortExpenseSheetListing {
   id: number;
-  end: string;
-  start: string;
-  state: number;
-  user_id?: number;
-  user: User;
+  ending: string;
+  beginning: string;
+  state: ExpenseSheetState;
+  duration: number;
 }
 
-export interface Specification {
-  id?: string;
+export interface ExpenseSheetListing extends ShortExpenseSheetListing {
+  total: number;
+  user: {
+    id: number;
+    address: string;
+    bank_iban: string;
+    city: string;
+    full_name: string;
+    zdp: number;
+    zip: number;
+  };
+}
+
+export interface DailyExpense {
+  breakfast: number;
+  lunch: number;
+  dinner: number;
+}
+
+export interface ServiceSpecification {
+  id?: number;
+  identification_number?: string;
   name: string;
   short_name: string;
-  working_clothes_payment: null | string;
-  working_clothes_expense: number;
-  working_breakfast_expenses: number;
-  working_lunch_expenses: number;
-  working_dinner_expenses: number;
-  sparetime_breakfast_expenses: number;
-  sparetime_lunch_expenses: number;
-  sparetime_dinner_expenses: number;
-  firstday_breakfast_expenses: number;
-  firstday_lunch_expenses: number;
-  firstday_dinner_expenses: number;
-  lastday_breakfast_expenses: number;
-  lastday_lunch_expenses: number;
-  lastday_dinner_expenses: number;
-  working_time_model: number;
-  working_time_weekly: string;
-  accommodation: number;
-  pocket: number;
+  work_clothing_expenses: number;
+  work_days_expenses: DailyExpense;
+  paid_vacation_expenses: DailyExpense;
+  first_day_expenses: DailyExpense;
+  last_day_expenses: DailyExpense;
+  accommodation_expenses: number;
+  pocket_money: number;
   active: boolean;
 }
+
+type UserRole = 'admin' | 'civil_servant';
 
 export interface User {
   id: number;
-  email: string;
-  role_id: number;
-  zdp: number;
-  first_name: string;
-  last_name: string;
   address: string;
-  zip: number | null;
-  city: string;
-  hometown: string;
-  hometown_canton: number | null;
-  canton: number | null;
-  birthday: string;
-  phone_mobile: string;
-  phone_private: string;
-  phone_business: string;
   bank_iban: string;
-  bank_bic: string;
-  health_insurance: string;
-  work_experience: null | string;
-  driving_licence: number | null;
-  ga_travelcard: number;
-  half_fare_travelcard: number;
-  other_fare_network: null | string;
-  regional_center_id: number;
-  internal_note: string;
-  phone: string;
+  birthday: string;
+  chainsaw_workshop: boolean;
+  city: string;
   driving_licence_b: boolean;
   driving_licence_be: boolean;
-  chainsaw_workshop: boolean;
-  role: Role;
-  start: null | string;
-  end: null | string;
+  email: string;
+  first_name: string;
+  health_insurance: string;
+  hometown: string;
+  internal_note: string;
+  last_name: string;
+  phone: string;
+  regional_center_id: number;
+  expense_sheets: ShortExpenseSheetListing[];
+  role: UserRole;
+  services: Service[];
+  work_experience: null | string;
+  zdp: number;
+  zip: number | null;
+}
+
+export interface UserOverview {
+  id: number;
   active: boolean;
-  missions: Mission[];
-  report_sheets: ReportSheet[];
+  beginning: string;
+  ending: string;
+  full_name: string;
+  role: UserRole;
+  zdp: number;
+}
+
+export interface RegionalCenter {
+  name: string;
+  address: string;
+  short_name: string;
+  id: number;
 }
 
 export interface UserFilter {
   zdp: string;
   name: string;
-  date_from: string;
-  date_to: string;
+  beginning: string;
+  ending: string;
   active: boolean;
   role: string;
 }
 
-export interface Mission {
+export interface Service {
   id?: number;
-  user_id: number;
-  specification_id: string;
-  mission_type: number | null;
-  start: string | null;
-  end: string | null;
-  days: number;
-  first_time: boolean;
-  long_mission: boolean;
+  beginning: Date | null;
+  service_days: number;
+  confirmation_date: null | string;
+  eligible_paid_vacation_days: number;
+  ending: Date | null;
+  first_swo_service: boolean;
+  long_service: boolean;
+  service_type: string | null;
   probation_period: boolean;
-  draft: null | string;
-  eligible_holiday: number;
-  feedback_mail_sent: boolean;
-  feedback_done: boolean;
-  user?: User;
-  specification?: Specification;
+  service_specification_id: number;
+  service_specification: {
+    identification_number: string;
+    name: string | undefined;
+    short_name: string | undefined;
+  };
+  user_id: number;
 }
 
-export interface Role {
-  id: number;
-  name: UserRoleName;
+export interface ServiceCollection {
+  id?: number;
+  beginning: string | null;
+  ending: string | null;
+  confirmation_date: string | null;
+  service_specification: {
+    identification_number: string;
+    name: string | undefined;
+    short_name: string | undefined;
+  };
+  user: {
+    id: number;
+    first_name: string | null;
+    last_name: string | null;
+    zdp: number;
+  };
 }
 
 export interface UserFeedback {
@@ -189,11 +237,6 @@ export interface UserQuestionAnswers {
   4: number;
   5: number;
   6: number;
-}
-
-export enum UserRoleName {
-  Admin = 'admin',
-  Zivi = 'zivi',
 }
 
 export interface Listing {

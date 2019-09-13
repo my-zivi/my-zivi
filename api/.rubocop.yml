@@ -1,0 +1,10 @@
+inherit_from:
+  - .rubocop_base.yml
+
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - 'test_prof/rubocop'
+
+RSpec/AggregateFailures:
+  Enabled: true

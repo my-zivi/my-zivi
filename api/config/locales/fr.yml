@@ -1,0 +1,198 @@
+---
+fr:
+  activerecord:
+    attributes:
+      expense_sheet:
+        accommodation_expenses: Hébergement
+        bank_account_number: Numéro de compte bancaire
+        beginning: Début
+        clothing_expenses: Frais d'habillement
+        clothing_expenses_comment: Frais d'habillement - Commentaire
+        company_holiday_comment: Commentaire sur les vacances en entreprise
+        driving_expenses: Frais de conduite
+        driving_expenses_comment: Commentaire sur les frais de déplacement
+        ending: Fin
+        extraordinary_expenses: Frais extraordinaires
+        extraordinary_expenses_comment: Frais extraordinaires - Commentaire
+        paid_company_holiday_days: Congés payés
+        paid_vacation_comment: Congés payés - commentaire
+        paid_vacation_days:
+          one: Jour fériés
+          other: Jours fériés
+        pocket_money: Argent de poche
+        sick_comment: Commentaire sur la maladie
+        sick_days:
+          one: Jour de congé de maladie
+          other: Jours de congé de maladie
+        state: Statut
+        unpaid_company_holiday_days: Congés d'entreprise non payés
+        unpaid_vacation_comment: Unbezahlte Ferien - Commentaire
+        unpaid_vacation_days:
+          one: Jour de congé
+          other: Jours de congé
+        work_clothing_expenses: Vêtements de travail
+        work_days:
+          one: Jour de travail
+          other: Jours de travail
+        workfree_days:
+          one: Jour de congé
+          other: Jours de congé
+      holiday:
+        beginning: Début
+        description: Description
+        ending: Fin
+        holiday_type: Type de vacances
+      regional_center:
+        address: Adresse
+        name: Nom
+        short_name: Nom court
+      service:
+        beginning: Début
+        confirmation_date: date de confirmation
+        ending: Fin
+        feedback_mail_sent: E-mail de feedback envoyé
+        first_swo_service: Premier service de SWO
+        long_service: Service long
+        probation_service: Jours d’affectation à l’essai
+        service_days: Durée de service
+        service_type: Type de service
+      service_specification:
+        accommodation_expenses: frais d'hébergement
+        active: activé
+        expense_keys:
+          breakfast: Matinée
+          dinner: Soir
+          lunch: Midi
+        first_day_expenses: Frais pour le premier jour
+        identification_number: Identifikationsnummer
+        last_day_expenses: Frais pour le dernier jour
+        location: lieu
+        name: Nom
+        paid_vacation_expenses: Frais de vacances payés
+        short_name: Nom court
+        work_clothing_expenses: les frais d'habillement
+        work_days_expenses: frais par jour
+      user:
+        address: Adresse
+        bank_iban: Compte en banque
+        birthday: Anniversaire
+        chainsaw_workshop: Atelier de scie à chaîne
+        city: Ville
+        driving_licence_b: Permis de conduire catégorie B
+        driving_licence_be: Permis de conduire catégorie BE
+        email: E-Mail
+        first_name: Prénom
+        health_insurance: L'assurance maladie
+        hometown: Ville natale
+        internal_note: Note interne
+        last_name: Nom de famille
+        phone: Numéro de téléphone
+        role: Rôle
+        work_experience: Expérience de travail
+        zdp: N° de civiliste
+        zip: Code postal
+        zip_with_city: Code postal / Ville
+    errors:
+      messages:
+        before_beginning: avant le début
+        invalid_date: date erronée
+        not_a_friday: pas de vendredi
+        not_a_monday: pas de lundi
+        overlaps_service: couvert Service existanteuse
+      models:
+        expense_sheet:
+          attributes:
+            state:
+              invalid_state_change: changement d'état invalide
+        service:
+          attributes:
+            service_days:
+              invalid_length: ne peut être inférieure à 26 jours.
+        user:
+          attributes:
+            bank_iban:
+              bad_chars: caractères invalides
+              bad_check_digits: chiffre de contrôle non valide
+              bad_format: format incorrect
+              bad_length: longueur incorrecte
+              unknown_country_code: code de pays inconnu
+            base:
+              cant_delete_himself: Tu ne peux pas t'effacer toi-même
+    models:
+      expense_sheet: Note de frais
+      holiday: Vaccances
+      regional_center: Centre régional
+      service: Service
+      service_specification: spécification du service
+      user: Utilisateur
+  attributes:
+    payment_timestamp: Horodatage du paiement
+    state: Statut
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      long: "%d.%b.%Y"
+  errors:
+    authorization_error: Vous n'avez pas les droits requis pour cette demande.
+    format_error: Vous avez demandé un format invalide
+  expense_sheet:
+    errors:
+      already_paid: Feuille de dépenses déjà payée
+      outside_service_date_range: La feuille de dépenses ne peut pas être en dehors de la période du service civil
+  expense_sheet_calculator:
+    errors:
+      unknown_day_type: Type de problème invalide
+  feedback_mailer:
+    feedback_reminder_mail:
+      subject: Votre opinion est importante pour nous
+  payment:
+    errors:
+      not_found: Paiement non trouvé
+      ready_not_found: Aucune feuille de dépenses prête à être payée n'a été trouvée
+    expenses_from: Frais du %{from_date}
+    pain_filename: Frais_du_%{from_date}.xml
+  pdfs:
+    expense_sheet:
+      expense_table:
+        footer:
+          total: Total
+        headers:
+          full_amount: Total
+        row_headers:
+          first_work_days: Premier jour de travail
+          last_work_days: Dernier jour de travail
+        supplement:
+          driving_expenses_comment_empty: Aucune information
+          unpaid_vacation_comment: incl. %{comment}
+          work_clothing_expenses_comment:
+            one: CHF %{amount} p. jour pour %{count} jour facturable
+            other: CHF %{amount} p. jour pour %{count} jours facturables
+      filename: Portrait_des_dépenses_%{today}.pdf
+      header: 'Rapport des dépenses d’établissement d’affectation 423 - SWO, Bahnstrasse 18b, 8603 Schwerzenbach '
+      info_block:
+        footer:
+          bank_account_number: N° de compte
+        header:
+          complete_service:
+            label: Service complet
+            value:
+              one: "%{beginning} à %{ending} (%{duration} jour)"
+              other: "%{beginning} à %{ending} (%{duration} jours)"
+          expense_sheet_time_duration:
+            label: Période du rapport
+            value:
+              one: "<b>%{beginning} à %{ending} (%{duration} jour)</b>"
+              other: "<b>%{beginning} à %{ending} (%{duration} jours)</b>"
+      title: Rapport_de_dépenses_de_%{full_name}.pdf
+    phone_list:
+      filename: Liste_téléphonique_%{today}.pdf
+      header: Généré sur %{date}
+      title: Liste téléphonique de %{beginning} à %{ending}
+    service_agreement:
+      body_content: |-
+        Chère Zivi
+        Veuillez envoyer l'accord de mission signé à l'adresse ci-dessus. Si vous utilisez une enveloppe à fenêtre à fenêtre gauche ou droite, vous pouvez plier cette page de garde et la mettre dans l'enveloppe. L'adresse est placée correctement. L'adresse en bas à droite est utilisée par nous pour transmettre l'accord de mission au bureau régional. A la toute fin, vous trouverez une fiche d'information, qui vous donne des informations sur le déroulement de votre mission. Veuillez remettre le talon signé à l'officier responsable le premier jour de la mission.
+      filename: Accord_de_mission_de_%{full_name}.pdf
+  service_calculator:
+    end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
+    invalid_required_service_days: Jours du service non valables

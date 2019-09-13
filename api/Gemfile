@@ -1,0 +1,72 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+ruby '2.5.1'
+
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
+  "https://github.com/#{repo_name}.git"
+end
+
+gem 'bootsnap', '>= 1.1.0', require: false
+gem 'devise', github: 'plataformatec/devise', branch: 'master'
+gem 'devise-jwt', '~> 0.6.0'
+gem 'dotenv-rails'
+gem 'hexapdf'
+gem 'iban-tools'
+gem 'jbuilder'
+gem 'mysql2', '>= 0.4.4', '< 0.6.0'
+gem 'pdf-forms'
+gem 'prawn'
+gem 'prawn-table'
+gem 'puma', '~> 3.11'
+gem 'rack-cors', require: 'rack/cors'
+gem 'rails', '~> 6.0.0'
+gem 'rails-i18n'
+gem 'sepa_king', github: 'salesking/sepa_king', ref: '0658339'
+gem 'validates_timeliness'
+
+group :production do
+  gem 'lograge'
+  gem 'sentry-raven'
+end
+
+group :development, :test do
+  gem 'brakeman', require: false
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'debase'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'pry-byebug'
+  gem 'pry-rails'
+  gem 'reek'
+  gem 'rspec-collection_matchers'
+  gem 'rspec-rails'
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec', require: false
+  gem 'ruby-debug-ide'
+end
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'bullet'
+  gem 'letter_opener'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :test do
+  gem 'climate_control'
+  gem 'i18n-tasks', '~> 0.9.29'
+  gem 'pdf-inspector', require: 'pdf/inspector'
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
+  gem 'test-prof'
+end
+
+gem 'tzinfo-data'

@@ -3,16 +3,20 @@ FROM node:10.15.3-alpine as building-stage
 COPY package.json ./package.json
 COPY yarn.lock ./yarn.lock
 RUN yarn install
-COPY . . 
+COPY . .
 RUN yarn run build
 
 ARG ENVIRONMENT
 ARG API_URL
 ARG SENTRY_DSN_PUBLIC
+ARG SENTRY_ENVIRONMENT
+ARG FEEDBACKS_URL
 
 RUN sed -i'' "s/ENVIRONMENT/${ENVIRONMENT}/g" build/static/js/main.*.js
 RUN sed -i'' "s,BASE_URL,${API_URL},g" build/static/js/main.*.js
 RUN sed -i'' "s,SENTRY_DSN,${SENTRY_DSN_PUBLIC},g" build/static/js/main.*.js
+RUN sed -i'' "s,SENTRY_ENVIRONMENT,${SENTRY_ENVIRONMENT},g" build/static/js/main.*.js
+RUN sed -i'' "s,FEEDBACKS_URL,${FEEDBACKS_URL},g" build/static/js/main.*.js
 
 # Serving
 FROM httpd:2.4-alpine as production-stage

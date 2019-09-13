@@ -1,0 +1,30 @@
+POST {{url}}/expense_sheets
+Authorization: {{auth_token}}
+Content-Type: application/json
+
+{
+    "beginning": "2019-05-01",
+    "ending": "2019-05-31",
+    "work_days": 23,
+    "unpaid_company_holiday_days": 0,
+    "paid_company_holiday_days": 0,
+    "company_holiday_comment": null,
+    "workfree_days": 0,
+    "sick_days": 0,
+    "sick_comment": "Bliblablubb",
+    "paid_vacation_days": 0,
+    "paid_vacation_comment": null,
+    "unpaid_vacation_days": 0,
+    "unpaid_vacation_comment": null,
+    "driving_expenses": 0,
+    "driving_expenses_comment": null,
+    "extraordinary_expenses": 0,
+    "extraordinary_expenses_comment": null,
+    "clothing_expenses": 0,
+    "clothing_expenses_comment": null,
+    "bank_account_number": "CH9300762011623852957",
+    "state": "ready_for_payment",
+    "user_id": 1
+  }
+
+###

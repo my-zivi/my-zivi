@@ -29,7 +29,7 @@ const wireFormik = ({ delayed = false } = {}) => (Component: React.ComponentType
 
 type WiredFieldProps = any; // tslint:disable-line:no-any ; formik field does this, so we do too
 
-export class WiredField extends React.Component<WiredFieldProps, { component: React.ReactType }> {
+export class WiredField extends React.Component<WiredFieldProps, { component: React.ElementType }> {
   componentWillMount() {
     this.setState({
       component: wireFormik({ delayed: this.props.delayed })(this.props.component),

@@ -1,0 +1,13 @@
+PUT {{url}}/services/5
+Authorization: {{auth_token}}
+Content-Type: application/json
+
+{
+  "service": {
+    "beginning": "2018-11-19",
+    "ending": "2019-08-02",
+    "confirmation_date": "2018-11-01"
+  }
+}
+
+###

@@ -8,7 +8,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.6.3",
     "@fortawesome/react-fontawesome": "^0.1.3",
     "@sentry/browser": "^4.4.2",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "bootstrap": "^4.2.1",
     "classnames": "^2.2.6",
     "formik": "^1.4.1",
@@ -37,7 +37,10 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "format": "tslint --project . -t verbose --fix",
-    "lint": "tslint --project . -t verbose"
+    "lint": "tslint --project . -t verbose",
+    "cypress:open": "cypress open",
+    "cypress": "cypress run",
+    "cypress:ci": "yarn run build && start-server-and-test 'node_modules/.bin/serve -s build -p 3001' http://localhost:3001 cypress"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.7",
@@ -54,7 +57,12 @@
     "@types/react-widgets-moment": "^4.0.1",
     "@types/reactstrap": "^6.4.4",
     "@types/yup": "^0.26.4",
+    "cypress": "^3.4.1",
+    "json-server": "^0.15.0",
+    "serve": "^11.1.0",
+    "start-server-and-test": "^1.10.0",
     "tslint": "^5.14.0",
+    "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.3.4000"
   },

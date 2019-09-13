@@ -1,0 +1,198 @@
+---
+en:
+  activerecord:
+    attributes:
+      expense_sheet:
+        accommodation_expenses: Accommodation
+        bank_account_number: Bank account number
+        beginning: Beginning
+        clothing_expenses: Clothing expenses
+        clothing_expenses_comment: Clothing expenses comment
+        company_holiday_comment: Company holiday comment
+        driving_expenses: Driving expenses
+        driving_expenses_comment: Driving expenses comment
+        ending: Ending
+        extraordinary_expenses: Extraordinary expenses
+        extraordinary_expenses_comment: Extraordinary expenses comment
+        paid_company_holiday_days: Paid company holiday days
+        paid_vacation_comment: Paid vacation comment
+        paid_vacation_days:
+          one: Paid vacation day
+          other: Paid vacation days
+        pocket_money: Pocket money
+        sick_comment: Sick comment
+        sick_days:
+          one: Sick day
+          other: Sick days
+        state: State
+        unpaid_company_holiday_days: Unpaid company holiday days
+        unpaid_vacation_comment: Unpaid vacation comment
+        unpaid_vacation_days:
+          one: Unpaid vacation day
+          other: Unpaid vacation days
+        work_clothing_expenses: Work clothing expenses
+        work_days:
+          one: Work day
+          other: Work days
+        workfree_days:
+          one: Workfree day
+          other: Workfree days
+      holiday:
+        beginning: Beginning
+        description: Description
+        ending: Ending
+        holiday_type: Holiday type
+      regional_center:
+        address: Address
+        name: Name
+        short_name: Short name
+      service:
+        beginning: Beginning
+        confirmation_date: Confirmation date
+        ending: Ending
+        feedback_mail_sent: Feedback mail sent
+        first_swo_service: First SWO service
+        long_service: Long service
+        probation_service: Probation service
+        service_days: Days of service
+        service_type: Service type
+      service_specification:
+        accommodation_expenses: Accommodation expenses
+        active: Active
+        expense_keys:
+          breakfast: Breakfast
+          dinner: Dinner
+          lunch: Lunch
+        first_day_expenses: First day expenses
+        identification_number: Identification number
+        last_day_expenses: Last day expenses
+        location: Location
+        name: Name
+        paid_vacation_expenses: Paid vacation expenses
+        short_name: Short name
+        work_clothing_expenses: Work clothing expenses
+        work_days_expenses: Work days expenses
+      user:
+        address: Address
+        bank_iban: IBAN account number
+        birthday: Birthday
+        chainsaw_workshop: Chainsaw workshop
+        city: City
+        driving_licence_b: Driving licence B
+        driving_licence_be: Driving licence BE
+        email: Email
+        first_name: First name
+        health_insurance: Health insurance
+        hometown: Hometown
+        internal_note: Internal note
+        last_name: Last name
+        phone: Phone
+        role: Role
+        work_experience: Work experience
+        zdp: Civil servant number
+        zip: Zip
+        zip_with_city: ZIP / City
+    errors:
+      messages:
+        before_beginning: before beginning
+        invalid_date: invalid date
+        not_a_friday: not a friday
+        not_a_monday: not a monday
+        overlaps_service: overlaps existing Service
+      models:
+        expense_sheet:
+          attributes:
+            state:
+              invalid_state_change: invalid state change
+        service:
+          attributes:
+            service_days:
+              invalid_length: can not be less then 26.
+        user:
+          attributes:
+            bank_iban:
+              bad_chars: bad chars
+              bad_check_digits: bad check digits
+              bad_format: bad format
+              bad_length: bad length
+              unknown_country_code: unknown country code
+            base:
+              cant_delete_himself: You cannot delete yourself
+    models:
+      expense_sheet: Expense sheet
+      holiday: Holiday
+      regional_center: Regional center
+      service: Service
+      service_specification: Service specification
+      user: User
+  attributes:
+    payment_timestamp: Payment timestamp
+    state: State
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      long: "%d.%b.%Y"
+  errors:
+    authorization_error: You are not authorized to perform this action
+    format_error: You requested an invalid format
+  expense_sheet:
+    errors:
+      already_paid: Expense sheet has already been paid
+      outside_service_date_range: Expense sheet cannot be outside the period of use
+  expense_sheet_calculator:
+    errors:
+      unknown_day_type: Ungültiger Spesentagestyp
+  feedback_mailer:
+    feedback_reminder_mail:
+      subject: Your opinion matters to us
+  payment:
+    errors:
+      not_found: Payment not found
+      ready_not_found: No ready for payment expense sheets found
+    expenses_from: Expenses from %{from_date}
+    pain_filename: Expenses_from_%{from_date}.xml
+  pdfs:
+    expense_sheet:
+      expense_table:
+        footer:
+          total: Total
+        headers:
+          full_amount: Total
+        row_headers:
+          first_work_days: First work day
+          last_work_days: Last work day
+        supplement:
+          driving_expenses_comment_empty: N/A
+          unpaid_vacation_comment: incl. %{comment}
+          work_clothing_expenses_comment:
+            one: CHF %{amount}/day for %{count} chargeable service day
+            other: CHF %{amount}/day for %{count} chargeable service days
+      filename: ExpenseSheet_%{today}.pdf
+      header: Expense report of the service company 423 - SWO, Bahnstrasse 18b, 8603 Schwerzenbach
+      info_block:
+        footer:
+          bank_account_number: 'Account-No:'
+        header:
+          complete_service:
+            label: Full service
+            value:
+              one: "<b>%{beginning} to %{ending} (%{duration} day)</b>"
+              other: "<b>%{beginning} to %{ending} (%{duration} days)</b>"
+          expense_sheet_time_duration:
+            label: Reporting period
+            value:
+              one: "%{beginning} to %{ending} (%{duration} day)"
+              other: "%{beginning} to %{ending} (%{duration} days)"
+      title: Expense_report_of_%{full_name}.pdf
+    phone_list:
+      filename: Phonelist_%{today}.pdf
+      header: Generated on %{date}
+      title: Phonelist from %{beginning} to %{ending}
+    service_agreement:
+      body_content: |-
+        Dear Zivis
+        Please send the signed Mission Agreement to the above address. If you use a window envelope with left or right window, you can fold this cover sheet and put it in the envelope. The address is placed correctly. The address at the bottom right will be used by us to forward the Mission Agreement to the regional office. At the very end you will find an information sheet, which gives you information about the process of your mission. Please hand in the signed talon to the officer in charge on the first day of the mission.
+      filename: Service_agreement_of_%{full_name}.pdf
+  service_calculator:
+    end_date_cannot_be_on_weekend: Service end date can't be on a weekend
+    invalid_required_service_days: Invalid service days

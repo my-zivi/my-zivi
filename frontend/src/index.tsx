@@ -14,12 +14,17 @@ import { StoreProvider } from './utilities/StoreProvider';
 
 const browserHistory = createBrowserHistory();
 const sentryDSN = 'SENTRY_DSN'; // this value will be replaced by a build script
+const sentryEnvironment = 'SENTRY_ENVIRONMENT';
+
+const options: Sentry.BrowserOptions = {};
+
+if (sentryEnvironment !== 'SENTRY_ENVIRONMENT') {
+  options.environment = sentryEnvironment;
+}
 
 if (sentryDSN.startsWith('https')) {
-  console.log('yes raven');
-  Sentry.init({ dsn: sentryDSN });
-} else {
-  console.log('no raven');
+  options.dsn = sentryDSN;
+  Sentry.init(options);
 }
 
 moment.locale('de-ch');

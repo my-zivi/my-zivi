@@ -7,7 +7,7 @@ import moment from 'moment';
 
 // this will be replaced by a build script, if necessary
 const baseUrlOverride = 'BASE_URL';
-export const baseUrl = baseUrlOverride.startsWith('http') ? baseUrlOverride : 'http://localhost:48000/api';
+export const baseUrl = baseUrlOverride.startsWith('http') ? baseUrlOverride : 'http://localhost:28000/v1';
 
 export const apiDateFormat = 'YYYY-MM-DD';
 
@@ -33,14 +33,14 @@ export interface JwtTokenDecoded {
 }
 
 export class ApiStore {
-  private _api: AxiosInstance; // tslint:disable-line:variable-name
-
-  @observable
-  private _token: string = ''; // tslint:disable-line:variable-name
 
   @computed
   get token() {
     return this._token;
+  }
+
+  get rawToken() {
+    return this.token.split(' ')[1];
   }
 
   get api() {
@@ -72,7 +72,18 @@ export class ApiStore {
     return this.token ? jwt_decode(this._token) : null;
   }
 
+  static formatIBAN(iban: string) {
+    return iban.replace(/\s+/g, '');
+  }
+
+  private _api: AxiosInstance; // tslint:disable-line:variable-name
+
+  @observable
+  private _token: string = ''; // tslint:disable-line:variable-name
+
   constructor(private history: History) {
+    // TODO: Pass real language
+    axios.defaults.params = { locale: 'de' };
     this._api = axios.create({
       baseURL: baseUrl,
     });
@@ -83,21 +94,26 @@ export class ApiStore {
   }
 
   @action
-  logout(redirect = true): void {
-    localStorage.removeItem(KEY_TOKEN);
-    this._token = '';
-    this.setAuthHeader(null);
-    if (redirect) {
-      this.history.push('/');
+  async logout(redirect = true) {
+    try {
+      await this._api.delete('/users/sign_out');
+      this.removeAuthorizationToken();
+
+      if (redirect) {
+        this.history.push('/');
+      }
+    } catch (e) {
+      // tslint:disable-next-line:no-console
+      console.error(e);
+      throw e;
     }
-    this.updateSentryContext();
   }
 
   @action
   async postLogin(values: { email: string; password: string }) {
-    const res = await this._api.post<LoginResponse>('/auth/login', values);
+    const res = await this._api.post<LoginResponse>('/users/sign_in', { user: values });
     runInAction(() => {
-      this.setToken(res.data.data.token);
+      this.setToken(res.headers.authorization);
       this.updateSentryContext();
     });
   }
@@ -105,28 +121,49 @@ export class ApiStore {
   @action
   async postRegister(values: {
     zdp: string;
-    firstname: string;
-    lastname: string;
+    first_name: string;
+    last_name: string;
     email: string;
+    address: string,
     password: string;
     password_confirm: string;
-    community_pw: string;
+    community_password: string;
     newsletter: boolean;
+    bank_iban: string;
+    birthday: string,
+    city: string,
+    zip: string,
+    hometown: string,
+    phone: string,
+    health_insurance: string,
   }) {
-    const res = await this._api.post<LoginResponse>('/auth/register', values);
+    const trimmedIBAN = ApiStore.formatIBAN(values.bank_iban);
+    const res = await this._api.post<LoginResponse>('/users', { user: { ...values, bank_iban: trimmedIBAN } });
     runInAction(() => {
-      this.setToken(res.data.data.token);
+      this.setToken(res.headers.authorization);
       this.updateSentryContext();
     });
   }
 
   @action
-  async postChangePassword(values: { old_password: string; new_password: string; new_password_2: string }) {
-    await this._api.post('/users/change_password', values);
+  async putChangePassword(values: { current_password: string; password: string; password_confirmation: string }) {
+    await this._api.put('/users', { user: values });
   }
 
-  async postForgotPassword(email: string) {
-    await this._api.post('/auth/forgotPassword', { email });
+  async postForgotPassword(data: { reset_password_token: string, password: string, password_confirmation: string } | { email: string }) {
+    if ('email' in data) {
+      await this._api.post('/users/password', { user: data });
+    } else {
+      await this._api.put('/users/password', { user: data });
+    }
+  }
+
+  private removeAuthorizationToken() {
+    localStorage.removeItem(KEY_TOKEN);
+    this._token = '';
+    this._api.defaults.headers.Authorization = undefined;
+    this.setAuthHeader(null);
+    this.updateSentryContext();
   }
 
   private restoreApiToken() {
@@ -145,8 +182,13 @@ export class ApiStore {
       },
       (error: AxiosError) => {
         if (error.response && error.response.status === 401) {
-          console.log('Unathorized API access, redirect to login'); // tslint:disable-line:no-console
-          this.logout();
+          console.log('Unauthorized API access, redirect to login'); // tslint:disable-line:no-console
+          if (error.config.url && !/\/users\/sign_out$/.test(error.config.url)) {
+            this.logout().catch(this.removeAuthorizationToken.bind(this));
+          } else {
+            this.removeAuthorizationToken();
+            this.history.push('/');
+          }
         }
         return Promise.reject({ error, messages: error.response ? error.response.data : [] });
       },
@@ -154,7 +196,9 @@ export class ApiStore {
   }
 
   private setAuthHeader(token: string | null) {
-    this._api.defaults.headers.Authorization = token ? 'Bearer ' + token : '';
+    if (token) {
+      this._api.defaults.headers.Authorization = token;
+    }
   }
 
   private setToken(token: string) {

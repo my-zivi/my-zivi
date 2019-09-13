@@ -1,0 +1,9 @@
+GET {{url}}/services/calculate_service_days
+Authorization: {{auth_token}}
+Content-Type: application/json
+
+{
+  "beginning": "2018-01-01",
+  "ending": "2018-01-27"
+}
+###

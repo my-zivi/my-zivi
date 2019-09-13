@@ -1,0 +1,8 @@
+GET {{url}}/services/1
+Authorization: {{auth_token}}
+
+###
+
+GET {{url}}/services/1.pdf?token={{stripped_auth_token}}
+
+###

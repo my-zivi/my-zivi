@@ -12,32 +12,30 @@ import { DatePickerField } from '../form/DatePickerField';
 import { WiredField } from '../form/formik';
 import IziviContent from '../layout/IziviContent';
 import { ApiStore, baseUrl } from '../stores/apiStore';
-import { MainStore } from '../stores/mainStore';
 import { apiDate } from '../utilities/validationHelpers';
 
 const phonelistSchema = yup.object({
-  date_from: apiDate().required(),
-  date_to: apiDate().required(),
+  beginning: apiDate().required(),
+  ending: apiDate().required(),
 });
 
 interface PhoneList {
-  date_from: string;
-  date_to: string;
+  beginning: string;
+  ending: string;
 }
 
 interface Props extends RouteComponentProps {
   apiStore?: ApiStore;
-  mainStore?: MainStore;
 }
 
-@inject('apiStore', 'mainStore')
+@inject('apiStore')
 @observer
 export class PhoneListView extends React.Component<Props> {
   handleSubmit = async (entity: PhoneList, actions: FormikActions<PhoneList>) => {
     const inputs = phonelistSchema.cast(entity);
-    const secret = this.props.apiStore!.token;
-
-    const url = `${baseUrl}/documents/phone_list?start=${inputs.date_from}&end=${inputs.date_to}&token=${secret}`;
+    const rawToken = this.props.apiStore!.rawToken;
+    let url = `${baseUrl}/phone_list.pdf`;
+    url += `?phone_list[beginning]=${inputs.beginning}&phone_list[ending]=${inputs.ending}&token=${rawToken}`;
 
     const win = window.open(url, '_blank');
     if (win) {
@@ -56,10 +54,10 @@ export class PhoneListView extends React.Component<Props> {
         <Formik
           validationSchema={phonelistSchema}
           initialValues={{
-            date_from: moment()
+            beginning: moment()
               .date(0)
               .format('Y-MM-DD'),
-            date_to: moment()
+            ending: moment()
               .endOf('month')
               .format('Y-MM-DD'),
             holiday_type: 2,
@@ -70,8 +68,8 @@ export class PhoneListView extends React.Component<Props> {
             <Form>
               <Row>
                 <Col xs="12">
-                  <WiredField horizontal component={DatePickerField} label={'Anfang'} name={'date_from'} />
-                  <WiredField horizontal component={DatePickerField} label={'Ende'} name={'date_to'} />
+                  <WiredField horizontal component={DatePickerField} label={'Anfang'} name={'beginning'} />
+                  <WiredField horizontal component={DatePickerField} label={'Ende'} name={'ending'} />
                 </Col>
               </Row>
               <Row>

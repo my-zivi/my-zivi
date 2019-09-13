@@ -9,6 +9,7 @@ import { TextField } from '../form/common';
 import { WiredField } from '../form/formik';
 import IziviContent from '../layout/IziviContent';
 import { ApiStore } from '../stores/apiStore';
+import { DomainStore } from '../stores/domainStore';
 import { MainStore } from '../stores/mainStore';
 
 const forgotSchema = yup.object({
@@ -38,10 +39,10 @@ export class ForgotPassword extends React.Component<Props> {
 
   handleSubmit = async (values: FormValues, actions: FormikActions<FormValues>) => {
     try {
-      await this.props.apiStore!.postForgotPassword(values.email);
+      await this.props.apiStore!.postForgotPassword({ email: values.email });
       this.setState({ success: true, error: null });
-    } catch ({ error, messages }) {
-      messages.forEach(this.props.mainStore!.displayError);
+    } catch (error) {
+      this.props.mainStore!.displayError(DomainStore.buildErrorMessage(error, 'Konnte Passwort nicht zurücksetzen'));
     } finally {
       actions.setSubmitting(false);
     }
@@ -59,15 +60,22 @@ export class ForgotPassword extends React.Component<Props> {
               <h2>Passwort vergessen</h2>
               {this.state.success && (
                 <div className="alert alert-info">
-                  <strong>E-Mail gesendet</strong>
-                  <br />
-                  Sie haben eine E-Mail mit einem Link zum Passwort-Reset erhalten.
+                  <h6>E-Mail gesendet</h6>
+                  Sie haben eine E-Mail mit einem Link zum Passwort-Reset erhalten, falls uns die E-Mail bekannt ist.
                 </div>
               )}
-              <WiredField component={TextField} name={'email'} label={'Email'} placeholder={'zivi@example.org'} />
+              <WiredField
+                component={TextField}
+                disabled={this.state.success}
+                name={'email'}
+                label={'Email'}
+                placeholder={'zivi@example.org'}
+              />
+              {!this.state.success &&
               <Button color={'primary'} disabled={formikProps.isSubmitting} onClick={formikProps.submitForm}>
                 Weiter
               </Button>
+              }
             </Form>
           )}
         />

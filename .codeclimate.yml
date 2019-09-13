@@ -1,0 +1,22 @@
+version: "2"
+plugins:
+  tslint:
+    enabled: true
+    config: frontend/tslint.json
+  rubocop:
+    enabled: true
+    config: api/.rubocop_base.yml
+    channel: rubocop-0-67
+exclude_patterns:
+  - "api/db/seed_data/"
+  - "api/db/seeds.rb"
+  - "config/"
+  - "api/db/**/*"
+  - "dist/"
+  - "**/node_modules/"
+  - "**/spec/"
+  - "**/test/"
+  - "**/tests/"
+  - "**/vendor/"
+  - "**/*.d.ts"
+  - "frontend/cypress/integration/*"

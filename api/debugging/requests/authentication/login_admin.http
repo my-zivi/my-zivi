@@ -1,0 +1,16 @@
+POST {{url}}/users/sign_in
+Content-Type: application/json
+
+{
+  "user": {
+    "email": "admin@example.com",
+    "password": "123456"
+  }
+}
+
+> {%
+  client.global.set('auth_token', response.headers.valueOf('Authorization'));
+  client.global.set('stripped_auth_token', response.headers.valueOf('Authorization').split(' ')[1]);
+%}
+
+###

@@ -1,17 +1,23 @@
-FROM php:7.1-cli
+FROM ruby:2.5.1-alpine
 
-RUN apt-get update && apt-get install -y unzip git
+LABEL maintainer="SWO"
+LABEL version="0.1"
+LABEL description="Izivi backend"
 
-RUN docker-php-ext-install pdo pdo_mysql && \
-    php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php && \
-    php composer-setup.php && \
-    php -r "unlink('composer-setup.php');" && \
-    mv composer.phar /usr/local/bin/composer
+ENV BUNDLER_VERSION=2.0.1
+ENV RAILS_ENV=production
 
-COPY . .
+RUN gem install bundler -v "2.0.1" --no-document
+WORKDIR /api
+COPY Gemfile* ./
 
-RUN composer install
-RUN php artisan migrate --no-interaction --force
+RUN apk update && apk add pdftk mariadb-client-libs
+RUN apk add --virtual "temporary" build-base git mariadb-dev; \
+     bundle install --without development:test --deployment --jobs=2; \
+     apk del temporary; \
+     rm -rf /var/cache/apk/*
 
-EXPOSE 8000
-CMD ["php", "-S", "0.0.0.0:8000", "-t", "/public"]
+COPY . /api
+
+EXPOSE 3000
+CMD ["bin/rails", "server", "-p", "3000", "-b", "0.0.0.0", "-e", "production"]

@@ -1,0 +1,14 @@
+POST {{url}}/holidays
+Authorization: {{auth_token}}
+Content-Type: application/json
+
+{
+  "holiday": {
+    "holiday_type": "company_holiday",
+    "ending": "2019-02-01",
+    "description": "Internationaler SWO Day",
+    "beginning": "2019-01-01"
+  }
+}
+
+###

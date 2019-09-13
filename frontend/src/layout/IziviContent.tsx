@@ -1,13 +1,15 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import * as React from 'react';
 import injectSheet, { WithSheet } from 'react-jss';
-import createStyles from '../utilities/createStyles';
-import { Theme } from './theme';
-
+import { Link } from 'react-router-dom';
 import Card from 'reactstrap/lib/Card';
 import CardBody from 'reactstrap/lib/CardBody';
 import bg from '../assets/bg.jpg';
+import createStyles from '../utilities/createStyles';
+import { ArrowLeftIcon } from '../utilities/Icon';
 import { LoadingInformation } from './LoadingInformation';
+import { Theme } from './theme';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -34,7 +36,9 @@ interface Props extends WithSheet<typeof styles> {
   showBackgroundImage?: boolean;
   card?: boolean;
   title?: string;
+  fullscreen?: boolean;
   loading?: boolean;
+  backButtonPath?: string;
 }
 
 class IziviContent extends React.Component<Props> {
@@ -44,14 +48,27 @@ class IziviContent extends React.Component<Props> {
 
   render = () => {
     this.updateTitle();
-    const { classes, children, loading, showBackgroundImage, card, title } = this.props;
+    const { classes, children, loading, showBackgroundImage, card, title, backButtonPath } = this.props;
     const content = loading ? <LoadingInformation /> : children;
+    const klassNames = classNames(
+      this.props.className,
+      classes.container,
+      { [classes.background]: showBackgroundImage },
+      (!this.props.showBackgroundImage && !this.props.fullscreen ? 'container' : undefined),
+    );
 
     return (
-      <div className={classNames(this.props.className, classes.container, { [classes.background]: showBackgroundImage })}>
+      <div className={klassNames}>
         {card ? (
           <Card className={classes.card}>
             <CardBody>
+              {backButtonPath &&
+                <div>
+                  <Link to={backButtonPath}>
+                    <FontAwesomeIcon icon={ArrowLeftIcon} /> Zurück
+                  </Link>
+                </div>
+              }
               {title && <h1>{title}</h1>}
               <br />
               {content}

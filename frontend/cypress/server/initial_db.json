@@ -1,0 +1,184 @@
+{
+  "regional_centers": [
+    {
+      "name": "Rüti",
+      "address": "Vollzugsstelle für den Zivildienst ZIVI, Regionalzentrum Rüti (ZH), Spitalstrasse 31, Postfach, 8630 Rüti (ZH)",
+      "short_name": "Ru",
+      "id": 1
+    },
+    {
+      "name": "Thun",
+      "address": "Vollzugsstelle für den Zivildienst ZIVI, Regionalzentrum Thun, Malerweg 6, 3600 Thun",
+      "short_name": "Th",
+      "id": 2
+    }
+  ],
+  "users": [
+    {
+      "id": 23,
+      "address": "Mainstreet 1809",
+      "bank_iban": "CH9300762011623852957",
+      "birthday": "1999-08-11",
+      "chainsaw_workshop": false,
+      "city": "Entenhausen",
+      "driving_licence_b": false,
+      "driving_licence_be": false,
+      "email": "peter.parker@example.com",
+      "first_name": "Peter",
+      "health_insurance": "Ziviinsurance, Zivistrasse 95",
+      "hometown": "Gotham",
+      "internal_note": null,
+      "last_name": "Parker",
+      "phone": "0791234567",
+      "regional_center_id": 2,
+      "role": "civil_servant",
+      "work_experience": null,
+      "zdp": 120000,
+      "zip": 1234,
+      "expense_sheets": [
+        {
+          "id": 1,
+          "beginning": "2019-07-15",
+          "ending": "2019-08-02",
+          "duration": 19,
+          "state": "open"
+        }
+      ],
+      "services": [
+        {
+          "id": 1,
+          "user_id": 23,
+          "beginning": "2019-07-01",
+          "ending": "2019-07-19",
+          "confirmation_date": "2019-06-01",
+          "eligible_paid_vacation_days": 0,
+          "service_type": "normal",
+          "first_swo_service": true,
+          "long_service": false,
+          "probation_service": false,
+          "feedback_mail_sent": false,
+          "service_specification_id": 1,
+          "service_specification": {
+            "identification_number": "19532",
+            "name": "My Service Specification"
+          }
+        }
+      ],
+      "beginning": null,
+      "ending": null,
+      "active": false
+    },
+    {
+      "id": 4,
+      "address": "Zivistrasse 12b",
+      "bank_iban": "CH9300762011623852957",
+      "birthday": "2000-09-06",
+      "chainsaw_workshop": false,
+      "city": "Zivistadt",
+      "driving_licence_b": false,
+      "driving_licence_be": false,
+      "email": "admin@example.com",
+      "first_name": "Admin",
+      "health_insurance": "Militärversicherung",
+      "hometown": "Better Zivitown",
+      "internal_note": null,
+      "last_name": "Boss",
+      "phone": "076 876 54 32",
+      "regional_center_id": 1,
+      "role": "admin",
+      "work_experience": null,
+      "zdp": 739542,
+      "zip": 4231,
+      "services": [],
+      "expense_sheets": [],
+      "beginning": null,
+      "ending": null,
+      "active": false
+    }
+  ],
+  "service_specifications": [
+    {
+      "id": 1,
+      "accommodation_expenses": 0,
+      "active": true,
+      "first_day_expenses": {
+        "breakfast": 0,
+        "lunch": 900,
+        "dinner": 700
+      },
+      "identification_number": "19532",
+      "last_day_expenses": {
+        "breakfast": 400,
+        "lunch": 900,
+        "dinner": 0
+      },
+      "location": "zurich",
+      "name": "Gruppeneinsätze, Feldarbeiten",
+      "paid_vacation_expenses": {
+        "breakfast": 400,
+        "lunch": 900,
+        "dinner": 700
+      },
+      "short_name": "F",
+      "work_clothing_expenses": 230,
+      "work_days_expenses": {
+        "breakfast": 400,
+        "lunch": 900,
+        "dinner": 700
+      },
+      "pocket_money": 500
+    }
+  ],
+  "expense_sheets": [
+    {
+      "safe_override": true,
+      "workfree_days": 8,
+      "work_days": 18,
+      "paid_vacation_comment": null,
+      "paid_vacation_days": 0,
+      "beginning": "2019-08-05",
+      "sick_comment": null,
+      "sick_days": 0,
+      "unpaid_vacation_comment": null,
+      "unpaid_vacation_days": 0,
+      "extraordinary_expenses_comment": null,
+      "extraordinary_expenses": 0,
+      "ending": "2019-08-30",
+      "driving_expenses_comment": null,
+      "driving_expenses": 0,
+      "company_holiday_comment": null,
+      "paid_company_holiday_days": 0,
+      "unpaid_company_holiday_days": 0,
+      "clothing_expenses_comment": null,
+      "clothing_expenses": 0,
+      "bank_account_number": "4470 (200)",
+      "id": 1,
+      "duration": 26,
+      "payment_timestamp": null,
+      "state": "open",
+      "total": 63900,
+      "user_id": 23,
+      "service_id": 1
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "user_id": 23,
+      "beginning": "2019-07-01",
+      "ending": "2019-07-19",
+      "confirmation_date": "2019-06-01",
+      "eligible_paid_vacation_days": 0,
+      "service_type": "normal",
+      "first_swo_service": true,
+      "long_service": false,
+      "probation_service": false,
+      "feedback_mail_sent": false,
+      "service_specification_id": 1,
+      "service_specification": {
+        "identification_number": "19532",
+        "name": "My Service Specification"
+      }
+    }
+  ]
+}

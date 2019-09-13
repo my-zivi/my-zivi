@@ -1,0 +1,29 @@
+version: "3.2"
+services:
+    api:
+        build:
+            context: ./api
+            dockerfile: dev.Dockerfile
+        container_name: better_izivi_api
+        volumes:
+            - ./api:/api
+            - ${SEMAPHORE_CACHE_DIR}/bundle:/bundle
+        working_dir: /api
+        depends_on:
+            - mysql
+        env_file: 'api/.env.semaphore'
+    frontend:
+        image: node:10
+        container_name: better_izivi_frontend
+        volumes:
+            - ./frontend:/var/frontend
+            - ${SEMAPHORE_CACHE_DIR}/node_modules:/var/node_modules
+        working_dir: /var/frontend
+    mysql:
+        image: mariadb:10.3.14
+        container_name: better_izivi_db
+        environment:
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+        volumes:
+            - ./database:/var/lib/mysql
+

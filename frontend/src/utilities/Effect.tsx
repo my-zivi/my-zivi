@@ -1,8 +1,7 @@
-// tslint:disable
 // https://github.com/jaredpalmer/formik-effect/issues/4#issuecomment-410205716
 
-import React from 'react';
 import { connect, FormikProps } from 'formik';
+import React from 'react';
 
 export type OnChange<T> = (current: FormState<T>, next: FormState<T>, formik: FormikProps<T>) => void;
 
@@ -37,7 +36,7 @@ class Effect<T> extends React.Component<Props<T>> {
           errors: nextErrors,
           isSubmitting: nextIsSubmitting,
         },
-        this.props.formik
+        this.props.formik,
       );
     }
   }

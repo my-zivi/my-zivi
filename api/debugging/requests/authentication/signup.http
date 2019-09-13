@@ -1,0 +1,26 @@
+POST {{url}}/users
+Content-Type: application/json
+
+{
+  "user": {
+    "community_password": "password",
+    "email": "max.mustermann@example.com",
+    "password": "123456",
+    "regional_center_id": "1",
+    "first_name": "Max",
+    "last_name": "Mustermann",
+    "address": "DäFehrstrasse 12",
+    "bank_iban": "CH9300762011623852957",
+    "birthday": "2000-01-01",
+    "city": "Schweiz",
+    "health_insurance": "Helsana",
+    "zip": "8192",
+    "hometown": "G-Town",
+    "phone": "0791234567",
+    "zdp": "121676"
+  }
+}
+
+> {% client.global.set('auth_token', response.headers.valueOf('Authorization')); %}
+
+###

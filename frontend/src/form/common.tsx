@@ -118,14 +118,7 @@ const SelectFieldWithValidation = ({ label, required, multiline, options, horizo
   );
 };
 
-export const EmailField = (props: IziviInputFieldProps) => <IziviInputField type={'email'} {...props} />;
-
 export const NumberField = (props: IziviInputFieldProps) => <IziviInputField type={'number'} {...props} />;
-
 export const PasswordField = (props: IziviInputFieldProps) => <IziviInputField type={'password'} {...props} />;
-
 export const TextField = (props: IziviInputFieldProps & { multiline?: boolean }) => <IziviInputField type={'text'} {...props} />;
-
-export const DateField = (props: IziviInputFieldProps) => <IziviInputField type={'date'} {...props} />;
-
 export const SelectField = (props: SelectFieldProps) => <SelectFieldWithValidation type={'select'} {...props} />;

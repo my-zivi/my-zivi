@@ -1,0 +1,18 @@
+POST {{url}}/services
+Authorization: {{auth_token}}
+Content-Type: application/json
+
+{
+  "service": {
+    "beginning": "2018-11-05",
+    "ending": "2019-08-02",
+    "confirmation_date": "2018-11-01",
+    "service_type": "normal",
+    "first_swo_service": "true",
+    "long_service": "false",
+    "probation_service": "false",
+    "service_specification_identification_number": "72466"
+  }
+}
+
+###

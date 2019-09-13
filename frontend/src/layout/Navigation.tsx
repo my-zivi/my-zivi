@@ -36,6 +36,8 @@ interface NavProps {
   apiStore?: ApiStore;
 }
 
+const feedbacksUrl = 'FEEDBACKS_URL';
+
 @inject('mainStore', 'apiStore')
 @observer
 export class Navigation extends React.Component<NavProps> {
@@ -47,6 +49,7 @@ export class Navigation extends React.Component<NavProps> {
   render() {
     const mainStore = this.props.mainStore!;
     const apiStore = this.props.apiStore!;
+    const feedbacksUrlValid = feedbacksUrl.startsWith('https');
 
     return (
       <Navbar color={'light'} light expand={'md'}>
@@ -60,11 +63,11 @@ export class Navigation extends React.Component<NavProps> {
                   <>
                     <NavEntry to="/users">Mitarbeiterliste</NavEntry>
                     <NavEntry to="/phones">Telefonliste</NavEntry>
-                    <NavEntry to="/specifications">Pflichtenheft</NavEntry>
+                    <NavEntry to="/service_specifications">Pflichtenheft</NavEntry>
                     <NavEntry to="/holidays">Freitage</NavEntry>
-                    <NavEntry to="/user_feedbacks">Einsatz Feedback</NavEntry>
-                    <NavEntry to="/missions">Planung</NavEntry>
-                    <NavEntry to="/report_sheets">Spesen</NavEntry>
+                    {feedbacksUrlValid && (<NavEntry to={'/feedbacks'}>Einsatz Feedback</NavEntry>)}
+                    <NavEntry to="/services">Planung</NavEntry>
+                    <NavEntry to="/expense_sheets">Spesen</NavEntry>
                     <NavEntry to={'/payments'}>Auszahlungen</NavEntry>
                   </>
                 )}
@@ -78,7 +81,7 @@ export class Navigation extends React.Component<NavProps> {
               </>
             ) : (
               <>
-                <NavEntry to="/register">Registrieren</NavEntry>
+                <NavEntry to="/register/1">Registrieren</NavEntry>
                 <NavEntry to="/login">Anmelden</NavEntry>
               </>
             )}
