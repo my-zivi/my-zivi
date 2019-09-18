@@ -139,7 +139,7 @@ class ExpenseSheetSubformInner extends React.Component<Props, ExpenseSheetSubfor
   }
 
   private formatExpenseSheetPrintColumn(expenseSheet: ShortExpenseSheetListing) {
-    if (expenseSheet.state === ExpenseSheetState.paid && this.props.mainStore!.isAdmin()) {
+    if (expenseSheet.state === ExpenseSheetState.paid) {
       return (
         <div className={this.props.classes.hideButtonText}>
           <Button
@@ -147,6 +147,7 @@ class ExpenseSheetSubformInner extends React.Component<Props, ExpenseSheetSubfor
             href={this.props.mainStore!.apiURL(`expense_sheets/${expenseSheet.id!}.pdf`)}
             tag={'a'}
             target={'_blank'}
+            className="pl-0"
           >
             <FontAwesomeIcon icon={PrintSolidIcon}/> <span>Drucken</span>
           </Button>
