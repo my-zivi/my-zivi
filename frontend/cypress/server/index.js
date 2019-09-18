@@ -104,7 +104,10 @@ server.use((req, res, next) => {
 // REMOVE DB.JSON
 server.use((req, res, next) => {
   if (req.method === 'POST' && req.path === '/db:remove') {
-    fs.unlinkSync(path.join(__dirname, 'db.json'));
+    const sync = path.join(__dirname, 'db.json');
+    if (fs.existsSync(sync)) {
+      fs.unlinkSync(sync);
+    }
     res.sendStatus(200);
   } else {
     next();
