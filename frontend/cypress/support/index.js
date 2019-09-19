@@ -14,15 +14,15 @@
 // ***********************************************************
 
 before(() => {
-  cy.request('/db:remove');
+  cy.request('POST', 'http://localhost:28000/db:remove');
 });
 
 afterEach(() => {
-  cy.request('/db:reset');
+  cy.request('POST', 'http://localhost:28000/db:reset');
 });
 
 after(() => {
-  cy.request('/db:remove');
+  cy.request('POST', 'http://localhost:28000/db:remove');
 });
 
 // Import commands.js using ES2015 syntax:
