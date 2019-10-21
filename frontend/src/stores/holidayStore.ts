@@ -1,4 +1,5 @@
 import { action, computed, observable } from 'mobx';
+import moment from 'moment';
 import { Holiday } from '../types';
 import { DomainStore } from './domainStore';
 import { MainStore } from './mainStore';
@@ -18,6 +19,28 @@ export class HolidayStore extends DomainStore<Holiday> {
 
   set entities(entities: Holiday[]) {
     this.holidays = entities;
+  }
+
+  @computed
+  get actualEntities(): Holiday[] {
+    // Shows holidays which are today -> 1 Year
+    const result = this.holidays.filter(
+      holiday => moment(holiday.beginning) >= moment() && moment(holiday.beginning) <= moment().add(1, 'year'));
+    return result.reverse();
+  }
+
+  @computed
+  get futureEntities(): Holiday[] {
+    // Shows holidays which are today -> 1 Year
+    const result = this.holidays.filter(holiday => moment(holiday.beginning) >= moment());
+    return result.reverse();
+  }
+
+  @computed
+  get passedEntities(): Holiday[] {
+    // Shows passed holidays
+    const result = this.holidays.filter(holiday => moment(holiday.beginning) < moment());
+    return result.reverse();
   }
 
   @computed
