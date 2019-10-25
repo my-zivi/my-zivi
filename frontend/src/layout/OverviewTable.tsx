@@ -14,6 +14,14 @@ function format<T>(def: Column<T>, row: T): React.ReactNode {
   }
 }
 
+function calcsum(arr: any[]): number {
+  let sum = 0.0;
+  for (const obj of arr) {
+    sum += obj.total;
+  }
+  return sum / 100;
+}
+
 // tslint:enable:no-any
 
 interface TableProps<T> {
@@ -34,6 +42,7 @@ export class OverviewTable<T> extends React.Component<TableProps<T>> {
 
   render() {
     const { columns, data } = this.props;
+
     return (
       <Table responsive>
         <thead>
@@ -59,6 +68,13 @@ export class OverviewTable<T> extends React.Component<TableProps<T>> {
             </SafeClickableTableRow>
           ))}
         </tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <b>Betrag Total: {calcsum(data).toFixed(2)} CHF</b>
+            </td>
+          </tr>
+        </tfoot>
       </Table>
     );
   }
