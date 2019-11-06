@@ -68,13 +68,14 @@ export class OverviewTable<T> extends React.Component<TableProps<T>> {
             </SafeClickableTableRow>
           ))}
         </tbody>
+        {calcsum(data).toFixed(2) !== 'NaN' &&
         <tfoot>
           <tr>
             <td>
               <b>Betrag Total: {calcsum(data).toFixed(2)} CHF</b>
             </td>
           </tr>
-        </tfoot>
+        </tfoot>}
       </Table>
     );
   }
