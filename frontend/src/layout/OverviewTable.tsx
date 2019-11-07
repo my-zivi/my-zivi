@@ -16,7 +16,7 @@ function format<T>(def: Column<T>, row: T): React.ReactNode {
 }
 
 function calcsum(arr: any[]): number {
-  return _.sum(arr) / 100;
+  return _.sumBy(arr, object => object.total) / 100;
 }
 
 // tslint:enable:no-any
