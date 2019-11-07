@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { observer } from 'mobx-react';
 import * as React from 'react';
 import Table from 'reactstrap/lib/Table';
@@ -15,11 +16,7 @@ function format<T>(def: Column<T>, row: T): React.ReactNode {
 }
 
 function calcsum(arr: any[]): number {
-  let sum = 0.0;
-  for (const obj of arr) {
-    sum += obj.total;
-  }
-  return sum / 100;
+  return _.sum(arr) / 100;
 }
 
 // tslint:enable:no-any
