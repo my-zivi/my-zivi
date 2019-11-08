@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { observer } from 'mobx-react';
 import * as React from 'react';
 import Table from 'reactstrap/lib/Table';
@@ -12,6 +13,10 @@ function format<T>(def: Column<T>, row: T): React.ReactNode {
   } else {
     return row[def.id];
   }
+}
+
+function calcsum(arr: any[]): number {
+  return _.sumBy(arr, object => object.total) / 100;
 }
 
 // tslint:enable:no-any
@@ -34,6 +39,7 @@ export class OverviewTable<T> extends React.Component<TableProps<T>> {
 
   render() {
     const { columns, data } = this.props;
+
     return (
       <Table responsive>
         <thead>
@@ -59,6 +65,14 @@ export class OverviewTable<T> extends React.Component<TableProps<T>> {
             </SafeClickableTableRow>
           ))}
         </tbody>
+        {calcsum(data).toFixed(2) !== 'NaN' &&
+        <tfoot>
+          <tr>
+            <td>
+              <b>Betrag Total: {calcsum(data).toFixed(2)} CHF</b>
+            </td>
+          </tr>
+        </tfoot>}
       </Table>
     );
   }

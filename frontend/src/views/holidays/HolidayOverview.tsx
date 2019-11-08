@@ -3,6 +3,8 @@ import { inject, observer } from 'mobx-react';
 import moment from 'moment';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 import Button from 'reactstrap/lib/Button';
 import * as yup from 'yup';
 import IziviContent from '../../layout/IziviContent';
@@ -11,6 +13,7 @@ import { MainStore } from '../../stores/mainStore';
 import { Holiday } from '../../types';
 import { apiDate } from '../../utilities/validationHelpers';
 import { HolidayOverviewTable } from './HolidayOverviewTable';
+import { HolidayOverviewTabs } from './HolidayOverviewTabs';
 import HolidayTableRow from './HolidayTableRow';
 
 const holidaySchema = yup.object({
@@ -54,54 +57,9 @@ export class HolidayOverview extends React.Component<Props, State> {
   }
 
   render() {
-    const holidays = this.props.holidayStore!.entities;
-    const holidayStore = this.props.holidayStore!;
-
     return (
       <IziviContent loading={this.state.loading} title={'Freitage'} card={true}>
-        <HolidayOverviewTable mainStore={this.props.mainStore!}>
-          <Formik
-            validationSchema={holidaySchema}
-            initialValues={{
-              beginning: moment().format('Y-MM-DD'),
-              ending: moment().format('Y-MM-DD'),
-              holiday_type: 'company_holiday',
-              description: '',
-            }}
-            onSubmit={this.handleAdd}
-            render={({ isSubmitting, submitForm }) => (
-              <HolidayTableRow
-                buttons={[
-                  <Button key={'submitButton'} color={'success'} disabled={isSubmitting} onClick={submitForm}>Hinzufügen</Button>,
-                ]}
-              />
-            )}
-          />
-          {holidays.map(holiday => (
-            <Formik
-              key={holiday.id}
-              validationSchema={holidaySchema}
-              initialValues={holiday}
-              onSubmit={this.handleSubmit}
-              render={({ isSubmitting, submitForm }) => (
-                <HolidayTableRow
-                  buttons={[
-                    (
-                      <Button color={'success'} disabled={isSubmitting} onClick={submitForm}>
-                        Speichern
-                      </Button>
-                    ),
-                    (
-                      <Button color={'danger'} disabled={isSubmitting} onClick={() => holidayStore!.delete(holiday.id!)}>
-                        Löschen
-                      </Button>
-                    ),
-                  ]}
-                />
-              )}
-            />
-          ))}
-        </HolidayOverviewTable>
+        <HolidayOverviewTabs mainStore={this.props.mainStore!} holidayStore={this.props.holidayStore!} />
       </IziviContent>
     );
   }
