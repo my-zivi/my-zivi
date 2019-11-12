@@ -100,7 +100,7 @@ class ExpenseSheet < ApplicationRecord
   end
 
   def eager_loaded_service(services)
-    services.select { |service| service.beginning <= beginning && service.ending >= ending }.first
+    services.find { |service| service.beginning <= beginning && service.ending >= ending }
   end
 
   def legitimate_destroy

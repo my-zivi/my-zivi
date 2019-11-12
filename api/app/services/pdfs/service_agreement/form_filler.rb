@@ -69,7 +69,7 @@ module Pdfs
 
       def load_company_holiday_fields
         company_holiday = Holiday.overlapping_date_range(@service.beginning, @service.ending)
-                                 .select(&:company_holiday?).first
+                                 .find(&:company_holiday?)
         return {} if company_holiday.nil?
 
         convert_to_form_fields_hash(FormFields::COMPANY_HOLIDAY_FORM_FIELDS) do |key, value|

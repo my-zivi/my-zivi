@@ -16,11 +16,13 @@ module Pdfs
           },
           {
             label: "#{I18n.t('activerecord.attributes.user.address')}:",
-            content: ->(expense_sheet) { expense_sheet.user.address }
+            content: lambda { |expense_sheet|
+              "#{expense_sheet.user.address}, #{expense_sheet.user.zip} #{expense_sheet.user.city}"
+            }
           },
           {
             label: "#{I18n.t('activerecord.attributes.user.zdp').sub(/\w/, &:capitalize)}:",
-            content: ->(expense_sheet) { expense_sheet.user.zip }
+            content: ->(expense_sheet) { expense_sheet.user.zdp }
           },
           {
             label: "#{I18n.t('pdfs.expense_sheet.info_block.header.complete_service.label')}:",
