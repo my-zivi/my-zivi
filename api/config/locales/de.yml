@@ -6,6 +6,7 @@ de:
         accommodation_expenses: Unterkunft
         bank_account_number: Bankkonto Nummer
         beginning: Anfang
+        clothing: Kleider
         clothing_expenses: Kleiderspesen
         clothing_expenses_comment: Kleiderspesen - Kommentar
         company_holiday_comment: Betriebsferien Kommentar
@@ -24,16 +25,19 @@ de:
         sick_days:
           one: Krankheitstag
           other: Krankheitstage
+        sickness: Krankheit
         state: Status
         unpaid_company_holiday_days: Unbezahlte Betriebsferientage
         unpaid_vacation_comment: Unbezahlte Ferien - Kommentar
         unpaid_vacation_days:
           one: Urlaubstag
           other: Urlaubstage
+        way_expenses: Wegspesen
         work_clothing_expenses: Arbeitskleider
         work_days:
           one: Arbeitstag
           other: Arbeitstage
+        workfree: Arbeitsfrei
         workfree_days:
           one: Arbeitsfreier Tag
           other: Arbeitsfreie Tage
@@ -84,6 +88,7 @@ de:
         first_name: Vorname
         health_insurance: Krankenkasse
         hometown: Heimatstadt
+        id: ID
         internal_note: Interne Notiz
         last_name: Nachname
         phone: Telefonnummer
@@ -132,6 +137,7 @@ de:
     formats:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
+      short: "%d.%m.%y"
   errors:
     authorization_error: Sie haben nicht die benötigten Rechte für diese Anfrage
     format_error: Sie haben ein ungültiges Format angefordert
@@ -159,6 +165,7 @@ de:
         headers:
           full_amount: Total
         row_headers:
+          extra: Extra
           first_work_days: Erster Arbeitstag
           last_work_days: Letzter Arbeitstag
         supplement:
@@ -184,6 +191,11 @@ de:
               one: "<b>%{beginning} bis %{ending} (%{duration} Tag)</b>"
               other: "<b>%{beginning} bis %{ending} (%{duration} Tage)</b>"
       title: Spesenrapport_von_%{full_name}.pdf
+    expenses_overview:
+      basedon: Statistik basiert auf allen erledigten Meldeblättern
+      filename: Übersicht_Spesenstatistik_%{today}.pdf
+      swo: Stiftung für Wirtschaft und Ökologie (Einsatzbetrieb Nr. 423) - Verfügung vom %{date}
+      title: Zivi-Spesen Detailübersicht (Zeitperiode %{beginning} - %{ending})
     phone_list:
       filename: Telefonliste_%{today}.pdf
       header: Stand vom %{date}

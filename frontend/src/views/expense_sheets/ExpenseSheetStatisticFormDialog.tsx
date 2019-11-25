@@ -90,7 +90,8 @@ export class ExpenseSheetStatisticFormDialog extends React.Component<Props> {
               </ModalBody>
 
               <ModalFooter>
-                <Button href={mainStore.apiURL('documents/expenses_overview', formikProps.values)} tag={'a'} target={'_blank'}>
+                {/* tslint:disable-next-line:max-line-length */}
+                <Button color={'success'} href={mainStore.apiURL('expenses_overview.pdf?expenses_overview[beginning]=' + formikProps.values.beginning + '&expenses_overview[ending]=' + formikProps.values.ending + '&detail_view=' + formikProps.values.detail_view + '&only_done_sheets=' + formikProps.values.only_done_sheets + '&time_type=' + formikProps.values.time_type + '&year=' + formikProps.values.year)} tag={'a'} target={'_blank'}>
                   PDF generieren
                 </Button>{' '}
                 <Button color="danger" onClick={toggle}>

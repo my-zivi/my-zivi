@@ -6,6 +6,7 @@ en:
         accommodation_expenses: Accommodation
         bank_account_number: Bank account number
         beginning: Beginning
+        clothing: Clothes
         clothing_expenses: Clothing expenses
         clothing_expenses_comment: Clothing expenses comment
         company_holiday_comment: Company holiday comment
@@ -24,16 +25,19 @@ en:
         sick_days:
           one: Sick day
           other: Sick days
+        sickness: Sickness
         state: State
         unpaid_company_holiday_days: Unpaid company holiday days
         unpaid_vacation_comment: Unpaid vacation comment
         unpaid_vacation_days:
           one: Unpaid vacation day
           other: Unpaid vacation days
+        way_expenses: Way expenses
         work_clothing_expenses: Work clothing expenses
         work_days:
           one: Work day
           other: Work days
+        workfree: Workfree
         workfree_days:
           one: Workfree day
           other: Workfree days
@@ -84,6 +88,7 @@ en:
         first_name: First name
         health_insurance: Health insurance
         hometown: Hometown
+        id: ID
         internal_note: Internal note
         last_name: Last name
         phone: Phone
@@ -132,6 +137,7 @@ en:
     formats:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
+      short: "%d.%m.%y"
   errors:
     authorization_error: You are not authorized to perform this action
     format_error: You requested an invalid format
@@ -159,6 +165,7 @@ en:
         headers:
           full_amount: Total
         row_headers:
+          extra: Extra
           first_work_days: First work day
           last_work_days: Last work day
         supplement:
@@ -184,6 +191,11 @@ en:
               one: "%{beginning} to %{ending} (%{duration} day)"
               other: "%{beginning} to %{ending} (%{duration} days)"
       title: Expense_report_of_%{full_name}.pdf
+    expenses_overview:
+      basedon: Statistic bases on all finished reports
+      filename: Overview_expense_statistics_%{today}.pdf
+      swo: Stiftung für Wirtschaft und Ökologie (deployment operation No. 423) - Provision vom %{date}
+      title: Zivi-Expenses Detail-Overview (Timeperiod %{beginning} - %{ending})
     phone_list:
       filename: Phonelist_%{today}.pdf
       header: Generated on %{date}
