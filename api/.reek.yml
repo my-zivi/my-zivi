@@ -8,6 +8,8 @@ detectors:
     max_calls: 2
   IrresponsibleModule:
     enabled: false
+  TooManyMethods:
+      max_methods: 20
   MissingSafeMethod:
     enabled: false
   TooManyConstants:

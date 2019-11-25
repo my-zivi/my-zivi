@@ -6,6 +6,7 @@ fr:
         accommodation_expenses: Hébergement
         bank_account_number: Numéro de compte bancaire
         beginning: Début
+        clothing: Les habits
         clothing_expenses: Frais d'habillement
         clothing_expenses_comment: Frais d'habillement - Commentaire
         company_holiday_comment: Commentaire sur les vacances en entreprise
@@ -24,16 +25,19 @@ fr:
         sick_days:
           one: Jour de congé de maladie
           other: Jours de congé de maladie
+        sickness: Maladie
         state: Statut
         unpaid_company_holiday_days: Congés d'entreprise non payés
         unpaid_vacation_comment: Unbezahlte Ferien - Commentaire
         unpaid_vacation_days:
           one: Jour de congé
           other: Jours de congé
+        way_expenses: Voies de frais
         work_clothing_expenses: Vêtements de travail
         work_days:
           one: Jour de travail
           other: Jours de travail
+        workfree: chômé
         workfree_days:
           one: Jour de congé
           other: Jours de congé
@@ -84,6 +88,7 @@ fr:
         first_name: Prénom
         health_insurance: L'assurance maladie
         hometown: Ville natale
+        id: ID
         internal_note: Note interne
         last_name: Nom de famille
         phone: Numéro de téléphone
@@ -132,6 +137,7 @@ fr:
     formats:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
+      short: "%d.%m.%y"
   errors:
     authorization_error: Vous n'avez pas les droits requis pour cette demande.
     format_error: Vous avez demandé un format invalide
@@ -159,6 +165,7 @@ fr:
         headers:
           full_amount: Total
         row_headers:
+          extra: Extra
           first_work_days: Premier jour de travail
           last_work_days: Dernier jour de travail
         supplement:
@@ -184,6 +191,11 @@ fr:
               one: "<b>%{beginning} à %{ending} (%{duration} jour)</b>"
               other: "<b>%{beginning} à %{ending} (%{duration} jours)</b>"
       title: Rapport_de_dépenses_de_%{full_name}.pdf
+    expenses_overview:
+      basedon: Statistiques basées sur toutes les feuilles de rapport remplies
+      filename: Presentation_statistiques_charges_%{today}.pdf
+      swo: Stiftung für Wirtschaft und Ökologie (opération d'utilisation No. 423) - Disponible à partir de %{date}
+      title: Zivi aperçu des dépenses (period %{beginning} - %{ending})
     phone_list:
       filename: Liste_téléphonique_%{today}.pdf
       header: Généré sur %{date}

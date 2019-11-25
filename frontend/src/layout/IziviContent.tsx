@@ -18,6 +18,9 @@ const styles = (theme: Theme) =>
         padding: `${theme.layout.baseSpacing}px ${2 * theme.layout.baseSpacing}px`,
       },
       'composes': 'mo-container',
+      '@media print': {
+        margin: 0,
+      },
     },
     background: {
       backgroundImage: `url(${bg})`,

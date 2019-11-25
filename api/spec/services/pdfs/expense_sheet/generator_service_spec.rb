@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 1000
+
 require 'rails_helper'
 
 RSpec.describe Pdfs::ExpenseSheet::GeneratorService, type: :service do
@@ -14,6 +16,7 @@ RSpec.describe Pdfs::ExpenseSheet::GeneratorService, type: :service do
       let(:service) { create :service, service_data }
       let(:service_specification) { create :service_specification, identification_number: 82_846 }
       let(:expense_sheet_data) { expense_sheet_data_defaults }
+      let(:user) { expense_sheet.service.user }
       let(:expense_sheet_data_defaults) do
         {
           beginning: Date.parse('2018-01-01'),
@@ -39,8 +42,8 @@ RSpec.describe Pdfs::ExpenseSheet::GeneratorService, type: :service do
           'Spesenrapport des Einsatzbetriebes 423 - SWO, Bahnstrasse 18b, 8603 Schwerzenbach',
           'Pflichtenheft:', '82846 MyServiceSpecification',
           'Nachname, Vorname:', 'Zivi Mustermann',
-          'Adresse:', 'Bahnstrasse 18b',
-          'ZDP-Nr.:', '8603',
+          'Adresse:', 'Bahnstrasse 18b, 8603 Schwerzenbach',
+          'ZDP-Nr.:', user.zdp.to_s,
           'Gesamteinsatz:', '01.01.2018 bis 23.02.2018 (54 Tage)',
           'Meldeperiode:', '01.01.2018 bis 27.01.2018 (27 Tage)',
           'Taschengeld', '(Fr.)', 'Unterkunft', '(Fr.)',
@@ -60,6 +63,8 @@ RSpec.describe Pdfs::ExpenseSheet::GeneratorService, type: :service do
           'Konto-Nr.::', '4470 (200)'
         ]
       end
+
+      let(:ZDP) { expense_sheet_data.user.ZDP }
 
       it 'renders one page' do
         expect(pdf_page_inspector.pages.size).to eq 1

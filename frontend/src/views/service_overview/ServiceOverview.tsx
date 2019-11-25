@@ -205,7 +205,7 @@ class ServiceOverviewContent extends React.Component<ServiceOverviewProps, Servi
               <div>
                 {/* All years from 2005 to next year */}
                 <SelectField
-                  options={Array.from(Array(this.currYear - 2003).keys())
+                  options={Array.from(Array(this.currYear - 2002).keys())
                     .map(k => {
                       return {
                         id: (2005 + k).toString(),
