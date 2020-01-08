@@ -39,9 +39,13 @@ export class Login extends React.Component<Props> {
     try {
       await this.props.apiStore!.postLogin(values);
       this.props.history.push(this.getReferrer());
-    } catch ({ error }) {
-      if (error.toString().includes('400')) {
+    } catch (error) {
+      if (error.error.toString().includes('400')) {
         this.props.mainStore!.displayError('Ungültiger Benutzername/Passwort');
+      } else if (error.messages.error != null) {
+        this.props.mainStore!.displayError(error.messages.error); // display errors messages from the server
+      } else if (error.error.message != null) {
+        this.props.mainStore!.displayError(error.error.message); // display error messages from the connection request
       } else {
         this.props.mainStore!.displayError('Ein interner Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
       }
