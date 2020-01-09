@@ -66,6 +66,54 @@ Es gibt zusätzlich die Service Overview, in welcher man pro Jahr sehen kann, we
 
 Das ExpenseSheet sind die Spesenblätter. Anhand der geleisteten Tage, Ferien etc. werden die fälligen Spesen pro Monat gerechnet. Die Spesenblätter kann jeder Zivi in seinem Profil anschauen sowie den Stand der Bearbeitung.
 
+#### Einsatz Feedback / operation feedback
+
+D: Ende jedes Einsatzes sollte ein automatisiertes Mail an alle Abschliessenden Zivis versandt werden, welche eine Umfrage zur Zufriedenheit ausfüllen können. Diese Auswertung hilft dem Einsatzbetrieb Unzufriedenheiten zu erkennen und frühzeitig verbesserungsmassnahmen zu erkennen.
+
+E: By the end of every operation should an email be sent to the person who absolves the community servicce. This email contains a link to a survey which helps the company to detect problems early and increase the happiness of the staff.
+
+#### Mitarbeiterliste / staff-list (Admin)
+
+D: Die Mitarbeiterliste Zeigt eine Übersicht über alle Zivis und Mitarbeiter welche am izivi registriert sind sowie deren Einsatzdauer an. Hier können die Personen auch gelöscht oder inaktiv geschaltet werden.
+
+E: The staff-list shows an overview over all community-workers and SWO-stuff which is registered at the izivi. It also shows the duration of the service. These users can be marked inactive or be deleted.
+
+#### Telefonliste / phone-list (Admin)
+
+D: Die Telefonliste generiert in einem Ausgewählten Zeitraum eine Informationsliste aller Zivis welche in diesem Zeitraum einen Einsatz haben. Die Liste beinhaltet: Nachname, Vorname, Adresse, PLZ / Ort, Telefonnummer, Email.
+
+E: The phone-list generates a PDF in a selected time period from all community-workers. The PDF contains the following informations: Surname, Prename, Address, Town, Phonenumber, Email. 
+
+#### Pflichtenheft / dutybook (Admin)
+
+D: Das Pflichtenheft beinhaltet die Pflichtenhefter der SWO. Die dazugehörigen Spesen wie auch IDs und Aktivierung.
+
+E: The dutybook contains all dutybooks for the SWO. It defines the expenses and activations.
+
+#### Freitage / holidays (Admin)
+
+D: Die Freitage definieren die Feiertage wie auch Geschäftliche Freitage an welchen nicht gearbeitet werden muss.
+
+E: In the holidays-view are the holidays and the business-holidays defined which are work-free.
+
+#### Planung / scheduling (Admin)
+
+D: Die Planung zeigt eine Übersicht über die Zivildienstleistenden und deren Einsatzdauer.
+
+E: The scheduling shows an overview of the community-workers and their schedule.
+
+#### Spesen / expenses (Admin)
+
+D: Die Spesen zeigt die Spesenblätter der Zivildienstleistenden zugehörig zu den Monatlichen Spesenblättern. Zusätzlich kann eine Spesenstatistik generiert werden, welche den Abgleich mit den Zahlungen des Bundes vereinfacht.
+
+E: The expenses shows the expense-sheets of the community-workers accordingly to the monthly expense-papers. Additionally there is a expense statistics which can be genereated which is used for comparison wich the payments of the federation.
+
+#### Auszahlungen / payments (Admin)
+
+D: Die Auszahlungen vereint die Spesen in einer Zahlungsabwicklung. Es kann ein XML exportiert werden, welche direkt ins e-banking eingelesen werden kann.
+
+E: The payments contains the expenses in a payment-schedule. An XML can be generated which contains all informations for a ebanking-payment-import.
+
 ## Installation
 
 ### Vorbereitung
@@ -98,6 +146,30 @@ Installation gemäss der Installationsanleitung auf der [Website](https://docs.d
 3. Die .env-Datei ausfüllen
 4. `bin/setup` ausführen, oder falls ein Docker container zur Entwicklung verwendet wird: `docker run -it [docker-container-name] api/bin/setup` 
 5. Die API ist nun unter `localhost:28000` erreichbar.
+
+### Tipps für Windows
+
+#### Installation
+- Ruby installieren mit Rubyinstaller mit devkit (installiert gem)
+- Yarn installieren
+- Installation mysql-Server
+- Repo klonen
+  - Im Ordner frontend `yarn` ausführen (installiert Frontend dependencies)
+  - im Ordner api `gem install bundler` ausführen (installiert gems)
+- Das configfile anpassen und die Ports im frontend von 28000 auf 3000 wechseln (lokaler API port)
+- Aus Ordner api, Datenbank installieren mit `rails db:create db:migrate`
+
+#### Starten
+- Server starten
+  - API: Ordner api: `rails s`
+  - Frontend: Ordner frontend, `yarn start` (Meldung zu Portänderung bejahen)
+
+#### Testing
+- Linter ausführen im jeweiligen Ordner: `rubocop -a` (korrigiert auch direkt Fehler)
+- Rspec einzelnes File: `bundle exec rspec ./spec/services/pdfs/expenses_overview_service_spec.rb`
+- Rspec alle Tests: `bundle exec rspec`
+- bundle exec rake == rubocop
+- bundle exec reek == rspec
 
 ## Entwicklung
 

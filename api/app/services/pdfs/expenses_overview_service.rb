@@ -124,7 +124,8 @@ module Pdfs
        { content: Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.calculate_unpaid_vacation_days[:total]),
          align: :right },
        { content: Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.driving_expenses), align: :right },
-       { content: (expense_sheet.work_days + expense_sheet.workfree_days).to_s, align: :right }]
+       { content: (expense_sheet.work_days + expense_sheet.workfree_days +
+        expense_sheet.paid_vacation_days + expense_sheet.sick_days).to_s, align: :right }]
     end
 
     def fifth_part(expense_sheet)

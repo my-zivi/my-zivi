@@ -182,8 +182,14 @@ export class ApiStore {
       },
       (error: AxiosError) => {
         if (error.response && error.response.status === 401) {
-          console.log('Unauthorized API access, redirect to login'); // tslint:disable-line:no-console
-          if (error.config.url && !/\/users\/sign_out$/.test(error.config.url)) {
+          console.log('Unauthorized API access'); // tslint:disable-line:no-console
+
+          const comingFromLogout = error.config.url && /\/users\/sign_out$/.test(error.config.url);
+          const comingFromLogin = error.config.url && /\/users\/sign_in$/.test(error.config.url);
+
+          if (comingFromLogin) {
+            this.removeAuthorizationToken();
+          } else if (!comingFromLogout) {
             this.logout().catch(this.removeAuthorizationToken.bind(this));
           } else {
             this.removeAuthorizationToken();
