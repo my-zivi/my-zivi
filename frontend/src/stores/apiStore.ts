@@ -111,6 +111,11 @@ export class ApiStore {
 
   @action
   async postLogin(values: { email: string; password: string }) {
+    // remove the authorization token if it is expired already in order to fix the multiple login issue
+    if (Boolean(this._token) && moment.unix(this.userInfo!.exp).isBefore()) {
+      this.removeAuthorizationToken();
+    }
+
     const res = await this._api.post<LoginResponse>('/users/sign_in', { user: values });
     runInAction(() => {
       this.setToken(res.headers.authorization);
