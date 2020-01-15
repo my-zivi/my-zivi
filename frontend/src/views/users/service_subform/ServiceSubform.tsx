@@ -51,8 +51,22 @@ class ServiceSubformInner extends React.Component<Props, ServiceSubformState> {
     this.state = { service_id: undefined, new_service: false };
   }
 
+  submitService = (service: Service) => {
+    return this.props.serviceStore!.post(serviceSchema.cast(service)).then(() => {
+      this.props.userStore!.fetchOne(this.props.user.id);
+    });
+  }
+
+  confirmService = (service: Service) => {
+    return this.props.serviceStore!.doConfirmPut(service.id!).then(() => {
+      this.props.userStore!.fetchOne(service.user_id);
+    });
+  }
+
   render() {
     const { user, serviceStore, mainStore, userStore, serviceSpecificationStore, expenseSheetStore, classes, theme } = this.props;
+    const submitService = this.submitService;
+    const confirmService = this.confirmService;
 
     return (
       <>
@@ -83,7 +97,8 @@ class ServiceSubformInner extends React.Component<Props, ServiceSubformState> {
               Neue Einsatzplanung hinzufügen
             </Button>
             <ServiceModal
-              onSubmit={(service: Service) => serviceStore!.post(serviceSchema.cast(service))}
+              onSubmit={submitService}
+              onServiceConfirmed={confirmService}
               user={user}
               onClose={() => {
                 this.setState({ new_service: false });
