@@ -30,6 +30,7 @@ export const serviceSchema = yup.object({
   first_swo_service: yup.boolean(),
   long_service: yup.boolean(),
   probation_period: yup.boolean(),
+  deletable: yup.boolean().nullable(true),
   confirmation_date: yup.string().nullable(true),
   eligible_paid_vacation_days: yup.number(),
   feedback_done: yup.boolean(),

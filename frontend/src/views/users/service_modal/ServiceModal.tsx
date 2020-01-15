@@ -41,34 +41,6 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>, { 
     },
   ];
 
-  private updateEndingOrServiceDays = debounce(async (current, next, formik) => {
-    this.autoUpdate = false;
-    const values = {
-      beginning: next.values.beginning,
-    };
-    for (const map of this.changeFieldsToUpdateFieldMap) {
-      const [firstIndex, secondIndex] = map.changes;
-
-      if (!next.values[firstIndex] || !next.values[secondIndex]) {
-        continue;
-      }
-
-      const firstIndexUnchanged = current.values[firstIndex] === next.values[firstIndex];
-      const secondIndexUnchanged = current.values[secondIndex] === next.values[secondIndex];
-      if (firstIndexUnchanged && secondIndexUnchanged) {
-        continue;
-      }
-
-      values[secondIndex] = next.values[secondIndex];
-      const data = await this.props.serviceStore!.calcServiceDaysOrEnding(values);
-      if (data && data.result) {
-        formik.setFieldValue(map.updateField, data.result);
-      }
-      break;
-    }
-    this.autoUpdate = true;
-  }, 500);
-
   constructor(props: ServiceModalProps<Service>) {
     super(props);
     this.initialValues = props.service || {
@@ -81,6 +53,7 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>, { 
       long_service: false,
       probation_period: false,
       confirmation_date: null,
+      deletable: true,
       eligible_paid_vacation_days: 0,
       user_id: props.user.id,
       service_specification: {
@@ -97,7 +70,12 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>, { 
 
   handleServiceDateRangeChange: OnChange<Service> = async (current, next, formik) => {
     if (this.autoUpdate) {
-      await this.updateEndingOrServiceDays(current, next, formik);
+      await this.updateEndingOrServiceDays(current, next, formik).catch(() => {
+        // tslint:disable-next-line:no-console
+        console.error('Failed to calculate ending or service days automatically...');
+        // reset auto update
+        this.autoUpdate = true;
+      });
     }
   }
 
@@ -161,5 +139,36 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>, { 
       // TODO: remove reload (layzness)
       setTimeout(() => window.location.reload(), 2000);
     });
+  }
+
+  private updateEndingOrServiceDays = async (current: any, next: any, formik: any) => {
+    this.autoUpdate = false;
+
+    const values = {
+      beginning: next.values.beginning,
+    };
+
+    for (const map of this.changeFieldsToUpdateFieldMap) {
+      const [firstIndex, secondIndex] = map.changes;
+
+      if (!next.values[firstIndex] || !next.values[secondIndex]) {
+        continue;
+      }
+
+      const firstIndexUnchanged = current.values[firstIndex] === next.values[firstIndex];
+      const secondIndexUnchanged = current.values[secondIndex] === next.values[secondIndex];
+
+      if (firstIndexUnchanged && secondIndexUnchanged) {
+        continue;
+      }
+
+      values[secondIndex] = next.values[secondIndex];
+      const data = await this.props.serviceStore!.calcServiceDaysOrEnding(values);
+      if (data && data.result) {
+        formik.setFieldValue(map.updateField, data.result);
+      }
+      break;
+    }
+    this.autoUpdate = true;
   }
 }

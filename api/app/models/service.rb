@@ -11,6 +11,8 @@ class Service < ApplicationRecord
   belongs_to :user
   belongs_to :service_specification
 
+  before_destroy :check_delete
+
   enum service_type: {
     normal: 0,
     first: 1,
@@ -33,6 +35,10 @@ class Service < ApplicationRecord
   delegate :used_paid_vacation_days, :used_sick_days, to: :used_days_calculator
   delegate :remaining_paid_vacation_days, :remaining_sick_days, to: :remaining_days_calculator
   delegate :identification_number, to: :service_specification
+
+  def check_delete
+    raise 'Cannot delete a service which has associated expense sheets!' unless deletable?
+  end
 
   def service_days
     service_calculator.calculate_chargeable_service_days(ending)
@@ -63,6 +69,11 @@ class Service < ApplicationRecord
 
   def in_future?
     beginning > Time.zone.today
+  end
+
+  def deletable?
+    sheets_in_range = user.expense_sheets.in_date_range(beginning, ending)
+    sheets_in_range.nil? || sheets_in_range.count.zero?
   end
 
   def date_range

@@ -59,6 +59,8 @@ module V1
     def confirm
       raise ValidationError, @service.errors unless @service.update(confirmation_date: Time.zone.now)
 
+      ExpenseSheetGenerator.new(@service).create_expense_sheets
+
       render :show
     end
 
