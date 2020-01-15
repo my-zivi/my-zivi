@@ -132,7 +132,12 @@ export default (params: OverviewTableParams) => {
   function adminButtons(service: Service) {
     return mainStore!.isAdmin() && (
       <>
-        <DeleteButton onConfirm={() => onServiceDeleteConfirm(service, serviceStore!, userStore!)}>
+        <DeleteButton
+          id={service.id ? 'Service-' + service.id.toString() : ''}
+          onConfirm={() => onServiceDeleteConfirm(service, serviceStore!, userStore!)}
+          disabled={!service.deletable}
+          tooltip={service.deletable ? undefined : 'Zuerst Spesenblätter löschen!'}
+        >
           <FontAwesomeIcon icon={TrashAltRegularIcon}/> <span>Löschen</span>
         </DeleteButton>{' '}
         {
