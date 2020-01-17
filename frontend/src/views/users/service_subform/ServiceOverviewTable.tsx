@@ -144,7 +144,7 @@ export default (params: OverviewTableParams) => {
           id={service.id ? 'Service-' + service.id.toString() : ''}
           onConfirm={() => onServiceDeleteConfirm(service, serviceStore!, userStore!)}
           disabled={!service.deletable}
-          tooltip={service.deletable ? undefined : 'Zuerst Spesenblätter löschen!'}
+          tooltip={service.deletable ? undefined : 'Zuerst Spesenblatt löschen!'}
         >
           <FontAwesomeIcon icon={TrashAltRegularIcon}/> <span>Löschen</span>
         </DeleteButton>{' '}

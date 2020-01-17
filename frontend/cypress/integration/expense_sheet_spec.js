@@ -4,16 +4,6 @@ describe('ExpenseSheet form spec', () => {
     cy.visit('/expense_sheets/1');
   });
 
-  it('should be able to update expenseSheet information', () => {
-    cy.get('#root .card-body h1')
-      .contains('Spesenblatt von Peter Parker bearbeiten');
-    cy.get('input[name="work_days"]').clear().type('18');
-    cy.get('input[name="workfree_days"]').clear().type('8');
-    cy.get(':nth-child(34) > :nth-child(1) > .btn').contains('Speichern').click();
-    //TODO: Add following line again when page does not need to reload after save
-    // cy.contains('Das Spesenblatt wurde gespeichert');
-  });
-
   it('should have the right status badge', function () {
     cy.get('.ml-3').contains('Offen')
   });

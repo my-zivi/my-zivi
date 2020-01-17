@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { UncontrolledTooltip } from 'reactstrap';
 import Button from 'reactstrap/lib/Button';
 import Col from 'reactstrap/lib/Col';
 import Row from 'reactstrap/lib/Row';
@@ -25,28 +26,86 @@ interface ExpenseSheetFormButtonsProps {
   service: Service;
 }
 
-function getSaveButton({ safeOverride, onForceSave, onSave }: ExpenseSheetFormButtonsProps) {
-  if (safeOverride) {
-    return (
-      <Button block color={'primary'} onClick={onForceSave}>
-        <FontAwesomeIcon icon={ExclamationSolidIcon}/> Speichern erzwingen
-      </Button>
-    );
+function getSaveButton({ safeOverride, onForceSave, onSave, expenseSheet }: ExpenseSheetFormButtonsProps) {
+  if (expenseSheet.modifiable) {
+    if (safeOverride) {
+      return (
+        <Button
+          block
+          color={'primary'}
+          onClick={onForceSave}
+        >
+          <FontAwesomeIcon icon={ExclamationSolidIcon}/> Speichern erzwingen
+        </Button>
+      );
+    } else {
+      return (
+        <Button
+          block
+          color={'primary'}
+          onClick={onSave}
+        >
+          <FontAwesomeIcon icon={SaveRegularIcon}/> Speichern
+        </Button>
+      );
+    }
   } else {
     return (
-      <Button block color={'primary'} onClick={onSave}>
-        <FontAwesomeIcon icon={SaveRegularIcon}/> Speichern
-      </Button>
+      <>
+        <div id={'ExpenseSheetSaveButtonWrapper'}>
+          <Button
+            block
+            disabled
+            color={'primary'}
+            style={{ pointerEvents: 'none' }}
+          >
+            <FontAwesomeIcon icon={SaveRegularIcon}/> Speichern
+          </Button>
+        </div>
+        <UncontrolledTooltip
+          trigger={'hover focus'}
+          delay={{ show: 0, hide: 0 }}
+          target={'ExpenseSheetSaveButtonWrapper'}
+          placement={'top'}
+        >
+          Nur offene Spesen können modifiziert werden!
+        </UncontrolledTooltip>
+      </>
     );
   }
 }
 
-function getDeleteButton(onDelete: func) {
-  return (
-    <Button block color={'danger'} onClick={onDelete}>
-      <FontAwesomeIcon icon={TrashAltRegularIcon}/> Löschen
-    </Button>
-  );
+function getDeleteButton({ onDelete, expenseSheet }: ExpenseSheetFormButtonsProps) {
+  if (expenseSheet.deletable) {
+    return (
+      <Button block color={'danger'} onClick={onDelete}>
+        <FontAwesomeIcon icon={TrashAltRegularIcon}/> Löschen
+      </Button>
+    );
+  } else {
+    return (
+      <>
+        <div id={'ExpenseSheetDeleteButtonWrapper'}>
+          <Button
+            block
+            disabled
+            color={'danger'}
+            style={{ pointerEvents: 'none' }}
+          >
+            <FontAwesomeIcon icon={TrashAltRegularIcon}/> Löschen
+          </Button>
+        </div>
+        <UncontrolledTooltip
+          trigger={'hover focus'}
+          delay={{ show: 0, hide: 0 }}
+          target={'ExpenseSheetDeleteButtonWrapper'}
+          placement={'top'}
+        >
+          Nur offene Spesen können gelöscht werden!
+        </UncontrolledTooltip>
+      </>
+    );
+  }
 }
 
 function getPrintButton(mainStore: MainStore, expenseSheetId?: number) {
@@ -70,7 +129,7 @@ function getProfileButton(userId: number) {
 export const ExpenseSheetFormButtons = (props: ExpenseSheetFormButtonsProps) => {
   const buttons = [
     getSaveButton(props),
-    getDeleteButton(props.onDelete),
+    getDeleteButton(props),
     getPrintButton(props.mainStore, props.expenseSheet.id),
     getProfileButton(props.expenseSheet.user_id),
   ];

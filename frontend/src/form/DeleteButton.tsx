@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tooltip } from 'reactstrap';
+import { UncontrolledTooltip } from 'reactstrap';
 import Button from 'reactstrap/lib/Button';
 import ConfirmationDialog from './ConfirmationDialog';
 
@@ -13,13 +13,11 @@ interface DeleteButtonProps {
 
 interface DeleteButtonState {
   open: boolean;
-  tooltipOpen: boolean;
 }
 
 export class DeleteButton extends React.Component<DeleteButtonProps, DeleteButtonState> {
   state = {
     open: false,
-    tooltipOpen: false,
   };
 
   handleOpen = () => {
@@ -38,11 +36,11 @@ export class DeleteButton extends React.Component<DeleteButtonProps, DeleteButto
   getDeleteButton = () => {
     return (
       <Button
-        disabled={this.props.disabled}
         style={this.props.disabled ? { pointerEvents: 'none' } : undefined}
         onClick={this.handleOpen}
         color={'danger'}
         type={'button'}
+        disabled={this.props.disabled}
       >
         {this.props.children}
       </Button>
@@ -62,9 +60,6 @@ export class DeleteButton extends React.Component<DeleteButtonProps, DeleteButto
   }
 
   render = () => {
-    const tooltipOpen = this.state.tooltipOpen;
-    const toggle = () => this.setState({ tooltipOpen: !tooltipOpen });
-
     return (
       <>
         <ConfirmationDialog onClose={this.handleClose} onConfirm={this.handleConfirm} open={this.state.open} title={'Löschen'}>
@@ -72,16 +67,15 @@ export class DeleteButton extends React.Component<DeleteButtonProps, DeleteButto
         </ConfirmationDialog>
         {this.getDeleteButtonWithTooltipWrapper()}
         {this.props.id && this.props.tooltip && (
-          <Tooltip
+          <UncontrolledTooltip
             trigger={'hover focus'}
             delay={{ show: 100, hide: 100 }}
             placement={'top'}
-            isOpen={tooltipOpen}
             target={'DeleteButtonWrapper-' + this.props.id}
-            toggle={toggle}
+            container={'DeleteButtonWrapper-' + this.props.id}
           >
             {this.props.tooltip}
-          </Tooltip>
+          </UncontrolledTooltip>
         )}
       </>
     );

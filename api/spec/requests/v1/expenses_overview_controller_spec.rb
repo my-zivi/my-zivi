@@ -355,7 +355,7 @@ RSpec.describe V1::ExpensesOverviewController, type: :request do
         let(:expected_response) do
           extract_to_json(expense_sheet)
             .except(:created_at, :updated_at)
-            .merge(service_id: service.id, duration: 26, total: 74_100)
+            .merge(service_id: service.id, duration: 26, total: 74_100, deletable: true, modifiable: true)
         end
 
         it_behaves_like 'renders a successful http status code'
