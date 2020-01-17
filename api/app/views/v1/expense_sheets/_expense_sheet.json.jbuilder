@@ -8,4 +8,7 @@ json.extract! expense_sheet,
               :total, :unpaid_company_holiday_days, :unpaid_vacation_comment, :unpaid_vacation_days, :user_id,
               :work_days, :workfree_days
 
+json.deletable @expense_sheet.deletable?
+json.modifiable @expense_sheet.modifiable?
+
 # TODO: Do we really need the payment_timestamp in frontend?

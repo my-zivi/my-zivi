@@ -20,6 +20,7 @@ export interface ServiceModalProps<T> {
   user: User;
   service?: Service;
   onClose: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  onServiceConfirmed: (service: Service) => Promise<void>;
   isOpen: boolean;
   serviceStore?: ServiceStore;
   mainStore?: MainStore;
@@ -128,17 +129,16 @@ export class ServiceModal extends React.Component<ServiceModalProps<Service>, { 
     );
   }
 
-  handleInformationChecked = () => {
-    this.setState({ informationChecked: !this.state.informationChecked });
+  onConfirmationPut = () => {
+    if (this.props.onServiceConfirmed != null) {
+      this.props.onServiceConfirmed(this.props.service!).then(() => {
+        this.props.mainStore!.displaySuccess('Speichern erfolgreich');
+      });
+    }
   }
 
-  onConfirmationPut = () => {
-    this.props.serviceStore!.doConfirmPut(this.props.service!.id!).then(() => {
-      this.props.mainStore!.displaySuccess('Speichern erfolgreich');
-
-      // TODO: remove reload (layzness)
-      setTimeout(() => window.location.reload(), 2000);
-    });
+  handleInformationChecked = () => {
+    this.setState({ informationChecked: !this.state.informationChecked });
   }
 
   private updateEndingOrServiceDays = async (current: any, next: any, formik: any) => {

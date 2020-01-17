@@ -90,7 +90,15 @@ class ExpenseSheet < ApplicationRecord
   end
 
   def readonly?
-    paid? && !state_changed?
+    paid? && !state_changed? # whether or not this object can be modified anywhere
+  end
+
+  def deletable?
+    open? # whether or not we can delete the expense sheet in the expense sheet view
+  end
+
+  def modifiable?
+    open? # whether or not we can modify the expense sheet in the expense sheet view
   end
 
   private
@@ -104,7 +112,7 @@ class ExpenseSheet < ApplicationRecord
   end
 
   def legitimate_destroy
-    return unless paid?
+    return if open?
 
     errors.add(:base, I18n.t('expense_sheet.errors.already_paid'))
     throw :abort
