@@ -13,7 +13,7 @@ FactoryBot.define do
     birthday { '2000-04-27' }
     phone { '+41 (0) 76 123 45 67' }
     bank_iban { 'CH9300762011623852957' }
-    health_insurance { 'SWO General Health Insurance ltd.' }
+    health_insurance { 'SWO health' }
     work_experience { 'Überqualifiziert' }
     driving_licence_b { true }
     driving_licence_be { false }

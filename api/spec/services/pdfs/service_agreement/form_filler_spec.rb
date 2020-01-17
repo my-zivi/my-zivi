@@ -43,10 +43,10 @@ RSpec.describe Pdfs::ServiceAgreement::FormFiller, type: :service do
         user.health_insurance,
         I18n.l(service.beginning),
         I18n.l(service.ending),
-        service.service_specification.title,
-        service.conventional_service? ? checkbox_checked : '',
-        service.probation_service? ? checkbox_checked : '',
-        service.long_service ? checkbox_checked : ''
+        service.service_specification.title
+        # service.conventional_service? ? checkbox_checked : '',
+        # service.probation_service? ? checkbox_checked : '',
+        # service.long_service ? checkbox_checked : ''
       ]
     end
     let(:expected_strings_holiday) do
