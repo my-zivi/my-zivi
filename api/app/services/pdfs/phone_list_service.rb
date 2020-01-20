@@ -8,8 +8,8 @@ module Pdfs
     include Pdfs::PrawnHelper
 
     TABLE_HEADER = [
-      I18n.t('activerecord.attributes.user.last_name'),
       I18n.t('activerecord.attributes.user.first_name'),
+      I18n.t('activerecord.attributes.user.last_name'),
       I18n.t('activerecord.attributes.user.address'),
       I18n.t('activerecord.attributes.user.zip_with_city'),
       I18n.t('activerecord.attributes.user.phone'),
