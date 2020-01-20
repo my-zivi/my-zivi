@@ -27,6 +27,7 @@ class Service < ApplicationRecord
   validate :beginning_is_monday
   validate :no_overlapping_service
   validate :length_is_valid
+  validate :validate_iban, on: :create, unless: :no_user?
 
   scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
   scope :chronologically, -> { order(:beginning, :ending) }
@@ -35,6 +36,7 @@ class Service < ApplicationRecord
   delegate :used_paid_vacation_days, :used_sick_days, to: :used_days_calculator
   delegate :remaining_paid_vacation_days, :remaining_sick_days, to: :remaining_days_calculator
   delegate :identification_number, to: :service_specification
+  delegate :bank_iban, to: :user
 
   def check_delete
     raise 'Cannot delete a service which has associated expense sheets!' unless deletable?
@@ -54,6 +56,10 @@ class Service < ApplicationRecord
 
   def conventional_service?
     !probation_service? && !long_service?
+  end
+
+  def no_user?
+    user.nil?
   end
 
   def expense_sheets
@@ -112,5 +118,11 @@ class Service < ApplicationRecord
     return if ending.blank? || beginning.blank? || last_civil_service?
 
     errors.add(:service_days, :invalid_length) if (ending - beginning).to_i + 1 < MIN_NORMAL_SERVICE_LENGTH
+  end
+
+  def validate_iban
+    IBANTools::IBAN.new(user.bank_iban).validation_errors.each do |error|
+      errors.add(:bank_iban, error)
+    end
   end
 end

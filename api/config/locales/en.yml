@@ -111,6 +111,12 @@ en:
               invalid_state_change: invalid state change
         service:
           attributes:
+            bank_iban:
+              bad_chars: bad chars
+              bad_check_digits: bad check digits
+              bad_format: bad format
+              bad_length: bad length
+              unknown_country_code: unknown country code
             service_days:
               invalid_length: can not be less then 26.
         user:
