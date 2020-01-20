@@ -245,7 +245,7 @@ GEM
     psych (3.1.0)
     psych (3.1.0-x64-mingw32)
     public_suffix (3.1.1)
-    puma (3.12.1)
+    puma (3.12.2)
     rack (2.0.8)
     rack-cors (1.0.5)
       rack (>= 1.6.0)
@@ -419,7 +419,7 @@ DEPENDENCIES
   prawn-table
   pry-byebug
   pry-rails
-  puma (~> 3.11)
+  puma (~> 3.12)
   rack-cors
   rails (~> 6.0.0)
   rails-i18n
