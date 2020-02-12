@@ -43,7 +43,7 @@ class PainGenerationService
 
   def sepa_credit_transfer
     @sepa_credit_transfer ||= SEPA::CreditTransfer.new(
-      name: ENV['PAIN_CREDITOR_NAME'],
+      name: ENV['PAIN_CREDITOR_NAME'].dup.force_encoding('UTF-8'),
       bic: ENV['PAIN_CREDITOR_BIC'],
       iban: ENV['PAIN_CREDITOR_IBAN']
     )

@@ -5,7 +5,7 @@
 
 iZivi ist ein Tool, um Schweizer Zivildienstleistende in einem Einsatzbetrieb zu verwalten.
 
-https://izivi.stiftungswo.ch/
+[izivi.stiftungswo.ch](https://izivi.stiftungswo.ch/)
 
 ## Aufbau der Applikation
 
