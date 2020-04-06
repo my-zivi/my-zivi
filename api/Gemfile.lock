@@ -10,16 +10,6 @@ GIT
       responders
       warden (~> 1.2.3)
 
-GIT
-  remote: https://github.com/salesking/sepa_king.git
-  revision: 0658339c0a8a14268c202bdf879cd04429c7abb5
-  ref: 0658339
-  specs:
-    sepa_king (0.11.2)
-      activemodel (>= 3.1)
-      iban-tools
-      nokogiri
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -337,6 +327,10 @@ GEM
     safe_shell (1.1.0)
     sentry-raven (2.11.0)
       faraday (>= 0.7.6, < 1.0)
+    sepa_king (0.12.0)
+      activemodel (>= 3.1)
+      iban-tools
+      nokogiri
     shoulda-matchers (4.1.2)
       activesupport (>= 4.2.0)
     simplecov (0.17.0)
@@ -432,7 +426,7 @@ DEPENDENCIES
   rubocop-rspec
   ruby-debug-ide
   sentry-raven
-  sepa_king!
+  sepa_king
   shoulda-matchers
   simplecov
   spring
