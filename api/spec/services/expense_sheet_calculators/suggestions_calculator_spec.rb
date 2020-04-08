@@ -4,11 +4,11 @@ require 'rails_helper'
 
 RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
   let(:calculator) { described_class.new(expense_sheet) }
-  let(:user) { create :user }
+  let(:civil_servant) { create :civil_servant }
   let(:beginning) { Date.parse('2018-01-01') }
   let(:ending) { Date.parse('2018-01-26') }
-  let!(:service) { create :service, beginning: beginning, ending: ending, user: user }
-  let(:expense_sheet) { create :expense_sheet, beginning: beginning, ending: ending, user: user }
+  let!(:service) { create :service, beginning: beginning, ending: ending, civil_servant: user }
+  let(:expense_sheet) { create :expense_sheet, beginning: beginning, ending: ending, civil_servant: user }
 
   let(:expected_work_days) { 20 }
   let(:expected_workfree_days) { 6 }
@@ -156,7 +156,7 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
 
     context 'with more than one expense sheet' do
       let(:service_range) { get_service_range months: 3 }
-      let(:service) { create :service, beginning: service_range.begin, ending: service_range.end, user: user }
+      let(:service) { create :service, beginning: service_range.begin, ending: service_range.end, civil_servant: user }
       let(:created_expense_sheets) { ExpenseSheetGenerator.new(service).create_expense_sheets }
       let(:expense_sheet) { created_expense_sheets.last }
 

@@ -27,7 +27,7 @@ module V1
     end
 
     def create
-      expense_sheets = ExpenseSheet.includes(:user).ready_for_payment.all
+      expense_sheets = ExpenseSheet.includes(:civil_servant).ready_for_payment.all
       @payment = Payment.new expense_sheets: expense_sheets
 
       raise ValidationError, @payment.errors unless @payment.save

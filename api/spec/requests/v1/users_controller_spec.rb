@@ -25,7 +25,7 @@ RSpec.describe V1::UsersController, type: :request do
     end
 
     context 'when a civil servant is logged in' do
-      before { sign_in user }
+      before { sign_in civil_servant.user }
 
       context 'when he requests himself' do
         it_behaves_like 'renders a successful http status code'
@@ -46,7 +46,7 @@ RSpec.describe V1::UsersController, type: :request do
     context 'when an admin is logged in' do
       let(:user) { create :user, :admin }
 
-      before { sign_in user }
+      before { sign_in civil_servant.user }
 
       context 'when he requests a different user' do
         let(:requested_user) { create :user }
@@ -99,7 +99,7 @@ RSpec.describe V1::UsersController, type: :request do
     end
 
     context 'when a civil servant is logged in' do
-      before { sign_in user }
+      before { sign_in civil_servant.user }
 
       it_behaves_like 'admin protected resource'
     end
@@ -127,12 +127,12 @@ RSpec.describe V1::UsersController, type: :request do
     end
 
     context 'when a civil servant is logged in' do
-      let(:civil_servant) { create(:user) }
+      let(:user) { create(:user) }
 
-      before { sign_in civil_servant }
+      before { sign_in civil_servant.user }
 
       context 'when he tries to update himself' do
-        let(:updated_user) { civil_servant }
+        let(:updated_user) { user }
 
         context 'when the updated data is correct' do
           it_behaves_like 'renders a successful http status code'

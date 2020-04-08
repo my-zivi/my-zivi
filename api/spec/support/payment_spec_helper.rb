@@ -19,7 +19,7 @@ end
 def create_payment(
   state: :payment_in_progress,
   payment_timestamp: Time.zone.now,
-  service: create_service(create(:user))
+  service: create_service(create(:civil_servant))
 )
   previous_state = ExpenseSheet.states.key(ExpenseSheet.states[state] - 1)
   expense_sheets = create_expense_sheets(state: previous_state, service: service)
@@ -38,5 +38,5 @@ end
 def create_service(user)
   beginning = Date.parse('2018-01-01')
   ending = Date.parse('2018-06-29')
-  create :service, :long, beginning: beginning, ending: ending, user: user
+  create :service, :long, beginning: beginning, ending: ending, civil_servant: user
 end

@@ -8,7 +8,7 @@ class Service < ApplicationRecord
   include Concerns::PositiveTimeSpanValidatable
   include Concerns::DateRangeFilterable
 
-  belongs_to :user
+  belongs_to :civil_servant
   belongs_to :service_specification
 
   before_destroy :check_delete
@@ -19,7 +19,7 @@ class Service < ApplicationRecord
     last: 2
   }, _suffix: 'civil_service'
 
-  validates :ending, :beginning, :user,
+  validates :ending, :beginning, :civil_servant,
             :service_specification, :service_type,
             presence: true
 
@@ -36,7 +36,7 @@ class Service < ApplicationRecord
   delegate :used_paid_vacation_days, :used_sick_days, to: :used_days_calculator
   delegate :remaining_paid_vacation_days, :remaining_sick_days, to: :remaining_days_calculator
   delegate :identification_number, to: :service_specification
-  delegate :bank_iban, to: :user
+  delegate :bank_iban, to: :civil_servant
 
   def check_delete
     raise 'Cannot delete a service which has associated expense sheets!' unless deletable?
@@ -59,18 +59,18 @@ class Service < ApplicationRecord
   end
 
   def no_user?
-    user.nil?
+    civil_servant.nil?
   end
 
   def expense_sheets
-    @expense_sheets ||= user.expense_sheets.in_date_range(beginning, ending)
+    @expense_sheets ||= civil_servant.expense_sheets.in_date_range(beginning, ending)
   end
 
   def send_feedback_reminder
     FeedbackMailer.feedback_reminder_mail(self).deliver_now
     update feedback_mail_sent: true
 
-    Rails.logger.info "Sent reminder to #{user.email} (Service id ##{id})"
+    Rails.logger.info "Sent reminder to #{civil_servant.email} (Service id ##{id})"
   end
 
   def in_future?
@@ -78,7 +78,7 @@ class Service < ApplicationRecord
   end
 
   def deletable?
-    sheets_in_range = user.expense_sheets.in_date_range(beginning, ending)
+    sheets_in_range = civil_servant.expense_sheets.in_date_range(beginning, ending)
     sheets_in_range.nil? || sheets_in_range.count.zero?
   end
 
@@ -101,7 +101,7 @@ class Service < ApplicationRecord
   end
 
   def no_overlapping_service
-    overlaps_other_service = Service.where(user: user).where.not(id: id).overlapping_date_range(beginning, ending).any?
+    overlaps_other_service = Service.where(civil_servant: civil_servant).where.not(id: id).overlapping_date_range(beginning, ending).any?
 
     errors.add(:beginning, :overlaps_service) if overlaps_other_service
   end
@@ -121,7 +121,7 @@ class Service < ApplicationRecord
   end
 
   def validate_iban
-    IBANTools::IBAN.new(user.bank_iban).validation_errors.each do |error|
+    IBANTools::IBAN.new(civil_servant.bank_iban).validation_errors.each do |error|
       errors.add(:bank_iban, error)
     end
   end

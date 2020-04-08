@@ -34,7 +34,7 @@ module DeviseOverrides
     end
 
     def community_password
-      params.require(:user).permit(:community_password)[:community_password]
+      params.require(:civil_servant).permit(:community_password)[:community_password]
     end
   end
 end

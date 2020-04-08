@@ -214,11 +214,11 @@ RSpec.describe Payment, type: :model do
     context 'with existing payments' do
       subject(:returned_payments) { found_payments.map(&method(:hash_of_payment)) }
 
-      let(:user) { create :user }
+      let(:civil_servant) { create :civil_servant }
       let(:services) do
         [
-          create(:service, :long, beginning: Date.parse('2018-01-01'), ending: Date.parse('2018-06-29'), user: user),
-          create(:service, :long, beginning: Date.parse('2019-01-07'), ending: Date.parse('2019-02-01'), user: user)
+          create(:service, :long, beginning: Date.parse('2018-01-01'), ending: Date.parse('2018-06-29'), civil_servant: user),
+          create(:service, :long, beginning: Date.parse('2019-01-07'), ending: Date.parse('2019-02-01'), civil_servant: user)
         ]
       end
 

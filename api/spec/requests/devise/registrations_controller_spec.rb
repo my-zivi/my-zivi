@@ -14,9 +14,9 @@ RSpec.describe Devise::RegistrationsController, type: :request do
 
   describe '#create' do
     let(:regional_center) { create :regional_center }
-    let(:request) { post user_registration_path(params: { user: params }) }
+    let(:request) { post user_registration_path(params: { civil_servant: params }) }
     let(:params) do
-      attributes_for(:user)
+      attributes_for(:civil_servant)
         .merge(regional_center_id: regional_center.id, community_password: sent_community_password)
     end
 
@@ -32,7 +32,7 @@ RSpec.describe Devise::RegistrationsController, type: :request do
       end
 
       context 'with some missing parameters' do
-        let(:params) { attributes_for(:user).slice(:first_name, :last_name) }
+        let(:params) { attributes_for(:civil_servant).slice(:first_name, :last_name) }
 
         it 'does not create a user' do
           expect { request }.not_to change(User, :count)
@@ -56,7 +56,7 @@ RSpec.describe Devise::RegistrationsController, type: :request do
   describe '#validate' do
     subject(:response_json) { parse_response_json(response) }
 
-    let(:request) { post users_validate_path params: { user: params } }
+    let(:request) { post users_validate_path params: { civil_servant: params } }
 
     before { request }
 
@@ -103,7 +103,7 @@ RSpec.describe Devise::RegistrationsController, type: :request do
     end
 
     context 'when all fields are valid' do
-      let(:params) { attributes_for(:user).merge(community_password: actual_community_password) }
+      let(:params) { attributes_for(:civil_servant).merge(community_password: actual_community_password) }
 
       it 'renders a No Content header' do
         expect(response).to have_http_status :no_content

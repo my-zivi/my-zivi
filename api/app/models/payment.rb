@@ -13,7 +13,7 @@ class Payment
     def filtered_expense_sheets(filters)
       ExpenseSheet
         .payment_issued
-        .eager_load(user: { services: [:service_specification] })
+        .eager_load(civil_servant: { services: [:service_specification] })
         .order(payment_timestamp: :desc)
         .filtered_by(filters)
     end

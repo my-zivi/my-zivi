@@ -36,16 +36,16 @@ module Pdfs
       end
 
       def load_fields
-        load_user_fields
+        load_civil_servant_fields
           .merge(load_service_date_fields)
           .merge(load_service_checkboxes)
           .merge(load_service_specification_fields)
           .merge(load_company_holiday_fields)
       end
 
-      def load_user_fields
+      def load_civil_servant_fields
         convert_to_form_fields_hash(FormFields::USER_FORM_FIELDS) do |key, value|
-          [value, @service.user.public_send(key)]
+          [value, @service.civil_servant.public_send(key)]
         end
       end
 

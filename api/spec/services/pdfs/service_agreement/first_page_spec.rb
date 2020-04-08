@@ -27,7 +27,7 @@ RSpec.describe Pdfs::ServiceAgreement::FirstPage, type: :service do
           'weiterzuleiten. Ganz am Ende findest du ein Informationsblatt, ' \
           'das dir Auskunft über den Ablauf deines Einsatzes',
           'gibt. Gib bitte den Talon darin am ersten Einsatztag unterschrieben dem Einsatzleiter ab.'
-        ].push(*service.user.regional_center.address.split(', '))
+        ].push(*service.civil_servant.regional_center.address.split(', '))
       end
       let(:sender_name) { 'SWO Stiftung Wirtschaft und Öl' }
       let(:sender_address) { 'Hauptstrasse 23d' }

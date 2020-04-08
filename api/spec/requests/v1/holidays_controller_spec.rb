@@ -4,9 +4,9 @@ require 'rails_helper'
 
 RSpec.describe V1::HolidaysController, type: :request do
   context 'when the user is signed in' do
-    let(:user) { create :user }
+    let(:civil_servant) { create :civil_servant }
 
-    before { sign_in user }
+    before { sign_in civil_servant.user }
 
     describe '#index' do
       subject(:json_response) { parse_response_json(response) }

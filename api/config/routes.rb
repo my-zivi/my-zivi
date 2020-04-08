@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   scope :v1 do
-    devise_scope :user do
+    devise_scope :civil_servant do
       post 'users/validate', to: 'devise_overrides/registrations#validate', defaults: { format: :json }
     end
     devise_for :users, defaults: { format: :json }, controllers: {

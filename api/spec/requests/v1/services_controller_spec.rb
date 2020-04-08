@@ -4,9 +4,9 @@ require 'rails_helper'
 
 RSpec.describe V1::ServicesController, type: :request do
   context 'when user is signed in' do
-    let(:user) { create :user }
+    let(:civil_servant) { create :civil_servant }
 
-    before { sign_in user }
+    before { sign_in civil_servant.user }
 
     describe '#index' do
       subject(:json_response) { parse_response_json(response) }
@@ -14,8 +14,8 @@ RSpec.describe V1::ServicesController, type: :request do
       let(:request) { get v1_services_path }
 
       before do
-        create(:service, beginning: '2018-11-05', ending: '2018-11-30', user: user)
-        create(:service, beginning: '2018-12-03', ending: '2018-12-28', user: user)
+        create(:service, beginning: '2018-11-05', ending: '2018-11-30', civil_servant: user)
+        create(:service, beginning: '2018-12-03', ending: '2018-12-28', civil_servant: user)
       end
 
       context 'when user is not admin' do
@@ -30,7 +30,7 @@ RSpec.describe V1::ServicesController, type: :request do
         before { request }
 
         context 'when the user has permission to view its own resource' do
-          let(:service) { create :service, user: user }
+          let(:service) { create :service, civil_servant: user }
           let(:expected_response) do
             extract_to_json(service, :id, :user_id, :service_specification_identification_number,
                             :beginning, :ending, :confirmation_date, :eligible_paid_vacation_days,
@@ -52,7 +52,7 @@ RSpec.describe V1::ServicesController, type: :request do
         end
 
         context 'when a non-admin user requests a service which is not his own' do
-          let(:service) { create :service, user: create(:user) }
+          let(:service) { create :service, civil_servant: create(:civil_servant) }
 
           it_behaves_like 'admin protected resource'
         end
@@ -65,7 +65,7 @@ RSpec.describe V1::ServicesController, type: :request do
         before { request }
 
         context 'when the user has permission to view its own resource' do
-          let(:service) { create :service, user: user }
+          let(:service) { create :service, civil_servant: user }
           let(:expected_response) do
             extract_to_json(service, :id, :user_id, :service_specification_identification_number,
                             :beginning, :ending, :confirmation_date, :eligible_paid_vacation_days,
@@ -83,7 +83,7 @@ RSpec.describe V1::ServicesController, type: :request do
         end
 
         context 'when a non-admin user requests a service which is not his own' do
-          let(:service) { create :service, user: create(:user) }
+          let(:service) { create :service, civil_servant: create(:civil_servant) }
 
           it { expect(response).to have_http_status(:unauthorized) }
         end
@@ -142,7 +142,7 @@ RSpec.describe V1::ServicesController, type: :request do
         end
 
         context 'when a non-admin user tries to create a service for another user' do
-          let(:other_user) { create :user }
+          let(:other_user) { create :civil_servant }
           let(:params) { valid_params.merge(user_id: other_user.id) }
 
           it 'ignores the other user\'s id' do
@@ -192,7 +192,7 @@ RSpec.describe V1::ServicesController, type: :request do
     end
 
     describe '#update' do
-      let!(:service) { create :service, :unconfirmed, user: user }
+      let!(:service) { create :service, :unconfirmed, civil_servant: user }
       let(:put_request) { put v1_service_path(service, params: { service: params }) }
 
       context 'with valid params' do
@@ -227,7 +227,7 @@ RSpec.describe V1::ServicesController, type: :request do
         end
 
         context 'when a non-admin user updates their own confirmed service' do
-          let!(:service) { create :service, user: user }
+          let!(:service) { create :service, civil_servant: user }
 
           it_behaves_like 'admin protected resource' do
             let(:request) { put_request }
@@ -239,7 +239,7 @@ RSpec.describe V1::ServicesController, type: :request do
         end
 
         context 'when a non-admin user tries to update other\'s service' do
-          let!(:service) { create :service, :unconfirmed, user: create(:user) }
+          let!(:service) { create :service, :unconfirmed, civil_servant: create(:civil_servant) }
 
           it_behaves_like 'admin protected resource' do
             let(:request) { put_request }
@@ -252,7 +252,7 @@ RSpec.describe V1::ServicesController, type: :request do
       end
 
       context 'with invalid params' do
-        let(:user) { create :user, :admin }
+        let(:civil_servant) { create :civil_servant, :admin }
         let(:params) { { ending: 'invalid' } }
 
         it_behaves_like 'renders a validation error response' do
@@ -276,7 +276,7 @@ RSpec.describe V1::ServicesController, type: :request do
 
     describe '#destroy' do
       let(:delete_request) { delete v1_service_path service }
-      let(:service) { create :service, user: user }
+      let(:service) { create :service, civil_servant: user }
 
       before { service }
 
@@ -291,7 +291,7 @@ RSpec.describe V1::ServicesController, type: :request do
       end
 
       context 'when a non-admin user tries to delete a foreign service' do
-        let(:service) { create :service, user: create(:user) }
+        let(:service) { create :service, civil_servant: create(:civil_servant) }
 
         it 'does not delete the Service' do
           expect { delete_request }.not_to change(Service, :count)
@@ -311,7 +311,7 @@ RSpec.describe V1::ServicesController, type: :request do
 
     describe '#confirm' do
       let(:confirm_request) { put service_confirm_v1_service_path service }
-      let(:service) { create :service, :unconfirmed, user: user }
+      let(:service) { create :service, :unconfirmed, civil_servant: user }
 
       before { service }
 
@@ -326,7 +326,7 @@ RSpec.describe V1::ServicesController, type: :request do
       end
 
       context 'when a non-admin user tries to confirm a foreign service' do
-        let(:service) { create :service, :unconfirmed, user: create(:user) }
+        let(:service) { create :service, :unconfirmed, civil_servant: create(:civil_servant) }
 
         it 'does not update the confirmation_date the Service' do
           expect { request }.not_to(change { service.reload.confirmation_date })
@@ -340,17 +340,17 @@ RSpec.describe V1::ServicesController, type: :request do
   end
 
   context 'when admin is signed in' do
-    let(:user) { create :user, :admin }
+    let(:civil_servant) { create :civil_servant, :admin }
 
-    before { sign_in user }
+    before { sign_in civil_servant.user }
 
     describe '#index' do
       subject(:json_response) { parse_response_json(response) }
 
       let!(:services) do
         [
-          create(:service, beginning: '2018-10-01', ending: '2018-11-02', user: user),
-          create(:service, beginning: '2018-11-05', ending: '2018-12-28', user: user)
+          create(:service, beginning: '2018-10-01', ending: '2018-11-02', civil_servant: user),
+          create(:service, beginning: '2018-11-05', ending: '2018-12-28', civil_servant: user)
         ]
       end
       let(:request) { get v1_services_path }
@@ -361,7 +361,7 @@ RSpec.describe V1::ServicesController, type: :request do
         )
           .merge(service_specification: extract_to_json(services.first.service_specification,
                                                         :name, :short_name, :identification_number))
-          .merge(user: extract_to_json(services.first.user, :id, :first_name, :last_name, :zdp))
+          .merge(civil_servant: extract_to_json(services.first.civil_servant, :id, :first_name, :last_name, :zdp))
       end
 
       let(:second_service_json) do
@@ -371,14 +371,14 @@ RSpec.describe V1::ServicesController, type: :request do
         )
           .merge(service_specification: extract_to_json(services.second.service_specification,
                                                         :name, :short_name, :identification_number))
-          .merge(user: extract_to_json(services.second.user, :id, :first_name, :last_name, :zdp))
+          .merge(civil_servant: extract_to_json(services.second.civil_servant, :id, :first_name, :last_name, :zdp))
       end
 
       context 'when the user is admin' do
-        let(:user) { create :user, :admin }
+        let(:civil_servant) { create :civil_servant, :admin }
 
         before do
-          create :service, beginning: '2019-05-27', ending: '2019-06-28', user: user
+          create :service, beginning: '2019-05-27', ending: '2019-06-28', civil_servant: user
           request
         end
 
@@ -409,7 +409,7 @@ RSpec.describe V1::ServicesController, type: :request do
         before { request }
 
         context 'when the user is admin' do
-          let(:service) { create :service, user: create(:user) }
+          let(:service) { create :service, civil_servant: create(:civil_servant) }
 
           it 'is able to load services pdf from another user' do
             expect(response).to be_successful
@@ -424,7 +424,7 @@ RSpec.describe V1::ServicesController, type: :request do
         before { request }
 
         context 'when the user is admin' do
-          let(:service) { create :service, user: create(:user) }
+          let(:service) { create :service, civil_servant: create(:civil_servant) }
 
           it 'is able to view services from different people' do
             expect(response).to be_successful
@@ -452,8 +452,8 @@ RSpec.describe V1::ServicesController, type: :request do
       end
 
       context 'when a admin user tries to create a service for another user with valid params' do
-        let(:user) { create :user, :admin }
-        let(:other_user) { create :user }
+        let(:civil_servant) { create :civil_servant, :admin }
+        let(:other_user) { create :civil_servant }
         let(:params) { valid_params.merge(user_id: other_user.id) }
 
         it 'creates the service in the name of the other user' do
@@ -467,7 +467,7 @@ RSpec.describe V1::ServicesController, type: :request do
     end
 
     describe '#update' do
-      let!(:service) { create :service, :unconfirmed, user: user }
+      let!(:service) { create :service, :unconfirmed, civil_servant: user }
       let(:put_request) { put v1_service_path(service, params: { service: params }) }
 
       context 'with valid params' do
@@ -481,9 +481,9 @@ RSpec.describe V1::ServicesController, type: :request do
         end
 
         context 'when an admin user updates a service of a foreign person' do
-          let(:user) { create :user, :admin }
+          let(:civil_servant) { create :civil_servant, :admin }
           let(:params) { { confirmation_date: new_confirmation_date, beginning: '2018-01-01', ending: '2018-01-26' } }
-          let!(:service) { create :service, :unconfirmed, user: create(:user) }
+          let!(:service) { create :service, :unconfirmed, civil_servant: create(:civil_servant) }
 
           it 'updates confirmation date and adds an expense sheet' do
             expect { put_request }.to(change { service.reload.confirmation_date }.to(new_confirmation_date)
@@ -501,8 +501,8 @@ RSpec.describe V1::ServicesController, type: :request do
         end
 
         context 'when an admin user updates the ending of a service' do
-          let(:user) { create :user, :admin }
-          let!(:service) { create :service, user: create(:user) }
+          let(:civil_servant) { create :civil_servant, :admin }
+          let!(:service) { create :service, civil_servant: create(:civil_servant) }
           let(:params) { { ending: new_ending } }
           let(:new_ending) { (service.ending + 2.months).at_end_of_week - 2.days }
           let(:expense_sheet_generator) { instance_double(ExpenseSheetGenerator, create_missing_expense_sheets: nil) }
@@ -519,13 +519,13 @@ RSpec.describe V1::ServicesController, type: :request do
 
     describe '#destroy' do
       let(:delete_request) { delete v1_service_path service }
-      let(:service) { create :service, user: user }
+      let(:service) { create :service, civil_servant: user }
 
       before { service }
 
       context 'when an admin user tries to delete a foreign service' do
-        let(:user) { create :user, :admin }
-        let(:service) { create :service, user: create(:user) }
+        let(:civil_servant) { create :civil_servant, :admin }
+        let(:service) { create :service, civil_servant: create(:civil_servant) }
 
         it 'deletes the Service' do
           expect { delete_request }.to change(Service, :count).by(-1)
@@ -539,7 +539,7 @@ RSpec.describe V1::ServicesController, type: :request do
 
     describe '#confirm' do
       let(:confirm_request) { put service_confirm_v1_service_path service }
-      let!(:service) { create :service, :unconfirmed, user: user }
+      let!(:service) { create :service, :unconfirmed, civil_servant: user }
 
       context 'when the user confirm his own service' do
         it 'does update the confirmation_date the Service' do
@@ -552,7 +552,7 @@ RSpec.describe V1::ServicesController, type: :request do
       end
 
       context 'when a admin user tries to confirm a foreign service' do
-        let(:service) { create :service, :unconfirmed, user: create(:user) }
+        let(:service) { create :service, :unconfirmed, civil_servant: create(:civil_servant) }
 
         it 'does update the confirmation_date the Service' do
           expect { confirm_request }.to(change { service.reload.confirmation_date })
@@ -585,7 +585,7 @@ RSpec.describe V1::ServicesController, type: :request do
 
       let(:service_specification) { create :service_specification }
       let(:request) { post v1_services_path service: params }
-      let(:user) { create :user }
+      let(:civil_servant) { create :civil_servant }
       let(:params) do
         attributes_for(:service, service_type: 'normal')
           .merge(

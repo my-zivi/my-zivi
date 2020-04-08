@@ -6,7 +6,7 @@ RSpec.describe Pdfs::ServiceAgreement::FormFiller, type: :service do
   describe '#render' do
     let(:pdf) { described_class.new(service).render }
     let(:service) { create :service, service_data.merge(service_data_defaults) }
-    let(:user) { service.user }
+    let(:civil_servant) { service.civil_servant }
     let!(:company_holiday) { create :holiday, beginning: '2018-12-07', ending: '2019-01-02' }
 
     let(:service_data) { {} }
@@ -32,15 +32,15 @@ RSpec.describe Pdfs::ServiceAgreement::FormFiller, type: :service do
     end
     let(:expected_strings_default) do
       [
-        user.zdp,
-        user.last_name,
-        user.first_name,
-        user.address,
-        user.zip_with_city,
-        user.phone,
-        user.bank_iban,
-        user.email,
-        user.health_insurance,
+        civil_servant.zdp,
+        civil_servant.last_name,
+        civil_servant.first_name,
+        civil_servant.address,
+        civil_servant.zip_with_city,
+        civil_servant.phone,
+        civil_servant.bank_iban,
+        civil_servant.user.email,
+        civil_servant.health_insurance,
         I18n.l(service.beginning),
         I18n.l(service.ending),
         service.service_specification.title

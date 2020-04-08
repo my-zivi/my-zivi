@@ -5,9 +5,9 @@ class ExpenseSheet < ApplicationRecord
   include Concerns::DateRangeFilterable
   include Concerns::ExpenseSheet::StateMachine
 
-  belongs_to :user
+  belongs_to :civil_servant
 
-  validates :beginning, :ending, :user,
+  validates :beginning, :ending, :civil_servant,
             :work_days, :bank_account_number, :state,
             presence: true
 
@@ -36,8 +36,8 @@ class ExpenseSheet < ApplicationRecord
     paid: 3
   }
 
-  scope :in_payment, ->(payment_timestamp) { includes(:user).where(payment_timestamp: payment_timestamp) }
-  scope :payment_issued, -> { includes(:user).where.not(payment_timestamp: [nil]) }
+  scope :in_payment, ->(payment_timestamp) { includes(:civil_servant).where(payment_timestamp: payment_timestamp) }
+  scope :payment_issued, -> { includes(:civil_servant).where.not(payment_timestamp: [nil]) }
   scope :before_date, ->(date) { where(arel_table[:ending].lt(date)) }
   scope :filtered_by, ->(filters) { filters.reduce(self) { |query, filter| query.where(filter) } if filters.present? }
 

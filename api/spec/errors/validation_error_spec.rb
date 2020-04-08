@@ -17,7 +17,7 @@ RSpec.describe ValidationError do
     end
 
     context 'with ActiveModel::Errors' do
-      let(:errors) { build(:user, first_name: nil).tap(&:validate).errors }
+      let(:errors) { build(:civil_servant, first_name: nil).tap(&:validate).errors }
       let(:full_messages) { errors.full_messages }
 
       it 'serializes the error to a hash' do

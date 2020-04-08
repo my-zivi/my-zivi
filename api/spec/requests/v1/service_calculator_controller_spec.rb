@@ -12,9 +12,9 @@ RSpec.describe V1::ServiceCalculatorController, type: :request do
   let(:service_days) { 26 }
 
   context 'when the user is signed in' do
-    let(:user) { create :user }
+    let(:civil_servant) { create :civil_servant }
 
-    before { sign_in user }
+    before { sign_in civil_servant.user }
 
     describe '#calculate_service_days' do
       before { service_days_request }

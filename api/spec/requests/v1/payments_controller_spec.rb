@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe V1::PaymentsController, type: :request do
-  let!(:user) { create :user }
+  let!(:civil_servant) { create :civil_servant }
 
   let(:beginning) { Date.parse('2018-01-01') }
   let(:ending) { Date.parse('2018-02-23') }
@@ -19,15 +19,15 @@ RSpec.describe V1::PaymentsController, type: :request do
 
       before do
         create :expense_sheet, :payment_in_progress,
-               user: user,
+               civil_servant: user,
                beginning: beginning,
                ending: ending,
                payment_timestamp: payment_timestamp
-        create :service, user: user, beginning: beginning, ending: ending
+        create :service, civil_servant: user, beginning: beginning, ending: ending
       end
 
       context 'when user is an admin' do
-        let(:user) { create :user, :admin }
+        let(:civil_servant) { create :civil_servant, :admin }
 
         it_behaves_like 'renders a successful http status code'
 
@@ -60,13 +60,13 @@ RSpec.describe V1::PaymentsController, type: :request do
       let(:request) { get v1_payment_path(payment_timestamp: payment_timestamp.to_i) }
 
       context 'when user is an admin' do
-        let(:user) { create :user, :admin }
+        let(:civil_servant) { create :civil_servant, :admin }
 
-        before { sign_in user }
+        before { sign_in civil_servant.user }
 
         context 'when there is a payment' do
           before do
-            create :service, user: user, beginning: beginning, ending: ending
+            create :service, civil_servant: user, beginning: beginning, ending: ending
           end
 
           let!(:payment) do
@@ -75,11 +75,11 @@ RSpec.describe V1::PaymentsController, type: :request do
           let(:expense_sheets) do
             [
               create(:expense_sheet, :payment_in_progress,
-                     user: user,
+                     civil_servant: user,
                      beginning: beginning,
                      ending: beginning.at_end_of_month),
               create(:expense_sheet, :payment_in_progress,
-                     user: user,
+                     civil_servant: user,
                      beginning: ending.at_beginning_of_month,
                      ending: ending)
             ]
@@ -97,7 +97,7 @@ RSpec.describe V1::PaymentsController, type: :request do
               expense_sheets: payment.expense_sheets.map do |expense_sheet|
                 extract_to_json(expense_sheet, :id)
                   .merge(total: expense_sheet.total)
-                  .merge(user: expected_user_response)
+                  .merge(civil_servant: expected_user_response)
               end
             }
           end
@@ -121,7 +121,7 @@ RSpec.describe V1::PaymentsController, type: :request do
       end
 
       context 'when user is a civil servant' do
-        before { sign_in user }
+        before { sign_in civil_servant.user }
 
         it_behaves_like 'admin protected resource'
       end
@@ -136,13 +136,13 @@ RSpec.describe V1::PaymentsController, type: :request do
     let(:request) { delete v1_payment_path(payment_timestamp: payment_timestamp.to_i) }
 
     context 'when user is an admin' do
-      let(:user) { create :user, :admin }
+      let(:civil_servant) { create :civil_servant, :admin }
 
-      before { sign_in user }
+      before { sign_in civil_servant.user }
 
       context 'when there is a payment' do
         before do
-          create :service, user: user, beginning: beginning, ending: ending
+          create :service, civil_servant: user, beginning: beginning, ending: ending
         end
 
         let!(:payment) do
@@ -151,11 +151,11 @@ RSpec.describe V1::PaymentsController, type: :request do
         let(:expense_sheets) do
           [
             create(:expense_sheet, :payment_in_progress,
-                   user: user,
+                   civil_servant: user,
                    beginning: beginning,
                    ending: beginning.at_end_of_month),
             create(:expense_sheet, :payment_in_progress,
-                   user: user,
+                   civil_servant: user,
                    beginning: ending.at_beginning_of_month,
                    ending: ending)
           ]
@@ -173,7 +173,7 @@ RSpec.describe V1::PaymentsController, type: :request do
             expense_sheets: payment.expense_sheets.map do |expense_sheet|
               extract_to_json(expense_sheet, :id)
                 .merge(total: expense_sheet.total)
-                .merge(user: expected_user_response)
+                .merge(civil_servant: expected_user_response)
             end
           }
         end
@@ -220,7 +220,7 @@ RSpec.describe V1::PaymentsController, type: :request do
     end
 
     context 'when user is a civil servant' do
-      before { sign_in user }
+      before { sign_in civil_servant.user }
 
       it_behaves_like 'admin protected resource'
     end
@@ -234,13 +234,13 @@ RSpec.describe V1::PaymentsController, type: :request do
     let(:request) { put v1_payment_confirm_path(payment_timestamp: payment_timestamp.to_i) }
 
     context 'when user is an admin' do
-      let(:user) { create :user, :admin }
+      let(:civil_servant) { create :civil_servant, :admin }
 
-      before { sign_in user }
+      before { sign_in civil_servant.user }
 
       context 'when there is a payment' do
         before do
-          create :service, user: user, beginning: beginning, ending: ending
+          create :service, civil_servant: user, beginning: beginning, ending: ending
         end
 
         let!(:payment) do
@@ -249,11 +249,11 @@ RSpec.describe V1::PaymentsController, type: :request do
         let(:expense_sheets) do
           [
             create(:expense_sheet, :payment_in_progress,
-                   user: user,
+                   civil_servant: user,
                    beginning: beginning,
                    ending: beginning.at_end_of_month),
             create(:expense_sheet, :payment_in_progress,
-                   user: user,
+                   civil_servant: user,
                    beginning: ending.at_beginning_of_month,
                    ending: ending)
           ]
@@ -271,7 +271,7 @@ RSpec.describe V1::PaymentsController, type: :request do
             expense_sheets: payment.expense_sheets.map do |expense_sheet|
               extract_to_json(expense_sheet, :id)
                 .merge(total: expense_sheet.total)
-                .merge(user: expected_user_response)
+                .merge(civil_servant: expected_user_response)
             end
           }
         end
@@ -311,7 +311,7 @@ RSpec.describe V1::PaymentsController, type: :request do
     end
 
     context 'when user is a civil servant' do
-      before { sign_in user }
+      before { sign_in civil_servant.user }
 
       it_behaves_like 'admin protected resource'
     end
@@ -326,24 +326,24 @@ RSpec.describe V1::PaymentsController, type: :request do
     let(:payment_timestamp) { Payment.floor_time Time.zone.now }
 
     context 'when user is an admin' do
-      let(:user) { create :user, :admin }
+      let(:civil_servant) { create :civil_servant, :admin }
 
-      before { sign_in user }
+      before { sign_in civil_servant.user }
 
       context 'when there are ready expense_sheets' do
         before do
-          create :service, user: user, beginning: beginning, ending: ending
+          create :service, civil_servant: user, beginning: beginning, ending: ending
           allow(Time.zone).to receive(:now).and_return(payment_timestamp)
         end
 
         let!(:expense_sheets) do
           [
             create(:expense_sheet, :ready_for_payment,
-                   user: user,
+                   civil_servant: user,
                    beginning: beginning,
                    ending: beginning.at_end_of_month),
             create(:expense_sheet, :ready_for_payment,
-                   user: user,
+                   civil_servant: user,
                    beginning: ending.at_beginning_of_month,
                    ending: ending)
           ]
@@ -361,7 +361,7 @@ RSpec.describe V1::PaymentsController, type: :request do
             expense_sheets: expense_sheets.map do |expense_sheet|
               extract_to_json(expense_sheet, :id)
                 .merge(total: expense_sheet.total)
-                .merge(user: expected_user_response)
+                .merge(civil_servant: expected_user_response)
             end
           }
         end
@@ -394,7 +394,7 @@ RSpec.describe V1::PaymentsController, type: :request do
     end
 
     context 'when user is a civil servant' do
-      before { sign_in user }
+      before { sign_in civil_servant.user }
 
       it_behaves_like 'admin protected resource'
     end
@@ -408,9 +408,9 @@ RSpec.describe V1::PaymentsController, type: :request do
     let(:request) { get v1_payments_path }
 
     context 'when user is an admin' do
-      let(:user) { create :user, :admin }
+      let(:civil_servant) { create :civil_servant, :admin }
 
-      before { sign_in user }
+      before { sign_in civil_servant.user }
 
       context 'when there are payments' do
         let(:last_year_timestamp) { Time.zone.now - 1.year - 3.months }
@@ -441,7 +441,7 @@ RSpec.describe V1::PaymentsController, type: :request do
         end
 
         before do
-          create :service, user: user, beginning: beginning, ending: ending
+          create :service, civil_servant: user, beginning: beginning, ending: ending
           request
         end
 
@@ -485,7 +485,7 @@ RSpec.describe V1::PaymentsController, type: :request do
     end
 
     context 'when user is a civil servant' do
-      before { sign_in user }
+      before { sign_in civil_servant.user }
 
       it_behaves_like 'admin protected resource'
     end

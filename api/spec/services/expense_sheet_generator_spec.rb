@@ -23,7 +23,7 @@ RSpec.describe ExpenseSheetGenerator, type: :service do
     it 'sets correct user', :aggregate_failures do
       create_expense_sheets
       ExpenseSheet.all.each do |expense_sheet|
-        expect(expense_sheet.user).to eq service.user
+        expect(expense_sheet.user).to eq service.civil_servant
       end
     end
 

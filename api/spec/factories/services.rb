@@ -11,7 +11,7 @@ FactoryBot.define do
     probation_service { false }
     feedback_mail_sent { false }
     service_specification
-    user
+    civil_servant
 
     trait :unconfirmed do
       confirmation_date { nil }

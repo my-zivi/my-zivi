@@ -19,8 +19,8 @@ RSpec.describe Service, type: :model do
     describe '#length_is_valid' do
       subject { service.tap(&:validate).errors.added? :service_days, :invalid_length }
 
-      let(:service) { build(:service, beginning: beginning, ending: ending, user: user) }
-      let(:user) { create :user }
+      let(:service) { build(:service, beginning: beginning, ending: ending, civil_servant: user) }
+      let(:civil_servant) { create :civil_servant }
       let(:service_range) { get_service_range months: 2 }
       let(:beginning) { service_range.begin }
       let(:ending) { service_range.end }
@@ -38,7 +38,7 @@ RSpec.describe Service, type: :model do
       end
 
       context 'when service is last' do
-        let(:service) { build(:service, beginning: beginning, ending: ending, user: user, service_type: :last) }
+        let(:service) { build(:service, beginning: beginning, ending: ending, civil_servant: user, service_type: :last) }
 
         context 'when service has a length that is bigger then 26 days' do
           it { is_expected.to be false }
@@ -91,15 +91,15 @@ RSpec.describe Service, type: :model do
     describe '#no_overlapping_service' do
       subject { service.tap(&:validate).errors.added? :beginning, :overlaps_service }
 
-      let(:service) { build(:service, beginning: beginning, ending: ending, user: user) }
-      let(:user) { create :user }
+      let(:service) { build(:service, beginning: beginning, ending: ending, civil_servant: user) }
+      let(:civil_servant) { create :civil_servant }
       let(:service_range) { get_service_range months: 2 }
       let(:beginning) { service_range.begin }
       let(:ending) { service_range.end }
       let(:other_beginning) { (service_range.begin - 2.months).at_beginning_of_week }
       let(:other_ending) { (service_range.begin - 1.month).at_end_of_week - 2.days }
 
-      before { create :service, user: user, beginning: other_beginning, ending: other_ending }
+      before { create :service, civil_servant: user, beginning: other_beginning, ending: other_ending }
 
       context 'when there is no overlapping service' do
         it { is_expected.to be false }
@@ -207,24 +207,24 @@ RSpec.describe Service, type: :model do
     let(:beginning) { (Time.zone.today - 3.months).beginning_of_week }
     let(:ending) { (Time.zone.today - 1.week).end_of_week - 2.days }
 
-    let(:user) { create :user }
-    let(:service) { create(:service, user: user, beginning: beginning, ending: ending) }
+    let(:civil_servant) { create :civil_servant }
+    let(:service) { create(:service, civil_servant: user, beginning: beginning, ending: ending) }
 
     context 'when it has one expense_sheet' do
-      let(:expense_sheet) { create :expense_sheet, user: user, beginning: beginning, ending: ending }
+      let(:expense_sheet) { create :expense_sheet, civil_servant: user, beginning: beginning, ending: ending }
 
       it { is_expected.to eq [expense_sheet] }
     end
 
     context 'when it has multiple expense_sheets' do
-      let(:expense_sheets) { create_list :expense_sheet, 3, user: user, beginning: beginning, ending: ending }
+      let(:expense_sheets) { create_list :expense_sheet, 3, civil_servant: user, beginning: beginning, ending: ending }
 
       it { is_expected.to eq expense_sheets }
     end
   end
 
   describe '#send_feedback_reminder' do
-    subject(:service) { build :service, user: build(:user) }
+    subject(:service) { build :service, civil_servant: build(:civil_servant) }
 
     let(:envs) do
       {

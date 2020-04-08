@@ -4,9 +4,9 @@ require 'rails_helper'
 
 RSpec.describe V1::ServiceSpecificationsController, type: :request do
   context 'when the user is signed in' do
-    let(:user) { create :user }
+    let(:civil_servant) { create :civil_servant }
 
-    before { sign_in user }
+    before { sign_in civil_servant.user }
 
     describe '#index' do
       let(:request) { get v1_service_specifications_path }
@@ -33,7 +33,7 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
       let(:post_request) { post v1_service_specifications_path(service_specification: params) }
 
       context 'when user is admin' do
-        let(:user) { create :user, :admin }
+        let(:civil_servant) { create :civil_servant, :admin }
 
         context 'when params are valid' do
           let(:params) { attributes_for(:service_specification) }
@@ -118,7 +118,7 @@ RSpec.describe V1::ServiceSpecificationsController, type: :request do
       end
 
       context 'when user is admin' do
-        let(:user) { create :user, :admin }
+        let(:civil_servant) { create :civil_servant, :admin }
 
         context 'with valid params' do
           let(:params) { { name: 'New name' } }

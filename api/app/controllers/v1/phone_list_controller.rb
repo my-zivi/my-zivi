@@ -24,7 +24,7 @@ module V1
 
     def load_specifications
       @specifications = Service.overlapping_date_range(sanitized_filters.beginning, sanitized_filters.ending)
-                               .includes(:service_specification, :user)
+                               .includes(:service_specification, :civil_servant)
                                .order('service_specification_id')
                                .group_by { |service| service.service_specification.name }
     end

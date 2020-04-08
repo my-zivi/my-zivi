@@ -6,7 +6,7 @@ beginning2 = Time.zone.today.at_beginning_of_week + 1.week
 Service.create!(
   [
     {
-      user: User.find_by(email: 'zivi@example.com'),
+      civil_servant: User.find_by(email: 'zivi@example.com'),
       service_specification: ServiceSpecification.first,
       beginning: beginning,
       ending: beginning + 25.days,
@@ -18,7 +18,7 @@ Service.create!(
       feedback_mail_sent: false
     },
     {
-      user: User.find_by(email: 'zivi_francise@france.ch'),
+      civil_servant: User.find_by(email: 'zivi_francise@france.ch'),
       service_specification: ServiceSpecification.last,
       beginning: (Time.zone.today - 180.days).at_beginning_of_week,
       ending: Time.zone.today.at_end_of_week - 2.days,
@@ -30,7 +30,7 @@ Service.create!(
       feedback_mail_sent: false
     },
     {
-      user: User.find_by(email: 'zivi_francise@france.ch'),
+      civil_servant: User.find_by(email: 'zivi_francise@france.ch'),
       service_specification: ServiceSpecification.last,
       beginning: beginning2,
       ending: beginning2 + 3.weeks + 4.days,

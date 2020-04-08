@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe PainGenerationService, type: :service do
   describe '#generate_transaction' do
     before do
-      create :service, user: user
+      create :service, civil_servant: user
 
       allow(SEPA::CreditTransfer).to receive(:new).and_return transaction_adder
 
@@ -14,9 +14,9 @@ RSpec.describe PainGenerationService, type: :service do
 
     let(:transaction_adder) { instance_double(SEPA::CreditTransfer, add_transaction: true) }
 
-    let(:user) { create :user }
+    let(:civil_servant) { create :civil_servant }
     let(:expense_sheet) do
-      create :expense_sheet, :ready_for_payment, user: user
+      create :expense_sheet, :ready_for_payment, civil_servant: user
     end
 
     context 'when there is one expense sheet' do

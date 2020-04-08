@@ -13,7 +13,7 @@ RSpec.describe Pdfs::PhoneListService, type: :service do
       after { I18n.locale = I18n.default_locale }
 
       let(:pdf) { described_class.new(phone_list_service_specifications, phone_list_dates).render }
-      let(:user) { create :user }
+      let(:civil_servant) { create :civil_servant }
       let(:phone_list_dates) do
         OpenStruct.new(
           beginning: Date.parse('2017-01-01'),
@@ -21,14 +21,14 @@ RSpec.describe Pdfs::PhoneListService, type: :service do
         )
       end
       let(:phone_list_service_specifications) do
-        [Service.includes(:service_specification, :user).first]
+        [Service.includes(:service_specification, :civil_servant).first]
           .group_by { |service| service.service_specification.name }
       end
       let(:service_data) do
         {
           beginning: Date.parse('2018-01-01'),
           ending: Date.parse('2018-02-23'),
-          user: user
+          civil_servant: civil_servant
         }
       end
 

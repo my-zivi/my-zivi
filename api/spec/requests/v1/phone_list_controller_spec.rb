@@ -13,7 +13,7 @@ RSpec.describe V1::PhoneListController, type: :request do
         phone_list: { beginning: beginning, ending: ending }
       }
     end
-    let!(:user) { create :user }
+    let!(:civil_servant) { create :civil_servant }
 
     context 'when a token is provided' do
       let(:token) { generate_jwt_token_for_user(user) }
@@ -21,7 +21,7 @@ RSpec.describe V1::PhoneListController, type: :request do
       before { create :service }
 
       context 'when user is admin' do
-        let(:user) { create :user, :admin }
+        let(:civil_servant) { create :civil_servant, :admin }
 
         it_behaves_like 'renders a successful http status code'
 
