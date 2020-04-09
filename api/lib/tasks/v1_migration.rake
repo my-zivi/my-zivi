@@ -12,7 +12,7 @@ namespace :v1_migration do
     end
   end
 
-  desc 'Migrates from legacy iZivi data to new data format'
+  desc 'Migrates from legacy MyZivi data to new data format'
   task :import_legacy_data, [:dump_file] => [:environment] do |_t, args|
     dump_file = args[:dump_file]
 

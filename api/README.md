@@ -1,16 +1,16 @@
-# iZivi API
+# MyZivi API
 
-This is the backend of iZivi. It's written in Ruby using Rails and functions only as a REST Api.
+This is the backend of MyZivi. It's written in Ruby using Rails and functions only as a REST Api.
 
 ### Installation
 
-To run the app, *Ruby 2.5.1* is required. You install ruby by using a version manager such as [rbenv](https://github.com/rbenv/rbenv) or [asdf](https://github.com/asdf-vm/asdf). 
+To run the app, *Ruby 2.5.1* is required. You install ruby by using a version manager such as [rbenv](https://github.com/rbenv/rbenv) or [asdf](https://github.com/asdf-vm/asdf).
 
 To install the app run:
 
 ```bash
-git clone git@github.com:stiftungswo/better-izivi.git
-cd better-izivi
+git clone git@github.com:orsa-scholis/myzivi.git
+cd myzivi
 bin/setup
 ```
 
@@ -18,7 +18,7 @@ A working version of mysql is required to run the setup.
 
 ## Running
 
-To start the server, use `rails server` and navigate to [http://localhost:3000](http://localhost:3000). 
+To start the server, use `rails server` and navigate to [http://localhost:3000](http://localhost:3000).
 
 To run the tests, use `bundle exec rspec` or `rake spec`.
 
@@ -68,7 +68,7 @@ You can use the Ruby methods `p` or `pp` (which stands for pretty print) to prin
 
 Make sure to remove them before pushing to the remote repository.
 
-### Migrating from Old Version of iZivi
+### Migrating from Old Version of MyZivi
 
 To migrate the database of the old version, use the Rake task
 
@@ -160,7 +160,7 @@ rake stats                                       # Report code statistics (KLOCs
 rake time:zones[country_or_offset]               # List all time zones, list by two-letter country code (`rails time:zones[US]`), or list by UTC offset (`rails time:zones[-8]`)
 rake tmp:clear                                   # Clear cache, socket and screenshot files from tmp/ (narrow w/ tmp:cache:clear, tmp:sockets:clear, tmp:screenshots:clear)
 rake tmp:create                                  # Creates tmp directories for cache, sockets, and pids
-rake v1_migration:import_legacy_data[dump_file]  # Migrates from legacy iZivi data to new data format
+rake v1_migration:import_legacy_data[dump_file]  # Migrates from legacy MyZivi data to new data format
 rake v1_migration:strip_iban                     # Strips all whitespaces from the IBAN
 rake zeitwerk:check                              # Checks project structure for Zeitwerk compatibility
 ```

@@ -4,7 +4,7 @@ require 'fileutils'
 
 module V1
   class DataMigrator
-    MIGRATION_DATABASE_NAME = 'izivi_migration'
+    MIGRATION_DATABASE_NAME = 'myzivi_migration'
     RAILS_DATABASE_NAME = Rails.configuration.database_configuration[Rails.env]['database'].freeze
 
     def initialize(dump_file)
@@ -56,7 +56,7 @@ module V1
     def copy_migrated_data
       puts 'Copying migrated data'
 
-      Dir.mktmpdir('izivi_dump') do |tempdir|
+      Dir.mktmpdir('myzivi_dump') do |tempdir|
         output_file = "#{tempdir}/outfile.sql"
 
         system! <<~SHELL

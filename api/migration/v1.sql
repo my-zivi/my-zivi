@@ -1,6 +1,6 @@
 # v1.sql
 #
-# This script migrates all data from the legacy version of iZivi (https://github.com/stiftungswo/izivi) to the newer format
+# This script migrates all data from the legacy version of MyZivi (https://github.com/stiftungswo/myzivi) to the newer format
 # However, it does that with no regards on data validity.
 # To ensure that data is loaded to a Rails conforming DB, create a new DB with `rails db:create db:migrate`
 # and then load all data with `mysql -u[User] -p < dump.sql`.
