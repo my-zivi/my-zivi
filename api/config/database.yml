@@ -8,11 +8,11 @@ default: &default
 
 development:
   <<: *default
-  database: better_izivi_development
+  database: myzivi_development
 
 test:
   <<: *default
-  database: better_izivi_test
+  database: myzivi_test
 
 production:
   <<: *default
