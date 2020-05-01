@@ -24,7 +24,7 @@ gem 'puma', '~> 3.12'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 6.0.2.2'
 gem 'rails-i18n'
-gem 'sepa_king', github: 'salesking/sepa_king', ref: '0658339'
+gem 'sepa_king'
 gem 'validates_timeliness'
 
 group :production do
