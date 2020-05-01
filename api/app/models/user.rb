@@ -87,7 +87,7 @@ class User < ApplicationRecord
   end
 
   # TODO: Remove this
-  # This is a workaround in order to enable users to log in using their password they used in the old iZivi
+  # This is a workaround in order to enable users to log in using their password they used in the old MyZivi
   # Which was previously unsalted. If they logged in again, we rewrite the password using devises methods.
   # REMOVE THIS METHOD AS MOST USERS HAVE NEW PASSWORD HASHES
   # Rather let some old users reset their password than keep this method
@@ -101,7 +101,7 @@ class User < ApplicationRecord
 
   # TODO: Remove this as well
   # This is a workaround in order to enable users to change their password if they have invalid data.
-  # Some users are still invalid because of the migration of the old iZivi version to the current one
+  # Some users are still invalid because of the migration of the old MyZivi version to the current one
   # Once all users have correct data, this should be removed and the validations should be adapted
   #
   # To see users which are still invalid, use something like this:
