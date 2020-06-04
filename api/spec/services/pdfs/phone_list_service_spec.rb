@@ -5,12 +5,13 @@ require 'rails_helper'
 RSpec.describe Pdfs::PhoneListService, type: :service do
   describe '#render' do
     context 'when locale is german' do
-      before do
-        I18n.locale = :de
-        create(:service, service_data)
+      around do |spec|
+        I18n.with_locale(:de) do
+          spec.run
+        end
       end
 
-      after { I18n.locale = I18n.default_locale }
+      before { create(:service, service_data) }
 
       let(:pdf) { described_class.new(phone_list_service_specifications, phone_list_dates).render }
       let(:user) { create :user }
@@ -45,11 +46,8 @@ RSpec.describe Pdfs::PhoneListService, type: :service do
         ]
       end
 
-      it 'renders one page' do
+      it 'renders one page with correct texts', :aggregate_failures do
         expect(pdf_page_inspector.pages.size).to eq 1
-      end
-
-      it 'renders correct texts' do
         expect(pdf_text_inspector.strings).to eq expected_texts
       end
     end

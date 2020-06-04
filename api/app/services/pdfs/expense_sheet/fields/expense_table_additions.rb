@@ -74,7 +74,7 @@ module Pdfs
 
         FOOTER = {
           pre_line: [
-            { ExpenseTable::COLUMN_WIDTHS[0..-3].sum => '', ExpenseTable::COLUMN_WIDTHS[-2..-1].sum => '-' }
+            { ExpenseTable::COLUMN_WIDTHS[0..-3].sum => '', ExpenseTable::COLUMN_WIDTHS[-2..].sum => '-' }
           ],
           content: [
             {
@@ -86,8 +86,8 @@ module Pdfs
             }
           ],
           post_line: [
-            { ExpenseTable::COLUMN_WIDTHS[0..-3].sum => '', ExpenseTable::COLUMN_WIDTHS[-2..-1].sum => '-' },
-            { ExpenseTable::COLUMN_WIDTHS[0..-3].sum => '', ExpenseTable::COLUMN_WIDTHS[-2..-1].sum => '-' }
+            { ExpenseTable::COLUMN_WIDTHS[0..-3].sum => '', ExpenseTable::COLUMN_WIDTHS[-2..].sum => '-' },
+            { ExpenseTable::COLUMN_WIDTHS[0..-3].sum => '', ExpenseTable::COLUMN_WIDTHS[-2..].sum => '-' }
           ]
         }.freeze
       end

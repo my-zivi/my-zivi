@@ -59,7 +59,7 @@ RSpec.describe V1::UsersController, type: :request do
         end
       end
 
-      context 'when he requests a different user' do
+      context 'when he requests not existent user' do
         let(:request) { get v1_user_path(-1) }
 
         it_behaves_like 'renders a not found error response'

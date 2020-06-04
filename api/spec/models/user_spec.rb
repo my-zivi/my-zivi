@@ -40,14 +40,12 @@ RSpec.describe User, type: :model do
     end
 
     describe '#bank_iban' do
-      it 'does not allow invalid values', :aggregate_failures do
+      it 'validates iban correctly', :aggregate_failures do
         expect(model).not_to allow_value('CH93 0076 2011 6238 5295 7').for(:bank_iban)
         expect(model).not_to allow_value('CH93007620116238529577').for(:bank_iban)
         expect(model).not_to allow_value('CH9300762011623852956').for(:bank_iban)
         expect(model).not_to allow_value('XX9300762011623852957').for(:bank_iban)
-      end
 
-      it 'allows valid values' do
         expect(model).to allow_value('CH9300762011623852957').for(:bank_iban)
       end
     end
