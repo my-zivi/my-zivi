@@ -5,8 +5,8 @@ require 'pdf_forms'
 module Pdfs
   module ServiceAgreement
     class FormFiller
-      FRENCH_FILE_PATH = Rails.root.join('app', 'assets', 'pdfs', 'french_service_agreement_form.pdf').freeze
-      GERMAN_FILE_PATH = Rails.root.join('app', 'assets', 'pdfs', 'german_service_agreement_form.pdf').freeze
+      FRENCH_FILE_PATH = Rails.root.join('app/assets/pdfs/french_service_agreement_form.pdf').freeze
+      GERMAN_FILE_PATH = Rails.root.join('app/assets/pdfs/german_service_agreement_form.pdf').freeze
 
       def initialize(service)
         @service = service
