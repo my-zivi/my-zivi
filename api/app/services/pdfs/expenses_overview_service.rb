@@ -49,9 +49,9 @@ module Pdfs
       total_expenses = 0.0
       font_size 9
       @service_specifications.each_value do |expense_sheet|
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         table(table_data(expense_sheet), cell_style: { borders: [], padding: [0, 5, 0, 5] }, width: bounds.width, column_widths: Pdfs::ExpensesOverview::ExpensesOverviewAdditions::COLUMN_WIDTHS)
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
         sum_table(expense_sheet)
         total_days += (expense_sheet.sum(&:work_days) + expense_sheet.sum(&:workfree_days) +
         expense_sheet.sum(&:paid_vacation_days) + expense_sheet.sum(&:sick_days))
@@ -101,9 +101,9 @@ module Pdfs
     end
 
     def second_part(expense_sheet)
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       [{ content: expense_sheet.work_days.to_s, align: :right }, { content: Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.calculate_work_days[:total] + expense_sheet.calculate_first_day[:total] + expense_sheet.calculate_last_day[:total]), align: :right },
-       # rubocop:enable Metrics/LineLength
+       # rubocop:enable Layout/LineLength
        { content: expense_sheet.workfree_days.to_s, align: :right }]
     end
 
@@ -146,9 +146,9 @@ module Pdfs
     def table_content(expense_sheets)
       expense_sheets.map do |expense_sheet|
         expense_sheet.slice.values
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         first_part(expense_sheet) + second_part(expense_sheet) + third_part(expense_sheet) + fourth_part(expense_sheet) + fifth_part(expense_sheet) + sixt_part(expense_sheet)
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
     end
   end
