@@ -37,7 +37,7 @@ group :development, :test do
   gem 'faker'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'reek', '~> 6.0.1', platform: :ruby
+  gem 'reek', '~> 6.0.1'
   gem 'rspec-collection_matchers'
   gem 'rspec-rails'
   gem 'rubocop', require: false
