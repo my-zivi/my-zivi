@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2019_09_10_072623) do
 
-  create_table "expense_sheets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "expense_sheets", force: :cascade do |t|
     t.date "beginning", null: false
     t.date "ending", null: false
     t.bigint "user_id", null: false
@@ -41,7 +44,7 @@ ActiveRecord::Schema.define(version: 2019_09_10_072623) do
     t.index ["user_id"], name: "index_expense_sheets_on_user_id"
   end
 
-  create_table "holidays", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "holidays", force: :cascade do |t|
     t.date "beginning", null: false
     t.date "ending", null: false
     t.integer "holiday_type", default: 1, null: false
@@ -50,7 +53,7 @@ ActiveRecord::Schema.define(version: 2019_09_10_072623) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "regional_centers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "regional_centers", force: :cascade do |t|
     t.string "name", null: false
     t.string "address", null: false
     t.string "short_name", null: false
@@ -58,7 +61,7 @@ ActiveRecord::Schema.define(version: 2019_09_10_072623) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "service_specifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "service_specifications", force: :cascade do |t|
     t.string "name", null: false
     t.string "short_name", null: false
     t.integer "work_clothing_expenses", null: false
@@ -75,7 +78,7 @@ ActiveRecord::Schema.define(version: 2019_09_10_072623) do
     t.index ["identification_number"], name: "index_service_specifications_on_identification_number", unique: true
   end
 
-  create_table "services", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "services", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "service_specification_id", null: false
     t.date "beginning", null: false
@@ -92,7 +95,7 @@ ActiveRecord::Schema.define(version: 2019_09_10_072623) do
     t.index ["user_id"], name: "index_services_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.integer "zdp", null: false
     t.string "first_name", null: false
@@ -124,7 +127,7 @@ ActiveRecord::Schema.define(version: 2019_09_10_072623) do
     t.index ["zdp"], name: "index_users_on_zdp", unique: true
   end
 
-  create_table "whitelisted_jwts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "whitelisted_jwts", force: :cascade do |t|
     t.string "jti", null: false
     t.string "aud"
     t.datetime "exp", null: false

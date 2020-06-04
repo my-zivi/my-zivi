@@ -74,7 +74,7 @@ class Service < ApplicationRecord
   end
 
   def in_future?
-    beginning > Time.zone.today
+    beginning.future?
   end
 
   def deletable?
