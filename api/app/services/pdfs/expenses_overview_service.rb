@@ -48,7 +48,7 @@ module Pdfs
       total_days = 0
       total_expenses = 0.0
       font_size 9
-      @service_specifications.values.each do |expense_sheet|
+      @service_specifications.each_value do |expense_sheet|
         # rubocop:disable Metrics/LineLength
         table(table_data(expense_sheet), cell_style: { borders: [], padding: [0, 5, 0, 5] }, width: bounds.width, column_widths: Pdfs::ExpensesOverview::ExpensesOverviewAdditions::COLUMN_WIDTHS)
         # rubocop:enable Metrics/LineLength
