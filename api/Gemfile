@@ -4,10 +4,7 @@ source 'https://rubygems.org'
 
 ruby '2.6.6'
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
-  "https://github.com/#{repo_name}.git"
-end
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise'
@@ -40,7 +37,7 @@ group :development, :test do
   gem 'faker'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'reek'
+  gem 'reek', '~> 6.0.1', platform: :ruby
   gem 'rspec-collection_matchers'
   gem 'rspec-rails'
   gem 'rubocop', require: false
