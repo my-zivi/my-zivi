@@ -24,7 +24,7 @@ blocks:
             - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
             - bundle install --deployment -j 4 --path vendor/bundle
             - nvm install
-            - bin/yarn install --cache-folder ~/.cache/yarn
+            - '# bin/yarn install --cache-folder ~/.cache/yarn'
             - cache store
       prologue:
         commands:
@@ -52,10 +52,11 @@ blocks:
           - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
           - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
           - bundle install --deployment --path vendor/bundle
-          - bin/yarn install --cache-folder ~/.cache/yarn
+          - '# bin/yarn install --cache-folder ~/.cache/yarn'
           - sem-service start postgres
           - 'bundle exec rails db:create db:schema:load'
       jobs:
         - name: tests
           commands:
-            - bin/check
+            - bin/lint
+            - bin/rspec
