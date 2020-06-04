@@ -1,5 +1,4 @@
 inherit_from:
-  - .rubocop_todo.yml
   - .rubocop_base.yml
 
 require:
@@ -7,5 +6,5 @@ require:
   - rubocop-rails
   - 'test_prof/rubocop'
 
-RSpec/AggregateFailures:
+RSpec/AggregateExamples:
   Enabled: true
