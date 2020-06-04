@@ -66,11 +66,8 @@ RSpec.describe Pdfs::ExpenseSheet::GeneratorService, type: :service do
 
       let(:ZDP) { expense_sheet_data.user.ZDP }
 
-      it 'renders one page' do
+      it 'renders one page with correct texts', :aggregate_failures do
         expect(pdf_page_inspector.pages.size).to eq 1
-      end
-
-      it 'renders correct texts' do
         expect(pdf_text_inspector.strings).to eq expected_texts
       end
 

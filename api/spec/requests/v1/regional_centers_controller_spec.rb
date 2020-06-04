@@ -18,17 +18,18 @@ RSpec.describe V1::RegionalCentersController, type: :request do
 
     it { is_expected.to be_successful }
 
-    it 'returns one regional center' do
-      expect(response_json.length).to be 1
-    end
+    describe 'returned JSON response' do
+      subject { response_json }
 
-    it 'has all attributes' do
-      expect(response_json.first).to include(
-        id: regional_center.id,
-        name: regional_center.name,
-        address: regional_center.address,
-        short_name: regional_center.short_name
-      )
+      it 'returns one regional center with all attributes', :aggregate_failures do
+        expect(response_json.length).to be 1
+        expect(response_json.first).to include(
+          id: regional_center.id,
+          name: regional_center.name,
+          address: regional_center.address,
+          short_name: regional_center.short_name
+        )
+      end
     end
   end
 end
