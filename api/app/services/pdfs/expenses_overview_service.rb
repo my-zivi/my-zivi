@@ -5,7 +5,7 @@ require 'prawn'
 # require_relative 'expenses_overview/expenses_overview_additions'
 
 module Pdfs
-  # rubocop:disable ClassLength
+  # rubocop:disable Metrics/ClassLength
   class ExpensesOverviewService
     include Prawn::View
     include Pdfs::PrawnHelper
@@ -152,5 +152,5 @@ module Pdfs
       end
     end
   end
-  # rubocop:enable ClassLength
+  # rubocop:enable Metrics/ClassLength
 end
