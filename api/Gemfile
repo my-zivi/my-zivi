@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '2.6.5'
+ruby '2.6.6'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
@@ -10,7 +10,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'devise', github: 'plataformatec/devise', branch: 'master'
+gem 'devise'
 gem 'devise-jwt', '~> 0.6.0'
 gem 'dotenv-rails'
 gem 'hexapdf'
