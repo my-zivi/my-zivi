@@ -6,8 +6,8 @@ require 'hexapdf'
 module Pdfs
   module ServiceAgreement
     class GlueService
-      FRENCH_FILE_PATH = Rails.root.join('app', 'assets', 'pdfs', 'french_service_agreement_text.pdf').freeze
-      GERMAN_FILE_PATH = Rails.root.join('app', 'assets', 'pdfs', 'german_service_agreement_text.pdf').freeze
+      FRENCH_FILE_PATH = Rails.root.join('app/assets/pdfs/french_service_agreement_text.pdf').freeze
+      GERMAN_FILE_PATH = Rails.root.join('app/assets/pdfs/german_service_agreement_text.pdf').freeze
 
       def initialize(service)
         @service = service
