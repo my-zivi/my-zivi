@@ -6,7 +6,13 @@ RSpec.describe User, type: :model do
   describe 'validations' do
     subject(:model) { described_class.new }
 
-    it { is_expected.to validate_numericality_of(:zip).only_integer }
+    it 'validates the model correctly', :aggregate_failures do
+      expect(model).to validate_numericality_of(:zip).only_integer
+      expect(described_class.new).to validate_numericality_of(:zdp)
+        .only_integer
+        .is_less_than(999_999)
+        .is_greater_than(10_000)
+    end
 
     it_behaves_like 'validates presence of required fields', %i[
       first_name
@@ -22,13 +28,6 @@ RSpec.describe User, type: :model do
       hometown
       phone
     ]
-
-    it 'validates numericality of ZDP' do
-      expect(described_class.new).to validate_numericality_of(:zdp)
-        .only_integer
-        .is_less_than(999_999)
-        .is_greater_than(10_000)
-    end
 
     describe 'uniqueness validations' do
       subject(:user) { build(:user) }
