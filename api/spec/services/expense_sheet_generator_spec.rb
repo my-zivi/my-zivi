@@ -13,7 +13,7 @@ RSpec.describe ExpenseSheetGenerator, type: :service do
       expect { create_expense_sheets }.to change(ExpenseSheet, :count).by(6)
     end
 
-    it 'sets constant bank_account_number', :areggregate_failures do
+    it 'sets constant bank_account_number', :aggregate_failures do
       create_expense_sheets
       ExpenseSheet.all.each do |expense_sheet|
         expect(expense_sheet.bank_account_number).to eq '4470 (200)'
