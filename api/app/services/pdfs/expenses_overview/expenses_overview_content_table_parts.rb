@@ -2,7 +2,7 @@
 
 module Pdfs
   module ExpensesOverview
-    class ExpensesOverviewTableParts
+    class ExpensesOverviewContentTableParts
       def initialize(expense_sheet)
         @expense_sheet = expense_sheet
         @user = expense_sheet.user

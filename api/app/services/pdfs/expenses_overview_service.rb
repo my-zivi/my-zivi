@@ -45,6 +45,7 @@ module Pdfs
       end
     end
 
+    # :reek:FeatureEnvy
     def content_table
       total_days = 0
       total_expenses = 0.0
@@ -60,7 +61,7 @@ module Pdfs
 
     def content_table_row(expense_sheet)
       table(
-        table_data(expense_sheet),
+        content_table_data(expense_sheet),
         TABLE_CELL_STYLE
       )
       sum_table(expense_sheet)
@@ -92,16 +93,16 @@ module Pdfs
       text(name, align: :left, style: :bold, size: 11)
     end
 
-    def table_data(expense_sheets)
+    def content_table_data(expense_sheets)
       move_down 10
-      table_content(expense_sheets)
+      content_table_content(expense_sheets)
     end
 
-    def table_content(expense_sheets)
+    def content_table_content(expense_sheets)
       expense_sheets.map do |expense_sheet|
         expense_sheet.slice.values
 
-        expense_sheet_parts = Pdfs::ExpensesOverview::ExpensesOverviewTableParts.new expense_sheet
+        expense_sheet_parts = Pdfs::ExpensesOverview::ExpensesOverviewContentTableParts.new expense_sheet
         expense_sheet_parts.all_parts
       end
     end
