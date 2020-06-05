@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'pdf_forms'
+require 'fillable-pdf'
 
 module Pdfs
   module ServiceAgreement
@@ -10,7 +10,6 @@ module Pdfs
 
       def initialize(service)
         @service = service
-        @pdftk = PdfForms.new(ENV.fetch('PDFTK_BIN_PATH', 'pdftk'))
       end
 
       def render
@@ -25,10 +24,12 @@ module Pdfs
 
       def fill_form
         I18n.locale = valais? ? :fr : :de
-
         file_path = valais? ? FRENCH_FILE_PATH : GERMAN_FILE_PATH
 
-        @pdftk.fill_form file_path, pdf_file, load_fields, flatten: true
+        form_pdf = FillablePDF.new file_path.to_s
+
+        form_pdf.set_fields load_fields
+        form_pdf.save_as(pdf_file.path, flatten: true)
       end
 
       def pdf_file

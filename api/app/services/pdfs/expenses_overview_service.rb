@@ -2,13 +2,15 @@
 
 require 'prawn'
 
-# require_relative 'expenses_overview/expenses_overview_additions'
-
 module Pdfs
-  # rubocop:disable Metrics/ClassLength
   class ExpensesOverviewService
     include Prawn::View
     include Pdfs::PrawnHelper
+
+    TABLE_CELL_STYLE = {
+      cell_style: { borders: [], padding: [0, 5, 0, 5] },
+      width: bounds.width, column_widths: Pdfs::ExpensesOverview::ExpensesOverviewAdditions::COLUMN_WIDTHS
+    }.freeze
 
     def initialize(service_specifications, dates)
       @beginning = dates.beginning
@@ -43,24 +45,28 @@ module Pdfs
       end
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # :reek:FeatureEnvy
     def content_table
       total_days = 0
       total_expenses = 0.0
       font_size 9
       @service_specifications.each_value do |expense_sheet|
-        # rubocop:disable Layout/LineLength
-        table(table_data(expense_sheet), cell_style: { borders: [], padding: [0, 5, 0, 5] }, width: bounds.width, column_widths: Pdfs::ExpensesOverview::ExpensesOverviewAdditions::COLUMN_WIDTHS)
-        # rubocop:enable Layout/LineLength
-        sum_table(expense_sheet)
+        content_table_row(expense_sheet)
         total_days += (expense_sheet.sum(&:work_days) + expense_sheet.sum(&:workfree_days) +
-        expense_sheet.sum(&:paid_vacation_days) + expense_sheet.sum(&:sick_days))
+          expense_sheet.sum(&:paid_vacation_days) + expense_sheet.sum(&:sick_days))
         total_expenses += expense_sheet.sum(&:calculate_full_expenses)
       end
       total_sum_table(total_days, total_expenses)
     end
 
-    # rubocop:enable Metrics/AbcSize
+    def content_table_row(expense_sheet)
+      table(
+        content_table_data(expense_sheet),
+        TABLE_CELL_STYLE
+      )
+      sum_table(expense_sheet)
+    end
+
     # :reek:FeatureEnvy
     def sum_table(expense_sheets)
       table([[{ content: 'Gesamt: ', align: :left },
@@ -87,70 +93,18 @@ module Pdfs
       text(name, align: :left, style: :bold, size: 11)
     end
 
-    def table_data(expense_sheets)
+    def content_table_data(expense_sheets)
       move_down 10
-      table_content(expense_sheets)
+      content_table_content(expense_sheets)
     end
 
-    def first_part(expense_sheet)
-      exps_user = expense_sheet.user
-      [{ content: exps_user.zdp.to_s, align: :right },
-       { content: (exps_user.last_name + ' ' + exps_user.first_name) },
-       { content: (I18n.l(expense_sheet.beginning, format: :short) + ' - ' +
-         I18n.l(expense_sheet.ending, format: :short)).to_s, align: :center }]
-    end
-
-    def second_part(expense_sheet)
-      # rubocop:disable Layout/LineLength
-      [{ content: expense_sheet.work_days.to_s, align: :right }, { content: Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.calculate_work_days[:total] + expense_sheet.calculate_first_day[:total] + expense_sheet.calculate_last_day[:total]), align: :right },
-       # rubocop:enable Layout/LineLength
-       { content: expense_sheet.workfree_days.to_s, align: :right }]
-    end
-
-    def third_part(expense_sheet)
-      [{ content: Pdfs::ExpenseSheet::FormatHelper.to_chf(
-        expense_sheet.calculate_workfree_days[:total]
-      ), align: :right },
-       { content: expense_sheet.sick_days.to_s, align: :right },
-       { content: Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.calculate_sick_days[:total]), align: :right },
-       { content: expense_sheet.paid_vacation_days.to_s, align: :right },
-       { content: Pdfs::ExpenseSheet::FormatHelper.to_chf(
-         expense_sheet.calculate_paid_vacation_days[:total]
-       ), align: :right }]
-    end
-
-    def fourth_part(expense_sheet)
-      [{ content: expense_sheet.unpaid_vacation_days.to_s, align: :right },
-       { content: Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.calculate_unpaid_vacation_days[:total]),
-         align: :right },
-       { content: Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.driving_expenses), align: :right },
-       { content: (expense_sheet.work_days + expense_sheet.workfree_days +
-        expense_sheet.paid_vacation_days + expense_sheet.sick_days).to_s, align: :right }]
-    end
-
-    def fifth_part(expense_sheet)
-      [
-        { content: Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.clothing_expenses), align: :right },
-        { content: Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.extraordinary_expenses), align: :right },
-        { content: (expense_sheet.work_days + expense_sheet.workfree_days +
-          expense_sheet.paid_vacation_days + expense_sheet.sick_days).to_s, align: :right }
-      ]
-    end
-
-    def sixt_part(expense_sheet)
-      [
-        { content: Pdfs::ExpenseSheet::FormatHelper.to_chf(expense_sheet.calculate_full_expenses.to_d), align: :right }
-      ]
-    end
-
-    def table_content(expense_sheets)
+    def content_table_content(expense_sheets)
       expense_sheets.map do |expense_sheet|
         expense_sheet.slice.values
-        # rubocop:disable Layout/LineLength
-        first_part(expense_sheet) + second_part(expense_sheet) + third_part(expense_sheet) + fourth_part(expense_sheet) + fifth_part(expense_sheet) + sixt_part(expense_sheet)
-        # rubocop:enable Layout/LineLength
+
+        expense_sheet_parts = Pdfs::ExpensesOverview::ExpensesOverviewContentTableParts.new expense_sheet
+        expense_sheet_parts.all_parts
       end
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end

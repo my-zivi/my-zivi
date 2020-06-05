@@ -60,22 +60,10 @@ module Pdfs
         {},
         {},
         {},
-        { content: 'Tage', background_color: COLOR_GREY, align: :left },
-        { content: 'Fr.', background_color: COLOR_GREY, align: :right },
-        { content: 'Tage', background_color: COLOR_GREY, align: :left },
-        { content: 'Fr.', background_color: COLOR_GREY, align: :right },
-        { content: 'Tage', background_color: COLOR_GREY, align: :left },
-        { content: 'Fr.', background_color: COLOR_GREY, align: :right },
-        { content: 'Tage', background_color: COLOR_GREY, align: :left },
-        { content: 'Fr.', background_color: COLOR_GREY, align: :right },
-        { content: 'Tage', background_color: COLOR_GREY, align: :left },
-        { content: 'Fr.', background_color: COLOR_GREY, align: :right },
-        { content: 'Fr.', background_color: COLOR_GREY, align: :right },
-        { content: 'Tage', background_color: COLOR_GREY, align: :left },
-        { content: 'Fr.', background_color: COLOR_GREY, align: :right },
-        { content: 'Fr.', background_color: COLOR_GREY, align: :right },
-        { content: 'Tage', background_color: COLOR_GREY, align: :right },
-        { content: 'Fr.', background_color: COLOR_GREY, align: :right }
+        ([
+          { content: 'Tage', background_color: COLOR_GREY, align: :left },
+          { content: 'Fr.', background_color: COLOR_GREY, align: :right }
+        ] * 8)...
       ].freeze
 
       COLUMN_WIDTHS = [40, 90, 80, 30, 35, 30, 35, 30, 35, 30, 35, 30, 35, 60, 30, 30, 40, 30].freeze

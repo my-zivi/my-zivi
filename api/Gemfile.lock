@@ -122,6 +122,8 @@ GEM
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.13.0)
+    fillable-pdf (0.9.0)
+      rjb (~> 1.6)
     geom2d (0.3.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -261,6 +263,7 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.4)
+    rjb (1.6.1)
     rspec-collection_matchers (1.2.0)
       rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.9.2)
@@ -372,6 +375,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
+  fillable-pdf
   hexapdf
   i18n-tasks (~> 0.9.29)
   iban-tools
