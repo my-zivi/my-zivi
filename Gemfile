@@ -29,14 +29,16 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :production do
   gem 'lograge'
-  gem 'sentry-raven'
   gem 'norobots'
+  gem 'sentry-raven'
 end
 
 group :development, :test do
   gem 'brakeman', require: false
   gem 'bullet'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'capybara'
+  gem 'selenium-webdriver'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-byebug'

@@ -2,7 +2,7 @@ class AddDomainModel < ActiveRecord::Migration[6.0]
   def change
     create_table :addresses do |t|
       t.string :primary_line, null: false
-      t.string :secondary_line, null: false
+      t.string :secondary_line, null: true
       t.string :street, null: false
       t.string :city, null: false
       t.integer :zip, null: false
@@ -156,5 +156,14 @@ class AddDomainModel < ActiveRecord::Migration[6.0]
       t.references :services, foreign_key: true, null: false
       t.references :payments, foreign_key: true, null: true
     end
+
+    add_foreign_key :civil_servants_driving_licenses, :civil_servants, column: :civil_servant_id
+    add_foreign_key :civil_servants_driving_licenses, :driving_licenses, column: :driving_license_id
+    add_foreign_key :civil_servants_workshops, :civil_servants, column: :civil_servant_id
+    add_foreign_key :civil_servants_workshops, :workshops, column: :workshop_id
+    add_foreign_key :driving_licenses_service_specifications, :service_specifications, column: :service_specification_id
+    add_foreign_key :driving_licenses_service_specifications, :driving_licenses, column: :driving_license_id
+    add_foreign_key :service_specifications_workshops, :workshops, column: :workshop_id
+    add_foreign_key :service_specifications_workshops, :service_specifications, column: :service_specification_id
   end
 end

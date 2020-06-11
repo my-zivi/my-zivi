@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "primary_line", null: false
-    t.string "secondary_line", null: false
+    t.string "secondary_line"
     t.string "street", null: false
     t.string "city", null: false
     t.integer "zip", null: false
@@ -185,12 +185,20 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
   add_foreign_key "administrators", "organizations", column: "organizations_id"
   add_foreign_key "civil_servants", "addresses", column: "addresses_id"
   add_foreign_key "civil_servants", "regional_centers", column: "regional_centers_id"
+  add_foreign_key "civil_servants_driving_licenses", "civil_servants"
+  add_foreign_key "civil_servants_driving_licenses", "driving_licenses"
+  add_foreign_key "civil_servants_workshops", "civil_servants"
+  add_foreign_key "civil_servants_workshops", "workshops"
+  add_foreign_key "driving_licenses_service_specifications", "driving_licenses"
+  add_foreign_key "driving_licenses_service_specifications", "service_specifications"
   add_foreign_key "expense_sheets", "payments", column: "payments_id"
   add_foreign_key "expense_sheets", "services", column: "services_id"
   add_foreign_key "organization_holidays", "organizations", column: "organizations_id"
   add_foreign_key "payments", "organizations"
   add_foreign_key "regional_centers", "addresses", column: "addresses_id"
   add_foreign_key "service_specifications", "organizations", column: "organizations_id"
+  add_foreign_key "service_specifications_workshops", "service_specifications"
+  add_foreign_key "service_specifications_workshops", "workshops"
   add_foreign_key "services", "civil_servants", column: "civil_servants_id"
   add_foreign_key "services", "service_specifications", column: "service_specifications_id"
 end
