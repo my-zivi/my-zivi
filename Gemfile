@@ -15,6 +15,7 @@ gem 'prawn-table'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails-i18n'
 gem 'sepa_king'
+gem 'simple_form'
 gem 'validates_timeliness'
 
 gem 'pg', '>= 0.18', '< 2.0'
@@ -33,6 +34,7 @@ end
 
 group :development, :test do
   gem 'brakeman', require: false
+  gem 'bullet'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'faker'
