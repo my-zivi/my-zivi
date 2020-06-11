@@ -38,7 +38,6 @@ group :development, :test do
   gem 'bullet'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara'
-  gem 'selenium-webdriver'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-byebug'
@@ -49,12 +48,12 @@ group :development, :test do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails'
   gem 'rubocop-rspec', require: false
+  gem 'selenium-webdriver'
 end
 
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'bullet'
   gem 'letter_opener'
   gem 'listen', '~> 3.2'
   gem 'spring'
