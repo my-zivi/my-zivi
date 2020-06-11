@@ -30,6 +30,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :production do
   gem 'lograge'
   gem 'sentry-raven'
+  gem 'norobots'
 end
 
 group :development, :test do
