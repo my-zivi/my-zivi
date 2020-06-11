@@ -95,13 +95,13 @@ class AddDomainModel < ActiveRecord::Migration[6.0]
       t.index :name, unique: true
     end
 
-    create_join_table :users, :driving_licenses do |t|
-      t.index :user_id
+    create_join_table :civil_servants, :driving_licenses do |t|
+      t.index :civil_servant_id
       t.index :driving_license_id
     end
 
-    create_join_table :users, :workshops do |t|
-      t.index :user_id
+    create_join_table :civil_servants, :workshops do |t|
+      t.index :civil_servant_id
       t.index :workshop_id
     end
 

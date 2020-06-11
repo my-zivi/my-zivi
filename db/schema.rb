@@ -44,6 +44,20 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
     t.index ["zdp"], name: "index_civil_servants_on_zdp", unique: true
   end
 
+  create_table "civil_servants_driving_licenses", id: false, force: :cascade do |t|
+    t.bigint "civil_servant_id", null: false
+    t.bigint "driving_license_id", null: false
+    t.index ["civil_servant_id"], name: "index_civil_servants_driving_licenses_on_civil_servant_id"
+    t.index ["driving_license_id"], name: "index_civil_servants_driving_licenses_on_driving_license_id"
+  end
+
+  create_table "civil_servants_workshops", id: false, force: :cascade do |t|
+    t.bigint "civil_servant_id", null: false
+    t.bigint "workshop_id", null: false
+    t.index ["civil_servant_id"], name: "index_civil_servants_workshops_on_civil_servant_id"
+    t.index ["workshop_id"], name: "index_civil_servants_workshops_on_workshop_id"
+  end
+
   create_table "driving_licenses", force: :cascade do |t|
     t.string "name", null: false
     t.index ["name"], name: "index_driving_licenses_on_name", unique: true
@@ -55,13 +69,6 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
     t.boolean "mandatory", default: false, null: false
     t.index ["driving_license_id"], name: "index_driving_licenses_service_spec_on_driving_license_id"
     t.index ["service_specification_id"], name: "index_driving_licenses_service_spec_on_service_specification_id"
-  end
-
-  create_table "driving_licenses_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "driving_license_id", null: false
-    t.index ["driving_license_id"], name: "index_driving_licenses_users_on_driving_license_id"
-    t.index ["user_id"], name: "index_driving_licenses_users_on_user_id"
   end
 
   create_table "expense_sheets", force: :cascade do |t|
@@ -168,13 +175,6 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
     t.string "referencee_type", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["referencee_id", "referencee_type"], name: "index_users_on_referencee_id_and_referencee_type", unique: true
-  end
-
-  create_table "users_workshops", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "workshop_id", null: false
-    t.index ["user_id"], name: "index_users_workshops_on_user_id"
-    t.index ["workshop_id"], name: "index_users_workshops_on_workshop_id"
   end
 
   create_table "workshops", force: :cascade do |t|
