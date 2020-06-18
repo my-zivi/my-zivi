@@ -18,17 +18,9 @@ class CivilServant < ApplicationRecord
   #        :jwt_authenticatable, jwt_revocation_strategy: self
 
   validates :first_name, :last_name, :iban, :birthday, :health_insurance, :hometown, :phone, presence: true
-  validates :email, :zdp, uniqueness: { case_sensitive: false }
+  validates :zdp, uniqueness: { case_sensitive: false }
 
-  validates :zdp, numericality: {
-    greater_than: 10_000,
-    less_than: 999_999,
-    only_integer: true
-  }
-
-  validates :zip, numericality: { only_integer: true }
   validates :bank_iban, format: { with: /\ACH\d{2}(\w{4}){4,7}\w{0,2}\z/ }
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   validate :validate_iban
 
