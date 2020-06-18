@@ -7,8 +7,8 @@ RSpec.describe ServiceSpecification, type: :model do
     subject(:model) { described_class.new }
 
     it_behaves_like 'validates presence of required fields', %i[
-      short_name
       name
+      internal_note
       identification_number
       accommodation_expenses
       work_clothing_expenses
@@ -23,12 +23,6 @@ RSpec.describe ServiceSpecification, type: :model do
       expect(model).to validate_numericality_of(:work_clothing_expenses).only_integer
       expect(model).to validate_length_of(:identification_number).is_at_least(5).is_at_most(7)
     end
-  end
-
-  describe '#pocket_money' do
-    subject { build(:service_specification).pocket_money }
-
-    it { is_expected.to eq ServiceSpecification::POCKET_MONEY }
   end
 
   describe '#work_days_expenses' do

@@ -40,13 +40,13 @@ class AddDomainModel < ActiveRecord::Migration[6.0]
 
     create_table :service_specifications do |t|
       t.string :name, null: false
-      t.string :short_name, null: false
+      t.string :internal_note, null: true
       t.integer :work_clothing_expenses, null: false
       t.integer :accommodation_expenses, null: false
-      t.json :work_days_expenses, null: false
-      t.json :paid_vacation_expenses, null: false
-      t.json :first_day_expenses, null: false
-      t.json :last_day_expenses, null: false
+      t.jsonb :work_days_expenses, null: false
+      t.jsonb :paid_vacation_expenses, null: false
+      t.jsonb :first_day_expenses, null: false
+      t.jsonb :last_day_expenses, null: false
       t.string :location
       t.boolean :active, default: true
       t.string :identification_number, null: false

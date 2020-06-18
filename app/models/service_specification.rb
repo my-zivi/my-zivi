@@ -4,23 +4,13 @@ class ServiceSpecification < ApplicationRecord
   ALLOWED_EXPENSE_KEYS = %w[breakfast lunch dinner].freeze
   POCKET_MONEY = 500
 
-  serialize :work_days_expenses, JSON
-  serialize :paid_vacation_expenses, JSON
-  serialize :first_day_expenses, JSON
-  serialize :last_day_expenses, JSON
-
-  enum location: {
-    valais: 'vs',
-    zurich: 'zh'
-  }, _prefix: true
-
   has_many :services, dependent: :restrict_with_error
 
   validates :accommodation_expenses, :first_day_expenses,
             :identification_number, :last_day_expenses,
             :location, :name, :paid_vacation_expenses,
             :work_clothing_expenses, :work_days_expenses,
-            :short_name, presence: true
+            :internal_note, presence: true
 
   validates :accommodation_expenses, :work_clothing_expenses, numericality: { only_integer: true }
   validates :identification_number, length: { minimum: 5, maximum: 7 }
@@ -32,10 +22,6 @@ class ServiceSpecification < ApplicationRecord
 
   def title
     "#{identification_number} #{name}"
-  end
-
-  def pocket_money
-    POCKET_MONEY
   end
 
   private
