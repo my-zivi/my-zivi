@@ -18,7 +18,7 @@ class Service < ApplicationRecord
     probation: 2
   }, _suffix: 'civil_service'
 
-  validates :ending, :beginning, :service_specification, :service_type, presence: true
+  validates :ending, :beginning, presence: true
   validates :beginning, timeliness: { after: :ending }
 
   validate :ending_is_friday, unless: :last_service?
@@ -69,7 +69,7 @@ class Service < ApplicationRecord
   end
 
   def service_calculator
-    @service_calculator ||= ServiceCalculator.new(beginning, last_civil_service?)
+    @service_calculator ||= ServiceCalculator.new(beginning, last_service?)
   end
 
   def no_overlapping_service
@@ -87,7 +87,7 @@ class Service < ApplicationRecord
   end
 
   def length_is_valid
-    return if ending.blank? || beginning.blank? || last_civil_service?
+    return if ending.blank? || beginning.blank? || last_service?
 
     errors.add(:service_days, :invalid_length) if (ending - beginning).to_i + 1 < MIN_NORMAL_SERVICE_LENGTH
   end
