@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
   end
 
   create_table "administrators", force: :cascade do |t|
-    t.bigint "organizations_id", null: false
-    t.index ["organizations_id"], name: "index_administrators_on_organizations_id"
+    t.bigint "organization_id", null: false
+    t.index ["organization_id"], name: "index_administrators_on_organization_id"
   end
 
   create_table "civil_servants", force: :cascade do |t|
@@ -37,10 +37,10 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
     t.string "phone", null: false
     t.string "iban", null: false
     t.string "health_insurance", null: false
-    t.bigint "regional_centers_id", null: false
-    t.bigint "addresses_id", null: false
-    t.index ["addresses_id"], name: "index_civil_servants_on_addresses_id"
-    t.index ["regional_centers_id"], name: "index_civil_servants_on_regional_centers_id"
+    t.bigint "regional_center_id", null: false
+    t.bigint "address_id", null: false
+    t.index ["address_id"], name: "index_civil_servants_on_address_id"
+    t.index ["regional_center_id"], name: "index_civil_servants_on_regional_center_id"
     t.index ["zdp"], name: "index_civil_servants_on_zdp", unique: true
   end
 
@@ -94,18 +94,18 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
     t.string "credited_iban", null: false
     t.integer "state", default: 0, null: false
     t.integer "amount", default: 0, null: false
-    t.bigint "services_id", null: false
-    t.bigint "payments_id"
-    t.index ["payments_id"], name: "index_expense_sheets_on_payments_id"
-    t.index ["services_id"], name: "index_expense_sheets_on_services_id"
+    t.bigint "service_id", null: false
+    t.bigint "payment_id"
+    t.index ["payment_id"], name: "index_expense_sheets_on_payment_id"
+    t.index ["service_id"], name: "index_expense_sheets_on_service_id"
   end
 
   create_table "organization_holidays", force: :cascade do |t|
     t.date "beginning", null: false
     t.date "ending", null: false
     t.string "description", null: false
-    t.bigint "organizations_id", null: false
-    t.index ["organizations_id"], name: "index_organization_holidays_on_organizations_id"
+    t.bigint "organization_id", null: false
+    t.index ["organization_id"], name: "index_organization_holidays_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -127,8 +127,8 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
   create_table "regional_centers", force: :cascade do |t|
     t.string "name", null: false
     t.string "short_name", null: false
-    t.bigint "addresses_id", null: false
-    t.index ["addresses_id"], name: "index_regional_centers_on_addresses_id"
+    t.bigint "address_id", null: false
+    t.index ["address_id"], name: "index_regional_centers_on_address_id"
   end
 
   create_table "service_specifications", force: :cascade do |t|
@@ -143,9 +143,9 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
     t.string "location"
     t.boolean "active", default: true
     t.string "identification_number", null: false
-    t.bigint "organizations_id", null: false
+    t.bigint "organization_id", null: false
     t.index ["identification_number"], name: "index_service_specifications_on_identification_number", unique: true
-    t.index ["organizations_id"], name: "index_service_specifications_on_organizations_id"
+    t.index ["organization_id"], name: "index_service_specifications_on_organization_id"
   end
 
   create_table "service_specifications_workshops", id: false, force: :cascade do |t|
@@ -163,10 +163,10 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
     t.integer "service_type", default: 0, null: false
     t.boolean "last_service", default: false, null: false
     t.boolean "feedback_mail_sent", default: false, null: false
-    t.bigint "civil_servants_id", null: false
-    t.bigint "service_specifications_id", null: false
-    t.index ["civil_servants_id"], name: "index_services_on_civil_servants_id"
-    t.index ["service_specifications_id"], name: "index_services_on_service_specifications_id"
+    t.bigint "civil_servant_id", null: false
+    t.bigint "service_specification_id", null: false
+    t.index ["civil_servant_id"], name: "index_services_on_civil_servant_id"
+    t.index ["service_specification_id"], name: "index_services_on_service_specification_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -182,23 +182,23 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
     t.index ["name"], name: "index_workshops_on_name", unique: true
   end
 
-  add_foreign_key "administrators", "organizations", column: "organizations_id"
-  add_foreign_key "civil_servants", "addresses", column: "addresses_id"
-  add_foreign_key "civil_servants", "regional_centers", column: "regional_centers_id"
+  add_foreign_key "administrators", "organizations"
+  add_foreign_key "civil_servants", "addresses"
+  add_foreign_key "civil_servants", "regional_centers"
   add_foreign_key "civil_servants_driving_licenses", "civil_servants"
   add_foreign_key "civil_servants_driving_licenses", "driving_licenses"
   add_foreign_key "civil_servants_workshops", "civil_servants"
   add_foreign_key "civil_servants_workshops", "workshops"
   add_foreign_key "driving_licenses_service_specifications", "driving_licenses"
   add_foreign_key "driving_licenses_service_specifications", "service_specifications"
-  add_foreign_key "expense_sheets", "payments", column: "payments_id"
-  add_foreign_key "expense_sheets", "services", column: "services_id"
-  add_foreign_key "organization_holidays", "organizations", column: "organizations_id"
+  add_foreign_key "expense_sheets", "payments"
+  add_foreign_key "expense_sheets", "services"
+  add_foreign_key "organization_holidays", "organizations"
   add_foreign_key "payments", "organizations"
-  add_foreign_key "regional_centers", "addresses", column: "addresses_id"
-  add_foreign_key "service_specifications", "organizations", column: "organizations_id"
+  add_foreign_key "regional_centers", "addresses"
+  add_foreign_key "service_specifications", "organizations"
   add_foreign_key "service_specifications_workshops", "service_specifications"
   add_foreign_key "service_specifications_workshops", "workshops"
-  add_foreign_key "services", "civil_servants", column: "civil_servants_id"
-  add_foreign_key "services", "service_specifications", column: "service_specifications_id"
+  add_foreign_key "services", "civil_servants"
+  add_foreign_key "services", "service_specifications"
 end

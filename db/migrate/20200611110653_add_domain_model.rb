@@ -20,7 +20,7 @@ class AddDomainModel < ActiveRecord::Migration[6.0]
     create_table :payments do |t|
       t.integer :state, default: 0, null: false
       t.datetime :paid_timestamp, null: true
-      t.references :organization, foreign_key: true, null: false
+      t.belongs_to :organization, foreign_key: true, null: false
     end
 
     create_table :organization_holidays do |t|
@@ -28,14 +28,14 @@ class AddDomainModel < ActiveRecord::Migration[6.0]
       t.date :ending, null: false
       t.string :description, null: false
 
-      t.references :organizations, foreign_key: true, null: false
+      t.belongs_to :organization, foreign_key: true, null: false
     end
 
     create_table :regional_centers do |t|
       t.string :name, null: false
       t.string :short_name, null: false
 
-      t.references :addresses, foreign_key: true, null: false
+      t.belongs_to :address, foreign_key: true, null: false
     end
 
     create_table :service_specifications do |t|
@@ -51,7 +51,7 @@ class AddDomainModel < ActiveRecord::Migration[6.0]
       t.boolean :active, default: true
       t.string :identification_number, null: false
 
-      t.references :organizations, foreign_key: true, null: false
+      t.belongs_to :organization, foreign_key: true, null: false
       t.index :identification_number, unique: true
     end
 
@@ -74,13 +74,13 @@ class AddDomainModel < ActiveRecord::Migration[6.0]
       t.string :iban, null: false
       t.string :health_insurance, null: false
 
-      t.references :regional_centers, foreign_key: true, null: false
-      t.references :addresses, foreign_key: true, null: false
+      t.belongs_to :regional_center, foreign_key: true, null: false
+      t.belongs_to :address, foreign_key: true, null: false
       t.index :zdp, unique: true
     end
 
     create_table :administrators do |t|
-      t.references :organizations, foreign_key: true, null: false
+      t.belongs_to :organization, foreign_key: true, null: false
     end
 
     create_table :workshops do |t|
@@ -125,8 +125,8 @@ class AddDomainModel < ActiveRecord::Migration[6.0]
       t.boolean :last_service, default: false, null: false
       t.boolean :feedback_mail_sent, default: false, null: false
 
-      t.references :civil_servants, foreign_key: true, null: false
-      t.references :service_specifications, foreign_key: true, null: false
+      t.belongs_to :civil_servant, foreign_key: true, null: false
+      t.belongs_to :service_specification, foreign_key: true, null: false
     end
 
     create_table :expense_sheets do |t|
@@ -153,8 +153,8 @@ class AddDomainModel < ActiveRecord::Migration[6.0]
       t.integer :state, default: 0, null: false
       t.integer :amount, default: 0, null: false
 
-      t.references :services, foreign_key: true, null: false
-      t.references :payments, foreign_key: true, null: true
+      t.belongs_to :service, foreign_key: true, null: false
+      t.belongs_to :payment, foreign_key: true, null: true
     end
 
     add_foreign_key :civil_servants_driving_licenses, :civil_servants, column: :civil_servant_id
