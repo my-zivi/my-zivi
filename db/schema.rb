@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
     t.string "primary_line", null: false
     t.string "secondary_line"
     t.string "street", null: false
+    t.string "supplement"
     t.string "city", null: false
     t.integer "zip", null: false
   end

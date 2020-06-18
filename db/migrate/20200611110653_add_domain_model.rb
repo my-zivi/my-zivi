@@ -4,6 +4,7 @@ class AddDomainModel < ActiveRecord::Migration[6.0]
       t.string :primary_line, null: false
       t.string :secondary_line, null: true
       t.string :street, null: false
+      t.string :supplement, null: true
       t.string :city, null: false
       t.integer :zip, null: false
     end
