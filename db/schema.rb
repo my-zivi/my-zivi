@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
     t.string "extraordinary_expenses_comment"
     t.integer "clothing_expenses", default: 0, null: false
     t.string "clothing_expenses_comment"
-    t.string "credited_iban", null: false
+    t.string "credited_iban"
     t.integer "state", default: 0, null: false
     t.integer "amount", default: 0, null: false
     t.bigint "service_id", null: false
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
     t.string "name", null: false
     t.text "intro_text"
     t.bigint "address_id", null: false
-    t.bigint "letter_address_id", null: false
+    t.bigint "letter_address_id"
     t.index ["address_id"], name: "index_organizations_on_address_id"
     t.index ["letter_address_id"], name: "index_organizations_on_letter_address_id"
   end

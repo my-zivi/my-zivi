@@ -7,12 +7,12 @@ FactoryBot.define do
     work_days { 26 - sick_days }
     unpaid_company_holiday_days { 0 }
     paid_company_holiday_days { 0 }
-    company_holiday_comment { 'MyString' }
+    company_holiday_comment { 'My company holiday comment' }
     workfree_days { 2 }
     sick_days { 0 }
-    sick_comment { 'MyString' }
+    sick_comment { 'He/She was very sick' }
     paid_vacation_days { 0 }
-    paid_vacation_comment { 'MyString' }
+    paid_vacation_comment { 'He/She separately needed vacation' }
     unpaid_vacation_days { 0 }
     unpaid_vacation_comment { 'MyString' }
     driving_expenses { 2000 }
@@ -21,31 +21,15 @@ FactoryBot.define do
     extraordinary_expenses_comment { 'MyString' }
     clothing_expenses { 3200 }
     clothing_expenses_comment { 'MyString' }
-    bank_account_number { 'MyString' }
-    state { :open }
-    payment_timestamp { nil }
-    user
+    state { :editable }
+    credited_iban { nil }
 
     trait :with_sick_days do
       sick_days { 1 }
     end
 
-    trait :ready_for_payment do
-      state { :ready_for_payment }
-    end
-
-    trait :payment_in_progress do
-      to_create { |expense_sheet| expense_sheet.save!(validate: false) }
-
-      state { :payment_in_progress }
-      payment_timestamp { Time.zone.at(1_564_471_897) }
-    end
-
-    trait :paid do
-      to_create { |expense_sheet| expense_sheet.save!(validate: false) }
-
-      state { :paid }
-      payment_timestamp { Time.zone.at(1_564_471_897) }
+    trait :with_service do
+      service
     end
   end
 end

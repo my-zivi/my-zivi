@@ -14,7 +14,7 @@ FactoryBot.define do
     trait :full do
       address
       regional_center
-      user
+      association :user, strategy: :build
     end
   end
 end

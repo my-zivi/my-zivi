@@ -7,7 +7,7 @@ class ExpenseSheet < ApplicationRecord
   belongs_to :service
   belongs_to :payment, optional: true
 
-  validates :beginning, :ending, :user, :work_days, :credited_iban, :state, presence: true
+  validates :beginning, :ending, :work_days, :state, presence: true
 
   validates :work_days,
             :workfree_days,
@@ -23,15 +23,16 @@ class ExpenseSheet < ApplicationRecord
 
   validates :payments_id, presence: true, if: -> { state.in?(%w[payment_in_progress paid]) }
   validates :payment_timestamp, inclusion: { in: [nil] }, if: -> { state.in?(%w[open ready_for_payment]) }
-  validate :included_in_service_date_range
 
   before_destroy :legitimate_destroy
 
+  # locked - Expense sheet is not editable it's not relevant yet, e.g. in future
+  # editable - Current expense sheet, relevant and editable
+  # closed - Past, already paid out expense sheets, not editable
   enum state: {
-    open: 0,
-    ready_for_payment: 1,
-    payment_in_progress: 2,
-    paid: 3
+    locked: 0,
+    editable: 1,
+    closed: 2
   }
 
   scope :in_payment, ->(payment_timestamp) { includes(:user).where(payment_timestamp: payment_timestamp) }
@@ -40,7 +41,7 @@ class ExpenseSheet < ApplicationRecord
   scope :filtered_by, ->(filters) { filters.reduce(self) { |query, filter| query.where(filter) } if filters.present? }
 
   # ExpenseSheets which can be used in calculations
-  scope :relevant_for_calculations, -> { where.not(state: :open) }
+  scope :relevant_for_calculations, -> { where.not(state: :locked) }
 
   delegate :calculate_chargeable_days,
            :calculate_first_day,
@@ -55,13 +56,6 @@ class ExpenseSheet < ApplicationRecord
            to: :values_calculator
 
   alias total calculate_full_expenses
-
-  def service
-    return if user.nil?
-
-    services = user.services
-    @service ||= services.loaded? ? eager_loaded_service(services) : fetch_service(services)
-  end
 
   def duration
     (ending - beginning).to_i + 1
@@ -118,9 +112,5 @@ class ExpenseSheet < ApplicationRecord
 
   def values_calculator
     @values_calculator ||= ExpenseSheetCalculators::ExpensesCalculator.new(self)
-  end
-
-  def included_in_service_date_range
-    errors.add(:base, I18n.t('expense_sheet.errors.outside_service_date_range')) if service.nil?
   end
 end
