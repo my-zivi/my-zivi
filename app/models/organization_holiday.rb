@@ -4,20 +4,14 @@ class OrganizationHoliday < ApplicationRecord
   include DateRangeFilterable
 
   validates :beginning, :ending, timeliness: { type: :date }
-  validates :beginning, :ending, :description, :holiday_type, presence: true
-  validates :beginning, datetime: { after: :ending }
+  validates :beginning, :ending, :description, presence: true
+  validates :beginning, timeliness: { after: :ending }
 
   belongs_to :organization
 
-  enum holiday_type: {
-    company_holiday: 1,
-    public_holiday: 2
-  }
-
+  # TODO: Implement with holidays gem
   def work_days(public_holidays = nil)
-    return range.reject { |day| day.on_weekend? || day_on_public_holiday?(day, public_holidays) } if company_holiday?
-
-    range.select(&:on_weekday?) if public_holiday?
+    range.reject { |day| day.on_weekend? || day_on_public_holiday?(day, public_holidays) }
   end
 
   def range

@@ -2,19 +2,19 @@
 
 require 'rails_helper'
 
-RSpec.describe Holiday, type: :model do
+RSpec.describe OrganizationHoliday, type: :model do
   describe 'validations' do
     subject(:model) { described_class.new }
 
-    it_behaves_like 'validates presence of required fields', %i[beginning ending holiday_type description]
+    it_behaves_like 'validates presence of required fields', %i[beginning ending description]
   end
 
   it_behaves_like 'validates that the ending is after beginning' do
-    let(:model) { build(:holiday, beginning: beginning, ending: ending) }
+    let(:model) { build(:organization_holiday, beginning: beginning, ending: ending) }
   end
 
   describe '#range' do
-    subject(:holiday) { build(:holiday, beginning: beginning, ending: ending) }
+    subject(:holiday) { build(:organization_holiday, beginning: beginning, ending: ending) }
 
     let(:beginning) { Date.parse('2019-04-10') }
     let(:ending) { Date.parse('2019-04-20') }
@@ -26,13 +26,13 @@ RSpec.describe Holiday, type: :model do
 
   describe '#work_days' do
     context 'when holiday is a company holiday' do
-      let(:holiday) { build(:holiday, beginning: Date.parse('2019-04-10'), ending: Date.parse('2019-04-20')) }
+      let(:holiday) { build(:organization_holiday, beginning: Date.parse('2019-04-10'), ending: Date.parse('2019-04-20')) }
 
       context 'with two public holidays' do
         let(:public_holidays) do
           [
-            create(:holiday, :public_holiday, beginning: holiday.beginning, ending: holiday.beginning),
-            create(:holiday, :public_holiday, beginning: holiday.beginning + 3, ending: holiday.beginning + 5)
+            create(:organization_holiday, beginning: holiday.beginning, ending: holiday.beginning),
+            create(:organization_holiday, beginning: holiday.beginning + 3, ending: holiday.beginning + 5)
           ]
         end
 
@@ -72,7 +72,7 @@ RSpec.describe Holiday, type: :model do
 
     context 'when holiday is a public holiday' do
       let(:holiday) do
-        create(:holiday, :public_holiday, beginning: Date.parse('2019-04-10'), ending: Date.parse('2019-04-20'))
+        create(:organization_holiday, beginning: Date.parse('2019-04-10'), ending: Date.parse('2019-04-20'))
       end
 
       let(:expected_work_days) do

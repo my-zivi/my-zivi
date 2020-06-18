@@ -52,6 +52,9 @@ Rails/Output:
   Exclude:
     - 'lib/v1/data_migrator.rb'
 
+RSpec/NestedGroups:
+  Max: 4
+
 AllCops:
   NewCops: enable
   Exclude:
