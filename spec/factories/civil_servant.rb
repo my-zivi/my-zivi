@@ -10,7 +10,11 @@ FactoryBot.define do
     phone { '+41 (0) 76 123 45 67' }
     iban { 'CH9300762011623852957' }
     health_insurance { 'Sanicare' }
-    regional_center
-    address
+
+    trait :full do
+      address
+      regional_center
+      user
+    end
   end
 end

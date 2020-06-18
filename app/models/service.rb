@@ -7,7 +7,7 @@ class Service < ApplicationRecord
 
   include DateRangeFilterable
 
-  belongs_to :user
+  belongs_to :civil_servant
   belongs_to :service_specification
 
   before_destroy :check_delete

@@ -2,7 +2,7 @@
 
 class ExpenseSheet < ApplicationRecord
   include DateRangeFilterable
-  include ExpenseSheet::StateMachine
+  include ExpenseSheetStateMachine
 
   belongs_to :service
   belongs_to :payment, optional: true
