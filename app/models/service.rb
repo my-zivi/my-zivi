@@ -18,7 +18,7 @@ class Service < ApplicationRecord
     probation: 2
   }, _suffix: 'civil_service'
 
-  validates :ending, :beginning, :user, :service_specification, :service_type, presence: true
+  validates :ending, :beginning, :service_specification, :service_type, presence: true
   validates :beginning, timeliness: { after: :ending }
 
   validate :ending_is_friday, unless: :last_service?
@@ -47,7 +47,7 @@ class Service < ApplicationRecord
   end
 
   def expense_sheets
-    @expense_sheets ||= user.expense_sheets.in_date_range(beginning, ending)
+    @expense_sheets ||= civil_servant.expense_sheets.in_date_range(beginning, ending)
   end
 
   def in_future?
@@ -73,7 +73,7 @@ class Service < ApplicationRecord
   end
 
   def no_overlapping_service
-    overlaps_other_service = Service.where(user: user).where.not(id: id).overlapping_date_range(beginning, ending).any?
+    overlaps_other_service = Service.where(civil_servant: civil_servant).where.not(id: id).overlapping_date_range(beginning, ending).any?
 
     errors.add(:beginning, :overlaps_service) if overlaps_other_service
   end
@@ -93,7 +93,7 @@ class Service < ApplicationRecord
   end
 
   def deletable?
-    sheets_in_range = user.expense_sheets.in_date_range(beginning, ending)
+    sheets_in_range = civil_servant.expense_sheets.in_date_range(beginning, ending)
     sheets_in_range.nil? || sheets_in_range.count.zero?
   end
 

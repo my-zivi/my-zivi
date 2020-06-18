@@ -20,7 +20,7 @@ RSpec.describe Service, type: :model do
       subject { service.tap(&:validate).errors.added? :service_days, :invalid_length }
 
       let(:service) { build(:service, beginning: beginning, ending: ending, civil_servant: civil_servant) }
-      let(:civil_servant) { create :civil_servant }
+      let(:civil_servant) { create :civil_servant, :full }
       let(:service_range) { get_service_range months: 2 }
       let(:beginning) { service_range.begin }
       let(:ending) { service_range.end }
@@ -91,7 +91,7 @@ RSpec.describe Service, type: :model do
       subject { service.tap(&:validate).errors.added? :beginning, :overlaps_service }
 
       let(:service) { build(:service, beginning: beginning, ending: ending, civil_servant: civil_servant) }
-      let(:civil_servant) { create :civil_servant }
+      let(:civil_servant) { create(:civil_servant, :full) }
       let(:service_range) { get_service_range months: 2 }
       let(:beginning) { service_range.begin }
       let(:ending) { service_range.end }
@@ -206,7 +206,7 @@ RSpec.describe Service, type: :model do
     let(:beginning) { (Time.zone.today - 3.months).beginning_of_week }
     let(:ending) { (Time.zone.today - 1.week).end_of_week - 2.days }
 
-    let(:civil_servant) { create :civil_servant }
+    let(:civil_servant) { create :civil_servant, :full }
     let(:service) { create(:service, civil_servant: civil_servant, beginning: beginning, ending: ending) }
 
     context 'when it has one expense_sheet' do
@@ -219,31 +219,6 @@ RSpec.describe Service, type: :model do
       let(:expense_sheets) { create_list :expense_sheet, 3, civil_servant: civil_servant, beginning: beginning, ending: ending }
 
       it { is_expected.to eq expense_sheets }
-    end
-  end
-
-  describe '#send_feedback_reminder' do
-    subject(:service) { build :service, civil_servant: build(:civil_servant) }
-
-    let(:envs) do
-      {
-        FEEDBACK_MAIL_SURVEY_URL: 'http://example.com?service_id=%<service_id>s',
-        MAIL_SENDER: 'from@example.com'
-      }
-    end
-
-    it 'sends a mail to the civil_servant' do
-      ClimateControl.modify envs do
-        expect { service.send_feedback_reminder }.to(
-          change { ActionMailer::Base.deliveries.count }.by(1)
-        )
-      end
-    end
-
-    it 'sets #feedback_mail_sent to true' do
-      ClimateControl.modify envs do
-        expect { service.send_feedback_reminder }.to change(service, :feedback_mail_sent).from(false).to(true)
-      end
     end
   end
 
