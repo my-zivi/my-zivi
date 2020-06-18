@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 class Service < ApplicationRecord
-  FRIDAY_WEEKDAY = Date::DAYNAMES.index('Friday').freeze
-  MONDAY_WEEKDAY = Date::DAYNAMES.index('Monday').freeze
+  FRIDAY_WEEKDAY = Date::DAYS_INTO_WEEK[:friday].freeze
+  MONDAY_WEEKDAY = Date::DAYS_INTO_WEEK[:monday].freeze
   MIN_NORMAL_SERVICE_LENGTH = 26
 
-  include Concerns::PositiveTimeSpanValidatable
-  include Concerns::DateRangeFilterable
+  include DateRangeFilterable
 
   belongs_to :user
   belongs_to :service_specification
@@ -15,19 +14,17 @@ class Service < ApplicationRecord
 
   enum service_type: {
     normal: 0,
-    first: 1,
-    last: 2
+    long: 1,
+    probation: 2
   }, _suffix: 'civil_service'
 
-  validates :ending, :beginning, :user,
-            :service_specification, :service_type,
-            presence: true
+  validates :ending, :beginning, :user, :service_specification, :service_type, presence: true
+  validates :beginning, timeliness: { after: :ending }
 
-  validate :ending_is_friday, unless: :last_civil_service?
+  validate :ending_is_friday, unless: :last_service?
   validate :beginning_is_monday
   validate :no_overlapping_service
   validate :length_is_valid
-  validate :validate_iban, on: :create, unless: :no_user?
 
   scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
   scope :chronologically, -> { order(:beginning, :ending) }
@@ -36,11 +33,6 @@ class Service < ApplicationRecord
   delegate :used_paid_vacation_days, :used_sick_days, to: :used_days_calculator
   delegate :remaining_paid_vacation_days, :remaining_sick_days, to: :remaining_days_calculator
   delegate :identification_number, to: :service_specification
-  delegate :bank_iban, to: :user
-
-  def check_delete
-    raise 'Cannot delete a service which has associated expense sheets!' unless deletable?
-  end
 
   def service_days
     service_calculator.calculate_chargeable_service_days(ending)
@@ -54,32 +46,12 @@ class Service < ApplicationRecord
     service_calculator.calculate_eligible_sick_days(service_days)
   end
 
-  def conventional_service?
-    !probation_service? && !long_service?
-  end
-
-  def no_user?
-    user.nil?
-  end
-
   def expense_sheets
     @expense_sheets ||= user.expense_sheets.in_date_range(beginning, ending)
   end
 
-  def send_feedback_reminder
-    FeedbackMailer.feedback_reminder_mail(self).deliver_now
-    update feedback_mail_sent: true
-
-    Rails.logger.info "Sent reminder to #{user.email} (Service id ##{id})"
-  end
-
   def in_future?
     beginning.future?
-  end
-
-  def deletable?
-    sheets_in_range = user.expense_sheets.in_date_range(beginning, ending)
-    sheets_in_range.nil? || sheets_in_range.count.zero?
   end
 
   def date_range
@@ -120,9 +92,12 @@ class Service < ApplicationRecord
     errors.add(:service_days, :invalid_length) if (ending - beginning).to_i + 1 < MIN_NORMAL_SERVICE_LENGTH
   end
 
-  def validate_iban
-    IBANTools::IBAN.new(user.bank_iban).validation_errors.each do |error|
-      errors.add(:bank_iban, error)
-    end
+  def deletable?
+    sheets_in_range = user.expense_sheets.in_date_range(beginning, ending)
+    sheets_in_range.nil? || sheets_in_range.count.zero?
+  end
+
+  def check_delete
+    raise 'Cannot delete a service which has associated expense sheets!' unless deletable?
   end
 end
