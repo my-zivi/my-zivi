@@ -13,7 +13,7 @@ FactoryBot.define do
     paid_vacation_expenses { { breakfast: 400, lunch: 900, dinner: 700 } }
     first_day_expenses { { breakfast: 0, lunch: 900, dinner: 700 } }
     last_day_expenses { { breakfast: 400, lunch: 900, dinner: 0 } }
-    organization
+    association :organization
 
     trait :valais do
       location { 'valais' }

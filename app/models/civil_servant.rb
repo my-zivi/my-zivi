@@ -4,6 +4,7 @@ require 'iban-tools'
 
 class CivilServant < ApplicationRecord
   belongs_to :regional_center
+  belongs_to :address
 
   has_one :user, as: :referencee, dependent: :destroy
   has_many :expense_sheets, dependent: :restrict_with_error

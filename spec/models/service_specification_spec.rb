@@ -25,6 +25,15 @@ RSpec.describe ServiceSpecification, type: :model do
     end
   end
 
+  describe 'model definition' do
+    subject(:model) { described_class.new }
+
+    it 'has correct relations' do
+      expect(model).to belong_to(:organization)
+      expect(model).to have_many(:services)
+    end
+  end
+
   describe '#work_days_expenses' do
     subject { service_specification.tap(&:validate).errors.added? :work_days_expenses, error_key }
 

@@ -4,6 +4,7 @@ class ServiceSpecification < ApplicationRecord
   ALLOWED_EXPENSE_KEYS = %w[breakfast lunch dinner].freeze
   POCKET_MONEY = 500
 
+  belongs_to :organization
   has_many :services, dependent: :restrict_with_error
 
   validates :accommodation_expenses, :first_day_expenses,

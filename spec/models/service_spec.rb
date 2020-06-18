@@ -70,8 +70,7 @@ RSpec.describe Service, type: :model do
 
     describe '#beginning_is_monday' do
       subject do
-        build(:service, beginning: beginning, ending: ending)
-          .tap(&:validate).errors.added? :beginning, :not_a_monday
+        build(:service, beginning: beginning, ending: ending).tap(&:validate).errors.added?(:beginning, :not_a_monday)
       end
 
       let(:beginning) { Time.zone.today.at_beginning_of_week }
