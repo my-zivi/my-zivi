@@ -7,7 +7,10 @@ RSpec.describe DrivingLicense, type: :model do
 
   it 'defines model correctly', :aggregate_failures do
     expect(model).to validate_presence_of :name
+
     expect(model).to have_many(:civil_servants_driving_licenses)
     expect(model).to have_many(:civil_servants).through(:civil_servants_driving_licenses)
+    expect(model).to have_many(:driving_licenses_service_specifications)
+    expect(model).to have_many(:service_specifications).through(:driving_licenses_service_specifications)
   end
 end

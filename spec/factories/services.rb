@@ -9,7 +9,7 @@ FactoryBot.define do
     last_service { false }
     feedback_mail_sent { false }
     service_specification
-    civil_servant
+    association :civil_servant, :full
 
     trait :unconfirmed do
       confirmation_date { nil }
