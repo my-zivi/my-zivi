@@ -118,7 +118,6 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.integer "state", default: 0, null: false
     t.datetime "paid_timestamp"
     t.bigint "organization_id", null: false
     t.index ["organization_id"], name: "index_payments_on_organization_id"
@@ -191,8 +190,8 @@ ActiveRecord::Schema.define(version: 2020_06_11_110653) do
   add_foreign_key "civil_servants_workshops", "workshops"
   add_foreign_key "driving_licenses_service_specifications", "driving_licenses"
   add_foreign_key "driving_licenses_service_specifications", "service_specifications"
-  add_foreign_key "expense_sheets", "payments"
-  add_foreign_key "expense_sheets", "services"
+  add_foreign_key "expense_sheets", "payments", column: "payments_id"
+  add_foreign_key "expense_sheets", "services", column: "services_id"
   add_foreign_key "organization_holidays", "organizations"
   add_foreign_key "payments", "organizations"
   add_foreign_key "regional_centers", "addresses"

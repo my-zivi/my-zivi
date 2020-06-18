@@ -18,7 +18,6 @@ class AddDomainModel < ActiveRecord::Migration[6.0]
     end
 
     create_table :payments do |t|
-      t.integer :state, default: 0, null: false
       t.datetime :paid_timestamp, null: true
       t.belongs_to :organization, foreign_key: true, null: false
     end
