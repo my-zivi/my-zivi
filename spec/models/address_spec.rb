@@ -8,9 +8,9 @@ RSpec.describe Address, type: :model do
 
     it 'validates the model correctly', :aggregate_failures do
       expect(model).to validate_numericality_of(:zip)
-                         .only_integer
-                         .is_less_than(10_000)
-                         .is_greater_than_or_equal_to(1_000)
+        .only_integer
+        .is_less_than(10_000)
+        .is_greater_than_or_equal_to(1_000)
     end
 
     it_behaves_like 'validates presence of required fields', %i[

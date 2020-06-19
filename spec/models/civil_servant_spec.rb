@@ -8,9 +8,9 @@ RSpec.describe CivilServant, type: :model do
 
     it 'validates the model correctly', :aggregate_failures do
       expect(model).to validate_numericality_of(:zdp)
-                         .only_integer
-                         .is_less_than(999_999)
-                         .is_greater_than(10_000)
+        .only_integer
+        .is_less_than(999_999)
+        .is_greater_than(10_000)
     end
 
     it_behaves_like 'validates presence of required fields', %i[

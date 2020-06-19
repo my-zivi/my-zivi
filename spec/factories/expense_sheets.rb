@@ -35,10 +35,6 @@ FactoryBot.define do
       end
     end
 
-    trait :with_sick_days do
-      sick_days { 1 }
-    end
-
     trait :with_service do
       service
     end

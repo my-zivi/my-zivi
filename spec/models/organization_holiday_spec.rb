@@ -32,16 +32,16 @@ RSpec.describe OrganizationHoliday, type: :model do
     context 'with one public holidays' do
       let(:expected_work_days) do
         %w[
-            2019-07-22
-            2019-07-23
-            2019-07-24
-            2019-07-25
-            2019-07-26
-            2019-07-29
-            2019-07-30
-            2019-07-31
-            2019-08-02
-          ].map { |date| Date.parse date }
+          2019-07-22
+          2019-07-23
+          2019-07-24
+          2019-07-25
+          2019-07-26
+          2019-07-29
+          2019-07-30
+          2019-07-31
+          2019-08-02
+        ].map { |date| Date.parse date }
       end
 
       it 'returns only work days without public holidays' do
@@ -56,15 +56,15 @@ RSpec.describe OrganizationHoliday, type: :model do
 
       let(:expected_work_days) do
         %w[
-            2019-07-22
-            2019-07-23
-            2019-07-24
-            2019-07-25
-            2019-07-26
-            2019-07-29
-            2019-07-30
-            2019-07-31
-          ].map { |date| Date.parse date }
+          2019-07-22
+          2019-07-23
+          2019-07-24
+          2019-07-25
+          2019-07-26
+          2019-07-29
+          2019-07-30
+          2019-07-31
+        ].map { |date| Date.parse date }
       end
 
       it { expect(holiday.work_days).to eq expected_work_days }

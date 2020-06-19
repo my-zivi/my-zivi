@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Service < ApplicationRecord
-  FRIDAY_WEEKDAY = Date::DAYS_INTO_WEEK[:friday].freeze
-  MONDAY_WEEKDAY = Date::DAYS_INTO_WEEK[:monday].freeze
   MIN_NORMAL_SERVICE_LENGTH = 26
 
   include DateRangeFilterable
@@ -22,11 +20,6 @@ class Service < ApplicationRecord
 
   validates :ending, :beginning, presence: true
   validates :ending, timeliness: { after: :beginning }
-
-  validate :ending_is_friday, unless: :last_service?
-  validate :beginning_is_monday
-  validate :no_overlapping_service
-  validate :length_is_valid
 
   scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
   scope :chronologically, -> { order(:beginning, :ending) }
@@ -68,26 +61,6 @@ class Service < ApplicationRecord
 
   def service_calculator
     @service_calculator ||= ServiceCalculator.new(beginning, last_service?)
-  end
-
-  def no_overlapping_service
-    overlaps_other_service = Service.where(civil_servant: civil_servant).where.not(id: id).overlapping_date_range(beginning, ending).any?
-
-    errors.add(:beginning, :overlaps_service) if overlaps_other_service
-  end
-
-  def beginning_is_monday
-    errors.add(:beginning, :not_a_monday) unless beginning.present? && beginning.wday == MONDAY_WEEKDAY
-  end
-
-  def ending_is_friday
-    errors.add(:ending, :not_a_friday) unless ending.present? && ending.wday == FRIDAY_WEEKDAY
-  end
-
-  def length_is_valid
-    return if ending.blank? || beginning.blank? || last_service?
-
-    errors.add(:service_days, :invalid_length) if (ending - beginning).to_i + 1 < MIN_NORMAL_SERVICE_LENGTH
   end
 
   def deletable?
