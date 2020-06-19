@@ -29,7 +29,10 @@ FactoryBot.define do
     end
 
     trait :closed do
-      state { :closed }
+      after :create do |model|
+        model.state = :closed
+        model.save(validate: false)
+      end
     end
 
     trait :with_sick_days do
