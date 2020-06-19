@@ -50,7 +50,7 @@ RSpec.describe ExpenseSheet, type: :model do
 
       context 'when expense_sheet is in service period' do
         subject(:expense_sheet) do
-          build(:expense_sheet, beginning: beginning, ending: ending).tap(&:validate)
+          build(:expense_sheet, :with_service, beginning: beginning, ending: ending).tap(&:validate)
         end
 
         it 'is valid' do
@@ -60,13 +60,14 @@ RSpec.describe ExpenseSheet, type: :model do
 
       context 'when expense_sheet is outside service period' do
         subject(:expense_sheet) do
-          build(:expense_sheet, beginning: invalid_beginning, ending: invalid_ending).tap(&:validate)
+          build(:expense_sheet, :with_service, beginning: invalid_beginning, ending: invalid_ending).tap(&:validate)
         end
 
         let(:invalid_beginning) { Date.parse('2019-09-28') }
         let(:invalid_ending) { Date.parse('2019-09-28') }
 
         it 'added error' do
+          pp expense_sheet.errors
           expect(expense_sheet.errors[:base]).to include I18n.t('expense_sheet.errors.outside_service_date_range')
         end
       end
@@ -81,7 +82,7 @@ RSpec.describe ExpenseSheet, type: :model do
     before { create :service, civil_servant: civil_servant }
 
     let(:civil_servant) { create :civil_servant, :full }
-    let!(:expense_sheet) { create :expense_sheet }
+    let!(:expense_sheet) { create :expense_sheet, :with_service }
 
     context 'when the expense sheet is not already paid' do
       it 'destroys the expense_sheet' do
@@ -90,7 +91,7 @@ RSpec.describe ExpenseSheet, type: :model do
     end
 
     context 'when the expense sheet is already paid' do
-      let!(:expense_sheet) { create :expense_sheet, :paid }
+      let!(:expense_sheet) { create :expense_sheet, :with_service, state: :closed }
 
       it 'does not destroy the expense_sheet' do
         expect { expense_sheet.destroy }.not_to change(described_class, :count)
@@ -109,7 +110,7 @@ RSpec.describe ExpenseSheet, type: :model do
     before { expense_sheet.update(state: state) }
 
     let(:expense_sheet) do
-      expense_sheet = build(:expense_sheet, state: state_was)
+      expense_sheet = build(:expense_sheet, :with_service, state: state_was)
       expense_sheet.save validate: false
       expense_sheet
     end
@@ -165,7 +166,7 @@ RSpec.describe ExpenseSheet, type: :model do
   end
 
   describe '#duration' do
-    subject(:expense_sheet) { build(:expense_sheet).duration }
+    subject(:expense_sheet) { build(:expense_sheet, :with_service).duration }
 
     it { is_expected.to eq 26 }
   end
@@ -187,7 +188,7 @@ RSpec.describe ExpenseSheet, type: :model do
   describe '#at_service_beginning?' do
     let(:civil_servant) { create :civil_servant, :full }
     let!(:service) { create :service, service_data.merge(civil_servant: civil_servant) }
-    let(:expense_sheet) { create :expense_sheet, expense_sheet_data }
+    let(:expense_sheet) { create :expense_sheet, :with_service, expense_sheet_data }
 
     let(:service_data) do
       {
@@ -201,6 +202,7 @@ RSpec.describe ExpenseSheet, type: :model do
         {
           beginning: Date.parse('2018-01-01'),
           ending: Date.parse('2018-01-31'),
+          service: service,
           work_days: 23
         }
       end
@@ -215,6 +217,7 @@ RSpec.describe ExpenseSheet, type: :model do
         {
           beginning: Date.parse('2018-02-01'),
           ending: Date.parse('2018-02-28'),
+          service: service,
           work_days: 23
         }
       end
@@ -226,7 +229,7 @@ RSpec.describe ExpenseSheet, type: :model do
   end
 
   describe '#at_service_ending?' do
-    let(:expense_sheet) { create :expense_sheet, :with_service, expense_sheet_data }
+    let(:expense_sheet) { create :expense_sheet, expense_sheet_data }
     let(:service) { create :service, service_data }
 
     let(:service_data) do
@@ -241,6 +244,7 @@ RSpec.describe ExpenseSheet, type: :model do
         {
           beginning: Date.parse('2018-01-08'),
           ending: Date.parse('2018-08-03'),
+          service: service,
           work_days: 3
         }
       end
@@ -255,6 +259,7 @@ RSpec.describe ExpenseSheet, type: :model do
         {
           beginning: Date.parse('2018-02-01'),
           ending: Date.parse('2018-02-28'),
+          service: service,
           work_days: 23
         }
       end
@@ -266,9 +271,9 @@ RSpec.describe ExpenseSheet, type: :model do
   end
 
   describe 'update' do
-    context 'when state is paid' do
+    context 'when state is closed' do
       let!(:service) { create :service }
-      let(:expense_sheet) { create :expense_sheet, :closed }
+      let(:expense_sheet) { create :expense_sheet, service: :service, state: :closed }
 
       it 'prevents an update' do
         expect { expense_sheet.update(sick_comment: 'blubb') }.to raise_error ActiveRecord::ReadOnlyRecord
@@ -276,7 +281,7 @@ RSpec.describe ExpenseSheet, type: :model do
     end
 
     context 'when updating to closed state' do
-      let(:expense_sheet) { create :expense_sheet }
+      let(:expense_sheet) { create :expense_sheet, :with_service }
 
       it 'prevents an update' do
         expect { expense_sheet.update(state: :closed) }.not_to raise_error

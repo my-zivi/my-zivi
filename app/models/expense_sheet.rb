@@ -21,8 +21,8 @@ class ExpenseSheet < ApplicationRecord
             :paid_company_holiday_days,
             numericality: { only_integer: true }
 
-  validates :payments_id, presence: true, if: -> { state.in?(%w[payment_in_progress paid]) }
-  validates :payment_timestamp, inclusion: { in: [nil] }, if: -> { state.in?(%w[open ready_for_payment]) }
+  validates :payments_id, presence: true, if: -> { state === :closed }
+  validates :ending, timeliness: { after: :beginning }
 
   before_destroy :legitimate_destroy
 
@@ -35,8 +35,8 @@ class ExpenseSheet < ApplicationRecord
     closed: 2
   }
 
-  scope :in_payment, ->(payment_timestamp) { includes(:user).where(payment_timestamp: payment_timestamp) }
-  scope :payment_issued, -> { includes(:user).where.not(payment_timestamp: [nil]) }
+  scope :in_payment, ->(payment_timestamp) { includes(:civil_servant).where(payment_timestamp: payment_timestamp) }
+  scope :payment_issued, -> { includes(:civil_servant).where.not(payment_timestamp: [nil]) }
   scope :before_date, ->(date) { where(arel_table[:ending].lt(date)) }
   scope :filtered_by, ->(filters) { filters.reduce(self) { |query, filter| query.where(filter) } if filters.present? }
 

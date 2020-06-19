@@ -107,6 +107,8 @@ de:
           attributes:
             state:
               invalid_state_change: ungültiger Statuswechsel
+            ending:
+              after: Das Startdatum kann nicht nach dem Enddatum sein.
         organization_holiday:
           attributes:
             ending:
