@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Service < ApplicationRecord
-
   include DateRangeFilterable
   include ServiceTimingValidations
 

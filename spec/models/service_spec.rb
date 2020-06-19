@@ -23,7 +23,7 @@ RSpec.describe Service, type: :model do
     end
 
     describe '#length_is_valid' do
-      subject { service.tap(&:validate).errors.added? :service_days, :invalid_length }
+      subject(:length_error_added) { service.tap(&:validate).errors.added? :service_days, :invalid_length }
 
       let(:service) { build(:service, beginning: beginning, ending: ending, civil_servant: civil_servant) }
       let(:civil_servant) { create :civil_servant, :full }
@@ -31,29 +31,33 @@ RSpec.describe Service, type: :model do
       let(:beginning) { service_range.begin }
       let(:ending) { service_range.end }
 
-      context 'when service is normal' do
-        context 'when service has a length that is bigger then 26 days' do
-          it { is_expected.to be false }
-        end
+      it 'is valid when service has a length that is bigger then 26 days' do
+        expect(service).to be_valid
+      end
 
-        context 'when service has a length that is less then 26 days' do
-          let(:service_range) { Date.parse('2018-01-01')..Date.parse('2018-01-19') }
+      context 'when service has a length that is less then 26 days' do
+        let(:service_range) { Date.parse('2018-01-01')..Date.parse('2018-01-19') }
 
-          it { is_expected.to be true }
+        it 'adds a length error' do
+          expect(length_error_added).to eq true
         end
       end
 
       context 'when service is last' do
-        let(:service) { build(:service, beginning: beginning, ending: ending, civil_servant: civil_servant, last_service: true) }
+        let(:service) do
+          build(:service, :last, beginning: beginning, ending: ending, civil_servant: civil_servant)
+        end
 
-        context 'when service has a length that is bigger then 26 days' do
-          it { is_expected.to be false }
+        it 'is valid when service has a length that is bigger then 26 days' do
+          expect(service).to be_valid
         end
 
         context 'when service has a length that is less then 26 days' do
           let(:service_range) { Date.parse('2018-01-01')..Date.parse('2018-01-19') }
 
-          it { is_expected.to be false }
+          it 'is still a valid service' do
+            expect(service).to be_valid
+          end
         end
       end
     end

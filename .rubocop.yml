@@ -53,7 +53,7 @@ Rails/Output:
     - 'lib/v1/data_migrator.rb'
 
 RSpec/NestedGroups:
-  Max: 4
+  Max: 5
 
 AllCops:
   NewCops: enable
