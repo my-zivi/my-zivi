@@ -1,23 +1,20 @@
 # frozen_string_literal: true
 
 class HolidayCalculator
-  def initialize(beginning, ending)
+  def initialize(beginning, ending, region = :ch)
     @beginning = beginning
     @ending = ending
-    @all_holidays = OrganizationHoliday.overlapping_date_range(@beginning, @ending)
+    @all_organization_holidays = OrganizationHoliday.overlapping_date_range(@beginning, @ending)
+    @all_public_holidays = Holidays.between(@beginning, @ending, region)
   end
 
   def calculate_company_holiday_days
-    public_holidays = @all_holidays.select(&:public_holiday?)
-    company_holidays = @all_holidays.select(&:company_holiday?)
-    all_company_holiday_work_days = select_work_days(company_holidays, public_holidays)
+    all_company_holiday_work_days = select_work_days(@all_organization_holidays, @all_public_holidays)
     total_days(all_company_holiday_work_days)
   end
 
   def calculate_public_holiday_days
-    public_holidays = @all_holidays.select(&:public_holiday?)
-    all_public_holiday_weekdays = select_work_days(public_holidays)
-    total_days(all_public_holiday_weekdays)
+    select_work_days(@all_public_holidays)
   end
 
   private

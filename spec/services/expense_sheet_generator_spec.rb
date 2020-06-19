@@ -16,14 +16,14 @@ RSpec.describe ExpenseSheetGenerator, type: :service do
     it 'sets constant bank_account_number', :aggregate_failures do
       create_expense_sheets
       ExpenseSheet.all.each do |expense_sheet|
-        expect(expense_sheet.bank_account_number).to eq '4470 (200)'
+        expect(expense_sheet.credited_iban).to eq expense_sheet.service.civil_servant.iban
       end
     end
 
-    it 'sets correct user', :aggregate_failures do
+    it 'sets correct civil_servant', :aggregate_failures do
       create_expense_sheets
       ExpenseSheet.all.each do |expense_sheet|
-        expect(expense_sheet.user).to eq service.user
+        expect(expense_sheet.civil_servant).to eq service.civil_servant
       end
     end
 
