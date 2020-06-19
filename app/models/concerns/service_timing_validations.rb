@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-module ServiceValidations
+module ServiceTimingValidations
+  MIN_NORMAL_SERVICE_LENGTH = 26
+
   extend ActiveSupport::Concern
 
   included do
@@ -15,6 +17,8 @@ module ServiceValidations
   end
 
   def overlaps_other_service?
+    return false if civil_servant.nil?
+
     civil_servant.services.where.not(id: id).overlapping_date_range(beginning, ending).any?
   end
 

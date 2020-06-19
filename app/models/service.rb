@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Service < ApplicationRecord
-  MIN_NORMAL_SERVICE_LENGTH = 26
 
   include DateRangeFilterable
+  include ServiceTimingValidations
 
   belongs_to :civil_servant
   belongs_to :service_specification

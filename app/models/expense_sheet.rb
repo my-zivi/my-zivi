@@ -7,7 +7,7 @@ class ExpenseSheet < ApplicationRecord
   belongs_to :service
   belongs_to :payment, optional: true
 
-  validates :beginning, :ending, :work_days, :state, presence: true
+  validates :beginning, :ending, :work_days, :state, :service, presence: true
 
   validates :work_days,
             :workfree_days,
@@ -21,8 +21,9 @@ class ExpenseSheet < ApplicationRecord
             :paid_company_holiday_days,
             numericality: { only_integer: true }
 
-  validates :payments_id, presence: true, if: -> { state === :closed }
+  validates :payment_id, presence: true, if: :closed?
   validates :ending, timeliness: { after: :beginning }
+  validate :included_in_service_date_range
 
   before_destroy :legitimate_destroy
 
@@ -81,7 +82,18 @@ class ExpenseSheet < ApplicationRecord
     ending == service.ending
   end
 
+  def readonly?
+    closed? && !state_changed?
+  end
+
   private
+
+  def included_in_service_date_range
+    return if service.nil?
+    return if beginning >= service.beginning && ending <= service.ending
+
+    errors.add(:base, I18n.t('activerecord.errors.models.expense_sheet.outside_service_date_range'))
+  end
 
   def fetch_service(services)
     services.including_date_range(beginning, ending).first
@@ -94,7 +106,7 @@ class ExpenseSheet < ApplicationRecord
   def legitimate_destroy
     return unless closed?
 
-    errors.add(:base, I18n.t('expense_sheet.errors.already_paid'))
+    errors.add(:base, I18n.t('activerecord.errors.models.expense_sheet.already_paid'))
     throw :abort
   end
 

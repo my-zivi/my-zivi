@@ -104,6 +104,8 @@ de:
         overlaps_service: überlappt existierenden Service
       models:
         expense_sheet:
+          outside_service_date_range: Das Spesenblatt kann nicht auserhalb des Einsatzes liegen.
+          already_paid: Das Spesenblatt wurde bereis ausbezahlt.
           attributes:
             state:
               invalid_state_change: ungültiger Statuswechsel

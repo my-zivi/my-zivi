@@ -38,5 +38,9 @@ FactoryBot.define do
     trait :with_service do
       service
     end
+
+    trait :with_payment do
+      payment
+    end
   end
 end
