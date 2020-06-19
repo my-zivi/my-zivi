@@ -8,8 +8,6 @@ RSpec.describe Service, type: :model do
       ending
       beginning
       civil_servant
-      service_specification
-      service_type
     ]
 
     it_behaves_like 'validates that the ending is after beginning' do
@@ -38,7 +36,7 @@ RSpec.describe Service, type: :model do
       end
 
       context 'when service is last' do
-        let(:service) { build(:service, beginning: beginning, ending: ending, civil_servant: civil_servant, service_type: :last) }
+        let(:service) { build(:service, beginning: beginning, ending: ending, civil_servant: civil_servant, last_service: true) }
 
         context 'when service has a length that is bigger then 26 days' do
           it { is_expected.to be false }
@@ -206,17 +204,16 @@ RSpec.describe Service, type: :model do
     let(:beginning) { (Time.zone.today - 3.months).beginning_of_week }
     let(:ending) { (Time.zone.today - 1.week).end_of_week - 2.days }
 
-    let(:civil_servant) { create :civil_servant, :full }
-    let(:service) { create(:service, civil_servant: civil_servant, beginning: beginning, ending: ending) }
+    let(:service) { create(:service, beginning: beginning, ending: ending) }
 
     context 'when it has one expense_sheet' do
-      let(:expense_sheet) { create :expense_sheet, civil_servant: civil_servant, beginning: beginning, ending: ending }
+      let(:expense_sheet) { create :expense_sheet, service: service, beginning: beginning, ending: ending }
 
       it { is_expected.to eq [expense_sheet] }
     end
 
     context 'when it has multiple expense_sheets' do
-      let(:expense_sheets) { create_list :expense_sheet, 3, civil_servant: civil_servant, beginning: beginning, ending: ending }
+      let(:expense_sheets) { create_list :expense_sheet, 3, service: service, beginning: beginning, ending: ending }
 
       it { is_expected.to eq expense_sheets }
     end

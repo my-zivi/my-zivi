@@ -125,6 +125,7 @@ GEM
       cmdparse (~> 3.0, >= 3.0.3)
       geom2d (~> 0.2)
     highline (2.0.3)
+    holidays (8.3.0)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
     i18n-tasks (0.9.31)
@@ -374,6 +375,7 @@ DEPENDENCIES
   faker
   fillable-pdf
   hexapdf
+  holidays
   i18n-tasks (~> 0.9.29)
   iban-tools
   letter_opener

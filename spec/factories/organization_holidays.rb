@@ -5,5 +5,6 @@ FactoryBot.define do
     beginning { '2019-04-10' }
     ending { '2019-04-20' }
     description { 'A cool company holiday' }
+    organization
   end
 end

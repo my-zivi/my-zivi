@@ -24,6 +24,14 @@ FactoryBot.define do
     state { :editable }
     credited_iban { nil }
 
+    trait :locked do
+      state { :locked }
+    end
+
+    trait :closed do
+      state { :closed }
+    end
+
     trait :with_sick_days do
       sick_days { 1 }
     end

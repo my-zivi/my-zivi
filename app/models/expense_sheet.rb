@@ -81,18 +81,6 @@ class ExpenseSheet < ApplicationRecord
     ending == service.ending
   end
 
-  def readonly?
-    paid? && !state_changed? # whether or not this object can be modified anywhere
-  end
-
-  def deletable?
-    open? # whether or not we can delete the expense sheet in the expense sheet view
-  end
-
-  def modifiable?
-    open? # whether or not we can modify the expense sheet in the expense sheet view
-  end
-
   private
 
   def fetch_service(services)

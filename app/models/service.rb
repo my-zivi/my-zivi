@@ -19,7 +19,7 @@ class Service < ApplicationRecord
   }, _suffix: 'civil_service'
 
   validates :ending, :beginning, presence: true
-  validates :beginning, timeliness: { after: :ending }
+  validates :ending, timeliness: { after: :beginning }
 
   validate :ending_is_friday, unless: :last_service?
   validate :beginning_is_monday

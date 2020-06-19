@@ -107,6 +107,10 @@ de:
           attributes:
             state:
               invalid_state_change: ungültiger Statuswechsel
+        organization_holiday:
+          attributes:
+            ending:
+              after: Das Startdatum kann nicht nach dem Enddatum sein.
         service:
           attributes:
             bank_iban:
@@ -117,6 +121,8 @@ de:
               unknown_country_code: unbekannter Landescode
             service_days:
               invalid_length: kann nicht kürzer als 26 Tage sein.
+            ending:
+              after: Das Startdatum kann nicht nach dem Enddatum sein.
         user:
           attributes:
             bank_iban:
