@@ -7,10 +7,10 @@ RSpec.describe ExpenseSheet, type: :model do
     before { create :service, civil_servant: civil_servant }
 
     let(:civil_servant) { create :civil_servant, :full }
-    let(:expense_sheet) { build :expense_sheet, civil_servant: civil_servant }
+    let(:expense_sheet) { build :expense_sheet }
 
     let(:present_fields) do
-      %i[beginning ending civil_servant work_days bank_account_number state]
+      %i[beginning ending work_days state]
     end
 
     let(:only_integer_fields) do
@@ -50,7 +50,7 @@ RSpec.describe ExpenseSheet, type: :model do
 
       context 'when expense_sheet is in service period' do
         subject(:expense_sheet) do
-          build(:expense_sheet, civil_servant: civil_servant, beginning: beginning, ending: ending).tap(&:validate)
+          build(:expense_sheet, beginning: beginning, ending: ending).tap(&:validate)
         end
 
         it 'is valid' do
@@ -60,7 +60,7 @@ RSpec.describe ExpenseSheet, type: :model do
 
       context 'when expense_sheet is outside service period' do
         subject(:expense_sheet) do
-          build(:expense_sheet, civil_servant: civil_servant, beginning: invalid_beginning, ending: invalid_ending).tap(&:validate)
+          build(:expense_sheet, beginning: invalid_beginning, ending: invalid_ending).tap(&:validate)
         end
 
         let(:invalid_beginning) { Date.parse('2019-09-28') }
@@ -81,7 +81,7 @@ RSpec.describe ExpenseSheet, type: :model do
     before { create :service, civil_servant: civil_servant }
 
     let(:civil_servant) { create :civil_servant, :full }
-    let!(:expense_sheet) { create :expense_sheet, civil_servant: civil_servant }
+    let!(:expense_sheet) { create :expense_sheet }
 
     context 'when the expense sheet is not already paid' do
       it 'destroys the expense_sheet' do
@@ -109,95 +109,55 @@ RSpec.describe ExpenseSheet, type: :model do
     before { expense_sheet.update(state: state) }
 
     let(:expense_sheet) do
-      expense_sheet = build(:expense_sheet, civil_servant: civil_servant, state: state_was)
+      expense_sheet = build(:expense_sheet, state: state_was)
       expense_sheet.save validate: false
       expense_sheet
     end
     let(:civil_servant) { create :civil_servant, :full }
 
-    context 'when state was open' do
-      let(:state_was) { :open }
+    context 'when state was locked' do
+      let(:state_was) { :locked }
 
-      context 'when new state is ready_for_payment' do
-        let(:state) { :ready_for_payment }
+      context 'when new state is editable' do
+        let(:state) { :editable }
 
         it { is_expected.to eq true }
       end
 
-      context 'when new state is payment_in_progress' do
-        let(:state) { :payment_in_progress }
-
-        it { is_expected.to eq false }
-      end
-
-      context 'when new state is paid' do
-        let(:state) { :paid }
+      context 'when new state is closed' do
+        let(:state) { :closed }
 
         it { is_expected.to eq false }
       end
     end
 
-    context 'when state was ready_for_payment' do
-      let(:state_was) { :ready_for_payment }
+    context 'when state was editable' do
+      let(:state_was) { :editable }
 
-      context 'when new state is open' do
-        let(:state) { :open }
-
-        it { is_expected.to eq true }
-      end
-
-      context 'when new state is payment_in_progress' do
-        let(:state) { :payment_in_progress }
+      context 'when new state is closed' do
+        let(:state) { :closed }
 
         it { is_expected.to eq true }
       end
 
-      context 'when new state is paid' do
-        let(:state) { :paid }
+      context 'when new state is locked' do
+        let(:state) { :locked }
 
         it { is_expected.to eq false }
       end
     end
 
-    context 'when state was payment_in_progress' do
-      let(:state_was) { :payment_in_progress }
+    context 'when state was closed' do
+      let(:state_was) { :closed }
 
-      context 'when new state is open' do
-        let(:state) { :open }
-
-        it { is_expected.to eq false }
-      end
-
-      context 'when new state is ready_for_payment' do
-        let(:state) { :ready_for_payment }
-
-        it { is_expected.to eq true }
-      end
-
-      context 'when new state is paid' do
-        let(:state) { :paid }
-
-        it { is_expected.to eq true }
-      end
-    end
-
-    context 'when state was paid' do
-      let(:state_was) { :paid }
-
-      context 'when new state is open' do
-        let(:state) { :open }
+      context 'when new state is editable' do
+        let(:state) { :editable }
 
         it { is_expected.to eq false }
       end
 
-      context 'when new state is ready_for_payment' do
-        let(:state) { :ready_for_payment }
-
-        it { is_expected.to eq false }
-      end
-
-      context 'when new state is payment_in_progress' do
-        let(:state) { :payment_in_progress }
+      context 'when new state is locked' do
+        let(:state) { :locked }
 
         it { is_expected.to eq false }
       end
@@ -227,7 +187,7 @@ RSpec.describe ExpenseSheet, type: :model do
   describe '#at_service_beginning?' do
     let(:civil_servant) { create :civil_servant, :full }
     let!(:service) { create :service, service_data.merge(civil_servant: civil_servant) }
-    let(:expense_sheet) { create :expense_sheet, expense_sheet_data.merge(civil_servant: civil_servant) }
+    let(:expense_sheet) { create :expense_sheet, expense_sheet_data }
 
     let(:service_data) do
       {
@@ -255,8 +215,7 @@ RSpec.describe ExpenseSheet, type: :model do
         {
           beginning: Date.parse('2018-02-01'),
           ending: Date.parse('2018-02-28'),
-          work_days: 23,
-          civil_servant: service.civil_servant
+          work_days: 23
         }
       end
 
@@ -267,7 +226,7 @@ RSpec.describe ExpenseSheet, type: :model do
   end
 
   describe '#at_service_ending?' do
-    let(:expense_sheet) { create :expense_sheet, expense_sheet_data }
+    let(:expense_sheet) { create :expense_sheet, :with_service, expense_sheet_data }
     let(:service) { create :service, service_data }
 
     let(:service_data) do
@@ -282,8 +241,7 @@ RSpec.describe ExpenseSheet, type: :model do
         {
           beginning: Date.parse('2018-01-08'),
           ending: Date.parse('2018-08-03'),
-          work_days: 3,
-          civil_servant: service.civil_servant
+          work_days: 3
         }
       end
 
@@ -297,8 +255,7 @@ RSpec.describe ExpenseSheet, type: :model do
         {
           beginning: Date.parse('2018-02-01'),
           ending: Date.parse('2018-02-28'),
-          work_days: 23,
-          civil_servant: service.civil_servant
+          work_days: 23
         }
       end
 
@@ -311,26 +268,18 @@ RSpec.describe ExpenseSheet, type: :model do
   describe 'update' do
     context 'when state is paid' do
       let!(:service) { create :service }
-      let(:expense_sheet) { create :expense_sheet, :paid, civil_servant: service.civil_servant }
+      let(:expense_sheet) { create :expense_sheet, :closed }
 
       it 'prevents an update' do
         expect { expense_sheet.update(sick_comment: 'blubb') }.to raise_error ActiveRecord::ReadOnlyRecord
       end
     end
 
-    context 'when updating to paid state' do
-      let(:expense_sheet) { create :expense_sheet, :payment_in_progress }
+    context 'when updating to closed state' do
+      let(:expense_sheet) { create :expense_sheet }
 
       it 'prevents an update' do
-        expect { expense_sheet.update(state: 'paid') }.not_to raise_error
-      end
-    end
-
-    context 'when state is not paid' do
-      let(:expense_sheet) { create :expense_sheet, :payment_in_progress }
-
-      it 'prevents an update' do
-        expect { expense_sheet.update(sick_comment: 'blubb') }.not_to raise_error
+        expect { expense_sheet.update(state: :closed) }.not_to raise_error
       end
     end
   end

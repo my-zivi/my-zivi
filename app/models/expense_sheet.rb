@@ -92,7 +92,7 @@ class ExpenseSheet < ApplicationRecord
   end
 
   def legitimate_destroy
-    return if open?
+    return unless closed?
 
     errors.add(:base, I18n.t('expense_sheet.errors.already_paid'))
     throw :abort
