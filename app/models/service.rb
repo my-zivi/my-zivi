@@ -10,6 +10,8 @@ class Service < ApplicationRecord
   belongs_to :civil_servant
   belongs_to :service_specification
 
+  has_many :expense_sheets, dependent: :restrict_with_error
+
   before_destroy :check_delete
 
   enum service_type: {
@@ -44,10 +46,6 @@ class Service < ApplicationRecord
 
   def eligible_sick_days
     service_calculator.calculate_eligible_sick_days(service_days)
-  end
-
-  def expense_sheets
-    @expense_sheets ||= civil_servant.expense_sheets.in_date_range(beginning, ending)
   end
 
   def in_future?
