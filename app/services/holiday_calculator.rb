@@ -14,7 +14,7 @@ class HolidayCalculator
   end
 
   def calculate_public_holiday_days
-    select_work_days(@all_public_holidays)
+    select_work_days(@all_public_holidays).count
   end
 
   private
@@ -28,6 +28,10 @@ class HolidayCalculator
   end
 
   def select_work_days(holidays, public_holidays = nil)
-    holidays.flat_map { |holiday| holiday.work_days(public_holidays) }
+    holidays.flat_map do |holiday|
+      return [ holiday[:date] ] if holiday.key? :date
+
+      holiday.work_days(public_holidays)
+    end
   end
 end
