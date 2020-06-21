@@ -13,7 +13,7 @@ RSpec.describe ExpenseSheetCalculators::ExpensesCalculator, type: :service do
       beginning: Date.parse('2018-03-01'),
       ending: Date.parse('2018-03-31'),
       work_days: 22,
-      civil_servant: service.civil_servant
+      service: service
     }
   end
   let(:service_data) do
@@ -140,7 +140,7 @@ RSpec.describe ExpenseSheetCalculators::ExpensesCalculator, type: :service do
         beginning: Date.parse('2018-01-01'),
         ending: Date.parse('2018-01-31'),
         work_days: 23,
-        civil_servant: service.civil_servant
+        service: service
       }
     end
 
@@ -159,7 +159,7 @@ RSpec.describe ExpenseSheetCalculators::ExpensesCalculator, type: :service do
         beginning: Date.parse('2018-08-01'),
         ending: Date.parse('2018-08-03'),
         work_days: 3,
-        civil_servant: service.civil_servant
+        service: service
       }
     end
 

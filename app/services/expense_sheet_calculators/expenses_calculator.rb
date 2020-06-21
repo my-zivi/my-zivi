@@ -75,7 +75,7 @@ module ExpenseSheetCalculators
 
     def calculate_values(count, day_spec)
       expenses = {
-        pocket_money: @specification.pocket_money,
+        pocket_money: ServiceSpecification::POCKET_MONEY,
         accommodation: @specification.accommodation_expenses
       }
 
