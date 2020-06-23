@@ -241,7 +241,7 @@ RSpec.describe Service, type: :model do
     end
 
     context 'when service already started' do
-      let(:beginning) { 1.week.from_now.at_beginning_of_week }
+      let(:beginning) { 1.week.ago.at_beginning_of_week }
 
       it { is_expected.to be false }
     end
