@@ -1,1 +1,150 @@
+---
 fr:
+  activerecord:
+    attributes:
+      address:
+        city: Ville
+        primary_line: Première ligne d'adresse
+        secondary_line: Deuxième ligne d'adresse
+        street: Rue
+        supplement: Suffixe de l'adresse
+        zip: Code postal
+      civil_servant:
+        birthday: Anniversaire
+        city: Ville
+        email: Courriel
+        first_name: Prénom
+        health_insurance: Assurance maladie
+        hometown: Ville d'origine
+        iban: Coordonnées bancaires
+        id: ID
+        last_name: Nom de famille
+        phone: Numéro de téléphone
+        role: Rôle
+        zdp: N° ZDP
+        zip_with_city: Code postal / Ville
+      driving_license:
+        name: Nom
+      expense_sheet:
+        accommodation_expenses: Hébergement
+        beginning: Démarrer
+        clothing: Robes
+        clothing_expenses: Frais d'habillement
+        clothing_expenses_comment: Frais d'habillement - Commentaire
+        company_holiday_comment: Vacances d'entreprise Commentaire
+        driving_expenses: Frais de voyage
+        driving_expenses_comment: Commentaire sur les frais de conduite
+        ending: Fin
+        extraordinary_expenses: Dépenses extraordinaires
+        extraordinary_expenses_comment: Dépenses extraordinaires - Commentaire
+        paid_company_holiday_days: Vacances d'entreprise payées
+        paid_vacation_comment: Congés payés - Commentaire
+        paid_vacation_days:
+          one: Vacances
+          other: Jours de vacances
+        pocket_money: Argent de poche
+        sick_comment: Commentaire sur la maladie
+        sick_days:
+          one: Jour de maladie
+          other: jours de maladie
+        sickness: Maladie
+        state: Statut
+        unpaid_company_holiday_days: Vacances d'entreprise non payées
+        unpaid_vacation_comment: Congés non payés - Commentaire
+        unpaid_vacation_days:
+          one: Jour de fête
+          other: Jours de vacances
+        way_expenses: Frais de voyage
+        work_clothing_expenses: Vêtements de travail
+        work_days:
+          one: Jour ouvrable
+          other: Jours ouvrables
+        workfree: Libre de travail
+        workfree_days:
+          one: Jour de congé
+          other: jours de congé
+      organizatino_holiday:
+        beginning: Démarrer
+        description: Description
+        ending: Fin
+      regional_center:
+        name: Nom
+        short_name: Nom court
+      service:
+        beginning: Démarrer
+        confirmation_date: Date de confirmation
+        ending: Fin
+        long_service: Longue durée de vie
+        probation_service: Demande de procès
+        service_days: Durée de vie
+        service_type: Type d'insertion
+      service_specification:
+        accommodation_expenses: Frais d'hébergement
+        active: Actif
+        expense_keys:
+          breakfast: Demain
+          dinner: Soirée
+          lunch: Midi
+        first_day_expenses: Frais pour le premier jour
+        identification_number: Numéro d'identification
+        last_day_expenses: Dépenses pour le dernier jour
+        location: Lieu
+        name: Nom
+        paid_vacation_expenses: Frais de vacances payés
+        short_name: Nom court
+        work_clothing_expenses: Frais d'habillement
+        work_days_expenses: Dépenses des jours ouvrables
+      workshop:
+        name: Nom
+    errors:
+      messages:
+        before_beginning: avant le décollage
+        invalid_date: date non valable
+        not_a_friday: pas de vendredi
+        not_a_monday: pas de lundi
+        overlaps_service: chevauchement des services existants
+      models:
+        expense_sheet:
+          already_paid: La note de frais a déjà été payée.
+          attributes:
+            ending:
+              after: La date de début ne peut être postérieure à la date de fin.
+            state:
+              invalid_state_change: Changement de statut non valable
+          outside_service_date_range: La feuille de frais ne peut pas se trouver en dehors de l'encart.
+        organization_holiday:
+          attributes:
+            ending:
+              after: La date de début ne peut être postérieure à la date de fin.
+        service:
+          attributes:
+            bank_iban:
+              bad_chars: caractères non valables
+              bad_check_digits: chiffre de contrôle non valide
+              bad_format: format incorrect
+              bad_length: longueur non valable
+              unknown_country_code: code de pays inconnu
+            ending:
+              after: La date de début ne peut être postérieure à la date de fin.
+            service_days:
+              invalid_length: ne peut être inférieure à 26 jours.
+        user:
+          attributes:
+            bank_iban:
+              bad_chars: caractères non valables
+              bad_check_digits: chiffre de contrôle non valide
+              bad_format: format incorrect
+              bad_length: longueur non valable
+              unknown_country_code: code de pays inconnu
+            base:
+              cant_delete_himself: Vous ne pouvez pas vous effacer
+    models:
+      address: Adresse
+      civil_servant: Personne effectuant des travaux d'intérêt général
+      driving_licenses: Permis de conduire
+      expense_sheet: fiche de frais
+      organizatino_holiday: Vacances d'entreprise
+      regional_center: Centre régional
+      service: Déploiement
+      service_specification: Spécifications
+      workshop: Cours
