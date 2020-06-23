@@ -6,10 +6,11 @@ RSpec.describe Service, type: :model do
   describe 'validations' do
     subject(:model) { described_class.new }
 
-    it 'defines relations', :aggregate_failures do
+    it 'defines relations and enums', :aggregate_failures do
       expect(model).to belong_to(:civil_servant)
       expect(model).to belong_to(:service_specification)
       expect(model).to have_many(:expense_sheets).dependent(:restrict_with_error)
+      expect(model).to define_enum_for(:service_type)
     end
 
     it_behaves_like 'validates presence of required fields', %i[
