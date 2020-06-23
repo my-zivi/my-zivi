@@ -2,4 +2,4 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - init: yarn install && bundle install
+  - init: bin/setup
