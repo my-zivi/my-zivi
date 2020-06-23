@@ -99,9 +99,10 @@ class ExpenseSheet < ApplicationRecord
     services.including_date_range(beginning, ending).first
   end
 
-  def eager_loaded_service(services)
-    services.find { |service| service.beginning <= beginning && service.ending >= ending }
-  end
+  # TODO: Remove, left from legacy. Just here for the sake of documentation
+  # def eager_loaded_service(services)
+  #   services.find { |service| service.beginning <= beginning && service.ending >= ending }
+  # end
 
   def legitimate_destroy
     return unless closed?

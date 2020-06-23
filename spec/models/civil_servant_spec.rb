@@ -36,6 +36,7 @@ RSpec.describe CivilServant, type: :model do
       health_insurance
       hometown
       phone
+      zdp
     ]
   end
 

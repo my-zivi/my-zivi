@@ -9,8 +9,6 @@ class Service < ApplicationRecord
 
   has_many :expense_sheets, dependent: :restrict_with_error
 
-  before_destroy :check_delete
-
   enum service_type: {
     normal: 0,
     long: 1,
@@ -60,14 +58,5 @@ class Service < ApplicationRecord
 
   def service_calculator
     @service_calculator ||= ServiceCalculator.new(beginning, last_service?)
-  end
-
-  def deletable?
-    sheets_in_range = civil_servant.expense_sheets.in_date_range(beginning, ending)
-    sheets_in_range.nil? || sheets_in_range.count.zero?
-  end
-
-  def check_delete
-    raise 'Cannot delete a service which has associated expense sheets!' unless deletable?
   end
 end

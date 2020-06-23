@@ -20,10 +20,8 @@ class CivilServant < ApplicationRecord
   #        :recoverable, :validatable,
   #        :jwt_authenticatable, jwt_revocation_strategy: self
 
-  validates :first_name, :last_name, :iban, :birthday, :health_insurance, :hometown, :phone, presence: true
-  validates :zdp, uniqueness: true
-
-  validates :zdp, numericality: {
+  validates :first_name, :last_name, :iban, :birthday, :health_insurance, :hometown, :phone, :zdp, presence: true
+  validates :zdp, uniqueness: true, numericality: {
     greater_than: 10_000,
     less_than: 999_999,
     only_integer: true
