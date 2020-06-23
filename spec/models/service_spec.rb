@@ -210,27 +210,6 @@ RSpec.describe Service, type: :model do
     end
   end
 
-  describe '#expense_sheets' do
-    subject { service.expense_sheets }
-
-    let(:beginning) { 3.months.ago.beginning_of_week }
-    let(:ending) { 1.week.ago.end_of_week - 2.days }
-
-    let(:service) { create(:service, beginning: beginning, ending: ending) }
-
-    context 'when it has one expense_sheet' do
-      let(:expense_sheet) { create :expense_sheet, service: service, beginning: beginning, ending: ending }
-
-      it { is_expected.to eq [expense_sheet] }
-    end
-
-    context 'when it has multiple expense_sheets' do
-      let(:expense_sheets) { create_list :expense_sheet, 3, service: service, beginning: beginning, ending: ending }
-
-      it { is_expected.to eq expense_sheets }
-    end
-  end
-
   describe '#in_future?' do
     subject { build(:service, :last, beginning: beginning).in_future? }
 
