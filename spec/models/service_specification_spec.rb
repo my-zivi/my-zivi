@@ -86,8 +86,10 @@ RSpec.describe ServiceSpecification, type: :model do
   end
 
   describe '#title' do
-    subject { build(:service_specification, identification_number: 7346, name: 'MyRSpecSpecification').title }
+    subject { service_specification.title }
 
-    it { is_expected.to eq '7346 MyRSpecSpecification' }
+    let(:service_specification) { build(:service_specification, identification_number: 7346, name: 'MySpecification') }
+
+    it { is_expected.to eq '7346 MySpecification' }
   end
 end

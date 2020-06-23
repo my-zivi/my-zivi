@@ -3,8 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe ExpenseSheet, type: :model do
+  describe 'model definition' do
+    subject(:model) { described_class.new }
+
+    it 'defines relations correctly' do
+      expect(model).to belong_to(:service)
+      expect(model).to belong_to(:payment).optional
+    end
+  end
+
   describe 'validations' do
-    before { create :service, civil_servant: civil_servant }
+    before { build :service, civil_servant: civil_servant }
 
     let(:civil_servant) { create :civil_servant, :full }
     let(:expense_sheet) { build :expense_sheet }
@@ -72,10 +81,10 @@ RSpec.describe ExpenseSheet, type: :model do
         end
       end
     end
-  end
 
-  it_behaves_like 'validates that the ending is after beginning' do
-    let(:model) { build(:expense_sheet, beginning: beginning, ending: ending) }
+    it_behaves_like 'validates that the ending is after beginning' do
+      let(:model) { build(:expense_sheet, beginning: beginning, ending: ending) }
+    end
   end
 
   describe '#destroy' do
@@ -109,12 +118,12 @@ RSpec.describe ExpenseSheet, type: :model do
 
     before { expense_sheet.update(state: state) }
 
-    let(:expense_sheet) do
-      expense_sheet = build(:expense_sheet, :with_service, state: state_was)
-      expense_sheet.save validate: false
-      expense_sheet
-    end
     let(:civil_servant) { create :civil_servant, :full }
+    let(:expense_sheet) do
+      build(:expense_sheet, :with_service, state: state_was).tap do |sheet|
+        sheet.save(validate: false)
+      end
+    end
 
     context 'when state was locked' do
       let(:state_was) { :locked }

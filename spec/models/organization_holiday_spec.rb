@@ -3,14 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe OrganizationHoliday, type: :model do
+  it { is_expected.to belong_to(:organization) }
+
   describe 'validations' do
     subject(:model) { described_class.new }
 
     it_behaves_like 'validates presence of required fields', %i[beginning ending description]
-  end
 
-  it_behaves_like 'validates that the ending is after beginning' do
-    let(:model) { build(:organization_holiday, beginning: beginning, ending: ending) }
+    it_behaves_like 'validates that the ending is after beginning' do
+      let(:model) { build(:organization_holiday, beginning: beginning, ending: ending) }
+    end
   end
 
   describe '#range' do

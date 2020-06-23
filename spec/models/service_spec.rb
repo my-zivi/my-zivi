@@ -213,8 +213,8 @@ RSpec.describe Service, type: :model do
   describe '#expense_sheets' do
     subject { service.expense_sheets }
 
-    let(:beginning) { (Time.zone.today - 3.months).beginning_of_week }
-    let(:ending) { (Time.zone.today - 1.week).end_of_week - 2.days }
+    let(:beginning) { 3.months.ago.beginning_of_week }
+    let(:ending) { 1.week.ago.end_of_week - 2.days }
 
     let(:service) { create(:service, beginning: beginning, ending: ending) }
 
@@ -235,13 +235,13 @@ RSpec.describe Service, type: :model do
     subject { build(:service, :last, beginning: beginning).in_future? }
 
     context 'when service will start in future' do
-      let(:beginning) { (Time.zone.today + 2.weeks).at_beginning_of_week }
+      let(:beginning) { 2.weeks.from_now.at_beginning_of_week }
 
       it { is_expected.to be true }
     end
 
     context 'when service already started' do
-      let(:beginning) { (Time.zone.today - 1.week).at_beginning_of_week }
+      let(:beginning) { 1.week.from_now.at_beginning_of_week }
 
       it { is_expected.to be false }
     end
