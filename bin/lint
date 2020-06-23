@@ -5,4 +5,4 @@ set -exo pipefail
 bundle exec rubocop -D --parallel
 bundle exec brakeman -q -z --no-summary --no-pager
 bundle exec reek -c .reek.yml app/
-rails zeitwerk:check
+bin/rails zeitwerk:check
