@@ -8,8 +8,8 @@ class CivilServant < ApplicationRecord
 
   has_one :user, as: :referencee, dependent: :destroy, required: true
 
-  has_many :expense_sheets, dependent: :restrict_with_error
   has_many :services, dependent: :restrict_with_error
+  has_many :expense_sheets, through: :services
   has_many :civil_servants_driving_licenses, dependent: :destroy
   has_many :driving_licenses, through: :civil_servants_driving_licenses
   has_many :civil_servants_workshops, dependent: :destroy
