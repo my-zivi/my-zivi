@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Administrator, type: :model do
-  describe 'validations' do
+  describe 'model definition' do
     subject(:model) { described_class.new }
 
     it 'defines relations' do

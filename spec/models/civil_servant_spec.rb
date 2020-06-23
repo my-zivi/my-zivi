@@ -3,6 +3,22 @@
 require 'rails_helper'
 
 RSpec.describe CivilServant, type: :model do
+  describe 'model definition' do
+    subject(:model) { described_class.new }
+
+    it 'defines relations' do
+      expect(model).to have_many(:services)
+      expect(model).to have_many(:expense_sheets).through(:services)
+      expect(model).to have_many(:civil_servants_driving_licenses)
+      expect(model).to have_many(:driving_licenses).through(:civil_servants_driving_licenses)
+      expect(model).to have_many(:civil_servants_workshops)
+      expect(model).to have_many(:workshops).through(:civil_servants_workshops)
+      expect(model).to have_one(:user).dependent(:destroy).required(true)
+      expect(model).to belong_to(:regional_center)
+      expect(model).to belong_to(:address)
+    end
+  end
+
   describe 'validations' do
     subject(:model) { described_class.new }
 
