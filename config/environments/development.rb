@@ -59,4 +59,6 @@ Rails.application.configure do
     Bullet.bullet_logger = true
     Bullet.add_footer = true
   end
+
+  config.hosts = nil
 end
