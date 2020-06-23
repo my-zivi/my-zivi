@@ -6,7 +6,7 @@ RSpec.describe Administrator, type: :model do
   describe 'validations' do
     subject(:model) { described_class.new }
 
-    it 'defines relations', :aggregate_failures do
+    it 'defines relations' do
       expect(model).to belong_to(:organization)
       expect(model).to have_one(:user).dependent(:destroy).required(true)
     end

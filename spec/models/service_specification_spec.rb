@@ -18,7 +18,7 @@ RSpec.describe ServiceSpecification, type: :model do
       last_day_expenses
     ]
 
-    it 'validates the correctness of numerical fields', :aggregate_failures do
+    it 'validates the correctness of numerical fields' do
       expect(model).to validate_numericality_of(:accommodation_expenses).only_integer
       expect(model).to validate_numericality_of(:work_clothing_expenses).only_integer
       expect(model).to validate_length_of(:identification_number).is_at_least(5).is_at_most(7)

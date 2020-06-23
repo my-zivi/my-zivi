@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe DrivingLicense, type: :model do
   subject(:model) { build :driving_license }
 
-  it 'defines model correctly', :aggregate_failures do
+  it 'defines model correctly' do
     expect(model).to validate_presence_of :name
 
     expect(model).to have_many(:civil_servants_driving_licenses)

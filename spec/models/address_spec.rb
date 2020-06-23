@@ -6,7 +6,7 @@ RSpec.describe Address, type: :model do
   describe 'validations' do
     subject(:model) { described_class.new }
 
-    it 'validates the model correctly', :aggregate_failures do
+    it 'validates the model correctly' do
       expect(model).to validate_numericality_of(:zip)
         .only_integer
         .is_less_than(10_000)

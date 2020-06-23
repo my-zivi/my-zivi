@@ -6,7 +6,7 @@ RSpec.describe Service, type: :model do
   describe 'validations' do
     subject(:model) { described_class.new }
 
-    it 'defines relations and enums', :aggregate_failures do
+    it 'defines relations and enums' do
       expect(model).to belong_to(:civil_servant)
       expect(model).to belong_to(:service_specification)
       expect(model).to have_many(:expense_sheets).dependent(:restrict_with_error)
@@ -126,7 +126,7 @@ RSpec.describe Service, type: :model do
   describe 'delegated methods' do
     subject(:service) { described_class.new }
 
-    it 'delegates the correct methods to calculators', :aggregate_failures do
+    it 'delegates the correct methods to calculators' do
       expect(service).to delegate_method(:used_sick_days).to(:used_days_calculator)
       expect(service).to delegate_method(:used_paid_vacation_days).to(:used_days_calculator)
       expect(service).to delegate_method(:remaining_sick_days).to(:remaining_days_calculator)

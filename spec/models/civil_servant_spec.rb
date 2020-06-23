@@ -17,7 +17,7 @@ RSpec.describe CivilServant, type: :model do
       ]
     end
 
-    it 'validates the model correctly', :aggregate_failures do
+    it 'validates the model correctly' do
       expect(model).to validate_uniqueness_of(:zdp)
       expect(model).to validate_numericality_of(:zdp).only_integer.is_less_than(999_999).is_greater_than(10_000)
 

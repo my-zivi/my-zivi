@@ -37,13 +37,13 @@ RSpec.describe ExpenseSheet, type: :model do
       ]
     end
 
-    it 'validates that required fields are present', :aggregate_failures do
+    it 'validates that required fields are present' do
       present_fields.each do |field|
         expect(expense_sheet).to validate_presence_of field
       end
     end
 
-    it 'validates the correctness of numerical fields correctly', :aggregate_failures do
+    it 'validates the correctness of numerical fields correctly' do
       only_integer_fields.each do |field|
         expect(expense_sheet).to validate_numericality_of(field).only_integer
       end
