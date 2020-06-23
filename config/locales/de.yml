@@ -1,13 +1,30 @@
+---
 de:
   activerecord:
     attributes:
       address:
+        city: Stadt
         primary_line: Erste Adresszeile
         secondary_line: Zweite Adresszeile
         street: Strasse
         supplement: Adresszusatz
-        city: Stadt
         zip: Postleitzahl
+      civil_servant:
+        birthday: Geburtstag
+        city: Stadt
+        email: Email
+        first_name: Vorname
+        health_insurance: Krankenkasse
+        hometown: Heimatstadt
+        iban: Bankverbindung
+        id: ID
+        last_name: Nachname
+        phone: Telefonnummer
+        role: Rolle
+        zdp: ZDP-Nr.
+        zip_with_city: PLZ / Ort
+      driving_license:
+        name: Name
       expense_sheet:
         accommodation_expenses: Unterkunft
         beginning: Anfang
@@ -77,22 +94,6 @@ de:
         short_name: Kurzname
         work_clothing_expenses: Kleiderspesen
         work_days_expenses: Arbeitstagesspesen
-      civil_servant:
-        iban: Bankverbindung
-        birthday: Geburtstag
-        city: Stadt
-        email: Email
-        first_name: Vorname
-        health_insurance: Krankenkasse
-        hometown: Heimatstadt
-        id: ID
-        last_name: Nachname
-        phone: Telefonnummer
-        role: Rolle
-        zdp: ZDP-Nr.
-        zip_with_city: PLZ / Ort
-      driving_license:
-        name: Name
       workshop:
         name: Name
     errors:
@@ -104,13 +105,13 @@ de:
         overlaps_service: überlappt existierenden Service
       models:
         expense_sheet:
-          outside_service_date_range: Das Spesenblatt kann nicht auserhalb des Einsatzes liegen.
           already_paid: Das Spesenblatt wurde bereis ausbezahlt.
           attributes:
-            state:
-              invalid_state_change: ungültiger Statuswechsel
             ending:
               after: Das Startdatum kann nicht nach dem Enddatum sein.
+            state:
+              invalid_state_change: ungültiger Statuswechsel
+          outside_service_date_range: Das Spesenblatt kann nicht auserhalb des Einsatzes liegen.
         organization_holiday:
           attributes:
             ending:
@@ -123,10 +124,10 @@ de:
               bad_format: ungültiges Format
               bad_length: ungültige Länge
               unknown_country_code: unbekannter Landescode
-            service_days:
-              invalid_length: kann nicht kürzer als 26 Tage sein.
             ending:
               after: Das Startdatum kann nicht nach dem Enddatum sein.
+            service_days:
+              invalid_length: kann nicht kürzer als 26 Tage sein.
         user:
           attributes:
             bank_iban:
@@ -138,12 +139,12 @@ de:
             base:
               cant_delete_himself: Du kannst dich nicht selbst löschen
     models:
+      address: Adresse
+      civil_servant: Zivildienstleistende Person
+      driving_licenses: Fahrlizenz
       expense_sheet: Spesenblatt
       organizatino_holiday: Betriebsferien
       regional_center: Regionalzentrum
       service: Einsatz
       service_specification: Pflichtenheft
-      civil_servant: Zivildienstleistende Person
-      address: Adresse
-      driving_licenses: Fahrlizenz
       workshop: Kurs
