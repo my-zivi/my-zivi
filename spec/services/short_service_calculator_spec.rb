@@ -15,7 +15,7 @@ RSpec.describe ShortServiceCalculator, type: :service do
       let(:required_service_days) { 7 }
 
       before do
-        create :holiday, beginning: beginning, ending: beginning + 7.days
+        create :organization_holiday, beginning: beginning, ending: beginning + 7.days
       end
 
       it { is_expected.to eq Date.parse('2018-01-16') }
@@ -25,7 +25,7 @@ RSpec.describe ShortServiceCalculator, type: :service do
       let(:required_service_days) { 6 }
 
       before do
-        create :holiday, :public_holiday, beginning: beginning, ending: beginning + 1.day
+        # create :organization_holiday, :public_holiday, beginning: beginning, ending: beginning + 1.day
       end
 
       it { is_expected.to eq Date.parse('2018-01-10') }
@@ -114,7 +114,7 @@ RSpec.describe ShortServiceCalculator, type: :service do
       let(:company_holiday_ending) { company_holiday_beginning }
 
       before do
-        create :holiday, beginning: company_holiday_beginning, ending: company_holiday_ending
+        create :organization_holiday, beginning: company_holiday_beginning, ending: company_holiday_ending
       end
 
       context 'with a long company holiday' do
@@ -146,7 +146,7 @@ RSpec.describe ShortServiceCalculator, type: :service do
       let(:public_holiday_ending) { public_holiday_beginning }
 
       before do
-        create :holiday, :public_holiday, beginning: public_holiday_beginning, ending: public_holiday_ending
+        # create :organization_holiday, :public_holiday, beginning: public_holiday_beginning, ending: public_holiday_ending
       end
 
       context 'with a public holiday on ending which affects the service days' do
@@ -176,8 +176,8 @@ RSpec.describe ShortServiceCalculator, type: :service do
       let(:ending) { beginning + 7.days }
 
       before do
-        create :holiday, :public_holiday, beginning: beginning, ending: beginning
-        create :holiday, beginning: ending, ending: ending
+        # create :organization_holiday, :public_holiday, beginning: beginning, ending: beginning
+        create :organization_holiday, beginning: ending, ending: ending
       end
 
       it { is_expected.to eq 4 }

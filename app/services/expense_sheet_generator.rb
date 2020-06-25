@@ -9,9 +9,7 @@ class ExpenseSheetGenerator
     grouped_days = group_days_by_month(beginning..ending)
 
     grouped_days.map do |month_days|
-      beginning = month_days.first
-      ending = month_days.last
-      create_expense_sheet(beginning, ending)
+      create_expense_sheet(*month_days)
     end
   end
 
@@ -34,7 +32,7 @@ class ExpenseSheetGenerator
   private
 
   def group_days_by_month(days)
-    days.slice_when { |date| date == date.at_end_of_month }
+    days.group_by(&:month).values.map(&:minmax)
   end
 
   def create_expense_sheet(beginning, ending)

@@ -82,7 +82,7 @@ RSpec.describe ExpenseSheet, type: :model do
       end
     end
 
-    it_behaves_like 'validates that the ending is after beginning' do
+    it_behaves_like 'validates that the ending is on or after beginning' do
       let(:model) { build(:expense_sheet, beginning: beginning, ending: ending) }
     end
   end

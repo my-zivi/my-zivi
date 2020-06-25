@@ -22,7 +22,7 @@ class ExpenseSheet < ApplicationRecord
             numericality: { only_integer: true }
 
   validates :payment_id, presence: true, if: :closed?
-  validates :ending, timeliness: { after: :beginning }
+  validates :ending, timeliness: { on_or_after: :beginning }
   validate :included_in_service_date_range
 
   before_destroy :legitimate_destroy

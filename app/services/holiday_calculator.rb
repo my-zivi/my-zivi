@@ -26,5 +26,4 @@ class HolidayCalculator
   def day_in_range?(day)
     (@beginning..@ending).cover? day
   end
-
 end
