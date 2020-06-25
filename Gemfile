@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 gem 'devise'
+gem 'devise-i18n'
 gem 'dotenv-rails'
 gem 'fillable-pdf'
 gem 'hexapdf'
@@ -17,6 +18,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rails-i18n'
 gem 'sepa_king'
 gem 'simple_form'
+gem 'slim-rails'
 gem 'validates_timeliness'
 
 gem 'pg', '>= 0.18', '< 2.0'
@@ -57,6 +59,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'letter_opener'
   gem 'listen', '~> 3.2'
+  gem 'slim_lint'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'

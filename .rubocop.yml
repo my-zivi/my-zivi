@@ -30,7 +30,7 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
     - 'config/environments/**/*.rb'
     - 'config/routes.rb'
-    - 'lib/tasks/v1_migration.rake'
+    - 'config/initializers/*.rb'
 
 Metrics/MethodLength:
   Max: 12
