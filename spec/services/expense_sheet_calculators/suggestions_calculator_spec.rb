@@ -8,10 +8,10 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
   let(:beginning) { Date.parse('2018-01-01') }
   let(:ending) { Date.parse('2018-01-26') }
   let!(:service) { create :service, beginning: beginning, ending: ending, civil_servant: civil_servant }
-  let(:expense_sheet) { create :expense_sheet, beginning: beginning, ending: ending, civil_servant: civil_servant }
+  let(:expense_sheet) { create :expense_sheet, beginning: beginning, ending: ending, service: service }
 
-  let(:expected_work_days) { 20 }
-  let(:expected_workfree_days) { 6 }
+  let(:expected_work_days) { 19 }
+  let(:expected_workfree_days) { 7 }
 
   describe '#suggestions' do
     subject { calculator.suggestions }
@@ -21,8 +21,8 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
         clothing_expenses: 5980,
         paid_company_holiday_days: 0,
         unpaid_company_holiday_days: 0,
-        work_days: 20,
-        workfree_days: 6
+        work_days: 19,
+        workfree_days: 7
       }
     end
 
