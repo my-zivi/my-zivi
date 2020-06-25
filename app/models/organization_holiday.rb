@@ -9,6 +9,7 @@ class OrganizationHoliday < ApplicationRecord
 
   belongs_to :organization
 
+  # TODO: get region from organization
   def work_days(region = :ch)
     range.reject { |day| day.on_weekend? || Holidays.on(day, region).present? }
   end

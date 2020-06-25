@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Payment, type: :model do
-  it { is_expected.to belong_to(:organization) }
-  it { is_expected.to have_many(:expense_sheets).dependent(:restrict_with_exception) }
+  specify(:aggregate_failures) do
+    expect(subject).to belong_to(:organization)
+    expect(subject).to have_many(:expense_sheets).dependent(:restrict_with_exception)
+  end
 end

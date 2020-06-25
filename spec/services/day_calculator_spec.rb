@@ -3,26 +3,28 @@
 require 'rails_helper'
 
 RSpec.describe DayCalculator, type: :service do
-  let(:beginning) { Date.parse('2017-11-27') }
-  let(:ending) { Date.parse('2018-02-04') }
+  let(:beginning) { Date.parse('2019-11-25') }
+  let(:ending) { Date.parse('2020-01-31') }
   let(:day_calculator) { described_class.new(beginning, ending) }
 
   let(:create_company_holidays) do
-    create :organization_holiday, beginning: '2018-01-01', ending: '2018-01-07'
-    create :organization_holiday, beginning: '2017-12-20', ending: '2017-12-28'
+    create :organization_holiday, beginning: '2020-01-13', ending: '2020-01-19'
   end
 
   describe '#calculate_workfree_days' do
     subject { day_calculator.calculate_workfree_days }
 
     context 'when there are no public holidays' do
-      it { is_expected.to eq 20 }
+      let(:beginning) { Date.parse('2020-01-06') }
+
+      it { is_expected.to eq 6 }
     end
 
     context 'when there are public holidays' do
-      before { create_public_holidays }
+      let(:beginning) { Date.parse('2019-12-30') }
+      let(:ending) { Date.parse('2020-01-24') }
 
-      it { is_expected.to eq 28 }
+      it { is_expected.to eq 7 }
     end
   end
 
@@ -30,28 +32,31 @@ RSpec.describe DayCalculator, type: :service do
     subject { day_calculator.calculate_work_days }
 
     context 'when there are no public holidays' do
+      let(:beginning) { Date.parse('2020-01-06') }
+
       context 'when there are no company holidays' do
-        it { is_expected.to eq 50 }
+        it { is_expected.to eq 20 }
       end
 
       context 'when there are company holidays' do
         before { create_company_holidays }
 
-        it { is_expected.to eq 38 }
+        it { is_expected.to eq 15 }
       end
     end
 
     context 'when there are public holidays' do
-      before { create_public_holidays }
+      let(:beginning) { Date.parse('2019-12-30') }
+      let(:ending) { Date.parse('2020-01-24') }
 
       context 'when there are no company holidays' do
-        it { is_expected.to eq 42 }
+        it { is_expected.to eq 19 }
       end
 
       context 'when there are company holidays' do
         before { create_company_holidays }
 
-        it { is_expected.to eq 35 }
+        it { is_expected.to eq 14 }
       end
     end
   end
