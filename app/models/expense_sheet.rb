@@ -42,7 +42,7 @@ class ExpenseSheet < ApplicationRecord
   scope :filtered_by, ->(filters) { filters.reduce(self) { |query, filter| query.where(filter) } if filters.present? }
 
   # ExpenseSheets which can be used in calculations
-  scope :relevant_for_calculations, -> { where.not(state: :locked) }
+  scope :relevant_for_calculations, -> { where(state: :closed) }
 
   delegate :calculate_chargeable_days,
            :calculate_first_day,

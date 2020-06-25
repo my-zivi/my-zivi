@@ -100,7 +100,7 @@ RSpec.describe ExpenseSheet, type: :model do
     end
 
     context 'when the expense sheet is already paid' do
-      let!(:expense_sheet) { create :expense_sheet, :with_service, :with_payment, :closed }
+      let!(:expense_sheet) { create :expense_sheet, :with_service, :closed }
 
       it 'does not destroy the expense_sheet' do
         expect { expense_sheet.destroy }.not_to change(described_class, :count)
@@ -282,7 +282,7 @@ RSpec.describe ExpenseSheet, type: :model do
   describe 'update' do
     context 'when state is closed' do
       let!(:service) { create :service }
-      let(:expense_sheet) { create :expense_sheet, :with_payment, :closed, service: service }
+      let(:expense_sheet) { create :expense_sheet, :closed, service: service }
 
       it 'prevents an update' do
         expect { expense_sheet.update(sick_comment: 'blubb') }.to raise_error ActiveRecord::ReadOnlyRecord
