@@ -6,7 +6,7 @@ RSpec.describe ShortServiceCalculator, type: :service do
   describe '#calculate_ending_date' do
     subject { calculated_ending_day }
 
-    let(:beginning) { Date.parse('2018-01-01') }
+    let(:beginning) { Date.parse('2020-06-01') }
     let(:short_service_calculator) { described_class.new(beginning) }
     let(:required_service_days) { 26 }
     let(:calculated_ending_day) { short_service_calculator.calculate_ending_date(required_service_days) }
@@ -18,17 +18,14 @@ RSpec.describe ShortServiceCalculator, type: :service do
         create :organization_holiday, beginning: beginning, ending: beginning + 7.days
       end
 
-      it { is_expected.to eq Date.parse('2018-01-16') }
+      it { is_expected.to eq Date.parse('2020-06-16') }
     end
 
     context 'with public holidays' do
       let(:required_service_days) { 6 }
+      let(:beginning) { Date.parse('2019-12-30') }
 
-      before do
-        # create :organization_holiday, :public_holiday, beginning: beginning, ending: beginning + 1.day
-      end
-
-      it { is_expected.to eq Date.parse('2018-01-10') }
+      it { is_expected.to eq Date.parse('2020-01-07') }
     end
 
     context 'when service days are between 1 and 5' do
@@ -104,7 +101,7 @@ RSpec.describe ShortServiceCalculator, type: :service do
   describe '#calculate_chargeable_service_days' do
     subject { calculate_chargeable_service_days }
 
-    let(:beginning) { Date.parse('2018-01-01') }
+    let(:beginning) { Date.parse('2020-06-01') }
     let(:short_service_calculator) { described_class.new(beginning) }
     let(:ending) { beginning }
     let(:calculate_chargeable_service_days) { short_service_calculator.calculate_chargeable_service_days(ending) }
@@ -142,41 +139,26 @@ RSpec.describe ShortServiceCalculator, type: :service do
     end
 
     context 'with public holidays' do
-      let(:public_holiday_beginning) { beginning }
-      let(:public_holiday_ending) { public_holiday_beginning }
-
-      before do
-        # create :organization_holiday, :public_holiday, beginning: public_holiday_beginning, ending: public_holiday_ending
-      end
-
-      context 'with a public holiday on ending which affects the service days' do
+      context 'with a public holiday which affects the service days' do
+        let(:beginning) { Date.parse('2018-01-01') }
         let(:ending) { beginning + 10.days }
-        let(:public_holiday_beginning) { ending }
 
         it { is_expected.to eq 9 }
       end
 
-      context 'with a public holiday on ending which doesnt affect the service days' do
+      context 'with a public holiday which doesnt affect the service days' do
+        let(:beginning) { Date.parse('2017-01-01') }
         let(:ending) { beginning + 11.days }
-        let(:public_holiday_beginning) { ending }
 
         it { is_expected.to eq 11 }
-      end
-
-      context 'with a public holiday on beginning' do
-        let(:ending) { beginning + 7.days }
-        let(:public_holiday_beginning) { beginning }
-        let(:public_holiday_ending) { public_holiday_beginning + 1.day }
-
-        it { is_expected.to eq 4 }
       end
     end
 
     context 'with public and company holidays' do
+      let(:beginning) { Date.parse('2018-01-01') }
       let(:ending) { beginning + 7.days }
 
       before do
-        # create :organization_holiday, :public_holiday, beginning: beginning, ending: beginning
         create :organization_holiday, beginning: ending, ending: ending
       end
 

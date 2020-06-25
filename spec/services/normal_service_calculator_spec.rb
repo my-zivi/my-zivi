@@ -101,25 +101,25 @@ RSpec.describe NormalServiceCalculator, type: :service do
       context 'when service days are 54' do
         let(:required_service_days) { 54 }
 
-        it { is_expected.to eq(Date.parse('2018-03-05')) }
+        it { is_expected.to eq(Date.parse('2018-03-04')) }
       end
 
       context 'when service days are 55' do
         let(:required_service_days) { 55 }
 
-        it { is_expected.to eq(Date.parse('2018-03-06')) }
+        it { is_expected.to eq(Date.parse('2018-03-05')) }
       end
 
       context 'when service days are 179' do
         let(:required_service_days) { 179 }
 
-        it { is_expected.to eq(Date.parse('2018-07-08')) }
+        it { is_expected.to eq(Date.parse('2018-07-07')) }
       end
 
       context 'when service days are 180' do
         let(:required_service_days) { 180 }
 
-        it { is_expected.to eq(Date.parse('2018-07-01')) }
+        it { is_expected.to eq(Date.parse('2018-06-30')) }
       end
 
       context 'when service days are 210' do
@@ -138,13 +138,13 @@ RSpec.describe NormalServiceCalculator, type: :service do
       context 'when length is 180' do
         let(:ending) { beginning + 179 }
 
-        it { is_expected.to eq(170) }
+        it { is_expected.to eq(171) }
       end
 
       context 'when duration is 183' do
         let(:ending) { beginning + 182 }
 
-        it { is_expected.to eq(181) }
+        it { is_expected.to eq(182) }
       end
 
       context 'when duration is 211' do
