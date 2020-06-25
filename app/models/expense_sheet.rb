@@ -22,7 +22,7 @@ class ExpenseSheet < ApplicationRecord
             numericality: { only_integer: true }
 
   validates :payment_id, presence: true, if: :closed?
-  validates :ending, timeliness: { after: :beginning }
+  validates :ending, timeliness: { on_or_after: :beginning }
   validate :included_in_service_date_range
 
   before_destroy :legitimate_destroy
@@ -42,7 +42,7 @@ class ExpenseSheet < ApplicationRecord
   scope :filtered_by, ->(filters) { filters.reduce(self) { |query, filter| query.where(filter) } if filters.present? }
 
   # ExpenseSheets which can be used in calculations
-  scope :relevant_for_calculations, -> { where.not(state: :locked) }
+  scope :relevant_for_calculations, -> { where(state: :closed) }
 
   delegate :calculate_chargeable_days,
            :calculate_first_day,

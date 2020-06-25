@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_25_081749) do
+ActiveRecord::Schema.define(version: 2020_06_25_101411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,13 @@ ActiveRecord::Schema.define(version: 2020_06_25_081749) do
     t.bigint "workshop_id", null: false
     t.index ["civil_servant_id"], name: "index_civil_servants_workshops_on_civil_servant_id"
     t.index ["workshop_id"], name: "index_civil_servants_workshops_on_workshop_id"
+  end
+
+  create_table "creditor_details", force: :cascade do |t|
+    t.string "bic"
+    t.string "iban"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "driving_licenses", force: :cascade do |t|
@@ -114,7 +121,9 @@ ActiveRecord::Schema.define(version: 2020_06_25_081749) do
     t.text "intro_text"
     t.bigint "address_id", null: false
     t.bigint "letter_address_id"
+    t.bigint "creditor_detail_id"
     t.index ["address_id"], name: "index_organizations_on_address_id"
+    t.index ["creditor_detail_id"], name: "index_organizations_on_creditor_detail_id"
     t.index ["letter_address_id"], name: "index_organizations_on_letter_address_id"
   end
 
@@ -213,6 +222,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_081749) do
   add_foreign_key "expense_sheets", "payments"
   add_foreign_key "expense_sheets", "services"
   add_foreign_key "organization_holidays", "organizations"
+  add_foreign_key "organizations", "creditor_details"
   add_foreign_key "payments", "organizations"
   add_foreign_key "regional_centers", "addresses"
   add_foreign_key "service_specifications", "organizations"

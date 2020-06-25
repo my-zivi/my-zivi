@@ -4,6 +4,7 @@ class Payment < ApplicationRecord
   validates :paid_timestamp, timeliness: { type: :date }
 
   belongs_to :organization
+  has_many :expense_sheets, dependent: :restrict_with_exception
 
   # TODO: Add old functionality back
   # class << self

@@ -5,5 +5,6 @@ FactoryBot.define do
     name { 'MyZivi AG' }
     intro_text { 'This is the best zivi organization' }
     address
+    creditor_detail
   end
 end

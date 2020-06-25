@@ -9,12 +9,18 @@ class AddDomainModel < ActiveRecord::Migration[6.0]
       t.integer :zip, null: false
     end
 
+    create_table :creditor_details do |t|
+      t.string :bic, null: false
+      t.string :iban, null: false
+    end
+
     create_table :organizations do |t|
       t.string :name, null: false
       t.text :intro_text
       t.bigint :address_id, null: false
       t.bigint :letter_address_id
       t.index :address_id, name: 'index_organizations_on_address_id'
+      t.index :creditor_details_id, name: 'index_organizations_on_creditor_details_id'
       t.index :letter_address_id, name: 'index_organizations_on_letter_address_id'
     end
 
