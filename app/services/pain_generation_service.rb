@@ -1,51 +1,50 @@
 # frozen_string_literal: true
 
 class PainGenerationService
-  def initialize(sheets)
-    @sheets = sheets
-  end
+  class << self
+    def call(sheets, organization)
+      sepa_credit_transfer = build_credit_transfer(organization)
 
-  def generate_pain
-    @sheets.each do |sheet|
-      sepa_credit_transfer.add_transaction(build_transaction(sheet))
+      sheets.each do |sheet|
+        sepa_credit_transfer.add_transaction(build_transaction(sheet))
+      end
+
+      sepa_credit_transfer
     end
 
-    sepa_credit_transfer
-  end
+    private
 
-  private
+    def build_credit_transfer(organization)
+      SEPA::CreditTransfer.new(
+        name: organization.name,
+        bic: organization.creditor_detail.bic,
+        iban: organization.creditor_detail.iban
+      )
+    end
 
-  # :reek:FeatureEnvy
-  def build_transaction(sheet)
-    user = sheet.user
+    def build_transaction(sheet)
+      civil_servant = sheet.service.civil_servant
 
-    {
-      name: user.full_name,
-      iban: user.bank_iban,
-      amount: sheet.calculate_full_expenses / 100.to_f,
-      currency: 'CHF',
-      remittance_information: I18n.t('payment.expenses_from', from_date: I18n.l(sheet.beginning, format: '%B %Y')),
-      requested_date: Time.zone.today,
-      batch_booking: true,
+      {
+        name: civil_servant.full_name,
+        iban: civil_servant.iban,
+        amount: sheet.calculate_full_expenses / 100.to_f,
+        currency: 'CHF',
+        remittance_information: I18n.t('payment.expenses_from', from_date: I18n.l(sheet.beginning, format: '%B %Y')),
+        requested_date: Time.zone.today,
+        batch_booking: true,
 
-      creditor_address: build_creditor_address(user)
-    }
-  end
+        creditor_address: build_creditor_address(civil_servant.address)
+      }
+    end
 
-  def build_creditor_address(user)
-    SEPA::CreditorAddress.new(
-      country_code: 'CH',
-      street_name: user.address,
-      post_code: user.zip,
-      town_name: user.city
-    )
-  end
-
-  def sepa_credit_transfer
-    @sepa_credit_transfer ||= SEPA::CreditTransfer.new(
-      name: ENV['PAIN_CREDITOR_NAME'].dup.force_encoding('UTF-8'),
-      bic: ENV['PAIN_CREDITOR_BIC'],
-      iban: ENV['PAIN_CREDITOR_IBAN']
-    )
+    def build_creditor_address(address)
+      SEPA::CreditorAddress.new(
+        country_code: 'CH',
+        street_name: address.street,
+        post_code: address.zip,
+        town_name: address.city
+      )
+    end
   end
 end

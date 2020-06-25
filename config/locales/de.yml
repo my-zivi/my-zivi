@@ -148,3 +148,6 @@ de:
       service: Einsatz
       service_specification: Pflichtenheft
       workshop: Kurs
+  payment:
+    expenses_from: Spesen vom %{from_date}
+    pain_filename: Spesen_vom_%{from_date}.xml

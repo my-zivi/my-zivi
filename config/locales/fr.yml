@@ -148,3 +148,6 @@ fr:
       service: Déploiement
       service_specification: Spécifications
       workshop: Cours
+  payment:
+    expenses_from: Frais du %{from_date}
+    pain_filename: Frais_du_%{from_date}.xml

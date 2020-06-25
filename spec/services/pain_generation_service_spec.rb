@@ -3,42 +3,49 @@
 require 'rails_helper'
 
 RSpec.describe PainGenerationService, type: :service do
-  describe '#generate_transaction' do
-    before do
-      create :service, civil_servant: civil_servant
+  describe '#generate_pain' do
+    subject(:generated_pain) { described_class.call(expense_sheets, organization) }
 
-      allow(SEPA::CreditTransfer).to receive(:new).and_return transaction_adder
+    let(:organization) { service.organization }
+    let(:service) { create :service }
+    let(:civil_servant) { service.civil_servant }
+    let(:expense_sheets) { create_pair :expense_sheet, service: service }
 
-      described_class.new([expense_sheet]).generate_pain
+    let(:expected_transaction_values) do
+      {
+        amount: expense_sheets.first.calculate_full_expenses / 100.to_f,
+        batch_booking: true,
+        currency: 'CHF',
+        iban: civil_servant.iban,
+        name: civil_servant.full_name,
+        remittance_information: I18n.t('payment.expenses_from',
+                                       from_date: I18n.l(
+                                         expense_sheets.first.beginning,
+                                         format: '%B %Y'
+                                       )),
+        requested_date: Time.zone.today
+      }
     end
 
-    let(:transaction_adder) { instance_double(SEPA::CreditTransfer, add_transaction: true) }
-
-    let(:civil_servant) { create :civil_servant }
-    let(:expense_sheet) do
-      create :expense_sheet, :ready_for_payment, civil_servant: civil_servant
+    let(:expected_account_values) do
+      {
+        name: organization.name,
+        bic: organization.creditor_detail.bic,
+        iban: organization.creditor_detail.iban
+      }
     end
 
-    context 'when there is one expense sheet' do
-      let(:expected_fields) do
-        {
-          amount: expense_sheet.calculate_full_expenses / 100.to_f,
-          batch_booking: true,
-          currency: 'CHF',
-          iban: civil_servant.bank_iban,
-          name: civil_servant.full_name,
-          remittance_information: I18n.t('payment.expenses_from',
-                                         from_date: I18n.l(
-                                           expense_sheet.beginning,
-                                           format: '%B %Y'
-                                         )),
-          requested_date: Time.zone.today
-        }
+    it 'generates transaction information correctly' do
+      expected_transaction_values.each do |key, expected_value|
+        expect(generated_pain.transactions.map { |transaction| transaction.public_send key }).to all eq expected_value
       end
+    end
 
-      it 'generates transaction' do
-        expect(transaction_adder).to have_received(:add_transaction)
-          .with(hash_including(expected_fields))
+    it 'generates account information correctly' do
+      pp generated_pain.account
+
+      expected_account_values.each do |key, expected_value|
+        expect(generated_pain.account.public_send(key)).to eq expected_value
       end
     end
   end
