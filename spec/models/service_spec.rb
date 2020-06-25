@@ -39,7 +39,7 @@ RSpec.describe Service, type: :model do
       context 'when service has a length that is less then 26 days' do
         let(:service_range) { Date.parse('2018-01-01')..Date.parse('2018-01-19') }
 
-        xit 'adds a length error' do
+        it 'adds a length error' do
           expect(length_error_added).to eq true
         end
       end
@@ -134,7 +134,7 @@ RSpec.describe Service, type: :model do
     end
   end
 
-  xdescribe 'memoization' do
+  describe 'memoization' do
     let(:service) { build :service }
     let(:used_days_calculator) { instance_double ExpenseSheetCalculators::UsedDaysCalculator }
     let(:remaining_days_calculator) { instance_double ExpenseSheetCalculators::RemainingDaysCalculator }
@@ -180,7 +180,7 @@ RSpec.describe Service, type: :model do
     let(:service) { build(:service, beginning: beginning, ending: beginning + 25.days) }
     let(:beginning) { Time.zone.today.beginning_of_week }
 
-    xit 'returns the service days of the service' do
+    it 'returns the service days of the service' do
       expect(service.service_days).to eq 26
     end
   end
@@ -189,7 +189,7 @@ RSpec.describe Service, type: :model do
     let(:service) { build(:service, :long, beginning: beginning, ending: beginning + 214.days) }
     let(:beginning) { Time.zone.today.beginning_of_week }
 
-    xit 'returns the eligible personal vacation days of the service' do
+    it 'returns the eligible personal vacation days of the service' do
       expect(service.eligible_paid_vacation_days).to eq 10
     end
   end
@@ -205,7 +205,7 @@ RSpec.describe Service, type: :model do
       allow(service_calculator).to receive(:calculate_eligible_sick_days)
     end
 
-    xit 'calls ServiceCalculator#calculate_eligible_sick_days' do
+    it 'calls ServiceCalculator#calculate_eligible_sick_days' do
       service.eligible_sick_days
       expect(service_calculator).to have_received(:calculate_eligible_sick_days).with 26
     end

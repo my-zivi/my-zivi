@@ -115,7 +115,7 @@ de:
         organization_holiday:
           attributes:
             ending:
-              after: Das Startdatum kann nicht nach dem Enddatum sein.
+              on_or_after: Das Startdatum kann nicht nach dem Enddatum sein.
         service:
           attributes:
             bank_iban:
@@ -125,7 +125,7 @@ de:
               bad_length: ungültige Länge
               unknown_country_code: unbekannter Landescode
             ending:
-              after: Das Startdatum kann nicht nach dem Enddatum sein.
+              on_or_after: Das Startdatum kann nicht nach dem Enddatum sein.
             service_days:
               invalid_length: kann nicht kürzer als 26 Tage sein.
         user:
@@ -148,3 +148,8 @@ de:
       service: Einsatz
       service_specification: Pflichtenheft
       workshop: Kurs
+  payment:
+    expenses_from: Spesen vom %{from_date}
+  service_calculator:
+    end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
+    invalid_required_service_days: Ungültige Einsatztage

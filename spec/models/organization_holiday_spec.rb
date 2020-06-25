@@ -10,7 +10,7 @@ RSpec.describe OrganizationHoliday, type: :model do
 
     it_behaves_like 'validates presence of required fields', %i[beginning ending description]
 
-    it_behaves_like 'validates that the ending is after beginning' do
+    it_behaves_like 'validates that the ending is on or after beginning' do
       let(:model) { build(:organization_holiday, beginning: beginning, ending: ending) }
     end
   end

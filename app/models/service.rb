@@ -8,6 +8,7 @@ class Service < ApplicationRecord
   belongs_to :service_specification
 
   has_many :expense_sheets, dependent: :restrict_with_error
+  has_one :organization, through: :service_specification
 
   enum service_type: {
     normal: 0,

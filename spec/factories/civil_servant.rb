@@ -12,7 +12,7 @@ FactoryBot.define do
     health_insurance { 'Sanicare' }
 
     trait :full do
-      address
+      association :address, :civil_servant
       regional_center
       association :user, strategy: :build
     end

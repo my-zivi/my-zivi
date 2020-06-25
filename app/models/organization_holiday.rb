@@ -5,10 +5,11 @@ class OrganizationHoliday < ApplicationRecord
 
   validates :beginning, :ending, :description, presence: true
   validates :beginning, :ending, timeliness: { type: :date }
-  validates :ending, timeliness: { after: :beginning }
+  validates :ending, timeliness: { on_or_after: :beginning }
 
   belongs_to :organization
 
+  # TODO: get region from organization
   def work_days(region = :ch)
     range.reject { |day| day.on_weekend? || Holidays.on(day, region).present? }
   end
