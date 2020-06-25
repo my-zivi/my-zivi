@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    meta content='text/html; charset=UTF-8' http-equiv='Content-Type' /
+    title MyZivi
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = render 'layouts/sentry'
+  body
+    - if notice
+      .alert.alert-info = notice
+    - if alert
+      .alert.alert-danger = alert
+    .container
+      = yield
