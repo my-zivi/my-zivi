@@ -73,6 +73,8 @@ module ExpenseSheetCalculators
       calculate_values(count, @specification.work_days_expenses)
     end
 
+    # TODO: Fix this, probably refactor quite a bit
+    # :reek:FeatureEnvy
     def calculate_values(count, day_spec)
       expenses = {
         pocket_money: ServiceSpecification::POCKET_MONEY,

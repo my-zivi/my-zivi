@@ -156,7 +156,9 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
 
     context 'with more than one expense sheet' do
       let(:service_range) { get_service_range months: 3 }
-      let(:service) { create :service, beginning: service_range.begin, ending: service_range.end, civil_servant: civil_servant }
+      let(:service) do
+        create :service, beginning: service_range.begin, ending: service_range.end, civil_servant: civil_servant
+      end
       let(:created_expense_sheets) { ExpenseSheetGenerator.new(service).create_expense_sheets }
       let(:expense_sheet) { created_expense_sheets.last }
 

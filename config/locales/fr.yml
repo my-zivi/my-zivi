@@ -115,7 +115,7 @@ fr:
         organization_holiday:
           attributes:
             ending:
-              after: La date de début ne peut être postérieure à la date de fin.
+              on_or_after: La date de début ne peut être postérieure à la date de fin.
         service:
           attributes:
             bank_iban:
@@ -125,7 +125,7 @@ fr:
               bad_length: longueur non valable
               unknown_country_code: code de pays inconnu
             ending:
-              after: La date de début ne peut être postérieure à la date de fin.
+              on_or_after: La date de début ne peut être postérieure à la date de fin.
             service_days:
               invalid_length: ne peut être inférieure à 26 jours.
         user:
@@ -150,4 +150,6 @@ fr:
       workshop: Cours
   payment:
     expenses_from: Frais du %{from_date}
-    pain_filename: Frais_du_%{from_date}.xml
+  service_calculator:
+    end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
+    invalid_required_service_days: Jours du service non valables
