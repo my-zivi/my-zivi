@@ -98,6 +98,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.9.1)
+      devise (>= 4.7.1)
     diff-lcs (1.3)
     docile (1.3.2)
     dotenv (2.7.5)
@@ -312,6 +314,16 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.2)
+    slim (4.1.0)
+      temple (>= 0.7.6, < 0.9)
+      tilt (>= 2.0.6, < 2.1)
+    slim-rails (3.2.0)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+      slim (>= 3.0, < 5.0)
+    slim_lint (0.20.0)
+      rubocop (>= 0.78.0)
+      slim (>= 3.0, < 5.0)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -323,11 +335,13 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    temple (0.8.2)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     test-prof (0.11.3)
     thor (1.0.1)
     thread_safe (0.3.6)
+    tilt (2.0.10)
     timeliness (0.4.4)
     ttfunk (1.6.2.1)
     turbolinks (5.2.1)
@@ -370,6 +384,7 @@ DEPENDENCIES
   capybara
   climate_control
   devise
+  devise-i18n
   dotenv-rails
   factory_bot_rails
   faker
@@ -404,6 +419,8 @@ DEPENDENCIES
   shoulda-matchers
   simple_form
   simplecov
+  slim-rails
+  slim_lint
   spring
   spring-watcher-listen (~> 2.0.0)
   test-prof
