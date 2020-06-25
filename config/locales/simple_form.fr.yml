@@ -1,0 +1,9 @@
+fr:
+  simple_form:
+    "yes": 'Oui'
+    "no": 'Non'
+    required:
+      text: 'requis'
+      mark: '*'
+    error_notification:
+      default_message: "Veuillez noter les problèmes ci-dessous:"
