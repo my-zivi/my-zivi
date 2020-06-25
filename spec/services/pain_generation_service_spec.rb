@@ -42,8 +42,6 @@ RSpec.describe PainGenerationService, type: :service do
     end
 
     it 'generates account information correctly' do
-      pp generated_pain.account
-
       expected_account_values.each do |key, expected_value|
         expect(generated_pain.account.public_send(key)).to eq expected_value
       end
