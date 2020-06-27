@@ -14,5 +14,3 @@ import '@my-zivi/falcon/js/theme/stickyfill.js';
 import '@my-zivi/falcon/js/theme/stickykit.js';
 import '@my-zivi/falcon/js/theme/tooltip.js';
 import '@my-zivi/falcon/js/theme/emojionearea.js';
-
-document.addEventListener('load', () => console.log('hello from falcon'));
