@@ -1,0 +1,14 @@
+= render 'devise/shared/authentication_card' do
+  h4.mb-3 = t('devise.confirmations.new.resend_confirmation_instructions')
+  = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+    = f.error_notification
+    = f.full_error :confirmation_token
+    .form-inputs
+      = f.input :email,
+        required: true,
+        autofocus: true,
+        value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+        input_html: { autocomplete: 'email' }
+    .form-group
+      = f.button :submit, t('devise.confirmations.new.submit'), class: 'btn btn-primary btn-block mt-3'
+  = render 'devise/shared/links'

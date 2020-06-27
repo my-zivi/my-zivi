@@ -148,6 +148,7 @@ de:
       service: Einsatz
       service_specification: Pflichtenheft
       workshop: Kurs
+  my_zivi: MyZivi
   payment:
     expenses_from: Spesen vom %{from_date}
   service_calculator:
