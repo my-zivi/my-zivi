@@ -1,5 +1,10 @@
 base_locale: de
+locales: [de, fr]
 data:
+  read:
+   - config/locales/%{locale}.yml
+   - config/locales/**/*.%{locale}.yml
+
   yaml:
     write:
       line_width: -1
