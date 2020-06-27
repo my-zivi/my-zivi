@@ -18,9 +18,8 @@ import jQuery from 'jquery';
 window.jQuery = jQuery;
 window.$ = jQuery;
 
-import '@fortawesome/fontawesome-free/js/all.min'
+import '@fortawesome/fontawesome-free/js/all.min';
 import 'bootstrap/dist/js/bootstrap.min';
 
-require.context('../images', true);
-
 import '../stylessheets/application.scss';
+import '../images/theme';
