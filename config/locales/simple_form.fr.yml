@@ -1,0 +1,14 @@
+---
+fr:
+  simple_form:
+    error_notification:
+      default_message: 'Veuillez noter les problèmes ci-dessous:'
+    'no': Non
+    placeholders:
+      user:
+        email: max.muster@example.com
+        password: Passeport
+    required:
+      mark: "*"
+      text: requis
+    'yes': Oui

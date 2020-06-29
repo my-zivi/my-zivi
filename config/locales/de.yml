@@ -1,0 +1,156 @@
+---
+de:
+  activerecord:
+    attributes:
+      address:
+        city: Stadt
+        primary_line: Erste Adresszeile
+        secondary_line: Zweite Adresszeile
+        street: Strasse
+        supplement: Adresszusatz
+        zip: Postleitzahl
+      civil_servant:
+        birthday: Geburtstag
+        city: Stadt
+        email: Email
+        first_name: Vorname
+        health_insurance: Krankenkasse
+        hometown: Heimatstadt
+        iban: Bankverbindung
+        id: ID
+        last_name: Nachname
+        phone: Telefonnummer
+        role: Rolle
+        zdp: ZDP-Nr.
+        zip_with_city: PLZ / Ort
+      driving_license:
+        name: Name
+      expense_sheet:
+        accommodation_expenses: Unterkunft
+        beginning: Anfang
+        clothing: Kleider
+        clothing_expenses: Kleiderspesen
+        clothing_expenses_comment: Kleiderspesen - Kommentar
+        company_holiday_comment: Betriebsferien Kommentar
+        driving_expenses: Fahrspesen
+        driving_expenses_comment: Fahrspesenkommentar
+        ending: Ende
+        extraordinary_expenses: Ausserordentliche Spesen
+        extraordinary_expenses_comment: Ausserordentliche Spesen - Kommentar
+        paid_company_holiday_days: Bezahlte Betriebsferientage
+        paid_vacation_comment: Bezahlte Ferien - Kommentar
+        paid_vacation_days:
+          one: Ferientag
+          other: Ferientage
+        pocket_money: Taschengeld
+        sick_comment: Krankheitskommentar
+        sick_days:
+          one: Krankheitstag
+          other: Krankheitstage
+        sickness: Krankheit
+        state: Status
+        unpaid_company_holiday_days: Unbezahlte Betriebsferientage
+        unpaid_vacation_comment: Unbezahlte Ferien - Kommentar
+        unpaid_vacation_days:
+          one: Urlaubstag
+          other: Urlaubstage
+        way_expenses: Wegspesen
+        work_clothing_expenses: Arbeitskleider
+        work_days:
+          one: Arbeitstag
+          other: Arbeitstage
+        workfree: Arbeitsfrei
+        workfree_days:
+          one: Arbeitsfreier Tag
+          other: Arbeitsfreie Tage
+      organizatino_holiday:
+        beginning: Anfang
+        description: Beschreibung
+        ending: Ende
+      regional_center:
+        name: Name
+        short_name: Kurzname
+      service:
+        beginning: Anfang
+        confirmation_date: Bestätigungsdatum
+        ending: Ende
+        long_service: Langer Einsatz
+        probation_service: Probeeinsatz
+        service_days: Einsatzdauer
+        service_type: Einsatztyp
+      service_specification:
+        accommodation_expenses: Unterkunftsspesen
+        active: Aktiv
+        expense_keys:
+          breakfast: Morgen
+          dinner: Abend
+          lunch: Mittag
+        first_day_expenses: Spesen für den ersten Tag
+        identification_number: Identifikationsnummer
+        last_day_expenses: Spesen für den letzten Tag
+        location: Ort
+        name: Name
+        paid_vacation_expenses: Bezahlte Ferienspesen
+        short_name: Kurzname
+        work_clothing_expenses: Kleiderspesen
+        work_days_expenses: Arbeitstagesspesen
+      workshop:
+        name: Name
+    errors:
+      messages:
+        before_beginning: vor Start
+        invalid_date: ungültiges Datum
+        not_a_friday: kein Freitag
+        not_a_monday: kein Montag
+        overlaps_service: überlappt existierenden Service
+      models:
+        expense_sheet:
+          already_paid: Das Spesenblatt wurde bereis ausbezahlt.
+          attributes:
+            ending:
+              after: Das Startdatum kann nicht nach dem Enddatum sein.
+            state:
+              invalid_state_change: ungültiger Statuswechsel
+          outside_service_date_range: Das Spesenblatt kann nicht auserhalb des Einsatzes liegen.
+        organization_holiday:
+          attributes:
+            ending:
+              on_or_after: Das Startdatum kann nicht nach dem Enddatum sein.
+        service:
+          attributes:
+            bank_iban:
+              bad_chars: ungültige Zeichen
+              bad_check_digits: ungültige Prüffziffer
+              bad_format: ungültiges Format
+              bad_length: ungültige Länge
+              unknown_country_code: unbekannter Landescode
+            ending:
+              on_or_after: Das Startdatum kann nicht nach dem Enddatum sein.
+            service_days:
+              invalid_length: kann nicht kürzer als 26 Tage sein.
+        user:
+          attributes:
+            bank_iban:
+              bad_chars: ungültige Zeichen
+              bad_check_digits: ungültige Prüffziffer
+              bad_format: ungültiges Format
+              bad_length: ungültige Länge
+              unknown_country_code: unbekannter Landescode
+            base:
+              cant_delete_himself: Du kannst dich nicht selbst löschen
+    models:
+      address: Adresse
+      civil_servant: Zivildienstleistende Person
+      driving_licenses: Fahrlizenz
+      expense_sheet: Spesenblatt
+      organizatino_holiday: Betriebsferien
+      regional_center: Regionalzentrum
+      service: Einsatz
+      service_specification: Pflichtenheft
+      workshop: Kurs
+  my_zivi: MyZivi
+  payment:
+    expenses_from: Spesen vom %{from_date}
+  service_calculator:
+    end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
+    invalid_required_service_days: Ungültige Einsatztage

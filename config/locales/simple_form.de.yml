@@ -1,0 +1,14 @@
+---
+de:
+  simple_form:
+    error_notification:
+      default_message: 'Bitte beachten Sie die Probleme unten:'
+    'no': Nein
+    placeholders:
+      user:
+        email: max.muster@example.com
+        password: Passwort
+    required:
+      mark: "*"
+      text: erforderlich
+    'yes': Ja

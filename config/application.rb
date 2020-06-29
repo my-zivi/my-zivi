@@ -28,6 +28,7 @@ module MyZivi
     config.time_zone = 'Zurich'
     config.i18n.default_locale = :de
     config.i18n.available_locales = %i[de fr]
+    config.i18n.fallbacks = [I18n.default_locale]
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

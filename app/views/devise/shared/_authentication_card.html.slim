@@ -1,0 +1,10 @@
+- content_for(:hide_flash_messages, true)
+
+.row.flex-center.min-vh-100.py-6
+  .col-sm-10.col-md-8.col-lg-6.col-xl-5.col-xxl-4
+    = link_to root_path, class: 'd-flex flex-center mb-4 text-decoration-none'
+      span.text-sans-serif.font-weight-extra-bold.fs-5.d-inline-block = t('my_zivi')
+    .card
+      .card-body.p-4.p-sm-5
+        = render 'shared/flash_messages'
+        = yield

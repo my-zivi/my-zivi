@@ -1,0 +1,12 @@
+= render 'devise/shared/authentication_card' do
+  h4.mb-3 = t('devise.passwords.new.forgot_your_password')
+  = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+    = f.error_notification
+    .form-inputs
+      = f.input :email,
+        required: true,
+        autofocus: true,
+        input_html: { autocomplete: "email" }
+    .form-group
+      = f.button :submit, t('devise.confirmations.new.submit'), class: 'btn btn-primary btn-block mt-3'
+  = render 'devise/shared/links'
