@@ -1,0 +1,24 @@
+.card-deck
+  = render 'civil_servants/overview/overview_card',
+          title: 'Momentaner Einsatz',
+          content: 'Stiftung SWO',
+          background_class: 'corner-1' do
+    a.font-weight-semi-bold.fs--1.text-nowrap href="#"
+      | See all
+      i.fas.fa-angle-right.ml-1 data-fa-transform="down-1"
+
+  = render 'civil_servants/overview/overview_card',
+          title: 'Spesenblätter',
+          content: '3',
+          background_class: 'corner-2' do
+    a.font-weight-semi-bold.fs--1.text-nowrap href="#!"
+      | All orders
+      i.fas.fa-angle-right.ml-1 data-fa-transform="down-1"
+
+  = render 'civil_servants/overview/overview_card',
+          title: 'Einsatz bis',
+          content: '20. Jun 2020',
+          background_class: 'corner-3' do
+    a.font-weight-semi-bold.fs--1.text-nowrap href="#!"
+      | Statistics
+      i.fas.fa-angle-right.ml-1 data-fa-transform="down-1"

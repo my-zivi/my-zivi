@@ -1,7 +1,17 @@
 @import '~@my-zivi/falcon/scss/theme/functions';
-@import 'variables';
 @import '~@my-zivi/falcon/scss/theme/variables';
-@import '~bootstrap/scss/variables';
+@import 'variables';
 @import '~bootstrap/scss/bootstrap';
 @import '~@my-zivi/falcon/scss/theme/theme';
 
+.corner-1 {
+  background-image: url("~@my-zivi/falcon/pages/assets/img/illustrations/corner-1.png");
+}
+
+.corner-2 {
+  background-image: url("~@my-zivi/falcon/pages/assets/img/illustrations/corner-2.png");
+}
+
+.corner-3 {
+  background-image: url("~@my-zivi/falcon/pages/assets/img/illustrations/corner-3.png");
+}

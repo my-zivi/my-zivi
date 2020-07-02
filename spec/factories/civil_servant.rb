@@ -15,6 +15,10 @@ FactoryBot.define do
       association :address, :civil_servant
       regional_center
       association :user, strategy: :build
+
+      after(:create) do |civil_servant|
+        civil_servant.user.save
+      end
     end
   end
 end
