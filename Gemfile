@@ -71,6 +71,7 @@ group :test do
   gem 'pdf-inspector', require: 'pdf/inspector'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'simplecov-console'
   gem 'test-prof'
 end
 
