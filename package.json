@@ -20,8 +20,14 @@
   "scripts": {
     "heroku-prebuild": "node ./bin/heroku-prebuild.js"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "./bin/hooks/pre-push"
+    }
+  },
   "version": "0.1.0",
   "devDependencies": {
+    "husky": "^4.2.5",
     "webpack-dev-server": "^3.11.0"
   }
 }
