@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'simplecov'
-require 'simplecov-console'
 
 SimpleCov.start 'rails' do
   add_filter 'app/channels/application_cable/channel.rb'
@@ -11,19 +10,20 @@ SimpleCov.start 'rails' do
   add_filter 'app/models/application_record.rb'
   add_filter '.semaphore-cache'
   enable_coverage :branch
-
-  if ENV['CI']
-    formatter SimpleCov::Formatter::Console
-  else
-    formatter SimpleCov::Formatter::MultiFormatter.new([
-                                                         SimpleCov::Formatter::Console,
-                                                         SimpleCov::Formatter::HTMLFormatter
-                                                       ])
-  end
 end
 
 SimpleCov.maximum_coverage_drop 0
 SimpleCov.minimum_coverage 100
+
+require 'simplecov-console'
+if ENV['CI']
+  SimpleCov.formatter SimpleCov::Formatter::Console
+else
+  SimpleCov.formatter SimpleCov::Formatter::MultiFormatter.new([
+                                                                 SimpleCov::Formatter::Console,
+                                                                 SimpleCov::Formatter::HTMLFormatter
+                                                               ])
+end
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
