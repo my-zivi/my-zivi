@@ -157,7 +157,7 @@ de:
   shared:
     civil_servants:
       navbar:
-        home: "Home"
-        profile: "Profil"
-        services: "Einsätze"
-        sign_out: "Abmelden"
+        home: Home
+        profile: Profil
+        services: Einsätze
+        sign_out: Abmelden

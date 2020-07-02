@@ -156,7 +156,7 @@ fr:
   shared:
     civil_servants:
       navbar:
-        home: "Accueil"
-        profile: "Profil"
-        services: "Missions"
-        sign_out: "Déconnexion"
+        home: Accueil
+        profile: Profil
+        services: Missions
+        sign_out: Déconnexion
