@@ -39,7 +39,6 @@ class ExpenseSheet < ApplicationRecord
   scope :in_payment, ->(payment_timestamp) { includes(:civil_servant).where(payment_timestamp: payment_timestamp) }
   scope :payment_issued, -> { includes(:civil_servant).where.not(payment_timestamp: [nil]) }
   scope :before_date, ->(date) { where(arel_table[:ending].lt(date)) }
-  scope :filtered_by, ->(filters) { filters.reduce(self) { |query, filter| query.where(filter) } if filters.present? }
 
   # ExpenseSheets which can be used in calculations
   scope :relevant_for_calculations, -> { where(state: :closed) }
@@ -95,9 +94,10 @@ class ExpenseSheet < ApplicationRecord
     errors.add(:base, I18n.t('activerecord.errors.models.expense_sheet.outside_service_date_range'))
   end
 
-  def fetch_service(services)
-    services.including_date_range(beginning, ending).first
-  end
+  # TODO: Remove, left from legacy. Just here for the sake of documentation
+  # def fetch_service(services)
+  #   services.including_date_range(beginning, ending).first
+  # end
 
   # TODO: Remove, left from legacy. Just here for the sake of documentation
   # def eager_loaded_service(services)
