@@ -11,8 +11,7 @@ SimpleCov.start 'rails' do
   enable_coverage :branch
 end
 SimpleCov.maximum_coverage_drop 0
-# TODO: Raise to 100% again
-SimpleCov.minimum_coverage 98.87
+SimpleCov.minimum_coverage 100
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
