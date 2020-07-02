@@ -3,28 +3,42 @@
 module Pdfs
   module ServiceAgreement
     module FormFields
-      USER_FORM_FIELDS = {
+      CIVIL_SERVANT_FORM_FIELDS = {
         fr: {
           zdp: 'N',
           first_name: 'Prénom',
           last_name: 'Nom',
-          zip_with_city: 'NPA / Lieu',
-          address: 'Rue n',
           phone: 'Mobile',
-          bank_iban: 'IBAN',
-          email: 'Courriel',
+          iban: 'IBAN',
           health_insurance: 'Caisse-maladie'
         },
         de: {
           zdp: 1,
           first_name: 2,
           last_name: 7,
-          zip_with_city: 3,
-          address: 8,
           phone: 4,
-          bank_iban: 10,
-          email: 5,
+          iban: 10,
           health_insurance: 11
+        }
+      }.freeze
+
+      CIVIL_SERVANT_USER_FORM_FIELDS = {
+        fr: {
+          email: 'Courriel'
+        },
+        de: {
+          email: 5
+        }
+      }.freeze
+
+      CIVIL_SERVANT_ADDRESS_FORM_FIELDS = {
+        fr: {
+          zip_with_city: 'NPA / Lieu',
+          street: 'Rue n'
+        },
+        de: {
+          zip_with_city: 3,
+          street: 8
         }
       }.freeze
 
@@ -41,14 +55,14 @@ module Pdfs
 
       SERVICE_CHECKBOX_FIELDS = {
         fr: {
-          conventional_service: 'affectation',
-          probation_service: 'affectation à lessai',
-          long_service: 'affectation longue obligatoire ou partie de celleci'
+          normal_civil_service: 'affectation',
+          probation_civil_service: 'affectation à lessai',
+          long_civil_service: 'affectation longue obligatoire ou partie de celleci'
         },
         de: {
-          conventional_service: 'Einsatz',
-          probation_service: 'Probeeinsatz',
-          long_service: 'obligatorischer Langer Einsatz oder Teil davon'
+          normal_civil_service: 'Einsatz',
+          probation_civil_service: 'Probeeinsatz',
+          long_civil_service: 'obligatorischer Langer Einsatz oder Teil davon'
         }
       }.freeze
 
