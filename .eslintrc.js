@@ -11,5 +11,6 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    "max-len": [2, 120, 4],
   },
 };
