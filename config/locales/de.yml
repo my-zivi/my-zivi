@@ -154,3 +154,10 @@ de:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
+  shared:
+    civil_servants:
+      navbar:
+        home: "Home"
+        profile: "Profil"
+        services: "Einsätze"
+        sign_out: "Abmelden"

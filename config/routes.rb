@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   root 'home#index'
 
   namespace :civil_servants do
-    get 'overview', to: 'overview#index'
+    get '/', to: 'overview#index'
   end
 end

@@ -11,13 +11,23 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
   #navbarVerticalCollapse.collapse.navbar-collapse.perfect-scrollbar.scrollbar
     ul.navbar-nav.flex-column
       li.nav-item
-        a.nav-link aria-controls="home" href="#home" role="button"
+        = link_to civil_servants_path, class: 'nav-link', role: 'button' do
           .d-flex.align-items-center
             span.nav-link-icon
               span.fas.fa-chart-pie
-            span.nav-link-text Home
-        a.nav-link aria-controls="home" href="#home" role="button"
+            span.nav-link-text = t('.home')
+        = link_to civil_servants_path, class: 'nav-link', role: 'button' do
           .d-flex.align-items-center
             span.nav-link-icon
-              span.fas.fa-chart-pie
-            span.nav-link-text About
+              span.fas.fa-hands-helping
+            span.nav-link-text = t('.services')
+        = link_to civil_servants_path, class: 'nav-link', role: 'button' do
+          .d-flex.align-items-center
+            span.nav-link-icon
+              span.fas.fa-user
+            span.nav-link-text = t('.profile')
+        = link_to destroy_user_session_path, method: :delete, class: 'nav-link text-danger', role: 'button' do
+          .d-flex.align-items-center
+            span.nav-link-icon
+              span.fas.fa-sign-out-alt
+            span.nav-link-text = t('.sign_out')
