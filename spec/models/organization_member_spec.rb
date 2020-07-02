@@ -14,7 +14,7 @@ RSpec.describe OrganizationMember, type: :model do
 
   describe 'validation' do
     it_behaves_like 'validates presence of required fields', %i[
-      frist_name
+      first_name
       last_name
       phone
       organization_role
@@ -23,13 +23,29 @@ RSpec.describe OrganizationMember, type: :model do
     context 'when there is a user' do
       subject { build :organization_member, :with_user }
 
-      it { is_expected.not_to validate_presence_of :email }
+      it { is_expected.not_to validate_presence_of :contact_email }
     end
 
     context 'when there is no user' do
-      subject { build :organization_member }
+      subject { build :organization_member, :with_contact_email }
 
-      it { is_expected.to validate_presence_of :email }
+      it { is_expected.to validate_presence_of :contact_email }
+    end
+  end
+
+  describe '#email' do
+    subject { organization_member.email }
+
+    context 'when there is a user' do
+      let(:organization_member) { build :organization_member, :with_user }
+
+      it { is_expected.to eq organization_member.user.email }
+    end
+
+    context 'when there is no user' do
+      let(:organization_member) { build :organization_member, :with_contact_email }
+
+      it { is_expected.to eq organization_member.contact_email }
     end
   end
 end
