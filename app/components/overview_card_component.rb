@@ -7,18 +7,21 @@ class OverviewCardComponent < ViewComponent::Base
     success: :success
   }.freeze
 
-  def initialize(title:, text:, type:, links:)
+  def initialize(title:, text:, badge: nil, type:, links:)
     @type = type
     @title = title
     @text = text
+    @badge = badge
     @links = links
   end
 
+  private
+
   def background_class
     {
-      TYPES[:warning] => 'corner-1',
-      TYPES[:info] => 'corner-2',
-      TYPES[:success] => 'corner-3'
+      TYPES[:warning] => 'corner-background-warning',
+      TYPES[:info] => 'corner-background-info',
+      TYPES[:success] => 'corner-background-success'
     }.fetch(@type)
   end
 
@@ -31,7 +34,7 @@ class OverviewCardComponent < ViewComponent::Base
   end
 
   def links_html
-    links.map do |text, path|
+    @links.map do |text, path|
       link_to(path, class: 'font-weight-semi-bold fs--1 text-nowrap') do
         concat text
         concat <<-HTML.html_safe

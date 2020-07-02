@@ -4,14 +4,23 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@my-zivi/falcon/scss/theme/theme';
 
-.corner-1 {
+.corner-background-warning {
   background-image: url("~@my-zivi/falcon/pages/assets/img/illustrations/corner-1.png");
 }
 
-.corner-2 {
+.corner-background-info {
   background-image: url("~@my-zivi/falcon/pages/assets/img/illustrations/corner-2.png");
 }
 
-.corner-3 {
+.corner-background-success {
   background-image: url("~@my-zivi/falcon/pages/assets/img/illustrations/corner-3.png");
 }
+
+.animatable-card {
+  transition: .25s box-shadow;
+
+  &:hover {
+    box-shadow: 0 14px 28px 0 rgba(65, 69, 88, 0.15), 0 3px 6px 0 rgba(0, 0, 0, 0.09);
+  }
+}
+
