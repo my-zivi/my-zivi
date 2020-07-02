@@ -153,6 +153,11 @@ fr:
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
     invalid_required_service_days: Jours du service non valables
+  pdfs:
+    service_agreement_form:
+      bundesamt_fuer_zivildienst:
+        name: Office fédéral du service civil CIVI
+        website: www.civi.admin.ch
   shared:
     civil_servants:
       navbar:

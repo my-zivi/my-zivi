@@ -1,0 +1,45 @@
+---
+:fields:
+  '1': :service_civil_servant_zdp
+  '2': :service_civil_servant_first_name
+  '3': :service_civil_servant_address_zip_with_city
+  '4': :service_civil_servant_phone
+  '5': :service_civil_servant_user_email
+  '6': :service_civil_servant_private_phone
+  '7': :service_civil_servant_last_name
+  '8': :service_civil_servant_job_education
+  '9': :service_civil_servant_private_phone
+  '10': :service_civil_servant_iban
+  '11': :service_civil_servant_health_insurance
+  '12': :service_service_specification_organization_identifier
+  '13': :service_service_specification_contact_person_full_name
+  '14': :service_service_specification_organization_address_street
+  '15': :service_service_specification_contact_person_phone
+  '16': :service_service_specification_organization_name
+  '17': :service_service_specification_contact_person_organization_role
+  '18': :service_service_specification_organization_address_zip_with_city
+  '19': :service_service_specification_contact_person_email
+  '20': :service_service_specification_leading_person_full_name
+  '21': :service_service_specification_leading_person_organization_role
+  '22': :service_service_specification_leading_person_phone
+  '23': :service_service_specification_location
+  '25': :service_beginning
+  '24': :service_ending
+  '26': :service_service_specification_title
+  '27': :company_holiday_beginning
+  '28': :company_holiday_ending
+  '29': :first_workshop_name
+  '30': :second_workshop_name
+  '31': :third_workshop_name
+  '32': :first_workshop_date
+  '33': :second_workshop_date
+  '34': :third_workshop_date
+  Einsatz: :service_normal_civil_service?
+  Probeeinsatz: :service_probation_civil_service?
+  'obligatorischer Langer Einsatz oder Teil davon': :service_long_civil_service?
+  cbRZ: :service_civil_servant_regional_center_short_name
+  tfRZ: :service_civil_servant_regional_center_name
+  tfStrasse: :service_civil_servant_regional_center_address_street
+  tfPLZ: :service_civil_servant_regional_center_address_zip_with_city
+  'Ort Datum': :service_civil_servant_signature_location_and_date
+  'Ort Datum_2': :service_service_specification_organization_signature_location_and_date

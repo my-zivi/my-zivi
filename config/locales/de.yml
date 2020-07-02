@@ -154,6 +154,11 @@ de:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
+  pdfs:
+    service_agreement_form:
+      bundesamt_fuer_zivildienst:
+        name: Bundesamt für Zivildienst ZIVI
+        website: www.zivi.admin.ch
   shared:
     civil_servants:
       navbar:
