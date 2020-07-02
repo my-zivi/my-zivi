@@ -70,7 +70,8 @@ group :test do
   gem 'i18n-tasks', '~> 0.9.29'
   gem 'pdf-inspector', require: 'pdf/inspector'
   gem 'shoulda-matchers'
-  gem 'simplecov', require: false
+  gem 'simplecov'
+  gem 'simplecov-console'
   gem 'test-prof'
 end
 
