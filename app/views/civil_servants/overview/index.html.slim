@@ -1,0 +1,27 @@
+.card-deck
+  = render( \
+    OverviewCardComponent.new( \
+      title: 'Momentaner Einsatz',
+      text: 'Stiftung SWO',
+      type: OverviewCardComponent::TYPES[:warning],
+      links: { 'See all' => '#' } \
+    ) \
+  )
+
+  = render( \
+    OverviewCardComponent.new( \
+      title: 'Spesenblätter',
+      text: '3',
+      type: OverviewCardComponent::TYPES[:info],
+      links: { 'Alle Spesenblätter' => '#' } \
+    ) \
+  )
+
+  = render( \
+    OverviewCardComponent.new( \
+      title: 'Einsatz bis',
+      text: '20. Jun 2020',
+      type: OverviewCardComponent::TYPES[:success],
+      links: { 'Zum Einsatz' => '#' } \
+    ) \
+  )

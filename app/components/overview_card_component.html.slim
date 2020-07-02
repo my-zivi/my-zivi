@@ -1,0 +1,9 @@
+.card.mb-3.overflow-hidden.animatable-card.overview-card[data-card]
+  .bg-holder.bg-card[class=background_class]
+  .card-body.position-relative
+    h6
+      = @title
+      - if @badge
+        span.badge.rounded-capsule.ml-2[class=badge_warning data-badge] = @badge
+    .display-4.fs-4.mb-2.font-weight-normal.text-sans-serif[class=text_class data-text] = @text
+    == links_html
