@@ -16,7 +16,7 @@ import '@fortawesome/fontawesome-free/js/all.min';
 import 'bootstrap/dist/js/bootstrap.min';
 
 import '../stylessheets/application.scss';
-import '../images/theme';
+import '../images';
 
 Rails.start();
 Turbolinks.start();

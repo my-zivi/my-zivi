@@ -155,6 +155,12 @@ de:
         profile: Profil
         services: Einsätze
         sign_out: Abmelden
+    organizations:
+      navbar:
+        dashboard: Dashboard
+        service_specifications: Pflichtenhefter
+        profile: Profil
+        sign_out: Abmelden
   my_zivi: MyZivi
   payment:
     expenses_from: Spesen vom %{from_date}
