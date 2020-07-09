@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe CivilServants::Base, type: :controller do
+RSpec.describe CivilServants::BaseController, type: :controller do
   controller do
     def index
       head :no_content
