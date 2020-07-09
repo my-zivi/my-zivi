@@ -12,9 +12,9 @@ html
   body
     main#top
       .container data-layout="container"
-        = render 'shared/civil_servants/navbar'
+        = render 'base/civil_servants/navbar'
         .content
-          = render 'shared/civil_servants/horizontal_nav_bar'
-          = render 'shared/flash_messages'
+          = render 'base/civil_servants/horizontal_nav_bar'
+          = render 'base/flash_messages'
           = yield
     = javascript_pack_tag 'falcon', 'data-turbolinks-track': 'reload'
