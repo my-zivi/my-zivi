@@ -11,11 +11,11 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
   #navbarVerticalCollapse.collapse.navbar-collapse.perfect-scrollbar.scrollbar
     ul.navbar-nav.flex-column
       li.nav-item
-        = render 'base/navbar_link', link: { t('.home') => civil_servants_path } do
+        = render 'base/navbar_link', link: { t('.dashboard') => organizations_path } do
           span.fas.fa-chart-pie
-        = render 'base/navbar_link', link: { t('.services') => civil_servants_path } do
-          span.fas.fa-hands-helping
-        = render 'base/navbar_link', link: { t('.profile') => civil_servants_path } do
+        = render 'base/navbar_link', link: { t('.service_specifications') => organizations_path } do
+          span.fas.fa-file
+        = render 'base/navbar_link', link: { t('.profile') => organizations_path } do
           span.fas.fa-user
         = render 'base/navbar_link',
                 link: { \

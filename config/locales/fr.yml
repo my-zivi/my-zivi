@@ -155,6 +155,17 @@ fr:
         profile: Profil
         services: Missions
         sign_out: Déconnexion
+    organizations:
+      navbar:
+        dashboard: Dashboard
+        profile: Profil
+        service_specifications: cahiers des charges
+        sign_out: Déconnexion
+  organizations:
+    overview:
+      index:
+        welcome_back:
+          title: Bonjour, %{name}!
   payment:
     expenses_from: Frais du %{from_date}
   service_calculator:
