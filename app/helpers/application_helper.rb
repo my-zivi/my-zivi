@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def current_organization_admin
-    current_referencee.instance_of?(Administrator) ? current_referencee : nil
+    current_referencee.instance_of?(OrganizationMember) ? current_referencee : nil
   end
 
   def current_civil_servant

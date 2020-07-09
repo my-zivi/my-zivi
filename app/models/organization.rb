@@ -5,7 +5,7 @@ class Organization < ApplicationRecord
   belongs_to :letter_address, class_name: 'Address', optional: true
   belongs_to :creditor_detail
 
-  has_many :administrators, inverse_of: :organization, dependent: :destroy
+  has_many :organization_members, inverse_of: :organization, dependent: :destroy
 
   validates :name, presence: true
 end

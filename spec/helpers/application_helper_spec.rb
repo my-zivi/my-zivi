@@ -9,7 +9,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     before { allow(helper).to receive(:current_user).and_return current_user }
 
     context 'when an organization administrator is signed in' do
-      let(:admin) { build :administrator }
+      let(:admin) { build :organization_member }
 
       let(:current_user) { admin.user }
 
@@ -42,7 +42,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     context 'when an organization administrator is signed in instead' do
-      let(:current_user) { build(:administrator).user }
+      let(:current_user) { build(:organization_member).user }
 
       it { is_expected.to eq nil }
     end
