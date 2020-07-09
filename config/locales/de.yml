@@ -148,16 +148,16 @@ de:
       service: Einsatz
       service_specification: Pflichtenheft
       workshop: Kurs
-  my_zivi: MyZivi
-  payment:
-    expenses_from: Spesen vom %{from_date}
-  service_calculator:
-    end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
-    invalid_required_service_days: Ungültige Einsatztage
-  shared:
+  base:
     civil_servants:
       navbar:
         home: Home
         profile: Profil
         services: Einsätze
         sign_out: Abmelden
+  my_zivi: MyZivi
+  payment:
+    expenses_from: Spesen vom %{from_date}
+  service_calculator:
+    end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
+    invalid_required_service_days: Ungültige Einsatztage

@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta content='text/html; charset=UTF-8' http-equiv='Content-Type' /
-    meta name='viewport' content='width=device-width, initial-scale=1' / 
+    meta name='viewport' content='width=device-width, initial-scale=1' /
     title = t('my_zivi')
     = csrf_meta_tags
     = csp_meta_tag
@@ -13,6 +13,6 @@ html
     main#top
       div[data-layout="container" class=(content_for?(:container_class) ? yield(:container_class) : 'container')]
         - unless content_for?(:hide_flash_messages)
-          = render 'shared/flash_messages'
+          = render 'base/flash_messages'
         = yield
     = javascript_pack_tag 'falcon', 'data-turbolinks-track': 'reload'
