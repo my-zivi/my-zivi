@@ -6,7 +6,7 @@ class CivilServant < ApplicationRecord
   belongs_to :regional_center
   belongs_to :address, dependent: :destroy
 
-  has_one :user, as: :referencee, dependent: :destroy, required: true
+  has_one :user, as: :referencee, dependent: :destroy, required: true, autosave: true
 
   has_many :services, dependent: :restrict_with_error
   has_many :expense_sheets, through: :services

@@ -6,6 +6,10 @@ class ServiceSpecification < ApplicationRecord
 
   belongs_to :organization
   has_many :services, dependent: :restrict_with_error
+  has_many :driving_licenses_service_specifications, dependent: :destroy
+  has_many :driving_licenses, through: :driving_licenses_service_specifications
+  has_many :service_specifications_workshops, dependent: :destroy
+  has_many :workshops, through: :service_specifications_workshops
 
   validates :accommodation_expenses, :first_day_expenses,
             :identification_number, :last_day_expenses,
