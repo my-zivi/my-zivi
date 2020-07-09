@@ -6,7 +6,7 @@ RSpec.describe Organizations::OverviewController, type: :request do
   let(:organization) { create :organization }
 
   context 'when signed in as an organization administrator' do
-    let(:organization_administrator) { create :administrator, organization: organization }
+    let(:organization_administrator) { create :organization_member, organization: organization }
 
     before { sign_in organization_administrator.user }
 

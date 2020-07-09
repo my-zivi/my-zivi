@@ -3,6 +3,6 @@
   .card-body
     .row
       .col-lg-8
-        h2.mb-0 = t('.welcome_back.title', name: current_user.email)
+        h2.mb-0 = t('.welcome_back.title', name: current_organization_admin.full_name)
         p.text-muted.mt-2
           = current_organization_admin.organization.name

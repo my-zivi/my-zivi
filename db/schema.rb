@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_03_212709) do
+ActiveRecord::Schema.define(version: 2020_07_09_150256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,11 +22,6 @@ ActiveRecord::Schema.define(version: 2020_07_03_212709) do
     t.string "supplement"
     t.string "city", null: false
     t.integer "zip", null: false
-  end
-
-  create_table "administrators", force: :cascade do |t|
-    t.bigint "organization_id", null: false
-    t.index ["organization_id"], name: "index_administrators_on_organization_id"
   end
 
   create_table "civil_servants", force: :cascade do |t|
@@ -114,6 +109,17 @@ ActiveRecord::Schema.define(version: 2020_07_03_212709) do
     t.string "description", null: false
     t.bigint "organization_id", null: false
     t.index ["organization_id"], name: "index_organization_holidays_on_organization_id"
+  end
+
+  create_table "organization_members", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "phone", null: false
+    t.string "organization_role", null: false
+    t.string "contact_email"
+    t.index ["contact_email"], name: "index_organization_members_on_contact_email", unique: true
+    t.index ["organization_id"], name: "index_organization_members_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -210,7 +216,6 @@ ActiveRecord::Schema.define(version: 2020_07_03_212709) do
     t.index ["name"], name: "index_workshops_on_name", unique: true
   end
 
-  add_foreign_key "administrators", "organizations"
   add_foreign_key "civil_servants", "addresses"
   add_foreign_key "civil_servants", "regional_centers"
   add_foreign_key "civil_servants_driving_licenses", "civil_servants"
@@ -222,6 +227,7 @@ ActiveRecord::Schema.define(version: 2020_07_03_212709) do
   add_foreign_key "expense_sheets", "payments"
   add_foreign_key "expense_sheets", "services"
   add_foreign_key "organization_holidays", "organizations"
+  add_foreign_key "organization_members", "organizations"
   add_foreign_key "organizations", "creditor_details"
   add_foreign_key "payments", "organizations"
   add_foreign_key "regional_centers", "addresses"
