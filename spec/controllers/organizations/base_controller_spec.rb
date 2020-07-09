@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe CivilServants::Base, type: :controller do
+RSpec.describe Organizations::BaseController, type: :controller do
   controller do
     def index
       head :no_content
@@ -12,10 +12,10 @@ RSpec.describe CivilServants::Base, type: :controller do
   context 'when a civil servant is authenticated' do
     subject { response }
 
-    let(:civil_servant) { create :civil_servant, :full }
+    let(:organization_admin) { create :organization_member }
 
     before do
-      sign_in civil_servant.user
+      sign_in organization_admin.user
       get :index
     end
 

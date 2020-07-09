@@ -8,7 +8,7 @@ RSpec.describe OrganizationMember, type: :model do
 
     it 'defines relations' do
       expect(model).to belong_to(:organization)
-      expect(model).to have_one(:user).dependent(:destroy).required(false)
+      expect(model).to have_one(:user).dependent(:destroy).required(false).autosave(true)
     end
   end
 
@@ -21,13 +21,13 @@ RSpec.describe OrganizationMember, type: :model do
     ]
 
     context 'when there is a user' do
-      subject { build :organization_member, :with_user }
+      subject { build :organization_member }
 
       it { is_expected.not_to validate_presence_of :contact_email }
     end
 
     context 'when there is no user' do
-      subject { build :organization_member, :with_contact_email }
+      subject { build :organization_member, :without_login }
 
       it { is_expected.to validate_presence_of :contact_email }
     end
@@ -37,13 +37,13 @@ RSpec.describe OrganizationMember, type: :model do
     subject { organization_member.email }
 
     context 'when there is a user' do
-      let(:organization_member) { build :organization_member, :with_user }
+      let(:organization_member) { build :organization_member }
 
       it { is_expected.to eq organization_member.user.email }
     end
 
     context 'when there is no user' do
-      let(:organization_member) { build :organization_member, :with_contact_email }
+      let(:organization_member) { build :organization_member, :without_login }
 
       it { is_expected.to eq organization_member.contact_email }
     end

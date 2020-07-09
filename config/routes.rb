@@ -7,4 +7,8 @@ Rails.application.routes.draw do
   namespace :civil_servants do
     get '/', to: 'overview#index'
   end
+
+  namespace :organizations do
+    get '/', to: 'overview#index'
+  end
 end

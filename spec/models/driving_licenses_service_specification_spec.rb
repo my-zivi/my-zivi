@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe ServiceSpecificationsWorkshop, type: :model do
+RSpec.describe DrivingLicensesServiceSpecification, type: :model do
   describe 'model definition' do
     subject(:model) { described_class.new }
 
     it 'defines relations' do
-      expect(model).to belong_to(:workshop)
+      expect(model).to belong_to(:driving_license)
       expect(model).to belong_to(:service_specification)
     end
   end
@@ -16,10 +16,12 @@ RSpec.describe ServiceSpecificationsWorkshop, type: :model do
     context 'when the model already exists' do
       subject(:model) { described_class.first }
 
-      let(:workshop) { create :workshop }
+      let(:driving_license) { create :driving_license }
       let(:service_specification) { create :service_specification }
 
-      before { described_class.create!(workshop: workshop, service_specification: service_specification) }
+      before do
+        described_class.create!(driving_license: driving_license, service_specification: service_specification)
+      end
 
       it { expect(model).to validate_presence_of(:mandatory) }
     end

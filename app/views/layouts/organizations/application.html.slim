@@ -6,13 +6,15 @@ html
     title = t('my_zivi')
     = csrf_meta_tags
     = csp_meta_tag
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'civil_servants/application', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'civil_servants/application', media: 'all', 'data-turbolinks-track': 'reload'
     = render 'layouts/sentry'
   body
     main#top
-      div[data-layout="container" class=(content_for?(:container_class) ? yield(:container_class) : 'container')]
-        - unless content_for?(:hide_flash_messages)
+      .container data-layout="container"
+        = render 'base/organizations/navbar'
+        .content
+          = render 'base/organizations/horizontal_nav_bar'
           = render 'base/flash_messages'
-        = yield
+          = yield
     = javascript_pack_tag 'falcon', 'data-turbolinks-track': 'reload'

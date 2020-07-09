@@ -1,0 +1,28 @@
+nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
+  .d-flex.align-items-center
+    .toggle-icon-wrapper
+      button.btn.navbar-toggler-humburger-icon.navbar-vertical-toggle data-placement="left" data-toggle="tooltip" title=("Toggle Navigation")
+        span.navbar-toggle-icon
+          span.toggle-line
+    a.navbar-brand href="index.html"
+      .d-flex.align-items-center.py-3
+        = image_pack_tag 'media/images/my_zivi_transparent.png', width: 30, class: 'mr-2'
+        span.text-sans-serif = t('my_zivi')
+  #navbarVerticalCollapse.collapse.navbar-collapse.perfect-scrollbar.scrollbar
+    ul.navbar-nav.flex-column
+      li.nav-item
+        = render 'base/navbar_link', link: { t('.home') => civil_servants_path } do
+          span.fas.fa-chart-pie
+        = render 'base/navbar_link', link: { t('.services') => civil_servants_path } do
+          span.fas.fa-hands-helping
+        = render 'base/navbar_link', link: { t('.profile') => civil_servants_path } do
+          span.fas.fa-user
+        = render 'base/navbar_link',
+                link: { \
+                  t('.sign_out') => destroy_user_session_path,
+                  options: { \
+                    method: :delete,
+                    class: 'nav-link text-danger',
+                  },
+                } do
+          span.fas.fa-sign-out-alt
