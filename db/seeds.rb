@@ -1,8 +1,16 @@
 # frozen_string_literal: true
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+
+puts 'Seeding database...'
+
+require_relative 'seed_data/regional_centers'
+require_relative 'seed_data/workshops'
+require_relative 'seed_data/driving_licenses'
+require_relative 'seed_data/civil_servants'
+require_relative 'seed_data/organizations'
+require_relative 'seed_data/organization_holidays'
+require_relative 'seed_data/organizational_users'
+require_relative 'seed_data/service_specifications'
+require_relative 'seed_data/services'
+require_relative 'seed_data/expense_sheets_and_payments'
+
+puts 'Done :)'

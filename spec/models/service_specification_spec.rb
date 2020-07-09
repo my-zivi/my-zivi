@@ -31,6 +31,8 @@ RSpec.describe ServiceSpecification, type: :model do
     it 'has correct relations' do
       expect(model).to belong_to(:organization)
       expect(model).to have_many(:services)
+      expect(model).to have_many(:workshops).through(:service_specifications_workshops)
+      expect(model).to have_many(:driving_licenses).through(:driving_licenses_service_specifications)
     end
   end
 

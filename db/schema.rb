@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_25_093448) do
+ActiveRecord::Schema.define(version: 2020_07_03_212709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_093448) do
   create_table "driving_licenses_service_specifications", id: false, force: :cascade do |t|
     t.bigint "driving_license_id", null: false
     t.bigint "service_specification_id", null: false
-    t.boolean "mandatory", default: false, null: false
+    t.boolean "mandatory", default: true, null: false
     t.index ["driving_license_id"], name: "index_driving_licenses_service_spec_on_driving_license_id"
     t.index ["service_specification_id"], name: "index_driving_licenses_service_spec_on_service_specification_id"
   end
@@ -160,7 +160,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_093448) do
   create_table "service_specifications_workshops", id: false, force: :cascade do |t|
     t.bigint "workshop_id", null: false
     t.bigint "service_specification_id", null: false
-    t.boolean "mandatory", default: false, null: false
+    t.boolean "mandatory", default: true, null: false
     t.index ["service_specification_id"], name: "index_service_spec_workshops_on_service_spec_id"
     t.index ["workshop_id"], name: "index_service_spec_workshops_on_service_specification_id"
   end

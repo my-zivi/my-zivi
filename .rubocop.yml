@@ -52,6 +52,8 @@ RSpec/AggregateExamples:
 Rails/Output:
   Exclude:
     - 'lib/v1/data_migrator.rb'
+    - 'db/seeds.rb'
+    - 'db/seed_data/*.rb'
 
 RSpec/NestedGroups:
   Max: 5
