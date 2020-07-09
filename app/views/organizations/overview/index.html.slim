@@ -1,2 +1,8 @@
-h1 Organizations::Overview#index
-p Find me in app/views/organizations/overview/index.html.slim
+.card.mb-3
+  .bg-holder.d-none.d-lg-block.bg-card.corner-background-success
+  .card-body
+    .row
+      .col-lg-8
+        h2.mb-0 = t('.welcome_back.title', name: current_user.email)
+        p.text-muted.mt-2
+          = current_organization_admin.organization.name

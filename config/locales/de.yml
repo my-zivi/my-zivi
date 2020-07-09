@@ -158,10 +158,15 @@ de:
     organizations:
       navbar:
         dashboard: Dashboard
-        service_specifications: Pflichtenhefter
         profile: Profil
+        service_specifications: Pflichtenhefter
         sign_out: Abmelden
   my_zivi: MyZivi
+  organizations:
+    overview:
+      index:
+        welcome_back:
+          title: Wilkommen zurück, %{name}!
   payment:
     expenses_from: Spesen vom %{from_date}
   service_calculator:

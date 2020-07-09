@@ -158,9 +158,14 @@ fr:
     organizations:
       navbar:
         dashboard: Dashboard
-        service_specifications: cahiers des charges
         profile: Profil
+        service_specifications: cahiers des charges
         sign_out: Déconnexion
+  organizations:
+    overview:
+      index:
+        welcome_back:
+          title: Bonjour, %{name}!
   payment:
     expenses_from: Frais du %{from_date}
   service_calculator:
