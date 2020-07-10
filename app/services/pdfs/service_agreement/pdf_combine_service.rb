@@ -4,7 +4,7 @@ require 'hexapdf'
 
 module Pdfs
   module ServiceAgreement
-    class GlueService
+    class PdfCombineService
       def initialize(service)
         @service = service
         @combined = HexaPDF::Document.new

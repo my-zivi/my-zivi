@@ -7,7 +7,7 @@ module Pdfs
 
       TABLE_HEADER = [
         {
-          content: I18n.t('activerecord.attributes.user.id'),
+          content: I18n.t('activerecord.attributes.civil_servant.id'),
           background_color: COLOR_GREY, align: :center
         },
         {

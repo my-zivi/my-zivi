@@ -19,9 +19,9 @@
   '17': :service.service_specification.contact_person.organization_role
   '18': :service.service_specification.organization.address.zip_with_city
   '19': :service.service_specification.contact_person.email
-  '20': :service.service_specification.lead_person.full_name
-  '21': :service.service_specification.lead_person.organization_role
-  '22': :service.service_specification.lead_person.phone
+  '20': :service.service_specification.leading_person.full_name
+  '21': :service.service_specification.leading_person.organization_role
+  '22': :service.service_specification.leading_person.phone
   '23': :service.service_specification.location
   '25': :service.beginning|localize
   '24': :service.ending|localize

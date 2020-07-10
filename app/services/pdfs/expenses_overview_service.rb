@@ -27,7 +27,9 @@ module Pdfs
     private
 
     def headline
-      text I18n.t('pdfs.expenses_overview.swo', date: I18n.l(Time.zone.today)), align: :right, size: 8
+      text I18n.t('pdfs.expenses_overview.header', name: @service_specifications.first.organization.name,
+                  identification_number: @service_specifications.first.organization.identification_number,
+                  date: I18n.l(Time.zone.today)), align: :right, size: 8
       text I18n.t('pdfs.expenses_overview.basedon', date: I18n.l(Time.zone.today)), align: :right, size: 8
       text(I18n.t('pdfs.expenses_overview.title', beginning: I18n.l(@beginning), ending: I18n.l(@ending)),
            align: :left, style: :bold, size: 15)

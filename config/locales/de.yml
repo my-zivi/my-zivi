@@ -148,12 +148,6 @@ de:
       service: Einsatz
       service_specification: Pflichtenheft
       workshop: Kurs
-  my_zivi: MyZivi
-  payment:
-    expenses_from: Spesen vom %{from_date}
-  service_calculator:
-    end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
-    invalid_required_service_days: Ungültige Einsatztage
   base:
     civil_servants:
       navbar:
@@ -167,16 +161,19 @@ de:
         profile: Profil
         service_specifications: Pflichtenhefter
         sign_out: Abmelden
-  organizations:
-    overview:
-      index:
-        welcome_back:
-          title: Wilkommen zurück, %{name}!
   date:
     formats:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
+  my_zivi: MyZivi
+  organizations:
+    overview:
+      index:
+        welcome_back:
+          title: Wilkommen zurück, %{name}!
+  payment:
+    expenses_from: Spesen vom %{from_date}
   pdfs:
     expense_sheet:
       expense_table:
@@ -195,7 +192,7 @@ de:
             one: CHF %{amount}/Tag für %{count} anrechenbarer Tag
             other: CHF %{amount}/Tag für %{count} anrechenbare Tage
       filename: Spesenrapport_%{today}.pdf
-      header: 'Spesenrapport des Einsatzbetriebes 423 - SWO, Bahnstrasse 18b, 8603 Schwerzenbach '
+      header: Spesenrapport des Einsatzbetriebes %{identification_number} - %{single_line_address}
       info_block:
         footer:
           bank_account_number: 'Konto-Nr.:'
@@ -214,7 +211,7 @@ de:
     expenses_overview:
       basedon: Statistik basiert auf allen erledigten Meldeblättern
       filename: Übersicht_Spesenstatistik_%{today}.pdf
-      swo: Stiftung für Wirtschaft und Ökologie (Einsatzbetrieb Nr. 423) - Verfügung vom %{date}
+      header: "%{name} (Einsatzbetrieb Nr. %{identification_number}) - Verfügung vom %{date}"
       title: Zivi-Spesen Detailübersicht (Zeitperiode %{beginning} - %{ending})
     phone_list:
       filename: Telefonliste_%{today}.pdf
@@ -229,3 +226,6 @@ de:
       bundesamt_fuer_zivildienst:
         name: Bundesamt für Zivildienst ZIVI
         website: www.zivi.admin.ch
+  service_calculator:
+    end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
+    invalid_required_service_days: Ungültige Einsatztage

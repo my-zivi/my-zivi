@@ -10,19 +10,20 @@ module Pdfs
             content: ->(expense_sheet) { expense_sheet.service.service_specification.title }
           },
           {
-            label: I18n.t('activerecord.attributes.user.last_name').sub(/\w/, &:capitalize) +
-              ", #{I18n.t('activerecord.attributes.user.first_name')}:",
-            content: ->(expense_sheet) { "<b>#{expense_sheet.user.full_name}</b>" }
+            label: I18n.t('activerecord.attributes.civil_servant.last_name').sub(/\w/, &:capitalize) +
+              ", #{I18n.t('activerecord.attributes.civil_servant.first_name')}:",
+            content: ->(expense_sheet) { "<b>#{expense_sheet.service.civil_servant.full_name}</b>" }
           },
           {
-            label: "#{I18n.t('activerecord.attributes.user.address')}:",
+            label: "#{I18n.t('activerecord.attributes.address.street')}:",
             content: lambda { |expense_sheet|
-              "#{expense_sheet.user.address}, #{expense_sheet.user.zip} #{expense_sheet.user.city}"
+              "#{expense_sheet.service.civil_servant.address}, " \
+              "#{expense_sheet.service.civil_servant.address.zip_with_city} "
             }
           },
           {
-            label: "#{I18n.t('activerecord.attributes.user.zdp').sub(/\w/, &:capitalize)}:",
-            content: ->(expense_sheet) { expense_sheet.user.zdp }
+            label: "#{I18n.t('activerecord.attributes.civil_servant.zdp').sub(/\w/, &:capitalize)}:",
+            content: ->(expense_sheet) { expense_sheet.service.civil_servant.zdp }
           },
           {
             label: "#{I18n.t('pdfs.expense_sheet.info_block.header.complete_service.label')}:",
@@ -51,8 +52,10 @@ module Pdfs
 
         FOOTER_ROWS = [
           {
-            label: "<b>#{I18n.t('activerecord.attributes.user.bank_iban')}:</b>",
-            content: ->(expense_sheet) { "<b>#{IBANTools::IBAN.new(expense_sheet.user.bank_iban).prettify}</b>" }
+            label: "<b>#{I18n.t('activerecord.attributes.civil_servant.iban')}:</b>",
+            content: lambda do |expense_sheet|
+              "<b>#{IBANTools::IBAN.new(expense_sheet.service.civil_servant.iban).prettify}</b>"
+            end
           },
           {
             label: "<b>#{I18n.t('pdfs.expense_sheet.info_block.footer.bank_account_number')}:</b>",

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Organization.create!(
+  identification_number: '42',
   name: 'Zuckerberg Foundation',
   intro_text: 'We love sugar',
   address: Address.new(
@@ -18,6 +19,7 @@ Organization.create!(
 )
 
 Organization.create!(
+  identification_number: '69',
   name: 'Homöopathen Ohne Grenzen',
   intro_text: 'Wir heilen alles, selbst das Unheilbare',
   address: Address.new(

@@ -14,6 +14,8 @@ FactoryBot.define do
     first_day_expenses { { breakfast: 0, lunch: 900, dinner: 700 } }
     last_day_expenses { { breakfast: 400, lunch: 900, dinner: 0 } }
     association :organization
+    association :contact_person, factory: :organization_member
+    association :lead_person, factory: :organization_member
 
     trait :valais do
       location { 'valais' }

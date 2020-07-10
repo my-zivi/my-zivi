@@ -7,6 +7,17 @@ module ServiceAgreementForm
         rename_fields(FillablePDF.new(pdf_file), rename_mapping)
       end
 
+      def fill_fields_with_field_name(pdf_filename, new_filename = nil)
+        new_filename = pdf_filename if new_filename.nil?
+
+        pdf_file = FillablePDF.new pdf_filename
+        pdf_file.names.each do |name|
+          pdf_file.set_field(name, name)
+        end
+        pdf_file.save_as new_filename
+        pdf_file.close
+      end
+
       private
 
       def rename_fields(pdf, rename_mapping)

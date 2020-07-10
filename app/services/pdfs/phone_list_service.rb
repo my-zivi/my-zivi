@@ -54,7 +54,7 @@ module Pdfs
 
         font_size 10
         table(table_data(services),
-              cell_style: {borders: %i[]},
+              cell_style: { borders: %i[] },
               width: bounds.width,
               header: true,
               column_widths: [98, 98, 179.89, 118, 98, 178]) do

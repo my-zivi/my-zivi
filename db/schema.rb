@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_09_150256) do
+ActiveRecord::Schema.define(version: 2020_07_10_141949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 2020_07_09_150256) do
     t.bigint "address_id", null: false
     t.bigint "letter_address_id"
     t.bigint "creditor_detail_id"
+    t.string "identification_number"
     t.index ["address_id"], name: "index_organizations_on_address_id"
     t.index ["creditor_detail_id"], name: "index_organizations_on_creditor_detail_id"
     t.index ["letter_address_id"], name: "index_organizations_on_letter_address_id"
@@ -159,7 +160,11 @@ ActiveRecord::Schema.define(version: 2020_07_09_150256) do
     t.boolean "active", default: true
     t.string "identification_number", null: false
     t.bigint "organization_id", null: false
+    t.bigint "contact_person_id", null: false
+    t.bigint "lead_person_id", null: false
+    t.index ["contact_person_id"], name: "index_service_specifications_on_contact_person_id"
     t.index ["identification_number"], name: "index_service_specifications_on_identification_number", unique: true
+    t.index ["lead_person_id"], name: "index_service_specifications_on_lead_person_id"
     t.index ["organization_id"], name: "index_service_specifications_on_organization_id"
   end
 
@@ -231,6 +236,8 @@ ActiveRecord::Schema.define(version: 2020_07_09_150256) do
   add_foreign_key "organizations", "creditor_details"
   add_foreign_key "payments", "organizations"
   add_foreign_key "regional_centers", "addresses"
+  add_foreign_key "service_specifications", "organization_members", column: "contact_person_id"
+  add_foreign_key "service_specifications", "organization_members", column: "lead_person_id"
   add_foreign_key "service_specifications", "organizations"
   add_foreign_key "service_specifications_workshops", "service_specifications"
   add_foreign_key "service_specifications_workshops", "workshops"

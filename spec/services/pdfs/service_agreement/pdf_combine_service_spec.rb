@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Pdfs::ServiceAgreement::GlueService, type: :service do
+RSpec.describe Pdfs::ServiceAgreement::PdfCombineService, type: :service do
   describe '#render' do
     context 'when locale is german' do
       before { I18n.locale = :de }
@@ -51,14 +51,12 @@ RSpec.describe Pdfs::ServiceAgreement::GlueService, type: :service do
         [
           'Einsatzvereinbarung ',
           'Bundesamt für Zivildienst ',
-          'Die Unterkunft wird durchgehend angeboten (7 Tage/Woche)   ',
-          '07:50 Uhr',
-          ' Morgen zwischen 07:15 Uhr und 07:45 Uhr beim Einsatzleiter '
+          'Die Unterkunft wird durchgehend angeboten (7 Tage/Woche)   '
         ]
       end
 
       it 'renders five pages' do
-        expect(pdf_page_inspector.pages.size).to eq 5
+        expect(pdf_page_inspector.pages.size).to eq 2
       end
 
       it 'renders pages in correct order', :aggregate_failures do

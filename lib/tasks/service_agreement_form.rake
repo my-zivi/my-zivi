@@ -13,18 +13,23 @@ namespace :service_agreement_form do
       GERMAN_FILE_PATH, ServiceAgreementForm::RenameMapping::GERMAN_RENAMING
     )
 
-    pdf = FillablePDF.new(GERMAN_FILE_PATH)
-    pdf.names.each do |name|
-      pdf.set_field(name, name)
-    end
-    pdf.save_as Rails.root.join('lib/assets/pdfs/german_service_agreement_form_field_names.pdf').to_s
-    pdf.close
+    ServiceAgreementForm::FieldPreparer.prepare_fields(
+      FRENCH_FILE_PATH, ServiceAgreementForm::RenameMapping::FRENCH_RENAMING
+    )
+  end
 
-    # pdf2 = FillablePDF.new(Rails.root.join('lib/assets/pdfs/german_service_agreement_form_original.pdf').to_s)
-    # pdf2.names.each do |name|
-    #   pdf2.set_field(name, name)
-    # end
-    # pdf2.save_as Rails.root.join('lib/assets/pdfs/german_service_agreement_form_o_field_names.pdf').to_s
-    # pdf2.close
+  desc 'Fill the form field names into the form fields'
+  task fill_fields_with_names: :environment do
+    FRENCH_FILE_O_PATH_SRC = Rails.root.join('lib/assets/pdfs/french_service_agreement_form_original.pdf').to_s.freeze
+    GERMAN_FILE_O_PATH_SRC = Rails.root.join('lib/assets/pdfs/german_service_agreement_form_original.pdf').to_s.freeze
+    FRENCH_FILE_O_PATH_DEST = Rails.root.join('lib/assets/pdfs/french_sa_form_o_field_names.pdf').to_s.freeze
+    GERMAN_FILE_O_PATH_DEST = Rails.root.join('lib/assets/pdfs/german_sa_form_o_field_names.pdf').to_s.freeze
+
+    ServiceAgreementForm::FieldPreparer.fill_fields_with_field_name(
+      FRENCH_FILE_O_PATH_SRC, FRENCH_FILE_O_PATH_DEST
+    )
+    ServiceAgreementForm::FieldPreparer.fill_fields_with_field_name(
+      GERMAN_FILE_O_PATH_SRC, GERMAN_FILE_O_PATH_DEST
+    )
   end
 end
