@@ -41,11 +41,6 @@ module Pdfs
         }
       ].freeze
 
-
-
-
-
-
       # CIVIL_SERVANT_FORM_FIELDS = {
       #   fr: {
       #     zdp: 'N',

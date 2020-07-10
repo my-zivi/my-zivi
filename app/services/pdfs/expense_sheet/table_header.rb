@@ -7,7 +7,7 @@ module Pdfs
         header_indent = bounds.left + Fields::ExpenseTable::COLUMN_WIDTHS[0..1].sum + 5
 
         Fields::ExpenseTable::HEADERS.each.with_index.reduce(header_indent) do |global_indent, (header, index)|
-          current_indent = Fields::ExpenseTable::COLUMN_WIDTHS[2..-1][index]
+          current_indent = Fields::ExpenseTable::COLUMN_WIDTHS[2..][index]
 
           draw_table_head_text(header, index, global_indent)
           global_indent + current_indent
@@ -16,7 +16,7 @@ module Pdfs
 
       def draw_table_head_text(header, index, global_indent)
         last = index == (Fields::ExpenseTable::HEADERS.length - 1)
-        current_indent = Fields::ExpenseTable::COLUMN_WIDTHS[2..-1][index]
+        current_indent = Fields::ExpenseTable::COLUMN_WIDTHS[2..][index]
         current_width = current_indent - (last ? 8 : 0) - 3
         current_align = last ? :right : :left
 
