@@ -9,6 +9,7 @@ fr:
         street: Rue
         supplement: Suffixe de l'adresse
         zip: Code postal
+        zip_with_city: Code postal / Ville
       civil_servant:
         birthday: Anniversaire
         city: Ville
@@ -22,7 +23,6 @@ fr:
         phone: Numéro de téléphone
         role: Rôle
         zdp: N° ZDP
-        zip_with_city: Code postal / Ville
       driving_license:
         name: Nom
       expense_sheet:
@@ -176,11 +176,6 @@ fr:
       index:
         welcome_back:
           title: Bonjour, %{name}!
-  payment:
-    expenses_from: Frais du %{from_date}
-  service_calculator:
-    end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
-    invalid_required_service_days: Jours du service non valables
   date:
     formats:
       default: "%d.%m.%Y"

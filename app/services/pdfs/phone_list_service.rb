@@ -8,11 +8,11 @@ module Pdfs
     include Pdfs::PrawnHelper
 
     TABLE_HEADER = [
-      I18n.t('activerecord.attributes.user.first_name'),
-      I18n.t('activerecord.attributes.user.last_name'),
-      I18n.t('activerecord.attributes.user.address'),
-      I18n.t('activerecord.attributes.user.zip_with_city'),
-      I18n.t('activerecord.attributes.user.phone'),
+      I18n.t('activerecord.attributes.civil_servant.first_name'),
+      I18n.t('activerecord.attributes.civil_servant.last_name'),
+      I18n.t('activerecord.attributes.address.street'),
+      I18n.t('activerecord.attributes.address.zip_with_city'),
+      I18n.t('activerecord.attributes.civil_servant.phone'),
       I18n.t('activerecord.attributes.user.email')
     ].freeze
 
@@ -54,7 +54,7 @@ module Pdfs
 
         font_size 10
         table(table_data(services),
-              cell_style: { borders: %i[] },
+              cell_style: {borders: %i[]},
               width: bounds.width,
               header: true,
               column_widths: [98, 98, 179.89, 118, 98, 178]) do
@@ -80,15 +80,19 @@ module Pdfs
 
     def table_content(services)
       services.map do |service|
-        service.user.slice(
-          :first_name,
-          :last_name,
-          :address,
-          :zip_with_city,
-          :phone,
-          :email
-        ).values
+        service_data service
       end
+    end
+
+    def service_data(service)
+      [
+        service.civil_servant.first_name,
+        service.civil_servant.last_name,
+        service.civil_servant.address.street,
+        service.civil_servant.address.zip_with_city,
+        service.civil_servant.phone,
+        service.civil_servant.user.email
+      ]
     end
   end
 end
