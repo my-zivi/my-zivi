@@ -7,9 +7,13 @@ module Organizations
       user_attributes: %i[email id]
     ].freeze
 
-    before_action :set_organization_member
+    before_action :set_organization_member, only: %i[edit update]
 
-    def index; end
+    helper ApplicationHelper
+
+    def index
+      @organization_members = helpers.current_organization_admin.organization.organization_members
+    end
 
     def edit; end
 

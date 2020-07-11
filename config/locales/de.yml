@@ -149,6 +149,7 @@ de:
       driving_licenses: Fahrlizenz
       expense_sheet: Spesenblatt
       organizatino_holiday: Betriebsferien
+      organization_member: Mitarbeiter
       regional_center: Regionalzentrum
       service: Einsatz
       service_specification: Pflichtenheft
@@ -163,6 +164,7 @@ de:
     organizations:
       navbar:
         dashboard: Dashboard
+        organization_members: Mitarbeiter
         profile: Profil
         service_specifications: Pflichtenhefter
         sign_out: Abmelden

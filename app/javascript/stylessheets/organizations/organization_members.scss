@@ -1,0 +1,22 @@
+@import '../theme/variables';
+
+.name-initials-container .initials {
+  width: 100px;
+  height: 100px;
+  background-image: linear-gradient($light-gray, $gray);
+  //background: $gray;
+  border-radius: 50%;
+  color: $white;
+  font-size: 2.5rem;
+  text-align: center;
+  line-height: 100px;
+}
+
+.name-initials-container {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-item:hover {
+  text-decoration: none;
+}

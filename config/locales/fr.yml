@@ -149,6 +149,7 @@ fr:
       driving_licenses: Permis de conduire
       expense_sheet: fiche de frais
       organizatino_holiday: Vacances d'entreprise
+      organization_member: Employés
       regional_center: Centre régional
       service: Déploiement
       service_specification: Spécifications
@@ -163,6 +164,7 @@ fr:
     organizations:
       navbar:
         dashboard: Dashboard
+        organization_members: Employés
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
