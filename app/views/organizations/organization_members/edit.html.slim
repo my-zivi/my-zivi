@@ -1,0 +1,27 @@
+.card.mb-3
+  .card-header
+    h5 = @organization_member.full_name
+    h6.text-muted.mb-0 = t('.subtitle')
+  .card-body.bg-light
+    = simple_form_for(@organization_member, url: organizations_member_path(@organization_member)) do |f|
+      .row
+        .col-lg-6
+          .form-group data-children-count="1"
+            = f.input :first_name, required: true
+        .col-lg-6
+          .form-group data-children-count="1"
+            = f.input :last_name
+        .col-lg-6
+          .form-group data-children-count="1"
+            = f.simple_fields_for :user do |ff|
+              = ff.input :email
+              - if ff.object.unconfirmed_email.present?
+                = t('.pending_invitation', email: ff.object.unconfirmed_email)
+        .col-lg-6
+          .form-group data-children-count="1"
+            = f.input :phone
+        .col-12
+          .form-group data-children-count="1"
+            = f.input :organization_role
+        .col-12.d-flex.justify-content-end
+          = f.submit class: 'btn btn-primary'

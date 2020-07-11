@@ -167,6 +167,13 @@ de:
       index:
         welcome_back:
           title: Wilkommen zurück, %{name}!
+    organization_members:
+      edit:
+        subtitle: "Profil-Einstellungen"
+        pending_invitation: "Bitte bestätigen sie die neue E-Mail Adresse mithilfe des Links, welcher an %{email} gesendet wurde."
+      update:
+        successfully_updated: "Profil erfolgreich aktualisiert"
+        erroneous_update: "Das Profil konnte nicht aktualisiert werden"
   payment:
     expenses_from: Spesen vom %{from_date}
   service_calculator:

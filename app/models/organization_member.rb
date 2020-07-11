@@ -7,6 +7,8 @@ class OrganizationMember < ApplicationRecord
   validates :first_name, :last_name, :phone, :organization_role, presence: true
   validates :contact_email, presence: true, if: -> { user.nil? }
 
+  accepts_nested_attributes_for :user
+
   def full_name
     first_name + ' ' + last_name
   end

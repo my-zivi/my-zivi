@@ -166,6 +166,13 @@ fr:
       index:
         welcome_back:
           title: Bonjour, %{name}!
+    organization_members:
+      edit:
+        subtitle: "Paramètres du profil"
+        pending_invitation: "Veuillez confirmer la nouvelle adresse électronique avec le lien qui a été envoyé à %{email}."
+      update:
+        successfully_updated: "Profil mis à jour avec succès"
+        erroneous_update: "Le profil n'a pas pu être mis à jour"
   payment:
     expenses_from: Frais du %{from_date}
   service_calculator:
