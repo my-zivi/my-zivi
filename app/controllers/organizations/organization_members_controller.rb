@@ -9,7 +9,7 @@ module Organizations
 
     before_action :set_organization_member, only: %i[edit update]
 
-    helper ApplicationHelper
+    helper UsersHelper
 
     def index
       @organization_members = helpers.current_organization_admin.organization.organization_members
