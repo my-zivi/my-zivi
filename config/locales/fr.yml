@@ -63,10 +63,15 @@ fr:
         workfree_days:
           one: Jour de congé
           other: jours de congé
-      organizatino_holiday:
+      organization_holiday:
         beginning: Démarrer
         description: Description
         ending: Fin
+      organization_member:
+        first_name: Prénom
+        last_name: Nom de famille
+        organization_role: Domaine d'activité au sein de l'entreprise
+        phone: Téléphone
       regional_center:
         name: Nom
         short_name: Nom court
@@ -162,17 +167,17 @@ fr:
         service_specifications: cahiers des charges
         sign_out: Déconnexion
   organizations:
+    organization_members:
+      edit:
+        pending_invitation: Veuillez confirmer la nouvelle adresse électronique avec le lien qui a été envoyé à %{email}.
+        subtitle: Paramètres du profil
+      update:
+        erroneous_update: Le profil n'a pas pu être mis à jour
+        successfully_updated: Profil mis à jour avec succès
     overview:
       index:
         welcome_back:
           title: Bonjour, %{name}!
-    organization_members:
-      edit:
-        subtitle: "Paramètres du profil"
-        pending_invitation: "Veuillez confirmer la nouvelle adresse électronique avec le lien qui a été envoyé à %{email}."
-      update:
-        successfully_updated: "Profil mis à jour avec succès"
-        erroneous_update: "Le profil n'a pas pu être mis à jour"
   payment:
     expenses_from: Frais du %{from_date}
   service_calculator:

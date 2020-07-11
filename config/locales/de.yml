@@ -63,10 +63,15 @@ de:
         workfree_days:
           one: Arbeitsfreier Tag
           other: Arbeitsfreie Tage
-      organizatino_holiday:
+      organization_holiday:
         beginning: Anfang
         description: Beschreibung
         ending: Ende
+      organization_member:
+        first_name: Vorname
+        last_name: Nachname
+        organization_role: Tätigkeitsbereich innerhalb der Unternehmung
+        phone: Telefon
       regional_center:
         name: Name
         short_name: Kurzname
@@ -163,17 +168,17 @@ de:
         sign_out: Abmelden
   my_zivi: MyZivi
   organizations:
+    organization_members:
+      edit:
+        pending_invitation: Bitte bestätigen sie die neue E-Mail Adresse mithilfe des Links, welcher an %{email} gesendet wurde.
+        subtitle: Profil-Einstellungen
+      update:
+        erroneous_update: Das Profil konnte nicht aktualisiert werden
+        successfully_updated: Profil erfolgreich aktualisiert
     overview:
       index:
         welcome_back:
           title: Wilkommen zurück, %{name}!
-    organization_members:
-      edit:
-        subtitle: "Profil-Einstellungen"
-        pending_invitation: "Bitte bestätigen sie die neue E-Mail Adresse mithilfe des Links, welcher an %{email} gesendet wurde."
-      update:
-        successfully_updated: "Profil erfolgreich aktualisiert"
-        erroneous_update: "Das Profil konnte nicht aktualisiert werden"
   payment:
     expenses_from: Spesen vom %{from_date}
   service_calculator:
