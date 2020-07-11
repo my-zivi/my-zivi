@@ -16,3 +16,5 @@
               h6.mb-1
                 = member.full_name
               p.fs--2.mb-1 = member.organization_role
+              - if member.user.present?
+                .badge.badge-primary.badge-pill.mt-2 = t('administrator')

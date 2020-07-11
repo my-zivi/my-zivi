@@ -23,6 +23,14 @@ OrganizationMember.create!(
       contact_email: 'emily@example.com'
     },
     {
+      organization: Organization.first,
+      first_name: 'Cobe',
+      last_name: 'Black',
+      phone: '+41 (0) 76 098 76 54',
+      organization_role: 'Buchhaltung',
+      contact_email: 'cobe@example.com'
+    },
+    {
       organization: Organization.second,
       first_name: 'Percy',
       last_name: 'Jackson',

@@ -7,12 +7,12 @@ module Organizations
       user_attributes: %i[email id]
     ].freeze
 
-    before_action :set_organization_member, only: %i[edit update]
+    before_action :set_organization_member, only: %i[edit update destroy]
 
     helper UsersHelper
 
     def index
-      @organization_members = helpers.current_organization_admin.organization.organization_members
+      @organization_members = helpers.current_organization_admin.organization.organization_members.includes(:user)
     end
 
     def edit; end
@@ -27,7 +27,15 @@ module Organizations
       end
     end
 
-    def destroy; end
+    def destroy
+      if @organization_member.destroy
+        flash[:success] = t('.successfully_deleted')
+        redirect_to organizations_members_path
+      else
+        flash[:error] = t('.erroneous_delete')
+        render edit_organizations_member_path(@organization_member)
+      end
+    end
 
     private
 

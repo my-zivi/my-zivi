@@ -1,5 +1,6 @@
 ---
 de:
+  administrator: Administrator
   activerecord:
     attributes:
       address:
@@ -173,10 +174,15 @@ de:
     organization_members:
       edit:
         pending_invitation: Bitte bestätigen sie die neue E-Mail Adresse mithilfe des Links, welcher an %{email} gesendet wurde.
-        subtitle: Profil-Einstellungen
+        subtitle: Mitarbeiter-Profil
+        destroy_organization_member: "Mitarbeiter löschen"
+        destroy_organization_member_confirmation: "Mitarbeiter wirklich löschen?"
       update:
         erroneous_update: Das Profil konnte nicht aktualisiert werden
         successfully_updated: Profil erfolgreich aktualisiert
+      destroy:
+        successfully_deleted: "Mitarbeiter erfolgreich gelöscht"
+        erroneous_delete: "Mitarbeiter konnte nicht gelöscht werden"
     overview:
       index:
         welcome_back:
