@@ -255,7 +255,7 @@ de:
             title: "Bank- und Versicherunsdetails"
           address_information:
             title: "Adressdaten"
-          service_specific_information_table:
+          service_specific_information:
             title: "Einsatzspezifische Informationen"
   cancel: "Abbrechen"
   edit: "Bearbeiten"

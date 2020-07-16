@@ -1,0 +1,9 @@
+= simple_form_for(civil_servant, url: civil_servants_civil_servant_path, remote: true) do |f|
+  .modal-body
+    = f.association :regional_center, include_blank: false
+    = f.association  :workshops
+    = f.association  :driving_licenses
+    = hidden_field_tag 'form_partial', 'personal_information_form'
+  .modal-footer
+    button.btn.btn-secondary data-dismiss="modal" type="button" = t('cancel')
+    = f.submit class: 'btn btn-primary'

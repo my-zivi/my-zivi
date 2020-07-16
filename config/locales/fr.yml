@@ -192,7 +192,7 @@ fr:
             title: Données de l'utilisateur
           personal_information:
             title: Informations personnelles
-          service_specific_information_table:
+          service_specific_information:
             title: Informations spécifiques à la mission
   date:
     formats:
