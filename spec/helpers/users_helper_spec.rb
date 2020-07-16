@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ApplicationHelper, type: :helper do
+RSpec.describe UsersHelper, type: :helper do
   describe '#current_organization_admin' do
     subject(:current_organization_admin) { helper.current_organization_admin }
 

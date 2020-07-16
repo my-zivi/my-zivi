@@ -63,10 +63,16 @@ fr:
         workfree_days:
           one: Jour de congé
           other: jours de congé
-      organizatino_holiday:
+      organization_holiday:
         beginning: Démarrer
         description: Description
         ending: Fin
+      organization_member:
+        contact_email: E-Mail
+        first_name: Prénom
+        last_name: Nom de famille
+        organization_role: Domaine d'activité au sein de l'entreprise
+        phone: Téléphone
       regional_center:
         name: Nom
         short_name: Nom court
@@ -144,10 +150,12 @@ fr:
       driving_licenses: Permis de conduire
       expense_sheet: fiche de frais
       organizatino_holiday: Vacances d'entreprise
+      organization_member: Employés
       regional_center: Centre régional
       service: Déploiement
       service_specification: Spécifications
       workshop: Cours
+  administrator: Administrator
   base:
     civil_servants:
       navbar:
@@ -158,6 +166,7 @@ fr:
     organizations:
       navbar:
         dashboard: Dashboard
+        organization_members: Employés
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
@@ -167,6 +176,18 @@ fr:
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
   organizations:
+    organization_members:
+      destroy:
+        erroneous_delete: L'employé n'a pas pu être supprimé
+        successfully_deleted: Employé supprimé avec succès
+      edit:
+        destroy_organization_member: Supprimer l'employé
+        destroy_organization_member_confirmation: Supprimer réellement l'employé?
+        pending_invitation: Veuillez confirmer la nouvelle adresse électronique avec le lien qui a été envoyé à %{email}.
+        subtitle: Profil des employés
+      update:
+        erroneous_update: Le profil n'a pas pu être mis à jour
+        successfully_updated: Profil mis à jour avec succès
     overview:
       index:
         welcome_back:

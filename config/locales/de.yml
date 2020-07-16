@@ -63,10 +63,16 @@ de:
         workfree_days:
           one: Arbeitsfreier Tag
           other: Arbeitsfreie Tage
-      organizatino_holiday:
+      organization_holiday:
         beginning: Anfang
         description: Beschreibung
         ending: Ende
+      organization_member:
+        contact_email: E-Mail
+        first_name: Vorname
+        last_name: Nachname
+        organization_role: Tätigkeitsbereich innerhalb der Unternehmung
+        phone: Telefon
       regional_center:
         name: Name
         short_name: Kurzname
@@ -144,10 +150,12 @@ de:
       driving_licenses: Fahrlizenz
       expense_sheet: Spesenblatt
       organizatino_holiday: Betriebsferien
+      organization_member: Mitarbeiter
       regional_center: Regionalzentrum
       service: Einsatz
       service_specification: Pflichtenheft
       workshop: Kurs
+  administrator: Administrator
   base:
     civil_servants:
       navbar:
@@ -158,6 +166,7 @@ de:
     organizations:
       navbar:
         dashboard: Dashboard
+        organization_members: Mitarbeiter
         profile: Profil
         service_specifications: Pflichtenhefter
         sign_out: Abmelden
@@ -168,6 +177,18 @@ de:
       short: "%d.%m.%y"
   my_zivi: MyZivi
   organizations:
+    organization_members:
+      destroy:
+        erroneous_delete: Mitarbeiter konnte nicht gelöscht werden
+        successfully_deleted: Mitarbeiter erfolgreich gelöscht
+      edit:
+        destroy_organization_member: Mitarbeiter löschen
+        destroy_organization_member_confirmation: Mitarbeiter wirklich löschen?
+        pending_invitation: Bitte bestätigen sie die neue E-Mail Adresse mithilfe des Links, welcher an %{email} gesendet wurde.
+        subtitle: Mitarbeiter-Profil
+      update:
+        erroneous_update: Das Profil konnte nicht aktualisiert werden
+        successfully_updated: Profil erfolgreich aktualisiert
     overview:
       index:
         welcome_back:

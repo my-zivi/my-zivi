@@ -69,6 +69,7 @@ group :test do
   gem 'climate_control'
   gem 'i18n-tasks', '~> 0.9.29'
   gem 'pdf-inspector', require: 'pdf/inspector'
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'simplecov-console'

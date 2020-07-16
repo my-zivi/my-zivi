@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :organization_member do
-    first_name { 'Hans' }
-    last_name { 'Beispiel' }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
     phone { '+41 (0) 76 123 45 67' }
     contact_email { nil }
     organization_role { %w[Einsatzleiter Geschäftsführung Leiter\ Zivildienstleistende].sample }

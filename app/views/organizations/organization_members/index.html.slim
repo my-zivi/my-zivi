@@ -1,0 +1,20 @@
+.card
+  .card-header.bg-white
+    .row.align-items-center
+      .col
+        h5.mb-0
+          = t('activerecord.models.organization_member')
+          span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@organization_members.count})"
+  .card-body.bg-light.p-0
+    .row.no-gutters.text-center.fs--1
+      - @organization_members.each do |member|
+        .col-6.col-md-4.col-lg-3.col-xxl-2.mb-1
+          = link_to edit_organizations_member_path(member), class: 'profile-item' do
+            .p-3.h-100
+              .name-initials-container.mb-3
+                .initials = initials(member)
+              h6.mb-1
+                = member.full_name
+              p.fs--2.mb-1 = member.organization_role
+              - if member.user.present?
+                .badge.badge-primary.badge-pill.mt-2 = t('administrator')

@@ -16,6 +16,22 @@ OrganizationMember.create!(
       )
     },
     {
+      organization: Organization.first,
+      first_name: 'Emily',
+      last_name: 'Clark',
+      phone: '+41 (0) 70 321 54 76',
+      organization_role: 'Zivildienstadministration',
+      contact_email: 'emily@example.com'
+    },
+    {
+      organization: Organization.first,
+      first_name: 'Cobe',
+      last_name: 'Black',
+      phone: '+41 (0) 76 098 76 54',
+      organization_role: 'Buchhaltung',
+      contact_email: 'cobe@example.com'
+    },
+    {
       organization: Organization.second,
       first_name: 'Percy',
       last_name: 'Jackson',
