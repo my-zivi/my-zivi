@@ -9,6 +9,7 @@ fr:
         street: Rue
         supplement: Suffixe de l'adresse
         zip: Code postal
+        zip_with_city: Code postal / Ville
       civil_servant:
         birthday: Anniversaire
         city: Ville
@@ -22,7 +23,6 @@ fr:
         phone: Numéro de téléphone
         role: Rôle
         zdp: N° ZDP
-        zip_with_city: Code postal / Ville
       driving_license:
         name: Nom
       expense_sheet:
@@ -161,6 +161,11 @@ fr:
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      long: "%d.%b.%Y"
+      short: "%d.%m.%y"
   organizations:
     overview:
       index:
@@ -168,6 +173,41 @@ fr:
           title: Bonjour, %{name}!
   payment:
     expenses_from: Frais du %{from_date}
+  pdfs:
+    expense_sheet:
+      expense_table:
+        footer:
+          total: Total
+        headers:
+          full_amount: Total
+        row_headers:
+          extra: Extra
+          first_work_days: Premier jour de travail
+          last_work_days: Dernier jour de travail
+        supplement:
+          driving_expenses_comment_empty: Aucune information
+          unpaid_vacation_comment: incl. %{comment}
+          work_clothing_expenses_comment:
+            one: CHF %{amount} p. jour pour %{count} jour facturable
+            other: CHF %{amount} p. jour pour %{count} jours facturables
+      header: Rapport des dépenses d’établissement d’affectation %{identification_number} - %{single_line_address}
+      info_block:
+        footer:
+          bank_account_number: N° de compte
+        header:
+          complete_service:
+            label: Service complet
+            value:
+              one: "%{beginning} à %{ending} (%{duration} jour)"
+              other: "%{beginning} à %{ending} (%{duration} jours)"
+          expense_sheet_time_duration:
+            label: Période du rapport
+            value:
+              one: "<b>%{beginning} à %{ending} (%{duration} jour)</b>"
+              other: "<b>%{beginning} à %{ending} (%{duration} jours)</b>"
+    phone_list:
+      header: Généré sur %{date}
+      title: Liste téléphonique de %{beginning} à %{ending}
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
     invalid_required_service_days: Jours du service non valables

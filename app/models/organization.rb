@@ -7,5 +7,5 @@ class Organization < ApplicationRecord
 
   has_many :organization_members, inverse_of: :organization, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, :identification_number, presence: true
 end

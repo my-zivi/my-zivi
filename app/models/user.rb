@@ -7,5 +7,13 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :trackable
 
+  validates :language, presence: true
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  enum language: {
+    german: 'de',
+    french: 'fr',
+    italian: 'it',
+    english: 'en'
+  }
 end

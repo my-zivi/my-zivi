@@ -11,6 +11,7 @@ OrganizationMember.create!(
       user: User.new(
         email: 'admin@example.com',
         password: '12345678',
+        language: :english,
         confirmed_at: 1.year.ago
       )
     },
@@ -23,6 +24,7 @@ OrganizationMember.create!(
       user: User.new(
         email: 'admin2@example.com',
         password: '12345678',
+        language: :italian,
         confirmed_at: 5.months.ago
       )
     }

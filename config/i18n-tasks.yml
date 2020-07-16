@@ -30,6 +30,8 @@ ignore_unused:
   - 'simple_form.{yes,no}'
   - 'simple_form.{placeholders,hints,labels}.*'
   - 'simple_form.{error_notification,required}.:'
+  - 'date.formats.*'
+  - 'pdfs.expense_sheet.expense_table.row_headers.*'
 
 ## Exclude these keys from the `i18n-tasks eq-base' report:
 # ignore_eq_base:

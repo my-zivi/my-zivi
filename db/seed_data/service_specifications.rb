@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 zuckerberg_foundation = Organization.find_by(name: 'Zuckerberg Foundation')
+james = OrganizationMember.find_by(first_name: 'James')
 homoeopathy_foundation = Organization.find_by(name: 'Homöopathen Ohne Grenzen')
+percy = OrganizationMember.find_by(first_name: 'Percy')
 
 ServiceSpecification.create!(
   [
@@ -19,7 +21,9 @@ ServiceSpecification.create!(
       paid_vacation_expenses: { breakfast: 400, lunch: 900, dinner: 700 },
       first_day_expenses: { breakfast: 0, lunch: 900, dinner: 700 },
       last_day_expenses: { breakfast: 400, lunch: 900, dinner: 0 },
-      organization: zuckerberg_foundation
+      organization: zuckerberg_foundation,
+      contact_person: james,
+      lead_person: james
     },
     {
       name: 'Transport, Logistik und Hauswirtschaft - Notfall',
@@ -35,7 +39,9 @@ ServiceSpecification.create!(
       paid_vacation_expenses: { breakfast: 400, lunch: 900, dinner: 700 },
       first_day_expenses: { breakfast: 0, lunch: 900, dinner: 700 },
       last_day_expenses: { breakfast: 400, lunch: 900, dinner: 0 },
-      organization: zuckerberg_foundation
+      organization: zuckerberg_foundation,
+      contact_person: james,
+      lead_person: james
     },
     {
       name: 'Mitarbeit Sozialpädagogische Zirkusschule',
@@ -50,7 +56,9 @@ ServiceSpecification.create!(
       paid_vacation_expenses: { breakfast: 0, lunch: 0, dinner: 0 },
       first_day_expenses: { breakfast: 0, lunch: 0, dinner: 0 },
       last_day_expenses: { breakfast: 0, lunch: 0, dinner: 0 },
-      organization: homoeopathy_foundation
+      organization: homoeopathy_foundation,
+      contact_person: percy,
+      lead_person: percy
     }
   ]
 )

@@ -15,6 +15,6 @@ RSpec.describe Organization, type: :model do
   end
 
   describe 'validations' do
-    it_behaves_like 'validates presence of required fields', %i[name]
+    it_behaves_like 'validates presence of required fields', %i[name identification_number]
   end
 end

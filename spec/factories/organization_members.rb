@@ -8,7 +8,7 @@ FactoryBot.define do
     contact_email { nil }
     organization_role { %w[Einsatzleiter Geschäftsführung Leiter\ Zivildienstleistende].sample }
     organization
-    association :user, strategy: :build
+    association :user, strategy: :build, factory: %i[user confirmed]
 
     after(:create) do |organization_member|
       organization_member.user&.save
