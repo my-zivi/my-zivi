@@ -120,7 +120,8 @@ RSpec.describe ExpenseSheet, type: :model do
 
     let(:civil_servant) { create :civil_servant, :full }
     let(:expense_sheet) do
-      build(:expense_sheet, :with_service, state: state_was).tap do |sheet|
+      create(:expense_sheet, :with_service).tap do |sheet|
+        sheet.state = state_was
         sheet.save(validate: false)
       end
     end

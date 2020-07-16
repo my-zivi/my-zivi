@@ -10,10 +10,11 @@ de:
         street: Strasse
         supplement: Adresszusatz
         zip: Postleitzahl
+        zip_with_city: PLZ / Ort
       civil_servant:
         birthday: Geburtstag
         city: Stadt
-        email: Email
+        email: E-Mail
         first_name: Vorname
         health_insurance: Krankenkasse
         hometown: Heimatstadt
@@ -23,7 +24,6 @@ de:
         phone: Telefonnummer
         role: Rolle
         zdp: ZDP-Nr.
-        zip_with_city: PLZ / Ort
       driving_license:
         name: Name
       expense_sheet:
@@ -170,6 +170,11 @@ de:
         profile: Profil
         service_specifications: Pflichtenhefter
         sign_out: Abmelden
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      long: "%d.%b.%Y"
+      short: "%d.%m.%y"
   my_zivi: MyZivi
   organizations:
     organization_members:
@@ -190,6 +195,41 @@ de:
           title: Wilkommen zurück, %{name}!
   payment:
     expenses_from: Spesen vom %{from_date}
+  pdfs:
+    expense_sheet:
+      expense_table:
+        footer:
+          total: Gesamt
+        headers:
+          full_amount: Total
+        row_headers:
+          extra: Extra
+          first_work_days: Erster Arbeitstag
+          last_work_days: Letzter Arbeitstag
+        supplement:
+          driving_expenses_comment_empty: Keine Angaben
+          unpaid_vacation_comment: inkl. %{comment}
+          work_clothing_expenses_comment:
+            one: CHF %{amount}/Tag für %{count} anrechenbarer Tag
+            other: CHF %{amount}/Tag für %{count} anrechenbare Tage
+      header: Spesenrapport des Einsatzbetriebes %{identification_number} - %{single_line_address}
+      info_block:
+        footer:
+          bank_account_number: 'Konto-Nr.:'
+        header:
+          complete_service:
+            label: Gesamteinsatz
+            value:
+              one: "%{beginning} bis %{ending} (%{duration} Tag)"
+              other: "%{beginning} bis %{ending} (%{duration} Tage)"
+          expense_sheet_time_duration:
+            label: Meldeperiode
+            value:
+              one: "<b>%{beginning} bis %{ending} (%{duration} Tag)</b>"
+              other: "<b>%{beginning} bis %{ending} (%{duration} Tage)</b>"
+    phone_list:
+      header: Stand vom %{date}
+      title: Telefonliste vom %{beginning} bis %{ending}
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage

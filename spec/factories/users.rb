@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :user do
     sequence(:email) { |n| "example#{n}@example.test" }
+    language { User.languages.values.sample }
     password { '12345678' }
 
     trait :confirmed do

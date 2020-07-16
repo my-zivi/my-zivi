@@ -3,6 +3,14 @@
 class OrganizationMember < ApplicationRecord
   belongs_to :organization
   has_one :user, as: :referencee, dependent: :destroy, required: false, autosave: true
+  has_many :service_specification_contact_persons,
+           class_name: 'ServiceSpecification',
+           inverse_of: :contact_person,
+           dependent: :restrict_with_exception
+  has_many :service_specification_lead_persons,
+           class_name: 'ServiceSpecification',
+           inverse_of: :lead_person,
+           dependent: :restrict_with_exception
 
   validates :first_name, :last_name, :phone, :organization_role, presence: true
   validates :contact_email, presence: true, if: -> { user.nil? }

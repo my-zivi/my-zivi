@@ -16,6 +16,7 @@ CivilServant.create!(
       user: User.new(
         email: 'zivi@example.com',
         password: '12345678',
+        language: 'fr',
         confirmed_at: 2.years.ago
       ),
       regional_center: RegionalCenter.first,
@@ -42,6 +43,7 @@ CivilServant.create!(
       user: User.new(
         email: 'philipp@example.com',
         password: '12345678',
+        language: 'de',
         confirmed_at: 20.minutes.ago
       ),
       regional_center: RegionalCenter.second,
