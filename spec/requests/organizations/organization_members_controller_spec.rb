@@ -109,6 +109,15 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
           end
         end
       end
+
+      context 'when updating with invalid data' do
+        let(:update_params) { { first_name: '' } }
+
+        it 'does not touch the user and renders an error message' do
+          expect { perform_request }.not_to(change(organization_admin, :reload))
+          expect(flash[:error]).to eq I18n.t('organizations.organization_members.update.erroneous_update')
+        end
+      end
     end
 
     describe '#destroy' do
