@@ -11,13 +11,13 @@ RSpec.describe OrganizationMember, type: :model do
       expect(model).to belong_to(:organization)
       expect(model).to have_one(:user).dependent(:destroy).required(false).autosave(true)
       expect(model).to(
-        have_one(:service_specification_contact_person)
+        have_many(:service_specification_contact_persons)
           .class_name('ServiceSpecification')
           .inverse_of(:contact_person)
           .dependent(:restrict_with_exception)
       )
       expect(model).to(
-        have_one(:service_specification_lead_person)
+        have_many(:service_specification_lead_persons)
           .class_name('ServiceSpecification')
           .inverse_of(:lead_person)
           .dependent(:restrict_with_exception)

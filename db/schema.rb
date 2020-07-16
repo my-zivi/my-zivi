@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_10_141949) do
+ActiveRecord::Schema.define(version: 2020_07_16_070611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_141949) do
     t.string "health_insurance", null: false
     t.bigint "regional_center_id", null: false
     t.bigint "address_id", null: false
+    t.string "language", null: false
     t.index ["address_id"], name: "index_civil_servants_on_address_id"
     t.index ["regional_center_id"], name: "index_civil_servants_on_regional_center_id"
     t.index ["zdp"], name: "index_civil_servants_on_zdp", unique: true

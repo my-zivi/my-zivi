@@ -5,8 +5,8 @@ class ServiceSpecification < ApplicationRecord
   POCKET_MONEY = 500
 
   belongs_to :organization
-  belongs_to :contact_person, class_name: 'OrganizationMember', inverse_of: :service_specification_contact_person
-  belongs_to :lead_person, class_name: 'OrganizationMember', inverse_of: :service_specification_lead_person
+  belongs_to :contact_person, class_name: 'OrganizationMember', inverse_of: :service_specification_contact_persons
+  belongs_to :lead_person, class_name: 'OrganizationMember', inverse_of: :service_specification_lead_persons
 
   has_many :services, dependent: :restrict_with_error
   has_many :driving_licenses_service_specifications, dependent: :destroy

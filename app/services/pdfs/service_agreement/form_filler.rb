@@ -6,8 +6,6 @@ module Pdfs
       FRENCH_FILE_PATH = Rails.root.join('lib/assets/pdfs/french_service_agreement_form.pdf').to_s.freeze
       GERMAN_FILE_PATH = Rails.root.join('lib/assets/pdfs/german_service_agreement_form.pdf').to_s.freeze
 
-      LOCALIZE_FLAG = '|localize'
-
       def initialize(service)
         @service = service
       end
@@ -40,6 +38,8 @@ module Pdfs
       end
 
       def fill_fields(pdf, fields_mapping)
+        pdf_data = PdfDataLoader.evaluate_data_hash fields_mapping, service: @service
+
         fields_mapping.each do |field_name, field_value_lambda|
           field_data = field_value_lambda.call @service
           pdf.set_field(field_name, field_data) if field_data # needed because '' for checkbox is true

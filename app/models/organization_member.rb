@@ -3,11 +3,11 @@
 class OrganizationMember < ApplicationRecord
   belongs_to :organization
   has_one :user, as: :referencee, dependent: :destroy, required: false, autosave: true
-  has_one :service_specification_contact_person,
+  has_many :service_specification_contact_persons,
           class_name: 'ServiceSpecification',
           inverse_of: :contact_person,
           dependent: :restrict_with_exception
-  has_one :service_specification_lead_person,
+  has_many :service_specification_lead_persons,
           class_name: 'ServiceSpecification',
           inverse_of: :lead_person,
           dependent: :restrict_with_exception

@@ -5,6 +5,14 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   it { is_expected.to belong_to(:referencee) }
 
+  describe 'model definition' do
+    subject(:model) { described_class.new }
+
+    it 'defines enum' do
+      expect(model).to define_enum_for(:language).backed_by_column_of_type(:string)
+    end
+  end
+
   describe 'validations' do
     subject(:model) { described_class.new }
 
