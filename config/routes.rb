@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   devise_for :users
   root 'home#index'
 
   namespace :civil_servants do
     get '/', to: 'overview#index'
 
-    resource :civil_servant, only: %i[show edit update], on: :collection
+    resource :civil_servant, only: %i[edit update], on: :collection
   end
 
   namespace :organizations do

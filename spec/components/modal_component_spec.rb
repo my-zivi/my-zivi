@@ -1,13 +1,19 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe ModalComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject(:component) do
+    described_class.new(modal_id: modal_id, title: title)
+  end
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+  let(:rendered) { render_inline(component) }
+  let(:modal_id) { 'my-modal-id' }
+  let(:title) { 'My title' }
+
+  it 'renders id and title' do
+    expect(rendered.css('h5').text).to eq title
+    expect(rendered.css("##{modal_id}-modal-title").text).to eq title
+    expect(rendered.css('.modal.fade').attr('id').value).to eq modal_id
+  end
 end

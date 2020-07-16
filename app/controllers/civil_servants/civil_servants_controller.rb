@@ -15,8 +15,6 @@ module CivilServants
 
     include UsersHelper
 
-    def show; end
-
     def edit; end
 
     def update

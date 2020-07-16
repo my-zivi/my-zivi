@@ -1,8 +1,8 @@
-.modal.fade aria-hidden="true" aria-labelledby="exampleModalCenterTitle" role="dialog" tabindex="-1" id="#{@modal_id}"
+.modal.fade aria-hidden="true" aria-labelledby="#{@modal_id}-modal-title" role="dialog" tabindex="-1" id="#{@modal_id}"
   .modal-dialog.modal-dialog-centered role="document"
     .modal-content
       .modal-header
-        h5#exampleModalCenterTitle.modal-title = @title
+        h5.modal-title id="#{@modal_id}-modal-title" = @title
         button.close aria-label="Close" data-dismiss="modal" type="button"
           span aria-hidden="true" ×
       div = body
