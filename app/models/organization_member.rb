@@ -6,11 +6,13 @@ class OrganizationMember < ApplicationRecord
   has_many :service_specification_contacts,
            class_name: 'ServiceSpecification',
            inverse_of: :contact_person,
-           dependent: :restrict_with_exception
+           dependent: :restrict_with_exception,
+           foreign_key: :contact_person_id
   has_many :service_specification_leads,
            class_name: 'ServiceSpecification',
            inverse_of: :lead_person,
-           dependent: :restrict_with_exception
+           dependent: :restrict_with_exception,
+           foreign_key: :contact_person_id
 
   validates :first_name, :last_name, :phone, :organization_role, presence: true
   validates :contact_email, presence: true, if: -> { user.nil? }
