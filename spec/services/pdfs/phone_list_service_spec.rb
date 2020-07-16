@@ -5,12 +5,9 @@ require 'rails_helper'
 RSpec.describe Pdfs::PhoneListService, type: :service do
   describe '#render' do
     context 'when locale is german' do
-      before do
-        I18n.locale = :de
-        create(:service, service_data)
-      end
+      around { |spec| I18n.with_locale(:de) { spec.run } }
 
-      after { I18n.locale = I18n.default_locale }
+      before { create(:service, service_data) }
 
       let(:pdf) { described_class.new(phone_list_service_specifications, phone_list_dates).render }
       let(:civil_servant) { create :civil_servant, :full }
