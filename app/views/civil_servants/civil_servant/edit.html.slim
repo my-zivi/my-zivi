@@ -1,0 +1,34 @@
+.row
+  .col-12.col-lg-6
+    = render(\
+      TabularCardComponent.new(\
+        title: t('.cards.personal_information.title'),
+            table_content: personal_information_table \
+      ) \
+    )
+  .col-12.col-lg-6
+    = render(\
+          TabularCardComponent.new(\
+            title: t('.cards.address_information.title'),
+            table_content: address_information_table \
+          ) \
+        )
+  .col-12.col-lg-6
+    = render(\
+      TabularCardComponent.new(title: t('.cards.login_information.title'), table_content: login_information_table) \
+    )
+  .col-12.col-lg-6
+    = render(\
+        TabularCardComponent.new(\
+          title: t('.cards.bank_and_insurance_information.title'),
+            table_content: bank_and_insurance_information_table \
+        ) \
+      )
+  .col-12.col-lg-6
+    = render(\
+          TabularCardComponent.new(\
+            title: t('.cards.service_specific_information_table.title'),
+            table_content: service_specific_information_table \
+          ) \
+        )
+

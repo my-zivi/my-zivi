@@ -13,6 +13,7 @@ de:
       civil_servant:
         birthday: Geburtstag
         city: Stadt
+        driving_licenses: Führerscheine
         email: E-Mail
         first_name: Vorname
         health_insurance: Krankenkasse
@@ -21,8 +22,10 @@ de:
         id: ID
         last_name: Nachname
         phone: Telefonnummer
+        regional_center: Regionalzentrum
         role: Rolle
         zdp: ZDP-Nr.
+        workshops: Absolvierte Zivildienstkurse
       driving_license:
         name: Name
       expense_sheet:
@@ -100,6 +103,13 @@ de:
         short_name: Kurzname
         work_clothing_expenses: Kleiderspesen
         work_days_expenses: Arbeitstagesspesen
+      user:
+        language: Sprache
+        languages:
+          german: Deutsch
+          english: Englisch
+          french: Französisch
+          italian: Italienisch
       workshop:
         name: Name
     errors:
@@ -233,3 +243,17 @@ de:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
+  civil_servants:
+    civil_servant:
+      edit:
+        cards:
+          personal_information:
+            title: "Persönliche Informationen"
+          login_information:
+            title: "Benutzerdaten"
+          bank_and_insurance_information:
+            title: "Bank- und Versicherunsdetails"
+          address_information:
+            title: "Adressdaten"
+          service_specific_information_table:
+            title: "Einsatzspezifische Informationen"

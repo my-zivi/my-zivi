@@ -1,0 +1,10 @@
+.card.mb-3.overflow-hidden.animatable-card.overview-card[data-card]
+  .bg-holder.bg-card
+  .card-header
+    h4 = @title
+  .card-body.position-relative
+    .fs-1.mb-2
+      .row.text-wrap
+        - @table_content.each do |key, value|
+          .mb-lg-1.col-12.col-xxl-5.font-weight-bold = key
+          .mb-1.col-12.col-xxl-7 = value
