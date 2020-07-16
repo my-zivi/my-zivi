@@ -30,20 +30,13 @@
     %>
   </div>
   <div class="col-12 col-lg-6">
-    <%=
-      render(
-        TabularCardComponent.new(title: t('.cards.login_information.title'), table_content: login_information_table)
-      )
-    %>
-  </div>
-  <div class="col-12 col-lg-6">
-    <%=
-      render(
-        TabularCardComponent.new(
-          title: t('.cards.bank_and_insurance_information.title'),
-          table_content: bank_and_insurance_information_table
-        )
-      )
+    <%= render(
+          'civil_servants/civil_servants/editable_card',
+          modal_id: 'civil-servants-bank_and_insurance_information',
+          title: t('civil_servants.civil_servants.edit.cards.bank_and_insurance_information.title'),
+          form_partial_name: 'bank_and_insurance_information_form',
+          card_table_content: bank_and_insurance_information_table,
+          ) { render('civil_servants/civil_servants/bank_and_insurance_information_form', civil_servant: current_civil_servant) }
     %>
   </div>
 
