@@ -3,46 +3,31 @@
 module Pdfs
   module ServiceAgreement
     class FormFiller
-      FRENCH_FILE_PATH = Rails.root.join('lib/assets/pdfs/french_service_agreement_form.pdf').to_s.freeze
-      GERMAN_FILE_PATH = Rails.root.join('lib/assets/pdfs/german_service_agreement_form.pdf').to_s.freeze
+      # FRENCH_FILE_PATH = Rails.root.join('lib/assets/pdfs/french_service_agreement_form.pdf').to_s.freeze
+      # GERMAN_FILE_PATH = Rails.root.join('lib/assets/pdfs/german_service_agreement_form.pdf').to_s.freeze
 
-      def initialize(service)
-        @service = service
-      end
+      class << self
+        def render(pdf_field_data, template_path)
+          pdf_file = Tempfile.new('service_agreement_form')
+          fill_form(pdf_field_data, template_path, pdf_file.path)
+          pdf = pdf_file.read
+          pdf_file.close
+          pdf
+        end
 
-      def render
-        fill_form
-        pdf = pdf_file.read
-        pdf_file.close
-        pdf
-        # pdf_file
-      end
+        private
 
-      private
+        def fill_form(pdf_field_data, template_path, output_path)
+          fillable_pdf = FillablePDF.new template_path
+          fill_fields fillable_pdf, pdf_field_data
+          fillable_pdf.save_as(output_path, flatten: true)
+          fillable_pdf.close
+        end
 
-      def fill_form
-        # TODO: load language from user or civil_servant
-        I18n.locale = false ? :fr : :de
-
-        # TODO: load language from user or civil_servant
-        fillable_pdf = FillablePDF.new false ? FRENCH_FILE_PATH : GERMAN_FILE_PATH
-        # TODO: add french mapping version
-        fields_mapping = false ? GermanFormFields::SERVICE_AGREEMENT_FIELDS : GermanFormFields::SERVICE_AGREEMENT_FIELDS
-        fill_fields fillable_pdf, fields_mapping
-        fillable_pdf.save_as(pdf_file.path, flatten: true)
-        fillable_pdf.close
-      end
-
-      def pdf_file
-        @pdf_file ||= Tempfile.new('service_agreement_form')
-      end
-
-      def fill_fields(pdf, fields_mapping)
-        pdf_data = PdfDataLoader.evaluate_data_hash fields_mapping, service: @service
-
-        fields_mapping.each do |field_name, field_value_lambda|
-          field_data = field_value_lambda.call @service
-          pdf.set_field(field_name, field_data) if field_data # needed because '' for checkbox is true
+        def fill_fields(pdf, pdf_field_data)
+          pdf_field_data.each do |field_name, field_data|
+            pdf.set_field(field_name, field_data) if field_data # needed because '' for checkbox is true
+          end
         end
       end
     end

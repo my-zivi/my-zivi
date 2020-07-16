@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 2020_07_16_070611) do
     t.string "health_insurance", null: false
     t.bigint "regional_center_id", null: false
     t.bigint "address_id", null: false
-    t.string "language", null: false
     t.index ["address_id"], name: "index_civil_servants_on_address_id"
     t.index ["regional_center_id"], name: "index_civil_servants_on_regional_center_id"
     t.index ["zdp"], name: "index_civil_servants_on_zdp", unique: true
@@ -129,7 +128,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_070611) do
     t.bigint "address_id", null: false
     t.bigint "letter_address_id"
     t.bigint "creditor_detail_id"
-    t.string "identification_number"
+    t.string "identification_number", null: false
     t.index ["address_id"], name: "index_organizations_on_address_id"
     t.index ["creditor_detail_id"], name: "index_organizations_on_creditor_detail_id"
     t.index ["letter_address_id"], name: "index_organizations_on_letter_address_id"
@@ -210,6 +209,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_070611) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
+    t.string "language", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["referencee_id", "referencee_type"], name: "index_users_on_referencee_id_and_referencee_type", unique: true
