@@ -17,10 +17,10 @@
         .col-lg-6
           .form-group data-children-count="1"
             - if f.object.user.present?
-              = f.simple_fields_for :user do |ff|
-                = ff.input :email
-                - if ff.object.unconfirmed_email.present?
-                  = t('.pending_invitation', email: ff.object.unconfirmed_email)
+              = f.simple_fields_for :user do |user_form|
+                = user_form.input :email
+                - if user_form.object.unconfirmed_email.present?
+                  = t('.pending_invitation', email: user_form.object.unconfirmed_email)
             - else
               = f.input :contact_email
         .col-lg-6

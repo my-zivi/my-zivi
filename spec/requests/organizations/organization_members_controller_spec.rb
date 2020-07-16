@@ -29,7 +29,7 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
 
       it 'returns a list of organization members inside the organization' do
         expect(response).to be_successful
-        expect(response.body).to include(*organization.organization_members.pluck(:first_name))
+        expect(response.body).to include(*organization.organization_members.pick(:first_name, :last_name))
         expect(response.body).not_to include(
           outside_organization_member.first_name,
           outside_organization_member.last_name
