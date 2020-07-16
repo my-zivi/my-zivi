@@ -20,7 +20,7 @@ RSpec.describe ExpenseSheetGenerator, type: :service do
       end
     end
 
-    it 'sets correct civil_servant', :aggregate_failures do
+    it 'sets correct civil_servants', :aggregate_failures do
       create_expense_sheets
       ExpenseSheet.all.each do |expense_sheet|
         expect(expense_sheet.service.civil_servant).to eq service.civil_servant

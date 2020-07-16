@@ -7,9 +7,8 @@ Rails.application.routes.draw do
 
   namespace :civil_servants do
     get '/', to: 'overview#index'
-    get 'civil_servant/show'
-    get 'civil_servant/edit'
-    get 'civil_servant/update'
+
+    resource :civil_servant, only: %i[show edit update], on: :collection
   end
 
   namespace :organizations do

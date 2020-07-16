@@ -30,6 +30,9 @@ class CivilServant < ApplicationRecord
   validate :validate_iban
   validates :iban, format: { with: /\A\S+\z/ }
 
+  accepts_nested_attributes_for :user
+  accepts_nested_attributes_for :address
+
   # TODO: Move to controller probably
   def self.strip_iban(iban)
     IBANTools::IBAN.new(iban).code

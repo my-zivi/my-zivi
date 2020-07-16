@@ -1,16 +1,8 @@
-
-button.btn.btn-primary data-target="#exampleModalCenter" data-toggle="modal" type="button"
-  | Launch demo modal
-
-#exampleModalCenter.modal.fade aria-hidden="true" aria-labelledby="exampleModalCenterTitle" role="dialog" tabindex="-1"
+.modal.fade aria-hidden="true" aria-labelledby="exampleModalCenterTitle" role="dialog" tabindex="-1" id="#{@modal_id}"
   .modal-dialog.modal-dialog-centered role="document"
     .modal-content
       .modal-header
-        h5#exampleModalCenterTitle.modal-title Modal title
+        h5#exampleModalCenterTitle.modal-title = @title
         button.close aria-label="Close" data-dismiss="modal" type="button"
-          span aria-hidden="true"  ×
-      .modal-body
-        | \...
-      .modal-footer
-        button.btn.btn-secondary data-dismiss="modal" type="button"  Close
-        button.btn.btn-primary type="button"  Save changes
+          span aria-hidden="true" ×
+      div = body

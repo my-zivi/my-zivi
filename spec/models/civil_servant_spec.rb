@@ -92,13 +92,13 @@ RSpec.describe CivilServant, type: :model do
     let(:ending) { (beginning + 4.weeks).at_end_of_week - 2.days }
     let(:service) { build :service, beginning: beginning, ending: ending }
 
-    context 'when the civil_servant is currently doing civil service' do
+    context 'when the civil_servants is currently doing civil service' do
       let(:beginning) { Time.zone.today.at_beginning_of_week }
 
       it { is_expected.to eq true }
     end
 
-    context 'when the civil_servant is not doing civil service' do
+    context 'when the civil_servants is not doing civil service' do
       let(:beginning) { Time.zone.today.at_beginning_of_week + 1.week }
 
       it { is_expected.to eq false }
@@ -120,7 +120,7 @@ RSpec.describe CivilServant, type: :model do
     let(:current_service) { build_stubbed :service, beginning: 1.month.ago, ending: 4.weeks.from_now }
     let(:future_service) { build_stubbed :service, beginning: 2.months.from_now, ending: 4.months.from_now }
 
-    it 'returns the service which the civil_servant is currently doing' do
+    it 'returns the service which the civil_servants is currently doing' do
       expect(civil_servant.active_service).to be current_service
     end
   end
@@ -133,7 +133,7 @@ RSpec.describe CivilServant, type: :model do
     let(:future_service) { build :service, beginning: 2.months.from_now, ending: 4.months.from_now }
     let(:second_future_service) { build :service, beginning: 1.year.from_now, ending: (1.year + 4.weeks).from_now }
 
-    it 'returns the service which the civil_servant is currently doing' do
+    it 'returns the service which the civil_servants is currently doing' do
       expect(civil_servant.next_service).to be future_service
     end
   end

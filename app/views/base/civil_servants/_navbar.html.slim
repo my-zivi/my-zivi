@@ -15,7 +15,7 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
           span.fas.fa-chart-pie
         = render 'base/navbar_link', link: { t('.services') => civil_servants_path } do
           span.fas.fa-hands-helping
-        = render 'base/navbar_link', link: { t('.profile') => civil_servants_path } do
+        = render 'base/navbar_link', link: { t('.profile') => edit_civil_servants_civil_servant_path } do
           span.fas.fa-user
         = render 'base/navbar_link',
                 link: { \
