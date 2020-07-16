@@ -10,13 +10,23 @@
     %>
   </div>
   <div class="col-12 col-lg-6">
-    <%=
-      render(
-        TabularCardComponent.new(
-          title: t('.cards.address_information.title'),
-          table_content: address_information_table
-        )
-      )
+    <%= render(
+          'civil_servants/civil_servants/editable_card',
+          modal_id: 'civil-servants-address_information',
+          title: t('civil_servants.civil_servants.edit.cards.address_information.title'),
+          form_partial_name: 'address_information_form',
+          card_table_content: address_information_table,
+        ) { render('civil_servants/civil_servants/address_information_form', civil_servant: current_civil_servant) }
+    %>
+  </div>
+  <div class="col-12 col-lg-6">
+    <%= render(
+          'civil_servants/civil_servants/editable_card',
+          modal_id: 'civil-servants-login_information',
+          title: t('civil_servants.civil_servants.edit.cards.login_information.title'),
+          form_partial_name: 'login_information_form',
+          card_table_content: login_information_table,
+          ) { render('civil_servants/civil_servants/login_information_form', civil_servant: current_civil_servant) }
     %>
   </div>
   <div class="col-12 col-lg-6">

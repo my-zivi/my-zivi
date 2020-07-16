@@ -1,0 +1,9 @@
+= simple_form_for(civil_servant, url: civil_servants_civil_servant_path, remote: true) do |f|
+  .modal-body
+    = f.simple_fields_for :user do |user_form|
+      = user_form.input :email
+      = user_form.input :language
+    = hidden_field_tag 'form_partial', 'login_information_form'
+    .modal-footer
+      button.btn.btn-secondary data-dismiss="modal" type="button" = t('cancel')
+      = f.submit class: 'btn btn-primary'
