@@ -71,6 +71,7 @@ fr:
       organization_member:
         first_name: Prénom
         last_name: Nom de famille
+        contact_email: E-Mail
         organization_role: Domaine d'activité au sein de l'entreprise
         phone: Téléphone
       regional_center:

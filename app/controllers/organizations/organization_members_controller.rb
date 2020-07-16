@@ -9,10 +9,10 @@ module Organizations
 
     before_action :set_organization_member, only: %i[edit update destroy]
 
-    helper UsersHelper
+    include UsersHelper
 
     def index
-      @organization_members = helpers.current_organization_admin.organization.organization_members.includes(:user)
+      @organization_members = current_organization_admin.organization.organization_members.includes(:user)
     end
 
     def edit; end
@@ -28,12 +28,12 @@ module Organizations
     end
 
     def destroy
-      if @organization_member.destroy
+      if @organization_member != current_organization_admin && @organization_member.destroy
         flash[:success] = t('.successfully_deleted')
         redirect_to organizations_members_path
       else
         flash[:error] = t('.erroneous_delete')
-        render edit_organizations_member_path(@organization_member)
+        render :edit
       end
     end
 

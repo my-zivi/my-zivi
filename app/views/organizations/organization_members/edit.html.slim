@@ -16,10 +16,13 @@
             = f.input :last_name
         .col-lg-6
           .form-group data-children-count="1"
-            = f.simple_fields_for :user do |ff|
-              = ff.input :email
-              - if ff.object.unconfirmed_email.present?
-                = t('.pending_invitation', email: ff.object.unconfirmed_email)
+            - if f.object.user.present?
+              = f.simple_fields_for :user do |ff|
+                = ff.input :email
+                - if ff.object.unconfirmed_email.present?
+                  = t('.pending_invitation', email: ff.object.unconfirmed_email)
+            - else
+              = f.input :contact_email
         .col-lg-6
           .form-group data-children-count="1"
             = f.input :phone
