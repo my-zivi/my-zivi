@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 1000
-
 require 'rails_helper'
 
 RSpec.describe Pdfs::ExpenseSheet::GeneratorService, type: :service do
