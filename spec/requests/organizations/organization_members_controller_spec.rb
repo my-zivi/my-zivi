@@ -165,7 +165,7 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
       it_behaves_like 'unauthenticated request'
 
       it 'does not touch the organization member' do
-        expect { perform_request }.not_to(change { organization_member.reload })
+        expect { perform_request }.not_to(change(organization_member, :reload))
       end
     end
 
