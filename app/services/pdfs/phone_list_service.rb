@@ -80,18 +80,18 @@ module Pdfs
 
     def table_content(services)
       services.map do |service|
-        service_data service
+        civil_servant_data service.civil_servant
       end
     end
 
-    def service_data(service)
+    def civil_servant_data(civil_servant)
       [
-        service.civil_servant.first_name,
-        service.civil_servant.last_name,
-        service.civil_servant.address.street,
-        service.civil_servant.address.zip_with_city,
-        service.civil_servant.phone,
-        service.civil_servant.user.email
+        civil_servant.first_name,
+        civil_servant.last_name,
+        civil_servant.address.street,
+        civil_servant.address.zip_with_city,
+        civil_servant.phone,
+        civil_servant.user.email
       ]
     end
   end

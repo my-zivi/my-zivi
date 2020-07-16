@@ -190,8 +190,7 @@ fr:
           work_clothing_expenses_comment:
             one: CHF %{amount} p. jour pour %{count} jour facturable
             other: CHF %{amount} p. jour pour %{count} jours facturables
-      filename: Portrait_des_dépenses_%{today}.pdf
-      header: "Rapport des dépenses d’établissement d’affectation %{identification_number} - %{single_line_address}"
+      header: Rapport des dépenses d’établissement d’affectation %{identification_number} - %{single_line_address}
       info_block:
         footer:
           bank_account_number: N° de compte
@@ -206,25 +205,9 @@ fr:
             value:
               one: "<b>%{beginning} à %{ending} (%{duration} jour)</b>"
               other: "<b>%{beginning} à %{ending} (%{duration} jours)</b>"
-      title: Rapport_de_dépenses_de_%{full_name}.pdf
-    expenses_overview:
-      basedon: Statistiques basées sur toutes les feuilles de rapport remplies
-      filename: Presentation_statistiques_charges_%{today}.pdf
-      header: "%{name} (opération d'utilisation No. %{identification_number}) - Disponible à partir de %{date}"
-      title: Zivi aperçu des dépenses (period %{beginning} - %{ending})
     phone_list:
-      filename: Liste_téléphonique_%{today}.pdf
       header: Généré sur %{date}
       title: Liste téléphonique de %{beginning} à %{ending}
-    service_agreement:
-      body_content: |-
-        Chère Zivi
-        Veuillez envoyer l'accord de mission signé à l'adresse ci-dessus. Si vous utilisez une enveloppe à fenêtre à fenêtre gauche ou droite, vous pouvez plier cette page de garde et la mettre dans l'enveloppe. L'adresse est placée correctement. L'adresse en bas à droite est utilisée par nous pour transmettre l'accord de mission au bureau régional. A la toute fin, vous trouverez une fiche d'information, qui vous donne des informations sur le déroulement de votre mission. Veuillez remettre le talon signé à l'officier responsable le premier jour de la mission.
-      filename: Accord_de_mission_de_%{full_name}.pdf
-    service_agreement_form:
-      bundesamt_fuer_zivildienst:
-        name: Office fédéral du service civil CIVI
-        website: www.civi.admin.ch
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
     invalid_required_service_days: Jours du service non valables

@@ -41,7 +41,7 @@ module Pdfs
         'cbRZ' => ->(service:) { service.civil_servant.regional_center.short_name },
         'tfRZ' => ->(service:) { service.civil_servant.regional_center.name },
         'tfStrasse' => ->(service:) { service.civil_servant.regional_center.address.street },
-        'tfPLZ' => ->(service:) { service.civil_servant.regional_center.address.zip_with_city },
+        'tfPLZ' => ->(service:) { service.civil_servant.regional_center.address.zip_with_city }
         # 'Ort Datum' => ->(service:) { service.civil_servant.signature_location_and_date },
         # 'Ort Datum_2' => ->(service:) { service.service_specification.organization.signature_location_and_date },
         # 'D' => ->(service:) { service.civil_servant.workshop_language_german? },

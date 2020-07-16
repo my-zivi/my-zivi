@@ -191,7 +191,6 @@ de:
           work_clothing_expenses_comment:
             one: CHF %{amount}/Tag für %{count} anrechenbarer Tag
             other: CHF %{amount}/Tag für %{count} anrechenbare Tage
-      filename: Spesenrapport_%{today}.pdf
       header: Spesenrapport des Einsatzbetriebes %{identification_number} - %{single_line_address}
       info_block:
         footer:
@@ -207,25 +206,9 @@ de:
             value:
               one: "<b>%{beginning} bis %{ending} (%{duration} Tag)</b>"
               other: "<b>%{beginning} bis %{ending} (%{duration} Tage)</b>"
-      title: Spesenrapport_von_%{full_name}.pdf
-    expenses_overview:
-      basedon: Statistik basiert auf allen erledigten Meldeblättern
-      filename: Übersicht_Spesenstatistik_%{today}.pdf
-      header: "%{name} (Einsatzbetrieb Nr. %{identification_number}) - Verfügung vom %{date}"
-      title: Zivi-Spesen Detailübersicht (Zeitperiode %{beginning} - %{ending})
     phone_list:
-      filename: Telefonliste_%{today}.pdf
       header: Stand vom %{date}
       title: Telefonliste vom %{beginning} bis %{ending}
-    service_agreement:
-      body_content: |-
-        Lieber Zivi
-        Bitte sende die unterzeichnete Einsatzvereinbarung an obige Adresse. Wenn du ein Fenstercouvert mit Fenster links oder rechts verwendest, kannst du dieses Deckblatt falten und in das Couvert stecken. Die Adresse ist richtig platziert. Die Adresse unten rechts wird von uns benutzt um die Einsatzvereinbarung an die Regionalstelle weiterzuleiten. Ganz am Ende findest du ein Informationsblatt, das dir Auskunft über den Ablauf deines Einsatzes gibt. Gib bitte den Talon darin am ersten Einsatztag unterschrieben dem Einsatzleiter ab.
-      filename: Einsatzvereinbarung_von_%{full_name}.pdf
-    service_agreement_form:
-      bundesamt_fuer_zivildienst:
-        name: Bundesamt für Zivildienst ZIVI
-        website: www.zivi.admin.ch
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
