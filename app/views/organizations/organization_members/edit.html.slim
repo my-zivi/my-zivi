@@ -30,9 +30,10 @@
           .form-group data-children-count="1"
             = f.input :organization_role
         .col-12.d-flex.justify-content-end
-          = link_to t('.destroy_organization_member'),
-                  organizations_member_path(@organization_member),
-                  method: :delete,
-                  class: 'btn btn-danger mr-2',
-                  data: { confirm: t('.destroy_organization_member_confirmation') }
+          - unless current_organization_admin == @organization_member
+            = link_to t('.destroy_organization_member'),
+                    organizations_member_path(@organization_member),
+                    method: :delete,
+                    class: 'btn btn-danger mr-2',
+                    data: { confirm: t('.destroy_organization_member_confirmation') }
           = f.submit class: 'btn btn-primary'
