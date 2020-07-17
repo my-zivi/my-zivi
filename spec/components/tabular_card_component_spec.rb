@@ -10,8 +10,8 @@ RSpec.describe TabularCardComponent, type: :component do
 
   it 'renders id and title' do
     expect(rendered.css('h4').text).to eq title
-    expect(rendered.css('.mb-lg-1.col-12.col-xxl-5.font-weight-bold').text).to eq table_content.keys.first.to_s
-    expect(rendered.css('.mb-1.col-12.col-xxl-7').text).to eq table_content.values.first.to_s
+    expect(rendered.css('[data-key]').text).to eq table_content.keys.first.to_s
+    expect(rendered.css('[data-value]').text).to eq table_content.values.first.to_s
   end
 
   context 'with the body content_area' do
@@ -24,7 +24,7 @@ RSpec.describe TabularCardComponent, type: :component do
     let(:action_content) { 'a beautiful action' }
 
     it 'renders the action' do
-      expect(rendered.css('h4 + div').text).to eq action_content
+      expect(rendered.css('[data-actions]').text).to eq action_content
     end
   end
 end
