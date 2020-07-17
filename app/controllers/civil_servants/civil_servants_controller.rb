@@ -30,9 +30,7 @@ module CivilServants
         redirect_to edit_civil_servants_civil_servant_path
       else
         respond_to do |format|
-          format.js do
-            return validate_form_partial(params[:form_partial])
-          end
+          format.js { validate_form_partial(params[:form_partial]) }
         end
       end
     end
