@@ -44,8 +44,6 @@ RSpec.describe 'civil_servants/civil_servants/edit.html.erb', type: :view do
   end
 
   it 'displays all the information' do
-    expected_strings.each do |value|
-      expect(rendered).to include(value.to_s)
-    end
+    expect(rendered).to include(*expected_string.map(&:to_s))
   end
 end
