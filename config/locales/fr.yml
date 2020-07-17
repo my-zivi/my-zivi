@@ -180,6 +180,7 @@ fr:
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
+  cancel: Annuler
   civil_servants:
     civil_servants:
       edit:
@@ -194,11 +195,14 @@ fr:
             title: Informations personnelles
           service_specific_information:
             title: Informations spécifiques à la mission
+      update:
+        successfully_updated: Mise à jour réussie
   date:
     formats:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
+  edit: Edit
   organizations:
     organization_members:
       destroy:
@@ -256,5 +260,3 @@ fr:
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
     invalid_required_service_days: Jours du service non valables
-  cancel: "Annuler"
-  edit: "Edit"
