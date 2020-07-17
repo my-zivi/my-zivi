@@ -30,7 +30,7 @@ module CivilServants
         redirect_to edit_civil_servants_civil_servant_path
       else
         respond_to do |format|
-          format.js { validate_form_partial(params[:form_partial]) }
+          format.js { handle_invalid_update }
         end
       end
     end
@@ -45,13 +45,21 @@ module CivilServants
       params.require(:civil_servant).permit(*PERMITTED_CIVIL_SERVANT_PARAMS)
     end
 
-    def validate_form_partial(form_partial)
-      if PERMITTED_FORM_PARTIALS.include?(form_partial)
-        return render(:update, locals: { form_partial: form_partial, civil_servant: @civil_servant })
+    def handle_invalid_update
+      partial_name = param[:form_partial]
+      if user_form_partial_name_valid? partial_name
+        respond_to_invalid_update partial_name
+      else
+        throw ActiveRecord::RecordNotFound.new('invalid form partial name')
       end
+    end
 
-      flash[:error] = t('civil_servants.civil_servants.erroneous_update')
-      redirect_to edit_civil_servants_civil_servant_path
+    def user_form_partial_name_valid?(partial_name)
+      PERMITTED_FORM_PARTIALS.include?(partial_name)
+    end
+
+    def respond_to_invalid_update(form_partial)
+      render(:update, locals: { form_partial: form_partial, civil_servant: @civil_servant })
     end
   end
 end
