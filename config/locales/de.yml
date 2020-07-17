@@ -197,6 +197,7 @@ de:
             title: Einsatzspezifische Informationen
       update:
         successfully_updated: Erfolgreich aktualisiert
+      erroneous_update: "Fehler beim aktualisieren deines Profils."
   date:
     formats:
       default: "%d.%m.%Y"

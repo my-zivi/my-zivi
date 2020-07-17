@@ -13,20 +13,25 @@ module CivilServants
       ]
     ].freeze
 
+    PERMITTED_FORM_PARTIALS = %w[
+      personal_information_form address_information_form
+      login_information_form bank_and_insurance_information_form service_specific_information_form
+    ].freeze
+
+    before_action :set_civil_servant, only: %i[edit update]
+
     include UsersHelper
 
     def edit; end
 
     def update
-      civil_servant = current_civil_servant
-
-      if civil_servant.update(civil_servant_params)
+      if @civil_servant.update(civil_servant_params)
         flash[:success] = t('.successfully_updated')
         redirect_to edit_civil_servants_civil_servant_path
       else
         respond_to do |format|
           format.js do
-            render :edit, locals: { form_partial: params[:form_partial], civil_servant: civil_servant }
+            return validate_form_partial(params[:form_partial])
           end
         end
       end
@@ -34,8 +39,21 @@ module CivilServants
 
     private
 
+    def set_civil_servant
+      @civil_servant = CivilServant.includes([:address]).find(current_civil_servant.id)
+    end
+
     def civil_servant_params
       params.require(:civil_servant).permit(*PERMITTED_CIVIL_SERVANT_PARAMS)
+    end
+
+    def validate_form_partial(form_partial)
+      if PERMITTED_FORM_PARTIALS.include?(form_partial)
+        return render(:update, locals: { form_partial: form_partial, civil_servant: @civil_servant })
+      end
+
+      flash[:error] = t('.erroneous_update')
+      redirect_to edit_civil_servants_civil_servant_path
     end
   end
 end
