@@ -38,7 +38,7 @@ module CivilServants
     private
 
     def set_civil_servant
-      @civil_servant = CivilServant.includes([:address]).find(current_civil_servant.id)
+      @civil_servant = CivilServant.includes(:address).find(current_civil_servant.id)
     end
 
     def civil_servant_params
