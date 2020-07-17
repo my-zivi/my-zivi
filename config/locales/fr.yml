@@ -195,9 +195,9 @@ fr:
             title: Informations personnelles
           service_specific_information:
             title: Informations spécifiques à la mission
+      erroneous_update: Erreur de mise à jour de votre profil.
       update:
         successfully_updated: Mise à jour réussie
-      erroneous_update: "Erreur de mise à jour de votre profil."
   date:
     formats:
       default: "%d.%m.%Y"

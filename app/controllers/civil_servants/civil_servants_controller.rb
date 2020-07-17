@@ -52,7 +52,7 @@ module CivilServants
         return render(:update, locals: { form_partial: form_partial, civil_servant: @civil_servant })
       end
 
-      flash[:error] = t('.erroneous_update')
+      flash[:error] = t('civil_servants.civil_servants.erroneous_update')
       redirect_to edit_civil_servants_civil_servant_path
     end
   end
