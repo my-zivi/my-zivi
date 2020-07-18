@@ -176,6 +176,7 @@ de:
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
   my_zivi: MyZivi
+  not_allowed: Deine angeforderte Ressource ist nicht verfügbar
   organizations:
     organization_members:
       destroy:

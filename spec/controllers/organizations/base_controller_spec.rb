@@ -4,6 +4,8 @@ require 'rails_helper'
 
 RSpec.describe Organizations::BaseController, type: :controller do
   controller do
+    skip_authorization_check :index
+
     def index
       head :no_content
     end

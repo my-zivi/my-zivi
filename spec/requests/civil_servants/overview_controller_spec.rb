@@ -18,10 +18,19 @@ RSpec.describe CivilServants::OverviewController, type: :request do
     end
 
     context 'when an administrator is signed in' do
-      pending 'Implement spec case'
+      let(:organization_admin) { create :organization_member }
+
+      before do
+        sign_in organization_admin.user
+        perform_request
+      end
+
+      it_behaves_like 'unauthorized request'
     end
 
     context 'when no user is signed in' do
+      before { perform_request }
+
       it_behaves_like 'unauthenticated request'
     end
   end

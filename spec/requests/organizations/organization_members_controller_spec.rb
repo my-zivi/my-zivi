@@ -38,13 +38,23 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
     end
 
     describe '#edit' do
-      let(:perform_request) { get edit_organizations_member_path(organization_admin) }
+      let(:editing_organization_member) { organization_admin }
+      let(:perform_request) { get edit_organizations_member_path(editing_organization_member) }
 
       before { perform_request }
 
       it 'renders the form' do
         expect(response).to be_successful
         expect(response).to render_template 'organizations/organization_members/edit'
+      end
+
+      context 'when the currently signed in organization admin is not in the organization of the resource' do
+        let(:other_organization) { create :organization }
+        let(:editing_organization_member) do
+          create(:organization_member, :without_login, organization: other_organization)
+        end
+
+        it_behaves_like 'unauthorized request'
       end
     end
 
@@ -93,8 +103,11 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
         let(:updating_organization_member) { create :organization_member, organization: other_organization }
         let(:update_params) { { first_name: 'Updated name' } }
 
+        it_behaves_like 'unauthorized request' do
+          before { perform_request }
+        end
+
         it 'does not change the other organization member' do
-          pending 'Uncomment after authorization is implemented'
           expect { perform_request }.not_to(change { updating_organization_member.reload.first_name })
         end
 
@@ -104,7 +117,6 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
           end
 
           it 'does not send a confirmation email' do
-            pending 'Uncomment after authorization is implemented'
             expect { perform_request }.not_to(change { ActionMailer::Base.deliveries })
           end
         end
@@ -136,8 +148,11 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
         let(:other_organization) { create :organization }
         let(:deleting_user) { create(:organization_member, :without_login, organization: other_organization) }
 
+        it_behaves_like 'unauthorized request' do
+          before { perform_request }
+        end
+
         it 'does not delete the organization member' do
-          pending 'Unskip after authorization is implemented'
           expect { perform_request }.not_to(change(OrganizationMember, :count))
         end
       end
@@ -157,12 +172,16 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
     describe '#index' do
       let(:perform_request) { get organizations_members_path }
 
+      before { perform_request }
+
       it_behaves_like 'unauthenticated request'
     end
 
     describe '#edit' do
       let(:organization_member) { create :organization_member }
       let(:perform_request) { get edit_organizations_member_path(organization_member) }
+
+      before { perform_request }
 
       it_behaves_like 'unauthenticated request'
     end
@@ -171,7 +190,9 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
       let(:organization_member) { create :organization_member }
       let(:perform_request) { patch organizations_member_path(organization_member, params: {}) }
 
-      it_behaves_like 'unauthenticated request'
+      it_behaves_like 'unauthenticated request' do
+        before { perform_request }
+      end
 
       it 'does not touch the organization member' do
         expect { perform_request }.not_to(change(organization_member, :reload))
@@ -182,11 +203,55 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
       let!(:organization_member) { create :organization_member }
       let(:perform_request) { delete organizations_member_path(organization_member) }
 
-      it_behaves_like 'unauthenticated request'
+      it_behaves_like 'unauthenticated request' do
+        before { perform_request }
+      end
 
       it 'does not destroy the organization member' do
         expect { perform_request }.not_to(change(OrganizationMember, :count))
       end
+    end
+  end
+
+  context 'when a civil servant is signed in' do
+    let(:civil_servant) { create :civil_servant, :full }
+    let(:organization_member) { create :organization_member }
+
+    before { sign_in civil_servant.user }
+
+    describe '#index' do
+      let(:perform_request) { get organizations_members_path }
+
+      before { perform_request }
+
+      it_behaves_like 'unauthorized request'
+    end
+
+    describe '#edit' do
+      let(:organization_member) { create :organization_member }
+      let(:perform_request) { get edit_organizations_member_path(organization_member) }
+
+      before { perform_request }
+
+      it_behaves_like 'unauthorized request'
+    end
+
+    describe '#update' do
+      let(:organization_member) { create :organization_member }
+      let(:perform_request) { patch organizations_member_path(organization_member) }
+
+      before { perform_request }
+
+      it_behaves_like 'unauthorized request'
+    end
+
+    describe '#destroy' do
+      let(:organization_member) { create :organization_member }
+      let(:perform_request) { delete organizations_member_path(organization_member) }
+
+      before { perform_request }
+
+      it_behaves_like 'unauthorized request'
     end
   end
 end

@@ -18,4 +18,28 @@ RSpec.describe Organizations::OverviewController, type: :request do
       end
     end
   end
+
+  context 'when signed in as a civil servant' do
+    let(:civil_servant) { create :civil_servant, :full }
+
+    before { sign_in civil_servant.user }
+
+    describe '#index' do
+      let(:perform_request) { get organizations_path }
+
+      before { perform_request }
+
+      it_behaves_like 'unauthorized request'
+    end
+  end
+
+  context 'when no one is signed in' do
+    describe '#index' do
+      let(:perform_request) { get organizations_path }
+
+      before { perform_request }
+
+      it_behaves_like 'unauthenticated request'
+    end
+  end
 end
