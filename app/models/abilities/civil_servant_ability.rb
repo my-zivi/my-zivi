@@ -4,12 +4,9 @@ module Abilities
   class CivilServantAbility
     include CanCan::Ability
 
-    def initialize(civil_servant)
-      permit! civil_servant
-    end
-
-    def permit!(permitting_civil_servant)
+    def initialize(permitting_civil_servant)
       can :read, CivilServant, id: permitting_civil_servant.id
+      can :read, :civil_servant_overview
     end
   end
 end

@@ -175,6 +175,7 @@ fr:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
+  not_allowed: Votre ressource demandée n'est pas disponible
   organizations:
     organization_members:
       destroy:
@@ -232,4 +233,3 @@ fr:
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
     invalid_required_service_days: Jours du service non valables
-  not_allowed: "Votre ressource demandée n'est pas disponible"

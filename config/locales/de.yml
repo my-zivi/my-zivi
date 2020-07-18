@@ -176,6 +176,7 @@ de:
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
   my_zivi: MyZivi
+  not_allowed: Deine angeforderte Ressource ist nicht verfügbar
   organizations:
     organization_members:
       destroy:
@@ -233,4 +234,3 @@ de:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
-  not_allowed: "Deine angeforderte Ressource ist nicht verfügbar"

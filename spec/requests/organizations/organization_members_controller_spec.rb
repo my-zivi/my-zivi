@@ -172,12 +172,16 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
     describe '#index' do
       let(:perform_request) { get organizations_members_path }
 
+      before { perform_request }
+
       it_behaves_like 'unauthenticated request'
     end
 
     describe '#edit' do
       let(:organization_member) { create :organization_member }
       let(:perform_request) { get edit_organizations_member_path(organization_member) }
+
+      before { perform_request }
 
       it_behaves_like 'unauthenticated request'
     end
@@ -186,7 +190,9 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
       let(:organization_member) { create :organization_member }
       let(:perform_request) { patch organizations_member_path(organization_member, params: {}) }
 
-      it_behaves_like 'unauthenticated request'
+      it_behaves_like 'unauthenticated request' do
+        before { perform_request }
+      end
 
       it 'does not touch the organization member' do
         expect { perform_request }.not_to(change(organization_member, :reload))
@@ -197,7 +203,9 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
       let!(:organization_member) { create :organization_member }
       let(:perform_request) { delete organizations_member_path(organization_member) }
 
-      it_behaves_like 'unauthenticated request'
+      it_behaves_like 'unauthenticated request' do
+        before { perform_request }
+      end
 
       it 'does not destroy the organization member' do
         expect { perform_request }.not_to(change(OrganizationMember, :count))
