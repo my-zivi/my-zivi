@@ -205,6 +205,7 @@ de:
       short: "%d.%m.%y"
   edit: Bearbeiten
   my_zivi: MyZivi
+  not_allowed: Deine angeforderte Ressource ist nicht verfügbar
   organizations:
     organization_members:
       destroy:

@@ -7,9 +7,10 @@ module Organizations
       user_attributes: %i[email id]
     ].freeze
 
-    before_action :set_organization_member, only: %i[edit update destroy]
-
     include UsersHelper
+
+    load_and_authorize_resource
+    skip_load_resource only: :index
 
     def index
       @organization_members = current_organization_admin.organization.organization_members.includes(:user)
@@ -38,10 +39,6 @@ module Organizations
     end
 
     private
-
-    def set_organization_member
-      @organization_member = OrganizationMember.find(params[:id])
-    end
 
     def organization_member_params
       params.require(:organization_member).permit(*PERMITTED_ORGANIZATION_MEMBER_PARAMS)
