@@ -18,7 +18,8 @@ module CivilServants
       login_information_form bank_and_insurance_information_form service_specific_information_form
     ].freeze
 
-    before_action :set_civil_servant, only: %i[edit update]
+    load_and_authorize_resource
+    # before_action :set_civil_servant, only: %i[edit update]
 
     include UsersHelper
 
@@ -46,7 +47,7 @@ module CivilServants
     end
 
     def handle_invalid_update
-      partial_name = param[:form_partial]
+      partial_name = params[:form_partial]
       if user_form_partial_name_valid? partial_name
         respond_to_invalid_update partial_name
       else

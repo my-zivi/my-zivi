@@ -75,10 +75,8 @@ RSpec.describe CivilServants::CivilServantsController, type: :request do
         end
 
         it 'does not touch the civil_servant and redirects' do
-          perform_request
-          expect(response).to have_http_status(:redirect)
-          expect(flash[:error]).to eq I18n.t('civil_servants.civil_servants.erroneous_update')
-          expect { perform_request }.not_to(change(civil_servant, :reload))
+          expect { perform_request }.to raise_error(ActiveRecord::RecordNotFound, 'invalid form partial name')
+          # expect { perform_request }.not_to(change(civil_servant, :reload))
         end
       end
     end
