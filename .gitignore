@@ -24,5 +24,6 @@
 yarn-debug.log*
 .yarn-integrity
 .env
+.env.test
 /coverage/
 spec/examples.txt
