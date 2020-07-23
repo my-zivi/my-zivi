@@ -87,4 +87,4 @@ blocks:
       jobs:
         - name: Capture Screenshots
           commands:
-            - yarn run percy:capture-screenshots
+            - NO_COVERAGE=true yarn run percy:capture-screenshots
