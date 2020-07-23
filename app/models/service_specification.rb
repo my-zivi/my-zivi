@@ -28,6 +28,8 @@ class ServiceSpecification < ApplicationRecord
   validate :validate_first_day_expenses
   validate :validate_last_day_expenses
 
+  serialize :work_days_expenses, HashWithIndifferentAccess
+
   def title
     "#{identification_number} #{name}"
   end

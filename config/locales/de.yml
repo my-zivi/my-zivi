@@ -119,6 +119,7 @@ de:
         not_a_friday: kein Freitag
         not_a_monday: kein Montag
         overlaps_service: überlappt existierenden Service
+        not_an_unsigned_integer: "sind keine positive Zahlen"
       models:
         expense_sheet:
           already_paid: Das Spesenblatt wurde bereis ausbezahlt.
@@ -230,6 +231,9 @@ de:
         title: Pflichtenhefter
       service_specification_row:
         contact_person_html: 'Kontaktperson: %{link}'
+      update:
+        successful_update: "Pflichtenheft erfolgreich aktualisiert"
+        erroneous_update: "Pflichtenheft konnte nicht aktualisiert werden"
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:
