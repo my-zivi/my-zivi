@@ -60,7 +60,7 @@ blocks:
             - bin/lint
         - name: Tests
           commands:
-            - bin/rspec
+            - bin/unit-tests
   - name: percy
     dependencies:
       - tests
