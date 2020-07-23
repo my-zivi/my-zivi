@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
     t.string "supplement"
     t.string "city", null: false
     t.integer "zip", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "civil_servants", force: :cascade do |t|
@@ -35,6 +37,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
     t.string "health_insurance", null: false
     t.bigint "regional_center_id", null: false
     t.bigint "address_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["address_id"], name: "index_civil_servants_on_address_id"
     t.index ["regional_center_id"], name: "index_civil_servants_on_regional_center_id"
     t.index ["zdp"], name: "index_civil_servants_on_zdp", unique: true
@@ -43,6 +47,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
   create_table "civil_servants_driving_licenses", id: false, force: :cascade do |t|
     t.bigint "civil_servant_id", null: false
     t.bigint "driving_license_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["civil_servant_id"], name: "index_civil_servants_driving_licenses_on_civil_servant_id"
     t.index ["driving_license_id"], name: "index_civil_servants_driving_licenses_on_driving_license_id"
   end
@@ -50,6 +56,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
   create_table "civil_servants_workshops", id: false, force: :cascade do |t|
     t.bigint "civil_servant_id", null: false
     t.bigint "workshop_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["civil_servant_id"], name: "index_civil_servants_workshops_on_civil_servant_id"
     t.index ["workshop_id"], name: "index_civil_servants_workshops_on_workshop_id"
   end
@@ -63,6 +71,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
 
   create_table "driving_licenses", force: :cascade do |t|
     t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_driving_licenses_on_name", unique: true
   end
 
@@ -70,6 +80,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
     t.bigint "driving_license_id", null: false
     t.bigint "service_specification_id", null: false
     t.boolean "mandatory", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["driving_license_id"], name: "index_driving_licenses_service_spec_on_driving_license_id"
     t.index ["service_specification_id"], name: "index_driving_licenses_service_spec_on_service_specification_id"
   end
@@ -99,6 +111,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
     t.integer "amount", default: 0, null: false
     t.bigint "service_id", null: false
     t.bigint "payment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["payment_id"], name: "index_expense_sheets_on_payment_id"
     t.index ["service_id"], name: "index_expense_sheets_on_service_id"
   end
@@ -108,6 +122,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
     t.date "ending", null: false
     t.string "description", null: false
     t.bigint "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["organization_id"], name: "index_organization_holidays_on_organization_id"
   end
 
@@ -118,6 +134,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
     t.string "phone", null: false
     t.string "organization_role", null: false
     t.string "contact_email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["contact_email"], name: "index_organization_members_on_contact_email", unique: true
     t.index ["organization_id"], name: "index_organization_members_on_organization_id"
   end
@@ -129,6 +147,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
     t.bigint "letter_address_id"
     t.bigint "creditor_detail_id"
     t.string "identification_number", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["address_id"], name: "index_organizations_on_address_id"
     t.index ["creditor_detail_id"], name: "index_organizations_on_creditor_detail_id"
     t.index ["letter_address_id"], name: "index_organizations_on_letter_address_id"
@@ -137,6 +157,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
   create_table "payments", force: :cascade do |t|
     t.datetime "paid_timestamp"
     t.bigint "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["organization_id"], name: "index_payments_on_organization_id"
   end
 
@@ -144,6 +166,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
     t.string "name", null: false
     t.string "short_name", null: false
     t.bigint "address_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["address_id"], name: "index_regional_centers_on_address_id"
   end
 
@@ -174,6 +198,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
     t.bigint "workshop_id", null: false
     t.bigint "service_specification_id", null: false
     t.boolean "mandatory", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["service_specification_id"], name: "index_service_spec_workshops_on_service_spec_id"
     t.index ["workshop_id"], name: "index_service_spec_workshops_on_service_specification_id"
   end
@@ -187,6 +213,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
     t.boolean "feedback_mail_sent", default: false, null: false
     t.bigint "civil_servant_id", null: false
     t.bigint "service_specification_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["civil_servant_id"], name: "index_services_on_civil_servant_id"
     t.index ["service_specification_id"], name: "index_services_on_service_specification_id"
   end
@@ -212,6 +240,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.string "language", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["referencee_id", "referencee_type"], name: "index_users_on_referencee_id_and_referencee_type", unique: true
@@ -221,6 +251,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
 
   create_table "workshops", force: :cascade do |t|
     t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_workshops_on_name", unique: true
   end
 
