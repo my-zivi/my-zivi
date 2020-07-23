@@ -212,7 +212,7 @@ RSpec.describe Service, type: :model do
   end
 
   describe '#in_future?' do
-    subject { build(:service, :last, beginning: beginning).in_future? }
+    subject { build(:service, :last, beginning: beginning).future? }
 
     context 'when service will start in future' do
       let(:beginning) { 2.weeks.from_now.at_beginning_of_week }

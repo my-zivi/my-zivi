@@ -197,6 +197,29 @@ de:
             title: Einsatzspezifische Informationen
       update:
         successfully_updated: Erfolgreich aktualisiert
+    overview:
+      index:
+        links:
+          all_expense_sheets: Alle Spesenblätter sehen
+          all_services: Alle Einsätze ansehen
+          current_service: Mein aktueller Einsatz
+    services:
+      expense_sheet_short_info_row:
+        print: Drucken
+      index:
+        services: Meine Einsätze
+        show_past_services: Vergangene Einsätze anzeigen
+      service_short_info_row:
+        service_confirmed:
+          'false': Bestätigung ausstehend
+          'true': Einsatz bestätigt
+        service_duration: 'Dauer: %{beginning_date} - %{ending_date}'
+        service_with: Einsatz bei %{org_name}
+      show:
+        duration: Anzahl Tage
+        expense_sheets: Spesenblätter
+        organization_information: Informationen zum Betrieb
+        schedule_information: Einsatz Informationen
   date:
     formats:
       default: "%d.%m.%Y"

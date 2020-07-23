@@ -41,7 +41,7 @@ class CivilServant < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  def active?
+  def in_service?
     active_service.present?
   end
 
@@ -50,7 +50,7 @@ class CivilServant < ApplicationRecord
   end
 
   def next_service
-    services.select(&:in_future?).min_by(&:beginning)
+    services.select(&:future?).min_by(&:beginning)
   end
 
   private

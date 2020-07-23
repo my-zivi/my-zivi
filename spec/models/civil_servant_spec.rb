@@ -86,7 +86,7 @@ RSpec.describe CivilServant, type: :model do
   end
 
   describe '#active?' do
-    subject { civil_servant.active? }
+    subject { civil_servant.in_service? }
 
     let(:civil_servant) { build(:civil_servant, services: [service]) }
     let(:ending) { (beginning + 4.weeks).at_end_of_week - 2.days }
