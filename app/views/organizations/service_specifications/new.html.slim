@@ -1,5 +1,5 @@
-h1 New organizations_service_specification
-
-== render 'form'
-
-= link_to 'Back', organizations_service_specifications_path
+.card.mb-3.mb-lg-0
+  .card-header.bg-light
+    h5 = t('.title')
+  .card-body
+    = render 'form', service_specification: @service_specification

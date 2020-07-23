@@ -5,13 +5,16 @@ module Organizations
     PERMITTED_PARAMS = [
       :name, :internal_note, :work_clothing_expenses,
       :accommodation_expenses, :location, :active, :identification_number,
+      :contact_person_id, :lead_person_id,
       work_days_expenses: %i[breakfast lunch dinner],
       paid_vacation_expenses: %i[breakfast lunch dinner],
       first_day_expenses: %i[breakfast lunch dinner],
       last_day_expenses: %i[breakfast lunch dinner]
     ].freeze
 
-    load_and_authorize_resource
+    include UsersHelper
+
+    load_and_authorize_resource param_method: :service_specification_params
 
     def index
       @service_specifications = @service_specifications
@@ -19,13 +22,15 @@ module Organizations
                                 .includes(:contact_person, :lead_person)
     end
 
-    def new; end
+    def new
+      @service_specification = current_organization_admin.organization.service_specifications.build
+    end
 
     def edit; end
 
     def create
       if @service_specification.save
-        redirect_to @service_specification, notice: t('.successful_create')
+        redirect_to organizations_service_specifications_path, notice: t('.successful_create')
       else
         flash[:error] = t('.erroneous_create')
         render :new

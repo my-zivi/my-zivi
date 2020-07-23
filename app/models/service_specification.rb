@@ -28,7 +28,15 @@ class ServiceSpecification < ApplicationRecord
   validate :validate_first_day_expenses
   validate :validate_last_day_expenses
 
-  serialize :work_days_expenses, HashWithIndifferentAccess
+  def initialize(attributes = nil)
+    super(attributes)
+
+    default_daily_expenses = { breakfast: nil, lunch: nil, dinner: nil }
+    self.work_days_expenses ||= default_daily_expenses
+    self.paid_vacation_expenses ||= default_daily_expenses
+    self.first_day_expenses ||= default_daily_expenses
+    self.last_day_expenses ||= default_daily_expenses
+  end
 
   def title
     "#{identification_number} #{name}"

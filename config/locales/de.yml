@@ -239,6 +239,8 @@ de:
         erroneous_create: "Pflichtenheft konnte nicht erstellt werden"
       destroy:
         successful_destroy: "Pflichtenheft erfolgreicht gelöscht"
+      new:
+        title: "Neues Pflichtenheft erstellen"
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:
