@@ -2,27 +2,29 @@
 
 require 'simplecov'
 
-SimpleCov.start 'rails' do
-  add_filter 'app/channels/application_cable/channel.rb'
-  add_filter 'app/channels/application_cable/connection.rb'
-  add_filter 'app/jobs/application_job.rb'
-  add_filter 'app/mailers/application_mailer.rb'
-  add_filter 'app/models/application_record.rb'
-  add_filter '.semaphore-cache'
-  enable_coverage :branch
-end
+unless ENV.fetch('NO_COVERAGE', false)
+  SimpleCov.start 'rails' do
+    add_filter 'app/channels/application_cable/channel.rb'
+    add_filter 'app/channels/application_cable/connection.rb'
+    add_filter 'app/jobs/application_job.rb'
+    add_filter 'app/mailers/application_mailer.rb'
+    add_filter 'app/models/application_record.rb'
+    add_filter '.semaphore-cache'
+    enable_coverage :branch
+  end
 
-SimpleCov.maximum_coverage_drop 0
-SimpleCov.minimum_coverage 100
+  SimpleCov.maximum_coverage_drop 0
+  SimpleCov.minimum_coverage 100
 
-require 'simplecov-console'
-if ENV['CI']
-  SimpleCov.formatter SimpleCov::Formatter::Console
-else
-  SimpleCov.formatter SimpleCov::Formatter::MultiFormatter.new([
-                                                                 SimpleCov::Formatter::Console,
-                                                                 SimpleCov::Formatter::HTMLFormatter
-                                                               ])
+  require 'simplecov-console'
+  if ENV['CI']
+    SimpleCov.formatter SimpleCov::Formatter::Console
+  else
+    SimpleCov.formatter SimpleCov::Formatter::MultiFormatter.new([
+                                                                   SimpleCov::Formatter::Console,
+                                                                   SimpleCov::Formatter::HTMLFormatter
+                                                                 ])
+  end
 end
 
 RSpec.configure do |config|

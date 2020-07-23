@@ -187,6 +187,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
+    percy-capybara (4.2.0)
     pg (1.2.3)
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
@@ -411,6 +412,7 @@ DEPENDENCIES
   lograge
   norobots
   pdf-inspector
+  percy-capybara
   pg (>= 0.18, < 2.0)
   prawn
   prawn-table

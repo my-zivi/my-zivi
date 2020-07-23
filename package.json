@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.1",
-    "@my-zivi/falcon": "2.6.1",
+    "@my-zivi/falcon": "2.6.2",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -21,7 +21,8 @@
   },
   "scripts": {
     "heroku-prebuild": "node ./bin/heroku-prebuild.js",
-    "lint": "eslint app/javascript"
+    "lint": "eslint app/javascript",
+    "percy:capture-screenshots": "percy exec -- bundle exec rspec spec/screenshots/*_spec.rb"
   },
   "husky": {
     "hooks": {
@@ -30,6 +31,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@percy/agent": "^0.27.2",
     "eslint": "^7.3.1",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
