@@ -61,3 +61,13 @@ blocks:
         - name: Tests
           commands:
             - bin/rspec
+  - name: percy
+    dependencies:
+      - tests
+    task:
+      secrets:
+        - name: my-zivi
+      jobs:
+        - name: Capture Screenshots
+          commands:
+            - $(npm bin)/percy exec -- rspec spec/screenshots/*_spec.rb
