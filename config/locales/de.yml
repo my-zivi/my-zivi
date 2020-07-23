@@ -222,6 +222,11 @@ de:
       index:
         welcome_back:
           title: Wilkommen zurück, %{name}!
+    service_specifications:
+      index:
+        title: "Pflichtenhefter"
+      service_specification_row:
+        contact_person_html: "Kontaktperson: %{link}"
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:
@@ -262,3 +267,4 @@ de:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
+  lead_person_html: "Leitende Person: %{link}"
