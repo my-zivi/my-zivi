@@ -67,6 +67,11 @@ blocks:
     task:
       secrets:
         - name: my-zivi
+      env_vars:
+        - name: DATABASE_URL
+          value: 'postgresql://postgres@localhost/test?encoding=utf8'
+        - name: RAILS_ENV
+          value: test
       prologue:
         commands:
           - checkout --use-cache
