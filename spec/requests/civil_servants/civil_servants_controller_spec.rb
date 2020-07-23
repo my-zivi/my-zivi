@@ -74,9 +74,9 @@ RSpec.describe CivilServants::CivilServantsController, type: :request do
           }
         end
 
-        it 'does not touch the civil_servant and redirects' do
+        it 'does not touch the civil_servant and raises error' do
           expect { perform_request }.to raise_error(ActiveRecord::RecordNotFound, 'invalid form partial name')
-          # expect { perform_request }.not_to(change(civil_servant, :reload))
+          expect(civil_servant.reload.first_name).not_to eq update_params[:first_name]
         end
       end
     end

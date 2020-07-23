@@ -18,8 +18,8 @@ module CivilServants
       login_information_form bank_and_insurance_information_form service_specific_information_form
     ].freeze
 
-    load_and_authorize_resource
-    # before_action :set_civil_servant, only: %i[edit update]
+    before_action :set_civil_servant, only: %i[edit update]
+    before_action -> { authorize! params[:action].to_sym, @civil_servant }
 
     include UsersHelper
 
@@ -48,15 +48,9 @@ module CivilServants
 
     def handle_invalid_update
       partial_name = params[:form_partial]
-      if user_form_partial_name_valid? partial_name
-        respond_to_invalid_update partial_name
-      else
-        throw ActiveRecord::RecordNotFound.new('invalid form partial name')
-      end
-    end
+      return respond_to_invalid_update(partial_name) if PERMITTED_FORM_PARTIALS.include?(partial_name)
 
-    def user_form_partial_name_valid?(partial_name)
-      PERMITTED_FORM_PARTIALS.include?(partial_name)
+      raise ActiveRecord::RecordNotFound, 'invalid form partial name'
     end
 
     def respond_to_invalid_update(form_partial)

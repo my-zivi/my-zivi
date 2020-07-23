@@ -195,7 +195,6 @@ de:
             title: Persönliche Informationen
           service_specific_information:
             title: Einsatzspezifische Informationen
-      erroneous_update: Fehler beim aktualisieren deines Profils.
       update:
         successfully_updated: Erfolgreich aktualisiert
   date:
