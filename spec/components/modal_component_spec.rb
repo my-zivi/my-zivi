@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe ModalComponent, type: :component do
-  let(:rendered) { render_inline(component) }
+  subject(:rendered) { render_inline(component) }
+
   let(:component) { described_class.new(modal_id: modal_id, title: title) }
   let(:modal_id) { 'my-modal-id' }
   let(:title) { 'My title' }
@@ -15,16 +16,13 @@ RSpec.describe ModalComponent, type: :component do
   end
 
   context 'with body content_area' do
-    let(:rendered) do
+    subject(:rendered) do
       render_inline(component) do |component|
         component.with(:body, body_content)
       end
     end
-    let(:component) do
-      described_class.new(modal_id: modal_id, title: title) do |component|
-        component.with(:body, 'Hello from the body')
-      end
-    end
+
+    let(:component) { described_class.new(modal_id: modal_id, title: title) }
     let(:body_content) { 'Hello from the body' }
 
     it 'renders body content' do

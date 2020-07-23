@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe TabularCardComponent, type: :component do
-  let(:rendered) { render_inline(component) }
+  subject(:rendered) { render_inline(component) }
+  
   let(:component) { described_class.new(title: title, table_content: table_content) }
   let(:title) { 'My title' }
   let(:table_content) { { Test: 'Hans' } }
@@ -15,11 +16,12 @@ RSpec.describe TabularCardComponent, type: :component do
   end
 
   context 'with the body content_area' do
-    let(:rendered) do
+    subject(:rendered) do
       render_inline(component) do |component|
         component.with(:actions, action_content)
       end
     end
+
     let(:component) { described_class.new(title: title, table_content: table_content) }
     let(:action_content) { 'a beautiful action' }
 
