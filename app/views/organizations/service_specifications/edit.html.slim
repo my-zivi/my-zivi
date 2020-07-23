@@ -4,7 +4,7 @@
   .card-body
     = render 'organizations/service_specifications/form', service_specification: @service_specification do
       = link_to 'Pflichtenheft löschen',
-              organizations_service_specification_path,
+              organizations_service_specification_path(@service_specification),
               method: :delete,
-              data: { confirm: t('.destroy_service_specification_confirmation'), disable_with: t('destroying') },
+              data: { confirm: t('organizations.service_specifications.edit.destroy_service_specification_confirmation'), disable_with: t('destroying') },
               class: 'btn btn-danger mr-3'
