@@ -8,7 +8,27 @@ de:
       user:
         email: max.muster@example.com
         password: Passwort
+    labels:
+      service_specification:
+        work_days_expenses:
+          breakfast: Morgenessen
+          lunch: Mittagessen
+          dinner: Abendessen
+        paid_vacation_expenses:
+          breakfast: Morgenessen
+          lunch: Mittagessen
+          dinner: Abendessen
+        first_day_expenses:
+          breakfast: Morgenessen
+          lunch: Mittagessen
+          dinner: Abendessen
+        last_day_expenses:
+          breakfast: Morgenessen
+          lunch: Mittagessen
+          dinner: Abendessen
     required:
       mark: "*"
       text: erforderlich
     'yes': Ja
+    appended:
+      chf: CHF

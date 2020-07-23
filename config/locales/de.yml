@@ -234,6 +234,11 @@ de:
       update:
         successful_update: "Pflichtenheft erfolgreich aktualisiert"
         erroneous_update: "Pflichtenheft konnte nicht aktualisiert werden"
+      create:
+        successful_create: "Pflichtenheft erfolgreich erstellt"
+        erroneous_create: "Pflichtenheft konnte nicht erstellt werden"
+      destroy:
+        successful_destroy: "Pflichtenheft erfolgreicht gelöscht"
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:

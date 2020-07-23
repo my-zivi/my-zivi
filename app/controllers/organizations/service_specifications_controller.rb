@@ -13,7 +13,11 @@ module Organizations
 
     load_and_authorize_resource
 
-    def index; end
+    def index
+      @service_specifications = @service_specifications
+                                .order(active: :desc, name: :asc)
+                                .includes(:contact_person, :lead_person)
+    end
 
     def new; end
 
@@ -21,8 +25,9 @@ module Organizations
 
     def create
       if @service_specification.save
-        redirect_to @service_specification, notice: 'Service specification was successfully created.'
+        redirect_to @service_specification, notice: t('.successful_create')
       else
+        flash[:error] = t('.erroneous_create')
         render :new
       end
     end
@@ -38,7 +43,7 @@ module Organizations
 
     def destroy
       @service_specification.destroy
-      redirect_to service_specifications_url, notice: 'Service specification was successfully destroyed.'
+      redirect_to service_specifications_url, notice: t('.successful_destroy')
     end
 
     private

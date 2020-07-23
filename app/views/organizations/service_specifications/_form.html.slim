@@ -1,13 +1,15 @@
 = simple_form_for [:organizations, service_specification], wrapper: :input_group do |f|
-  = f.input :active
+  h5
+  = f.input :identification_number
   = f.input :name
+  = f.input :active
+  = f.input :location
   = f.input :internal_note
-  = f.input :work_clothing_expenses
-  = f.input :accommodation_expenses
+  hr.my-4
+  = f.input :work_clothing_expenses, append: t('simple_form.appended.chf')
+  = f.input :accommodation_expenses, append: t('simple_form.appended.chf')
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :work_days_expenses
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :paid_vacation_expenses
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :first_day_expenses
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :last_day_expenses
-  = f.input :location
-  = f.input :identification_number
-  = f.submit class: 'btn btn-primary'
+  = f.submit class: 'btn btn-primary float-right'

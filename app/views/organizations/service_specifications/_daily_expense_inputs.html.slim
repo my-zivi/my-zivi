@@ -4,9 +4,15 @@
   - valid_class = has_error ? 'is-invalid' : 'is-valid'
   = f.simple_fields_for(field, wrapper: :input_group) do |ff|
     .col-12.col-md-4
-      = ff.input :breakfast, input_html: { value: field_value['breakfast'], class: valid_class }, append: 'CHF'
+      = ff.input :breakfast,
+              input_html: { value: field_value['breakfast'], class: valid_class },
+              append: I18n.t('simple_form.appended.chf')
     .col-12.col-md-4
-      = ff.input :lunch, input_html: { value: field_value['lunch'], class: valid_class }, append: 'CHF'
+      = ff.input :lunch,
+              input_html: { value: field_value['lunch'], class: valid_class },
+              append: I18n.t('simple_form.appended.chf')
     .col-12.col-md-4
-      = ff.input :dinner, input_html: { value: field_value['dinner'], class: valid_class }, append: 'CHF'
+      = ff.input :dinner,
+              input_html: { value: field_value['dinner'], class: valid_class },
+              append: I18n.t('simple_form.appended.chf')
 = f.full_error field, class: 'text-danger mb-3'
