@@ -87,4 +87,4 @@ blocks:
       jobs:
         - name: Capture Screenshots
           commands:
-            - $(npm bin)/percy exec -- rspec spec/screenshots/*_spec.rb
+            - yarn run percy:capture-screenshots
