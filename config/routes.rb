@@ -14,6 +14,6 @@ Rails.application.routes.draw do
     get '/', to: 'overview#index'
 
     resources :organization_members, as: 'members', only: %i[index edit update destroy]
-    resources :service_specifications
+    resources :service_specifications, except: :show
   end
 end

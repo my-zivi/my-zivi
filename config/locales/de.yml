@@ -203,6 +203,7 @@ de:
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
   edit: Bearbeiten
+  lead_person_html: 'Leitende Person: %{link}'
   my_zivi: MyZivi
   not_allowed: Deine angeforderte Ressource ist nicht verfügbar
   organizations:
@@ -223,10 +224,12 @@ de:
         welcome_back:
           title: Wilkommen zurück, %{name}!
     service_specifications:
+      edit:
+        title: Pflichtenheft “%{name}”
       index:
-        title: "Pflichtenhefter"
+        title: Pflichtenhefter
       service_specification_row:
-        contact_person_html: "Kontaktperson: %{link}"
+        contact_person_html: 'Kontaktperson: %{link}'
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:
@@ -267,4 +270,3 @@ de:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
-  lead_person_html: "Leitende Person: %{link}"

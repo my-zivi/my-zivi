@@ -1,8 +1,5 @@
-h1 Editing organizations_service_specification
-
-== render 'form'
-
-=> link_to 'Show', @organizations_service_specification
-'|
-=< link_to 'Back', organizations_service_specifications_path
-
+.card.mb-3.mb-lg-0
+  .card-header.bg-light
+    h5 = t('.title', name: @service_specification.name)
+  .card-body
+    = render 'organizations/service_specifications/form', service_specification: @service_specification

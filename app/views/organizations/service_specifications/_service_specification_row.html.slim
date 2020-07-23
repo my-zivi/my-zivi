@@ -2,7 +2,7 @@
   .media.btn-reveal-trigger
     .media-body.position-relative.pl-3
       h6.fs-0.mb-0
-        = link_to organizations_service_specification_path(service_specification) do
+        = link_to edit_organizations_service_specification_path(service_specification) do
           = service_specification.name
           - if service_specification.active?
             .badge.badge-soft-success.rounded-capsule.ml-2 Aktiv

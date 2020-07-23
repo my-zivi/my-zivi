@@ -4,21 +4,13 @@ module Organizations
   class ServiceSpecificationsController < BaseController
     load_and_authorize_resource
 
-    def index
-      @service_specifications = ServiceSpecification.all
-    end
+    def index; end
 
-    def show; end
-
-    def new
-      @service_specification = ServiceSpecification.new
-    end
+    def new; end
 
     def edit; end
 
     def create
-      @service_specification = ServiceSpecification.new(service_specification_params)
-
       if @service_specification.save
         redirect_to @service_specification, notice: 'Service specification was successfully created.'
       else
