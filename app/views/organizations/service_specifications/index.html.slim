@@ -1,12 +1,6 @@
-.card.mb-3
-  .bg-holder.d-none.d-lg-block.bg-card.corner-background-info
-  .card-body
-    .row
-      .col-lg-8
-        h3.mb-0 = t('.title')
-
 .card.mb-3.mb-lg-0
-  .card-header.bg-light.d-flex.justify-content-end
+  .card-header.bg-light.d-flex.justify-content-between.align-items-center
+    h5 = t('.title')
     = link_to 'Pflichtenheft hinzufügen', new_organizations_service_specification_path, class: 'btn btn-primary'
   .card-body.fs--1
     .row

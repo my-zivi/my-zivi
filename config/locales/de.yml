@@ -227,6 +227,7 @@ de:
     service_specifications:
       edit:
         title: Pflichtenheft “%{name}”
+        destroy_service_specification_confirmation: "Pflichtenheft wirklich löschen?"
       index:
         title: Pflichtenhefter
       service_specification_row:
@@ -239,6 +240,7 @@ de:
         erroneous_create: "Pflichtenheft konnte nicht erstellt werden"
       destroy:
         successful_destroy: "Pflichtenheft erfolgreicht gelöscht"
+        erroneous_destroy: "Pflichtenheft konnte nicht gelöscht werden"
       new:
         title: "Neues Pflichtenheft erstellen"
   payment:
@@ -281,3 +283,4 @@ de:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
+  destroying: "Löschen..."

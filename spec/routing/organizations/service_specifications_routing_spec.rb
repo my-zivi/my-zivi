@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Organizations::ServiceSpecificationsController, type: :routing do
+RSpec.describe ServiceSpecificationsController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get: '/organizations/service_specifications').to route_to('organizations/service_specifications#index')

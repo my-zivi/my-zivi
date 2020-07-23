@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'organizations/service_specifications/new', type: :view do
   before do
-    assign(:organizations_service_specification, Organizations::ServiceSpecification.new)
+    assign(:organizations_service_specification, ServiceSpecification.new)
   end
 
   it 'renders new organizations_service_specification form' do

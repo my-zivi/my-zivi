@@ -18,8 +18,8 @@ module Organizations
 
     def index
       @service_specifications = @service_specifications
-                                .order(active: :desc, name: :asc)
-                                .includes(:contact_person, :lead_person)
+                                  .order(active: :desc, name: :asc)
+                                  .includes(:contact_person, :lead_person)
     end
 
     def new
@@ -47,8 +47,13 @@ module Organizations
     end
 
     def destroy
-      @service_specification.destroy
-      redirect_to service_specifications_url, notice: t('.successful_destroy')
+      if @service_specification.destroy
+        flash[:notice] = t('.successful_destroy')
+      else
+        flash[:error] = t('.erroneous_destroy')
+      end
+
+      redirect_to organizations_service_specifications_path
     end
 
     private

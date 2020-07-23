@@ -29,4 +29,6 @@
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :last_day_expenses
   h6.fs-1.mt-3 Arbeitsfreie Tage
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :paid_vacation_expenses
-  = f.submit class: 'btn btn-primary float-right'
+  .d-flex.justify-content-end
+    = yield
+    = f.submit class: 'btn btn-primary float-right'

@@ -15,7 +15,7 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe '/organizations/service_specifications', type: :request do
-  # Organizations::ServiceSpecification. As you add validations to Organizations::ServiceSpecification, be sure to
+  # ServiceSpecification. As you add validations to ServiceSpecification, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
     skip('Add a hash of attributes valid for your model')
@@ -27,7 +27,7 @@ RSpec.describe '/organizations/service_specifications', type: :request do
 
   describe 'GET /index' do
     it 'renders a successful response' do
-      Organizations::ServiceSpecification.create! valid_attributes
+      ServiceSpecification.create! valid_attributes
       get organizations_service_specifications_url
       expect(response).to be_successful
     end
@@ -35,7 +35,7 @@ RSpec.describe '/organizations/service_specifications', type: :request do
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      service_specification = Organizations::ServiceSpecification.create! valid_attributes
+      service_specification = ServiceSpecification.create! valid_attributes
       get organizations_service_specification_url(organizations_service_specification)
       expect(response).to be_successful
     end
@@ -50,7 +50,7 @@ RSpec.describe '/organizations/service_specifications', type: :request do
 
   describe 'GET /edit' do
     it 'render a successful response' do
-      service_specification = Organizations::ServiceSpecification.create! valid_attributes
+      service_specification = ServiceSpecification.create! valid_attributes
       get edit_organizations_service_specification_url(organizations_service_specification)
       expect(response).to be_successful
     end
@@ -58,10 +58,10 @@ RSpec.describe '/organizations/service_specifications', type: :request do
 
   describe 'POST /create' do
     context 'with valid parameters' do
-      it 'creates a new Organizations::ServiceSpecification' do
+      it 'creates a new ServiceSpecification' do
         expect do
           post organizations_service_specifications_url, params: { organizations_service_specification: valid_attributes }
-        end.to change(Organizations::ServiceSpecification, :count).by(1)
+        end.to change(ServiceSpecification, :count).by(1)
       end
 
       it 'redirects to the created organizations_service_specification' do
@@ -71,10 +71,10 @@ RSpec.describe '/organizations/service_specifications', type: :request do
     end
 
     context 'with invalid parameters' do
-      it 'does not create a new Organizations::ServiceSpecification' do
+      it 'does not create a new ServiceSpecification' do
         expect do
           post organizations_service_specifications_url, params: { organizations_service_specification: invalid_attributes }
-        end.to change(Organizations::ServiceSpecification, :count).by(0)
+        end.to change(ServiceSpecification, :count).by(0)
       end
 
       it "renders a successful response (i.e. to display the 'new' template)" do
@@ -91,14 +91,14 @@ RSpec.describe '/organizations/service_specifications', type: :request do
       end
 
       it 'updates the requested organizations_service_specification' do
-        service_specification = Organizations::ServiceSpecification.create! valid_attributes
+        service_specification = ServiceSpecification.create! valid_attributes
         patch organizations_service_specification_url(organizations_service_specification), params: { organizations_service_specification: new_attributes }
         service_specification.reload
         skip('Add assertions for updated state')
       end
 
       it 'redirects to the organizations_service_specification' do
-        service_specification = Organizations::ServiceSpecification.create! valid_attributes
+        service_specification = ServiceSpecification.create! valid_attributes
         patch organizations_service_specification_url(organizations_service_specification), params: { organizations_service_specification: new_attributes }
         service_specification.reload
         expect(response).to redirect_to(organizations_service_specification_url(service_specification))
@@ -107,7 +107,7 @@ RSpec.describe '/organizations/service_specifications', type: :request do
 
     context 'with invalid parameters' do
       it "renders a successful response (i.e. to display the 'edit' template)" do
-        service_specification = Organizations::ServiceSpecification.create! valid_attributes
+        service_specification = ServiceSpecification.create! valid_attributes
         patch organizations_service_specification_url(organizations_service_specification), params: { organizations_service_specification: invalid_attributes }
         expect(response).to be_successful
       end
@@ -116,14 +116,14 @@ RSpec.describe '/organizations/service_specifications', type: :request do
 
   describe 'DELETE /destroy' do
     it 'destroys the requested organizations_service_specification' do
-      service_specification = Organizations::ServiceSpecification.create! valid_attributes
+      service_specification = ServiceSpecification.create! valid_attributes
       expect do
         delete organizations_service_specification_url(organizations_service_specification)
-      end.to change(Organizations::ServiceSpecification, :count).by(-1)
+      end.to change(ServiceSpecification, :count).by(-1)
     end
 
     it 'redirects to the organizations_service_specifications list' do
-      service_specification = Organizations::ServiceSpecification.create! valid_attributes
+      service_specification = ServiceSpecification.create! valid_attributes
       delete organizations_service_specification_url(organizations_service_specification)
       expect(response).to redirect_to(organizations_service_specifications_url)
     end
