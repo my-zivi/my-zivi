@@ -13,6 +13,7 @@ fr:
       civil_servant:
         birthday: Anniversaire
         city: Ville
+        driving_licenses: Permis de conduire
         email: Courriel
         first_name: Prénom
         health_insurance: Assurance maladie
@@ -21,7 +22,9 @@ fr:
         id: ID
         last_name: Nom de famille
         phone: Numéro de téléphone
+        regional_center: Regionalzentrum
         role: Rôle
+        workshops: Cours de formation achevés
         zdp: N° ZDP
       driving_license:
         name: Nom
@@ -100,6 +103,13 @@ fr:
         short_name: Nom court
         work_clothing_expenses: Frais d'habillement
         work_days_expenses: Dépenses des jours ouvrables
+      user:
+        language: Langue
+        languages:
+          english: Anglais
+          french: Français
+          german: Allemand
+          italian: Italien
       workshop:
         name: Nom
     errors:
@@ -170,11 +180,29 @@ fr:
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
+  cancel: Annuler
+  civil_servants:
+    civil_servants:
+      edit:
+        cards:
+          address_information:
+            title: Données d'adresse
+          bank_and_insurance_information:
+            title: Coordonnées bancaires et d'assurance
+          login_information:
+            title: Données de l'utilisateur
+          personal_information:
+            title: Informations personnelles
+          service_specific_information:
+            title: Informations spécifiques à la mission
+      update:
+        successfully_updated: Mise à jour réussie
   date:
     formats:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
+  edit: Edit
   not_allowed: Votre ressource demandée n'est pas disponible
   organizations:
     organization_members:

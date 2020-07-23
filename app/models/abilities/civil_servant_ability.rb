@@ -5,7 +5,7 @@ module Abilities
     include CanCan::Ability
 
     def initialize(permitting_civil_servant)
-      can :read, CivilServant, id: permitting_civil_servant.id
+      can %i[read update], CivilServant, id: permitting_civil_servant.id
       can :read, :civil_servant_overview
     end
   end

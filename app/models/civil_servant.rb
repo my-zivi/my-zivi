@@ -15,11 +15,6 @@ class CivilServant < ApplicationRecord
   has_many :civil_servants_workshops, dependent: :destroy
   has_many :workshops, through: :civil_servants_workshops
 
-  # TODO: Add devise
-  # devise :database_authenticatable, :registerable,
-  #        :recoverable, :validatable,
-  #        :jwt_authenticatable, jwt_revocation_strategy: self
-
   validates :first_name, :last_name, :iban, :birthday, :health_insurance, :hometown, :phone, :zdp, presence: true
   validates :zdp, uniqueness: true, numericality: {
     greater_than: 10_000,
@@ -29,6 +24,9 @@ class CivilServant < ApplicationRecord
 
   validate :validate_iban
   validates :iban, format: { with: /\A\S+\z/ }
+
+  accepts_nested_attributes_for :user
+  accepts_nested_attributes_for :address
 
   # TODO: Move to controller probably
   def self.strip_iban(iban)

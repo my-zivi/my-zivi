@@ -13,6 +13,7 @@ de:
       civil_servant:
         birthday: Geburtstag
         city: Stadt
+        driving_licenses: Führerscheine
         email: E-Mail
         first_name: Vorname
         health_insurance: Krankenkasse
@@ -21,7 +22,9 @@ de:
         id: ID
         last_name: Nachname
         phone: Telefonnummer
+        regional_center: Regionalzentrum
         role: Rolle
+        workshops: Absolvierte Zivildienstkurse
         zdp: ZDP-Nr.
       driving_license:
         name: Name
@@ -100,6 +103,13 @@ de:
         short_name: Kurzname
         work_clothing_expenses: Kleiderspesen
         work_days_expenses: Arbeitstagesspesen
+      user:
+        language: Sprache
+        languages:
+          english: Englisch
+          french: Französisch
+          german: Deutsch
+          italian: Italienisch
       workshop:
         name: Name
     errors:
@@ -170,11 +180,29 @@ de:
         profile: Profil
         service_specifications: Pflichtenhefter
         sign_out: Abmelden
+  cancel: Abbrechen
+  civil_servants:
+    civil_servants:
+      edit:
+        cards:
+          address_information:
+            title: Adressdaten
+          bank_and_insurance_information:
+            title: Bank- und Versicherunsdetails
+          login_information:
+            title: Benutzerdaten
+          personal_information:
+            title: Persönliche Informationen
+          service_specific_information:
+            title: Einsatzspezifische Informationen
+      update:
+        successfully_updated: Erfolgreich aktualisiert
   date:
     formats:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
+  edit: Bearbeiten
   my_zivi: MyZivi
   not_allowed: Deine angeforderte Ressource ist nicht verfügbar
   organizations:

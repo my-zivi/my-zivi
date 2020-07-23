@@ -1,0 +1,13 @@
+= simple_form_for(civil_servant, url: civil_servants_civil_servant_path, remote: true) do |f|
+  .modal-body
+    = f.simple_fields_for :address do |address_form|
+      = address_form.input :primary_line, readonly: true
+      = address_form.input :secondary_line
+      = address_form.input :street
+      = address_form.input :supplement
+      = address_form.input :city
+      = address_form.input :zip
+    = hidden_field_tag 'form_partial', 'address_information_form'
+    .modal-footer
+      button.btn.btn-secondary data-dismiss="modal" type="button" = t('cancel')
+      = f.submit class: 'btn btn-primary'
