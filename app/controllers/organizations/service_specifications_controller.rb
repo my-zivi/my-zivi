@@ -18,8 +18,8 @@ module Organizations
 
     def index
       @service_specifications = @service_specifications
-                                  .order(active: :desc, name: :asc)
-                                  .includes(:contact_person, :lead_person)
+                                .order(active: :desc, name: :asc)
+                                .includes(:contact_person, :lead_person)
     end
 
     def new
