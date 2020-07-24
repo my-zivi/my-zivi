@@ -10,7 +10,7 @@ module UsersHelper
   end
 
   def current_organization
-    current_organization_admin.organization
+    current_organization_admin&.organization
   end
 
   private
