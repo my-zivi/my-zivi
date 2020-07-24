@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe OrganizationMembersHelper, type: :helper do
+RSpec.describe Organizations::OrganizationMembersHelper, type: :helper do
   describe '#initials' do
     subject { helper.initials(organization_member) }
 
