@@ -143,10 +143,19 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
       let(:perform_request) { delete organizations_service_specification_path(service_specification) }
       let!(:service_specification) { create :service_specification, organization: organization_admin.organization }
 
-      it 'destroys the requested organizations_service_specification' do
+      it 'destroys the requested service specification' do
         expect { perform_request }.to change(ServiceSpecification, :count).by(-1)
         expect(flash[:notice]).to eq I18n.t('organizations.service_specifications.destroy.successful_destroy')
         expect(response).to redirect_to organizations_service_specifications_path
+      end
+
+      context 'when some services are already associated with the service specification' do
+        before { create :service, service_specification: service_specification }
+
+        it 'does not delete the service specification' do
+          expect { perform_request }.not_to change(ServiceSpecification, :count)
+          expect(flash[:error]).to eq I18n.t('organizations.service_specifications.destroy.erroneous_destroy')
+        end
       end
     end
   end
