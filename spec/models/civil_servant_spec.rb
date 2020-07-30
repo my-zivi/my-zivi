@@ -85,7 +85,7 @@ RSpec.describe CivilServant, type: :model do
     it { is_expected.to eq 'Peter Zivi' }
   end
 
-  describe '#active?' do
+  describe '#in_service?' do
     subject { civil_servant.in_service? }
 
     let(:civil_servant) { build(:civil_servant, services: [service]) }
