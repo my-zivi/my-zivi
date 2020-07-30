@@ -159,4 +159,68 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
       end
     end
   end
+
+  context 'when nobody is signed in' do
+    describe '#index' do
+      it_behaves_like 'unauthenticated request' do
+        before { get organizations_service_specifications_path }
+      end
+    end
+
+    describe '#new' do
+      it_behaves_like 'unauthenticated request' do
+        before { get new_organizations_service_specification_path }
+      end
+    end
+
+    describe '#edit' do
+      let(:service_specification) { create :service_specification }
+
+      it_behaves_like 'unauthenticated request' do
+        before { get edit_organizations_service_specification_path(service_specification) }
+      end
+    end
+
+    describe '#create' do
+      let(:perform_request) { post organizations_service_specifications_path, params: params }
+      let(:params) { { service_specification: service_specification_params } }
+      let(:service_specification_params) { attributes_for(:service_specification) }
+
+      it_behaves_like 'unauthenticated request' do
+        before { perform_request }
+      end
+
+      it 'does not create a service specification' do
+        expect { perform_request }.not_to change(ServiceSpecification, :count)
+      end
+    end
+
+    describe '#update' do
+      let(:perform_request) { patch organizations_service_specification_path(service_specification), params: params }
+      let(:service_specification) { create :service_specification }
+      let(:params) { { service_specification: service_specification_params } }
+      let(:service_specification_params) { { name: 'updated' } }
+
+      it_behaves_like 'unauthenticated request' do
+        before { perform_request }
+      end
+
+      it 'does not update the service specification' do
+        expect { perform_request }.not_to change(service_specification, :reload)
+      end
+    end
+
+    describe '#destroy' do
+      let(:perform_request) { delete organizations_service_specification_path(service_specification) }
+      let!(:service_specification) { create :service_specification }
+
+      it_behaves_like 'unauthenticated request' do
+        before { perform_request }
+      end
+
+      it 'does not destroy the service specification' do
+        expect { perform_request }.not_to change(ServiceSpecification, :count)
+      end
+    end
+  end
 end
