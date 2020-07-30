@@ -11,7 +11,7 @@ RSpec.describe 'civil_servants/services/index.html.slim', type: :view do
       create(:service, :future, civil_servant: civil_servant)
     ]
   end
-  let(:filters) { {show_all: false} }
+  let(:filters) { { show_all: false } }
 
   let(:expected_strings) do
     expected_service_strings +
