@@ -90,6 +90,7 @@ de:
       service_specification:
         accommodation_expenses: Unterkunftsspesen
         active: Aktiv
+        contact_person: Kontaktperson
         expense_keys:
           breakfast: Morgen
           dinner: Abend
@@ -97,6 +98,7 @@ de:
         first_day_expenses: Spesen für den ersten Tag
         identification_number: Identifikationsnummer
         last_day_expenses: Spesen für den letzten Tag
+        lead_person: Leitende Person
         location: Ort
         name: Name
         paid_vacation_expenses: Bezahlte Ferienspesen
@@ -118,6 +120,7 @@ de:
         invalid_date: ungültiges Datum
         not_a_friday: kein Freitag
         not_a_monday: kein Montag
+        not_an_unsigned_integer: sind keine positive Zahlen
         overlaps_service: überlappt existierenden Service
       models:
         expense_sheet:
@@ -202,7 +205,9 @@ de:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
+  destroying: Löschen...
   edit: Bearbeiten
+  lead_person_html: 'Leitende Person: %{link}'
   my_zivi: MyZivi
   not_allowed: Deine angeforderte Ressource ist nicht verfügbar
   organizations:
@@ -222,6 +227,25 @@ de:
       index:
         welcome_back:
           title: Wilkommen zurück, %{name}!
+    service_specifications:
+      create:
+        erroneous_create: Pflichtenheft konnte nicht erstellt werden
+        successful_create: Pflichtenheft erfolgreich erstellt
+      destroy:
+        erroneous_destroy: Pflichtenheft konnte nicht gelöscht werden
+        successful_destroy: Pflichtenheft erfolgreicht gelöscht
+      edit:
+        destroy_service_specification_confirmation: Pflichtenheft wirklich löschen?
+        title: Pflichtenheft “%{name}”
+      index:
+        title: Pflichtenhefter
+      new:
+        title: Neues Pflichtenheft erstellen
+      service_specification_row:
+        contact_person_html: 'Kontaktperson: %{link}'
+      update:
+        erroneous_update: Pflichtenheft konnte nicht aktualisiert werden
+        successful_update: Pflichtenheft erfolgreich aktualisiert
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:

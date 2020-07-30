@@ -53,4 +53,31 @@ RSpec.describe UsersHelper, type: :helper do
       it { is_expected.to eq nil }
     end
   end
+
+  describe '#current_organization' do
+    subject { helper.current_organization }
+
+    before { allow(helper).to receive(:current_user).and_return current_user }
+
+    context 'when an organization administrator is signed in' do
+      let(:organization) { create :organization }
+      let(:admin) { build :organization_member, organization: organization }
+
+      let(:current_user) { admin.user }
+
+      it { is_expected.to eq organization }
+    end
+
+    context 'when nobody is signed in' do
+      let(:current_user) { nil }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when a civil servant is signed in instead' do
+      let(:current_user) { build(:civil_servant, :full).user }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end
