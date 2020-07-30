@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_23_211725) do
+ActiveRecord::Schema.define(version: 2020_07_30_123718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,16 @@ ActiveRecord::Schema.define(version: 2020_07_23_211725) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["payment_id"], name: "index_expense_sheets_on_payment_id"
     t.index ["service_id"], name: "index_expense_sheets_on_service_id"
+  end
+
+  create_table "mailing_lists", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "name", null: false
+    t.string "telephone", null: false
+    t.string "organization", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_mailing_lists_on_email", unique: true
   end
 
   create_table "organization_holidays", force: :cascade do |t|

@@ -235,7 +235,17 @@ de:
       short: "%d.%m.%y"
   destroying: Löschen...
   edit: Bearbeiten
+  home:
+    mailing_list:
+      lead: Hinterlassen Sie uns Ihre Kontaktdaten und unser Vertriebsteam kontaktiert Sie gerne für ein kurzes Gespräch
+      link_to_homepage: Link zur Website
+      share: Oder teilen Sie diese Seite
+      title: Jetzt mehr erfahren
+      via_link: via Link
   lead_person_html: 'Leitende Person: %{link}'
+  mailing_list:
+    erroneous_creation: Bitte beheben Sie die folgend markierten Fehler
+    successful_creation: Vielen Dank für Ihr Interesse. Wir werden Sie bald kontaktieren
   my_zivi: MyZivi
   not_allowed: Deine angeforderte Ressource ist nicht verfügbar
   organizations:

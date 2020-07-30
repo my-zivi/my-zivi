@@ -5,6 +5,8 @@ class Ability
 
   # :reek:FeatureEnvy
   def initialize(user)
+    can :create, MailingList
+
     return if user.blank?
 
     referencee = user.referencee
