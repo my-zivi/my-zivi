@@ -6,6 +6,11 @@ fr:
     error_notification:
       default_message: 'Veuillez noter les problèmes ci-dessous:'
     labels:
+      mailing_list:
+        email: E-Mail
+        name: Nom
+        organization: Enterprise
+        telephone: Téléphone
       service_specification:
         first_day_expenses:
           breakfast: Petit-déjeuner
@@ -25,6 +30,11 @@ fr:
           lunch: Déjeuner
     'no': Non
     placeholders:
+      mailing_list:
+        email: e-mail@example.com
+        name: Max Muster
+        organization: Fondation ...
+        telephone: "+41 (0) 79 123 45 67"
       user:
         email: max.muster@example.com
         password: Passeport
