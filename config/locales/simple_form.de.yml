@@ -1,34 +1,34 @@
 ---
 de:
   simple_form:
+    appended:
+      chf: CHF
     error_notification:
       default_message: 'Bitte beachten Sie die Probleme unten:'
+    labels:
+      service_specification:
+        first_day_expenses:
+          breakfast: Morgenessen
+          dinner: Abendessen
+          lunch: Mittagessen
+        last_day_expenses:
+          breakfast: Morgenessen
+          dinner: Abendessen
+          lunch: Mittagessen
+        paid_vacation_expenses:
+          breakfast: Morgenessen
+          dinner: Abendessen
+          lunch: Mittagessen
+        work_days_expenses:
+          breakfast: Morgenessen
+          dinner: Abendessen
+          lunch: Mittagessen
     'no': Nein
     placeholders:
       user:
         email: max.muster@example.com
         password: Passwort
-    labels:
-      service_specification:
-        work_days_expenses:
-          breakfast: Morgenessen
-          lunch: Mittagessen
-          dinner: Abendessen
-        paid_vacation_expenses:
-          breakfast: Morgenessen
-          lunch: Mittagessen
-          dinner: Abendessen
-        first_day_expenses:
-          breakfast: Morgenessen
-          lunch: Mittagessen
-          dinner: Abendessen
-        last_day_expenses:
-          breakfast: Morgenessen
-          lunch: Mittagessen
-          dinner: Abendessen
     required:
       mark: "*"
       text: erforderlich
     'yes': Ja
-    appended:
-      chf: CHF

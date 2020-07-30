@@ -90,6 +90,7 @@ fr:
       service_specification:
         accommodation_expenses: Frais d'hébergement
         active: Actif
+        contact_person: Personne de contact
         expense_keys:
           breakfast: Demain
           dinner: Soirée
@@ -97,14 +98,13 @@ fr:
         first_day_expenses: Frais pour le premier jour
         identification_number: Numéro d'identification
         last_day_expenses: Dépenses pour le dernier jour
+        lead_person: Personne responsable
         location: Lieu
         name: Nom
         paid_vacation_expenses: Frais de vacances payés
         short_name: Nom court
         work_clothing_expenses: Frais d'habillement
         work_days_expenses: Dépenses des jours ouvrables
-        contact_person: Personne de contact
-        lead_person: Personne responsable
       user:
         language: Langue
         languages:
@@ -120,6 +120,7 @@ fr:
         invalid_date: date non valable
         not_a_friday: pas de vendredi
         not_a_monday: pas de lundi
+        not_an_unsigned_integer: ne sont pas des chiffres positifs
         overlaps_service: chevauchement des services existants
       models:
         expense_sheet:
@@ -204,7 +205,9 @@ fr:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
+  destroying: En effaçant...
   edit: Edit
+  lead_person_html: 'Personne responsable: %{link}'
   not_allowed: Votre ressource demandée n'est pas disponible
   organizations:
     organization_members:
@@ -223,6 +226,25 @@ fr:
       index:
         welcome_back:
           title: Bonjour, %{name}!
+    service_specifications:
+      create:
+        erroneous_create: Le cahier des charges n'a pas pu être créée
+        successful_create: Création réussie du cahier des charges
+      destroy:
+        erroneous_destroy: Le cahier des charges n'a pas pu être supprimée
+        successful_destroy: Le cahier des charges supprimée en raison d'un échec
+      edit:
+        destroy_service_specification_confirmation: Supprimer vraiment le cahier des charges?
+        title: le cahier des charges "%{name}".
+      index:
+        title: Les cahiers des charges
+      new:
+        title: Créer un nouveau cahier des charges
+      service_specification_row:
+        contact_person_html: 'Personne de contact: %{link}'
+      update:
+        erroneous_update: Le cahier des charges n'a pas pu être mise à jour
+        successful_update: Mise à jour réussie du cahier des charges
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:

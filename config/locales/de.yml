@@ -90,6 +90,7 @@ de:
       service_specification:
         accommodation_expenses: Unterkunftsspesen
         active: Aktiv
+        contact_person: Kontaktperson
         expense_keys:
           breakfast: Morgen
           dinner: Abend
@@ -97,14 +98,13 @@ de:
         first_day_expenses: Spesen für den ersten Tag
         identification_number: Identifikationsnummer
         last_day_expenses: Spesen für den letzten Tag
+        lead_person: Leitende Person
         location: Ort
         name: Name
         paid_vacation_expenses: Bezahlte Ferienspesen
         short_name: Kurzname
         work_clothing_expenses: Kleiderspesen
         work_days_expenses: Arbeitstagesspesen
-        contact_person: Kontaktperson
-        lead_person: Leitende Person
       user:
         language: Sprache
         languages:
@@ -120,8 +120,8 @@ de:
         invalid_date: ungültiges Datum
         not_a_friday: kein Freitag
         not_a_monday: kein Montag
+        not_an_unsigned_integer: sind keine positive Zahlen
         overlaps_service: überlappt existierenden Service
-        not_an_unsigned_integer: "sind keine positive Zahlen"
       models:
         expense_sheet:
           already_paid: Das Spesenblatt wurde bereis ausbezahlt.
@@ -205,6 +205,7 @@ de:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
+  destroying: Löschen...
   edit: Bearbeiten
   lead_person_html: 'Leitende Person: %{link}'
   my_zivi: MyZivi
@@ -227,24 +228,24 @@ de:
         welcome_back:
           title: Wilkommen zurück, %{name}!
     service_specifications:
+      create:
+        erroneous_create: Pflichtenheft konnte nicht erstellt werden
+        successful_create: Pflichtenheft erfolgreich erstellt
+      destroy:
+        erroneous_destroy: Pflichtenheft konnte nicht gelöscht werden
+        successful_destroy: Pflichtenheft erfolgreicht gelöscht
       edit:
+        destroy_service_specification_confirmation: Pflichtenheft wirklich löschen?
         title: Pflichtenheft “%{name}”
-        destroy_service_specification_confirmation: "Pflichtenheft wirklich löschen?"
       index:
         title: Pflichtenhefter
+      new:
+        title: Neues Pflichtenheft erstellen
       service_specification_row:
         contact_person_html: 'Kontaktperson: %{link}'
       update:
-        successful_update: "Pflichtenheft erfolgreich aktualisiert"
-        erroneous_update: "Pflichtenheft konnte nicht aktualisiert werden"
-      create:
-        successful_create: "Pflichtenheft erfolgreich erstellt"
-        erroneous_create: "Pflichtenheft konnte nicht erstellt werden"
-      destroy:
-        successful_destroy: "Pflichtenheft erfolgreicht gelöscht"
-        erroneous_destroy: "Pflichtenheft konnte nicht gelöscht werden"
-      new:
-        title: "Neues Pflichtenheft erstellen"
+        erroneous_update: Pflichtenheft konnte nicht aktualisiert werden
+        successful_update: Pflichtenheft erfolgreich aktualisiert
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:
@@ -285,4 +286,3 @@ de:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
-  destroying: "Löschen..."
