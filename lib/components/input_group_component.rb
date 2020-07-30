@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 module InputGroup
   def prepend(_wrapper_options = nil)
     span_tag = tag.span(options[:prepend], class: 'input-group-text')
@@ -13,3 +14,4 @@ module InputGroup
 end
 
 SimpleForm.include_component(InputGroup)
+# :nocov:

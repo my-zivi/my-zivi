@@ -62,6 +62,7 @@ module Organizations
       params.require(:service_specification).permit(*PERMITTED_PARAMS).tap(&method(:modify_params))
     end
 
+    # :reek:UtilityFunction
     def modify_params(params)
       %i[work_days_expenses paid_vacation_expenses first_day_expenses last_day_expenses].each do |daily_expense_field|
         params[daily_expense_field]&.transform_values!(&:to_i)

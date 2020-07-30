@@ -38,6 +38,26 @@ RSpec.describe ServiceSpecification, type: :model do
     end
   end
 
+  describe '#initialize' do
+    subject(:service_specification) { described_class.new }
+
+    it 'defines default expense hashes' do
+      %i[work_days_expenses paid_vacation_expenses first_day_expenses last_day_expenses].each do |attribute|
+        expect(service_specification.public_send(attribute)).to eq('breakfast' => nil, 'lunch' => nil, 'dinner' => nil)
+      end
+    end
+
+    context 'when passing a default' do
+      subject(:service_specification) { described_class.new(first_day_expenses: initial_expenses) }
+
+      let(:initial_expenses) { { 'breakfast' => 300, 'lunch' => 500, 'dinner' => 900 } }
+
+      it 'does not override passed default' do
+        expect(service_specification.first_day_expenses).to eq initial_expenses
+      end
+    end
+  end
+
   describe '#work_days_expenses' do
     subject { service_specification.tap(&:validate).errors.added? :work_days_expenses, error_key }
 
