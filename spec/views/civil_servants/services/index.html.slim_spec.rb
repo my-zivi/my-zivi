@@ -2,48 +2,47 @@
 
 require 'rails_helper'
 
-RSpec.describe 'civil_servants/services/edit.html.slim', type: :view do
+RSpec.describe 'civil_servants/services/index.html.slim', type: :view do
+  let(:civil_servant) { create(:civil_servant, :full) }
+  let(:user) { civil_servant.user }
+  let(:services) do
+    [
+      create(:service, :active, civil_servant: civil_servant),
+      create(:service, :future, civil_servant: civil_servant)
+    ]
+  end
+  let(:filters) { {show_all: false} }
+
+  let(:expected_strings) do
+    expected_service_strings +
+      [
+        t('civil_servants.services.index.services'),
+        t('civil_servants.services.index.show_past_services')
+      ]
+  end
+  let(:expected_service_strings) do
+    services.flat_map do |service|
+      service_spec = service.service_specification
+      [
+        t('civil_servants.services.service_short_info_row.service_with', org_name: service.organization.name),
+        service_spec.name,
+        service_spec.location,
+        t('civil_servants.services.service_short_info_row.service_duration',
+          beginning_date: l(service.beginning), ending_date: l(service.ending)),
+        t(service.confirmation_date.present?,
+          scope: %i[civil_servants services service_short_info_row service_confirmed])
+      ]
+    end
+  end
+
   before do
     sign_in user
-    assign(:civil_servant, civil_servant)
-
+    assign(:services, services)
+    assign(:filters, filters)
     render
   end
 
-  let(:civil_servant) { create(:civil_servant, :full) }
-  let(:address) { civil_servant.address }
-  let(:user) { civil_servant.user }
-
-  let(:expected_strings) do
-    [
-      civil_servant.zdp,
-      civil_servant.first_name,
-      civil_servant.last_name,
-      civil_servant.hometown,
-      I18n.l(civil_servant.birthday),
-      civil_servant.phone,
-      civil_servant.iban,
-      civil_servant.health_insurance,
-      civil_servant.regional_center.name,
-      address.primary_line,
-      address.secondary_line,
-      address.street,
-      address.supplement,
-      address.city,
-      address.zip,
-      user.email,
-      I18n.t(user.language, scope: %i[activerecord attributes user languages]),
-      civil_servant.workshops.pluck(:name).to_sentence,
-      civil_servant.driving_licenses.pluck(:name).to_sentence,
-      t('civil_servants.civil_servants.edit.cards.personal_information.title'),
-      t('civil_servants.civil_servants.edit.cards.address_information.title'),
-      t('civil_servants.civil_servants.edit.cards.login_information.title'),
-      t('civil_servants.civil_servants.edit.cards.bank_and_insurance_information.title'),
-      t('civil_servants.civil_servants.edit.cards.service_specific_information.title')
-    ]
-  end
-
-  it 'displays all the information' do
+  it 'displays all the expected information' do
     expect(rendered).to include(*expected_strings.map(&:to_s))
   end
 end
