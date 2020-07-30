@@ -1,4 +1,4 @@
-<div class="card mt-6" id="mail-list">
+<div class="card mt-6" id="mailing-list">
   <div class="card-body overflow-hidden text-center pt-5">
     <div class="row justify-content-center">
       <div class="col-7 col-md-5">
@@ -16,7 +16,18 @@
   </div>
   <div class="row mt-5 mb-4 justify-content-center">
     <div class="col-10 col-md-7">
-      <%= simple_form_for MailingList.new, url: mailing_list_path, wrapper: :vertical_form do |f| %>
+      <% if flash[:mailing_list_success] %>
+        <div class="alert alert-success">
+          <%= flash[:mailing_list_success] %>
+        </div>
+      <% end %>
+      <% if flash[:mailing_list_error] %>
+        <div class="alert alert-danger">
+          <%= flash[:mailing_list_error] %>
+        </div>
+      <% end %>
+
+      <%= simple_form_for(@mailing_list || MailingList.new, url: mailing_list_path(anchor: 'mailing-list'), wrapper: :vertical_form) do |f| %>
         <div class="row">
           <div class="col-12 col-md-6">
             <%= f.input :name, required: true %>
@@ -62,7 +73,7 @@
                 </div>
                 <div class="modal-body bg-light p-4">
                   <form data-children-count="1">
-                    <input class="form-control form-control-sm invitation-link" value="https://my-zivi.ch#mail-list" readonly>
+                    <input class="form-control form-control-sm invitation-link" value="https://my-zivi.ch#mailing-list" readonly>
                   </form>
                 </div>
               </div>

@@ -30,8 +30,8 @@ de:
       mailing_list:
         email: e-mail@example.com
         name: Max Muster
-        telephone: +41 (0) 79 123 45 67
         organization: Stiftung ...
+        telephone: "+41 (0) 79 123 45 67"
       user:
         email: max.muster@example.com
         password: Passwort

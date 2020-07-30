@@ -236,6 +236,9 @@ fr:
   destroying: En effaçant...
   edit: Edit
   lead_person_html: 'Personne responsable: %{link}'
+  mailing_list:
+    erroneous_creation: Veuillez corriger les erreurs marquées suivantes
+    successful_creation: Merci beaucoup pour votre intérêt. Nous vous contacterons bientôt
   not_allowed: Votre ressource demandée n'est pas disponible
   organizations:
     organization_members:
