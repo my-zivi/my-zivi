@@ -161,7 +161,7 @@ fr:
       address: Adresse
       civil_servant: Personne effectuant des travaux d'intérêt général
       driving_licenses: Permis de conduire
-      expense_sheet: fiche de frais
+      expense_sheet: note de frais
       organizatino_holiday: Vacances d'entreprise
       organization_member: Employés
       regional_center: Centre régional
@@ -206,6 +206,11 @@ fr:
           all_expense_sheets: Afficher toutes les notes de frais
           all_services: Afficher tous les services
           current_service: Mon service actuel
+        titles:
+          current_service: Service actuel
+          expense_sheets: Notes the frais
+          no_current_service: Pas de service actuel
+          service_until: Service jusqu'à
     services:
       expense_sheet_short_info_row:
         print: Imprimer

@@ -206,6 +206,11 @@ de:
           all_expense_sheets: Alle Spesenblätter sehen
           all_services: Alle Einsätze ansehen
           current_service: Mein aktueller Einsatz
+        titles:
+          current_service: Momentaner Einsatz
+          expense_sheets: Spesenblätter
+          no_current_service: Kein momentaner Einsatz
+          service_until: Einsatz bis
     services:
       expense_sheet_short_info_row:
         print: Drucken

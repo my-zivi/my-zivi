@@ -2,8 +2,8 @@
   - if @civil_servant.in_service?
     = render( \
       OverviewCardComponent.new( \
-        title: 'Momentaner Einsatz',
-        text: 'Stiftung SWO',
+        title: t('.titles.current_service'),
+        text: @civil_servant.active_service.organization.name,
         type: OverviewCardComponent::TYPES[:info],
         links: { t('.links.all_services') => civil_servants_services_path } \
       ) \
@@ -12,7 +12,7 @@
     = render(\
           OverviewCardComponent.new(\
             title: '',
-            text: 'Kein aktueller Einsatz',
+            text: t('.titles.no_current_service'),
             type: OverviewCardComponent::TYPES[:info],
             links: { t('.links.all_services') => civil_servants_services_path } \
           ) \
@@ -20,8 +20,8 @@
 
   = render( \
     OverviewCardComponent.new( \
-      title: 'Spesenblätter',
-      text: current_civil_servant.expense_sheets.count,
+      title: t('.titles.expense_sheets'),
+      text: @civil_servant.expense_sheets.count,
       type: OverviewCardComponent::TYPES[:info],
       links: { t('.links.all_expense_sheets') => '#' } \
     ) \
@@ -30,8 +30,8 @@
   - if current_civil_servant.in_service?
     = render( \
       OverviewCardComponent.new( \
-        title: 'Einsatz bis',
-        text: l(current_civil_servant.active_service.ending),
+        title: t('.titles.service_until'),
+        text: l(@civil_servant.active_service.ending),
         type: OverviewCardComponent::TYPES[:info],
         links: { t('.links.current_service') => civil_servants_service_path(current_civil_servant.active_service) } \
       ) \
