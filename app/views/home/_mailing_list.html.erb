@@ -12,7 +12,7 @@
   </div>
   <div class="row mt-5 mb-4 justify-content-center">
     <div class="col-10 col-md-7">
-      <%= simple_form_for :user, url: '#', wrapper: :vertical_form do |f| %>
+      <%= simple_form_for MailingList.new, url: mailing_list_path, wrapper: :vertical_form do |f| %>
         <div class="d-flex align-items-end flex-wrap flex-md-nowrap">
           <div class="flex-grow-1 flex-shrink-0 flex-md-shrink-1 w-100">
             <%= f.input :email %>
@@ -23,7 +23,7 @@
     </div>
   </div>
   <div class="card-footer d-flex justify-content-center bg-light text-center pt-4">
-    <div class="col-10">
+    <div class="col-10 col-md-7 px-0">
       <h4 class="font-weight-normal mb-3 fs-1 fs-md-2">Oder teilen Sie diese Seite</h4>
       <div class="form-row my-4">
         <div class="col-xl-4">

@@ -6,6 +6,8 @@ de:
     error_notification:
       default_message: 'Bitte beachten Sie die Probleme unten:'
     labels:
+      mailing_list:
+        email: E-Mail
       service_specification:
         first_day_expenses:
           breakfast: Morgenessen
@@ -25,6 +27,8 @@ de:
           lunch: Mittagessen
     'no': Nein
     placeholders:
+      mailing_list:
+        email: e-mail@example.com
       user:
         email: max.muster@example.com
         password: Passwort
