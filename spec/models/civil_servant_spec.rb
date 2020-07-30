@@ -85,8 +85,8 @@ RSpec.describe CivilServant, type: :model do
     it { is_expected.to eq 'Peter Zivi' }
   end
 
-  describe '#active?' do
-    subject { civil_servant.active? }
+  describe '#in_service?' do
+    subject { civil_servant.in_service? }
 
     let(:civil_servant) { build(:civil_servant, services: [service]) }
     let(:ending) { (beginning + 4.weeks).at_end_of_week - 2.days }

@@ -131,6 +131,8 @@ RSpec.describe Service, type: :model do
       expect(service).to delegate_method(:used_paid_vacation_days).to(:used_days_calculator)
       expect(service).to delegate_method(:remaining_sick_days).to(:remaining_days_calculator)
       expect(service).to delegate_method(:remaining_paid_vacation_days).to(:remaining_days_calculator)
+      expect(service).to delegate_method(:future?).to(:beginning)
+      expect(service).to delegate_method(:past?).to(:ending)
     end
   end
 
@@ -211,8 +213,10 @@ RSpec.describe Service, type: :model do
     end
   end
 
-  describe '#in_future?' do
-    subject { build(:service, :last, beginning: beginning).in_future? }
+  describe '#future?' do
+    subject { build(:service, :last, beginning: beginning, ending: ending).future? }
+
+    let(:ending) { beginning + 25.days }
 
     context 'when service will start in future' do
       let(:beginning) { 2.weeks.from_now.at_beginning_of_week }
@@ -228,6 +232,36 @@ RSpec.describe Service, type: :model do
 
     context 'when service starts today' do
       let(:beginning) { Time.zone.today }
+
+      it { is_expected.to be false }
+    end
+  end
+
+  describe '#current?' do
+    subject { build(:service, :last, beginning: beginning, ending: ending).current? }
+
+    let(:ending) { beginning + 25.days }
+
+    context 'when service will start in future' do
+      let(:beginning) { 2.weeks.from_now.at_beginning_of_week }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when service already started' do
+      let(:beginning) { 1.week.ago.at_beginning_of_week }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when service starts today' do
+      let(:beginning) { Time.zone.today }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when service has ended' do
+      let(:beginning) { 2.months.ago.at_beginning_of_week }
 
       it { is_expected.to be false }
     end

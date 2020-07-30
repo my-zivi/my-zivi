@@ -1,0 +1,30 @@
+.row
+  .col-12.col-lg-6.pb-1
+    = render(\
+        TabularCardComponent.new(\
+          title: t('.organization_information'),
+            table_content: organization_information_table(@service)\
+        ) \
+      )
+
+  .col-12.col-lg-6.pb-1
+    = render(\
+        TabularCardComponent.new(\
+          title: t('.schedule_information'),
+            table_content: schedule_information_table(@service)\
+        ) \
+      )
+
+.card
+  .card-header
+    h5.mb-0 = t('.expense_sheets')
+  .card-body.border-top.p-0
+    table.table
+      thead.thead-light
+        tr
+          th scope="col" = t('activerecord.attributes.expense_sheet.beginning')
+          th scope="col" = t('activerecord.attributes.expense_sheet.ending')
+          th scope="col" = t('.duration')
+          th scope="col"
+      tbody = render partial: 'civil_servants/services/expense_sheet_short_info_row',
+              collection: @service.expense_sheets, as: :expense_sheet

@@ -7,4 +7,14 @@ class Address < ApplicationRecord
   def zip_with_city
     "#{zip} #{city}"
   end
+
+  def full_compose
+    [
+      primary_line,
+      secondary_line,
+      supplement,
+      street,
+      zip_with_city
+    ].compact.join("\n")
+  end
 end

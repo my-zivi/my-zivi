@@ -9,7 +9,6 @@ import '@my-zivi/falcon/js/theme/detector';
 import '@my-zivi/falcon/js/theme/forms';
 import '@my-zivi/falcon/js/theme/stickyfill';
 import '@my-zivi/falcon/js/theme/stickykit';
-import '@my-zivi/falcon/js/theme/tooltip';
 import '@my-zivi/falcon/js/theme/emojionearea';
 
 window.utils = Utils;

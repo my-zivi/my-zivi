@@ -1,0 +1,15 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+.inactive-service {
+  color: $gray-600;
+
+  .calendar {
+    .calendar-month {
+      background-color: $gray-500 !important;
+    }
+    .calendar-day {
+      border-color: $gray-500 !important;
+    }
+  }
+}

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get '/', to: 'overview#index'
 
     resource :civil_servant, only: %i[edit update], on: :collection
+    resources :services, only: %i[index show]
   end
 
   namespace :organizations do

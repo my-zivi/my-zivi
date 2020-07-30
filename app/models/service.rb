@@ -19,13 +19,15 @@ class Service < ApplicationRecord
   validates :ending, :beginning, presence: true
   validates :ending, timeliness: { after: :beginning }
 
+  scope :chronologically, -> { order(beginning: :desc, ending: :desc) }
   scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
-  scope :chronologically, -> { order(:beginning, :ending) }
   scope :at_year, ->(year) { overlapping_date_range(Date.new(year), Date.new(year).at_end_of_year) }
 
   delegate :used_paid_vacation_days, :used_sick_days, to: :used_days_calculator
   delegate :remaining_paid_vacation_days, :remaining_sick_days, to: :remaining_days_calculator
   delegate :identification_number, to: :service_specification
+  delegate :future?, to: :beginning
+  delegate :past?, to: :ending
 
   def service_days
     service_calculator.calculate_chargeable_service_days(ending)
@@ -39,8 +41,8 @@ class Service < ApplicationRecord
     service_calculator.calculate_eligible_sick_days(service_days)
   end
 
-  def in_future?
-    beginning.future?
+  def current?
+    !future? && !past?
   end
 
   def date_range
