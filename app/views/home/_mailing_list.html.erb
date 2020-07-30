@@ -5,11 +5,11 @@
         <%= image_pack_tag 'media/illustrations/gifts.png', class: 'img-fluid' %>
       </div>
     </div>
-    <h3 class="mt-3 font-weight-normal fs-2 mt-md-4 fs-md-3">Jetzt mehr erfahren</h3>
+    <h3 class="mt-3 font-weight-normal fs-2 mt-md-4 fs-md-3"><%= t('.title') %></h3>
     <div class="row justify-content-center">
       <div class="col-10 col-md-7">
         <p class="lead">
-          Hinterlassen Sie uns Ihre Kontaktdaten und unser Vertriebsteam kontaktiert Sie gerne für ein kurzes Gespräch
+          <%= t('.lead') %>
         </p>
       </div>
     </div>
@@ -50,24 +50,24 @@
   </div>
   <div class="card-footer d-flex justify-content-center bg-light text-center pt-4">
     <div class="col-10 col-md-7 px-0">
-      <h4 class="font-weight-normal mb-3 fs-1 fs-md-2">Oder teilen Sie diese Seite</h4>
+      <h4 class="font-weight-normal mb-3 fs-1 fs-md-2"><%= t('.share') %></h4>
       <div class="form-row my-4">
         <div class="col-xl-6">
           <button class="btn btn-falcon-default btn-block mb-2 mb-xl-0">
             <%= image_pack_tag 'media/logos/gmail.png', width: 20 %>
-            <span class="font-weight-medium ml-2">via E-Mail</span>
+            <span class="font-weight-medium ml-2"><%= t('.via_email') %></span>
           </button>
         </div>
         <div class="col-xl-6">
           <button class="btn btn-falcon-default btn-block mb-2 mb-xl-0" data-toggle="modal" data-target="#copyLinkModal">
             <i class="fas fa-link text-700"></i>
-            <span class="font-weight-medium ml-2">via Link</span>
+            <span class="font-weight-medium ml-2"><%= t('.via_link') %></span>
           </button>
           <div class="modal fade" id="copyLinkModal" tabindex="-1" role="dialog" aria-labelledby="copyLinkModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content overflow-hidden">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="copyLinkModalLabel">Link zur Website</h5>
+                  <h5 class="modal-title" id="copyLinkModalLabel"><%= t('.link_to_homepage') %></h5>
                   <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span class="font-weight-light" aria-hidden="true">×</span></button>
                 </div>

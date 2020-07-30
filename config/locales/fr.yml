@@ -235,6 +235,14 @@ fr:
       short: "%d.%m.%y"
   destroying: En effaçant...
   edit: Edit
+  home:
+    mailing_list:
+      lead: Laissez-nous vos coordonnées et notre équipe commerciale se fera un plaisir de vous contacter pour une brève discussion
+      link_to_homepage: Lien vers le site Internet
+      share: Ou partagez cette page
+      title: En savoir plus
+      via_email: par e-mail
+      via_link: via le lien
   lead_person_html: 'Personne responsable: %{link}'
   mailing_list:
     erroneous_creation: Veuillez corriger les erreurs marquées suivantes
