@@ -9,7 +9,7 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = render 'layouts/sentry'
-  body[class=content_for(:body_class)]
+  body
     main#top
       div[data-layout="container" class=(content_for?(:container_class) ? yield(:container_class) : 'container')]
         - unless content_for?(:hide_flash_messages)
