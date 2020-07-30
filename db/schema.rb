@@ -119,8 +119,12 @@ ActiveRecord::Schema.define(version: 2020_07_30_123718) do
 
   create_table "mailing_lists", force: :cascade do |t|
     t.string "email", null: false
+    t.string "name", null: false
+    t.string "telephone", null: false
+    t.string "organization", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_mailing_lists_on_email", unique: true
   end
 
   create_table "organization_holidays", force: :cascade do |t|

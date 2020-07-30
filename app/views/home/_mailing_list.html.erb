@@ -5,19 +5,34 @@
         <%= image_pack_tag 'media/illustrations/gifts.png', class: 'img-fluid' %>
       </div>
     </div>
-    <h3 class="mt-3 font-weight-normal fs-2 mt-md-4 fs-md-3">Haben wir Ihr Interesse geweckt?</h3>
-    <p class="lead">
-      Hinterlassen Sie uns Ihre E-Mail Adresse und erhalten Sie einen Beta-Zugriff als einer der Ersten!
-    </p>
+    <h3 class="mt-3 font-weight-normal fs-2 mt-md-4 fs-md-3">Jetzt mehr erfahren</h3>
+    <div class="row justify-content-center">
+      <div class="col-10 col-md-7">
+        <p class="lead">
+          Hinterlassen Sie uns Ihre Kontaktdaten und unser Vertriebsteam kontaktiert Sie gerne für ein kurzes Gespräch
+        </p>
+      </div>
+    </div>
   </div>
   <div class="row mt-5 mb-4 justify-content-center">
     <div class="col-10 col-md-7">
       <%= simple_form_for MailingList.new, url: mailing_list_path, wrapper: :vertical_form do |f| %>
-        <div class="d-flex align-items-end flex-wrap flex-md-nowrap">
-          <div class="flex-grow-1 flex-shrink-0 flex-md-shrink-1 w-100">
-            <%= f.input :email %>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <%= f.input :name, required: true %>
           </div>
-          <%= f.submit class: 'btn btn-primary mb-3 ml-md-3' %>
+          <div class="col-12 col-md-6">
+            <%= f.input :organization %>
+          </div>
+          <div class="col-12 col-md-6">
+            <%= f.input :email, required: true %>
+          </div>
+          <div class="col-12 col-md-6">
+            <%= f.input :telephone, as: :tel, required: true %>
+          </div>
+          <div class="col-12">
+            <%= f.submit class: 'btn btn-primary float-right float-md-left' %>
+          </div>
         </div>
       <% end %>
     </div>
@@ -26,13 +41,13 @@
     <div class="col-10 col-md-7 px-0">
       <h4 class="font-weight-normal mb-3 fs-1 fs-md-2">Oder teilen Sie diese Seite</h4>
       <div class="form-row my-4">
-        <div class="col-xl-4">
+        <div class="col-xl-6">
           <button class="btn btn-falcon-default btn-block mb-2 mb-xl-0">
             <%= image_pack_tag 'media/logos/gmail.png', width: 20 %>
             <span class="font-weight-medium ml-2">via E-Mail</span>
           </button>
         </div>
-        <div class="col-xl-4">
+        <div class="col-xl-6">
           <button class="btn btn-falcon-default btn-block mb-2 mb-xl-0" data-toggle="modal" data-target="#copyLinkModal">
             <i class="fas fa-link text-700"></i>
             <span class="font-weight-medium ml-2">via Link</span>
@@ -53,12 +68,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-xl-4">
-          <button class="btn btn-falcon-default btn-block mb-2 mb-xl-0">
-            <i class="fab fa-facebook-square text-facebook" data-fa-transform="grow-2"></i>
-            <span class="font-weight-medium ml-2">via Facebook</span>
-          </button>
         </div>
       </div>
     </div>
