@@ -216,7 +216,7 @@ RSpec.describe Service, type: :model do
   describe '#future?' do
     subject { build(:service, :last, beginning: beginning, ending: ending).future? }
 
-    let(:ending) { beginning + 26.days }
+    let(:ending) { beginning + 25.days }
 
     context 'when service will start in future' do
       let(:beginning) { 2.weeks.from_now.at_beginning_of_week }
@@ -240,7 +240,7 @@ RSpec.describe Service, type: :model do
   describe '#current?' do
     subject { build(:service, :last, beginning: beginning, ending: ending).current? }
 
-    let(:ending) { beginning + 26.days }
+    let(:ending) { beginning + 25.days }
 
     context 'when service will start in future' do
       let(:beginning) { 2.weeks.from_now.at_beginning_of_week }
