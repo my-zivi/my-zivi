@@ -241,7 +241,6 @@ de:
       link_to_homepage: Link zur Website
       share: Oder teilen Sie diese Seite
       title: Jetzt mehr erfahren
-      via_email: via E-Mail
       via_link: via Link
   lead_person_html: 'Leitende Person: %{link}'
   mailing_list:

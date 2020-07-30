@@ -241,7 +241,6 @@ fr:
       link_to_homepage: Lien vers le site Internet
       share: Ou partagez cette page
       title: En savoir plus
-      via_email: par e-mail
       via_link: via le lien
   lead_person_html: 'Personne responsable: %{link}'
   mailing_list:
