@@ -1,0 +1,18 @@
+.col-md-6.h-100
+  .media.btn-reveal-trigger
+    .media-body.position-relative.pl-3
+      h6.fs-0.mb-0
+        = link_to edit_organizations_service_specification_path(service_specification) do
+          = service_specification.name
+          - if service_specification.active?
+            .badge.badge-soft-success.rounded-capsule.ml-2 Aktiv
+      p.mb-1 = service_specification.location
+      p.text-1000.mb-0
+        = t('lead_person_html',
+                link: link_to(service_specification.lead_person.full_name,
+                        edit_organizations_member_path(service_specification.lead_person)))
+      p.text-1000.mb-0
+        = t('.contact_person_html',
+                link: link_to(service_specification.contact_person.full_name,
+                        edit_organizations_member_path(service_specification.contact_person)))
+      hr.border-dashed.border-bottom-0

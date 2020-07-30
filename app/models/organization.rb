@@ -6,6 +6,7 @@ class Organization < ApplicationRecord
   belongs_to :creditor_detail
 
   has_many :organization_members, inverse_of: :organization, dependent: :destroy
+  has_many :service_specifications, inverse_of: :organization, dependent: :restrict_with_exception
 
   validates :name, :identification_number, presence: true
 end

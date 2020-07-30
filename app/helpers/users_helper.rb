@@ -9,6 +9,10 @@ module UsersHelper
     current_referencee.instance_of?(CivilServant) ? current_referencee : nil
   end
 
+  def current_organization
+    current_organization_admin&.organization
+  end
+
   private
 
   def current_referencee

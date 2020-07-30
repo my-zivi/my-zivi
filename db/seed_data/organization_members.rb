@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
+zuckerberg_foundation = Organization.find_by(name: 'Zuckerberg Foundation')
+homoeopathy_foundation = Organization.find_by(name: 'Homöopathen Ohne Grenzen')
+
 OrganizationMember.create!(
   [
     {
-      organization: Organization.first,
+      organization: zuckerberg_foundation,
       first_name: 'James',
       last_name: 'Bond',
       phone: '+41 (0) 76 123 45 67',
@@ -16,7 +19,7 @@ OrganizationMember.create!(
       )
     },
     {
-      organization: Organization.first,
+      organization: zuckerberg_foundation,
       first_name: 'Emily',
       last_name: 'Clark',
       phone: '+41 (0) 70 321 54 76',
@@ -24,7 +27,7 @@ OrganizationMember.create!(
       contact_email: 'emily@example.com'
     },
     {
-      organization: Organization.first,
+      organization: zuckerberg_foundation,
       first_name: 'Cobe',
       last_name: 'Black',
       phone: '+41 (0) 76 098 76 54',
@@ -32,7 +35,7 @@ OrganizationMember.create!(
       contact_email: 'cobe@example.com'
     },
     {
-      organization: Organization.second,
+      organization: homoeopathy_foundation,
       first_name: 'Percy',
       last_name: 'Jackson',
       phone: '+41 (0) 79 123 45 68',

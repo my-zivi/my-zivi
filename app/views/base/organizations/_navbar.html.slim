@@ -13,7 +13,7 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
       li.nav-item
         = render 'base/navbar_link', link: { t('.dashboard') => organizations_path } do
           span.fas.fa-chart-pie
-        = render 'base/navbar_link', link: { t('.service_specifications') => organizations_path } do
+        = render 'base/navbar_link', link: { t('.service_specifications') => organizations_service_specifications_path } do
           span.fas.fa-file
         = render 'base/navbar_link', link: { t('.organization_members') => organizations_members_path } do
           span.fas.fa-user-friends

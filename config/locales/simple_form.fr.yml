@@ -1,8 +1,28 @@
 ---
 fr:
   simple_form:
+    appended:
+      chf: CHF
     error_notification:
       default_message: 'Veuillez noter les problèmes ci-dessous:'
+    labels:
+      service_specification:
+        first_day_expenses:
+          breakfast: Petit-déjeuner
+          dinner: Dîner
+          lunch: Déjeuner
+        last_day_expenses:
+          breakfast: Petit-déjeuner
+          dinner: Dîner
+          lunch: Déjeuner
+        paid_vacation_expenses:
+          breakfast: Petit-déjeuner
+          dinner: Dîner
+          lunch: Déjeuner
+        work_days_expenses:
+          breakfast: Petit-déjeuner
+          dinner: Dîner
+          lunch: Déjeuner
     'no': Non
     placeholders:
       user:
