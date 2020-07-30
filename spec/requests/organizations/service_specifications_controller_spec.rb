@@ -51,6 +51,15 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
           I18n.t('organizations.service_specifications.edit.title', name: service_specification.name)
         )
       end
+
+      context 'when trying to access an outside service specification' do
+        let(:outside_organization) { create :organization }
+        let(:service_specification) { create :service_specification, organization: outside_organization }
+
+        it_behaves_like 'unauthorized request' do
+          before { perform_request }
+        end
+      end
     end
 
     describe '#create' do
@@ -66,7 +75,7 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
           )
         end
 
-        it 'creates a new ServiceSpecification and redirects back to the service specifications list' do
+        it 'creates a new service specification and redirects back to the service specifications list' do
           expect { perform_request }.to change(ServiceSpecification, :count).by(1)
           expect(response).to redirect_to(organizations_service_specifications_path)
 
@@ -122,6 +131,15 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
 
           expect(response).to redirect_to edit_organizations_service_specification_path
         end
+
+        context 'when trying to update a service specification of an outside organization' do
+          let(:outside_organization) { create :organization }
+          let(:service_specification) { create :service_specification, organization: outside_organization }
+
+          it_behaves_like 'unauthorized request' do
+            before { perform_request }
+          end
+        end
       end
 
       context 'with invalid parameters' do
@@ -156,6 +174,75 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
           expect { perform_request }.not_to change(ServiceSpecification, :count)
           expect(flash[:error]).to eq I18n.t('organizations.service_specifications.destroy.erroneous_destroy')
         end
+      end
+
+      context 'when trying to destroy ' do
+        let(:outside_organization) { create :organization }
+        let(:service_specification) { create :service_specification, organization: outside_organization }
+
+        it 'does not delete the service specification' do
+          expect { perform_request }.not_to change(ServiceSpecification, :count)
+        end
+
+        it_behaves_like 'unauthorized request' do
+          before { perform_request }
+        end
+      end
+    end
+  end
+
+  context 'when a civil servant is signed in' do
+    let(:civil_servant) { create :civil_servant, :full }
+
+    before { sign_in civil_servant.user }
+
+    describe '#index' do
+      it_behaves_like 'unauthorized request' do
+        before { get organizations_service_specifications_path }
+      end
+    end
+
+    describe '#new' do
+      it_behaves_like 'unauthorized request' do
+        before { get new_organizations_service_specification_path }
+      end
+    end
+
+    describe '#edit' do
+      let(:service_specification) { create :service_specification }
+
+      it_behaves_like 'unauthorized request' do
+        before { get edit_organizations_service_specification_path(service_specification) }
+      end
+    end
+
+    describe '#create' do
+      let(:perform_request) { post organizations_service_specifications_path, params: params }
+      let(:params) { { service_specification: service_specification_params } }
+      let(:service_specification_params) { attributes_for(:service_specification) }
+
+      it_behaves_like 'unauthorized request' do
+        before { perform_request }
+      end
+    end
+
+    describe '#update' do
+      let(:perform_request) { patch organizations_service_specification_path(service_specification), params: params }
+      let(:service_specification) { create :service_specification }
+      let(:params) { { service_specification: service_specification_params } }
+      let(:service_specification_params) { { name: 'updated' } }
+
+      it_behaves_like 'unauthorized request' do
+        before { perform_request }
+      end
+    end
+
+    describe '#destroy' do
+      let(:perform_request) { delete organizations_service_specification_path(service_specification) }
+      let!(:service_specification) { create :service_specification }
+
+      it_behaves_like 'unauthorized request' do
+        before { perform_request }
       end
     end
   end
