@@ -103,6 +103,8 @@ fr:
         short_name: Nom court
         work_clothing_expenses: Frais d'habillement
         work_days_expenses: Dépenses des jours ouvrables
+        contact_person: Personne de contact
+        lead_person: Personne responsable
       user:
         language: Langue
         languages:

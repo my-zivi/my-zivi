@@ -76,61 +76,77 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
       end
 
       context 'with invalid parameters' do
-        it 'does not create a new ServiceSpecification' do
-          expect do
-            post organizations_service_specifications_url, params: { organizations_service_specification: invalid_attributes }
-          end.to change(ServiceSpecification, :count).by(0)
+        let(:service_specification_params) do
+          attributes_for(:service_specification).merge(
+            name: '',
+            location: ''
+          )
         end
 
-        it "renders a successful response (i.e. to display the 'new' template)" do
-          post organizations_service_specifications_url, params: { organizations_service_specification: invalid_attributes }
+        let(:expected_error_messages) do
+          %i[location name contact_person lead_person].map do |attribute_name|
+            blank = I18n.t('errors.messages.blank')
+            "#{I18n.t(attribute_name, scope: %i[activerecord attributes service_specification])} #{blank}"
+          end
+        end
+
+        it 'does not create a new service specification and renders an error' do
+          expect { perform_request }.not_to change(ServiceSpecification, :count)
           expect(response).to be_successful
+          expect(response).to render_template 'organizations/service_specifications/new'
+          expect(response.body).to include(*expected_error_messages)
         end
       end
     end
 
-    describe 'PATCH /update' do
+    describe '#update' do
+      let(:service_specification) { create :service_specification, organization: organization_admin.organization }
+      let(:perform_request) { patch organizations_service_specification_path(service_specification), params: params }
+      let(:params) { { service_specification: service_specification_params } }
+
       context 'with valid parameters' do
-        let(:new_attributes) do
-          skip('Add a hash of attributes valid for your model')
+        let(:service_specification_params) do
+          {
+            name: 'This is my updated name',
+            active: false,
+            location: 'Bosnia-Herzegovina'
+          }
         end
 
         it 'updates the requested organizations_service_specification' do
-          service_specification = ServiceSpecification.create! valid_attributes
-          patch organizations_service_specification_url(organizations_service_specification), params: { organizations_service_specification: new_attributes }
-          service_specification.reload
-          skip('Add assertions for updated state')
-        end
+          expect { perform_request }.to(
+            change { service_specification.reload.slice(service_specification_params.keys) }.to(
+              service_specification_params
+            )
+          )
 
-        it 'redirects to the organizations_service_specification' do
-          service_specification = ServiceSpecification.create! valid_attributes
-          patch organizations_service_specification_url(organizations_service_specification), params: { organizations_service_specification: new_attributes }
-          service_specification.reload
-          expect(response).to redirect_to(organizations_service_specification_url(service_specification))
+          expect(response).to redirect_to edit_organizations_service_specification_path
         end
       end
 
       context 'with invalid parameters' do
-        it "renders a successful response (i.e. to display the 'edit' template)" do
-          service_specification = ServiceSpecification.create! valid_attributes
-          patch organizations_service_specification_url(organizations_service_specification), params: { organizations_service_specification: invalid_attributes }
-          expect(response).to be_successful
+        let(:service_specification_params) do
+          {
+            work_days_expenses: { breakfast: -200, lunch: 5, dinner: 0 }
+          }
+        end
+
+        it 'does not update service specification' do
+          expect { perform_request }.not_to(change(service_specification, :reload))
+          expect(response).to render_template 'organizations/service_specifications/edit'
+          expect(flash[:error]).to eq I18n.t('organizations.service_specifications.update.erroneous_update')
         end
       end
     end
 
-    describe 'DELETE /destroy' do
-      it 'destroys the requested organizations_service_specification' do
-        service_specification = ServiceSpecification.create! valid_attributes
-        expect do
-          delete organizations_service_specification_url(organizations_service_specification)
-        end.to change(ServiceSpecification, :count).by(-1)
-      end
+    describe '#destroy' do
+      let(:perform_request) { delete organizations_service_specification_path(service_specification) }
+      let!(:service_specification) { create :service_specification, organization: organization_admin.organization }
 
-      it 'redirects to the organizations_service_specifications list' do
-        service_specification = ServiceSpecification.create! valid_attributes
-        delete organizations_service_specification_url(organizations_service_specification)
-        expect(response).to redirect_to(organizations_service_specifications_url)
+      it 'destroys the requested organizations_service_specification' do
+        expect { perform_request }.to change(ServiceSpecification, :count).by(-1)
+        expect(flash[:notice]).to eq I18n.t('organizations.service_specifications.destroy.successful_destroy')
+        expect(response).to redirect_to organizations_service_specifications_path
       end
     end
   end

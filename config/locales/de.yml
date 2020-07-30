@@ -103,6 +103,8 @@ de:
         short_name: Kurzname
         work_clothing_expenses: Kleiderspesen
         work_days_expenses: Arbeitstagesspesen
+        contact_person: Kontaktperson
+        lead_person: Leitende Person
       user:
         language: Sprache
         languages:
