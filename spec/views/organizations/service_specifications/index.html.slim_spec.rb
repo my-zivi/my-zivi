@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'organizations/service_specifications/index', type: :view do
-  let(:service_specifications) { build_list(:service_specification, 2, id: 1) }
+  let(:organization_member) { create :organization_member }
+  let(:service_specifications) do
+    build_pair(:service_specification, id: 1, lead_person: organization_member, contact_person: organization_member)
+  end
 
   before do
     assign(:service_specifications, service_specifications)
