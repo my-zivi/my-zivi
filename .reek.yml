@@ -46,6 +46,9 @@ directories:
   "db/seed_data":
     UtilityFunction:
       enabled: false
+  "app/components":
+    TooManyInstanceVariables:
+      enabled: false
 
 exclude_paths:
   - tmp

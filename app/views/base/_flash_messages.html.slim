@@ -1,0 +1,8 @@
+- if notice
+  .alert.alert-info = notice
+- if alert
+  .alert.alert-danger = alert
+- if flash[:success]
+  .alert.alert-success = flash[:success]
+- if flash[:error]
+  .alert.alert-danger = flash[:error]

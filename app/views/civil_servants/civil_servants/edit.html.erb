@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-12 col-lg-6">
+    <%= render(
+          'civil_servants/civil_servants/editable_card',
+          modal_id: 'civil-servants-personal-information',
+          title: t('civil_servants.civil_servants.edit.cards.personal_information.title'),
+          form_partial_name: 'personal_information_form',
+          card_table_content: personal_information_table,
+        ) { render('civil_servants/civil_servants/personal_information_form', civil_servant: @civil_servant) }
+    %>
+  </div>
+  <div class="col-12 col-lg-6">
+    <%= render(
+          'civil_servants/civil_servants/editable_card',
+          modal_id: 'civil-servants-address-information',
+          title: t('civil_servants.civil_servants.edit.cards.address_information.title'),
+          form_partial_name: 'address_information_form',
+          card_table_content: address_information_table,
+        ) { render('civil_servants/civil_servants/address_information_form', civil_servant: @civil_servant) }
+    %>
+  </div>
+  <div class="col-12 col-lg-6">
+    <%= render(
+          'civil_servants/civil_servants/editable_card',
+          modal_id: 'civil-servants-login-information',
+          title: t('civil_servants.civil_servants.edit.cards.login_information.title'),
+          form_partial_name: 'login_information_form',
+          card_table_content: login_information_table,
+          ) { render('civil_servants/civil_servants/login_information_form', civil_servant: @civil_servant) }
+    %>
+  </div>
+  <div class="col-12 col-lg-6">
+    <%= render(
+          'civil_servants/civil_servants/editable_card',
+          modal_id: 'civil-servants-bank-and-insurance-information',
+          title: t('civil_servants.civil_servants.edit.cards.bank_and_insurance_information.title'),
+          form_partial_name: 'bank_and_insurance_information_form',
+          card_table_content: bank_and_insurance_information_table,
+          ) { render('civil_servants/civil_servants/bank_and_insurance_information_form', civil_servant: @civil_servant) }
+    %>
+  </div>
+  <div class="col-12 col-lg-6">
+    <%= render(
+          'civil_servants/civil_servants/editable_card',
+          modal_id: 'civil-servants-service-specific-information',
+          title: t('civil_servants.civil_servants.edit.cards.service_specific_information.title'),
+          form_partial_name: 'service_specific_information_form',
+          card_table_content: service_specific_information_table,
+          ) { render('civil_servants/civil_servants/service_specific_information_form', civil_servant: @civil_servant) }
+    %>
+  </div>
+</div>

@@ -10,16 +10,16 @@ import Rails from '@rails/ujs';
 import Turbolinks from 'turbolinks';
 import '../channels';
 
-Rails.start();
-Turbolinks.start();
-
 import jQuery from 'jquery';
-
-window.jQuery = jQuery;
-window.$ = jQuery;
 
 import '@fortawesome/fontawesome-free/js/all.min';
 import 'bootstrap/dist/js/bootstrap.min';
 
 import '../stylessheets/application.scss';
-import '../images/theme';
+import '../images';
+
+Rails.start();
+Turbolinks.start();
+
+window.jQuery = jQuery;
+window.$ = jQuery;

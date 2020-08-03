@@ -1,0 +1,48 @@
+#mailing-list.card.mt-6
+  .card-body.overflow-hidden.text-center.pt-5
+    .row.justify-content-center
+      .col-7.col-md-5
+        = image_pack_tag 'media/illustrations/gifts.png', class: 'img-fluid'
+    h3.mt-3.font-weight-normal.fs-2.mt-md-4.fs-md-3= t('.title')
+    .row.justify-content-center
+      .col-10.col-md-7
+        p.lead = t('.lead')
+  .row.mt-5.mb-4.justify-content-center
+    .col-10.col-md-7
+      - if flash[:mailing_list_success]
+        .alert.alert-success
+          = flash[:mailing_list_success]
+      - if flash[:mailing_list_error]
+        .alert.alert-danger
+          = flash[:mailing_list_error]
+      = simple_form_for(@mailing_list || MailingList.new, url: mailing_list_path(anchor: 'mailing-list'), wrapper: :vertical_form) do |f|
+        .row
+          .col-12.col-md-6
+            = f.input :name, required: true
+          .col-12.col-md-6
+            = f.input :organization
+          .col-12.col-md-6
+            = f.input :email, required: true
+          .col-12.col-md-6
+            = f.input :telephone, as: :tel, required: true
+          .col-12
+            = f.submit class: 'btn btn-primary float-right float-md-left'
+  .card-footer.d-flex.justify-content-center.bg-light.text-center.pt-4
+    .col-10.col-md-7.px-0
+      h4.font-weight-normal.mb-3.fs-1.fs-md-2= t('.share')
+      .form-row.my-4
+        .col-xl-4
+        .col-xl-4
+          button.btn.btn-falcon-default.btn-block.mb-2.mb-xl-0 data-target="#copyLinkModal" data-toggle="modal"
+            i.fas.fa-link.text-700
+            span.font-weight-medium.ml-2= t('.via_link')
+          #copyLinkModal.modal.fade aria-hidden="true" aria-labelledby="copyLinkModalLabel" role="dialog" tabindex="-1"
+            .modal-dialog role="document"
+              .modal-content.overflow-hidden
+                .modal-header
+                  h5#copyLinkModalLabel.modal-title= t('.link_to_homepage')
+                  button.close aria-label="Close" data-dismiss="modal" type="button"
+                    span.font-weight-light aria-hidden="true"  ×
+                .modal-body.bg-light.p-4
+                  form data-children-count="1"
+                    input.form-control.form-control-sm.invitation-link readonly="readonly" value="https://my-zivi.ch#mailing-list" /

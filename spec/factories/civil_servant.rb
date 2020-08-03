@@ -14,7 +14,11 @@ FactoryBot.define do
     trait :full do
       association :address, :civil_servant
       regional_center
-      association :user, strategy: :build
+      association :user, strategy: :build, factory: %i[user confirmed]
+
+      after(:create) do |civil_servant|
+        civil_servant.user.save
+      end
     end
   end
 end

@@ -1,0 +1,53 @@
+nav.navbar.navbar-light.navbar-glass.navbar-top.sticky-kit.navbar-expand
+  button.btn.navbar-toggler-humburger-icon.navbar-toggler.mr-1.mr-sm-3 aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label=("Toggle Navigation") data-target="#navbarVerticalCollapse" data-toggle="collapse" type="button"
+    span.navbar-toggle-icon
+      span.toggle-line
+  = link_to civil_servants_path, class: 'navbar-brand mr-1 mr-sm-3'
+    .d-flex.align-items-center
+      span.text-sans-serif = t('my_zivi')
+  ul.navbar-nav.align-items-center.d-none.d-lg-block
+    li.nav-item
+      form.form-inline.search-box
+        input.form-control.rounded-pill.search-input aria-label="Search" placeholder="Search..." type="search" /
+        span.position-absolute.fas.fa-search.text-400.search-box-icon
+  ul.navbar-nav.navbar-nav-icons.ml-auto.flex-row.align-items-center
+    li.nav-item
+      a.nav-link.px-0 href="#"
+        span.fas.fa-cog.fs-4 data-fa-transform="shrink-7"
+    li.nav-item.dropdown.dropdown-on-hover
+      a#navbarDropdownNotification.nav-link.notification-indicator.notification-indicator-primary.px-0.icon-indicator aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+        span.fas.fa-bell.fs-4 data-fa-transform="shrink-6"
+      .dropdown-menu.dropdown-menu-right.dropdown-menu-card aria-labelledby="navbarDropdownNotification"
+        .card.card-notification.shadow-none style=("max-width: 20rem")
+          .card-header
+            .row.justify-content-between.align-items-center
+              .col-auto
+                h6.card-header-title.mb-0 Notifications
+              .col-auto
+                a.card-link.font-weight-normal href="#"  Mark all as read
+          .list-group.list-group-flush.font-weight-normal.fs--1
+            .list-group-title NEW
+            .list-group-item
+              a.notification.notification-flush.bg-200 href="#!"
+                .notification-avatar
+                  .avatar.avatar-2xl.mr-3
+                    .avatar-name.rounded-circle
+                      span AB
+                .notification-body
+                  p.mb-1
+                    | This is an awesome notification
+                  span.notification-time
+                    span.mr-1.fab.fa-gratipay.text-danger
+                    | 09:23
+            .list-group-title EARLIER
+            .list-group-item
+              a.notification.notification-flush href="#!"
+                .notification-avatar
+                  .avatar.avatar-2xl.mr-3
+                .notification-body
+                  p.mb-1 The forecast today shows a low of 20℃ in California. See today's weather.
+                  span.notification-time
+                    span.mr-1 aria-label="Emoji" role="img" > 🌤️
+                    | 1d
+          .card-footer.text-center.border-top-0
+            a.card-link.d-block href="pages/notifications.html"  View all

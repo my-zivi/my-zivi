@@ -24,5 +24,20 @@ FactoryBot.define do
     trait :last do
       last_service { true }
     end
+
+    trait :past do
+      beginning { 2.months.ago.at_beginning_of_week }
+      ending { beginning + 25.days }
+    end
+
+    trait :active do
+      beginning { 1.week.ago.at_beginning_of_week }
+      ending { beginning + 25.days }
+    end
+
+    trait :future do
+      beginning { 2.months.from_now.at_beginning_of_week }
+      ending { beginning + 25.days }
+    end
   end
 end

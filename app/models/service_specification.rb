@@ -5,7 +5,14 @@ class ServiceSpecification < ApplicationRecord
   POCKET_MONEY = 500
 
   belongs_to :organization
+  belongs_to :contact_person, class_name: 'OrganizationMember', inverse_of: :service_specification_contacts
+  belongs_to :lead_person, class_name: 'OrganizationMember', inverse_of: :service_specification_leads
+
   has_many :services, dependent: :restrict_with_error
+  has_many :driving_licenses_service_specifications, dependent: :destroy
+  has_many :driving_licenses, through: :driving_licenses_service_specifications
+  has_many :service_specifications_workshops, dependent: :destroy
+  has_many :workshops, through: :service_specifications_workshops
 
   validates :accommodation_expenses, :first_day_expenses,
             :identification_number, :last_day_expenses,
@@ -20,6 +27,16 @@ class ServiceSpecification < ApplicationRecord
   validate :validate_paid_vacation_expenses
   validate :validate_first_day_expenses
   validate :validate_last_day_expenses
+
+  def initialize(attributes = nil)
+    super(attributes)
+
+    default_daily_expenses = { breakfast: nil, lunch: nil, dinner: nil }
+    self.work_days_expenses ||= default_daily_expenses
+    self.paid_vacation_expenses ||= default_daily_expenses
+    self.first_day_expenses ||= default_daily_expenses
+    self.last_day_expenses ||= default_daily_expenses
+  end
 
   def title
     "#{identification_number} #{name}"

@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+set -eo pipefail
+
+echo "Executing Rubocop..."
+bundle exec rubocop -D --parallel -c .rubocop.yml > /dev/null

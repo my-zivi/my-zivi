@@ -24,6 +24,17 @@ RSpec.describe ServiceCalculator, type: :service do
   end
 
   describe '#calculate_ending_date' do
+    context 'when service days are 0 or negative' do
+      subject(:calculate_ending_date) { service_calculator.calculate_ending_date(0) }
+
+      it do
+        expect { calculate_ending_date }.to raise_error(
+          CalculationError,
+          I18n.t('service_calculator.invalid_required_service_days')
+        )
+      end
+    end
+
     context 'when service days are 26 or over' do
       before { service_calculator.calculate_ending_date(26) }
 

@@ -1,0 +1,10 @@
+.card.mb-3.mb-lg-0
+  .card-header.bg-light.d-flex.justify-content-between
+    h5.mb-0 = t('.services')
+    = link_to({ filters: { show_all: !@filters[:show_all] } }, class: 'd-flex') do
+      .custom-control.custom-switch data-children-count="1"
+        input#hide-past-services.custom-control-input[type="checkbox" checked=@filters[:show_all] disabled]
+        label.custom-control-label for="hide-past-services"
+      h5.fs-0.mr-1 = t('.show_past_services')
+  .card-body.fs--1
+    .row = render partial: 'civil_servants/services/service_short_info_row', collection: @services, as: :service

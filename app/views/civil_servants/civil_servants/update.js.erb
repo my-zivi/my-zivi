@@ -1,0 +1,3 @@
+$('[data-partial-name="<%= form_partial %>"]').html(
+    "<%= j(render("civil_servants/civil_servants/#{form_partial}", civil_servant: @civil_servant)) %>"
+);

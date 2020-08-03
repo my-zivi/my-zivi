@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    meta content='text/html; charset=UTF-8' http-equiv='Content-Type' /
+    meta name='viewport' content='width=device-width, initial-scale=1' /
+    title = t('my_zivi')
+    = csrf_meta_tags
+    = csp_meta_tag
+    = javascript_pack_tag 'civil_servants/application', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'civil_servants/application', media: 'all', 'data-turbolinks-track': 'reload'
+    = render 'layouts/sentry'
+  body
+    main#top
+      .container data-layout="container"
+        = render 'base/civil_servants/navbar'
+        .content
+          = render 'base/civil_servants/horizontal_nav_bar'
+          = render 'base/flash_messages'
+          = yield
+    = javascript_pack_tag 'falcon', 'data-turbolinks-track': 'reload'
