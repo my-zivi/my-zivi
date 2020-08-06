@@ -237,9 +237,9 @@ de:
   edit: Bearbeiten
   home:
     mailing_list:
-      lead: Hinterlassen Sie uns Ihre Kontaktdaten und unser Vertriebsteam kontaktiert Sie gerne für ein kurzes Gespräch
+      lead: Hinterlasse uns deine Kontaktdaten und unser Vertriebsteam kontaktiert dich gerne für ein kurzes Gespräch
       link_to_homepage: Link zur Website
-      share: Oder teilen Sie diese Seite
+      share: Oder teile diese Seite
       title: Jetzt mehr erfahren
       via_link: via Link
   lead_person_html: 'Leitende Person: %{link}'
