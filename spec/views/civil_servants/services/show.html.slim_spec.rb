@@ -11,7 +11,7 @@ RSpec.describe 'civil_servants/services/show.html.slim', type: :view do
   let(:org_address) { organization.address }
   let!(:expense_sheet) do
     create(:expense_sheet, :locked,
-           service: service, beginning: service.beginning, ending: service.beginning.at_end_of_month)
+           service: service, beginning: service.beginning, ending: service.ending)
   end
 
   let(:expected_strings) do
