@@ -4,7 +4,7 @@ module Organizations
   class OrganizationMembersController < BaseController
     PERMITTED_ORGANIZATION_MEMBER_PARAMS = [
       :first_name, :last_name, :phone, :organization_role,
-      user_attributes: %i[email id]
+      { user_attributes: %i[email id] }
     ].freeze
 
     include UsersHelper

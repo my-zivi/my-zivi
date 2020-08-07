@@ -5,12 +5,12 @@ module CivilServants
     PERMITTED_CIVIL_SERVANT_PARAMS = [
       :zdp, :first_name, :last_name, :hometown, :birthday,
       :phone, :iban, :health_insurance, :regional_center_id,
-      workshop_ids: [], driving_license_ids: [],
-      user_attributes: %i[email language id],
-      address_attributes: %i[
-        primary_line secondary_line street
-        supplement city zip
-      ]
+      { workshop_ids: [], driving_license_ids: [],
+        user_attributes: %i[email language id],
+        address_attributes: %i[
+          primary_line secondary_line street
+          supplement city zip
+        ] }
     ].freeze
 
     PERMITTED_FORM_PARTIALS = %w[
