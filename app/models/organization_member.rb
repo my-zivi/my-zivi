@@ -20,7 +20,7 @@ class OrganizationMember < ApplicationRecord
   accepts_nested_attributes_for :user
 
   def full_name
-    first_name + ' ' + last_name
+    "#{first_name} #{last_name}"
   end
 
   def email

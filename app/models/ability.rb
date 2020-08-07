@@ -10,9 +10,10 @@ class Ability
     return if user.blank?
 
     referencee = user.referencee
-    if referencee.is_a? CivilServant
+    case referencee
+    when CivilServant
       merge(Abilities::CivilServantAbility.new(referencee))
-    elsif referencee.is_a? OrganizationMember
+    when OrganizationMember
       merge(Abilities::OrganizationMemberAbility.new(referencee))
     end
   end

@@ -6,10 +6,10 @@ module Organizations
       :name, :internal_note, :work_clothing_expenses,
       :accommodation_expenses, :location, :active, :identification_number,
       :contact_person_id, :lead_person_id,
-      work_days_expenses: %i[breakfast lunch dinner],
-      paid_vacation_expenses: %i[breakfast lunch dinner],
-      first_day_expenses: %i[breakfast lunch dinner],
-      last_day_expenses: %i[breakfast lunch dinner]
+      { work_days_expenses: %i[breakfast lunch dinner],
+        paid_vacation_expenses: %i[breakfast lunch dinner],
+        first_day_expenses: %i[breakfast lunch dinner],
+        last_day_expenses: %i[breakfast lunch dinner] }
     ].freeze
 
     include UsersHelper
