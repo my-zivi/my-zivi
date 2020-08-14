@@ -304,8 +304,6 @@ fr:
             other: CHF %{amount} p. jour pour %{count} jours facturables
       header: Rapport des dépenses d’établissement d’affectation %{identification_number} - %{single_line_address}
       info_block:
-        footer:
-          bank_account_number: N° de compte
         header:
           complete_service:
             label: Service complet
