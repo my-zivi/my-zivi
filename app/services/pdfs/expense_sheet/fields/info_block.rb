@@ -17,7 +17,7 @@ module Pdfs
           {
             label: "#{I18n.t('activerecord.attributes.address.street')}:",
             content: lambda { |expense_sheet|
-              "#{expense_sheet.service.civil_servant.address}, " \
+              "#{expense_sheet.service.civil_servant.address.street}, " \
               "#{expense_sheet.service.civil_servant.address.zip_with_city} "
             }
           },
@@ -56,10 +56,6 @@ module Pdfs
             content: lambda do |expense_sheet|
               "<b>#{IBANTools::IBAN.new(expense_sheet.service.civil_servant.iban).prettify}</b>"
             end
-          },
-          {
-            label: "<b>#{I18n.t('pdfs.expense_sheet.info_block.footer.bank_account_number')}:</b>",
-            content: '4470 (200)'
           }
         ].freeze
       end

@@ -21,7 +21,7 @@ CivilServant.create!(
       ),
       regional_center: RegionalCenter.first,
       address: Address.new(
-        primary_line: 'Zivi Mustermann',
+        primary_line: 'Maximilian Mustermann',
         secondary_line: nil,
         street: 'Musterstrasse 99',
         supplement: nil,
@@ -48,7 +48,7 @@ CivilServant.create!(
       ),
       regional_center: RegionalCenter.second,
       address: Address.new(
-        primary_line: 'Philipp Fehr',
+        primary_line: 'Philipp Van Fehr',
         secondary_line: nil,
         street: 'Thalwiesenstrasse 12',
         supplement: nil,

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resource :mailing_list, only: :create
+  resources :expense_sheets, only: :show
 
   namespace :civil_servants do
     get '/', to: 'overview#index'
