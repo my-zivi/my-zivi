@@ -8,8 +8,6 @@ module Organizations
       @civil_servants = @civil_servants.includes(services: :service_specification)
     end
 
-    def show
-      @civil_servant = CivilServant.includes(services: :service_specification).find(@civil_servant.id)
-    end
+    def show; end
   end
 end
