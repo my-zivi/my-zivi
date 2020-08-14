@@ -178,12 +178,12 @@ fr:
         sign_out: Déconnexion
     organizations:
       navbar:
+        civil_servants: Civilistes
         dashboard: Dashboard
         organization_members: Employés
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
-        civil_servants: "Civilistes"
   cancel: Annuler
   civil_servants:
     civil_servants:
@@ -249,6 +249,9 @@ fr:
     successful_creation: Merci beaucoup pour votre intérêt. Nous vous contacterons bientôt
   not_allowed: Votre ressource demandée n'est pas disponible
   organizations:
+    civil_servants:
+      index:
+        title: Civilistes
     organization_members:
       destroy:
         erroneous_delete: L'employé n'a pas pu être supprimé
@@ -284,9 +287,6 @@ fr:
       update:
         erroneous_update: Le cahier des charges n'a pas pu être mise à jour
         successful_update: Mise à jour réussie du cahier des charges
-    civil_servants:
-      index:
-        title: "Civilistes"
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:
