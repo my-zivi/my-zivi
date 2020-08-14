@@ -4,7 +4,7 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
       button.btn.navbar-toggler-humburger-icon.navbar-vertical-toggle data-placement="left" data-toggle="tooltip" title=("Toggle Navigation")
         span.navbar-toggle-icon
           span.toggle-line
-    a.navbar-brand href="index.html"
+    = link_to organizations_path, class: 'navbar-brand'
       .d-flex.align-items-center.py-3
         = image_pack_tag 'media/images/my_zivi_transparent.png', width: 30, class: 'mr-2'
         span.text-sans-serif = t('my_zivi')
