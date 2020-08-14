@@ -5,7 +5,7 @@
           modal_id: 'civil-servants-personal-information',
           title: t('civil_servants.civil_servants.edit.cards.personal_information.title'),
           form_partial_name: 'personal_information_form',
-          card_table_content: personal_information_table,
+          card_table_content: personal_information_table(current_civil_servant),
         ) { render('civil_servants/civil_servants/personal_information_form', civil_servant: @civil_servant) }
     %>
   </div>

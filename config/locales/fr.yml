@@ -183,6 +183,7 @@ fr:
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
+        civil_servants: "Civilistes"
   cancel: Annuler
   civil_servants:
     civil_servants:
@@ -283,6 +284,9 @@ fr:
       update:
         erroneous_update: Le cahier des charges n'a pas pu être mise à jour
         successful_update: Mise à jour réussie du cahier des charges
+    civil_servants:
+      index:
+        title: "Civilistes"
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:
