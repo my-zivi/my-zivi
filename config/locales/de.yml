@@ -309,8 +309,6 @@ de:
             other: CHF %{amount}/Tag für %{count} anrechenbare Tage
       header: Spesenrapport des Einsatzbetriebes %{identification_number} - %{single_line_address}
       info_block:
-        footer:
-          bank_account_number: 'Konto-Nr.:'
         header:
           complete_service:
             label: Gesamteinsatz
