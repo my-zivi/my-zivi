@@ -16,11 +16,15 @@ module Pdfs
       end
 
       def header_title
-        organization = @expense_sheet.service_specification.organization
-
         I18n.t('pdfs.expense_sheet.header',
                identification_number: organization.identification_number,
                single_line_address: organization.address.full_compose(' '))
+      end
+
+      private
+
+      def organization
+        @expense_sheet.service_specification.organization
       end
     end
   end
