@@ -5,7 +5,7 @@ module Organizations
     load_and_authorize_resource
 
     def index
-      @civil_servants = @civil_servants.includes(services: :service_specification)
+      @civil_servants = @civil_servants.includes(:services)
     end
 
     def show; end

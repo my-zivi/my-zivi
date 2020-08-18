@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CivilServantHelper
-  def personal_information_table(civil_servant)
+  def personal_information_table(civil_servant = current_civil_servant)
     TabularCardComponent.humanize_table_values(
       CivilServant,
       zdp: civil_servant.zdp,
@@ -13,7 +13,7 @@ module CivilServantHelper
     )
   end
 
-  def personal_information_table_without_name(civil_servant)
+  def personal_information_table_without_name(civil_servant = current_civil_servant)
     TabularCardComponent.humanize_table_values(
       CivilServant,
       zdp: civil_servant.zdp,
@@ -23,7 +23,7 @@ module CivilServantHelper
     )
   end
 
-  def address_information_table(civil_servant)
+  def address_information_table(civil_servant = current_civil_servant)
     address = civil_servant.address
 
     TabularCardComponent.humanize_table_values(
@@ -37,8 +37,8 @@ module CivilServantHelper
     )
   end
 
-  def login_information_table
-    user = current_civil_servant.user
+  def login_information_table(civil_servant = current_civil_servant)
+    user = civil_servant.user
 
     TabularCardComponent.humanize_table_values(
       User,
@@ -47,7 +47,7 @@ module CivilServantHelper
     )
   end
 
-  def bank_and_insurance_information_table(civil_servant)
+  def bank_and_insurance_information_table(civil_servant = current_civil_servant)
     TabularCardComponent.humanize_table_values(
       CivilServant,
       iban: civil_servant.iban,
@@ -55,7 +55,7 @@ module CivilServantHelper
     )
   end
 
-  def service_specific_information_table(civil_servant)
+  def service_specific_information_table(civil_servant = current_civil_servant)
     TabularCardComponent.humanize_table_values(
       CivilServant,
       regional_center: civil_servant.regional_center.name,

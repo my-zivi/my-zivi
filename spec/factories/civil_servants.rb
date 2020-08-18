@@ -20,5 +20,18 @@ FactoryBot.define do
         civil_servant.user.save
       end
     end
+
+    trait :with_service do
+      transient do
+        organization { create :organization }
+        service_specification { create :service_specification, organization: organization }
+      end
+
+      services { [build(:service, service_specification: service_specification)] }
+
+      after(:create) do |civil_servant|
+        civil_servant.services.map(&:save)
+      end
+    end
   end
 end
