@@ -178,6 +178,7 @@ de:
         sign_out: Abmelden
     organizations:
       navbar:
+        civil_servants: Zivildienstleistende
         dashboard: Dashboard
         organization_members: Mitarbeiter
         profile: Profil
@@ -249,6 +250,9 @@ de:
   my_zivi: MyZivi
   not_allowed: Deine angeforderte Ressource ist nicht verfügbar
   organizations:
+    civil_servants:
+      index:
+        title: Zivildienstleistende
     organization_members:
       destroy:
         erroneous_delete: Mitarbeiter konnte nicht gelöscht werden

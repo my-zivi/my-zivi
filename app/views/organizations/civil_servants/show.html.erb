@@ -1,0 +1,53 @@
+<div class="card mb-4">
+  <div class="bg-holder d-none d-lg-block bg-card corner-background-title"></div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-8">
+        <h3><%= @civil_servant.full_name %></h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-lg-6">
+    <%=
+      render(
+          TabularCardComponent.new(
+              title: t('civil_servants.civil_servants.edit.cards.personal_information.title'),
+              table_content: personal_information_table_without_name(@civil_servant)
+          )
+      )
+    %>
+  </div>
+  <div class="col-12 col-lg-6">
+    <%=
+      render(
+          TabularCardComponent.new(
+              title: t('civil_servants.civil_servants.edit.cards.address_information.title'),
+              table_content: address_information_table(@civil_servant)
+          )
+      )
+    %>
+  </div>
+  <div class="col-12 col-lg-6">
+    <%=
+      render(
+          TabularCardComponent.new(
+              title: t('civil_servants.civil_servants.edit.cards.bank_and_insurance_information.title'),
+              table_content: bank_and_insurance_information_table(@civil_servant)
+          )
+      )
+    %>
+  </div>
+  <div class="col-12 col-lg-6">
+    <%=
+      render(
+          TabularCardComponent.new(
+              title: t('civil_servants.civil_servants.edit.cards.service_specific_information.title'),
+              table_content: service_specific_information_table(@civil_servant)
+          )
+      )
+    %>
+  </div>
+</div>

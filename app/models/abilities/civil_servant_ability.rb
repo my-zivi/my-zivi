@@ -7,7 +7,7 @@ module Abilities
     def initialize(permitting_civil_servant)
       permitting_civil_servant_id = permitting_civil_servant.id
 
-      can %i[read update], CivilServant, id: permitting_civil_servant_id
+      can %i[show update], CivilServant, id: permitting_civil_servant_id
       can :read, Service, civil_servant_id: permitting_civil_servant_id
       can :read, :civil_servant_overview
       can :read, ExpenseSheet, service: { civil_servant_id: permitting_civil_servant_id }
