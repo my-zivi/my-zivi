@@ -8,6 +8,7 @@ module Abilities
     def initialize(permitting_organization_member)
       organization_id = permitting_organization_member.organization_id
 
+      can :access, :organization_portal
       can %i[read update destroy], OrganizationMember, organization_id: organization_id
       can :read, :organization_overview
       can :manage, ServiceSpecification, organization_id: organization_id
