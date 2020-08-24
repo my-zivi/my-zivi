@@ -1,0 +1,6 @@
+li.nav-item[class=nav_item_class(link.values.first)]
+  = link_to link.values.first, { class: 'nav-link', role: 'button' }.merge(link[:options] || {}) do
+    .d-flex.align-items-center
+      span.nav-link-icon
+        = yield
+      span.nav-link-text = link.keys.first

@@ -10,14 +10,13 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
         span.text-sans-serif = t('my_zivi')
   #navbarVerticalCollapse.collapse.navbar-collapse.perfect-scrollbar.scrollbar
     ul.navbar-nav.flex-column
-      li.nav-item
-        = render 'base/navbar_link', link: { t('.home') => civil_servants_path } do
-          span.fas.fa-chart-pie
-        = render 'base/navbar_link', link: { t('.services') => civil_servants_services_path } do
-          span.fas.fa-hands-helping
-        = render 'base/navbar_link', link: { t('.profile') => edit_civil_servants_civil_servant_path } do
-          span.fas.fa-user
-        = render 'base/navbar_link',
+      = render 'base/navbar_list_item', link: { t('.home') => civil_servants_path } do
+        span.fas.fa-chart-pie
+      = render 'base/navbar_list_item', link: { t('.services') => civil_servants_services_path } do
+        span.fas.fa-hands-helping
+      = render 'base/navbar_list_item', link: { t('.profile') => edit_civil_servants_civil_servant_path } do
+        span.fas.fa-user
+      = render 'base/navbar_list_item',
                 link: { \
                   t('.sign_out') => destroy_user_session_path,
                   options: { \
@@ -25,4 +24,4 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
                     class: 'nav-link text-danger',
                   },
                 } do
-          span.fas.fa-sign-out-alt
+        span.fas.fa-sign-out-alt
