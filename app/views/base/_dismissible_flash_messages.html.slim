@@ -1,0 +1,16 @@
+- if notice
+  .alert.alert-info.alert-dismissible.fade.show[role=alert]
+    = notice
+    = render 'base/dismissible_flash_messages_button'
+- if alert
+  .alert.alert-danger.alert-dismissible.fade.show[role=alert]
+    = alert
+    = render 'base/dismissible_flash_messages_button'
+- if flash[:success]
+  .alert.alert-success.alert-dismissible.fade.show[role=alert]
+    = flash[:success]
+    = render 'base/dismissible_flash_messages_button'
+- if flash[:error]
+  .alert.alert-danger.alert-dismissible.fade.show[role=alert]
+    = flash[:error]
+    = render 'base/dismissible_flash_messages_button'
