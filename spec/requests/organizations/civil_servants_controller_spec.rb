@@ -8,9 +8,15 @@ RSpec.describe Organizations::CivilServantsController, type: :request do
     let(:organization) { create :organization }
 
     before do
-      create(:civil_servant, :with_service, :full, organization: organization, first_name: 'Peter')
-      create(:civil_servant, :with_service, :full, organization: organization, first_name: 'Paul')
       create(:civil_servant, :with_service, :full, first_name: 'Maria')
+      create(:civil_servant, :with_service, :full, organization: organization, first_name: 'Peter')
+      create(:civil_servant, :with_service, :full,
+             organization: organization,
+             first_name: 'Paul',
+             service_attributes: {
+               beginning: '2018-11-05',
+               ending: '2018-11-30'
+             })
     end
 
     context 'when a organization administrator is signed in' do
@@ -21,8 +27,18 @@ RSpec.describe Organizations::CivilServantsController, type: :request do
       it 'successfully fetches a list of civil servants in the organization' do
         perform_request
         expect(response).to have_http_status(:success)
-        expect(response.body).to include 'Peter', 'Paul'
-        expect(response.body).not_to include 'Maria'
+        expect(response.body).to include 'Peter'
+        expect(response.body).not_to include 'Maria', 'Paul'
+      end
+
+      context 'when inactive services are turned on' do
+        let(:perform_request) { get organizations_civil_servants_path(filters: { show_inactive: 'true' }) }
+
+        it 'fetches a list of active and inactive civil servants in the organization' do
+          perform_request
+          expect(response.body).to include 'Peter', 'Paul'
+          expect(response.body).not_to include 'Maria'
+        end
       end
     end
 

@@ -7,12 +7,14 @@ zirkusarbeit = ServiceSpecification.find_by(name: 'Mitarbeit Sozialpädagogische
 
 future_service_beginning = 3.months.from_now.at_beginning_of_week
 
+current_service_beginning = 1.month.ago.at_beginning_of_week
+
 Service.create!(
   [
     {
-      beginning: '2020-05-04',
-      ending: '2020-06-05',
-      confirmation_date: '2018-09-15',
+      beginning: current_service_beginning,
+      ending: (current_service_beginning + 1.month + 1.week).at_end_of_week - 2.days,
+      confirmation_date: 6.days.ago,
       service_type: :normal,
       last_service: false,
       feedback_mail_sent: true,
@@ -38,6 +40,16 @@ Service.create!(
       feedback_mail_sent: false,
       civil_servant: philipp,
       service_specification: zirkusarbeit
+    },
+    {
+      beginning: '2019-02-04',
+      ending: '2019-03-08',
+      confirmation_date: '2019-01-01',
+      service_type: :normal,
+      last_service: false,
+      feedback_mail_sent: false,
+      civil_servant: philipp,
+      service_specification: jugendarbeit
     }
   ]
 )

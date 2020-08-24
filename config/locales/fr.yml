@@ -251,6 +251,7 @@ fr:
   organizations:
     civil_servants:
       index:
+        show_inactive_civil_servants: Afficher les travailleurs des services d'intérêt général inactifs
         title: Civilistes
     organization_members:
       destroy:

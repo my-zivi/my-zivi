@@ -4,12 +4,13 @@ philipp = User.find_by(email: 'philipp@example.com').referencee
 philipp_service = philipp.services.last
 max_mustermann = User.find_by(email: 'zivi@example.com').referencee
 max_mustermann_services = max_mustermann.services.order(:beginning)
+first_max_mustermann_service = max_mustermann_services.first
 
 ExpenseSheet.create!(
   [
     {
-      beginning: '2020-05-04',
-      ending: '2020-05-31',
+      beginning: first_max_mustermann_service.beginning,
+      ending: first_max_mustermann_service.beginning.at_end_of_month,
       work_days: 19,
       unpaid_company_holiday_days: 0,
       paid_company_holiday_days: 0,
@@ -29,7 +30,7 @@ ExpenseSheet.create!(
       clothing_expenses_comment: nil,
       state: :locked,
       credited_iban: max_mustermann.iban,
-      service: max_mustermann_services.first
+      service: first_max_mustermann_service
     }
   ]
 )

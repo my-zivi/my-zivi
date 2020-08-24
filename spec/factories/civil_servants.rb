@@ -25,9 +25,10 @@ FactoryBot.define do
       transient do
         organization { create :organization }
         service_specification { create :service_specification, organization: organization }
+        service_attributes { {} }
       end
 
-      services { [build(:service, service_specification: service_specification)] }
+      services { [build(:service, :active, service_specification: service_specification, **service_attributes)] }
 
       after(:create) do |civil_servant|
         civil_servant.services.map(&:save)
