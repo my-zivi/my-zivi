@@ -252,8 +252,8 @@ de:
   organizations:
     civil_servants:
       index:
+        show_inactive_civil_servants: Inaktive Zivildienstleistende anzeigen
         title: Zivildienstleistende
-        show_inactive_civil_servants: "Inaktive Zivildienstleistende anzeigen"
     organization_members:
       destroy:
         erroneous_delete: Mitarbeiter konnte nicht gelöscht werden

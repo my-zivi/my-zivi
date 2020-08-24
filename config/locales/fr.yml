@@ -251,8 +251,8 @@ fr:
   organizations:
     civil_servants:
       index:
+        show_inactive_civil_servants: Afficher les travailleurs des services d'intérêt général inactifs
         title: Civilistes
-        show_inactive_civil_servants: "Afficher les travailleurs des services d'intérêt général inactifs"
     organization_members:
       destroy:
         erroneous_delete: L'employé n'a pas pu être supprimé
