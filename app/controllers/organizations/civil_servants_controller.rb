@@ -5,9 +5,27 @@ module Organizations
     load_and_authorize_resource
 
     def index
-      @civil_servants = @civil_servants.includes(:services)
+      load_filters
+      @civil_servants = filtered_civil_servants.includes(:services)
     end
 
     def show; end
+
+    private
+
+    def filtered_civil_servants
+      return @civil_servants if @filters[:show_inactive]
+
+      CivilServant
+        .joins(:services)
+        .where(id: Service.accessible_by(current_ability).active.select(:civil_servant_id))
+        .distinct
+    end
+
+    def load_filters
+      @filters = {
+        show_inactive: params.dig(:filters, :show_inactive) == 'true'
+      }
+    end
   end
 end

@@ -16,6 +16,12 @@ module Abilities
               organization_id: organization_id
             }
           })
+
+      can(:manage, Service, {
+            service_specification: {
+              organization_id: organization_id
+            }
+          })
     end
   end
 end

@@ -10,6 +10,11 @@ class Service < ApplicationRecord
   has_many :expense_sheets, dependent: :restrict_with_error
   has_one :organization, through: :service_specification
 
+  scope :chronologically, -> { order(beginning: :desc, ending: :desc) }
+  scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
+  scope :at_year, ->(year) { overlapping_date_range(Date.new(year), Date.new(year).at_end_of_year) }
+  scope :active, -> { where('beginning <= ?', Time.zone.now).where('ending >= ?', Time.zone.now) }
+
   enum service_type: {
     normal: 0,
     long: 1,
@@ -18,10 +23,6 @@ class Service < ApplicationRecord
 
   validates :ending, :beginning, presence: true
   validates :ending, timeliness: { after: :beginning }
-
-  scope :chronologically, -> { order(beginning: :desc, ending: :desc) }
-  scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
-  scope :at_year, ->(year) { overlapping_date_range(Date.new(year), Date.new(year).at_end_of_year) }
 
   delegate :used_paid_vacation_days, :used_sick_days, to: :used_days_calculator
   delegate :remaining_paid_vacation_days, :remaining_sick_days, to: :remaining_days_calculator

@@ -4,7 +4,13 @@
       .col
         h5.mb-0
           = t('.title')
-          span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@civil_servants.count})"
+          span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@civil_servants.length})"
+      .col.d-inline-flex.justify-content-end
+        = link_to({ filters: { show_inactive: !@filters[:show_inactive] } }, class: 'd-flex align-items-center') do
+          .custom-control.custom-switch data-children-count="1"
+            input#hide-past-services.custom-control-input[type="checkbox" checked=@filters[:show_inactive] disabled]
+            label.custom-control-label for="hide-past-services"
+          h5.fs-0.mr-1 = t('.show_inactive_civil_servants')
   .card-body.bg-light.p-0
     .row.no-gutters.text-center.fs--1
       - @civil_servants.each do |civil_servant|
