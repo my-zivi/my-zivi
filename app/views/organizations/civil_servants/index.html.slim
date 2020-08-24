@@ -20,4 +20,4 @@
               .name-initials-container.mb-3
                 .initials = initials(civil_servant)
               h6.mb-1 = civil_servant.full_name
-              p.fs--2.mb-1 = civil_servant.active_service&.service_specification&.name
+              p.fs--2.mb-1 = civil_servant.active_service(current_organization)&.service_specification&.name

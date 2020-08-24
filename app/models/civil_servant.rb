@@ -45,8 +45,12 @@ class CivilServant < ApplicationRecord
     active_service.present?
   end
 
-  def active_service
-    services.find { |service| Time.zone.today.in? service.date_range }
+  def active_service(organization = nil)
+    services.find do |service|
+      in_organization = (organization.nil? || service.service_specification.organization_id == organization.id)
+
+      in_organization && Time.zone.today.in?(service.date_range)
+    end
   end
 
   def next_service
