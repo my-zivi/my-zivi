@@ -45,6 +45,7 @@ class CivilServant < ApplicationRecord
     active_service.present?
   end
 
+  # :reek:FeatureEnvy
   def active_service(organization = nil)
     services.find do |service|
       in_organization = (organization.nil? || service.service_specification.organization_id == organization.id)
