@@ -4,6 +4,7 @@ module Abilities
   class OrganizationMemberAbility
     include CanCan::Ability
 
+    # rubocop:disable Metrics/MethodLength
     def initialize(permitting_organization_member)
       organization_id = permitting_organization_member.organization_id
 
@@ -23,5 +24,6 @@ module Abilities
             }
           })
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end
