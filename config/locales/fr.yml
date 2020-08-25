@@ -310,6 +310,11 @@ fr:
         expense_sheets:
           one: "1 note de frais"
           other: "%{count} notes de frais"
+        details: ""
+        download_pain: Télécharger le fichier de paiement
+        mark_as_paid: "Marquer comme payé"
+        delete: "Supprimer"
+      pain_file_name: ""
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:

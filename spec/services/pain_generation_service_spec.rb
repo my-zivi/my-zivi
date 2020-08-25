@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe PainGenerationService, type: :service do
-  describe '#generate_pain' do
-    subject(:generated_pain) { described_class.execute(payment) }
+  describe '#call' do
+    subject(:generated_pain) { described_class.call(payment) }
 
     let(:organization) { service.organization }
     let(:service) { create :service }

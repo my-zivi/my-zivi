@@ -311,6 +311,11 @@ de:
         expense_sheets:
           one: "Ein Spesenblatt"
           other: "%{count} Spesenblätter"
+        details: "Details"
+        download_pain: "Zahlungsdatei herunterladen"
+        mark_as_paid: "Als ausgezahlt markieren"
+        delete: "Löschen"
+      pain_file_name: "zahlung-%{date}.xml"
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:

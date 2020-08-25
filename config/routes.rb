@@ -21,6 +21,6 @@ Rails.application.routes.draw do
     resources :organization_members, as: 'members', only: %i[index edit update destroy]
     resources :service_specifications, except: :show
     resources :civil_servants, only: %i[index show]
-    resources :payments, only: %i[index show]
+    resources :payments, only: %i[index show update destroy]
   end
 end

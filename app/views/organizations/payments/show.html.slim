@@ -1,2 +1,7 @@
-h1 Organizations::Payments#show
-p Find me in app/views/organizations/payments/show.html.slim
+.card.mb-3
+  .bg-holder.d-none.d-lg-block.bg-card.corner-background-success
+  .card-body
+    .row
+      .col-lg-8
+        h3.mt-0 Auszahlung vom 20.08.2020
+        h4.mb-0.text-muted = number_to_currency(@payment.amount, locale: 'de-CH')
