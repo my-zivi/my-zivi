@@ -307,6 +307,10 @@ de:
           title: "Pendent"
         paid:
           title: "Ausgezahlt"
+      payment_row:
+        expense_sheets:
+          one: "Ein Spesenblatt"
+          other: "%{count} Spesenblätter"
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:

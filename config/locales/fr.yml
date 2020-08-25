@@ -306,6 +306,10 @@ fr:
           title: "En attente"
         paid:
           title: "Déboursé"
+      payment_row:
+        expense_sheets:
+          one: "1 note de frais"
+          other: "%{count} notes de frais"
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:

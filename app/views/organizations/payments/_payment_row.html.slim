@@ -1,5 +1,5 @@
 tr.btn-reveal-trigger.odd role="row"
-  td.py-2.align-middle Blubbers
+  td.py-2.align-middle = t('.expense_sheets', count: payment.expense_sheets.count)
   td.py-2.align-middle = l(payment.paid_timestamp.to_date, format: :short)
   td.py-2.align-middle = number_to_currency(payment.amount, unit: 'CHF')
   td.py-2.align-middle
