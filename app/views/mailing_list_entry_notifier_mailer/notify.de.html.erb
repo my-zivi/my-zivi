@@ -1,0 +1,67 @@
+<style type="text/css">
+  * {
+    box-sizing: border-box;
+    font-family: Sans-Serif;
+  }
+
+  .blink {
+    -webkit-animation: 3s ease infinite eye-cancer;
+    animation: 3s ease infinite eye-cancer;
+  }
+
+  @keyframes eye-cancer {
+    0% { color: violet; }
+    20% { color: green; }
+    40% { color: orange; }
+    60% { color: red; }
+    80% { color: blue; }
+    100% { color: violet; }
+  }
+
+  main {
+    position: absolute;
+    background-color: darkseagreen;
+    width: 100%;
+    height: 100%;
+  }
+
+  .container {
+    max-width: 80%;
+    background-color: white;
+    margin-top: 2em;
+    width: 100%;
+    padding: 2em 1.5em;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    box-shadow: 3px 8px 10px rgba(0,0,0,0.1);
+  }
+
+  .info-box {
+    background-color: lightcyan;
+    white-space: pre-line;
+    display: inline-block;
+    padding: .5em .5em 1.2em;
+    margin-bottom: 1em;
+    line-height: 1.4em;
+  }
+</style>
+
+<main>
+  <div class="container">
+    <h1 style="margin-top: 0">Neuer Eintrag in die Mailing-Liste</h1>
+    <h3 class="blink">Whoop, Whoop! 🎉</h3>
+    <p>Herr/Frau <%= @mailing_list.name %> von <%= @mailing_list.organization %> möchte mehr von MyZivi erfahren.</p>
+
+    <p>Kontakt unter:</p>
+    <div class="info-box">
+      Tel.: <a href="tel:<%= @mailing_list.telephone %>"><%= @mailing_list.telephone %></a>
+      E-Mail.: <a href="mailto:<%= @mailing_list.email %>"><%= @mailing_list.email %></a>
+    </div>
+    <br />
+
+    Danke.
+    <br />
+    Das MyZivi Team (alias Lukas & Philipp)
+  </div>
+</main>
