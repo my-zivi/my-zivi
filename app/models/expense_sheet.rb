@@ -5,7 +5,7 @@ class ExpenseSheet < ApplicationRecord
   include ExpenseSheetStateMachine
 
   belongs_to :service
-  belongs_to :payment, optional: true
+  belongs_to :payment, optional: true, counter_cache: true
 
   has_one :service_specification, through: :service
 

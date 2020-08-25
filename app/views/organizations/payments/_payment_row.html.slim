@@ -1,6 +1,6 @@
 tr.btn-reveal-trigger.odd role="row"
   td.py-2.align-middle
-    = link_to t('.expense_sheets', count: payment.expense_sheets.count), organizations_payment_path(payment)
+    = link_to t('.expense_sheets', count: payment.expense_sheets.size), organizations_payment_path(payment)
   td.py-2.align-middle = l(payment.created_at.to_date)
   td.py-2.align-middle = number_to_currency(payment.amount, locale: 'de-CH')
   td.py-2.align-middle
