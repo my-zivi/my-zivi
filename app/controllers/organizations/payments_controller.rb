@@ -4,7 +4,9 @@ module Organizations
   class PaymentsController < BaseController
     load_and_authorize_resource
 
-    def index; end
+    def index
+      @payments = @payments.order(created_at: :desc, state: :asc)
+    end
 
     def show
       respond_to do |format|
