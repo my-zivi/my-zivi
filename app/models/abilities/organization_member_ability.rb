@@ -12,6 +12,8 @@ module Abilities
       can %i[read update destroy], OrganizationMember, organization_id: organization_id
       can :read, :organization_overview
       can :manage, ServiceSpecification, organization_id: organization_id
+      can :manage, Payment, organization_id: organization_id
+
       can(:read, CivilServant,
           services: {
             service_specification: {

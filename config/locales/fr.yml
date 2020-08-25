@@ -184,6 +184,7 @@ fr:
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
+        payments: "Paiements"
   cancel: Annuler
   civil_servants:
     civil_servants:
@@ -291,6 +292,15 @@ fr:
       update:
         erroneous_update: Le cahier des charges n'a pas pu être mise à jour
         successful_update: Mise à jour réussie du cahier des charges
+    payments:
+      index:
+        title: "Paiements"
+        table_headers:
+          payment: "Paiement"
+          date: "Date"
+          amount: "Montant"
+          status: "Statut"
+          actions: "Actions"
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:

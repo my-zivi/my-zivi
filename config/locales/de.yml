@@ -184,6 +184,7 @@ de:
         profile: Profil
         service_specifications: Pflichtenhefter
         sign_out: Abmelden
+        payments: "Auszahlungen"
   cancel: Abbrechen
   civil_servants:
     civil_servants:
@@ -292,6 +293,15 @@ de:
       update:
         erroneous_update: Pflichtenheft konnte nicht aktualisiert werden
         successful_update: Pflichtenheft erfolgreich aktualisiert
+    payments:
+      index:
+        title: "Auszahlungen"
+        table_headers:
+          payment: "Auszahlung"
+          date: "Datum"
+          amount: "Betrag"
+          status: "Status"
+          actions: "Aktionen"
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:
