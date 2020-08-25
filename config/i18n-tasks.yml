@@ -33,6 +33,7 @@ ignore_unused:
   - 'date.formats.*'
   - 'pdfs.expense_sheet.expense_table.row_headers.*'
   - 'civil_servants.services.service_short_info_row.service_confirmed.*'
+  - 'mailing_list_entry_notifier_mailer.notify.subject'
   - 'helpers.*'
 
 ## Exclude these keys from the `i18n-tasks eq-base' report:
