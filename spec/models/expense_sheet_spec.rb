@@ -8,7 +8,7 @@ RSpec.describe ExpenseSheet, type: :model do
 
     it 'defines relations correctly' do
       expect(model).to belong_to(:service)
-      expect(model).to belong_to(:payment).optional
+      expect(model).to belong_to(:payment).optional.counter_cache(true)
       expect(model).to have_one(:service_specification).through(:service)
     end
   end
