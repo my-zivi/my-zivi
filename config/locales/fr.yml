@@ -247,6 +247,9 @@ fr:
   mailing_list:
     erroneous_creation: Veuillez corriger les erreurs marquées suivantes
     successful_creation: Merci beaucoup pour votre intérêt. Nous vous contacterons bientôt
+  mailing_list_entry_notifier_mailer:
+    notify:
+      subject: Neuer Eintrag in die Mailing-Liste
   not_allowed: Votre ressource demandée n'est pas disponible
   organizations:
     civil_servants:

@@ -247,6 +247,9 @@ de:
   mailing_list:
     erroneous_creation: Bitte beheben Sie die folgend markierten Fehler
     successful_creation: Vielen Dank für Ihr Interesse. Wir werden Sie bald kontaktieren
+  mailing_list_entry_notifier_mailer:
+    notify:
+      subject: Neuer Eintrag in die Mailing-Liste
   my_zivi: MyZivi
   not_allowed: Deine angeforderte Ressource ist nicht verfügbar
   organizations:
