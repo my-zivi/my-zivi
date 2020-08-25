@@ -302,6 +302,11 @@ de:
           amount: "Betrag"
           status: "Status"
           actions: "Aktionen"
+      badges:
+        open:
+          title: "Pendent"
+        paid:
+          title: "Ausgezahlt"
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:

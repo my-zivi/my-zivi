@@ -45,10 +45,12 @@ ExpenseSheet.where('ending < ?', Time.zone.now)
             .group_by { |s| [s.beginning.month, s.service.organization.id] }
             .each do |(_month, organization_id), sheets|
   sheets.each(&:editable!)
+  sheets.each { |sheet| sheet.update(amount: 23) }
 
   Payment.create!(
     organization_id: organization_id,
     expense_sheets: sheets,
+    amount: sheets.sum(&:amount),
     paid_timestamp: (sheets.first.ending + 1.month).at_beginning_of_month
   )
 

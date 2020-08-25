@@ -301,6 +301,11 @@ fr:
           amount: "Montant"
           status: "Statut"
           actions: "Actions"
+      badges:
+        open:
+          title: "En attente"
+        paid:
+          title: "Déboursé"
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:
