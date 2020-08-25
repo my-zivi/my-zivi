@@ -2,7 +2,12 @@
 
 FactoryBot.define do
   factory :payment do
-    paid_timestamp { 1.day.ago }
+    paid_timestamp { nil }
     organization
+
+    trait :paid do
+      paid_timestamp { 1.day.ago }
+      state { :paid }
+    end
   end
 end
