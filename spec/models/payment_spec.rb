@@ -14,11 +14,13 @@ RSpec.describe Payment, type: :model do
   end
 
   describe 'validations' do
-    subject { described_class.new }
+    subject(:model) { described_class.new }
 
-    it { is_expected.to validate_numericality_of(:amount).is_greater_than(0) }
-    it { is_expected.to validate_presence_of(:amount) }
-    it { is_expected.not_to validate_presence_of(:paid_timestamp) }
+    it 'validates the model correctly' do
+      expect(model).to validate_numericality_of(:amount).is_greater_than(0)
+      expect(model).to validate_presence_of(:amount)
+      expect(model).not_to validate_presence_of(:paid_timestamp)
+    end
 
     context 'when payment is paid' do
       subject { build(:payment, :paid) }

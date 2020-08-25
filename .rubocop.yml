@@ -48,6 +48,8 @@ RSpec/ExampleLength:
 
 RSpec/AggregateExamples:
   Enabled: true
+  Exclude:
+    - 'spec/views/organizations/payments/index.html.slim_spec.rb'
 
 Rails/Output:
   Exclude:
