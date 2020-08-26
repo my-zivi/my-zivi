@@ -51,4 +51,66 @@ RSpec.describe Organizations::PaymentsController, type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe '#update' do
+    subject { response }
+
+    let(:organization) { create(:organization) }
+    let(:payment) { create(:payment, organization: organization) }
+    let(:perform_request) { patch organizations_payment_path(payment, params: { payment: payment_params }) }
+    let(:payment_params) { {} }
+
+    context 'when an organization administrator is signed in' do
+      let(:organization_administrator) { create(:organization_member, organization: organization) }
+
+      before { sign_in organization_administrator.user }
+
+      context 'with valid state update params' do
+        let(:payment_params) { { state: 'paid' } }
+
+        it 'updates the payment' do
+          expect { perform_request }.to(change { payment.reload.state }.and(change { payment.reload.paid_timestamp }))
+          expect(flash[:success]).to eq I18n.t('organizations.payments.update.successful_update')
+        end
+
+        context 'when accessing a foreign payment' do
+          let(:payment) { create(:payment) }
+
+          it_behaves_like 'unauthorized request' do
+            before { perform_request }
+          end
+
+          it 'does not touch the payment' do
+            expect { perform_request }.not_to(change(payment, :reload))
+          end
+        end
+      end
+
+      context 'with invalid state update params' do
+        let(:payment_params) { { state: 'open' } }
+        let(:payment) { create(:payment, :paid, organization: organization) }
+
+        it 'does not update' do
+          expect { perform_request }.not_to(change(payment, :reload))
+          expect(flash[:error]).to eq I18n.t('organizations.payments.update.erroneous_update')
+        end
+      end
+    end
+
+    context 'when a civil servant is signed in' do
+      let(:civil_servant) { create(:civil_servant, :full) }
+
+      before { sign_in civil_servant.user }
+
+      it_behaves_like 'unauthorized request' do
+        before { perform_request }
+      end
+    end
+
+    context 'when nobody is signed in' do
+      before { perform_request }
+
+      it_behaves_like 'unauthenticated request'
+    end
+  end
 end

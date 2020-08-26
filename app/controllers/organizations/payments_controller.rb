@@ -16,7 +16,7 @@ module Organizations
     end
 
     def update
-      process_paid_state_update if payment_params[:state] == 'paid'
+      process_paid_state_update
       # TODO: Handle also other updates, if needed?
 
       redirect_back fallback_location: organizations_payments_path
@@ -27,7 +27,7 @@ module Organizations
     private
 
     def process_paid_state_update
-      if !@payment.readonly? && @payment.paid_out!
+      if payment_params[:state] == 'paid' && !@payment.readonly? && @payment.paid_out!
         flash[:success] = I18n.t('organizations.payments.update.successful_update')
       else
         flash[:error] = I18n.t('organizations.payments.update.erroneous_update')
