@@ -135,6 +135,10 @@ fr:
           attributes:
             ending:
               on_or_after: La date de début ne peut être postérieure à la date de fin.
+        payment:
+          attributes:
+            state:
+              invalid_state_change: Changement de statut invalide
         service:
           attributes:
             bank_iban:
@@ -157,10 +161,6 @@ fr:
               unknown_country_code: code de pays inconnu
             base:
               cant_delete_himself: Vous ne pouvez pas vous effacer
-        payment:
-          attributes:
-            state:
-              invalid_state_change: "Changement de statut invalide"
     models:
       address: Adresse
       civil_servant: Personne effectuant des travaux d'intérêt général
@@ -300,6 +300,8 @@ fr:
           one: 1 note de frais
           other: "%{count} notes de frais"
         mark_as_paid: Marquer comme payé
+      show:
+        title: Paiement à partir de %{date}
       update:
         erroneous_update: Le paiement n'a pas pu être mis à jour
         successful_update: Le paiement a été mis à jour avec succès

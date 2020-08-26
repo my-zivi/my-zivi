@@ -135,6 +135,10 @@ de:
           attributes:
             ending:
               on_or_after: Das Startdatum kann nicht nach dem Enddatum sein.
+        payment:
+          attributes:
+            state:
+              invalid_state_change: Ungültiger Statuswechsel
         service:
           attributes:
             bank_iban:
@@ -157,10 +161,6 @@ de:
               unknown_country_code: unbekannter Landescode
             base:
               cant_delete_himself: Du kannst dich nicht selbst löschen
-        payment:
-          attributes:
-            state:
-              invalid_state_change: "Ungültiger Statuswechsel"
     models:
       address: Adresse
       civil_servant: Zivildienstleistende Person
@@ -301,6 +301,8 @@ de:
           one: Ein Spesenblatt
           other: "%{count} Spesenblätter"
         mark_as_paid: Als ausgezahlt markieren
+      show:
+        title: Auszahlung vom %{date}
       update:
         erroneous_update: Die Auszahlung konnte nicht aktualisiert werden
         successful_update: Auszahlung wurde erfolgreich aktualisiert

@@ -23,6 +23,7 @@ RSpec.describe Organizations::PaymentsController, type: :request do
       it 'returns http success' do
         perform_request
         expect(response).to have_http_status(:success)
+        expect(response).to render_template 'organizations/payments/index'
         expect(response.body).to include I18n.l(payments.first.created_at.to_date)
         expect(response.body).not_to include I18n.l(outside_payment.created_at.to_date)
       end
@@ -46,9 +47,48 @@ RSpec.describe Organizations::PaymentsController, type: :request do
   end
 
   describe '#show' do
-    it 'returns http success' do
-      get '/organizations/payments/show'
-      expect(response).to have_http_status(:success)
+    subject { response }
+
+    let(:organization) { create(:organization) }
+    let(:payment) { create(:payment, organization: organization, created_at: '2020-01-01') }
+    let(:perform_request) { get organizations_payment_path(payment) }
+
+    context 'when an organization administrator is signed in' do
+      let(:organization_administrator) { create(:organization_member, organization: organization) }
+
+      before { sign_in organization_administrator.user }
+
+      it 'returns a detail view of the payment' do
+        perform_request
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template 'organizations/payments/show'
+        expect(response.body).to include I18n.t('organizations.payments.show.title', date: '01.01.2020')
+      end
+
+      context 'when trying to access a payment from a different organization' do
+        let(:payment) { create(:payment) }
+
+        before { perform_request }
+
+        it_behaves_like 'unauthorized request'
+      end
+    end
+
+    context 'when a civil servant is signed in' do
+      let(:civil_servant) { create(:civil_servant, :full) }
+
+      before do
+        sign_in civil_servant.user
+        perform_request
+      end
+
+      it_behaves_like 'unauthorized request'
+    end
+
+    context 'when nobody is signed in' do
+      before { perform_request }
+
+      it_behaves_like 'unauthenticated request'
     end
   end
 
@@ -70,6 +110,7 @@ RSpec.describe Organizations::PaymentsController, type: :request do
 
         it 'updates the payment' do
           expect { perform_request }.to(change { payment.reload.state }.and(change { payment.reload.paid_timestamp }))
+          expect(response).to have_http_status(:found)
           expect(flash[:success]).to eq I18n.t('organizations.payments.update.successful_update')
         end
 

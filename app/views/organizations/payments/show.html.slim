@@ -3,5 +3,5 @@
   .card-body
     .row
       .col-lg-8
-        h3.mt-0 Auszahlung vom 20.08.2020
+        h3.mt-0 = t('.title', date: l(@payment.created_at.to_date))
         h4.mb-0.text-muted = number_to_currency(@payment.amount, locale: 'de-CH')
