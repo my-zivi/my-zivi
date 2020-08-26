@@ -294,7 +294,7 @@ fr:
           payment: Paiement
           status: Statut
         title: Paiements
-      pain_file_name: ''
+      pain_file_name: 'paiement-%{date}.xml'
       payment_row:
         delete: Supprimer
         details: ''
