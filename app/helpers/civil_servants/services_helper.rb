@@ -8,7 +8,7 @@ module CivilServants
           [
             (tag.i(class: 'fas fa-check mr-1') if service.confirmation_date.present?),
             t(service.confirmation_date.present?,
-              scope: %i[civil_servants services service_short_info_row service_confirmed])
+              scope: %i[base services short_info_cell service_confirmed])
           ]
         )
       end
@@ -28,6 +28,17 @@ module CivilServants
         Organization,
         name: org.name,
         address: simple_format(org_address.full_compose)
+      )
+    end
+
+    def civil_servant_information_table(service)
+      civi_address = service.civil_servant.address
+      spec = service.service_specification
+
+      TabularCardComponent.humanize_table_values(
+        Service,
+        'civil_servant.address': simple_format(civi_address.full_compose),
+        'service_specification': spec.name
       )
     end
 

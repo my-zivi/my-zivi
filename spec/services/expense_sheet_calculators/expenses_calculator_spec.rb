@@ -159,6 +159,7 @@ RSpec.describe ExpenseSheetCalculators::ExpensesCalculator, type: :service do
         beginning: Date.parse('2018-08-01'),
         ending: Date.parse('2018-08-03'),
         work_days: 3,
+        workfree_days: 0,
         service: service
       }
     end

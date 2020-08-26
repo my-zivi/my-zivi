@@ -7,4 +7,7 @@
         label.custom-control-label for="hide-past-services"
       h5.fs-0.mr-1 = t('.show_past_services')
   .card-body.fs--1
-    .row = render partial: 'civil_servants/services/service_short_info_row', collection: @services, as: :service
+    .row = render partial: 'base/services/short_info_cell',
+            collection: @services,
+            as: :service,
+            locals: { url_generator: ->(service) { civil_servants_service_path(id: service.id) } }
