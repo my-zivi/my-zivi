@@ -283,6 +283,9 @@ fr:
           title: En attente
         paid:
           title: Déboursé
+      destroy:
+        erroneous_destroy: Le paiement n'a pas pu être supprimé
+        successful_destroy: Le paiement a été supprimé avec succès
       index:
         table_headers:
           actions: Actions

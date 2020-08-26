@@ -23,6 +23,9 @@ tr.btn-reveal-trigger.odd role="row"
               i.fas.fa-check.mr-1
               = t('.mark_as_paid')
             .dropdown-divider
-            = link_to organizations_payment_path(payment), class: 'dropdown-item text-danger', method: :delete do
+            = link_to organizations_payment_path(payment),
+                    class: 'dropdown-item text-danger',
+                    method: :delete,
+                    data: { confirm: 'Really?' } do
               i.fas.fa-trash-alt.mr-1
               = t('.delete')

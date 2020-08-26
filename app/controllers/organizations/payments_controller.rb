@@ -22,7 +22,15 @@ module Organizations
       redirect_back fallback_location: organizations_payments_path
     end
 
-    def destroy; end
+    def destroy
+      if @payment.destroy
+        flash[:success] = t('.successful_destroy')
+      else
+        flash[:error] = t('.erroneous_destroy')
+      end
+
+      redirect_back fallback_location: organizations_payments_path
+    end
 
     private
 

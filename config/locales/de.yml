@@ -284,6 +284,9 @@ de:
           title: Pendent
         paid:
           title: Ausgezahlt
+      destroy:
+        erroneous_destroy: Auszahlung konnte nicht gelöscht werden
+        successful_destroy: Auszahlung wurde erfolgreich gelöscht
       index:
         table_headers:
           actions: Aktionen

@@ -4,7 +4,7 @@ class Payment < ApplicationRecord
   OPEN_STATE = :open
 
   belongs_to :organization
-  has_many :expense_sheets, dependent: :restrict_with_exception, autosave: true
+  has_many :expense_sheets, dependent: :nullify
 
   enum state: {
     OPEN_STATE => 0,
@@ -14,6 +14,8 @@ class Payment < ApplicationRecord
   validates :amount, numericality: { greater_than: 0 }, presence: true
   validates :paid_timestamp, timeliness: { type: :date }, presence: true, if: :paid?
   validate :sate_change_validity
+
+  before_destroy :prevent_destroy, if: :paid?
 
   def readonly?
     return false if state_changed? && state_was == OPEN_STATE.to_s
@@ -32,5 +34,9 @@ class Payment < ApplicationRecord
 
   def sate_change_validity
     errors.add(:state, :invalid_state_change) if state_changed? && open? && state_was == 'paid'
+  end
+
+  def prevent_destroy
+    throw :abort
   end
 end
