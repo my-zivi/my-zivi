@@ -1,4 +1,8 @@
 = simple_form_for [:organizations, expense_sheet], wrapper: :input_group do |f|
+  - if expense_sheet.errors[:base].present?
+    .alert.alert-warning.d-flex.align-items-center
+      i.fas.fa-exclamation-triangle.mr-2
+      = f.error :base if expense_sheet.errors[:base].present?
   h5.mb-3 Allgemeine Info
   .row
     .col-12.col-lg-6
