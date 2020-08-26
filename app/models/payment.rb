@@ -4,7 +4,7 @@ class Payment < ApplicationRecord
   OPEN_STATE = :open
 
   belongs_to :organization
-  has_many :expense_sheets, dependent: :restrict_with_exception
+  has_many :expense_sheets, dependent: :restrict_with_exception, autosave: true
 
   enum state: {
     OPEN_STATE => 0,
@@ -19,6 +19,13 @@ class Payment < ApplicationRecord
     return false if state_changed? && state_was == OPEN_STATE.to_s
 
     paid?
+  end
+
+  def paid_out!
+    transaction do
+      expense_sheets.each { |sheet| sheet.update!(state: :closed) }
+      update(state: :paid, paid_timestamp: Time.zone.now)
+    end
   end
 
   private

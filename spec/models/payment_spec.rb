@@ -45,4 +45,34 @@ RSpec.describe Payment, type: :model do
       end
     end
   end
+
+  describe '#paid_out!' do
+    let(:service) { create :service }
+    let(:expense_sheets) { create_pair(:expense_sheet, service: service) }
+    let(:payment) { create(:payment, expense_sheets: expense_sheets) }
+
+    it 'updates the expense sheets state to closed when updating payment state' do
+      expect { payment.paid_out! }.to(
+        change { payment.expense_sheets.reload.map(&:state).uniq }.from(%w[editable]).to(%w[closed])
+          .and(change { payment.reload.state }.from('open'))
+          .and(change { payment.reload.paid_timestamp }.from(nil))
+      )
+    end
+
+    context 'when an expense sheet is invalid' do
+      before do
+        # noinspection RubyNilAnalysis
+        expense_sheets.first.update_column(:state, ExpenseSheet.states[:locked])
+      end
+
+      it 'does not change the expense sheets or payment' do
+        expect do
+          expect { payment.paid_out! }.to raise_error(ActiveRecord::RecordInvalid)
+        end.not_to(change { payment.expense_sheets.reload.map(&:state).uniq })
+
+        expect(payment.open?).to eq true
+        expect(payment.paid_timestamp).to be_nil
+      end
+    end
+  end
 end

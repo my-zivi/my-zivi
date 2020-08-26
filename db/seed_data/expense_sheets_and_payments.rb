@@ -53,8 +53,6 @@ ExpenseSheet.where('ending < ?', Time.zone.now)
     amount: sheets.sum(&:amount),
     paid_timestamp: (sheets.first.ending + 1.month).at_beginning_of_month
   )
-
-  sheets.map(&:reload).each(&:closed!)
 end
 
 puts '> Payments seeded'

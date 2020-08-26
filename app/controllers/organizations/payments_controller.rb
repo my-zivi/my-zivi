@@ -16,11 +16,8 @@ module Organizations
     end
 
     def update
-      if !@payment.readonly? && @payment.update(payment_params)
-        flash[:success] = I18n.t('organizations.payments.update.successful_update')
-      else
-        flash[:error] = I18n.t('organizations.payments.update.erroneous_update')
-      end
+      process_paid_state_update if payment_params[:state] == 'paid'
+      # TODO: Handle also other updates, if needed?
 
       redirect_back fallback_location: organizations_payments_path
     end
@@ -28,6 +25,14 @@ module Organizations
     def destroy; end
 
     private
+
+    def process_paid_state_update
+      if !@payment.readonly? && @payment.paid_out!
+        flash[:success] = I18n.t('organizations.payments.update.successful_update')
+      else
+        flash[:error] = I18n.t('organizations.payments.update.erroneous_update')
+      end
+    end
 
     def respond_to_xml
       send_data(
