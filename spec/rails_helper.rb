@@ -63,6 +63,14 @@ RSpec.configure do |config|
       end
     end
   end
+
+  config.around(:each, :without_bullet) do |spec|
+    previous_value = Bullet.enable?
+    Bullet.enable = false
+    spec.run
+  ensure
+    Bullet.enable = previous_value
+  end
 end
 
 Shoulda::Matchers.configure do |config|

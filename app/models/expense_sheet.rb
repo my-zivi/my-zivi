@@ -8,6 +8,7 @@ class ExpenseSheet < ApplicationRecord
   belongs_to :payment, optional: true
 
   has_one :service_specification, through: :service
+  has_one :civil_servant, through: :service
 
   validates :beginning, :ending, :work_days, :state, :service, presence: true
 

@@ -13,41 +13,55 @@
   <div class="col-12 col-lg-6">
     <%=
       render(
-          TabularCardComponent.new(
-              title: t('civil_servants.civil_servants.edit.cards.personal_information.title'),
-              table_content: personal_information_table_without_name(@civil_servant)
-          )
+        TabularCardComponent.new(
+          title: t('civil_servants.civil_servants.edit.cards.personal_information.title'),
+          table_content: personal_information_table_without_name(@civil_servant)
+        )
       )
     %>
   </div>
   <div class="col-12 col-lg-6">
     <%=
       render(
-          TabularCardComponent.new(
-              title: t('civil_servants.civil_servants.edit.cards.address_information.title'),
-              table_content: address_information_table(@civil_servant)
-          )
+        TabularCardComponent.new(
+          title: t('civil_servants.civil_servants.edit.cards.address_information.title'),
+          table_content: address_information_table(@civil_servant)
+        )
       )
     %>
   </div>
   <div class="col-12 col-lg-6">
     <%=
       render(
-          TabularCardComponent.new(
-              title: t('civil_servants.civil_servants.edit.cards.bank_and_insurance_information.title'),
-              table_content: bank_and_insurance_information_table(@civil_servant)
-          )
+        TabularCardComponent.new(
+          title: t('civil_servants.civil_servants.edit.cards.bank_and_insurance_information.title'),
+          table_content: bank_and_insurance_information_table(@civil_servant)
+        )
       )
     %>
   </div>
   <div class="col-12 col-lg-6">
     <%=
       render(
-          TabularCardComponent.new(
-              title: t('civil_servants.civil_servants.edit.cards.service_specific_information.title'),
-              table_content: service_specific_information_table(@civil_servant)
-          )
+        TabularCardComponent.new(
+          title: t('civil_servants.civil_servants.edit.cards.service_specific_information.title'),
+          table_content: service_specific_information_table(@civil_servant)
+        )
       )
     %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 col-lg-12">
+    <div class="card mb-3 mb-lg-0">
+      <div class="card-header bg-light d-flex justify-content-between">
+        <h5 class="mb-0"><%= t('.services') %></h5>
+      </div>
+      <div class="card-body fs--1">
+        <div class="row">
+          <%= render partial: 'organizations/civil_servants/service_short_info_row', collection: @services, as: :service %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

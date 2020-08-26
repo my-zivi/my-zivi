@@ -31,6 +31,17 @@ module CivilServants
       )
     end
 
+    def civil_servant_information_table(service)
+      civi_address = service.civil_servant.address
+      spec = service.service_specification
+
+      TabularCardComponent.humanize_table_values(
+        Service,
+        'civil_servant.address': simple_format(civi_address.full_compose),
+        'service_specification': spec.name
+      )
+    end
+
     def schedule_information_table(service)
       TabularCardComponent.humanize_table_values(
         Service,

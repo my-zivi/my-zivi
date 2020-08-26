@@ -1,0 +1,13 @@
+.col-md-6.h-100[class=service_row_class(service)]
+  .media.btn-reveal-trigger
+    .calendar
+      span.calendar-month = l(service.beginning, format: '%b')
+      span.calendar-day = l(service.beginning, format: '%d')
+    .media-body.position-relative.pl-3
+      h6.fs-0.mb-0
+        a href="#{organizations_civil_servant_service_path(civil_servant_id: service.civil_servant_id ,id: service.id)}"
+          = t('civil_servants.services.service_short_info_row.service_with', org_name: service.organization.name)
+      p.mb-0 = service.service_specification.name
+      p.mb-1 = service.service_specification.location
+      p.mb-2 = t('civil_servants.services.service_short_info_row.service_duration', beginning_date: l(service.beginning), ending_date: l(service.ending))
+      = service_confirmation_text(service)

@@ -11,11 +11,13 @@ fr:
         zip: Code postal
         zip_with_city: Code postal / Ville
       civil_servant:
+        address: Adresse
         birthday: Anniversaire
         city: Ville
         driving_licenses: Permis de conduire
         email: Courriel
         first_name: Prénom
+        full_name: Nom
         health_insurance: Assurance maladie
         hometown: Ville d'origine
         iban: Coordonnées bancaires
@@ -37,6 +39,7 @@ fr:
         company_holiday_comment: Vacances d'entreprise Commentaire
         driving_expenses: Frais de voyage
         driving_expenses_comment: Commentaire sur les frais de conduite
+        duration: Nombre de jours
         ending: Fin
         extraordinary_expenses: Dépenses extraordinaires
         extraordinary_expenses_comment: Dépenses extraordinaires - Commentaire
@@ -86,6 +89,7 @@ fr:
         long_service: Longue durée de vie
         probation_service: Demande de procès
         service_days: Durée de vie
+        service_specification: Spécifications
         service_type: Type d'insertion
       service_specification:
         accommodation_expenses: Frais d'hébergement
@@ -174,12 +178,13 @@ fr:
       navbar:
         home: Accueil
         profile: Profil
-        services: Missions
+        services: Services
         sign_out: Déconnexion
     organizations:
       navbar:
         civil_servants: Civilistes
         dashboard: Dashboard
+        expense_sheets: Fiches de frais
         organization_members: Employés
         profile: Profil
         service_specifications: cahiers des charges
@@ -213,8 +218,6 @@ fr:
           no_current_service: Pas de service actuel
           service_until: Service jusqu'à
     services:
-      expense_sheet_short_info_row:
-        print: Imprimer
       index:
         services: Mes services
         show_past_services: Afficher les services passés
@@ -256,6 +259,22 @@ fr:
       index:
         show_inactive_civil_servants: Afficher les travailleurs des services d'intérêt général inactifs
         title: Civilistes
+      show:
+        services: Services
+    expense_sheets:
+      edit:
+        subtitle: Pour le service %{spec_name} de %{beginning} à %{ending}
+        title: Note de frais de %{name}
+      form:
+        leftover_days: 'Les jours restants: %{left_value}'
+        paid_vacation_in_service: Droit aux vacances pour le service
+        suggestion: 'Suggestion: %{suggested_value}'
+      index:
+        duration: Nombre de jours
+        show_all_expense_sheets: Afficher toutes les notes de frais
+      update:
+        erroneous_update: La note de frais n'a pas pu être mis à jour
+        successful_update: La note de frais mis à jour avec succès
     organization_members:
       destroy:
         erroneous_delete: L'employé n'a pas pu être supprimé
@@ -291,6 +310,9 @@ fr:
       update:
         erroneous_update: Le cahier des charges n'a pas pu être mise à jour
         successful_update: Mise à jour réussie du cahier des charges
+    services:
+      show:
+        expense_sheets: Fiches de frais
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:
@@ -326,6 +348,7 @@ fr:
     phone_list:
       header: Généré sur %{date}
       title: Liste téléphonique de %{beginning} à %{ending}
+  print: Imprimer
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
     invalid_required_service_days: Jours du service non valables

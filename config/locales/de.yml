@@ -11,11 +11,13 @@ de:
         zip: Postleitzahl
         zip_with_city: PLZ / Ort
       civil_servant:
+        address: Adresse
         birthday: Geburtstag
         city: Stadt
         driving_licenses: Führerscheine
         email: E-Mail
         first_name: Vorname
+        full_name: Name
         health_insurance: Krankenkasse
         hometown: Heimatstadt
         iban: Bankverbindung
@@ -37,6 +39,7 @@ de:
         company_holiday_comment: Betriebsferien Kommentar
         driving_expenses: Fahrspesen
         driving_expenses_comment: Fahrspesenkommentar
+        duration: Anzahl Tage
         ending: Ende
         extraordinary_expenses: Ausserordentliche Spesen
         extraordinary_expenses_comment: Ausserordentliche Spesen - Kommentar
@@ -86,6 +89,7 @@ de:
         long_service: Langer Einsatz
         probation_service: Probeeinsatz
         service_days: Einsatzdauer
+        service_specification: Pflichtenheft
         service_type: Einsatztyp
       service_specification:
         accommodation_expenses: Unterkunftsspesen
@@ -180,6 +184,7 @@ de:
       navbar:
         civil_servants: Zivildienstleistende
         dashboard: Dashboard
+        expense_sheets: Spesenblätter
         organization_members: Mitarbeiter
         profile: Profil
         service_specifications: Pflichtenhefter
@@ -213,8 +218,6 @@ de:
           no_current_service: Kein momentaner Einsatz
           service_until: Einsatz bis
     services:
-      expense_sheet_short_info_row:
-        print: Drucken
       index:
         services: Meine Einsätze
         show_past_services: Vergangene Einsätze anzeigen
@@ -257,6 +260,22 @@ de:
       index:
         show_inactive_civil_servants: Inaktive Zivildienstleistende anzeigen
         title: Zivildienstleistende
+      show:
+        services: Einsätze
+    expense_sheets:
+      edit:
+        subtitle: Für den Einsatz %{spec_name} vom %{beginning} bis %{ending}
+        title: Spesenblatt von %{name}
+      form:
+        leftover_days: 'Übrige Tage: %{left_value}'
+        paid_vacation_in_service: Ferienanspruch für Einsatz
+        suggestion: 'Vorschlag: %{suggested_value}'
+      index:
+        duration: Anzahl Tage
+        show_all_expense_sheets: Alle Spesenblätter anzeigen
+      update:
+        erroneous_update: Spesenblatt konnte nicht aktualisiert werden
+        successful_update: Spesenblatt erfolgreich aktualisiert
     organization_members:
       destroy:
         erroneous_delete: Mitarbeiter konnte nicht gelöscht werden
@@ -292,6 +311,9 @@ de:
       update:
         erroneous_update: Pflichtenheft konnte nicht aktualisiert werden
         successful_update: Pflichtenheft erfolgreich aktualisiert
+    services:
+      show:
+        expense_sheets: Spesenblätter
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:
@@ -327,6 +349,7 @@ de:
     phone_list:
       header: Stand vom %{date}
       title: Telefonliste vom %{beginning} bis %{ending}
+  print: Drucken
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage

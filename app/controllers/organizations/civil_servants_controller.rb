@@ -4,12 +4,20 @@ module Organizations
   class CivilServantsController < BaseController
     load_and_authorize_resource
 
+    include UsersHelper
+
     def index
       load_filters
       @civil_servants = filtered_civil_servants
     end
 
-    def show; end
+    def show
+      load_filters
+      @services = Service
+                  .includes(:service_specification)
+                  .accessible_by(current_ability)
+                  .where(civil_servant_id: @civil_servant.id)
+    end
 
     private
 
