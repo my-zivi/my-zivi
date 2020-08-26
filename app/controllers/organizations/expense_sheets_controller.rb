@@ -23,23 +23,26 @@ module Organizations
     end
 
     def edit
-      @service = @expense_sheet.service
-
-      @calculators = {
-        remaining_days: ExpenseSheetCalculators::RemainingDaysCalculator.new(@service)
-      }
+      set_calculators
     end
 
     def update
       if @expense_sheet.update(expense_sheets_params)
         redirect_to edit_organizations_expense_sheet_path, notice: t('.successful_update')
       else
+        set_calculators
         flash[:error] = t('.erroneous_update')
         render :edit
       end
     end
 
     private
+
+    def set_calculators
+      @calculators = {
+        remaining_days: ExpenseSheetCalculators::RemainingDaysCalculator.new(@expense_sheet.service)
+      }
+    end
 
     def expense_sheets_params
       params.require(:expense_sheet).permit(*PERMITTED_PARAMS)

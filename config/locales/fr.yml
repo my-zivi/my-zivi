@@ -135,6 +135,7 @@ fr:
             state:
               invalid_state_change: Changement de statut non valable
           outside_service_date_range: La feuille de frais ne peut pas se trouver en dehors de l'encart.
+          sum_of_days_greater_than_duration: La somme des jours ne peut pas être supérieure au nombre de jours de la note de frais.
         organization_holiday:
           attributes:
             ending:

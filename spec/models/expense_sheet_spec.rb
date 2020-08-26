@@ -46,7 +46,7 @@ RSpec.describe ExpenseSheet, type: :model do
 
     it 'validates the correctness of numerical fields correctly' do
       only_integer_fields.each do |field|
-        expect(expense_sheet).to validate_numericality_of(field).only_integer
+        expect(expense_sheet).to validate_numericality_of(field).only_integer.is_greater_than_or_equal_to(0)
       end
     end
 
@@ -78,6 +78,38 @@ RSpec.describe ExpenseSheet, type: :model do
         it 'added error' do
           expect(expense_sheet.errors[:base]).to(
             include I18n.t('activerecord.errors.models.expense_sheet.outside_service_date_range')
+          )
+        end
+      end
+    end
+
+    describe '#sum_of_days_not_greater_than_duration' do
+      let(:expense_sheet) { build(:expense_sheet, work_days: work_days, sick_days: sick_days) }
+      let(:sick_days) { 0 }
+
+      context 'when expense sheet sum of days is smaller than expense sheet duration' do
+        let(:work_days) { 23 }
+
+        it 'is valid' do
+          expect(expense_sheet.tap(&:validate).errors[:base]).to be_empty
+        end
+      end
+    #
+      context 'when expense sheet sum of days is equal to the expense sheet duration' do
+        let(:work_days) { 24 }
+
+        it 'is valid' do
+          expect(expense_sheet.tap(&:validate).errors[:base]).to be_empty
+        end
+      end
+
+      context 'when expense sheet sum of days is greater than the expense sheet duration' do
+        let(:work_days) { 26 }
+        let(:sick_days) { 3 }
+
+        it 'added error' do
+          expect(expense_sheet.tap(&:validate).errors[:base]).to(
+            include I18n.t('activerecord.errors.models.expense_sheet.sum_of_days_greater_than_duration')
           )
         end
       end
@@ -186,7 +218,7 @@ RSpec.describe ExpenseSheet, type: :model do
     subject { expense_sheet.total_paid_vacation_days }
 
     let(:expense_sheet) do
-      create(:expense_sheet,
+      build(:expense_sheet,
              :with_service,
              paid_vacation_days: 2,
              paid_company_holiday_days: 1,

@@ -135,6 +135,7 @@ de:
             state:
               invalid_state_change: ungültiger Statuswechsel
           outside_service_date_range: Das Spesenblatt kann nicht auserhalb des Einsatzes liegen.
+          sum_of_days_greater_than_duration: Die Summe der Tage kann nicht grösser der Anzahl Tage des Spesenblattes sein.
         organization_holiday:
           attributes:
             ending:
