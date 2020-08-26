@@ -94,7 +94,7 @@ RSpec.describe ExpenseSheet, type: :model do
           expect(expense_sheet.tap(&:validate).errors[:base]).to be_empty
         end
       end
-    #
+
       context 'when expense sheet sum of days is equal to the expense sheet duration' do
         let(:work_days) { 24 }
 
@@ -219,10 +219,10 @@ RSpec.describe ExpenseSheet, type: :model do
 
     let(:expense_sheet) do
       build(:expense_sheet,
-             :with_service,
-             paid_vacation_days: 2,
-             paid_company_holiday_days: 1,
-             unpaid_company_holiday_days: 3)
+            :with_service,
+            paid_vacation_days: 2,
+            paid_company_holiday_days: 1,
+            unpaid_company_holiday_days: 3)
     end
 
     it { is_expected.to eq 3 }

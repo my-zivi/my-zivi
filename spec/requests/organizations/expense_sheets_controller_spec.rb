@@ -19,17 +19,17 @@ RSpec.describe Organizations::ExpenseSheetsController, type: :request do
 
     before do
       create(:expense_sheet, :locked, service: brigitte_service,
-             beginning: brigitte_service.beginning,
-             ending: brigitte_service.ending)
+                                      beginning: brigitte_service.beginning,
+                                      ending: brigitte_service.ending)
       create(:expense_sheet, service: peter_service,
-             beginning: peter_service.beginning,
-             ending: peter_service.ending)
+                             beginning: peter_service.beginning,
+                             ending: peter_service.ending)
       create(:expense_sheet, :closed, service: maria_service,
-             beginning: maria_service.beginning,
-             ending: maria_service.ending)
+                                      beginning: maria_service.beginning,
+                                      ending: maria_service.ending)
       create(:expense_sheet, service: paul_service,
-             beginning: paul_service.beginning,
-             ending: paul_service.ending)
+                             beginning: paul_service.beginning,
+                             ending: paul_service.ending)
     end
 
     context 'when a organization administrator is signed in' do
@@ -45,7 +45,7 @@ RSpec.describe Organizations::ExpenseSheetsController, type: :request do
       end
 
       context 'when inactive services are turned on' do
-        let(:perform_request) { get organizations_expense_sheets_path(filters: {show_all: 'true'}) }
+        let(:perform_request) { get organizations_expense_sheets_path(filters: { show_all: 'true' }) }
 
         it 'fetches a list of all expense sheets in the organization' do
           perform_request
@@ -86,18 +86,18 @@ RSpec.describe Organizations::ExpenseSheetsController, type: :request do
 
     let(:brigitte_expense_sheet) do
       create(:expense_sheet, :locked, service: brigitte_service,
-             beginning: brigitte_service.beginning,
-             ending: brigitte_service.ending)
+                                      beginning: brigitte_service.beginning,
+                                      ending: brigitte_service.ending)
     end
     let(:maria_expense_sheet) do
       create(:expense_sheet, :closed, service: maria_service,
-             beginning: maria_service.beginning,
-             ending: maria_service.ending)
+                                      beginning: maria_service.beginning,
+                                      ending: maria_service.ending)
     end
     let(:paul_expense_sheet) do
       create(:expense_sheet, service: paul_service,
-             beginning: paul_service.beginning,
-             ending: paul_service.ending)
+                             beginning: paul_service.beginning,
+                             ending: paul_service.ending)
     end
 
     context 'when a organization administrator is signed in' do
@@ -142,7 +142,7 @@ RSpec.describe Organizations::ExpenseSheetsController, type: :request do
 
   describe '#update' do
     let(:perform_request) do
-      patch organizations_expense_sheet_path(paul_expense_sheet, params: {expense_sheet: update_params})
+      patch organizations_expense_sheet_path(paul_expense_sheet, params: { expense_sheet: update_params })
     end
     let(:organization) { create :organization }
 
@@ -150,8 +150,8 @@ RSpec.describe Organizations::ExpenseSheetsController, type: :request do
     let(:paul_service) { paul.services.first }
     let(:paul_expense_sheet) do
       create(:expense_sheet, service: paul_service,
-             beginning: paul_service.beginning,
-             ending: paul_service.ending)
+                             beginning: paul_service.beginning,
+                             ending: paul_service.ending)
     end
 
     let(:update_params) { { driving_expenses: 9350 } }
@@ -164,7 +164,8 @@ RSpec.describe Organizations::ExpenseSheetsController, type: :request do
       context 'when the expense sheet is editable' do
         context 'when the update params are valid' do
           it 'successfully updates' do
-            expect { perform_request }.to(change { paul_expense_sheet.reload.slice(update_params.keys) }.to(update_params))
+            expect { perform_request }
+              .to(change { paul_expense_sheet.reload.slice(update_params.keys) }.to(update_params))
             expect(response).to redirect_to(edit_organizations_expense_sheet_path(paul_expense_sheet))
           end
         end

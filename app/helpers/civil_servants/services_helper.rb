@@ -8,7 +8,7 @@ module CivilServants
           [
             (tag.i(class: 'fas fa-check mr-1') if service.confirmation_date.present?),
             t(service.confirmation_date.present?,
-              scope: %i[civil_servants services service_short_info_row service_confirmed])
+              scope: %i[base services service_short_info_row service_confirmed])
           ]
         )
       end

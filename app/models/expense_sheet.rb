@@ -99,9 +99,13 @@ class ExpenseSheet < ApplicationRecord
   end
 
   def sum_of_days_not_greater_than_duration
-    return if beginning.nil? || ending.nil?
+    return if beginning.nil? || ending.nil? || summed_days <= duration
 
-    sum_of_days = [
+    errors.add(:base, I18n.t('activerecord.errors.models.expense_sheet.sum_of_days_greater_than_duration'))
+  end
+
+  def summed_days
+    [
       work_days,
       workfree_days,
       sick_days,
@@ -110,10 +114,6 @@ class ExpenseSheet < ApplicationRecord
       unpaid_company_holiday_days,
       paid_company_holiday_days
     ].compact.sum
-
-    return if sum_of_days <= duration
-
-    errors.add(:base, I18n.t('activerecord.errors.models.expense_sheet.sum_of_days_greater_than_duration'))
   end
 
   def legitimate_destroy

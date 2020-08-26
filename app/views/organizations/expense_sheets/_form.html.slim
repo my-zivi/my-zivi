@@ -3,7 +3,7 @@
     .alert.alert-warning.d-flex.align-items-center
       i.fas.fa-exclamation-triangle.mr-2
       = f.error :base if expense_sheet.errors[:base].present?
-  h5.mb-3 Allgemeine Info
+  h5.mb-3 = t('.general_info')
   .row
     .col-12.col-lg-6
       .form-group.disabled
@@ -21,56 +21,56 @@
       .form-group.disabled
         label[for='duration'] = t('activerecord.attributes.expense_sheet.duration')
         input#duration.form-control.disabled[disabled value=expense_sheet.duration]
-  h5.mb-3 Tage
+  h5.mb-3 = t('.days')
   .row
     .col-12.col-lg-6
       = f.input :work_days,
-              label: t('activerecord.attributes.expense_sheet.work_days', count: 2),
+              label: t('activerecord.attributes.expense_sheet.work_days.other'),
               append: t('.suggestion', suggested_value: expense_sheet.calculate_chargeable_days),
               disabled: !expense_sheet.editable?
     .col-12.col-lg-6
       = f.input :workfree_days,
-              label: t('activerecord.attributes.expense_sheet.workfree_days', count: 2),
+              label: t('activerecord.attributes.expense_sheet.workfree_days.other'),
               append: t('.suggestion',
                       suggested_value: expense_sheet.duration - expense_sheet.calculate_chargeable_days),
               disabled: !expense_sheet.editable?
     .col-12.col-lg-6
       = f.input :sick_days,
-              label: t('activerecord.attributes.expense_sheet.sick_days', count: 2),
+              label: t('activerecord.attributes.expense_sheet.sick_days.other'),
               append: t('.leftover_days', left_value: calculators[:remaining_days].remaining_sick_days),
               disabled: !expense_sheet.editable?
-  h5.mb-3 Betriebsferien
+  h5.mb-3 = t('.company_holidays')
   .row
     .col-12.col-lg-6
       = f.input :unpaid_company_holiday_days,
-              label: t('activerecord.attributes.expense_sheet.paid_company_holiday_days', count: 2),
+              label: t('activerecord.attributes.expense_sheet.unpaid_company_holiday_days'),
               append: t('.suggestion', suggested_value: expense_sheet.calculate_chargeable_days),
               disabled: !expense_sheet.editable?
     .col-12.col-lg-6
       = f.input :paid_company_holiday_days,
-              label: t('activerecord.attributes.expense_sheet.paid_company_holiday_days', count: 2),
+              label: t('activerecord.attributes.expense_sheet.paid_company_holiday_days.other'),
               append: t('.suggestion',
                       suggested_value: expense_sheet.duration - expense_sheet.calculate_chargeable_days),
               disabled: !expense_sheet.editable?
-  h5.mb-3 Bezahlte Ferien
+  h5.mb-3 = t('.paid_vacation')
   .row
     .col-12.col-lg-6
       = f.input :paid_vacation_days,
-              label: t('activerecord.attributes.expense_sheet.paid_vacation_days', count: 2),
+              label: t('activerecord.attributes.expense_sheet.paid_vacation_days.other'),
               disabled: !expense_sheet.editable?
     .col-12.col-lg-6
       = f.input :paid_vacation_comment,
               disabled: !expense_sheet.editable?
-  h5.mb-3 Urlaub (Unbezahlte Ferien)
+  h5.mb-3 = t('.unpaid_vacation')
   .row
     .col-12.col-lg-6
       = f.input :unpaid_vacation_days,
-              label: t('activerecord.attributes.expense_sheet.unpaid_vacation_days', count: 2),
+              label: t('activerecord.attributes.expense_sheet.unpaid_vacation_days.other'),
               disabled: !expense_sheet.editable?
     .col-12.col-lg-6
       = f.input :unpaid_vacation_comment,
               disabled: !expense_sheet.editable?
-  h5.mb-3 Spesen
+  h5.mb-3 = t('.expenses')
   .row
     .col-12.col-lg-6
       = f.input :clothing_expenses,

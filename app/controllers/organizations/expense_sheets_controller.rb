@@ -53,7 +53,7 @@ module Organizations
 
       return @expense_sheets if @filters[:show_all]
 
-      @expense_sheets.where(state: ExpenseSheet.states[:editable])
+      @expense_sheets.editable
     end
 
     def load_filters

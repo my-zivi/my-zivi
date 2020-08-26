@@ -43,7 +43,9 @@ fr:
         ending: Fin
         extraordinary_expenses: Dépenses extraordinaires
         extraordinary_expenses_comment: Dépenses extraordinaires - Commentaire
-        paid_company_holiday_days: Vacances d'entreprise payées
+        paid_company_holiday_days:
+          one: Vacances d'entreprise payées
+          other: Jours de vacances d'entreprise payées
         paid_vacation_comment: Congés payés - Commentaire
         paid_vacation_days:
           one: Vacances
@@ -52,10 +54,12 @@ fr:
         sick_comment: Commentaire sur la maladie
         sick_days:
           one: Jour de maladie
-          other: jours de maladie
+          other: Jours de maladie
         sickness: Maladie
         state: Statut
-        unpaid_company_holiday_days: Vacances d'entreprise non payées
+        unpaid_company_holiday_days:
+          one: Vacances d'entreprise non payées
+          other: Jours de vacances d'entreprise non payées
         unpaid_vacation_comment: Congés non payés - Commentaire
         unpaid_vacation_days:
           one: Jour de fête
@@ -190,6 +194,13 @@ fr:
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
+    services:
+      short_info_cell:
+        service_confirmed:
+          'false': Pas encore confirmé
+          'true': Service confirmé
+        service_duration: 'Durée : %{beginning_date} - %{ending_date}'
+        service_with: A utiliser avec %{org_name}.
   cancel: Annuler
   civil_servants:
     civil_servants:
@@ -270,6 +281,12 @@ fr:
         leftover_days: 'Les jours restants: %{left_value}'
         paid_vacation_in_service: Droit aux vacances pour le service
         suggestion: 'Suggestion: %{suggested_value}'
+        general_info: "Informations générales"
+        days: "Journées"
+        company_holidays: "Jours de vacances d'entreprise"
+        paid_vacation: "Jours de vacances"
+        unpaid_vacation: "Jours de vacances"
+        expenses: "Frais"
       index:
         duration: Nombre de jours
         show_all_expense_sheets: Afficher toutes les notes de frais

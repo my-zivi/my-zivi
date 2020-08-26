@@ -4,8 +4,7 @@ tr
   td = expense_sheet.duration
   td
     = link_to(\
-          expense_sheet_path(expense_sheet,
-            format: :pdf),
+          expense_sheet_path(expense_sheet, format: :pdf),
             title: t('print'),
             'data-toggle' => 'tooltip',
             'data-placement' => 'above') do

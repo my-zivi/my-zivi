@@ -52,14 +52,24 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12 col-lg-12">
+  <div class="col-12">
     <div class="card mb-3 mb-lg-0">
       <div class="card-header bg-light d-flex justify-content-between">
         <h5 class="mb-0"><%= t('.services') %></h5>
       </div>
       <div class="card-body fs--1">
         <div class="row">
-          <%= render partial: 'organizations/civil_servants/service_short_info_row', collection: @services, as: :service %>
+          <%= render partial: 'base/services/short_info_cell',
+                     collection: @services,
+                     as: :service,
+                     locals: {
+                       url_generator: lambda { |service|
+                         organizations_civil_servant_service_path(
+                           civil_servant_id: service.civil_servant_id,
+                           id: service.id
+                         )
+                       }
+                     } %>
         </div>
       </div>
     </div>
