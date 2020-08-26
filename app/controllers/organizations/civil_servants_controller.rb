@@ -14,9 +14,9 @@ module Organizations
     def show
       load_filters
       @services = Service
-                  .includes(:service_specification)
                   .accessible_by(current_ability)
                   .where(civil_servant_id: @civil_servant.id)
+                  .includes(:service_specification)
     end
 
     private
