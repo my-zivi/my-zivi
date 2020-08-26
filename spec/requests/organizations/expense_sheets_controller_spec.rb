@@ -103,13 +103,21 @@ RSpec.describe Organizations::ExpenseSheetsController, type: :request do
     context 'when a organization administrator is signed in' do
       let(:organization_administrator) { create :organization_member, organization: organization }
 
+      let(:expected_strings) do
+        [
+          'Paul', I18n.l(paul_expense_sheet.beginning),
+          I18n.l(paul_expense_sheet.ending), paul_expense_sheet.service.eligible_paid_vacation_days,
+          paul_expense_sheet.duration, paul_expense_sheet.work_days,
+          paul_expense_sheet.clothing_expenses, paul_expense_sheet.clothing_expenses_comment
+        ].map(&:to_s)
+      end
+
       before { sign_in organization_administrator.user }
 
       it 'successfully displays a expense sheet form in the organization' do
         perform_request
         expect(response).to have_http_status(:success)
-        expect(response.body).to include 'Paul'
-        expect(response.body).not_to include 'Maria', 'Brigitte'
+        expect(response.body).to include(*expected_strings)
       end
     end
 
