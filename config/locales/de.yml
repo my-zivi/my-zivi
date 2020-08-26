@@ -157,6 +157,10 @@ de:
               unknown_country_code: unbekannter Landescode
             base:
               cant_delete_himself: Du kannst dich nicht selbst löschen
+        payment:
+          attributes:
+            state:
+              invalid_state_change: "Ungültiger Statuswechsel"
     models:
       address: Adresse
       civil_servant: Zivildienstleistende Person

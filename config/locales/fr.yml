@@ -157,6 +157,10 @@ fr:
               unknown_country_code: code de pays inconnu
             base:
               cant_delete_himself: Vous ne pouvez pas vous effacer
+        payment:
+          attributes:
+            state:
+              invalid_state_change: "Changement de statut invalide"
     models:
       address: Adresse
       civil_servant: Personne effectuant des travaux d'intérêt général

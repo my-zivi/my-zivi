@@ -27,5 +27,22 @@ RSpec.describe Payment, type: :model do
 
       it { is_expected.to validate_presence_of(:paid_timestamp) }
     end
+
+    describe 'state change validation' do
+      let(:payment) { create(:payment) }
+
+      it 'allows changing from open to paid' do
+        payment.update(paid_timestamp: Time.zone.now, state: :paid)
+        expect(payment).to be_valid
+      end
+
+      context 'when payment is already paid' do
+        let(:payment) { create(:payment, :paid) }
+
+        it 'does not allow changing from paid to open' do
+          expect { payment.open! }.to raise_error(ActiveRecord::RecordInvalid)
+        end
+      end
+    end
   end
 end
