@@ -196,11 +196,11 @@ de:
         sign_out: Abmelden
     services:
       short_info_cell:
-        service_with: Einsatz bei %{org_name}
-        service_duration: 'Dauer: %{beginning_date} - %{ending_date}'
         service_confirmed:
           'false': Bestätigung ausstehend
           'true': Einsatz bestätigt
+        service_duration: 'Dauer: %{beginning_date} - %{ending_date}'
+        service_with: Einsatz bei %{org_name}
   cancel: Abbrechen
   civil_servants:
     civil_servants:
@@ -233,10 +233,6 @@ de:
       index:
         services: Meine Einsätze
         show_past_services: Vergangene Einsätze anzeigen
-      service_short_info_row:
-        service_confirmed:
-          'false': Bestätigung ausstehend
-          'true': Einsatz bestätigt
       show:
         duration: Anzahl Tage
         expense_sheets: Spesenblätter
@@ -277,15 +273,15 @@ de:
         subtitle: Für den Einsatz %{spec_name} vom %{beginning} bis %{ending}
         title: Spesenblatt von %{name}
       form:
+        company_holidays: Betriebsferien
+        days: Tage
+        expenses: Spesen
+        general_info: Allgemeine Info
         leftover_days: 'Übrige Tage: %{left_value}'
+        paid_vacation: Bezahlte Ferien
         paid_vacation_in_service: Ferienanspruch für Einsatz
         suggestion: 'Vorschlag: %{suggested_value}'
-        general_info: "Allgemeine Info"
-        days: "Tage"
-        company_holidays: "Betriebsferien"
-        paid_vacation: "Bezahlte Ferien"
-        unpaid_vacation: "Urlaub (Unbezahlte Ferien)"
-        expenses: "Spesen"
+        unpaid_vacation: Urlaub (Unbezahlte Ferien)
       index:
         duration: Anzahl Tage
         show_all_expense_sheets: Alle Spesenblätter anzeigen

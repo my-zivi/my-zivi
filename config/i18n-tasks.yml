@@ -32,7 +32,7 @@ ignore_unused:
   - 'simple_form.{error_notification,required}.:'
   - 'date.formats.*'
   - 'pdfs.expense_sheet.expense_table.row_headers.*'
-  - 'civil_servants.services.service_short_info_row.service_confirmed.*'
+  - 'base.services.short_info_cell.service_confirmed.*'
   - 'mailing_list_entry_notifier_mailer.notify.subject'
   - 'helpers.*'
 

@@ -18,8 +18,7 @@ RSpec.describe 'organizations/services/show.html.slim', type: :view do
     [
       t('activerecord.models.civil_servant'),
       simple_format(civil_servant.address.full_compose),
-      service_spec.name
-    ] + [
+      service_spec.name,
       t('civil_servants.services.show.schedule_information'),
       l(service.beginning),
       l(service.ending),
@@ -32,7 +31,6 @@ RSpec.describe 'organizations/services/show.html.slim', type: :view do
   end
 
   before do
-    sign_in user
     assign(:service, service)
     render
   end

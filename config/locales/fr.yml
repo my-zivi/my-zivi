@@ -233,12 +233,6 @@ fr:
       index:
         services: Mes services
         show_past_services: Afficher les services passés
-      service_short_info_row:
-        service_confirmed:
-          'false': Pas encore confirmé
-          'true': Service confirmé
-        service_duration: 'Durée : %{beginning_date} - %{ending_date}'
-        service_with: A utiliser avec %{org_name}.
       show:
         duration: Nombre de jours
         expense_sheets: Les notes de frais
@@ -278,15 +272,15 @@ fr:
         subtitle: Pour le service %{spec_name} de %{beginning} à %{ending}
         title: Note de frais de %{name}
       form:
+        company_holidays: Jours de vacances d'entreprise
+        days: Journées
+        expenses: Frais
+        general_info: Informations générales
         leftover_days: 'Les jours restants: %{left_value}'
+        paid_vacation: Jours de vacances
         paid_vacation_in_service: Droit aux vacances pour le service
         suggestion: 'Suggestion: %{suggested_value}'
-        general_info: "Informations générales"
-        days: "Journées"
-        company_holidays: "Jours de vacances d'entreprise"
-        paid_vacation: "Jours de vacances"
-        unpaid_vacation: "Jours de vacances"
-        expenses: "Frais"
+        unpaid_vacation: Jours de vacances
       index:
         duration: Nombre de jours
         show_all_expense_sheets: Afficher toutes les notes de frais

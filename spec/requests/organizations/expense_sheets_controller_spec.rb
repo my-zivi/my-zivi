@@ -154,7 +154,7 @@ RSpec.describe Organizations::ExpenseSheetsController, type: :request do
                              ending: paul_service.ending)
     end
 
-    let(:update_params) { { driving_expenses: 9350 } }
+    let(:update_params) { { driving_expenses: 9350, workfree_days: 0, clothing_expenses_comment: 'Benzin' } }
 
     context 'when a organization administrator of the same organization is signed in' do
       let(:organization_administrator) { create :organization_member, organization: organization }
