@@ -181,10 +181,10 @@ de:
         civil_servants: Zivildienstleistende
         dashboard: Dashboard
         organization_members: Mitarbeiter
+        payments: Auszahlungen
         profile: Profil
         service_specifications: Pflichtenhefter
         sign_out: Abmelden
-        payments: "Auszahlungen"
   cancel: Abbrechen
   civil_servants:
     civil_servants:
@@ -274,6 +274,32 @@ de:
       index:
         welcome_back:
           title: Wilkommen zurück, %{name}!
+    payments:
+      badges:
+        open:
+          title: Pendent
+        paid:
+          title: Ausgezahlt
+      index:
+        table_headers:
+          actions: Aktionen
+          amount: Betrag
+          date: Datum
+          payment: Auszahlung
+          status: Status
+        title: Auszahlungen
+      pain_file_name: zahlung-%{date}.xml
+      payment_row:
+        delete: Löschen
+        details: Details
+        download_pain: Zahlungsdatei herunterladen
+        expense_sheets:
+          one: Ein Spesenblatt
+          other: "%{count} Spesenblätter"
+        mark_as_paid: Als ausgezahlt markieren
+      update:
+        erroneous_update: Die Auszahlung konnte nicht aktualisiert werden
+        successful_update: Auszahlung wurde erfolgreich aktualisiert
     service_specifications:
       create:
         erroneous_create: Pflichtenheft konnte nicht erstellt werden
@@ -293,29 +319,6 @@ de:
       update:
         erroneous_update: Pflichtenheft konnte nicht aktualisiert werden
         successful_update: Pflichtenheft erfolgreich aktualisiert
-    payments:
-      index:
-        title: "Auszahlungen"
-        table_headers:
-          payment: "Auszahlung"
-          date: "Datum"
-          amount: "Betrag"
-          status: "Status"
-          actions: "Aktionen"
-      badges:
-        open:
-          title: "Pendent"
-        paid:
-          title: "Ausgezahlt"
-      payment_row:
-        expense_sheets:
-          one: "Ein Spesenblatt"
-          other: "%{count} Spesenblätter"
-        details: "Details"
-        download_pain: "Zahlungsdatei herunterladen"
-        mark_as_paid: "Als ausgezahlt markieren"
-        delete: "Löschen"
-      pain_file_name: "zahlung-%{date}.xml"
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:

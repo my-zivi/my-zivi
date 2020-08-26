@@ -17,9 +17,9 @@ module Organizations
 
     def update
       if !@payment.readonly? && @payment.update(payment_params)
-        flash[:success] = 'Hat gefunktioniert'
+        flash[:success] = I18n.t('organizations.payments.update.successful_update')
       else
-        flash[:error] = 'Hat nicht gefuntztz'
+        flash[:error] = I18n.t('organizations.payments.update.erroneous_update')
       end
 
       redirect_back fallback_location: organizations_payments_path

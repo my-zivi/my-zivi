@@ -181,10 +181,10 @@ fr:
         civil_servants: Civilistes
         dashboard: Dashboard
         organization_members: Employés
+        payments: Paiements
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
-        payments: "Paiements"
   cancel: Annuler
   civil_servants:
     civil_servants:
@@ -273,6 +273,32 @@ fr:
       index:
         welcome_back:
           title: Bonjour, %{name}!
+    payments:
+      badges:
+        open:
+          title: En attente
+        paid:
+          title: Déboursé
+      index:
+        table_headers:
+          actions: Actions
+          amount: Montant
+          date: Date
+          payment: Paiement
+          status: Statut
+        title: Paiements
+      pain_file_name: ''
+      payment_row:
+        delete: Supprimer
+        details: ''
+        download_pain: Télécharger le fichier de paiement
+        expense_sheets:
+          one: 1 note de frais
+          other: "%{count} notes de frais"
+        mark_as_paid: Marquer comme payé
+      update:
+        erroneous_update: Le paiement n'a pas pu être mis à jour
+        successful_update: Le paiement a été mis à jour avec succès
     service_specifications:
       create:
         erroneous_create: Le cahier des charges n'a pas pu être créée
@@ -292,29 +318,6 @@ fr:
       update:
         erroneous_update: Le cahier des charges n'a pas pu être mise à jour
         successful_update: Mise à jour réussie du cahier des charges
-    payments:
-      index:
-        title: "Paiements"
-        table_headers:
-          payment: "Paiement"
-          date: "Date"
-          amount: "Montant"
-          status: "Statut"
-          actions: "Actions"
-      badges:
-        open:
-          title: "En attente"
-        paid:
-          title: "Déboursé"
-      payment_row:
-        expense_sheets:
-          one: "1 note de frais"
-          other: "%{count} notes de frais"
-        details: ""
-        download_pain: Télécharger le fichier de paiement
-        mark_as_paid: "Marquer comme payé"
-        delete: "Supprimer"
-      pain_file_name: ""
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:
