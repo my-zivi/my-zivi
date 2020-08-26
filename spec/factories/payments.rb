@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :payment do
+    amount { 12_000 }
     paid_timestamp { nil }
     organization
 

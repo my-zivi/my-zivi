@@ -11,9 +11,8 @@ class Payment < ApplicationRecord
     paid: 1
   }
 
-  validates :paid_timestamp, timeliness: { type: :date }
   validates :amount, numericality: { greater_than: 0 }, presence: true
-  validates :paid_timestamp, presence: true, if: :paid?
+  validates :paid_timestamp, timeliness: { type: :date }, presence: true, if: :paid?
 
   def readonly?
     return false if state_changed? && state_was == OPEN_STATE.to_s
