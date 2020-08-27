@@ -34,7 +34,7 @@ class Payment < ApplicationRecord
   private
 
   def sate_change_validity
-    errors.add(:state, :invalid_state_change) if state_changed? && open? && state_was == PAID_STATE
+    errors.add(:state, :invalid_state_change) if state_changed? && open? && state_was == PAID_STATE.to_s
   end
 
   def prevent_destroy
