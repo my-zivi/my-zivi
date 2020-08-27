@@ -73,6 +73,7 @@ de:
         workfree_days:
           one: Arbeitsfreier Tag
           other: Arbeitsfreie Tage
+        amount: "Betrag"
       organization_holiday:
         beginning: Anfang
         description: Beschreibung
@@ -275,8 +276,8 @@ de:
         services: Einsätze
     expense_sheets:
       edit:
-        subtitle: Für den Einsatz %{spec_name} vom %{beginning} bis %{ending}
-        title: Spesenblatt von %{name}
+        subtitle_html: Für den Einsatz %{spec_name} vom %{beginning} bis %{ending}
+        title_html: Spesenblatt von %{name}
       form:
         company_holidays: Betriebsferien
         days: Tage
@@ -332,11 +333,13 @@ de:
         details: Details
         download_pain: Zahlungsdatei herunterladen
         expense_sheets:
-          one: Ein Spesenblatt
+          one: 1 Spesenblatt
           other: "%{count} Spesenblätter"
         mark_as_paid: Als ausgezahlt markieren
       show:
         title: Auszahlung vom %{date}
+        expense_sheets_table:
+          title: "Spesenblätter"
       update:
         erroneous_update: Die Auszahlung konnte nicht aktualisiert werden
         successful_update: Auszahlung wurde erfolgreich aktualisiert

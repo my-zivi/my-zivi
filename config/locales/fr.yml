@@ -73,6 +73,7 @@ fr:
         workfree_days:
           one: Jour de congé
           other: jours de congé
+        amount: "Montant"
       organization_holiday:
         beginning: Démarrer
         description: Description
@@ -274,8 +275,8 @@ fr:
         services: Services
     expense_sheets:
       edit:
-        subtitle: Pour le service %{spec_name} de %{beginning} à %{ending}
-        title: Note de frais de %{name}
+        subtitle_html: Pour le service %{spec_name} de %{beginning} à %{ending}
+        title_html: Note de frais de %{name}
       form:
         company_holidays: Jours de vacances d'entreprise
         days: Journées
@@ -336,6 +337,8 @@ fr:
         mark_as_paid: Marquer comme payé
       show:
         title: Paiement à partir de %{date}
+        expense_sheets_table:
+          title: Notes the frais
       update:
         erroneous_update: Le paiement n'a pas pu être mis à jour
         successful_update: Le paiement a été mis à jour avec succès

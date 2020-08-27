@@ -5,3 +5,12 @@
       .col-lg-8
         h3.mt-0 = t('.title', date: l(@payment.created_at.to_date))
         h4.mb-0.text-muted = number_to_currency(@payment.amount, locale: 'de-CH')
+.card.mt-3
+  .card-header.bg-white
+    .row.align-items-center
+      .col
+        h5.mb-0
+          = t('.expense_sheets_table.title')
+          span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@payment.expense_sheets.count})"
+  .card-body.p-0.bg-light.p-0
+    = render ExpenseSheetsTableComponent.new(expense_sheets: @payment.expense_sheets)

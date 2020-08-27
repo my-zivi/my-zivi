@@ -17,6 +17,12 @@ class ExpenseSheetsTableComponent < ViewComponent::Base
     duration: {
       label: I18n.t('organizations.expense_sheets.index.duration'),
       content: ->(expense_sheet) { expense_sheet.duration }
+    },
+    amount: {
+      label: I18n.t('activerecord.attributes.expense_sheet.amount'),
+      content: lambda { |expense_sheet|
+        ActiveSupport::NumberHelper.number_to_currency(expense_sheet.amount, locale: 'de-CH')
+      }
     }
   }.freeze
 

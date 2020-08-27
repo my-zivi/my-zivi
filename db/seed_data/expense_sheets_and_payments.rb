@@ -6,16 +6,20 @@ max_mustermann = User.find_by(email: 'zivi@example.com').referencee
 max_mustermann_services = max_mustermann.services.order(:beginning)
 first_max_mustermann_service = max_mustermann_services.first
 
+beginning = first_max_mustermann_service.beginning
+ending = first_max_mustermann_service.beginning.at_end_of_month
+duration = (ending.to_date - beginning.to_date).to_i
+
 ExpenseSheet.create!(
   [
     {
-      beginning: first_max_mustermann_service.beginning,
-      ending: first_max_mustermann_service.beginning.at_end_of_month,
-      work_days: 19,
+      beginning: beginning,
+      ending: ending,
+      work_days: duration - 2,
       unpaid_company_holiday_days: 0,
       paid_company_holiday_days: 0,
       company_holiday_comment: '',
-      workfree_days: 8,
+      workfree_days: 1,
       sick_days: 1,
       sick_comment: 'Phipsi had the flu',
       paid_vacation_days: 0,
