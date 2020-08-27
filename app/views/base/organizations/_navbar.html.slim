@@ -18,6 +18,8 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
         span.fas.fa-file
       = render 'base/navbar_list_item', link: { t('.expense_sheets') => organizations_expense_sheets_path } do
         span.fas.fa-file-invoice-dollar
+      = render 'base/navbar_list_item', link: { t('.payments') => organizations_payments_path } do
+        span.fas.fa-wallet
       = render 'base/navbar_list_item', link: { t('.organization_members') => organizations_members_path } do
         span.fas.fa-user-friends
       = render 'base/navbar_list_item', link: { t('.profile') => edit_organizations_member_path(current_organization_admin) } do

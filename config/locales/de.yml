@@ -32,6 +32,7 @@ de:
         name: Name
       expense_sheet:
         accommodation_expenses: Unterkunft
+        amount: Betrag
         beginning: Anfang
         clothing: Kleider
         clothing_expenses: Kleiderspesen
@@ -144,6 +145,10 @@ de:
           attributes:
             ending:
               on_or_after: Das Startdatum kann nicht nach dem Enddatum sein.
+        payment:
+          attributes:
+            state:
+              invalid_state_change: Ungültiger Statuswechsel
         service:
           attributes:
             bank_iban:
@@ -191,6 +196,7 @@ de:
         dashboard: Dashboard
         expense_sheets: Spesenblätter
         organization_members: Mitarbeiter
+        payments: Auszahlungen
         profile: Profil
         service_specifications: Pflichtenhefter
         sign_out: Abmelden
@@ -270,8 +276,8 @@ de:
         services: Einsätze
     expense_sheets:
       edit:
-        subtitle: Für den Einsatz %{spec_name} vom %{beginning} bis %{ending}
-        title: Spesenblatt von %{name}
+        subtitle_html: Für den Einsatz %{spec_name} vom %{beginning} bis %{ending}
+        title_html: Spesenblatt von %{name}
       form:
         company_holidays: Betriebsferien
         days: Tage
@@ -304,6 +310,39 @@ de:
       index:
         welcome_back:
           title: Wilkommen zurück, %{name}!
+    payments:
+      badges:
+        open:
+          title: Pendent
+        paid:
+          title: Ausgezahlt
+      destroy:
+        erroneous_destroy: Auszahlung konnte nicht gelöscht werden
+        successful_destroy: Auszahlung wurde erfolgreich gelöscht
+      index:
+        table_headers:
+          actions: Aktionen
+          amount: Betrag
+          date: Datum
+          payment: Auszahlung
+          status: Status
+        title: Auszahlungen
+      pain_file_name: zahlung-%{date}.xml
+      payment_row:
+        delete: Löschen
+        details: Details
+        download_pain: Zahlungsdatei herunterladen
+        expense_sheets:
+          one: 1 Spesenblatt
+          other: "%{count} Spesenblätter"
+        mark_as_paid: Als ausgezahlt markieren
+      show:
+        expense_sheets_table:
+          title: Spesenblätter
+        title: Auszahlung vom %{date}
+      update:
+        erroneous_update: Die Auszahlung konnte nicht aktualisiert werden
+        successful_update: Auszahlung wurde erfolgreich aktualisiert
     service_specifications:
       create:
         erroneous_create: Pflichtenheft konnte nicht erstellt werden

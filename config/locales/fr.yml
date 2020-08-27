@@ -32,6 +32,7 @@ fr:
         name: Nom
       expense_sheet:
         accommodation_expenses: Hébergement
+        amount: Montant
         beginning: Démarrer
         clothing: Robes
         clothing_expenses: Frais d'habillement
@@ -144,6 +145,10 @@ fr:
           attributes:
             ending:
               on_or_after: La date de début ne peut être postérieure à la date de fin.
+        payment:
+          attributes:
+            state:
+              invalid_state_change: Changement de statut invalide
         service:
           attributes:
             bank_iban:
@@ -191,6 +196,7 @@ fr:
         dashboard: Dashboard
         expense_sheets: Fiches de frais
         organization_members: Employés
+        payments: Paiements
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
@@ -269,8 +275,8 @@ fr:
         services: Services
     expense_sheets:
       edit:
-        subtitle: Pour le service %{spec_name} de %{beginning} à %{ending}
-        title: Note de frais de %{name}
+        subtitle_html: Pour le service %{spec_name} de %{beginning} à %{ending}
+        title_html: Note de frais de %{name}
       form:
         company_holidays: Jours de vacances d'entreprise
         days: Journées
@@ -303,6 +309,39 @@ fr:
       index:
         welcome_back:
           title: Bonjour, %{name}!
+    payments:
+      badges:
+        open:
+          title: En attente
+        paid:
+          title: Déboursé
+      destroy:
+        erroneous_destroy: Le paiement n'a pas pu être supprimé
+        successful_destroy: Le paiement a été supprimé avec succès
+      index:
+        table_headers:
+          actions: Actions
+          amount: Montant
+          date: Date
+          payment: Paiement
+          status: Statut
+        title: Paiements
+      pain_file_name: paiement-%{date}.xml
+      payment_row:
+        delete: Supprimer
+        details: ''
+        download_pain: Télécharger le fichier de paiement
+        expense_sheets:
+          one: 1 note de frais
+          other: "%{count} notes de frais"
+        mark_as_paid: Marquer comme payé
+      show:
+        expense_sheets_table:
+          title: Notes the frais
+        title: Paiement à partir de %{date}
+      update:
+        erroneous_update: Le paiement n'a pas pu être mis à jour
+        successful_update: Le paiement a été mis à jour avec succès
     service_specifications:
       create:
         erroneous_create: Le cahier des charges n'a pas pu être créée

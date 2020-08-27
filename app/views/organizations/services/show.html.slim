@@ -18,12 +18,4 @@
   .card-header
     h5.mb-0 = t('.expense_sheets')
   .card-body.border-top.p-0
-    table.table
-      thead.thead-light
-        tr
-          th scope="col" = t('activerecord.attributes.expense_sheet.beginning')
-          th scope="col" = t('activerecord.attributes.expense_sheet.ending')
-          th scope="col" = t('activerecord.attributes.expense_sheet.duration')
-          th scope="col"
-      tbody = render partial: 'organizations/services/expense_sheet_short_info_row',
-              collection: @service.expense_sheets, as: :expense_sheet
+    = render ExpenseSheetsTableComponent.new(expense_sheets: @service.expense_sheets, columns: ExpenseSheetsTableComponent::COLUMNS.except(:full_name))
