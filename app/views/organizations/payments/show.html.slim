@@ -34,4 +34,4 @@
           = t('.expense_sheets_table.title')
           span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@payment.expense_sheets.count})"
   .card-body.p-0.bg-light.p-0
-    = render ExpenseSheetsTableComponent.new(expense_sheets: @payment.expense_sheets)
+    = render ExpenseSheetsTableComponent.new(expense_sheets: @payment.expense_sheets.includes(service: :civil_servant))

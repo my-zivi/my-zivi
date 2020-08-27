@@ -2,13 +2,14 @@
 
 class Payment < ApplicationRecord
   OPEN_STATE = :open
+  PAID_STATE = :paid
 
   belongs_to :organization
   has_many :expense_sheets, dependent: :nullify
 
   enum state: {
     OPEN_STATE => 0,
-    paid: 1
+    PAID_STATE => 1
   }
 
   validates :amount, numericality: { greater_than: 0 }, presence: true
@@ -33,7 +34,7 @@ class Payment < ApplicationRecord
   private
 
   def sate_change_validity
-    errors.add(:state, :invalid_state_change) if state_changed? && open? && state_was == 'paid'
+    errors.add(:state, :invalid_state_change) if state_changed? && open? && state_was == PAID_STATE
   end
 
   def prevent_destroy

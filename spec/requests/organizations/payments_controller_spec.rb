@@ -61,11 +61,13 @@ RSpec.describe Organizations::PaymentsController, type: :request do
 
       before { sign_in organization_administrator.user }
 
-      it 'returns a detail view of the payment' do
+      it 'returns a detail view of the payment', :without_bullet do
         perform_request
         expect(response).to have_http_status(:success)
         expect(response).to render_template 'organizations/payments/show'
-        expect(response.body).to include I18n.t('organizations.payments.show.title', date: '01.01.2020')
+        expect(response.body).to include(
+          I18n.t('organizations.payments.show.title', date: I18n.l(service.ending.to_date))
+        )
       end
 
       context 'when requesting the PAIN XML' do
@@ -93,8 +95,6 @@ RSpec.describe Organizations::PaymentsController, type: :request do
     end
 
     context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
       before do
         sign_in civil_servant.user
         perform_request
