@@ -3,8 +3,29 @@
   .card-body
     .row
       .col-lg-8
-        h3.mt-0 = t('.title', date: l(@payment.created_at.to_date))
-        h4.mb-0.text-muted = number_to_currency(@payment.amount, locale: 'de-CH')
+        .d-flex.align-items-center
+          h3.my-0 = t('.title', date: l(@payment.created_at.to_date))
+          .ml-2 = payment_badge(@payment)
+        h4.text-muted = number_to_currency(@payment.amount, locale: 'de-CH')
+        .d-flex.mt-4.mb-0
+          = link_to({ format: :xml }, class: 'btn btn-falcon-default btn-sm')
+            i.fas.fa-download.mr-1
+            = t('organizations.payments.payment_row.download_pain')
+          - if @payment.open?
+            .dropdown
+              button#dropdown-button.btn.btn-falcon-default.btn-sm.dropdown-toggle.ml-2.dropdown-caret-none aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
+                i.fas.fa-ellipsis-h
+              .dropdown-menu aria-labelledby="dropdown-button"
+                = link_to(organizations_payment_path(@payment, payment: { state: 'paid' }), method: :put, class: 'dropdown-item') do
+                  i.fas.fa-check.mr-1
+                  = t('organizations.payments.payment_row.mark_as_paid')
+                .dropdown-divider
+                = link_to organizations_payment_path(@payment),
+                        class: 'dropdown-item text-danger',
+                        method: :delete,
+                        data: { confirm: 'Really?' } do
+                  i.fas.fa-trash-alt.mr-1
+                  = t('organizations.payments.payment_row.delete')
 .card.mt-3
   .card-header.bg-white
     .row.align-items-center

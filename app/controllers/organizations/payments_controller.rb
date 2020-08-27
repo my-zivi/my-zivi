@@ -2,10 +2,12 @@
 
 module Organizations
   class PaymentsController < BaseController
+    PAIN_SCHEME = 'pain.001.001.03.ch.02'
+
     load_and_authorize_resource
 
     def index
-      @payments = @payments.order(created_at: :desc, state: :asc)
+      @payments = @payments.order(state: :asc, created_at: :desc)
     end
 
     def show
@@ -51,7 +53,7 @@ module Organizations
     end
 
     def pain_content
-      PainGenerationService.call(@payment).to_xml('pain.001.001.03.ch.02')
+      PainGenerationService.call(@payment).to_xml(PAIN_SCHEME)
     end
 
     def payment_params
