@@ -200,6 +200,7 @@ fr-CH:
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
+        phone_list: "Liste de téléphone"
     services:
       short_info_cell:
         service_confirmed:
@@ -364,6 +365,9 @@ fr-CH:
     services:
       show:
         expense_sheets: Fiches de frais
+    phone_list:
+      index:
+        title: "Liste de téléphone"
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:
@@ -399,6 +403,7 @@ fr-CH:
     phone_list:
       header: Généré sur %{date}
       title: Liste téléphonique de %{beginning} à %{ending}
+      file_name: ListeTéléphonique%{today}
   print: Imprimer
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.

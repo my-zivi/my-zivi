@@ -200,6 +200,7 @@ de-CH:
         profile: Profil
         service_specifications: Pflichtenhefter
         sign_out: Abmelden
+        phone_list: "Telefonliste"
     services:
       short_info_cell:
         service_confirmed:
@@ -365,6 +366,9 @@ de-CH:
     services:
       show:
         expense_sheets: Spesenblätter
+    phone_list:
+      index:
+        title: "Telefonliste"
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:
@@ -400,6 +404,7 @@ de-CH:
     phone_list:
       header: Stand vom %{date}
       title: Telefonliste vom %{beginning} bis %{ending}
+      file_name: "Telefonliste_%{today}"
   print: Drucken
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
