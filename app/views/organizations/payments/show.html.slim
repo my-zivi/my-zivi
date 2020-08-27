@@ -8,7 +8,7 @@
           .ml-2 = payment_badge(@payment)
         h4.text-muted = number_to_currency(@payment.amount, locale: 'de-CH')
         .d-flex.mt-4.mb-0
-          = link_to({ format: :xml }, class: 'btn btn-falcon-default btn-sm')
+          = link_to(organizations_payment_path(@payment, format: :xml), class: 'btn btn-falcon-default btn-sm')
             i.fas.fa-download.mr-1
             = t('organizations.payments.payment_row.download_pain')
           - if @payment.open?
