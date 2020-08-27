@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :expense_sheet do
     beginning { '2018-11-05' }
     ending { '2018-11-30' }
-    work_days { 26 - sick_days }
+    work_days { 24 }
     unpaid_company_holiday_days { 0 }
     paid_company_holiday_days { 0 }
     company_holiday_comment { 'My company holiday comment' }

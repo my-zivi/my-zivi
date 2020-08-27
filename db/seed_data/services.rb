@@ -29,7 +29,7 @@ Service.create!(
       last_service: true,
       feedback_mail_sent: false,
       civil_servant: max_mustermann,
-      service_specification: jugendarbeit
+      service_specification: zirkusarbeit
     },
     {
       beginning: '2020-01-06',

@@ -45,13 +45,13 @@ RSpec.describe CivilServants::ServicesController, type: :request do
         expected_services.flat_map do |service|
           service_spec = service.service_specification
           [
-            I18n.t('civil_servants.services.service_short_info_row.service_with', org_name: service.organization.name),
+            I18n.t('base.services.short_info_cell.service_with', org_name: service.organization.name),
             service_spec.name,
             service_spec.location,
-            I18n.t('civil_servants.services.service_short_info_row.service_duration',
+            I18n.t('base.services.short_info_cell.service_duration',
                    beginning_date: I18n.l(service.beginning), ending_date: I18n.l(service.ending)),
             I18n.t(service.confirmation_date.present?,
-                   scope: %i[civil_servants services service_short_info_row service_confirmed])
+                   scope: %i[base services short_info_cell service_confirmed])
           ]
         end
       end
@@ -59,10 +59,10 @@ RSpec.describe CivilServants::ServicesController, type: :request do
         unexpected_services.flat_map do |service|
           service_spec = service.service_specification
           [
-            I18n.t('civil_servants.services.service_short_info_row.service_with', org_name: service.organization.name),
+            I18n.t('base.services.short_info_cell.service_with', org_name: service.organization.name),
             service_spec.name,
             service_spec.location,
-            I18n.t('civil_servants.services.service_short_info_row.service_duration',
+            I18n.t('base.services.short_info_cell.service_duration',
                    beginning_date: I18n.l(service.beginning), ending_date: I18n.l(service.ending))
           ]
         end

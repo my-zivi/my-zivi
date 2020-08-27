@@ -1,0 +1,97 @@
+= simple_form_for [:organizations, expense_sheet], wrapper: :input_group do |f|
+  - if expense_sheet.errors[:base].present?
+    .alert.alert-warning.d-flex.align-items-center
+      i.fas.fa-exclamation-triangle.mr-2
+      = f.error :base if expense_sheet.errors[:base].present?
+  h5.mb-3 = t('.general_info')
+  .row
+    .col-12.col-lg-6
+      .form-group.disabled
+        label[for='beginning'] = t('activerecord.attributes.expense_sheet.beginning')
+        input#beginning.form-control.disabled[disabled value=l(expense_sheet.beginning)]
+    .col-12.col-lg-6
+      .form-group.disabled
+        label[for='ending'] = t('activerecord.attributes.expense_sheet.ending')
+        input#ending.form-control.disabled[disabled value=l(expense_sheet.ending)]
+    .col-12.col-lg-6
+      .form-group.disabled
+        label[for='paid_vacation_in_service'] = t('.paid_vacation_in_service')
+        input#paid_vacation_in_service.form-control.disabled[disabled value=expense_sheet.service.eligible_paid_vacation_days]
+    .col-12.col-lg-6
+      .form-group.disabled
+        label[for='duration'] = t('activerecord.attributes.expense_sheet.duration')
+        input#duration.form-control.disabled[disabled value=expense_sheet.duration]
+  h5.mb-3 = t('.days')
+  .row
+    .col-12.col-lg-6
+      = f.input :work_days,
+              label: t('activerecord.attributes.expense_sheet.work_days.other'),
+              append: t('.suggestion', suggested_value: expense_sheet.calculate_chargeable_days),
+              disabled: !expense_sheet.editable?
+    .col-12.col-lg-6
+      = f.input :workfree_days,
+              label: t('activerecord.attributes.expense_sheet.workfree_days.other'),
+              append: t('.suggestion',
+                      suggested_value: expense_sheet.duration - expense_sheet.calculate_chargeable_days),
+              disabled: !expense_sheet.editable?
+    .col-12.col-lg-6
+      = f.input :sick_days,
+              label: t('activerecord.attributes.expense_sheet.sick_days.other'),
+              append: t('.leftover_days', left_value: calculators[:remaining_days].remaining_sick_days),
+              disabled: !expense_sheet.editable?
+  h5.mb-3 = t('.company_holidays')
+  .row
+    .col-12.col-lg-6
+      = f.input :unpaid_company_holiday_days,
+              label: t('activerecord.attributes.expense_sheet.unpaid_company_holiday_days'),
+              append: t('.suggestion', suggested_value: expense_sheet.calculate_chargeable_days),
+              disabled: !expense_sheet.editable?
+    .col-12.col-lg-6
+      = f.input :paid_company_holiday_days,
+              label: t('activerecord.attributes.expense_sheet.paid_company_holiday_days.other'),
+              append: t('.suggestion',
+                      suggested_value: expense_sheet.duration - expense_sheet.calculate_chargeable_days),
+              disabled: !expense_sheet.editable?
+  h5.mb-3 = t('.paid_vacation')
+  .row
+    .col-12.col-lg-6
+      = f.input :paid_vacation_days,
+              label: t('activerecord.attributes.expense_sheet.paid_vacation_days.other'),
+              disabled: !expense_sheet.editable?
+    .col-12.col-lg-6
+      = f.input :paid_vacation_comment,
+              disabled: !expense_sheet.editable?
+  h5.mb-3 = t('.unpaid_vacation')
+  .row
+    .col-12.col-lg-6
+      = f.input :unpaid_vacation_days,
+              label: t('activerecord.attributes.expense_sheet.unpaid_vacation_days.other'),
+              disabled: !expense_sheet.editable?
+    .col-12.col-lg-6
+      = f.input :unpaid_vacation_comment,
+              disabled: !expense_sheet.editable?
+  h5.mb-3 = t('.expenses')
+  .row
+    .col-12.col-lg-6
+      = f.input :clothing_expenses,
+              append: t('simple_form.appended.chf'),
+              disabled: !expense_sheet.editable?
+    .col-12.col-lg-6
+      = f.input :clothing_expenses_comment,
+              disabled: !expense_sheet.editable?
+    .col-12.col-lg-6
+      = f.input :driving_expenses,
+              append: t('simple_form.appended.chf'),
+              disabled: !expense_sheet.editable?
+    .col-12.col-lg-6
+      = f.input :driving_expenses_comment,
+              disabled: !expense_sheet.editable?
+    .col-12.col-lg-6
+      = f.input :extraordinary_expenses, append: t('simple_form.appended.chf'),
+              disabled: !expense_sheet.editable?
+    .col-12.col-lg-6
+      = f.input :extraordinary_expenses_comment,
+              disabled: !expense_sheet.editable?
+  .d-flex.justify-content-end
+    = yield
+    = f.submit class: 'btn btn-primary float-right' if expense_sheet.editable?

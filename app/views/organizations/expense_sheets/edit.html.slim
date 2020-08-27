@@ -1,0 +1,10 @@
+- service = @expense_sheet.service
+.card
+  .card-header.bg-light
+    h5 = t('.title', name: service.civil_servant.full_name)
+    h6 = t('.subtitle',
+            spec_name: service.service_specification.name,
+            beginning: l(service.beginning),
+            ending: l(service.ending))
+  .card-body
+    = render 'organizations/expense_sheets/form', expense_sheet: @expense_sheet, calculators: @calculators
