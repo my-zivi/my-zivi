@@ -32,6 +32,7 @@ de:
         name: Name
       expense_sheet:
         accommodation_expenses: Unterkunft
+        amount: Betrag
         beginning: Anfang
         clothing: Kleider
         clothing_expenses: Kleiderspesen
@@ -73,7 +74,6 @@ de:
         workfree_days:
           one: Arbeitsfreier Tag
           other: Arbeitsfreie Tage
-        amount: "Betrag"
       organization_holiday:
         beginning: Anfang
         description: Beschreibung
@@ -337,9 +337,9 @@ de:
           other: "%{count} Spesenblätter"
         mark_as_paid: Als ausgezahlt markieren
       show:
-        title: Auszahlung vom %{date}
         expense_sheets_table:
-          title: "Spesenblätter"
+          title: Spesenblätter
+        title: Auszahlung vom %{date}
       update:
         erroneous_update: Die Auszahlung konnte nicht aktualisiert werden
         successful_update: Auszahlung wurde erfolgreich aktualisiert

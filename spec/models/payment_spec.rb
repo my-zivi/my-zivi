@@ -8,7 +8,7 @@ RSpec.describe Payment, type: :model do
 
     it 'defines relations and enums correctly' do
       expect(model).to belong_to(:organization)
-      expect(model).to have_many(:expense_sheets).dependent(:restrict_with_exception)
+      expect(model).to have_many(:expense_sheets).dependent(:nullify)
       expect(model).to define_enum_for(:state)
     end
   end
@@ -72,6 +72,22 @@ RSpec.describe Payment, type: :model do
 
         expect(payment.open?).to eq true
         expect(payment.paid_timestamp).to be_nil
+      end
+    end
+  end
+
+  describe 'destroy' do
+    let!(:payment) { create(:payment) }
+
+    it 'can delete an open payment' do
+      expect { payment.destroy }.to change(described_class, :count).by(-1)
+    end
+
+    context 'when the payment is paid out' do
+      let!(:payment) { create(:payment, :paid) }
+
+      it 'does not allow destroy' do
+        expect { payment.destroy }.not_to change(described_class, :count)
       end
     end
   end

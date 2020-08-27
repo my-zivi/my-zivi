@@ -3,11 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Organizations::PaymentsController, type: :request do
-  describe '#index' do
-    subject { response }
+  subject { response }
 
+  let(:organization) { create :organization }
+
+  describe '#index' do
     let(:perform_request) { get organizations_payments_path }
-    let(:organization) { create :organization }
     let!(:payments) { create_pair(:payment, organization: organization) }
     let!(:outside_payment) { create(:payment, created_at: '2020-01-01') }
 
@@ -47,11 +48,13 @@ RSpec.describe Organizations::PaymentsController, type: :request do
   end
 
   describe '#show' do
-    subject { response }
-
-    let(:organization) { create(:organization) }
-    let(:payment) { create(:payment, organization: organization, created_at: '2020-01-01') }
     let(:perform_request) { get organizations_payment_path(payment) }
+    let(:civil_servant) { create(:civil_servant, :full, :with_service) }
+    let(:service) { civil_servant.services.first }
+    let(:expense_sheets) { ExpenseSheetGenerator.new(service).create_expense_sheets }
+    let(:payment) do
+      create(:payment, organization: organization, created_at: service.ending, expense_sheets: expense_sheets)
+    end
 
     context 'when an organization administrator is signed in' do
       let(:organization_administrator) { create(:organization_member, organization: organization) }
@@ -63,6 +66,21 @@ RSpec.describe Organizations::PaymentsController, type: :request do
         expect(response).to have_http_status(:success)
         expect(response).to render_template 'organizations/payments/show'
         expect(response.body).to include I18n.t('organizations.payments.show.title', date: '01.01.2020')
+      end
+
+      context 'when requesting the PAIN XML' do
+        let(:perform_request) { get organizations_payment_path(payment, format: :xml) }
+
+        before do
+          allow(PainGenerationService).to receive(:call).and_call_original
+        end
+
+        it 'returns the XML' do
+          perform_request
+          expect(response).to have_http_status(:success)
+          expect(response.content_type).to eq 'application/xml'
+          expect(PainGenerationService).to have_received(:call)
+        end
       end
 
       context 'when trying to access a payment from a different organization' do
@@ -93,9 +111,6 @@ RSpec.describe Organizations::PaymentsController, type: :request do
   end
 
   describe '#update' do
-    subject { response }
-
-    let(:organization) { create(:organization) }
     let(:payment) { create(:payment, organization: organization) }
     let(:perform_request) { patch organizations_payment_path(payment, params: { payment: payment_params }) }
     let(:payment_params) { {} }
@@ -134,6 +149,61 @@ RSpec.describe Organizations::PaymentsController, type: :request do
         it 'does not update' do
           expect { perform_request }.not_to(change(payment, :reload))
           expect(flash[:error]).to eq I18n.t('organizations.payments.update.erroneous_update')
+        end
+      end
+    end
+
+    context 'when a civil servant is signed in' do
+      let(:civil_servant) { create(:civil_servant, :full) }
+
+      before { sign_in civil_servant.user }
+
+      it_behaves_like 'unauthorized request' do
+        before { perform_request }
+      end
+    end
+
+    context 'when nobody is signed in' do
+      before { perform_request }
+
+      it_behaves_like 'unauthenticated request'
+    end
+  end
+
+  describe '#destroy' do
+    subject { response }
+
+    let(:perform_request) { delete organizations_payment_path(payment) }
+    let!(:payment) { create(:payment, organization: organization) }
+
+    context 'when an organization administrator is signed in' do
+      let(:organization_administrator) { create(:organization_member, organization: organization) }
+
+      before { sign_in organization_administrator.user }
+
+      it 'destroys the payment' do
+        expect { perform_request }.to change(Payment, :count).by(-1)
+        expect(flash[:success]).to eq I18n.t('organizations.payments.destroy.successful_destroy')
+      end
+
+      context 'when the payment is paid' do
+        let(:payment) { create(:payment, :paid, organization: organization) }
+
+        it 'does not destroy the payment' do
+          expect { perform_request }.not_to change(Payment, :count)
+          expect(flash[:error]).to eq I18n.t('organizations.payments.destroy.erroneous_destroy')
+        end
+      end
+
+      context 'when trying to destroy a payment of a different organization' do
+        let(:payment) { create(:payment) }
+
+        it 'does not destroy the payment' do
+          expect { perform_request }.not_to change(Payment, :count)
+        end
+
+        it_behaves_like 'unauthorized request' do
+          before { perform_request }
         end
       end
     end

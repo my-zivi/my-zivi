@@ -32,6 +32,7 @@ fr:
         name: Nom
       expense_sheet:
         accommodation_expenses: Hébergement
+        amount: Montant
         beginning: Démarrer
         clothing: Robes
         clothing_expenses: Frais d'habillement
@@ -73,7 +74,6 @@ fr:
         workfree_days:
           one: Jour de congé
           other: jours de congé
-        amount: "Montant"
       organization_holiday:
         beginning: Démarrer
         description: Description
@@ -326,7 +326,7 @@ fr:
           payment: Paiement
           status: Statut
         title: Paiements
-      pain_file_name: 'paiement-%{date}.xml'
+      pain_file_name: paiement-%{date}.xml
       payment_row:
         delete: Supprimer
         details: ''
@@ -336,9 +336,9 @@ fr:
           other: "%{count} notes de frais"
         mark_as_paid: Marquer comme payé
       show:
-        title: Paiement à partir de %{date}
         expense_sheets_table:
           title: Notes the frais
+        title: Paiement à partir de %{date}
       update:
         erroneous_update: Le paiement n'a pas pu être mis à jour
         successful_update: Le paiement a été mis à jour avec succès
