@@ -1,0 +1,4 @@
+ExpenseSheetActivationJob:
+  cron: "0 1 * * *"
+  class: ExpenseSheetActivationJob
+  queue: default

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'sidekiq/web'
+require 'sidekiq/cron/web'
+
 if Rails.env.production?
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     user_comp = ActiveSupport::SecurityUtils.secure_compare(
@@ -19,7 +21,7 @@ end
 
 Rails.application.routes.draw do
   root 'home#index'
-  mount Sidekiq::Web, at: '/sidekiq'
+  mount Sidekiq::Web, at: '/sidekiq' if defined? Sidekiq::Web
 
   devise_for :users
 
