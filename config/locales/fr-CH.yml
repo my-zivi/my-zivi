@@ -402,7 +402,9 @@ fr-CH:
               other: "<b>%{beginning} à %{ending} (%{duration} jours)</b>"
     phone_list:
       header: Généré sur %{date}
-      title: Liste téléphonique de %{beginning} à %{ending}
+      title:
+        with_date: Liste téléphonique de %{beginning} à %{ending}
+        without_date: Liste téléphonique des civilists en activité
       file_name: ListeTéléphonique%{today}
   print: Imprimer
   service_calculator:

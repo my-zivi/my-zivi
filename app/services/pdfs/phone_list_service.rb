@@ -16,7 +16,7 @@ module Pdfs
     def initialize(service_specifications, beginning, ending)
       update_font_families
 
-      header(beginning.to_date, ending.to_date)
+      header(beginning, ending)
       content_table(service_specifications)
     end
 
@@ -30,14 +30,20 @@ module Pdfs
       text I18n.t('pdfs.phone_list.header', date: I18n.l(Time.zone.today)), align: :right
 
       text(
-        I18n.t(
-          'pdfs.phone_list.title',
-          beginning: I18n.l(beginning),
-          ending: I18n.l(ending)
-        ),
+        header_title(beginning, ending),
         align: :left,
         style: :bold,
         size: 15
+      )
+    end
+
+    def header_title(beginning, ending)
+      return I18n.t('pdfs.phone_list.title.without_date') if beginning.nil? || ending.nil?
+
+      I18n.t(
+        'pdfs.phone_list.title.with_date',
+        beginning: I18n.l(beginning.to_date),
+        ending: I18n.l(ending.to_date)
       )
     end
 

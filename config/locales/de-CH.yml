@@ -403,7 +403,9 @@ de-CH:
               other: "<b>%{beginning} bis %{ending} (%{duration} Tage)</b>"
     phone_list:
       header: Stand vom %{date}
-      title: Telefonliste vom %{beginning} bis %{ending}
+      title:
+        with_date: Telefonliste aktive Zivildienstleistende
+        without_date: Telefonliste vom %{beginning} bis %{ending}
       file_name: "Telefonliste_%{today}"
   print: Drucken
   service_calculator:

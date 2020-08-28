@@ -864,10 +864,10 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.14.0.tgz#a371e91029ebf265015e64f81bfbf7d228c9681f"
   integrity sha512-OfdMsF+ZQgdKHP9jUbmDcRrP0eX90XXrsXIdyjLbkmSBzmMXPABB8eobUJtivaupucYaByz6WNe1PI1JuYm3qA==
 
-"@my-zivi/falcon@2.6.2":
-  version "2.6.2"
-  resolved "https://npm.pkg.github.com/download/@my-zivi/falcon/2.6.2/d223146664e336fb120c1131886c678db4c4dc48d39eef5b8fbba98842b08e98#c693d0784b3d5c5d3fa800645bf3f72147023a9e"
-  integrity sha512-+GZQqdN0fRVRNk0UkauKJ08xMzigRC44CQu2jtD7kWz9iV2xtyv/D+GF4zpofptj9Edwkt8Ns6bldXOT2EXi9g==
+"@my-zivi/falcon@2.6.3":
+  version "2.6.3"
+  resolved "https://npm.pkg.github.com/download/@my-zivi/falcon/2.6.3/a246af8bd1fde9a110621add2621e759df2b209ce317ad33acfb5fdf8de78e4b#b7e31baa32afb65ce19fdbac7965433baf04cd00"
+  integrity sha512-AeANQ0kChvlA0wv535bLfj4UHJrcmyq6ONX3L4eg2OEmibXLDQCqC1xAtgBjABh8QMFSDmrx06fnR9q3YhaA3A==
   dependencies:
     "@fancyapps/fancybox" "^3.5.7"
     "@fortawesome/fontawesome-free" "^5.13.0"
@@ -3994,6 +3994,11 @@ flatpickr@^4.6.3:
   version "4.6.3"
   resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.3.tgz#15a8b76b6e34e3a072861250503a5995b9d3bc60"
   integrity sha512-007VucCkqNOMMb9ggRLNuJowwaJcyOh4sKAFcdGfahfGc7JQbf94zSzjdBq/wVyHWUEs5o3+idhFZ0wbZMRmVQ==
+
+flatpickr@^4.6.6:
+  version "4.6.6"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.6.tgz#34d2ad80adfa34254e62583a34264d472f1038d6"
+  integrity sha512-EZ48CJMttMg3maMhJoX+GvTuuEhX/RbA1YeuI19attP3pwBdbYy6+yqAEVm0o0hSBFYBiLbVxscLW6gJXq6H3A==
 
 flatted@^2.0.0, flatted@^2.0.1:
   version "2.0.2"

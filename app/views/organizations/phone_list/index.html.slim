@@ -4,8 +4,13 @@
     .row
       .col-12
         h2.mb-0 = t('.title')
-    .row
-      .col-12
+    = simple_form_for organizations_phone_list_path, method: :get do |f|
+      .row
+        .col-6
+          = range_date_picker(f, placeholder: 'kein Filter')
+      .row
+        .col-6
+          = f.submit class: 'btn btn-primary'
     .row.mt-4
       .col-12
         = link_to({ format: 'pdf', name: t('pdfs.phone_list.file_name', today: l(Date.today)).parameterize },

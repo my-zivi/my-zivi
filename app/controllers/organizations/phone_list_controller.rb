@@ -17,25 +17,27 @@ module Organizations
     private
 
     def respond_to_pdf
-      respond_with_pdf(Pdfs::PhoneListService.new(@service_specifications, Time.zone.now, 2.days.since).render,
-                       I18n.t('pdfs.phone_list.file_name', today: I18n.l(Date.today)))
+      respond_with_pdf(
+        Pdfs::PhoneListService.new(@service_specifications, @filters[:beginning], @filters[:ending]).render,
+        I18n.t('pdfs.phone_list.file_name', today: I18n.l(Time.zone.today))
+      )
     end
 
     def set_service_specifications
       @service_specifications = Service
-                                  .accessible_by(current_ability)
-                                  .active
-                                  .includes(:service_specification, civil_servant: [:address, :user])
-                                  .order(ending: :DESC)
-                                  .distinct(:civil_servant)
-                                  .group_by { |service| service.service_specification.name }
+                                .accessible_by(current_ability)
+                                .active
+                                .includes(:service_specification, civil_servant: %i[address user])
+                                .order(ending: :desc)
+                                .distinct(:civil_servant)
+                                .group_by { |service| service.service_specification.name }
     end
 
     def load_filters
       @filters = {
-        show_all: params.dig(:filters, :show_all) == 'true'
+        beginning: params.dig(:filters, :beginning),
+        ending: params.dig(:filters, :ending)
       }
     end
   end
 end
-
