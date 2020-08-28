@@ -8,12 +8,12 @@ if Rails.env.production?
       ::Digest::SHA256.hexdigest(ENV['SIDEKIQ_USERNAME'])
     )
 
-    pass_com = ActiveSupport::SecurityUtils.secure_compare(
+    pass_comp = ActiveSupport::SecurityUtils.secure_compare(
       ::Digest::SHA256.hexdigest(password),
       ::Digest::SHA256.hexdigest(ENV['SIDEKIQ_PASSWORD'])
     )
 
-    user_comp & pass_com
+    user_comp & pass_comp
   end
 end
 
