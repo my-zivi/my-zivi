@@ -1,16 +1,12 @@
 .card.mb-3
   .bg-holder.d-none.d-lg-block.bg-card
   .card-body
-    .row
-      .col-12
-        h2.mb-0 = t('.title')
     = simple_form_for organizations_phone_list_path, method: :get do |f|
       .row
-        .col-6
+        .col-3
           = range_date_picker(f, :range, placeholder: 'kein Filter')
-      .row
-        .col-6
-          = f.submit class: 'btn btn-primary'
+        .col-3.d-flex.align-items-end
+          = f.submit class: 'btn btn-primary ', name: t('.filtern')
     .row.mt-4
       .col-12
         = link_to({ format: 'pdf', name: t('pdfs.phone_list.file_name', today: l(Date.today)).parameterize },
@@ -18,7 +14,10 @@
           i.fas.fa-print.mr-1
           = t('print')
 .card.mb-3
-  .bg-holder.d-none.d-lg-block.bg-card
+  .card-header
+    .row
+      .col-12
+        h2.mb-0 = t('.title')
   - @service_specifications.each do |spec_name, services|
     .card-body
       .row
