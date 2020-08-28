@@ -10,33 +10,31 @@ beginning = first_max_mustermann_service.beginning
 ending = first_max_mustermann_service.beginning.at_end_of_month
 duration = (ending.to_date - beginning.to_date).to_i
 
-ExpenseSheet.create!(
-  [
-    {
-      beginning: beginning,
-      ending: ending,
-      work_days: duration - 2,
-      unpaid_company_holiday_days: 0,
-      paid_company_holiday_days: 0,
-      company_holiday_comment: '',
-      workfree_days: 1,
-      sick_days: 1,
-      sick_comment: 'Phipsi had the flu',
-      paid_vacation_days: 0,
-      paid_vacation_comment: nil,
-      unpaid_vacation_days: 0,
-      unpaid_vacation_comment: nil,
-      driving_expenses: 0,
-      driving_expenses_comment: nil,
-      extraordinary_expenses: 500,
-      extraordinary_expenses_comment: 'He had to buy a Weggli',
-      clothing_expenses: 0,
-      clothing_expenses_comment: nil,
-      state: :locked,
-      credited_iban: max_mustermann.iban,
-      service: first_max_mustermann_service
-    }
-  ]
+ExpenseSheetGenerator.new(max_mustermann_services.first).create_expense_sheets
+
+max_mustermann_services.first.expense_sheets.order(:beginning).first.update(
+  beginning: beginning,
+  ending: ending,
+  work_days: duration - 2,
+  unpaid_company_holiday_days: 0,
+  paid_company_holiday_days: 0,
+  company_holiday_comment: '',
+  workfree_days: 1,
+  sick_days: 1,
+  sick_comment: 'Phipsi had the flu',
+  paid_vacation_days: 0,
+  paid_vacation_comment: nil,
+  unpaid_vacation_days: 0,
+  unpaid_vacation_comment: nil,
+  driving_expenses: 0,
+  driving_expenses_comment: nil,
+  extraordinary_expenses: 500,
+  extraordinary_expenses_comment: 'He had to buy a Weggli',
+  clothing_expenses: 0,
+  clothing_expenses_comment: nil,
+  state: :locked,
+  credited_iban: max_mustermann.iban,
+  service: first_max_mustermann_service
 )
 
 ExpenseSheetGenerator.new(max_mustermann_services.last).create_expense_sheets

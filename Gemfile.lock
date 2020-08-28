@@ -110,6 +110,8 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     erubi (1.9.0)
+    et-orbi (1.2.4)
+      tzinfo
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.1.0)
@@ -122,6 +124,9 @@ GEM
     ffi (1.13.1)
     fillable-pdf (0.9.0)
       rjb (~> 1.6)
+    fugit (1.3.8)
+      et-orbi (~> 1.1, >= 1.1.8)
+      raabro (~> 1.3)
     geom2d (0.3.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -207,6 +212,7 @@ GEM
     public_suffix (4.0.5)
     puma (4.3.5)
       nio4r (~> 2.0)
+    raabro (1.3.1)
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
@@ -320,6 +326,9 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
+    sidekiq-cron (1.2.0)
+      fugit (~> 1.1)
+      sidekiq (>= 4.2.1)
     simple_form (5.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -440,6 +449,7 @@ DEPENDENCIES
   sepa_king
   shoulda-matchers
   sidekiq
+  sidekiq-cron
   simple_form
   simplecov
   simplecov-console
