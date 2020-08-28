@@ -200,6 +200,7 @@ de:
         profile: Profil
         service_specifications: Pflichtenhefter
         sign_out: Abmelden
+        planning: "Planung"
     services:
       short_info_cell:
         service_confirmed:

@@ -200,6 +200,7 @@ fr:
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
+        planning: "Planification"
     services:
       short_info_cell:
         service_confirmed:

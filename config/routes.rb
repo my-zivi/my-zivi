@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
   namespace :organizations do
     get '/', to: 'overview#index'
+    get 'planning', to: 'planning#index'
 
     resources :organization_members, as: 'members', only: %i[index edit update destroy]
     resources :service_specifications, except: :show
