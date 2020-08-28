@@ -43,9 +43,9 @@ ExpenseSheetGenerator.new(philipp_service).create_expense_sheets
 puts '> Expense sheets seeded'
 
 ExpenseSheet.where('ending < ?', Time.zone.now)
-  .includes(service: [:organization])
-  .group_by { |s| [s.beginning.month, s.service.organization.id] }
-  .each do |(_month, organization_id), sheets|
+            .includes(service: [:organization])
+            .group_by { |s| [s.beginning.month, s.service.organization.id] }
+            .each do |(_month, organization_id), sheets|
   sheets.each(&:editable!)
   sheets.each { |sheet| sheet.update(amount: 23) }
 
