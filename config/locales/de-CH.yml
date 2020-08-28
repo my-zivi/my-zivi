@@ -197,10 +197,10 @@ de-CH:
         expense_sheets: Spesenblätter
         organization_members: Mitarbeiter
         payments: Auszahlungen
+        phone_list: Telefonliste
         profile: Profil
         service_specifications: Pflichtenhefter
         sign_out: Abmelden
-        phone_list: "Telefonliste"
     services:
       short_info_cell:
         service_confirmed:
@@ -344,6 +344,9 @@ de-CH:
       update:
         erroneous_update: Die Auszahlung konnte nicht aktualisiert werden
         successful_update: Auszahlung wurde erfolgreich aktualisiert
+    phone_list:
+      index:
+        title: Telefonliste
     service_specifications:
       create:
         erroneous_create: Pflichtenheft konnte nicht erstellt werden
@@ -366,9 +369,6 @@ de-CH:
     services:
       show:
         expense_sheets: Spesenblätter
-    phone_list:
-      index:
-        title: "Telefonliste"
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:
@@ -402,11 +402,11 @@ de-CH:
               one: "<b>%{beginning} bis %{ending} (%{duration} Tag)</b>"
               other: "<b>%{beginning} bis %{ending} (%{duration} Tage)</b>"
     phone_list:
+      file_name: Telefonliste_%{today}
       header: Stand vom %{date}
       title:
-        with_date: Telefonliste aktive Zivildienstleistende
-        without_date: Telefonliste vom %{beginning} bis %{ending}
-      file_name: "Telefonliste_%{today}"
+        with_date: Telefonliste vom %{beginning} bis %{ending}
+        without_date: Telefonliste aktive Zivildienstleistende
   print: Drucken
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein

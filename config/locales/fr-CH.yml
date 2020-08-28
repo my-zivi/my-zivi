@@ -197,10 +197,10 @@ fr-CH:
         expense_sheets: Fiches de frais
         organization_members: Employés
         payments: Paiements
+        phone_list: Liste de téléphone
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
-        phone_list: "Liste de téléphone"
     services:
       short_info_cell:
         service_confirmed:
@@ -343,6 +343,9 @@ fr-CH:
       update:
         erroneous_update: Le paiement n'a pas pu être mis à jour
         successful_update: Le paiement a été mis à jour avec succès
+    phone_list:
+      index:
+        title: Liste de téléphone
     service_specifications:
       create:
         erroneous_create: Le cahier des charges n'a pas pu être créée
@@ -365,9 +368,6 @@ fr-CH:
     services:
       show:
         expense_sheets: Fiches de frais
-    phone_list:
-      index:
-        title: "Liste de téléphone"
   payment:
     expenses_from: Frais du %{from_date}
   pdfs:
@@ -401,11 +401,11 @@ fr-CH:
               one: "<b>%{beginning} à %{ending} (%{duration} jour)</b>"
               other: "<b>%{beginning} à %{ending} (%{duration} jours)</b>"
     phone_list:
+      file_name: ListeTéléphonique%{today}
       header: Généré sur %{date}
       title:
         with_date: Liste téléphonique de %{beginning} à %{ending}
         without_date: Liste téléphonique des civilists en activité
-      file_name: ListeTéléphonique%{today}
   print: Imprimer
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.

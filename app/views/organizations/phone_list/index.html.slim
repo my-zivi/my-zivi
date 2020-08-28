@@ -7,7 +7,7 @@
     = simple_form_for organizations_phone_list_path, method: :get do |f|
       .row
         .col-6
-          = range_date_picker(f, placeholder: 'kein Filter')
+          = range_date_picker(f, :range, placeholder: 'kein Filter')
       .row
         .col-6
           = f.submit class: 'btn btn-primary'

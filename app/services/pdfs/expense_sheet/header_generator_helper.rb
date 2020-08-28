@@ -4,7 +4,7 @@ module Pdfs
   module ExpenseSheet
     module HeaderGeneratorHelper
       def header
-        box Colors::GREEN, [0, cursor], width: bounds.width, height: 30
+        box ::Pdfs::ExpenseSheet::Colors::GREEN, [0, cursor], width: bounds.width, height: 30
         move_down 30
         text_box header_title,
                  align: :center,
