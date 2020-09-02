@@ -1,8 +1,5 @@
 import Is from 'is_js/is';
 import Utils from '@my-zivi/falcon/js/theme/Utils';
-import 'flatpickr';
-import { German } from 'flatpickr/dist/l10n/de';
-flatpickr.localize(German);
 
 import '@my-zivi/falcon/js/theme/navbar';
 import '@my-zivi/falcon/js/theme/config.dark-mode';

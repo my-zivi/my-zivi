@@ -76,4 +76,95 @@ RSpec.describe DateTimePickerHelper, type: :helper do
       end
     end
   end
+
+  describe '#parse_range_date' do
+    subject(:date_picker_input_element) { helper.parse_range_date(range_value) }
+
+    let(:range_value) { "#{range_beginning} #{date_splitter} #{range_ending}}" }
+    let(:range_beginning) { '' }
+    let(:range_ending) { '' }
+    let(:date_splitter) { '' }
+
+    context 'when input is empty' do
+      it { is_expected.to be_nil }
+    end
+
+    context 'when input is invalid' do
+      let(:range_beginning) { Date.parse('01.08.2020') }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when locale is :de' do
+      around { |spec| I18n.with_locale(:de) { spec.run } }
+      let(:date_splitter) { 'bis' }
+      let(:expected_range) { range_beginning..range_ending }
+
+      context 'when the date range is one month' do
+        context 'perfectly one month' do
+          let(:range_beginning) { Date.parse('01.08.2020') }
+          let(:range_ending) { Date.parse('31.08.2020') }
+
+          it { is_expected.to eq expected_range }
+        end
+
+        context 'part of two months' do
+          let(:range_beginning) { Date.parse('19.08.2020') }
+          let(:range_ending) { Date.parse('12.09.2020') }
+
+          it { is_expected.to eq expected_range }
+        end
+      end
+
+      context 'when the date range is one week' do
+        let(:range_beginning) { Date.parse('03.08.2020') }
+        let(:range_ending) { Date.parse('09.08.2020') }
+
+        it { is_expected.to eq expected_range }
+      end
+
+      context 'when the date range is one day' do
+        let(:range_beginning) { Date.parse('01.08.2020') }
+        let(:range_ending) { Date.parse('01.08.2020') }
+
+        it { is_expected.to eq expected_range }
+      end
+    end
+
+    context 'when locale is :fr' do
+      around { |spec| I18n.with_locale(:fr) { spec.run } }
+      let(:date_splitter) { 'au' }
+      let(:expected_range) { range_beginning..range_ending }
+
+      context 'when the date range is one month' do
+        context 'perfectly one month' do
+          let(:range_beginning) { Date.parse('01.08.2020') }
+          let(:range_ending) { Date.parse('31.08.2020') }
+
+          it { is_expected.to eq expected_range }
+        end
+
+        context 'part of two months' do
+          let(:range_beginning) { Date.parse('19.08.2020') }
+          let(:range_ending) { Date.parse('12.09.2020') }
+
+          it { is_expected.to eq expected_range }
+        end
+      end
+
+      context 'when the date range is one week' do
+        let(:range_beginning) { Date.parse('03.08.2020') }
+        let(:range_ending) { Date.parse('09.08.2020') }
+
+        it { is_expected.to eq expected_range }
+      end
+
+      context 'when the date range is one day' do
+        let(:range_beginning) { Date.parse('01.08.2020') }
+        let(:range_ending) { Date.parse('01.08.2020') }
+
+        it { is_expected.to eq expected_range }
+      end
+    end
+  end
 end

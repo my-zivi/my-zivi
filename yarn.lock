@@ -864,10 +864,10 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.14.0.tgz#a371e91029ebf265015e64f81bfbf7d228c9681f"
   integrity sha512-OfdMsF+ZQgdKHP9jUbmDcRrP0eX90XXrsXIdyjLbkmSBzmMXPABB8eobUJtivaupucYaByz6WNe1PI1JuYm3qA==
 
-"@my-zivi/falcon@2.6.3":
-  version "2.6.3"
-  resolved "https://npm.pkg.github.com/download/@my-zivi/falcon/2.6.3/a246af8bd1fde9a110621add2621e759df2b209ce317ad33acfb5fdf8de78e4b#b7e31baa32afb65ce19fdbac7965433baf04cd00"
-  integrity sha512-AeANQ0kChvlA0wv535bLfj4UHJrcmyq6ONX3L4eg2OEmibXLDQCqC1xAtgBjABh8QMFSDmrx06fnR9q3YhaA3A==
+"@my-zivi/falcon@2.6.4":
+  version "2.6.4"
+  resolved "https://npm.pkg.github.com/download/@my-zivi/falcon/2.6.4/e1303b44ee501e3e581a297f9d6678adb8b4ce32e9315050e226701c0067c5b2#1a507bd7c98862638926342f285bf678ebef7621"
+  integrity sha512-nkXDvA2oZVh1DuoVPae6LQNxcNQ7MTjl6k3DktX/18u//rPF61Qe8fXqcxev/EobYyKP/gv3WkoG1fGinYe6Xw==
   dependencies:
     "@fancyapps/fancybox" "^3.5.7"
     "@fortawesome/fontawesome-free" "^5.13.0"

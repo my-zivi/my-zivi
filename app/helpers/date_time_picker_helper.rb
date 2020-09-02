@@ -6,22 +6,41 @@ module DateTimePickerHelper
     weekNumbers: true
   }.freeze
 
+  RANGE_SPLITTERS = {
+    fr: 'au',
+    de: 'bis'
+  }.freeze
+
   def date_picker(form, field_key, **options)
     form.input field_key, input_html: {
-      type: 'date', class: 'datetimepicker', data: { options: date_picker_options(options) }
+      type: 'date', disabled: true, class: 'datetimepicker', data: { options: date_picker_options(options) }
     }
   end
 
-  def range_date_picker(form, field_key, **options)
+  def range_date_picker(form, field_key, value, **options)
     form.input field_key, input_html: {
-      type: 'date', class: 'datetimepicker', data: { options: range_date_picker_options(options) }
+      type: 'date', class: 'datetimepicker',
+      value: value, readonly: true,
+      data: { options: range_date_picker_options(options) }
     }
+  end
+
+  def parse_range_date(range_value)
+    return nil unless range_value.present?
+
+    dates = range_value.split(RANGE_SPLITTERS.dig(I18n.locale))
+    return nil if dates.count != 2
+
+    beginning = Date.parse(dates.first)
+    ending = Date.parse(dates.last)
+
+    beginning..ending
   end
 
   private
 
   def build_options(options)
-    DEFAULT_OPTIONS.merge(options)
+    DEFAULT_OPTIONS.merge(options).merge(locale: I18n.locale)
   end
 
   def date_picker_options(options)

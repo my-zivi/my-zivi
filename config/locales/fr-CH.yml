@@ -346,6 +346,9 @@ fr-CH:
     phone_list:
       index:
         title: Liste de téléphone
+        filtern: "Filtre de liste"
+        range: Période
+        filtered_title: Liste de téléphone du %{range}
     service_specifications:
       create:
         erroneous_create: Le cahier des charges n'a pas pu être créée

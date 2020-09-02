@@ -347,6 +347,9 @@ de-CH:
     phone_list:
       index:
         title: Telefonliste
+        filtern: "Liste filtern"
+        range: Zeitraum
+        filtered_title: "Telefonliste vom %{range}"
     service_specifications:
       create:
         erroneous_create: Pflichtenheft konnte nicht erstellt werden
