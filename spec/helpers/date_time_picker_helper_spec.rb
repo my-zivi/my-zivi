@@ -12,11 +12,11 @@ RSpec.describe DateTimePickerHelper, type: :helper do
       end
     end
 
-    let(:options) { {} }
+    let(:options) { {  } }
 
     let(:expected_classes) { %w[form-control string required datetimepicker] }
     let(:expected_type) { 'date' }
-    let(:expected_data_options) { DateTimePickerHelper::DEFAULT_OPTIONS.merge(options) }
+    let(:expected_data_options) { DateTimePickerHelper::DEFAULT_OPTIONS.merge(locale: I18n.locale.to_s).merge(options) }
 
     context 'without any special config' do
       it 'renders all attributes correctly' do
@@ -44,15 +44,16 @@ RSpec.describe DateTimePickerHelper, type: :helper do
 
     let(:range_date_picker_html) do
       helper.simple_form_for :object, url: root_path do |f|
-        helper.range_date_picker(f, :range, **options)
+        helper.range_date_picker(f, :range, value, **options)
       end
     end
 
     let(:options) { { mode: 'range' } }
+    let(:value) { nil }
 
     let(:expected_classes) { %w[form-control string required datetimepicker] }
     let(:expected_type) { 'date' }
-    let(:expected_data_options) { DateTimePickerHelper::DEFAULT_OPTIONS.merge(options) }
+    let(:expected_data_options) { DateTimePickerHelper::DEFAULT_OPTIONS.merge(locale: I18n.locale.to_s).merge(options) }
 
     context 'without any special config' do
       it 'renders all attributes correctly' do

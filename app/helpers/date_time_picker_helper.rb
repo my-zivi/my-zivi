@@ -40,7 +40,7 @@ module DateTimePickerHelper
   private
 
   def build_options(options)
-    DEFAULT_OPTIONS.merge(options).merge(locale: I18n.locale)
+    DEFAULT_OPTIONS.merge(locale: I18n.locale).merge(options)
   end
 
   def date_picker_options(options)
