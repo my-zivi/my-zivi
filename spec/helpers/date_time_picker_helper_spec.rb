@@ -97,18 +97,19 @@ RSpec.describe DateTimePickerHelper, type: :helper do
 
     context 'when locale is :de' do
       around { |spec| I18n.with_locale(:de) { spec.run } }
+
       let(:date_splitter) { 'bis' }
       let(:expected_range) { range_beginning..range_ending }
 
       context 'when the date range is one month' do
-        context 'perfectly one month' do
+        context 'when it is perfectly one month' do
           let(:range_beginning) { Date.parse('01.08.2020') }
           let(:range_ending) { Date.parse('31.08.2020') }
 
           it { is_expected.to eq expected_range }
         end
 
-        context 'part of two months' do
+        context 'when it is part of two months' do
           let(:range_beginning) { Date.parse('19.08.2020') }
           let(:range_ending) { Date.parse('12.09.2020') }
 
@@ -133,18 +134,19 @@ RSpec.describe DateTimePickerHelper, type: :helper do
 
     context 'when locale is :fr' do
       around { |spec| I18n.with_locale(:fr) { spec.run } }
+
       let(:date_splitter) { 'au' }
       let(:expected_range) { range_beginning..range_ending }
 
       context 'when the date range is one month' do
-        context 'perfectly one month' do
+        context 'when it is perfectly one month' do
           let(:range_beginning) { Date.parse('01.08.2020') }
           let(:range_ending) { Date.parse('31.08.2020') }
 
           it { is_expected.to eq expected_range }
         end
 
-        context 'part of two months' do
+        context 'when it is part of two months' do
           let(:range_beginning) { Date.parse('19.08.2020') }
           let(:range_ending) { Date.parse('12.09.2020') }
 

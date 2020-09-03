@@ -26,9 +26,9 @@ module DateTimePickerHelper
   end
 
   def parse_range_date(range_value)
-    return nil unless range_value.present?
+    return nil if range_value.blank?
 
-    dates = range_value.split(RANGE_SPLITTERS.dig(I18n.locale))
+    dates = range_value.split(RANGE_SPLITTERS[I18n.locale])
     return nil if dates.count != 2
 
     beginning = Date.parse(dates.first)
