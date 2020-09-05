@@ -8,11 +8,12 @@ RSpec.describe DateTimePickerHelper, type: :helper do
 
     let(:date_picker_html) do
       helper.simple_form_for :object, url: root_path do |f|
-        helper.date_picker(f, :date, **options)
+        helper.date_picker(f, :date, value, **options)
       end
     end
 
-    let(:options) { {  } }
+    let(:options) { {} }
+    let(:value) { '06.09.2018' }
 
     let(:expected_classes) { %w[form-control string required datetimepicker] }
     let(:expected_type) { 'date' }
@@ -22,6 +23,7 @@ RSpec.describe DateTimePickerHelper, type: :helper do
       it 'renders all attributes correctly' do
         expect(date_picker_input_element.classes).to eq expected_classes
         expect(date_picker_input_element['type']).to eq expected_type
+        expect(date_picker_input_element['value']).to eq value
         expect(JSON.parse(date_picker_input_element['data-options'], symbolize_names: true)).to eq expected_data_options
       end
     end
@@ -32,6 +34,7 @@ RSpec.describe DateTimePickerHelper, type: :helper do
       it 'renders all attributes correctly' do
         expect(date_picker_input_element.classes).to eq expected_classes
         expect(date_picker_input_element['type']).to eq expected_type
+        expect(date_picker_input_element['value']).to eq value
         expect(JSON.parse(date_picker_input_element['data-options'], symbolize_names: true)).to eq expected_data_options
       end
     end
@@ -49,7 +52,7 @@ RSpec.describe DateTimePickerHelper, type: :helper do
     end
 
     let(:options) { { mode: 'range' } }
-    let(:value) { nil }
+    let(:value) { '06.09.208bis06.09.2020' }
 
     let(:expected_classes) { %w[form-control string required datetimepicker] }
     let(:expected_type) { 'date' }
@@ -59,6 +62,7 @@ RSpec.describe DateTimePickerHelper, type: :helper do
       it 'renders all attributes correctly' do
         expect(range_date_picker_input_element.classes).to eq expected_classes
         expect(range_date_picker_input_element['type']).to eq expected_type
+        expect(range_date_picker_input_element['value']).to eq value
         expect(
           JSON.parse(range_date_picker_input_element['data-options'], symbolize_names: true)
         ).to eq expected_data_options
@@ -71,6 +75,7 @@ RSpec.describe DateTimePickerHelper, type: :helper do
       it 'renders all attributes correctly' do
         expect(range_date_picker_input_element.classes).to eq expected_classes
         expect(range_date_picker_input_element['type']).to eq expected_type
+        expect(range_date_picker_input_element['value']).to eq value
         expect(
           JSON.parse(range_date_picker_input_element['data-options'], symbolize_names: true)
         ).to eq expected_data_options

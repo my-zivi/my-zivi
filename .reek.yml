@@ -9,13 +9,15 @@ detectors:
   IrresponsibleModule:
     enabled: false
   TooManyMethods:
-      max_methods: 20
+    max_methods: 20
   MissingSafeMethod:
     enabled: false
   TooManyConstants:
     max_constants: 6
   TooManyStatements:
     max_statements: 10
+  LongParameterList:
+    max_params: 6
 
 directories:
   "app/helpers":

@@ -345,10 +345,11 @@ fr-CH:
         successful_update: Le paiement a été mis à jour avec succès
     phone_list:
       index:
-        title: Liste de téléphone
-        filtern: "Filtre de liste"
+        filtern: Filtre de liste
         range: Période
-        filtered_title: Liste de téléphone du %{range}
+        title:
+          without_filter: Liste de téléphone
+          with_filter: Liste de téléphone du %{range}
     service_specifications:
       create:
         erroneous_create: Le cahier des charges n'a pas pu être créée

@@ -346,10 +346,11 @@ de-CH:
         successful_update: Auszahlung wurde erfolgreich aktualisiert
     phone_list:
       index:
-        title: Telefonliste
-        filtern: "Liste filtern"
+        filtern: Liste filtern
         range: Zeitraum
-        filtered_title: "Telefonliste vom %{range}"
+        title:
+          without_filter: Telefonliste
+          with_filter: Telefonliste vom %{range}
     service_specifications:
       create:
         erroneous_create: Pflichtenheft konnte nicht erstellt werden

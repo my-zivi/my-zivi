@@ -18,6 +18,7 @@ module Organizations
     private
 
     def respond_to_pdf
+
       respond_with_pdf(
         Pdfs::PhoneListService.new(@service_specifications, @filters[:beginning], @filters[:ending]).render,
         I18n.t('pdfs.phone_list.file_name', today: I18n.l(Time.zone.today))
@@ -33,10 +34,13 @@ module Organizations
     end
 
     def filtered_service_specifications
-      if @filters[:range].present?
+      beginning = @filters[:beginning]
+      ending =  @filters[:ending]
+
+      if beginning.present? && ending.present?
         Service
           .accessible_by(current_ability)
-          .overlapping_date_range(@filters[:parsed_range].begin, @filters[:parsed_range].end)
+          .overlapping_date_range(beginning, ending)
       else
         Service
           .accessible_by(current_ability)
@@ -45,12 +49,23 @@ module Organizations
     end
 
     def load_filters
-      @filters = {
-        range: params.dig('/organizations/phone_list', :range),
-        parsed_range: parse_range_date(params.dig('/organizations/phone_list', :range)),
-        beginning: params.dig(:filters, :beginning),
-        ending: params.dig(:filters, :ending)
-      }
+      parsed_range = parse_range_date(params.dig(:filters, :range))
+      if parsed_range.present?
+        @filters = {
+            range: params.dig(:filters, :range),
+            beginning: parsed_range.begin,
+            ending: parsed_range.end
+        }
+      else
+        params_beginning = params.dig(:filters, :beginning)
+        params_ending = params.dig(:filters, :ending)
+
+        @filters = {
+            range: params.dig(:filters, :range),
+            beginning: params_beginning.nil? ? nil : Date.parse(params_beginning),
+            ending: params_ending.nil? ? nil : Date.parse(params_ending)
+        }
+      end
     end
   end
 end
