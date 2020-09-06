@@ -1,6 +1,7 @@
 import React, { h, Component } from 'preact';
 import Rails from '@rails/ujs';
 import PropTypes from 'prop-types';
+import { SERVICES_PROP_TYPES } from './PlanningTable';
 
 export default class App extends Component {
   constructor() {
@@ -26,19 +27,19 @@ export default class App extends Component {
   }
 
   async fetchData() {
-    return new Promise((resolve, reject) => {
+    return new Promise((success, error) => {
       Rails.ajax({
         url: '/organizations/planning.json',
         type: 'GET',
-        success: resolve,
-        error: reject,
+        success,
+        error,
       });
     });
   }
 
   render() {
     if (this.state.loading) {
-      return <p>loading</p>;
+      return <p>loading...</p>;
     } else {
       return <h1>App</h1>;
     }
@@ -47,13 +48,5 @@ export default class App extends Component {
 
 App.propTypes = {
   loading: PropTypes.bool.isRequired,
-  services: PropTypes.shape({
-    fullName: PropTypes.string.isRequired,
-    services: PropTypes.arrayOf(
-      PropTypes.shape({
-        beginning: PropTypes.string.isRequired,
-        ending: PropTypes.string.isRequired,
-      }).isRequired,
-    ).isRequired,
-  }).isRequired,
+  services: PropTypes.arrayOf(SERVICES_PROP_TYPES),
 };
