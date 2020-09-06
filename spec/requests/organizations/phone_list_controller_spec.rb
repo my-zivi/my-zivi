@@ -27,15 +27,15 @@ RSpec.describe Organizations::PhoneListController, type: :request do
         context 'when there is date range filter' do
           let(:params) do
             {
-                filters: {
-                    range: "01.09.2020bis30.09.2020"
-                }
+              filters: {
+                range: '01.09.2020bis30.09.2020'
+              }
             }
           end
 
           it 'returns http success' do
             expect(response).to have_http_status(:success)
-            expect(response.body).to include I18n.t('organizations.phone_list.index.title.without_filter')
+            expect(response.body).to include I18n.t('organizations.phone_list.index.title.with_filter')
           end
         end
       end
@@ -52,9 +52,14 @@ RSpec.describe Organizations::PhoneListController, type: :request do
         end
 
         context 'when there is date range filter' do
-          let(:filter) { {} }
-
-
+          let(:filter) do
+            {
+                filters: {
+                    beginning: '01.09.2020',
+                    ending: '30.09.2020'
+                }
+            }
+          end
 
           it 'returns correct response' do
             expect(response).to have_http_status(:success)

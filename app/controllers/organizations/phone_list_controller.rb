@@ -18,7 +18,6 @@ module Organizations
     private
 
     def respond_to_pdf
-
       respond_with_pdf(
         Pdfs::PhoneListService.new(@service_specifications, @filters[:beginning], @filters[:ending]).render,
         I18n.t('pdfs.phone_list.file_name', today: I18n.l(Time.zone.today))
@@ -49,23 +48,29 @@ module Organizations
     end
 
     def load_filters
-      parsed_range = parse_range_date(params.dig(:filters, :range))
-      if parsed_range.present?
-        @filters = {
-            range: params.dig(:filters, :range),
-            beginning: parsed_range.begin,
-            ending: parsed_range.end
-        }
-      else
-        params_beginning = params.dig(:filters, :beginning)
-        params_ending = params.dig(:filters, :ending)
+      @filters = load_parsed_range_filter.present? ? load_date_filters_from_range : load_date_filters_directly
+    end
 
-        @filters = {
-            range: params.dig(:filters, :range),
-            beginning: params_beginning.nil? ? nil : Date.parse(params_beginning),
-            ending: params_ending.nil? ? nil : Date.parse(params_ending)
-        }
-      end
+    def load_parsed_range_filter
+      parse_range_date(params.dig(:filters, :range))
+    end
+
+    def load_date_filters_from_range
+      {
+        range: params.dig(:filters, :range),
+        beginning: load_parsed_range_filter.begin,
+        ending: load_parsed_range_filter.end
+      }
+    end
+
+    def load_date_filters_directly
+      params_beginning = params.dig(:filters, :beginning)
+      params_ending = params.dig(:filters, :ending)
+
+      {
+        beginning: params_beginning.nil? ? nil : Date.parse(params_beginning),
+        ending: params_ending.nil? ? nil : Date.parse(params_ending)
+      }
     end
   end
 end
