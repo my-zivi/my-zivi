@@ -12,8 +12,11 @@ module Organizations
     private
 
     def serialize_services
-      transformed_data = grouped_services.transform_keys(&:full_name).transform_values do |services|
-        services.map { |service| service.slice(:beginning, :ending) }
+      transformed_data = grouped_services.map do |civil_servant, services|
+        {
+          'fullName' => civil_servant.full_name,
+          'services' => services.map { |service| service.slice(:beginning, :ending) }
+        }
       end
 
       JSON.dump(transformed_data)
