@@ -12,22 +12,20 @@ module Organizations
     private
 
     def serialize_services
-      transformed_data = grouped_services.map do |civil_servant, services|
-        {
-          'fullName' => civil_servant.full_name,
-          'services' => services.map { |service| service.slice(:beginning, :ending) }
-        }
+      transformed_data = services.map do |service|
+        service.slice(:beginning, :ending).merge(
+          'civilServant' => service.civil_servant.slice(:id, :full_name)
+        )
       end
 
       JSON.dump(transformed_data)
     end
 
-    def grouped_services
+    def services
       Service
         .accessible_by(current_ability)
         .overlapping_date_range(filter_params[:beginning], filter_params[:ending])
         .joins(:civil_servant)
-        .group_by(&:civil_servant)
     end
 
     def filter_params

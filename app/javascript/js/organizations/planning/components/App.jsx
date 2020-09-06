@@ -1,7 +1,7 @@
-import React, { h, Component } from 'preact';
+import React, { h, Component, Fragment } from 'preact';
 import Rails from '@rails/ujs';
-import PropTypes from 'prop-types';
-import { SERVICES_PROP_TYPES } from './PlanningTable';
+import { PlanningTable } from './PlanningTable';
+import ServicesPlan from '../models/ServicesPlan';
 
 export default class App extends Component {
   constructor() {
@@ -37,16 +37,22 @@ export default class App extends Component {
     });
   }
 
+  servicesPlan() {
+    return new ServicesPlan(this.state.services);
+  }
+
   render() {
     if (this.state.loading) {
       return <p>loading...</p>;
     } else {
-      return <h1>App</h1>;
+      const plan = this.servicesPlan();
+
+      return(
+        <>
+          <h1>{plan.planBeginning} - {plan.planEnding}</h1>
+          <PlanningTable servicesPlan={plan} />
+        </>
+      );
     }
   }
 }
-
-App.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  services: PropTypes.arrayOf(SERVICES_PROP_TYPES),
-};
