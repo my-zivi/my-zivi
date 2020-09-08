@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Pdfs::PhoneListService, type: :service do
   describe '#render' do
     context 'when locale is german' do
-      around { |spec| I18n.with_locale(:de) { spec.run } }
+      around { |spec| I18n.with_locale(:'de-CH') { spec.run } }
 
       before { create(:service, service_data) }
 

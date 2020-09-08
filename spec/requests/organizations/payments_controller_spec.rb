@@ -13,7 +13,7 @@ RSpec.describe Organizations::PaymentsController, type: :request do
     let!(:outside_payment) { create(:payment, created_at: '2020-01-01') }
 
     around do |spec|
-      I18n.with_locale(:de) { spec.run }
+      I18n.with_locale(:'de-CH') { spec.run }
     end
 
     context 'when an organization administrator is signed in' do

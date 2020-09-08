@@ -9,7 +9,7 @@ class MailingList < ApplicationRecord
   private
 
   def send_notification_email
-    I18n.with_locale(:de) do
+    I18n.with_locale(:'de-CH') do
       MailingListEntryNotifierMailer.with(mailing_list_id: id).notify.deliver_later
     end
   end
