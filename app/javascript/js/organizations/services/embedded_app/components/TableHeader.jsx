@@ -1,5 +1,5 @@
 import React, { h } from 'preact';
-import { DATE_FORMATS } from '../../../constants';
+import { DATE_FORMATS } from '../../../../constants';
 
 export default ({ servicesPlan }) => {
   return (

@@ -42,8 +42,9 @@ Rails.application.routes.draw do
     resources :service_specifications, except: :show
     resources :payments, only: %i[index show update destroy]
     resources :expense_sheets, except: :show
+    resources :services, only: :index
     resources :civil_servants, only: %i[index show] do
-      resources :services, only: %i[index show]
+      resources :services, only: :show
     end
   end
 end

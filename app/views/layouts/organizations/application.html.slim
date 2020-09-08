@@ -8,6 +8,7 @@ html
     = csp_meta_tag
     = javascript_pack_tag 'organizations/application', 'data-turbolinks-track': 'reload'
     = stylesheet_pack_tag 'organizations/application', media: 'all', 'data-turbolinks-track': 'reload'
+    = content_for(:head_additions)
     = render 'layouts/sentry'
   body
     main#top

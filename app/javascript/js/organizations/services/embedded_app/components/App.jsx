@@ -2,7 +2,7 @@ import React, { h, Component, Fragment } from 'preact';
 import Rails from '@rails/ujs';
 import { PlanningTable } from './PlanningTable';
 import ServicesPlan from '../models/ServicesPlan';
-import { DATE_FORMATS } from '../../../constants';
+import { DATE_FORMATS } from '../../../../constants';
 
 export default class App extends Component {
   constructor() {
@@ -30,7 +30,7 @@ export default class App extends Component {
   async fetchData() {
     return new Promise((success, error) => {
       Rails.ajax({
-        url: '/organizations/planning.json',
+        url: '/organizations/services.json',
         type: 'GET',
         success,
         error,
