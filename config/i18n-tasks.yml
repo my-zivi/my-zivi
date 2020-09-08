@@ -1,5 +1,5 @@
-base_locale: de
-locales: [de, fr]
+base_locale: de-CH
+locales: [de-CH, fr-CH]
 data:
   read:
    - config/locales/%{locale}.yml
