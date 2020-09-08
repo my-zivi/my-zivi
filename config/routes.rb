@@ -37,14 +37,13 @@ Rails.application.routes.draw do
 
   namespace :organizations do
     get '/', to: 'overview#index'
-    get 'planning', to: 'planning#index'
 
     resources :organization_members, as: 'members', only: %i[index edit update destroy]
     resources :service_specifications, except: :show
     resources :payments, only: %i[index show update destroy]
     resources :expense_sheets, except: :show
     resources :civil_servants, only: %i[index show] do
-      resources :services, only: :show
+      resources :services, only: %i[index show]
     end
   end
 end
