@@ -2,6 +2,7 @@ import React, { h, Component, Fragment } from 'preact';
 import Rails from '@rails/ujs';
 import { PlanningTable } from './PlanningTable';
 import ServicesPlan from '../models/ServicesPlan';
+import { DATE_FORMATS } from '../../../constants';
 
 export default class App extends Component {
   constructor() {
@@ -49,7 +50,7 @@ export default class App extends Component {
 
       return(
         <>
-          <h1>{plan.planBeginning} - {plan.planEnding}</h1>
+          <h1>{plan.planBeginning.format(DATE_FORMATS.short)} - {plan.planEnding.format(DATE_FORMATS.short)}</h1>
           <PlanningTable servicesPlan={plan} />
         </>
       );

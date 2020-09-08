@@ -6,11 +6,11 @@ export default class ServicesPlan {
   }
 
   get earliestBeginning() {
-    return moment.min(this.services.map(service => service['beginning']));
+    return moment(moment.min(this.services.map(service => service['beginning'])));
   }
 
   get latestEnding() {
-    return moment.max(this.services.map(service => service['ending']));
+    return moment(moment.max(this.services.map(service => service['ending'])));
   }
 
   get planBeginning() {
@@ -21,7 +21,16 @@ export default class ServicesPlan {
     return moment(this.latestEnding).endOf('month');
   }
 
-  get daysSpan() {
-    return this.latestEnding.diff(this.earliestBeginning, 'days');
+  daysSpan() {
+    return this.planEnding.diff(this.planBeginning, 'days');
+  }
+
+  mapDays(callback) {
+    let output = [];
+    for (let delta = 0; delta <= this.daysSpan(); ++delta) {
+      output.push(callback(this.planBeginning.add(delta, 'days')));
+    }
+
+    return output;
   }
 }
