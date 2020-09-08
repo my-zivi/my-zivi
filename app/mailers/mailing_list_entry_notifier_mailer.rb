@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class MailingListEntryNotifierMailer < ApplicationMailer
-  TO = 'joshua.dedevadas@gmail.com'
-  CC = %w[me@luk4s.dev philipp@thefehr.me].freeze
+  TO = 'joshua.devadas@myzivi.ch'
+  CC = %w[lukas.bischof@myzivi.ch philipp.fehr@myzivi.ch].freeze
   FROM = "MyZivi Mailing-List Notifier <#{ENV['MAIL_SENDER']}>"
 
   def notify
