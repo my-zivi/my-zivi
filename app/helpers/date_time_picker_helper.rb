@@ -7,8 +7,8 @@ module DateTimePickerHelper
   }.freeze
 
   RANGE_SPLITTERS = {
-    fr: 'au',
-    de: 'bis'
+    "fr-CH": ' au ',
+    "de-CH": ' bis '
   }.freeze
 
   def date_picker(form, field_key, value, **options)

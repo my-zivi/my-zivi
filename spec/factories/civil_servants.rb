@@ -18,6 +18,7 @@ FactoryBot.define do
 
       after(:create) do |civil_servant|
         civil_servant.user.save
+        civil_servant.address.update(primary_line: civil_servant.full_name)
       end
     end
 

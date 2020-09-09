@@ -52,7 +52,7 @@ RSpec.describe DateTimePickerHelper, type: :helper do
     end
 
     let(:options) { { mode: 'range' } }
-    let(:value) { '06.09.208bis06.09.2020' }
+    let(:value) { '06.09.208 bis 06.09.2020' }
 
     let(:expected_classes) { %w[form-control string required datetimepicker] }
     let(:expected_type) { 'date' }
@@ -101,10 +101,10 @@ RSpec.describe DateTimePickerHelper, type: :helper do
       it { is_expected.to be_nil }
     end
 
-    context 'when locale is :de' do
-      around { |spec| I18n.with_locale(:de) { spec.run } }
+    context 'when locale is :de-CH' do
+      around { |spec| I18n.with_locale(:'de-CH') { spec.run } }
 
-      let(:date_splitter) { 'bis' }
+      let(:date_splitter) { ' bis ' }
       let(:expected_range) { range_beginning..range_ending }
 
       context 'when the date range is one month' do
@@ -138,10 +138,10 @@ RSpec.describe DateTimePickerHelper, type: :helper do
       end
     end
 
-    context 'when locale is :fr' do
-      around { |spec| I18n.with_locale(:fr) { spec.run } }
+    context 'when locale is :fr-CH' do
+      around { |spec| I18n.with_locale(:'fr-CH') { spec.run } }
 
-      let(:date_splitter) { 'au' }
+      let(:date_splitter) { ' au ' }
       let(:expected_range) { range_beginning..range_ending }
 
       context 'when the date range is one month' do

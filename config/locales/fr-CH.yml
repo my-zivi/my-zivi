@@ -348,8 +348,8 @@ fr-CH:
         filtern: Filtre de liste
         range: Période
         title:
-          without_filter: Liste de téléphone
           with_filter: Liste de téléphone du %{range}
+          without_filter: Liste de téléphone
     service_specifications:
       create:
         erroneous_create: Le cahier des charges n'a pas pu être créée

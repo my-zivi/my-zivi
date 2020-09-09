@@ -25,14 +25,16 @@ module Organizations
     end
 
     def set_service_specifications
-      @service_specifications = filtered_service_specifications
+      @service_specifications = filtered_services
                                 .includes(:service_specification, civil_servant: %i[address user])
                                 .order(ending: :desc)
-                                .distinct(:civil_servant)
                                 .group_by { |service| service.service_specification.name }
+                                .transform_values do |services|
+                                  services.uniq(&:civil_servant)
+                                end
     end
 
-    def filtered_service_specifications
+    def filtered_services
       beginning = @filters[:beginning]
       ending =  @filters[:ending]
 

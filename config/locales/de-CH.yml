@@ -349,8 +349,8 @@ de-CH:
         filtern: Liste filtern
         range: Zeitraum
         title:
-          without_filter: Telefonliste
           with_filter: Telefonliste vom %{range}
+          without_filter: Telefonliste
     service_specifications:
       create:
         erroneous_create: Pflichtenheft konnte nicht erstellt werden
