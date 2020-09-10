@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.1",
-    "@my-zivi/falcon": "2.6.2",
+    "@my-zivi/falcon": "2.6.5",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -11,6 +11,7 @@
     "@sentry/browser": "^5.17.0",
     "bootstrap": "^4.5.0",
     "core-js": "^3.6.5",
+    "flatpickr": "^4.6.6",
     "is_js": "^0.9.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",

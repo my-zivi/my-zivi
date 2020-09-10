@@ -8,23 +8,16 @@ module Pdfs
     include Pdfs::PrawnHelper
 
     TABLE_HEADER = [
-      I18n.t('activerecord.attributes.civil_servant.first_name'),
-      I18n.t('activerecord.attributes.civil_servant.last_name'),
-      I18n.t('activerecord.attributes.address.street'),
-      I18n.t('activerecord.attributes.address.zip_with_city'),
+      I18n.t('activerecord.attributes.civil_servant.address'),
       I18n.t('activerecord.attributes.civil_servant.phone'),
       I18n.t('activerecord.attributes.user.email')
     ].freeze
 
-    def initialize(service_specifications, dates)
-      @beginning = dates.beginning
-      @ending = dates.ending
-      @service_specifications = service_specifications
-
+    def initialize(service_specifications, beginning, ending)
       update_font_families
 
-      header
-      content_table
+      header(beginning, ending)
+      content_table(service_specifications)
     end
 
     def document
@@ -33,23 +26,29 @@ module Pdfs
 
     private
 
-    def header
+    def header(beginning, ending)
       text I18n.t('pdfs.phone_list.header', date: I18n.l(Time.zone.today)), align: :right
 
       text(
-        I18n.t(
-          'pdfs.phone_list.title',
-          beginning: I18n.l(@beginning),
-          ending: I18n.l(@ending)
-        ),
+        header_title(beginning, ending),
         align: :left,
         style: :bold,
         size: 15
       )
     end
 
-    def content_table
-      @service_specifications.each do |name, services|
+    def header_title(beginning, ending)
+      return I18n.t('pdfs.phone_list.title.without_date') if beginning.nil? || ending.nil?
+
+      I18n.t(
+        'pdfs.phone_list.title.with_date',
+        beginning: I18n.l(beginning.to_date),
+        ending: I18n.l(ending.to_date)
+      )
+    end
+
+    def content_table(service_specifications)
+      service_specifications.each do |name, services|
         pre_table(name)
 
         font_size 10
@@ -57,7 +56,7 @@ module Pdfs
               cell_style: { borders: %i[] },
               width: bounds.width,
               header: true,
-              column_widths: [98, 98, 179.89, 118, 98, 178]) do
+              column_widths: [471.89, 120, 178]) do
           row(0).font_style = :bold
         end
       end
@@ -86,10 +85,7 @@ module Pdfs
 
     def civil_servant_data(civil_servant)
       [
-        civil_servant.first_name,
-        civil_servant.last_name,
-        civil_servant.address.street,
-        civil_servant.address.zip_with_city,
+        civil_servant.address.full_compose(', '),
         civil_servant.phone,
         civil_servant.user.email
       ]

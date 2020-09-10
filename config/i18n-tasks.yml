@@ -34,6 +34,7 @@ ignore_unused:
   - 'pdfs.expense_sheet.expense_table.row_headers.*'
   - 'base.services.short_info_cell.service_confirmed.*'
   - 'mailing_list_entry_notifier_mailer.notify.subject'
+  - 'organizations.phone_list.index.range'
   - 'helpers.*'
 
 ## Exclude these keys from the `i18n-tasks eq-base' report:

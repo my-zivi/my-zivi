@@ -1,0 +1,36 @@
+.card.mb-3
+  .card-header
+    = simple_form_for :filters, method: :get do |f|
+      .row.d-flex.align-items-center
+        .col-md-6.col-12
+          = range_date_picker(f, :range, @filters[:range], placeholder: 'kein Filter')
+        .col-md-3.col-12
+          = f.submit t('.filtern'), class: 'btn btn-primary'
+.card.mb-3
+  .card-header
+    .row.align-items-center
+      .col-8
+        h2.mb-0
+          = @filters[:range].present? ? t('.title.with_filter', range: @filters[:range]) : t('.title.without_filter')
+      .col-4.d-inline-flex.justify-content-end
+        = phone_list_pdf_link(@filters) do
+          i.fas.fa-print.mr-1
+          = t('print')
+  - @service_specifications.each do |spec_name, services|
+    .card-body
+      .row
+        .col-12
+          .h5 = spec_name
+      .row
+        .col-md-7.col-sm-6
+          h6 = t('activerecord.attributes.civil_servant.address')
+        .col-md-2.col-sm-6
+          h6 = t('activerecord.attributes.civil_servant.phone')
+        .col-md-3.col-sm-6
+          h6 = t('activerecord.attributes.user.email')
+      - services.each do |service|
+        - civi = service.civil_servant
+        .row
+          .col-md-7.col-sm-6 = civi.address.full_compose(', ')
+          .col-md-2.col-sm-6 = civi.phone
+          .col-md-3.col-sm-6 = civi.user.email

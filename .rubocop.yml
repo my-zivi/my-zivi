@@ -58,7 +58,7 @@ Rails/Output:
     - 'db/seed_data/*.rb'
 
 RSpec/NestedGroups:
-  Max: 5
+  Max: 6
 
 AllCops:
   NewCops: enable
