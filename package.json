@@ -23,7 +23,7 @@
   "scripts": {
     "heroku-prebuild": "node ./bin/heroku-prebuild.js",
     "lint": "eslint app/javascript",
-    "percy:capture-screenshots": "percy exec -- bundle exec rspec spec/screenshots/*_spec.rb"
+    "percy:capture-screenshots": "NO_COVERAGE=true percy exec -- bundle exec rspec spec/screenshots/*_spec.rb"
   },
   "husky": {
     "hooks": {
