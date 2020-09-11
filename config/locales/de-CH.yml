@@ -309,16 +309,13 @@ de-CH:
         successfully_updated: Profil erfolgreich aktualisiert
     overview:
       index:
+        active_civil_servants: Aktive Zivildienstleistende
+        phone_lists:
+          current_month: Aktueller Monat
+          current_week: Aktuelle Woche
+          title: Telefonlisten
         welcome_back:
           title: Wilkommen zurück, %{name}!
-        current_active_services:
-          one: "%{count} Aktiver Einsatz"
-          other: "%{count} Aktive Einsätze"
-        phone_lists:
-          title: Telefonlisten
-          current_month: "Aktueller Monat"
-          current_week: "Aktuelle Woche"
-        active_civil_servants: "Aktive Zivildienstleistende"
     payments:
       badges:
         open:
