@@ -4,7 +4,7 @@ require 'rails_helper'
 require 'percy'
 
 RSpec.describe 'Organizations Portal Screenshots', type: :system, js: true do
-  let(:organization_administrator) { create(:organization_member) }
+  let(:organization_administrator) { create(:organization_member, first_name: 'Therese', last_name: 'Mayer') }
 
   before do
     sign_in organization_administrator.user
