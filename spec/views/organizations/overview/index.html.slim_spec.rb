@@ -13,6 +13,7 @@ RSpec.describe 'organizations/overview/index.html.slim', type: :view do
   end
 
   it 'renders the welcome card' do
-    expect(rendered).to include t('organizations.overview.index.welcome_back.title', name: current_organization_admin.full_name)
+    expect(rendered).to include t('organizations.overview.index.welcome_back.title',
+                                  name: current_organization_admin.full_name)
   end
 end
