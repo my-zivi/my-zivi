@@ -13,7 +13,7 @@ FactoryBot.define do
 
     trait :current do
       beginning { Time.zone.now.at_beginning_of_week - 3.weeks }
-      ending { Time.zone.now.at_end_of_week - 2.days }
+      ending { Time.zone.now.at_end_of_week + 1.week - 2.days }
     end
 
     trait :unconfirmed do
