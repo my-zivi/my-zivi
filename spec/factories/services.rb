@@ -11,6 +11,11 @@ FactoryBot.define do
     service_specification
     association :civil_servant, :full
 
+    trait :current do
+      beginning { Time.zone.now.at_beginning_of_week - 3.weeks }
+      ending { Time.zone.now.at_end_of_week - 2.days }
+    end
+
     trait :unconfirmed do
       confirmation_date { nil }
     end
