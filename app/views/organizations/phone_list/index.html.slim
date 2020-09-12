@@ -1,9 +1,10 @@
 .card.mb-3
   .card-header
     = simple_form_for :filters, method: :get, wrapper: :inline_form do |f|
-      .d-flex.align-items-end
-        = range_date_picker(f, :range, @filters[:range], placeholder: t('.range_filter'))
-        .ml-2
+      .row
+        .col-12.col-md-4
+          = range_date_picker(f, :range, @filters[:range], placeholder: t('.range_filter'))
+        .col-12.col-md-2.mt-2.mt-md-0
           = f.submit t('.filtern'), class: 'btn btn-primary'
 .card.mb-3
   .card-header
