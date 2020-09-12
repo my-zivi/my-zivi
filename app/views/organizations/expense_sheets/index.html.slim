@@ -3,7 +3,7 @@
     .row.align-items-center
       .col
         h5.mb-0
-          = t('activerecord.models.expense_sheet')
+          = t('.title')
           span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@expense_sheets.count})"
       .col.d-inline-flex.justify-content-end
         = link_to({ filters: { show_all: !@filters[:show_all] } }, class: 'd-flex align-items-center') do

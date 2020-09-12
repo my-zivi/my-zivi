@@ -292,6 +292,7 @@ de-CH:
       index:
         duration: Anzahl Tage
         show_all_expense_sheets: Alle Spesenblätter anzeigen
+        title: Spesenblätter
       update:
         erroneous_update: Spesenblatt konnte nicht aktualisiert werden
         successful_update: Spesenblatt erfolgreich aktualisiert
@@ -304,13 +305,15 @@ de-CH:
         destroy_organization_member_confirmation: Mitarbeiter wirklich löschen?
         pending_invitation: Bitte bestätigen sie die neue E-Mail Adresse mithilfe des Links, welcher an %{email} gesendet wurde.
         subtitle: Mitarbeiter-Profil
+      index:
+        title: Mitarbeiter
       update:
         erroneous_update: Das Profil konnte nicht aktualisiert werden
         successfully_updated: Profil erfolgreich aktualisiert
     overview:
       index:
         welcome_back:
-          title: Wilkommen zurück, %{name}!
+          title: Willkommen zurück, %{name}!
     payments:
       badges:
         open:
