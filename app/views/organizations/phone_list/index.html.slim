@@ -1,10 +1,10 @@
 .card.mb-3
   .card-header
-    = simple_form_for :filters, method: :get do |f|
-      .row.d-flex.align-items-center
-        .col-md-6.col-12
-          = range_date_picker(f, :range, @filters[:range], placeholder: 'kein Filter')
-        .col-md-3.col-12
+    = simple_form_for :filters, method: :get, wrapper: :inline_form do |f|
+      .row
+        .col-12.col-md-4
+          = range_date_picker(f, :range, @filters[:range], placeholder: t('.range_filter'))
+        .col-12.col-md-2.mt-2.mt-md-0
           = f.submit t('.filtern'), class: 'btn btn-primary'
 .card.mb-3
   .card-header
@@ -20,7 +20,7 @@
     .card-body
       .row
         .col-12
-          .h5 = spec_name
+          h5 = spec_name
       .row
         .col-md-7.col-sm-6
           h6 = t('activerecord.attributes.civil_servant.address')
@@ -34,3 +34,8 @@
           .col-md-7.col-sm-6 = civi.address.full_compose(', ')
           .col-md-2.col-sm-6 = civi.phone
           .col-md-3.col-sm-6 = civi.user.email
+  - if @service_specifications.empty?
+    .card-body
+      .row
+        .col-12
+          h5.text-muted = t('.empty-result')

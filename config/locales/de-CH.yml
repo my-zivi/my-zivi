@@ -361,8 +361,9 @@ de-CH:
         successful_update: Auszahlung wurde erfolgreich aktualisiert
     phone_list:
       index:
+        empty-result: Keine Einsätze im angegebenen Zeitraum
         filtern: Liste filtern
-        range: Zeitraum
+        range_filter: Nach Zeitraum filtern
         title:
           with_filter: Telefonliste vom %{range}
           without_filter: Telefonliste
