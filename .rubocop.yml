@@ -60,6 +60,9 @@ Rails/Output:
 RSpec/NestedGroups:
   Max: 6
 
+RSpec/MultipleMemoizedHelpers:
+   Max: 15
+
 AllCops:
   NewCops: enable
   Exclude:
