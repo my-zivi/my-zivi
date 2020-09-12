@@ -8,14 +8,17 @@ RSpec.describe 'organizations/overview/index.html.slim', type: :view do
   let(:current_organization_admin) { create(:organization_member) }
   let(:expected_strings) do
     [
-        t('organizations.overview.index.welcome_back.title', name: current_organization_admin.full_name),
-        t('organizations.overview.index.phone_lists.title'),
-        t('organizations.overview.index.phone_lists.title'),
-        t('organizations.overview.index.phone_lists.current_week'),
-        t('organizations.overview.index.phone_lists.current_month'),
-        t('organizations.overview.index.active_civil_servants'),
-        t('base.organizations.navbar.civil_servants'),
-        '2'
+      current_organization_admin.organization.name,
+      t('organizations.overview.index.cards.welcome_back.title', name: current_organization_admin.full_name),
+      t('organizations.overview.index.cards.phone_lists.title'),
+      t('organizations.overview.index.cards.phone_lists.links.current_week'),
+      t('organizations.overview.index.cards.phone_lists.links.current_month'),
+      t('organizations.overview.index.cards.active_services.title'),
+      t('organizations.overview.index.cards.active_services.link'),
+      '2',
+      t('organizations.overview.index.cards.editable_expense_sheets.title'),
+      t('organizations.overview.index.cards.editable_expense_sheets.link'),
+      '0'
     ]
   end
 
@@ -28,6 +31,6 @@ RSpec.describe 'organizations/overview/index.html.slim', type: :view do
   end
 
   it 'renders all the expected card strings' do
-    expect(rendered).to include *expected_strings
+    expect(rendered).to include(*expected_strings)
   end
 end

@@ -233,7 +233,7 @@ fr-CH:
           current_service: Mon service actuel
         titles:
           current_service: Service actuel
-          expense_sheets: Notes the frais
+          expense_sheets: Notes de frais
           no_current_service: Pas de service actuel
           service_until: Service jusqu'à
     services:
@@ -311,21 +311,20 @@ fr-CH:
         successfully_updated: Profil mis à jour avec succès
     overview:
       index:
-        active_civil_servants: Les civilists en activité
-        phone_lists:
-          current_month: Mois en cours
-          current_week: Semaine en cours
-          title: Listes téléphoniques
-        welcome_back:
-          title: Bonjour, %{name}!
-        current_active_services:
-          one: Service actif
-          other: Services actifs
-        phone_lists:
-          title: Listes téléphoniques
-          current_month: "Mois en cours"
-          current_week: "Semaine en cours"
-        active_civil_servants: "Les civilists en activité"
+        cards:
+          welcome_back:
+            title: Bonjour, %{name}!
+          active_services:
+            title: Les civilists en activité
+            link: Les civilists
+          phone_lists:
+            title: Listes téléphoniques
+            links:
+              current_month: Mois en cours
+              current_week: Semaine en cours
+          editable_expense_sheets:
+            title: Ouvrez les notes de frais
+            link: Notes de frais
     payments:
       badges:
         open:
@@ -354,7 +353,7 @@ fr-CH:
         mark_as_paid: Marquer comme payé
       show:
         expense_sheets_table:
-          title: Notes the frais
+          title: Notes de frais
         title: Paiement à partir de %{date}
       update:
         erroneous_update: Le paiement n'a pas pu être mis à jour

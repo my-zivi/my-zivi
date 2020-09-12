@@ -2,7 +2,7 @@
   = render( \
       OverviewCardComponent.new( \
         title: current_organization_admin.organization.name,
-          text: t('.welcome_back.title', name: current_organization_admin.full_name),
+          text: t('.cards.welcome_back.title', name: current_organization_admin.full_name),
           type: OverviewCardComponent::TYPES[:info],
           links: {} \
       ) \
@@ -11,20 +11,29 @@
   = render( \
       OverviewCardComponent.new( \
         title: "",
-          text: t('.phone_lists.title'),
+          text: t('.cards.phone_lists.title'),
           type: OverviewCardComponent::TYPES[:info],
           links: {\
-            t('.phone_lists.current_week') => current_week_phone_list_path,
-            t('.phone_lists.current_month') => current_month_phone_list_path\
+            t('.cards.phone_lists.links.current_week') => current_week_phone_list_path,
+            t('.cards.phone_lists.links.current_month') => current_month_phone_list_path\
           } \
       ) \
     )
 
   = render(\
         OverviewCardComponent.new(\
-          title: t('.active_civil_servants'),
+          title: t('.cards.active_services.title'),
           text: active_civil_servants_count,
           type: OverviewCardComponent::TYPES[:info],
-          links: { t('base.organizations.navbar.civil_servants') => organizations_civil_servants_path } \
+          links: { t('.cards.active_services.link') => organizations_civil_servants_path } \
         ) \
       )
+
+  = render(\
+          OverviewCardComponent.new(\
+            title: t('.cards.editable_expense_sheets.title'),
+          text: editable_expense_sheets_count,
+          type: OverviewCardComponent::TYPES[:info],
+          links: {t('.cards.editable_expense_sheets.link') => organizations_expense_sheets_path} \
+          ) \
+        )

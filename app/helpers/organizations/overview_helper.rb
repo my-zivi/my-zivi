@@ -21,5 +21,9 @@ module Organizations
     def active_civil_servants_count
       current_organization.services.active.count
     end
+
+    def editable_expense_sheets_count
+      current_organization.expense_sheets.editable.count
+    end
   end
 end
