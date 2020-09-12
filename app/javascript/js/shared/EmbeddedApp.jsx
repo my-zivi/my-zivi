@@ -4,16 +4,22 @@ export default class EmbeddedApp {
   constructor(selector, RootComponent) {
     this.selector = selector;
     this.RootComponent = RootComponent;
+    this.installed = false;
   }
 
   install() {
-    $(document).on('turbolinks:load', () => {
-      const container = document.querySelector(this.selector);
+    this.attachToContainer();
+    $(document).on('turbolinks:load', () => this.attachToContainer());
+  }
+
+  attachToContainer() {
+    const container = document.querySelector(this.selector);
+
+    if (container && !this.installed) {
       const { RootComponent } = this;
 
-      if (container) {
-        render(<RootComponent />, container);
-      }
-    });
+      render(<RootComponent />, container);
+      this.installed = true;
+    }
   }
 }
