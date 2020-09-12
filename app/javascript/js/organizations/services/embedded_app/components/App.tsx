@@ -1,10 +1,11 @@
-import React, { h, Component, Fragment } from 'preact';
+import { h, Component, Fragment } from 'preact';
 import Rails from '@rails/ujs';
 import { PlanningTable } from './PlanningTable';
-import ServicesPlan from '../models/ServicesPlan';
-import { DATE_FORMATS } from '../../../../constants';
+import ServicesPlan, { Service } from '../models/ServicesPlan';
+import { DATE_FORMATS } from 'js/constants';
+import React from 'preact/compat';
 
-export default class App extends Component {
+export default class App extends Component<{}, { loading: boolean, services: Array<Service> }> {
   constructor() {
     super();
 
@@ -28,7 +29,7 @@ export default class App extends Component {
   }
 
   async fetchData() {
-    return new Promise((success, error) => {
+    return new Promise((success: (services: Service[]) => void, error) => {
       Rails.ajax({
         url: '/organizations/services.json',
         type: 'GET',

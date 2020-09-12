@@ -1,16 +1,26 @@
-import moment from 'moment';
+import moment, { Moment } from 'moment';
+
+export interface Service {
+  beginning: string;
+  ending: string;
+  civilServant: {
+    full_name: string;
+  };
+}
 
 export default class ServicesPlan {
+  private readonly services: Service[];
+
   constructor(services) {
     this.services = services;
   }
 
   get earliestBeginning() {
-    return moment(moment.min(this.services.map(service => service['beginning'])));
+    return moment.min(this.services.map(service => moment(service['beginning'])));
   }
 
   get latestEnding() {
-    return moment(moment.max(this.services.map(service => service['ending'])));
+    return moment.max(this.services.map(service => moment(service['ending'])));
   }
 
   get planBeginning() {
@@ -25,7 +35,7 @@ export default class ServicesPlan {
     return this.planEnding.diff(this.planBeginning, 'days');
   }
 
-  mapDays(callback) {
+  mapDays(callback: (day: Moment) => void) {
     let output = [];
     for (let delta = 0; delta <= this.daysSpan(); ++delta) {
       output.push(callback(this.planBeginning.add(delta, 'days')));

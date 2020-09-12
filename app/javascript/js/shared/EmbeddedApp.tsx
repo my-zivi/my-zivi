@@ -1,7 +1,12 @@
-import React, { render, h } from 'preact';
+import { render, h, Component } from 'preact';
+import React from 'preact/compat';
 
-export default class EmbeddedApp {
-  constructor(selector, RootComponent) {
+export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
+  private readonly selector: K | string;
+  private RootComponent: typeof Component;
+  private installed: boolean;
+
+  constructor(selector: K | string, RootComponent: typeof Component) {
     this.selector = selector;
     this.RootComponent = RootComponent;
     this.installed = false;
