@@ -1,4 +1,5 @@
 const { environment } = require('@rails/webpacker');
+const typescript =  require('./loaders/typescript')
 const webpack = require('webpack');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
@@ -22,4 +23,5 @@ environment.config.merge({
   },
 });
 
+environment.loaders.prepend('typescript', typescript)
 module.exports = environment;
