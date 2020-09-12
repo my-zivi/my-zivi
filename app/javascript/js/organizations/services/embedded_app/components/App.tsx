@@ -1,11 +1,16 @@
-import { h, Component, Fragment } from 'preact';
+import { Component } from 'preact';
 import Rails from '@rails/ujs';
-import { PlanningTable } from './PlanningTable';
-import ServicesPlan, { Service } from '../models/ServicesPlan';
+import { OverviewTable } from './OverviewTable';
+import ServicesList, { Service } from '../models/ServicesList';
 import { DATE_FORMATS } from 'js/constants';
 import React from 'preact/compat';
 
-export default class App extends Component<{}, { loading: boolean, services: Array<Service> }> {
+interface State {
+  loading: boolean;
+  services: Array<Service>;
+}
+
+export default class App extends Component<{}, State> {
   constructor() {
     super();
 
@@ -40,19 +45,21 @@ export default class App extends Component<{}, { loading: boolean, services: Arr
   }
 
   servicesPlan() {
-    return new ServicesPlan(this.state.services);
+    return new ServicesList(this.state.services);
   }
 
   render() {
     if (this.state.loading) {
       return <p>loading...</p>;
     } else {
-      const plan = this.servicesPlan();
+      const servicesList = this.servicesPlan();
 
       return(
         <>
-          <h1>{plan.planBeginning.format(DATE_FORMATS.short)} - {plan.planEnding.format(DATE_FORMATS.short)}</h1>
-          <PlanningTable servicesPlan={plan} />
+          <h1>
+            {servicesList.planBeginning.format(DATE_FORMATS.short)} - {servicesList.planEnding.format(DATE_FORMATS.short)}
+          </h1>
+          <OverviewTable servicesList={servicesList} />
         </>
       );
     }

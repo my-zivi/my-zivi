@@ -8,7 +8,7 @@ export interface Service {
   };
 }
 
-export default class ServicesPlan {
+export default class ServicesList {
   private readonly services: Service[];
 
   constructor(services) {
