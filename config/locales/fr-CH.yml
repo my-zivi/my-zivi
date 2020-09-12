@@ -312,19 +312,19 @@ fr-CH:
     overview:
       index:
         cards:
-          welcome_back:
-            title: Bonjour, %{name}!
           active_services:
-            title: Les civilists en activité
             link: Les civilists
+            title: Les civilists en activité
+          editable_expense_sheets:
+            link: Notes de frais
+            title: Ouvrez les notes de frais
           phone_lists:
-            title: Listes téléphoniques
             links:
               current_month: Mois en cours
               current_week: Semaine en cours
-          editable_expense_sheets:
-            title: Ouvrez les notes de frais
-            link: Notes de frais
+            title: Listes téléphoniques
+          welcome_back:
+            title: Bonjour, %{name}!
     payments:
       badges:
         open:

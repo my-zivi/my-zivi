@@ -32,9 +32,11 @@ RSpec.describe 'Organizations Portal Walkthrough', type: :system do
 
   # rubocop:disable RSpec/ExampleLength
   it 'can navigate through portal', :without_bullet do
-    expect(page).to have_content I18n.t('organizations.overview.index.welcome_back.title', name: 'Johnny Depp')
+    expect(page).to have_content I18n.t('organizations.overview.index.cards.welcome_back.title', name: 'Johnny Depp')
 
-    click_on I18n.t('base.organizations.navbar.civil_servants')
+    within('#navbarVerticalCollapse') do
+      click_on I18n.t('base.organizations.navbar.civil_servants')
+    end
     expect(page).to have_content I18n.t('organizations.civil_servants.index.title')
     expect(page).to have_content civil_servant.full_name
 
@@ -42,7 +44,9 @@ RSpec.describe 'Organizations Portal Walkthrough', type: :system do
     expect(page).to have_content I18n.t('organizations.service_specifications.index.title')
     expect(page).to have_content service_specification.name
 
-    click_on I18n.t('base.organizations.navbar.expense_sheets')
+    within('#navbarVerticalCollapse') do
+      click_on I18n.t('base.organizations.navbar.expense_sheets')
+    end
     expect(page).to have_content I18n.t('organizations.expense_sheets.index.title')
     expect(page).to have_content(civil_servant.full_name).twice
 

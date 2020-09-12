@@ -313,19 +313,19 @@ de-CH:
     overview:
       index:
         cards:
-          welcome_back:
-            title: Wilkommen zurück, %{name}!
           active_services:
-            title: Aktive Zivildienstleistende
             link: Zivildienstleistende
+            title: Aktive Zivildienstleistende
+          editable_expense_sheets:
+            link: Spesenblätter
+            title: Offene Spesenblätter
           phone_lists:
-            title: Telefonlisten
             links:
               current_month: Aktueller Monat
               current_week: Aktuelle Woche
-          editable_expense_sheets:
-            title: "Offene Spesenblätter"
-            link: Spesenblätter
+            title: Telefonlisten
+          welcome_back:
+            title: Wilkommen zurück, %{name}!
     payments:
       badges:
         open:
