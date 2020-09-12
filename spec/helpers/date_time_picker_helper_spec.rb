@@ -63,6 +63,7 @@ RSpec.describe DateTimePickerHelper, type: :helper do
         expect(range_date_picker_input_element.classes).to eq expected_classes
         expect(range_date_picker_input_element['type']).to eq expected_type
         expect(range_date_picker_input_element['value']).to eq value
+        expect(range_date_picker_input_element['readonly']).to eq 'readonly'
         expect(
           JSON.parse(range_date_picker_input_element['data-options'], symbolize_names: true)
         ).to eq expected_data_options
