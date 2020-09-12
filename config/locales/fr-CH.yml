@@ -348,8 +348,9 @@ fr-CH:
         successful_update: Le paiement a été mis à jour avec succès
     phone_list:
       index:
+        empty-result: Aucun service pendant la période spécifiée
         filtern: Filtre de liste
-        range: Période
+        range_filter: Filtrer par période
         title:
           with_filter: Liste de téléphone du %{range}
           without_filter: Liste de téléphone

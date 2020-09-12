@@ -94,6 +94,14 @@ RSpec.describe Organizations::PhoneListController, type: :request do
               expect(response.body.scan(/#{second_civil_servant.full_name}/).size).to eq 1
             end
           end
+
+          context 'when range excludes all services' do
+            let(:range) { '07.01.2020 bis 10.01.2020' }
+
+            it 'does render the placeholder' do
+              expect(response.body).to include I18n.t('organizations.phone_list.index.empty-result')
+            end
+          end
         end
       end
 

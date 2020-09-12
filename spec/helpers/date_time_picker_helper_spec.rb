@@ -58,14 +58,15 @@ RSpec.describe DateTimePickerHelper, type: :helper do
     let(:expected_type) { 'date' }
     let(:expected_data_options) { DateTimePickerHelper::DEFAULT_OPTIONS.merge(locale: I18n.locale.to_s).merge(options) }
 
+    let(:rendered_data_options) { JSON.parse(range_date_picker_input_element['data-options'], symbolize_names: true) }
+
     context 'without any special config' do
       it 'renders all attributes correctly' do
         expect(range_date_picker_input_element.classes).to eq expected_classes
         expect(range_date_picker_input_element['type']).to eq expected_type
         expect(range_date_picker_input_element['value']).to eq value
-        expect(
-          JSON.parse(range_date_picker_input_element['data-options'], symbolize_names: true)
-        ).to eq expected_data_options
+        expect(range_date_picker_input_element['readonly']).to eq 'readonly'
+        expect(rendered_data_options).to eq expected_data_options
       end
     end
 
@@ -76,9 +77,7 @@ RSpec.describe DateTimePickerHelper, type: :helper do
         expect(range_date_picker_input_element.classes).to eq expected_classes
         expect(range_date_picker_input_element['type']).to eq expected_type
         expect(range_date_picker_input_element['value']).to eq value
-        expect(
-          JSON.parse(range_date_picker_input_element['data-options'], symbolize_names: true)
-        ).to eq expected_data_options
+        expect(rendered_data_options).to eq expected_data_options
       end
     end
   end
