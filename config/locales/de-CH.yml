@@ -312,8 +312,20 @@ de-CH:
         successfully_updated: Profil erfolgreich aktualisiert
     overview:
       index:
-        welcome_back:
-          title: Willkommen zurück, %{name}!
+        cards:
+          active_services:
+            link: Zivildienstleistende
+            title: Aktive Zivildienstleistende
+          editable_expense_sheets:
+            link: Spesenblätter
+            title: Offene Spesenblätter
+          phone_lists:
+            links:
+              current_month: Aktueller Monat
+              current_week: Aktuelle Woche
+            title: Telefonlisten
+          welcome_back:
+            title: Wilkommen zurück, %{name}!
     payments:
       badges:
         open:
