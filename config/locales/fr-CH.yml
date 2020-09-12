@@ -291,6 +291,7 @@ fr-CH:
       index:
         duration: Nombre de jours
         show_all_expense_sheets: Afficher toutes les notes de frais
+        title: Note des frais
       update:
         erroneous_update: La note de frais n'a pas pu être mis à jour
         successful_update: La note de frais mis à jour avec succès
@@ -303,6 +304,8 @@ fr-CH:
         destroy_organization_member_confirmation: Supprimer réellement l'employé?
         pending_invitation: Veuillez confirmer la nouvelle adresse électronique avec le lien qui a été envoyé à %{email}.
         subtitle: Profil des employés
+      index:
+        title: Employés
       update:
         erroneous_update: Le profil n'a pas pu être mis à jour
         successfully_updated: Profil mis à jour avec succès
