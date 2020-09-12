@@ -19,7 +19,7 @@
     .card-body
       .row
         .col-12
-          .h5 = spec_name
+          h5 = spec_name
       .row
         .col-md-7.col-sm-6
           h6 = t('activerecord.attributes.civil_servant.address')
@@ -37,4 +37,4 @@
     .card-body
       .row
         .col-12
-          .h5 = t('.empty-result')
+          h5.text-muted = t('.empty-result')
