@@ -7,7 +7,7 @@ class OverviewCardComponent < ViewComponent::Base
     success: :success
   }.freeze
 
-  def initialize(title:, text:, badge: nil, type:, links:)
+  def initialize(title:, text:, type:, links:, badge: nil)
     super
     @type = type
     @title = title
