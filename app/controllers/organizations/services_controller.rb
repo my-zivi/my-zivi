@@ -16,11 +16,11 @@ module Organizations
     private
 
     def serialize_services
-      transformed_data = services.map do |service|
+      transformed_data = services.map { |service|
         service.slice(:beginning, :ending).merge(
-          'civilServant' => service.civil_servant.slice(:id, :full_name)
+          'civilServant' => service.civil_servant.slice(:id, :full_name).transform_keys { |key| key.camelize(:lower) }
         )
-      end
+      }
 
       JSON.dump(transformed_data)
     end

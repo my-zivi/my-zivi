@@ -4,7 +4,7 @@ export interface Service {
   beginning: string;
   ending: string;
   civilServant: {
-    full_name: string;
+    fullName: string;
   };
 }
 
