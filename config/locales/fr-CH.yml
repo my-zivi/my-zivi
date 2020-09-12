@@ -311,8 +311,21 @@ fr-CH:
         successfully_updated: Profil mis à jour avec succès
     overview:
       index:
+        active_civil_servants: Les civilists en activité
+        phone_lists:
+          current_month: Mois en cours
+          current_week: Semaine en cours
+          title: Listes téléphoniques
         welcome_back:
           title: Bonjour, %{name}!
+        current_active_services:
+          one: Service actif
+          other: Services actifs
+        phone_lists:
+          title: Listes téléphoniques
+          current_month: "Mois en cours"
+          current_week: "Semaine en cours"
+        active_civil_servants: "Les civilists en activité"
     payments:
       badges:
         open:

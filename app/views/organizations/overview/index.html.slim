@@ -1,8 +1,30 @@
-.card.mb-3
-  .bg-holder.d-none.d-lg-block.bg-card.corner-background-success
-  .card-body
-    .row
-      .col-lg-8
-        h2.mb-0 = t('.welcome_back.title', name: current_organization_admin.full_name)
-        p.text-muted.mt-2
-          = current_organization_admin.organization.name
+.row.card-deck
+  = render( \
+      OverviewCardComponent.new( \
+        title: current_organization_admin.organization.name,
+          text: t('.welcome_back.title', name: current_organization_admin.full_name),
+          type: OverviewCardComponent::TYPES[:info],
+          links: {} \
+      ) \
+    )
+
+  = render( \
+      OverviewCardComponent.new( \
+        title: "",
+          text: t('.phone_lists.title'),
+          type: OverviewCardComponent::TYPES[:info],
+          links: {\
+            t('.phone_lists.current_week') => current_week_phone_list_path,
+            t('.phone_lists.current_month') => current_month_phone_list_path\
+          } \
+      ) \
+    )
+
+  = render(\
+        OverviewCardComponent.new(\
+          title: t('.active_civil_servants'),
+          text: active_civil_servants_count,
+          type: OverviewCardComponent::TYPES[:info],
+          links: { t('base.organizations.navbar.civil_servants') => organizations_civil_servants_path } \
+        ) \
+      )
