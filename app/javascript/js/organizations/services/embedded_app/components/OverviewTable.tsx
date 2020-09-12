@@ -12,7 +12,7 @@ export class OverviewTable extends Component<Props> {
     return (
       <table>
         <thead>
-        <TableHeader servicesPlan={this.props.servicesList} />
+          <TableHeader servicesPlan={this.props.servicesList} />
         </thead>
       </table>
     );

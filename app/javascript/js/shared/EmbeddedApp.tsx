@@ -20,7 +20,7 @@ export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
   attachToContainer() {
     const container = document.querySelector(this.selector);
 
-    if (container && !this.installed) {
+    if (!this.installed && container) {
       const { RootComponent } = this;
 
       render(<RootComponent />, container);
