@@ -43,7 +43,7 @@
   .row
     .col-12.col-lg-6
       = f.input :unpaid_company_holiday_days,
-              label: t('activerecord.attributes.expense_sheet.unpaid_company_holiday_days'),
+              label: t('activerecord.attributes.expense_sheet.unpaid_company_holiday_days.other'),
               append: t('.suggestion', suggested_value: expense_sheet.calculate_chargeable_days),
               disabled: !expense_sheet.editable?
     .col-12.col-lg-6

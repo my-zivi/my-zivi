@@ -197,11 +197,10 @@ fr-CH:
         expense_sheets: Fiches de frais
         organization_members: Employés
         payments: Paiements
+        phone_list: Liste de téléphone
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
-        planning: "Planification"
-        services_overview: "Aperçu d'affectations"
     services:
       short_info_cell:
         service_confirmed:
@@ -234,7 +233,7 @@ fr-CH:
           current_service: Mon service actuel
         titles:
           current_service: Service actuel
-          expense_sheets: Notes the frais
+          expense_sheets: Notes de frais
           no_current_service: Pas de service actuel
           service_until: Service jusqu'à
     services:
@@ -292,6 +291,7 @@ fr-CH:
       index:
         duration: Nombre de jours
         show_all_expense_sheets: Afficher toutes les notes de frais
+        title: Note des frais
       update:
         erroneous_update: La note de frais n'a pas pu être mis à jour
         successful_update: La note de frais mis à jour avec succès
@@ -304,13 +304,27 @@ fr-CH:
         destroy_organization_member_confirmation: Supprimer réellement l'employé?
         pending_invitation: Veuillez confirmer la nouvelle adresse électronique avec le lien qui a été envoyé à %{email}.
         subtitle: Profil des employés
+      index:
+        title: Employés
       update:
         erroneous_update: Le profil n'a pas pu être mis à jour
         successfully_updated: Profil mis à jour avec succès
     overview:
       index:
-        welcome_back:
-          title: Bonjour, %{name}!
+        cards:
+          active_services:
+            link: Les civilists
+            title: Les civilists en activité
+          editable_expense_sheets:
+            link: Notes de frais
+            title: Ouvrez les notes de frais
+          phone_lists:
+            links:
+              current_month: Mois en cours
+              current_week: Semaine en cours
+            title: Listes téléphoniques
+          welcome_back:
+            title: Bonjour, %{name}!
     payments:
       badges:
         open:
@@ -339,11 +353,19 @@ fr-CH:
         mark_as_paid: Marquer comme payé
       show:
         expense_sheets_table:
-          title: Notes the frais
+          title: Notes de frais
         title: Paiement à partir de %{date}
       update:
         erroneous_update: Le paiement n'a pas pu être mis à jour
         successful_update: Le paiement a été mis à jour avec succès
+    phone_list:
+      index:
+        empty-result: Aucun service pendant la période spécifiée
+        filtern: Filtre de liste
+        range_filter: Filtrer par période
+        title:
+          with_filter: Liste de téléphone du %{range}
+          without_filter: Liste de téléphone
     service_specifications:
       create:
         erroneous_create: Le cahier des charges n'a pas pu être créée
@@ -399,8 +421,11 @@ fr-CH:
               one: "<b>%{beginning} à %{ending} (%{duration} jour)</b>"
               other: "<b>%{beginning} à %{ending} (%{duration} jours)</b>"
     phone_list:
+      file_name: ListeTéléphonique%{today}
       header: Généré sur %{date}
-      title: Liste téléphonique de %{beginning} à %{ending}
+      title:
+        with_date: Liste téléphonique de %{beginning} à %{ending}
+        without_date: Liste téléphonique des civilists en activité
   print: Imprimer
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.

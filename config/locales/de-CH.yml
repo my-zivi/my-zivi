@@ -197,11 +197,10 @@ de-CH:
         expense_sheets: Spesenblätter
         organization_members: Mitarbeiter
         payments: Auszahlungen
+        phone_list: Telefonliste
         profile: Profil
         service_specifications: Pflichtenhefter
         sign_out: Abmelden
-        planning: "Planung"
-        services_overview: "Einsatzübersicht"
     services:
       short_info_cell:
         service_confirmed:
@@ -293,6 +292,7 @@ de-CH:
       index:
         duration: Anzahl Tage
         show_all_expense_sheets: Alle Spesenblätter anzeigen
+        title: Spesenblätter
       update:
         erroneous_update: Spesenblatt konnte nicht aktualisiert werden
         successful_update: Spesenblatt erfolgreich aktualisiert
@@ -305,13 +305,27 @@ de-CH:
         destroy_organization_member_confirmation: Mitarbeiter wirklich löschen?
         pending_invitation: Bitte bestätigen sie die neue E-Mail Adresse mithilfe des Links, welcher an %{email} gesendet wurde.
         subtitle: Mitarbeiter-Profil
+      index:
+        title: Mitarbeiter
       update:
         erroneous_update: Das Profil konnte nicht aktualisiert werden
         successfully_updated: Profil erfolgreich aktualisiert
     overview:
       index:
-        welcome_back:
-          title: Wilkommen zurück, %{name}!
+        cards:
+          active_services:
+            link: Zivildienstleistende
+            title: Aktive Zivildienstleistende
+          editable_expense_sheets:
+            link: Spesenblätter
+            title: Offene Spesenblätter
+          phone_lists:
+            links:
+              current_month: Aktueller Monat
+              current_week: Aktuelle Woche
+            title: Telefonlisten
+          welcome_back:
+            title: Wilkommen zurück, %{name}!
     payments:
       badges:
         open:
@@ -345,6 +359,14 @@ de-CH:
       update:
         erroneous_update: Die Auszahlung konnte nicht aktualisiert werden
         successful_update: Auszahlung wurde erfolgreich aktualisiert
+    phone_list:
+      index:
+        empty-result: Keine Einsätze im angegebenen Zeitraum
+        filtern: Liste filtern
+        range_filter: Nach Zeitraum filtern
+        title:
+          with_filter: Telefonliste vom %{range}
+          without_filter: Telefonliste
     service_specifications:
       create:
         erroneous_create: Pflichtenheft konnte nicht erstellt werden
@@ -400,8 +422,11 @@ de-CH:
               one: "<b>%{beginning} bis %{ending} (%{duration} Tag)</b>"
               other: "<b>%{beginning} bis %{ending} (%{duration} Tage)</b>"
     phone_list:
+      file_name: Telefonliste_%{today}
       header: Stand vom %{date}
-      title: Telefonliste vom %{beginning} bis %{ending}
+      title:
+        with_date: Telefonliste vom %{beginning} bis %{ending}
+        without_date: Telefonliste aktive Zivildienstleistende
   print: Drucken
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein

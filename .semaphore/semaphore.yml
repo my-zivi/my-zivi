@@ -61,6 +61,9 @@ blocks:
         - name: Tests
           commands:
             - bin/unit-tests
+        - name: System Tests
+          commands:
+            - bin/system-tests
   - name: percy
     dependencies:
       - tests
@@ -79,6 +82,8 @@ blocks:
           - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
           - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
           - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
+          - sudo apt-get update
+          - sudo apt-get install libxss1
           - bundle install --deployment --path vendor/bundle
           - nvm install
           - bin/yarn install --cache-folder ~/.cache/yarn

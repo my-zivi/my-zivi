@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -exo pipefail
+
+NO_COVERAGE=true bundle exec rspec --pattern "**/{system,features}/**/*_spec.rb" $@
