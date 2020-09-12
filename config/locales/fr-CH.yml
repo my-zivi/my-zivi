@@ -201,6 +201,7 @@ fr-CH:
         profile: Profil
         service_specifications: cahiers des charges
         sign_out: Déconnexion
+        services_overview: "Aperçu d'affectations"
     services:
       short_info_cell:
         service_confirmed:
