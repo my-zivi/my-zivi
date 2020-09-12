@@ -200,8 +200,8 @@ de-CH:
         phone_list: Telefonliste
         profile: Profil
         service_specifications: Pflichtenhefter
+        services_overview: Einsatzübersicht
         sign_out: Abmelden
-        services_overview: "Einsatzübersicht"
     services:
       short_info_cell:
         service_confirmed:

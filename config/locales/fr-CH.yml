@@ -200,8 +200,8 @@ fr-CH:
         phone_list: Liste de téléphone
         profile: Profil
         service_specifications: cahiers des charges
+        services_overview: Aperçu d'affectations
         sign_out: Déconnexion
-        services_overview: "Aperçu d'affectations"
     services:
       short_info_cell:
         service_confirmed:

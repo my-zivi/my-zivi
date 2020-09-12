@@ -7,26 +7,13 @@ module Organizations
     def index
       respond_to do |format|
         format.html
-        format.json { render json: serialize_services }
+        format.json { render json: ServicesSerializer.call(services) }
       end
     end
 
     def show; end
 
     private
-
-    def serialize_services
-      transformed_data = services.map do |service|
-        service.slice(:beginning, :ending).merge(
-          'civilServant' => service
-                              .civil_servant
-                              .slice(:id, :full_name)
-                              .transform_keys { |key| key.camelize(:lower) }
-        )
-      end
-
-      JSON.dump(transformed_data)
-    end
 
     def services
       Service
@@ -42,6 +29,7 @@ module Organizations
       }
     end
 
+    # :reek:UtilityFunction
     def parse_filter_param(param)
       Date.parse(param) if param
     end
