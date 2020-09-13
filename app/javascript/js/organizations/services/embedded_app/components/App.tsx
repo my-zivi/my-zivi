@@ -1,9 +1,11 @@
 import { Component } from 'preact';
-import Rails from '@rails/ujs';
 import { OverviewTable } from './OverviewTable';
-import ServicesList, { Service } from '../models/ServicesList';
+import ServicesList from '../models/ServicesList';
 import { DATE_FORMATS } from 'js/constants';
 import React from 'preact/compat';
+import moment from "moment";
+import { Service } from 'js/organizations/services/embedded_app/types';
+import Api from 'js/organizations/services/embedded_app/Api';
 
 interface State {
   loading: boolean;
@@ -25,22 +27,11 @@ export default class App extends Component<{}, State> {
   }
 
   async reloadPlanningView() {
-    const services = await this.fetchData();
+    const services = await Api.fetchData();
 
     this.setState({
       loading: false,
       services,
-    });
-  }
-
-  async fetchData() {
-    return new Promise((success: (services: Service[]) => void, error) => {
-      Rails.ajax({
-        url: '/organizations/services.json',
-        type: 'GET',
-        success,
-        error,
-      });
     });
   }
 
@@ -53,6 +44,10 @@ export default class App extends Component<{}, State> {
       return <p>loading...</p>;
     } else {
       const servicesList = this.servicesPlan();
+
+      (window as any).servicesList = servicesList;
+      (window as any).moment = moment;
+      (window as any).grouped = servicesList.monthlyGroups;
 
       return(
         <>

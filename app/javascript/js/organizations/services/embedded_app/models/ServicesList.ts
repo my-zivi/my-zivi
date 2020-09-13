@@ -1,26 +1,18 @@
 import moment, { Moment } from 'moment';
-
-export interface Service {
-  beginning: string;
-  ending: string;
-  civilServant: {
-    fullName: string;
-  };
-}
+import { range } from 'lodash';
+import MonthlyGroup from 'js/organizations/services/embedded_app/models/MonthlyGroup';
+import { Service } from 'js/organizations/services/embedded_app/types';
 
 export default class ServicesList {
-  private readonly services: Service[];
+  public readonly services: Service[];
+  public readonly earliestBeginning: Moment;
+  public readonly latestEnding: Moment;
+  private _monthlyGroups: MonthlyGroup[];
 
   constructor(services) {
     this.services = services;
-  }
-
-  get earliestBeginning() {
-    return moment.min(this.services.map(service => moment(service['beginning'])));
-  }
-
-  get latestEnding() {
-    return moment.max(this.services.map(service => moment(service['ending'])));
+    this.earliestBeginning = moment.min(this.services.map(service => moment(service['beginning'])));
+    this.latestEnding = moment.max(this.services.map(service => moment(service['ending'])));
   }
 
   get planBeginning() {
@@ -29,6 +21,15 @@ export default class ServicesList {
 
   get planEnding() {
     return moment(this.latestEnding).endOf('month');
+  }
+
+  get monthlyGroups() {
+    if (this._monthlyGroups) {
+      return this._monthlyGroups;
+    }
+
+    this._monthlyGroups = this.groupByMonth();
+    return this._monthlyGroups;
   }
 
   daysSpan() {
@@ -42,5 +43,20 @@ export default class ServicesList {
     }
 
     return output;
+  }
+
+  private groupByMonth() {
+    const monthsCount = Math.ceil(this.planEnding.diff(this.planBeginning, 'months', true));
+    const months = range(monthsCount).map(offset => {
+      return this.planBeginning.add(offset, 'months').startOf('month');
+    });
+
+    return months.map(month => {
+      return new MonthlyGroup(month,
+        this.services.filter(service => {
+          return moment(service.beginning).isSameOrBefore(month, 'month') || moment(service.ending).isSameOrAfter(month, 'month');
+        }),
+      );
+    });
   }
 }

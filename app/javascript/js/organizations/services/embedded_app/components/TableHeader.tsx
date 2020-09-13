@@ -1,12 +1,16 @@
 import React from 'preact/compat';
-import { DATE_FORMATS } from 'js/constants';
+import ServicesList from 'js/organizations/services/embedded_app/models/ServicesList';
 
-export default ({ servicesPlan }) => {
+interface Props {
+  servicesList: ServicesList;
+}
+
+export default ({ servicesList }: Props) => {
   return (
-    <tr>
-      {servicesPlan.mapDays(day => (
-        <th>{day.format(DATE_FORMATS.day)}</th>
+    <div class="d-table-row">
+      {servicesList.monthlyGroups.map(monthlyGroup => (
+        <div class="d-table-cell">{monthlyGroup.monthName}</div>
       ))}
-    </tr>
+    </div>
   );
 }

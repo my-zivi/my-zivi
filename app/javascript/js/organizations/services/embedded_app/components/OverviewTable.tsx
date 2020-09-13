@@ -10,11 +10,11 @@ interface Props {
 export class OverviewTable extends Component<Props> {
   render() {
     return (
-      <table>
-        <thead>
-          <TableHeader servicesPlan={this.props.servicesList} />
-        </thead>
-      </table>
+      <div class="d-table">
+        <div>
+          <TableHeader servicesList={this.props.servicesList} />
+        </div>
+      </div>
     );
   }
 }
