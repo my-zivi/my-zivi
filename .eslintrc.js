@@ -6,11 +6,11 @@ module.exports = {
   },
   extends: [
     'airbnb-base',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
   plugins: [
-    '@typescript-eslint'
+    '@typescript-eslint',
   ],
   parserOptions: {
     ecmaVersion: 11,
@@ -23,22 +23,22 @@ module.exports = {
       'error',
       'ignorePackages',
       {
-        'js': 'never',
-        'jsx': 'never',
-        'ts': 'never',
-        'tsx': 'never'
-      }
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
     ],
     'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
   },
   settings: {
-    'react': {
-      'version': 'detect',
+    react: {
+      version: 'detect',
     },
     'import/resolver': {
-      'typescript': {
-        'extensions': ['.js', '.jsx', '.ts', '.tsx']
-      }
-    }
-  }
+      typescript: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
 };
