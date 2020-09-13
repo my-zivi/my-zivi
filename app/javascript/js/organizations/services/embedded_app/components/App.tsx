@@ -4,6 +4,7 @@ import React from 'preact/compat';
 import moment from 'moment';
 import { Service } from 'js/organizations/services/embedded_app/types';
 import Api from 'js/organizations/services/embedded_app/Api';
+import Spinner from 'js/shared/components/Spinner';
 import ServicesList from '../models/ServicesList';
 import OverviewTable from './OverviewTable';
 
@@ -41,7 +42,12 @@ export default class App extends Component<unknown, State> {
 
   render(): ComponentChild {
     if (this.state.loading) {
-      return <p>loading...</p>;
+      return (
+        <div class="text-center mt-3">
+          <Spinner style={'info'} />
+          <p>{MyZivi.translations.loading}</p>
+        </div>
+      );
     }
     const { servicesList } = this;
 
@@ -54,7 +60,7 @@ export default class App extends Component<unknown, State> {
         <h1>
           {servicesList.planBeginning.format(DATE_FORMATS.short)} - {servicesList.planEnding.format(DATE_FORMATS.short)}
         </h1>
-        <OverviewTable servicesList={servicesList}/>
+        <OverviewTable servicesList={servicesList} />
       </>
     );
   }

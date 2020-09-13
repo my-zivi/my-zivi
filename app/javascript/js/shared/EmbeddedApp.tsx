@@ -3,9 +3,7 @@ import { render, Component } from 'preact';
 
 export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
   private readonly selector: K | string;
-
   private RootComponent: typeof Component;
-
   private installed: boolean;
 
   constructor(selector: K | string, RootComponent: typeof Component) {
