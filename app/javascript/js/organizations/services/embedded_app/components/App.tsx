@@ -1,18 +1,18 @@
-import { Component } from 'preact';
-import { OverviewTable } from './OverviewTable';
-import ServicesList from '../models/ServicesList';
+import { Component, ComponentChild } from 'preact';
 import { DATE_FORMATS } from 'js/constants';
 import React from 'preact/compat';
-import moment from "moment";
+import moment from 'moment';
 import { Service } from 'js/organizations/services/embedded_app/types';
 import Api from 'js/organizations/services/embedded_app/Api';
+import ServicesList from '../models/ServicesList';
+import OverviewTable from './OverviewTable';
 
 interface State {
   loading: boolean;
   services: Array<Service>;
 }
 
-export default class App extends Component<{}, State> {
+export default class App extends Component<unknown, State> {
   constructor() {
     super();
 
@@ -22,11 +22,15 @@ export default class App extends Component<{}, State> {
     };
   }
 
-  async componentDidMount() {
+  get servicesList(): ServicesList {
+    return new ServicesList(this.state.services);
+  }
+
+  async componentDidMount(): Promise<void> {
     await this.reloadPlanningView();
   }
 
-  async reloadPlanningView() {
+  async reloadPlanningView(): Promise<void> {
     const services = await Api.fetchData();
 
     this.setState({
@@ -35,28 +39,23 @@ export default class App extends Component<{}, State> {
     });
   }
 
-  servicesPlan() {
-    return new ServicesList(this.state.services);
-  }
-
-  render() {
+  render(): ComponentChild {
     if (this.state.loading) {
       return <p>loading...</p>;
-    } else {
-      const servicesList = this.servicesPlan();
-
-      (window as any).servicesList = servicesList;
-      (window as any).moment = moment;
-      (window as any).grouped = servicesList.monthlyGroups;
-
-      return(
-        <>
-          <h1>
-            {servicesList.planBeginning.format(DATE_FORMATS.short)} - {servicesList.planEnding.format(DATE_FORMATS.short)}
-          </h1>
-          <OverviewTable servicesList={servicesList} />
-        </>
-      );
     }
+    const { servicesList } = this;
+
+    (window as any).servicesList = servicesList;
+    (window as any).moment = moment;
+    (window as any).grouped = servicesList.monthlyGroups;
+
+    return (
+      <>
+        <h1>
+          {servicesList.planBeginning.format(DATE_FORMATS.short)} - {servicesList.planEnding.format(DATE_FORMATS.short)}
+        </h1>
+        <OverviewTable servicesList={servicesList}/>
+      </>
+    );
   }
 }

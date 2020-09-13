@@ -11,7 +11,7 @@ export default class MonthlyGroup {
     this.month = month;
   }
 
-  get monthName() {
+  get monthName(): string {
     return this.month.format(DATE_FORMATS.fullMonth);
   }
 }

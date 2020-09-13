@@ -1,20 +1,18 @@
-import { Component } from 'preact';
-import TableHeader from './TableHeader';
+import { FunctionalComponent } from 'preact';
 import React from 'preact/compat';
 import ServicesList from 'js/organizations/services/embedded_app/models/ServicesList';
+import TableHeader from './TableHeader';
 
 interface Props {
   servicesList: ServicesList;
 }
 
-export class OverviewTable extends Component<Props> {
-  render() {
-    return (
-      <div class="d-table">
-        <div>
-          <TableHeader servicesList={this.props.servicesList} />
-        </div>
-      </div>
-    );
-  }
-}
+const OverviewTable: FunctionalComponent<Props> = ({ servicesList }) => (
+  <div class="d-table">
+    <div>
+      <TableHeader servicesList={servicesList}/>
+    </div>
+  </div>
+);
+
+export default OverviewTable;

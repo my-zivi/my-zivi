@@ -1,9 +1,11 @@
-import { render, h, Component } from 'preact';
 import React from 'preact/compat';
+import { render, Component } from 'preact';
 
 export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
   private readonly selector: K | string;
+
   private RootComponent: typeof Component;
+
   private installed: boolean;
 
   constructor(selector: K | string, RootComponent: typeof Component) {
@@ -12,12 +14,12 @@ export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
     this.installed = false;
   }
 
-  install() {
+  install(): void {
     this.attachToContainer();
     $(document).on('turbolinks:load', () => this.attachToContainer());
   }
 
-  attachToContainer() {
+  attachToContainer(): void {
     const container = document.querySelector(this.selector);
 
     if (!this.installed && container) {

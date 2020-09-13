@@ -17,6 +17,28 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    "max-len": [2, 120, 4],
+    'max-len': [2, 120, 4],
+    'no-use-before-define': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        'js': 'never',
+        'jsx': 'never',
+        'ts': 'never',
+        'tsx': 'never'
+      }
+    ],
+    'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
   },
+  settings: {
+    'react': {
+      'version': 'detect',
+    },
+    'import/resolver': {
+      'typescript': {
+        'extensions': ['.js', '.jsx', '.ts', '.tsx']
+      }
+    }
+  }
 };
