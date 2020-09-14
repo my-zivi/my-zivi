@@ -101,12 +101,6 @@ RSpec.describe CivilServant, type: :model do
     end
   end
 
-  describe '#self.strip_iban' do
-    it 'removes whitespaces from iban' do
-      expect(described_class.strip_iban(' CH56 0483 5012 3456 7800 9')).to eq 'CH5604835012345678009'
-    end
-  end
-
   describe '#prettified_iban' do
     subject { build(:civil_servant, iban: ugly_iban).prettified_iban }
 
