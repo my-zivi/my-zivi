@@ -132,6 +132,12 @@ de-CH:
         not_an_unsigned_integer: sind keine positive Zahlen
         overlaps_service: überlappt existierenden Service
       models:
+        civil_servant:
+          attributes:
+            iban:
+              bad_check_digits: ungültige Prüffziffer
+              bad_length: zu kurz (21 Zeichen)
+              bad_format: falsches Format
         expense_sheet:
           already_paid: Das Spesenblatt wurde bereis ausbezahlt.
           attributes:

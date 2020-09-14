@@ -64,6 +64,29 @@ RSpec.describe CivilServant, type: :model do
     ]
   end
 
+  describe 'active record hooks' do
+    let(:model) { create :civil_servant, :full }
+    let(:address) { model.address }
+
+    let(:new_last_name) { 'NeueNachname' }
+
+    context 'when model gets a valid update' do
+      it 'updates the addresses primary line' do
+        expect { model.update(last_name: new_last_name) }.to change(address, :primary_line)
+          .from(model.full_name)
+          .to("#{model.first_name} #{new_last_name}")
+      end
+    end
+
+    context 'when model gets an invalid update' do
+      let(:new_last_name) { nil }
+
+      it 'does not update the addresses primary line' do
+        expect { model.update(last_name: new_last_name) }.not_to change(address, :primary_line)
+      end
+    end
+  end
+
   describe '#self.strip_iban' do
     it 'removes whitespaces from iban' do
       expect(described_class.strip_iban(' CH56 0483 5012 3456 7800 9')).to eq 'CH5604835012345678009'
