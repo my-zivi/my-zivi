@@ -43,7 +43,7 @@ module CivilServants
     end
 
     def civil_servant_params
-      params.require(:civil_servant).permit(*PERMITTED_CIVIL_SERVANT_PARAMS)
+      CivilServantParamsModifier.call(params.require(:civil_servant).permit(*PERMITTED_CIVIL_SERVANT_PARAMS))
     end
 
     def handle_invalid_update

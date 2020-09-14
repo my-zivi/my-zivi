@@ -50,7 +50,7 @@ module CivilServantHelper
   def bank_and_insurance_information_table(civil_servant = current_civil_servant)
     TabularCardComponent.humanize_table_values(
       CivilServant,
-      iban: civil_servant.iban,
+      iban: civil_servant.prettified_iban,
       health_insurance: civil_servant.health_insurance
     )
   end
