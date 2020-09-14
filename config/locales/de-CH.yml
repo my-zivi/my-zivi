@@ -136,8 +136,8 @@ de-CH:
           attributes:
             iban:
               bad_check_digits: ungültige Prüffziffer
-              bad_length: zu kurz (21 Zeichen)
               bad_format: falsches Format
+              bad_length: zu kurz (21 Zeichen)
         expense_sheet:
           already_paid: Das Spesenblatt wurde bereis ausbezahlt.
           attributes:
