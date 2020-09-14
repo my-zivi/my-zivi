@@ -28,10 +28,7 @@ class CivilServant < ApplicationRecord
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :address
 
-  # TODO: Move to controller probably
-  def self.strip_iban(iban)
-    IBANTools::IBAN.new(iban).code
-  end
+  after_commit :update_address, on: :update
 
   def prettified_iban
     IBANTools::IBAN.new(iban).prettify
@@ -64,5 +61,11 @@ class CivilServant < ApplicationRecord
     IBANTools::IBAN.new(iban).validation_errors.each do |error|
       errors.add(:iban, error)
     end
+  end
+
+  def update_address
+    address.update!(primary_line: full_name)
+  rescue ActiveRecord::RecordInvalid => e
+    Raven.capture_exception(e, extra: address.errors) if defined? Raven
   end
 end
