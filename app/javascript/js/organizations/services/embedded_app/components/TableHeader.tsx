@@ -1,17 +1,23 @@
 import React from 'preact/compat';
-import ServicesList from 'js/organizations/services/embedded_app/models/ServicesList';
 import { FunctionalComponent } from 'preact';
+import MonthlyGroup from 'js/organizations/services/embedded_app/models/MonthlyGroup';
+import { DATE_FORMATS } from 'js/constants';
 
 interface Props {
-  servicesList: ServicesList;
+  monthlyGroup: MonthlyGroup;
 }
 
-const TableHeader: FunctionalComponent<Props> = ({ servicesList }) => (
-  <div class="d-table-row">
-    {servicesList.monthlyGroups.map((monthlyGroup) => (
-      <div class="d-table-cell">{monthlyGroup.monthName}</div>
-    ))}
-  </div>
+const TableHeader: FunctionalComponent<Props> = ({ monthlyGroup }) => (
+  <>
+    <div className="d-table-row">
+      <div className="d-table-cell">{monthlyGroup.monthName}</div>
+    </div>
+    <div className="d-table-row">
+      {monthlyGroup.mapDays(day => (
+        <div className="d-table-cell">{day.format(DATE_FORMATS.day)}</div>
+      ))}
+    </div>
+  </>
 );
 
 export default TableHeader;

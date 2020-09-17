@@ -51,6 +51,7 @@ export default class App extends Component<unknown, State> {
     }
     const { servicesList } = this;
 
+    // TODO: Remove
     (window as any).servicesList = servicesList;
     (window as any).moment = moment;
     (window as any).grouped = servicesList.monthlyGroups;

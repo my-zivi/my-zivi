@@ -1,7 +1,5 @@
-interface MyZivi {
+declare const MyZivi: {
   translations: {
     loading: string;
   }
-}
-
-declare const MyZivi: MyZivi;
+};

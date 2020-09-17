@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Spinner: FunctionalComponent<Props> = (props) => (
-  <div className={`spinner-border text-${props.style}`}/>
+  <div className={`spinner-border text-${props.style}`} />
 );
 
 export default Spinner;

@@ -32,19 +32,6 @@ export default class ServicesList {
     return this.monthlyGroupsCache;
   }
 
-  daysSpan(): number {
-    return this.planEnding.diff(this.planBeginning, 'days');
-  }
-
-  mapDays<T>(callback: (day: Moment) => T): T[] {
-    const output: Array<T> = [];
-    for (let delta = 0; delta <= this.daysSpan(); delta += 1) {
-      output.push(callback(this.planBeginning.add(delta, 'days')));
-    }
-
-    return output;
-  }
-
   private groupByMonth() {
     const monthsCount = Math.ceil(this.planEnding.diff(this.planBeginning, 'months', true));
     const months = range(monthsCount).map((offset) => this.planBeginning.add(offset, 'months').startOf('month'));

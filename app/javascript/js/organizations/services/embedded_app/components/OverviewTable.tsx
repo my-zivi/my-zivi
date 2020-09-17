@@ -8,10 +8,12 @@ interface Props {
 }
 
 const OverviewTable: FunctionalComponent<Props> = ({ servicesList }) => (
-  <div class="d-table">
-    <div>
-      <TableHeader servicesList={servicesList}/>
-    </div>
+  <div class="d-flex mr-2">
+    {servicesList.monthlyGroups.map((group) => (
+      <div class="d-table">
+        <TableHeader monthlyGroup={group} />
+      </div>
+    ))}
   </div>
 );
 
