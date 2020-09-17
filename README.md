@@ -11,4 +11,4 @@ In den Medien:
 - [ZHAW Medienmitteilung](https://www.zhaw.ch/de/ueber-uns/aktuell/news/detailansicht-news/event-news/software-fuer-effizientere-zivildienst-administration-gewinnt-startup-challenge/)
 - [StartupTicker](https://www.startupticker.ch/en/news/june-2020/software-fur-effizientere-zivildienstadministration-gewinnt-startup-challenge)
 - [SalZH](https://blog.salzh.ch/2020/06/11/my-zivi/)
-- [Landbote](https://www.landbote.ch/per-app-zum-eigenen-zivi-730601035587)
+- [Landbote](https://www.landbote.ch/per-app-zum-eigenen-zivi-730601035587
