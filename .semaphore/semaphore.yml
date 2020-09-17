@@ -96,4 +96,4 @@ blocks:
         - name: Lighthouse CI
           commands:
             - bin/rake assets:precompile
-            - yarn global add @lhci/cli
+            - bin/yarn ci:lighthouse-report
