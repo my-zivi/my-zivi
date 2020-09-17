@@ -29,7 +29,7 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-  - name: tests
+  - name: Tests
     execution_time_limit:
       minutes: 10
     dependencies:
@@ -58,13 +58,13 @@ blocks:
         - name: Lint
           commands:
             - bin/lint
-        - name: Tests
+        - name: Unit Tests
           commands:
             - bin/unit-tests
         - name: System Tests
           commands:
             - bin/system-tests
-  - name: percy
+  - name: Quality Checks
     dependencies:
       - tests
     task:
@@ -90,6 +90,10 @@ blocks:
           - sem-service start postgres
           - 'bundle exec rails db:create db:schema:load'
       jobs:
-        - name: Capture Screenshots
+        - name: Capture Percy Screenshots
           commands:
             - NO_COVERAGE=true yarn run percy:capture-screenshots
+        - name: Lighthouse CI
+          commands:
+            - rails assets:precompile
+            - yarn global add @lhci/cli
