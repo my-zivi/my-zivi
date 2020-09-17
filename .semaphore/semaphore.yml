@@ -95,5 +95,5 @@ blocks:
             - NO_COVERAGE=true yarn run percy:capture-screenshots
         - name: Lighthouse CI
           commands:
-            - rails assets:precompile
+            - bin/rake assets:precompile
             - yarn global add @lhci/cli
