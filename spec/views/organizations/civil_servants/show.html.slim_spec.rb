@@ -14,7 +14,7 @@ RSpec.describe 'organizations/civil_servants/show.html.erb', type: :view do
       hometown: 'Entenhausen',
       phone: '079 893 12 34',
       birthday: '2000-04-27',
-      iban: 'CH5889144398732554175',
+      iban: 'CH58 8914 4398 7325 5417 5',
       health_insurance: 'TheC4r3'
     }
   end

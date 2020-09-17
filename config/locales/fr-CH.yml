@@ -132,6 +132,12 @@ fr-CH:
         not_an_unsigned_integer: ne sont pas des chiffres positifs
         overlaps_service: chevauchement des services existants
       models:
+        civil_servant:
+          attributes:
+            iban:
+              bad_check_digits: chiffre de contrôle non valide
+              bad_format: format incorrect
+              bad_length: trop court (21 caractères)
         expense_sheet:
           already_paid: La note de frais a déjà été payée.
           attributes:
