@@ -64,7 +64,7 @@ blocks:
         - name: System Tests
           commands:
             - bin/system-tests
-  - name: Quality Checks
+  - name: Percy
     dependencies:
       - Tests
     task:
@@ -90,10 +90,40 @@ blocks:
           - sem-service start postgres
           - 'bundle exec rails db:create db:schema:load'
       jobs:
-        - name: Capture Percy Screenshots
+        - name: Capture Screenshots
           commands:
             - NO_COVERAGE=true yarn run percy:capture-screenshots
+  - name: Performance Check
+    dependencies:
+      - Tests
+    task:
+      secrets:
+        - name: my-zivi
+      env_vars:
+        - name: DATABASE_URL
+          value: 'postgresql://postgres@localhost/test?encoding=utf8'
+        - name: RAILS_ENV
+          value: production
+        - name: RAILS_SERVE_STATIC_FILES
+          value: 'true'
+        - name: SECRET_KEY_BASE
+          value: 50490f620b684654c2d1232a16852620e20fee34f5bc38e56b66f73a2d57504d037be521387feceedac58e7cc725f292c4c3cbda3bd5977fcd7ae2748c4c27f7
+      prologue:
+        commands:
+          - checkout --use-cache
+          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
+          - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
+          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
+          - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
+          - sudo apt-get update
+          - sudo apt-get install libxss1
+          - bundle install --deployment --path vendor/bundle
+          - nvm install
+          - bin/yarn install --cache-folder ~/.cache/yarn && yarn global add @lhci/cli@^0.5.0
+          - sem-service start postgres
+          - 'bundle exec rails db:create db:schema:load'
+      jobs:
         - name: Lighthouse CI
           commands:
             - bin/rake assets:precompile
-            - bin/yarn ci:lighthouse-report
+            - lhci autorun
