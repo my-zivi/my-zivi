@@ -27,3 +27,5 @@ yarn-debug.log*
 .env.test
 /coverage/
 spec/examples.txt
+
+/.lighthouseci/

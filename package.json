@@ -12,6 +12,7 @@
     "bootstrap": "^4.5.0",
     "core-js": "^3.6.5",
     "flatpickr": "^4.6.6",
+    "image-webpack-loader": "^7.0.1",
     "is_js": "^0.9.0",
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",
