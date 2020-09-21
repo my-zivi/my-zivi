@@ -12,17 +12,23 @@ export default class MonthlyGroup {
   }
 
   get monthName(): string {
-    return this.month.format(DATE_FORMATS.fullMonth);
+    return this.monthBeginning.format(DATE_FORMATS.fullMonth);
+  }
+
+  get monthBeginning(): Moment {
+    return Object.freeze(this.month.clone().startOf('month'));
+  }
+
+  get monthEnd(): Moment {
+    return Object.freeze(this.month.clone().endOf('month'));
   }
 
   mapDays<T>(callback: (day: Moment) => T): T[] {
-    const monthStart = this.month.startOf('month');
-    const daysSpan = this.month.endOf('month').diff(monthStart, 'days');
-    console.log(daysSpan);
+    const daysSpan = this.monthEnd.diff(this.monthBeginning, 'days');
 
     const output: Array<T> = [];
     for (let delta = 0; delta <= daysSpan; delta += 1) {
-      output.push(callback(monthStart.add(delta, 'days')));
+      output.push(callback(this.monthBeginning.add(delta, 'days')));
     }
 
     return output;
