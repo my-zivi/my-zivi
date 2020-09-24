@@ -9,7 +9,6 @@ interface Props {
 
 const TableHeader: FunctionalComponent<Props> = ({ monthlyGroup }) => (
   <div className="d-table-row">
-    <div className="d-table-cell" />
     {monthlyGroup.mapDays((day) => (
       <div className="d-table-cell">{day.format(DATE_FORMATS.day)}</div>
     ))}

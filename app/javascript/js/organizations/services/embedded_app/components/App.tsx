@@ -1,12 +1,12 @@
 import { Component, ComponentChild } from 'preact';
 import { DATE_FORMATS } from 'js/constants';
 import React from 'preact/compat';
-import moment from 'moment';
 import { Service } from 'js/organizations/services/embedded_app/types';
 import Api from 'js/organizations/services/embedded_app/Api';
 import Spinner from 'js/shared/components/Spinner';
 import ServicesList from '../models/ServicesList';
 import OverviewTable from './OverviewTable';
+import CardHeader from './CardHeader';
 
 interface State {
   loading: boolean;
@@ -40,29 +40,34 @@ export default class App extends Component<unknown, State> {
     });
   }
 
+  private static getOverviewSubtitle(servicesList: ServicesList): string {
+    const formattedBeginning = servicesList.planBeginning.format(DATE_FORMATS.short);
+    const formattedEnding = servicesList.planEnding.format(DATE_FORMATS.short);
+
+    return `${formattedBeginning} bis ${formattedEnding}`;
+  }
+
   render(): ComponentChild {
     if (this.state.loading) {
       return (
-        <div class="text-center mt-3">
-          <Spinner style={'info'} />
-          <p>{MyZivi.translations.loading}</p>
+        <div className="card mb-3 mb-lg-0">
+          <CardHeader overviewSubtitle={MyZivi.translations.loading} />
+          <div className="card-body">
+            <Spinner style={'info'} />
+          </div>
         </div>
       );
     }
     const { servicesList } = this;
 
-    // TODO: Remove
-    (window as any).servicesList = servicesList;
-    (window as any).moment = moment;
-    (window as any).grouped = servicesList.monthlyGroups;
-
     return (
-      <>
-        <h1>
-          {servicesList.planBeginning.format(DATE_FORMATS.short)} - {servicesList.planEnding.format(DATE_FORMATS.short)}
-        </h1>
-        <OverviewTable servicesList={servicesList} />
-      </>
+      <div className="card mb-3 mb-lg-0">
+        <CardHeader overviewSubtitle={App.getOverviewSubtitle(servicesList)} />
+
+        <div className="card-body services-overview-container">
+          <OverviewTable servicesList={servicesList} />
+        </div>
+      </div>
     );
   }
 }

@@ -30,6 +30,33 @@ CivilServant.create!(
       )
     },
     {
+      first_name: 'Niels',
+      last_name: 'Schweizer',
+      zdp: 345_458,
+      hometown: 'Winterthur',
+      birthday: '19998-02-06',
+      phone: '+41 (0) 89 123 00 12',
+      iban: 'CH1589144373489824551',
+      health_insurance: 'Sanicare',
+      driving_licenses: DrivingLicense.where(name: %w[F]),
+      workshops: [],
+      user: User.new(
+        email: 'niels@example.com',
+        password: '12345678',
+        language: 'de',
+        confirmed_at: 1.year.ago
+      ),
+      regional_center: RegionalCenter.first,
+      address: Address.new(
+        primary_line: 'Niels Schweizer',
+        secondary_line: nil,
+        street: 'Adressenstrasse 99',
+        supplement: nil,
+        city: 'Zürich',
+        zip: 8000
+      )
+    },
+    {
       first_name: 'Philipp',
       last_name: 'Van Fehr',
       zdp: 117_885,

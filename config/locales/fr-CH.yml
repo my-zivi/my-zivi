@@ -267,6 +267,7 @@ fr-CH:
       title: En savoir plus
       via_link: via le lien
   lead_person_html: 'Personne responsable: %{link}'
+  loading: En chargeant...
   mailing_list:
     erroneous_creation: Veuillez corriger les erreurs marquées suivantes
     successful_creation: Merci beaucoup pour votre intérêt. Nous vous contacterons bientôt
@@ -393,6 +394,8 @@ fr-CH:
         erroneous_update: Le cahier des charges n'a pas pu être mise à jour
         successful_update: Mise à jour réussie du cahier des charges
     services:
+      index:
+        title: Aperçu des services
       show:
         expense_sheets: Fiches de frais
   payment:
@@ -437,4 +440,3 @@ fr-CH:
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
     invalid_required_service_days: Jours du service non valables
-  loading: "En chargeant..."

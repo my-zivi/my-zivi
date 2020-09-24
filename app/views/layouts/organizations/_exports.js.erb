@@ -1,12 +1,13 @@
 // Please be aware that this script is loaded directly in HEAD.
 // Do not use ES6 Syntax or Code that requires polyfilling in IE
 
-var MyZivi = {
-  translations: {
-    loading: '<%= I18n.t('loading') %>',
-  },
-};
-
 if (!('MyZivi' in window)) {
-  window.MyZivi = MyZivi;
+  window.MyZivi = {
+    translations: {
+      loading: '<%= I18n.t('loading') %>',
+      servicesOverview: {
+        title: '<%= I18n.t('organizations.services.index.title') %>'
+      }
+    },
+  };
 }

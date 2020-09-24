@@ -11,9 +11,9 @@ interface Props {
 const OverviewTable: FunctionalComponent<Props> = ({ servicesList }) => (
   <div className="d-flex">
     {servicesList.monthlyGroups.map((group) => (
-      <div className="mr-2">
-        <h3 className="text-center">{group.monthName}</h3>
-        <div className="d-table">
+      <div>
+        <h3 className="text-center month-title">{group.monthName}</h3>
+        <div className="d-table services-overview-month-table">
           <TableHeader monthlyGroup={group} />
           <TableContent monthlyGroup={group} />
         </div>

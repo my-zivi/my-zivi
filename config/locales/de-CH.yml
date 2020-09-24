@@ -267,6 +267,7 @@ de-CH:
       title: Jetzt mehr erfahren
       via_link: via Link
   lead_person_html: 'Leitende Person: %{link}'
+  loading: Lade...
   mailing_list:
     erroneous_creation: Bitte beheben Sie die folgend markierten Fehler
     successful_creation: Vielen Dank für Ihr Interesse. Wir werden Sie bald kontaktieren
@@ -394,6 +395,8 @@ de-CH:
         erroneous_update: Pflichtenheft konnte nicht aktualisiert werden
         successful_update: Pflichtenheft erfolgreich aktualisiert
     services:
+      index:
+        title: Einsatzübersicht
       show:
         expense_sheets: Spesenblätter
   payment:
@@ -438,4 +441,3 @@ de-CH:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
-  loading: "Lade..."

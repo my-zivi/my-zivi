@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 max_mustermann = User.find_by(email: 'zivi@example.com').referencee
+niels_schweizer = User.find_by(email: 'niels@example.com').referencee
 philipp = User.find_by(email: 'philipp@example.com').referencee
 jugendarbeit = ServiceSpecification.find_by(name: 'Mitarbeit in der Jugendarbeit')
 zirkusarbeit = ServiceSpecification.find_by(name: 'Mitarbeit Sozialpädagogische Zirkusschule')
@@ -15,6 +16,16 @@ Service.create!(
       beginning: current_service_beginning,
       ending: (current_service_beginning + 1.month + 1.week).at_end_of_week - 2.days,
       confirmation_date: 6.days.ago,
+      service_type: :normal,
+      last_service: false,
+      feedback_mail_sent: true,
+      civil_servant: niels_schweizer,
+      service_specification: jugendarbeit
+    },
+    {
+      beginning: current_service_beginning - 1.week,
+      ending: (current_service_beginning + 1.month + 2.weeks).at_end_of_week - 2.days,
+      confirmation_date: 1.week.ago,
       service_type: :normal,
       last_service: false,
       feedback_mail_sent: true,

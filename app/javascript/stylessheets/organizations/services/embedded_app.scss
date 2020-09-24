@@ -1,0 +1,32 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+.services-overview-container {
+  overflow-x: scroll;
+  padding-bottom: 4em;
+}
+
+.month-title {
+  margin-bottom: 0;
+  padding-bottom: .25em;
+  height: 50px;
+}
+
+.month-title,
+.services-overview-month-table {
+  border-right: 1px solid $black;
+}
+
+.services-overview-month-table {
+  .d-table-cell {
+    height: 40px;
+    min-width: 25px;
+    text-align: center;
+    white-space: nowrap;
+    border-right: 1px solid $gray-400;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+}

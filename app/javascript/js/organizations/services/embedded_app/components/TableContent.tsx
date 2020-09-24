@@ -1,6 +1,7 @@
 import React from 'preact/compat';
 import { FunctionalComponent } from 'preact';
 import MonthlyGroup from 'js/organizations/services/embedded_app/models/MonthlyGroup';
+import { DATE_FORMATS } from 'js/constants';
 
 interface Props {
   monthlyGroup: MonthlyGroup;
@@ -8,11 +9,8 @@ interface Props {
 
 const TableContent: FunctionalComponent<Props> = ({ monthlyGroup }) => (
   <>
-    {monthlyGroup.services.map((service) => (
+    {monthlyGroup.services.map((service, index) => (
       <div className="d-table-row">
-        <div className="d-table-cell">
-          {service.civilServant.fullName}
-        </div>
         {monthlyGroup.mapDays((day) => (
           <div className="d-table-cell">
             {day.isBetween(service.beginning, service.ending) ? 'x' : ''}
