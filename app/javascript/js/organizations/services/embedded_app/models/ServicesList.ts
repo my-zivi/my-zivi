@@ -10,7 +10,7 @@ export default class ServicesList {
   private monthlyGroupsCache: MonthlyGroup[];
 
   constructor(services: Service[]) {
-    this.services = services;
+    this.services = this.sortServices(services);
     this.earliestBeginning = moment.min(this.services.map((service) => moment(service.beginning)));
     this.latestEnding = moment.max(this.services.map((service) => moment(service.ending)));
   }
@@ -45,6 +45,24 @@ export default class ServicesList {
       };
 
       return new MonthlyGroup(month, this.services.filter(predicate));
+    });
+  }
+
+  private sortServices(services: Service[]): Service[] {
+    return services.sort((service1, service2) => {
+      if (service1.beginning === service2.beginning) {
+        if ('localeCompare' in String.prototype) {
+          return service1.civilServant.fullName.localeCompare(service2.civilServant.fullName);
+        }
+
+        return 0;
+      }
+
+      if (moment(service1.beginning).isBefore(service2.beginning)) {
+        return -1;
+      }
+
+      return 1;
     });
   }
 }

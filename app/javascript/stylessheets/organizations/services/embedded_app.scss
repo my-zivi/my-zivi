@@ -1,15 +1,19 @@
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 
+$month-title-height: 50px;
+$cell-height: 40px;
+
 .services-overview-container {
   overflow-x: scroll;
-  padding-bottom: 4em;
+  padding: 0 0 4em;
+  margin: 1.25em;
 }
 
 .month-title {
   margin-bottom: 0;
   padding-bottom: .25em;
-  height: 50px;
+  height: $month-title-height;
 }
 
 .month-title,
@@ -19,7 +23,7 @@
 
 .services-overview-month-table {
   .d-table-cell {
-    height: 40px;
+    height: $cell-height;
     min-width: 25px;
     text-align: center;
     white-space: nowrap;
@@ -28,5 +32,29 @@
     &:last-child {
       border-right: none;
     }
+  }
+}
+
+.names-list {
+  background-color: $white;
+  padding-top: $month-title-height + $cell-height;
+  white-space: nowrap;
+  position: fixed;
+  max-width: 150px;
+  overflow: hidden;
+  box-shadow: 7px 0 7px -5px rgba(0, 0, 0, 0.4);
+  transition: .25s all;
+  padding-right: 0;
+
+  &:hover {
+    max-width: inherit;
+    padding-right: 1em;
+  }
+
+  .name-row {
+    height: $cell-height;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
   }
 }

@@ -1,23 +1,35 @@
 import React from 'preact/compat';
 import { FunctionalComponent } from 'preact';
 import MonthlyGroup from 'js/organizations/services/embedded_app/models/MonthlyGroup';
-import { DATE_FORMATS } from 'js/constants';
+import ServicesList from 'js/organizations/services/embedded_app/models/ServicesList';
+import { Service } from 'js/organizations/services/embedded_app/types';
 
 interface Props {
-  monthlyGroup: MonthlyGroup;
+  servicesList: ServicesList;
+  currentMonthlyGroup: MonthlyGroup;
 }
 
-const TableContent: FunctionalComponent<Props> = ({ monthlyGroup }) => (
+function renderService(currentMonthlyGroup: MonthlyGroup, service: Service) {
+  if (!currentMonthlyGroup.containsService(service)) {
+    return (
+      <div className="d-table-row" />
+    );
+  }
+
+  return (
+    <div className="d-table-row">
+      {currentMonthlyGroup.mapDays((day) => (
+        <div className="d-table-cell">
+          {day.isBetween(service.beginning, service.ending, 'day', '[]') ? 'x' : ''}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const TableContent: FunctionalComponent<Props> = ({ currentMonthlyGroup, servicesList }) => (
   <>
-    {monthlyGroup.services.map((service, index) => (
-      <div className="d-table-row">
-        {monthlyGroup.mapDays((day) => (
-          <div className="d-table-cell">
-            {day.isBetween(service.beginning, service.ending) ? 'x' : ''}
-          </div>
-        ))}
-      </div>
-    ))}
+    {servicesList.services.map((service) => renderService(currentMonthlyGroup, service))}
   </>
 );
 

@@ -23,6 +23,10 @@ export default class MonthlyGroup {
     return Object.freeze(this.month.clone().endOf('month'));
   }
 
+  containsService(service: Service): boolean {
+    return this.services.includes(service);
+  }
+
   mapDays<T>(callback: (day: Moment) => T): T[] {
     const daysSpan = this.monthEnd.diff(this.monthBeginning, 'days');
 
