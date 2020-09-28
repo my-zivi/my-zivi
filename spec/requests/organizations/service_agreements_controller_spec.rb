@@ -90,6 +90,16 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
         expect(flash[:notice]).to eq I18n.t('organizations.service_agreements.destroy.successful_destroy')
         expect(response).to redirect_to organizations_service_agreements_path
       end
+
+      context 'when the service already has expense sheets' do
+        before { ExpenseSheetGenerator.new(maria_service).create_expense_sheets }
+
+        it 'does not destroy the service agreement' do
+          expect { perform_request }.not_to change(Service, :count)
+          expect(flash[:error]).to eq I18n.t('organizations.service_agreements.destroy.erroneous_destroy')
+          expect(response).to redirect_to organizations_service_agreements_path
+        end
+      end
     end
 
     context 'when a civil servant is signed in' do
