@@ -164,6 +164,42 @@ RSpec.describe Service, type: :model do
     end
   end
 
+  describe 'active record hooks' do
+    let(:model) { create :service, :civil_servant_agreement_pending }
+
+    context 'when civil servant agreement is missing' do
+      context 'when civil servant agrees' do
+        it 'updates the civil servant agreed on date' do
+          expect { model.update(civil_servant_agreed: true) }.to change(model, :civil_servant_agreed_on)
+            .from(nil)
+        end
+      end
+
+      context 'when civil servant does not agree' do
+        it 'does not update the civil servant agreed on date' do
+          expect { model.update(civil_servant_agreed: false) }.not_to change(model, :civil_servant_agreed_on)
+        end
+      end
+    end
+
+    context 'when organization agreement is missing' do
+      let(:model) { create :service, :organization_agreement_pending }
+
+      context 'when organization agrees' do
+        it 'updates the civil servant agreed on date' do
+          expect { model.update(organization_agreed: true) }.to change(model, :organization_agreed_on)
+            .from(nil)
+        end
+      end
+
+      context 'when does not agree' do
+        it 'does not update the civil servant agreed on date' do
+          expect { model.update(organization_agreed: false) }.not_to change(model, :organization_agreed_on)
+        end
+      end
+    end
+  end
+
   describe '#at_year' do
     subject(:services) { described_class.at_year(2018) }
 

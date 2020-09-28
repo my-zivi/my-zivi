@@ -205,6 +205,7 @@ de-CH:
         payments: Auszahlungen
         phone_list: Telefonliste
         profile: Profil
+        service_agreements: Einsatzvereinbarung
         service_specifications: Pflichtenhefter
         sign_out: Abmelden
     services:
@@ -256,6 +257,7 @@ de-CH:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
+  destroy: Löschen
   destroying: Löschen...
   edit: Bearbeiten
   home:
@@ -373,6 +375,15 @@ de-CH:
         title:
           with_filter: Telefonliste vom %{range}
           without_filter: Telefonliste
+    service_agreements:
+      destroy:
+        erroneous_destroy: Einsatzverarbeitung konnte nicht gelöscht werden
+        successful_destroy: Einsatzverarbeitung erfolgeich gelöscht
+      index:
+        days:
+          one: 1 Tag
+          other: "%{amount} Tage"
+        title: Einsätze mit ausstehendem Zivi-Einverständnis
     service_specifications:
       create:
         erroneous_create: Pflichtenheft konnte nicht erstellt werden

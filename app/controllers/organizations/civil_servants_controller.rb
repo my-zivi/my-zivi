@@ -22,12 +22,12 @@ module Organizations
     private
 
     def filtered_civil_servants
-      service_scope = Service.accessible_by(current_ability)
-      service_scope = service_scope.active unless @filters[:show_inactive]
+      service_filter = @filters[:show_inactive] ? {} : { services: Service.active }
 
       CivilServant
+        .accessible_by(current_ability)
         .eager_load(:services)
-        .where(id: service_scope.select(:civil_servant_id))
+        .where(service_filter)
         .distinct
         .includes(services: :service_specification)
         .order('"services"."beginning" DESC')

@@ -1,0 +1,9 @@
+.card
+  .card-header.bg-white
+    .row.align-items-center
+      .col
+        h5.mb-0
+          = t('.title')
+          span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@service_agreements.count})"
+  .card-body.p-0.bg-light.p-0
+    = render ServiceAgreementsTableComponent.new(service_agreements: @service_agreements)

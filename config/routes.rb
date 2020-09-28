@@ -20,6 +20,12 @@ if Rails.env.production?
 end
 
 Rails.application.routes.draw do
+  namespace :organizations do
+    get 'service_agreements/index'
+    get 'service_agreements/view'
+    get 'service_agreements/edit'
+    get 'service_agreements/update'
+  end
   root 'home#index'
   mount Sidekiq::Web, at: '/sidekiq' if defined? Sidekiq::Web
 
@@ -40,12 +46,13 @@ Rails.application.routes.draw do
 
     resources :organization_members, as: 'members', only: %i[index edit update destroy]
     resources :service_specifications, except: :show
+    resources :service_agreements, only: %i[index destroy]
     resources :payments, only: %i[index show update destroy]
     resources :expense_sheets, except: :show
     get '/phone_list', to: 'phone_list#index', as: 'phone_list'
     get '/phone_list/:name', to: 'phone_list#index', as: 'named_phone_list'
     resources :civil_servants, only: %i[index show] do
-      resources :services, only: :show
+      resources :services, only: %i[show edit update]
     end
   end
 end

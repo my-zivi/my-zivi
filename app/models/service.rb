@@ -13,7 +13,12 @@ class Service < ApplicationRecord
   scope :chronologically, -> { order(beginning: :desc, ending: :desc) }
   scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
   scope :at_year, ->(year) { overlapping_date_range(Date.new(year), Date.new(year).at_end_of_year) }
-  scope :active, -> { where('beginning <= ?', Time.zone.now).where('ending >= ?', Time.zone.now) }
+  scope :active, lambda {
+    where('beginning <= ?', Time.zone.now).where('ending >= ?', Time.zone.now)
+                                          .where(civil_servant_agreed: true).where(organization_agreed: true)
+  }
+  scope :agreement, -> { where(civil_servant_agreed: false).or(where(organization_agreed: false)) }
+  scope :all_agreed, -> { where(civil_servant_agreed: true).where(organization_agreed: true) }
 
   enum service_type: {
     normal: 0,
@@ -29,6 +34,9 @@ class Service < ApplicationRecord
   delegate :identification_number, to: :service_specification
   delegate :future?, to: :beginning
   delegate :past?, to: :ending
+
+  after_commit :update_civil_service_agreement, on: %i[create update]
+  after_commit :update_organization_agreement, on: %i[create update]
 
   def service_days
     service_calculator.calculate_chargeable_service_days(ending)
@@ -62,5 +70,13 @@ class Service < ApplicationRecord
 
   def service_calculator
     @service_calculator ||= ServiceCalculator.new(beginning, last_service?)
+  end
+
+  def update_civil_service_agreement
+    update(civil_servant_agreed_on: Time.zone.now) if civil_servant_agreed && !civil_servant_agreed_before_last_save
+  end
+
+  def update_organization_agreement
+    update(organization_agreed_on: Time.zone.now) if organization_agreed && !organization_agreed_before_last_save
   end
 end

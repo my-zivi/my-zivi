@@ -1,0 +1,31 @@
+.falcon-data-table
+  .table-responsive
+    table.table.table-sm.mb-0.table-striped.table-dashboard.data-table.border-bottom.border-200.dataTable.no-footer role="grid"
+      thead.thead-light
+        tr
+          - @columns.each do |_key, column|
+            th.align-middle scope="col" = column[:label]
+          th scope="col"
+      tbody
+        - @service_agreements.each do |service_agreement|
+          tr
+            - @columns.each do |_key, column|
+              td.py-3.align-middle = column[:content].call(service_agreement)
+            td.py-3.align-middle
+              = link_to(edit_organizations_civil_servant_service_path(service_agreement.civil_servant, service_agreement),
+                      class: 'mr-3',
+                      title: t('edit'),
+                      data: {\
+                        toggle: 'tooltip',
+                        placement: 'above' \
+                      }) do
+                i.fas.fa-pen
+              = link_to(organizations_service_agreement_path(service_agreement),
+                      class: 'mr-3',
+                      method: :delete,
+                      title: t('destroy'),
+                      data: {\
+                        toggle: 'tooltip',
+                        placement: 'above' \
+                      }) do
+                i.fas.fa-trash

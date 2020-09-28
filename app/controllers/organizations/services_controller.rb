@@ -7,5 +7,7 @@ module Organizations
     include UsersHelper
 
     def show; end
+
+    def edit; end
   end
 end
