@@ -52,20 +52,22 @@ blocks:
           - bundle install --deployment --path vendor/bundle
           - nvm install
           - bin/yarn install --cache-folder ~/.cache/yarn
-          - sem-service start postgres
-          - 'bundle exec rails db:create db:schema:load'
       jobs:
         - name: Lint
           commands:
             - bin/lint
         - name: Unit Tests
           commands:
+            - sem-service start postgres
+            - 'bundle exec rails db:create db:schema:load'
             - bin/unit-tests
         - name: JavaScript Tests
           commands:
             - yarn test
         - name: System Tests
           commands:
+            - sem-service start postgres
+            - 'bundle exec rails db:create db:schema:load'
             - bin/system-tests
   - name: Percy
     dependencies:
