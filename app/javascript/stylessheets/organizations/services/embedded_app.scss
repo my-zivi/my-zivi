@@ -3,11 +3,29 @@
 
 $month-title-height: 50px;
 $cell-height: 40px;
+$names-list-width: 150px;
 
 .services-overview-container {
   overflow-x: scroll;
-  padding: 0 0 4em;
+  padding: 0 0 1em;
   margin: 1.25em;
+
+  &::-webkit-scrollbar {
+    height: 1em;
+  }
+
+  &::-webkit-scrollbar-track {
+    border: 1px solid $gray-200;
+    background-color: $gray-100;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $gray-600;
+
+    &:hover {
+      background-color: $gray-700;
+    }
+  }
 }
 
 .month-title {
@@ -33,18 +51,32 @@ $cell-height: 40px;
       border-right: none;
     }
   }
+
+  .day-cell {
+    vertical-align: middle;
+
+    &.active {
+      background-color: $green;
+    }
+  }
 }
 
 .names-list {
-  background-color: $white;
+  background-color: rgba($white, .9);
   padding-top: $month-title-height + $cell-height;
   white-space: nowrap;
   position: fixed;
-  max-width: 150px;
+  max-width: $names-list-width;
   overflow: hidden;
-  box-shadow: 7px 0 7px -5px rgba(0, 0, 0, 0.4);
+  box-shadow: 7px 0 7px -7px rgba(0, 0, 0, 0.4);
+  border-right: 1px solid rgba($black, .3);
   transition: .25s all;
   padding-right: 0;
+
+  @supports (backdrop-filter: blur(1px)) {
+    background-color: rgba($white, .7);
+    backdrop-filter: blur(6px);
+  }
 
   &:hover {
     max-width: inherit;
@@ -52,9 +84,18 @@ $cell-height: 40px;
   }
 
   .name-row {
+    display: flex;
+    align-items: center;
     height: $cell-height;
-    text-overflow: ellipsis;
-    overflow: hidden;
     width: 100%;
+
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
+}
+
+.names-list + .monthly-table-container {
+  padding-left: $names-list-width;
 }

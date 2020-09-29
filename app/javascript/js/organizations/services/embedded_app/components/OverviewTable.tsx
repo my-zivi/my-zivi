@@ -13,7 +13,7 @@ const OverviewTable: FunctionalComponent<Props> = ({ servicesList }) => (
   <div className="d-flex">
     <NamesList servicesList={servicesList} />
     {servicesList.monthlyGroups.map((group) => (
-      <div>
+      <div className="monthly-table-container">
         <h3 className="text-center month-title">{group.monthName}</h3>
         <div className="d-table services-overview-month-table">
           <TableHeader monthlyGroup={group} />

@@ -7,7 +7,7 @@ const NamesList: FunctionalComponent<{ servicesList: ServicesList }> = ({ servic
     <div className="names-list">
       {servicesList.services.map((service) => (
         <div className="name-row">
-          {service.civilServant.fullName}
+          <span>{service.civilServant.fullName}</span>
         </div>
       ))}
     </div>
