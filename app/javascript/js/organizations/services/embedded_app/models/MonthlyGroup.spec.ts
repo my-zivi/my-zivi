@@ -1,18 +1,16 @@
 import moment from 'moment';
-import { Service } from '../types';
 import MonthlyGroup from './MonthlyGroup';
 
 describe('MonthlyGroup', () => {
-  const services: Array<Service> = [
+  moment.locale('de');
+
+  const monthlyGroup = new MonthlyGroup(moment('2020-02-03'), [
     {
       civilServant: { fullName: 'Max Muster' },
       beginning: '2020-01-01',
       ending: '2020-03-01',
     },
-  ];
-  const monthlyGroup = new MonthlyGroup(moment('2020-02-03'), services);
-
-  beforeAll(() => moment.locale('de'));
+  ]);
 
   describe('#monthName', () => {
     it('returns the correct name', () => {

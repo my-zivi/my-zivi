@@ -61,6 +61,9 @@ blocks:
         - name: Unit Tests
           commands:
             - bin/unit-tests
+        - name: JavaScript Tests
+          commands:
+            - yarn test
         - name: System Tests
           commands:
             - bin/system-tests
