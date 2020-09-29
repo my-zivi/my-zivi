@@ -1,5 +1,6 @@
 import React from 'preact/compat';
 import { render, Component } from 'preact';
+import moment from 'moment';
 
 export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
   private readonly selector: K | string;
@@ -22,6 +23,8 @@ export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
 
     if (!this.installed && container) {
       const { RootComponent } = this;
+
+      moment.locale('de');
 
       render(<RootComponent />, container);
       this.installed = true;

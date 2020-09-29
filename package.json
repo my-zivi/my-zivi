@@ -31,7 +31,8 @@
     "heroku-prebuild": "node ./bin/heroku-prebuild.js",
     "lint": "eslint app/javascript",
     "percy:capture-screenshots": "NO_COVERAGE=true percy exec -- bundle exec rspec spec/screenshots/*_spec.rb",
-    "typescript:typecheck": "tsc --noEmit"
+    "typescript:typecheck": "tsc --noEmit",
+    "test": "jest"
   },
   "husky": {
     "hooks": {
@@ -41,7 +42,9 @@
   "version": "0.1.0",
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
     "@percy/agent": "^0.27.2",
+    "@types/jest": "^26.0.14",
     "@types/jquery": "^3.5.1",
     "@types/lodash": "^4.14.161",
     "@typescript-eslint/eslint-plugin": "^4.1.0",
@@ -51,6 +54,7 @@
     "eslint-import-resolver-typescript": "^2.3.0",
     "eslint-plugin-import": "^2.22.0",
     "husky": "^4.2.5",
+    "jest": "^26.4.2",
     "webpack-dev-server": "^3.11.0"
   }
 }
