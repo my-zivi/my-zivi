@@ -30,17 +30,39 @@ Service.create!(
       last_service: false,
       feedback_mail_sent: true,
       civil_servant: max_mustermann,
-      service_specification: jugendarbeit
+      service_specification: jugendarbeit,
+      civil_servant_agreed: true,
+      civil_servant_agreed_on: 3.weeks.ago,
+      organization_agreed: true,
+      organization_agreed_on: 3.weeks.ago
     },
     {
       beginning: future_service_beginning,
-      ending: (future_service_beginning + 4.weeks).at_end_of_week,
+      ending: (future_service_beginning + 4.weeks).at_end_of_week - 2.days,
       confirmation_date: 1.day.ago,
       service_type: :normal,
       last_service: true,
       feedback_mail_sent: false,
       civil_servant: max_mustermann,
-      service_specification: zirkusarbeit
+      service_specification: zirkusarbeit,
+      civil_servant_agreed: true,
+      civil_servant_agreed_on: 1.week.ago,
+      organization_agreed: true,
+      organization_agreed_on: 1.week.ago
+    },
+    {
+      beginning: future_service_beginning,
+      ending: (future_service_beginning + 4.weeks).at_end_of_week - 2.days,
+      confirmation_date: nil,
+      service_type: :normal,
+      last_service: false,
+      feedback_mail_sent: false,
+      civil_servant: philipp,
+      service_specification: zirkusarbeit,
+      civil_servant_agreed: false,
+      civil_servant_agreed_on: nil,
+      organization_agreed: true,
+      organization_agreed_on: 1.week.ago
     },
     {
       beginning: '2020-01-06',
@@ -50,7 +72,11 @@ Service.create!(
       last_service: false,
       feedback_mail_sent: false,
       civil_servant: philipp,
-      service_specification: zirkusarbeit
+      service_specification: zirkusarbeit,
+      civil_servant_agreed: true,
+      civil_servant_agreed_on: '2018-07-20',
+      organization_agreed: true,
+      organization_agreed_on: '2018-07-20'
     },
     {
       beginning: '2019-02-04',
@@ -60,7 +86,11 @@ Service.create!(
       last_service: false,
       feedback_mail_sent: false,
       civil_servant: philipp,
-      service_specification: jugendarbeit
+      service_specification: jugendarbeit,
+      civil_servant_agreed: true,
+      civil_servant_agreed_on: '2018-12-20',
+      organization_agreed: true,
+      organization_agreed_on: '2018-12-20'
     }
   ]
 )

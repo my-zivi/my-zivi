@@ -9,7 +9,21 @@ FactoryBot.define do
     last_service { false }
     feedback_mail_sent { false }
     service_specification
+    civil_servant_agreed { true }
+    civil_servant_agreed_on { '2018-08-05' }
+    organization_agreed { true }
+    organization_agreed_on { '2018-07-05' }
     association :civil_servant, :full
+
+    trait :civil_servant_agreement_pending do
+      civil_servant_agreed { false }
+      civil_servant_agreed_on { nil }
+    end
+
+    trait :organization_agreement_pending do
+      organization_agreed { false }
+      organization_agreed_on { nil }
+    end
 
     trait :current do
       beginning { Time.zone.now.at_beginning_of_week - 3.weeks }
@@ -38,6 +52,10 @@ FactoryBot.define do
     trait :active do
       beginning { 1.week.ago.at_beginning_of_week }
       ending { beginning + 25.days }
+      civil_servant_agreed { true }
+      civil_servant_agreed_on { 2.weeks.ago }
+      organization_agreed { true }
+      organization_agreed_on { 3.weeks.ago }
     end
 
     trait :future do

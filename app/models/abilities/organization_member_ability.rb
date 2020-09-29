@@ -16,12 +16,8 @@ module Abilities
 
       can(:read, CivilServant,
           services: {
-            service_specification: {
-              organization_id: organization_id
-            }
-          })
-
-      can(:manage, Service, {
+            civil_servant_agreed: true,
+            organization_agreed: true,
             service_specification: {
               organization_id: organization_id
             }
@@ -29,9 +25,33 @@ module Abilities
 
       can(:manage, ExpenseSheet, {
             service: {
+              civil_servant_agreed: true,
+              organization_agreed: true,
               service_specification: {
                 organization_id: organization_id
               }
+            }
+          })
+
+      service_abilities(organization_id)
+    end
+
+    private
+
+    def service_abilities(organization_id)
+      can(:read, Service, {
+            civil_servant_agreed: true,
+            organization_agreed: true,
+            service_specification: {
+              organization_id: organization_id
+            }
+          })
+
+      can(:manage, Service, {
+            civil_servant_agreed: false,
+            organization_agreed: true,
+            service_specification: {
+              organization_id: organization_id
             }
           })
     end

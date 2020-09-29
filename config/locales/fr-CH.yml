@@ -205,6 +205,7 @@ fr-CH:
         payments: Paiements
         phone_list: Liste de téléphone
         profile: Profil
+        service_agreements: Accord de service
         service_specifications: cahiers des charges
         services_overview: Aperçu d'affectations
         sign_out: Déconnexion
@@ -257,6 +258,7 @@ fr-CH:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
+  destroy: Effacer
   destroying: En effaçant...
   edit: Edit
   home:
@@ -374,6 +376,16 @@ fr-CH:
         title:
           with_filter: Liste de téléphone du %{range}
           without_filter: Liste de téléphone
+    service_agreements:
+      confirm_destroy: Supprimer vraiment le paiement?
+      destroy:
+        erroneous_destroy: Le service a été supprimé avec succès
+        successful_destroy: Le service n'a pas pu être supprimé
+      index:
+        days:
+          one: 1 Jour
+          other: "%{amount} Journées"
+        title: Services dont le consentement des civilists est en attente
     service_specifications:
       create:
         erroneous_create: Le cahier des charges n'a pas pu être créée
