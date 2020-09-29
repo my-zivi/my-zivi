@@ -171,7 +171,7 @@ RSpec.describe Service, type: :model do
       context 'when civil servant agrees' do
         it 'updates the civil servant agreed on date' do
           expect { model.update(civil_servant_agreed: true) }.to change(model, :civil_servant_agreed_on)
-            .from(nil).to(be_an_instance_of(Date))
+            .from(nil).to(be_an_instance_of(ActiveSupport::TimeWithZone))
         end
       end
 
@@ -188,7 +188,7 @@ RSpec.describe Service, type: :model do
       context 'when organization agrees' do
         it 'updates the civil servant agreed on date' do
           expect { model.update(organization_agreed: true) }.to change(model, :organization_agreed_on)
-            .from(nil).to(be_an_instance_of(Date))
+            .from(nil).to(be_an_instance_of(ActiveSupport::TimeWithZone))
         end
       end
 
