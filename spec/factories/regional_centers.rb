@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :regional_center do
     name { 'Regionalzentrum Rüti/ZH' }
-    short_name { 'Ru' }
+    short_name { 'Rüti' }
     address
   end
 end

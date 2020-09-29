@@ -5,7 +5,10 @@ class ExpenseSheet < ApplicationRecord
   include ExpenseSheetStateMachine
 
   belongs_to :service
-  belongs_to :payment, optional: true
+  belongs_to :payment, optional: true, counter_cache: true
+
+  has_one :service_specification, through: :service
+  has_one :civil_servant, through: :service
 
   validates :beginning, :ending, :work_days, :state, :service, presence: true
 
@@ -19,11 +22,12 @@ class ExpenseSheet < ApplicationRecord
             :clothing_expenses,
             :unpaid_company_holiday_days,
             :paid_company_holiday_days,
-            numericality: { only_integer: true }
+            numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   validates :payment_id, presence: true, if: :closed?
   validates :ending, timeliness: { on_or_after: :beginning }
   validate :included_in_service_date_range
+  validate :sum_of_days_not_greater_than_duration
 
   before_destroy :legitimate_destroy
 
@@ -94,15 +98,23 @@ class ExpenseSheet < ApplicationRecord
     errors.add(:base, I18n.t('activerecord.errors.models.expense_sheet.outside_service_date_range'))
   end
 
-  # TODO: Remove, left from legacy. Just here for the sake of documentation
-  # def fetch_service(services)
-  #   services.including_date_range(beginning, ending).first
-  # end
+  def sum_of_days_not_greater_than_duration
+    return if beginning.nil? || ending.nil? || summed_days <= duration
 
-  # TODO: Remove, left from legacy. Just here for the sake of documentation
-  # def eager_loaded_service(services)
-  #   services.find { |service| service.beginning <= beginning && service.ending >= ending }
-  # end
+    errors.add(:base, I18n.t('activerecord.errors.models.expense_sheet.sum_of_days_greater_than_duration'))
+  end
+
+  def summed_days
+    [
+      work_days,
+      workfree_days,
+      sick_days,
+      paid_vacation_days,
+      unpaid_vacation_days,
+      unpaid_company_holiday_days,
+      paid_company_holiday_days
+    ].compact.sum
+  end
 
   def legitimate_destroy
     return unless closed?

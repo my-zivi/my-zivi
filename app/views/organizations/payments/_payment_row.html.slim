@@ -1,0 +1,31 @@
+tr.btn-reveal-trigger.odd role="row"
+  td.py-2.align-middle
+    = link_to t('.expense_sheets', count: payment.expense_sheets.size), organizations_payment_path(payment)
+  td.py-2.align-middle = l(payment.created_at.to_date)
+  td.py-2.align-middle = number_to_currency(payment.amount, locale: 'de-CH')
+  td.py-2.align-middle
+    .d-inline-flex
+      = payment_badge(payment)
+  td.py-2.align-middle
+    .dropdown.text-sans-serif
+      button.btn.btn-link.text-600.btn-sm.dropdown-toggle.btn-reveal.mr-3 aria-expanded="false" aria-haspopup="true" data-boundary="viewport" data-toggle="dropdown" type="button"
+        i.fas.fa-ellipsis-h.fs--1
+      .dropdown-menu.dropdown-menu-right.border.py-0 aria-labelledby="order-dropdown-0"
+        .bg-white.py-2
+          = link_to organizations_payment_path(payment), class: 'dropdown-item' do
+            i.fas.fa-eye.mr-1
+            = t('.details')
+          = link_to organizations_payment_path(payment, format: :xml), class: 'dropdown-item' do
+            i.fas.fa-download.mr-1
+            = t('.download_pain')
+          - if payment.open?
+            = link_to organizations_payment_path(payment, payment: { state: 'paid' }), class: 'dropdown-item', method: :put do
+              i.fas.fa-check.mr-1
+              = t('.mark_as_paid')
+            .dropdown-divider
+            = link_to organizations_payment_path(payment),
+                    class: 'dropdown-item text-danger',
+                    method: :delete,
+                    data: { confirm: 'Really?' } do
+              i.fas.fa-trash-alt.mr-1
+              = t('.delete')

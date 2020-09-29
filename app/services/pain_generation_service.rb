@@ -2,10 +2,10 @@
 
 class PainGenerationService
   class << self
-    def call(sheets, organization)
-      sepa_credit_transfer = build_credit_transfer(organization)
+    def call(payment)
+      sepa_credit_transfer = build_credit_transfer(payment.organization)
 
-      sheets.each do |sheet|
+      payment.expense_sheets.includes(:service).each do |sheet|
         sepa_credit_transfer.add_transaction(build_transaction(sheet))
       end
 

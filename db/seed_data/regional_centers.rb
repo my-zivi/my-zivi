@@ -21,12 +21,12 @@ RegionalCenter.create!(
   [
     {
       name: 'Regionalzentrum Rüti/ZH',
-      short_name: 'Ru',
+      short_name: 'Rüti',
       address: rueti_address
     },
     {
-      name: 'Thun',
-      short_name: 'Th',
+      name: 'Regionalzentrum Thun',
+      short_name: 'Thun',
       address: thun_address
     }
   ]

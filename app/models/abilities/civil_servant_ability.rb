@@ -5,9 +5,13 @@ module Abilities
     include CanCan::Ability
 
     def initialize(permitting_civil_servant)
-      can %i[read update], CivilServant, id: permitting_civil_servant.id
-      can :read, Service, civil_servant_id: permitting_civil_servant.id
+      permitting_civil_servant_id = permitting_civil_servant.id
+
+      can :access, :civil_servant_portal
+      can %i[show update], CivilServant, id: permitting_civil_servant_id
+      can :read, Service, civil_servant_id: permitting_civil_servant_id
       can :read, :civil_servant_overview
+      can :read, ExpenseSheet, service: { civil_servant_id: permitting_civil_servant_id }
     end
   end
 end

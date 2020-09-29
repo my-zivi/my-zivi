@@ -13,7 +13,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
@@ -40,7 +40,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  config.force_ssl = ENV['NO_SSL'] != 'true'
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -53,10 +53,19 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter     = :resque
+  config.active_job.queue_adapter = :sidekiq
   # config.active_job.queue_name_prefix = "my_zivi_production"
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.smtp_settings = {
+    user_name: ENV['SMTP_USER_NAME'],
+    password: ENV['SMTP_PASSWORD'],
+    domain: ENV['SMTP_DOMAIN'],
+    address: ENV['SMTP_ADDRESS'],
+    port: ENV.fetch('SMTP_PORT', 587).to_i,
+    authentication: ENV.fetch('SMTP_AUTHENTICATION', 'plain').to_sym,
+    enable_starttls_auto: ENV.fetch('SMTP_ENABLE_STARTTLS_AUTO', true)
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -72,14 +81,13 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  # Use a different logger for distributed setups.
-  # require 'syslog/logger'
-  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
+  require 'syslog/logger'
+  config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new('my-zivi-master'))
 
   if ENV['RAILS_LOG_TO_STDOUT'].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
   # Do not dump schema after migrations.
@@ -107,4 +115,8 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  config.public_file_server.headers = {
+    'Cache-Control' => "public, max-age=#{180.days.to_i}"
+  }
 end

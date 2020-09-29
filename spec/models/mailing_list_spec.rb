@@ -10,4 +10,10 @@ RSpec.describe MailingList, type: :model do
 
     it_behaves_like 'validates presence of required fields', %i[name organization telephone email]
   end
+
+  describe 'after create' do
+    it 'enqueues a notification email' do
+      expect { create :mailing_list }.to have_enqueued_mail(MailingListEntryNotifierMailer)
+    end
+  end
 end

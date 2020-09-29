@@ -3,6 +3,7 @@
 module CivilServants
   class BaseController < ApplicationController
     before_action :authenticate_user!
+    before_action -> { authorize! :access, :civil_servant_portal }
 
     check_authorization
 

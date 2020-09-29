@@ -25,6 +25,7 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
   config.include ViewComponent::TestHelpers, type: :component
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::IntegrationHelpers, type: :system
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
 
@@ -61,6 +62,14 @@ RSpec.configure do |config|
         end
       end
     end
+  end
+
+  config.around(:each, :without_bullet) do |spec|
+    previous_value = Bullet.enable?
+    Bullet.enable = false
+    spec.run
+  ensure
+    Bullet.enable = previous_value
   end
 end
 

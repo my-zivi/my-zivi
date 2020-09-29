@@ -3,6 +3,7 @@
 @import 'variables';
 @import '~bootstrap/scss/bootstrap';
 @import '~@my-zivi/falcon/scss/theme/theme';
+@import '~flatpickr/dist/flatpickr.min';
 
 .corner-background-warning {
   background-image: url("~@my-zivi/falcon/pages/assets/img/illustrations/corner-1.png");
@@ -15,6 +16,11 @@
 .corner-background-success {
   background-image: url("~@my-zivi/falcon/pages/assets/img/illustrations/corner-3.png");
 }
+
+.corner-background-title {
+  background-image: url("~@my-zivi/falcon/pages/assets/img/illustrations/corner-4.png");
+}
+
 
 .animatable-card {
   transition: .25s box-shadow;

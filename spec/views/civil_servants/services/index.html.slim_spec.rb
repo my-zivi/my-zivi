@@ -24,13 +24,13 @@ RSpec.describe 'civil_servants/services/index.html.slim', type: :view do
     services.flat_map do |service|
       service_spec = service.service_specification
       [
-        t('civil_servants.services.service_short_info_row.service_with', org_name: service.organization.name),
+        t('base.services.short_info_cell.service_with', org_name: service.organization.name),
         service_spec.name,
         service_spec.location,
-        t('civil_servants.services.service_short_info_row.service_duration',
+        t('base.services.short_info_cell.service_duration',
           beginning_date: l(service.beginning), ending_date: l(service.ending)),
         t(service.confirmation_date.present?,
-          scope: %i[civil_servants services service_short_info_row service_confirmed])
+          scope: %i[base services short_info_cell service_confirmed])
       ]
     end
   end

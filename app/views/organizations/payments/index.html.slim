@@ -1,0 +1,37 @@
+.card.mb-3.mb-lg-0
+  .card-header.bg-light.d-flex.justify-content-between.align-items-center
+    h5 = t('.title')
+  .card-body.p-0
+    .falcon-data-table
+      .dataTables_wrapper.dt-bootstrap4.no-footer
+        .row.mx-1
+          .col-sm-12.col-md-6
+          .col-sm-12.col-md-6
+        .table-responsive
+          table.table.table-sm.mb-0.table-striped.table-dashboard.fs--1.data-table.border-bottom.border-200.dataTable.no-footer role="grid"
+            thead.bg-200.text-900
+              tr role="row"
+                th.align-middle = t('.table_headers.payment')
+                th.align-middle = t('.table_headers.date')
+                th.align-middle = t('.table_headers.amount')
+                th.align-middle = t('.table_headers.status')
+                th.align-middle = t('.table_headers.actions')
+            tbody
+              = render partial: 'organizations/payments/payment_row', collection: @payments, as: :payment
+        / TODO: Implement pagination
+        .row.no-gutters.px-1.py-3.align-items-center.justify-content-center
+          .col-auto
+            #DataTables_Table_0_paginate.dataTables_paginate.paging_simple_numbers
+              ul.pagination.pagination-sm
+                li#DataTables_Table_0_previous.paginate_button.page-item.previous.disabled
+                  a.page-link aria-controls="DataTables_Table_0" data-dt-idx="0" href="#" tabindex="0"
+                    i.fas.fa-chevron-left
+                li.paginate_button.page-item.active
+                  a.page-link aria-controls="DataTables_Table_0" data-dt-idx="1" href="#" tabindex="0" 1
+                li.paginate_button.page-item
+                  a.page-link aria-controls="DataTables_Table_0" data-dt-idx="2" href="#" tabindex="0" 2
+                li.paginate_button.page-item
+                  a.page-link aria-controls="DataTables_Table_0" data-dt-idx="3" href="#" tabindex="0" 3
+                li#DataTables_Table_0_next.paginate_button.page-item.next
+                  a.page-link aria-controls="DataTables_Table_0" data-dt-idx="4" href="#" tabindex="0"
+                    i.fas.fa-chevron-right

@@ -1,0 +1,23 @@
+.card
+  .card-header.bg-white
+    .row.align-items-center
+      .col
+        h5.mb-0
+          = t('.title')
+          span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@civil_servants.length})"
+      .col.d-inline-flex.justify-content-end
+        = link_to({ filters: { show_inactive: !@filters[:show_inactive] } }, class: 'd-flex align-items-center') do
+          .custom-control.custom-switch data-children-count="1"
+            input#hide-past-services.custom-control-input[type="checkbox" checked=@filters[:show_inactive] disabled]
+            label.custom-control-label for="hide-past-services"
+          h5.fs-0.mr-1 = t('.show_inactive_civil_servants')
+  .card-body.bg-light.p-0
+    .row.no-gutters.text-center.fs--1
+      - @civil_servants.each do |civil_servant|
+        .col-6.col-md-4.col-lg-3.col-xxl-2.mb-1
+          = link_to organizations_civil_servant_path(civil_servant), class: 'text-decoration-none' do
+            .p-3.h-100
+              .name-initials-container.mb-3
+                .initials = initials(civil_servant)
+              h6.mb-1 = civil_servant.full_name
+              p.fs--2.mb-1 = civil_servant.active_service(current_organization)&.service_specification&.name

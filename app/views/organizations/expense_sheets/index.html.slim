@@ -1,0 +1,15 @@
+.card
+  .card-header.bg-white
+    .row.align-items-center
+      .col
+        h5.mb-0
+          = t('.title')
+          span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@expense_sheets.count})"
+      .col.d-inline-flex.justify-content-end
+        = link_to({ filters: { show_all: !@filters[:show_all] } }, class: 'd-flex align-items-center') do
+          .custom-control.custom-switch data-children-count="1"
+            input#hide-past-services.custom-control-input[type="checkbox" checked=@filters[:show_all] disabled]
+            label.custom-control-label for="hide-past-services"
+          h5.fs-0.mr-1 = t('.show_all_expense_sheets')
+  .card-body.p-0.bg-light.p-0
+    = render ExpenseSheetsTableComponent.new(expense_sheets: @expense_sheets)

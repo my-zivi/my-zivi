@@ -1,0 +1,21 @@
+.row
+  .col-12.col-lg-6.pb-1
+    = render(\
+          TabularCardComponent.new(\
+            title: t('civil_servants.services.show.schedule_information'),
+            table_content: schedule_information_table(@service)\
+          ) \
+        )
+  .col-12.col-lg-6.pb-1
+    = render(\
+        TabularCardComponent.new(\
+          title: t('activerecord.models.civil_servant'),
+            table_content: civil_servant_information_table(@service)\
+        ) \
+      )
+
+.card
+  .card-header
+    h5.mb-0 = t('.expense_sheets')
+  .card-body.border-top.p-0
+    = render ExpenseSheetsTableComponent.new(expense_sheets: @service.expense_sheets, columns: ExpenseSheetsTableComponent::COLUMNS.except(:full_name))

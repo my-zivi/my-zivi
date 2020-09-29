@@ -64,9 +64,40 @@ RSpec.describe CivilServant, type: :model do
     ]
   end
 
-  describe '#self.strip_iban' do
-    it 'removes whitespaces from iban' do
-      expect(described_class.strip_iban(' CH56 0483 5012 3456 7800 9')).to eq 'CH5604835012345678009'
+  describe 'active record hooks' do
+    let(:model) { create :civil_servant, :full }
+    let(:address) { model.address }
+
+    let(:new_last_name) { 'NeueNachname' }
+
+    context 'when model gets a valid update' do
+      it 'updates the addresses primary line' do
+        expect { model.update(last_name: new_last_name) }.to change(address, :primary_line)
+          .from(model.full_name)
+          .to("#{model.first_name} #{new_last_name}")
+      end
+    end
+
+    context 'when model gets an invalid update' do
+      let(:new_last_name) { nil }
+
+      it 'does not update the addresses primary line' do
+        expect { model.update(last_name: new_last_name) }.not_to change(address, :primary_line)
+      end
+    end
+
+    context 'when the address update throws an error' do
+      before do
+        allow(address).to receive(:update!).and_raise(ActiveRecord::RecordInvalid.new)
+        stub_const('Raven', instance_double('Raven', capture_exception: true))
+      end
+
+      it 'calls raven on exception' do
+        expect { model.update(last_name: new_last_name) }.not_to change(address, :primary_line)
+        expect(Raven).to have_received(:capture_exception)
+          .with(be_an_instance_of(ActiveRecord::RecordInvalid),
+                extra: address.errors)
+      end
     end
   end
 
@@ -106,22 +137,42 @@ RSpec.describe CivilServant, type: :model do
 
     context 'when the civil service he\'s currently doing ends today' do
       let(:beginning) { Time.zone.today.at_beginning_of_week - 1.week }
-      let(:service) { build :service, :last, beginning: beginning, ending: Time.zone.today }
+      let(:service) { build(:service, :last, beginning: beginning, ending: Time.zone.today) }
 
       it { is_expected.to eq true }
     end
   end
 
   describe '#active_service' do
-    subject(:civil_servant) { build(:civil_servant, services: services) }
+    subject(:active_service) { civil_servant.active_service }
 
-    let(:services) { [past_service, future_service, current_service] }
-    let(:past_service) { build_stubbed :service, beginning: 2.months.ago, ending: 3.weeks.ago }
-    let(:current_service) { build_stubbed :service, beginning: 1.month.ago, ending: 4.weeks.from_now }
-    let(:future_service) { build_stubbed :service, beginning: 2.months.from_now, ending: 4.months.from_now }
+    let(:civil_servant) { build(:civil_servant, services: [past_service, future_service, current_service]) }
+    let(:past_service) { build_stubbed(:service, beginning: 2.months.ago, ending: 3.weeks.ago) }
+    let(:current_service) { build_stubbed(:service, **current_service_attributes) }
+    let(:future_service) { build_stubbed(:service, beginning: 2.months.from_now, ending: 4.months.from_now) }
+    let(:current_service_attributes) { { beginning: 1.month.ago, ending: 4.weeks.from_now } }
 
     it 'returns the service which the civil_servants is currently doing' do
-      expect(civil_servant.active_service).to be current_service
+      expect(active_service).to be current_service
+    end
+
+    context 'when an organization is given' do
+      subject { civil_servant.active_service(organization) }
+
+      let(:organization) { create(:organization) }
+      let(:service_specification) { create(:service_specification, organization: organization) }
+
+      context 'when current service is in given organization' do
+        let(:current_service_attributes) do
+          { beginning: 1.month.ago, ending: 4.weeks.from_now, service_specification: service_specification }
+        end
+
+        it { is_expected.to be current_service }
+      end
+
+      context 'when current service is outside of given organization' do
+        it { is_expected.to be_nil }
+      end
     end
   end
 
@@ -129,9 +180,9 @@ RSpec.describe CivilServant, type: :model do
     subject(:civil_servant) { build(:civil_servant, services: services) }
 
     let(:services) { [second_future_service, future_service, current_service] }
-    let(:current_service) { build :service, beginning: 1.month.ago, ending: 4.weeks.from_now }
-    let(:future_service) { build :service, beginning: 2.months.from_now, ending: 4.months.from_now }
-    let(:second_future_service) { build :service, beginning: 1.year.from_now, ending: (1.year + 4.weeks).from_now }
+    let(:current_service) { build(:service, beginning: 1.month.ago, ending: 4.weeks.from_now) }
+    let(:future_service) { build(:service, beginning: 2.months.from_now, ending: 4.months.from_now) }
+    let(:second_future_service) { build(:service, beginning: 1.year.from_now, ending: (1.year + 4.weeks).from_now) }
 
     it 'returns the service which the civil_servants is currently doing' do
       expect(civil_servant.next_service).to be future_service

@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Pdfs::ExpenseSheet::GeneratorService, type: :service do
   describe '#render' do
     context 'when locale is german' do
-      before { I18n.locale = :de }
+      before { I18n.locale = :'de-CH' }
 
       after { I18n.locale = I18n.default_locale }
 

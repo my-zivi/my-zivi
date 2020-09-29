@@ -48,6 +48,8 @@ RSpec/ExampleLength:
 
 RSpec/AggregateExamples:
   Enabled: true
+  Exclude:
+    - 'spec/views/organizations/payments/index.html.slim_spec.rb'
 
 Rails/Output:
   Exclude:
@@ -56,7 +58,10 @@ Rails/Output:
     - 'db/seed_data/*.rb'
 
 RSpec/NestedGroups:
-  Max: 5
+  Max: 6
+
+RSpec/MultipleMemoizedHelpers:
+   Max: 15
 
 AllCops:
   NewCops: enable
