@@ -11,7 +11,9 @@ module Organizations
     end
 
     def destroy
-      if Service.destroy(params[:id])
+      service = Service.find(params[:id])
+      authorize! :destroy, service
+      if service.destroy
         flash[:notice] = t('.successful_destroy')
       else
         flash[:error] = t('.erroneous_destroy')

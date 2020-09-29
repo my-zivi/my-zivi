@@ -15,6 +15,7 @@ module Organizations
       load_filters
       @services = Service
                   .accessible_by(current_ability)
+                  .definitive
                   .where(civil_servant_id: @civil_servant.id)
                   .includes(:service_specification)
     end

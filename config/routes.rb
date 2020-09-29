@@ -20,12 +20,6 @@ if Rails.env.production?
 end
 
 Rails.application.routes.draw do
-  namespace :organizations do
-    get 'service_agreements/index'
-    get 'service_agreements/view'
-    get 'service_agreements/edit'
-    get 'service_agreements/update'
-  end
   root 'home#index'
   mount Sidekiq::Web, at: '/sidekiq' if defined? Sidekiq::Web
 

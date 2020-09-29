@@ -30,7 +30,7 @@ module Abilities
               organization_id: organization_id
             }
           })
-      can(:read, Service, {
+      can(:manage, Service, {
             organization_agreed: true,
             service_specification: {
               organization_id: organization_id

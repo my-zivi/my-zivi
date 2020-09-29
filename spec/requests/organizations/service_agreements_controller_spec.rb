@@ -91,6 +91,20 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
         expect(response).to redirect_to organizations_service_agreements_path
       end
 
+      context 'when the org admin is from another organization' do
+        let(:organization_administrator) { create :organization_member }
+
+        before { sign_in organization_administrator.user }
+
+        it 'does not destroy the service agreement' do
+          expect { perform_request }.not_to change(Service, :count)
+        end
+
+        it_behaves_like 'unauthorized request' do
+          before { perform_request }
+        end
+      end
+
       context 'when the service already has expense sheets' do
         before { ExpenseSheetGenerator.new(maria_service).create_expense_sheets }
 

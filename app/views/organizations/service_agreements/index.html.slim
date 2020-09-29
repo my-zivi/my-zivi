@@ -1,9 +1,11 @@
 .card
-  .card-header.bg-white
-    .row.align-items-center
-      .col
-        h5.mb-0
-          = t('.title')
-          span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@service_agreements.count})"
+  .card-header.bg-light.d-flex.justify-content-between.align-items-center
+    h5.mb-0
+      = t('.title')
+      span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@service_agreements.count})"
   .card-body.p-0.bg-light.p-0
-    = render ServiceAgreementsTableComponent.new(service_agreements: @service_agreements)
+  .card-body.p-0
+    = render ModelTableComponent.new(\
+            model_data: @service_agreements,
+            model_columns: service_agreements_table_columns,
+            model_actions: service_agreements_table_actions)

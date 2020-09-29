@@ -375,6 +375,7 @@ fr-CH:
           with_filter: Liste de téléphone du %{range}
           without_filter: Liste de téléphone
     service_agreements:
+      confirm_destroy: Supprimer vraiment le paiement?
       destroy:
         erroneous_destroy: Le service a été supprimé avec succès
         successful_destroy: Le service n'a pas pu être supprimé

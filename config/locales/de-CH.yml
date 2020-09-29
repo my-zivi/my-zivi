@@ -376,6 +376,7 @@ de-CH:
           with_filter: Telefonliste vom %{range}
           without_filter: Telefonliste
     service_agreements:
+      confirm_destroy: Einsatzvereinbarung wirklich löschen?
       destroy:
         erroneous_destroy: Einsatzverarbeitung konnte nicht gelöscht werden
         successful_destroy: Einsatzverarbeitung erfolgeich gelöscht

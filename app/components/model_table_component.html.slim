@@ -1,0 +1,17 @@
+.falcon-data-table
+  .table-responsive
+    table.table.table-sm.mb-0.table-striped.table-dashboard.data-table.border-bottom.border-200.dataTable.no-footer role="grid"
+      thead.thead-light
+        tr
+          - @model_columns.each_value do |column|
+            th.align-middle scope="col" = column[:label]
+          th scope="col"
+      tbody
+        - @model_data.each do |model|
+          tr
+            - @model_columns.each_value do |column|
+              td.py-3.align-middle = column[:content].call(model)
+            td.py-3.align-middle
+              - @model_actions.each_value do |action|
+                = link_to(action[:link_path].call(model), action[:link_args]) do
+                  i[class=action[:icon_classes]]

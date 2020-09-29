@@ -171,7 +171,7 @@ RSpec.describe Service, type: :model do
       context 'when civil servant agrees' do
         it 'updates the civil servant agreed on date' do
           expect { model.update(civil_servant_agreed: true) }.to change(model, :civil_servant_agreed_on)
-            .from(nil)
+            .from(nil).to(be_an_instance_of(Date))
         end
       end
 
@@ -188,13 +188,39 @@ RSpec.describe Service, type: :model do
       context 'when organization agrees' do
         it 'updates the civil servant agreed on date' do
           expect { model.update(organization_agreed: true) }.to change(model, :organization_agreed_on)
-            .from(nil)
+            .from(nil).to(be_an_instance_of(Date))
         end
       end
 
       context 'when does not agree' do
         it 'does not update the civil servant agreed on date' do
           expect { model.update(organization_agreed: false) }.not_to change(model, :organization_agreed_on)
+        end
+      end
+    end
+
+    context 'when service is destroyed' do
+      context 'when the organization agreement is missing' do
+        let!(:model) { create :service, :organization_agreement_pending }
+
+        it 'does destroy the service' do
+          expect { model.destroy }.to change(described_class, :count).by(-1)
+        end
+      end
+
+      context 'when the civil servant agreement is missing' do
+        let!(:model) { create :service, :civil_servant_agreement_pending }
+
+        it 'does destroy the service' do
+          expect { model.destroy }.to change(described_class, :count).by(-1)
+        end
+      end
+
+      context 'when both parties have agreed' do
+        let!(:model) { create :service }
+
+        it 'does not destroy the service' do
+          expect { model.destroy }.not_to change(described_class, :count)
         end
       end
     end
