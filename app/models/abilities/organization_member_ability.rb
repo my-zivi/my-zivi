@@ -22,7 +22,7 @@ module Abilities
               organization_id: organization_id
             }
           })
-      
+
       can(:manage, ExpenseSheet, {
             service: {
               civil_servant_agreed: true,
@@ -36,25 +36,26 @@ module Abilities
       service_abilities(organization_id)
     end
 
-    # rubocop:enable Metrics/MethodLength
     private
 
     def service_abilities(organization_id)
       can(:read, Service, {
-          civil_servant_agreed: true,
-          organization_agreed: true,
-          service_specification: {
+            civil_servant_agreed: true,
+            organization_agreed: true,
+            service_specification: {
               organization_id: organization_id
-          }
-      })
+            }
+          })
 
       can(:manage, Service, {
-          civil_servant_agreed: false,
-          organization_agreed: true,
-          service_specification: {
+            civil_servant_agreed: false,
+            organization_agreed: true,
+            service_specification: {
               organization_id: organization_id
-          }
-      })
+            }
+          })
     end
+
+    # rubocop:enable Metrics/MethodLength
   end
 end

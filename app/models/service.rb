@@ -32,7 +32,7 @@ class Service < ApplicationRecord
   delegate :future?, to: :beginning
   delegate :past?, to: :ending
 
-  before_destroy :prevent_definitive_service_destroy
+  before_destroy :check_definitive_service_destroy
   after_commit :update_civil_service_agreement, on: %i[create update]
   after_commit :update_organization_agreement, on: %i[create update]
 
@@ -70,7 +70,7 @@ class Service < ApplicationRecord
     @service_calculator ||= ServiceCalculator.new(beginning, last_service?)
   end
 
-  def prevent_definitive_service_destroy
+  def check_definitive_service_destroy
     throw :abort if civil_servant_agreed && organization_agreed
   end
 
