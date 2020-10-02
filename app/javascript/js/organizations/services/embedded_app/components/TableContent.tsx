@@ -21,12 +21,6 @@ function cellForDay(day: Moment, service: Service) {
 }
 
 function renderService(currentMonthlyGroup: MonthlyGroup, service: Service) {
-  if (!currentMonthlyGroup.containsService(service)) {
-    return (
-      <div className="d-table-row" />
-    );
-  }
-
   return (
     <div className="d-table-row">
       {currentMonthlyGroup.mapDays((day) => cellForDay(day, service))}

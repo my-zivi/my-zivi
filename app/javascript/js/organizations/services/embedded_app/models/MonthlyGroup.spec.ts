@@ -1,18 +1,10 @@
 import moment, { Moment } from 'moment';
 import { range } from 'lodash';
 import MonthlyGroup from './MonthlyGroup';
-import { Service } from '../types';
 
 describe('MonthlyGroup', () => {
   moment.locale('de');
-
-  const service: Service = {
-    civilServant: { fullName: 'Max Muster' },
-    beginning: '2020-01-01',
-    ending: '2020-03-01',
-  };
-
-  const monthlyGroup = new MonthlyGroup(moment('2020-02-03'), [service]);
+  const monthlyGroup = new MonthlyGroup(moment('2020-02-03'));
 
   describe('#monthName', () => {
     it('returns the correct name', () => {
@@ -29,22 +21,6 @@ describe('MonthlyGroup', () => {
   describe('#monthEnd', () => {
     it('returns the correct end of the month', () => {
       expect(monthlyGroup.monthEnd.isSame(moment('2020-02-29'), 'month')).toEqual(true);
-    });
-  });
-
-  describe('#containsService', () => {
-    it('returns true if the monthly group contains the service', () => {
-      expect(monthlyGroup.containsService(service)).toBe(true);
-    });
-
-    it('returns false if the monthly group does not contain the service', () => {
-      const outsideService: Service = {
-        beginning: '2000-01-01',
-        civilServant: { fullName: 'Peter Peterle' },
-        ending: '2000-12-01',
-      };
-
-      expect(monthlyGroup.containsService(outsideService)).toBe(false);
     });
   });
 

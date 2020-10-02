@@ -4,12 +4,23 @@ import Factories from '../../../../tests/factories/Factories';
 import ServicesList from './ServicesList';
 
 describe('ServicesList', () => {
+  moment.locale('de');
+
+  const lateService = ServiceFactory.build({ beginning: '2020-02-07', ending: '2020-03-13' });
+  const earlyServices = Factories.buildList(ServiceFactory, 2, { beginning: '2020-01-06', ending: '2020-02-07' });
   const services = [
-    ...Factories.buildList(ServiceFactory, 2, { beginning: '2020-01-06', ending: '2020-02-07' }),
-    ServiceFactory.build({ beginning: '2020-02-07', ending: '2020-03-13' }),
+    lateService,
+    ...earlyServices,
   ];
 
   const servicesList = new ServicesList(services);
+
+  describe('#constructor', () => {
+    it('sorts the services', () => {
+      expect(servicesList.services[2]).toEqual(lateService);
+      expect(servicesList.services.slice(0, 2)).toEqual(expect.arrayContaining(earlyServices));
+    });
+  });
 
   describe('#planBeginning', () => {
     it('returns the beginning of the table', () => {
@@ -28,7 +39,9 @@ describe('ServicesList', () => {
       expect(servicesList.monthlyGroups.length).toBe(3);
 
       const [january, february, march] = servicesList.monthlyGroups;
-      expect(january.services.length).toBe(2);
+      expect(january.monthName).toBe('Januar');
+      expect(february.monthName).toBe('Februar');
+      expect(march.monthName).toBe('März');
     });
   });
 });

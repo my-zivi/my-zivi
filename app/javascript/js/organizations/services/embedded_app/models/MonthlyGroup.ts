@@ -1,13 +1,10 @@
 import { Moment } from 'moment';
 import { DATE_FORMATS } from 'js/constants';
-import { Service } from 'js/organizations/services/embedded_app/types';
 
 export default class MonthlyGroup {
-  public readonly services: Service[];
   public readonly month: Moment;
 
-  constructor(month: Moment, services: Service[]) {
-    this.services = services;
+  constructor(month: Moment) {
     this.month = month;
   }
 
@@ -21,10 +18,6 @@ export default class MonthlyGroup {
 
   get monthEnd(): Moment {
     return Object.freeze(this.month.clone().endOf('month'));
-  }
-
-  containsService(service: Service): boolean {
-    return this.services.includes(service);
   }
 
   mapDays<T>(callback: (day: Moment) => T): T[] {

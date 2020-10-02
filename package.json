@@ -32,7 +32,7 @@
     "lint": "eslint app/javascript",
     "percy:capture-screenshots": "NO_COVERAGE=true percy exec -- bundle exec rspec spec/screenshots/*_spec.rb",
     "typescript:typecheck": "tsc --noEmit",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "husky": {
     "hooks": {
