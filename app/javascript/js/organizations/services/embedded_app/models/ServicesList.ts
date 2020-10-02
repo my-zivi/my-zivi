@@ -41,7 +41,7 @@ export default class ServicesList {
         const beginsInMonth = moment(service.beginning).isSameOrBefore(month, 'month');
         const endsInMonth = moment(service.ending).isSameOrAfter(month, 'month');
 
-        return beginsInMonth || endsInMonth;
+        return beginsInMonth && endsInMonth;
       };
 
       return new MonthlyGroup(month, this.services.filter(predicate));

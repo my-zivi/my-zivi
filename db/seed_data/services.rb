@@ -20,7 +20,11 @@ Service.create!(
       last_service: false,
       feedback_mail_sent: true,
       civil_servant: niels_schweizer,
-      service_specification: jugendarbeit
+      service_specification: jugendarbeit,
+      civil_servant_agreed: true,
+      civil_servant_agreed_on: 1.week.ago,
+      organization_agreed: true,
+      organization_agreed_on: 5.weeks.ago
     },
     {
       beginning: current_service_beginning - 1.week,
