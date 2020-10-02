@@ -25,7 +25,12 @@ module.exports = function (api) {
           },
         },
       ],
-      isTestEnv && '@babel/preset-typescript',
+      isTestEnv && [
+        '@babel/preset-typescript',
+        {
+          jsxPragma: 'h',
+        },
+      ],
       (isProductionEnv || isDevelopmentEnv) && [
         '@babel/preset-env',
         {

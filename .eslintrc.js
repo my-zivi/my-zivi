@@ -29,6 +29,18 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: [
+          '**/*.spec.tsx',
+          '**/*.spec.ts',
+          '**/*.spec.js',
+          '**/*.spec.jsx',
+          '**/setupJest.tsx',
+        ],
+      },
+    ],
     'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
   },
   settings: {
