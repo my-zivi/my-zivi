@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App runs 1`] = `
+<div
+  className="card mb-3 mb-lg-0"
+>
+  <CardHeader
+    overviewSubtitle="Laden..."
+  />
+  <div
+    className="card-body"
+  >
+    <Spinner
+      style="info"
+    />
+  </div>
+</div>
+`;

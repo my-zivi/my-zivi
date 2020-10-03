@@ -3,11 +3,11 @@
 const Rails = jest.createMockFromModule('@rails/ujs') as {
   ajax,
   mockError: (error: Error) => void,
-  mockResponse: (response: any, forUrl: string) => void
+  mockResponse: (response: any, forUrl: string) => void,
 };
 
 let returnedError = null;
-let returnedResponses = {};
+const returnedResponses = {};
 
 Rails.mockError = (error) => {
   returnedError = error;
