@@ -131,7 +131,7 @@ module.exports = {
     '<rootDir>jest/setupJest.tsx',
   ],
 
-  // setupFilesAfterEnv: ['<rootDir>/node_modules/jest-enzyme/lib/index.js'],
+  setupFilesAfterEnv: ['<rootDir>/node_modules/jest-enzyme/lib/index.js'],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,

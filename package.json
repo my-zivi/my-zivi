@@ -59,6 +59,8 @@
     "faker": "^5.1.0",
     "husky": "^4.2.5",
     "jest": "^26.4.2",
+    "jest-environment-enzyme": "^7.1.2",
+    "jest-enzyme": "^7.1.2",
     "webpack-dev-server": "^3.11.0"
   }
 }
