@@ -9,5 +9,8 @@ if (!('MyZivi' in window)) {
         title: '<%= I18n.t('organizations.services.index.title') %>'
       }
     },
+    paths: {
+      servicesOverview: '<%= organizations_services_path(format: :json) %>'
+    }
   };
 }

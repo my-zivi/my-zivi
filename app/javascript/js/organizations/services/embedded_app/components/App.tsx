@@ -2,7 +2,7 @@ import { Component, ComponentChild } from 'preact';
 import { DATE_FORMATS } from 'js/constants';
 import React from 'preact/compat';
 import { Service } from 'js/organizations/services/embedded_app/types';
-import Api from 'js/organizations/services/embedded_app/Api';
+import Api from 'js/shared/Api';
 import Spinner from 'js/shared/components/Spinner';
 import ServicesList from '../models/ServicesList';
 import OverviewTable from './OverviewTable';
@@ -32,7 +32,7 @@ export default class App extends Component<unknown, State> {
   }
 
   async reloadPlanningView(): Promise<void> {
-    const services = await Api.fetchData();
+    const services = await Api.fetchServices();
 
     this.setState({
       loading: false,
