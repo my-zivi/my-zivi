@@ -63,7 +63,7 @@ blocks:
             - bin/unit-tests
         - name: JavaScript Tests
           commands:
-            - yarn test
+            - TZ=Europe/London yarn test
         - name: System Tests
           commands:
             - sem-service start postgres
