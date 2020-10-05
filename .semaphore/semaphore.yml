@@ -42,6 +42,8 @@ blocks:
           value: 'postgresql://postgres@localhost/test?encoding=utf8'
         - name: RAILS_ENV
           value: test
+        - name: TZ
+          value: Europe/Zurich
       prologue:
         commands:
           - checkout --use-cache
@@ -63,7 +65,7 @@ blocks:
             - bin/unit-tests
         - name: JavaScript Tests
           commands:
-            - TZ=Europe/London yarn test
+            - yarn test
         - name: System Tests
           commands:
             - sem-service start postgres
