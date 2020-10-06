@@ -19,6 +19,10 @@ module.exports = {
   rules: {
     'max-len': [2, 120, 4],
     'no-use-before-define': 'off',
+    semi: 'off',
+    '@typescript-eslint/semi': ['error'],
+    'no-extra-semi': 'off',
+    '@typescript-eslint/no-extra-semi': ['error'],
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -38,6 +42,7 @@ module.exports = {
           '**/*.spec.js',
           '**/*.spec.jsx',
           '**/setupJest.tsx',
+          '**/ServiceFactory.ts',
         ],
       },
     ],
