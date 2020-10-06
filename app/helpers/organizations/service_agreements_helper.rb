@@ -29,21 +29,22 @@ module Organizations
     }.freeze
 
     ACTIONS = {
-      edit: {
-        icon_classes: 'fas fa-pen',
-        link_path: lambda { |service_agreement|
-                     Rails.application.routes
-                          .url_helpers.edit_organizations_civil_servant_service_path(
-                            service_agreement.civil_servant,
-                            service_agreement
-                          )
-                   },
-        link_args: {
-          class: 'mr-3',
-          title: I18n.t('edit'),
-          data: { toggle: 'tooltip', placement: 'above' }
-        }
-      },
+      # TODO: Implement edit
+      # edit: {
+      #   icon_classes: 'fas fa-pen',
+      #   link_path: lambda { |service_agreement|
+      #                Rails.application.routes
+      #                     .url_helpers.edit_organizations_civil_servant_service_path(
+      #                       service_agreement.civil_servant,
+      #                       service_agreement
+      #                     )
+      #              },
+      #   link_args: {
+      #     class: 'mr-3',
+      #     title: I18n.t('edit'),
+      #     data: { toggle: 'tooltip', placement: 'above' }
+      #   }
+      # },
       delete: {
         icon_classes: 'fas fa-trash',
         link_path: lambda { |service_agreement|
