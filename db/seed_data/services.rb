@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
-max_mustermann = User.find_by(email: 'zivi@example.com').referencee
-philipp = User.find_by(email: 'philipp@example.com').referencee
+max_mustermann = User.find_by(email: 'max.zivi@example.com').referencee
+philipp = User.find_by(email: 'philipp.zivi@example.com').referencee
+joel = User.find_by(email: 'joel.zivi@example.com').referencee
+andy = User.find_by(email: 'andy.zivi@example.com').referencee
 jugendarbeit = ServiceSpecification.find_by(name: 'Mitarbeit in der Jugendarbeit')
 zirkusarbeit = ServiceSpecification.find_by(name: 'Mitarbeit Sozialpädagogische Zirkusschule')
+hausdienst = ServiceSpecification.find_by(name: 'Mitarbeit Hausdienst')
 
 future_service_beginning = 3.months.from_now.at_beginning_of_week
 
@@ -80,6 +83,48 @@ Service.create!(
       civil_servant_agreed_on: '2018-12-20',
       organization_agreed: true,
       organization_agreed_on: '2018-12-20'
+    },
+    {
+      beginning: '2020-08-24',
+      ending: '2020-12-18',
+      confirmation_date: '2020-03-12',
+      service_type: :normal,
+      last_service: false,
+      feedback_mail_sent: false,
+      civil_servant: joel,
+      service_specification: hausdienst,
+      civil_servant_agreed: true,
+      civil_servant_agreed_on: '2020-02-22',
+      organization_agreed: true,
+      organization_agreed_on: '2020-02-22'
+    },
+    {
+      beginning: '2020-09-07',
+      ending: '2020-12-18',
+      confirmation_date: '2020-10-30',
+      service_type: :normal,
+      last_service: false,
+      feedback_mail_sent: false,
+      civil_servant: andy,
+      service_specification: hausdienst,
+      civil_servant_agreed: true,
+      civil_servant_agreed_on: '2020-08-12',
+      organization_agreed: true,
+      organization_agreed_on: '2020-08-13'
+    },
+    {
+      beginning: '2020-10-26',
+      ending: '2020-11-20',
+      confirmation_date: nil,
+      service_type: :normal,
+      last_service: false,
+      feedback_mail_sent: false,
+      civil_servant: philipp,
+      service_specification: jugendarbeit,
+      civil_servant_agreed: false,
+      civil_servant_agreed_on: nil,
+      organization_agreed: true,
+      organization_agreed_on: '2020-10-01'
     }
   ]
 )
