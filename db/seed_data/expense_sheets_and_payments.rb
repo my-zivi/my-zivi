@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 
-philipp = User.find_by(email: 'philipp@example.com').referencee
-philipp_service = philipp.services.last
-max_mustermann = User.find_by(email: 'zivi@example.com').referencee
+philipp = User.find_by(email: 'philipp.zivi@example.com').referencee
+philipp_service = philipp.services.first
+
+joel = User.find_by(email: 'joel.zivi@example.com').referencee
+joel_service = joel.services.last
+
+andy = User.find_by(email: 'andy.zivi@example.com').referencee
+andy_service = andy.services.last
+
+max_mustermann = User.find_by(email: 'max.zivi@example.com').referencee
 max_mustermann_services = max_mustermann.services.order(:beginning)
 first_max_mustermann_service = max_mustermann_services.first
 
@@ -39,22 +46,28 @@ max_mustermann_services.first.expense_sheets.order(:beginning).first.update(
 
 ExpenseSheetGenerator.new(max_mustermann_services.last).create_expense_sheets
 ExpenseSheetGenerator.new(philipp_service).create_expense_sheets
+ExpenseSheetGenerator.new(joel_service).create_expense_sheets
+ExpenseSheetGenerator.new(andy_service).create_expense_sheets
 
 puts '> Expense sheets seeded'
 
-ExpenseSheet.where('ending < ?', Time.zone.now)
+ExpenseSheet.where('ending < ?', Time.zone.now.at_end_of_month)
             .includes(service: [:organization])
             .group_by { |s| [s.beginning.month, s.service.organization.id] }
             .each do |(_month, organization_id), sheets|
   sheets.each(&:editable!)
-  sheets.each { |sheet| sheet.update(amount: 23) }
+  sheets.each { |sheet| sheet.update(amount: rand(20..70)) }
 
-  Payment.create!(
+  last_ending = sheets.max_by(&:ending).ending
+  payment = Payment.create!(
     organization_id: organization_id,
     expense_sheets: sheets,
     amount: sheets.sum(&:amount),
-    paid_timestamp: (sheets.first.ending + 1.month).at_beginning_of_month
+    paid_timestamp: (sheets.first.ending + 1.month).at_beginning_of_month,
+    created_at: last_ending
   )
+
+  payment.paid! if last_ending.past?
 end
 
 puts '> Payments seeded'
