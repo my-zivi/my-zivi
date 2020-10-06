@@ -13,7 +13,7 @@ interface State {
   services: Array<Service>;
 }
 
-class ServicesOverviewCard extends Component<WithApiProps, State> {
+export class ServicesOverviewCardImpl extends Component<WithApiProps, State> {
   constructor() {
     super();
 
@@ -62,7 +62,7 @@ class ServicesOverviewCard extends Component<WithApiProps, State> {
 
     return (
       <div className="card mb-3 mb-lg-0">
-        <CardHeader overviewSubtitle={ServicesOverviewCard.getOverviewSubtitle(servicesList)} />
+        <CardHeader overviewSubtitle={ServicesOverviewCardImpl.getOverviewSubtitle(servicesList)} />
 
         <div className="card-body services-overview-container">
           <OverviewTable servicesList={servicesList} />
@@ -72,4 +72,4 @@ class ServicesOverviewCard extends Component<WithApiProps, State> {
   }
 }
 
-export default withApi(ServicesOverviewCard);
+export default withApi(ServicesOverviewCardImpl);
