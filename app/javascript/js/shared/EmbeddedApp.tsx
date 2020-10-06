@@ -1,13 +1,13 @@
 import React from 'preact/compat';
-import { render, Component } from 'preact';
+import { render, ComponentType } from 'preact';
 import moment from 'moment';
 
 export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
   private readonly selector: K | string;
-  private RootComponent: typeof Component;
+  private RootComponent: ComponentType;
   private installed: boolean;
 
-  constructor(selector: K | string, RootComponent: typeof Component) {
+  constructor(selector: K | string, RootComponent: ComponentType) {
     this.selector = selector;
     this.RootComponent = RootComponent;
     this.installed = false;

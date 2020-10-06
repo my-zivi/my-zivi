@@ -9,14 +9,15 @@ interface RequestOptions {
 }
 
 export default class Api {
-  static async fetchServices(): Promise<Array<Service>> {
+  async fetchServices(): Promise<Array<Service>> {
     return this.request<Array<Service>>({
       url: MyZivi.paths.servicesOverview,
       type: 'GET',
     });
   }
 
-  private static request<T>(options: RequestOptions): Promise<T> {
+  // eslint-disable-next-line class-methods-use-this
+  private request<T>(options: RequestOptions): Promise<T> {
     return new Promise((success: (response: T) => void, error: (cause: unknown) => void) => {
       Rails.ajax({ ...options, success, error });
     });
