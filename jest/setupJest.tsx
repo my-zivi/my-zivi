@@ -2,12 +2,12 @@
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-preact-pure';
 import { h, Fragment } from 'preact';
-// eslint-disable-next-line import/no-unresolved
 
 (global as any).h = h;
 (global as any).Fragment = Fragment;
 
 const globalConfig: MyZiviGlobal = {
+  locale: 'de',
   translations: {
     servicesOverview: {
       title: 'My Services Overview',

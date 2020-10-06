@@ -3,6 +3,8 @@ import Api from './Api';
 import ServiceFactory from '../tests/factories/ServiceFactory';
 
 describe('Api', () => {
+  const api = new Api();
+
   beforeEach(() => Rails.mockError(null));
 
   describe('fetchServices', () => {
@@ -10,7 +12,7 @@ describe('Api', () => {
       const response = [ServiceFactory.build()];
       Rails.mockResponse(response, MyZivi.paths.servicesOverview);
 
-      expect(await Api.fetchServices()).toEqual(response);
+      await expect(api.fetchServices()).resolves.toEqual(response);
     });
 
     it('rejects if an error occurs', async () => {
@@ -18,7 +20,7 @@ describe('Api', () => {
       Rails.mockError(error);
 
       expect.assertions(1);
-      await expect(Api.fetchServices()).rejects.toEqual(error);
+      await expect(api.fetchServices()).rejects.toEqual(error);
     });
   });
 });

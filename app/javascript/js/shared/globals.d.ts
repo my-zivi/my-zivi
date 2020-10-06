@@ -1,4 +1,5 @@
 declare type MyZiviGlobal = {
+  locale: string;
   translations: {
     loading: string;
     servicesOverview: {

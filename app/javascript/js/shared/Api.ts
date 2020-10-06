@@ -8,7 +8,11 @@ interface RequestOptions {
   [name: string]: unknown;
 }
 
-export default class Api {
+export interface IApi {
+  fetchServices(): Promise<Array<Service>>;
+}
+
+export default class Api implements IApi {
   async fetchServices(): Promise<Array<Service>> {
     return this.request<Array<Service>>({
       url: MyZivi.paths.servicesOverview,

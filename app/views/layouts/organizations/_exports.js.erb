@@ -3,6 +3,7 @@
 
 if (!('MyZivi' in window)) {
   window.MyZivi = {
+    locale: '<%= I18n.locale[0..1] %>',
     translations: {
       loading: '<%= I18n.t('loading') %>',
       servicesOverview: {

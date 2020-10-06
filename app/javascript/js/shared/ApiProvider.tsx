@@ -1,8 +1,8 @@
 import React from 'preact/compat';
-import Api from 'js/shared/Api';
+import Api, { IApi } from 'js/shared/Api';
 import { ComponentChild } from 'preact';
 
-export const ApiContext = React.createContext<Api>(undefined);
+export const ApiContext = React.createContext<IApi>(undefined);
 
 export default class ApiProvider extends React.Component {
   private api = new Api();
