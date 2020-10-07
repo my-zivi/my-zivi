@@ -58,4 +58,7 @@ module.exports = {
       },
     },
   },
+  globals: {
+    FontAwesome: 'readonly',
+  },
 };

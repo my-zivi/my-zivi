@@ -2,15 +2,15 @@
 
 Organization.create!(
   identification_number: '42',
-  name: 'Zuckerberg Foundation',
-  intro_text: 'We love sugar',
+  name: 'Alterszentrum Birkhölzli',
+  intro_text: '24h Alterspflege',
   address: Address.new(
-    primary_line: 'Zuckerberg Foundation AG',
+    primary_line: 'Alterszentrum Birkhölzli AG',
     secondary_line: nil,
     street: 'Dorfstrasse 12',
     supplement: nil,
-    city: 'Glattfelden',
-    zip: 8192
+    city: 'Schönhausen',
+    zip: 8412
   ),
   creditor_detail: CreditorDetail.new(
     bic: 'ZKBKCHZZ80A',

@@ -23,3 +23,5 @@ Turbolinks.start();
 
 window.jQuery = jQuery;
 window.$ = jQuery;
+
+FontAwesome.config.mutateApproach = 'sync';
