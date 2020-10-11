@@ -261,6 +261,7 @@ fr-CH:
   destroy: Effacer
   destroying: En effaçant...
   edit: Edit
+  error: Erreur
   home:
     mailing_list:
       lead: Laissez-nous vos coordonnées et notre équipe commerciale se fera un plaisir de vous contacter pour une brève discussion
@@ -407,6 +408,8 @@ fr-CH:
         successful_update: Mise à jour réussie du cahier des charges
     services:
       index:
+        errors:
+          cannot_load: Une erreur s'est produite lors du chargement des encarts
         title: Aperçu des services
       show:
         expense_sheets: Fiches de frais

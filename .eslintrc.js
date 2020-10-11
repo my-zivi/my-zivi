@@ -42,6 +42,7 @@ module.exports = {
           '**/*.spec.js',
           '**/*.spec.jsx',
           '**/setupJest.tsx',
+          '**/jest/utils.tsx',
           '**/ServiceFactory.ts',
         ],
       },

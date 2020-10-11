@@ -7,8 +7,12 @@ if (!('MyZivi' in window)) {
     translations: {
       loading: '<%= I18n.t('loading') %>',
       servicesOverview: {
-        title: '<%= I18n.t('organizations.services.index.title') %>'
-      }
+        title: '<%= I18n.t('organizations.services.index.title') %>',
+        errors: {
+          cannotLoad: '<%= I18n.t('organizations.services.index.errors.cannot_load') %>'
+        }
+      },
+      error: '<%= I18n.t('error') %>'
     },
     paths: {
       servicesOverview: '<%= organizations_services_path(format: :json) %>'

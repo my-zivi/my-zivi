@@ -6,6 +6,6 @@ RSpec.describe 'organizations/services/index.html.slim', type: :view do
   before { render }
 
   it 'has preact container' do
-    expect(rendered).to include 'id="planning-app"'
+    expect(rendered).to include 'id="services-overview-app"'
   end
 end

@@ -261,6 +261,7 @@ de-CH:
   destroy: Löschen
   destroying: Löschen...
   edit: Bearbeiten
+  error: Fehler
   home:
     mailing_list:
       lead: Hinterlasse uns deine Kontaktdaten und unser Vertriebsteam kontaktiert dich gerne für ein kurzes Gespräch
@@ -408,6 +409,8 @@ de-CH:
         successful_update: Pflichtenheft erfolgreich aktualisiert
     services:
       index:
+        errors:
+          cannot_load: Beim Laden der Einsätze ist ein Fehler aufgetreten
         title: Einsatzübersicht
       show:
         expense_sheets: Spesenblätter

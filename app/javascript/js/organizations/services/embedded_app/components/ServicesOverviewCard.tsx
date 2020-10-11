@@ -11,6 +11,7 @@ import CardHeader from './CardHeader';
 interface State {
   loading: boolean;
   services: Array<Service>;
+  error: string | undefined;
 }
 
 export class ServicesOverviewCardImpl extends Component<WithApiProps, State> {
@@ -20,6 +21,7 @@ export class ServicesOverviewCardImpl extends Component<WithApiProps, State> {
     this.state = {
       loading: true,
       services: [],
+      error: null,
     };
   }
 
@@ -32,12 +34,24 @@ export class ServicesOverviewCardImpl extends Component<WithApiProps, State> {
   }
 
   async reloadPlanningView(): Promise<void> {
-    const services = await this.props.api.fetchServices();
+    try {
+      const services = await this.props.api.fetchServices();
 
-    this.setState({
-      loading: false,
-      services,
-    });
+      this.setState({
+        loading: false,
+        services,
+      });
+    } catch (e) {
+      let cause = MyZivi.translations.servicesOverview.errors.cannotLoad;
+      if (typeof e === 'object' && 'error' in e) {
+        cause = `${cause} (${e.error})`;
+      }
+
+      this.setState({
+        loading: false,
+        error: cause,
+      });
+    }
   }
 
   private static getOverviewSubtitle(servicesList: ServicesList): string {
@@ -58,6 +72,18 @@ export class ServicesOverviewCardImpl extends Component<WithApiProps, State> {
         </div>
       );
     }
+
+    if (this.state.error) {
+      return (
+        <div className="card mb-3 mb-lg-0">
+          <CardHeader overviewSubtitle={MyZivi.translations.error} />
+          <div className="card-body">
+            {this.state.error}
+          </div>
+        </div>
+      );
+    }
+
     const { servicesList } = this;
 
     return (

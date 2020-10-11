@@ -4,7 +4,11 @@ declare type MyZiviGlobal = {
     loading: string;
     servicesOverview: {
       title: string;
-    }
+      errors: {
+        cannotLoad: string;
+      }
+    },
+    error: string;
   },
   paths: {
     servicesOverview: string;

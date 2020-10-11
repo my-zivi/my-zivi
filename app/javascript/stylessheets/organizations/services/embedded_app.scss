@@ -74,8 +74,8 @@ $names-list-width: 150px;
   padding-right: 0;
 
   @supports (backdrop-filter: blur(1px)) {
-    background-color: rgba($white, .7);
-    backdrop-filter: blur(6px);
+    background-color: rgba($white, .8);
+    backdrop-filter: blur(8px);
   }
 
   &:hover {
@@ -92,6 +92,7 @@ $names-list-width: 150px;
     span {
       overflow: hidden;
       text-overflow: ellipsis;
+      padding-left: .25em;
     }
   }
 }

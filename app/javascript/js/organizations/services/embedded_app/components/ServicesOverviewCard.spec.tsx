@@ -1,58 +1,63 @@
-import { shallow } from 'enzyme';
 import React from 'preact/compat';
-import Rails from 'js/shared/__mocks__/Rails';
 import Factories from 'js/tests/factories/Factories';
 import ServiceFactory from 'js/tests/factories/ServiceFactory';
-import { ServicesOverviewCardImpl } from './ServicesOverviewCard';
 import { IApi } from 'js/shared/Api';
 import { Service } from 'js/organizations/services/embedded_app/types';
-import { ComponentChild, ComponentType } from 'preact';
-import { ApiContext } from 'js/shared/ApiProvider';
+import ServicesOverviewCard from './ServicesOverviewCard';
+import { fakeWrapInApiProvider } from '../../../../../../../jest/utils';
 
-function shallowUntil(componentInstance: any, TargetComponent: ComponentType<any>, { maxTries = 10 } = {}) {
-  let root = shallow(componentInstance);
-
-  if (typeof root.type() === 'string') {
-    throw new Error('Cannot unwrap this component because it is not wrapped');
-  }
-
-  do {
-    root = root.dive();
-  } while (!root.is(TargetComponent) && --maxTries >= 0);
-
-  return root.shallow();
-}
-
-const fakeApi: IApi = {
-  fetchServices(): Promise<Array<Service>> {
-    return Promise.resolve(Factories.buildList(ServiceFactory, 2));
-  },
-};
-
-function fakeWrapInApiProvider(api: IApi) {
-  return (wrapped: Element, component: ComponentType<any>) => {
-    return shallowUntil(
-      (
-        <ApiContext.Provider value={api}>
-          {wrapped}
-        </ApiContext.Provider>
-      ),
-      component,
-    );
-  };
-}
+const servicesOverviewWrapper = (fakeApi: IApi) => (
+  fakeWrapInApiProvider(fakeApi)(<ServicesOverviewCard />, 'ServicesOverviewCardImpl')
+);
 
 describe('ServicesOverviewCard', () => {
-  const wrapper = fakeWrapInApiProvider(fakeApi)(<ServicesOverviewCardImpl />, ServicesOverviewCardImpl);
+  describe('when api returns services', () => {
+    const wrapper = servicesOverviewWrapper({
+      fetchServices(): Promise<Array<Service>> {
+        return Promise.resolve(Factories.buildList(ServiceFactory, 2, {
+          civilServant: {
+            fullName: 'Peter Parker',
+          },
+        }));
+      },
+    });
 
-  beforeEach(() => {
-    Rails.mockResponse(Factories.buildList(ServiceFactory, 2), MyZivi.paths.servicesOverview);
+    it('matches snapshot', (done) => {
+      setImmediate(() => {
+        expect(wrapper.update()).toMatchSnapshot();
+        done();
+      });
+    });
   });
 
-  it('runs', (done) => {
-    setImmediate(() => {
-      expect(wrapper).toMatchSnapshot();
-      done();
+  describe('when API is still loading', () => {
+    const wrapper = servicesOverviewWrapper({
+      fetchServices(): Promise<Array<Service>> {
+        return new Promise(jest.fn());
+      },
+    });
+
+    it('displays a loading indicator', (done) => {
+      setImmediate(() => {
+        expect(wrapper.update()).toMatchSnapshot();
+        done();
+      });
+    });
+  });
+
+  describe('when API returns an error', () => {
+    const wrapper = servicesOverviewWrapper({
+      fetchServices(): Promise<Array<Service>> {
+        // eslint-disable-next-line prefer-promise-reject-errors
+        return Promise.reject({ status: 404, error: 'Not Found' });
+      },
+    });
+
+    it('displays the error', (done) => {
+      setImmediate(() => {
+        expect(wrapper.update()).toMatchSnapshot();
+        done();
+      });
     });
   });
 });

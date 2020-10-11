@@ -2,6 +2,7 @@ import moment, { Moment } from 'moment';
 import { range } from 'lodash';
 import MonthlyGroup from 'js/organizations/services/embedded_app/models/MonthlyGroup';
 import { Service } from 'js/organizations/services/embedded_app/types';
+import ServicesComparer from 'js/organizations/services/embedded_app/models/ServicesComparer';
 
 export default class ServicesList {
   public readonly services: Service[];
@@ -33,21 +34,7 @@ export default class ServicesList {
   }
 
   private static sortServices(services: Service[]): Service[] {
-    return services.sort((service1, service2) => {
-      if (service1.beginning === service2.beginning) {
-        if ('localeCompare' in String.prototype) {
-          return service1.civilServant.fullName.localeCompare(service2.civilServant.fullName);
-        }
-
-        return 0;
-      }
-
-      if (moment(service1.beginning).isBefore(service2.beginning)) {
-        return -1;
-      }
-
-      return 1;
-    });
+    return services.sort(ServicesComparer.compare);
   }
 
   private groupByMonth() {

@@ -18,8 +18,7 @@ module Organizations
     private
 
     def services
-      Service
-        .accessible_by(current_ability)
+      @services
         .overlapping_date_range(filter_params[:beginning], filter_params[:ending])
         .joins(:civil_servant)
     end
@@ -34,6 +33,8 @@ module Organizations
     # :reek:UtilityFunction
     def parse_filter_param(param)
       Date.parse(param) if param
+    rescue Date::Error
+      nil
     end
   end
 end

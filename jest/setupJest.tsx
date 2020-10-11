@@ -11,8 +11,12 @@ const globalConfig: MyZiviGlobal = {
   translations: {
     servicesOverview: {
       title: 'My Services Overview',
+      errors: {
+        cannotLoad: 'Konnte die Einsätze nicht laden',
+      },
     },
     loading: 'Laden...',
+    error: 'Fehler',
   },
   paths: {
     servicesOverview: '/my/mock/services.json',
