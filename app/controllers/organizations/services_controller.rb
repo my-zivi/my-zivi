@@ -31,10 +31,12 @@ module Organizations
     end
 
     # :reek:UtilityFunction
+    # :nocov:
     def parse_filter_param(param)
       Date.parse(param) if param
     rescue Date::Error
       nil
     end
+    # :nocov:
   end
 end
