@@ -38,7 +38,7 @@ module Pdfs
         'Einsatz' => ->(service:) { service.normal_civil_service? },
         'Probeeinsatz' => ->(service:) { service.probation_civil_service? },
         'obligatorischer Langer Einsatz oder Teil davon' => ->(service:) { service.long_civil_service? },
-        'cbRZ' => ->(service:) { service.civil_servant.regional_center.short_name },
+        'cbRZ' => ->(service:) { service.civil_servant.regional_center.identifier },
         'tfRZ' => ->(service:) { service.civil_servant.regional_center.name },
         'tfStrasse' => ->(service:) { service.civil_servant.regional_center.address.street },
         'tfPLZ' => ->(service:) { service.civil_servant.regional_center.address.zip_with_city }

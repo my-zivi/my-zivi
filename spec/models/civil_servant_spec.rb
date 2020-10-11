@@ -21,7 +21,6 @@ RSpec.describe CivilServant, type: :model do
 
     describe 'owned relationships' do
       it 'defines belongs_to relations' do
-        expect(model).to belong_to(:regional_center)
         expect(model).to belong_to(:address)
       end
     end

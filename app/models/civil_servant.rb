@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require 'iban-tools'
+require 'regional_center_column'
 
 class CivilServant < ApplicationRecord
-  belongs_to :regional_center
+  attribute :regional_center, RegionalCenterColumn.new
+
   belongs_to :address, dependent: :destroy
 
   has_one :user, as: :referencee, dependent: :destroy, required: true, autosave: true

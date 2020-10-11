@@ -19,7 +19,7 @@ CivilServant.create!(
         language: 'fr',
         confirmed_at: 2.years.ago
       ),
-      regional_center: RegionalCenter.first,
+      regional_center: RegionalCenter.rueti,
       address: Address.new(
         primary_line: 'Maximilian Mustermann',
         secondary_line: nil,
@@ -73,7 +73,7 @@ CivilServant.create!(
         language: 'de',
         confirmed_at: 1.year.ago
       ),
-      regional_center: RegionalCenter.first,
+      regional_center: RegionalCenter.rueti,
       address: Address.new(
         primary_line: 'Joel Hauser',
         secondary_line: nil,
@@ -100,7 +100,7 @@ CivilServant.create!(
         language: 'de',
         confirmed_at: 5.months.ago
       ),
-      regional_center: RegionalCenter.last,
+      regional_center: RegionalCenter.thun,
       address: Address.new(
         primary_line: 'Andy Pfeuti',
         secondary_line: nil,
@@ -127,7 +127,7 @@ CivilServant.create!(
         language: 'de',
         confirmed_at: 20.minutes.ago
       ),
-      regional_center: RegionalCenter.second,
+      regional_center: RegionalCenter.thun,
       address: Address.new(
         primary_line: 'Philipp Van Fehr',
         secondary_line: nil,

@@ -36,6 +36,7 @@ ignore_unused:
   - 'mailing_list_entry_notifier_mailer.notify.subject'
   - 'organizations.phone_list.index.range'
   - 'helpers.*'
+  - 'i18n.*'
 
 ## Exclude these keys from the `i18n-tasks eq-base' report:
 # ignore_eq_base:
