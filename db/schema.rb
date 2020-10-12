@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_15_163416) do
+ActiveRecord::Schema.define(version: 2020_10_11_163555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,12 +35,11 @@ ActiveRecord::Schema.define(version: 2020_09_15_163416) do
     t.string "phone", null: false
     t.string "iban", null: false
     t.string "health_insurance", null: false
-    t.bigint "regional_center_id", null: false
     t.bigint "address_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "regional_center", null: false
     t.index ["address_id"], name: "index_civil_servants_on_address_id"
-    t.index ["regional_center_id"], name: "index_civil_servants_on_regional_center_id"
     t.index ["zdp"], name: "index_civil_servants_on_zdp", unique: true
   end
 
@@ -175,15 +174,6 @@ ActiveRecord::Schema.define(version: 2020_09_15_163416) do
     t.index ["organization_id"], name: "index_payments_on_organization_id"
   end
 
-  create_table "regional_centers", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "short_name", null: false
-    t.bigint "address_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["address_id"], name: "index_regional_centers_on_address_id"
-  end
-
   create_table "service_specifications", force: :cascade do |t|
     t.string "name", null: false
     t.string "internal_note"
@@ -274,7 +264,6 @@ ActiveRecord::Schema.define(version: 2020_09_15_163416) do
   end
 
   add_foreign_key "civil_servants", "addresses"
-  add_foreign_key "civil_servants", "regional_centers"
   add_foreign_key "civil_servants_driving_licenses", "civil_servants"
   add_foreign_key "civil_servants_driving_licenses", "driving_licenses"
   add_foreign_key "civil_servants_workshops", "civil_servants"
@@ -287,7 +276,6 @@ ActiveRecord::Schema.define(version: 2020_09_15_163416) do
   add_foreign_key "organization_members", "organizations"
   add_foreign_key "organizations", "creditor_details"
   add_foreign_key "payments", "organizations"
-  add_foreign_key "regional_centers", "addresses"
   add_foreign_key "service_specifications", "organization_members", column: "contact_person_id"
   add_foreign_key "service_specifications", "organization_members", column: "lead_person_id"
   add_foreign_key "service_specifications", "organizations"

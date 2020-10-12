@@ -10,10 +10,10 @@ FactoryBot.define do
     phone { '+41 (0) 76 123 45 67' }
     iban { 'CH9300762011623852957' }
     health_insurance { 'Sanicare' }
+    regional_center { RegionalCenter.rueti }
 
     trait :full do
       association :address, :civil_servant
-      regional_center
       association :user, strategy: :build, factory: %i[user confirmed]
 
       after(:create) do |civil_servant|

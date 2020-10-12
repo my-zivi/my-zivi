@@ -40,3 +40,5 @@ module MyZivi
     config.generators.system_tests = nil
   end
 end
+
+require_relative './regional_centers'
