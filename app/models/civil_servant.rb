@@ -25,6 +25,7 @@ class CivilServant < ApplicationRecord
   }
 
   validate :validate_iban
+  validates :regional_center, presence: true
   validates :iban, format: { with: /\A\S+\z/ }
 
   accepts_nested_attributes_for :user

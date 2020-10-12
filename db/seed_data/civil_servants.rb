@@ -46,7 +46,7 @@ CivilServant.create!(
         language: 'de',
         confirmed_at: 1.year.ago
       ),
-      regional_center: RegionalCenter.first,
+      regional_center: RegionalCenter.rueti,
       address: Address.new(
         primary_line: 'Niels Schweizer',
         secondary_line: nil,

@@ -25,5 +25,11 @@ class RegionalCenter
 
       public_send(ActiveSupport::Inflector.transliterate(id))
     end
+
+    def all
+      Rails.configuration.x.regional_centers.keys.map do |identifier|
+        find(identifier)
+      end
+    end
   end
 end

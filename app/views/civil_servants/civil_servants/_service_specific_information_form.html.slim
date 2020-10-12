@@ -1,6 +1,6 @@
 = simple_form_for(civil_servant, url: civil_servants_civil_servant_path, remote: true) do |f|
   .modal-body
-    = f.association :regional_center, include_blank: false
+    = f.input :regional_center, include_blank: false, collection: regional_centers_collection
     = f.association  :workshops
     = f.association  :driving_licenses
     = hidden_field_tag 'form_partial', 'personal_information_form'

@@ -36,7 +36,6 @@ ignore_unused:
   - 'mailing_list_entry_notifier_mailer.notify.subject'
   - 'organizations.phone_list.index.range'
   - 'helpers.*'
-  - 'i18n.*'
 
 ## Exclude these keys from the `i18n-tasks eq-base' report:
 # ignore_eq_base:
@@ -50,8 +49,8 @@ ignore_unused:
 # - 'activerecord.attributes.*'
 
 ## Ignore these keys completely:
-# ignore:
-#  - kaminari.*
+ignore:
+  - 'i18n.*'
 
 ## Sometimes, it isn't possible for i18n-tasks to match the key correctly,
 ## e.g. in case of a relative key defined in a helper method.
