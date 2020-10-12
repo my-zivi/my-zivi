@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     resources :expense_sheets, except: :show
     get '/phone_list', to: 'phone_list#index', as: 'phone_list'
     get '/phone_list/:name', to: 'phone_list#index', as: 'named_phone_list'
+    resources :services, only: :index
     resources :civil_servants, only: %i[index show] do
       resources :services, only: %i[show edit update]
     end

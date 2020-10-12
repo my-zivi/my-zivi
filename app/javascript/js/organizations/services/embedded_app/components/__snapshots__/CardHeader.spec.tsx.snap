@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardHeader renders correctly 1`] = `
+<div
+  className="card-header bg-light"
+>
+  <div
+    className="d-flex align-items-center"
+  >
+    <h5>
+      My Services Overview
+    </h5>
+  </div>
+  <h6
+    className="text-muted mb-0"
+  >
+    This is my title
+  </h6>
+</div>
+`;

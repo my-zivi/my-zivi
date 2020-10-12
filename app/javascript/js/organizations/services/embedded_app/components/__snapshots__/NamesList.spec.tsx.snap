@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NamesList renders the names of the civil servants 1`] = `
+<div
+  className="names-list"
+>
+  <div
+    className="name-row"
+  >
+    <span>
+      Peter Parker
+    </span>
+  </div>
+  <div
+    className="name-row"
+  >
+    <span>
+      Peter Parker
+    </span>
+  </div>
+  <div
+    className="name-row"
+  >
+    <span>
+      Peter Parker
+    </span>
+  </div>
+</div>
+`;

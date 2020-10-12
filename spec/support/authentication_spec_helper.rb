@@ -6,3 +6,10 @@ RSpec.shared_examples_for 'unauthenticated request' do
     expect(flash[:alert]).to eq I18n.t('devise.failure.unauthenticated')
   end
 end
+
+RSpec.shared_examples_for 'unauthenticated json request' do
+  it 'renders a JSON error' do
+    expect(JSON.parse(response.body)).to eq('error' => I18n.t('devise.failure.unauthenticated'))
+    expect(response).to be_unauthorized
+  end
+end

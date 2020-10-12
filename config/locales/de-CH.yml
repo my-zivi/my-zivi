@@ -207,6 +207,7 @@ de-CH:
         profile: Profil
         service_agreements: Einsatzvereinbarung
         service_specifications: Pflichtenhefter
+        services_overview: Einsatzübersicht
         sign_out: Abmelden
     services:
       short_info_cell:
@@ -260,6 +261,7 @@ de-CH:
   destroy: Löschen
   destroying: Löschen...
   edit: Bearbeiten
+  error: Fehler
   home:
     mailing_list:
       lead: Hinterlasse uns deine Kontaktdaten und unser Vertriebsteam kontaktiert dich gerne für ein kurzes Gespräch
@@ -268,6 +270,7 @@ de-CH:
       title: Jetzt mehr erfahren
       via_link: via Link
   lead_person_html: 'Leitende Person: %{link}'
+  loading: Lade...
   mailing_list:
     erroneous_creation: Bitte beheben Sie die folgend markierten Fehler
     successful_creation: Vielen Dank für Ihr Interesse. Wir werden Sie bald kontaktieren
@@ -405,6 +408,10 @@ de-CH:
         erroneous_update: Pflichtenheft konnte nicht aktualisiert werden
         successful_update: Pflichtenheft erfolgreich aktualisiert
     services:
+      index:
+        errors:
+          cannot_load: Beim Laden der Einsätze ist ein Fehler aufgetreten
+        title: Einsatzübersicht
       show:
         expense_sheets: Spesenblätter
   payment:

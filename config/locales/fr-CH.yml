@@ -207,6 +207,7 @@ fr-CH:
         profile: Profil
         service_agreements: Accord de service
         service_specifications: cahiers des charges
+        services_overview: Aperçu d'affectations
         sign_out: Déconnexion
     services:
       short_info_cell:
@@ -260,6 +261,7 @@ fr-CH:
   destroy: Effacer
   destroying: En effaçant...
   edit: Edit
+  error: Erreur
   home:
     mailing_list:
       lead: Laissez-nous vos coordonnées et notre équipe commerciale se fera un plaisir de vous contacter pour une brève discussion
@@ -268,6 +270,7 @@ fr-CH:
       title: En savoir plus
       via_link: via le lien
   lead_person_html: 'Personne responsable: %{link}'
+  loading: En chargeant...
   mailing_list:
     erroneous_creation: Veuillez corriger les erreurs marquées suivantes
     successful_creation: Merci beaucoup pour votre intérêt. Nous vous contacterons bientôt
@@ -404,6 +407,10 @@ fr-CH:
         erroneous_update: Le cahier des charges n'a pas pu être mise à jour
         successful_update: Mise à jour réussie du cahier des charges
     services:
+      index:
+        errors:
+          cannot_load: Une erreur s'est produite lors du chargement des encarts
+        title: Aperçu des services
       show:
         expense_sheets: Fiches de frais
   payment:

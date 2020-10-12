@@ -16,6 +16,8 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
         span.fas.fa-tools
       = render 'base/navbar_list_item', link: { t('.service_agreements') => organizations_service_agreements_path } do
         span.fas.fa-handshake
+      = render 'base/navbar_list_item', link: { t('.services_overview') => organizations_services_path } do
+        span.fas.fa-calendar-alt
       = render 'base/navbar_list_item', link: { t('.service_specifications') => organizations_service_specifications_path } do
         span.fas.fa-file
       = render 'base/navbar_list_item', link: { t('.expense_sheets') => organizations_expense_sheets_path } do
