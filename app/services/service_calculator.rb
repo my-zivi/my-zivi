@@ -3,9 +3,10 @@
 class ServiceCalculator
   LINEAR_CALCULATION_THRESHOLD = 26
 
-  def initialize(beginning_date, last_civil_service)
+  def initialize(beginning_date, last_civil_service, probation_civil_service)
     @beginning_date = beginning_date
     @last_civil_service = last_civil_service
+    @probation_civil_service = probation_civil_service
   end
 
   def calculate_ending_date(required_service_days)
@@ -21,6 +22,8 @@ class ServiceCalculator
   end
 
   def calculate_chargeable_service_days(ending_date)
+    return 0 if ending_date.nil? || @beginning_date.nil? || ending_date < @beginning_date
+
     if invalid_ending_date?(ending_date)
       raise CalculationError, I18n.t('service_calculator.end_date_cannot_be_on_weekend')
     end
@@ -47,7 +50,7 @@ class ServiceCalculator
   private
 
   def invalid_ending_date?(ending_date)
-    return false if @last_civil_service
+    return false if @last_civil_service || @probation_civil_service
 
     ending_date.on_weekend?
   end

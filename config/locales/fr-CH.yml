@@ -401,6 +401,7 @@ fr-CH:
           one: 1 Jour
           other: "%{amount} Journées"
         title: Services dont le consentement des civilists est en attente
+        search_for_civil_servant: Recherche de civiliste
     service_specifications:
       create:
         erroneous_create: Le cahier des charges n'a pas pu être créée

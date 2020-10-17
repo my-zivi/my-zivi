@@ -6,7 +6,7 @@ require 'registration_step_column'
 
 class CivilServant < ApplicationRecord
   include CivilServantValidatable
-
+  extend CivilServantSearchable
   attribute :regional_center, RegionalCenterColumn.new
   attribute :registration_step, RegistrationStepColumn.new
 

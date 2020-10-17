@@ -12,7 +12,7 @@ module DateTimePickerHelper
   }.freeze
 
   def date_picker(form, field_key, value, **options)
-    form.input field_key, input_html: {
+    form.input field_key, as: :string, input_html: {
       type: 'date', value: value,
       class: 'datetimepicker',
       data: { options: date_picker_options(options) }

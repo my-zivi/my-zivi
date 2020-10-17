@@ -3,9 +3,29 @@
     h5.mb-0
       = t('.title')
       span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@service_agreements.count})"
-  .card-body.p-0.bg-light.p-0
+    a href='#new_service_agreement' data-toggle="modal"
+      i.fas.fa-plus-square.mr-1
+      = t('.new_service_agreement')
   .card-body.p-0
     = render ModelTableComponent.new(\
             model_data: @service_agreements,
             model_columns: service_agreements_table_columns,
             model_actions: service_agreements_table_actions)
+= render(\
+    ModalComponent.new(\
+      modal_id: 'new_service_agreement',
+        title: t('organizations.service_agreements.search.modal.title')\
+      )\
+    ) do |component|
+  - component.with(:body) do
+    div
+      = simple_form_for(:service_agreement,
+              url: organizations_service_agreements_new_path, method: :get) do |f|
+        .modal-body
+          = f.simple_fields_for :civil_servant_attributes do |civil_servant_form|
+            = civil_servant_form.simple_fields_for :user_attributes do |user_form|
+              = user_form.input :email, as: :select, collection: [], label: false, required: true,
+                    input_html: {class: 'selectpicker', data: civil_servant_search_options}
+        .modal-footer
+          button.btn.btn-secondary data-dismiss="modal" type="button" = t('cancel')
+          = f.submit class: 'btn btn-primary'

@@ -10,6 +10,7 @@ import '@my-zivi/falcon/js/theme/forms';
 import '@my-zivi/falcon/js/theme/stickyfill';
 import '@my-zivi/falcon/js/theme/stickykit';
 import '@my-zivi/falcon/js/theme/flatpickr';
+import '@my-zivi/falcon/js/theme/select2';
 
 window.utils = Utils;
 window.is = Is;

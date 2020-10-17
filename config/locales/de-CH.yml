@@ -167,6 +167,8 @@ de-CH:
               bad_format: ungültiges Format
               bad_length: ungültige Länge
               unknown_country_code: unbekannter Landescode
+            beginning:
+              invalid_datetime: ungültiges Datum
             ending:
               after: darf nicht vor Anfang sein.
               invalid_datetime: ungültiges Datum
@@ -182,6 +184,10 @@ de-CH:
               unknown_country_code: unbekannter Landescode
             base:
               cant_delete_himself: Du kannst dich nicht selbst löschen
+    enums:
+      service:
+        service_types:
+
     models:
       address: Adresse
       civil_servant: Zivildienstleistende Person
@@ -402,6 +408,16 @@ de-CH:
           one: 1 Tag
           other: "%{amount} Tage"
         title: Einsätze mit ausstehendem Zivi-Einverständnis
+      search:
+        modal:
+          title: Einsatz für folgender Zivildienstleistender erstellen
+          input_placeholder: Zivildienstleistender suchen
+          dropdown:
+            groups:
+              recent_civil_servants: Zivildienstleistende mit Einsatz bei uns
+              all_civil_servants: Alle Zivildienstleistenden
+              new_civil_servant: Neuen Zivildienstleistenden einladen
+        search_for_civil_servant: "Zivildienstleistender suchen"
     service_specifications:
       create:
         erroneous_create: Pflichtenheft konnte nicht erstellt werden

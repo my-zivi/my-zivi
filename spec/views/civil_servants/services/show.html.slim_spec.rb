@@ -29,7 +29,7 @@ RSpec.describe 'civil_servants/services/show.html.slim', type: :view do
       l(service.beginning),
       l(service.ending),
       service_spec.location,
-      service.service_type,
+      EnumI18nHelper.enum_l(service, :service_type),
       l(expense_sheet.beginning),
       l(expense_sheet.ending),
       expense_sheet.duration

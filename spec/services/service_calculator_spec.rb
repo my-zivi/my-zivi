@@ -4,8 +4,9 @@ require 'rails_helper'
 
 RSpec.describe ServiceCalculator, type: :service do
   let(:beginning) { Date.parse('2018-01-01') }
-  let(:service_calculator) { described_class.new(beginning, last_civil_service) }
+  let(:service_calculator) { described_class.new(beginning, last_civil_service, probation_civil_service) }
   let(:last_civil_service) { false }
+  let(:probation_civil_service) { false }
   let(:short_service_calculator) do
     instance_double ShortServiceCalculator,
                     calculate_ending_date: true,
