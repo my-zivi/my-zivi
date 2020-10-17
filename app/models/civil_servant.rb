@@ -6,7 +6,7 @@ require 'regional_center_column'
 class CivilServant < ApplicationRecord
   attribute :regional_center, RegionalCenterColumn.new
 
-  belongs_to :address, dependent: :destroy
+  belongs_to :address, dependent: :destroy, optional: true
 
   has_one :user, as: :referencee, dependent: :destroy, required: true, autosave: true
 
@@ -17,18 +17,22 @@ class CivilServant < ApplicationRecord
   has_many :civil_servants_workshops, dependent: :destroy
   has_many :workshops, through: :civil_servants_workshops
 
-  validates :first_name, :last_name, :iban, :birthday, :health_insurance, :hometown, :phone, :zdp, presence: true
-  validates :zdp, uniqueness: true, numericality: {
-    greater_than: 10_000,
-    less_than: 999_999,
-    only_integer: true
-  }
+  with_options if: :registration_complete do
+    validates :address, :first_name, :last_name,
+              :iban, :birthday, :health_insurance,
+              :hometown, :phone, :zdp,
+              presence: true
+    validates :zdp, uniqueness: true, numericality: {
+      greater_than: 10_000,
+      less_than: 999_999,
+      only_integer: true
+    }
 
-  validate :validate_iban
-  validates :regional_center, presence: true
-  validates :iban, format: { with: /\A\S+\z/ }
+    validate :validate_iban
+    validates :iban, format: { with: /\A\S+\z/ }
+  end
 
-  accepts_nested_attributes_for :user
+  accepts_nested_attributes_for :user, allow_destroy: false
   accepts_nested_attributes_for :address
 
   after_commit :update_address, on: :update
@@ -59,6 +63,10 @@ class CivilServant < ApplicationRecord
   end
 
   private
+
+  def registration_complete
+    false
+  end
 
   def validate_iban
     IBANTools::IBAN.new(iban).validation_errors.each do |error|
