@@ -23,7 +23,10 @@ Rails.application.routes.draw do
   root 'home#index'
   mount Sidekiq::Web, at: '/sidekiq' if defined? Sidekiq::Web
 
-  devise_for :users, controllers: { invitations: 'users/invitations' }
+  devise_for :users, controllers: {
+    invitations: 'users/invitations',
+    registrations: 'civil_servants/registrations'
+  }
 
   resource :mailing_list, only: :create
   resources :expense_sheets, only: :show

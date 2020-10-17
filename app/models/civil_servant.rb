@@ -17,19 +17,17 @@ class CivilServant < ApplicationRecord
   has_many :civil_servants_workshops, dependent: :destroy
   has_many :workshops, through: :civil_servants_workshops
 
+  validates :first_name, :last_name, presence: true
+
   with_options if: :registration_complete do
-    validates :address, :first_name, :last_name,
-              :iban, :birthday, :health_insurance,
-              :hometown, :phone, :zdp,
-              presence: true
+    validates :address, :iban, :birthday, :health_insurance, :hometown, :phone, :zdp, presence: true
+    validates :iban, format: { with: /\A\S+\z/ }
+    validate :validate_iban
     validates :zdp, uniqueness: true, numericality: {
       greater_than: 10_000,
       less_than: 999_999,
       only_integer: true
     }
-
-    validate :validate_iban
-    validates :iban, format: { with: /\A\S+\z/ }
   end
 
   accepts_nested_attributes_for :user, allow_destroy: false
@@ -65,7 +63,7 @@ class CivilServant < ApplicationRecord
   private
 
   def registration_complete
-    true
+    false
   end
 
   def validate_iban
