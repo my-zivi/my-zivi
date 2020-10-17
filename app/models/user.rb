@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   belongs_to :referencee, polymorphic: true
 
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :trackable
 

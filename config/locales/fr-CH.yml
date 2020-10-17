@@ -164,7 +164,8 @@ fr-CH:
               bad_length: longueur non valable
               unknown_country_code: code de pays inconnu
             ending:
-              on_or_after: La date de début ne peut être postérieure à la date de fin.
+              after: ne doit pas être avant le début.
+              invalid_datetime: date non valable
             service_days:
               invalid_length: ne peut être inférieure à 26 jours.
         user:
