@@ -1,0 +1,13 @@
+= render 'devise/shared/authentication_card'
+  h2.mb-3 = t('devise.invitations.edit.title')
+  h5.mb-3 = t('devise.invitations.edit.header')
+
+  = simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f|
+    = f.error_notification
+    = f.hidden_field :invitation_token
+
+    .form-inputs
+      = f.input :password, placeholder: '', required: true
+      = f.input :password_confirmation, label: t('devise.invitations.edit.form.labels.password_confirmation'), required: true
+    .form-actions
+      = f.button :submit, t('devise.invitations.edit.submit_button'), class: 'btn btn-primary btn-block mt-4'

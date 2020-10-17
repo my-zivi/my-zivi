@@ -5,8 +5,12 @@ de-CH:
       invited: Du hast bereits eine Einladung erhalten. Nimm die Einladung an um dein Nutzerkonto zu erstellen.
     invitations:
       edit:
-        header: Setze ein Passwort
+        form:
+          labels:
+            password_confirmation: Passwort wiederholen
+        header: Setze ein neues Passwort, um mit der Registration zu beginnen
         submit_button: Passwort setzen
+        title: Willkommen bei MyZivi!
       invitation_removed: Deine Einladung wurde gelöscht.
       invitation_token_invalid: Der Einladungs-Code ist ungültig!
       new:
