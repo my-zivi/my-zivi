@@ -65,7 +65,7 @@ class CivilServant < ApplicationRecord
   private
 
   def registration_complete
-    false
+    true
   end
 
   def validate_iban

@@ -164,8 +164,8 @@ de-CH:
               bad_length: ungültige Länge
               unknown_country_code: unbekannter Landescode
             ending:
-              invalid_datetime: ungültiges Datum
               after: darf nicht vor Anfang sein.
+              invalid_datetime: ungültiges Datum
             service_days:
               invalid_length: kann nicht kürzer als 26 Tage sein.
         user:
