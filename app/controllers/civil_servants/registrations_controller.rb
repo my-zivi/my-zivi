@@ -8,6 +8,8 @@ module CivilServants
 
     def edit; end
 
+    def update; end
+
     private
 
     def load_civil_servant

@@ -8,7 +8,10 @@
       .card-header
         = render 'civil_servants/registrations/steps_bar', current_registration_step: @civil_servant.registration_step
       .card-body
-        .tab-content
+        .px-sm-3.px-md-5
+          = render 'civil_servants/registrations/steps/personal', civil_servant: @civil_servant
+
+        / .tab-content
           .tab-pane.px-sm-3.px-md-5
             form.form-validation novalidate="novalidate"
               .form-group

@@ -1,0 +1,15 @@
+= simple_form_for civil_servant, url: civil_servants_register_path do |f|
+  .row
+    .col-12
+      = f.input :zdp
+    .col-12.col-md-6
+      = f.input :first_name
+    .col-12.col-md-6
+      = f.input :last_name
+    .col-12
+      = f.input :hometown
+    .col-12
+      = f.input :birthday
+    .col-12
+      = f.input :phone
+  = render 'civil_servants/registrations/steps/shared/form_footer', f: f
