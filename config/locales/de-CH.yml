@@ -254,6 +254,13 @@ de-CH:
         expense_sheets: Spesenblätter
         organization_information: Informationen zum Betrieb
         schedule_information: Einsatz Informationen
+    registrations:
+      steps_bar:
+        steps:
+          personal: Persönlich
+          address: Adresse
+          bank_and_insurance: Bank- & Versicherung
+          service_specific: Weiteres
   date:
     formats:
       default: "%d.%m.%Y"

@@ -37,4 +37,14 @@ RSpec.describe RegistrationStep, type: :model do
       expect(described_class.new(identifier: :second)).not_to be_last
     end
   end
+
+  describe 'comparison' do
+    let(:other) { described_class.new(identifier: :second) }
+
+    it 'compares self correctly to the given counterpart' do
+      expect(described_class.new(identifier: :first) <=> other).to be_negative
+      expect(described_class.new(identifier: :second) <=> other).to be_zero
+      expect(described_class.new(identifier: :third) <=> other).to be_positive
+    end
+  end
 end

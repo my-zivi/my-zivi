@@ -29,9 +29,11 @@ class RegistrationStep
     identifier == ALL.last
   end
 
-  alias complete? last?
+  def <=>(other)
+    index <=> other.index
+  end
 
-  private
+  alias complete? last?
 
   def index
     ALL.index(identifier)

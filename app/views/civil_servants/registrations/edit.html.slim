@@ -1,12 +1,12 @@
 - content_for(:hide_flash_messages, true)
 
 .row.flex-center.min-vh-100.py-6
-  .col-sm-10.col-md-8.col-lg-6.col-xl-5.col-xxl-4
+  .col-sm-11.col-md-9.col-lg-7.col-xl-6.col-xxl-5
     = link_to root_path, class: 'd-flex flex-center mb-4 text-decoration-none' do
       span.text-sans-serif.font-weight-extra-bold.fs-5.d-inline-block = t('my_zivi')
     .card.border.theme-wizard.shadow-0
       .card-header
-        = render 'civil_servants/registrations/steps_bar'
+        = render 'civil_servants/registrations/steps_bar', current_registration_step: @civil_servant.registration_step
       .card-body
         .tab-content
           .tab-pane.px-sm-3.px-md-5
