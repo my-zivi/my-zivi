@@ -35,7 +35,7 @@ class CivilServant < ApplicationRecord
   delegate :complete?, to: :registration_step, prefix: 'registration'
 
   accepts_nested_attributes_for :user, allow_destroy: false
-  accepts_nested_attributes_for :address
+  accepts_nested_attributes_for :address, allow_destroy: false, update_only: true
 
   after_commit :update_address, on: :update
 

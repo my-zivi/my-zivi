@@ -1,5 +1,9 @@
 ---
 de-CH:
+  actions:
+    back: Zurück
+    complete: Abschliessen
+    next: Weiter
   activerecord:
     attributes:
       address:
@@ -245,6 +249,15 @@ de-CH:
           expense_sheets: Spesenblätter
           no_current_service: Kein momentaner Einsatz
           service_until: Einsatz bis
+    registrations:
+      steps_bar:
+        steps:
+          address: Adresse
+          bank_and_insurance: Bank- & Versicherung
+          personal: Persönlich
+          service_specific: Weiteres
+      update:
+        erroneous_update: Bitte beheben sie die markierten Fehler
     services:
       index:
         services: Meine Einsätze
@@ -254,13 +267,6 @@ de-CH:
         expense_sheets: Spesenblätter
         organization_information: Informationen zum Betrieb
         schedule_information: Einsatz Informationen
-    registrations:
-      steps_bar:
-        steps:
-          personal: Persönlich
-          address: Adresse
-          bank_and_insurance: Bank- & Versicherung
-          service_specific: Weiteres
   date:
     formats:
       default: "%d.%m.%Y"
@@ -464,5 +470,3 @@ de-CH:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
-  next: "Weiter"
-  back: "Zurück"

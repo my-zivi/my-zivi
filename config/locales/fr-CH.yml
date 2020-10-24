@@ -1,5 +1,9 @@
 ---
 fr-CH:
+  actions:
+    back: Retour
+    complete: Finaliser
+    next: Continuer
   activerecord:
     attributes:
       address:
@@ -245,6 +249,15 @@ fr-CH:
           expense_sheets: Notes de frais
           no_current_service: Pas de service actuel
           service_until: Service jusqu'à
+    registrations:
+      steps_bar:
+        steps:
+          address: Adresse
+          bank_and_insurance: Banque et assurance
+          personal: données personnelles
+          service_specific: supplément
+      update:
+        erroneous_update: Veuillez corriger les erreurs signalées
     services:
       index:
         services: Mes services

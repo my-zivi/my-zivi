@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2020_10_24_145705) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "regional_center"
-    t.string "registration_step", default: "personal", null: false
+    t.string "registration_step"
     t.index ["address_id"], name: "index_civil_servants_on_address_id"
     t.index ["zdp"], name: "index_civil_servants_on_zdp", unique: true
   end

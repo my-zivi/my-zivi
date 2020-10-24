@@ -6,11 +6,13 @@
       span.text-sans-serif.font-weight-extra-bold.fs-5.d-inline-block = t('my_zivi')
     .card.border.theme-wizard.shadow-0
       .card-header
-        = render 'civil_servants/registrations/steps_bar', current_registration_step: @civil_servant.registration_step
+        = render 'civil_servants/registrations/steps_bar', current_registration_step: @displayed_step
       .card-body
         .px-sm-3.px-md-5
-          = simple_form_for @civil_servant, url: civil_servants_register_path do |f|
-            = render 'civil_servants/registrations/steps/service_specific', f: f
+          = render 'base/flash_messages'
+          = simple_form_for @civil_servant, url: civil_servants_register_path(displayed_step: @displayed_step.identifier) do |f|
+            = f.hidden_field :registration_step, value: @displayed_step.identifier
+            = render "civil_servants/registrations/steps/#{@displayed_step.identifier}", f: f
 
         / .tab-content
           .tab-pane.px-sm-3.px-md-5

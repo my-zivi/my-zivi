@@ -29,6 +29,10 @@ class RegistrationStep
     identifier == ALL.last
   end
 
+  def first?
+    identifier == ALL.first
+  end
+
   def <=>(other)
     index <=> other.index
   end

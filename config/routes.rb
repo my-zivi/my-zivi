@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     resources :services, only: %i[index show]
 
     get 'register', to: 'registrations#edit'
-    put 'register', to: 'registrations#update'
+    patch 'register', to: 'registrations#update'
   end
 
   namespace :organizations do
