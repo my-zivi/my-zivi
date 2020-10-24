@@ -19,7 +19,7 @@ class CivilServant < ApplicationRecord
   has_many :civil_servants_workshops, dependent: :destroy
   has_many :workshops, through: :civil_servants_workshops
 
-  validates :first_name, :last_name, :registration_step, presence: true
+  validates :first_name, :last_name, presence: true
 
   with_options if: :registration_complete? do
     validates :address, :iban, :birthday, :health_insurance, :hometown, :phone, :zdp, presence: true
@@ -32,7 +32,7 @@ class CivilServant < ApplicationRecord
     }
   end
 
-  delegate :complete?, to: :registration_step, prefix: 'registration'
+  delegate :complete?, to: :registration_step, prefix: 'registration', allow_nil: true
 
   accepts_nested_attributes_for :user, allow_destroy: false
   accepts_nested_attributes_for :address, allow_destroy: false, update_only: true
