@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_14_185831) do
+ActiveRecord::Schema.define(version: 2020_10_24_145705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2020_10_14_185831) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "regional_center"
+    t.string "registration_step", default: "personal", null: false
     t.index ["address_id"], name: "index_civil_servants_on_address_id"
     t.index ["zdp"], name: "index_civil_servants_on_zdp", unique: true
   end

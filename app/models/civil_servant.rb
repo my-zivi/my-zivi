@@ -2,9 +2,11 @@
 
 require 'iban-tools'
 require 'regional_center_column'
+require 'registration_step_column'
 
 class CivilServant < ApplicationRecord
   attribute :regional_center, RegionalCenterColumn.new
+  attribute :registration_step, RegistrationStepColumn.new
 
   belongs_to :address, dependent: :destroy, optional: true
 
@@ -17,9 +19,9 @@ class CivilServant < ApplicationRecord
   has_many :civil_servants_workshops, dependent: :destroy
   has_many :workshops, through: :civil_servants_workshops
 
-  validates :first_name, :last_name, presence: true
+  validates :first_name, :last_name, :registration_step, presence: true
 
-  with_options if: :registration_complete do
+  with_options if: :registration_complete? do
     validates :address, :iban, :birthday, :health_insurance, :hometown, :phone, :zdp, presence: true
     validates :iban, format: { with: /\A\S+\z/ }
     validate :validate_iban
@@ -29,6 +31,8 @@ class CivilServant < ApplicationRecord
       only_integer: true
     }
   end
+
+  delegate :complete?, to: :registration_step, prefix: 'registration'
 
   accepts_nested_attributes_for :user, allow_destroy: false
   accepts_nested_attributes_for :address
@@ -61,10 +65,6 @@ class CivilServant < ApplicationRecord
   end
 
   private
-
-  def registration_complete
-    false
-  end
 
   def validate_iban
     IBANTools::IBAN.new(iban).validation_errors.each do |error|

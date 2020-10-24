@@ -60,6 +60,7 @@ RSpec.describe CivilServant, type: :model do
       hometown
       phone
       zdp
+      registration_step
     ]
   end
 
