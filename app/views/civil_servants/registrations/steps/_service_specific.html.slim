@@ -1,0 +1,8 @@
+.row
+  .col-12
+    = f.input :regional_center, include_blank: false, collection: regional_centers_collection
+  .col-12
+    = f.association :workshops
+  .col-12
+    = f.association :driving_licenses
+= render 'civil_servants/registrations/steps/shared/form_footer', f: f

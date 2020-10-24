@@ -1,0 +1,15 @@
+= f.simple_fields_for :address do |address_form|
+  .row
+    .col-12
+      = address_form.input :primary_line
+    .col-12
+      = address_form.input :secondary_line
+    .col-12
+      = address_form.input :street
+    .col-12
+      = address_form.input :supplement
+    .col-12.col-md-6
+      = address_form.input :city
+    .col-12.col-md-6
+      = address_form.input :zip
+= render 'civil_servants/registrations/steps/shared/form_footer', f: f

@@ -9,7 +9,8 @@
         = render 'civil_servants/registrations/steps_bar', current_registration_step: @civil_servant.registration_step
       .card-body
         .px-sm-3.px-md-5
-          = render 'civil_servants/registrations/steps/personal', civil_servant: @civil_servant
+          = simple_form_for @civil_servant, url: civil_servants_register_path do |f|
+            = render 'civil_servants/registrations/steps/service_specific', f: f
 
         / .tab-content
           .tab-pane.px-sm-3.px-md-5
