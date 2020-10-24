@@ -1,6 +1,19 @@
 # frozen_string_literal: true
 
 module CivilServants
-  class RegistrationsController < Devise::RegistrationsController
+  class RegistrationsController < ApplicationController
+    include CivilServants::Concerns::AuthenticableAndAuthorizable
+
+    before_action :load_civil_servant
+
+    def edit; end
+
+    private
+
+    def load_civil_servant
+      @civil_servant = current_user.referencee
+
+      authorize! :update, @civil_servant
+    end
   end
 end

@@ -1,0 +1,74 @@
+- content_for(:hide_flash_messages, true)
+
+.row.flex-center.min-vh-100.py-6
+  .col-sm-10.col-md-8.col-lg-6.col-xl-5.col-xxl-4
+    = link_to root_path, class: 'd-flex flex-center mb-4 text-decoration-none'
+    span.text-sans-serif.font-weight-extra-bold.fs-5.d-inline-block = t('my_zivi')
+    .card.border.theme-wizard.shadow-0
+      .card-header
+        ul.nav.justify-content-between.nav-wizard
+          li.nav-item
+            a.nav-link.font-weight-semi-bold.done href="#"
+              span.nav-item-circle-parent
+                span.nav-item-circle
+                  i.fas.fa-lock
+              span.d-none.d-md-block.mt-1.fs--1 Account
+          li.nav-item
+            a.nav-link.font-weight-semi-bold.active href="#"
+              span.nav-item-circle-parent
+                span.nav-item-circle
+                  i.fas.fa-user
+              span.d-none.d-md-block.mt-1.fs--1 Personal
+          li.nav-item
+            a.nav-link.font-weight-semi-bold href="#"
+              span.nav-item-circle-parent
+                span.nav-item-circle
+                  i.fas.fa-dollar-sign
+              span.d-none.d-md-block.mt-1.fs--1 Billing
+      .card-body
+        .tab-content
+          .tab-pane.px-sm-3.px-md-5
+            form.form-validation novalidate="novalidate"
+              .form-group
+                label for="wizard-name"  Name
+                input#wizard-name.form-control name="name" placeholder=("John Smith") type="text" /
+              .form-group
+                label for="wizard-email"  Email*
+                input#wizard-email.form-control.valid aria-invalid="false" data-kwimpalaid="1603550178660-6" data-kwimpalastatus="alive" name="email" placeholder=("Email address") required="required" type="email" /
+                label#wizard-email-error.error for="wizard-email" style=("display: none;")
+              .form-row
+                .col-6
+                  .form-gorup
+                    label for="wizard-password"  Password*
+                    input#wizard-password.form-control.validate-equalTo-blur.valid aria-invalid="false" data-kwimpalaid="1603550178660-1" data-kwimpalastatus="alive" name="password" placeholder="Password" required="required" type="password" /
+                    label#wizard-password-error.error for="wizard-password" style=("display: none;")
+                .col-6
+                  .form-group
+                    label for="wizard-confirm-password"  Confirm Password*
+                    input#wizard-confirm-password.form-control.valid aria-invalid="false" data-kwimpalaid="1603550178660-2" data-kwimpalastatus="alive" name="confirmPassword" placeholder=("Confirm Password") type="password" /
+                    label#wizard-confirm-password-error.error for="wizard-confirm-password" style=("display: none;")
+              .custom-control.custom-checkbox
+                input#wizard-checkbox.custom-control-input.valid checked="checked" name="terms" required="required" type="checkbox" /
+                label.custom-control-label for="wizard-checkbox"
+                  | I accept the
+                  a href="#!"  terms
+                  a href="#!"  privacy policy
+          .tab-pane.px-sm-3.px-md-5.active
+            form.form-validation novalidate="novalidate"
+              .form-group
+                label for="gender"  Gender
+                select#gender.form-control.custom-select name="gender"
+                  option value=""  Select your gender ...
+                  option value="Male"  Male
+                  option value="Female"  Female
+                  option value="Other"  Other
+              .form-group
+                label for="wizard-phone"  Phone
+                input#wizard-phone.form-control data-kwimpalaid="1603550178660-11" data-kwimpalastatus="alive" name="phone" placeholder="Phone" type="text"
+              .form-group
+                label for="wizard-datepicker"  Date of Birth
+                input#wizard-datepicker.form-control.datetimepicker.flatpickr-input
+              .form-group
+                label for="wizard-address"  Address
+                textarea#wizard-address.form-control data-kwimpalaid="1603550178660-13" data-kwimpalastatus="alive" rows="4"
+
