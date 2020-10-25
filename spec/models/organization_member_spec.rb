@@ -29,7 +29,7 @@ RSpec.describe OrganizationMember, type: :model do
   describe 'validation' do
     subject(:model) { described_class.new }
 
-    it_behaves_like 'validates presence of required fields', %i[ first_name last_name phone organization_role]
+    it_behaves_like 'validates presence of required fields', %i[first_name last_name phone organization_role]
 
     context 'when there is a user' do
       subject { build :organization_member }
