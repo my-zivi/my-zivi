@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'organizations/overview/index.html.slim', type: :view do
   subject { rendered }
 
-  let(:current_organization_admin) { create(:organization_member) }
+  let(:current_organization_admin) { build(:organization_member) }
   let(:expected_strings) do
     [
       current_organization_admin.organization.name,
@@ -23,7 +23,7 @@ RSpec.describe 'organizations/overview/index.html.slim', type: :view do
   end
 
   before do
-    create_pair :civil_servant, :full, :with_service, { organization: current_organization_admin.organization }
+    create_pair(:civil_servant, :full, :with_service, organization: current_organization_admin.organization)
 
     allow(view).to receive(:current_organization_admin).and_return current_organization_admin
 

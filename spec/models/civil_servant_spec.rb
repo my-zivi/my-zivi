@@ -21,15 +21,15 @@ RSpec.describe CivilServant, type: :model do
 
     describe 'owned relationships' do
       it 'defines belongs_to relations' do
-        expect(model).to belong_to(:address)
+        expect(model).to belong_to(:address).optional
       end
     end
   end
 
   describe 'validations' do
-    subject(:model) { described_class.new }
+    subject(:model) { build(:civil_servant, :service_specific_step_completed) }
 
-    before { create :civil_servant, :full }
+    before { create(:civil_servant, :full) }
 
     let(:invalid_ibans) do
       %w[
@@ -60,7 +60,6 @@ RSpec.describe CivilServant, type: :model do
       hometown
       phone
       zdp
-      registration_step
     ]
   end
 

@@ -9,6 +9,12 @@ class RegistrationStep
 
   validates :identifier, presence: true, inclusion: { in: ALL }
 
+  ALL.each do |identifier|
+    define_method :"#{identifier}_step_completed?" do
+      ALL.index(identifier) <= index
+    end
+  end
+
   def next
     nth(1)
   end

@@ -5,6 +5,8 @@ require 'regional_center_column'
 require 'registration_step_column'
 
 class CivilServant < ApplicationRecord
+  include CivilServantValidatable
+
   attribute :regional_center, RegionalCenterColumn.new
   attribute :registration_step, RegistrationStepColumn.new
 
@@ -19,20 +21,12 @@ class CivilServant < ApplicationRecord
   has_many :civil_servants_workshops, dependent: :destroy
   has_many :workshops, through: :civil_servants_workshops
 
-  validates :first_name, :last_name, presence: true
-
-  with_options if: :registration_complete? do
-    validates :address, :iban, :birthday, :health_insurance, :hometown, :phone, :zdp, presence: true
-    validates :iban, format: { with: /\A\S+\z/ }
-    validate :validate_iban
-    validates :zdp, uniqueness: true, numericality: {
-      greater_than: 10_000,
-      less_than: 999_999,
-      only_integer: true
-    }
-  end
-
   delegate :complete?, to: :registration_step, prefix: 'registration', allow_nil: true
+  delegate :personal_step_completed?,
+           :address_step_completed?,
+           :bank_and_insurance_step_completed?,
+           :service_specific_step_completed?,
+           to: :registration_step, allow_nil: true
 
   accepts_nested_attributes_for :user, allow_destroy: false
   accepts_nested_attributes_for :address, allow_destroy: false, update_only: true
@@ -65,12 +59,6 @@ class CivilServant < ApplicationRecord
   end
 
   private
-
-  def validate_iban
-    IBANTools::IBAN.new(iban).validation_errors.each do |error|
-      errors.add(:iban, error)
-    end
-  end
 
   def update_address
     address.update!(primary_line: full_name)
