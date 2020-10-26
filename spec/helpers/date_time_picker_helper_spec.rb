@@ -13,7 +13,7 @@ RSpec.describe DateTimePickerHelper, type: :helper do
     end
 
     let(:options) { {} }
-    let(:value) { Date.parse('06.09.2018') }
+    let(:value) { '2018-09-06' }
 
     let(:expected_classes) { %w[form-control string required datetimepicker] }
     let(:expected_type) { 'date' }

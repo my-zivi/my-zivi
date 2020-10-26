@@ -27,7 +27,7 @@
         .col-lg-6
           = f.input :service_type, collection: enum_options_for_select(Service, :service_types)
         .col-lg-6
-          = f.association :service_specification, label_method: :name, value_method: :id, collection: current_organization.service_specifications
+          = f.association :service_specification, label_method: :name, value_method: :id, collection: @service_specifications
         .col-lg-6
           = f.input :last_service
         .col-12.d-flex.justify-content-end

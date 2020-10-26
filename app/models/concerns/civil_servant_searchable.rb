@@ -2,11 +2,13 @@
 
 module CivilServantSearchable
   WORD_SIMILARITY_QUERY = <<~SQL.squish
-    (POWER(word_similarity(civil_servants.first_name, :term), 2) +
-    POWER(word_similarity(civil_servants.last_name, :term), 2) +
-    POWER(word_similarity(users.email, :term), 2) +
-    (CASE WHEN civil_servants.first_name ILIKE :begins_with_term THEN 0.5 ELSE 0 END) +
-    (CASE WHEN civil_servants.last_name ILIKE :begins_with_term THEN 0.5 ELSE 0 END))
+    (
+      POWER(word_similarity(civil_servants.first_name, :term), 2) +
+      POWER(word_similarity(civil_servants.last_name, :term), 2) +
+      POWER(word_similarity(users.email, :term), 2) +
+      (CASE WHEN civil_servants.first_name ILIKE :begins_with_term THEN 0.5 ELSE 0 END) +
+      (CASE WHEN civil_servants.last_name ILIKE :begins_with_term THEN 0.5 ELSE 0 END)
+    )
   SQL
 
   WORD_SIMILARITY_SELECT_QUERY = <<~SQL.squish

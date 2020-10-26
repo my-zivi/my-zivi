@@ -49,9 +49,9 @@ module Organizations
         icon_classes: 'fas fa-trash',
         link_path: lambda { |service_agreement|
           Rails.application
-               .routes
-               .url_helpers
-               .organizations_service_agreement_path(service_agreement)
+            .routes
+            .url_helpers
+            .organizations_service_agreement_path(service_agreement)
         },
         link_args: {
           class: 'mr-3',
@@ -91,13 +91,13 @@ module Organizations
 
     def service_agreement_beginning_date_picker(form, service_agreement)
       date_picker(form, :beginning, localize_date(service_agreement.beginning),
-                  { minDate: I18n.l(Time.zone.today), enable: valid_beginning_dates(service_agreement) })
+                  minDate: I18n.l(Time.zone.today), enable: valid_beginning_dates(service_agreement))
     end
 
     def service_agreement_ending_date_picker(form, service_agreement)
       date_picker(form, :ending, localize_date(service_agreement.ending),
-                  { minDate: I18n.l(Time.zone.today.at_end_of_week - 2.days),
-                    enable: valid_ending_dates(service_agreement) })
+                  minDate: I18n.l(Time.zone.today.at_end_of_week - 2.days),
+                  enable: valid_ending_dates(service_agreement))
     end
 
     private

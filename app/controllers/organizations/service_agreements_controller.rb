@@ -28,26 +28,34 @@ module Organizations
     end
 
     def search
+      pp params
+      pp params[:term]
       respond_to do |format|
         format.json { render json: { results: CivilServantSearch.call(params[:term], current_organization) } }
       end
     end
 
     def new
-      civil_servant
-      @service_agreement = Service.new(civil_servant: @civil_servant)
+      @service_agreement = Service.new(civil_servant: civil_servant)
+      load_service_specifications
     end
 
     def create
+      load_service_specifications
       if create_service_agreement
         redirect_to organizations_service_agreements_path, notice: t('.successful_create')
       else
+        debugger
         flash[:error] = t('.erroneous_create')
         render :new
       end
     end
 
     private
+
+    def load_service_specifications
+      @service_specifications ||= current_organization.service_specifications
+    end
 
     def create_service_agreement
       Service.transaction do
