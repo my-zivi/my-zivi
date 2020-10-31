@@ -27,6 +27,7 @@ class CivilServant < ApplicationRecord
            :bank_and_insurance_step_completed?,
            :service_specific_step_completed?,
            to: :registration_step, allow_nil: true
+  alias registered? service_specific_step_completed?
 
   accepts_nested_attributes_for :user, allow_destroy: false
   accepts_nested_attributes_for :address, allow_destroy: false, update_only: true

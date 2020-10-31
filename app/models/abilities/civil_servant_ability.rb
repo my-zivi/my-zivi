@@ -7,6 +7,8 @@ module Abilities
     def initialize(permitting_civil_servant)
       permitting_civil_servant_id = permitting_civil_servant.id
 
+      return unless permitting_civil_servant.registered?
+
       can :access, :civil_servant_portal
       can %i[show update], CivilServant, id: permitting_civil_servant_id
       can :read, Service, civil_servant_id: permitting_civil_servant_id

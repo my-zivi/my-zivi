@@ -13,7 +13,7 @@ module CivilServants
 
     def update
       if @civil_servant.update(civil_servant_params)
-        redirect_to civil_servants_register_path(displayed_step: @displayed_step.next.identifier)
+        respond_to_successful_update
       else
         flash[:error] = t('.erroneous_update')
         render :edit
@@ -21,6 +21,15 @@ module CivilServants
     end
 
     private
+
+    def respond_to_successful_update
+      if @civil_servant.registration_step.last?
+        flash[:success] = I18n.t('successful_registration')
+        redirect_to civil_servants_path
+      else
+        redirect_to civil_servants_register_path(displayed_step: @displayed_step.next.identifier)
+      end
+    end
 
     def civil_servant_params
       params.require(:civil_servant).permit(
@@ -57,8 +66,8 @@ module CivilServants
     def displayed_step_from_params
       step = RegistrationStep.new(identifier: params[:displayed_step].presence&.to_sym)
       return unless step.valid?
-      return if @civil_servant.registration_step.nil?
-      return if step.index - @civil_servant.registration_step.index > 1
+      return if @civil_servant.registration_step.nil? # Registration not begun yet, fallback to default
+      return if step.index - @civil_servant.registration_step.index > 1 # Do not allow skipping steps
 
       step
     end
