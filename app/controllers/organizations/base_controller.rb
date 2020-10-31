@@ -2,10 +2,9 @@
 
 module Organizations
   class BaseController < ApplicationController
-    before_action :authenticate_user!
-    before_action -> { authorize! :access, :organization_portal }
+    include CivilServants::Concerns::AuthenticableAndAuthorizable
 
-    check_authorization
+    before_action -> { authorize! :access, :organization_portal }
 
     layout 'organizations/application'
   end

@@ -40,6 +40,7 @@ class RegistrationStep
     identifier == ALL.first
   end
 
+  # :reek:FeatureEnvy
   def <=>(other)
     index <=> other.index if other.present?
   end
