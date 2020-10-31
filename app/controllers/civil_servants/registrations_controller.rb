@@ -2,6 +2,16 @@
 
 module CivilServants
   class RegistrationsController < ApplicationController
+    PERMITTED_PARAMS = [:zdp, :first_name, :last_name, :hometown, :birthday,
+                        :phone, :iban, :health_insurance, :regional_center,
+                        {
+                          workshop_ids: [], driving_license_ids: [],
+                          address_attributes: %i[
+                            primary_line secondary_line street
+                            supplement city zip
+                          ]
+                        }].freeze
+
     include CivilServants::Concerns::AuthenticableAndAuthorizable
 
     before_action :load_civil_servant
@@ -32,23 +42,16 @@ module CivilServants
     end
 
     def civil_servant_params
-      params.require(:civil_servant).permit(
-        :registration_step,
-        :zdp, :first_name, :last_name, :hometown, :birthday,
-        :phone, :iban, :health_insurance, :regional_center,
-        {
-          workshop_ids: [], driving_license_ids: [],
-          address_attributes: %i[
-            primary_line secondary_line street
-            supplement city zip
-          ]
-        }
-      )
+      params
+        .require(:civil_servant)
+        .permit(*PERMITTED_PARAMS)
+        .merge(registration_step: @displayed_step)
     end
 
     def load_civil_servant
       @civil_servant = current_user.referencee
 
+      authorize! :access, :registration_page
       authorize! :update, @civil_servant
     end
 

@@ -30,7 +30,7 @@ RSpec.describe CivilServants::RegistrationsHelper, type: :helper do
     context 'when step identifier is after current step' do
       let(:step_identifier) { :third }
 
-      it { is_expected.to match(/nav-link font-weight-semi-bold"/) }
+      it { is_expected.not_to include('active', 'done') }
     end
   end
 end

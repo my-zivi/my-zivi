@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 module Users
   class InvitationsController < Devise::InvitationsController
     def after_accept_path_for(_resource)
@@ -7,3 +8,4 @@ module Users
     end
   end
 end
+# :nocov:

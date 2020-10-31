@@ -10,7 +10,8 @@
       .card-body
         .px-sm-3.px-md-5
           = render 'base/flash_messages'
-          = simple_form_for @civil_servant, url: civil_servants_register_path(displayed_step: @displayed_step.identifier) do |f|
-            = f.hidden_field :registration_step, value: @displayed_step.identifier
+
+          - form_url = civil_servants_register_path(displayed_step: @displayed_step.identifier)
+          = simple_form_for @civil_servant, url: form_url do |f|
             = render "civil_servants/registrations/steps/#{@displayed_step.identifier}", f: f
 

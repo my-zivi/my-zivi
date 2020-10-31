@@ -47,6 +47,14 @@ RSpec.describe RegistrationStep, type: :model do
         expect(described_class.new(identifier: :second) <=> other).to be_zero
         expect(described_class.new(identifier: :third) <=> other).to be_positive
       end
+
+      context 'when other is nil' do
+        subject { described_class.new(identifier: :first) <=> other }
+
+        let(:other) { nil }
+
+        it { is_expected.to be_nil }
+      end
     end
   end
 

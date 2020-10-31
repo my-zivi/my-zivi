@@ -41,7 +41,7 @@ class RegistrationStep
   end
 
   def <=>(other)
-    index <=> other.index
+    index <=> other.index if other.present?
   end
 
   alias complete? last?
