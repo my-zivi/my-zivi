@@ -50,6 +50,6 @@ RSpec.describe 'civil servant registration', :without_bullet, type: :system do
 
     visit civil_servants_register_path(displayed_step: 'bank_and_insurance')
     expect(page.body).not_to include I18n.t('activerecord.attributes.civil_servant.iban')
-    expect(find('[name="civil_servant[registration_step]"]', visible: false).value).to eq 'personal'
+    expect(find('form[action$="displayed_step=personal"]')).to be_visible
   end
 end
