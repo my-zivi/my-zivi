@@ -4,6 +4,7 @@ class RegistrationStep
   ALL = %i[personal address bank_and_insurance service_specific].freeze
 
   include ActiveModel::Model
+  include Comparable
 
   attr_accessor :identifier
 

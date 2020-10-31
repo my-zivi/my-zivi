@@ -30,7 +30,6 @@ RSpec.describe 'Organizations Portal Walkthrough', type: :system do
     end
   end
 
-  # rubocop:disable RSpec/ExampleLength
   it 'can navigate through portal', :without_bullet do
     expect(page).to have_content I18n.t('organizations.overview.index.cards.welcome_back.title', name: 'Johnny Depp')
 
@@ -63,5 +62,4 @@ RSpec.describe 'Organizations Portal Walkthrough', type: :system do
     click_on I18n.t('base.organizations.navbar.profile')
     expect(page).to have_content organization_administrator.full_name
   end
-  # rubocop:enable RSpec/ExampleLength
 end

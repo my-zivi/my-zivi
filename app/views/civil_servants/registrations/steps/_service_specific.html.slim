@@ -2,7 +2,7 @@
   .col-12
     = f.input :regional_center, include_blank: false, collection: regional_centers_collection
   .col-12
-    = f.association :workshops
+    = f.association :workshops, input_html: { data: { typeahead_select: true } }
   .col-12
-    = f.association :driving_licenses
+    = f.association :driving_licenses, input_html: { data: { typeahead_select: true } }
 = render 'civil_servants/registrations/steps/shared/form_footer', f: f

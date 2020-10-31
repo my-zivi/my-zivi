@@ -139,8 +139,8 @@ de-CH:
         civil_servant:
           attributes:
             iban:
-              bad_check_digits: ungültige Prüffziffer
-              bad_format: falsches Format
+              bad_check_digits: konnte nicht auf Gültigkeit überprüft werden
+              bad_format: hat ein ungültiges Format
               bad_length: zu kurz (21 Zeichen)
         expense_sheet:
           already_paid: Das Spesenblatt wurde bereis ausbezahlt.

@@ -7,7 +7,9 @@ module CivilServants
     before_action :load_civil_servant
     before_action :load_displayed_step
 
-    def edit; end
+    def edit
+      @civil_servant.address ||= Address.new(primary_line: @civil_servant.full_name)
+    end
 
     def update
       if @civil_servant.update(civil_servant_params)
@@ -28,7 +30,7 @@ module CivilServants
         {
           workshop_ids: [], driving_license_ids: [],
           address_attributes: %i[
-            secondary_line street
+            primary_line secondary_line street
             supplement city zip
           ]
         }
@@ -55,7 +57,7 @@ module CivilServants
     def displayed_step_from_params
       step = RegistrationStep.new(identifier: params[:displayed_step].presence&.to_sym)
       return unless step.valid?
-      return if @civil_servant.registration_step.nil? && !step.first?
+      return if @civil_servant.registration_step.nil?
       return if step.index - @civil_servant.registration_step.index > 1
 
       step

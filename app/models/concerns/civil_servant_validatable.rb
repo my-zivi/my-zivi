@@ -12,7 +12,7 @@ module CivilServantValidatable
         greater_than: 10_000,
         less_than: 999_999,
         only_integer: true
-      }
+      }, allow_nil: true
     end
 
     with_options if: :address_step_completed? do

@@ -45,6 +45,7 @@ RSpec/ExampleLength:
   Max: 6
   Exclude:
     - 'spec/requests/**/*'
+    - 'spec/system/**/*'
 
 RSpec/AggregateExamples:
   Enabled: true

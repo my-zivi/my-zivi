@@ -31,7 +31,7 @@ class CivilServant < ApplicationRecord
   accepts_nested_attributes_for :user, allow_destroy: false
   accepts_nested_attributes_for :address, allow_destroy: false, update_only: true
 
-  after_commit :update_address, on: :update
+  after_commit :update_address, on: :update, if: -> { address.present? }
 
   def prettified_iban
     IBANTools::IBAN.new(iban).prettify
