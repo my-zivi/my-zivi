@@ -469,4 +469,4 @@ fr-CH:
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
     invalid_required_service_days: Jours du service non valables
-  successful_registration: "Inscription réussie"
+  successful_registration: Inscription réussie

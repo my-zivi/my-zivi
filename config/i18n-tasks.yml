@@ -35,6 +35,7 @@ ignore_unused:
   - 'base.services.short_info_cell.service_confirmed.*'
   - 'mailing_list_entry_notifier_mailer.notify.subject'
   - 'organizations.phone_list.index.range'
+  - 'civil_servants.registrations.steps_bar.steps.*'
   - 'helpers.*'
 
 ## Exclude these keys from the `i18n-tasks eq-base' report:

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe CivilServants::RegistrationsController, type: :request do
+RSpec.describe CivilServants::RegistrationsController, :without_bullet, type: :request do
   describe '#edit' do
     let(:perform_request) { get civil_servants_register_path(params) }
     let(:params) { nil }
@@ -32,7 +32,7 @@ RSpec.describe CivilServants::RegistrationsController, type: :request do
       context 'when address step completed' do
         let(:traits) { [:address_step_completed] }
 
-        it 'renders address step', :without_bullet do
+        it 'renders address step' do
           expect(response).to render_template 'civil_servants/registrations/steps/_address'
         end
 
@@ -49,7 +49,7 @@ RSpec.describe CivilServants::RegistrationsController, type: :request do
         let(:params) { { displayed_step: 'blubbers' } }
         let(:traits) { [:bank_and_insurance_step_completed] }
 
-        it 'falls back to last step completed', :without_bullet do
+        it 'falls back to last step completed' do
           expect(response).to render_template 'civil_servants/registrations/steps/_bank_and_insurance'
         end
       end
@@ -70,7 +70,7 @@ RSpec.describe CivilServants::RegistrationsController, type: :request do
     end
   end
 
-  describe '#update', :without_bullet do
+  describe '#update' do
     let(:perform_request) { patch civil_servants_register_path(params) }
     let(:params) { { civil_servant: civil_servant_params, displayed_step: displayed_step } }
     let(:displayed_step) { nil }
