@@ -4,13 +4,13 @@ require 'rails_helper'
 
 RSpec.describe 'civil_servants/civil_servants/edit.html.erb', type: :view do
   before do
-    sign_in user
+    allow(view).to receive(:current_civil_servant).and_return civil_servant
     assign(:civil_servant, civil_servant)
 
     render
   end
 
-  let(:civil_servant) { create(:civil_servant, :full) }
+  let(:civil_servant) { build(:civil_servant, :full) }
   let(:address) { civil_servant.address }
   let(:user) { civil_servant.user }
 

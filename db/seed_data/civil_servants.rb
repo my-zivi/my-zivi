@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+last_registration_step = RegistrationStep.new(identifier: RegistrationStep::ALL.last)
 CivilServant.create!(
   [
     {
@@ -13,6 +14,7 @@ CivilServant.create!(
       health_insurance: 'Sanicare',
       driving_licenses: DrivingLicense.where(name: %w[B A]),
       workshops: Workshop.where(name: %w[Kommunikation\ und\ Betreuung Pflegehilfe\ 1]),
+      registration_step: last_registration_step,
       user: User.new(
         email: 'max.zivi@example.com',
         password: '12345678',
@@ -40,6 +42,7 @@ CivilServant.create!(
       health_insurance: 'Sanicare',
       driving_licenses: DrivingLicense.where(name: %w[F]),
       workshops: [],
+      registration_step: last_registration_step,
       user: User.new(
         email: 'niels@example.com',
         password: '12345678',
@@ -67,6 +70,7 @@ CivilServant.create!(
       health_insurance: 'Sanicare',
       driving_licenses: DrivingLicense.where(name: %w[B C1]),
       workshops: Workshop.where(name: 'Alp-Pflege'),
+      registration_step: last_registration_step,
       user: User.new(
         email: 'joel.zivi@example.com',
         password: '12345678',
@@ -94,6 +98,7 @@ CivilServant.create!(
       health_insurance: 'Helsana',
       driving_licenses: DrivingLicense.where(name: []),
       workshops: [Workshop.find_by(name: 'Umwelt- und Naturschutz')],
+      registration_step: last_registration_step,
       user: User.new(
         email: 'andy.zivi@example.com',
         password: '12345678',
@@ -121,6 +126,7 @@ CivilServant.create!(
       driving_licenses: [],
       workshops: [Workshop.find_by(name: 'Umwelt- und Naturschutz')],
       health_insurance: 'Zivicare P1us',
+      registration_step: last_registration_step,
       user: User.new(
         email: 'philipp.zivi@example.com',
         password: '12345678',

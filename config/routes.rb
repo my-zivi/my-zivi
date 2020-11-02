@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   root 'home#index'
   mount Sidekiq::Web, at: '/sidekiq' if defined? Sidekiq::Web
 
-  devise_for :users
+  devise_for :users, controllers: { invitations: 'users/invitations' }
 
   resource :mailing_list, only: :create
   resources :expense_sheets, only: :show
@@ -33,6 +33,9 @@ Rails.application.routes.draw do
 
     resource :civil_servant, only: %i[edit update], on: :collection
     resources :services, only: %i[index show]
+
+    get 'register', to: 'registrations#edit'
+    patch 'register', to: 'registrations#update'
   end
 
   namespace :organizations do

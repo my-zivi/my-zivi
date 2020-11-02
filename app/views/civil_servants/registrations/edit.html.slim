@@ -1,0 +1,17 @@
+- content_for(:hide_flash_messages, true)
+
+.row.flex-center.min-vh-100.py-6
+  .col-sm-11.col-md-9.col-lg-7.col-xl-6.col-xxl-5
+    = link_to root_path, class: 'd-flex flex-center mb-4 text-decoration-none' do
+      span.text-sans-serif.font-weight-extra-bold.fs-5.d-inline-block = t('my_zivi')
+    .card.border.theme-wizard.shadow-0
+      .card-header
+        = render 'civil_servants/registrations/steps_bar', current_registration_step: @displayed_step
+      .card-body
+        .px-sm-3.px-md-5
+          = render 'base/flash_messages'
+
+          - form_url = civil_servants_register_path(displayed_step: @displayed_step.identifier)
+          = simple_form_for @civil_servant, url: form_url do |f|
+            = render "civil_servants/registrations/steps/#{@displayed_step.identifier}", f: f
+

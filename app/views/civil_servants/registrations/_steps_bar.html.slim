@@ -1,0 +1,7 @@
+ul.nav.justify-content-between.nav-wizard
+  - RegistrationStep::ALL.each do |step_identifier|
+    li.nav-item
+      = step_link(step_identifier, current_registration_step) do
+        span.nav-item-circle-parent
+          span.nav-item-circle = step_icon(step_identifier)
+        span.d-none.d-md-block.mt-1.fs--1 = t(step_identifier, scope: %i[civil_servants registrations steps_bar steps])

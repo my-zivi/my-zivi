@@ -45,6 +45,11 @@ RSpec/ExampleLength:
   Max: 6
   Exclude:
     - 'spec/requests/**/*'
+    - 'spec/system/**/*'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'spec/support/**/*'
 
 RSpec/AggregateExamples:
   Enabled: true

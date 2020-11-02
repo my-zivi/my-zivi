@@ -1,0 +1,8 @@
+.row.mt-4
+  - unless @displayed_step.first?
+    .col
+      = link_to t('actions.back'),
+                civil_servants_register_path(displayed_step: @displayed_step.previous.identifier),
+                class: 'w-100 btn btn-outline-secondary'
+  .col
+    = f.submit(@displayed_step.last? ? t('actions.complete') : t('actions.next'), class: 'w-100 btn btn-primary')

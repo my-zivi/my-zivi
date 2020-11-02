@@ -15,6 +15,8 @@ RSpec.describe Organization, type: :model do
   end
 
   describe 'validations' do
+    subject(:model) { described_class.new }
+
     it_behaves_like 'validates presence of required fields', %i[name identification_number]
   end
 end

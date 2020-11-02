@@ -12,6 +12,8 @@ RSpec.describe CreditorDetail, type: :model do
   end
 
   describe 'validations' do
+    subject(:model) { described_class.new }
+
     it_behaves_like 'validates presence of required fields', %i[iban bic]
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  belongs_to :referencee, polymorphic: true
+  belongs_to :referencee, polymorphic: true, autosave: true
 
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,

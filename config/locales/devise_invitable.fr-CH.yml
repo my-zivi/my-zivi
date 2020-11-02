@@ -5,8 +5,12 @@ fr-CH:
       invited: Vous avez une invitation en attente, acceptez-la pour terminer la création de votre compte.
     invitations:
       edit:
-        header: Confirmation
+        form:
+          labels:
+            password_confirmation: répéter le mot de passe
+        header: Définir un nouveau mot de passe pour commencer l'enregistrement
         submit_button: Confirmer
+        title: Bienvenue sur MyZivi!
       invitation_removed: Votre invitation a été supprimée.
       invitation_token_invalid: Le jeton d'invitation fourni n'est pas valide!
       new:
