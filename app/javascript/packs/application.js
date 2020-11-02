@@ -9,7 +9,6 @@ import 'regenerator-runtime/runtime';
 import Rails from '@rails/ujs';
 import Turbolinks from 'turbolinks';
 
-import 'select2';
 import $ from 'jquery';
 
 import '@fortawesome/fontawesome-free/js/all.min';
@@ -26,11 +25,3 @@ window.jQuery = $;
 window.$ = $;
 
 FontAwesome.config.mutateApproach = 'sync';
-
-$(document).on('turbolinks:load', () => {
-  $('[data-typeahead-select]').each((_i, element) => {
-    const $select = $(element);
-    const options = $.extend({}, $select.data('options'));
-    $select.select2(options);
-  });
-});
