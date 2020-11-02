@@ -35,11 +35,11 @@ module Organizations
 
     def new
       @service_agreement = Service.new(civil_servant: civil_servant)
-      load_service_specifications
+      service_specifications
     end
 
     def create
-      load_service_specifications
+      service_specifications
       if create_service_agreement
         redirect_to organizations_service_agreements_path, notice: t('.successful_create')
       else
@@ -50,19 +50,18 @@ module Organizations
 
     private
 
-    def load_service_specifications
+    def service_specifications
       @service_specifications ||= current_organization.service_specifications
     end
 
     def create_service_agreement
       ActiveRecord::Base.transaction do
         @service_agreement = Service.new(modify_service_agreement_params)
-        @service_agreement.civil_servant.user.skip_password_validation!
+        user = @service_agreement.civil_servant.user
+        user.skip_password_validation!
         raise ActiveRecord::Rollback unless @service_agreement.valid?
 
-        if @service_agreement.civil_servant.user.new_record?
-          @service_agreement.civil_servant.user.invite!(current_organization_admin)
-        end
+        user.invite!(current_organization_admin) if user.new_record?
         @service_agreement.save
       end
     end
@@ -83,10 +82,6 @@ module Organizations
           email: service_agreement_params.dig(:civil_servant_attributes, :user_attributes, :email)
         }
       )
-    end
-
-    def build_civil_servant
-      CivilServant.new(user: User.new)
     end
 
     def service_agreement_params

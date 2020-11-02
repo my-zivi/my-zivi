@@ -258,7 +258,6 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
         it 'successfully renders the new service agreement form' do
           expect(response).to render_template(:new)
         end
-
       end
     end
 
@@ -291,7 +290,6 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
         .slice(:beginning, :ending, :service_type)
         .merge(service_specification_id: service_specification.id)
     end
-
 
     context 'when a organization administrator is signed in' do
       let(:organization_administrator) { create :organization_member, organization: organization }
@@ -328,7 +326,8 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
             expect { perform_request }.not_to change(Service, :count)
             expect(response).to be_successful
             expect(response).to render_template 'organizations/service_agreements/new'
-            expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'), I18n.t('errors.messages.blank'))
+            expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'),
+                                             I18n.t('errors.messages.blank'))
           end
         end
       end
@@ -362,12 +361,11 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
             expect { perform_request }.not_to change(Service, :count)
             expect(response).to be_successful
             expect(response).to render_template 'organizations/service_agreements/new'
-            expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'), I18n.t('errors.messages.blank'))
+            expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'),
+                                             I18n.t('errors.messages.blank'))
           end
         end
       end
-
-
     end
 
     context 'when a civil servant is signed in' do

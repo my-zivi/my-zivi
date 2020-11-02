@@ -3,15 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe EnumI18nHelper, type: :helper do
-
   describe '#enum_options_for_select' do
     subject { helper.enum_options_for_select(Service, :service_types) }
 
     let(:expected_options) do
       [
-        [ t('activerecord.enums.service.service_types.normal'), 'normal' ],
-        [ t('activerecord.enums.service.service_types.long'), 'long' ],
-        [ t('activerecord.enums.service.service_types.probation'), 'probation' ]
+        [t('activerecord.enums.service.service_types.normal'), 'normal'],
+        [t('activerecord.enums.service.service_types.long'), 'long'],
+        [t('activerecord.enums.service.service_types.probation'), 'probation']
       ]
     end
 

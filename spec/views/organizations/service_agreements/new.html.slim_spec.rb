@@ -1,19 +1,9 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-include EnumI18nHelper
 
 RSpec.describe 'organizations/service_agreements/new.html.slim', type: :view do
   let(:civil_servant) { CivilServant.new(user: User.new) }
-  let(:service_agreement) { build(:service, civil_servant: civil_servant) }
-  let(:organization) { create :organization }
-
-  before do
-    assign(:service_agreement, service_agreement)
-    assign(:service_specifications, organization.service_specifications)
-    render
-  end
-
   let(:expected_form_labels) do
     [
       t('activerecord.attributes.civil_servant.first_name'),
@@ -25,11 +15,19 @@ RSpec.describe 'organizations/service_agreements/new.html.slim', type: :view do
       t('activerecord.attributes.service.service_type'),
       t('activerecord.attributes.service.service_specification'),
       t('activerecord.attributes.service.last_service'),
-      EnumI18nHelper::enum_i18n(Service, :service_type, :normal)
+      t('activerecord.enums.service.service_types.normal')
     ]
   end
+  let(:service_agreement) { build(:service, civil_servant: civil_servant) }
+  let(:organization) { create :organization }
 
-  context 'civil servant is not set' do
+  before do
+    assign(:service_agreement, service_agreement)
+    assign(:service_specifications, organization.service_specifications)
+    render
+  end
+
+  context 'when civil servant is not set' do
     let(:expected_strings) do
       expected_form_labels + [
         l(service_agreement.beginning),
@@ -43,7 +41,7 @@ RSpec.describe 'organizations/service_agreements/new.html.slim', type: :view do
     end
   end
 
-  context 'civil servant is set' do
+  context 'when civil servant is set' do
     let(:civil_servant) { create(:civil_servant, :full) }
     let(:expected_strings) do
       expected_form_labels + [
