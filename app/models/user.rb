@@ -16,4 +16,16 @@ class User < ApplicationRecord
     italian: 'it',
     english: 'en'
   }
+
+  def skip_password_validation!
+    @validate_password = false
+  end
+
+  private
+
+  def password_required?
+    return true if @validate_password.nil?
+
+    @validate_password
+  end
 end

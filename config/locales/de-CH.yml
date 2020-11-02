@@ -95,12 +95,12 @@ de-CH:
         beginning: Anfang
         confirmation_date: Bestätigungsdatum
         ending: Ende
+        last_service: Letzter Einsatz
         long_service: Langer Einsatz
         probation_service: Probeeinsatz
         service_days: Einsatzdauer
         service_specification: Pflichtenheft
         service_type: Einsatztyp
-        last_service: "Letzter Einsatz"
       service_specification:
         accommodation_expenses: Unterkunftsspesen
         active: Aktiv

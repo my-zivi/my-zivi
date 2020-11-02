@@ -282,58 +282,88 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
   describe '#create' do
     let(:perform_request) { post(organizations_service_agreements_path, params: params) }
     let(:params) { { service_agreement: service_agreement_params } }
-    let(:organization) { create :organization }
 
-    let(:civil_servant) { create(:civil_servant, :full) }
-    let(:service_agreement_params) do
-      attributes_for(:service, :civil_servant_agreement_pending, :unconfirmed, :future).merge(
-        civil_servant_attributes: {
-          user_attributes: {
-            email: civil_servant.user.email
-          }
-        }
-      )
+    let(:organization) { create :organization }
+    let(:service_specification) { create :service_specification, organization: organization }
+
+    let(:valid_service_agreement_params) do
+      attributes_for(:service, :civil_servant_agreement_pending, :unconfirmed, :future)
+        .slice(:beginning, :ending, :service_type)
+        .merge(service_specification_id: service_specification.id)
     end
 
-    let(:created_service_agreement) { Service.order(:created_at).last }
 
     context 'when a organization administrator is signed in' do
       let(:organization_administrator) { create :organization_member, organization: organization }
 
       before do
         sign_in organization_administrator.user
-        perform_request
       end
 
-      context 'with valid parameters' do
-        it 'creates a new service agreement and redirects back to the service specifications list' do
-          expect { perform_request }.to change(Service, :count).by(1)
-          expect(response).to redirect_to(organizations_service_agreements_path)
-
-          # updated_attributes = created_service_agreement.slice(service_agreement_params.keys).symbolize_keys
-          # expect(updated_attributes).to eq service_agreement_params
-        end
-      end
-
-      context 'with invalid parameters' do
+      context 'with existing civil servant' do
+        let!(:civil_servant) { create(:civil_servant, :full) }
         let(:service_agreement_params) do
-          attributes_for(:service).merge(
-            beginning: nil
+          valid_service_agreement_params.merge(
+            civil_servant_attributes: {
+              user_attributes: {
+                email: civil_servant.user.email
+              }
+            }
           )
         end
 
-        let(:expected_error_messages) do
-          %i[civil_servant beginning].map do |attribute_name|
-            blank = I18n.t('errors.messages.blank')
-            "#{I18n.t(attribute_name, scope: %i[activerecord attributes service_agreement])} #{blank}"
+        let(:created_service_agreement) { Service.order(:created_at).last }
+
+        context 'with valid parameters' do
+          it 'creates a new service agreement and redirects back to the service specifications list' do
+            expect { perform_request }.to change(Service, :count).by(1)
+            expect(response).to redirect_to(organizations_service_agreements_path)
           end
         end
 
-        it 'does not create a new service agreement and renders an error' do
-          expect { perform_request }.not_to change(Service, :count)
-          expect(response).to be_successful
-          expect(response).to render_template 'organizations/service_agreements/new'
-          expect(response.body).to include(*expected_error_messages)
+        context 'with invalid parameters' do
+          let(:service_agreement_params) { valid_service_agreement_params.merge(beginning: nil) }
+
+          it 'does not create a new service agreement and renders an error' do
+            expect { perform_request }.not_to change(Service, :count)
+            expect(response).to be_successful
+            expect(response).to render_template 'organizations/service_agreements/new'
+            expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'), I18n.t('errors.messages.blank'))
+          end
+        end
+      end
+
+      context 'with new civil servant -> invite' do
+        let(:service_agreement_params) do
+          valid_service_agreement_params.merge(
+            civil_servant_attributes: {
+              first_name: 'Hans',
+              last_name: 'Hugentobler',
+              user_attributes: {
+                email: 'hans@hugentobler.com'
+              }
+            }
+          )
+        end
+
+        let(:created_service_agreement) { Service.order(:created_at).last }
+
+        context 'with valid parameters' do
+          it 'creates a new service agreement and redirects back to the service specifications list' do
+            expect { perform_request }.to change(Service, :count).by(1)
+            expect(response).to redirect_to(organizations_service_agreements_path)
+          end
+        end
+
+        context 'with invalid parameters' do
+          let(:service_agreement_params) { valid_service_agreement_params.merge(beginning: nil) }
+
+          it 'does not create a new service agreement and renders an error' do
+            expect { perform_request }.not_to change(Service, :count)
+            expect(response).to be_successful
+            expect(response).to render_template 'organizations/service_agreements/new'
+            expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'), I18n.t('errors.messages.blank'))
+          end
         end
       end
 

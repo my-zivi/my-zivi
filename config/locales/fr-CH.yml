@@ -95,12 +95,12 @@ fr-CH:
         beginning: Démarrer
         confirmation_date: Date de confirmation
         ending: Fin
+        last_service: Dernier service
         long_service: Longue durée de vie
         probation_service: Demande de procès
         service_days: Durée de vie
         service_specification: Spécifications
         service_type: Type d'insertion
-        last_service: "Dernier service"
       service_specification:
         accommodation_expenses: Frais d'hébergement
         active: Actif

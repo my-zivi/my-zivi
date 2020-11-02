@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class OrganizationMember < ApplicationRecord
+  include DeviseInvitable::Inviter
+
   belongs_to :organization
   has_one :user, as: :referencee, dependent: :destroy, required: false, autosave: true
   has_many :service_specification_contacts,

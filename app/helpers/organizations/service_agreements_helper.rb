@@ -49,9 +49,9 @@ module Organizations
         icon_classes: 'fas fa-trash',
         link_path: lambda { |service_agreement|
           Rails.application
-            .routes
-            .url_helpers
-            .organizations_service_agreement_path(service_agreement)
+               .routes
+               .url_helpers
+               .organizations_service_agreement_path(service_agreement)
         },
         link_args: {
           class: 'mr-3',

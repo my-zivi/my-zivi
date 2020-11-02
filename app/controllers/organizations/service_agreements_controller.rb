@@ -28,8 +28,6 @@ module Organizations
     end
 
     def search
-      pp params
-      pp params[:term]
       respond_to do |format|
         format.json { render json: { results: CivilServantSearch.call(params[:term], current_organization) } }
       end
@@ -45,7 +43,6 @@ module Organizations
       if create_service_agreement
         redirect_to organizations_service_agreements_path, notice: t('.successful_create')
       else
-        debugger
         flash[:error] = t('.erroneous_create')
         render :new
       end
@@ -58,15 +55,22 @@ module Organizations
     end
 
     def create_service_agreement
-      Service.transaction do
+      ActiveRecord::Base.transaction do
         @service_agreement = Service.new(modify_service_agreement_params)
-        @service_agreement.civil_servant.user.invite! if @service_agreement.civil_servant.user.new_record?
+        @service_agreement.civil_servant.user.skip_password_validation!
+        raise ActiveRecord::Rollback unless @service_agreement.valid?
+
+        if @service_agreement.civil_servant.user.new_record?
+          @service_agreement.civil_servant.user.invite!(current_organization_admin)
+        end
         @service_agreement.save
       end
     end
 
     def modify_service_agreement_params
-      service_agreement_params.merge(organization_agreed: true, civil_servant: civil_servant)
+      modified_params = service_agreement_params.merge(organization_agreed: true, civil_servant: civil_servant)
+      modified_params.delete(:civil_servant_attributes) if civil_servant.persisted?
+      modified_params
     end
 
     def civil_servant
