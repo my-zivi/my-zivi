@@ -370,6 +370,15 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
 
     context 'when a civil servant is signed in' do
       let(:civil_servant) { create :civil_servant, :full }
+      let(:service_agreement_params) do
+        valid_service_agreement_params.merge(
+          civil_servant_attributes: {
+            user_attributes: {
+              email: civil_servant.user.email
+            }
+          }
+        )
+      end
 
       before { sign_in civil_servant.user }
 
@@ -379,6 +388,8 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
     end
 
     context 'when nobody is signed in' do
+      let(:service_agreement_params) { valid_service_agreement_params }
+
       before { perform_request }
 
       it_behaves_like 'unauthenticated request'
