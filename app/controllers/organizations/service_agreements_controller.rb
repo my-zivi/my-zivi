@@ -29,7 +29,7 @@ module Organizations
 
     def search
       respond_to do |format|
-        format.json { render json: { results: CivilServantSearch.call(params[:term], current_organization) } }
+        format.json { render json: { results: CivilServantSelect2Options.call(params[:term], current_organization) } }
       end
     end
 

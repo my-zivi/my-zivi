@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CivilServantSearch
+class CivilServantSelect2Options
   class << self
     def call(term, current_organization)
       [
@@ -46,9 +46,9 @@ class CivilServantSearch
 
     def filtered_all_civil_servants(term)
       if term.present?
-        CivilServant.search(term).distinct
+        CivilServant.search(term)
       else
-        CivilServant.all.distinct.order(:first_name, :last_name)
+        CivilServant.all.order(:first_name, :last_name)
       end
     end
 
@@ -61,10 +61,12 @@ class CivilServantSearch
     def select_and_map_civil_servants(query)
       query
         .joins(:user)
+        .distinct
         .limit(20)
         .select('civil_servants.id', 'civil_servants.first_name',
                 'civil_servants.last_name', 'users.email as user_email')
         .map(&method(:civil_servant_search_object))
+        .reject { |search_object| search_object[:id].empty? || search_object[:text].empty? }
     end
 
     def civil_servant_search_object(civil_servant)

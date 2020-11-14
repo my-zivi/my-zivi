@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ServiceCalculator, type: :service do
   let(:beginning) { Date.parse('2018-01-01') }
-  let(:service_calculator) { described_class.new(beginning, last_civil_service, probation_civil_service) }
+  let(:service_calculator) { described_class.new(beginning, last_civil_service, false) }
   let(:last_civil_service) { false }
   let(:probation_civil_service) { false }
   let(:short_service_calculator) do
@@ -49,6 +49,37 @@ RSpec.describe ServiceCalculator, type: :service do
 
       it 'routes to ShortServiceCalculator' do
         expect(short_service_calculator).to have_received(:calculate_ending_date).with(25)
+      end
+    end
+
+    context 'when service is probation service' do
+      let(:probation_civil_service) { true }
+
+      context 'when service days are 0 or negative' do
+        subject(:calculate_ending_date) { service_calculator.calculate_ending_date(0) }
+
+        it do
+          expect { calculate_ending_date }.to raise_error(
+            CalculationError,
+            I18n.t('service_calculator.invalid_required_service_days')
+          )
+        end
+      end
+
+      context 'when service days are 26 or over' do
+        before { service_calculator.calculate_ending_date(26) }
+
+        it 'routes to NormalServiceCalculator' do
+          expect(normal_service_calculator).to have_received(:calculate_ending_date).with(26)
+        end
+      end
+
+      context 'when service days are under 26' do
+        before { service_calculator.calculate_ending_date(25) }
+
+        it 'routes to ShortServiceCalculator' do
+          expect(short_service_calculator).to have_received(:calculate_ending_date).with(25)
+        end
       end
     end
   end

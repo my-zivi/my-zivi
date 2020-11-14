@@ -67,9 +67,10 @@ RSpec.describe Service, type: :model do
       subject { service.tap(&:validate).errors.added? :ending, :not_a_friday }
 
       let(:service) { build(:service, ending: ending) }
-      let(:ending) { Time.zone.today.at_end_of_week - 2.days }
 
       context 'when ending is a friday' do
+        let(:ending) { Time.zone.today.at_end_of_week - 2.days }
+
         it { is_expected.to be false }
       end
 
@@ -81,9 +82,10 @@ RSpec.describe Service, type: :model do
 
       context 'when service is probation service' do
         let(:service) { build(:service, ending: ending, service_type: :probation) }
-        let(:ending) { Time.zone.today.at_end_of_week - 2.days }
 
         context 'when ending is a friday' do
+          let(:ending) { Time.zone.today.at_end_of_week - 2.days }
+
           it { is_expected.to be false }
         end
 

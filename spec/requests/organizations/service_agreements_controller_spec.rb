@@ -150,7 +150,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
     let(:paul_service) { paul.services.first }
     let(:maria_service) { maria.services.first }
 
-    let(:search_result) { CivilServantSearch.call(search_term, organization) }
+    let(:search_result) { CivilServantSelect2Options.call(search_term, organization) }
     let(:search_term) { '' }
 
     before do
@@ -236,13 +236,13 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
         perform_request
       end
 
-      context 'when there is no civi set' do
+      context 'when there is no civil servant set' do
         it 'successfully renders the new service agreement form' do
           expect(response).to render_template(:new)
         end
       end
 
-      context 'when there is a civi set' do
+      context 'when there is a civil servant set' do
         let(:request_params) do
           {
             service_agreement: {
@@ -257,6 +257,9 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
 
         it 'successfully renders the new service agreement form' do
           expect(response).to render_template(:new)
+          expect(response.body).to include maria.user.email
+          expect(response.body).to include maria.first_name
+          expect(response.body).to include maria.last_name
         end
       end
     end
@@ -316,6 +319,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
           it 'creates a new service agreement and redirects back to the service specifications list' do
             expect { perform_request }.to change(Service, :count).by(1)
             expect(response).to redirect_to(organizations_service_agreements_path)
+            expect(Service.last.civil_servant).to eq(civil_servant)
           end
         end
 
@@ -350,6 +354,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
         context 'with valid parameters' do
           it 'creates a new service agreement and redirects back to the service specifications list' do
             expect { perform_request }.to change(Service, :count).by(1)
+            expect { perform_request }.to change(CivilServant, :count).by(1)
             expect(response).to redirect_to(organizations_service_agreements_path)
           end
         end
@@ -359,6 +364,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
 
           it 'does not create a new service agreement and renders an error' do
             expect { perform_request }.not_to change(Service, :count)
+            expect { perform_request }.not_to change(CivilServant, :count)
             expect(response).to be_successful
             expect(response).to render_template 'organizations/service_agreements/new'
             expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'),

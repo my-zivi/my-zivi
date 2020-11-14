@@ -6,16 +6,14 @@
     = simple_form_for(@service_agreement, as: :service_agreement, url: organizations_service_agreements_path) do |f|
       .row
         = f.simple_fields_for :civil_servant do |civil_servant_form|
+          - readonly = !civil_servant_form.object.new_record?
           .col-lg-6
-            = civil_servant_form.input :first_name,
-                    readonly: !civil_servant_form.object.new_record?
+            = civil_servant_form.input :first_name, readonly: readonly
           .col-lg-6
-            = civil_servant_form.input :last_name,
-                    readonly: !civil_servant_form.object.new_record?
+            = civil_servant_form.input :last_name, readonly: readonly
           .col-lg-6
             = civil_servant_form.simple_fields_for :user do |user_form|
-              = user_form.input :email,
-                      readonly: !civil_servant_form.object.new_record?
+              = user_form.input :email, readonly: readonly
       hr.my-4
       .row
         .col-lg-6
