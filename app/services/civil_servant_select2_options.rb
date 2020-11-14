@@ -2,27 +2,27 @@
 
 class CivilServantSelect2Options
   class << self
-    def call(term, current_organization)
+    def call(all_civil_servants, organization_civil_servant)
       [
-        organization_civil_servant_lookup_group(term, current_organization),
-        all_civil_servant_lookup_group(term),
+        organization_civil_servant_lookup_group(organization_civil_servant),
+        all_civil_servant_lookup_group(all_civil_servants),
         new_civil_servant_lookup_group
       ]
     end
 
     private
 
-    def organization_civil_servant_lookup_group(term, current_organization)
+    def organization_civil_servant_lookup_group(civil_servants)
       {
         text: I18n.t('organizations.service_agreements.search.modal.dropdown.groups.recent_civil_servants'),
-        children: organization_civil_servant_lookup_results(term, current_organization)
+        children: select_and_map_civil_servants(civil_servants)
       }
     end
 
-    def all_civil_servant_lookup_group(term)
+    def all_civil_servant_lookup_group(civil_servants)
       {
         text: I18n.t('organizations.service_agreements.search.modal.dropdown.groups.all_civil_servants'),
-        children: all_civil_servant_lookup_results(term)
+        children: select_and_map_civil_servants(civil_servants)
       }
     end
 
@@ -34,28 +34,6 @@ class CivilServantSelect2Options
           text: I18n.t('organizations.service_agreements.search.modal.dropdown.groups.new_civil_servant')
         }]
       }
-    end
-
-    def organization_civil_servant_lookup_results(term, current_organization)
-      select_and_map_civil_servants(filtered_organization_civil_servants(term, current_organization))
-    end
-
-    def all_civil_servant_lookup_results(term)
-      select_and_map_civil_servants(filtered_all_civil_servants(term))
-    end
-
-    def filtered_all_civil_servants(term)
-      if term.present?
-        CivilServant.search(term)
-      else
-        CivilServant.all.order(:first_name, :last_name)
-      end
-    end
-
-    def filtered_organization_civil_servants(term, current_organization)
-      filtered_all_civil_servants(term)
-        .joins(services: :service_specification)
-        .where(services: { service_specifications: { organization_id: current_organization.id } })
     end
 
     def select_and_map_civil_servants(query)

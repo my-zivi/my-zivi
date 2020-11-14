@@ -23,7 +23,7 @@ module CivilServantSearchable
 
     CivilServant
       .joins(:user)
-      .select(Arel.star, select_query)
+      .select('civil_servants.*', select_query)
       .where(where_query)
       .order(weight: :desc, first_name: :asc, last_name: :asc)
   end

@@ -137,32 +137,18 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
     let(:perform_request) do
       get organizations_service_agreement_civil_servant_search_path(term: search_term, format: :json)
     end
+    let(:search_term) { nil }
     let(:organization) { create :organization }
-    let(:service_specification) { create :service_specification, organization: organization }
-
-    let(:brigitte) { create(:civil_servant, :full, :with_service, first_name: 'Brigitte') }
-    let(:peter) { create(:civil_servant, :full, :with_service, first_name: 'Peter') }
-    let(:paul) { create(:civil_servant, :full, :with_service, first_name: 'Paul') }
-    let(:maria) { create(:civil_servant, :full, first_name: 'Maria') }
-
-    let(:brigitte_service) { brigitte.services.first }
-    let(:peter_service) { peter.services.first }
-    let(:paul_service) { paul.services.first }
-    let(:maria_service) { maria.services.first }
-
-    let(:search_result) { CivilServantSelect2Options.call(search_term, organization) }
-    let(:search_term) { '' }
 
     before do
-      create(:service,
-             civil_servant: maria,
-             service_specification: service_specification,
-             beginning: '2020-01-06',
-             ending: '2020-01-31',
-             civil_servant_agreed: false,
-             civil_servant_agreed_on: nil,
-             organization_agreed: true,
-             organization_agreed_on: '2020-01-01')
+      create_list(:civil_servant, 3, :full)
+
+      allow(CivilServantServiceAgreementSearch).to(
+        receive(:filtered_all_civil_servants).and_return(CivilServant.all)
+      )
+      allow(CivilServantServiceAgreementSearch).to(
+        receive(:filtered_organization_civil_servants).and_return(CivilServant.limit(2))
+      )
     end
 
     context 'when a organization administrator is signed in' do
@@ -173,9 +159,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
       it 'successfully fetches the search results' do
         perform_request
         expect(response).to have_http_status(:success)
-        expect(JSON.parse(response.body, symbolize_names: true)).to eq({ results: search_result })
-        expect(response.body).to include 'Maria'
-        expect(response.body).not_to include 'Brigitte', 'Peter', 'Paul'
+        expect(response.body).not_to be_empty
       end
 
       context 'when there is a search term' do
@@ -184,8 +168,11 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
         it 'successfully fetches the search results' do
           perform_request
           expect(response).to have_http_status(:success)
-          expect(JSON.parse(response.body, symbolize_names: true)).to eq({ results: search_result })
-          expect(response.body).not_to include 'Brigitte', 'Peter', 'Paul', 'Maria'
+          expect(response.body).not_to be_empty
+          expect(CivilServantServiceAgreementSearch).to have_received(:filtered_all_civil_servants).with(search_term)
+          expect(CivilServantServiceAgreementSearch).to(
+            have_received(:filtered_organization_civil_servants).with(search_term, organization)
+          )
         end
       end
     end

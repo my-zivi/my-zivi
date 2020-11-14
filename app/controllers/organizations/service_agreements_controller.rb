@@ -29,7 +29,12 @@ module Organizations
 
     def search
       respond_to do |format|
-        format.json { render json: { results: CivilServantSelect2Options.call(params[:term], current_organization) } }
+        format.json do
+          all_civil_servants = CivilServantServiceAgreementSearch.filtered_all_civil_servants(params[:term])
+          organization_civil_servants = CivilServantServiceAgreementSearch
+                                        .filtered_organization_civil_servants(params[:term], current_organization)
+          render json: { results: CivilServantSelect2Options.call(all_civil_servants, organization_civil_servants) }
+        end
       end
     end
 
