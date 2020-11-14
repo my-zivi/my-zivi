@@ -210,7 +210,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
   end
 
   describe '#new' do
-    let(:perform_request) { get organizations_service_agreements_new_path(params: request_params) }
+    let(:perform_request) { get new_organizations_service_agreement_path(params: request_params) }
     let(:organization) { create :organization }
     let(:service_specification) { create :service_specification, organization: organization }
 

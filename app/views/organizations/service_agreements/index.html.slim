@@ -20,7 +20,7 @@
   - component.with(:body) do
     div
       = simple_form_for(:service_agreement,
-              url: organizations_service_agreements_new_path, method: :get) do |f|
+              url: new_organizations_service_agreement_path, method: :get) do |f|
         .modal-body
           = f.simple_fields_for :civil_servant_attributes do |civil_servant_form|
             = civil_servant_form.simple_fields_for :user_attributes do |user_form|
