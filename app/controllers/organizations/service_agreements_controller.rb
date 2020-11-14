@@ -40,9 +40,11 @@ module Organizations
 
     def create
       service_specifications
-      if create_service_agreement
+      agreement_creator = ServiceAgreementCreator.new(current_organization_admin)
+      if agreement_creator.call(service_agreement_params)
         redirect_to organizations_service_agreements_path, notice: t('.successful_create')
       else
+        @service_agreement = agreement_creator.service_agreement
         flash[:error] = t('.erroneous_create')
         render :new
       end
@@ -52,36 +54,6 @@ module Organizations
 
     def service_specifications
       @service_specifications ||= current_organization.service_specifications
-    end
-
-    def create_service_agreement
-      ActiveRecord::Base.transaction do
-        @service_agreement = Service.new(modify_service_agreement_params)
-        user = @service_agreement.civil_servant.user
-        user.skip_password_validation!
-        raise ActiveRecord::Rollback unless @service_agreement.valid?
-
-        user.invite!(current_organization_admin) if user.new_record?
-        @service_agreement.save
-      end
-    end
-
-    def modify_service_agreement_params
-      modified_params = service_agreement_params.merge(organization_agreed: true, civil_servant: civil_servant)
-      modified_params.delete(:civil_servant_attributes) if civil_servant.persisted?
-      modified_params
-    end
-
-    def civil_servant
-      @civil_servant ||= find_civil_servant_by_email || CivilServant.new(user: User.new)
-    end
-
-    def find_civil_servant_by_email
-      CivilServant.joins(:user).find_by(
-        users: {
-          email: service_agreement_params.dig(:civil_servant_attributes, :user_attributes, :email)
-        }
-      )
     end
 
     def service_agreement_params

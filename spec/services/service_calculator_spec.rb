@@ -210,7 +210,6 @@ RSpec.describe ServiceCalculator, type: :service do
       expect(SickDaysCalculator).to have_received(:calculate_eligible_sick_days).with(service_days)
     end
 
-
     context 'when service is probation service' do
       let(:probation_civil_service) { true }
       let(:service_days) { 21 }
