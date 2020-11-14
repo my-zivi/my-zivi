@@ -317,7 +317,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
 
         context 'with valid parameters' do
           it 'creates a new service agreement and redirects back to the service specifications list' do
-            expect { perform_request }.to change(Service, :count).by(1)
+            expect { perform_request }.to change(Service, :count).by(1).and change(CivilServant, :count).by(0)
             expect(response).to redirect_to(organizations_service_agreements_path)
             expect(Service.last.civil_servant).to eq(civil_servant)
           end
@@ -327,7 +327,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
           let(:service_agreement_params) { valid_service_agreement_params.merge(beginning: nil) }
 
           it 'does not create a new service agreement and renders an error' do
-            expect { perform_request }.not_to change(Service, :count)
+            expect { perform_request }.to change(Service, :count).by(0).and change(CivilServant, :count).by(0)
             expect(response).to be_successful
             expect(response).to render_template 'organizations/service_agreements/new'
             expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'),
@@ -353,8 +353,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
 
         context 'with valid parameters' do
           it 'creates a new service agreement and redirects back to the service specifications list' do
-            expect { perform_request }.to change(Service, :count).by(1)
-            expect { perform_request }.to change(CivilServant, :count).by(1)
+            expect { perform_request }.to change(Service, :count).by(1).and change(CivilServant, :count).by(1)
             expect(response).to redirect_to(organizations_service_agreements_path)
           end
         end
@@ -363,8 +362,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
           let(:service_agreement_params) { valid_service_agreement_params.merge(beginning: nil) }
 
           it 'does not create a new service agreement and renders an error' do
-            expect { perform_request }.not_to change(Service, :count)
-            expect { perform_request }.not_to change(CivilServant, :count)
+            expect { perform_request }.to change(Service, :count).by(0).and change(CivilServant, :count).by(0)
             expect(response).to be_successful
             expect(response).to render_template 'organizations/service_agreements/new'
             expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'),
