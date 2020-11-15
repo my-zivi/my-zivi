@@ -39,13 +39,12 @@ module Organizations
     end
 
     def new
-      @service_agreement = Service.new(civil_servant: civil_servant)
+      @service_agreement = agreement_creator.service_agreement
       service_specifications
     end
 
     def create
       service_specifications
-      agreement_creator = ServiceAgreementCreator.new(current_organization_admin)
       if agreement_creator.call(service_agreement_params)
         redirect_to organizations_service_agreements_path, notice: t('.successful_create')
       else
@@ -56,6 +55,10 @@ module Organizations
     end
 
     private
+
+    def agreement_creator
+      @agreement_creator ||= ServiceAgreementCreator.new(current_organization_admin, service_agreement_params)
+    end
 
     def service_specifications
       @service_specifications ||= current_organization.service_specifications

@@ -52,7 +52,7 @@ RSpec.describe CivilServantServiceAgreementSearch, type: :service do
           let(:search_term) { 'gitte' }
 
           it 'lists the civil servants matching the search term' do
-            expect(search_result_ids).to contain_exactly([birgitte, brigitte].map(&:id))
+            expect(search_result_ids).to contain_exactly(birgitte.id, brigitte.id)
           end
         end
       end

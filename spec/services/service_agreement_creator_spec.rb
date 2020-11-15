@@ -3,8 +3,56 @@
 require 'rails_helper'
 
 RSpec.describe ServiceAgreementCreator, type: :service do
+  describe '#intialize' do
+    subject(:initialized_service_agreement_creator) do
+      described_class.new(service_creator, service_agreement_params)
+    end
+
+    let(:organization) { create :organization }
+
+    context 'when a organization member creates a service agreement' do
+      let(:org_member) { create :organization_member, organization: organization }
+      let(:service_creator) { org_member }
+
+      context 'with existing civil servant' do
+        let!(:civil_servant) { create(:civil_servant, :full) }
+        let(:service_agreement_params) do
+          {
+            civil_servant_attributes: {
+              user_attributes: {
+                email: civil_servant.user.email
+              }
+            }
+          }
+        end
+
+        it 'loads the correct civil servant' do
+          expect(initialized_service_agreement_creator.civil_servant).to eq civil_servant
+        end
+      end
+
+      context 'with new civil servant' do
+        let(:service_agreement_params) do
+          {
+            civil_servant_attributes: {
+              user_attributes: {
+                email: '-1'
+              }
+            }
+          }
+        end
+
+        it 'creates an empty new civil servant' do
+          expect(initialized_service_agreement_creator.civil_servant.id).to be_nil
+        end
+      end
+    end
+  end
+
   describe '#call' do
-    subject(:created_service_agreement) { described_class.new(service_creator).call(service_agreement_params) }
+    subject(:created_service_agreement) do
+      described_class.new(service_creator, service_agreement_params).call(service_agreement_params)
+    end
 
     let(:organization) { create :organization }
     let(:service_specification) { create :service_specification, organization: organization }
