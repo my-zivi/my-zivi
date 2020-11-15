@@ -6,8 +6,8 @@ module CivilServantSearchable
       POWER(word_similarity(civil_servants.first_name, :term), 2) +
       POWER(word_similarity(civil_servants.last_name, :term), 2) +
       POWER(word_similarity(users.email, :term), 2) +
-      (CASE WHEN civil_servants.first_name ILIKE :begins_with_term THEN 0.5 ELSE 0 END) +
-      (CASE WHEN civil_servants.last_name ILIKE :begins_with_term THEN 0.5 ELSE 0 END) +
+      (CASE WHEN civil_servants.first_name ILIKE :begins_with_term THEN 0.09 ELSE 0 END) +
+      (CASE WHEN civil_servants.last_name ILIKE :begins_with_term THEN 0.09 ELSE 0 END) +
       (CASE WHEN users.email ILIKE :contains_term THEN 0.075 ELSE 0 END)
     )
   SQL
