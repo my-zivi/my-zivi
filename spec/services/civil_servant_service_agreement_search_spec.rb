@@ -9,24 +9,24 @@ RSpec.describe CivilServantServiceAgreementSearch, type: :service do
     let!(:brigitte) do
       create(:civil_servant, :full,
              :with_service, first_name: 'Brigitte',
-             last_name: 'Aliennachnamensindlang', user: brigitte_user )
+                            last_name: 'Aliennachnamensindlang', user: brigitte_user)
     end
     let(:brigitte_user) { build :user, email: 'brigitte@gmail.com' }
 
     let!(:peter) do
       create(:civil_servant, :full, :with_service,
-             first_name: 'Peter', last_name: 'Hugebtobler', user: peter_user )
+             first_name: 'Peter', last_name: 'Hugebtobler', user: peter_user)
     end
     let(:peter_user) { build :user, email: 'peter@bluewin.ch' }
 
     let!(:paul) do
       create(:civil_servant, :full, :with_service,
-             first_name: 'Paul', last_name: 'Alien', user: paul_user )
+             first_name: 'Paul', last_name: 'Alien', user: paul_user)
     end
     let(:paul_user) { build :user, email: 'palien@gmail.com' }
 
     let!(:birgitte) do
-      create(:civil_servant, :full, first_name: 'Birgitte', last_name: 'Magdalena', user: birgitte_user )
+      create(:civil_servant, :full, first_name: 'Birgitte', last_name: 'Magdalena', user: birgitte_user)
     end
     let(:birgitte_user) { build :user, email: 'b.magdalena@outlook.com' }
 
@@ -101,10 +101,10 @@ RSpec.describe CivilServantServiceAgreementSearch, type: :service do
     let(:organization) { create :organization }
     let(:service_specification) { create :service_specification, organization: organization }
 
-    let!(:brigitte) { create(:civil_servant, :full, :with_service, first_name: 'Brigitte', last_name: 'Stefenson') }
     let!(:maria) { create(:civil_servant, :full, first_name: 'Maria', last_name: 'Magdalena') }
 
     before do
+      create(:civil_servant, :full, :with_service, first_name: 'Brigitte', last_name: 'Stefenson')
       create(:service,
              civil_servant: maria,
              service_specification: service_specification,
