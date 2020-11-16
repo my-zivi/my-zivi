@@ -8,9 +8,6 @@ RSpec.describe CivilServantSelect2Options, type: :service do
   let(:all_civil_servants) { CivilServant.all }
   let(:organization_civil_servants) { CivilServant.limit(1) }
 
-  let(:first_civil_servant) { CivilServant.first }
-  let(:second_civil_servant) { CivilServant.second }
-
   before do
     create_list(:civil_servant, 2, :full)
   end
@@ -22,12 +19,12 @@ RSpec.describe CivilServantSelect2Options, type: :service do
         {
           children: [
             {
-              id: first_civil_servant.user.email,
-              text: "#{first_civil_servant.full_name}, #{first_civil_servant.user.email}"
+              id: all_civil_servants.first.user.email,
+              text: "#{all_civil_servants.first.full_name}, #{all_civil_servants.first.user.email}"
             },
             {
-              id: second_civil_servant.user.email,
-              text: "#{second_civil_servant.full_name}, #{second_civil_servant.user.email}"
+              id: all_civil_servants.second.user.email,
+              text: "#{all_civil_servants.second.full_name}, #{all_civil_servants.second.user.email}"
             }
           ],
           text: I18n.t('organizations.service_agreements.search.modal.dropdown.groups.recent_civil_servants')
@@ -35,12 +32,12 @@ RSpec.describe CivilServantSelect2Options, type: :service do
         {
           children: [
             {
-              id: first_civil_servant.user.email,
-              text: "#{first_civil_servant.full_name}, #{first_civil_servant.user.email}"
+              id: all_civil_servants.first.user.email,
+              text: "#{all_civil_servants.first.full_name}, #{all_civil_servants.first.user.email}"
             },
             {
-              id: second_civil_servant.user.email,
-              text: "#{second_civil_servant.full_name}, #{second_civil_servant.user.email}"
+              id: all_civil_servants.second.user.email,
+              text: "#{all_civil_servants.second.full_name}, #{all_civil_servants.second.user.email}"
             }
           ],
           text: I18n.t('organizations.service_agreements.search.modal.dropdown.groups.all_civil_servants')

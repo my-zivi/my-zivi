@@ -9,6 +9,9 @@ module Organizations
 
     authorize_resource :service
 
+    before_action :load_civil_servant, only: %i[new create]
+    before_action :load_service_specifications, only: %i[new create]
+
     include UsersHelper
 
     def index
@@ -39,12 +42,11 @@ module Organizations
     end
 
     def new
-      @service_agreement = agreement_creator.service_agreement
-      service_specifications
+      @service_agreement = Service.new(civil_servant: @civil_servant)
     end
 
     def create
-      service_specifications
+      agreement_creator = ServiceAgreementCreator.new(@civil_servant, current_organization_admin)
       if agreement_creator.call(service_agreement_params)
         redirect_to organizations_service_agreements_path, notice: t('.successful_create')
       else
@@ -56,12 +58,20 @@ module Organizations
 
     private
 
-    def agreement_creator
-      @agreement_creator ||= ServiceAgreementCreator.new(current_organization_admin, service_agreement_params)
+    def load_civil_servant
+      @civil_servant = find_civil_servant_by_email || CivilServant.new(user: User.new)
     end
 
-    def service_specifications
-      @service_specifications ||= current_organization.service_specifications
+    def find_civil_servant_by_email
+      CivilServant.joins(:user).find_by(
+        users: {
+          email: service_agreement_params.dig(:civil_servant_attributes, :user_attributes, :email)
+        }
+      )
+    end
+
+    def load_service_specifications
+      @service_specifications = current_organization.service_specifications
     end
 
     def service_agreement_params
