@@ -95,6 +95,7 @@ fr-CH:
         beginning: Démarrer
         confirmation_date: Date de confirmation
         ending: Fin
+        last_service: Dernier service
         long_service: Longue durée de vie
         probation_service: Demande de procès
         service_days: Durée de vie
@@ -127,6 +128,12 @@ fr-CH:
           italian: Italien
       workshop:
         name: Nom
+    enums:
+      service:
+        service_types:
+          long: Service de longue durée
+          normal: Service normal
+          probation: Service d'essai
     errors:
       messages:
         before_beginning: avant le décollage
@@ -167,6 +174,8 @@ fr-CH:
               bad_format: format incorrect
               bad_length: longueur non valable
               unknown_country_code: code de pays inconnu
+            beginning:
+              invalid_datetime: ungültiges Datum
             ending:
               after: ne doit pas être avant le début.
               invalid_datetime: date non valable
@@ -393,14 +402,29 @@ fr-CH:
           without_filter: Liste de téléphone
     service_agreements:
       confirm_destroy: Supprimer vraiment le paiement?
+      create:
+        erroneous_create: Le contrat de service n'a pas pu être créé
+        successful_create: Un contrat de service a été créé avec succès
       destroy:
-        erroneous_destroy: Le service a été supprimé avec succès
-        successful_destroy: Le service n'a pas pu être supprimé
+        erroneous_destroy: Le contrat de service n'a pas pu être supprimé
+        successful_destroy: Le contrat de service a été supprimé
       index:
         days:
           one: 1 Jour
           other: "%{amount} Journées"
+        new_service_agreement: Nouveau contrat de service
         title: Services dont le consentement des civilists est en attente
+      new:
+        title: Nouveau contrat de service
+      search:
+        modal:
+          dropdown:
+            groups:
+              all_civil_servants: Tous les civilists
+              new_civil_servant: Inviter de nouveaux civilists
+              recent_civil_servants: Les civilists en service chez nous
+          input_placeholder: Recherche d'un civilist
+          title: Créer un service pour les civilists suivants
     service_specifications:
       create:
         erroneous_create: Le cahier des charges n'a pas pu être créée

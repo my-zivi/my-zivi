@@ -132,4 +132,258 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
       it_behaves_like 'unauthenticated request'
     end
   end
+
+  describe '#search' do
+    let(:perform_request) do
+      get organizations_service_agreement_civil_servant_search_path(term: search_term, format: :json)
+    end
+    let(:search_term) { nil }
+    let(:organization) { create :organization }
+
+    before do
+      create_list(:civil_servant, 3, :full)
+
+      allow(CivilServantServiceAgreementSearch).to(
+        receive(:filtered_all_civil_servants).and_return(CivilServant.all)
+      )
+      allow(CivilServantServiceAgreementSearch).to(
+        receive(:filtered_organization_civil_servants).and_return(CivilServant.limit(2))
+      )
+    end
+
+    context 'when a organization administrator is signed in' do
+      let(:organization_administrator) { create :organization_member, organization: organization }
+
+      before { sign_in organization_administrator.user }
+
+      it 'successfully fetches the search results' do
+        perform_request
+        expect(response).to have_http_status(:success)
+        expect(response.body).not_to be_empty
+      end
+
+      context 'when there is a search term' do
+        let(:search_term) { 'Brigitte' }
+
+        it 'successfully fetches the search results' do
+          perform_request
+          expect(response).to have_http_status(:success)
+          expect(response.body).not_to be_empty
+          expect(CivilServantServiceAgreementSearch).to have_received(:filtered_all_civil_servants).with(search_term)
+          expect(CivilServantServiceAgreementSearch).to(
+            have_received(:filtered_organization_civil_servants).with(search_term, organization)
+          )
+        end
+      end
+    end
+
+    context 'when a civil servant is signed in' do
+      let(:civil_servant) { create :civil_servant, :full }
+
+      before { sign_in civil_servant.user }
+
+      it_behaves_like 'unauthorized json request' do
+        before { perform_request }
+      end
+    end
+
+    context 'when nobody is signed in' do
+      before { perform_request }
+
+      it_behaves_like 'unauthenticated json request' do
+        before { perform_request }
+      end
+    end
+  end
+
+  describe '#new' do
+    let(:perform_request) { get new_organizations_service_agreement_path(params: request_params) }
+    let(:organization) { create :organization }
+    let(:service_specification) { create :service_specification, organization: organization }
+
+    let(:maria) { create(:civil_servant, :full, first_name: 'Maria') }
+
+    let(:request_params) do
+      {
+        service_agreement: {
+          civil_servant_attributes: {
+            user_attributes: {
+              email: '-1'
+            }
+          }
+        }
+      }
+    end
+
+    context 'when a organization administrator is signed in' do
+      let(:organization_administrator) { create :organization_member, organization: organization }
+
+      before do
+        sign_in organization_administrator.user
+        perform_request
+      end
+
+      context 'when there is no civil servant set' do
+        it 'successfully renders the new service agreement form' do
+          expect(response).to render_template(:new)
+        end
+      end
+
+      context 'when there is a civil servant set' do
+        let(:request_params) do
+          {
+            service_agreement: {
+              civil_servant_attributes: {
+                user_attributes: {
+                  email: maria.user.email
+                }
+              }
+            }
+          }
+        end
+
+        it 'successfully renders the new service agreement form' do
+          expect(response).to render_template(:new)
+          expect(response.body).to include maria.user.email
+          expect(response.body).to include maria.first_name
+          expect(response.body).to include maria.last_name
+        end
+      end
+    end
+
+    context 'when a civil servant is signed in' do
+      let(:civil_servant) { create :civil_servant, :full }
+
+      before { sign_in civil_servant.user }
+
+      it_behaves_like 'unauthorized request' do
+        before { perform_request }
+      end
+    end
+
+    context 'when nobody is signed in' do
+      before { perform_request }
+
+      it_behaves_like 'unauthenticated request'
+    end
+  end
+
+  describe '#create' do
+    let(:perform_request) { post(organizations_service_agreements_path, params: params) }
+    let(:params) { { service_agreement: service_agreement_params } }
+
+    let(:organization) { create :organization }
+    let(:service_specification) { create :service_specification, organization: organization }
+
+    let(:valid_service_agreement_params) do
+      attributes_for(:service, :civil_servant_agreement_pending, :unconfirmed, :future)
+        .slice(:beginning, :ending, :service_type)
+        .merge(service_specification_id: service_specification.id)
+    end
+
+    context 'when a organization administrator is signed in' do
+      let(:organization_administrator) { create :organization_member, organization: organization }
+
+      before do
+        sign_in organization_administrator.user
+      end
+
+      context 'with existing civil servant' do
+        let!(:civil_servant) { create(:civil_servant, :full) }
+        let(:service_agreement_params) do
+          valid_service_agreement_params.merge(
+            civil_servant_attributes: {
+              user_attributes: {
+                email: civil_servant.user.email
+              }
+            }
+          )
+        end
+
+        let(:created_service_agreement) { Service.order(:created_at).last }
+
+        context 'with valid parameters' do
+          it 'creates a new service agreement and redirects back to the service specifications list' do
+            expect { perform_request }.to change(Service, :count).by(1).and change(CivilServant, :count).by(0)
+            expect(response).to redirect_to(organizations_service_agreements_path)
+            expect(Service.last.civil_servant).to eq(civil_servant)
+          end
+        end
+
+        context 'with invalid parameters' do
+          let(:service_agreement_params) { valid_service_agreement_params.merge(beginning: nil) }
+
+          it 'does not create a new service agreement and renders an error' do
+            expect { perform_request }.to change(Service, :count).by(0).and change(CivilServant, :count).by(0)
+            expect(response).to be_successful
+            expect(response).to render_template 'organizations/service_agreements/new'
+            expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'),
+                                             I18n.t('errors.messages.blank'))
+          end
+        end
+      end
+
+      context 'with new civil servant -> invite' do
+        let(:service_agreement_params) do
+          valid_service_agreement_params.merge(
+            civil_servant_attributes: {
+              first_name: 'Hans',
+              last_name: 'Hugentobler',
+              user_attributes: {
+                email: 'hans@hugentobler.com'
+              }
+            }
+          )
+        end
+
+        let(:created_service_agreement) { Service.order(:created_at).last }
+
+        context 'with valid parameters' do
+          it 'creates a new service agreement and redirects back to the service specifications list' do
+            expect { perform_request }.to change(Service, :count).by(1).and change(CivilServant, :count).by(1)
+            expect(response).to redirect_to(organizations_service_agreements_path)
+          end
+        end
+
+        context 'with invalid parameters' do
+          let(:service_agreement_params) { valid_service_agreement_params.merge(beginning: nil) }
+
+          it 'does not create a new service agreement and renders an error' do
+            expect { perform_request }.to change(Service, :count).by(0).and change(CivilServant, :count).by(0)
+            expect(response).to be_successful
+            expect(response).to render_template 'organizations/service_agreements/new'
+            expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'),
+                                             I18n.t('errors.messages.blank'))
+          end
+        end
+      end
+    end
+
+    context 'when a civil servant is signed in' do
+      let(:civil_servant) { create :civil_servant, :full }
+      let(:service_agreement_params) do
+        valid_service_agreement_params.merge(
+          civil_servant_attributes: {
+            user_attributes: {
+              email: civil_servant.user.email
+            }
+          }
+        )
+      end
+
+      before { sign_in civil_servant.user }
+
+      it_behaves_like 'unauthorized request' do
+        before { perform_request }
+      end
+    end
+
+    context 'when nobody is signed in' do
+      let(:service_agreement_params) { valid_service_agreement_params }
+
+      before { perform_request }
+
+      it_behaves_like 'unauthenticated request'
+    end
+  end
 end

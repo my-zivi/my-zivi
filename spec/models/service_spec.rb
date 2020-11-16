@@ -64,11 +64,13 @@ RSpec.describe Service, type: :model do
     end
 
     describe 'ending_is_friday validation' do
-      subject { build(:service, ending: ending).tap(&:validate).errors.added? :ending, :not_a_friday }
+      subject { service.tap(&:validate).errors.added? :ending, :not_a_friday }
 
-      let(:ending) { Time.zone.today.at_end_of_week - 2.days }
+      let(:service) { build(:service, ending: ending) }
 
       context 'when ending is a friday' do
+        let(:ending) { Time.zone.today.at_end_of_week - 2.days }
+
         it { is_expected.to be false }
       end
 
@@ -76,6 +78,37 @@ RSpec.describe Service, type: :model do
         let(:ending) { Time.zone.today.at_end_of_week - 1.day }
 
         it { is_expected.to be true }
+      end
+
+      context 'when service is probation service' do
+        let(:service) { build(:service, ending: ending, service_type: :probation) }
+
+        context 'when ending is a friday' do
+          let(:ending) { Time.zone.today.at_end_of_week - 2.days }
+
+          it { is_expected.to be false }
+        end
+
+        context 'when ending is a thursday' do
+          let(:ending) { Time.zone.today.at_end_of_week - 3.days }
+
+          it { is_expected.to be false }
+        end
+      end
+
+      context 'when service is last service' do
+        let(:service) { build(:service, ending: ending, last_service: true) }
+        let(:ending) { Time.zone.today.at_end_of_week - 2.days }
+
+        context 'when ending is a friday' do
+          it { is_expected.to be false }
+        end
+
+        context 'when ending is a thursday' do
+          let(:ending) { Time.zone.today.at_end_of_week - 3.days }
+
+          it { is_expected.to be false }
+        end
       end
     end
 

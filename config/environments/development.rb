@@ -67,4 +67,6 @@ Rails.application.configure do
   end
 
   config.hosts = nil
+
+  config.i18n.available_locales << :en # Fixes https://github.com/faker-ruby/faker/issues/266
 end

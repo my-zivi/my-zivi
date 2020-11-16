@@ -1,0 +1,32 @@
+.card
+  .card-header.d-flex.justify-content-between.align-items-center
+    h5.mb-0
+      = t('.title')
+  .card-body.bg-light
+    = simple_form_for(@service_agreement, as: :service_agreement, url: organizations_service_agreements_path) do |f|
+      .row
+        = f.simple_fields_for :civil_servant do |civil_servant_form|
+          - readonly = !civil_servant_form.object.new_record?
+          .col-lg-6
+            = civil_servant_form.input :first_name, readonly: readonly
+          .col-lg-6
+            = civil_servant_form.input :last_name, readonly: readonly
+          .col-lg-6
+            = civil_servant_form.simple_fields_for :user do |user_form|
+              = user_form.input :email, readonly: readonly
+      hr.my-4
+      .row
+        .col-lg-6
+          = service_agreement_beginning_date_picker(f, @service_agreement)
+        .col-lg-6
+          = service_agreement_ending_date_picker(f, @service_agreement)
+        .col-lg-6
+          = f.input :service_days, readonly: true, disabled: true
+        .col-lg-6
+          = f.input :service_type, collection: enum_options_for_select(Service, :service_types)
+        .col-lg-6
+          = f.association :service_specification, label_method: :name, value_method: :id, collection: @service_specifications
+        .col-lg-6
+          = f.input :last_service
+        .col-12.d-flex.justify-content-end
+          = f.submit class: 'btn btn-primary'

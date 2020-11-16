@@ -48,7 +48,7 @@ module CivilServants
         beginning: I18n.l(service.beginning),
         ending: I18n.l(service.ending),
         'service_specification.location': service.service_specification.location,
-        service_type: service.service_type
+        service_type: enum_l(service, :service_type)
       )
     end
   end

@@ -23,7 +23,7 @@ RSpec.describe 'organizations/services/show.html.slim', type: :view do
       l(service.beginning),
       l(service.ending),
       service_spec.location,
-      service.service_type,
+      t('activerecord.enums.service.service_types.normal'),
       l(expense_sheet.beginning),
       l(expense_sheet.ending),
       expense_sheet.duration

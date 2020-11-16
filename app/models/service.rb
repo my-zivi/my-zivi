@@ -24,6 +24,7 @@ class Service < ApplicationRecord
   }, _suffix: 'civil_service'
 
   validates :ending, :beginning, presence: true
+  validates :beginning, timeliness: true
   validates :ending, timeliness: { after: :beginning }
 
   delegate :used_paid_vacation_days, :used_sick_days, to: :used_days_calculator
@@ -31,6 +32,8 @@ class Service < ApplicationRecord
   delegate :identification_number, to: :service_specification
   delegate :future?, to: :beginning
   delegate :past?, to: :ending
+
+  accepts_nested_attributes_for :civil_servant
 
   before_destroy :check_definitive_service_destroy
   after_commit :update_civil_service_agreement, on: %i[create update]
@@ -67,7 +70,7 @@ class Service < ApplicationRecord
   end
 
   def service_calculator
-    @service_calculator ||= ServiceCalculator.new(beginning, last_service?)
+    @service_calculator ||= ServiceCalculator.new(beginning, last_service?, probation_civil_service?)
   end
 
   def check_definitive_service_destroy

@@ -1283,10 +1283,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@my-zivi/falcon@2.6.5":
-  version "2.6.5"
-  resolved "https://npm.pkg.github.com/download/@my-zivi/falcon/2.6.5/e08549fae93ddc54b52bc1197da6fa663e2403e62f517b866528b86946cf70fb#cf23cb185a0b8eb60d9efa1246cacdc9787fbd82"
-  integrity sha512-GYTEA0ZYVyFhvjjnZTaSCXvhhFnT96SvTEM21K4tHYUYdjFbYHtD87+VTV9T4jaHnGcPrXi/j5vJUYwTjTsNwQ==
+"@my-zivi/falcon@2.6.6":
+  version "2.6.6"
+  resolved "https://npm.pkg.github.com/download/@my-zivi/falcon/2.6.6/3d1bf54977700b32819551cf760dd410cf7731497cc1a138d89d1f6e0261bf83#b0d18cf4b3940d40517e5594ee7732ffab5e2e39"
+  integrity sha512-Hl/B7TRmPG1/um5V+NPOL0TzV3/CPO3UjqXQsNgDPr7z2bJZ6OcFuwU82MEOpNkGT0O9B5EcrgHeuD5LNHxyyw==
   dependencies:
     "@fancyapps/fancybox" "^3.5.7"
     "@fortawesome/fontawesome-free" "^5.13.0"

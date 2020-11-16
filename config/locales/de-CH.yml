@@ -95,6 +95,7 @@ de-CH:
         beginning: Anfang
         confirmation_date: Bestätigungsdatum
         ending: Ende
+        last_service: Letzter Einsatz
         long_service: Langer Einsatz
         probation_service: Probeeinsatz
         service_days: Einsatzdauer
@@ -127,6 +128,12 @@ de-CH:
           italian: Italienisch
       workshop:
         name: Name
+    enums:
+      service:
+        service_types:
+          long: Langer Einsatz
+          normal: Normaler Einsatz
+          probation: Probeeinsatz
     errors:
       messages:
         before_beginning: vor Start
@@ -167,6 +174,8 @@ de-CH:
               bad_format: ungültiges Format
               bad_length: ungültige Länge
               unknown_country_code: unbekannter Landescode
+            beginning:
+              invalid_datetime: ungültiges Datum
             ending:
               after: darf nicht vor Anfang sein.
               invalid_datetime: ungültiges Datum
@@ -394,14 +403,29 @@ de-CH:
           without_filter: Telefonliste
     service_agreements:
       confirm_destroy: Einsatzvereinbarung wirklich löschen?
+      create:
+        erroneous_create: Einsatzvereinbarung konnte nicht erstellt werden
+        successful_create: Einsatzvereinbarung erfolgeich erstellt
       destroy:
-        erroneous_destroy: Einsatzverarbeitung konnte nicht gelöscht werden
-        successful_destroy: Einsatzverarbeitung erfolgeich gelöscht
+        erroneous_destroy: Einsatzvereinbarung konnte nicht gelöscht werden
+        successful_destroy: Einsatzvereinbarung erfolgeich gelöscht
       index:
         days:
           one: 1 Tag
           other: "%{amount} Tage"
+        new_service_agreement: Neue Einsatzvereinbarung
         title: Einsätze mit ausstehendem Zivi-Einverständnis
+      new:
+        title: Neue Einsatzvereinbarung
+      search:
+        modal:
+          dropdown:
+            groups:
+              all_civil_servants: Alle Zivildienstleistenden
+              new_civil_servant: Neuen Zivildienstleistenden einladen
+              recent_civil_servants: Zivildienstleistende mit Einsatz bei uns
+          input_placeholder: Zivildienstleistender suchen
+          title: Einsatz für folgender Zivildienstleistender erstellen
     service_specifications:
       create:
         erroneous_create: Pflichtenheft konnte nicht erstellt werden

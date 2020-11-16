@@ -16,4 +16,19 @@ class User < ApplicationRecord
     italian: 'it',
     english: 'en'
   }
+
+  def initialize(attributes)
+    super(attributes)
+    @validate_password = true
+  end
+
+  def skip_password_validation!
+    @validate_password = false
+  end
+
+  private
+
+  def password_required?
+    @validate_password
+  end
 end
