@@ -1,0 +1,7 @@
+nav.navbar.navbar-standard.navbar-expand-lg.fixed-top.navbar-dark.navbar-theme
+  .container
+    = link_to root_path, class: 'navbar-brand' do
+      span.text-white = t('my_zivi')
+    ul.navbar-nav.ml-auto
+      li.nav-item
+        = link_to t('devise.sessions.new.sign_in'), new_user_session_path, class: 'nav-link'
