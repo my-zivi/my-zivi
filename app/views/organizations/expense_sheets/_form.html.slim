@@ -94,6 +94,9 @@
     .col-12.col-lg-6
       = f.input :extraordinary_expenses_comment,
               disabled: !expense_sheet.editable?
+  hr
+  h5.mb-3 Total
+  strong = number_to_currency(expense_sheet.amount)
   .d-flex.justify-content-end
     = yield
     = f.submit class: 'btn btn-primary float-right' if expense_sheet.editable?

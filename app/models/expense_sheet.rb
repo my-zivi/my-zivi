@@ -29,6 +29,7 @@ class ExpenseSheet < ApplicationRecord
   validate :included_in_service_date_range
   validate :sum_of_days_not_greater_than_duration
 
+  before_update :update_total
   before_destroy :legitimate_destroy
 
   # locked - Expense sheet is not editable it's not relevant yet, e.g. in future
@@ -90,6 +91,10 @@ class ExpenseSheet < ApplicationRecord
   end
 
   private
+
+  def update_total
+    self[:amount] = ExpenseSheetCalculators::ExpensesCalculator.new(self).calculate_full_expenses
+  end
 
   def included_in_service_date_range
     return if service.nil?

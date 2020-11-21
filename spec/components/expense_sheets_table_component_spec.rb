@@ -26,7 +26,8 @@ RSpec.describe ExpenseSheetsTableComponent, type: :component do
     expect(rendered_column).to(
       contain_exactly(
         'Elsbeth Wayne', '06.01.2020', '31.01.2020',
-        '26', 'CHF 62.00', I18n.t('activerecord.enums.expense_sheet.states.editable'))
+        '26', 'CHF 62.00', I18n.t('activerecord.enums.expense_sheet.states.editable')
+      )
     )
   end
 
