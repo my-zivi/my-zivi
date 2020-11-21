@@ -10,6 +10,7 @@ RSpec.describe ExpenseSheetsTableComponent, type: :component do
   let(:expense_sheet) do
     build(:expense_sheet,
           service: civil_servant.services.first,
+          state: :editable,
           id: 1,
           amount: 62,
           beginning: '2020-01-06',
@@ -23,7 +24,9 @@ RSpec.describe ExpenseSheetsTableComponent, type: :component do
     expect(rendered.to_s).to include(*described_class::COLUMNS.values.pluck(:label))
     expect(rendered.css('tr').length).to eq 2
     expect(rendered_column).to(
-      contain_exactly('Elsbeth Wayne', '06.01.2020', '31.01.2020', '26', 'CHF 62.00')
+      contain_exactly(
+        'Elsbeth Wayne', '06.01.2020', '31.01.2020',
+        '26', 'CHF 62.00', I18n.t('activerecord.enums.expense_sheet.states.editable'))
     )
   end
 

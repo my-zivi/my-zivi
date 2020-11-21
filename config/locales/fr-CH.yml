@@ -129,6 +129,11 @@ fr-CH:
       workshop:
         name: Nom
     enums:
+      expense_sheet:
+        states:
+          closed: Terminé
+          editable: Actif
+          locked: À l'avenir
       service:
         service_types:
           long: Service de longue durée

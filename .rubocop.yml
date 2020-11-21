@@ -42,7 +42,7 @@ RSpec/DescribedClass:
   SkipBlocks: true
 
 RSpec/ExampleLength:
-  Max: 6
+  Max: 7
   Exclude:
     - 'spec/requests/**/*'
     - 'spec/system/**/*'

@@ -134,6 +134,11 @@ de-CH:
           long: Langer Einsatz
           normal: Normaler Einsatz
           probation: Probeeinsatz
+      expense_sheet:
+        states:
+          locked: Zukünftig
+          editable: Aktiv
+          closed: Abgeschlossen
     errors:
       messages:
         before_beginning: vor Start
