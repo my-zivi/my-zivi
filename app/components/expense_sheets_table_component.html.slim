@@ -12,18 +12,19 @@
             - @columns.each do |_key, column|
               td.py-3.align-middle = column[:content].call(expense_sheet, helpers)
             td.py-3.align-middle
-              = link_to(edit_organizations_expense_sheet_path(expense_sheet),
-                      class: 'mr-3',
-                      title: t('edit'),
-                      data: { \
-                        toggle: 'tooltip',
-                        placement: 'above' \
-                      }) do
-                i.fas.fa-pen
               = link_to(expense_sheet_path(expense_sheet, format: :pdf),
                       title: t('print'),
+                      class: 'mr-3',
                       data: { \
                         toggle: 'tooltip',
                         placement: 'above' \
                       }) do
                 i.fas.fa-print
+              - if helpers.can? :edit, expense_sheet
+                = link_to(edit_organizations_expense_sheet_path(expense_sheet),
+                        title: t('edit'),
+                        data: { \
+                          toggle: 'tooltip',
+                          placement: 'above' \
+                        }) do
+                  i.fas.fa-pen
