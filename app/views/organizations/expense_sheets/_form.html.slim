@@ -21,6 +21,7 @@
       .form-group.disabled
         label[for='duration'] = t('activerecord.attributes.expense_sheet.duration')
         input#duration.form-control.disabled[disabled value=expense_sheet.duration]
+  hr
   h5.mb-3 = t('.days')
   .row
     .col-12.col-lg-6
@@ -70,6 +71,7 @@
     .col-12.col-lg-6
       = f.input :unpaid_vacation_comment,
               disabled: !expense_sheet.editable?
+  hr
   h5.mb-3 = t('.expenses')
   .row
     .col-12.col-lg-6
