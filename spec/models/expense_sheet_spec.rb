@@ -314,20 +314,30 @@ RSpec.describe ExpenseSheet, type: :model do
   end
 
   describe 'update' do
-    context 'when state is closed' do
-      let!(:service) { create :service }
-      let(:expense_sheet) { create :expense_sheet, :closed, service: service }
+    describe 'state change' do
+      context 'when state is closed' do
+        let!(:service) { create :service }
+        let(:expense_sheet) { create :expense_sheet, :closed, service: service }
 
-      it 'prevents an update' do
-        expect { expense_sheet.update(sick_comment: 'blubb') }.to raise_error ActiveRecord::ReadOnlyRecord
+        it 'prevents an update' do
+          expect { expense_sheet.update(sick_comment: 'blubb') }.to raise_error ActiveRecord::ReadOnlyRecord
+        end
+      end
+
+      context 'when updating to closed state' do
+        let(:expense_sheet) { create :expense_sheet, :with_service }
+
+        it 'prevents an update' do
+          expect { expense_sheet.update(state: :closed) }.not_to raise_error
+        end
       end
     end
 
-    context 'when updating to closed state' do
-      let(:expense_sheet) { create :expense_sheet, :with_service }
+    describe 'amount update' do
+      let(:expense_sheet) { create(:expense_sheet, :with_service, clothing_expenses: 0) }
 
-      it 'prevents an update' do
-        expect { expense_sheet.update(state: :closed) }.not_to raise_error
+      it 'updates the amount to the total of expenses' do
+        expect { expense_sheet.update(clothing_expenses: 5) }.to change { expense_sheet.reload.amount }.by(5)
       end
     end
   end

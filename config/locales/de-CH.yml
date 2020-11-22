@@ -129,23 +129,23 @@ de-CH:
       workshop:
         name: Name
     enums:
+      expense_sheet:
+        states:
+          closed: Abgeschlossen
+          editable: Aktiv
+          locked: Zukünftig
       service:
         service_types:
           long: Langer Einsatz
           normal: Normaler Einsatz
           probation: Probeeinsatz
-      expense_sheet:
-        states:
-          locked: Zukünftig
-          editable: Aktiv
-          closed: Abgeschlossen
     errors:
       messages:
         before_beginning: vor Start
         invalid_date: ungültiges Datum
         not_a_friday: kein Freitag
         not_a_monday: kein Montag
-        not_an_unsigned_integer: sind keine positive Zahlen
+        not_a_positive_currency_amount: sind keine positive Zahlen
         overlaps_service: überlappt existierenden Service
       models:
         civil_servant:

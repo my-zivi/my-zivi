@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_161845) do
+ActiveRecord::Schema.define(version: 2020_11_22_111941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -101,15 +101,15 @@ ActiveRecord::Schema.define(version: 2020_11_17_161845) do
     t.string "paid_vacation_comment"
     t.integer "unpaid_vacation_days", default: 0, null: false
     t.string "unpaid_vacation_comment"
-    t.integer "driving_expenses", default: 0, null: false
+    t.decimal "driving_expenses", precision: 8, scale: 2, default: "0.0", null: false
     t.string "driving_expenses_comment"
-    t.integer "extraordinary_expenses", default: 0, null: false
+    t.decimal "extraordinary_expenses", precision: 8, scale: 2, default: "0.0", null: false
     t.string "extraordinary_expenses_comment"
-    t.integer "clothing_expenses", default: 0, null: false
+    t.decimal "clothing_expenses", precision: 8, scale: 2, default: "0.0", null: false
     t.string "clothing_expenses_comment"
     t.string "credited_iban"
     t.integer "state", default: 0, null: false
-    t.integer "amount", default: 0, null: false
+    t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
     t.bigint "service_id", null: false
     t.bigint "payment_id"
     t.datetime "created_at", precision: 6, null: false
