@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ExpenseSheetsTableComponent < ViewComponent::Base
+  delegate :can?, to: :helpers
+
   COLUMNS = {
     full_name: {
       label: I18n.t('activerecord.models.civil_servant'),

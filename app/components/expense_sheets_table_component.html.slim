@@ -20,7 +20,7 @@
                         placement: 'above' \
                       }) do
                 i.fas.fa-print
-              - if helpers.can? :edit, expense_sheet
+              - if can? :edit, expense_sheet
                 = link_to(edit_organizations_expense_sheet_path(expense_sheet),
                         title: t('edit'),
                         data: { \

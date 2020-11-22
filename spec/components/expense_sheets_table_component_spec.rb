@@ -19,6 +19,11 @@ RSpec.describe ExpenseSheetsTableComponent, type: :component do
 
   let(:rendered_column) { rendered.css('td').map(&:text).reject(&:empty?) }
   let(:rendered_header) { rendered.css('th').map(&:text).reject(&:empty?) }
+  let(:can_edit) { true }
+
+  before do
+    allow(component).to receive(:can?).with(:edit, expense_sheet).and_return can_edit
+  end
 
   it 'renders a table of expense sheets' do
     expect(rendered.to_s).to include(*described_class::COLUMNS.values.pluck(:label))
@@ -29,6 +34,14 @@ RSpec.describe ExpenseSheetsTableComponent, type: :component do
         '26', 'CHF 62.00', I18n.t('activerecord.enums.expense_sheet.states.editable')
       )
     )
+  end
+
+  context 'when the user cannot edit expense sheets' do
+    let(:can_edit) { false }
+
+    it 'does not render the edit icon' do
+      expect(rendered.to_s).not_to include 'fas fa-pen'
+    end
   end
 
   context 'when specifying custom columns' do

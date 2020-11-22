@@ -14,6 +14,8 @@ RSpec.describe ExpenseSheetHelper do
     end
 
     context 'when it is locked' do
+      let(:expense_sheet_state) { 'locked' }
+
       it_behaves_like 'contains correct badge', 'badge-secondary'
     end
 
