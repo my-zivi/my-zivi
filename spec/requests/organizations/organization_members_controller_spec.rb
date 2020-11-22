@@ -37,6 +37,40 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
       end
     end
 
+    describe '#new' do
+      before { get new_organizations_member_path }
+
+      it 'returns a successful response' do
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template 'organizations/organization_members/new'
+      end
+    end
+
+    describe '#create' do
+      let(:perform_request) { post organizations_members_path(organization_member: organization_member_params) }
+      let(:organization_member_params) { attributes_for(:organization_member, :without_login) }
+      let(:created_organization_member_attributes) do
+        OrganizationMember.order(:created_at).last.attributes.slice(*organization_member_params.keys.map(&:to_s))
+      end
+
+      it 'creates a new organization member' do
+        expect { perform_request }.to change { organization.organization_members.count }.by(1)
+        expect(response).to redirect_to organizations_members_path
+        expect(flash[:success]).to eq I18n.t('organizations.organization_members.create.successfully_created')
+        expect(created_organization_member_attributes).to eq organization_member_params.with_indifferent_access
+      end
+
+      context 'when params are invalid' do
+        let(:organization_member_params) { { first_name: 'This member is not valid' } }
+
+        it 'does not create a new organization member' do
+          expect { perform_request }.not_to change(OrganizationMember, :count)
+          expect(response).to render_template 'organizations/organization_members/new'
+          expect(flash[:error]).to eq I18n.t('organizations.organization_members.create.erroneous_create')
+        end
+      end
+    end
+
     describe '#edit' do
       let(:editing_organization_member) { organization_admin }
       let(:perform_request) { get edit_organizations_member_path(editing_organization_member) }
@@ -177,6 +211,27 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
       it_behaves_like 'unauthenticated request'
     end
 
+    describe '#new' do
+      let(:perform_request) { get new_organizations_member_path }
+
+      before { perform_request }
+
+      it_behaves_like 'unauthenticated request'
+    end
+
+    describe '#create' do
+      let(:perform_request) { post organizations_members_path(organization_member: organization_member_params) }
+      let(:organization_member_params) { attributes_for(:organization_member, :without_login) }
+
+      it_behaves_like 'unauthenticated request' do
+        before { perform_request }
+      end
+
+      it 'does not create a new organization member' do
+        expect { perform_request }.not_to change(OrganizationMember, :count)
+      end
+    end
+
     describe '#edit' do
       let(:organization_member) { create :organization_member }
       let(:perform_request) { get edit_organizations_member_path(organization_member) }
@@ -225,6 +280,27 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
       before { perform_request }
 
       it_behaves_like 'unauthorized request'
+    end
+
+    describe '#new' do
+      let(:perform_request) { get new_organizations_member_path }
+
+      before { perform_request }
+
+      it_behaves_like 'unauthorized request'
+    end
+
+    describe '#create' do
+      let(:perform_request) { post organizations_members_path(organization_member: organization_member_params) }
+      let(:organization_member_params) { attributes_for(:organization_member, :without_login) }
+
+      it_behaves_like 'unauthorized request' do
+        before { perform_request }
+      end
+
+      it 'does not create a new organization member' do
+        expect { perform_request }.not_to change(OrganizationMember, :count)
+      end
     end
 
     describe '#edit' do

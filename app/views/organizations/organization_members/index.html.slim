@@ -1,10 +1,9 @@
 .card
-  .card-header.bg-white
-    .row.align-items-center
-      .col
-        h5.mb-0
-          = t('.title')
-          span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@organization_members.count})"
+  .card-header.bg-white.d-flex.align-items-center.justify-content-between
+    h5.mb-0
+      = t('.title')
+      span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@organization_members.count})"
+    = link_to t('.new_organization_member'), new_organizations_member_path, class: 'btn btn-primary'
   .card-body.bg-light.p-0
     .row.no-gutters.text-center.fs--1
       - @organization_members.each do |member|
