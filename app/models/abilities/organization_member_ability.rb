@@ -10,7 +10,7 @@ module Abilities
 
       can :access, :organization_portal
       can :read, :organization_overview
-      can %i[read update destroy], OrganizationMember, organization_id: organization_id
+      can :manage, OrganizationMember, organization_id: organization_id
       can :manage, ServiceSpecification, organization_id: organization_id
       can :manage, Payment, organization_id: organization_id
 

@@ -7,33 +7,4 @@
     h6.text-muted.mb-0 = t('.subtitle')
   .card-body.bg-light
     = simple_form_for(@organization_member, url: organizations_member_path(@organization_member)) do |f|
-      .row
-        .col-lg-6
-          .form-group data-children-count="1"
-            = f.input :first_name, required: true
-        .col-lg-6
-          .form-group data-children-count="1"
-            = f.input :last_name
-        .col-lg-6
-          .form-group data-children-count="1"
-            - if f.object.user.present?
-              = f.simple_fields_for :user do |user_form|
-                = user_form.input :email
-                - if user_form.object.unconfirmed_email.present?
-                  = t('.pending_invitation', email: user_form.object.unconfirmed_email)
-            - else
-              = f.input :contact_email
-        .col-lg-6
-          .form-group data-children-count="1"
-            = f.input :phone
-        .col-12
-          .form-group data-children-count="1"
-            = f.input :organization_role
-        .col-12.d-flex.justify-content-end
-          - unless current_organization_admin == @organization_member
-            = link_to t('.destroy_organization_member'),
-                    organizations_member_path(@organization_member),
-                    method: :delete,
-                    class: 'btn btn-danger mr-2',
-                    data: { confirm: t('.destroy_organization_member_confirmation') }
-          = f.submit class: 'btn btn-primary'
+      = render 'form', f: f

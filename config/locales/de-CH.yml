@@ -341,9 +341,15 @@ de-CH:
         subtitle: Mitarbeiter-Profil
       index:
         title: Mitarbeiter
+        new_organization_member: "Neuer Mitarbeiter erfassen"
       update:
         erroneous_update: Das Profil konnte nicht aktualisiert werden
         successfully_updated: Profil erfolgreich aktualisiert
+      new:
+        title: "Neuer Mitarbeiter erfassen"
+      create:
+        successfully_created: "Mitarbeiter erfolgreich erfasst"
+        erroneous_create: "Mitarbeiter konnte nicht erfasst werden"
     overview:
       index:
         cards:
@@ -438,6 +444,7 @@ de-CH:
         title: Pflichtenheft “%{name}”
       index:
         title: Pflichtenhefter
+        new_service_specification: "Pflichtenheft hinzufügen"
       new:
         title: Neues Pflichtenheft erstellen
       service_specification_row:

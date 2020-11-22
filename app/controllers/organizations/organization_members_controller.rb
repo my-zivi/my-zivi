@@ -2,24 +2,30 @@
 
 module Organizations
   class OrganizationMembersController < BaseController
-    PERMITTED_ORGANIZATION_MEMBER_PARAMS = [
-      :first_name, :last_name, :phone, :organization_role,
-      { user_attributes: %i[email id] }
-    ].freeze
+    PERMITTED_ORGANIZATION_MEMBER_PARAMS = %i[first_name last_name phone organization_role contact_email].freeze
 
     include UsersHelper
 
     load_and_authorize_resource
-    skip_load_resource only: :index
 
     def index
-      @organization_members = current_organization_admin.organization.organization_members.includes(:user)
+      @organization_members = @organization_members.includes(:user)
+    end
+
+    def create
+      if @organization_member.save
+        flash[:success] = t('.successfully_created')
+        redirect_to organizations_members_path
+      else
+        flash[:error] = t('.erroneous_create')
+        render :new
+      end
     end
 
     def edit; end
 
     def update
-      if @organization_member.update(organization_member_params)
+      if @organization_member.update(update_params)
         flash[:success] = t('.successfully_updated')
         redirect_to edit_organizations_member_path(@organization_member)
       else
@@ -40,8 +46,12 @@ module Organizations
 
     private
 
-    def organization_member_params
+    def create_params
       params.require(:organization_member).permit(*PERMITTED_ORGANIZATION_MEMBER_PARAMS)
+    end
+
+    def update_params
+      params.require(:organization_member).permit(*PERMITTED_ORGANIZATION_MEMBER_PARAMS, user_attributes: %i[email id])
     end
   end
 end
