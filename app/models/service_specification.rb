@@ -78,11 +78,11 @@ class ServiceSpecification < ApplicationRecord
   def validate_numericality_of_json(attribute)
     return if self[attribute].blank?
 
-    errors.add(attribute, :not_a_positive_currency_amount) unless values_numeric?(self[attribute].values)
+    errors.add(attribute, :not_a_positive_currency_amount) unless values_positive_numeric?(self[attribute].values)
   end
 
   # :reek:UtilityFunction
-  def values_numeric?(values)
+  def values_positive_numeric?(values)
     values.all? { |value| value.is_a?(Numeric) && !value.negative? }
   end
 end
