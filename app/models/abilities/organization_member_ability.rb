@@ -23,6 +23,13 @@ module Abilities
             }
           })
 
+      expense_sheet_abilities(organization_id)
+      service_abilities(organization_id)
+    end
+
+    private
+
+    def expense_sheet_abilities(organization_id)
       can(:manage, ExpenseSheet, {
             service: {
               civil_servant_agreed: true,
@@ -33,10 +40,8 @@ module Abilities
             }
           })
 
-      service_abilities(organization_id)
+      cannot(:edit, ExpenseSheet, { state: 'locked' })
     end
-
-    private
 
     def service_abilities(organization_id)
       can(:read, Service, {
@@ -55,7 +60,6 @@ module Abilities
             }
           })
     end
-
     # rubocop:enable Metrics/MethodLength
   end
 end
