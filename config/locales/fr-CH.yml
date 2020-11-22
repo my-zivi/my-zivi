@@ -129,6 +129,11 @@ fr-CH:
       workshop:
         name: Nom
     enums:
+      expense_sheet:
+        states:
+          closed: Terminé
+          editable: Actif
+          locked: À l'avenir
       service:
         service_types:
           long: Service de longue durée
@@ -140,7 +145,7 @@ fr-CH:
         invalid_date: date non valable
         not_a_friday: pas de vendredi
         not_a_monday: pas de lundi
-        not_an_unsigned_integer: ne sont pas des chiffres positifs
+        not_a_positive_currency_amount: ne sont pas des chiffres positifs
         overlaps_service: chevauchement des services existants
       models:
         civil_servant:
@@ -330,6 +335,9 @@ fr-CH:
         erroneous_update: La note de frais n'a pas pu être mis à jour
         successful_update: La note de frais mis à jour avec succès
     organization_members:
+      create:
+        erroneous_create: L'employé n'a pas pu être enregistré
+        successfully_created: Employés enregistrés avec succès
       destroy:
         erroneous_delete: L'employé n'a pas pu être supprimé
         successfully_deleted: Employé supprimé avec succès
@@ -339,7 +347,10 @@ fr-CH:
         pending_invitation: Veuillez confirmer la nouvelle adresse électronique avec le lien qui a été envoyé à %{email}.
         subtitle: Profil des employés
       index:
+        new_organization_member: Inscrire le nouvel employé
         title: Employés
+      new:
+        title: Inscrire le nouvel employé
       update:
         erroneous_update: Le profil n'a pas pu être mis à jour
         successfully_updated: Profil mis à jour avec succès
@@ -436,6 +447,7 @@ fr-CH:
         destroy_service_specification_confirmation: Supprimer vraiment le cahier des charges?
         title: le cahier des charges "%{name}".
       index:
+        new_service_specification: Ajouter une fiche de spécifications
         title: Les cahiers des charges
       new:
         title: Créer un nouveau cahier des charges

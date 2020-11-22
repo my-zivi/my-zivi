@@ -15,11 +15,11 @@ FactoryBot.define do
     paid_vacation_comment { 'He/She separately needed vacation' }
     unpaid_vacation_days { 0 }
     unpaid_vacation_comment { 'MyString' }
-    driving_expenses { 2000 }
+    driving_expenses { 20 }
     driving_expenses_comment { 'MyString' }
     extraordinary_expenses { 0 }
     extraordinary_expenses_comment { 'MyString' }
-    clothing_expenses { 3200 }
+    clothing_expenses { 32 }
     clothing_expenses_comment { 'MyString' }
     state { :editable }
     credited_iban { nil }

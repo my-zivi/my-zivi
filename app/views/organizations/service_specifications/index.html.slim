@@ -1,7 +1,7 @@
 .card.mb-3.mb-lg-0
   .card-header.bg-light.d-flex.justify-content-between.align-items-center
     h5 = t('.title')
-    = link_to 'Pflichtenheft hinzufügen', new_organizations_service_specification_path, class: 'btn btn-primary'
+    = link_to t('.new_service_specification'), new_organizations_service_specification_path, class: 'btn btn-primary'
   .card-body.fs--1
     .row
       = render partial: 'organizations/service_specifications/service_specification_row', collection: @service_specifications, as: :service_specification

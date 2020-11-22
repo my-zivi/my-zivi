@@ -1,0 +1,30 @@
+.row
+  .col-lg-6
+    .form-group data-children-count="1"
+      = f.input :first_name, required: true
+  .col-lg-6
+    .form-group data-children-count="1"
+      = f.input :last_name
+  .col-lg-6
+    .form-group data-children-count="1"
+      - if f.object.user.present?
+        = f.simple_fields_for :user do |user_form|
+          = user_form.input :email
+          - if user_form.object.unconfirmed_email.present?
+            = t('organizations.organization_members.edit.pending_invitation', email: user_form.object.unconfirmed_email)
+      - else
+        = f.input :contact_email
+  .col-lg-6
+    .form-group data-children-count="1"
+      = f.input :phone
+  .col-12
+    .form-group data-children-count="1"
+      = f.input :organization_role
+  .col-12.d-flex.justify-content-end
+    - unless current_organization_admin == f.object || f.object.new_record?
+      = link_to t('organizations.organization_members.edit.destroy_organization_member'),
+              organizations_member_path(f.object),
+              method: :delete,
+              class: 'btn btn-danger mr-2',
+              data: { confirm: t('organizations.organization_members.edit.destroy_organization_member_confirmation') }
+    = f.submit class: 'btn btn-primary'

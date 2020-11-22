@@ -8,7 +8,15 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = render 'layouts/sentry'
+    = render 'layouts/tag_manager'
   body
+    - if ENV['GOOGLE_TAG_MANAGER_KEY'].present?
+      noscript
+        iframe[
+          height="0"
+          src="https://www.googletagmanager.com/ns.html?id=#{ENV['GOOGLE_TAG_MANAGER_KEY']}"
+          style="display:none;visibility:hidden"
+          width="0"]
     main#top
       div[data-layout="container" class=(content_for?(:container_class) ? yield(:container_class) : 'container')]
         - unless content_for?(:hide_flash_messages)

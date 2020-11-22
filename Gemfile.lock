@@ -95,6 +95,7 @@ GEM
     connection_pool (2.2.3)
     crass (1.0.6)
     debug_inspector (0.0.3)
+    deepl-rb (2.2.2)
     devise (4.7.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -419,6 +420,7 @@ DEPENDENCIES
   cancancan
   capybara
   climate_control
+  deepl-rb
   devise
   devise-i18n
   devise_invitable

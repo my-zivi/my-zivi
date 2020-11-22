@@ -129,6 +129,11 @@ de-CH:
       workshop:
         name: Name
     enums:
+      expense_sheet:
+        states:
+          closed: Abgeschlossen
+          editable: Aktiv
+          locked: Zukünftig
       service:
         service_types:
           long: Langer Einsatz
@@ -140,7 +145,7 @@ de-CH:
         invalid_date: ungültiges Datum
         not_a_friday: kein Freitag
         not_a_monday: kein Montag
-        not_an_unsigned_integer: sind keine positive Zahlen
+        not_a_positive_currency_amount: sind keine positiven Zahlen
         overlaps_service: überlappt existierenden Service
       models:
         civil_servant:
@@ -331,6 +336,9 @@ de-CH:
         erroneous_update: Spesenblatt konnte nicht aktualisiert werden
         successful_update: Spesenblatt erfolgreich aktualisiert
     organization_members:
+      create:
+        erroneous_create: Mitarbeiter konnte nicht erfasst werden
+        successfully_created: Mitarbeiter erfolgreich erfasst
       destroy:
         erroneous_delete: Mitarbeiter konnte nicht gelöscht werden
         successfully_deleted: Mitarbeiter erfolgreich gelöscht
@@ -340,7 +348,10 @@ de-CH:
         pending_invitation: Bitte bestätigen sie die neue E-Mail Adresse mithilfe des Links, welcher an %{email} gesendet wurde.
         subtitle: Mitarbeiter-Profil
       index:
+        new_organization_member: Neuer Mitarbeiter erfassen
         title: Mitarbeiter
+      new:
+        title: Neuer Mitarbeiter erfassen
       update:
         erroneous_update: Das Profil konnte nicht aktualisiert werden
         successfully_updated: Profil erfolgreich aktualisiert
@@ -437,6 +448,7 @@ de-CH:
         destroy_service_specification_confirmation: Pflichtenheft wirklich löschen?
         title: Pflichtenheft “%{name}”
       index:
+        new_service_specification: Pflichtenheft hinzufügen
         title: Pflichtenhefter
       new:
         title: Neues Pflichtenheft erstellen

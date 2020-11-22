@@ -19,8 +19,8 @@ RSpec.describe ServiceSpecification, type: :model do
     ]
 
     it 'validates the correctness of numerical fields' do
-      expect(model).to validate_numericality_of(:accommodation_expenses).only_integer
-      expect(model).to validate_numericality_of(:work_clothing_expenses).only_integer
+      expect(model).to validate_numericality_of(:accommodation_expenses).is_greater_than_or_equal_to(0)
+      expect(model).to validate_numericality_of(:work_clothing_expenses).is_greater_than_or_equal_to(0)
       expect(model).to validate_length_of(:identification_number).is_at_least(5).is_at_most(7)
     end
   end
@@ -88,21 +88,21 @@ RSpec.describe ServiceSpecification, type: :model do
     end
 
     context 'when there are non numeric values' do
-      let(:error_key) { :not_an_unsigned_integer }
+      let(:error_key) { :not_a_positive_currency_amount }
       let(:expenses) { { breakfast: 400, lunch: 900, dinner: 'really expensive' } }
 
       it { is_expected.to eq true }
     end
 
     context 'when there are negative values' do
-      let(:error_key) { :not_an_unsigned_integer }
+      let(:error_key) { :not_a_positive_currency_amount }
       let(:expenses) { { breakfast: 400, lunch: -900, dinner: -800 } }
 
       it { is_expected.to eq true }
     end
 
     context 'when there are float values' do
-      let(:error_key) { :not_an_unsigned_integer }
+      let(:error_key) { :not_a_positive_currency_amount }
       let(:expenses) { { breakfast: 400, lunch: -900.123, dinner: 800.123 } }
 
       it { is_expected.to eq true }

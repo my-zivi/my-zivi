@@ -1,0 +1,7 @@
+.card.mb-3
+  .card-header
+    .d-flex.align-items-center
+      h5 = t('.title')
+  .card-body.bg-light
+    = simple_form_for(@organization_member, url: organizations_members_path(@organization_member)) do |f|
+      = render 'form', f: f

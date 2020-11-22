@@ -4,11 +4,11 @@ require 'rails_helper'
 
 RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
   let(:calculator) { described_class.new(expense_sheet) }
-  let(:civil_servant) { create :civil_servant, :full }
+  let(:civil_servant) { build(:civil_servant, :full) }
   let(:beginning) { Date.parse('2018-01-01') }
   let(:ending) { Date.parse('2018-01-26') }
-  let!(:service) { create :service, beginning: beginning, ending: ending, civil_servant: civil_servant }
-  let(:expense_sheet) { create :expense_sheet, beginning: beginning, ending: ending, service: service }
+  let(:service) { build(:service, beginning: beginning, ending: ending, civil_servant: civil_servant) }
+  let(:expense_sheet) { build(:expense_sheet, beginning: beginning, ending: ending, service: service) }
 
   let(:expected_work_days) { 19 }
   let(:expected_workfree_days) { 7 }
@@ -18,7 +18,7 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
 
     let(:expected_suggestions) do
       {
-        clothing_expenses: 5980,
+        clothing_expenses: 59.8,
         paid_company_holiday_days: 0,
         unpaid_company_holiday_days: 0,
         work_days: 19,
@@ -151,7 +151,7 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
     let(:expected_value) { daily_expenses * chargeable_days }
 
     context 'with only one expense sheet' do
-      it { is_expected.to eq 5980 }
+      it { is_expected.to eq 59.8 }
     end
 
     context 'with more than one expense sheet' do
@@ -173,7 +173,7 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
       context 'with enough expense_sheets to reduce clothing_expenses' do
         let(:service_range) { get_service_range months: 4 }
 
-        it { is_expected.to eq 3300 }
+        it { is_expected.to eq 33 }
       end
 
       context 'with enough expense_sheets to nullify clothing_expenses' do
