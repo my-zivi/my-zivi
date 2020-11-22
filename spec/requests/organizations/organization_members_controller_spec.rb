@@ -59,6 +59,16 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
         expect(flash[:success]).to eq I18n.t('organizations.organization_members.create.successfully_created')
         expect(created_organization_member_attributes).to eq organization_member_params.with_indifferent_access
       end
+
+      context 'when params are invalid' do
+        let(:organization_member_params) { { first_name: 'This member is not valid' } }
+
+        it 'does not create a new organization member' do
+          expect { perform_request }.not_to change(OrganizationMember, :count)
+          expect(response).to render_template 'organizations/organization_members/new'
+          expect(flash[:error]).to eq I18n.t('organizations.organization_members.create.erroneous_create')
+        end
+      end
     end
 
     describe '#edit' do
