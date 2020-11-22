@@ -17,18 +17,21 @@ class ExpenseSheet < ApplicationRecord
             :sick_days,
             :paid_vacation_days,
             :unpaid_vacation_days,
-            :driving_expenses,
-            :extraordinary_expenses,
-            :clothing_expenses,
             :unpaid_company_holiday_days,
             :paid_company_holiday_days,
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :driving_expenses,
+            :extraordinary_expenses,
+            :clothing_expenses,
+            numericality: { greater_than_or_equal_to: 0 }
 
   validates :payment_id, presence: true, if: :closed?
   validates :ending, timeliness: { on_or_after: :beginning }
   validate :included_in_service_date_range
   validate :sum_of_days_not_greater_than_duration
 
+  before_create :update_amount
+  before_update :update_amount
   before_destroy :legitimate_destroy
 
   # locked - Expense sheet is not editable it's not relevant yet, e.g. in future
@@ -90,6 +93,10 @@ class ExpenseSheet < ApplicationRecord
   end
 
   private
+
+  def update_amount
+    self[:amount] = calculate_full_expenses
+  end
 
   def included_in_service_date_range
     return if service.nil?

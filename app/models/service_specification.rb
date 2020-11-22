@@ -2,7 +2,7 @@
 
 class ServiceSpecification < ApplicationRecord
   ALLOWED_EXPENSE_KEYS = %w[breakfast lunch dinner].freeze
-  POCKET_MONEY = 500
+  POCKET_MONEY = 5
 
   belongs_to :organization
   belongs_to :contact_person, class_name: 'OrganizationMember', inverse_of: :service_specification_contacts
@@ -20,7 +20,7 @@ class ServiceSpecification < ApplicationRecord
             :work_clothing_expenses, :work_days_expenses,
             :internal_note, presence: true
 
-  validates :accommodation_expenses, :work_clothing_expenses, numericality: { only_integer: true }
+  validates :accommodation_expenses, :work_clothing_expenses, numericality: { greater_than_or_equal_to: 0 }
   validates :identification_number, length: { minimum: 5, maximum: 7 }
 
   validate :validate_work_days_expenses
@@ -78,11 +78,11 @@ class ServiceSpecification < ApplicationRecord
   def validate_numericality_of_json(attribute)
     return if self[attribute].blank?
 
-    errors.add(attribute, :not_an_unsigned_integer) unless values_numeric?(self[attribute].values)
+    errors.add(attribute, :not_a_positive_currency_amount) unless values_positive_numeric?(self[attribute].values)
   end
 
   # :reek:UtilityFunction
-  def values_numeric?(values)
-    values.all? { |value| value.is_a?(Integer) && !value.negative? }
+  def values_positive_numeric?(values)
+    values.all? { |value| value.is_a?(Numeric) && !value.negative? }
   end
 end
