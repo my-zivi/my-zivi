@@ -30,9 +30,6 @@ RSpec.describe ExpenseSheet, type: :model do
         sick_days
         paid_vacation_days
         unpaid_vacation_days
-        driving_expenses
-        extraordinary_expenses
-        clothing_expenses
         unpaid_company_holiday_days
         paid_company_holiday_days
       ]
@@ -47,6 +44,12 @@ RSpec.describe ExpenseSheet, type: :model do
     it 'validates the correctness of numerical fields correctly' do
       only_integer_fields.each do |field|
         expect(expense_sheet).to validate_numericality_of(field).only_integer.is_greater_than_or_equal_to(0)
+      end
+    end
+
+    it 'validates the numericality of expense fields' do
+      %i[driving_expenses extraordinary_expenses clothing_expenses].each do |field|
+        expect(expense_sheet).to validate_numericality_of(field).is_greater_than_or_equal_to(0)
       end
     end
 

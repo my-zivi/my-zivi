@@ -179,8 +179,8 @@ ActiveRecord::Schema.define(version: 2020_11_22_111941) do
   create_table "service_specifications", force: :cascade do |t|
     t.string "name", null: false
     t.string "internal_note"
-    t.integer "work_clothing_expenses", null: false
-    t.integer "accommodation_expenses", null: false
+    t.decimal "work_clothing_expenses", precision: 8, scale: 2, null: false
+    t.decimal "accommodation_expenses", precision: 8, scale: 2, null: false
     t.jsonb "work_days_expenses", null: false
     t.jsonb "paid_vacation_expenses", null: false
     t.jsonb "first_day_expenses", null: false
