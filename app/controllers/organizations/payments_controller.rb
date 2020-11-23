@@ -18,7 +18,7 @@ module Organizations
       @payment.amount = @payment.expense_sheets.sum(&:amount)
 
       if @payment.save
-        flash[:sucess] = t('.successful_create')
+        flash[:success] = t('.successful_create')
         redirect_to organizations_payment_path(@payment)
       else
         load_accessible_expense_sheets

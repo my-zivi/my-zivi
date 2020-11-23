@@ -113,6 +113,59 @@ RSpec.describe Organizations::PaymentsController, type: :request do
     end
   end
 
+  describe '#create' do
+    let(:perform_request) { post organizations_payments_path(params: params) }
+    let(:params) { { payment: { expense_sheet_ids: expense_sheet_ids } } }
+
+    context 'when an organization administrator is signed in' do
+      let(:organization_administrator) { create(:organization_member, organization: organization) }
+      let(:expense_sheet_ids) { [expense_sheet.id] }
+      let(:civil_servant) { create(:civil_servant, :full, :with_service, organization: organization) }
+      let(:expense_sheet) { create(:expense_sheet, :with_service, service: civil_servant.services.first) }
+      let(:created_payment) { Payment.order(:created_at).last }
+
+      before { sign_in organization_administrator.user }
+
+      it 'creates the payment' do
+        expect { perform_request }.to(change { organization.payments.count })
+        expect(created_payment.expense_sheets).to contain_exactly expense_sheet
+        expect(created_payment.amount).to eq expense_sheet.amount
+        expect(response).to redirect_to organizations_payment_path(created_payment)
+        expect(flash[:success]).to eq I18n.t('organizations.payments.create.successful_create')
+      end
+
+      context 'when payment is invalid' do
+        let(:expense_sheet_ids) { [''] }
+
+        it 'does not create the payment' do
+          expect { perform_request }.not_to change(Payment, :count)
+          expect(response).to render_template 'organizations/payments/new'
+          expect(flash[:error]).to eq I18n.t('organizations.payments.create.erroneous_create')
+        end
+      end
+    end
+
+    context 'when a civil servant is signed in' do
+      let(:civil_servant) { create(:civil_servant, :full) }
+      let(:expense_sheet_ids) { [''] }
+
+      before do
+        sign_in civil_servant.user
+        perform_request
+      end
+
+      it_behaves_like 'unauthorized request'
+    end
+
+    context 'when nobody is signed in' do
+      let(:expense_sheet_ids) { [''] }
+
+      before { perform_request }
+
+      it_behaves_like 'unauthenticated request'
+    end
+  end
+
   describe '#show' do
     let(:perform_request) { get organizations_payment_path(payment) }
     let(:civil_servant) { create(:civil_servant, :full, :with_service) }
