@@ -33,5 +33,5 @@
         h5.mb-0
           = t('.expense_sheets_table.title')
           span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@payment.expense_sheets.count})"
-  .card-body.p-0.bg-light.p-0
+  .card-body.p-0.bg-light
     = render ExpenseSheetsTableComponent.new(expense_sheets: @payment.expense_sheets)

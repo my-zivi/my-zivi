@@ -4,10 +4,27 @@ module Organizations
   class PaymentsController < BaseController
     PAIN_SCHEME = 'pain.001.001.03.ch.02'
 
+    before_action :load_accessible_expense_sheets, only: :new
+
     load_and_authorize_resource
 
     def index
       @payments = @payments.order(state: :asc, created_at: :desc)
+    end
+
+    def new; end
+
+    def create
+      @payment.amount = @payment.expense_sheets.sum(&:amount)
+
+      if @payment.save
+        flash[:sucess] = t('.successful_create')
+        redirect_to organizations_payment_path(@payment)
+      else
+        load_accessible_expense_sheets
+        flash[:error] = t('.erroneous_create')
+        render :new
+      end
     end
 
     def show
@@ -54,6 +71,17 @@ module Organizations
 
     def pain_content
       PainGenerationService.call(@payment).to_xml(PAIN_SCHEME)
+    end
+
+    def load_accessible_expense_sheets
+      @accessible_expense_sheets = ExpenseSheet
+                                   .accessible_by(current_ability)
+                                   .editable
+                                   .includes(:civil_servant)
+    end
+
+    def create_params
+      params.require(:payment).permit(expense_sheet_ids: [])
     end
 
     def payment_params
