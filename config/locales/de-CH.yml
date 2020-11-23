@@ -377,10 +377,14 @@ de-CH:
           title: Pendent
         paid:
           title: Ausgezahlt
+      create:
+        erroneous_create: Die Auszahlung konnte nicht gestartet werden
+        successful_create: Auszahlung erfolgreich gestartet
       destroy:
         erroneous_destroy: Auszahlung konnte nicht gelöscht werden
         successful_destroy: Auszahlung wurde erfolgreich gelöscht
       index:
+        new_payment: Neue Auszahlung
         table_headers:
           actions: Aktionen
           amount: Betrag
@@ -388,6 +392,9 @@ de-CH:
           payment: Auszahlung
           status: Status
         title: Auszahlungen
+      new:
+        submit: Auszahlung starten
+        title: Neue Auszahlung
       pain_file_name: zahlung-%{date}.xml
       payment_row:
         delete: Löschen

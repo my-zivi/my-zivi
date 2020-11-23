@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     get '/service_agreements/civil_servants/search',
         to: 'service_agreements#search', as: 'service_agreement_civil_servant_search'
     # match '/service_agreements/new', to: 'service_agreements#new', via: %i[get post]
-    resources :payments, only: %i[index show update destroy]
+    resources :payments, except: :edit
     resources :expense_sheets, except: :show
     get '/phone_list', to: 'phone_list#index', as: 'phone_list'
     get '/phone_list/:name', to: 'phone_list#index', as: 'named_phone_list'

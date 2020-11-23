@@ -38,6 +38,8 @@ FactoryBot.define do
 
     trait :with_service do
       service
+      beginning { service.beginning }
+      ending { service.ending }
     end
   end
 end
