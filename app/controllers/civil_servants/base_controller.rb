@@ -2,7 +2,7 @@
 
 module CivilServants
   class BaseController < ApplicationController
-    include CivilServants::Concerns::AuthenticableAndAuthorizable
+    include ::AuthenticableAndAuthorizable
 
     before_action -> { authorize! :access, :civil_servant_portal }
 
