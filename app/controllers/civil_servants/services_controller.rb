@@ -14,9 +14,9 @@ module CivilServants
     private
 
     def filtered_service
-      return @services if @filters[:show_all]
+      return @services.definitive if @filters[:show_all]
 
-      @services.where('ending >= ?', Time.zone.today)
+      @services.definitive.where('ending >= ?', Time.zone.today)
     end
 
     def load_filters

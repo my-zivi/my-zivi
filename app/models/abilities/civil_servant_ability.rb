@@ -13,7 +13,7 @@ module Abilities
 
       cannot :access, :registration_page
       can :access, :civil_servant_portal
-      can :read, Service, civil_servant_id: permitting_civil_servant_id
+      can %i[read accept decline], Service, civil_servant_id: permitting_civil_servant_id
       can :read, :civil_servant_overview
       can :read, ExpenseSheet, service: { civil_servant_id: permitting_civil_servant_id }
     end

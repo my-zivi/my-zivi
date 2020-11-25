@@ -10,19 +10,17 @@ FactoryBot.define do
     feedback_mail_sent { false }
     service_specification
     civil_servant_agreed { true }
-    civil_servant_agreed_on { '2018-08-05' }
     organization_agreed { true }
-    organization_agreed_on { '2018-07-05' }
     association :civil_servant, :full
 
     trait :civil_servant_agreement_pending do
-      civil_servant_agreed { false }
-      civil_servant_agreed_on { nil }
+      civil_servant_agreed { nil }
+      civil_servant_decided_at { nil }
     end
 
     trait :organization_agreement_pending do
-      organization_agreed { false }
-      organization_agreed_on { nil }
+      organization_agreed { nil }
+      organization_decided_at { nil }
     end
 
     trait :current do
@@ -53,9 +51,9 @@ FactoryBot.define do
       beginning { 1.week.ago.at_beginning_of_week }
       ending { beginning + 25.days }
       civil_servant_agreed { true }
-      civil_servant_agreed_on { 2.weeks.ago }
+      civil_servant_decided_at { 2.weeks.ago }
       organization_agreed { true }
-      organization_agreed_on { 3.weeks.ago }
+      organization_decided_at { 3.weeks.ago }
     end
 
     trait :future do

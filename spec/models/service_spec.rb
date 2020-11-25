@@ -142,16 +142,32 @@ RSpec.describe Service, type: :model do
       let(:other_beginning) { (service_range.begin - 2.months).at_beginning_of_week }
       let(:other_ending) { (service_range.begin - 1.month).at_end_of_week - 2.days }
 
-      before { create :service, civil_servant: civil_servant, beginning: other_beginning, ending: other_ending }
+      context 'when existing service it is a service agreement' do
+        before { create :service, :civil_servant_agreement_pending, civil_servant: civil_servant, beginning: other_beginning, ending: other_ending }
 
-      context 'when there is no overlapping service' do
-        it { is_expected.to be false }
+        context 'when there is no overlapping service' do
+          it { is_expected.to be false }
+        end
+
+        context 'when there is an overlapping service' do
+          let(:other_ending) { service_range.begin.at_end_of_week - 2.days }
+
+          it { is_expected.to be false }
+        end
       end
 
-      context 'when there is an overlapping service' do
-        let(:other_ending) { service_range.begin.at_end_of_week - 2.days }
+      context 'when existing service is a definitive service' do
+        before { create :service, civil_servant: civil_servant, beginning: other_beginning, ending: other_ending }
 
-        it { is_expected.to be true }
+        context 'when there is no overlapping service' do
+          it { is_expected.to be false }
+        end
+
+        context 'when there is an overlapping service' do
+          let(:other_ending) { service_range.begin.at_end_of_week - 2.days }
+
+          it { is_expected.to be true }
+        end
       end
     end
   end
@@ -197,20 +213,19 @@ RSpec.describe Service, type: :model do
     end
   end
 
-  describe 'active record hooks' do
+  describe 'database triggers' do
     let(:model) { create :service, :civil_servant_agreement_pending }
 
     context 'when civil servant agreement is missing' do
       context 'when civil servant agrees' do
         it 'updates the civil servant agreed on date' do
-          expect { model.update(civil_servant_agreed: true) }.to change(model, :civil_servant_agreed_on)
-            .from(nil).to(be_an_instance_of(ActiveSupport::TimeWithZone))
+          expect { model.update(civil_servant_agreed: true) }.to(change { model.reload.civil_servant_decided_at })
         end
       end
 
       context 'when civil servant does not agree' do
-        it 'does not update the civil servant agreed on date' do
-          expect { model.update(civil_servant_agreed: false) }.not_to change(model, :civil_servant_agreed_on)
+        it 'updates the civil servant agreed on date' do
+          expect { model.update(civil_servant_agreed: false) }.to(change { model.reload.civil_servant_decided_at })
         end
       end
     end
@@ -219,15 +234,14 @@ RSpec.describe Service, type: :model do
       let(:model) { create :service, :organization_agreement_pending }
 
       context 'when organization agrees' do
-        it 'updates the civil servant agreed on date' do
-          expect { model.update(organization_agreed: true) }.to change(model, :organization_agreed_on)
-            .from(nil).to(be_an_instance_of(ActiveSupport::TimeWithZone))
+        it 'updates the organization agreed on date' do
+          expect { model.update(organization_agreed: true) }.to(change { model.reload.organization_agreed })
         end
       end
 
       context 'when does not agree' do
-        it 'does not update the civil servant agreed on date' do
-          expect { model.update(organization_agreed: false) }.not_to change(model, :organization_agreed_on)
+        it 'updates the organization agreed on date' do
+          expect { model.update(organization_agreed: false) }.to(change { model.reload.organization_agreed })
         end
       end
     end
@@ -259,7 +273,7 @@ RSpec.describe Service, type: :model do
     end
   end
 
-  describe '#at_year' do
+   describe '#at_year' do
     subject(:services) { described_class.at_year(2018) }
 
     before do
@@ -270,6 +284,56 @@ RSpec.describe Service, type: :model do
 
     it 'returns only services that are at least partially in this year' do
       expect(services.count).to eq 3
+    end
+  end
+
+  describe '#civil_servant_agreement_pending' do
+    subject(:services) { described_class.civil_servant_agreement_pending }
+
+    let(:definitive_service) { create :service }
+    let(:service_agreement) { create :service, :civil_servant_agreement_pending }
+
+    it 'returns only the service where the civil servant has not yet agreed' do
+      expect(services).to contain_exactly service_agreement
+      expect(services).not_to include definitive_service
+    end
+  end
+
+  describe '#organization_agreement_pending' do
+    subject(:services) { described_class.organization_agreement_pending }
+
+    let(:definitive_service) { create :service }
+    let(:service_agreement) { create :service, :organization_agreement_pending }
+
+    it 'returns only the service where the civil servant has not yet agreed' do
+      expect(services).to contain_exactly service_agreement
+      expect(services).not_to include definitive_service
+    end
+  end
+
+  describe '#agreement' do
+    subject(:services) { described_class.agreement }
+
+    let(:definitive_service) { create :service }
+    let(:civil_servant_agreement_pending) { create :service, :civil_servant_agreement_pending }
+    let(:organization_agreement_pending) { create :service, :organization_agreement_pending }
+
+    it 'returns only the service where either the civil servant or organization has not yet agreed' do
+      expect(services).to contain_exactly(civil_servant_agreement_pending, organization_agreement_pending)
+      expect(services).not_to include definitive_service
+    end
+  end
+
+  describe '#definitive' do
+    subject(:services) { described_class.definitive }
+
+    let(:definitive_service) { create :service }
+    let(:civil_servant_agreement_pending) { create :service, :civil_servant_agreement_pending }
+    let(:organization_agreement_pending) { create :service, :organization_agreement_pending }
+
+    it 'returns only the service where both the civil servant or organization have agreed' do
+      expect(services).to contain_exactly definitive_service
+      expect(services).not_to include(civil_servant_agreement_pending, organization_agreement_pending)
     end
   end
 

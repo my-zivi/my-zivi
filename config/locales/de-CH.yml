@@ -207,6 +207,7 @@ de-CH:
       service: Einsatz
       service_specification: Pflichtenheft
       workshop: Kurs
+      organization: "Einsatzbetrieb"
   administrator: Administrator
   base:
     civil_servants:
@@ -215,6 +216,7 @@ de-CH:
         profile: Profil
         services: Einsätze
         sign_out: Abmelden
+        service_agreements: Einsatzvereinbarungen
     organizations:
       navbar:
         civil_servants: Zivildienstleistende
@@ -281,6 +283,19 @@ de-CH:
         expense_sheets: Spesenblätter
         organization_information: Informationen zum Betrieb
         schedule_information: Einsatz Informationen
+    service_agreements:
+      index:
+        title: "Einsatzvereinbarungen"
+        decline_service: "Einsatz ablehnen"
+        confirm_decline: "Bist du sicher, dass du den Einsatz ablehnen möchtest?"
+        accept_service: "Einsatz akzeptieren"
+        confirm_acceptance: "Bist du sicher, dass du den Einsatz aktzeptieren möchstest?"
+      accept:
+        successful_accept: Einsatz wurde erfolgerich akzeptiert.
+        erroneous_accept: Einsatz konnte nicht akzeptiert werden.
+      decline:
+        successful_decline: "Einsatz wurde erfolgreich abgelehnt"
+        erroneous_decline: "Einsatz konnte nicht abgelehnt werden"
   date:
     formats:
       default: "%d.%m.%Y"

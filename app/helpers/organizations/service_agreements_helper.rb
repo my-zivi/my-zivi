@@ -66,11 +66,11 @@ module Organizations
       }
     }.freeze
 
-    def service_agreements_table_columns
+    def service_agreements_organization_table_columns
       COLUMNS
     end
 
-    def service_agreements_table_actions
+    def service_agreements_organization_table_actions
       ACTIONS
     end
 

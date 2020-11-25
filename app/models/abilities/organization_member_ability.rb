@@ -45,20 +45,26 @@ module Abilities
 
     def service_abilities(organization_id)
       can(:read, Service, {
-            civil_servant_agreed: true,
-            organization_agreed: true,
             service_specification: {
               organization_id: organization_id
             }
           })
 
       can(:manage, Service, {
-            civil_servant_agreed: false,
             organization_agreed: true,
+            civil_servant_agreed: nil,
             service_specification: {
               organization_id: organization_id
             }
           })
+
+      can(:destroy, Service, {
+        organization_agreed: true,
+        civil_servant_agreed: false,
+        service_specification: {
+          organization_id: organization_id
+        }
+      })
     end
     # rubocop:enable Metrics/MethodLength
   end
