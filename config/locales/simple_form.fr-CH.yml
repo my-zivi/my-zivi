@@ -11,6 +11,8 @@ fr-CH:
         name: Nom
         organization: Enterprise
         telephone: Téléphone
+      payment:
+        expense_sheets: 'Sélectionnez les notes de frais à payer :'
       service_specification:
         first_day_expenses:
           breakfast: Petit-déjeuner

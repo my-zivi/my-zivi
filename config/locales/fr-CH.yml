@@ -376,10 +376,14 @@ fr-CH:
           title: En attente
         paid:
           title: Déboursé
+      create:
+        erroneous_create: Le paiement n'a pas pu être entamé
+        successful_create: Le paiement a commencé avec succès
       destroy:
         erroneous_destroy: Le paiement n'a pas pu être supprimé
         successful_destroy: Le paiement a été supprimé avec succès
       index:
+        new_payment: Nouveau paiement
         table_headers:
           actions: Actions
           amount: Montant
@@ -387,6 +391,9 @@ fr-CH:
           payment: Paiement
           status: Statut
         title: Paiements
+      new:
+        submit: Commencer le paiement
+        title: Nouveau paiement
       pain_file_name: paiement-%{date}.xml
       payment_row:
         delete: Supprimer

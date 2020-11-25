@@ -1,0 +1,11 @@
+.card.mb-3
+  .bg-holder.d-none.d-lg-block.bg-card.corner-background-warning
+  .card-body: h3.my-0 = t('.title')
+.card.mt-3
+  .card-body.bg-light
+    = simple_form_for([:organizations, @payment]) do |f|
+      = f.association :expense_sheets,
+              collection: @accessible_expense_sheets,
+              as: :check_boxes,
+              label_method: method(:expense_sheet_collection_value)
+      = f.submit t('.submit'), class: 'btn btn-primary'
