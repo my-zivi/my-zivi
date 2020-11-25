@@ -143,7 +143,10 @@ RSpec.describe Service, type: :model do
       let(:other_ending) { (service_range.begin - 1.month).at_end_of_week - 2.days }
 
       context 'when existing service it is a service agreement' do
-        before { create :service, :civil_servant_agreement_pending, civil_servant: civil_servant, beginning: other_beginning, ending: other_ending }
+        before do
+          create :service, :civil_servant_agreement_pending,
+                 civil_servant: civil_servant, beginning: other_beginning, ending: other_ending
+        end
 
         context 'when there is no overlapping service' do
           it { is_expected.to be false }
@@ -273,7 +276,7 @@ RSpec.describe Service, type: :model do
     end
   end
 
-   describe '#at_year' do
+  describe '#at_year' do
     subject(:services) { described_class.at_year(2018) }
 
     before do

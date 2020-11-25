@@ -8,7 +8,7 @@ module CivilServants
 
     def index
       @service_agreements = Service.includes(:organization, :service_specification)
-                              .accessible_by(current_ability).agreement
+                                   .accessible_by(current_ability).agreement
     end
 
     def accept

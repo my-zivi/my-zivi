@@ -59,12 +59,12 @@ module Abilities
           })
 
       can(:destroy, Service, {
-        organization_agreed: true,
-        civil_servant_agreed: false,
-        service_specification: {
-          organization_id: organization_id
-        }
-      })
+            organization_agreed: true,
+            civil_servant_agreed: false,
+            service_specification: {
+              organization_id: organization_id
+            }
+          })
     end
     # rubocop:enable Metrics/MethodLength
   end

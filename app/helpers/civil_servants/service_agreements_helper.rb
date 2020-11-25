@@ -37,9 +37,9 @@ module CivilServants
         icon_classes: 'fas fa-times',
         link_path: lambda { |service_agreement|
           Rails.application
-            .routes
-            .url_helpers
-            .civil_servants_service_agreement_decline_path(service_agreement)
+               .routes
+               .url_helpers
+               .civil_servants_service_agreement_decline_path(service_agreement)
         },
         link_args: {
           class: 'mr-3',
