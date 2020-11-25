@@ -12,7 +12,7 @@ module CivilServants
                           ]
                         }].freeze
 
-    include CivilServants::Concerns::AuthenticableAndAuthorizable
+    include ::AuthenticableAndAuthorizable
 
     before_action :load_civil_servant
     before_action :load_displayed_step
