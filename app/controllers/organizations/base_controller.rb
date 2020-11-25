@@ -2,7 +2,7 @@
 
 module Organizations
   class BaseController < ApplicationController
-    include CivilServants::Concerns::AuthenticableAndAuthorizable
+    include ::Concerns::AuthenticableAndAuthorizable
 
     before_action -> { authorize! :access, :organization_portal }
 
