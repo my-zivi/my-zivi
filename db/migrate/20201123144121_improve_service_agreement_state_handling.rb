@@ -39,7 +39,7 @@ class ImproveServiceAgreementStateHandling < ActiveRecord::Migration[6.0]
           CREATE TRIGGER civil_servant_agreed_insert_trigger
             AFTER INSERT ON services
             FOR EACH ROW
-            WHEN ( NEW.civil_servant_agreed = TRUE )
+            WHEN ( NEW.civil_servant_agreed IS NOT NULL )
             EXECUTE FUNCTION civil_servant_agreed_changed();
 
           CREATE TRIGGER organization_agreed_update_trigger
@@ -51,7 +51,7 @@ class ImproveServiceAgreementStateHandling < ActiveRecord::Migration[6.0]
           CREATE TRIGGER organization_agreed_insert_trigger
             AFTER INSERT ON services
             FOR EACH ROW
-            WHEN ( NEW.organization_agreed = TRUE )
+            WHEN ( NEW.organization_agreed IS NOT NULL )
             EXECUTE FUNCTION organization_agreed_changed();
         SQL
       end

@@ -181,9 +181,13 @@ fr-CH:
               unknown_country_code: code de pays inconnu
             beginning:
               invalid_datetime: ungültiges Datum
+            civil_servant_agreed:
+              already_decided: ne peut être modifiée, puisqu'une décision a déjà été prise pour cette affectation.
             ending:
               after: ne doit pas être avant le début.
               invalid_datetime: date non valable
+            organization_agreed:
+              already_decided: ne peut être modifiée, puisqu'une décision a déjà été prise pour cette affectation.
             service_days:
               invalid_length: ne peut être inférieure à 26 jours.
         user:

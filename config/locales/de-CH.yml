@@ -181,9 +181,13 @@ de-CH:
               unknown_country_code: unbekannter Landescode
             beginning:
               invalid_datetime: ungültiges Datum
+            civil_servant_agreed:
+              already_decided: kann nicht verändert werden, da für diesen Einsatz bereits eine Entscheidung getroffen wurde.
             ending:
               after: darf nicht vor Anfang sein.
               invalid_datetime: ungültiges Datum
+            organization_agreed:
+              already_decided: kann nicht verändert werden, da für diesen Einsatz bereits eine Entscheidung getroffen wurde.
             service_days:
               invalid_length: kann nicht kürzer als 26 Tage sein.
         user:

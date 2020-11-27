@@ -78,12 +78,12 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
         it 'successfully accpets the service' do
           expect { perform_request }.to(change { service_agreement.reload.civil_servant_agreed }.from(nil).to(true))
           expect(response).to redirect_to(civil_servants_service_agreements_path)
-          expect(flash[:success]).to eq I18n.t('civil_servants.service_agreements.accept.successful_accept')
+          expect(flash[:notice]).to eq I18n.t('civil_servants.service_agreements.accept.successful_accept')
         end
       end
 
-      context 'when the service is already accepted' do
-        let(:service_agreement) { create(:service, :future, civil_servant: civil_servant) }
+      context 'when the service is already declined' do
+        let(:service_agreement) { create(:service, :future, civil_servant_agreed: false, civil_servant: civil_servant) }
 
         it 'does not change the decided at date' do
           expect { perform_request }.not_to(change { service_agreement.reload.civil_servant_decided_at })
@@ -128,10 +128,10 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
                  :civil_servant_agreement_pending, civil_servant: civil_servant)
         end
 
-        it 'successfully accpets the service' do
+        it 'successfully declines the service' do
           expect { perform_request }.to(change { service_agreement.reload.civil_servant_agreed }.from(nil).to(false))
           expect(response).to redirect_to(civil_servants_service_agreements_path)
-          expect(flash[:success]).to eq I18n.t('civil_servants.service_agreements.decline.successful_decline')
+          expect(flash[:notice]).to eq I18n.t('civil_servants.service_agreements.decline.successful_decline')
         end
       end
 

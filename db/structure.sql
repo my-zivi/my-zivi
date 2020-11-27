@@ -1161,7 +1161,7 @@ CREATE UNIQUE INDEX index_workshops_on_name ON public.workshops USING btree (nam
 -- Name: services civil_servant_agreed_insert_trigger; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER civil_servant_agreed_insert_trigger AFTER INSERT ON public.services FOR EACH ROW WHEN ((new.civil_servant_agreed = true)) EXECUTE FUNCTION public.civil_servant_agreed_changed();
+CREATE TRIGGER civil_servant_agreed_insert_trigger AFTER INSERT ON public.services FOR EACH ROW WHEN ((new.civil_servant_agreed IS NOT NULL)) EXECUTE FUNCTION public.civil_servant_agreed_changed();
 
 
 --
@@ -1175,7 +1175,7 @@ CREATE TRIGGER civil_servant_agreed_update_trigger AFTER UPDATE ON public.servic
 -- Name: services organization_agreed_insert_trigger; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER organization_agreed_insert_trigger AFTER INSERT ON public.services FOR EACH ROW WHEN ((new.organization_agreed = true)) EXECUTE FUNCTION public.organization_agreed_changed();
+CREATE TRIGGER organization_agreed_insert_trigger AFTER INSERT ON public.services FOR EACH ROW WHEN ((new.organization_agreed IS NOT NULL)) EXECUTE FUNCTION public.organization_agreed_changed();
 
 
 --
