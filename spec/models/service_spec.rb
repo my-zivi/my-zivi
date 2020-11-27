@@ -173,6 +173,50 @@ RSpec.describe Service, type: :model do
         end
       end
     end
+
+    describe '#legitimate_civil_servant_decision' do
+      context 'when the civil servant has not yet decided' do
+        subject do
+          service = build(:service, :civil_servant_agreement_pending)
+          service.update(civil_servant_agreed: true)
+          service.errors.added?(:civil_servant_agreed, :already_decided)
+        end
+
+        it { is_expected.to be false }
+      end
+
+      context 'when the civil servant has already decided' do
+        subject do
+          service = build(:service, :decided_dates_set)
+          service.update(civil_servant_agreed: true)
+          service.errors.added?(:civil_servant_agreed, :already_decided)
+        end
+
+        it { is_expected.to be true }
+      end
+    end
+
+    describe '#legitimate_organization_decision' do
+      context 'when the organization has not yet decided' do
+        subject do
+          service = build(:service, :organization_agreement_pending)
+          service.update(organization_agreed: true)
+          service.errors.added?(:organization_agreed, :already_decided)
+        end
+
+        it { is_expected.to be false }
+      end
+
+      context 'when the organization has already decided' do
+        subject do
+          service = build(:service, :decided_dates_set)
+          service.update(organization_agreed: true)
+          service.errors.added?(:organization_agreed, :already_decided)
+        end
+
+        it { is_expected.to be true }
+      end
+    end
   end
 
   describe 'delegated methods' do

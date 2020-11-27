@@ -78,6 +78,7 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
         it 'successfully accpets the service' do
           expect { perform_request }.to(change { service_agreement.reload.civil_servant_agreed }.from(nil).to(true))
           expect(response).to redirect_to(civil_servants_service_agreements_path)
+          expect(flash[:success]).to eq I18n.t('civil_servants.service_agreements.accept.successful_accept')
         end
       end
 
@@ -87,6 +88,7 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
         it 'does not change the decided at date' do
           expect { perform_request }.not_to(change { service_agreement.reload.civil_servant_decided_at })
           expect(response).to redirect_to(civil_servants_service_agreements_path)
+          expect(flash[:error]).to eq I18n.t('civil_servants.service_agreements.accept.erroneous_accept')
         end
       end
     end
@@ -129,6 +131,7 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
         it 'successfully accpets the service' do
           expect { perform_request }.to(change { service_agreement.reload.civil_servant_agreed }.from(nil).to(false))
           expect(response).to redirect_to(civil_servants_service_agreements_path)
+          expect(flash[:success]).to eq I18n.t('civil_servants.service_agreements.decline.successful_decline')
         end
       end
 
@@ -138,6 +141,7 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
         it 'does not change the decided at date' do
           expect { perform_request }.not_to(change { service_agreement.reload.civil_servant_decided_at })
           expect(response).to redirect_to(civil_servants_service_agreements_path)
+          expect(flash[:error]).to eq I18n.t('civil_servants.service_agreements.decline.erroneous_decline')
         end
       end
     end

@@ -26,8 +26,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
              ending: '2020-01-31',
              civil_servant_agreed: nil,
              civil_servant_decided_at: nil,
-             organization_agreed: true,
-             organization_decided_at: '2020-01-01')
+             organization_agreed: true)
     end
 
     context 'when a organization administrator is signed in' do
@@ -76,8 +75,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
              ending: '2020-01-31',
              civil_servant_agreed: false,
              civil_servant_decided_at: nil,
-             organization_agreed: true,
-             organization_decided_at: '2020-01-01')
+             organization_agreed: true)
     end
 
     context 'when a organization administrator is signed in' do

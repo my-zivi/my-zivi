@@ -29,6 +29,8 @@ class Service < ApplicationRecord
   validates :ending, :beginning, presence: true
   validates :beginning, timeliness: true
   validates :ending, timeliness: { after: :beginning }
+  validate :legitimate_civil_servant_decision
+  validate :legitimate_organization_decision
 
   delegate :used_paid_vacation_days, :used_sick_days, to: :used_days_calculator
   delegate :remaining_paid_vacation_days, :remaining_sick_days, to: :remaining_days_calculator
@@ -76,5 +78,17 @@ class Service < ApplicationRecord
 
   def check_definitive_service_destroy
     throw :abort if civil_servant_agreed && organization_agreed
+  end
+
+  def legitimate_civil_servant_decision
+    return if civil_servant_decided_at.nil? || !civil_servant_agreed_changed?
+
+    errors.add(:civil_servant_agreed, :already_decided)
+  end
+
+  def legitimate_organization_decision
+    return if organization_decided_at.nil? || !organization_agreed_changed?
+
+    errors.add(:organization_agreed, :already_decided)
   end
 end
