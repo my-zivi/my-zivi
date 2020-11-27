@@ -202,21 +202,21 @@ fr-CH:
       driving_licenses: Permis de conduire
       expense_sheet: note de frais
       organizatino_holiday: Vacances d'entreprise
+      organization: Établissement d'affectation
       organization_member: Employés
       regional_center: Centre régional
       service: Déploiement
       service_specification: Spécifications
       workshop: Cours
-      organization: "Établissement d'affectation"
   administrator: Administrator
   base:
     civil_servants:
       navbar:
         home: Accueil
         profile: Profil
+        service_agreements: Accord de service
         services: Services
         sign_out: Déconnexion
-        service_agreements: Accord de service
     organizations:
       navbar:
         civil_servants: Civilistes
@@ -274,6 +274,19 @@ fr-CH:
           service_specific: supplément
       update:
         erroneous_update: Veuillez corriger les erreurs signalées
+    service_agreements:
+      accept:
+        erroneous_accept: L'affectation n'a pas pu être acceptée.
+        successful_accept: L'affectation a été acceptée avec succès.
+      decline:
+        erroneous_decline: L'affectation n'a pas pu être refusée
+        successful_decline: L'affectation a été rejetée avec succès
+      index:
+        accept_service: Accepter l'affectation
+        confirm_acceptance: Êtes-vous sûr de vouloir accepter l'affectation ?
+        confirm_decline: Êtes-vous sûr de vouloir refuser l'affectation ?
+        decline_service: Refuse l'affectation
+        title: Accord de service
     services:
       index:
         services: Mes services
@@ -283,19 +296,6 @@ fr-CH:
         expense_sheets: Les notes de frais
         organization_information: Informations sur l'opération
         schedule_information: Informations sur les services
-    service_agreements:
-      index:
-        title: Accord de service
-        decline_service: "Refuse l'affectation"
-        confirm_decline: "Êtes-vous sûr de vouloir refuser l'affectation ?"
-        accept_service: "Accepter l'affectation"
-        confirm_acceptance: "Êtes-vous sûr de vouloir accepter l'affectation ?"
-      accept:
-        successful_accept: L'affectation a été acceptée avec succès.
-        erroneous_accept: L'affectation n'a pas pu être acceptée.
-      decline:
-        successful_decline: "L'affectation a été rejetée avec succès"
-        erroneous_decline: "L'affectation n'a pas pu être refusée"
   date:
     formats:
       default: "%d.%m.%Y"

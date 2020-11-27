@@ -202,21 +202,21 @@ de-CH:
       driving_licenses: Fahrlizenz
       expense_sheet: Spesenblatt
       organizatino_holiday: Betriebsferien
+      organization: Einsatzbetrieb
       organization_member: Mitarbeiter
       regional_center: Regionalzentrum
       service: Einsatz
       service_specification: Pflichtenheft
       workshop: Kurs
-      organization: "Einsatzbetrieb"
   administrator: Administrator
   base:
     civil_servants:
       navbar:
         home: Home
         profile: Profil
+        service_agreements: Einsatzvereinbarungen
         services: Einsätze
         sign_out: Abmelden
-        service_agreements: Einsatzvereinbarungen
     organizations:
       navbar:
         civil_servants: Zivildienstleistende
@@ -274,6 +274,19 @@ de-CH:
           service_specific: Weiteres
       update:
         erroneous_update: Bitte beheben sie die markierten Fehler
+    service_agreements:
+      accept:
+        erroneous_accept: Einsatz konnte nicht akzeptiert werden.
+        successful_accept: Einsatz wurde erfolgerich akzeptiert.
+      decline:
+        erroneous_decline: Einsatz konnte nicht abgelehnt werden
+        successful_decline: Einsatz wurde erfolgreich abgelehnt
+      index:
+        accept_service: Einsatz akzeptieren
+        confirm_acceptance: Bist du sicher, dass du den Einsatz aktzeptieren möchstest?
+        confirm_decline: Bist du sicher, dass du den Einsatz ablehnen möchtest?
+        decline_service: Einsatz ablehnen
+        title: Einsatzvereinbarungen
     services:
       index:
         services: Meine Einsätze
@@ -283,19 +296,6 @@ de-CH:
         expense_sheets: Spesenblätter
         organization_information: Informationen zum Betrieb
         schedule_information: Einsatz Informationen
-    service_agreements:
-      index:
-        title: "Einsatzvereinbarungen"
-        decline_service: "Einsatz ablehnen"
-        confirm_decline: "Bist du sicher, dass du den Einsatz ablehnen möchtest?"
-        accept_service: "Einsatz akzeptieren"
-        confirm_acceptance: "Bist du sicher, dass du den Einsatz aktzeptieren möchstest?"
-      accept:
-        successful_accept: Einsatz wurde erfolgerich akzeptiert.
-        erroneous_accept: Einsatz konnte nicht akzeptiert werden.
-      decline:
-        successful_decline: "Einsatz wurde erfolgreich abgelehnt"
-        erroneous_decline: "Einsatz konnte nicht abgelehnt werden"
   date:
     formats:
       default: "%d.%m.%Y"
