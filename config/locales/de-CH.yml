@@ -155,7 +155,7 @@ de-CH:
             iban:
               bad_check_digits: konnte nicht auf Gültigkeit überprüft werden
               bad_format: hat ein ungültiges Format
-              bad_length: zu kurz (21 Zeichen)
+              too_short: zu kurz (21 Zeichen)
         expense_sheet:
           already_paid: Das Spesenblatt wurde bereis ausbezahlt.
           attributes:
