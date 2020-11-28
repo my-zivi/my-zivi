@@ -90,23 +90,18 @@ module Organizations
     end
 
     def service_agreement_beginning_date_picker(form, service_agreement)
-      date_picker(form, :beginning, localize_date(service_agreement.beginning),
-                  minDate: I18n.l(Time.zone.today), enable: valid_beginning_dates(service_agreement))
+      date_picker(form, :beginning, service_agreement.beginning,
+                  required: true, minDate: I18n.l(Time.zone.today),
+                  enable: valid_beginning_dates(service_agreement))
     end
 
     def service_agreement_ending_date_picker(form, service_agreement)
-      date_picker(form, :ending, localize_date(service_agreement.ending),
-                  minDate: I18n.l(Time.zone.today.at_end_of_week - 2.days),
-                  enable: valid_ending_dates(service_agreement))
+      date_picker(form, :ending, service_agreement.ending, required: true,
+                                                           minDate: I18n.l(Time.zone.today.at_end_of_week - 2.days),
+                                                           enable: valid_ending_dates(service_agreement))
     end
 
     private
-
-    def localize_date(date)
-      return '' if date.nil?
-
-      I18n.l(date)
-    end
 
     def valid_beginning_dates(service)
       return [] if service.probation_civil_service?

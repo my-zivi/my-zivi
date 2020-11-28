@@ -5,9 +5,7 @@ def complete_personal_step(**overrides)
   fill_in 'civil_servant[first_name]', with: overrides[:first_name] || 'Harry'
   fill_in 'civil_servant[last_name]', with: overrides[:last_name] || 'Potter'
   fill_in 'civil_servant[hometown]', with: overrides[:hometown] || 'Hogwarts'
-  select '1', from: 'civil_servant[birthday(3i)]'
-  select 'Januar', from: 'civil_servant[birthday(2i)]'
-  select 5.years.ago.year.to_s, from: 'civil_servant[birthday(1i)]'
+  fill_in 'civil_servant_birthday', with: overrides[:birthday] || Date.parse('01.01.2000')
   fill_in 'civil_servant[phone]', with: overrides[:phone] || '044 123 45 45'
 end
 
