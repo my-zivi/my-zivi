@@ -12,6 +12,12 @@
             - @model_columns.each_value do |column|
               td.py-3.align-middle = column[:content].call(model)
             td.py-3.align-middle
-              - @model_actions.each_value do |action|
-                = link_to(action[:link_path].call(model), action[:link_args]) do
-                  i[class=action[:icon_classes]]
+              .dropdown.text-sans-serif
+                button.btn.btn-link.text-600.btn-sm.dropdown-toggle.btn-reveal.mr-3 aria-expanded="false" aria-haspopup="true" data-boundary="viewport" data-toggle="dropdown" type="button"
+                  i.fas.fa-ellipsis-h.fs--1
+                .dropdown-menu.dropdown-menu-right.border.py-0 aria-labelledby="order-dropdown-0"
+                  .bg-white.py-2
+                    - @model_actions.each_value do |action|
+                      = link_to(action[:link_path].call(model), action[:link_args]) do
+                        i[class=action[:icon_classes]]
+                        = action[:link_text]

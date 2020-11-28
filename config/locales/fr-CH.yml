@@ -307,7 +307,6 @@ fr-CH:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
-  destroy: Effacer
   destroying: En effaçant...
   edit: Edit
   error: Erreur
@@ -459,10 +458,11 @@ fr-CH:
         erroneous_destroy: Le contrat de service n'a pas pu être supprimé
         successful_destroy: Le contrat de service a été supprimé
       index:
+        create_new_service_agreement: Créer une nouveau convention d’affectation
         days:
           one: 1 Jour
           other: "%{amount} Journées"
-        new_service_agreement: Nouveau contrat de service
+        new_service_agreement: Nouvelle convention d'affectation
         title: Services dont le consentement des civilists est en attente
       new:
         title: Nouveau contrat de service
@@ -475,6 +475,8 @@ fr-CH:
               recent_civil_servants: Les civilists en service chez nous
           input_placeholder: Recherche d'un civilist
           title: Créer un service pour les civilists suivants
+      service_agreement_row:
+        delete: Supprimer
     service_specifications:
       create:
         erroneous_create: Le cahier des charges n'a pas pu être créée

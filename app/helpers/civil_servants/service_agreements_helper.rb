@@ -34,7 +34,8 @@ module CivilServants
 
     ACTIONS = {
       decline: {
-        icon_classes: 'fas fa-times',
+        icon_classes: 'fas fa-times text-danger mr-3',
+        link_text: I18n.t('civil_servants.service_agreements.index.decline_service'),
         link_path: lambda { |service_agreement|
           Rails.application
                .routes
@@ -42,7 +43,7 @@ module CivilServants
                .civil_servants_service_agreement_decline_path(service_agreement)
         },
         link_args: {
-          class: 'mr-3',
+          class: 'dropdown-item',
           title: I18n.t('civil_servants.service_agreements.index.decline_service'),
           data: {
             confirm: I18n.t('civil_servants.service_agreements.index.confirm_decline'),
@@ -53,7 +54,8 @@ module CivilServants
         }
       },
       accept: {
-        icon_classes: 'fas fa-check color-green',
+        icon_classes: 'fas fa-check text-success mr-3',
+        link_text: I18n.t('civil_servants.service_agreements.index.accept_service'),
         link_path: lambda { |service_agreement|
           Rails.application
                .routes
@@ -61,7 +63,7 @@ module CivilServants
                .civil_servants_service_agreement_accept_path(service_agreement)
         },
         link_args: {
-          class: 'mr-3',
+          class: 'dropdown-item',
           title: I18n.t('civil_servants.service_agreements.index.accept_service'),
           data: {
             confirm: I18n.t('civil_servants.service_agreements.index.confirm_acceptance'),

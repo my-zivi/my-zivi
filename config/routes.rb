@@ -50,7 +50,6 @@ Rails.application.routes.draw do
     resources :service_agreements, only: %i[index destroy create new]
     get '/service_agreements/civil_servants/search',
         to: 'service_agreements#search', as: 'service_agreement_civil_servant_search'
-    # match '/service_agreements/new', to: 'service_agreements#new', via: %i[get post]
     resources :payments, except: :edit
     resources :expense_sheets, except: :show
     get '/phone_list', to: 'phone_list#index', as: 'phone_list'

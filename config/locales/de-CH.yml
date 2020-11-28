@@ -307,7 +307,6 @@ de-CH:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
-  destroy: Löschen
   destroying: Löschen...
   edit: Bearbeiten
   error: Fehler
@@ -460,6 +459,7 @@ de-CH:
         erroneous_destroy: Einsatzvereinbarung konnte nicht gelöscht werden
         successful_destroy: Einsatzvereinbarung erfolgeich gelöscht
       index:
+        create_new_service_agreement: Neue Einsatzvereinbarung erstellen
         days:
           one: 1 Tag
           other: "%{amount} Tage"
@@ -476,6 +476,8 @@ de-CH:
               recent_civil_servants: Zivildienstleistende mit Einsatz bei uns
           input_placeholder: Zivildienstleistender suchen
           title: Einsatz für folgender Zivildienstleistender erstellen
+      service_agreement_row:
+        delete: Löschen
     service_specifications:
       create:
         erroneous_create: Pflichtenheft konnte nicht erstellt werden

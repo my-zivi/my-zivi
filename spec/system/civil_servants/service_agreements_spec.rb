@@ -34,7 +34,7 @@ RSpec.describe 'Civil Servants Service Agreement Page', type: :system do
   end
 
   it 'can accept a service agreements' do
-    expect { find('a.mr-3:nth-child(2)').click }.to(
+    expect { click_accept_service(1) }.to(
       change { service_agreement.reload.civil_servant_decided_at }.from(nil)
         .and(
           change { service_agreement.reload.civil_servant_agreed }.from(nil).to(true)
@@ -43,7 +43,7 @@ RSpec.describe 'Civil Servants Service Agreement Page', type: :system do
   end
 
   it 'can decline a service agreements' do
-    expect { find('a.mr-3:nth-child(1)').click }.to(
+    expect { click_decline_service(1) }.to(
       change { service_agreement.reload.civil_servant_decided_at }.from(nil)
         .and(
           change { service_agreement.reload.civil_servant_agreed }.from(nil).to(false)
