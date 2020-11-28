@@ -477,6 +477,8 @@ de-CH:
               recent_civil_servants: Zivildienstleistende mit Einsatz bei uns
           input_placeholder: Zivildienstleistender suchen
           title: Einsatz für folgender Zivildienstleistender erstellen
+      service_agreement_row:
+        delete: Löschen
     service_specifications:
       create:
         erroneous_create: Pflichtenheft konnte nicht erstellt werden

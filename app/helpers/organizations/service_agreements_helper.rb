@@ -29,24 +29,9 @@ module Organizations
     }.freeze
 
     ACTIONS = {
-      # TODO: Implement edit
-      # edit: {
-      #   icon_classes: 'fas fa-pen',
-      #   link_path: lambda { |service_agreement|
-      #                Rails.application.routes
-      #                     .url_helpers.edit_organizations_civil_servant_service_path(
-      #                       service_agreement.civil_servant,
-      #                       service_agreement
-      #                     )
-      #              },
-      #   link_args: {
-      #     class: 'mr-3',
-      #     title: I18n.t('edit'),
-      #     data: { toggle: 'tooltip', placement: 'above' }
-      #   }
-      # },
       delete: {
-        icon_classes: 'fas fa-trash text-danger',
+        icon_classes: 'fas fa-trash text-danger mr-3',
+        link_text: I18n.t('organizations.service_agreements.service_agreement_row.delete'),
         link_path: lambda { |service_agreement|
           Rails.application
                .routes
@@ -54,9 +39,9 @@ module Organizations
                .organizations_service_agreement_path(service_agreement)
         },
         link_args: {
-          class: 'mr-3',
-          method: :delete,
-          title: I18n.t('destroy'),
+          class: 'dropdown-item',
+          method: :post,
+          title: I18n.t('organizations.service_agreements.service_agreement_row.delete'),
           data: {
             confirm: I18n.t('organizations.service_agreements.confirm_destroy'),
             toggle: 'tooltip',

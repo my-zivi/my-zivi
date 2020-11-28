@@ -476,6 +476,8 @@ fr-CH:
               recent_civil_servants: Les civilists en service chez nous
           input_placeholder: Recherche d'un civilist
           title: Créer un service pour les civilists suivants
+      service_agreement_row:
+        delete: Supprimer
     service_specifications:
       create:
         erroneous_create: Le cahier des charges n'a pas pu être créée
