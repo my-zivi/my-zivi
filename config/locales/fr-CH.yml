@@ -407,7 +407,7 @@ fr-CH:
               date_range: Période
               service_specification: Spécifications
               status: Statut
-            title: Demandes en attente
+            title: les affectations en suspens
           welcome_back:
             title: Bonjour, %{name}!
     payments:
