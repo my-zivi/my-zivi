@@ -6,6 +6,7 @@ RSpec.describe 'organizations/overview/index.html.slim', type: :view do
   subject { rendered }
 
   let(:current_organization_admin) { build(:organization_member) }
+  let(:service) { create(:service) }
   let(:expected_strings) do
     [
       current_organization_admin.organization.name,
@@ -18,7 +19,9 @@ RSpec.describe 'organizations/overview/index.html.slim', type: :view do
       '2',
       t('organizations.overview.index.cards.editable_expense_sheets.title'),
       t('organizations.overview.index.cards.editable_expense_sheets.link'),
-      '0'
+      '0',
+      service.civil_servant.full_name,
+      organizations_civil_servant_service_path(service.civil_servant, service)
     ]
   end
 
@@ -26,6 +29,7 @@ RSpec.describe 'organizations/overview/index.html.slim', type: :view do
     create_pair(:civil_servant, :full, :with_service, organization: current_organization_admin.organization)
 
     allow(view).to receive(:current_organization_admin).and_return current_organization_admin
+    assign(:services, [service])
 
     render
   end

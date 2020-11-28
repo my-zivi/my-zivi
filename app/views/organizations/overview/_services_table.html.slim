@@ -1,0 +1,36 @@
+.card.mb-3
+  .card-header
+    .row.align-items-center.justify-content-between
+      .col-6.col-sm-auto.d-flex.align-items-center.pr-0
+        h5.fs-0.mb-0.text-nowrap.py-2.py-xl-0 = t('organizations.overview.index.cards.services_table.title')
+  .card-body.px-0.pt-0.pb-0
+    .falcon-data-table
+      .dataTables_wrapper.dt-bootstrap4.no-footer
+        .row.mx-1
+          .col-sm-12.col-md-6
+          .col-sm-12.col-md-6
+        .table-responsive.mb-0
+          table.table.table-sm.mb-0.table-striped.table-dashboard.fs--1.data-table.border-bottom.border-200.dataTable.no-footer role="grid"
+            thead.bg-200.text-900
+              tr role="row"
+                th.align-middle = t('organizations.overview.index.cards.services_table.headers.civil_servant')
+                th.align-middle = t('organizations.overview.index.cards.services_table.headers.service_specification')
+                th.align-middle = t('organizations.overview.index.cards.services_table.headers.date_range')
+                th.align-middle = t('organizations.overview.index.cards.services_table.headers.status')
+                th.align-middle
+            tbody
+              - services.each do |service|
+                tr.btn-reveal-trigger.odd role="row"
+                  td.py-2.align-middle = service.civil_servant.full_name
+                  td.py-2.align-middle = service.service_specification.name
+                  td.py-2.align-middle = "#{l(service.beginning)} - #{l(service.ending)}"
+                  td.py-2.align-middle = service_state_label(service)
+                  td.py-2.align-middle
+                    .dropdown.text-sans-serif
+                      button.btn.btn-link.text-600.btn-sm.dropdown-toggle.btn-reveal.mr-3 aria-expanded="false" aria-haspopup="true" data-boundary="viewport" data-toggle="dropdown" type="button"
+                        i.fas.fa-ellipsis-h.fs--1
+                      .dropdown-menu.dropdown-menu-right.border.py-0 aria-labelledby="order-dropdown-0"
+                        .bg-white.py-2
+                          = link_to organizations_civil_servant_service_path(service.civil_servant, service), class: 'dropdown-item' do
+                            i.fas.fa-eye.mr-1
+                            = t('organizations.overview.index.cards.services_table.actions.details')
