@@ -222,185 +222,185 @@ Array [
       className="d-table-cell day-cell inactive"
     />
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
     <div
-      className="d-table-cell day-cell active tentative"
+      className="d-table-cell day-cell active definitive"
     >
       <i
-        className="far fa-envelope"
+        className="fas fa-check"
       />
     </div>
   </div>,
@@ -423,187 +423,83 @@ Array [
       className="d-table-cell day-cell inactive"
     />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
     <div
-      className="d-table-cell day-cell active definitive"
-    >
-      <i
-        className="fas fa-check"
-      />
-    </div>
+      className="d-table-cell day-cell inactive"
+    />
   </div>,
 ]
 `;

@@ -10,7 +10,11 @@ import TableContent from './TableContent';
 describe('TableContent', () => {
   const servicesList = new ServicesList([
     ...Factories.buildList(ServiceFactory, 2),
-    ServiceFactory.build({ definitive: false }),
+    ServiceFactory.build({
+      definitive: false,
+      beginning: '2020-02-03',
+      ending: '2020-03-06',
+    }),
   ]);
   const monthlyGroup = new MonthlyGroup(moment(servicesList.services[0].beginning));
   const wrapper = shallow(<TableContent servicesList={servicesList} currentMonthlyGroup={monthlyGroup} />);
