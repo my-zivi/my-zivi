@@ -1322,14 +1322,6 @@ ALTER TABLE ONLY public.civil_servants_workshops
 
 
 --
--- Name: organization_members fk_rails_dd7f017308; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.organization_members
-    ADD CONSTRAINT fk_rails_dd7f017308 FOREIGN KEY (organization_id) REFERENCES public.organizations(id);
-
-
---
 -- Name: service_specifications_workshops fk_rails_e4c4d43970; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1343,6 +1335,14 @@ ALTER TABLE ONLY public.service_specifications_workshops
 
 ALTER TABLE ONLY public.civil_servants_driving_licenses
     ADD CONSTRAINT fk_rails_f0b9fba0dd FOREIGN KEY (driving_license_id) REFERENCES public.driving_licenses(id);
+
+
+--
+-- Name: organization_members fk_rails_ff629e24d8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_members
+    ADD CONSTRAINT fk_rails_ff629e24d8 FOREIGN KEY (organization_id) REFERENCES public.organizations(id);
 
 
 --

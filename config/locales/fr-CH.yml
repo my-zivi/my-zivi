@@ -534,3 +534,15 @@ fr-CH:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
     invalid_required_service_days: Jours du service non valables
   successful_registration: Inscription réussie
+  errors:
+    not_found:
+      title: "La page n'a pas pu être trouvée"
+      subtitle_html:
+        Assurez-vous que l'adresse est correcte et que la page n'a pas été déplacée.
+        Si vous pensez qu'il s'agit d'une erreur, <a href="mailto:info@myzivi.ch">veuillez nous contacter</a>.
+    unauthorized:
+      subtitle_html:
+        Assurez-vous que vous avez accès à cette ressource.
+        Si vous pensez qu'il s'agit d'une erreur, <a href="mailto:info@myzivi.ch">veuillez nous contacter</a>.
+    internal_server_error:
+      subtitle: "Nous corrigerons l'erreur dès que possible et nous nous excusons pour le désagrément occasionné"

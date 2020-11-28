@@ -60,4 +60,9 @@ Rails.application.routes.draw do
       resources :services, only: %i[show edit update]
     end
   end
+
+  get '/401' => 'errors#unauthorized', as: :unauthorized
+  get '/404' => 'errors#not_found', as: :not_found
+  get '/500' => 'errors#internal_server_error', as: :internal_server_error
+  get '/422' => 'errors#unprocessable_entity', as: :unprocessable_entity
 end
