@@ -93,10 +93,12 @@ fr-CH:
         short_name: Nom court
       service:
         beginning: Démarrer
+        civil_servant_agreed: Consentement du civiliste
         confirmation_date: Date de confirmation
         ending: Fin
         last_service: Dernier service
         long_service: Longue durée de vie
+        organization_agreed: Consentement de l'établissement d'affectation
         probation_service: Demande de procès
         service_days: Durée de vie
         service_specification: Spécifications
@@ -280,10 +282,10 @@ fr-CH:
         erroneous_update: Veuillez corriger les erreurs signalées
     service_agreements:
       accept:
-        erroneous_accept: L'affectation n'a pas pu être acceptée.
+        erroneous_accept: 'L''affectation n''a pas pu être acceptée: '
         successful_accept: L'affectation a été acceptée avec succès.
       decline:
-        erroneous_decline: L'affectation n'a pas pu être refusée
+        erroneous_decline: 'L''affectation n''a pas pu être refusée: '
         successful_decline: L'affectation a été rejetée avec succès
       index:
         accept_service: Accepter l'affectation

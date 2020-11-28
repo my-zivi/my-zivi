@@ -52,8 +52,7 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
 
     let(:civil_servant) { create(:civil_servant, :full, first_name: 'Brigitte') }
     let(:service_agreement) do
-      create(:service, :future,
-             :civil_servant_agreement_pending, civil_servant: civil_servant)
+      create(:service, :future, :civil_servant_agreement_pending, civil_servant: civil_servant)
     end
 
     context 'when a organization administrator is signed in' do
@@ -71,8 +70,7 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
 
       context 'when the service is unaccpected' do
         let(:service_agreement) do
-          create(:service, :future,
-                 :civil_servant_agreement_pending, civil_servant: civil_servant)
+          create(:service, :future, :civil_servant_agreement_pending, civil_servant: civil_servant)
         end
 
         it 'successfully accpets the service' do
@@ -88,7 +86,13 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
         it 'does not change the decided at date' do
           expect { perform_request }.not_to(change { service_agreement.reload.civil_servant_decided_at })
           expect(response).to redirect_to(civil_servants_service_agreements_path)
-          expect(flash[:error]).to eq I18n.t('civil_servants.service_agreements.accept.erroneous_accept')
+          expect(flash[:error]).to(
+            eq(
+              "#{I18n.t('civil_servants.service_agreements.accept.erroneous_accept')}" \
+                "#{I18n.t('activerecord.attributes.service.civil_servant_agreed')}" \
+                " #{I18n.t('activerecord.errors.models.service.attributes.civil_servant_agreed.already_decided')}"
+            )
+          )
         end
       end
     end
@@ -141,7 +145,13 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
         it 'does not change the decided at date' do
           expect { perform_request }.not_to(change { service_agreement.reload.civil_servant_decided_at })
           expect(response).to redirect_to(civil_servants_service_agreements_path)
-          expect(flash[:error]).to eq I18n.t('civil_servants.service_agreements.decline.erroneous_decline')
+          expect(flash[:error]).to(
+            eq(
+              "#{I18n.t('civil_servants.service_agreements.decline.erroneous_decline')}" \
+                "#{I18n.t('activerecord.attributes.service.civil_servant_agreed')}" \
+                " #{I18n.t('activerecord.errors.models.service.attributes.civil_servant_agreed.already_decided')}"
+            )
+          )
         end
       end
     end

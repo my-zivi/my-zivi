@@ -43,13 +43,13 @@ module CivilServants
         },
         link_args: {
           class: 'mr-3',
-          method: :decline,
           title: I18n.t('civil_servants.service_agreements.index.decline_service'),
           data: {
             confirm: I18n.t('civil_servants.service_agreements.index.confirm_decline'),
             toggle: 'tooltip',
             placement: 'above'
-          }
+          },
+          method: :patch
         }
       },
       accept: {
@@ -62,13 +62,13 @@ module CivilServants
         },
         link_args: {
           class: 'mr-3',
-          method: :accept,
           title: I18n.t('civil_servants.service_agreements.index.accept_service'),
           data: {
             confirm: I18n.t('civil_servants.service_agreements.index.confirm_acceptance'),
             toggle: 'tooltip',
             placement: 'above'
-          }
+          },
+          method: :patch
         }
       }
     }.freeze

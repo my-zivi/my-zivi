@@ -17,7 +17,7 @@ module CivilServants
       if service.update(civil_servant_agreed: true)
         flash[:notice] = t('.successful_accept')
       else
-        flash[:error] = t('.erroneous_accept')
+        flash[:error] = format_errors(t('.erroneous_accept'), service)
       end
       redirect_to civil_servants_service_agreements_path
     end
@@ -28,9 +28,18 @@ module CivilServants
       if service.update(civil_servant_agreed: false)
         flash[:notice] = t('.successful_decline')
       else
-        flash[:error] = t('.erroneous_decline')
+        flash[:error] = format_errors(t('.erroneous_decline'), service)
       end
       redirect_to civil_servants_service_agreements_path
+    end
+
+    private
+
+    # :reek:UtilityFunction
+    def format_errors(error_header, service)
+      return '' if service.valid?
+
+      error_header + service.errors.full_messages.join
     end
   end
 end

@@ -93,10 +93,12 @@ de-CH:
         short_name: Kurzname
       service:
         beginning: Anfang
+        civil_servant_agreed: Zustimmung des Zivildienstleistendes
         confirmation_date: Bestätigungsdatum
         ending: Ende
         last_service: Letzter Einsatz
         long_service: Langer Einsatz
+        organization_agreed: Zustimmung des Einsatzbetriebes
         probation_service: Probeeinsatz
         service_days: Einsatzdauer
         service_specification: Pflichtenheft
@@ -146,7 +148,7 @@ de-CH:
         not_a_friday: kein Freitag
         not_a_monday: kein Montag
         not_a_positive_currency_amount: sind keine positiven Zahlen
-        overlaps_service: überlappt existierenden Service
+        overlaps_service: überlappt existierenden Einsatz
       models:
         civil_servant:
           attributes:
@@ -280,10 +282,10 @@ de-CH:
         erroneous_update: Bitte beheben sie die markierten Fehler
     service_agreements:
       accept:
-        erroneous_accept: Einsatz konnte nicht akzeptiert werden.
+        erroneous_accept: 'Einsatz konnte nicht akzeptiert werden: '
         successful_accept: Einsatz wurde erfolgerich akzeptiert.
       decline:
-        erroneous_decline: Einsatz konnte nicht abgelehnt werden
+        erroneous_decline: 'Einsatz konnte nicht abgelehnt werden: '
         successful_decline: Einsatz wurde erfolgreich abgelehnt
       index:
         accept_service: Einsatz akzeptieren
