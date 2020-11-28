@@ -37,9 +37,7 @@ module CivilServants
 
     # :reek:UtilityFunction
     def format_errors(error_header, service)
-      return '' if service.valid?
-
-      error_header + service.errors.full_messages.join
+      error_header + service.errors.full_messages.to_sentence
     end
   end
 end
