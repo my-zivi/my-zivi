@@ -37,3 +37,6 @@
           links: {t('.cards.editable_expense_sheets.link') => organizations_expense_sheets_path} \
           ) \
         )
+
+  .col-12
+    = render 'organizations/overview/services_table', services: @services

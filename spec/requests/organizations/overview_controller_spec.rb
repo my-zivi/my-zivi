@@ -11,10 +11,27 @@ RSpec.describe Organizations::OverviewController, type: :request do
     before { sign_in organization_administrator.user }
 
     describe '#index' do
-      before { get organizations_path }
+      let(:service_specification) { create(:service_specification, organization: organization) }
+
+      before do
+        create(:service, :civil_servant_agreement_pending,
+               service_specification: service_specification,
+               civil_servant: create(:civil_servant, :full, first_name: 'Peter', last_name: 'Paul'))
+        create(:service,
+               service_specification: service_specification,
+               confirmation_date: nil,
+               civil_servant: create(:civil_servant, :full, first_name: 'Hans', last_name: 'Maria'))
+        create(:service,
+               service_specification: service_specification,
+               civil_servant: create(:civil_servant, :full, first_name: 'Philip', last_name: 'Fehr'))
+
+        get organizations_path
+      end
 
       it 'returns http success' do
         expect(response).to have_http_status(:success)
+        expect(response.body).to include 'Peter Paul', 'Hans Maria'
+        expect(response.body).not_to include 'Philipp Fehr'
       end
     end
   end

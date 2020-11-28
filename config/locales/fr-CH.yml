@@ -399,6 +399,15 @@ fr-CH:
               current_month: Mois en cours
               current_week: Semaine en cours
             title: Listes téléphoniques
+          services_table:
+            actions:
+              details: Détails
+            headers:
+              civil_servant: Personne effectuant des travaux d'intérêt général
+              date_range: Période
+              service_specification: Spécifications
+              status: Statut
+            title: les affectations en suspens
           welcome_back:
             title: Bonjour, %{name}!
     payments:
@@ -546,4 +555,9 @@ fr-CH:
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
     invalid_required_service_days: Jours du service non valables
+  service_states:
+    active: Définitivement
+    civil_servant_rejected: Rejeté par la partie civile
+    pending_contract: Tableau en attente
+    waiting_for_civil_servant_decision: Attendre l'entrée en vigueur de la loi civile
   successful_registration: Inscription réussie

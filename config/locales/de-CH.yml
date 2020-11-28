@@ -400,6 +400,15 @@ de-CH:
               current_month: Aktueller Monat
               current_week: Aktuelle Woche
             title: Telefonlisten
+          services_table:
+            actions:
+              details: Details
+            headers:
+              civil_servant: Zivildienstleistender
+              date_range: Zeitraum
+              service_specification: Pflichtenheft
+              status: Status
+            title: Einsatz-Pendenzen
           welcome_back:
             title: Wilkommen zurück, %{name}!
     payments:
@@ -547,4 +556,9 @@ de-CH:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
+  service_states:
+    active: Definitiv
+    civil_servant_rejected: Abgelehnt durch Zivi
+    pending_contract: Aufgebot ausstehend
+    waiting_for_civil_servant_decision: Warte auf Zivi
   successful_registration: Registration erfolgreich

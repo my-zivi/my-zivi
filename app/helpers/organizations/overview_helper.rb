@@ -25,5 +25,18 @@ module Organizations
     def editable_expense_sheets_count
       current_organization.expense_sheets.editable.count
     end
+
+    # @param [Service] service
+    def service_state_label(service)
+      civil_servant_agreed = service.civil_servant_agreed?
+
+      {
+        (civil_servant_agreed && service.confirmation_date.present?) => I18n.t('service_states.active'),
+        (civil_servant_agreed && service.confirmation_date.nil?) => I18n.t('service_states.pending_contract'),
+        service.civil_servant_decided_at.nil? => I18n.t('service_states.waiting_for_civil_servant_decision'),
+        (service.civil_servant_decided_at.present? && !civil_servant_agreed) =>
+          I18n.t('service_states.civil_servant_rejected')
+      }.fetch(true, nil)
+    end
   end
 end
