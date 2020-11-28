@@ -77,6 +77,7 @@ module Organizations
       @accessible_expense_sheets = ExpenseSheet
                                    .accessible_by(current_ability)
                                    .editable
+                                   .where(payment: nil)
                                    .includes(:civil_servant)
     end
 

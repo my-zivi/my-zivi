@@ -71,6 +71,10 @@ RSpec.describe Organizations::PaymentsController, type: :request do
                    last_name: 'Parker',
                    organization: organization),
             create(:civil_servant, :full, :with_service,
+                   first_name: 'Christof',
+                   last_name: 'Stiefel',
+                   organization: organization),
+            create(:civil_servant, :full, :with_service,
                    first_name: 'Tina',
                    last_name: 'Parker',
                    organization: organization),
@@ -82,15 +86,18 @@ RSpec.describe Organizations::PaymentsController, type: :request do
         end
 
         before do
+          payment = create(:payment, organization: organization)
+
           create(:expense_sheet, :with_service, service: civil_servants.first.services.first)
-          create(:expense_sheet, :with_service, :locked, service: civil_servants.second.services.first)
-          create(:expense_sheet, :with_service, service: civil_servants.third.services.first)
+          create(:expense_sheet, :with_service, service: civil_servants.second.services.first, payment: payment)
+          create(:expense_sheet, :with_service, :locked, service: civil_servants.third.services.first)
+          create(:expense_sheet, :with_service, service: civil_servants.fourth.services.first)
         end
 
         it 'only shows editable and accessible expense sheets', :without_bullet do
           perform_request
           expect(response.body).to include 'Peter Parker'
-          expect(response.body).not_to include 'Tina Parker', 'Tony Stark'
+          expect(response.body).not_to include 'Tina Parker', 'Christof Stiefel', 'Tony Stark'
         end
       end
     end
