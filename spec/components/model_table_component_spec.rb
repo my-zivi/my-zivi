@@ -44,10 +44,10 @@ RSpec.describe ModelTableComponent, type: :component do
     let(:actions) do
       {
         edit: {
-          icon_classes: 'fas fa-pen',
+          icon_classes: 'fas fa-pen mr-3',
           link_path: ->(_model) { 'the_super_url' },
           link_args: {
-            class: 'mr-3',
+            class: 'dropdown-item',
             title: 'edit',
             data: { toggle: 'tooltip', placement: 'above' }
           }
@@ -57,11 +57,11 @@ RSpec.describe ModelTableComponent, type: :component do
     let(:component) { described_class.new(model_data: [model], model_columns: columns, model_actions: actions) }
 
     it 'renders the specified actions' do
-      expect(rendered.css('td i').length).to eq 1
-      expect(rendered.css('td i').attr('class').value).to eq 'fas fa-pen'
-      expect(rendered.css('td a').attr('href').value).to eq 'the_super_url'
-      expect(rendered.css('td a').attr('data-toggle').value).to eq 'tooltip'
-      expect(rendered.css('td a').attr('data-placement').value).to eq 'above'
+      expect(rendered.css('td i').length).to eq 2
+      expect(rendered.css('td .dropdown-item i').attr('class').value).to eq 'fas fa-pen mr-3'
+      expect(rendered.css('td a.dropdown-item').attr('href').value).to eq 'the_super_url'
+      expect(rendered.css('td a.dropdown-item').attr('data-toggle').value).to eq 'tooltip'
+      expect(rendered.css('td a.dropdown-item').attr('data-placement').value).to eq 'above'
     end
   end
 end
