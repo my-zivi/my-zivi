@@ -311,6 +311,17 @@ de-CH:
   destroying: Löschen...
   edit: Bearbeiten
   error: Fehler
+  errors:
+    internal_server_error:
+      subtitle: Wir werden den Fehler schnellstmöglich beheben und entschuldigen uns für die Unannehmlichkeiten
+      title: Es ist ein unerwarteter Fehler aufgetreten
+    not_found:
+      subtitle_html: Stellen Sie sicher, dass die Adresse korrekt ist und dass die Seite nicht verschoben wurde. Wenn Sie glauben, dass dies ein Fehler ist, <a href="mailto:info@myzivi.ch">kontaktieren Sie uns</a>.
+      title: Die Seite konnte nicht gefunden werden
+    unauthorized:
+      subtitle_html: Stellen Sie sicher, dass Sie Zugriff auf diese Resource haben. Wenn Sie glauben, dass dies ein Fehler ist, <a href="mailto:info@myzivi.ch">kontaktieren Sie uns</a>.
+    unprocessable_entity:
+      title: Die Ressource konnte nicht aktualisiert werden
   home:
     mailing_list:
       lead: Hinterlasse uns deine Kontaktdaten und unser Vertriebsteam kontaktiert dich gerne für ein kurzes Gespräch
@@ -535,18 +546,3 @@ de-CH:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
   successful_registration: Registration erfolgreich
-  errors:
-    not_found:
-      title: Die Seite konnte nicht gefunden werden
-      subtitle_html:
-        Stellen Sie sicher, dass die Adresse korrekt ist und dass die Seite nicht verschoben wurde.
-        Wenn Sie glauben, dass dies ein Fehler ist, <a href="mailto:info@myzivi.ch">kontaktieren Sie uns</a>.
-    unauthorized:
-      subtitle_html:
-        Stellen Sie sicher, dass Sie Zugriff auf diese Resource haben.
-        Wenn Sie glauben, dass dies ein Fehler ist, <a href="mailto:info@myzivi.ch">kontaktieren Sie uns</a>.
-    internal_server_error:
-      title: "Es ist ein unerwarteter Fehler aufgetreten"
-      subtitle: "Wir werden den Fehler schnellstmöglich beheben und entschuldigen uns für die Unannehmlichkeiten"
-    unprocessable_entity:
-      title: "Die Ressource konnte nicht aktualisiert werden"
