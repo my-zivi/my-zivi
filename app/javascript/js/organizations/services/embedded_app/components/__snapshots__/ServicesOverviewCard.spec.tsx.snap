@@ -172,6 +172,7 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
                       "civilServant": Object {
                         "fullName": "Peter Parker",
                       },
+                      "definitive": true,
                       "ending": "2020-02-07",
                     },
                     Object {
@@ -179,6 +180,7 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
                       "civilServant": Object {
                         "fullName": "Peter Parker",
                       },
+                      "definitive": true,
                       "ending": "2020-02-07",
                     },
                   ],
@@ -207,6 +209,7 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
                           "civilServant": Object {
                             "fullName": "Peter Parker",
                           },
+                          "definitive": true,
                           "ending": "2020-02-07",
                         },
                         Object {
@@ -214,6 +217,7 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
                           "civilServant": Object {
                             "fullName": "Peter Parker",
                           },
+                          "definitive": true,
                           "ending": "2020-02-07",
                         },
                       ],
@@ -441,6 +445,7 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
                               "civilServant": Object {
                                 "fullName": "Peter Parker",
                               },
+                              "definitive": true,
                               "ending": "2020-02-07",
                             },
                             Object {
@@ -448,6 +453,7 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
                               "civilServant": Object {
                                 "fullName": "Peter Parker",
                               },
+                              "definitive": true,
                               "ending": "2020-02-07",
                             },
                           ],
@@ -473,182 +479,182 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
                           className="d-table-cell day-cell inactive"
                         />
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
@@ -674,182 +680,182 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
                           className="d-table-cell day-cell inactive"
                         />
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
@@ -1051,6 +1057,7 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
                               "civilServant": Object {
                                 "fullName": "Peter Parker",
                               },
+                              "definitive": true,
                               "ending": "2020-02-07",
                             },
                             Object {
@@ -1058,6 +1065,7 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
                               "civilServant": Object {
                                 "fullName": "Peter Parker",
                               },
+                              "definitive": true,
                               "ending": "2020-02-07",
                             },
                           ],
@@ -1068,49 +1076,49 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
                         className="d-table-row"
                       >
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
@@ -1187,49 +1195,49 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
                         className="d-table-row"
                       >
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"
                           />
                         </div>
                         <div
-                          className="d-table-cell day-cell active"
+                          className="d-table-cell day-cell active definitive"
                         >
                           <i
                             className="fas fa-check"

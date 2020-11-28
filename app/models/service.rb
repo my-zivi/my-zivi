@@ -61,6 +61,10 @@ class Service < ApplicationRecord
     beginning..ending
   end
 
+  def definitive?
+    civil_servant_agreed? && organization_agreed?
+  end
+
   private
 
   def remaining_days_calculator

@@ -8,7 +8,10 @@ import MonthlyGroup from '../models/MonthlyGroup';
 import TableContent from './TableContent';
 
 describe('TableContent', () => {
-  const servicesList = new ServicesList(Factories.buildList(ServiceFactory, 2));
+  const servicesList = new ServicesList([
+    ...Factories.buildList(ServiceFactory, 2),
+    ServiceFactory.build({ definitive: false }),
+  ]);
   const monthlyGroup = new MonthlyGroup(moment(servicesList.services[0].beginning));
   const wrapper = shallow(<TableContent servicesList={servicesList} currentMonthlyGroup={monthlyGroup} />);
 

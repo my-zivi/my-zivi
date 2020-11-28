@@ -1,5 +1,6 @@
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
+@import '../../theme/variables';
 
 $month-title-height: 50px;
 $cell-height: 40px;
@@ -42,7 +43,7 @@ $names-list-width: 150px;
 .services-overview-month-table {
   .d-table-cell {
     height: $cell-height;
-    min-width: 25px;
+    min-width: 28px;
     text-align: center;
     white-space: nowrap;
     border-right: 1px solid $gray-400;
@@ -56,7 +57,13 @@ $names-list-width: 150px;
     vertical-align: middle;
 
     &.active {
-      background-color: $green;
+      background-color: $light-green;
+      color: $green;
+    }
+
+    &.tentative {
+      background-color: $light-salmon;
+      color: $dark-salmon;
     }
   }
 }
