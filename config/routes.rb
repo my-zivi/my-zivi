@@ -33,8 +33,8 @@ Rails.application.routes.draw do
 
     resource :civil_servant, only: %i[edit update], on: :collection
     resources :service_agreements, only: :index do
-      post 'accept', to: 'service_agreements#accept'
-      post 'decline', to: 'service_agreements#decline'
+      patch 'accept', to: 'service_agreements#accept'
+      patch 'decline', to: 'service_agreements#decline'
     end
     resources :services, only: %i[index show]
 

@@ -48,7 +48,7 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
   end
 
   describe '#accept' do
-    let(:perform_request) { post civil_servants_service_agreement_accept_path(service_agreement) }
+    let(:perform_request) { patch civil_servants_service_agreement_accept_path(service_agreement) }
 
     let(:civil_servant) { create(:civil_servant, :full, first_name: 'Brigitte') }
     let(:service_agreement) do
@@ -101,7 +101,7 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
   end
 
   describe '#decline' do
-    let(:perform_request) { post civil_servants_service_agreement_decline_path(service_agreement) }
+    let(:perform_request) { patch civil_servants_service_agreement_decline_path(service_agreement) }
 
     let(:civil_servant) { create(:civil_servant, :full, first_name: 'Brigitte') }
     let(:service_agreement) do

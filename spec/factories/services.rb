@@ -13,11 +13,6 @@ FactoryBot.define do
     organization_agreed { true }
     association :civil_servant, :full
 
-    trait :decided_dates_set do
-      civil_servant_decided_at { 2.weeks.ago }
-      organization_decided_at { 3.weeks.ago }
-    end
-
     trait :civil_servant_agreement_pending do
       civil_servant_agreed { nil }
       civil_servant_decided_at { nil }

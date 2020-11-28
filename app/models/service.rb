@@ -17,8 +17,7 @@ class Service < ApplicationRecord
   scope :civil_servant_agreement_pending, -> { where(civil_servant_agreed: nil) }
   scope :organization_agreement_pending, -> { where(organization_agreed: nil) }
   scope :agreement, -> { civil_servant_agreement_pending.or(organization_agreement_pending) }
-  scope :declined, -> { where(organization_agreed: false).or(civil_servant_agreed: false) }
-  scope :definitive, -> { where(organization_agreed: true).where(civil_servant_agreed: true) }
+  scope :definitive, -> { where(organization_agreed: true, civil_servant_agreed: true) }
 
   enum service_type: {
     normal: 0,

@@ -142,7 +142,7 @@ RSpec.describe Service, type: :model do
       let(:other_beginning) { (service_range.begin - 2.months).at_beginning_of_week }
       let(:other_ending) { (service_range.begin - 1.month).at_end_of_week - 2.days }
 
-      context 'when existing service it is a service agreement' do
+      context 'when existing service is a service agreement' do
         before do
           create :service, :civil_servant_agreement_pending,
                  civil_servant: civil_servant, beginning: other_beginning, ending: other_ending
@@ -187,7 +187,7 @@ RSpec.describe Service, type: :model do
 
       context 'when the civil servant has already decided' do
         subject do
-          service = build(:service, :decided_dates_set)
+          service = build(:service, civil_servant_decided_at: 2.weeks.ago, organization_decided_at: 3.weeks.ago)
           service.update(civil_servant_agreed: true)
           service.errors.added?(:civil_servant_agreed, :already_decided)
         end
@@ -209,12 +209,40 @@ RSpec.describe Service, type: :model do
 
       context 'when the organization has already decided' do
         subject do
-          service = build(:service, :decided_dates_set)
+          service = build(:service, civil_servant_decided_at: 2.weeks.ago, organization_decided_at: 3.weeks.ago)
           service.update(organization_agreed: true)
           service.errors.added?(:organization_agreed, :already_decided)
         end
 
         it { is_expected.to be true }
+      end
+    end
+
+    describe '#check_definitive_service_destroy' do
+      context 'when service is destroyed' do
+        context 'when the organization agreement is missing' do
+          let!(:model) { create :service, :organization_agreement_pending }
+
+          it 'does destroy the service' do
+            expect { model.destroy }.to change(described_class, :count).by(-1)
+          end
+        end
+
+        context 'when the civil servant agreement is missing' do
+          let!(:model) { create :service, :civil_servant_agreement_pending }
+
+          it 'does destroy the service' do
+            expect { model.destroy }.to change(described_class, :count).by(-1)
+          end
+        end
+
+        context 'when both parties have agreed' do
+          let!(:model) { create :service }
+
+          it 'does not destroy the service' do
+            expect { model.destroy }.not_to change(described_class, :count)
+          end
+        end
       end
     end
   end
@@ -261,60 +289,70 @@ RSpec.describe Service, type: :model do
   end
 
   describe 'database triggers' do
-    let(:model) { create :service, :civil_servant_agreement_pending }
-
-    context 'when civil servant agreement is missing' do
+    context 'when a service is created' do
       context 'when civil servant agrees' do
-        it 'updates the civil servant agreed on date' do
-          expect { model.update(civil_servant_agreed: true) }.to(change { model.reload.civil_servant_decided_at })
+        let(:model) { create :service, :organization_agreement_pending }
+
+        it 'sets the civil servant agreed on date' do
+          expect(model.reload.civil_servant_decided_at).not_to be_nil
         end
       end
 
       context 'when civil servant does not agree' do
+        let(:model) { create :service, :civil_servant_agreement_pending }
+
         it 'updates the civil servant agreed on date' do
-          expect { model.update(civil_servant_agreed: false) }.to(change { model.reload.civil_servant_decided_at })
+          expect(model.reload.civil_servant_decided_at).to be_nil
         end
       end
-    end
-
-    context 'when organization agreement is missing' do
-      let(:model) { create :service, :organization_agreement_pending }
 
       context 'when organization agrees' do
-        it 'updates the organization agreed on date' do
-          expect { model.update(organization_agreed: true) }.to(change { model.reload.organization_agreed })
+        let(:model) { create :service, :civil_servant_agreement_pending }
+
+        it 'sets the civil servant agreed on date' do
+          expect(model.reload.organization_decided_at).not_to be_nil
         end
       end
 
-      context 'when does not agree' do
-        it 'updates the organization agreed on date' do
-          expect { model.update(organization_agreed: false) }.to(change { model.reload.organization_agreed })
+      context 'when organization does not agree' do
+        let(:model) { create :service, :organization_agreement_pending }
+
+        it 'updates the civil servant agreed on date' do
+          expect(model.reload.organization_decided_at).to be_nil
         end
       end
     end
 
-    context 'when service is destroyed' do
-      context 'when the organization agreement is missing' do
-        let!(:model) { create :service, :organization_agreement_pending }
+    context 'when a service is updated' do
+      let(:model) { create :service, :civil_servant_agreement_pending }
 
-        it 'does destroy the service' do
-          expect { model.destroy }.to change(described_class, :count).by(-1)
+      context 'when civil servant agreement is missing' do
+        context 'when civil servant agrees' do
+          it 'updates the civil servant agreed on date' do
+            expect { model.update(civil_servant_agreed: true) }.to(change { model.reload.civil_servant_decided_at })
+          end
+        end
+
+        context 'when civil servant does not agree' do
+          it 'updates the civil servant agreed on date' do
+            expect { model.update(civil_servant_agreed: false) }.to(change { model.reload.civil_servant_decided_at })
+          end
         end
       end
 
-      context 'when the civil servant agreement is missing' do
-        let!(:model) { create :service, :civil_servant_agreement_pending }
+      context 'when organization agreement is missing' do
+        let(:model) { create :service, :organization_agreement_pending }
 
-        it 'does destroy the service' do
-          expect { model.destroy }.to change(described_class, :count).by(-1)
+        context 'when organization agrees' do
+          it 'updates the organization agreed on date' do
+            expect { model.update(organization_agreed: true) }.to(change { model.reload.organization_agreed })
+          end
         end
-      end
 
-      context 'when both parties have agreed' do
-        let!(:model) { create :service }
-
-        it 'does not destroy the service' do
-          expect { model.destroy }.not_to change(described_class, :count)
+        context 'when does not agree' do
+          it 'updates the organization agreed on date' do
+            expect { model.update(organization_agreed: false) }.to(change { model.reload.organization_agreed })
+          end
         end
       end
     end
