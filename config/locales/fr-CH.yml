@@ -307,7 +307,6 @@ fr-CH:
       default: "%d.%m.%Y"
       long: "%d.%b.%Y"
       short: "%d.%m.%y"
-  destroy: Effacer
   destroying: En effaçant...
   edit: Edit
   error: Erreur
@@ -459,12 +458,12 @@ fr-CH:
         erroneous_destroy: Le contrat de service n'a pas pu être supprimé
         successful_destroy: Le contrat de service a été supprimé
       index:
+        create_new_service_agreement: Créer une nouveau convention d’affectation
         days:
           one: 1 Jour
           other: "%{amount} Journées"
         new_service_agreement: Nouvelle convention d'affectation
         title: Services dont le consentement des civilists est en attente
-        create_new_service_agreement: Créer une nouveau convention d’affectation
       new:
         title: Nouveau contrat de service
       search:
