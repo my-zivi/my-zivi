@@ -14,7 +14,7 @@ RSpec.describe PainGenerationService, type: :service do
 
     let(:expected_transaction_values) do
       {
-        amount: expense_sheets.first.calculate_full_expenses / 100.to_f,
+        amount: 691,
         batch_booking: true,
         currency: 'CHF',
         iban: civil_servant.iban,
