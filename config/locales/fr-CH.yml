@@ -311,6 +311,17 @@ fr-CH:
   destroying: En effaçant...
   edit: Edit
   error: Erreur
+  errors:
+    internal_server_error:
+      subtitle: Nous corrigerons l'erreur dès que possible et nous nous excusons pour le désagrément occasionné
+      title: Une erreur inattendue s'est produite
+    not_found:
+      subtitle_html: Assurez-vous que l'adresse est correcte et que la page n'a pas été déplacée. Si vous pensez qu'il s'agit d'une erreur, <a href="mailto:info@myzivi.ch">veuillez nous contacter</a>.
+      title: La page n'a pas pu être trouvée
+    unauthorized:
+      subtitle_html: Assurez-vous que vous avez accès à cette ressource. Si vous pensez qu'il s'agit d'une erreur, <a href="mailto:info@myzivi.ch">veuillez nous contacter</a>.
+    unprocessable_entity:
+      title: La ressource n'a pas pu être mise à jour
   home:
     mailing_list:
       lead: Laissez-nous vos coordonnées et notre équipe commerciale se fera un plaisir de vous contacter pour une brève discussion
