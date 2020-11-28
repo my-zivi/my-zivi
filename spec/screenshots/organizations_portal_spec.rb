@@ -8,7 +8,7 @@ RSpec.describe 'Organizations Portal Screenshots', type: :system, js: true do
 
   before do
     service_specification = create(:service_specification, organization: organization_administrator.organization)
-    create(:service, service_specification: service_specification)
+    create(:service, :civil_servant_agreement_pending, service_specification: service_specification)
 
     sign_in organization_administrator.user
   end

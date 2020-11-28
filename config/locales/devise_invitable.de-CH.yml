@@ -24,7 +24,7 @@ de-CH:
       invitation_instructions:
         accept: Einladung annehmen
         accept_until: Diese Einladung ist gültig bis zum %{due_date}.
-        hello: Hallo %{email}
+        hello: Hallo %{full_name}
         ignore: |-
           Wenn du die Einladung nicht annehmen willst, ignoriere diese E-Mail einfach.<br />
           Es wird kein Benutzerkonto erstellt solange du nicht die Einladung mittels des Links oben annimmst.
