@@ -4,7 +4,6 @@
       = t('.title')
       span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@service_agreements.count})"
     a.btn.btn-primary href='#new_service_agreement' data-toggle="modal"
-      i.fas.fa-plus-square.mr-1
       = t('.new_service_agreement')
   .card-body.p-0
     = render ModelTableComponent.new(\
