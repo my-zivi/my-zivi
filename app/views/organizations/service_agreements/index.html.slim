@@ -7,9 +7,6 @@
       i.fas.fa-plus-square.mr-1
       = t('.new_service_agreement')
   .card-body.p-0
-    / - if @service_agreements.empty?
-    /   .text-muted = t('.empty')
-    / - else
     = render ModelTableComponent.new(\
           model_data: @service_agreements,
             model_columns: service_agreements_organization_table_columns,
