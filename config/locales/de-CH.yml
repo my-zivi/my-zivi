@@ -93,10 +93,12 @@ de-CH:
         short_name: Kurzname
       service:
         beginning: Anfang
+        civil_servant_agreed: Zustimmung des Zivildienstleistendes
         confirmation_date: Bestätigungsdatum
         ending: Ende
         last_service: Letzter Einsatz
         long_service: Langer Einsatz
+        organization_agreed: Zustimmung des Einsatzbetriebes
         probation_service: Probeeinsatz
         service_days: Einsatzdauer
         service_specification: Pflichtenheft
@@ -146,7 +148,7 @@ de-CH:
         not_a_friday: kein Freitag
         not_a_monday: kein Montag
         not_a_positive_currency_amount: sind keine positiven Zahlen
-        overlaps_service: überlappt existierenden Service
+        overlaps_service: überlappt existierenden Einsatz
       models:
         civil_servant:
           attributes:
@@ -181,9 +183,13 @@ de-CH:
               unknown_country_code: unbekannter Landescode
             beginning:
               invalid_datetime: ungültiges Datum
+            civil_servant_agreed:
+              already_decided: kann nicht verändert werden, da für diesen Einsatz bereits eine Entscheidung getroffen wurde.
             ending:
               after: darf nicht vor Anfang sein.
               invalid_datetime: ungültiges Datum
+            organization_agreed:
+              already_decided: kann nicht verändert werden, da für diesen Einsatz bereits eine Entscheidung getroffen wurde.
             service_days:
               invalid_length: kann nicht kürzer als 26 Tage sein.
         user:
@@ -202,6 +208,7 @@ de-CH:
       driving_licenses: Fahrlizenz
       expense_sheet: Spesenblatt
       organizatino_holiday: Betriebsferien
+      organization: Einsatzbetrieb
       organization_member: Mitarbeiter
       regional_center: Regionalzentrum
       service: Einsatz
@@ -213,6 +220,7 @@ de-CH:
       navbar:
         home: Home
         profile: Profil
+        service_agreements: Einsatzvereinbarungen
         services: Einsätze
         sign_out: Abmelden
     organizations:
@@ -272,6 +280,19 @@ de-CH:
           service_specific: Weiteres
       update:
         erroneous_update: Bitte beheben sie die markierten Fehler
+    service_agreements:
+      accept:
+        erroneous_accept: 'Einsatz konnte nicht akzeptiert werden: '
+        successful_accept: Einsatz wurde erfolgerich akzeptiert.
+      decline:
+        erroneous_decline: 'Einsatz konnte nicht abgelehnt werden: '
+        successful_decline: Einsatz wurde erfolgreich abgelehnt
+      index:
+        accept_service: Einsatz akzeptieren
+        confirm_acceptance: Bist du sicher, dass du den Einsatz aktzeptieren möchstest?
+        confirm_decline: Bist du sicher, dass du den Einsatz ablehnen möchtest?
+        decline_service: Einsatz ablehnen
+        title: Einsatzvereinbarungen
     services:
       index:
         services: Meine Einsätze

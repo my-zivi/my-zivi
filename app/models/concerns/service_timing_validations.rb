@@ -19,7 +19,7 @@ module ServiceTimingValidations
   def overlaps_other_service?
     return false if civil_servant.nil?
 
-    civil_servant.services.where.not(id: id).overlapping_date_range(beginning, ending).any?
+    civil_servant.services.definitive.where.not(id: id).overlapping_date_range(beginning, ending).any?
   end
 
   def beginning_is_monday

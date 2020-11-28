@@ -60,16 +60,16 @@ blocks:
             - bin/lint
         - name: Unit Tests
           commands:
-            - sem-service start postgres
-            - 'bundle exec rails db:create db:schema:load'
+            - sem-service start postgres 12
+            - 'bundle exec rails db:create db:structure:load'
             - bin/unit-tests
         - name: JavaScript Tests
           commands:
             - yarn test
         - name: System Tests
           commands:
-            - sem-service start postgres
-            - 'bundle exec rails db:create db:schema:load'
+            - sem-service start postgres 12
+            - 'bundle exec rails db:create db:structure:load'
             - bin/system-tests
   - name: Percy
     dependencies:
@@ -94,8 +94,8 @@ blocks:
           - bundle install --deployment --path vendor/bundle
           - nvm install
           - bin/yarn install --cache-folder ~/.cache/yarn
-          - sem-service start postgres
-          - 'bundle exec rails db:create db:schema:load'
+          - sem-service start postgres 12
+          - 'bundle exec rails db:create db:structure:load'
       jobs:
         - name: Capture Screenshots
           commands:
@@ -127,8 +127,8 @@ blocks:
           - bundle install --deployment --path vendor/bundle
           - nvm install
           - bin/yarn install --cache-folder ~/.cache/yarn && yarn global add @lhci/cli@^0.5.0
-          - sem-service start postgres
-          - 'bundle exec rails db:create db:schema:load'
+          - sem-service start postgres 12
+          - 'bundle exec rails db:create db:structure:load'
       jobs:
         - name: Lighthouse CI
           commands:

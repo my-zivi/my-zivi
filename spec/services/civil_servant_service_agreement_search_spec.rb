@@ -111,9 +111,8 @@ RSpec.describe CivilServantServiceAgreementSearch, type: :service do
              beginning: '2020-01-06',
              ending: '2020-01-31',
              civil_servant_agreed: false,
-             civil_servant_agreed_on: nil,
-             organization_agreed: true,
-             organization_agreed_on: '2020-01-01')
+             civil_servant_decided_at: nil,
+             organization_agreed: true)
     end
 
     context 'when there is no search term' do

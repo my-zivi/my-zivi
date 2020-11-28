@@ -25,9 +25,7 @@ Service.create!(
       civil_servant: niels_schweizer,
       service_specification: jugendarbeit,
       civil_servant_agreed: true,
-      civil_servant_agreed_on: 1.week.ago,
-      organization_agreed: true,
-      organization_agreed_on: 5.weeks.ago
+      organization_agreed: true
     },
     {
       beginning: current_service_beginning - 1.week,
@@ -39,9 +37,7 @@ Service.create!(
       civil_servant: max_mustermann,
       service_specification: jugendarbeit,
       civil_servant_agreed: true,
-      civil_servant_agreed_on: 3.weeks.ago,
-      organization_agreed: true,
-      organization_agreed_on: 3.weeks.ago
+      organization_agreed: true
     },
     {
       beginning: future_service_beginning,
@@ -53,9 +49,7 @@ Service.create!(
       civil_servant: max_mustermann,
       service_specification: zirkusarbeit,
       civil_servant_agreed: true,
-      civil_servant_agreed_on: 1.week.ago,
-      organization_agreed: true,
-      organization_agreed_on: 1.week.ago
+      organization_agreed: true
     },
     {
       beginning: future_service_beginning,
@@ -66,10 +60,8 @@ Service.create!(
       feedback_mail_sent: false,
       civil_servant: philipp,
       service_specification: zirkusarbeit,
-      civil_servant_agreed: false,
-      civil_servant_agreed_on: nil,
-      organization_agreed: true,
-      organization_agreed_on: 1.week.ago
+      civil_servant_agreed: nil,
+      organization_agreed: true
     },
     {
       beginning: '2020-01-06',
@@ -81,9 +73,7 @@ Service.create!(
       civil_servant: philipp,
       service_specification: zirkusarbeit,
       civil_servant_agreed: true,
-      civil_servant_agreed_on: '2018-07-20',
-      organization_agreed: true,
-      organization_agreed_on: '2018-07-20'
+      organization_agreed: true
     },
     {
       beginning: '2019-02-04',
@@ -95,9 +85,7 @@ Service.create!(
       civil_servant: philipp,
       service_specification: jugendarbeit,
       civil_servant_agreed: true,
-      civil_servant_agreed_on: '2018-12-20',
-      organization_agreed: true,
-      organization_agreed_on: '2018-12-20'
+      organization_agreed: true
     },
     {
       beginning: '2020-08-24',
@@ -109,9 +97,7 @@ Service.create!(
       civil_servant: joel,
       service_specification: hausdienst,
       civil_servant_agreed: true,
-      civil_servant_agreed_on: '2020-02-22',
-      organization_agreed: true,
-      organization_agreed_on: '2020-02-22'
+      organization_agreed: true
     },
     {
       beginning: '2020-09-07',
@@ -123,9 +109,7 @@ Service.create!(
       civil_servant: andy,
       service_specification: hausdienst,
       civil_servant_agreed: true,
-      civil_servant_agreed_on: '2020-08-12',
-      organization_agreed: true,
-      organization_agreed_on: '2020-08-13'
+      organization_agreed: true
     },
     {
       beginning: '2020-10-26',
@@ -136,10 +120,9 @@ Service.create!(
       feedback_mail_sent: false,
       civil_servant: philipp,
       service_specification: jugendarbeit,
-      civil_servant_agreed: false,
-      civil_servant_agreed_on: nil,
-      organization_agreed: true,
-      organization_agreed_on: '2020-10-01'
+      civil_servant_agreed: nil,
+      civil_servant_decided_at: nil,
+      organization_agreed: true
     }
   ]
 )

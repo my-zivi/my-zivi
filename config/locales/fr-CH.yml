@@ -93,10 +93,12 @@ fr-CH:
         short_name: Nom court
       service:
         beginning: Démarrer
+        civil_servant_agreed: Consentement du civiliste
         confirmation_date: Date de confirmation
         ending: Fin
         last_service: Dernier service
         long_service: Longue durée de vie
+        organization_agreed: Consentement de l'établissement d'affectation
         probation_service: Demande de procès
         service_days: Durée de vie
         service_specification: Spécifications
@@ -181,9 +183,13 @@ fr-CH:
               unknown_country_code: code de pays inconnu
             beginning:
               invalid_datetime: ungültiges Datum
+            civil_servant_agreed:
+              already_decided: ne peut être modifiée, puisqu'une décision a déjà été prise pour cette affectation.
             ending:
               after: ne doit pas être avant le début.
               invalid_datetime: date non valable
+            organization_agreed:
+              already_decided: ne peut être modifiée, puisqu'une décision a déjà été prise pour cette affectation.
             service_days:
               invalid_length: ne peut être inférieure à 26 jours.
         user:
@@ -198,10 +204,11 @@ fr-CH:
               cant_delete_himself: Vous ne pouvez pas vous effacer
     models:
       address: Adresse
-      civil_servant: Personne effectuant des travaux d'intérêt général
+      civil_servant: Civiliste
       driving_licenses: Permis de conduire
       expense_sheet: note de frais
       organizatino_holiday: Vacances d'entreprise
+      organization: Établissement d'affectation
       organization_member: Employés
       regional_center: Centre régional
       service: Déploiement
@@ -213,6 +220,7 @@ fr-CH:
       navbar:
         home: Accueil
         profile: Profil
+        service_agreements: Accord de service
         services: Services
         sign_out: Déconnexion
     organizations:
@@ -272,6 +280,19 @@ fr-CH:
           service_specific: supplément
       update:
         erroneous_update: Veuillez corriger les erreurs signalées
+    service_agreements:
+      accept:
+        erroneous_accept: 'L''affectation n''a pas pu être acceptée: '
+        successful_accept: L'affectation a été acceptée avec succès.
+      decline:
+        erroneous_decline: 'L''affectation n''a pas pu être refusée: '
+        successful_decline: L'affectation a été rejetée avec succès
+      index:
+        accept_service: Accepter l'affectation
+        confirm_acceptance: Êtes-vous sûr de vouloir accepter l'affectation ?
+        confirm_decline: Êtes-vous sûr de vouloir refuser l'affectation ?
+        decline_service: Refuse l'affectation
+        title: Accord de service
     services:
       index:
         services: Mes services

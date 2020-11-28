@@ -32,6 +32,10 @@ Rails.application.routes.draw do
     get '/', to: 'overview#index'
 
     resource :civil_servant, only: %i[edit update], on: :collection
+    resources :service_agreements, only: :index do
+      patch 'accept', to: 'service_agreements#accept'
+      patch 'decline', to: 'service_agreements#decline'
+    end
     resources :services, only: %i[index show]
 
     get 'register', to: 'registrations#edit'

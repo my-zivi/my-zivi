@@ -14,8 +14,10 @@ class Service < ApplicationRecord
   scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
   scope :at_year, ->(year) { overlapping_date_range(Date.new(year), Date.new(year).at_end_of_year) }
   scope :active, -> { where('beginning <= ?', Time.zone.now).where('ending >= ?', Time.zone.now) }
-  scope :agreement, -> { where(civil_servant_agreed: false).or(where(organization_agreed: false)) }
-  scope :definitive, -> { where(civil_servant_agreed: true).where(organization_agreed: true) }
+  scope :civil_servant_agreement_pending, -> { where(civil_servant_agreed: nil) }
+  scope :organization_agreement_pending, -> { where(organization_agreed: nil) }
+  scope :agreement, -> { civil_servant_agreement_pending.or(organization_agreement_pending) }
+  scope :definitive, -> { where(organization_agreed: true, civil_servant_agreed: true) }
 
   enum service_type: {
     normal: 0,
@@ -26,6 +28,8 @@ class Service < ApplicationRecord
   validates :ending, :beginning, presence: true
   validates :beginning, timeliness: true
   validates :ending, timeliness: { after: :beginning }
+  validate :legitimate_civil_servant_decision
+  validate :legitimate_organization_decision
 
   delegate :used_paid_vacation_days, :used_sick_days, to: :used_days_calculator
   delegate :remaining_paid_vacation_days, :remaining_sick_days, to: :remaining_days_calculator
@@ -36,8 +40,6 @@ class Service < ApplicationRecord
   accepts_nested_attributes_for :civil_servant
 
   before_destroy :check_definitive_service_destroy
-  after_commit :update_civil_service_agreement, on: %i[create update]
-  after_commit :update_organization_agreement, on: %i[create update]
 
   def service_days
     service_calculator.calculate_chargeable_service_days(ending)
@@ -77,11 +79,15 @@ class Service < ApplicationRecord
     throw :abort if civil_servant_agreed && organization_agreed
   end
 
-  def update_civil_service_agreement
-    update(civil_servant_agreed_on: Time.zone.now) if civil_servant_agreed && !civil_servant_agreed_before_last_save
+  def legitimate_civil_servant_decision
+    return if civil_servant_decided_at.nil? || !civil_servant_agreed_changed?
+
+    errors.add(:civil_servant_agreed, :already_decided)
   end
 
-  def update_organization_agreement
-    update(organization_agreed_on: Time.zone.now) if organization_agreed && !organization_agreed_before_last_save
+  def legitimate_organization_decision
+    return if organization_decided_at.nil? || !organization_agreed_changed?
+
+    errors.add(:organization_agreed, :already_decided)
   end
 end
