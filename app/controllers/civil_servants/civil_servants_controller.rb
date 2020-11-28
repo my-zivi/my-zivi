@@ -4,7 +4,7 @@ module CivilServants
   class CivilServantsController < BaseController
     PERMITTED_CIVIL_SERVANT_PARAMS = [
       :zdp, :first_name, :last_name, :hometown, :birthday,
-      :phone, :iban, :health_insurance, :regional_center_id,
+      :phone, :iban, :health_insurance, :regional_center,
       { workshop_ids: [], driving_license_ids: [],
         user_attributes: %i[email language id],
         address_attributes: %i[

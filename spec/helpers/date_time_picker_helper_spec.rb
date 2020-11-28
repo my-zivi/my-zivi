@@ -8,33 +8,49 @@ RSpec.describe DateTimePickerHelper, type: :helper do
 
     let(:date_picker_html) do
       helper.simple_form_for :object, url: root_path do |f|
-        helper.date_picker(f, :date, value, **options)
+        helper.date_picker(f, :date, value, required: required, **options)
       end
     end
 
     let(:options) { {} }
-    let(:value) { '06.09.2018' }
+    let(:value) { Date.parse('2018-09-06') }
+    let(:required) { false }
 
-    let(:expected_classes) { %w[form-control string required datetimepicker] }
+    let(:required_class) { required ? 'required' : 'optional' }
+    let(:expected_classes) { %w[form-control string datetimepicker] + [required_class] }
     let(:expected_type) { 'date' }
     let(:expected_data_options) { DateTimePickerHelper::DEFAULT_OPTIONS.merge(locale: I18n.locale.to_s).merge(options) }
 
     context 'without any special config' do
       it 'renders all attributes correctly' do
-        expect(date_picker_input_element.classes).to eq expected_classes
+        expect(date_picker_input_element.classes).to contain_exactly(*expected_classes)
         expect(date_picker_input_element['type']).to eq expected_type
-        expect(date_picker_input_element['value']).to eq value
+        expect(date_picker_input_element['value']).to eq I18n.l(value)
+        expect(date_picker_input_element['required']).not_to be_present
         expect(JSON.parse(date_picker_input_element['data-options'], symbolize_names: true)).to eq expected_data_options
       end
     end
 
-    context 'without special config' do
+    context 'with special config' do
       let(:options) { { dateFormat: 'customFormat' } }
 
       it 'renders all attributes correctly' do
-        expect(date_picker_input_element.classes).to eq expected_classes
+        expect(date_picker_input_element.classes).to contain_exactly(*expected_classes)
         expect(date_picker_input_element['type']).to eq expected_type
-        expect(date_picker_input_element['value']).to eq value
+        expect(date_picker_input_element['value']).to eq I18n.l(value)
+        expect(date_picker_input_element['required']).not_to be_present
+        expect(JSON.parse(date_picker_input_element['data-options'], symbolize_names: true)).to eq expected_data_options
+      end
+    end
+
+    context 'with required true' do
+      let(:required) { true }
+
+      it 'renders all attributes correctly' do
+        expect(date_picker_input_element.classes).to contain_exactly(*expected_classes)
+        expect(date_picker_input_element['type']).to eq expected_type
+        expect(date_picker_input_element['value']).to eq I18n.l(value)
+        expect(date_picker_input_element['required']).to be_present
         expect(JSON.parse(date_picker_input_element['data-options'], symbolize_names: true)).to eq expected_data_options
       end
     end
@@ -47,14 +63,16 @@ RSpec.describe DateTimePickerHelper, type: :helper do
 
     let(:range_date_picker_html) do
       helper.simple_form_for :object, url: root_path do |f|
-        helper.range_date_picker(f, :range, value, **options)
+        helper.range_date_picker(f, :range, value, required: required, **options)
       end
     end
 
     let(:options) { { mode: 'range' } }
     let(:value) { '06.09.208 bis 06.09.2020' }
+    let(:required) { false }
 
-    let(:expected_classes) { %w[form-control string required datetimepicker] }
+    let(:required_class) { required ? 'required' : 'optional' }
+    let(:expected_classes) { %w[form-control string datetimepicker] + [required_class] }
     let(:expected_type) { 'date' }
     let(:expected_data_options) { DateTimePickerHelper::DEFAULT_OPTIONS.merge(locale: I18n.locale.to_s).merge(options) }
 
@@ -62,21 +80,35 @@ RSpec.describe DateTimePickerHelper, type: :helper do
 
     context 'without any special config' do
       it 'renders all attributes correctly' do
-        expect(range_date_picker_input_element.classes).to eq expected_classes
+        expect(range_date_picker_input_element.classes).to contain_exactly(*expected_classes)
         expect(range_date_picker_input_element['type']).to eq expected_type
         expect(range_date_picker_input_element['value']).to eq value
         expect(range_date_picker_input_element['readonly']).to eq 'readonly'
+        expect(range_date_picker_input_element['required']).not_to be_present
         expect(rendered_data_options).to eq expected_data_options
       end
     end
 
-    context 'without special config' do
+    context 'with special config' do
       let(:options) { { mode: 'range', dateFormat: 'customFormat' } }
 
       it 'renders all attributes correctly' do
-        expect(range_date_picker_input_element.classes).to eq expected_classes
+        expect(range_date_picker_input_element.classes).to contain_exactly(*expected_classes)
         expect(range_date_picker_input_element['type']).to eq expected_type
         expect(range_date_picker_input_element['value']).to eq value
+        expect(range_date_picker_input_element['required']).not_to be_present
+        expect(rendered_data_options).to eq expected_data_options
+      end
+    end
+
+    context 'with required true' do
+      let(:required) { true }
+
+      it 'renders all attributes correctly' do
+        expect(range_date_picker_input_element.classes).to contain_exactly(*expected_classes)
+        expect(range_date_picker_input_element['type']).to eq expected_type
+        expect(range_date_picker_input_element['value']).to eq value
+        expect(range_date_picker_input_element['required']).to be_present
         expect(rendered_data_options).to eq expected_data_options
       end
     end

@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-zuckerberg_foundation = Organization.find_by(name: 'Zuckerberg Foundation')
-james = OrganizationMember.find_by(first_name: 'James')
+alterszentrum_birkhoelzli = Organization.find_by(name: 'Alterszentrum Birkhölzli')
+robert = OrganizationMember.find_by(first_name: 'Robert')
 emily = OrganizationMember.find_by(first_name: 'Emily')
+susanne = OrganizationMember.find_by(first_name: 'Susanne')
 homoeopathy_foundation = Organization.find_by(name: 'Homöopathen Ohne Grenzen')
 percy = OrganizationMember.find_by(first_name: 'Percy')
 
@@ -18,13 +19,31 @@ ServiceSpecification.create!(
       active: true,
       driving_licenses: [DrivingLicense.find_by(name: 'B')],
       workshops: Workshop.where(name: ['Betreuung von Jugendlichen 1', 'Betreuung von Jugendlichen 2']),
-      work_days_expenses: { breakfast: 400, lunch: 900, dinner: 700 },
-      paid_vacation_expenses: { breakfast: 400, lunch: 900, dinner: 700 },
-      first_day_expenses: { breakfast: 0, lunch: 900, dinner: 700 },
-      last_day_expenses: { breakfast: 400, lunch: 900, dinner: 0 },
-      organization: zuckerberg_foundation,
+      work_days_expenses: { breakfast: 4, lunch: 9, dinner: 7 },
+      paid_vacation_expenses: { breakfast: 4, lunch: 9, dinner: 7 },
+      first_day_expenses: { breakfast: 0, lunch: 9, dinner: 7 },
+      last_day_expenses: { breakfast: 4, lunch: 9, dinner: 0 },
+      organization: alterszentrum_birkhoelzli,
       contact_person: emily,
-      lead_person: james
+      lead_person: robert
+    },
+    {
+      name: 'Mitarbeit Hausdienst',
+      identification_number: '86575',
+      internal_note: 'Aktives Pflichtenheft Hausdienst',
+      work_clothing_expenses: 230,
+      accommodation_expenses: 0,
+      location: 'Zürich',
+      active: true,
+      driving_licenses: [],
+      workshops: Workshop.where(name: []),
+      work_days_expenses: { breakfast: 4, lunch: 9, dinner: 7 },
+      paid_vacation_expenses: { breakfast: 4, lunch: 9, dinner: 7 },
+      first_day_expenses: { breakfast: 0, lunch: 9, dinner: 7 },
+      last_day_expenses: { breakfast: 4, lunch: 9, dinner: 0 },
+      organization: alterszentrum_birkhoelzli,
+      contact_person: emily,
+      lead_person: susanne
     },
     {
       name: 'Transport, Logistik und Hauswirtschaft - Notfall',
@@ -36,12 +55,12 @@ ServiceSpecification.create!(
       active: true,
       driving_licenses: [DrivingLicense.find_by(name: 'BE')],
       workshops: [],
-      work_days_expenses: { breakfast: 400, lunch: 900, dinner: 700 },
-      paid_vacation_expenses: { breakfast: 400, lunch: 900, dinner: 700 },
-      first_day_expenses: { breakfast: 0, lunch: 900, dinner: 700 },
-      last_day_expenses: { breakfast: 400, lunch: 900, dinner: 0 },
-      organization: zuckerberg_foundation,
-      contact_person: james,
+      work_days_expenses: { breakfast: 4, lunch: 9, dinner: 7 },
+      paid_vacation_expenses: { breakfast: 4, lunch: 9, dinner: 7 },
+      first_day_expenses: { breakfast: 0, lunch: 9, dinner: 7 },
+      last_day_expenses: { breakfast: 4, lunch: 9, dinner: 0 },
+      organization: alterszentrum_birkhoelzli,
+      contact_person: robert,
       lead_person: emily
     },
     {

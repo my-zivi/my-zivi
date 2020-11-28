@@ -1,0 +1,10 @@
+---
+fr-CH:
+  i18n:
+    transliterate:
+      rule:
+        ä: ae
+        è: e
+        é: e
+        ö: oe
+        ü: ue

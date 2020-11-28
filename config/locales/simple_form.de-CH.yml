@@ -11,6 +11,8 @@ de-CH:
         name: Name
         organization: Unternehmen
         telephone: Telefon
+      payment:
+        expense_sheets: 'Auszahlbare Spesenblätter auswählen:'
       service_specification:
         first_day_expenses:
           breakfast: Morgenessen

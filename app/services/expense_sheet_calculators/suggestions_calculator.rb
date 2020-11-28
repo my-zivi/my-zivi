@@ -2,7 +2,7 @@
 
 module ExpenseSheetCalculators
   class SuggestionsCalculator
-    WORK_CLOTHING_MAX_PER_SERVICE = 24_000
+    WORK_CLOTHING_MAX_PER_SERVICE = 240
 
     extend Forwardable
 

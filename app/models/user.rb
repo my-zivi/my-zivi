@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  belongs_to :referencee, polymorphic: true
+  belongs_to :referencee, polymorphic: true, autosave: true
 
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :trackable
 
@@ -16,4 +16,19 @@ class User < ApplicationRecord
     italian: 'it',
     english: 'en'
   }
+
+  def initialize(attributes)
+    super(attributes)
+    @validate_password = true
+  end
+
+  def skip_password_validation!
+    @validate_password = false
+  end
+
+  private
+
+  def password_required?
+    @validate_password
+  end
 end

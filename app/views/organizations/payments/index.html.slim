@@ -1,6 +1,7 @@
 .card.mb-3.mb-lg-0
   .card-header.bg-light.d-flex.justify-content-between.align-items-center
     h5 = t('.title')
+    = link_to t('.new_payment'), new_organizations_payment_path, class: 'btn btn-primary'
   .card-body.p-0
     .falcon-data-table
       .dataTables_wrapper.dt-bootstrap4.no-footer
@@ -19,7 +20,7 @@
             tbody
               = render partial: 'organizations/payments/payment_row', collection: @payments, as: :payment
         / TODO: Implement pagination
-        .row.no-gutters.px-1.py-3.align-items-center.justify-content-center
+        / .row.no-gutters.px-1.py-3.align-items-center.justify-content-center
           .col-auto
             #DataTables_Table_0_paginate.dataTables_paginate.paging_simple_numbers
               ul.pagination.pagination-sm

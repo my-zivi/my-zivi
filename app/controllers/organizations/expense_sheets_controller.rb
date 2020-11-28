@@ -19,7 +19,7 @@ module Organizations
 
     def index
       load_filters
-      @expense_sheets = filtered_expense_sheets
+      @expense_sheets = filtered_expense_sheets.order(ending: :desc, beginning: :desc)
     end
 
     def edit

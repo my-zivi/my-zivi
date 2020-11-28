@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'selenium/webdriver'
+require 'cancan/matchers'
 
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'

@@ -1,0 +1,5 @@
+= render 'errors/error_page' do
+  .display-1.text-300.fs-error 500
+  h2.lead.mt-4.text-800.text-sans-serif.font-weight-semi-bold = t('errors.internal_server_error.title')
+  hr /
+  p = t('errors.internal_server_error.subtitle')

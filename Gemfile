@@ -8,6 +8,7 @@ ruby '2.7.1'
 gem 'cancancan'
 gem 'devise'
 gem 'devise-i18n'
+gem 'devise_invitable'
 gem 'dotenv-rails'
 gem 'fillable-pdf'
 gem 'hexapdf'
@@ -60,6 +61,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'deepl-rb', require: false
   gem 'letter_opener'
   gem 'listen', '~> 3.2'
   gem 'slim_lint'

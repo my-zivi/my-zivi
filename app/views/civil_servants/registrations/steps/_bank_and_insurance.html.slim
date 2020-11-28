@@ -1,0 +1,6 @@
+.row
+  .col-12
+    = f.input :iban, required: true
+  .col-12
+    = f.input :health_insurance, required: true
+= render 'civil_servants/registrations/steps/shared/form_footer', f: f

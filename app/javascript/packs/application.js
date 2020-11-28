@@ -8,18 +8,20 @@ import 'regenerator-runtime/runtime';
 
 import Rails from '@rails/ujs';
 import Turbolinks from 'turbolinks';
-import '../channels';
 
-import jQuery from 'jquery';
+import $ from 'jquery';
 
 import '@fortawesome/fontawesome-free/js/all.min';
 import 'bootstrap/dist/js/bootstrap.min';
 
+import '../channels';
 import '../stylessheets/application.scss';
 import '../images';
 
 Rails.start();
 Turbolinks.start();
 
-window.jQuery = jQuery;
-window.$ = jQuery;
+window.jQuery = $;
+window.$ = $;
+
+FontAwesome.config.mutateApproach = 'sync';

@@ -1,0 +1,38 @@
+---
+de-CH:
+  devise:
+    failure:
+      invited: Du hast bereits eine Einladung erhalten. Nimm die Einladung an um dein Nutzerkonto zu erstellen.
+    invitations:
+      edit:
+        form:
+          labels:
+            password_confirmation: Passwort wiederholen
+        header: Setze ein neues Passwort, um mit der Registration zu beginnen
+        submit_button: Passwort setzen
+        title: Willkommen bei MyZivi!
+      invitation_removed: Deine Einladung wurde gelöscht.
+      invitation_token_invalid: Der Einladungs-Code ist ungültig!
+      new:
+        header: Einladung schicken
+        submit_button: Einladung schicken
+      no_invitations_remaining: Es gibt keine weiteren Einladungen
+      send_instructions: Eine Einladung wurde an %{email} verschickt.
+      updated: Dein Passwort wurde gesetzt. Du bist nun angemeldet.
+      updated_not_active: Dein Passwort wurde gesetzt.
+    mailer:
+      invitation_instructions:
+        accept: Einladung annehmen
+        accept_until: Diese Einladung ist gültig bis zum %{due_date}.
+        hello: Hallo %{full_name}
+        ignore: |-
+          Wenn du die Einladung nicht annehmen willst, ignoriere diese E-Mail einfach.<br />
+          Es wird kein Benutzerkonto erstellt solange du nicht die Einladung mittels des Links oben annimmst.
+        someone_invited_you: Jemand hat dich zu %{url} eingeladen. Du kannst die Einladung mit dem Link unten annehmen.
+        subject: Einladung
+    time:
+      formats:
+        devise:
+          mailer:
+            invitation_instructions:
+              accept_until_format: "%d. %B %Y %H:%M"

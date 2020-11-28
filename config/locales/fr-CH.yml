@@ -1,5 +1,9 @@
 ---
 fr-CH:
+  actions:
+    back: Retour
+    complete: Finaliser
+    next: Continuer
   activerecord:
     attributes:
       address:
@@ -89,9 +93,12 @@ fr-CH:
         short_name: Nom court
       service:
         beginning: Démarrer
+        civil_servant_agreed: Consentement du civiliste
         confirmation_date: Date de confirmation
         ending: Fin
+        last_service: Dernier service
         long_service: Longue durée de vie
+        organization_agreed: Consentement de l'établissement d'affectation
         probation_service: Demande de procès
         service_days: Durée de vie
         service_specification: Spécifications
@@ -123,13 +130,24 @@ fr-CH:
           italian: Italien
       workshop:
         name: Nom
+    enums:
+      expense_sheet:
+        states:
+          closed: Terminé
+          editable: Actif
+          locked: À l'avenir
+      service:
+        service_types:
+          long: Service de longue durée
+          normal: Service normal
+          probation: Service d'essai
     errors:
       messages:
         before_beginning: avant le décollage
         invalid_date: date non valable
         not_a_friday: pas de vendredi
         not_a_monday: pas de lundi
-        not_an_unsigned_integer: ne sont pas des chiffres positifs
+        not_a_positive_currency_amount: ne sont pas des chiffres positifs
         overlaps_service: chevauchement des services existants
       models:
         civil_servant:
@@ -137,7 +155,7 @@ fr-CH:
             iban:
               bad_check_digits: chiffre de contrôle non valide
               bad_format: format incorrect
-              bad_length: trop court (21 caractères)
+              too_short: trop court (21 caractères)
         expense_sheet:
           already_paid: La note de frais a déjà été payée.
           attributes:
@@ -163,8 +181,15 @@ fr-CH:
               bad_format: format incorrect
               bad_length: longueur non valable
               unknown_country_code: code de pays inconnu
+            beginning:
+              invalid_datetime: ungültiges Datum
+            civil_servant_agreed:
+              already_decided: ne peut être modifiée, puisqu'une décision a déjà été prise pour cette affectation.
             ending:
-              on_or_after: La date de début ne peut être postérieure à la date de fin.
+              after: ne doit pas être avant le début.
+              invalid_datetime: date non valable
+            organization_agreed:
+              already_decided: ne peut être modifiée, puisqu'une décision a déjà été prise pour cette affectation.
             service_days:
               invalid_length: ne peut être inférieure à 26 jours.
         user:
@@ -179,10 +204,11 @@ fr-CH:
               cant_delete_himself: Vous ne pouvez pas vous effacer
     models:
       address: Adresse
-      civil_servant: Personne effectuant des travaux d'intérêt général
+      civil_servant: Civiliste
       driving_licenses: Permis de conduire
       expense_sheet: note de frais
       organizatino_holiday: Vacances d'entreprise
+      organization: Établissement d'affectation
       organization_member: Employés
       regional_center: Centre régional
       service: Déploiement
@@ -194,6 +220,7 @@ fr-CH:
       navbar:
         home: Accueil
         profile: Profil
+        service_agreements: Accord de service
         services: Services
         sign_out: Déconnexion
     organizations:
@@ -205,7 +232,9 @@ fr-CH:
         payments: Paiements
         phone_list: Liste de téléphone
         profile: Profil
+        service_agreements: Accord de service
         service_specifications: cahiers des charges
+        services_overview: Aperçu d'affectations
         sign_out: Déconnexion
     services:
       short_info_cell:
@@ -242,6 +271,28 @@ fr-CH:
           expense_sheets: Notes de frais
           no_current_service: Pas de service actuel
           service_until: Service jusqu'à
+    registrations:
+      steps_bar:
+        steps:
+          address: Adresse
+          bank_and_insurance: Banque et assurance
+          personal: données personnelles
+          service_specific: supplément
+      update:
+        erroneous_update: Veuillez corriger les erreurs signalées
+    service_agreements:
+      accept:
+        erroneous_accept: 'L''affectation n''a pas pu être acceptée: '
+        successful_accept: L'affectation a été acceptée avec succès.
+      decline:
+        erroneous_decline: 'L''affectation n''a pas pu être refusée: '
+        successful_decline: L'affectation a été rejetée avec succès
+      index:
+        accept_service: Accepter l'affectation
+        confirm_acceptance: Êtes-vous sûr de vouloir accepter l'affectation ?
+        confirm_decline: Êtes-vous sûr de vouloir refuser l'affectation ?
+        decline_service: Refuse l'affectation
+        title: Accord de service
     services:
       index:
         services: Mes services
@@ -258,6 +309,18 @@ fr-CH:
       short: "%d.%m.%y"
   destroying: En effaçant...
   edit: Edit
+  error: Erreur
+  errors:
+    internal_server_error:
+      subtitle: Nous corrigerons l'erreur dès que possible et nous nous excusons pour le désagrément occasionné
+      title: Une erreur inattendue s'est produite
+    not_found:
+      subtitle_html: Assurez-vous que l'adresse est correcte et que la page n'a pas été déplacée. Si vous pensez qu'il s'agit d'une erreur, <a href="mailto:info@myzivi.ch">veuillez nous contacter</a>.
+      title: La page n'a pas pu être trouvée
+    unauthorized:
+      subtitle_html: Assurez-vous que vous avez accès à cette ressource. Si vous pensez qu'il s'agit d'une erreur, <a href="mailto:info@myzivi.ch">veuillez nous contacter</a>.
+    unprocessable_entity:
+      title: La ressource n'a pas pu être mise à jour
   home:
     mailing_list:
       lead: Laissez-nous vos coordonnées et notre équipe commerciale se fera un plaisir de vous contacter pour une brève discussion
@@ -266,6 +329,7 @@ fr-CH:
       title: En savoir plus
       via_link: via le lien
   lead_person_html: 'Personne responsable: %{link}'
+  loading: En chargeant...
   mailing_list:
     erroneous_creation: Veuillez corriger les erreurs marquées suivantes
     successful_creation: Merci beaucoup pour votre intérêt. Nous vous contacterons bientôt
@@ -302,6 +366,9 @@ fr-CH:
         erroneous_update: La note de frais n'a pas pu être mis à jour
         successful_update: La note de frais mis à jour avec succès
     organization_members:
+      create:
+        erroneous_create: L'employé n'a pas pu être enregistré
+        successfully_created: Employés enregistrés avec succès
       destroy:
         erroneous_delete: L'employé n'a pas pu être supprimé
         successfully_deleted: Employé supprimé avec succès
@@ -311,7 +378,10 @@ fr-CH:
         pending_invitation: Veuillez confirmer la nouvelle adresse électronique avec le lien qui a été envoyé à %{email}.
         subtitle: Profil des employés
       index:
+        new_organization_member: Inscrire le nouvel employé
         title: Employés
+      new:
+        title: Inscrire le nouvel employé
       update:
         erroneous_update: Le profil n'a pas pu être mis à jour
         successfully_updated: Profil mis à jour avec succès
@@ -329,6 +399,15 @@ fr-CH:
               current_month: Mois en cours
               current_week: Semaine en cours
             title: Listes téléphoniques
+          services_table:
+            actions:
+              details: Détails
+            headers:
+              civil_servant: Personne effectuant des travaux d'intérêt général
+              date_range: Période
+              service_specification: Spécifications
+              status: Statut
+            title: les affectations en suspens
           welcome_back:
             title: Bonjour, %{name}!
     payments:
@@ -337,10 +416,14 @@ fr-CH:
           title: En attente
         paid:
           title: Déboursé
+      create:
+        erroneous_create: Le paiement n'a pas pu être entamé
+        successful_create: Le paiement a commencé avec succès
       destroy:
         erroneous_destroy: Le paiement n'a pas pu être supprimé
         successful_destroy: Le paiement a été supprimé avec succès
       index:
+        new_payment: Nouveau paiement
         table_headers:
           actions: Actions
           amount: Montant
@@ -348,6 +431,9 @@ fr-CH:
           payment: Paiement
           status: Statut
         title: Paiements
+      new:
+        submit: Commencer le paiement
+        title: Nouveau paiement
       pain_file_name: paiement-%{date}.xml
       payment_row:
         delete: Supprimer
@@ -372,6 +458,34 @@ fr-CH:
         title:
           with_filter: Liste de téléphone du %{range}
           without_filter: Liste de téléphone
+    service_agreements:
+      confirm_destroy: Supprimer vraiment le paiement?
+      create:
+        erroneous_create: Le contrat de service n'a pas pu être créé
+        successful_create: Un contrat de service a été créé avec succès
+      destroy:
+        erroneous_destroy: Le contrat de service n'a pas pu être supprimé
+        successful_destroy: Le contrat de service a été supprimé
+      index:
+        create_new_service_agreement: Créer une nouveau convention d’affectation
+        days:
+          one: 1 Jour
+          other: "%{amount} Journées"
+        new_service_agreement: Nouvelle convention d'affectation
+        title: Services dont le consentement des civilists est en attente
+      new:
+        title: Nouveau contrat de service
+      search:
+        modal:
+          dropdown:
+            groups:
+              all_civil_servants: Tous les civilists
+              new_civil_servant: Inviter de nouveaux civilists
+              recent_civil_servants: Les civilists en service chez nous
+          input_placeholder: Recherche d'un civilist
+          title: Créer un service pour les civilists suivants
+      service_agreement_row:
+        delete: Supprimer
     service_specifications:
       create:
         erroneous_create: Le cahier des charges n'a pas pu être créée
@@ -383,6 +497,7 @@ fr-CH:
         destroy_service_specification_confirmation: Supprimer vraiment le cahier des charges?
         title: le cahier des charges "%{name}".
       index:
+        new_service_specification: Ajouter une fiche de spécifications
         title: Les cahiers des charges
       new:
         title: Créer un nouveau cahier des charges
@@ -392,6 +507,10 @@ fr-CH:
         erroneous_update: Le cahier des charges n'a pas pu être mise à jour
         successful_update: Mise à jour réussie du cahier des charges
     services:
+      index:
+        errors:
+          cannot_load: Une erreur s'est produite lors du chargement des encarts
+        title: Aperçu des services
       show:
         expense_sheets: Fiches de frais
   payment:
@@ -436,3 +555,9 @@ fr-CH:
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
     invalid_required_service_days: Jours du service non valables
+  service_states:
+    active: Définitivement
+    civil_servant_rejected: Rejeté par la partie civile
+    pending_contract: Tableau en attente
+    waiting_for_civil_servant_decision: Attendre l'entrée en vigueur de la loi civile
+  successful_registration: Inscription réussie

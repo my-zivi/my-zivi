@@ -1,5 +1,9 @@
 ---
 de-CH:
+  actions:
+    back: Zurück
+    complete: Abschliessen
+    next: Weiter
   activerecord:
     attributes:
       address:
@@ -89,9 +93,12 @@ de-CH:
         short_name: Kurzname
       service:
         beginning: Anfang
+        civil_servant_agreed: Zustimmung des Zivildienstleistendes
         confirmation_date: Bestätigungsdatum
         ending: Ende
+        last_service: Letzter Einsatz
         long_service: Langer Einsatz
+        organization_agreed: Zustimmung des Einsatzbetriebes
         probation_service: Probeeinsatz
         service_days: Einsatzdauer
         service_specification: Pflichtenheft
@@ -123,21 +130,32 @@ de-CH:
           italian: Italienisch
       workshop:
         name: Name
+    enums:
+      expense_sheet:
+        states:
+          closed: Abgeschlossen
+          editable: Aktiv
+          locked: Zukünftig
+      service:
+        service_types:
+          long: Langer Einsatz
+          normal: Normaler Einsatz
+          probation: Probeeinsatz
     errors:
       messages:
         before_beginning: vor Start
         invalid_date: ungültiges Datum
         not_a_friday: kein Freitag
         not_a_monday: kein Montag
-        not_an_unsigned_integer: sind keine positive Zahlen
-        overlaps_service: überlappt existierenden Service
+        not_a_positive_currency_amount: sind keine positiven Zahlen
+        overlaps_service: überlappt existierenden Einsatz
       models:
         civil_servant:
           attributes:
             iban:
-              bad_check_digits: ungültige Prüffziffer
-              bad_format: falsches Format
-              bad_length: zu kurz (21 Zeichen)
+              bad_check_digits: konnte nicht auf Gültigkeit überprüft werden
+              bad_format: hat ein ungültiges Format
+              too_short: zu kurz (21 Zeichen)
         expense_sheet:
           already_paid: Das Spesenblatt wurde bereis ausbezahlt.
           attributes:
@@ -163,8 +181,15 @@ de-CH:
               bad_format: ungültiges Format
               bad_length: ungültige Länge
               unknown_country_code: unbekannter Landescode
+            beginning:
+              invalid_datetime: ungültiges Datum
+            civil_servant_agreed:
+              already_decided: kann nicht verändert werden, da für diesen Einsatz bereits eine Entscheidung getroffen wurde.
             ending:
-              on_or_after: Das Startdatum kann nicht nach dem Enddatum sein.
+              after: darf nicht vor Anfang sein.
+              invalid_datetime: ungültiges Datum
+            organization_agreed:
+              already_decided: kann nicht verändert werden, da für diesen Einsatz bereits eine Entscheidung getroffen wurde.
             service_days:
               invalid_length: kann nicht kürzer als 26 Tage sein.
         user:
@@ -183,6 +208,7 @@ de-CH:
       driving_licenses: Fahrlizenz
       expense_sheet: Spesenblatt
       organizatino_holiday: Betriebsferien
+      organization: Einsatzbetrieb
       organization_member: Mitarbeiter
       regional_center: Regionalzentrum
       service: Einsatz
@@ -194,6 +220,7 @@ de-CH:
       navbar:
         home: Home
         profile: Profil
+        service_agreements: Einsatzvereinbarungen
         services: Einsätze
         sign_out: Abmelden
     organizations:
@@ -205,7 +232,9 @@ de-CH:
         payments: Auszahlungen
         phone_list: Telefonliste
         profile: Profil
+        service_agreements: Einsatzvereinbarung
         service_specifications: Pflichtenhefter
+        services_overview: Einsatzübersicht
         sign_out: Abmelden
     services:
       short_info_cell:
@@ -242,6 +271,28 @@ de-CH:
           expense_sheets: Spesenblätter
           no_current_service: Kein momentaner Einsatz
           service_until: Einsatz bis
+    registrations:
+      steps_bar:
+        steps:
+          address: Adresse
+          bank_and_insurance: Bank- & Versicherung
+          personal: Persönlich
+          service_specific: Weiteres
+      update:
+        erroneous_update: Bitte beheben sie die markierten Fehler
+    service_agreements:
+      accept:
+        erroneous_accept: 'Einsatz konnte nicht akzeptiert werden: '
+        successful_accept: Einsatz wurde erfolgerich akzeptiert.
+      decline:
+        erroneous_decline: 'Einsatz konnte nicht abgelehnt werden: '
+        successful_decline: Einsatz wurde erfolgreich abgelehnt
+      index:
+        accept_service: Einsatz akzeptieren
+        confirm_acceptance: Bist du sicher, dass du den Einsatz aktzeptieren möchstest?
+        confirm_decline: Bist du sicher, dass du den Einsatz ablehnen möchtest?
+        decline_service: Einsatz ablehnen
+        title: Einsatzvereinbarungen
     services:
       index:
         services: Meine Einsätze
@@ -258,6 +309,18 @@ de-CH:
       short: "%d.%m.%y"
   destroying: Löschen...
   edit: Bearbeiten
+  error: Fehler
+  errors:
+    internal_server_error:
+      subtitle: Wir werden den Fehler schnellstmöglich beheben und entschuldigen uns für die Unannehmlichkeiten
+      title: Es ist ein unerwarteter Fehler aufgetreten
+    not_found:
+      subtitle_html: Stellen Sie sicher, dass die Adresse korrekt ist und dass die Seite nicht verschoben wurde. Wenn Sie glauben, dass dies ein Fehler ist, <a href="mailto:info@myzivi.ch">kontaktieren Sie uns</a>.
+      title: Die Seite konnte nicht gefunden werden
+    unauthorized:
+      subtitle_html: Stellen Sie sicher, dass Sie Zugriff auf diese Resource haben. Wenn Sie glauben, dass dies ein Fehler ist, <a href="mailto:info@myzivi.ch">kontaktieren Sie uns</a>.
+    unprocessable_entity:
+      title: Die Ressource konnte nicht aktualisiert werden
   home:
     mailing_list:
       lead: Hinterlasse uns deine Kontaktdaten und unser Vertriebsteam kontaktiert dich gerne für ein kurzes Gespräch
@@ -266,6 +329,7 @@ de-CH:
       title: Jetzt mehr erfahren
       via_link: via Link
   lead_person_html: 'Leitende Person: %{link}'
+  loading: Lade...
   mailing_list:
     erroneous_creation: Bitte beheben Sie die folgend markierten Fehler
     successful_creation: Vielen Dank für Ihr Interesse. Wir werden Sie bald kontaktieren
@@ -303,6 +367,9 @@ de-CH:
         erroneous_update: Spesenblatt konnte nicht aktualisiert werden
         successful_update: Spesenblatt erfolgreich aktualisiert
     organization_members:
+      create:
+        erroneous_create: Mitarbeiter konnte nicht erfasst werden
+        successfully_created: Mitarbeiter erfolgreich erfasst
       destroy:
         erroneous_delete: Mitarbeiter konnte nicht gelöscht werden
         successfully_deleted: Mitarbeiter erfolgreich gelöscht
@@ -312,7 +379,10 @@ de-CH:
         pending_invitation: Bitte bestätigen sie die neue E-Mail Adresse mithilfe des Links, welcher an %{email} gesendet wurde.
         subtitle: Mitarbeiter-Profil
       index:
+        new_organization_member: Neuer Mitarbeiter erfassen
         title: Mitarbeiter
+      new:
+        title: Neuer Mitarbeiter erfassen
       update:
         erroneous_update: Das Profil konnte nicht aktualisiert werden
         successfully_updated: Profil erfolgreich aktualisiert
@@ -330,6 +400,15 @@ de-CH:
               current_month: Aktueller Monat
               current_week: Aktuelle Woche
             title: Telefonlisten
+          services_table:
+            actions:
+              details: Details
+            headers:
+              civil_servant: Zivildienstleistender
+              date_range: Zeitraum
+              service_specification: Pflichtenheft
+              status: Status
+            title: Einsatz-Pendenzen
           welcome_back:
             title: Wilkommen zurück, %{name}!
     payments:
@@ -338,10 +417,14 @@ de-CH:
           title: Pendent
         paid:
           title: Ausgezahlt
+      create:
+        erroneous_create: Die Auszahlung konnte nicht gestartet werden
+        successful_create: Auszahlung erfolgreich gestartet
       destroy:
         erroneous_destroy: Auszahlung konnte nicht gelöscht werden
         successful_destroy: Auszahlung wurde erfolgreich gelöscht
       index:
+        new_payment: Neue Auszahlung
         table_headers:
           actions: Aktionen
           amount: Betrag
@@ -349,6 +432,9 @@ de-CH:
           payment: Auszahlung
           status: Status
         title: Auszahlungen
+      new:
+        submit: Auszahlung starten
+        title: Neue Auszahlung
       pain_file_name: zahlung-%{date}.xml
       payment_row:
         delete: Löschen
@@ -373,6 +459,34 @@ de-CH:
         title:
           with_filter: Telefonliste vom %{range}
           without_filter: Telefonliste
+    service_agreements:
+      confirm_destroy: Einsatzvereinbarung wirklich löschen?
+      create:
+        erroneous_create: Einsatzvereinbarung konnte nicht erstellt werden
+        successful_create: Einsatzvereinbarung erfolgeich erstellt
+      destroy:
+        erroneous_destroy: Einsatzvereinbarung konnte nicht gelöscht werden
+        successful_destroy: Einsatzvereinbarung erfolgeich gelöscht
+      index:
+        create_new_service_agreement: Neue Einsatzvereinbarung erstellen
+        days:
+          one: 1 Tag
+          other: "%{amount} Tage"
+        new_service_agreement: Neue Einsatzvereinbarung
+        title: Einsätze mit ausstehendem Zivi-Einverständnis
+      new:
+        title: Neue Einsatzvereinbarung
+      search:
+        modal:
+          dropdown:
+            groups:
+              all_civil_servants: Alle Zivildienstleistenden
+              new_civil_servant: Neuen Zivildienstleistenden einladen
+              recent_civil_servants: Zivildienstleistende mit Einsatz bei uns
+          input_placeholder: Zivildienstleistender suchen
+          title: Einsatz für folgender Zivildienstleistender erstellen
+      service_agreement_row:
+        delete: Löschen
     service_specifications:
       create:
         erroneous_create: Pflichtenheft konnte nicht erstellt werden
@@ -384,6 +498,7 @@ de-CH:
         destroy_service_specification_confirmation: Pflichtenheft wirklich löschen?
         title: Pflichtenheft “%{name}”
       index:
+        new_service_specification: Pflichtenheft hinzufügen
         title: Pflichtenhefter
       new:
         title: Neues Pflichtenheft erstellen
@@ -393,6 +508,10 @@ de-CH:
         erroneous_update: Pflichtenheft konnte nicht aktualisiert werden
         successful_update: Pflichtenheft erfolgreich aktualisiert
     services:
+      index:
+        errors:
+          cannot_load: Beim Laden der Einsätze ist ein Fehler aufgetreten
+        title: Einsatzübersicht
       show:
         expense_sheets: Spesenblätter
   payment:
@@ -437,3 +556,9 @@ de-CH:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
+  service_states:
+    active: Definitiv
+    civil_servant_rejected: Abgelehnt durch Zivi
+    pending_contract: Aufgebot ausstehend
+    waiting_for_civil_servant_decision: Warte auf Zivi
+  successful_registration: Registration erfolgreich

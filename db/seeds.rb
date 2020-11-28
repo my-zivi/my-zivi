@@ -2,7 +2,6 @@
 
 puts 'Seeding database...'
 
-require_relative 'seed_data/regional_centers'
 require_relative 'seed_data/workshops'
 require_relative 'seed_data/driving_licenses'
 require_relative 'seed_data/civil_servants'

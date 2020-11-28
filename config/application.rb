@@ -38,5 +38,9 @@ module MyZivi
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    config.active_record.schema_format = :sql
+    config.exceptions_app = routes
   end
 end
+
+require_relative './regional_centers'

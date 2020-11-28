@@ -6,7 +6,7 @@ module ServiceTimingValidations
   extend ActiveSupport::Concern
 
   included do
-    validate :ending_is_friday, unless: :last_service?
+    validate :ending_is_friday
     validate :beginning_is_monday
     validate :no_overlapping_service
     validate :length_is_valid
@@ -19,15 +19,21 @@ module ServiceTimingValidations
   def overlaps_other_service?
     return false if civil_servant.nil?
 
-    civil_servant.services.where.not(id: id).overlapping_date_range(beginning, ending).any?
+    civil_servant.services.definitive.where.not(id: id).overlapping_date_range(beginning, ending).any?
   end
 
   def beginning_is_monday
-    errors.add(:beginning, :not_a_monday) unless beginning.present? && beginning.monday?
+    return if beginning.blank? || beginning.monday? || probation_civil_service?
+
+    # TODO: Check that probation services are not required to start on a monday
+
+    errors.add(:beginning, :not_a_monday)
   end
 
   def ending_is_friday
-    errors.add(:ending, :not_a_friday) unless ending.present? && ending.friday?
+    return if ending.blank? || ending.friday? || probation_civil_service? || last_service?
+
+    errors.add(:ending, :not_a_friday)
   end
 
   def length_is_valid

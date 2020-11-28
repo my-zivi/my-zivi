@@ -1,0 +1,30 @@
+.card
+  .card-header.bg-light.d-flex.justify-content-between.align-items-center
+    h5.mb-0
+      = t('.title')
+      span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@service_agreements.count})"
+    a.btn.btn-primary href='#new_service_agreement' data-toggle="modal"
+      = t('.new_service_agreement')
+  .card-body.p-0
+    = render ModelTableComponent.new(\
+          model_data: @service_agreements,
+            model_columns: service_agreements_organization_table_columns,
+            model_actions: service_agreements_organization_table_actions)
+= render(\
+    ModalComponent.new(\
+      modal_id: 'new_service_agreement',
+        title: t('organizations.service_agreements.search.modal.title')\
+      )\
+    ) do |component|
+  - component.with(:body) do
+    div
+      = simple_form_for(:service_agreement,
+              url: new_organizations_service_agreement_path, method: :get) do |f|
+        .modal-body
+          = f.simple_fields_for :civil_servant_attributes do |civil_servant_form|
+            = civil_servant_form.simple_fields_for :user_attributes do |user_form|
+              = user_form.input :email, as: :select, collection: [], label: false, required: true,
+                      input_html: { class: 'selectpicker', data: civil_servant_search_options }
+        .modal-footer
+          button.btn.btn-secondary data-dismiss="modal" type="button" = t('cancel')
+          = f.submit t('.create_new_service_agreement'), class: 'btn btn-primary'

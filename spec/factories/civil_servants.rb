@@ -2,23 +2,50 @@
 
 FactoryBot.define do
   factory :civil_servant do
-    sequence(:zdp) { |n| 123_456 + n }
     first_name { 'Zivi' }
     last_name { 'Mustermann' }
-    hometown { 'Hintertupfingen' }
-    birthday { '2000-04-27' }
-    phone { '+41 (0) 76 123 45 67' }
-    iban { 'CH9300762011623852957' }
-    health_insurance { 'Sanicare' }
+
+    trait :personal_step_completed do
+      sequence(:zdp) { |n| 123_456 + n }
+      hometown { 'Hintertupfingen' }
+      birthday { '2000-04-27' }
+      phone { '+41 (0) 76 123 45 67' }
+      registration_step { RegistrationStep.new(identifier: RegistrationStep::ALL[0]) }
+    end
+
+    trait :address_step_completed do
+      personal_step_completed
+      association :address, :civil_servant
+      registration_step { RegistrationStep.new(identifier: RegistrationStep::ALL[1]) }
+
+      after(:create) do |civil_servant|
+        civil_servant.address.update(primary_line: civil_servant.full_name)
+      end
+    end
+
+    trait :bank_and_insurance_step_completed do
+      address_step_completed
+      iban { 'CH9300762011623852957' }
+      health_insurance { 'Sanicare' }
+      registration_step { RegistrationStep.new(identifier: RegistrationStep::ALL[2]) }
+    end
+
+    trait :service_specific_step_completed do
+      bank_and_insurance_step_completed
+      regional_center { RegionalCenter.rueti }
+      registration_step { RegistrationStep.new(identifier: RegistrationStep::ALL[3]) }
+    end
 
     trait :full do
-      association :address, :civil_servant
-      regional_center
+      with_user
+      service_specific_step_completed
+    end
+
+    trait :with_user do
       association :user, strategy: :build, factory: %i[user confirmed]
 
       after(:create) do |civil_servant|
         civil_servant.user.save
-        civil_servant.address.update(primary_line: civil_servant.full_name)
       end
     end
 

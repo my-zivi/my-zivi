@@ -14,6 +14,10 @@ class Service < ApplicationRecord
   scope :at_date, ->(date) { where(arel_table[:beginning].lteq(date)).where(arel_table[:ending].gteq(date)) }
   scope :at_year, ->(year) { overlapping_date_range(Date.new(year), Date.new(year).at_end_of_year) }
   scope :active, -> { where('beginning <= ?', Time.zone.now).where('ending >= ?', Time.zone.now) }
+  scope :civil_servant_agreement_pending, -> { where(civil_servant_agreed: nil) }
+  scope :organization_agreement_pending, -> { where(organization_agreed: nil) }
+  scope :agreement, -> { civil_servant_agreement_pending.or(organization_agreement_pending) }
+  scope :definitive, -> { where(organization_agreed: true, civil_servant_agreed: true) }
 
   enum service_type: {
     normal: 0,
@@ -22,13 +26,20 @@ class Service < ApplicationRecord
   }, _suffix: 'civil_service'
 
   validates :ending, :beginning, presence: true
+  validates :beginning, timeliness: true
   validates :ending, timeliness: { after: :beginning }
+  validate :legitimate_civil_servant_decision
+  validate :legitimate_organization_decision
 
   delegate :used_paid_vacation_days, :used_sick_days, to: :used_days_calculator
   delegate :remaining_paid_vacation_days, :remaining_sick_days, to: :remaining_days_calculator
   delegate :identification_number, to: :service_specification
   delegate :future?, to: :beginning
   delegate :past?, to: :ending
+
+  accepts_nested_attributes_for :civil_servant
+
+  before_destroy :check_definitive_service_destroy
 
   def service_days
     service_calculator.calculate_chargeable_service_days(ending)
@@ -50,6 +61,10 @@ class Service < ApplicationRecord
     beginning..ending
   end
 
+  def definitive?
+    civil_servant_agreed? && organization_agreed?
+  end
+
   private
 
   def remaining_days_calculator
@@ -61,6 +76,22 @@ class Service < ApplicationRecord
   end
 
   def service_calculator
-    @service_calculator ||= ServiceCalculator.new(beginning, last_service?)
+    @service_calculator ||= ServiceCalculator.new(beginning, last_service?, probation_civil_service?)
+  end
+
+  def check_definitive_service_destroy
+    throw :abort if civil_servant_agreed && organization_agreed
+  end
+
+  def legitimate_civil_servant_decision
+    return if civil_servant_decided_at.nil? || !civil_servant_agreed_changed?
+
+    errors.add(:civil_servant_agreed, :already_decided)
+  end
+
+  def legitimate_organization_decision
+    return if organization_decided_at.nil? || !organization_agreed_changed?
+
+    errors.add(:organization_agreed, :already_decided)
   end
 end

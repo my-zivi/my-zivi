@@ -11,20 +11,22 @@ module DateTimePickerHelper
     "de-CH": ' bis '
   }.freeze
 
-  def date_picker(form, field_key, value, **options)
-    form.input field_key, input_html: {
-      type: 'date', value: value,
+  # :reek:BooleanParameter
+  def date_picker(form, field_key, value, required: false, **date_picker_options)
+    form.input field_key, as: :string, input_html: {
+      type: 'date', value: localize_date(value),
       class: 'datetimepicker',
-      data: { options: date_picker_options(options) }
-    }
+      data: { options: date_picker_options(date_picker_options) }
+    }, required: required
   end
 
-  def range_date_picker(form, field_key, value, **options)
+  # :reek:BooleanParameter
+  def range_date_picker(form, field_key, value, required: false, **date_picker_options)
     form.input field_key, input_html: {
       type: 'date', class: 'datetimepicker',
       value: value, readonly: true,
-      data: { options: range_date_picker_options(options) }
-    }
+      data: { options: range_date_picker_options(date_picker_options) }
+    }, required: required
   end
 
   def parse_range_date(range_value)
@@ -40,6 +42,12 @@ module DateTimePickerHelper
   end
 
   private
+
+  def localize_date(date)
+    return '' if date.nil?
+
+    I18n.l(date)
+  end
 
   def build_options(options)
     DEFAULT_OPTIONS.merge(locale: I18n.locale).merge(options)

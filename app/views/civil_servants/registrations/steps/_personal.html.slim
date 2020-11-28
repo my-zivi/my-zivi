@@ -1,0 +1,14 @@
+.row
+  .col-12
+    = f.input :zdp, required: true
+  .col-12.col-md-6
+    = f.input :first_name, required: true
+  .col-12.col-md-6
+    = f.input :last_name, required: true
+  .col-12
+    = f.input :hometown, required: true
+  .col-12
+    = date_picker(f, :birthday, f.object.birthday, required: true)
+  .col-12
+    = f.input :phone, required: true
+= render 'civil_servants/registrations/steps/shared/form_footer', f: f

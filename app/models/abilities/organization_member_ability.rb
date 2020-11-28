@@ -10,32 +10,62 @@ module Abilities
 
       can :access, :organization_portal
       can :read, :organization_overview
-      can %i[read update destroy], OrganizationMember, organization_id: organization_id
+      can :manage, OrganizationMember, organization_id: organization_id
       can :manage, ServiceSpecification, organization_id: organization_id
       can :manage, Payment, organization_id: organization_id
 
       can(:read, CivilServant,
           services: {
+            civil_servant_agreed: true,
+            organization_agreed: true,
+            service_specification: {
+              organization_id: organization_id
+            }
+          })
+
+      expense_sheet_abilities(organization_id)
+      service_abilities(organization_id)
+    end
+
+    private
+
+    def expense_sheet_abilities(organization_id)
+      can(:manage, ExpenseSheet, {
+            service: {
+              civil_servant_agreed: true,
+              organization_agreed: true,
+              service_specification: {
+                organization_id: organization_id
+              }
+            }
+          })
+
+      cannot(:edit, ExpenseSheet, { state: 'locked' })
+    end
+
+    def service_abilities(organization_id)
+      can(:read, Service, {
             service_specification: {
               organization_id: organization_id
             }
           })
 
       can(:manage, Service, {
+            organization_agreed: true,
+            civil_servant_agreed: nil,
             service_specification: {
               organization_id: organization_id
             }
           })
 
-      can(:manage, ExpenseSheet, {
-            service: {
-              service_specification: {
-                organization_id: organization_id
-              }
+      can(:destroy, Service, {
+            organization_agreed: true,
+            civil_servant_agreed: false,
+            service_specification: {
+              organization_id: organization_id
             }
           })
     end
-
     # rubocop:enable Metrics/MethodLength
   end
 end

@@ -57,6 +57,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "my_zivi_production"
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.default_url_options = { host: ENV['APP_HOST'] }
   config.action_mailer.smtp_settings = {
     user_name: ENV['SMTP_USER_NAME'],
     password: ENV['SMTP_PASSWORD'],

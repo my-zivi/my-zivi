@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OverviewTable renders correctly 1`] = `
+<div
+  className="d-flex"
+>
+  <NamesList
+    servicesList={
+      ServicesList {
+        "earliestBeginning": "2020-01-05T23:00:00.000Z",
+        "latestEnding": "2020-02-06T23:00:00.000Z",
+        "monthlyGroupsCache": Array [
+          MonthlyGroup {
+            "month": "2019-12-31T23:00:00.000Z",
+          },
+          MonthlyGroup {
+            "month": "2020-01-31T23:00:00.000Z",
+          },
+        ],
+        "services": Array [
+          Object {
+            "beginning": "2020-01-06",
+            "civilServant": Object {
+              "fullName": "Phipsi Fame",
+            },
+            "definitive": true,
+            "ending": "2020-02-07",
+          },
+          Object {
+            "beginning": "2020-01-06",
+            "civilServant": Object {
+              "fullName": "Phipsi Fame",
+            },
+            "definitive": true,
+            "ending": "2020-02-07",
+          },
+        ],
+      }
+    }
+  />
+  <div
+    className="monthly-table-container"
+  >
+    <h3
+      className="text-center month-title"
+    >
+      January
+    </h3>
+    <div
+      className="d-table services-overview-month-table"
+    >
+      <TableHeader
+        monthlyGroup={
+          MonthlyGroup {
+            "month": "2019-12-31T23:00:00.000Z",
+          }
+        }
+      />
+      <TableContent
+        currentMonthlyGroup={
+          MonthlyGroup {
+            "month": "2019-12-31T23:00:00.000Z",
+          }
+        }
+        servicesList={
+          ServicesList {
+            "earliestBeginning": "2020-01-05T23:00:00.000Z",
+            "latestEnding": "2020-02-06T23:00:00.000Z",
+            "monthlyGroupsCache": Array [
+              MonthlyGroup {
+                "month": "2019-12-31T23:00:00.000Z",
+              },
+              MonthlyGroup {
+                "month": "2020-01-31T23:00:00.000Z",
+              },
+            ],
+            "services": Array [
+              Object {
+                "beginning": "2020-01-06",
+                "civilServant": Object {
+                  "fullName": "Phipsi Fame",
+                },
+                "definitive": true,
+                "ending": "2020-02-07",
+              },
+              Object {
+                "beginning": "2020-01-06",
+                "civilServant": Object {
+                  "fullName": "Phipsi Fame",
+                },
+                "definitive": true,
+                "ending": "2020-02-07",
+              },
+            ],
+          }
+        }
+      />
+    </div>
+  </div>
+  <div
+    className="monthly-table-container"
+  >
+    <h3
+      className="text-center month-title"
+    >
+      February
+    </h3>
+    <div
+      className="d-table services-overview-month-table"
+    >
+      <TableHeader
+        monthlyGroup={
+          MonthlyGroup {
+            "month": "2020-01-31T23:00:00.000Z",
+          }
+        }
+      />
+      <TableContent
+        currentMonthlyGroup={
+          MonthlyGroup {
+            "month": "2020-01-31T23:00:00.000Z",
+          }
+        }
+        servicesList={
+          ServicesList {
+            "earliestBeginning": "2020-01-05T23:00:00.000Z",
+            "latestEnding": "2020-02-06T23:00:00.000Z",
+            "monthlyGroupsCache": Array [
+              MonthlyGroup {
+                "month": "2019-12-31T23:00:00.000Z",
+              },
+              MonthlyGroup {
+                "month": "2020-01-31T23:00:00.000Z",
+              },
+            ],
+            "services": Array [
+              Object {
+                "beginning": "2020-01-06",
+                "civilServant": Object {
+                  "fullName": "Phipsi Fame",
+                },
+                "definitive": true,
+                "ending": "2020-02-07",
+              },
+              Object {
+                "beginning": "2020-01-06",
+                "civilServant": Object {
+                  "fullName": "Phipsi Fame",
+                },
+                "definitive": true,
+                "ending": "2020-02-07",
+              },
+            ],
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;
