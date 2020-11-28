@@ -465,6 +465,7 @@ de-CH:
           other: "%{amount} Tage"
         new_service_agreement: Neue Einsatzvereinbarung
         title: Einsätze mit ausstehendem Zivi-Einverständnis
+        create_new_service_agreement: Neue Einsatzvereinbarung erstellen
       new:
         title: Neue Einsatzvereinbarung
       search:

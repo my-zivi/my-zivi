@@ -46,7 +46,7 @@ module Organizations
       #   }
       # },
       delete: {
-        icon_classes: 'fas fa-trash',
+        icon_classes: 'fas fa-trash text-danger',
         link_path: lambda { |service_agreement|
           Rails.application
                .routes

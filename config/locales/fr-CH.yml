@@ -462,8 +462,9 @@ fr-CH:
         days:
           one: 1 Jour
           other: "%{amount} Journées"
-        new_service_agreement: Nouveau contrat de service
+        new_service_agreement: Nouvelle convention d'affectation
         title: Services dont le consentement des civilists est en attente
+        create_new_service_agreement: Créer une nouveau convention d’affectation
       new:
         title: Nouveau contrat de service
       search:
