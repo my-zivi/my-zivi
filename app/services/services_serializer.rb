@@ -11,9 +11,12 @@ class ServicesSerializer
     private
 
     def extract_service_attributes(service)
-      service.slice(:beginning, :ending).merge(
-        'civilServant' => extract_civil_servant_attributes(service)
-      )
+      service
+        .slice(:beginning, :ending)
+        .merge(definitive: service.definitive?)
+        .merge(
+          'civilServant' => extract_civil_servant_attributes(service)
+        )
     end
 
     def extract_civil_servant_attributes(service)

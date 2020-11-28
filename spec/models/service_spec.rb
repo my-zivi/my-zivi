@@ -519,4 +519,24 @@ RSpec.describe Service, type: :model do
 
     it { is_expected.to eq beginning..ending }
   end
+
+  describe '#definitive?' do
+    subject { service.definitive? }
+
+    let(:service) { build(:service) }
+
+    it { is_expected.to eq true }
+
+    context 'when civil servant agreement is pending' do
+      let(:service) { build(:service, :civil_servant_agreement_pending) }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'when civil organization agreement is pending' do
+      let(:service) { build(:service, :organization_agreement_pending) }
+
+      it { is_expected.to eq false }
+    end
+  end
 end

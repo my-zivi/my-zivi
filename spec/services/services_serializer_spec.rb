@@ -18,6 +18,7 @@ RSpec.describe ServicesSerializer do
       {
         beginning: '2020-01-06',
         ending: '2020-02-07',
+        definitive: true,
         civilServant: {
           id: anything,
           fullName: 'Happy Freeman'
@@ -29,6 +30,7 @@ RSpec.describe ServicesSerializer do
       {
         beginning: '2020-03-02',
         ending: '2020-04-03',
+        definitive: true,
         civilServant: {
           id: anything,
           fullName: 'Zivi Mustermann'

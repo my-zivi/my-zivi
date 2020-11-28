@@ -9,6 +9,7 @@ const ServiceFactory: Factory<Service> = {
     const defaultService: Service = {
       beginning: '2020-01-06',
       ending: '2020-02-07',
+      definitive: true,
       civilServant: {
         fullName: name.findName(),
       },

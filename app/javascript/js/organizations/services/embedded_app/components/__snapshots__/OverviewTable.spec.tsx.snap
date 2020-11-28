@@ -23,6 +23,7 @@ exports[`OverviewTable renders correctly 1`] = `
             "civilServant": Object {
               "fullName": "Phipsi Fame",
             },
+            "definitive": true,
             "ending": "2020-02-07",
           },
           Object {
@@ -30,6 +31,7 @@ exports[`OverviewTable renders correctly 1`] = `
             "civilServant": Object {
               "fullName": "Phipsi Fame",
             },
+            "definitive": true,
             "ending": "2020-02-07",
           },
         ],
@@ -78,6 +80,7 @@ exports[`OverviewTable renders correctly 1`] = `
                 "civilServant": Object {
                   "fullName": "Phipsi Fame",
                 },
+                "definitive": true,
                 "ending": "2020-02-07",
               },
               Object {
@@ -85,6 +88,7 @@ exports[`OverviewTable renders correctly 1`] = `
                 "civilServant": Object {
                   "fullName": "Phipsi Fame",
                 },
+                "definitive": true,
                 "ending": "2020-02-07",
               },
             ],
@@ -135,6 +139,7 @@ exports[`OverviewTable renders correctly 1`] = `
                 "civilServant": Object {
                   "fullName": "Phipsi Fame",
                 },
+                "definitive": true,
                 "ending": "2020-02-07",
               },
               Object {
@@ -142,6 +147,7 @@ exports[`OverviewTable renders correctly 1`] = `
                 "civilServant": Object {
                   "fullName": "Phipsi Fame",
                 },
+                "definitive": true,
                 "ending": "2020-02-07",
               },
             ],
