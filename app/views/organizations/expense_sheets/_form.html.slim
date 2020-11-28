@@ -27,13 +27,13 @@
     .col-12.col-lg-6
       = f.input :work_days,
               label: t('activerecord.attributes.expense_sheet.work_days.other'),
-              append: t('.suggestion', suggested_value: expense_sheet.calculate_chargeable_days),
+              append: t('.suggestion', suggested_value: expense_sheet.calculate_work_days),
               disabled: !expense_sheet.editable?
     .col-12.col-lg-6
       = f.input :workfree_days,
               label: t('activerecord.attributes.expense_sheet.workfree_days.other'),
               append: t('.suggestion',
-                      suggested_value: expense_sheet.duration - expense_sheet.calculate_chargeable_days),
+                      suggested_value: expense_sheet.calculate_workfree_days),
               disabled: !expense_sheet.editable?
     .col-12.col-lg-6
       = f.input :sick_days,
@@ -45,13 +45,13 @@
     .col-12.col-lg-6
       = f.input :unpaid_company_holiday_days,
               label: t('activerecord.attributes.expense_sheet.unpaid_company_holiday_days.other'),
-              append: t('.suggestion', suggested_value: expense_sheet.calculate_chargeable_days),
+              append: t('.suggestion', suggested_value: expense_sheet.calculate_unpaid_vacation_days),
               disabled: !expense_sheet.editable?
     .col-12.col-lg-6
       = f.input :paid_company_holiday_days,
               label: t('activerecord.attributes.expense_sheet.paid_company_holiday_days.other'),
               append: t('.suggestion',
-                      suggested_value: expense_sheet.duration - expense_sheet.calculate_chargeable_days),
+                      suggested_value: expense_sheet.calculate_paid_vacation_days),
               disabled: !expense_sheet.editable?
   h5.mb-3 = t('.paid_vacation')
   .row

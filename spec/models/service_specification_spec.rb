@@ -8,7 +8,6 @@ RSpec.describe ServiceSpecification, type: :model do
 
     it_behaves_like 'validates presence of required fields', %i[
       name
-      internal_note
       identification_number
       accommodation_expenses
       work_clothing_expenses
