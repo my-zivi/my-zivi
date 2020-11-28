@@ -18,7 +18,7 @@ class ServiceSpecification < ApplicationRecord
             :identification_number, :last_day_expenses,
             :location, :name, :paid_vacation_expenses,
             :work_clothing_expenses, :work_days_expenses,
-            :internal_note, presence: true
+            presence: true
 
   validates :accommodation_expenses, :work_clothing_expenses, numericality: { greater_than_or_equal_to: 0 }
   validates :identification_number, length: { minimum: 5, maximum: 7 }
