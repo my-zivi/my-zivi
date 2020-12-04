@@ -1,3 +1,10 @@
+GIT
+  remote: git@github.com:softwarebrothers/rails_admin_softwarebrothers_theme.git
+  revision: 390c3b8e86d6423b88e99b015dd3490b4c1707ce
+  specs:
+    rails_admin_softwarebrothers_theme (0.0.6)
+      rails (>= 4.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -501,6 +508,7 @@ DEPENDENCIES
   rails-i18n
   rails_admin (~> 2.0)
   rails_admin-i18n (~> 1.16)
+  rails_admin_softwarebrothers_theme!
   reek (~> 6.0.1)
   rspec-rails
   rubocop
