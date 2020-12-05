@@ -4,8 +4,6 @@ RailsAdmin.config do |config|
   require 'i18n'
   I18n.default_locale = :de
 
-  Bullet.enable = false
-
   config.main_app_name = %w[MyZivi SysAdmin]
 
   config.authenticate_with do
@@ -62,6 +60,4 @@ RailsAdmin.config do |config|
       exclude_fields :civil_servant
     end
   end
-
-  Bullet.enable = true
 end
