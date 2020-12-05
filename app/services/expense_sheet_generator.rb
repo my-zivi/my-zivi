@@ -13,7 +13,7 @@ class ExpenseSheetGenerator
     end
   end
 
-  def create_missing_expense_sheets
+  def create_missing_expense_sheets!
     existing_expense_sheets = @service.expense_sheets.sort_by do |expense_sheet|
       [expense_sheet.beginning, expense_sheet.ending]
     end
@@ -24,7 +24,7 @@ class ExpenseSheetGenerator
     create_expense_sheets! beginning: new_beginning
   end
 
-  def create_additional_expense_sheet
+  def create_additional_expense_sheet!
     service_ending = @service.ending
     create_expense_sheet(service_ending, service_ending)
   end
