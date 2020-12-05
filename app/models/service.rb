@@ -66,13 +66,19 @@ class Service < ApplicationRecord
   end
 
   def confirm!
-    update(confirmation_date: Time.zone.today) && generate_expense_sheets!
+    ExpenseSheet.transaction do
+      update!(confirmation_date: Time.zone.today) && generate_expense_sheets!
+      true
+    end
+  rescue StandardError => e
+    Raven.capture_exception(e, extra: { action: 'Service confirmation', service_id: id }) if defined? Raven
+    false
   end
 
   private
 
   def generate_expense_sheets!
-    ExpenseSheetGenerator.new(self).create_expense_sheets
+    ExpenseSheetGenerator.new(self).create_expense_sheets!
   end
 
   def remaining_days_calculator

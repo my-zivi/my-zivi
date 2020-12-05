@@ -21,7 +21,7 @@ RSpec.describe 'Organizations Portal Walkthrough', type: :system do
     sign_in organization_administrator.user
     visit organizations_path
 
-    ExpenseSheetGenerator.new(service).create_expense_sheets.each(&:editable!)
+    ExpenseSheetGenerator.new(service).create_expense_sheets!.each(&:editable!)
   end
 
   around do |spec|
