@@ -4,6 +4,8 @@ RailsAdmin.config do |config|
   require 'i18n'
   I18n.default_locale = :de
 
+  Bullet.enable = false
+
   config.main_app_name = %w[MyZivi SysAdmin]
 
   config.authenticate_with do
@@ -25,13 +27,14 @@ RailsAdmin.config do |config|
   config.actions do
     dashboard # mandatory
     index # mandatory
-    new
+    new do
+      except ['MailingList']
+    end
     export
     bulk_delete
     show
     edit
     delete
-    show_in_app
 
     ## With an audit adapter, you can add:
     # history_index
@@ -49,4 +52,16 @@ RailsAdmin.config do |config|
   config.model 'User' do
     object_label_method { :email }
   end
+
+  config.model 'Address' do
+    object_label_method { :primary_line }
+  end
+
+  config.model 'Service' do
+    edit do
+      exclude_fields :civil_servant
+    end
+  end
+
+  Bullet.enable = true
 end

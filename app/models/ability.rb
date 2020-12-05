@@ -16,6 +16,8 @@ class Ability
     end
   end
 
+  private
+
   def user_abilities(user)
     referencee = user.referencee
     case referencee

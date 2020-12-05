@@ -13,6 +13,7 @@ module Abilities
 
     private
 
+    # rubocop:disable Metrics/MethodLength
     def operation_abilities
       can(:manage, User)
       can(:manage, Organization)
@@ -25,7 +26,9 @@ module Abilities
       can(:manage, Address)
       can(:manage, CreditorDetail)
       can(:manage, Payment)
+      can(:manage, MailingList)
       can(:read, RegionalCenter)
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end
