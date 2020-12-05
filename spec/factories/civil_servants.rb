@@ -54,9 +54,12 @@ FactoryBot.define do
         organization { create :organization }
         service_specification { create :service_specification, organization: organization }
         service_attributes { {} }
+        service_traits { [] }
       end
 
-      services { [build(:service, :active, service_specification: service_specification, **service_attributes)] }
+      services do
+        [build(:service, :active, *service_traits, service_specification: service_specification, **service_attributes)]
+      end
 
       after(:create) do |civil_servant|
         civil_servant.services.map(&:save)
