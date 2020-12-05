@@ -34,3 +34,9 @@
                           = link_to organizations_civil_servant_service_path(service.civil_servant, service), class: 'dropdown-item' do
                             i.fas.fa-eye.mr-1
                             = t('organizations.overview.index.cards.services_table.actions.details')
+                          - if can? :confirm, service
+                            = link_to confirm_organizations_civil_servant_service_path(service.civil_servant, service),
+                                    class: 'dropdown-item',
+                                    method: :put do
+                              i.fas.fa-check.mr-1
+                              | Aufgebot erhalten

@@ -5,6 +5,8 @@ class Ability
 
   # :reek:FeatureEnvy
   def initialize(user)
+    alias_action :create, :read, :update, :destroy, to: :crud
+
     can :create, MailingList
 
     return if user.blank?

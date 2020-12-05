@@ -507,6 +507,9 @@ fr-CH:
         erroneous_update: Le cahier des charges n'a pas pu être mise à jour
         successful_update: Mise à jour réussie du cahier des charges
     services:
+      confirm:
+        erroneous_confirm: L'affectation n'a pas pu être confirmée
+        successful_confirm: L'affectation confirmée avec succès
       index:
         errors:
           cannot_load: Une erreur s'est produite lors du chargement des encarts

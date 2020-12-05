@@ -65,7 +65,15 @@ class Service < ApplicationRecord
     civil_servant_agreed? && organization_agreed?
   end
 
+  def confirm!
+    update(confirmation_date: Time.zone.today) && generate_expense_sheets!
+  end
+
   private
+
+  def generate_expense_sheets!
+    ExpenseSheetGenerator.new(self).create_expense_sheets
+  end
 
   def remaining_days_calculator
     @remaining_days_calculator ||= ExpenseSheetCalculators::RemainingDaysCalculator.new(self)

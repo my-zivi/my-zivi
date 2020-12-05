@@ -8,9 +8,17 @@ class ExpenseSheetGenerator
   def create_expense_sheets(beginning: @service.beginning, ending: @service.ending)
     grouped_days = group_days_by_month(beginning..ending)
 
-    grouped_days.map do |month_days|
-      create_expense_sheet(*month_days)
+    ExpenseSheet.transaction do
+      grouped_days.map do |month_days|
+        create_expense_sheet(*month_days)
+      end
+
+      true
     end
+  rescue StandardError => e
+    # TODO: Track and report errors
+    p e
+    false
   end
 
   def create_missing_expense_sheets
@@ -36,7 +44,7 @@ class ExpenseSheetGenerator
   end
 
   def create_expense_sheet(beginning, ending)
-    ExpenseSheet.create(
+    ExpenseSheet.create!(
       service: @service,
       beginning: beginning,
       ending: ending,

@@ -508,6 +508,9 @@ de-CH:
         erroneous_update: Pflichtenheft konnte nicht aktualisiert werden
         successful_update: Pflichtenheft erfolgreich aktualisiert
     services:
+      confirm:
+        erroneous_confirm: Einsatz konnte nicht bestätigt werden
+        successful_confirm: Einsatz erfolgreich bestätigt
       index:
         errors:
           cannot_load: Beim Laden der Einsätze ist ein Fehler aufgetreten
