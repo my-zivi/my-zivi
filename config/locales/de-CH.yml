@@ -402,6 +402,7 @@ de-CH:
             title: Telefonlisten
           services_table:
             actions:
+              confirm: Zivi wurde für Einsatz aufgeboten
               details: Details
             headers:
               civil_servant: Zivildienstleistender

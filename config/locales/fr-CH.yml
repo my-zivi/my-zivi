@@ -401,6 +401,7 @@ fr-CH:
             title: Listes téléphoniques
           services_table:
             actions:
+              confirm: La civiliste a été appelé à l'affectation
               details: Détails
             headers:
               civil_servant: Personne effectuant des travaux d'intérêt général
