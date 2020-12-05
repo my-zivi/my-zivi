@@ -34,7 +34,6 @@ gem 'webpacker', '~> 4.0'
 
 gem 'rails_admin', '~> 2.0'
 gem 'rails_admin-i18n', '~> 1.16'
-gem 'rails_admin_softwarebrothers_theme', git: 'git@github.com:softwarebrothers/rails_admin_softwarebrothers_theme.git'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 

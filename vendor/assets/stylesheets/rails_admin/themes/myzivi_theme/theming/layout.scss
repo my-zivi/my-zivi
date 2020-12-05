@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700');
+
+body.rails_admin {
+  font-family: 'Source Sans Pro', sans-serif;
+  background: $grayBck;
+}
+
+body.rails_admin {
+  .navbar.navbar-default {
+    background: $primary;
+
+    a.navbar-brand {
+      color: $white;
+      font-weight: bold;
+
+      small {
+        font-weight: normal;
+      }
+    }
+
+    .navbar-nav > li > a {
+      color: $white;
+    }
+  }
+
+
+  .nav.nav-tabs {
+    margin-bottom: 0;
+  }
+
+  .sidebar-nav {
+    background: $grayBck;
+
+    .dropdown-header {
+      font-size: 12px;
+      font-weight: 600;
+      margin: 20px 0;
+      text-transform: uppercase;
+      color: $cloudyBlue;
+      padding-left: 15px;
+    }
+
+    .nav-pills > li {
+      a {
+        color: $gray;
+        font-size: 14px;
+
+        i {
+          display: none;
+        }
+      }
+
+      &.active > a,
+      &:hover > a {
+        background: none;
+        color: $primary;
+      }
+    }
+  }
+
+  .container-fluid {
+    margin-right: 30px;
+  }
+}
