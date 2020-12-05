@@ -2,8 +2,9 @@
 
 module Organizations
   class ServicesController < BaseController
-    load_and_authorize_resource :civil_servant
-    load_and_authorize_resource :service, through: :civil_servant
+    load_and_authorize_resource only: :index
+    load_and_authorize_resource :civil_servant, except: :index
+    load_and_authorize_resource :service, through: :civil_servant, except: :index
 
     def index
       respond_to do |format|

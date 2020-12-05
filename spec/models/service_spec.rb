@@ -550,7 +550,7 @@ RSpec.describe Service, type: :model do
     before { stub_const('Raven', instance_double('Raven', capture_exception: true)) }
 
     it 'sets the confirmation_date and generates expense sheets' do
-      expect { confirmed }.to(change { service.reload.confirmation_date }.and(change(ExpenseSheet, :count).by(1)))
+      expect { confirmed }.to(change { service.reload.confirmation_date }.and(change(ExpenseSheet, :count).by(2)))
       expect(confirmed).to eq true
     end
 
