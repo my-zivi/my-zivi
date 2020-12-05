@@ -104,7 +104,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
       end
 
       context 'when the service already has expense sheets' do
-        before { ExpenseSheetGenerator.new(maria_service).create_expense_sheets }
+        before { ExpenseSheetGenerator.new(maria_service).create_expense_sheets! }
 
         it 'does not destroy the service agreement' do
           expect { perform_request }.not_to change(Service, :count)

@@ -44,27 +44,24 @@ module Abilities
     end
 
     def service_abilities(organization_id)
-      can(:read, Service, {
-            service_specification: {
-              organization_id: organization_id
-            }
-          })
+      base_scope = { service_specification: { organization_id: organization_id } }
 
-      can(:manage, Service, {
-            organization_agreed: true,
-            civil_servant_agreed: nil,
-            service_specification: {
-              organization_id: organization_id
-            }
-          })
+      can(:read, Service, base_scope)
+      can(:crud, Service, base_scope.merge(
+                            organization_agreed: true,
+                            civil_servant_agreed: nil
+                          ))
 
-      can(:destroy, Service, {
-            organization_agreed: true,
-            civil_servant_agreed: false,
-            service_specification: {
-              organization_id: organization_id
-            }
-          })
+      can(:confirm, Service, base_scope.merge(
+                               organization_agreed: true,
+                               civil_servant_agreed: true,
+                               confirmation_date: nil
+                             ))
+
+      can(:destroy, Service, base_scope.merge(
+                               organization_agreed: true,
+                               civil_servant_agreed: false
+                             ))
     end
     # rubocop:enable Metrics/MethodLength
   end

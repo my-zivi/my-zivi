@@ -177,7 +177,7 @@ RSpec.describe Organizations::PaymentsController, type: :request do
     let(:perform_request) { get organizations_payment_path(payment) }
     let(:civil_servant) { create(:civil_servant, :full, :with_service) }
     let(:service) { civil_servant.services.first }
-    let(:expense_sheets) { ExpenseSheetGenerator.new(service).create_expense_sheets }
+    let(:expense_sheets) { ExpenseSheetGenerator.new(service).create_expense_sheets! }
     let(:payment) do
       create(:payment, organization: organization, created_at: service.ending, expense_sheets: expense_sheets)
     end

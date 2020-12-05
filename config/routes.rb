@@ -58,7 +58,9 @@ Rails.application.routes.draw do
     get '/phone_list/:name', to: 'phone_list#index', as: 'named_phone_list'
     resources :services, only: :index
     resources :civil_servants, only: %i[index show] do
-      resources :services, only: %i[show edit update]
+      resources :services, only: :show do
+        put :confirm, on: :member
+      end
     end
   end
 
