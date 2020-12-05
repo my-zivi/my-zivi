@@ -17,7 +17,7 @@ beginning = first_max_mustermann_service.beginning
 ending = first_max_mustermann_service.beginning.at_end_of_month
 duration = (ending.to_date - beginning.to_date).to_i
 
-ExpenseSheetGenerator.new(max_mustermann_services.first).create_expense_sheets
+ExpenseSheetGenerator.new(max_mustermann_services.first).create_expense_sheets!
 
 max_mustermann_services.first.expense_sheets.order(:beginning).first.update(
   beginning: beginning,
@@ -44,10 +44,10 @@ max_mustermann_services.first.expense_sheets.order(:beginning).first.update(
   service: first_max_mustermann_service
 )
 
-ExpenseSheetGenerator.new(max_mustermann_services.last).create_expense_sheets
-ExpenseSheetGenerator.new(philipp_service).create_expense_sheets
-ExpenseSheetGenerator.new(joel_service).create_expense_sheets
-ExpenseSheetGenerator.new(andy_service).create_expense_sheets
+ExpenseSheetGenerator.new(max_mustermann_services.last).create_expense_sheets!
+ExpenseSheetGenerator.new(philipp_service).create_expense_sheets!
+ExpenseSheetGenerator.new(joel_service).create_expense_sheets!
+ExpenseSheetGenerator.new(andy_service).create_expense_sheets!
 
 puts '> Expense sheets seeded'
 

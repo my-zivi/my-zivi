@@ -2,7 +2,9 @@
 
 module Organizations
   class ServicesController < BaseController
-    load_and_authorize_resource
+    load_and_authorize_resource only: :index
+    load_and_authorize_resource :civil_servant, except: :index
+    load_and_authorize_resource :service, through: :civil_servant, except: :index
 
     def index
       respond_to do |format|
@@ -13,7 +15,15 @@ module Organizations
 
     def show; end
 
-    def edit; end
+    def confirm
+      if @service.confirm!
+        flash[:success] = I18n.t('organizations.services.confirm.successful_confirm')
+        redirect_to organizations_civil_servant_service_path(@civil_servant, @service)
+      else
+        flash[:error] = I18n.t('organizations.services.confirm.erroneous_confirm')
+        redirect_back(fallback_location: organizations_path)
+      end
+    end
 
     private
 
