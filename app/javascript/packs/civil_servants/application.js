@@ -1,3 +1,3 @@
 import '../application';
-import '../../stylessheets/civil_servants/overview.scss';
-import '../../stylessheets/civil_servants/services.scss';
+import '../../stylesheets/civil_servants/overview.scss';
+import '../../stylesheets/civil_servants/services.scss';

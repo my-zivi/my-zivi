@@ -1,3 +1,3 @@
 import '../application';
-import '../../stylessheets/organizations/organization_members.scss';
-import '../../stylessheets/organizations/services/embedded_app.scss';
+import '../../stylesheets/organizations/organization_members.scss';
+import '../../stylesheets/organizations/services/embedded_app.scss';

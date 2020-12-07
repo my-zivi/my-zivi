@@ -29,8 +29,11 @@ gem 'slim-rails'
 gem 'turbolinks', '~> 5'
 gem 'validates_timeliness'
 gem 'view_component'
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 5.2.1'
 # gem 'jbuilder', '~> 2.7'
+
+gem 'rails_admin', '~> 2.0'
+gem 'rails_admin-i18n', '~> 1.16'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 

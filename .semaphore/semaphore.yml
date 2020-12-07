@@ -7,8 +7,11 @@ agent:
 auto_cancel:
   running:
     when: 'true'
+fail_fast:
+  cancel:
+    when: "branch != 'master' AND branch != 'develop'"
 blocks:
-  - name: cache
+  - name: Cache
     execution_time_limit:
       minutes: 10
     dependencies: []
@@ -33,7 +36,7 @@ blocks:
     execution_time_limit:
       minutes: 10
     dependencies:
-      - cache
+      - Cache
     task:
       secrets:
         - name: my-zivi
@@ -102,7 +105,7 @@ blocks:
             - NO_COVERAGE=true yarn run percy:capture-screenshots
   - name: Performance Check
     dependencies:
-      - Tests
+      - Cache
     task:
       secrets:
         - name: my-zivi
@@ -110,6 +113,8 @@ blocks:
         - name: DATABASE_URL
           value: 'postgresql://postgres@localhost/test?encoding=utf8'
         - name: RAILS_ENV
+          value: production
+        - name: NODE_ENV
           value: production
         - name: RAILS_SERVE_STATIC_FILES
           value: 'true'
@@ -127,10 +132,10 @@ blocks:
           - bundle install --deployment --path vendor/bundle
           - nvm install
           - bin/yarn install --cache-folder ~/.cache/yarn && yarn global add @lhci/cli@^0.5.0
+          - bin/rake assets:precompile
           - sem-service start postgres 12
           - 'bundle exec rails db:create db:structure:load'
       jobs:
         - name: Lighthouse CI
           commands:
-            - bin/rake assets:precompile
             - lhci autorun

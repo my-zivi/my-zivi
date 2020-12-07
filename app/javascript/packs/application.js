@@ -15,7 +15,7 @@ import '@fortawesome/fontawesome-free/js/all.min';
 import 'bootstrap/dist/js/bootstrap.min';
 
 import '../channels';
-import '../stylessheets/application.scss';
+import '../stylesheets/application.scss';
 import '../images';
 
 Rails.start();

@@ -16,6 +16,8 @@ detectors:
     max_constants: 6
   TooManyStatements:
     max_statements: 10
+    exclude:
+      - 'Abilities'
   LongParameterList:
     max_params: 6
   DataClump:
