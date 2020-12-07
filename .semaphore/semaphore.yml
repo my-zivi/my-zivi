@@ -27,7 +27,7 @@ blocks:
             - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
             - bundle install --deployment -j 4 --path vendor/bundle
             - nvm install
-            - bin/yarn install --check-files --cache-folder ~/.cache/yarn
+            - bin/yarn install --cache-folder ~/.cache/yarn
             - cache store
       prologue:
         commands:
