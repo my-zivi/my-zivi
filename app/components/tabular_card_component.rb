@@ -12,6 +12,6 @@ class TabularCardComponent < ViewComponent::Base
   def self.humanize_table_values(values_klass, **information_table)
     information_table
       .select { |_key, value| value.present? }
-      .transform_keys(&values_klass.method(:human_attribute_name))
+      .transform_keys { |key| values_klass.human_attribute_name(key) }
   end
 end

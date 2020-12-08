@@ -30,7 +30,7 @@ module Organizations
     def show
       respond_to do |format|
         format.html
-        format.xml(&method(:respond_to_xml))
+        format.xml { respond_to_xml }
       end
     end
 

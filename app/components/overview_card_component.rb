@@ -42,6 +42,6 @@ class OverviewCardComponent < ViewComponent::Base
           <i class="fas fa-angle-right ml-1"></i>
         HTML
       end
-    end.join('')
+    end.join
   end
 end

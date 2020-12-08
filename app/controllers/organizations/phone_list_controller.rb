@@ -11,7 +11,7 @@ module Organizations
 
       respond_to do |format|
         format.html
-        format.pdf(&method(:respond_to_pdf))
+        format.pdf { respond_to_pdf }
       end
     end
 

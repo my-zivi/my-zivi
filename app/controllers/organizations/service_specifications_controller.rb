@@ -59,7 +59,9 @@ module Organizations
     private
 
     def service_specification_params
-      params.require(:service_specification).permit(*PERMITTED_PARAMS).tap(&method(:modify_params))
+      params.require(:service_specification).permit(*PERMITTED_PARAMS).tap do |service_specification_params|
+        modify_params(service_specification_params)
+      end
     end
 
     # :reek:UtilityFunction
