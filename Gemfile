@@ -75,7 +75,7 @@ end
 
 group :test do
   gem 'climate_control'
-  gem 'i18n-tasks', '~> 0.9.29'
+  gem 'i18n-tasks', '~> 0.9.31'
   gem 'pdf-inspector', require: 'pdf/inspector'
   gem 'percy-capybara'
   gem 'rails-controller-testing'

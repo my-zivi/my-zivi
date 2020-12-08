@@ -3,7 +3,7 @@
 class ServicesSerializer
   class << self
     def call(services)
-      transformed_data = services.map(&method(:extract_service_attributes))
+      transformed_data = services.map { |service| extract_service_attributes(service) }
 
       JSON.dump(transformed_data)
     end
