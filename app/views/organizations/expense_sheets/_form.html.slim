@@ -27,31 +27,29 @@
     .col-12.col-lg-6
       = f.input :work_days,
               label: t('activerecord.attributes.expense_sheet.work_days.other'),
-              append: t('.suggestion', suggested_value: expense_sheet.calculate_work_days),
+              append: t('.suggestion', suggested_value: suggestions[:work_days]),
               disabled: !expense_sheet.editable?
     .col-12.col-lg-6
       = f.input :workfree_days,
               label: t('activerecord.attributes.expense_sheet.workfree_days.other'),
-              append: t('.suggestion',
-                      suggested_value: expense_sheet.calculate_workfree_days),
+              append: t('.suggestion', suggested_value: suggestions[:workfree_days]),
               disabled: !expense_sheet.editable?
     .col-12.col-lg-6
       = f.input :sick_days,
               label: t('activerecord.attributes.expense_sheet.sick_days.other'),
-              append: t('.leftover_days', left_value: calculators[:remaining_days].remaining_sick_days),
+              append: t('.leftover_days', left_value: suggestions[:remaining_sick_days]),
               disabled: !expense_sheet.editable?
   h5.mb-3 = t('.company_holidays')
   .row
     .col-12.col-lg-6
       = f.input :unpaid_company_holiday_days,
               label: t('activerecord.attributes.expense_sheet.unpaid_company_holiday_days.other'),
-              append: t('.suggestion', suggested_value: expense_sheet.calculate_unpaid_vacation_days),
+              append: t('.suggestion', suggested_value: suggestions[:unpaid_company_holiday_days]),
               disabled: !expense_sheet.editable?
     .col-12.col-lg-6
       = f.input :paid_company_holiday_days,
               label: t('activerecord.attributes.expense_sheet.paid_company_holiday_days.other'),
-              append: t('.suggestion',
-                      suggested_value: expense_sheet.calculate_paid_vacation_days),
+              append: t('.suggestion', suggested_value: suggestions[:paid_company_holiday_days]),
               disabled: !expense_sheet.editable?
   h5.mb-3 = t('.paid_vacation')
   .row
@@ -76,7 +74,7 @@
   .row
     .col-12.col-lg-6
       = f.input :clothing_expenses,
-              append: t('simple_form.appended.chf'),
+              append: t('.suggestion', suggested_value: number_to_currency(suggestions[:clothing_expenses])),
               disabled: !expense_sheet.editable?
     .col-12.col-lg-6
       = f.input :clothing_expenses_comment,

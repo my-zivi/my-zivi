@@ -23,7 +23,7 @@ module Organizations
     end
 
     def edit
-      set_calculators
+      @suggestions = ExpenseSheetCalculators::SuggestionsCalculator.new(@expense_sheet).suggestions
     end
 
     def update
@@ -37,12 +37,6 @@ module Organizations
     end
 
     private
-
-    def set_calculators
-      @calculators = {
-        remaining_days: ExpenseSheetCalculators::RemainingDaysCalculator.new(@expense_sheet.service)
-      }
-    end
 
     def expense_sheets_params
       params.require(:expense_sheet).permit(*PERMITTED_PARAMS)

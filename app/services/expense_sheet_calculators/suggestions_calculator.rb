@@ -20,7 +20,7 @@ module ExpenseSheetCalculators
         paid_company_holiday_days: suggested_paid_company_holiday_days,
         unpaid_company_holiday_days: suggested_unpaid_company_holiday_days,
         clothing_expenses: suggested_clothing_expenses
-      }
+      }.merge(RemainingDaysCalculator.new(@expense_sheet.service).remaining_days)
     end
 
     def suggested_unpaid_company_holiday_days
