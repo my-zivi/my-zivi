@@ -23,20 +23,24 @@ module Organizations
     end
 
     def edit
-      @suggestions = ExpenseSheetCalculators::SuggestionsCalculator.new(@expense_sheet).suggestions
+      load_suggestions
     end
 
     def update
       if @expense_sheet.update(expense_sheets_params)
         redirect_to edit_organizations_expense_sheet_path, notice: t('.successful_update')
       else
-        set_calculators
+        load_suggestions
         flash[:error] = t('.erroneous_update')
         render :edit
       end
     end
 
     private
+
+    def load_suggestions
+      @suggestions = ExpenseSheetCalculators::SuggestionsCalculator.new(@expense_sheet).suggestions
+    end
 
     def expense_sheets_params
       params.require(:expense_sheet).permit(*PERMITTED_PARAMS)

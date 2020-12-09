@@ -22,7 +22,9 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
         paid_company_holiday_days: 0,
         unpaid_company_holiday_days: 0,
         work_days: 19,
-        workfree_days: 7
+        workfree_days: 7,
+        remaining_paid_vacation_days: 0,
+        remaining_sick_days: 5
       }
     end
 
