@@ -18,6 +18,7 @@ fr-CH:
         civil_servants: Civilistes
         dashboard: Dashboard
         expense_sheets: Fiches de frais
+        organization_information: Données d'exploitation
         organization_members: Employés
         payments: Paiements
         phone_list: Liste de téléphone
@@ -175,6 +176,14 @@ fr-CH:
       update:
         erroneous_update: Le profil n'a pas pu être mis à jour
         successfully_updated: Profil mis à jour avec succès
+    organizations:
+      edit:
+        address_information: Données d'adresse
+        creditor_information: Détails du paiement
+        organization_information: Données sur les entreprises
+      update:
+        erroneous_update: Les données sur les entreprises n'ont pas pu être mises à jour
+        successful_update: Les données sur les entreprises ont été mises à jour avec succès
     overview:
       index:
         cards:

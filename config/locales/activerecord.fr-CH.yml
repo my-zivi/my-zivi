@@ -28,6 +28,9 @@ fr-CH:
         role: Rôle
         workshops: Cours de formation achevés
         zdp: N° ZDP
+      creditor_detail:
+        bic: BIC
+        iban: IBAN
       driving_license:
         name: Nom
       expense_sheet:
@@ -74,6 +77,9 @@ fr-CH:
         workfree_days:
           one: Jour de congé
           other: jours de congé
+      organization:
+        identification_number: Numéro d'identification de l'entreprise
+        name: Nom
       organization_holiday:
         beginning: Démarrer
         description: Description
