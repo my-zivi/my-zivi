@@ -157,7 +157,17 @@ de-CH:
             iban:
               bad_check_digits: konnte nicht auf Gültigkeit überprüft werden
               bad_format: hat ein ungültiges Format
-              too_short: zu kurz (21 Zeichen)
+              bad_length: Länge ist nicht korrekt
+              bad_chars: beinhaltet ungültige Zeichen
+              unknown_country_code: hat einen ungültigen Ländercode
+        creditor_detail:
+          attributes:
+            iban:
+              bad_check_digits: konnte nicht auf Gültigkeit überprüft werden
+              bad_format: hat ein ungültiges Format
+              bad_length: Länge ist nicht korrekt
+              bad_chars: beinhaltet ungültige Zeichen
+              unknown_country_code: hat einen ungültigen Ländercode
         expense_sheet:
           already_paid: Das Spesenblatt wurde bereis ausbezahlt.
           attributes:
