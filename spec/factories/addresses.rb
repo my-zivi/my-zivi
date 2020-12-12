@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :address do
-    primary_line { 'Vollzugsstelle für den Zivildienst ZIVI' }
+    sequence(:primary_line) { |n| "Vollzugsstelle für den Zivildienst ZIVI (#{n})" }
     secondary_line { 'Regionalzentrum Rüti (ZH)' }
-    street { 'Spitalstrasse 31' }
+    sequence(:street) { |n| "Spitalstrasse #{31 + n}" }
     supplement { 'Postfach' }
     city { 'Rüti' }
     zip { 8630 }
@@ -16,6 +16,15 @@ FactoryBot.define do
       supplement { nil }
       city { 'Beispielhausen' }
       zip { 1111 }
+    end
+
+    trait :organization do
+      primary_line { 'Stiftung XYZ' }
+      secondary_line { nil }
+      street { 'Rennweg 12' }
+      supplement { nil }
+      city { 'Zürich' }
+      zip { 8000 }
     end
   end
 end
