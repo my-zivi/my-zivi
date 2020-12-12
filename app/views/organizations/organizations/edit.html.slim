@@ -8,7 +8,7 @@
     .row.align-items-center
       .col: h5.mb-0 = t('.organization_information')
   .card-body.bg-light
-    = simple_form_for [:organizations, @organization] do |f|
+    = simple_form_for @organization, url: organizations_organization_path do |f|
       .row
         .col-md-6.col-12
           = f.input :name
@@ -16,7 +16,7 @@
           = f.input :identification_number
       hr
       h4 = t('.address_information')
-      = simple_fields_for f.object.address do |ff|
+      = f.simple_fields_for :address do |ff|
         .row
           .col-md-6.col-12
             = ff.input :primary_line
@@ -32,7 +32,7 @@
             = ff.input :zip
       hr
       h4 = t('.creditor_information')
-      = simple_fields_for f.object.creditor_detail do |ff|
+      = f.simple_fields_for :creditor_detail do |ff|
         .row
           .col-md-6.col-12
             = ff.input :iban

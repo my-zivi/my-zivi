@@ -182,6 +182,9 @@ de-CH:
         address_information: Addressdaten
         creditor_information: Zahlungsdaten
         organization_information: Betriebsdaten
+      update:
+        erroneous_update: Betriebsdaten konnten nicht aktualisiert werden
+        successful_update: Betriebsdaten wurden erfolgreich aktualisiert
     overview:
       index:
         cards:

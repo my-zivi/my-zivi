@@ -19,19 +19,34 @@ RSpec.describe 'organizations/organizations/edit.html.slim', type: :view do
   end
 
   describe 'address fields' do
+    let(:expected_fields) do
+      {
+        'primary_line' => organization.address.primary_line,
+        'secondary_line' => nil,
+        'supplement' => nil,
+        'street' => organization.address.street,
+        'zip' => organization.address.zip
+      }
+    end
+
     it 'contains all address related fields' do
-      expect(rendered).to have_input_field('address[primary_line]').with_value(organization.address.primary_line)
-      expect(rendered).to have_input_field('address[secondary_line]')
-      expect(rendered).to have_input_field('address[supplement]')
-      expect(rendered).to have_input_field('address[street]').with_value(organization.address.street)
-      expect(rendered).to have_input_field('address[zip]').with_value(organization.address.zip)
+      expected_fields.each do |expected_field, expected_value|
+        expect(rendered).to(
+          have_input_field("organization[address_attributes][#{expected_field}]").with_value(expected_value)
+        )
+      end
     end
   end
 
   describe 'creditor details' do
     it 'contains all creditor detail related fields' do
-      expect(rendered).to have_input_field('creditor_detail[iban]').with_value(organization.creditor_detail.iban)
-      expect(rendered).to have_input_field('creditor_detail[bic]').with_value(organization.creditor_detail.bic)
+      expect(rendered).to(
+        have_input_field('organization[creditor_detail_attributes][iban]').with_value(organization.creditor_detail.iban)
+      )
+
+      expect(rendered).to(
+        have_input_field('organization[creditor_detail_attributes][bic]').with_value(organization.creditor_detail.bic)
+      )
     end
   end
 end
