@@ -13,6 +13,8 @@ module Abilities
       can :manage, OrganizationMember, organization_id: organization_id
       can :manage, ServiceSpecification, organization_id: organization_id
       can :manage, Payment, organization_id: organization_id
+      can :crud, Organization, id: organization_id
+      can :crud, Address, id: permitting_organization_member.organization.address_id
 
       can(:read, CivilServant,
           services: {

@@ -26,6 +26,8 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
         span.fas.fa-wallet
       = render 'base/navbar_list_item', link: { t('.phone_list') => organizations_phone_list_path } do
         span.fas.fa-phone
+      = render 'base/navbar_list_item', link: { t('.organization_information') => edit_organizations_organization_path } do
+        span.fas.fa-building
       = render 'base/navbar_list_item', link: { t('.organization_members') => organizations_members_path } do
         span.fas.fa-user-friends
       = render 'base/navbar_list_item', link: { t('.profile') => edit_organizations_member_path(current_organization_admin) } do
