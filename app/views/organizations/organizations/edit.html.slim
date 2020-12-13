@@ -1,0 +1,42 @@
+.card.mb-3
+  .bg-holder.d-none.d-lg-block.bg-card.corner-background-success
+  .card-body
+    h1 = @organization.name
+
+.card.mt-3.mb-4
+  .card-header.bg-white
+    .row.align-items-center
+      .col: h5.mb-0 = t('.organization_information')
+  .card-body.bg-light
+    = simple_form_for @organization, url: organizations_organization_path do |f|
+      .row
+        .col-md-6.col-12
+          = f.input :name
+        .col-md-6.col-12
+          = f.input :identification_number
+      hr
+      h4 = t('.address_information')
+      = f.simple_fields_for :address do |ff|
+        .row
+          .col-md-6.col-12
+            = ff.input :primary_line
+          .col-md-6.col-12
+            = ff.input :secondary_line
+          .col-md-6.col-12
+            = ff.input :supplement
+          .col-md-6.col-12
+            = ff.input :street
+          .col-md-6.col-12
+            = ff.input :city
+          .col-md-6.col-12
+            = ff.input :zip
+      hr
+      h4 = t('.creditor_information')
+      = f.simple_fields_for :creditor_detail do |ff|
+        .row
+          .col-md-6.col-12
+            = ff.input :iban
+          .col-md-6.col-12
+            = ff.input :bic
+      .mt-4
+        = f.submit class: 'btn btn-primary'
