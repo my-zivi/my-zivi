@@ -1,0 +1,150 @@
+---
+fr-CH:
+  admin:
+    actions:
+      bulk_delete:
+        breadcrumb: Suppression multiple
+        bulk_link: Supprimer les %{model_label_plural} sélectionné(e)s
+        menu: Suppression multiple
+        title: Supprimer %{model_label_plural}
+      dashboard:
+        breadcrumb: Panneau de contrôle
+        menu: Panneau de contrôle
+        title: Administration
+      delete:
+        breadcrumb: Supprimer
+        done: supprimé(e)
+        link: Supprimer '%{object_label}'
+        menu: Supprimer
+        title: Supprimer %{model_label} '%{object_label}'
+      edit:
+        breadcrumb: Modifier
+        done: mis(e) à jour
+        link: Modifier ce %{model_label}
+        menu: Modifier
+        title: Modifier %{model_label} '%{object_label}'
+      export:
+        breadcrumb: Exporter
+        bulk_link: Exporter les %{model_label_plural} trouvé(e)s
+        done: exporté(e)s
+        link: Exporter les %{model_label_plural} trouvé(e)s
+        menu: Exporter
+        title: Exporter %{model_label_plural}
+      history_index:
+        breadcrumb: Historique
+        menu: Historique
+        title: Historique des %{model_label_plural}
+      history_show:
+        breadcrumb: Historique
+        menu: Historique
+        title: Historique de %{model_label} '%{object_label}'
+      index:
+        breadcrumb: "%{model_label_plural}"
+        menu: Liste
+        title: Liste des %{model_label_plural}
+      new:
+        breadcrumb: Nouveau
+        done: créé(e)
+        link: Ajouter un nouveau %{model_label}
+        menu: Ajouter nouveau
+        title: Nouveau %{model_label}
+      show:
+        breadcrumb: "%{object_label}"
+        menu: Voir
+        title: Détails pour %{model_label} '%{object_label}'
+      show_in_app:
+        menu: Voir dans l'application
+    export:
+      click_to_reverse_selection: Cliquer pour inverser la sélection
+      confirmation: Exporter vers %{name}
+      csv:
+        col_sep: Séparateur de colonne
+        col_sep_help: Laisser blanc pour la valeur par défaut ('%{value}')
+        default_col_sep: ","
+        encoding_to: Encoder en
+        encoding_to_help: Choisissez l'encodage de sortie. Laissez vide pour laisser les données non-encodées (%{name})
+        header_for_association_methods: "%{name} [%{association}]"
+        header_for_root_methods: "%{name}"
+        skip_header: Aucun en-tête
+        skip_header_help: Ne pas afficher d'en-tête (pas de description de champ)
+      display: 'Affichage %{name}: %{type}'
+      empty_value_for_associated_objects: "<empty>"
+      fields_from: Champs de %{name}
+      fields_from_associated: Champ du (de la) %{name} associé
+      options_for: Options pour %{name}
+      select: Sélectionnez les champs à exporter
+      select_all_fields: Sélectionner tous les champs
+    flash:
+      error: "%{name} : n'a pas pu être %{action}"
+      model_not_found: Le modèle '%{model}' est introuvable
+      noaction: Aucune action n'a été effectuée
+      object_not_found: "%{model} avec l'ID '%{id}' est introuvable"
+      successful: "%{name} : %{action} avec succès"
+    form:
+      all_of_the_following_related_items_will_be_deleted: 'Tous les éléments relatifs suivants peuvent être également supprimés ou rendus orphelins :'
+      are_you_sure_you_want_to_delete_the_object: Êtes-vous sûr(e) de vouloir supprimer ce(tte) %{model_name}
+      basic_info: Infos de base
+      bulk_delete: 'Les objets suivants vont être supprimés, ce qui pourrait supprimer ou rendre orphelin certaines de ces dépendances :'
+      cancel: Annuler
+      char_length_of: 'longueur :'
+      char_length_up_to: 'longueur maxi. :'
+      confirmation: Oui, je suis sûr(e)
+      new_model: "%{name} (nouveau)"
+      one_char: caractère
+      optional: Optionnel
+      required: Obligatoire
+      save: Enregistrer
+      save_and_add_another: Enregistrer et ajouter un autre
+      save_and_edit: Enregister et modifier
+    home:
+      name: Accueil
+    js:
+      between_and_: Entre le ... et le ...
+      contains: Contient
+      date: Date ...
+      ends_with: Se termine par
+      'false': Faux
+      is_blank: Est vide
+      is_exactly: Est exactement
+      is_present: Est présent
+      last_week: La semaine dernière
+      number: Nombre ...
+      starts_with: Commence par
+      this_week: Cette semaine
+      today: Aujourd'hui
+      'true': Vrai
+      yesterday: Hier
+    loading: Chargement...
+    misc:
+      add_filter: Ajouter un filtre
+      add_new: Ajouter
+      ago: il y a
+      bulk_menu_title: Élements sélectionnés
+      chose_all: Choisir tout
+      chosen: Choisi %{name}
+      clear_all: Effacer tout
+      down: Descendre
+      filter: Filtre
+      filter_date_format: dd/mm/yy
+      log_out: Se déconnecter
+      navigation: Navigation
+      navigation_static_label: Liens
+      refresh: Rafraîchir
+      remove: Supprimer
+      search: Recherche
+      show_all: Montrer tout
+      up: Monter
+    pagination:
+      next: Suiv. &raquo;
+      previous: "&laquo; Préc."
+      truncate: "…"
+    table_headers:
+      changes: Changements
+      created_at: Date/Heure
+      item: Élement
+      last_created: Dernière création
+      last_used: Dernière utilisation
+      message: Message
+      model_name: Nom du modèle
+      records: Enregistrements
+      username: Nom d'utilisateur
