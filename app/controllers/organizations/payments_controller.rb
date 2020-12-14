@@ -62,15 +62,25 @@ module Organizations
     end
 
     def respond_to_xml
+      payment_data = PainGenerationService.call(@payment).to_xml(PAIN_SCHEME)
+
       send_data(
-        pain_content,
+        payment_data,
         disposition: 'attachment',
         filename: I18n.t('organizations.payments.pain_file_name', date: I18n.l(@payment.created_at.to_date))
       )
+    rescue StandardError => e
+      track_payment_generation_error(e)
+      raise e
     end
 
-    def pain_content
-      PainGenerationService.call(@payment).to_xml(PAIN_SCHEME)
+    def track_payment_generation_error(exception)
+      return unless defined? Raven
+
+      Raven.capture_exception(exception, extra: {
+                                action: 'SEPA generation',
+                                payment_id: @payment.id
+                              })
     end
 
     def load_accessible_expense_sheets
