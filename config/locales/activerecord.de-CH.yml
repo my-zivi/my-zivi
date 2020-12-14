@@ -155,9 +155,21 @@ de-CH:
         civil_servant:
           attributes:
             iban:
+              bad_chars: beinhaltet ungültige Zeichen
               bad_check_digits: konnte nicht auf Gültigkeit überprüft werden
               bad_format: hat ein ungültiges Format
+              bad_length: Länge ist nicht korrekt
               too_short: zu kurz (21 Zeichen)
+              unknown_country_code: hat einen ungültigen Ländercode
+        creditor_detail:
+          attributes:
+            iban:
+              bad_chars: beinhaltet ungültige Zeichen
+              bad_check_digits: konnte nicht auf Gültigkeit überprüft werden
+              bad_format: hat ein ungültiges Format
+              bad_length: Länge ist nicht korrekt
+              too_short: zu kurz (21 Zeichen)
+              unknown_country_code: hat einen ungültigen Ländercode
         expense_sheet:
           already_paid: Das Spesenblatt wurde bereis ausbezahlt.
           attributes:

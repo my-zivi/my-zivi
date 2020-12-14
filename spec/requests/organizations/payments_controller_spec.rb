@@ -199,15 +199,30 @@ RSpec.describe Organizations::PaymentsController, type: :request do
       context 'when requesting the PAIN XML' do
         let(:perform_request) { get organizations_payment_path(payment, format: :xml) }
 
-        before do
-          allow(PainGenerationService).to receive(:call).and_call_original
-        end
+        before { allow(PainGenerationService).to receive(:call).and_call_original }
 
         it 'returns the XML' do
           perform_request
           expect(response).to have_http_status(:success)
           expect(response.content_type).to eq 'application/xml'
           expect(PainGenerationService).to have_received(:call)
+        end
+
+        context 'when PAIN generation causes an error' do
+          let(:exception) { StandardError.new('failure') }
+
+          before do
+            allow(PainGenerationService).to receive(:call).and_raise(exception)
+            stub_const('Raven', instance_double('Raven', capture_exception: true))
+          end
+
+          it 'tracks the error with additional context on Sentry' do
+            expect { perform_request }.to raise_exception StandardError
+            expect(Raven).to have_received(:capture_exception).with(exception, extra: hash_including(
+              action: be_a(String),
+              payment_id: payment.id
+            ))
+          end
         end
       end
 

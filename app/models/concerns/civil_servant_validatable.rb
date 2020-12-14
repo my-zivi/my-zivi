@@ -2,6 +2,7 @@
 
 module CivilServantValidatable
   extend ActiveSupport::Concern
+  include IbanValidatable
 
   included do
     validates :first_name, :last_name, presence: true
@@ -27,12 +28,6 @@ module CivilServantValidatable
 
     with_options if: :service_specific_step_completed? do
       validates :regional_center, presence: true
-    end
-  end
-
-  def validate_iban
-    IBANTools::IBAN.new(iban).validation_errors.each do |error|
-      errors.add(:iban, error)
     end
   end
 end
