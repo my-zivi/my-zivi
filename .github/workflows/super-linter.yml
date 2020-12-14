@@ -20,5 +20,5 @@ jobs:
           DEFAULT_BRANCH: master
           RUBY_CONFIG_FILE: .rubocop.yml
           VALIDATE_SQL: false
-          JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.js
+          JAVASCRIPT_ES_LINTER_RULES: .eslintrc.js
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
