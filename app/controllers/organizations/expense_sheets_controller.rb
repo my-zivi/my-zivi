@@ -23,14 +23,14 @@ module Organizations
     end
 
     def edit
-      set_calculators
+      load_suggestions
     end
 
     def update
       if @expense_sheet.update(expense_sheets_params)
         redirect_to edit_organizations_expense_sheet_path, notice: t('.successful_update')
       else
-        set_calculators
+        load_suggestions
         flash[:error] = t('.erroneous_update')
         render :edit
       end
@@ -38,10 +38,8 @@ module Organizations
 
     private
 
-    def set_calculators
-      @calculators = {
-        remaining_days: ExpenseSheetCalculators::RemainingDaysCalculator.new(@expense_sheet.service)
-      }
+    def load_suggestions
+      @suggestions = ExpenseSheetCalculators::SuggestionsCalculator.new(@expense_sheet).suggestions
     end
 
     def expense_sheets_params

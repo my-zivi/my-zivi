@@ -68,4 +68,66 @@ RSpec.describe Organizations::ServicesController, type: :request do
       end
     end
   end
+
+  describe '#confirm' do
+    let(:perform_request) { put confirm_organizations_civil_servant_service_path(service.civil_servant, service) }
+
+    let(:organization_administrator) { create(:organization_member) }
+    let(:service) { civil_servant.services.first }
+    let(:civil_servant) do
+      create(:civil_servant, :full, :with_service,
+             organization: organization_administrator.organization,
+             service_traits: %i[unconfirmed],
+             service_attributes: {
+               beginning: Date.parse('2020-09-07'),
+               ending: Date.parse('2020-10-30')
+             })
+    end
+
+    context 'when an organization administrator is signed in' do
+      let(:now) { Date.parse('2020-08-01') }
+
+      before { sign_in organization_administrator.user }
+
+      around do |spec|
+        travel_to(now) { spec.run }
+      end
+
+      it 'confirms the service and returns a successful response' do
+        expect { perform_request }.to(
+          change { service.reload.confirmation_date }.from(nil).to(now)
+            .and(change(ExpenseSheet, :count).by(2))
+        )
+        expect(response).to redirect_to organizations_civil_servant_service_path(service.civil_servant, service)
+        expect(flash[:success]).to eq I18n.t('organizations.services.confirm.successful_confirm')
+      end
+
+      context 'when expense sheets cannot be created' do
+        # rubocop:disable RSpec/AnyInstance
+        before { allow_any_instance_of(Service).to receive(:confirm!).and_return false }
+        # rubocop:enable RSpec/AnyInstance
+
+        it 'returns an error response' do
+          perform_request
+          expect(response).to be_redirect
+          expect(flash[:error]).to eq I18n.t('organizations.services.confirm.erroneous_confirm')
+        end
+      end
+    end
+
+    context 'when a civil servant is signed in' do
+      before do
+        sign_in create(:civil_servant, :full).user
+        perform_request
+      end
+
+      it_behaves_like 'unauthorized request'
+    end
+
+    context 'when nobody is signed in' do
+      it_behaves_like 'unauthenticated request' do
+        before { perform_request }
+      end
+    end
+  end
 end

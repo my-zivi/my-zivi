@@ -21,9 +21,11 @@ end
 
 Rails.application.routes.draw do
   root 'home#index'
+  mount RailsAdmin::Engine => '/rails_admin', as: 'rails_admin'
   mount Sidekiq::Web, at: '/sidekiq' if defined? Sidekiq::Web
 
   devise_for :users, controllers: { invitations: 'users/invitations' }
+  devise_for :sys_admins
 
   resource :mailing_list, only: :create
   resources :expense_sheets, only: :show
@@ -45,6 +47,7 @@ Rails.application.routes.draw do
   namespace :organizations do
     get '/', to: 'overview#index'
 
+    resource :organization, only: %i[edit update]
     resources :organization_members, as: 'members', except: :show
     resources :service_specifications, except: :show
     resources :service_agreements, only: %i[index destroy create new]
@@ -56,7 +59,9 @@ Rails.application.routes.draw do
     get '/phone_list/:name', to: 'phone_list#index', as: 'named_phone_list'
     resources :services, only: :index
     resources :civil_servants, only: %i[index show] do
-      resources :services, only: %i[show edit update]
+      resources :services, only: :show do
+        put :confirm, on: :member
+      end
     end
   end
 

@@ -1,6 +1,11 @@
 #!/usr/bin/env sh
 
-set -eo pipefail
+ruby_changes=$(git diff --name-only --diff-filter=d | grep "\.rb$")
 
-echo "Executing Rubocop..."
-bundle exec rubocop -D --parallel -c .rubocop.yml > /dev/null
+if [ -n "$ruby_changes" ]; then
+  echo "Executing Rubocop..."
+  echo "$ruby_changes" | xargs bundle exec rubocop -D --parallel -c .rubocop.yml >/dev/null
+else
+  echo "No changes to compare since last commit"
+  exit 0
+fi

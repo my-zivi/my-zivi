@@ -22,7 +22,9 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
         paid_company_holiday_days: 0,
         unpaid_company_holiday_days: 0,
         work_days: 19,
-        workfree_days: 7
+        workfree_days: 7,
+        remaining_paid_vacation_days: 0,
+        remaining_sick_days: 5
       }
     end
 
@@ -159,7 +161,7 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
       let(:service) do
         create :service, beginning: service_range.begin, ending: service_range.end, civil_servant: civil_servant
       end
-      let(:created_expense_sheets) { ExpenseSheetGenerator.new(service).create_expense_sheets }
+      let(:created_expense_sheets) { ExpenseSheetGenerator.new(service).create_expense_sheets! }
       let(:expense_sheet) { created_expense_sheets.last }
 
       before do

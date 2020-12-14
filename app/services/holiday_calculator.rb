@@ -20,7 +20,7 @@ class HolidayCalculator
   private
 
   def total_days(all_days)
-    all_days.select(&method(:day_in_range?)).uniq.length
+    all_days.select { |day| day_in_range? day }.uniq.length
   end
 
   def day_in_range?(day)

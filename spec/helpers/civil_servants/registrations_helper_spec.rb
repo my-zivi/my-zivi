@@ -11,7 +11,7 @@ RSpec.describe CivilServants::RegistrationsHelper, type: :helper do
   end
 
   describe '#step_link' do
-    subject { helper.step_link(step_identifier, RegistrationStep.new(identifier: :second)) {} }
+    subject { helper.step_link(step_identifier, RegistrationStep.new(identifier: :second)) { 'link' } }
 
     before { stub_const('RegistrationStep::ALL', %i[first second third]) }
 

@@ -25,6 +25,7 @@ search:
 
 ignore_unused:
   - 'activerecord.*'
+  - 'admin.*'
   - 'errors.messages.*'
   - '{devise,kaminari,will_paginate}.*'
   - 'simple_form.{yes,no}'

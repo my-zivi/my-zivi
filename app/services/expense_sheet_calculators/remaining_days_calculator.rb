@@ -8,8 +8,8 @@ module ExpenseSheetCalculators
 
     def remaining_days
       {
-        sick_days: remaining_sick_days,
-        paid_vacation_days: remaining_paid_vacation_days
+        remaining_sick_days: remaining_sick_days,
+        remaining_paid_vacation_days: remaining_paid_vacation_days
       }
     end
 

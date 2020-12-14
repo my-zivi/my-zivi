@@ -13,4 +13,7 @@ class Organization < ApplicationRecord
   has_many :expense_sheets, through: :services
 
   validates :name, :identification_number, presence: true
+
+  accepts_nested_attributes_for :address, allow_destroy: false, update_only: true
+  accepts_nested_attributes_for :creditor_detail, allow_destroy: false, update_only: true
 end

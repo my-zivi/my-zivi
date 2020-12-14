@@ -29,10 +29,11 @@ gem 'slim-rails'
 gem 'turbolinks', '~> 5'
 gem 'validates_timeliness'
 gem 'view_component'
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 5.2.1'
 # gem 'jbuilder', '~> 2.7'
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'rails_admin', '~> 2.0'
 
 group :production do
   gem 'lograge'
@@ -72,7 +73,7 @@ end
 
 group :test do
   gem 'climate_control'
-  gem 'i18n-tasks', '~> 0.9.29'
+  gem 'i18n-tasks', '~> 0.9.31'
   gem 'pdf-inspector', require: 'pdf/inspector'
   gem 'percy-capybara'
   gem 'rails-controller-testing'

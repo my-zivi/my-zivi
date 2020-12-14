@@ -584,6 +584,49 @@ ALTER SEQUENCE public.services_id_seq OWNED BY public.services.id;
 
 
 --
+-- Name: sys_admins; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sys_admins (
+    id bigint NOT NULL,
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip inet,
+    last_sign_in_ip inet,
+    failed_attempts integer DEFAULT 0 NOT NULL,
+    unlock_token character varying,
+    locked_at timestamp without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: sys_admins_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sys_admins_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sys_admins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.sys_admins_id_seq OWNED BY public.sys_admins.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -757,6 +800,13 @@ ALTER TABLE ONLY public.services ALTER COLUMN id SET DEFAULT nextval('public.ser
 
 
 --
+-- Name: sys_admins id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sys_admins ALTER COLUMN id SET DEFAULT nextval('public.sys_admins_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -880,6 +930,14 @@ ALTER TABLE ONLY public.service_specifications
 
 ALTER TABLE ONLY public.services
     ADD CONSTRAINT services_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sys_admins sys_admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sys_admins
+    ADD CONSTRAINT sys_admins_pkey PRIMARY KEY (id);
 
 
 --
@@ -1085,6 +1143,27 @@ CREATE INDEX index_services_on_civil_servant_id ON public.services USING btree (
 --
 
 CREATE INDEX index_services_on_service_specification_id ON public.services USING btree (service_specification_id);
+
+
+--
+-- Name: index_sys_admins_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_sys_admins_on_email ON public.sys_admins USING btree (email);
+
+
+--
+-- Name: index_sys_admins_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_sys_admins_on_reset_password_token ON public.sys_admins USING btree (reset_password_token);
+
+
+--
+-- Name: index_sys_admins_on_unlock_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_sys_admins_on_unlock_token ON public.sys_admins USING btree (unlock_token);
 
 
 --
@@ -1372,6 +1451,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201024145705'),
 ('20201117161845'),
 ('20201122111941'),
-('20201123144121');
+('20201123144121'),
+('20201204215926');
 
 

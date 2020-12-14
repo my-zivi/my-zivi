@@ -43,7 +43,7 @@ class CivilServantSelect2Options
         .limit(20)
         .select('civil_servants.id', 'civil_servants.first_name',
                 'civil_servants.last_name', 'users.email as user_email')
-        .map(&method(:civil_servant_search_object))
+        .map { |civil_servant| civil_servant_search_object(civil_servant) }
         .reject { |search_object| search_object[:id].empty? || search_object[:text].empty? }
     end
 

@@ -1,0 +1,21 @@
+.btn {
+  text-transform: uppercase;
+  background: transparent;
+  color: $primary;
+
+  &.btn-info {
+    background: transparent;
+    color: $primary;
+    border: 0 none transparent;
+  }
+
+  i.icon-white {
+    color: $primary;
+  }
+
+  &.btn-primary {
+    background-color: $primary;
+    border-color: $primary;
+    color: #fff;
+  }
+}

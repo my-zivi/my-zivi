@@ -539,4 +539,50 @@ RSpec.describe Service, type: :model do
       it { is_expected.to eq false }
     end
   end
+
+  describe '#confirm!' do
+    subject(:confirmed) { service.confirm! }
+
+    let(:service) do
+      create(:service, :unconfirmed, beginning: Date.parse('2020-07-06'), ending: Date.parse('2020-08-28'))
+    end
+
+    before { stub_const('Raven', instance_double('Raven', capture_exception: true)) }
+
+    it 'sets the confirmation_date and generates expense sheets' do
+      expect { confirmed }.to(change { service.reload.confirmation_date }.and(change(ExpenseSheet, :count).by(2)))
+      expect(confirmed).to eq true
+    end
+
+    context 'when update fails because something is invalid' do
+      let(:service) { build(:service, :unconfirmed, beginning: Date.parse('2020-12-01')) }
+
+      before { service.save(validate: false) }
+
+      it 'does not update confirmation date and does not generate expense sheets, but tracks the error' do
+        expect do
+          expect { confirmed }.not_to(change { service.reload.confirmation_date })
+        end.not_to change(ExpenseSheet, :count)
+
+        expect(confirmed).to eq false
+        expect(Raven).to have_received(:capture_exception).with(be_instance_of(ActiveRecord::RecordInvalid), be_a(Hash))
+      end
+    end
+
+    context 'when expense sheet create fails' do
+      before do
+        allow(ExpenseSheet).to receive(:create!).and_call_original
+        allow(ExpenseSheet).to receive(:create!).and_raise(StandardError.new)
+      end
+
+      it 'does not update confirmation date and does not generate expense sheets, but tracks the error' do
+        expect do
+          expect { confirmed }.not_to(change { service.reload.confirmation_date })
+        end.not_to change(ExpenseSheet, :count)
+
+        expect(confirmed).to eq false
+        expect(Raven).to have_received(:capture_exception).with(be_a(StandardError), be_a(Hash))
+      end
+    end
+  end
 end
