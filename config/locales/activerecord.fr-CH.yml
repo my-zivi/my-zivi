@@ -155,9 +155,21 @@ fr-CH:
         civil_servant:
           attributes:
             iban:
+              bad_chars: contient des caractères non valides
               bad_check_digits: chiffre de contrôle non valide
               bad_format: format incorrect
+              bad_length: longueur n'est pas correcte
               too_short: trop court (21 caractères)
+              unknown_country_code: a un code de pays non valide
+        creditor_detail:
+          attributes:
+            iban:
+              bad_chars: contient des caractères non valides
+              bad_check_digits: chiffre de contrôle non valide
+              bad_format: format incorrect
+              bad_length: longueur n'est pas correcte
+              too_short: trop court (21 caractères)
+              unknown_country_code: a un code de pays non valide
         expense_sheet:
           already_paid: La note de frais a déjà été payée.
           attributes:
