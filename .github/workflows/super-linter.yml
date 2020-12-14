@@ -18,7 +18,7 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: master
-          RUBY_CONFIG_FILE: .rubocop.yml
+          RUBY_LINTER_RULES: .rubocop.yml
           VALIDATE_SQL: false
           JAVASCRIPT_ES_LINTER_RULES: .eslintrc.js
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
