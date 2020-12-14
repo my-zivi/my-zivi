@@ -2,7 +2,7 @@
 
 RailsAdmin.config do |config|
   require 'i18n'
-  I18n.default_locale = :de
+  I18n.default_locale = :'de-CH'
 
   config.main_app_name = %w[MyZivi SysAdmin]
 
