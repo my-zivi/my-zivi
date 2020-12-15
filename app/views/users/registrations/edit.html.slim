@@ -1,0 +1,24 @@
+- if resource.errors.any?
+  .alert.alert-danger role='alert' = t('devise.registrations.edit.errors_alert')
+
+.card.mb-3
+  .card-header
+    .d-flex.align-items-center
+      h5 = t('devise.registrations.edit.title', resource: resource.model_name.human)
+  .card-body.bg-light
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      .row
+        .col-12
+          = f.input :current_password,
+                  autocomplete: 'current-password',
+                  required: true,
+                  hint: t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes')
+        .col-12.col-md-6
+          = f.input :password,
+                  input_html: { autocomplete: 'new-password' },
+                  required: true,
+                  hint: t('devise.shared.minimum_password_length', count: @minimum_password_length)
+        .col-12.col-md-6
+          = f.input :password_confirmation, input_html: { autocomplete: 'new-password' }, required: true
+        .col-12
+          = f.submit t('devise.registrations.edit.update'), class: 'btn btn-primary float-right'

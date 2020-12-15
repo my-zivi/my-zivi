@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   protected
 
-  def after_sign_in_path_for(user)
+  def signed_in_root_path(user)
     return rails_admin_path if user.is_a? SysAdmin
 
     referencee = user.referencee

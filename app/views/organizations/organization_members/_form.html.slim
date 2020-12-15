@@ -20,11 +20,15 @@
   .col-12
     .form-group data-children-count="1"
       = f.input :organization_role
-  .col-12.d-flex.justify-content-end
+  .col-12.d-flex.justify-content-end.flex-column.flex-sm-row
     - unless current_organization_admin == f.object || f.object.new_record?
       = link_to t('organizations.organization_members.edit.destroy_organization_member'),
               organizations_member_path(f.object),
               method: :delete,
-              class: 'btn btn-danger mr-2',
+              class: 'btn btn-danger mb-2 mr-0 mr-sm-2 mb-sm-0',
               data: { confirm: t('organizations.organization_members.edit.destroy_organization_member_confirmation') }
+    - if current_organization_admin == f.object
+      = link_to t('organizations.organization_members.edit.change_password'),
+              edit_user_registration_path,
+              class: 'btn btn-falcon-default mb-2 mr-0 mr-sm-2 mb-sm-0'
     = f.submit class: 'btn btn-primary'
