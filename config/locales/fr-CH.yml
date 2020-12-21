@@ -49,6 +49,7 @@ fr-CH:
             title: Informations personnelles
           service_specific_information:
             title: Informations spécifiques à la mission
+        change_password: Changer de mot de passe
       update:
         successfully_updated: Mise à jour réussie
     overview:
