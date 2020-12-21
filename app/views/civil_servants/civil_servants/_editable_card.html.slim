@@ -1,20 +1,13 @@
-= render(\
-    ModalComponent.new(\
-      modal_id: modal_id,
-        title: title\
-      )\
-    ) do |component|
+= render(ModalComponent.new(modal_id: modal_id, title: title)) do |component|
   - component.with(:body) do
     div data-partial-name=form_partial_name
       = yield
 
-= render(\
-    TabularCardComponent.new(\
-      title: title,
-        table_content: card_table_content\
-    ) \
-  ) do |component|
+= render(TabularCardComponent.new(title: title, table_content: card_table_content)) do |component|
   - component.with(:actions) do
-    a href='##{modal_id}' data-toggle="modal"
+    = link_to "##{modal_id}", data: { toggle: 'modal' } do
       i.fas.fa-edit.mr-1
       = t('edit')
+  - if local_assigns[:footer]
+    - component.with(:footer) do
+      = footer

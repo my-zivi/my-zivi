@@ -1,4 +1,4 @@
-<div class="row">
+<div class="card-deck">
   <div class="col-12 col-lg-6">
     <%= render(
           'civil_servants/civil_servants/editable_card',
@@ -26,6 +26,7 @@
           title: t('civil_servants.civil_servants.edit.cards.login_information.title'),
           form_partial_name: 'login_information_form',
           card_table_content: login_information_table,
+          footer: link_to('Passwort ändern', edit_user_registration_path, class: 'btn btn-falcon-default'),
           ) { render('civil_servants/civil_servants/login_information_form', civil_servant: @civil_servant) }
     %>
   </div>
