@@ -49,6 +49,7 @@ de-CH:
             title: Persönliche Informationen
           service_specific_information:
             title: Einsatzspezifische Informationen
+        change_password: Passwort ändern
       update:
         successfully_updated: Erfolgreich aktualisiert
     overview:
@@ -165,6 +166,7 @@ de-CH:
         erroneous_delete: Mitarbeiter konnte nicht gelöscht werden
         successfully_deleted: Mitarbeiter erfolgreich gelöscht
       edit:
+        change_password: Passwort ändern
         destroy_organization_member: Mitarbeiter löschen
         destroy_organization_member_confirmation: Mitarbeiter wirklich löschen?
         pending_invitation: Bitte bestätigen sie die neue E-Mail Adresse mithilfe des Links, welcher an %{email} gesendet wurde.

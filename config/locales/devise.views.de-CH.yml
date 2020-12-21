@@ -98,11 +98,12 @@ de-CH:
         are_you_sure: Sind Sie sicher?
         cancel_my_account: Konto löschen
         currently_waiting_confirmation_for_email: Warte auf Bestätigung von %{email}.
+        errors_alert: Das Passwort konnte nicht geändert werden
         leave_blank_if_you_don_t_want_to_change_it: freilassen, wenn Sie das nicht ändern wollen
-        title: "%{resource} bearbeiten"
+        title: Passwort ändern
         unhappy: Unzufrieden?
         update: Aktualisieren
-        we_need_your_current_password_to_confirm_your_changes: wir benötigen Ihr aktuelles Passwort, um die Änderung zu bestätigen
+        we_need_your_current_password_to_confirm_your_changes: Wir benötigen Ihr aktuelles Passwort, um die Änderung zu bestätigen
       new:
         sign_up: Registrieren
       signed_up: Sie haben sich erfolgreich registriert.
