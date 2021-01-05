@@ -40,7 +40,7 @@ module Organizations
         },
         link_args: {
           class: 'dropdown-item',
-          method: :post,
+          method: :delete,
           title: I18n.t('organizations.service_agreements.service_agreement_row.delete'),
           data: {
             confirm: I18n.t('organizations.service_agreements.confirm_destroy'),
