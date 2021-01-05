@@ -13,6 +13,9 @@ RSpec.describe Organizations::PhoneListController, type: :request do
 
     let(:first_civil_servant) { create :civil_servant, :full, first_name: 'Hanspeter', last_name: 'Hugentobler' }
     let(:second_civil_servant) { create :civil_servant, :full }
+    let(:third_civil_servant) { create :civil_servant, :with_service,
+                                       service_attributes: [ :civil_servant_agreement_pending ], first_name: 'Not',
+                                       last_name: 'Here' }
 
     let(:first_service) do
       create :service,
