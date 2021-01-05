@@ -77,7 +77,7 @@ RSpec.describe Organizations::PhoneListController, type: :request do
 
           it 'does not return agreement services' do
             expect(response).to have_http_status(:success)
-            expect(response.body.scan(/#{third_civil_servant.full_name}/).size).to eq 0
+            expect(response.body.scan(/#{third_civil_servant.full_name}/).size).to be_zero
           end
         end
 
