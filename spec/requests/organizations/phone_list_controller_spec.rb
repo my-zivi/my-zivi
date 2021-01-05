@@ -73,7 +73,7 @@ RSpec.describe Organizations::PhoneListController, type: :request do
             expect(response.body.scan(/#{second_service_specification.name}/).size).to eq 1
             expect(response.body.scan(/#{first_civil_servant.full_name}/).size).to eq 1
             expect(response.body.scan(/#{second_civil_servant.full_name}/).size).to eq 1
-            expect(response.body.scan(/#{third_civil_servant.full_name}/).size).to eq 0
+            expect(response.body.scan(/#{third_civil_servant.full_name}/).size).to be_zero
           end
         end
 
