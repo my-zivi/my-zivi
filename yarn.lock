@@ -12346,9 +12346,9 @@ tiny-emitter@^2.0.0:
   integrity sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==
 
 tinymce@^5.3.1:
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.4.1.tgz#4c101e78cbd22c148d6013f7c66eb0cb480723db"
-  integrity sha512-eUjwDVCTSHSnFfpzX5TjTHXsGj5gvPQwzo3RFDF374gfK5voHqcRGojvQnu4NtNW1BAb012/KW1tkXBbUrEveg==
+  version "5.6.2"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.6.2.tgz#4c20c22e328c5d0baab204928dbc2b0ecbed18b4"
+  integrity sha512-z7zvM5seOPiW86/vqf08kStwW5Zs5U9oQfuqh2rTj4jEcT2QzxT0v72i2zw3W6rbTLldkAej6edFZphj5ee5zg==
 
 tmpl@1.0.x:
   version "1.0.4"
