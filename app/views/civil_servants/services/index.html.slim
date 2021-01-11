@@ -7,7 +7,17 @@
         label.custom-control-label for="hide-past-services"
       h5.fs-0.mr-1 = t('.show_past_services')
   .card-body.fs--1
-    .row = render partial: 'base/services/short_info_cell',
-            collection: @services,
-            as: :service,
-            locals: { url_generator: ->(service) { civil_servants_service_path(id: service.id) } }
+    table.table
+      thead.thead-light
+        tr
+          th scope="col"
+          th scope="col" = t('.service_title')
+          th scope="col" = t('.duration')
+          th scope="col" = t('activerecord.attributes.service.service_specification')
+          th scope="col" = t('activerecord.attributes.service_specification.location')
+          th scope="col" = t('activerecord.attributes.service.status')
+          th scope="col"
+      tbody = render partial: 'civil_servants/services/table_row',
+              collection: @services,
+              as: :service,
+              locals: { url_generator: ->(service) { civil_servants_service_path(id: service.id) } }

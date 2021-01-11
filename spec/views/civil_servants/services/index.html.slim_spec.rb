@@ -30,7 +30,8 @@ RSpec.describe 'civil_servants/services/index.html.slim', type: :view do
         t('base.services.short_info_cell.service_duration',
           beginning_date: l(service.beginning), ending_date: l(service.ending)),
         t(service.confirmation_date.present?,
-          scope: %i[base services short_info_cell service_confirmed])
+          scope: %i[base services short_info_cell service_confirmed]),
+        service.confirmation_date.nil? ? t('civil_servants.services.table_row.actions.download') : nil
       ]
     end
   end
