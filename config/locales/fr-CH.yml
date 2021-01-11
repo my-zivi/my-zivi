@@ -4,6 +4,10 @@ fr-CH:
     back: Retour
     complete: Finaliser
     next: Continuer
+  activerecord:
+    attributes:
+      service:
+        status: Statut
   administrator: Administrator
   base:
     civil_servants:
@@ -87,10 +91,10 @@ fr-CH:
         title: Accord de service
     services:
       index:
+        duration: Durée
+        service_title: Description de l'affection
         services: Mes services
         show_past_services: Afficher les services passés
-        service_title: "Description de l'affection"
-        duration: "Durée"
       show:
         duration: Nombre de jours
         expense_sheets: Les notes de frais
@@ -98,7 +102,7 @@ fr-CH:
         schedule_information: Informations sur les services
       table_row:
         actions:
-          download: "Télécharger la convention d'affectation"
+          download: Télécharger la convention d'affectation
   date:
     formats:
       default: "%d.%m.%Y"
@@ -362,7 +366,7 @@ fr-CH:
         with_date: Liste téléphonique de %{beginning} à %{ending}
         without_date: Liste téléphonique des civilists en activité
     service_agreement:
-      file_name: "Convention_d_affectation_%{name}_%{beginning}_%{ending}.pdf"
+      file_name: Convention_d_affectation_%{name}_%{beginning}_%{ending}.pdf
   print: Imprimer
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
@@ -373,7 +377,3 @@ fr-CH:
     pending_contract: Tableau en attente
     waiting_for_civil_servant_decision: Attendre l'entrée en vigueur de la loi civile
   successful_registration: Inscription réussie
-  activerecord:
-    attributes:
-      service:
-        status: "Statut"
