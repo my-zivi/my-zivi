@@ -89,11 +89,16 @@ de-CH:
       index:
         services: Meine Einsätze
         show_past_services: Vergangene Einsätze anzeigen
+        service_title: "Einsatzbeschrieb"
+        duration: "Dauer"
       show:
         duration: Anzahl Tage
         expense_sheets: Spesenblätter
         organization_information: Informationen zum Betrieb
         schedule_information: Einsatz Informationen
+      table_row:
+        actions:
+          download: "Einsatzvereinbarung herunterladen"
   date:
     formats:
       default: "%d.%m.%Y"
@@ -357,6 +362,8 @@ de-CH:
       title:
         with_date: Telefonliste vom %{beginning} bis %{ending}
         without_date: Telefonliste aktive Zivildienstleistende
+    service_agreement:
+      file_name: "Einsatzvereinbarung_%{name}_%{beginning}_%{ending}.pdf"
   print: Drucken
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
@@ -367,3 +374,7 @@ de-CH:
     pending_contract: Aufgebot ausstehend
     waiting_for_civil_servant_decision: Warte auf Zivi
   successful_registration: Registration erfolgreich
+  activerecord:
+    attributes:
+      service:
+        status: "Status"

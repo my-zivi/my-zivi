@@ -124,18 +124,39 @@ RSpec.describe CivilServants::ServicesController, type: :request do
 
       before { sign_in civil_servant.user }
 
-      it 'returns http success and renders the service' do
-        perform_request
-        expect(response).to have_http_status(:success)
-        expect(response.body).to include(I18n.l(service.beginning), I18n.l(service.ending))
+      context 'when the format is html' do
+        it 'returns http success and renders the service' do
+          perform_request
+          expect(response).to have_http_status(:success)
+          expect(response.body).to include(I18n.l(service.beginning), I18n.l(service.ending))
+        end
+
+        context 'when the requested service belongs to another civil_servant' do
+          let(:civil_servant) { create :civil_servant, :full }
+
+          before { perform_request }
+
+          it_behaves_like 'unauthorized request'
+        end
       end
 
-      context 'when the requested service belongs to another civil_servant' do
-        let(:civil_servant) { create :civil_servant, :full }
+      context 'when the format is pdf' do
+        let(:perform_request) { get civil_servants_service_path(service, format: :pdf) }
 
-        before { perform_request }
+        it 'returns http success and renders the pdf' do
+          perform_request
+          expect(response).to have_http_status(:success)
+          expect(response.content_type).to eq 'application/pdf'
+          expect(response.content_length).to be_positive
+        end
 
-        it_behaves_like 'unauthorized request'
+        context 'when the requested service belongs to another civil_servant' do
+          let(:civil_servant) { create :civil_servant, :full }
+
+          before { perform_request }
+
+          it_behaves_like 'unauthorized request'
+        end
       end
     end
 
