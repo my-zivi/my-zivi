@@ -1,4 +1,4 @@
-.card.mb-3.mb-lg-0
+.card
   .card-header.bg-light.d-flex.justify-content-between
     h5.mb-0 = t('.services')
     = link_to({ filters: { show_all: !@filters[:show_all] } }, class: 'd-flex') do
@@ -6,18 +6,20 @@
         input#hide-past-services.custom-control-input[type="checkbox" checked=@filters[:show_all] disabled]
         label.custom-control-label for="hide-past-services"
       h5.fs-0.mr-1 = t('.show_past_services')
-  .card-body.fs--1
-    table.table
-      thead.thead-light
-        tr
-          th scope="col"
-          th scope="col" = t('.service_title')
-          th scope="col" = t('.duration')
-          th scope="col" = t('activerecord.attributes.service.service_specification')
-          th scope="col" = t('activerecord.attributes.service_specification.location')
-          th scope="col" = t('activerecord.attributes.service.status')
-          th scope="col"
-      tbody = render partial: 'civil_servants/services/table_row',
-              collection: @services,
-              as: :service,
-              locals: { url_generator: ->(service) { civil_servants_service_path(id: service.id) } }
+  .card-body
+    .falcon-data-table
+      .table-responsive
+        table.table.table-sm.mb-0.table-striped.table-dashboard.data-table.border-bottom.border-200.dataTable.no-footer role="grid"
+          thead.thead-light
+            tr
+              th scope="col"
+              th scope="col" = t('.service_title')
+              th scope="col" = t('.duration')
+              th scope="col" = t('activerecord.attributes.service.service_specification')
+              th scope="col" = t('activerecord.attributes.service_specification.location')
+              th scope="col" = t('activerecord.attributes.service.status')
+              th scope="col"
+          tbody = render partial: 'civil_servants/services/table_row',
+                  collection: @services,
+                  as: :service,
+                  locals: { url_generator: ->(service) { civil_servants_service_path(id: service.id) } }
