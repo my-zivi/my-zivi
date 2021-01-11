@@ -14,7 +14,7 @@ module CivilServants
     def show
       respond_to do |format|
         format.html
-        format.pdf { render_pdf }
+        format.pdf { respond_to_pdf }
       end
     end
 
@@ -32,17 +32,23 @@ module CivilServants
       }
     end
 
+    def respond_to_pdf
+      respond_with_pdf(
+        render_pdf, I18n.t('pdfs.service_agreement.file_name',
+                           name: @service.civil_servant.full_name,
+                           beginning: @service.beginning,
+                           ending: @service.ending)
+      )
+    end
+
     def render_pdf
-      respond_with_pdf Pdfs::ServiceAgreement::FormFiller.render(
+      Pdfs::ServiceAgreement::FormFiller.render(
         Pdfs::ServiceAgreement::DataProvider.evaluate_data_hash(
           Pdfs::ServiceAgreement::GermanFormFields::SERVICE_AGREEMENT_FIELDS,
           service: @service
         ),
         Rails.root.join('lib/assets/pdfs/german_service_agreement_form.pdf').to_s
-      ), I18n.t('pdfs.service_agreement.file_name',
-                name: @service.civil_servant.full_name,
-                beginning: @service.beginning,
-                ending: @service.ending)
+      )
     end
   end
 end
