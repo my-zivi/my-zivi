@@ -1,5 +1,4 @@
-# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
-User-agent: googlebot
+User-agent: *
 Disallow: /organizations/
 Disallow: /civil_servants/
 Disallow: /packs/
