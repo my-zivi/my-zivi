@@ -103,6 +103,7 @@ de-CH:
       table_row:
         actions:
           download: Einsatzvereinbarung herunterladen
+        service_duration: "%{beginning_date} bis %{ending_date}"
   date:
     formats:
       default: "%d.%m.%Y"

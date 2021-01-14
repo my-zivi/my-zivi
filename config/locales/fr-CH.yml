@@ -103,6 +103,7 @@ fr-CH:
       table_row:
         actions:
           download: Télécharger la convention d'affectation
+        service_duration: "%{beginning_date} á %{ending_date}"
   date:
     formats:
       default: "%d.%m.%Y"
