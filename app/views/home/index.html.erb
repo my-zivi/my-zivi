@@ -1,105 +1,91 @@
-<%= content_for(:container_class, 'index-container') %>
+<%= content_for(:container_class, 'index-container landing-page') %>
 
-<%= render 'home/navbar' %>
-<section class="py-0 overflow-hidden" id="banner">
-  <div class="bg-holder overlay" style="background-image:url(<%= asset_pack_path 'media/generic/bg-1.jpg' %>);background-position: center bottom;">
-  </div>
+<!--<nav class="navbar navbar-default">-->
+<!--  <div class="container-fluid pl-0">-->
+<!--    <a class="navbar-brand" href="#">-->
+<!--      <img alt="Brand" width="130" height="46" src="<%#= asset_pack_path 'media/images/landing_page/brand-logo.png' %>">-->
+<!--    </a>-->
+<!--    <div class="navbar-header">-->
+<!--      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">-->
+<!--        <span class="sr-only">Toggle navigation</span>-->
+<!--        <span class="icon-bar"></span>-->
+<!--        <span class="icon-bar"></span>-->
+<!--        <span class="icon-bar"></span>-->
+<!--      </button>-->
+<!--    </div>-->
 
-  <div class="container">
-    <div class="row justify-content-center align-items-center pt-8 pt-lg-10 pb-lg-9 pb-xl-0">
-      <div class="col-md-11 col-lg-8 col-xl-4 pb-7 pb-xl-9 text-center text-xl-left">
-        <h1 class="text-white font-weight-light">MyZivi</h1>
-        <p class="lead text-white opacity-75">Mit MyZivi verwaltest Du Zivildienstleistende in Deinem Betrieb. MyZivi vereinfacht Deine Prozesse, ermöglicht agileres Handeln und unterstützt Dich bei der Einsatzplanung von A-Z.</p>
-        <a class="btn btn-outline-light border-2x rounded-pill btn-lg mt-4 fs-0 py-2" href="#mailing-list">Jetzt Demo anfordern<span class="fas fa-play" data-fa-transform="shrink-6 down-1 right-5"></span></a>
-      </div>
-    </div>
-  </div>
-</section>
-<!--      TODO: Bereich für Partnerschaften-->
-<section>
-  <div class="container">
-    <div class="row justify-content-center text-center">
-      <div class="col-lg-8 col-xl-7 col-xxl-6">
-        <h1 class="fs-2 fs-sm-4 fs-md-5">Die Vorteile, die MyZivi Dir bietet</h1>
-      </div>
-    </div>
-    <div class="row align-items-center justify-content-center mt-6">
-      <div class="col-md col-lg-5 col-xl-4 pl-lg-6">
-        <img class="img-fluid px-6 px-md-0" src="<%= asset_pack_path 'media/illustrations/6.png' %>" alt="" />
-      </div>
-      <div class="col-md col-lg-5 col-xl-4 mt-4 mt-md-0">
-        <h3>Verwalten</h3>
-        <p>Mit MyZivi sparst Du Zeit bei allen Büroarbeiten rund um Zivildiensteinsätze. </p>
-      </div>
-    </div>
-    <div class="row align-items-center justify-content-center mt-7">
-      <div class="col-md col-lg-5 col-xl-4 pr-lg-6 order-md-2">
-        <img class="img-fluid px-6 px-md-0" src="<%= asset_pack_path 'media/illustrations/2.png' %>" alt="" />
-      </div>
-      <div class="col-md col-lg-5 col-xl-4 mt-4 mt-md-0">
-        <h3>Berechnen</h3>
-        <p>Mit MyZivi garantierst Du die korrekten Berechnung rund um die Spesenauszahlung und Arbeitstagberechnungen.</p>
-      </div>
-    </div>
-    <div class="row align-items-center justify-content-center mt-7">
-      <div class="col-md col-lg-5 col-xl-4 pl-lg-6">
-        <img class="img-fluid px-6 px-md-0" src="<%= asset_pack_path 'media/illustrations/4.png' %>" alt="" />
-      </div>
-      <div class="col-md col-lg-5 col-xl-4 mt-4 mt-md-0">
-        <h3>Sichern</h3>
-        <p>Mit MyZivi archivierst Du Deine Daten korrekt und kannst jederzeit von überall in der Welt darauf zugreifen.</p>
-      </div>
-    </div>
-    <div class="row align-items-center justify-content-center mt-7">
-      <div class="col-md col-lg-5 col-xl-4 pr-lg-6 order-md-2">
-        <img class="img-fluid px-6 px-md-0" src="<%= asset_pack_path 'media/illustrations/3.png' %>" alt="" />
-      </div>
-      <div class="col-md col-lg-5 col-xl-4 mt-4 mt-md-0">
-        <h3>Finden</h3>
-        <p>Mit MyZivi findest Du einen passenden Zivildienstleistenden in kürzester Zeit.</p>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="bg-light text-center">
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <h1 class="fs-2 fs-sm-4 fs-md-5">Mit MyZivi:</h1>
-      </div>
-    </div>
-    <div class="row mt-6">
-      <div class="col-lg-4">
-        <div class="card card-span h-100">
-          <div class="card-span-img"><span class="fas fa-hourglass-half fs-4 text-info"></span></div>
-          <div class="card-body pt-6 pb-4">
-            <p>...sparst Du Zeit durch Vereinfachung von Prozessen</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 mt-6 mt-lg-0">
-        <div class="card card-span h-100">
-          <div class="card-span-img"><span class="fas fa-calculator fs-5 text-success"></span></div>
-          <div class="card-body pt-6 pb-4">
-            <p>...ergeben sich nie wieder Falschberechnungen in Spesen und Arbeitstagen</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 mt-6 mt-lg-0">
-        <div class="card card-span h-100">
-          <div class="card-span-img"><span class="fas fa-file-contract fs-6 text-danger"></span></div>
-          <div class="card-body pt-6 pb-4">
-            <p>...garantierst Du korrekte Meldeprozesse für den Bund</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="pt-2">
-  <div class="container">
-    <%= render 'home/mailing_list' %>
-  </div>
-</section>
+<!--    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+<!--      <ul class="nav navbar-nav">-->
+<!--        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
+<!--        <li><a href="#">Link</a></li>-->
+<!--        <li class="dropdown">-->
+<!--          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+<!--          <ul class="dropdown-menu">-->
+<!--            <li><a href="#">Action</a></li>-->
+<!--            <li><a href="#">Another action</a></li>-->
+<!--            <li><a href="#">Something else here</a></li>-->
+<!--            <li role="separator" class="divider"></li>-->
+<!--            <li><a href="#">Separated link</a></li>-->
+<!--            <li role="separator" class="divider"></li>-->
+<!--            <li><a href="#">One more separated link</a></li>-->
+<!--          </ul>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--      <ul class="nav navbar-nav navbar-right">-->
+<!--        <li><a href="#">Link</a></li>-->
+<!--        <li class="dropdown">-->
+<!--          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+<!--          <ul class="dropdown-menu">-->
+<!--            <li><a href="#">Action</a></li>-->
+<!--            <li><a href="#">Another action</a></li>-->
+<!--            <li><a href="#">Something else here</a></li>-->
+<!--            <li role="separator" class="divider"></li>-->
+<!--            <li><a href="#">Separated link</a></li>-->
+<!--          </ul>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</nav>-->
 
-<%= render 'home/footer' %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
+  <a class="navbar-brand" href="#">
+    <img src="<%= asset_pack_path 'media/images/landing_page/brand-logo.png' %>" width="130" height="48" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+    </ul>
+    <a class="btn btn-landing btn-cta btn-nav-cta">Eine Demo erhalten</a>
+  </div>
+</nav>
+
+<header class="page-heading hero-heading">
+  <h1>Der einfachste Weg mit Zivis zu arbeiten</h1>
+  <div>Mit MyZivi ist es so einfach wie noch nie Zivis zu finden, einzustellen und zu bezahlen.</div>
+  <a href="" class="btn btn-landing btn-cta">Mehr erfahren</a>
+</header>
+
+
+<div class="rounded rounded-large mt-1 ml-1" style="height: 100px; width: 100px; background-color: #0d2054">
+</div>

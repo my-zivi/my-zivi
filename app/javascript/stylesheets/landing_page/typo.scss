@@ -1,0 +1,53 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import 'variables';
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+.landing-page *, h1, h2, h3 {
+  color: $snow;
+}
+
+h1, h2 {
+  font-family: "Ubuntu", serif;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 48px;
+  letter-spacing: -0.04em;
+
+  @include media-breakpoint-up(xl) {
+    font-size: 64px;
+  }
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 32px;
+
+  @include media-breakpoint-up(xl) {
+    font-size: 48px;
+  }
+}
+
+h3 {
+  font-family: "Open Sans", serif;
+  font-weight: 600;
+  font-size: 24px;
+
+  @include media-breakpoint-up(xl) {
+    font-size: 32px;
+  }
+}
+
+.font-body-large {
+  font-size: 18px;
+  line-height: 150%;
+
+  @include media-breakpoint-up(xl) {
+    font-size: 24px;
+  }
+}
