@@ -18,10 +18,10 @@ import '../channels';
 import '../stylesheets/application.scss';
 import '../images';
 
-Rails.start();
-Turbolinks.start();
-
 window.jQuery = $;
 window.$ = $;
+
+Rails.start();
+Turbolinks.start();
 
 FontAwesome.config.mutateApproach = 'sync';
