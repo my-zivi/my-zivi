@@ -1,19 +1,20 @@
 nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  = link_to root_path, class: 'navbar-brand' do
-    = image_pack_tag 'logo.svg', class: 'd-inline-block my-zivi-logo', height: 35
-  button.navbar-toggler aria-controls="navbarScroll" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarScroll" data-toggle="collapse" type="button"
-    span.navbar-toggler-icon
-      i.fas.fa-bars.fa-lg
-  #navbarScroll.collapse.navbar-collapse
-    ul.navbar-nav.mr-auto.my-2.my-lg-0.navbar-nav-scroll style=("max-height: 100px;")
-      li.nav-item.active
-        a.nav-link href="#"
-          | Home
-          span.sr-only '(current)
-      li.nav-item
-        a.nav-link href="#"  Link
-    .d-flex
-      button.btn.btn-falcon-primary Eine Demo erhalten
+  .container
+    = link_to root_path, class: 'navbar-brand' do
+      = image_pack_tag 'logo.svg', class: 'd-inline-block my-zivi-logo', height: 35
+    button.navbar-toggler aria-controls="navbarScroll" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarScroll" data-toggle="collapse" type="button"
+      span.navbar-toggler-icon
+        i.fas.fa-bars.fa-lg
+    #navbarScroll.collapse.navbar-collapse
+      ul.navbar-nav.mr-auto.my-2.my-lg-0.navbar-nav-scroll style=("max-height: 100px;")
+        li.nav-item.active
+          a.nav-link href="#"
+            | Home
+            span.sr-only '(current)
+        li.nav-item
+          a.nav-link href="#"  Link
+      .d-flex
+        button.btn.btn-falcon-primary Eine Demo erhalten
 
 
 / nav.navbar.navbar-standard.navbar-expand-lg.fixed-top.navbar-dark.navbar-theme

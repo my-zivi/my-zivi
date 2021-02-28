@@ -17,6 +17,7 @@ import 'bootstrap/dist/js/bootstrap.min';
 import '../channels';
 import '../stylesheets/application.scss';
 import '../images';
+import '../fonts/Roboto-Regular.ttf';
 
 window.jQuery = $;
 window.$ = $;

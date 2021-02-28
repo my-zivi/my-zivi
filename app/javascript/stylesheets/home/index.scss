@@ -11,3 +11,59 @@ nav {
     vertical-align: sub;
   }
 }
+
+.hero {
+  background-image: url('../images/home/hero.jpg');
+  background-position: center;
+  background-size: cover;
+
+  h1,
+  h2 {
+    color: $white;
+  }
+
+  .hero-content {
+    padding: 5em 0;
+
+    @include media-breakpoint-up(md) {
+      padding: 6em 0;
+      width: 50%;
+    }
+  }
+
+  h1 {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+
+  h2 {
+    font-weight: 400;
+    margin-bottom: 1em;
+  }
+}
+
+.section-title,
+.section-subtitle {
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.5em;
+}
+
+section.advantages {
+  background: linear-gradient(294.82deg, #7B1E52 0%, #009FE3 100%);
+  color: $white;
+}
+
+section.contact {
+  background-image: url('../images/home/footer.png');
+  background-position: bottom;
+  background-size: cover;
+}
+
+footer {
+  background-color: $deep-ocean;
+  padding: 1.5em 0;
+}
