@@ -29,6 +29,10 @@ nav {
       padding: 6em 0;
       width: 50%;
     }
+
+    @include media-breakpoint-up(xxl) {
+      padding: 8em 0;
+    }
   }
 
   h1 {
@@ -44,6 +48,10 @@ nav {
   }
 }
 
+.webp .hero {
+  background-image: url('../images/home/hero.webp');
+}
+
 .section-title,
 .section-subtitle {
   text-align: center;
@@ -53,8 +61,18 @@ nav {
   font-size: 2.5em;
 }
 
+section.publications {
+  .publication-icon {
+    margin-left: 2em;
+
+    img {
+      height: 70px;
+    }
+  }
+}
+
 section.advantages {
-  background: linear-gradient(294.82deg, #7B1E52 0%, #009FE3 100%);
+  background: $my-zivi-gradient;
   color: $white;
 }
 
@@ -64,7 +82,31 @@ section.contact {
   background-size: cover;
 }
 
+.webp section.contact {
+  background-image: url('../images/home/footer.webp');
+}
+
 footer {
   background-color: $deep-ocean;
   padding: 1.5em 0;
+}
+
+.btn.btn-gradient {
+  background-image: $my-zivi-gradient;
+  color: $white;
+  border: none;
+  border-radius: 40px;
+  padding: 0.5em 1.3em;
+  transition: .2s;
+  transition-property: box-shadow, transform;
+
+  &:hover {
+    box-shadow: 2px 4px 12px rgba($black, .4);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(1);
+    box-shadow: 1px 2px 8px rgba($black, .4);
+  }
 }

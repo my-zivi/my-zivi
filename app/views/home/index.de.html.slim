@@ -6,12 +6,15 @@
     .hero-content
       h1 Der einfachste Weg mit Zivis zu arbeiten
       h2.h3 Mit MyZivi ist es so einfach wie noch nie Zivis zu finden, einzustellen und zu bezahlen.
-      .btn.btn-secondary Mehr erfahren
+      .btn.btn-secondary Jetzt Registrieren
 
 section.solution
   .container
     h3.section-title Unsere Lösung
-    p.section-subtitle MyZivi deckt den gesamten Prozess ab: Zivis finden, Bewerbungsgespräche führen, Probetage durchführen, einstellen, einplanen und Spesenauszahlungen vornehmen
+    p.section-subtitle
+      | MyZivi deckt den gesamten Prozess ab:
+        Zivis finden, Bewerbungsgespräche führen, Probetage durchführen,
+        einstellen, einplanen und Spesenauszahlungen vornehmen
     .row.mt-5
       .col-12.col-md-6.text-center.text-md-right
         = image_pack_tag 'media/illustrations/6.png', class: 'w-75'
@@ -67,8 +70,8 @@ section.workflow
         h4 Finde rasch passende Zivis
         p
           | Erstelle ein Betriebsprofil und veröffentliche Deine Einsätze.
-                Zivis finden Dich rasch und einfach. Sie bewerben sich mit einem kompletten Lebenslauf bei Dir.
-                Habe stets Übersicht über Deinen Rekrutierungsprozess. Plane in wenigen Klicks einen Probetag.
+            Zivis finden Dich rasch und einfach. Sie bewerben sich mit einem kompletten Lebenslauf bei Dir.
+            Habe stets Übersicht über Deinen Rekrutierungsprozess. Plane in wenigen Klicks einen Probetag.
         .btn.btn-link
           | Mehr erfahren
           .fas.fa-angle-right.ml-2
@@ -87,6 +90,20 @@ section.workflow
           .btn.btn-link
             | Mehr erfahren
             .fas.fa-angle-right.ml-2
+
+section.publications
+  .container: h3.section-title.mb-4 MyZivi in der Presse
+  .d-flex.justify-content-center.align-items-center
+    - %w[civia landbote salzh zhaw startupticker].each do |icon|
+      .publication-icon
+        = webp_picture_pack_tag("home/publications/#{icon}.webp")
+
+section.publications.pt-0
+  .container.mb-4: h3.section-title MyZivi Partner
+  .d-flex.justify-content-center.align-items-center
+    - %w[zhaw runway tpw naturnetz].each do |icon|
+      .publication-icon
+        = image_pack_tag("home/publications/#{icon}.png")
 
 section.contact
   .container

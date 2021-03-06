@@ -18,6 +18,7 @@ import '../channels';
 import '../stylesheets/application.scss';
 import '../images';
 import '../fonts/Roboto-Regular.ttf';
+import '../../../lib/javascripts/modernizr';
 
 window.jQuery = $;
 window.$ = $;

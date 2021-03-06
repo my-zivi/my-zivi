@@ -130,6 +130,11 @@ de-CH:
       share: Oder teile diese Seite
       title: Jetzt mehr erfahren
       via_link: via Link
+    navbar:
+      links:
+        recruiting: "Rekrutieren"
+        admin: "Administration"
+      demo: "Eine Demo erhalten"
   layouts:
     application:
       meta:
