@@ -1,0 +1,28 @@
+{
+  "extends": "stylelint-config-twbs-bootstrap/scss",
+  "rules": {
+    "selector-no-qualifying-type": [
+      true,
+      {
+        "ignore": ["attribute", "class"]
+      }
+    ],
+    "scss/at-import-partial-extension": null,
+    "scss/selector-no-redundant-nesting-selector": null,
+    "selector-class-pattern": null,
+    "selector-max-class": 6,
+    "selector-max-id": 1,
+    "declaration-colon-space-after": "always-single-line",
+    "declaration-bang-space-after": "never",
+    "declaration-bang-space-before": "always",
+    "block-opening-brace-space-before": "always",
+    "block-opening-brace-newline-before": "never-single-line",
+    "string-quotes": "single",
+    "selector-max-type": [
+      4,
+      {
+        "ignore": ["child"]
+      }
+    ]
+  }
+}
