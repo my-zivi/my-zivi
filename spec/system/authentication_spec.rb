@@ -10,7 +10,6 @@ RSpec.describe 'Authentication', type: :system do
       visit new_user_session_path
       submit_sign_in_form(organization_administrator.user)
       expect(page).to have_current_path organizations_path
-      expect(page).to have_content I18n.t('devise.sessions.signed_in')
     end
 
     describe 'password change' do
@@ -41,7 +40,6 @@ RSpec.describe 'Authentication', type: :system do
       visit new_user_session_path
       submit_sign_in_form(civil_servant.user)
       expect(page).to have_current_path civil_servants_path
-      expect(page).to have_content I18n.t('devise.sessions.signed_in')
     end
 
     describe 'password change' do

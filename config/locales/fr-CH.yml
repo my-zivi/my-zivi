@@ -131,10 +131,10 @@ fr-CH:
       title: En savoir plus
       via_link: via le lien
     navbar:
+      demo: Obtenir une démo
       links:
-        recruiting: "Recruter"
-        admin: "Administration"
-      demo: "Obtenir une démo"
+        admin: Administration
+        recruiting: Recruter
   layouts:
     application:
       meta:
