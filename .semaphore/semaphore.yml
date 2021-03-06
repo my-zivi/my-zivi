@@ -106,6 +106,8 @@ blocks:
   - name: Performance Check
     dependencies:
       - Cache
+    run:
+      when: "branch = 'master' OR branch = 'develop'"
     task:
       secrets:
         - name: my-zivi
