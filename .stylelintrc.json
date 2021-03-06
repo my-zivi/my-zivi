@@ -18,6 +18,7 @@
     "block-opening-brace-space-before": "always",
     "block-opening-brace-newline-before": "never-single-line",
     "string-quotes": "single",
+    "declaration-no-important": null,
     "selector-max-type": [
       4,
       {

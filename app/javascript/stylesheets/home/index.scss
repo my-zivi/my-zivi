@@ -1,6 +1,6 @@
 .sticky-flash-message {
-  top: $top-nav-height;
   position: fixed;
+  top: $top-nav-height;
   right: 0;
   left: 0;
   z-index: 1030;
@@ -26,8 +26,8 @@ nav {
     padding: 5em 0;
 
     @include media-breakpoint-up(md) {
-      padding: 6em 0;
       width: 50%;
+      padding: 6em 0;
     }
 
     @include media-breakpoint-up(xxl) {
@@ -36,15 +36,15 @@ nav {
   }
 
   h1 {
-    font-size: 3em;
-    font-weight: bold;
     margin-bottom: 1em;
+    font-size: 3em;
+    font-weight: 600;
     text-shadow: 0 0 20px rgba($black, .3);
   }
 
   h2 {
-    font-weight: 400;
     margin-bottom: 1em;
+    font-weight: 400;
   }
 }
 
@@ -72,8 +72,8 @@ section.publications {
 }
 
 section.advantages {
-  background: $my-zivi-gradient;
   color: $white;
+  background: $my-zivi-gradient;
 }
 
 section.contact {
@@ -87,16 +87,16 @@ section.contact {
 }
 
 footer {
-  background-color: $deep-ocean;
   padding: 1.5em 0;
+  background-color: $deep-ocean;
 }
 
 .btn.btn-gradient {
-  background-image: $my-zivi-gradient;
+  padding: .5em 1.3em;
   color: $white;
+  background-image: $my-zivi-gradient;
   border: none;
   border-radius: 40px;
-  padding: 0.5em 1.3em;
   transition: .2s;
   transition-property: box-shadow, transform;
 
@@ -106,7 +106,7 @@ footer {
   }
 
   &:active {
-    transform: scale(1);
     box-shadow: 1px 2px 8px rgba($black, .4);
+    transform: scale(1);
   }
 }

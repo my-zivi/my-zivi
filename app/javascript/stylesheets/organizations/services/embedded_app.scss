@@ -7,17 +7,17 @@ $cell-height: 40px;
 $names-list-width: 150px;
 
 .services-overview-container {
-  overflow-x: scroll;
   padding: 0 0 1em;
   margin: 1.25em;
+  overflow-x: scroll;
 
   &::-webkit-scrollbar {
     height: 1em;
   }
 
   &::-webkit-scrollbar-track {
-    border: 1px solid $gray-200;
     background-color: $gray-100;
+    border: 1px solid $gray-200;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -30,9 +30,9 @@ $names-list-width: 150px;
 }
 
 .month-title {
-  margin-bottom: 0;
-  padding-bottom: .25em;
   height: $month-title-height;
+  padding-bottom: .25em;
+  margin-bottom: 0;
 }
 
 .month-title,
@@ -42,8 +42,8 @@ $names-list-width: 150px;
 
 .services-overview-month-table {
   .d-table-cell {
-    height: $cell-height;
     min-width: 28px;
+    height: $cell-height;
     text-align: center;
     white-space: nowrap;
     border-right: 1px solid $gray-400;
@@ -57,28 +57,28 @@ $names-list-width: 150px;
     vertical-align: middle;
 
     &.active {
-      background-color: $light-green;
       color: $green;
+      background-color: $light-green;
     }
 
     &.tentative {
-      background-color: $light-salmon;
       color: $dark-salmon;
+      background-color: $light-salmon;
     }
   }
 }
 
 .names-list {
-  background-color: rgba($white, .9);
-  padding-top: $month-title-height + $cell-height;
-  white-space: nowrap;
   position: fixed;
   max-width: $names-list-width;
-  overflow: hidden;
-  box-shadow: 7px 0 7px -7px rgba(0, 0, 0, 0.4);
-  border-right: 1px solid rgba($black, .3);
-  transition: .25s all;
+  padding-top: $month-title-height + $cell-height;
   padding-right: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: rgba($white, .9);
+  border-right: 1px solid rgba($black, .3);
+  box-shadow: 7px 0 7px -7px rgba(0, 0, 0, .4);
+  transition: .25s all;
 
   @supports (backdrop-filter: blur(1px)) {
     background-color: rgba($white, .8);
@@ -93,13 +93,13 @@ $names-list-width: 150px;
   .name-row {
     display: flex;
     align-items: center;
-    height: $cell-height;
     width: 100%;
+    height: $cell-height;
 
     span {
+      padding-left: .25em;
       overflow: hidden;
       text-overflow: ellipsis;
-      padding-left: .25em;
     }
   }
 }
