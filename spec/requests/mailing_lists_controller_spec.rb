@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe MailingListsController, type: :request do
-  xdescribe '#create' do
+  describe '#create' do
     let(:perform_request) { post mailing_list_path, params: { mailing_list: mailing_list_params } }
     let(:mailing_list_params) do
       {
@@ -21,7 +21,8 @@ RSpec.describe MailingListsController, type: :request do
       expect(created_mailing_list_entry.slice(mailing_list_params.keys)).to eq mailing_list_params
       expect(response).to redirect_to root_path(anchor: 'mailing-list')
       follow_redirect!
-      expect(response.body).to include I18n.t('mailing_list.successful_creation')
+      # TODO: Add mailing list back
+      # expect(response.body).to include I18n.t('mailing_list.successful_creation')
     end
 
     context 'when params are invalid' do
@@ -37,7 +38,7 @@ RSpec.describe MailingListsController, type: :request do
       it 'does not create a mailing list inquiry and returns an error message' do
         expect { perform_request }.not_to change(MailingList, :count)
         expect(response).to render_template 'home/index'
-        expect(response.body).to include I18n.t('mailing_list.erroneous_creation')
+        # expect(response.body).to include I18n.t('mailing_list.erroneous_creation')
       end
     end
   end
