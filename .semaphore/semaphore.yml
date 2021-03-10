@@ -21,7 +21,7 @@ blocks:
       jobs:
         - name: cache
           commands:
-            - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
+            - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
             - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
             - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
             - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
@@ -50,7 +50,7 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
+          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
           - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
           - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
           - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
@@ -88,7 +88,7 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
+          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
           - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
           - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
           - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
@@ -125,7 +125,7 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
+          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
           - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
           - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
           - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
