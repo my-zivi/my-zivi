@@ -8,5 +8,4 @@ import 'regenerator-runtime/runtime';
 
 import '../stylesheets/application.scss';
 import '../images';
-import '../fonts/Roboto-Regular.ttf';
 import '../../../lib/javascripts/modernizr';

@@ -11,19 +11,19 @@ module Pdfs
 
     def update_font_families
       font_families.update(
-        'Roboto' => {
-          normal: font_file_path('Roboto-Regular.ttf'),
-          bold: font_file_path('Roboto-Bold.ttf'),
-          italic: font_file_path('Roboto-Italic.ttf')
+        'Ubuntu' => {
+          normal: font_file_path('Ubuntu-Regular.ttf'),
+          bold: font_file_path('Ubuntu-Bold.ttf'),
+          italic: font_file_path('Ubuntu-Italic.ttf')
         }
       )
-      font 'Roboto'
+      font 'Ubuntu'
     end
 
     private
 
     def font_file_path(filename)
-      Rails.root.join('app/javascript/fonts', filename)
+      Rails.root.join('app/javascript/fonts/ubuntu', filename)
     end
   end
 end

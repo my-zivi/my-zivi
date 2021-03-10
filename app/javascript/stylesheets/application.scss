@@ -1,3 +1,7 @@
 @import 'ubuntu';
 @import 'theme/falcon';
 @import 'home/index';
+
+body {
+  font-family: $font-family-sans-serif;
+}
