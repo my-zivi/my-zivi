@@ -30,13 +30,8 @@ RSpec.describe ApplicationHelper do
       subject(:tag) { helper.webp_picture_pack_tag('my/image.webp', class: 'my-custom-class') }
 
       it 'produces a picture tag' do
-        expect(tag).to eq <<~HTML.squish.gsub(/> </, '><')
-          <picture class="my-custom-class">
-            <source srcset="media/images/my/image.webp" type="image/webp">
-            <source srcset="media/images/my/image.png" type="image/png">
-            <img src="my/image.png" />
-          </picture>
-        HTML
+        tag
+        expect(helper).to have_received(:image_pack_tag).with('my/image.png', class: 'my-custom-class')
       end
     end
   end

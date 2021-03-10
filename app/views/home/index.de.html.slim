@@ -64,7 +64,7 @@ section.workflow
     h3.section-title Wie es funktioniert
     .row.mt-5
       .col-12.col-md-6.text-center.text-md-right
-        = image_pack_tag 'media/illustrations/3.png', class: 'w-75'
+        = webp_picture_pack_tag 'home/steps/recruiting.webp', class: 'w-100'
       .col-12.col-md-6.mt-3.mt-md-0
         .text-uppercase.text-muted.my-3 Rekrutieren
         h4 Finde rasch passende Zivis
@@ -93,14 +93,14 @@ section.workflow
 
 section.publications
   .container: h3.section-title.mb-4 MyZivi in der Presse
-  .d-flex.justify-content-center.align-items-center
-    - %w[civia landbote salzh zhaw startupticker wirtschaftsraum_zuerich].each do |icon|
+  .d-flex.justify-content-center.align-items-center.flex-wrap
+    - %w[civia landbote salzh zhaw startupticker].each do |icon|
       .publication-icon
         = webp_picture_pack_tag("home/publications/#{icon}.webp")
 
 section.publications.pt-0
   .container.mb-4: h3.section-title MyZivi Partner
-  .d-flex.justify-content-center.align-items-center
+  .d-flex.justify-content-center.align-items-center.flex-wrap
     - %w[zhaw runway tpw naturnetz].each do |icon|
       .publication-icon
         = image_pack_tag("home/publications/#{icon}.png")
