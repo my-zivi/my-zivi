@@ -19,4 +19,8 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
         li.nav-item
           a.nav-link href="#" = t('home.navbar.links.admin')
       .d-flex
-        button.btn.btn-gradient = t('home.navbar.demo')
+        = link_to t('home.navbar.demo'),
+                'https://calendly.com/myzivi-joshua/onlinedemo',
+                class: 'btn btn-gradient',
+                target: '_blank',
+                rel: 'nofollow noopener noreferrer'
