@@ -1,0 +1,116 @@
+= content_for(:container_class, 'index-container')
+= render 'home/navbar'
+
+.hero
+  .container
+    .hero-content
+      h1 Der einfachste Weg mit Zivis zu arbeiten
+      h2.h3 Mit MyZivi ist es so einfach wie noch nie Zivis zu finden, einzustellen und zu bezahlen.
+      .btn.btn-secondary Jetzt Registrieren
+
+section.solution
+  .container
+    h3.section-title Unsere Lösung
+    p.section-subtitle
+      | MyZivi deckt den gesamten Prozess ab:
+        Zivis finden, Bewerbungsgespräche führen, Probetage durchführen,
+        einstellen, einplanen und Spesenauszahlungen vornehmen
+    .row.mt-5
+      .col-12.col-md-6.text-center.text-md-right
+        = image_pack_tag 'media/illustrations/6.png', class: 'w-75'
+      .col-12.col-md-6.mt-3.mt-md-0
+        .text-uppercase.text-muted.my-3 Rekrutieren
+        h4 Finde rasch passende Zivis
+        p
+          | Erstelle ein Betriebsprofil und veröffentliche Deine Einsätze.
+            Zivis finden Dich rasch und einfach. Sie bewerben sich mit einem kompletten Lebenslauf bei Dir.
+            Habe stets Übersicht über Deinen Rekrutierungsprozess. Plane in wenigen Klicks einen Probetag.
+        .btn.btn-link
+          | Mehr erfahren
+          .fas.fa-angle-right.ml-2
+    hr.d-md-none.my-4
+    .row.mt-5
+      .col-12.col-md-6.text-center.text-md-left.order-0.order-md-1
+        = image_pack_tag 'media/illustrations/4.png', class: 'w-75'
+      .col-12.col-md-6.mt-3.mt-md-0.order-1.order-md-0
+        .text-uppercase.text-muted.my-3 Administration
+        h4 Konzentration auf das, was wirklich zählt
+        p
+          | Plane Deine Zivi-Bedarf.
+            Berechne Spesen in wenigen Klicks.
+            Erstelle Telefonlisten für Deine Einsatzleiter.
+            Automatisiere Deine Zahlungen.
+        .btn.btn-link
+          | Mehr erfahren
+          .fas.fa-angle-right.ml-2
+section.advantages
+  .container
+    .row
+      .col-12.col-md-4
+        i.fas.fa-check.fa-2x.mb-3
+        h4.text-white Nie mehr warten
+        p Du schreibst Deine Einsätze schnell und schön aus. Zivis bewerben sich blitzschnell bei Dir und Du hast sofort alle Informationen, die Du benötigst.
+      .col-12.col-md-4
+        i.fas.fa-check.fa-2x.mb-3
+        h4.text-white Nie mehr Zeit verlieren
+        p Du automatisierst und digitalisierst  Deine Administration. Verschwende nie mehr Zeit mit Spesenauszahlungen und Einsatzvereinbarungen.
+      .col-12.col-md-4
+        i.fas.fa-check.fa-2x.mb-3
+        h4.text-white Nie mehr Wichtiges vergessen
+        p Du hast alle wichtigen Informationen überall und jederzeit zur Verfügung. Telefonlisten und ein Organisationstool lassen Dich in die Zukunft planen.
+
+section.workflow
+  .container
+    h3.section-title Wie es funktioniert
+    .row.mt-5
+      .col-12.col-md-6.text-center.text-md-right
+        = webp_picture_pack_tag 'home/steps/recruiting.webp', class: 'w-100'
+      .col-12.col-md-6.mt-3.mt-md-0
+        .text-uppercase.text-muted.my-3 Rekrutieren
+        h4 Finde rasch passende Zivis
+        p
+          | Erstelle ein Betriebsprofil und veröffentliche Deine Einsätze.
+            Zivis finden Dich rasch und einfach. Sie bewerben sich mit einem kompletten Lebenslauf bei Dir.
+            Habe stets Übersicht über Deinen Rekrutierungsprozess. Plane in wenigen Klicks einen Probetag.
+        .btn.btn-link
+          | Mehr erfahren
+          .fas.fa-angle-right.ml-2
+      hr.d-md-none.my-4
+      .row.mt-5
+        .col-12.col-md-6.text-center.text-md-left.order-0.order-md-1
+          = image_pack_tag 'media/illustrations/2.png', class: 'w-75'
+        .col-12.col-md-6.mt-3.mt-md-0.order-1.order-md-0
+          .text-uppercase.text-muted.my-3 Administration
+          h4 Konzentration auf das, was wirklich zählt
+          p
+            | Plane Deine Zivi-Bedarf.
+              Berechne Spesen in wenigen Klicks.
+              Erstelle Telefonlisten für Deine Einsatzleiter.
+              Automatisiere Deine Zahlungen.
+          .btn.btn-link
+            | Mehr erfahren
+            .fas.fa-angle-right.ml-2
+
+section.publications
+  .container: h3.section-title.mb-4 MyZivi in der Presse
+  .d-flex.justify-content-center.align-items-center.flex-wrap
+    - %w[civia landbote salzh zhaw startupticker].each do |icon|
+      .publication-icon
+        = webp_picture_pack_tag("home/publications/#{icon}.webp")
+
+section.publications.pt-0
+  .container.mb-4: h3.section-title MyZivi Partner
+  .d-flex.justify-content-center.align-items-center.flex-wrap
+    - %w[zhaw runway tpw naturnetz].each do |icon|
+      .publication-icon
+        = image_pack_tag("home/publications/#{icon}.png")
+
+section.contact
+  .container
+    .text-center.text-white
+      .h3.text-white Hast Du noch Fragen zu MyZivi?
+      p Schreib uns eine kurze Nachricht und wir melden uns gerne bei Dir innerhalb von 24 Stunden
+      .btn.btn-secondary Anfrage senden
+footer
+  .container
+    .copyright © #{Time.zone.now.year} MyZivi GmbH

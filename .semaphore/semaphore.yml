@@ -21,9 +21,9 @@ blocks:
       jobs:
         - name: cache
           commands:
-            - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
+            - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
             - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
-            - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
+            - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
             - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
             - bundle install --deployment -j 4 --path vendor/bundle
             - nvm install
@@ -50,9 +50,9 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
+          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
           - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
-          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
+          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
           - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
           - bundle install --deployment --path vendor/bundle
           - nvm install
@@ -88,9 +88,9 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
+          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
           - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
-          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
+          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
           - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
           - sudo apt-get update
           - sudo apt-get install libxss1
@@ -106,6 +106,8 @@ blocks:
   - name: Performance Check
     dependencies:
       - Cache
+    run:
+      when: "branch = 'master' OR branch = 'develop'"
     task:
       secrets:
         - name: my-zivi
@@ -123,9 +125,9 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
+          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
           - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
-          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
+          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
           - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
           - sudo apt-get update
           - sudo apt-get install libxss1

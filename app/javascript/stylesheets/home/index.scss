@@ -1,7 +1,114 @@
 .sticky-flash-message {
-  top: $top-nav-height;
   position: fixed;
+  top: $top-nav-height;
   right: 0;
   left: 0;
   z-index: 1030;
+}
+
+nav {
+  .my-zivi-logo {
+    vertical-align: sub;
+  }
+}
+
+.hero {
+  background-image: url('../images/home/hero.jpg');
+  background-position: center;
+  background-size: cover;
+
+  h1,
+  h2 {
+    color: $white;
+  }
+
+  .hero-content {
+    padding: 5em 0;
+
+    @include media-breakpoint-up(md) {
+      width: 50%;
+      padding: 6em 0;
+    }
+
+    @include media-breakpoint-up(xxl) {
+      padding: 8em 0;
+    }
+  }
+
+  h1 {
+    margin-bottom: 1em;
+    font-size: 3em;
+    font-weight: 600;
+    text-shadow: 0 0 20px rgba($black, .3);
+  }
+
+  h2 {
+    margin-bottom: 1em;
+    font-weight: 400;
+  }
+}
+
+.webp .hero {
+  background-image: url('../images/home/hero.webp');
+}
+
+.section-title,
+.section-subtitle {
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.5em;
+}
+
+section.publications {
+  .publication-icon {
+    margin-top: 1em;
+    margin-left: 2em;
+
+    picture,
+    img {
+      height: 70px;
+    }
+  }
+}
+
+section.advantages {
+  color: $white;
+  background: $my-zivi-gradient;
+}
+
+section.contact {
+  background-image: url('../images/home/footer.png');
+  background-position: bottom;
+  background-size: cover;
+}
+
+.webp section.contact {
+  background-image: url('../images/home/footer.webp');
+}
+
+footer {
+  padding: 1.5em 0;
+  background-color: $deep-ocean;
+}
+
+.btn.btn-gradient {
+  padding: .5em 1.3em;
+  color: $white;
+  background-image: $my-zivi-gradient;
+  border: none;
+  border-radius: 40px;
+  transition: .2s;
+  transition-property: box-shadow, transform;
+
+  &:hover {
+    box-shadow: 2px 4px 12px rgba($black, .4);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    box-shadow: 1px 2px 8px rgba($black, .4);
+    transform: scale(1);
+  }
 }

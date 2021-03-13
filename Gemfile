@@ -80,6 +80,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'simplecov-console'
+  gem 'super_diff'
   gem 'test-prof'
 end
 

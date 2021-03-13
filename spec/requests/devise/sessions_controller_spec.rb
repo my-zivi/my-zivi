@@ -25,7 +25,27 @@ RSpec.describe Devise::SessionsController, type: :request do
       let(:organization_member) { create :organization_member }
       let(:user) { organization_member.user }
 
-      it { is_expected.to redirect_to(organizations_path) }
+      it 'signs in without a success message' do
+        expect(response).to redirect_to(organizations_path)
+        follow_redirect!
+        expect(response.body).not_to include(I18n.t('devise.sessions.signed_in'))
+      end
+    end
+  end
+
+  context 'when signing out' do
+    let(:perform_request) { delete destroy_user_session_path }
+    let(:organization_member) { create :organization_member }
+
+    before do
+      sign_in organization_member.user
+      perform_request
+    end
+
+    it 'signs out and shows no success message', :without_bullet do
+      expect(response).to redirect_to root_path
+      follow_redirect!
+      expect(response.body).not_to include(I18n.t('devise.sessions.signed_out'))
     end
   end
 end
