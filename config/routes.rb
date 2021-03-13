@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/rails_admin', as: 'rails_admin'
   mount Sidekiq::Web, at: '/sidekiq' if defined? Sidekiq::Web
 
+  get '/administration', to: 'home#administration'
+
   devise_for :users, controllers: {
     invitations: 'users/invitations',
     registrations: 'users/registrations',

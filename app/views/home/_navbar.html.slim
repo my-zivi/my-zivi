@@ -1,4 +1,4 @@
-nav.navbar.navbar-expand-lg.navbar-light.bg-light
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.my-zivi-top-navbar
   .container.py-2
     = link_to root_path, class: 'navbar-brand' do
       = image_pack_tag 'logo.svg', class: 'd-inline-block my-zivi-logo', height: 35
@@ -17,7 +17,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
         li.nav-item.active
           a.nav-link href="#" = t('home.navbar.links.recruiting')
         li.nav-item
-          a.nav-link href="#" = t('home.navbar.links.admin')
+          = link_to t('home.navbar.links.admin'), administration_path, class: 'nav-link'
       .d-flex
         = link_to t('home.navbar.demo'),
                 'https://calendly.com/myzivi-joshua/onlinedemo',

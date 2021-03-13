@@ -1,0 +1,19 @@
+.btn.btn-gradient {
+  padding: .5em 1.3em;
+  color: $white;
+  background-image: $my-zivi-gradient;
+  border: none;
+  border-radius: 40px;
+  transition: .2s;
+  transition-property: box-shadow, transform;
+
+  &:hover {
+    box-shadow: 2px 4px 12px rgba($black, .4);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    box-shadow: 1px 2px 8px rgba($black, .4);
+    transform: scale(1);
+  }
+}

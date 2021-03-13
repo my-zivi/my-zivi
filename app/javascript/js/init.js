@@ -3,8 +3,6 @@ import Turbolinks from 'turbolinks';
 
 import $ from 'jquery';
 
-import 'bootstrap/dist/js/bootstrap.min';
-
 import '../channels';
 
 window.jQuery = $;

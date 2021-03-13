@@ -7,6 +7,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 import '@fortawesome/fontawesome-free/js/all.min';
+import 'bootstrap/dist/js/bootstrap.min';
 
 import '../stylesheets/application.scss';
 import '../images';
