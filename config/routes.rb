@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq' if defined? Sidekiq::Web
 
   get '/administration', to: 'home#administration'
+  get '/recruiting', to: 'home#recruiting'
 
   devise_for :users, controllers: {
     invitations: 'users/invitations',

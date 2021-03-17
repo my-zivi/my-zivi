@@ -15,7 +15,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.my-zivi-top-navbar
     #navbarScroll.collapse.navbar-collapse
       ul.navbar-nav.mr-auto.my-2.my-lg-0.navbar-nav-scroll style=("max-height: 100px;")
         li.nav-item.active
-          a.nav-link href="#" = t('home.navbar.links.recruiting')
+          = link_to t('home.navbar.links.recruiting'), recruiting_path, class: 'nav-link'
         li.nav-item
           = link_to t('home.navbar.links.admin'), administration_path, class: 'nav-link'
       .d-flex
