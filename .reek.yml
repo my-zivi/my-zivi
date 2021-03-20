@@ -58,6 +58,8 @@ directories:
   "app/components":
     TooManyInstanceVariables:
       enabled: false
+    BooleanParameter:
+      enabled: false
 
 exclude_paths:
   - tmp

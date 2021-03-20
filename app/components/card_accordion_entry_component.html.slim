@@ -1,0 +1,9 @@
+.card
+  .card-header id=heading_id
+    h2.mb-0
+      button.btn.btn-link.btn-block.text-left aria-controls=dom_id aria-expanded=(@expanded ? 'true' : 'false') data-target="##{dom_id}" data-toggle="collapse" type="button"
+        = @title
+  .collapse class=(@expanded ? 'show' : '') aria-labelledby=heading_id data-parent="##{@parent_id}" id=dom_id
+    .card-body
+      .container-fluid
+        = content

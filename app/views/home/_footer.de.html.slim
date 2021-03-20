@@ -1,0 +1,14 @@
+section.contact
+  .container
+    .text-center.text-white
+      .h3.text-white Hast Du noch Fragen zu MyZivi?
+      p Schreib uns eine kurze Nachricht und wir melden uns gerne bei Dir innerhalb von 24 Stunden
+      .btn.btn-secondary Anfrage senden
+footer
+  .container
+    .d-flex.justify-content-between
+      .copyright © #{Time.zone.now.year} MyZivi KiG. Alle Rechte vorbehalten.
+      .d-inline-flex
+        = link_to('Datenschutzerklärung', '#', class: 'text-muted')
+        .mx-1 |
+        = link_to('AGB', '#', class: 'text-muted')

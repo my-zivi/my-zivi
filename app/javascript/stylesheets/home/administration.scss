@@ -1,0 +1,9 @@
+section.quote .quote-container {
+  padding: 3em 0;
+  margin-top: 1.5em;
+  background-color: darken($white, 8%);
+
+  blockquote {
+    text-align: center;
+  }
+}

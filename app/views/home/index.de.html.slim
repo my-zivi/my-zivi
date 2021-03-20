@@ -1,7 +1,7 @@
 = content_for(:container_class, 'index-container')
 = render 'home/navbar'
 
-.hero
+.hero.bg-image
   .container
     .hero-content
       h1 Der einfachste Weg mit Zivis zu arbeiten
@@ -78,7 +78,7 @@ section.workflow
       hr.d-md-none.my-4
       .row.mt-5
         .col-12.col-md-6.text-center.text-md-left.order-0.order-md-1
-          = image_pack_tag 'media/illustrations/2.png', class: 'w-75'
+          = webp_picture_pack_tag 'home/steps/admin.webp', class: 'w-100'
         .col-12.col-md-6.mt-3.mt-md-0.order-1.order-md-0
           .text-uppercase.text-muted.my-3 Administration
           h4 Konzentration auf das, was wirklich zählt
@@ -105,12 +105,4 @@ section.publications.pt-0
       .publication-icon
         = image_pack_tag("home/publications/#{icon}.png")
 
-section.contact
-  .container
-    .text-center.text-white
-      .h3.text-white Hast Du noch Fragen zu MyZivi?
-      p Schreib uns eine kurze Nachricht und wir melden uns gerne bei Dir innerhalb von 24 Stunden
-      .btn.btn-secondary Anfrage senden
-footer
-  .container
-    .copyright © #{Time.zone.now.year} MyZivi GmbH
+= render 'home/footer'
