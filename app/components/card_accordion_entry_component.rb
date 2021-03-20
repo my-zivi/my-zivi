@@ -12,7 +12,7 @@ class CardAccordionEntryComponent < ViewComponent::Base
   private
 
   def dom_id
-    "a-#{Digest::MD5.hexdigest(@title)[..10]}"
+    "entry-#{Digest::MD5.hexdigest(@title)[..10]}"
   end
 
   def heading_id
