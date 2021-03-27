@@ -6,4 +6,8 @@ class HomeController < ApplicationController
   def administration; end
 
   def recruiting; end
+
+  def agb; end
+
+  def privacy_policy; end
 end

@@ -10,4 +10,13 @@ meta content="#ffffff" name="theme-color" /
 meta name="description" content=t('layouts.application.meta.description') /
 meta property="og:title" content=t('layouts.application.meta.og_title') /
 meta property="og:type" content='website' /
-link rel="preconnect" href="https://fonts.gstatic.com"
+link rel="preconnect" href="https://fonts.gstatic.com" /
+
+- %w[LightItalic Light Italic Regular MediumItalic Medium BoldItalic Bold].each do |font|
+  link[
+    rel="preload"
+    href=asset_pack_url("media/fonts/ubuntu/Ubuntu-#{font}.ttf")
+    as="font"
+    type="font/ttf"
+    crossorigin=Rails.env.development?
+  ] /

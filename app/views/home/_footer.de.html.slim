@@ -9,6 +9,6 @@ footer
     .d-flex.justify-content-between
       .copyright © #{Time.zone.now.year} MyZivi KiG. Alle Rechte vorbehalten.
       .d-inline-flex
-        = link_to('Datenschutzerklärung', '#', class: 'text-muted')
+        = link_to('Datenschutzerklärung', privacy_policy_path, class: 'text-muted')
         .mx-1 |
-        = link_to('AGB', '#', class: 'text-muted')
+        = link_to('AGB', agb_path, class: 'text-muted')
