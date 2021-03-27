@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
   get '/administration', to: 'home#administration'
   get '/recruiting', to: 'home#recruiting'
+  get '/agb', to: 'home#agb'
+  get '/privacy_policy', to: 'home#privacy_policy'
 
   devise_for :users, controllers: {
     invitations: 'users/invitations',
