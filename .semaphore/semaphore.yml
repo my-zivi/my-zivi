@@ -74,6 +74,11 @@ blocks:
             - sem-service start postgres 12
             - 'bundle exec rails db:create db:structure:load'
             - bin/system-tests
+      epilogue:
+        on_fail:
+          commands:
+            - artifact push job logs/test.log
+            - artifact push job screenshots
   - name: Percy
     dependencies:
       - Tests
@@ -103,11 +108,16 @@ blocks:
         - name: Capture Screenshots
           commands:
             - NO_COVERAGE=true yarn run percy:capture-screenshots
+      epilogue:
+        on_fail:
+          commands:
+            - artifact push job logs/test.log
+            - artifact push job screenshots
   - name: Performance Check
     dependencies:
       - Cache
-    run:
-      when: "branch = 'master' OR branch = 'develop'"
+    # run:
+      # when: "branch = 'master' OR branch = 'develop'"
     task:
       secrets:
         - name: my-zivi
@@ -116,8 +126,8 @@ blocks:
           value: 'postgresql://postgres@localhost/test?encoding=utf8'
         - name: RAILS_ENV
           value: production
-        - name: NODE_ENV
-          value: production
+#        - name: NODE_ENV
+#          value: production
         - name: RAILS_SERVE_STATIC_FILES
           value: 'true'
         - name: SECRET_KEY_BASE
