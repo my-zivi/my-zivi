@@ -6,8 +6,10 @@ html
     title = t('my_zivi')
     = csrf_meta_tags
     = csp_meta_tag
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'organizations/application', 'data-turbolinks-track': 'reload'
-    = stylesheet_pack_tag 'organizations/application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'styles', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'organizations/styles', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_tag { render 'layouts/organizations/exports.js' }
     = content_for(:head_additions)
     = render 'layouts/sentry'
@@ -19,4 +21,4 @@ html
           = render 'base/organizations/horizontal_nav_bar'
           = render 'base/flash_messages'
           = yield
-    = javascript_pack_tag 'falcon', 'data-turbolinks-track': 'reload'
+    / = javascript_pack_tag 'falcon', 'data-turbolinks-track': 'reload'

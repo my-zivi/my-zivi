@@ -5,8 +5,8 @@ html
     = render 'layouts/meta_tags'
     = csrf_meta_tags
     = csp_meta_tag
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', async: true
+    = stylesheet_pack_tag 'styles', media: 'all', 'data-turbolinks-track': 'reload'
     = render 'layouts/sentry'
     = render 'layouts/tag_manager'
   body

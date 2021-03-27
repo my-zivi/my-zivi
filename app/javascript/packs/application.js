@@ -9,6 +9,10 @@ import 'regenerator-runtime/runtime';
 import '@fortawesome/fontawesome-free/js/all.min';
 import 'bootstrap/dist/js/bootstrap.min';
 
-import '../stylesheets/application.scss';
 import '../images';
 import '../../../lib/javascripts/modernizr';
+
+require.context('../fonts/ubuntu', true);
+
+console.log('hello?');
+window.addEventListener('load', () => console.log('loaded'));
