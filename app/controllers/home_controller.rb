@@ -10,4 +10,6 @@ class HomeController < ApplicationController
   def agb; end
 
   def privacy_policy; end
+
+  def about_us; end
 end

@@ -1,3 +1,10 @@
-.my-zivi-top-navbar .my-zivi-logo {
-  vertical-align: sub;
+.my-zivi-top-navbar {
+  position: fixed;
+  width: 100%;
+  z-index: $zindex-tooltip + 100;
+  box-shadow: 0 2px 8px rgba($black, .2);
+
+  .my-zivi-logo {
+    vertical-align: sub;
+  }
 }

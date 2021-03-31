@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   get '/administration', to: 'home#administration'
   get '/recruiting', to: 'home#recruiting'
+  get '/about_us', to: 'home#about_us'
   get '/agb', to: 'home#agb'
   get '/privacy_policy', to: 'home#privacy_policy'
 
