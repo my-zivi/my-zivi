@@ -55,7 +55,7 @@
     "enzyme-adapter-preact-pure": "^2.2.3",
     "eslint": "^7.15.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.22.0",
     "faker": "^5.1.0",
     "husky": "^5.1.3",
