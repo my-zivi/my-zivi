@@ -7,34 +7,26 @@
       h1.text-center Über uns
 
 section.about-us
-  #aboutUsCarousel.carousel.slide data-ride="false"
-    ol.carousel-indicators
-      li.active data-slide-to="0" data-target="#aboutUsCarousel"
-      li data-slide-to="1" data-target="#aboutUsCarousel"
-      li data-slide-to="2" data-target="#aboutUsCarousel"
-    .carousel-inner
-      .carousel-item.active
-        .d-flex
-          = webp_picture_pack_tag 'home/about_us/josh.webp', class: 'd-block', fallback: :jpg
-          .w-25.employee-info
-            .content
-              h3 Joshua Devadas
-              p
-                | Joshua ist Co-Founder & CEO, studiert BWL
-                  an der ZHAW und arbeitet teilzeit als Softwareverkäufer für ein Schweizer Unternehmen.
-              p
-                | Er hat mehrjährige Erfahrung im Verkauf und
-                  fokussiert sich auf das Management und den Verkauf bei MyZivi.
-              hr
-      .carousel-item
-        = webp_picture_pack_tag 'home/about_us/lukas.webp', class: 'w-75 d-block', fallback: :jpg
-      .carousel-item
-        = webp_picture_pack_tag 'home/about_us/phipsi.webp', class: 'w-75 d-block', fallback: :jpg
-    a.carousel-control-prev data-slide="prev" href="#aboutUsCarousel" role="button"
-      span.carousel-control-prev-icon aria-hidden="true"
-      span.sr-only Zurück
-    a.carousel-control-next data-slide="next" href="#aboutUsCarousel" role="button"
-      span.carousel-control-next-icon aria-hidden="true"
-      span.sr-only Vorwärts
+  .container
+    h3.section-title Lerne das Team kennen
+    #aboutUsCarousel.carousel.slide data-interval="false"
+      .carousel-inner
+        .carousel-item.active
+          = render 'home/about_us_carousel/joshua'
+        .carousel-item
+          = render 'home/about_us_carousel/lukas'
+        .carousel-item
+          = render 'home/about_us_carousel/phipsi'
+      .controls
+        a.navigation-buttons data-slide="prev" href="#aboutUsCarousel" role="button"
+          i.fas.fa-chevron-left.mr-2 aria-hidden="true"
+          span Zurück
+        ol.indicators.carousel-indicators
+          li.active data-slide-to="0" data-target="#aboutUsCarousel"
+          li data-slide-to="1" data-target="#aboutUsCarousel"
+          li data-slide-to="2" data-target="#aboutUsCarousel"
+        a.navigation-buttons data-slide="next" href="#aboutUsCarousel" role="button"
+          span Vorwärts
+          i.fas.fa-chevron-right.ml-2 aria-hidden="true"
 
 = render 'home/footer'

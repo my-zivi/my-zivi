@@ -1,29 +1,56 @@
+$controls-height: 50px;
+$employee-info-width: 450px;
+
 section.about-us {
+  color: $white;
+
+  .employee-info,
+  .controls {
+    width: $employee-info-width;
+  }
+
   .employee-info {
     background-image: url('../images/home/about_us/spacer.png');
     background-repeat: repeat-x;
     background-size: contain;
+    flex-shrink: 0;
 
     .content {
       backdrop-filter: blur(10px);
       width: 100%;
       height: 100%;
-      background-color: rgba($black, .2);
-      padding: 0 2em;
-      box-shadow: -10px 0px 10px rgba($black, .13);
+      background-color: rgba($black, .15);
+      padding: 3em 2em $controls-height;
+      box-shadow: -10px 0px 10px rgba($black, .08);
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      color: $white;
+      justify-content: flex-start;
 
-      h1, h2, h3, p {
+      h3,
+      h5,
+      p {
         color: $white;
       }
+    }
+  }
 
-      hr {
-        border-top: 1px solid $white;
-        width: 100%;
-      }
+  .controls {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: $controls-height;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2em;
+
+    .navigation-buttons {
+      vertical-align: middle;
+      color: $white;
+    }
+
+    .indicators {
+      position: static;
+      margin: 0 !important;
     }
   }
 }
