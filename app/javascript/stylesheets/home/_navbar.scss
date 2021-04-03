@@ -1,3 +1,5 @@
+$navbar-height: 73px;
+
 .my-zivi-top-navbar {
   position: fixed;
   width: 100%;
@@ -7,4 +9,9 @@
   .my-zivi-logo {
     vertical-align: sub;
   }
+}
+
+.navbar-spacer {
+  height: $navbar-height;
+  position: static;
 }
