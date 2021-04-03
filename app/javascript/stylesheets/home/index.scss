@@ -8,10 +8,18 @@
   background-image: url('../images/home/hero.jpg');
   background-position: center;
   background-size: cover;
+
+  &.about-us {
+    background-image: url('../images/home/about_us/hero.jpg');
+  }
 }
 
 .webp .hero.bg-image {
   background-image: url('../images/home/hero.webp');
+
+  &.about-us {
+    background-image: url('../images/home/about_us/hero.webp');
+  }
 }
 
 .section-title,

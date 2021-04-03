@@ -1,11 +1,40 @@
 - content_for(:container_class, 'index-container')
 = render 'home/navbar'
 
-.hero.bg-image
+.hero.about-us.bg-image
   .container
-    .hero-content
-      h1 Über uns
-      h2.h3 Mit MyZivi ist es so einfach wie noch nie Zivis zu finden, einzustellen und zu bezahlen.
-      .btn.btn-secondary Jetzt Registrieren
+    .hero-content.w-100
+      h1.text-center Über uns
+
+section.about-us
+  #aboutUsCarousel.carousel.slide data-ride="false"
+    ol.carousel-indicators
+      li.active data-slide-to="0" data-target="#aboutUsCarousel"
+      li data-slide-to="1" data-target="#aboutUsCarousel"
+      li data-slide-to="2" data-target="#aboutUsCarousel"
+    .carousel-inner
+      .carousel-item.active
+        .d-flex
+          = webp_picture_pack_tag 'home/about_us/josh.webp', class: 'd-block', fallback: :jpg
+          .w-25.employee-info
+            .content
+              h3 Joshua Devadas
+              p
+                | Joshua ist Co-Founder & CEO, studiert BWL
+                  an der ZHAW und arbeitet teilzeit als Softwareverkäufer für ein Schweizer Unternehmen.
+              p
+                | Er hat mehrjährige Erfahrung im Verkauf und
+                  fokussiert sich auf das Management und den Verkauf bei MyZivi.
+              hr
+      .carousel-item
+        = webp_picture_pack_tag 'home/about_us/lukas.webp', class: 'w-75 d-block', fallback: :jpg
+      .carousel-item
+        = webp_picture_pack_tag 'home/about_us/phipsi.webp', class: 'w-75 d-block', fallback: :jpg
+    a.carousel-control-prev data-slide="prev" href="#aboutUsCarousel" role="button"
+      span.carousel-control-prev-icon aria-hidden="true"
+      span.sr-only Zurück
+    a.carousel-control-next data-slide="next" href="#aboutUsCarousel" role="button"
+      span.carousel-control-next-icon aria-hidden="true"
+      span.sr-only Vorwärts
 
 = render 'home/footer'

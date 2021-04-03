@@ -135,6 +135,7 @@ de-CH:
       links:
         admin: Administration
         recruiting: Rekrutieren
+        about_us: "Über uns"
   layouts:
     application:
       meta:
