@@ -6,9 +6,9 @@ section.contact
       .btn.btn-secondary Anfrage senden
 footer
   .container
-    .d-flex.justify-content-between
-      .copyright © #{Time.zone.now.year} MyZivi KiG. Alle Rechte vorbehalten.
-      .d-inline-flex
+    .d-flex.justify-content-between.flex-column.flex-md-row
+      .copyright.mt-3.mt-md-0.order-1.order-md-0 © #{Time.zone.now.year} MyZivi KiG. Alle Rechte vorbehalten.
+      .d-inline-flex.order-0.order-md-1
         = link_to('Datenschutzerklärung', privacy_policy_path, class: 'text-muted')
         .mx-1 |
         = link_to('AGB', agb_path, class: 'text-muted')

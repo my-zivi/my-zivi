@@ -57,3 +57,13 @@ section.contact {
 .webp section.contact {
   background-image: url('../images/home/footer.webp');
 }
+
+.illustration-image {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+
+  @include media-breakpoint-up(xl) {
+    width: 75%;
+  }
+}
