@@ -135,6 +135,7 @@ fr-CH:
       links:
         admin: Administration
         recruiting: Recruter
+        about_us: ""
   layouts:
     application:
       meta:
