@@ -111,7 +111,7 @@ blocks:
       epilogue:
         on_fail:
           commands:
-            - artifact push job logs/test.log
+            - artifact push job log/test.log
             - artifact push job screenshots
   - name: Performance Check
     dependencies:

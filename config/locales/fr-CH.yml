@@ -133,6 +133,7 @@ fr-CH:
     navbar:
       demo: Obtenir une démo
       links:
+        about_us: ''
         admin: Administration
         recruiting: Recruter
   layouts:

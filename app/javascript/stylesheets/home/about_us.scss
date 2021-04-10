@@ -1,0 +1,113 @@
+$controls-height: 50px;
+$employee-info-width: 450px;
+
+section.about-us {
+  color: $white;
+
+  .employee-portrait {
+    object-fit: cover;
+    height: 100%;
+  }
+
+  .employee-info {
+    flex-shrink: 0;
+    width: 100%;
+    background-image: url('../images/home/about_us/spacer.png');
+    background-repeat: repeat-x;
+    background-size: contain;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 100%;
+      height: 100%;
+      padding: 3em 2em $controls-height;
+      background-color: rgba($black, .15);
+      box-shadow: -10px 0 10px rgba($black, .08);
+      backdrop-filter: blur(10px);
+
+      h3,
+      h5,
+      p {
+        color: $white;
+      }
+    }
+
+    .content-body {
+      padding-right: 5px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba($white, .8);
+        border-radius: 5px;
+
+        &:hover {
+          background-color: $white;
+        }
+      }
+    }
+
+    .content-footer {
+      margin-bottom: .5em;
+    }
+  }
+
+  .controls {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: $controls-height;
+    padding: 0 2em;
+
+    .navigation-buttons {
+      color: $white;
+      vertical-align: middle;
+    }
+
+    .indicators {
+      position: static;
+      margin: 0 !important;
+    }
+  }
+
+  .employee-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include media-breakpoint-up(lg) {
+    .employee-container {
+      flex-direction: row;
+    }
+
+    .employee-info,
+    .controls {
+      width: $employee-info-width;
+    }
+  }
+}
+
+section.values {
+  .value-icon {
+    min-width: 50px;
+    max-width: 50px;
+    text-align: center;
+  }
+}
+
+.webp section.about-us .employee-info {
+  background-image: url('../images/home/about_us/spacer.webp');
+}
