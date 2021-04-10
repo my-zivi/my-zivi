@@ -26,6 +26,14 @@ RSpec.describe ApplicationHelper do
       HTML
     end
 
+    context 'with a fallback given' do
+      subject(:tag) { helper.webp_picture_pack_tag('my/image.webp', fallback: :jpg) }
+
+      it 'produces a picture tag' do
+        expect(tag).to include '<source srcset="media/images/my/image.jpg" type="image/jpeg">'
+      end
+    end
+
     context 'when a class is given' do
       subject(:tag) { helper.webp_picture_pack_tag('my/image.webp', class: 'my-custom-class') }
 

@@ -2,19 +2,28 @@
 
 module ApplicationHelper
   def webp_picture_pack_tag(path, **kwargs)
-    basepath = "#{File.dirname(path)}/#{File.basename(path, File.extname(path))}"
-    alternative_extension = kwargs.delete(:fallback) || :png
+    base_path = "#{File.dirname(path)}/#{File.basename(path, File.extname(path))}"
+    extension = kwargs.delete(:fallback) || :png
+    mime = Mime::Type.lookup_by_extension(extension).to_s
 
-    tag.picture do
-      concat tag.source(srcset: asset_pack_path("media/images/#{basepath}.webp"), type: 'image/webp')
-      concat tag.source(srcset: asset_pack_path("media/images/#{basepath}.#{alternative_extension}"), type: 'image/png')
-      concat image_pack_tag("#{basepath}.#{alternative_extension}", **kwargs)
-    end
+    generate_picture_tag(base_path, extension, mime, **kwargs)
   end
 
   def navbar_link(name, path)
     tag.li(class: "nav-item #{current_page?(path) ? 'active' : ''}".squish) do
       link_to(name, path, class: 'nav-link')
+    end
+  end
+
+  private
+
+  def generate_picture_tag(base_path, extension, mime, **kwargs)
+    fallback_image_name = "#{base_path}.#{extension}"
+
+    tag.picture do
+      concat tag.source(srcset: asset_pack_path("media/images/#{base_path}.webp"), type: 'image/webp')
+      concat tag.source(srcset: asset_pack_path("media/images/#{fallback_image_name}"), type: mime)
+      concat image_pack_tag(fallback_image_name, **kwargs)
     end
   end
 end
