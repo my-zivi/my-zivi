@@ -1,5 +1,5 @@
-.d-flex
-  div
+.employee-container
+  .employee-picture
     = webp_picture_pack_tag 'home/about_us/phipsi.webp', class: 'd-block w-100 employee-portrait', fallback: :jpg
   .employee-info
     .content
@@ -13,7 +13,6 @@
         p
           | Auch er hat eine abgeschlossene Ausbildung in Softwareentwicklung
             und arbeitet zu 80% als Entwickler für einen CRM-Anbieter.
-      .content-footer
         p
           = link_to('https://www.linkedin.com/in/philipp-fehr-8168a5146',
                   class: 'text-white mr-2',

@@ -8,8 +8,8 @@
 
 section.about-us
   .container
-    h3.section-title Lerne das Team kennen
-    #aboutUsCarousel.carousel.slide data-interval="false"
+    h2.section-title Lerne das Team kennen
+    #aboutUsCarousel.carousel.slide data-interval="false" data-keyboard="true"
       .carousel-inner
         .carousel-item.active
           = render 'home/about_us_carousel/joshua'
@@ -28,5 +28,58 @@ section.about-us
         a.navigation-buttons data-slide="next" href="#aboutUsCarousel" role="button"
           span Vorwärts
           i.fas.fa-chevron-right.ml-2 aria-hidden="true"
+
+section.mission
+  .container
+    .row.mt-5.align-items-center
+      .col-12.col-md-6.text-center.text-xl-right
+        = webp_picture_pack_tag 'home/about_us/team.webp', class: 'w-100', fallback: :jpg
+      .col-12.col-md-6.mt-3.mt-md-0
+        h3.h2.text-center.mb-3 Wir haben eine Mission
+        p.p-3
+          | Wir wollen den Zivildienst digitalisieren.
+            Wir glauben, dass wir mit digitalen Tools Betriebe und Zivis unterstützen und modernisieren können.
+            Als digitale Profis helfen wir Betrieben und Zivis ihren Alltag einfacher zu gestalten.
+
+section.values
+  .container
+    h2.section-title Wofür wir stehen
+    .row.mt-4
+      .col-12.col-lg-4.mt-2.mt-lg-0
+        .d-flex
+          .value-icon: i.fas.fa-laptop.fa-3x.text-primary
+          .ml-4
+            h5 Digital
+            p Mit Digitalisierung helfen wir Betrieben und Zivis.
+      .col-12.col-lg-4.mt-2.mt-lg-0
+        .d-flex
+          .value-icon: i.fas.fa-home.fa-3x.text-primary
+          .ml-4
+            h5 Vertrauenswürdig
+            p Durch gemeinsames Vertrauen können wir mehr erreichen
+      .col-12.col-lg-4.mt-2.mt-lg-0
+        .d-flex
+          .value-icon: i.fas.fa-lightbulb.fa-3x.text-primary
+          .ml-4
+            h5 Expertise
+            p Mit Sachorientierung sind wir in der Lage unsere Kunden zu unterstützen.
+      .col-12.col-lg-4.mt-2.mt-lg-0
+        .d-flex
+          i.far.fa-comment-alt.fa-3x.text-primary
+          .ml-4
+            h5 Kommunikativ
+            p Wir kommunizieren effektiv und offen.
+      .col-12.col-lg-4.mt-2.mt-lg-0
+        .d-flex
+          .value-icon: i.fas.fa-sync-alt.fa-3x.text-primary
+          .ml-4
+            h5 Agil
+            p Mit Agilität lösen wir Probleme so einfach wie möglich.
+      .col-12.col-lg-4.mt-2.mt-lg-0
+        .d-flex
+          .value-icon: i.fas.fa-heart.fa-3x.text-primary
+          .ml-4
+            h5 Aufmerksam
+            p Mit Agilität lösen wir Probleme so einfach wie möglich.
 
 = render 'home/footer'

@@ -9,16 +9,12 @@ section.about-us {
     height: 100%;
   }
 
-  .employee-info,
-  .controls {
-    width: $employee-info-width;
-  }
-
   .employee-info {
     flex-shrink: 0;
     background-image: url('../images/home/about_us/spacer.png');
     background-repeat: repeat-x;
     background-size: contain;
+    width: 100%;
 
     .content {
       display: flex;
@@ -39,8 +35,9 @@ section.about-us {
     }
 
     .content-body {
-      height: 240px;
       overflow-y: scroll;
+      overflow-x: hidden;
+      padding-right: 5px;
 
       &::-webkit-scrollbar {
         width: 3px;
@@ -73,6 +70,7 @@ section.about-us {
     justify-content: space-between;
     height: $controls-height;
     padding: 0 2em;
+    width: 100%;
 
     .navigation-buttons {
       color: $white;
@@ -83,6 +81,30 @@ section.about-us {
       position: static;
       margin: 0 !important;
     }
+  }
+
+  .employee-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include media-breakpoint-up(lg) {
+    .employee-container {
+      flex-direction: row;
+    }
+
+    .employee-info,
+    .controls {
+      width: $employee-info-width;
+    }
+  }
+}
+
+section.values {
+  .value-icon {
+    min-width: 50px;
+    max-width: 50px;
+    text-align: center;
   }
 }
 

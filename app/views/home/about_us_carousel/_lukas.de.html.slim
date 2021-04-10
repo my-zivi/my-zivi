@@ -1,5 +1,5 @@
-.d-flex
-  div
+.employee-container
+  .employee-picture
     = webp_picture_pack_tag 'home/about_us/lukas.webp', class: 'd-block w-100 employee-portrait', fallback: :jpg
   .employee-info
     .content
@@ -10,10 +10,9 @@
         p
           | Lukas ist Co-Founder & Software Engineer hat eine Ausbildung als Applikationsentwickler
             abgeschlossen und studiert Computer Sciences an der ZHAW School of Engineering.
-          p
-            | Er arbeitet teilzeit für eine Agentur, die sich auf ähnliche Internetportale spezialisiert.
-              Als Zivildienstleister hat er an einem Administrationsprodukt für Zivis gearbeitet.
-      .content-footer
+        p
+          | Er arbeitet teilzeit für eine Agentur, die sich auf ähnliche Internetportale spezialisiert.
+            Als Zivildienstleister hat er an einem Administrationsprodukt für Zivis gearbeitet.
         p
           = link_to('https://www.linkedin.com/in/lukas-bischof-43b711143/',
                   class: 'text-white mr-2',
