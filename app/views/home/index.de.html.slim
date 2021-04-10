@@ -101,8 +101,8 @@ section.publications
 section.publications.pt-0
   .container.mb-4: h3.section-title MyZivi Partner
   .d-flex.justify-content-center.align-items-center.flex-wrap
-    - %w[zhaw runway tpw naturnetz].each do |icon|
+    - %w[zhaw runway tpw naturnetz gw].each do |icon|
       .publication-icon
-        = image_pack_tag("home/publications/#{icon}.png")
+        = webp_picture_pack_tag("home/publications/#{icon}.webp")
 
 = render 'home/footer'
