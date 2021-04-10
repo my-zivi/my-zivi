@@ -1,21 +1,24 @@
-.d-flex
+.d-flex.flex-lg-row.flex-column
   div
-    = webp_picture_pack_tag 'home/about_us/josh.webp', class: 'd-block w-100', fallback: :jpg
+    = webp_picture_pack_tag 'home/about_us/josh.webp', class: 'd-block w-100 employee-portrait', fallback: :jpg
   .employee-info
     .content
-      h3.font-weight-bold Joshua Devadas
-      h5.mb-3 Co-Founder
-      p
-        | Joshua ist Co-Founder & CEO, studiert BWL
-          an der ZHAW und arbeitet teilzeit als Softwareverkäufer für ein Schweizer Unternehmen.
-      p
-        | Er hat mehrjährige Erfahrung im Verkauf und
-          fokussiert sich auf das Management und den Verkauf bei MyZivi.
-      p
-        = link_to('https://www.linkedin.com/in/thedevadas/',
-                class: 'text-white',
-                target: '_blank',
-                rel: 'noreferrer nofollow noopener') do
-          i.fab.fa-linkedin.mr-2
-        = mail_to('joshua.devadas@myzivi.ch', class: 'text-white')
-          i.fas.fa-envelope
+      .content-header
+        h3.font-weight-bold Joshua Devadas
+        h5.mb-3 Co-Founder
+      .content-body
+        p
+          | Joshua ist Co-Founder & CEO, studiert BWL
+            an der ZHAW und arbeitet teilzeit als Softwareverkäufer für ein Schweizer Unternehmen.
+        p
+          | Er hat mehrjährige Erfahrung im Verkauf und
+            fokussiert sich auf das Management und den Verkauf bei MyZivi.
+      .content-footer
+        p
+          = link_to('https://www.linkedin.com/in/thedevadas/',
+                  class: 'text-white',
+                  target: '_blank',
+                  rel: 'noreferrer nofollow noopener') do
+            i.fab.fa-linkedin.mr-2
+          = mail_to('joshua.devadas@myzivi.ch', class: 'text-white')
+            i.fas.fa-envelope

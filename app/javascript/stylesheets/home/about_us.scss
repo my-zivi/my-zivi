@@ -4,6 +4,11 @@ $employee-info-width: 450px;
 section.about-us {
   color: $white;
 
+  .employee-portrait {
+    object-fit: cover;
+    height: 100%;
+  }
+
   .employee-info,
   .controls {
     width: $employee-info-width;
@@ -31,6 +36,32 @@ section.about-us {
       p {
         color: $white;
       }
+    }
+
+    .content-body {
+      height: 240px;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba($white, .8);
+        border-radius: 5px;
+
+        &:hover {
+          background-color: $white;
+        }
+      }
+    }
+
+    .content-footer {
+      margin-bottom: .5em;
     }
   }
 

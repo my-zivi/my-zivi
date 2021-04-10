@@ -57,7 +57,7 @@ RSpec.describe ApplicationHelper do
       end
 
       it 'creates an active sidebar link' do
-        expect(link).to include 'nav-item active'
+        expect(link).to include 'nav-item active font-weight-bold'
       end
     end
   end
