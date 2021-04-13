@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "sys_admin/blog_entries/show", type: :view do
-  before(:each) do
+RSpec.describe 'sys_admin/blog_entries/show', type: :view do
+  before do
     @blog_entry = assign(:blog_entry, SysAdmin::BlogEntry.create!(
-      title: "Title",
-      body: "MyText",
-      author: "Author"
-    ))
+                                        title: 'Title',
+                                        body: 'MyText',
+                                        author: 'Author'
+                                      ))
   end
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
     expect(rendered).to match(/Title/)
     expect(rendered).to match(/MyText/)
