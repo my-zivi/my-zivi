@@ -1,15 +1,15 @@
-= simple_form_for [:sys_admins, @blog_entry] do |f|
-  - if @blog_entry.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@blog_entry.errors.count, "error")} prohibited this blog_entry from being saved:"
-      ul
-        - @blog_entry.errors.full_messages.each do |message|
-          li = message
+.card.card-body
+  = simple_form_for [:sys_admins, @blog_entry] do |f|
+    - if @blog_entry.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(@blog_entry.errors.count, "error")} prohibited this blog_entry from being saved:"
+        ul
+          - @blog_entry.errors.full_messages.each do |message|
+            li = message
 
-  .field
-    = f.input :title
-  .field
-    = f.input :body
-  .field
+    = f.input :title, input_html: { autocomplete: 'off' }
     = f.input :author
-  .actions = f.submit
+    .field
+      = f.label :content
+      = f.rich_text_area :content
+    .actions.mt-2 = f.submit class: 'btn btn-primary'

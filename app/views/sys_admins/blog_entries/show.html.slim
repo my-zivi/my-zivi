@@ -1,15 +1,10 @@
-p#notice = notice
-
-p
-  strong Title:
-  = @blog_entry.title
-p
-  strong Body:
-  = @blog_entry.body
-p
-  strong Author:
-  = @blog_entry.author
-
-=> link_to 'Edit', edit_sys_admins_blog_entry_path(@blog_entry)
+=> link_to t('edit'), edit_sys_admins_blog_entry_path(@blog_entry)
 '|
-=< link_to 'Back', sys_admins_blog_entries_path
+=< link_to t('actions.back'), sys_admins_blog_entries_path
+
+.card.mt-3
+  .card-header
+    h1 = @blog_entry.title
+    h5.text-muted = @blog_entry.author
+  .card-body
+    == @blog_entry.content

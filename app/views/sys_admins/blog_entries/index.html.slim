@@ -1,10 +1,9 @@
-h1 Listing sys_admin_blog_entries
+h1 = t('.title')
 
 table
   thead
     tr
       th Title
-      th Body
       th Author
       th
       th
@@ -14,7 +13,6 @@ table
     - @blog_entries.each do |blog_entry|
       tr
         td = blog_entry.title
-        td = blog_entry.body
         td = blog_entry.author
         td = link_to 'Show', sys_admins_blog_entry_path(blog_entry)
         td = link_to 'Edit', edit_sys_admins_blog_entry_path(blog_entry)

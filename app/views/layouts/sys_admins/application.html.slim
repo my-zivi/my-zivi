@@ -1,0 +1,16 @@
+doctype html
+html lang="de"
+  head
+    title = t('layouts.sys_admin.application.title')
+    = render 'layouts/meta_tags'
+    = csrf_meta_tags
+    = csp_meta_tag
+    = javascript_pack_tag 'sys_admins/application', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'sys_admins/application', media: 'all', 'data-turbolinks-track': 'reload'
+    = render 'layouts/sentry'
+  body
+    main#top
+      div[data-layout="container" class=(content_for?(:container_class) ? yield(:container_class) : 'container')]
+        - unless content_for?(:hide_flash_messages)
+          = render 'base/dismissible_flash_messages'
+        = yield

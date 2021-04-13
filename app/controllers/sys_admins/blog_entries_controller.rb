@@ -2,6 +2,8 @@
 
 module SysAdmins
   class BlogEntriesController < ApplicationController
+    layout 'sys_admins/application'
+
     before_action :set_blog_entry, only: %i[show edit update destroy]
 
     def index
@@ -48,7 +50,7 @@ module SysAdmins
     end
 
     def blog_entry_params
-      params.require(:blog_entry).permit(:title, :body, :author)
+      params.require(:blog_entry).permit(:title, :content, :author)
     end
   end
 end

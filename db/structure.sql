@@ -215,7 +215,6 @@ CREATE TABLE public.ar_internal_metadata (
 CREATE TABLE public.blog_entries (
     id bigint NOT NULL,
     title character varying NOT NULL,
-    body text NOT NULL,
     author character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
