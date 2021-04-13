@@ -1,0 +1,2 @@
+module SysAdmin::BlogEntriesHelper
+end

@@ -1,0 +1,25 @@
+h1 Listing sys_admin_blog_entries
+
+table
+  thead
+    tr
+      th Title
+      th Body
+      th Author
+      th
+      th
+      th
+
+  tbody
+    - @blog_entries.each do |blog_entry|
+      tr
+        td = blog_entry.title
+        td = blog_entry.body
+        td = blog_entry.author
+        td = link_to 'Show', sys_admins_blog_entry_path(blog_entry)
+        td = link_to 'Edit', edit_sys_admins_blog_entry_path(blog_entry)
+        td = link_to 'Destroy', sys_admins_blog_entry_path(blog_entry), data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Blog entry', new_sys_admins_blog_entry_path

@@ -215,6 +215,39 @@ CREATE TABLE public.ar_internal_metadata (
 CREATE TABLE public.blog_entries (
     id bigint NOT NULL,
     title character varying NOT NULL,
+    body text NOT NULL,
+    author character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: blog_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.blog_entries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: blog_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.blog_entries_id_seq OWNED BY public.blog_entries.id;
+
+
+--
+-- Name: blog_entries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.blog_entries (
+    id bigint NOT NULL,
+    title character varying NOT NULL,
     author character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL

@@ -391,3 +391,7 @@ de-CH:
     pending_contract: Aufgebot ausstehend
     waiting_for_civil_servant_decision: Warte auf Zivi
   successful_registration: Registration erfolgreich
+  sys_admins:
+    blog_entries:
+      successful_creation: "Blogeintrag erfolgreich erstellt"
+      successful_update: "Blogeintrag erfolgreich aktualisiert"
