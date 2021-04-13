@@ -144,7 +144,7 @@ de-CH:
       title: MyZivi Admin - Einsätze einfach verwalten
     sys_admin:
       application:
-        title: ""
+        title: MyZivi SysAdmin
   lead_person_html: 'Leitende Person: %{link}'
   loading: Lade...
   mailing_list:
@@ -396,7 +396,10 @@ de-CH:
   successful_registration: Registration erfolgreich
   sys_admins:
     blog_entries:
-      successful_creation: "Blogeintrag erfolgreich erstellt"
-      successful_update: "Blogeintrag erfolgreich aktualisiert"
       index:
-        title: Blogeinträge
+        table_title: Blogeinträge
+        title: Blog
+      new:
+        title: Neuer Blogeintrag
+      successful_creation: Blogeintrag erfolgreich erstellt
+      successful_update: Blogeintrag erfolgreich aktualisiert

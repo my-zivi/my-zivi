@@ -10,6 +10,10 @@ fr-CH:
         supplement: Suffixe de l'adresse
         zip: Code postal
         zip_with_city: Code postal / Ville
+      blog_entry:
+        author: Auteur
+        content: Contenu
+        title: Titre
       civil_servant:
         address: Adresse
         birthday: Anniversaire
@@ -218,6 +222,7 @@ fr-CH:
               cant_delete_himself: Vous ne pouvez pas vous effacer
     models:
       address: Adresse
+      blog_entry: Blog post
       civil_servant: Civiliste
       driving_licenses: Permis de conduire
       expense_sheet: note de frais

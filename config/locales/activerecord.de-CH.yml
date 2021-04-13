@@ -10,6 +10,10 @@ de-CH:
         supplement: Adresszusatz
         zip: Postleitzahl
         zip_with_city: PLZ / Ort
+      blog_entry:
+        author: Author
+        content: Inhalt
+        title: Titel
       civil_servant:
         address: Adresse
         birthday: Geburtstag
@@ -218,6 +222,7 @@ de-CH:
               cant_delete_himself: Du kannst dich nicht selbst löschen
     models:
       address: Adresse
+      blog_entry: Blogeintrag
       civil_servant: Zivildienstleistende Person
       driving_licenses: Fahrlizenz
       expense_sheet: Spesenblatt

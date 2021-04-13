@@ -142,6 +142,9 @@ fr-CH:
         description: Avec MyZivi Admin, les affectations civiles, les notes de frais et les contrats d'affectation peuvent être facilement créés et gérés.
         og_title: MyZivi Admin
       title: MyZivi Admin - Gérer facilement les déploiements
+    sys_admin:
+      application:
+        title: MyZivi SysAdmin
   lead_person_html: 'Personne responsable: %{link}'
   loading: En chargeant...
   mailing_list:
@@ -390,3 +393,12 @@ fr-CH:
     pending_contract: Tableau en attente
     waiting_for_civil_servant_decision: Attendre l'entrée en vigueur de la loi civile
   successful_registration: Inscription réussie
+  sys_admins:
+    blog_entries:
+      index:
+        table_title: Articles de blog
+        title: Blog
+      new:
+        title: Nouvel article de blog
+      successful_creation: Entrée de blog créée avec succès
+      successful_update: Mise à jour réussie de l'entrée du blog
