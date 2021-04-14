@@ -8,6 +8,20 @@
       h2.h3 Mit MyZivi ist es so einfach wie noch nie Zivis zu finden, einzustellen und zu bezahlen.
       .btn.btn-secondary Jetzt Registrieren
 
+section.jobs
+  .container
+    h3.section-title Offene Stellen
+    - JobPosting.order(publication_date: :desc).first(3).each do |posting|
+      .row
+        .col-1
+          img.w-100 src=posting.icon_url
+        .col-11
+          = link_to posting.link do
+            h5 = posting.title
+          .text-muted = l(posting.publication_date)
+          div = strip_tags(posting.description).truncate(200)
+      hr
+
 section.solution
   .container
     h3.section-title Unsere Lösung
