@@ -1,6 +1,11 @@
 .hero {
   background-image: linear-gradient(65.18deg, $purple 0%, $blue 100%);
 
+  &.bg-image {
+    background-size: cover;
+    background-position: center;
+  }
+
   h1,
   h2 {
     color: $white;

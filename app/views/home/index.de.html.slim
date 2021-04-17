@@ -8,7 +8,7 @@
       .row.justify-content-center
         .col-12.col-xxl-8
           .search-field
-            form action="https://www.myzivi.ch/jobs" method="get" target="_blank"
+            form action="#{ENV['smartjobboard_public_url']}/jobs" method="get" target="_blank"
               label.sr-only for="search-field" Einsatz suchen
               input#search-field type="text" placeholder="Einsatz suchen…" name="q"
               button.search-button type="submit"
@@ -31,7 +31,7 @@ section.jobs
                   .text-muted.mb-3 Erstellt am #{l(posting.publication_date)}
                   .job-description = strip_tags(posting.description).truncate(200)
       .col-12.text-center.mt-3
-        = link_to('Weitere Einsätze anzeigen…', 'https://www.myzivi.ch', class: 'btn btn-link')
+        = link_to('Weitere Einsätze anzeigen…', ENV['SMARTJOBBOARD_PUBLIC_URL'], class: 'btn btn-link')
 
 section.solution
   .container
