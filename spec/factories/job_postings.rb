@@ -2,9 +2,11 @@
 
 FactoryBot.define do
   factory :job_posting do
-    title { 'MyString' }
-    link { 'MyString' }
-    description { 'MyText' }
-    publication_date { '2021-04-14' }
+    title { 'Gruppeneinsatz Naturschutz' }
+    link { 'https://www.example.com/' }
+    description { Faker::Lorem.paragraph }
+    publication_date { 3.days.ago }
+    icon_url { 'https://picsum.photos/40' }
+    company { 'MyCompany' }
   end
 end
