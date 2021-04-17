@@ -9,6 +9,7 @@
 
   .hero-content {
     padding: 5em 0;
+    text-align: center;
 
     @include media-breakpoint-up(md) {
       width: 50%;

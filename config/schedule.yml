@@ -2,3 +2,7 @@ ExpenseSheetActivationJob:
   cron: "0 1 * * *"
   class: ExpenseSheetActivationJob
   queue: default
+JobPostingPollJob:
+  cron: "0 * * * *"
+  class: JobPostingPollJob
+  queue: default

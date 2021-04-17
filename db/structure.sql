@@ -446,6 +446,7 @@ CREATE TABLE public.job_postings (
     description text,
     publication_date date,
     icon_url character varying,
+    company character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );

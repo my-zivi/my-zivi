@@ -6,6 +6,7 @@ class CreateJobPostings < ActiveRecord::Migration[6.0]
       t.text :description
       t.date :publication_date
       t.string :icon_url
+      t.string :company
 
       t.timestamps
     end

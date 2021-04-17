@@ -1,30 +1,41 @@
 - content_for(:container_class, 'index-container')
 = render 'home/navbar'
 
-.hero.bg-image
+.home-hero
   .container
-    .hero-content
+    .hero-content.text-center
       h1 Der einfachste Weg mit Zivis zu arbeiten
-      h2.h3 Mit MyZivi ist es so einfach wie noch nie Zivis zu finden, einzustellen und zu bezahlen.
-      .btn.btn-secondary Jetzt Registrieren
+      .row.justify-content-center
+        .col-12.col-xxl-8
+          .search-field
+            form action="https://www.myzivi.ch/jobs" method="get" target="_blank"
+              label.sr-only for="search-field" Einsatz suchen
+              input#search-field type="text" placeholder="Einsatz suchen…" name="q"
+              button.search-button type="submit"
+                = image_pack_tag 'home/search.svg', class: 'w-100 h-100'
+  .gradient
 
 section.jobs
   .container
-    h3.section-title Offene Stellen
-    - JobPosting.order(publication_date: :desc).first(3).each do |posting|
-      .row
-        .col-1
-          img.w-100 src=posting.icon_url
-        .col-11
-          = link_to posting.link do
-            h5 = posting.title
-          .text-muted = l(posting.publication_date)
-          div = strip_tags(posting.description).truncate(200)
-      hr
+    h3.section-title.mb-4 Neue Einsätze
+    .row
+      - JobPosting.order(publication_date: :desc).first(6).each do |posting|
+        .col-12.col-lg-6.mb-4
+          = link_to posting.link, target: '_blank' do
+            .card.card-body
+              .d-flex
+                .mr-3
+                  img.company-icon src=posting.icon_url alt=posting.company
+                div
+                  h5 = posting.title
+                  .text-muted.mb-3 Erstellt am #{l(posting.publication_date)}
+                  .job-description = strip_tags(posting.description).truncate(200)
+      .col-12.text-center.mt-3
+        = link_to('Weitere Einsätze anzeigen…', 'https://www.myzivi.ch', class: 'btn btn-link')
 
 section.solution
   .container
-    h3.section-title Unsere Lösung
+    h3.section-title Unsere Lösungen für Betriebe
     p.section-subtitle
       | MyZivi deckt den gesamten Prozess ab:
         Zivis finden, Bewerbungsgespräche führen, Probetage durchführen,
@@ -39,7 +50,7 @@ section.solution
           | Erstelle ein Betriebsprofil und veröffentliche Deine Einsätze.
             Zivis finden Dich rasch und einfach. Sie bewerben sich mit einem kompletten Lebenslauf bei Dir.
             Habe stets Übersicht über Deinen Rekrutierungsprozess. Plane in wenigen Klicks einen Probetag.
-        .btn.btn-link
+        = link_to recruiting_path, class: 'btn btn-link' do
           | Mehr erfahren
           .fas.fa-angle-right.ml-2
     hr.d-md-none.my-4
@@ -54,7 +65,7 @@ section.solution
             Berechne Spesen in wenigen Klicks.
             Erstelle Telefonlisten für Deine Einsatzleiter.
             Automatisiere Deine Zahlungen.
-        .btn.btn-link
+        = link_to administration_path, class: 'btn btn-link' do
           | Mehr erfahren
           .fas.fa-angle-right.ml-2
 section.advantages
