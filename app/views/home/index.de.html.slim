@@ -121,14 +121,14 @@ section.workflow
           .fas.fa-angle-right.ml-2
 
 section.publications
-  .container: h3.section-title.mb-4 MyZivi in der Presse
+  .container.mb-2: h3.section-title MyZivi in der Presse
   .d-flex.justify-content-center.align-items-center.flex-wrap
     - %w[civia landbote salzh zhaw startupticker].each do |icon|
       .publication-icon
         = webp_picture_pack_tag("home/publications/#{icon}.webp", alt: icon.to_s.upcase_first)
 
 section.publications.pt-0
-  .container.mb-4: h3.section-title MyZivi Partner
+  .container.mb-2.mt-4: h3.section-title MyZivi Partner
   .d-flex.justify-content-center.align-items-center.flex-wrap
     - %w[zhaw runway tpw naturnetz gw].each do |icon|
       .publication-icon
