@@ -28,7 +28,7 @@ RSpec.describe JobPostingPollerService, :vcr do
       it 'merges existing job postings and updates them' do
         expect { polled_postings }.to(
           change(JobPosting, :count).by(1).and(
-            change { job_posting.reload.description }
+            change { job_posting.reload.slice(:description, :icon_url, :company, :publication_date) }
           )
         )
       end

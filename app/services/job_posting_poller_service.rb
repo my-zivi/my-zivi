@@ -39,17 +39,15 @@ class JobPostingPollerService
 
     def sync_posting(attributes)
       JobPosting.find_or_create_by(link: attributes[:link]).tap do |posting|
-        merge_posting_attributes(attributes, posting)
+        posting.assign_attributes(format_posting_attributes(attributes))
         posting.save
       end
     end
 
-    def merge_posting_attributes(attributes, posting)
-      posting.title = attributes[:title]
-      posting.description = attributes[:description].squish
-      posting.publication_date = attributes[:publication_date]
-      posting.icon_url = attributes[:icon_url]
-      posting.company = attributes[:company]
+    def format_posting_attributes(attributes)
+      attributes.slice(:title, :publication_date, :icon_url, :company).merge(
+        description: attributes[:description].squish
+      )
     end
   end
 end
