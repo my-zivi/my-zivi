@@ -5,16 +5,20 @@ require 'open-uri'
 
 class JobPostingPollerService
   class << self
-    URL = "#{ENV['SMARTJOBBOARD_PUBLIC_URL']}/feeds/standard.xml"
+    PATH = '/feeds/standard.xml'
 
     def poll
-      URI.parse(URL).open do |page|
+      URI.parse(url).open do |page|
         feed = Nokogiri::XML(page, &:noblanks)
         process_feed(feed)
       end
     end
 
     private
+
+    def url
+      "#{ENV['SMARTJOBBOARD_PUBLIC_URL']}#{PATH}"
+    end
 
     def process_feed(feed)
       feed.xpath('//job').map do |job|

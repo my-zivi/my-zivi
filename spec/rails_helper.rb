@@ -32,6 +32,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
   config.include HaveInputFieldMatcher, type: :view
+  config.include JavaScriptErrorReporter, type: :system, js: true
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -52,21 +53,6 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-
-  config.after(:each, type: :system, js: true) do
-    errors = page.driver.browser.manage.logs.get(:browser)
-    if errors.present?
-      aggregate_failures 'javascript errors' do
-        errors.each do |error|
-          expect(error.level).not_to eq('SEVERE'), error.message
-          next unless error.level == 'WARNING'
-
-          warn 'WARN: javascript warning'
-          warn error.message
-        end
-      end
-    end
-  end
 
   config.around(:each, :without_bullet) do |spec|
     previous_value = Bullet.enable?

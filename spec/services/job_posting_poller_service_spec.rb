@@ -3,10 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe JobPostingPollerService, :vcr do
+  around do |spec|
+    ClimateControl.modify(SMARTJOBBOARD_PUBLIC_URL: 'https://www.myzivi.ch') do
+      spec.run
+    end
+  end
+
   describe '.poll' do
     subject(:polled_postings) { described_class.poll }
 
-    # casette manually edited
+    # cassette manually edited
     it 'polls the most recent jobs' do
       expect { polled_postings }.to change(JobPosting, :count).by(2)
 
