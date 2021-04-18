@@ -1,23 +1,48 @@
 - content_for(:container_class, 'index-container')
 = render 'home/navbar'
 
-.hero.bg-image
+.home-hero
   .container
-    .hero-content
+    .hero-content.text-center
       h1 Der einfachste Weg mit Zivis zu arbeiten
-      h2.h3 Mit MyZivi ist es so einfach wie noch nie Zivis zu finden, einzustellen und zu bezahlen.
-      .btn.btn-secondary Jetzt Registrieren
+      .row.justify-content-center
+        .col-12.col-xxl-8
+          .search-field
+            form action="#{ENV['smartjobboard_public_url']}/jobs" method="get" target="_blank"
+              label.sr-only for="search-field" Einsatz suchen
+              input#search-field type="text" placeholder="Einsatz suchen…" name="q"
+              button.search-button type="submit"
+                = image_pack_tag 'home/search.svg', class: 'w-100 h-100'
+  .gradient
+
+section.jobs
+  .container
+    h3.section-title.mb-4 Neue Einsätze
+    .row
+      - JobPosting.order(publication_date: :desc).first(6).each do |posting|
+        .col-12.col-lg-6.mb-4
+          = link_to posting.link, target: '_blank' do
+            .card.card-body
+              .d-flex
+                .mr-3
+                  img.company-icon src=posting.icon_url alt=posting.company
+                div
+                  h5 = posting.title
+                  .text-muted.mb-3 Erstellt am #{l(posting.publication_date)}
+                  .job-description = strip_tags(posting.description).truncate(200)
+      .col-12.text-center.mt-3
+        = link_to('Weitere Einsätze anzeigen…', ENV['SMARTJOBBOARD_PUBLIC_URL'], class: 'btn btn-link')
 
 section.solution
   .container
-    h3.section-title Unsere Lösung
+    h3.section-title Unsere Lösungen für Betriebe
     p.section-subtitle
       | MyZivi deckt den gesamten Prozess ab:
         Zivis finden, Bewerbungsgespräche führen, Probetage durchführen,
         einstellen, einplanen und Spesenauszahlungen vornehmen
     .row.mt-5
       .col-12.col-md-6.text-center.text-xl-right
-        = image_pack_tag 'home/illustrations/recruit.svg', class: 'illustration-image'
+        = image_pack_tag 'home/illustrations/recruit.svg', class: 'illustration-image', alt: 'MyZivi Recruiting'
       .col-12.col-md-6.mt-3.mt-md-0
         .text-uppercase.text-muted.my-3 Rekrutieren
         h4 Finde rasch passende Zivis
@@ -25,13 +50,13 @@ section.solution
           | Erstelle ein Betriebsprofil und veröffentliche Deine Einsätze.
             Zivis finden Dich rasch und einfach. Sie bewerben sich mit einem kompletten Lebenslauf bei Dir.
             Habe stets Übersicht über Deinen Rekrutierungsprozess. Plane in wenigen Klicks einen Probetag.
-        .btn.btn-link
+        = link_to recruiting_path, class: 'btn btn-link pl-0' do
           | Mehr erfahren
           .fas.fa-angle-right.ml-2
     hr.d-md-none.my-4
     .row.mt-5
       .col-12.col-md-6.text-center.text-xl-left.order-0.order-md-1
-        = image_pack_tag 'home/illustrations/administrate.svg', class: 'illustration-image'
+        = image_pack_tag 'home/illustrations/administrate.svg', class: 'illustration-image', alt: 'MyZivi Admin'
       .col-12.col-md-6.mt-3.mt-md-0.order-1.order-md-0
         .text-uppercase.text-muted.my-3 Administration
         h4 Konzentration auf das, was wirklich zählt
@@ -40,7 +65,7 @@ section.solution
             Berechne Spesen in wenigen Klicks.
             Erstelle Telefonlisten für Deine Einsatzleiter.
             Automatisiere Deine Zahlungen.
-        .btn.btn-link
+        = link_to administration_path, class: 'btn btn-link pl-0' do
           | Mehr erfahren
           .fas.fa-angle-right.ml-2
 section.advantages
@@ -64,7 +89,9 @@ section.workflow
     h3.section-title Wie es funktioniert
     .row.mt-5
       .col-12.col-md-6.text-center.text-md-right
-        = webp_picture_pack_tag 'home/steps/recruiting.webp', class: 'w-100'
+        = webp_picture_pack_tag 'home/steps/recruiting.webp',
+                class: 'w-100',
+                alt: 'Mit MyZivi Recruiting einfach Zivis finden'
       .col-12.col-md-6.mt-3.mt-md-0
         .text-uppercase.text-muted.my-3 Rekrutieren
         h4 Finde rasch passende Zivis
@@ -72,13 +99,12 @@ section.workflow
           | Erstelle ein Betriebsprofil und veröffentliche Deine Einsätze.
             Zivis finden Dich rasch und einfach. Sie bewerben sich mit einem kompletten Lebenslauf bei Dir.
             Habe stets Übersicht über Deinen Rekrutierungsprozess. Plane in wenigen Klicks einen Probetag.
-        .btn.btn-link
-          | Mehr erfahren
-          .fas.fa-angle-right.ml-2
     hr.d-md-none.my-4
     .row.mt-5
       .col-12.col-md-6.text-center.text-md-left.order-0.order-md-1
-        = webp_picture_pack_tag 'home/steps/admin.webp', class: 'w-100'
+        = webp_picture_pack_tag 'home/steps/admin.webp',
+                class: 'w-100',
+                alt: 'Mit MyZivi Admin einfach Zivis administrieren'
       .col-12.col-md-6.mt-3.mt-md-0.order-1.order-md-0
         .text-uppercase.text-muted.my-3 Administration
         h4 Konzentration auf das, was wirklich zählt
@@ -87,22 +113,19 @@ section.workflow
             Berechne Spesen in wenigen Klicks.
             Erstelle Telefonlisten für Deine Einsatzleiter.
             Automatisiere Deine Zahlungen.
-        .btn.btn-link
-          | Mehr erfahren
-          .fas.fa-angle-right.ml-2
 
 section.publications
-  .container: h3.section-title.mb-4 MyZivi in der Presse
+  .container.mb-2: h3.section-title MyZivi in der Presse
   .d-flex.justify-content-center.align-items-center.flex-wrap
     - %w[civia landbote salzh zhaw startupticker].each do |icon|
       .publication-icon
-        = webp_picture_pack_tag("home/publications/#{icon}.webp")
+        = webp_picture_pack_tag("home/publications/#{icon}.webp", alt: icon.to_s.upcase_first)
 
 section.publications.pt-0
-  .container.mb-4: h3.section-title MyZivi Partner
+  .container.mb-2.mt-4: h3.section-title MyZivi Partner
   .d-flex.justify-content-center.align-items-center.flex-wrap
     - %w[zhaw runway tpw naturnetz gw].each do |icon|
       .publication-icon
-        = webp_picture_pack_tag("home/publications/#{icon}.webp")
+        = webp_picture_pack_tag("home/publications/#{icon}.webp", alt: icon.to_s.upcase_first)
 
 = render 'home/footer'
