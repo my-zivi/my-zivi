@@ -3,22 +3,29 @@
 @import 'buttons';
 @import 'footer';
 @import 'hero';
+@import 'home_hero';
 
-.hero.bg-image {
-  background-image: url('../images/home/hero.jpg');
-  background-position: center;
-  background-size: cover;
-
-  &.about-us {
-    background-image: url('../images/home/about_us/hero.jpg');
+section.jobs {
+  .company-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
   }
-}
 
-.webp .hero.bg-image {
-  background-image: url('../images/home/hero.webp');
+  .card {
+    transition: .2s box-shadow;
+  }
 
-  &.about-us {
-    background-image: url('../images/home/about_us/hero.webp');
+  a:hover {
+    text-decoration: none;
+
+    .card {
+      box-shadow: 0 12px 19px 0 rgba($black, .1);
+    }
+  }
+
+  .job-description {
+    color: $gray;
   }
 }
 
@@ -33,12 +40,13 @@
 
 section.publications {
   .publication-icon {
-    margin-top: 1em;
-    margin-left: 2em;
+    margin: 1em 1em 0;
 
     picture,
     img {
+      max-width: 100%;
       height: 70px;
+      object-fit: contain;
     }
   }
 }

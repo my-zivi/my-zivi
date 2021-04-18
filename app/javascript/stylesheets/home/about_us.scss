@@ -1,6 +1,14 @@
 $controls-height: 50px;
 $employee-info-width: 450px;
 
+.hero.bg-image.about-us {
+  background-image: url('../images/home/about_us/hero.jpg');
+}
+
+.webp .hero.bg-image.about-us {
+  background-image: url('../images/home/about_us/hero.webp');
+}
+
 section.about-us {
   color: $white;
 
