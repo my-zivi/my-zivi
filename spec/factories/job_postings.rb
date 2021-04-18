@@ -6,7 +6,7 @@ FactoryBot.define do
     sequence(:link) { |i| "https://www.example.com/#{i}" }
     description { Faker::Lorem.paragraph }
     publication_date { 3.days.ago }
-    icon_url { 'https://picsum.photos/40' }
+    icon_url { 'https://i.picsum.photos/id/458/40/40.jpg?hmac=QK8u-TtdS_88CLa_qvzYyB9aZ6akNFET2fE50QihRUw' }
     company { 'MyCompany' }
   end
 end
