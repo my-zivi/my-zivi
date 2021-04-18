@@ -68,7 +68,7 @@
   input {
     width: 100%;
     height: 70px;
-    padding-right: calc($search-button-size + .7em);
+    padding-right: calc(#{$search-button-size} + .7em);
     padding-left: calc(#{$radius} + .2em);
     font-size: 1.5em;
     color: $gray;
