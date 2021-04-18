@@ -18,6 +18,10 @@
   },
   "exclude": [
     "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/__mocks__/**/*",
+    "**/jest/**/*",
+    "**/tests/factories/**/*",
     "node_modules",
     "vendor",
     "public"

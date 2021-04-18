@@ -130,6 +130,18 @@ fr-CH:
       share: Ou partagez cette page
       title: En savoir plus
       via_link: via le lien
+    navbar:
+      demo: Obtenir une démo
+      links:
+        about_us: ''
+        admin: Administration
+        recruiting: Recruter
+  layouts:
+    application:
+      meta:
+        description: Avec MyZivi Admin, les affectations civiles, les notes de frais et les contrats d'affectation peuvent être facilement créés et gérés.
+        og_title: MyZivi Admin
+      title: MyZivi Admin - Gérer facilement les déploiements
   lead_person_html: 'Personne responsable: %{link}'
   loading: En chargeant...
   mailing_list:

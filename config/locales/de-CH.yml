@@ -130,6 +130,18 @@ de-CH:
       share: Oder teile diese Seite
       title: Jetzt mehr erfahren
       via_link: via Link
+    navbar:
+      demo: Eine Demo erhalten
+      links:
+        about_us: Über uns
+        admin: Administration
+        recruiting: Rekrutieren
+  layouts:
+    application:
+      meta:
+        description: Mit MyZivi Admin können Zivi-Einsätze, Spesenabrechnungen und Einsatzvereinbarungen einfach erstellt und verwaltet werden.
+        og_title: MyZivi Admin
+      title: MyZivi Admin - Einsätze einfach verwalten
   lead_person_html: 'Leitende Person: %{link}'
   loading: Lade...
   mailing_list:

@@ -1,2 +1,1 @@
-import './theme';
-import './my_zivi_transparent.png';
+require.context('.', true);

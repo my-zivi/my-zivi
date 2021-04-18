@@ -3,13 +3,13 @@
 .name-initials-container .initials {
   width: 100px;
   height: 100px;
-  background-image: linear-gradient($light-gray, $gray);
-  background-color: $gray;
-  border-radius: 50%;
-  color: $white;
   font-size: 2.5rem;
-  text-align: center;
   line-height: 100px;
+  color: $white;
+  text-align: center;
+  background-color: $gray;
+  background-image: linear-gradient($light-gray, $gray);
+  border-radius: 50%;
 }
 
 .name-initials-container {

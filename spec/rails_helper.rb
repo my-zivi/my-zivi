@@ -8,6 +8,8 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'selenium/webdriver'
 require 'cancan/matchers'
+require 'super_diff/rspec-rails'
+require 'vcr'
 
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
@@ -30,6 +32,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
   config.include HaveInputFieldMatcher, type: :view
+  config.include JavaScriptErrorReporter, type: :system, js: true
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -51,21 +54,6 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
-  config.after(:each, type: :system, js: true) do
-    errors = page.driver.browser.manage.logs.get(:browser)
-    if errors.present?
-      aggregate_failures 'javascript errors' do
-        errors.each do |error|
-          expect(error.level).not_to eq('SEVERE'), error.message
-          next unless error.level == 'WARNING'
-
-          warn 'WARN: javascript warning'
-          warn error.message
-        end
-      end
-    end
-  end
-
   config.around(:each, :without_bullet) do |spec|
     previous_value = Bullet.enable?
     Bullet.enable = false
@@ -80,4 +68,12 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
     with.library :rails
   end
+end
+
+VCR.configure do |config|
+  config.ignore_hosts '127.0.0.1', 'localhost', 'chromedriver.storage.googleapis.com'
+  config.cassette_library_dir = 'spec/vcr_cassettes'
+  config.hook_into :webmock
+  config.configure_rspec_metadata!
+  config.default_cassette_options = { record: :new_episodes } unless ENV['CI']
 end

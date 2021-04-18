@@ -62,6 +62,10 @@ Rails/Output:
     - 'db/seeds.rb'
     - 'db/seed_data/*.rb'
 
+Rails/OutputSafety:
+  Exclude:
+    - 'spec/helpers/*.rb'
+
 RSpec/NestedGroups:
   Max: 6
 

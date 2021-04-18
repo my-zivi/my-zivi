@@ -14,6 +14,7 @@ gem 'fillable-pdf'
 gem 'hexapdf'
 gem 'holidays'
 gem 'iban-tools'
+gem 'nokogiri'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'prawn'
 gem 'prawn-table'
@@ -80,7 +81,10 @@ group :test do
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'simplecov-console'
+  gem 'super_diff'
   gem 'test-prof'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

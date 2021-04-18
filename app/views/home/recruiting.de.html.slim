@@ -1,0 +1,106 @@
+- content_for(:container_class, 'index-container')
+= render 'home/navbar'
+
+.hero
+  .container
+    .hero-content.text-center.w-100
+      h1 Rekrutieren
+      h2.h3 Mach es Dir einfach, Zivis zu rekrutieren
+
+section.admin-features
+  .container
+    .row.mt-5
+      .col-12.col-md-6.text-center.text-md-right
+        = webp_picture_pack_tag 'home/recruiting/service_agreement.webp', class: 'w-100', alt: 'Einsatzausschreibung'
+      .col-12.col-md-6.mt-3.mt-md-0
+        .text-uppercase.text-muted.my-3 Einsatzausschreibungen
+        h4 Starkes Employer Branding
+        p
+          | Mit einem angepassten Betriebsprofil ziehst Du die besten Zivis an.
+            Erzähle möglichen Bewerbern über Dein Team und Dein Betrieb.
+    hr.d-md-none.my-4
+    .row.mt-5
+      .col-12.col-md-6.text-center.text-md-left.order-0.order-md-1
+        = webp_picture_pack_tag 'home/recruiting/profile.webp', class: 'w-100', alt: 'Profileditor'
+      .col-12.col-md-6.mt-3.mt-md-0.order-1.order-md-0
+        .text-uppercase.text-muted.my-3 Bewerbungsablauf
+        h4 Mehr Bewerbungen
+        p
+          | Ein übersichtliches Einsatzprofil generiert mehr Bewerbungen.
+            Erzähle mit einfachem Text was für Tätigkeiten Zivis bei Dir wahrnehmen.
+            Zivis finden einfach Deinen Einsatz.
+            Zeige auf, was für ein Mehrwert Zivis bei einem Einsatz bei Dir haben.
+            Zivis können einfach Deinen Einsatz mit Kollegen teilen.
+    hr.d-md-none.my-4
+    .row.mt-5
+      .col-12.col-md-6.text-center.text-md-right
+        = webp_picture_pack_tag 'home/recruiting/kanban.webp', class: 'w-100', alt: 'Bewerbungs-Board'
+      .col-12.col-md-6.mt-3.mt-md-0
+        .text-uppercase.text-muted.my-3 Bewerbungen abhandeln
+        h4 Strukturiere Bewerbungsprozesse
+        p
+          | Mit einem integrierten Bewerbungssystem hast Du stets die Übersicht über all Deine Bewerbungen.
+
+section.quote
+  .container
+    h3.section-title Aus dem Öffenlichen
+    .text-center.w-100.mt-3
+      i.far.fa-comment-alt.fa-3x
+  .quote-container
+    .container
+      .container-fluid
+        blockquote
+          | “MyZivi ist die ideale SaaS-Plattform für Betriebe und Zivis die einander für einen Einsatz suchen.
+              Eine robuste Technologie, ein gut aufgestelltes Team und digitalisierte Prozesse helfen Betrieben
+              mehr Sichtbarkeit für Ihre Einsätze zu schaffen und Ihren Arbeitsaufwand zu minimieren.”
+      p.text-center
+        | — Chris Russ, TechAdvisor, Dozent und Studiengangsleiter MAS IT-Leadership & TechManagement ZHAW
+
+
+section.faq
+  .container
+    h3.section-title Häufig gestellte Fragen
+    p.section-subtitle Hier findest Du die Antworten zu den meist gestellten Fragen.
+
+    #faqAccordion.accordion
+      = render CardAccordionEntryComponent.new(title: 'Was ist eigentlich MyZivi?', parent_id: 'faqAccordion', expanded: true) do
+        p
+          | MyZivi ist ein digitales Tool, dass Sie in drei Themen unterstützt:
+            Mit MyZivi erstellen Sie digitale Einsatzvereinbarungen,
+            vereinfachen Ihre Spesenauszahlung und rekrutieren neue Zivis.
+      = render CardAccordionEntryComponent.new(title: 'Wie funktioniert MyZivi?', parent_id: 'faqAccordion') do
+        p
+          | MyZivi kann mit jedem Browser (Internet Explorer, Google Chrome, Firefox, Opera etc.)
+            benutzt werden. Sie haben jederzeit und überall Zugriff auf das Tool.
+      = render CardAccordionEntryComponent.new(title: 'Wer steht hinter MyZivi?', parent_id: 'faqAccordion') do
+        p
+          | MyZivi wurde von Lukas Bischof, Joshua Devadas und Philipp Fehr gegründet.
+            Philipp und Lukas, beides ehemalige Zivis, kennen die Probleme,
+            die Betriebe haben und gemeinsam versuchen wir,
+            die administrativen Aufwände für Betriebe zu vereinfachen.
+      = render CardAccordionEntryComponent.new(title: 'Was ist der Zusammenhang zwischen MyZivi und dem Bundesamt für Zivildienst?',
+                                               parent_id: 'faqAccordion') do
+        p
+          | MyZivi ist nicht Teil von EZIVI oder vom Bundesamt für Zivildienst.
+            Wir bieten Ihnen ein externes Tool an, dass Sie in Administration und Rekrutierung von Zivis unterstützt.
+      = render CardAccordionEntryComponent.new(title: 'Was kostet MyZivi?', parent_id: 'faqAccordion') do
+        p
+          | MyZivi kostet grundsätzlich 20 CHF pro Zivi pro Monat.
+            Für Early Adopters (Kauf bis Juni 2021) gilt ein Rabatt für die Nutzung im ersten Jahr.
+            Während dieser Zeit kostet das gesamte Tool nur 5 CHF pro Monat
+      = render CardAccordionEntryComponent.new(title: 'Wie kann ich mit MyZivi starten?', parent_id: 'faqAccordion') do
+        p
+          | Schreiben Sie eine kurze Mail an joshua.devadas@myzivi.ch oder rufen Sie uns unter 076 528 25 02 an.
+            Gerne werden wir hier die weiteren Schritte besprechen.
+            Nach einer ersten Vorabklärung werden wir Sie bitten, uns Ihr Logo,
+            Betriebsnamen und einige weitere Informationen zuzustellen.
+            Nach 2 - 3 Arbeitstagen wird Ihr MyZivi bereit stehen.
+      = render CardAccordionEntryComponent.new(title: 'Was sind die Vorteile von MyZivi?', parent_id: 'faqAccordion') do
+        p
+          | Mit MyZivi sparen Sie bis zu 4 Stunden administrative Arbeiten pro Monat,
+            schonen die Natur durch komplette Digitalisierung und rekrutieren Zivis aus einem erweiterten Pool.
+      = render CardAccordionEntryComponent.new(title: 'Was, wenn ich nach kurzer Zeit MyZivi nicht mehr verwenden will?',
+                                               parent_id: 'faqAccordion') do
+        p
+          | Sie können MyZivi jederzeit kündigen. Ihre Daten werden Ihnen in Ordnerstruktur zur Verfügung gestellt
+= render 'home/footer'

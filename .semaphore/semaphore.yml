@@ -21,9 +21,9 @@ blocks:
       jobs:
         - name: cache
           commands:
-            - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
+            - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
             - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
-            - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
+            - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
             - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
             - bundle install --deployment -j 4 --path vendor/bundle
             - nvm install
@@ -50,9 +50,9 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
+          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
           - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
-          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
+          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
           - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
           - bundle install --deployment --path vendor/bundle
           - nvm install
@@ -74,6 +74,11 @@ blocks:
             - sem-service start postgres 12
             - 'bundle exec rails db:create db:structure:load'
             - bin/system-tests
+      epilogue:
+        on_fail:
+          commands:
+            - artifact push job logs/test.log
+            - artifact push job screenshots
   - name: Percy
     dependencies:
       - Tests
@@ -88,9 +93,9 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
+          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
           - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
-          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
+          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
           - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
           - sudo apt-get update
           - sudo apt-get install libxss1
@@ -103,9 +108,16 @@ blocks:
         - name: Capture Screenshots
           commands:
             - NO_COVERAGE=true yarn run percy:capture-screenshots
+      epilogue:
+        on_fail:
+          commands:
+            - artifact push job log/test.log
+            - artifact push job screenshots
   - name: Performance Check
     dependencies:
       - Cache
+    run:
+      when: "branch = 'master' OR branch = 'develop'"
     task:
       secrets:
         - name: my-zivi
@@ -114,8 +126,6 @@ blocks:
           value: 'postgresql://postgres@localhost/test?encoding=utf8'
         - name: RAILS_ENV
           value: production
-        - name: NODE_ENV
-          value: production
         - name: RAILS_SERVE_STATIC_FILES
           value: 'true'
         - name: SECRET_KEY_BASE
@@ -123,9 +133,9 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
+          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
           - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
-          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
+          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
           - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
           - sudo apt-get update
           - sudo apt-get install libxss1

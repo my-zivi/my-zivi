@@ -48,7 +48,7 @@ RSpec.describe CivilServants::ServicesController, type: :request do
             I18n.t('base.services.short_info_cell.service_with', org_name: service.organization.name),
             service_spec.name,
             service_spec.location,
-            I18n.t('base.services.short_info_cell.service_duration',
+            I18n.t('civil_servants.services.table_row.service_duration',
                    beginning_date: I18n.l(service.beginning), ending_date: I18n.l(service.ending)),
             I18n.t(service.confirmation_date.present?,
                    scope: %i[base services short_info_cell service_confirmed])
@@ -62,7 +62,7 @@ RSpec.describe CivilServants::ServicesController, type: :request do
             I18n.t('base.services.short_info_cell.service_with', org_name: service.organization.name),
             service_spec.name,
             service_spec.location,
-            I18n.t('base.services.short_info_cell.service_duration',
+            I18n.t('civil_servants.services.table_row.service_duration',
                    beginning_date: I18n.l(service.beginning), ending_date: I18n.l(service.ending))
           ]
         end

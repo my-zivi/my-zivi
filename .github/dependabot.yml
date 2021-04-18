@@ -1,0 +1,28 @@
+# https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - ruby
+    rebase-strategy: auto
+    open-pull-requests-limit: 2
+    target-branch: develop
+    pull-request-branch-name:
+      separator: "-"
+    versioning-strategy: increase-if-necessary
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: monthly
+    labels:
+      - javascript
+    open-pull-requests-limit: 2
+    rebase-strategy: auto
+    target-branch: develop
+    pull-request-branch-name:
+      separator: "-"
+    versioning-strategy: increase
