@@ -3,7 +3,7 @@ section.contact
     .text-center.text-white
       .h3.text-white Hast Du noch Fragen zu MyZivi?
       p Schreib uns eine kurze Nachricht und wir melden uns gerne bei Dir innerhalb von 24 Stunden
-      .btn.btn-secondary Anfrage senden
+      = mail_to 'info@myzivi.ch', 'Anfrage senden', subject: 'Anfrage zu MyZivi', class: 'btn btn-secondary'
 footer
   .container
     .d-flex.justify-content-between.flex-column.flex-md-row

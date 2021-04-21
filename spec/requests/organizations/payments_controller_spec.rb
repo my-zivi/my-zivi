@@ -213,12 +213,12 @@ RSpec.describe Organizations::PaymentsController, type: :request do
 
           before do
             allow(PainGenerationService).to receive(:call).and_raise(exception)
-            stub_const('Raven', instance_double('Raven', capture_exception: true))
+            stub_const('Sentry', instance_double('Sentry', capture_exception: true))
           end
 
           it 'tracks the error with additional context on Sentry' do
             expect { perform_request }.to raise_exception StandardError
-            expect(Raven).to have_received(:capture_exception).with(exception, extra: hash_including(
+            expect(Sentry).to have_received(:capture_exception).with(exception, extra: hash_including(
               action: be_a(String),
               payment_id: payment.id
             ))

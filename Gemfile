@@ -11,6 +11,7 @@ gem 'devise-i18n'
 gem 'devise_invitable'
 gem 'dotenv-rails'
 gem 'fillable-pdf'
+gem 'flutie'
 gem 'hexapdf'
 gem 'holidays'
 gem 'iban-tools'
@@ -39,7 +40,8 @@ gem 'rails_admin', '~> 2.0'
 group :production do
   gem 'lograge'
   gem 'norobots'
-  gem 'sentry-raven'
+  gem "sentry-ruby"
+  gem "sentry-rails"
 end
 
 group :development, :test do
