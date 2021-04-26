@@ -75,3 +75,16 @@ section.contact {
     width: 75%;
   }
 }
+
+.steps-badge {
+  $size: 30px;
+  width: $size;
+  height: $size;
+  border-radius: $size / 2;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid $blue;
+  color: $blue;
+}
