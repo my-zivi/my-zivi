@@ -30,10 +30,10 @@
       | Die Preise richten sich nach Anzahl Zivis, die zeitgleich bei Dir im Einsatz sind.
         Grundsätzlich zahlst Du 10 CHF / Monat pro Zivi.
         Sobald Du mehr als 5 Zivis zeitgleich im Einsatz hast, gibts einen Rabatt.
-      =< link_to('Vereinbare einen kurzen Beratungstermin mit uns, um mehr zu erfahren.', ENV['DEMO_PATH'])
+      =< link_to('Vereinbare einen kurzen Beratungstermin mit uns, um mehr zu erfahren.', ENV['DEMO_URL'])
   = render CardAccordionEntryComponent.new(title: 'Wie kann ich mit MyZivi starten?', parent_id: 'faqAccordion') do
     p
-      => link_to('Vereinbare einen kurzen Beratungstermin', ENV['DEMO_PATH'])
+      => link_to('Vereinbare einen kurzen Beratungstermin', ENV['DEMO_URL'])
       | mit uns und wir führen Dich durch eine kurze Demo.
         Falls MyZivi das richtige für Deinen Betrieb ist, senden wir Dir einen Vertrag zu.
         Sobald Du uns diesen unterschrieben digital zurücksendest,
