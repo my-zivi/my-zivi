@@ -78,9 +78,9 @@ module Organizations
       return unless defined? Sentry
 
       Sentry.capture_exception(exception, extra: {
-                                action: 'SEPA generation',
-                                payment_id: @payment.id
-                              })
+                                 action: 'SEPA generation',
+                                 payment_id: @payment.id
+                               })
     end
 
     def load_accessible_expense_sheets

@@ -40,8 +40,8 @@ gem 'rails_admin', '~> 2.0'
 group :production do
   gem 'lograge'
   gem 'norobots'
-  gem "sentry-ruby"
-  gem "sentry-rails"
+  gem 'sentry-rails'
+  gem 'sentry-ruby'
 end
 
 group :development, :test do

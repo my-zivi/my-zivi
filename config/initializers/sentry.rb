@@ -4,7 +4,7 @@ if defined? Sentry
   Sentry.init do |config|
     config.dsn = ENV['SENTRY_DSN']
     config.breadcrumbs_logger = [:active_support_logger]
-    config.environment = ENV['SE']
+    config.environment = ENV['SENTRY_ENVIRONMENT']
 
     filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
 
@@ -12,13 +12,7 @@ if defined? Sentry
       filter.filter(event.to_hash)
     end
 
-    # To activate performance monitoring, set one of these options.
-    # We recommend adjusting the value in production:
+    # Performance Monitoring
     config.traces_sample_rate = 0.5
-    # or
-    config.traces_sampler = lambda do |context|
-      true
-    end
   end
 end
-
