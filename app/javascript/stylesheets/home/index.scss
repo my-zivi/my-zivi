@@ -78,13 +78,13 @@ section.contact {
 
 .steps-badge {
   $size: 30px;
-  width: $size;
-  height: $size;
-  border-radius: $size / 2;
-  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid $blue;
+  width: $size;
+  height: $size;
+  font-weight: 600;
   color: $blue;
+  border: 2px solid $blue;
+  border-radius: $size / 2;
 }

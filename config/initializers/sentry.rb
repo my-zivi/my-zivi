@@ -8,9 +8,7 @@ if defined? Sentry
 
     filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
 
-    config.before_send = lambda do |event, _hint|
-      filter.filter(event.to_hash)
-    end
+    config.before_send = ->(event, _hint) { filter.filter(event.to_hash) }
 
     # Performance Monitoring
     config.traces_sample_rate = 0.5

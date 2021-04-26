@@ -565,7 +565,10 @@ RSpec.describe Service, type: :model do
         end.not_to change(ExpenseSheet, :count)
 
         expect(confirmed).to eq false
-        expect(Sentry).to have_received(:capture_exception).with(be_instance_of(ActiveRecord::RecordInvalid), be_a(Hash))
+        expect(Sentry).to(
+          have_received(:capture_exception)
+            .with(be_instance_of(ActiveRecord::RecordInvalid), be_a(Hash))
+        )
       end
     end
 
