@@ -75,12 +75,12 @@ module Organizations
     end
 
     def track_payment_generation_error(exception)
-      return unless defined? Raven
+      return unless defined? Sentry
 
-      Raven.capture_exception(exception, extra: {
-                                action: 'SEPA generation',
-                                payment_id: @payment.id
-                              })
+      Sentry.capture_exception(exception, extra: {
+                                 action: 'SEPA generation',
+                                 payment_id: @payment.id
+                               })
     end
 
     def load_accessible_expense_sheets

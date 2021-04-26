@@ -141,7 +141,7 @@ de-CH:
       meta:
         description: Mit MyZivi Admin können Zivi-Einsätze, Spesenabrechnungen und Einsatzvereinbarungen einfach erstellt und verwaltet werden.
         og_title: MyZivi Admin
-      title: MyZivi Admin - Einsätze einfach verwalten
+      title: MyZivi
   lead_person_html: 'Leitende Person: %{link}'
   loading: Lade...
   mailing_list:
