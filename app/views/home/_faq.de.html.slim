@@ -11,7 +11,7 @@
         Spesen automatisch auszahlen und mit Deinen Kollegen gemeinsam Zivis verwalten.
   = render CardAccordionEntryComponent.new(title: 'Wie funktioniert MyZivi?', parent_id: 'faqAccordion') do
     p
-      | MyZivi kann mit jedem Browser (Internet Explorer, Google Chrome, Firefox, Opera etc.) benutzt werden.
+      | MyZivi kann mit jedem Browser (Google Chrome, Firefox, Safari, Opera, Edge etc.) benutzt werden.
         Du kannst MyZivi sogar mit Deinem Mobiltelefon bedienen.
         Solange Du eine Internetverbindung hast, kannst Du überall auf der Welt auf MyZivi zugreifen.
   = render CardAccordionEntryComponent.new(title: 'Wer steht hinter MyZivi?', parent_id: 'faqAccordion') do
@@ -30,10 +30,11 @@
       | Die Preise richten sich nach Anzahl Zivis, die zeitgleich bei Dir im Einsatz sind.
         Grundsätzlich zahlst Du 10 CHF / Monat pro Zivi.
         Sobald Du mehr als 5 Zivis zeitgleich im Einsatz hast, gibts einen Rabatt.
-        Vereinbare einen kurzen Beratungstermin mit uns, um mehr zu erfahren.
+      =< link_to('Vereinbare einen kurzen Beratungstermin mit uns, um mehr zu erfahren.', ENV['DEMO_PATH'])
   = render CardAccordionEntryComponent.new(title: 'Wie kann ich mit MyZivi starten?', parent_id: 'faqAccordion') do
     p
-      | Vereinbare einen kurzen Beratungstermin mit uns und wir führen Dich durch eine kurze Demo.
+      => link_to('Vereinbare einen kurzen Beratungstermin', ENV['DEMO_PATH'])
+      | mit uns und wir führen Dich durch eine kurze Demo.
         Falls MyZivi das richtige für Deinen Betrieb ist, senden wir Dir einen Vertrag zu.
         Sobald Du uns diesen unterschrieben digital zurücksendest,
         dauert es 24 Stunden bis Dein MyZivi-Konto bereit steht.
