@@ -1,4 +1,4 @@
-<% if defined?(Raven) %>
+<% if defined?(Sentry) %>
   <script type="application/javascript">
     window.sentryConfig = { dsn: '<%= ENV['SENTRY_DSN']%>', environment: '<%= ENV['SENTRY_ENVIRONMENT']%>' };
   </script>

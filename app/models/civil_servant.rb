@@ -65,6 +65,6 @@ class CivilServant < ApplicationRecord
   def update_address
     address.update!(primary_line: full_name)
   rescue ActiveRecord::RecordInvalid => e
-    Raven.capture_exception(e, extra: address.errors) if defined? Raven
+    Sentry.capture_exception(e, extra: address.errors) if defined? Sentry
   end
 end

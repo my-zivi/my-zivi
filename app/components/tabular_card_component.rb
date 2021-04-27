@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TabularCardComponent < ViewComponent::Base
-  with_content_areas :actions
+  with_content_areas :actions, :footer
 
   def initialize(title:, table_content:)
     super

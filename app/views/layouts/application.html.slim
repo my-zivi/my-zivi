@@ -1,7 +1,7 @@
 doctype html
-html
+html lang="de"
   head
-    title = t('my_zivi')
+    title = page_title(app_name: t('layouts.application.title'), separator: ' | ')
     = render 'layouts/meta_tags'
     = csrf_meta_tags
     = csp_meta_tag
@@ -24,4 +24,3 @@ html
             .container
               = render 'base/dismissible_flash_messages'
         = yield
-    = javascript_pack_tag 'falcon', 'data-turbolinks-track': 'reload'

@@ -1,10 +1,13 @@
 .card.mb-3.overflow-hidden.animatable-card.overview-card[data-card]
   .card-header.d-flex.flex-between-center.align-items-center
     h4 = @title
-    div[data-actions] = actions
+    .flex-shrink-0[data-actions] = actions
   .card-body.position-relative
     .fs-1.mb-2
       .row.text-wrap
         - @table_content.each do |key, value|
           .mb-lg-1.col-12.col-xxl-5.font-weight-bold[data-key] = key
           .mb-1.col-12.col-xxl-7[data-value] = value
+  - if footer
+    .card-footer.border-top
+      = footer

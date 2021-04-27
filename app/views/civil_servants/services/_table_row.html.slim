@@ -1,0 +1,26 @@
+tr[class=service_row_class(service)]
+  td
+    .media
+      .calendar
+        span.calendar-month = l(service.beginning, format: '%b')
+        span.calendar-day = l(service.beginning, format: '%d')
+  td = t('base.services.short_info_cell.service_with', org_name: service.organization.name)
+  td = t('.service_duration', beginning_date: l(service.beginning), ending_date: l(service.ending))
+  td = service.service_specification.name
+  td = service.service_specification.location
+  td = service_confirmation_text(service)
+  td
+    .dropdown.text-sans-serif
+      button.btn.btn-link.text-600.btn-sm.dropdown-toggle.btn-reveal.mr-3 aria-expanded="false" aria-haspopup="true" data-boundary="viewport" data-toggle="dropdown" type="button"
+        i.fas.fa-ellipsis-h.fs--1
+      .dropdown-menu.dropdown-menu-right.border.py-0 aria-labelledby="order-dropdown-0"
+        .bg-white.py-2
+          = link_to civil_servants_service_path(service), class: 'dropdown-item' do
+            i.fas.fa-eye.mr-1
+            = t('organizations.overview.index.cards.services_table.actions.details')
+          - if service.confirmation_date.nil?
+            = link_to civil_servants_service_path(service, format: :pdf),
+                    class: 'dropdown-item' do
+              i.fas.fa-download.mr-1
+              = t('.actions.download')
+

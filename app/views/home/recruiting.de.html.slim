@@ -1,0 +1,68 @@
+- content_for(:container_class, 'index-container')
+- content_for(:page_title, 'Recruiting - Den passenden Zivi finden')
+= render 'home/navbar'
+
+.hero
+  .container
+    .hero-content.text-center.w-100
+      h1 Rekrutieren
+      h2.h3 Mach es Dir einfach, Zivis zu rekrutieren
+
+section.admin-features
+  .container
+    .row.mt-5
+      .col-12.col-md-6.text-center.text-md-right
+        = webp_picture_pack_tag 'home/recruiting/service_agreement.webp', class: 'w-100', alt: 'Einsatzausschreibung'
+      .col-12.col-md-6.mt-3.mt-md-0
+        .text-uppercase.text-muted.my-3 Einsatzausschreibungen
+        h4 Starkes Employer Branding
+        p
+          | Mit einem angepassten Betriebsprofil ziehst Du die besten Zivis an.
+            Erzähle möglichen Bewerbern über Dein Team und Deinen Betrieb.
+    hr.d-md-none.my-4
+    .row.mt-5
+      .col-12.col-md-6.text-center.text-md-left.order-0.order-md-1
+        = webp_picture_pack_tag 'home/recruiting/profile.webp', class: 'w-100', alt: 'Profileditor'
+      .col-12.col-md-6.mt-3.mt-md-0.order-1.order-md-0
+        .text-uppercase.text-muted.my-3 Bewerbungsablauf
+        h4 Mehr Bewerbungen
+        p
+          | Ein übersichtliches Einsatzprofil generiert mehr Bewerbungen.
+            Erzähle mit einfachem Text was für Tätigkeiten Zivis bei Dir wahrnehmen.
+            Zivis finden einfach Deinen Einsatz.
+            Zeige auf, was für ein Mehrwert Zivis bei einem Einsatz bei Dir haben.
+            Zivis können einfach Deinen Einsatz mit Kollegen teilen.
+    hr.d-md-none.my-4
+    .row.mt-5
+      .col-12.col-md-6.text-center.text-md-right
+        = webp_picture_pack_tag 'home/recruiting/kanban.webp', class: 'w-100', alt: 'Bewerbungs-Board'
+      .col-12.col-md-6.mt-3.mt-md-0
+        .text-uppercase.text-muted.my-3 Bewerbungen abhandeln
+        h4 Strukturiere Bewerbungsprozesse
+        p
+          | Mit einem integrierten Bewerbungssystem hast Du stets die Übersicht über all Deine Bewerbungen.
+
+section.quote
+  .container
+    h3.section-title Aus dem Öffenlichen
+    .text-center.w-100.mt-3
+      i.far.fa-comment-alt.fa-3x
+  .quote-container
+    .container
+      .container-fluid
+        blockquote
+          | “MyZivi ist die ideale SaaS-Plattform für Betriebe und Zivis die einander für einen Einsatz suchen.
+              Eine robuste Technologie, ein gut aufgestelltes Team und digitalisierte Prozesse helfen Betrieben
+              mehr Sichtbarkeit für Ihre Einsätze zu schaffen und Ihren Arbeitsaufwand zu minimieren.”
+      p.text-center
+        | — Chris Russ, TechAdvisor, Dozent und Studiengangsleiter MAS IT-Leadership & TechManagement ZHAW
+
+
+section.faq
+  .container
+    h3.section-title Häufig gestellte Fragen
+    p.section-subtitle Hier findest Du die Antworten zu den meist gestellten Fragen.
+
+    = render 'home/faq'
+
+= render 'home/footer'

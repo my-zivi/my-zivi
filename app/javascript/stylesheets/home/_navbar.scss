@@ -1,0 +1,17 @@
+$navbar-height: 73px;
+
+.my-zivi-top-navbar {
+  position: fixed;
+  z-index: $zindex-tooltip + 100;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba($black, .2);
+
+  .my-zivi-logo {
+    vertical-align: sub;
+  }
+}
+
+.navbar-spacer {
+  position: static;
+  height: $navbar-height;
+}

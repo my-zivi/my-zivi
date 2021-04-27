@@ -13,6 +13,7 @@ module AuthenticableAndAuthorizable
       respond_to do |format|
         format.html { render plain: I18n.t('not_allowed'), status: :unauthorized }
         format.json { render json: { error: I18n.t('not_allowed'), status: 401 }, status: :unauthorized }
+        format.pdf { render plain: I18n.t('not_allowed'), status: :unauthorized }
       end
     end
   end

@@ -11,9 +11,11 @@ gem 'devise-i18n'
 gem 'devise_invitable'
 gem 'dotenv-rails'
 gem 'fillable-pdf'
+gem 'flutie'
 gem 'hexapdf'
 gem 'holidays'
 gem 'iban-tools'
+gem 'nokogiri'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'prawn'
 gem 'prawn-table'
@@ -38,7 +40,8 @@ gem 'rails_admin', '~> 2.0'
 group :production do
   gem 'lograge'
   gem 'norobots'
-  gem 'sentry-raven'
+  gem 'sentry-rails'
+  gem 'sentry-ruby'
 end
 
 group :development, :test do
@@ -73,14 +76,17 @@ end
 
 group :test do
   gem 'climate_control'
-  gem 'i18n-tasks', '~> 0.9.31'
+  gem 'i18n-tasks'
   gem 'pdf-inspector', require: 'pdf/inspector'
   gem 'percy-capybara'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'simplecov-console'
+  gem 'super_diff'
   gem 'test-prof'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

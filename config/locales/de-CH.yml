@@ -4,6 +4,10 @@ de-CH:
     back: Zurück
     complete: Abschliessen
     next: Weiter
+  activerecord:
+    attributes:
+      service:
+        status: Status
   administrator: Administrator
   base:
     civil_servants:
@@ -49,6 +53,7 @@ de-CH:
             title: Persönliche Informationen
           service_specific_information:
             title: Einsatzspezifische Informationen
+        change_password: Passwort ändern
       update:
         successfully_updated: Erfolgreich aktualisiert
     overview:
@@ -86,6 +91,8 @@ de-CH:
         title: Einsatzvereinbarungen
     services:
       index:
+        duration: Dauer
+        service_title: Einsatzbeschrieb
         services: Meine Einsätze
         show_past_services: Vergangene Einsätze anzeigen
       show:
@@ -93,6 +100,10 @@ de-CH:
         expense_sheets: Spesenblätter
         organization_information: Informationen zum Betrieb
         schedule_information: Einsatz Informationen
+      table_row:
+        actions:
+          download: Einsatzvereinbarung herunterladen
+        service_duration: "%{beginning_date} bis %{ending_date}"
   date:
     formats:
       default: "%d.%m.%Y"
@@ -119,6 +130,18 @@ de-CH:
       share: Oder teile diese Seite
       title: Jetzt mehr erfahren
       via_link: via Link
+    navbar:
+      demo: Eine Demo erhalten
+      links:
+        about_us: Über uns
+        admin: Administration
+        recruiting: Rekrutieren
+  layouts:
+    application:
+      meta:
+        description: Mit MyZivi Admin können Zivi-Einsätze, Spesenabrechnungen und Einsatzvereinbarungen einfach erstellt und verwaltet werden.
+        og_title: MyZivi Admin
+      title: MyZivi
   lead_person_html: 'Leitende Person: %{link}'
   loading: Lade...
   mailing_list:
@@ -165,6 +188,7 @@ de-CH:
         erroneous_delete: Mitarbeiter konnte nicht gelöscht werden
         successfully_deleted: Mitarbeiter erfolgreich gelöscht
       edit:
+        change_password: Passwort ändern
         destroy_organization_member: Mitarbeiter löschen
         destroy_organization_member_confirmation: Mitarbeiter wirklich löschen?
         pending_invitation: Bitte bestätigen sie die neue E-Mail Adresse mithilfe des Links, welcher an %{email} gesendet wurde.
@@ -355,6 +379,8 @@ de-CH:
       title:
         with_date: Telefonliste vom %{beginning} bis %{ending}
         without_date: Telefonliste aktive Zivildienstleistende
+    service_agreement:
+      file_name: Einsatzvereinbarung_%{name}_%{beginning}_%{ending}.pdf
   print: Drucken
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein

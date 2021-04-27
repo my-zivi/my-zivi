@@ -6,7 +6,7 @@ module CivilServants
       tag.p(class: 'mb-0') do
         safe_join(
           [
-            (tag.i(class: 'fas fa-check mr-1') if service.confirmation_date.present?),
+            (tag.i(class: 'fas fa-check mr-1 text-success') if service.confirmation_date.present?),
             t(service.confirmation_date.present?,
               scope: %i[base services short_info_cell service_confirmed])
           ]

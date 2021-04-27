@@ -1,0 +1,31 @@
+.employee-container
+  .employee-picture
+    = webp_picture_pack_tag 'home/about_us/philipp.webp',
+            class: 'd-block w-100 employee-portrait',
+            fallback: :jpg,
+            alt: 'Philipp Fehr'
+  .employee-info
+    .content
+      .content-header
+        h3.font-weight-bold Philipp Fehr
+        h5.mb-3 Co-Founder
+      .content-body
+        p
+          | Philipp ist Co-Founder & Software Engineer, ist ehemaliger Zivildienstleister
+            und kennt Lukas Bischof von seinem Einsatz im Zivildienst.
+        p
+          | Auch er hat eine abgeschlossene Ausbildung in Softwareentwicklung
+            und arbeitet zu 80% als Entwickler für einen CRM-Anbieter.
+        p
+          = link_to('https://www.linkedin.com/in/philipp-fehr-8168a5146',
+                  class: 'text-white mr-2',
+                  target: '_blank',
+                  rel: 'noreferrer nofollow noopener') do
+            i.fab.fa-linkedin
+          = mail_to('philipp.fehr@myzivi.ch', class: 'text-white mr-2')
+            i.fas.fa-envelope
+          = link_to('https://www.github.com/thefehr',
+                  class: 'text-white',
+                  target: '_blank',
+                  rel: 'noreferrer nofollow noopener') do
+            i.fab.fa-github

@@ -6,22 +6,9 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-import Rails from '@rails/ujs';
-import Turbolinks from 'turbolinks';
-
-import $ from 'jquery';
-
 import '@fortawesome/fontawesome-free/js/all.min';
 import 'bootstrap/dist/js/bootstrap.min';
 
-import '../channels';
 import '../stylesheets/application.scss';
 import '../images';
-
-Rails.start();
-Turbolinks.start();
-
-window.jQuery = $;
-window.$ = $;
-
-FontAwesome.config.mutateApproach = 'sync';
+import '../../../lib/javascripts/modernizr';

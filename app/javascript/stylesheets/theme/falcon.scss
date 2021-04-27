@@ -1,24 +1,24 @@
+@import 'variables';
 @import '~@my-zivi/falcon/scss/theme/functions';
 @import '~@my-zivi/falcon/scss/theme/variables';
-@import 'variables';
 @import '~bootstrap/scss/bootstrap';
 @import '~@my-zivi/falcon/scss/theme/theme';
 @import '~flatpickr/dist/flatpickr.min';
 
 .corner-background-warning {
-  background-image: url("~@my-zivi/falcon/pages/assets/img/illustrations/corner-1.png");
+  background-image: url('~@my-zivi/falcon/pages/assets/img/illustrations/corner-1.png');
 }
 
 .corner-background-info {
-  background-image: url("~@my-zivi/falcon/pages/assets/img/illustrations/corner-2.png");
+  background-image: url('~@my-zivi/falcon/pages/assets/img/illustrations/corner-2.png');
 }
 
 .corner-background-success {
-  background-image: url("~@my-zivi/falcon/pages/assets/img/illustrations/corner-3.png");
+  background-image: url('~@my-zivi/falcon/pages/assets/img/illustrations/corner-3.png');
 }
 
 .corner-background-title {
-  background-image: url("~@my-zivi/falcon/pages/assets/img/illustrations/corner-4.png");
+  background-image: url('~@my-zivi/falcon/pages/assets/img/illustrations/corner-4.png');
 }
 
 
@@ -26,7 +26,7 @@
   transition: .25s box-shadow;
 
   &:hover {
-    box-shadow: 0 14px 28px 0 rgba(65, 69, 88, 0.15), 0 3px 6px 0 rgba(0, 0, 0, 0.09);
+    box-shadow: 0 14px 28px 0 rgba(65, 69, 88, .15), 0 3px 6px 0 rgba(0, 0, 0, .09);
   }
 }
 

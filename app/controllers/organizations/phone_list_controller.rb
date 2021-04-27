@@ -26,6 +26,7 @@ module Organizations
 
     def set_service_specifications
       @service_specifications = filtered_services
+                                .definitive
                                 .includes(:service_specification, civil_servant: %i[address user])
                                 .order(ending: :desc)
                                 .group_by { |service| service.service_specification.name }

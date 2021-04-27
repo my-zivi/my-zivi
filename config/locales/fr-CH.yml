@@ -4,6 +4,10 @@ fr-CH:
     back: Retour
     complete: Finaliser
     next: Continuer
+  activerecord:
+    attributes:
+      service:
+        status: Statut
   administrator: Administrator
   base:
     civil_servants:
@@ -49,6 +53,7 @@ fr-CH:
             title: Informations personnelles
           service_specific_information:
             title: Informations spécifiques à la mission
+        change_password: Changer de mot de passe
       update:
         successfully_updated: Mise à jour réussie
     overview:
@@ -86,6 +91,8 @@ fr-CH:
         title: Accord de service
     services:
       index:
+        duration: Durée
+        service_title: Description de l'affection
         services: Mes services
         show_past_services: Afficher les services passés
       show:
@@ -93,6 +100,10 @@ fr-CH:
         expense_sheets: Les notes de frais
         organization_information: Informations sur l'opération
         schedule_information: Informations sur les services
+      table_row:
+        actions:
+          download: Télécharger la convention d'affectation
+        service_duration: "%{beginning_date} á %{ending_date}"
   date:
     formats:
       default: "%d.%m.%Y"
@@ -119,6 +130,18 @@ fr-CH:
       share: Ou partagez cette page
       title: En savoir plus
       via_link: via le lien
+    navbar:
+      demo: Obtenir une démo
+      links:
+        about_us: ''
+        admin: Administration
+        recruiting: Recruter
+  layouts:
+    application:
+      meta:
+        description: Avec MyZivi Admin, les affectations civiles, les notes de frais et les contrats d'affectation peuvent être facilement créés et gérés.
+        og_title: MyZivi Admin
+      title: MyZivi Admin - Gérer facilement les déploiements
   lead_person_html: 'Personne responsable: %{link}'
   loading: En chargeant...
   mailing_list:
@@ -164,6 +187,7 @@ fr-CH:
         erroneous_delete: L'employé n'a pas pu être supprimé
         successfully_deleted: Employé supprimé avec succès
       edit:
+        change_password: Changer de mot de passe
         destroy_organization_member: Supprimer l'employé
         destroy_organization_member_confirmation: Supprimer réellement l'employé?
         pending_invitation: Veuillez confirmer la nouvelle adresse électronique avec le lien qui a été envoyé à %{email}.
@@ -354,6 +378,8 @@ fr-CH:
       title:
         with_date: Liste téléphonique de %{beginning} à %{ending}
         without_date: Liste téléphonique des civilists en activité
+    service_agreement:
+      file_name: Convention_d_affectation_%{name}_%{beginning}_%{ending}.pdf
   print: Imprimer
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.

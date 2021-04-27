@@ -48,7 +48,7 @@ RSpec.describe CivilServants::ServicesController, type: :request do
             I18n.t('base.services.short_info_cell.service_with', org_name: service.organization.name),
             service_spec.name,
             service_spec.location,
-            I18n.t('base.services.short_info_cell.service_duration',
+            I18n.t('civil_servants.services.table_row.service_duration',
                    beginning_date: I18n.l(service.beginning), ending_date: I18n.l(service.ending)),
             I18n.t(service.confirmation_date.present?,
                    scope: %i[base services short_info_cell service_confirmed])
@@ -62,7 +62,7 @@ RSpec.describe CivilServants::ServicesController, type: :request do
             I18n.t('base.services.short_info_cell.service_with', org_name: service.organization.name),
             service_spec.name,
             service_spec.location,
-            I18n.t('base.services.short_info_cell.service_duration',
+            I18n.t('civil_servants.services.table_row.service_duration',
                    beginning_date: I18n.l(service.beginning), ending_date: I18n.l(service.ending))
           ]
         end
@@ -124,18 +124,39 @@ RSpec.describe CivilServants::ServicesController, type: :request do
 
       before { sign_in civil_servant.user }
 
-      it 'returns http success and renders the service' do
-        perform_request
-        expect(response).to have_http_status(:success)
-        expect(response.body).to include(I18n.l(service.beginning), I18n.l(service.ending))
+      context 'when the format is html' do
+        it 'returns http success and renders the service' do
+          perform_request
+          expect(response).to have_http_status(:success)
+          expect(response.body).to include(I18n.l(service.beginning), I18n.l(service.ending))
+        end
+
+        context 'when the requested service belongs to another civil_servant' do
+          let(:civil_servant) { create :civil_servant, :full }
+
+          before { perform_request }
+
+          it_behaves_like 'unauthorized request'
+        end
       end
 
-      context 'when the requested service belongs to another civil_servant' do
-        let(:civil_servant) { create :civil_servant, :full }
+      context 'when the format is pdf' do
+        let(:perform_request) { get civil_servants_service_path(service, format: :pdf) }
 
-        before { perform_request }
+        it 'returns http success and renders the pdf' do
+          perform_request
+          expect(response).to have_http_status(:success)
+          expect(response.content_type).to eq 'application/pdf'
+          expect(response.content_length).to be_positive
+        end
 
-        it_behaves_like 'unauthorized request'
+        context 'when the requested service belongs to another civil_servant' do
+          let(:civil_servant) { create :civil_servant, :full }
+
+          before { perform_request }
+
+          it_behaves_like 'unauthorized request'
+        end
       end
     end
 
