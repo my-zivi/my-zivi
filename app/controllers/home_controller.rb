@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
+  before_action -> { I18n.locale = :'de-CH' }
+
   def index; end
 
   def administration; end

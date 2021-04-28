@@ -547,7 +547,7 @@ RSpec.describe Service, type: :model do
       create(:service, :unconfirmed, beginning: Date.parse('2020-07-06'), ending: Date.parse('2020-08-28'))
     end
 
-    before { stub_const('Raven', instance_double('Raven', capture_exception: true)) }
+    before { stub_const('Sentry', instance_double('Sentry', capture_exception: true)) }
 
     it 'sets the confirmation_date and generates expense sheets' do
       expect { confirmed }.to(change { service.reload.confirmation_date }.and(change(ExpenseSheet, :count).by(2)))
@@ -565,7 +565,10 @@ RSpec.describe Service, type: :model do
         end.not_to change(ExpenseSheet, :count)
 
         expect(confirmed).to eq false
-        expect(Raven).to have_received(:capture_exception).with(be_instance_of(ActiveRecord::RecordInvalid), be_a(Hash))
+        expect(Sentry).to(
+          have_received(:capture_exception)
+            .with(be_instance_of(ActiveRecord::RecordInvalid), be_a(Hash))
+        )
       end
     end
 
@@ -581,7 +584,7 @@ RSpec.describe Service, type: :model do
         end.not_to change(ExpenseSheet, :count)
 
         expect(confirmed).to eq false
-        expect(Raven).to have_received(:capture_exception).with(be_a(StandardError), be_a(Hash))
+        expect(Sentry).to have_received(:capture_exception).with(be_a(StandardError), be_a(Hash))
       end
     end
   end

@@ -1,4 +1,5 @@
 - content_for(:container_class, 'index-container')
+- content_for(:page_title, 'Admin - Einsätze einfach verwalten')
 = render 'home/navbar'
 
 .hero
@@ -37,7 +38,7 @@ section.admin-features
       .col-12.col-md-6.mt-3.mt-md-0
         .text-uppercase.text-muted.my-3 Planung
         h4 Erhalte die Übersicht der Einsätze
-        p  Plane Deine Einsätze voraus mit einer einfachen Übersicht
+        p Plane Deine Einsätze voraus mit einer einfachen Übersicht
 
 section.quote
   .container
@@ -54,51 +55,9 @@ section.quote
       p.text-center
         | — Chris Russ, TechAdvisor, Dozent und Studiengangsleiter MAS IT-Leadership & TechManagement ZHAW
 
-
 section.faq
   .container
     h3.section-title Häufig gestellte Fragen
     p.section-subtitle Hier findest Du die Antworten zu den meist gestellten Fragen.
-
-    #faqAccordion.accordion
-      = render CardAccordionEntryComponent.new(title: 'Was ist eigentlich MyZivi?', parent_id: 'faqAccordion', expanded: true) do
-        p
-          | MyZivi ist ein digitales Tool, dass Sie in drei Themen unterstützt:
-            Mit MyZivi erstellen Sie digitale Einsatzvereinbarungen,
-            vereinfachen Ihre Spesenauszahlung und rekrutieren neue Zivis.
-      = render CardAccordionEntryComponent.new(title: 'Wie funktioniert MyZivi?', parent_id: 'faqAccordion') do
-        p
-          | MyZivi kann mit jedem Browser (Internet Explorer, Google Chrome, Firefox, Opera etc.)
-            benutzt werden. Sie haben jederzeit und überall Zugriff auf das Tool.
-      = render CardAccordionEntryComponent.new(title: 'Wer steht hinter MyZivi?', parent_id: 'faqAccordion') do
-        p
-          | MyZivi wurde von Lukas Bischof, Joshua Devadas und Philipp Fehr gegründet.
-            Philipp und Lukas, beides ehemalige Zivis, kennen die Probleme,
-            die Betriebe haben und gemeinsam versuchen wir,
-            die administrativen Aufwände für Betriebe zu vereinfachen.
-      = render CardAccordionEntryComponent.new(title: 'Was ist der Zusammenhang zwischen MyZivi und dem Bundesamt für Zivildienst?',
-                                               parent_id: 'faqAccordion') do
-        p
-          | MyZivi ist nicht Teil von EZIVI oder vom Bundesamt für Zivildienst.
-            Wir bieten Ihnen ein externes Tool an, dass Sie in Administration und Rekrutierung von Zivis unterstützt.
-      = render CardAccordionEntryComponent.new(title: 'Was kostet MyZivi?', parent_id: 'faqAccordion') do
-        p
-          | MyZivi kostet grundsätzlich 20 CHF pro Zivi pro Monat.
-            Für Early Adopters (Kauf bis Juni 2021) gilt ein Rabatt für die Nutzung im ersten Jahr.
-            Während dieser Zeit kostet das gesamte Tool nur 5 CHF pro Monat
-      = render CardAccordionEntryComponent.new(title: 'Wie kann ich mit MyZivi starten?', parent_id: 'faqAccordion') do
-        p
-          | Schreiben Sie eine kurze Mail an joshua.devadas@myzivi.ch oder rufen Sie uns unter 076 528 25 02 an.
-            Gerne werden wir hier die weiteren Schritte besprechen.
-            Nach einer ersten Vorabklärung werden wir Sie bitten, uns Ihr Logo,
-            Betriebsnamen und einige weitere Informationen zuzustellen.
-            Nach 2 - 3 Arbeitstagen wird Ihr MyZivi bereit stehen.
-      = render CardAccordionEntryComponent.new(title: 'Was sind die Vorteile von MyZivi?', parent_id: 'faqAccordion') do
-        p
-          | Mit MyZivi sparen Sie bis zu 4 Stunden administrative Arbeiten pro Monat,
-            schonen die Natur durch komplette Digitalisierung und rekrutieren Zivis aus einem erweiterten Pool.
-      = render CardAccordionEntryComponent.new(title: 'Was, wenn ich nach kurzer Zeit MyZivi nicht mehr verwenden will?',
-                                               parent_id: 'faqAccordion') do
-        p
-          | Sie können MyZivi jederzeit kündigen. Ihre Daten werden Ihnen in Ordnerstruktur zur Verfügung gestellt
+    = render 'home/faq'
 = render 'home/footer'

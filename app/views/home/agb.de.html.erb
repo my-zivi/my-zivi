@@ -1,4 +1,5 @@
 <% content_for(:container_class, 'index-container') %>
+<% content_for(:page_title, 'AGB') %>
 <%= render 'home/navbar' %>
 
 <div class="hero">
@@ -203,7 +204,7 @@
       <ol>
         <li aria-level="1">Der Zugang zur und die Nutzung der Webseite ist für die Zivis kostenlos.</li>
         <li aria-level="1">Für das Erbringen der Dienstleistungen gemäss den Ziffern 3.1.2 und 3.1.3 bezahlt der Betrieb
-          MyZivi eine Gebühr gemäss <a href="https://www.myzivi.ch/employer-products/">Gebührenkatalog</a>. Der
+          MyZivi eine Gebühr gemäss Gebührenkatalog. Der
           Gebührenkatalog&nbsp; stellt einen integrierenden Bestandteil dieser AGB dar.
         </li>
       </ol>
@@ -314,9 +315,9 @@
       <ol>
         <li aria-level="1">Indem der Benutzer ein Benutzerkonto bei MyZivi erstellt, willigt er ein, dass MyZivi sowie
           die von MyZivi beigezogenen Hilfspersonen und Dienstleister seine Personendaten gemäss
-          <a href="https://www.myzivi.ch/datenschutzerkl%C3%A4rung/">Datenschutzerklärung</a> nutzen und bearbeiten und
+          <%= link_to 'Datenschutzerklärung', privacy_policy_path %> nutzen und bearbeiten und
           an Dritte weiterleiten. Die angehängte
-          <a href="https://www.myzivi.ch/datenschutzerkl%C3%A4rung/">Datenschutzerklärung&nbsp;</a> stellt einen
+          <%= link_to 'Datenschutzerklärung', privacy_policy_path %> stellt einen
           integrierenden Bestandteil dieser AGB dar.
         </li>
         <li aria-level="1">Die Benutzer sichern zu, die Personendaten der anderen Benutzer ausschliesslich unter

@@ -71,7 +71,7 @@ class Service < ApplicationRecord
       true
     end
   rescue StandardError => e
-    Raven.capture_exception(e, extra: { action: 'Service confirmation', service_id: id }) if defined? Raven
+    Sentry.capture_exception(e, extra: { action: 'Service confirmation', service_id: id }) if defined? Sentry
     false
   end
 

@@ -12,8 +12,20 @@ RSpec.describe HomeController, type: :request do
   end
 
   describe '#index' do
+    around do |spec|
+      I18n.locale.yield_self do |default_locale|
+        spec.run
+        I18n.locale = default_locale
+      end
+    end
+
     it_behaves_like 'can access home page' do
       let(:path) { root_path }
+    end
+
+    it 'uses german locale' do
+      I18n.locale = :'fr-CH'
+      expect { get path }.to(change(I18n, :locale).to(:'de-CH'))
     end
   end
 
