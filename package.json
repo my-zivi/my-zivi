@@ -32,8 +32,8 @@
   },
   "scripts": {
     "heroku-prebuild": "node ./bin/heroku-prebuild.js",
-    "lint": "eslint app/javascript",
-    "lint-style": "stylelint \"app/javascript/**/*.scss\" --color",
+    "lint": "eslint app/packs",
+    "lint-style": "stylelint \"app/packs/**/*.scss\" --color",
     "percy:capture-screenshots": "NO_COVERAGE=true percy exec -- bundle exec rspec spec/screenshots/*_spec.rb",
     "typescript:typecheck": "tsc --noEmit",
     "test": "jest --coverage"
