@@ -3,7 +3,7 @@
     h5 = t('.title', name: @service_specification.name)
   .card-body
     = render 'organizations/service_specifications/form', service_specification: @service_specification do
-      = link_to 'Pflichtenheft löschen',
+      = link_to t('.delete'),
               organizations_service_specification_path(@service_specification),
               method: :delete,
               data: { confirm: t('organizations.service_specifications.edit.destroy_service_specification_confirmation'), disable_with: t('destroying') },

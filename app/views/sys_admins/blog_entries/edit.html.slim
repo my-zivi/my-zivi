@@ -1,7 +1,8 @@
-h1 Editing blog_entry
+.mt-3
+  = link_to sys_admins_blog_entries_path do
+    i.fas.fa-chevron-left.mr-2
+    = t('actions.back')
+
+h1.mt-3.mb-4 = t('.title')
 
 == render 'form'
-
-=> link_to 'Show', sys_admins_blog_entry_path(@blog_entry)
-'|
-=< link_to 'Back', sys_admins_blog_entries_path

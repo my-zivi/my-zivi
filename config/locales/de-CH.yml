@@ -322,6 +322,7 @@ de-CH:
         erroneous_destroy: Pflichtenheft konnte nicht gelöscht werden
         successful_destroy: Pflichtenheft erfolgreicht gelöscht
       edit:
+        delete: Pflichtenheft löschen
         destroy_service_specification_confirmation: Pflichtenheft wirklich löschen?
         title: Pflichtenheft “%{name}”
       index:
@@ -396,7 +397,13 @@ de-CH:
   successful_registration: Registration erfolgreich
   sys_admins:
     blog_entries:
+      edit:
+        title: Blogeintrag bearbeiten
       index:
+        destroy_confirm: Blogeintrag wirklich löschen?
+        empty_table: Keine Blogeinträge vorhanden
+        new: Neuer Blogeintrag
+        new_blog_entry: Neuer Blogeintrag erstellen
         table_title: Blogeinträge
         title: Blog
       new:
