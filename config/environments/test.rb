@@ -29,9 +29,10 @@ Rails.application.configure do
 
   config.i18n.available_locales << :en # Fixes https://github.com/faker-ruby/faker/issues/266
 
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.bullet_logger = true
-    Bullet.raise = true
-  end
+  # TODO: Re-Enable Bullet
+  # config.after_initialize do
+  #   Bullet.enable = true
+  #   Bullet.bullet_logger = true
+  #   Bullet.raise = true
+  # end
 end
