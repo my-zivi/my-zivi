@@ -321,6 +321,7 @@ fr-CH:
         erroneous_destroy: Le cahier des charges n'a pas pu être supprimée
         successful_destroy: Le cahier des charges supprimée en raison d'un échec
       edit:
+        delete: Supprimer les spécifications
         destroy_service_specification_confirmation: Supprimer vraiment le cahier des charges?
         title: le cahier des charges "%{name}".
       index:
@@ -395,7 +396,13 @@ fr-CH:
   successful_registration: Inscription réussie
   sys_admins:
     blog_entries:
+      edit:
+        title: Modifier l'article du blog
       index:
+        destroy_confirm: Supprimer vraiment un article de blog ?
+        empty_table: Aucun article de blog disponible
+        new: Nouvel article de blog
+        new_blog_entry: Créer un nouvel article de blog
         table_title: Articles de blog
         title: Blog
       new:
