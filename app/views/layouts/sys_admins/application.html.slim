@@ -12,5 +12,6 @@ html lang="de"
     main#top
       div[data-layout="container" class=(content_for?(:container_class) ? yield(:container_class) : 'container')]
         - unless content_for?(:hide_flash_messages)
-          = render 'base/dismissible_flash_messages'
+          .mt-3
+            = render 'base/dismissible_flash_messages'
         = yield
