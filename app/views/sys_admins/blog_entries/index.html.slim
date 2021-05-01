@@ -16,21 +16,23 @@ h1.mt-3.mb-4 = t('.title')
           table.table.table-sm.mb-0.table-striped.table-dashboard.fs--1.data-table.border-bottom.border-200.dataTable.no-footer role="grid"
             thead.bg-200.text-900
               tr role="row"
-                th.align-middle Titel
-                th.align-middle Author
-                th.align-middle Inhalt
+                th.align-middle = BlogEntry.human_attribute_name(:title)
+                th.align-middle = BlogEntry.human_attribute_name(:author)
+                th.align-middle = BlogEntry.human_attribute_name(:description)
+                th.align-middle = BlogEntry.human_attribute_name(:published)
                 th
             tbody#customers
               - if @blog_entries.empty?
                 tr
-                  td.text-center.border-bottom-0 colspan="4"
+                  td.text-center.border-bottom-0 colspan="5"
                     h5.mt-2 = t('.empty_table')
                     p = link_to(t('.new_blog_entry'), new_sys_admins_blog_entry_path)
               - @blog_entries.each do |blog_entry|
                 tr role="row"
                   td.py-2.align-middle = blog_entry.title
                   td.py-2.align-middle = blog_entry.author
-                  td.py-2.align-middle = blog_entry.content.to_plain_text.truncate(40)
+                  td.py-2.align-middle = blog_entry.description.truncate(40)
+                  td.py-2.align-middle = render 'sys_admins/blog_entries/badge', blog_entry: blog_entry
                   td.py.align-middle.text-right.pr-4
                     = link_to sys_admins_blog_entry_path(blog_entry) do
                       i.fas.fa-eye

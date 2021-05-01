@@ -1,0 +1,17 @@
+@import '../theme/variables';
+
+.sys-admin-banner {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: $blue;
+  color: $white;
+
+  a,
+  .separator {
+    color: darken($white, 10%);
+    text-decoration: none;
+  }
+}

@@ -145,6 +145,11 @@ de-CH:
     sys_admin:
       application:
         title: MyZivi SysAdmin
+    sys_admins:
+      application:
+        banner_title: MyZivi SysAdmin
+        rails_admin: Rails Admin
+        sign_out: Logout
   lead_person_html: 'Leitende Person: %{link}'
   loading: Lade...
   mailing_list:
@@ -404,7 +409,7 @@ de-CH:
         empty_table: Keine Blogeinträge vorhanden
         new: Neuer Blogeintrag
         new_blog_entry: Neuer Blogeintrag erstellen
-        table_title: Blogeinträge
+        table_title: Alle Blogeinträge
         title: Blog
       new:
         title: Neuer Blogeintrag

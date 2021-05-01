@@ -246,6 +246,8 @@ CREATE TABLE public.blog_entries (
     id bigint NOT NULL,
     title character varying NOT NULL,
     author character varying NOT NULL,
+    description character varying NOT NULL,
+    published boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -1805,8 +1807,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210413210828'),
 ('20210413210829'),
 ('20210414175455'),
-('20210501115424'),
 ('20210501204040'),
-('20210501204041');
+('20210501204041'),
+('20210501235424');
 
 

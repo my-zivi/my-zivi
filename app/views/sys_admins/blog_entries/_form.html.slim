@@ -7,8 +7,10 @@
           - @blog_entry.errors.full_messages.each do |message|
             li = message
 
+    = f.input :published
     = f.input :title, input_html: { autocomplete: 'off' }
-    = f.input :author
+    = f.input :author, input_html: { autocomplete: 'on' }
+    = f.input :description
     .field
       = f.label :content
       = f.rich_text_area :content

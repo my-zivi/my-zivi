@@ -145,6 +145,11 @@ fr-CH:
     sys_admin:
       application:
         title: MyZivi SysAdmin
+    sys_admins:
+      application:
+        banner_title: MyZivi SysAdmin
+        rails_admin: Admin Rails
+        sign_out: Déconnexion
   lead_person_html: 'Personne responsable: %{link}'
   loading: En chargeant...
   mailing_list:

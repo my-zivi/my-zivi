@@ -50,7 +50,7 @@ module SysAdmins
     end
 
     def blog_entry_params
-      params.require(:blog_entry).permit(:title, :content, :author)
+      params.require(:blog_entry).permit(:title, :content, :author, :published, :description)
     end
   end
 end

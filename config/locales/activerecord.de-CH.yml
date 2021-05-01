@@ -13,6 +13,8 @@ de-CH:
       blog_entry:
         author: Author
         content: Inhalt
+        description: Beschreibung
+        published: Veröffentlicht
         title: Titel
       civil_servant:
         address: Adresse
