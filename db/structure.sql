@@ -30,12 +30,11 @@ COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching
 CREATE FUNCTION public.civil_servant_agreed_changed() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
-    BEGIN
-        UPDATE services
-        SET civil_servant_decided_at = NOW()
-        WHERE id = NEW.id;
-        RETURN NULL;
-    END;
+  BEGIN
+    UPDATE services SET civil_servant_decided_at = NOW()
+      WHERE id = NEW.id;
+    RETURN NULL;
+  END;
 $$;
 
 
@@ -206,38 +205,6 @@ CREATE TABLE public.ar_internal_metadata (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
-
-
---
--- Name: blog_entries; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.blog_entries (
-    id bigint NOT NULL,
-    title character varying NOT NULL,
-    author character varying NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: blog_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.blog_entries_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: blog_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.blog_entries_id_seq OWNED BY public.blog_entries.id;
 
 
 --
@@ -1774,10 +1741,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201122111941'),
 ('20201123144121'),
 ('20201204215926'),
-('20210131114416'),
-('20210413115424'),
 ('20210413210828'),
 ('20210413210829'),
-('20210414175455');
+('20210414175455'),
+('20210501115424');
 
 

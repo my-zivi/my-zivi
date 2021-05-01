@@ -12,6 +12,7 @@ gem 'devise_invitable'
 gem 'dotenv-rails'
 gem 'fillable-pdf'
 gem 'flutie'
+gem 'google-cloud-storage', '~> 1.11', require: false
 gem 'hexapdf'
 gem 'holidays'
 gem 'iban-tools'

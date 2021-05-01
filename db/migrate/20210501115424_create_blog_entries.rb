@@ -1,4 +1,4 @@
-class CreateSysAdminBlogEntries < ActiveRecord::Migration[6.0]
+class CreateBlogEntries < ActiveRecord::Migration[6.0]
   def change
     create_table :blog_entries do |t|
       t.string :title, null: false
