@@ -88,12 +88,12 @@ RSpec.describe CivilServant, type: :model do
     context 'when the address update throws an error' do
       before do
         allow(address).to receive(:update!).and_raise(ActiveRecord::RecordInvalid.new)
-        stub_const('Raven', instance_double('Raven', capture_exception: true))
+        stub_const('Sentry', instance_double('Sentry', capture_exception: true))
       end
 
       it 'calls raven on exception' do
         expect { model.update(last_name: new_last_name) }.not_to change(address, :primary_line)
-        expect(Raven).to have_received(:capture_exception)
+        expect(Sentry).to have_received(:capture_exception)
           .with(be_an_instance_of(ActiveRecord::RecordInvalid),
                 extra: address.errors)
       end

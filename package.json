@@ -3,11 +3,11 @@
   "private": true,
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.12.7",
-    "@babel/preset-typescript": "^7.12.7",
+    "@babel/preset-typescript": "^7.13.0",
     "@fortawesome/fontawesome-free": "^5.13.1",
     "@my-zivi/falcon": "2.6.6",
     "@rails/actioncable": "^6.0.0",
-    "@rails/activestorage": "^6.0.0",
+    "@rails/activestorage": "^6.1.3",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.3.0",
     "@sentry/browser": "^5.29.0",

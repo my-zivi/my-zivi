@@ -1,4 +1,5 @@
 <% content_for(:container_class, 'index-container') %>
+<% content_for(:page_title, 'Datenschutzerklärung') %>
 <%= render 'home/navbar' %>
 
 <div class="hero">
@@ -18,9 +19,9 @@
         <strong>wir</strong>). Der für den Datenschutz zuständige Kontakt bei MyZivi kann unter der vorgenannten
         Postanschrift, per E-Mail an info@myzivi.ch oder telefonisch unter 076 528 25 92 erreicht werden.</p>
       <p>Diese Datenschutzerklärung stellt einen integrierenden Bestandteil der
-        <a href="https://www.myzivi.ch/terms-of-use/">AGB</a> dar.&nbsp;</p>
+        <%= link_to 'AGB', agb_path %> dar.&nbsp;</p>
       <h2><strong>2 Definitionen</strong></h2>
-      <p>Die Begriffsdefinitionen gemäss <a href="https://www.myzivi.ch/terms-of-use/">AGB</a>&nbsp;gelten auch für
+      <p>Die Begriffsdefinitionen gemäss <%= link_to 'AGB', agb_path %>&nbsp;gelten auch für
         diese
         Datenschutzerklärung.</p>
       <p>Personendaten sind Informationen, die sich auf eine bestimmte oder bestimmbare (d.h. identifizierte oder
@@ -83,7 +84,7 @@
       <h2><strong>5 Einwilligung, Rechtsgrundlage, Widerruf und Datenschutzrechte</strong></h2>
       <p>Mit der Übernahme dieser Datenschutzerklärung willigen Sie in die Verarbeitung Ihrer Personendaten gemäss
         dieser
-        Datenschutzerklärung und den <a href="https://www.myzivi.ch/terms-of-use/">AGB</a> ein. Sie können Ihre
+        Datenschutzerklärung und den <%= link_to 'AGB', agb_path %> ein. Sie können Ihre
         Einwilligung jederzeit widerrufen, ohne jedoch die Rechtmässigkeit der Verarbeitung zu beeinträchtigen, die
         aufgrund der erteilten Zustimmung bis zum Widerruf stattgefunden hat. Darüber hinaus haben Sie – abhängig von
         den
