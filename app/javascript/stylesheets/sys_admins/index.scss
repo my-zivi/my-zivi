@@ -1,0 +1,18 @@
+@import '../theme/variables';
+@import './actiontext';
+
+.sys-admin-banner {
+  position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  color: $white;
+  background: $blue;
+
+  a,
+  .separator {
+    color: darken($white, 10%);
+    text-decoration: none;
+  }
+}

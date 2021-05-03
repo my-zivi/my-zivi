@@ -54,13 +54,16 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
+  # rubocop:disable Style/SymbolProc
   config.around(:each, :without_bullet) do |spec|
-    previous_value = Bullet.enable?
-    Bullet.enable = false
+    # TODO: Re-Enable Bullet
+    # previous_value = Bullet.enable?
+    # Bullet.enable = false
     spec.run
-  ensure
-    Bullet.enable = previous_value
+    # ensure
+    #   Bullet.enable = previous_value
   end
+  # rubocop:enable Style/SymbolProc
 end
 
 Shoulda::Matchers.configure do |config|

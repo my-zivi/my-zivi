@@ -12,16 +12,18 @@ gem 'devise_invitable'
 gem 'dotenv-rails'
 gem 'fillable-pdf'
 gem 'flutie'
+gem 'google-cloud-storage', '~> 1.31', require: false
 gem 'hexapdf'
 gem 'holidays'
 gem 'iban-tools'
+gem 'image_processing'
 gem 'nokogiri'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'prawn'
 gem 'prawn-table'
 gem 'puma', '~> 4.1'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
+gem 'rails', '~> 6.1.3.1'
 gem 'rails-i18n'
 gem 'sepa_king'
 gem 'sidekiq'
@@ -46,7 +48,10 @@ end
 
 group :development, :test do
   gem 'brakeman', require: false
-  gem 'bullet'
+  # TODO: Bullet does not yet support Rails 6.1.3.1, but that Rails version is required that ActiveStorage
+  # works properly with the latest Google Cloud Services
+  # => Reenable as soon as support was added
+  # gem 'bullet'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara'
   gem 'factory_bot_rails'

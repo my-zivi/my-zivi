@@ -142,6 +142,14 @@ fr-CH:
         description: Avec MyZivi Admin, les affectations civiles, les notes de frais et les contrats d'affectation peuvent être facilement créés et gérés.
         og_title: MyZivi Admin
       title: MyZivi Admin - Gérer facilement les déploiements
+    sys_admin:
+      application:
+        title: MyZivi SysAdmin
+    sys_admins:
+      application:
+        banner_title: MyZivi SysAdmin
+        rails_admin: Admin Rails
+        sign_out: Déconnexion
   lead_person_html: 'Personne responsable: %{link}'
   loading: En chargeant...
   mailing_list:
@@ -318,6 +326,7 @@ fr-CH:
         erroneous_destroy: Le cahier des charges n'a pas pu être supprimée
         successful_destroy: Le cahier des charges supprimée en raison d'un échec
       edit:
+        delete: Supprimer les spécifications
         destroy_service_specification_confirmation: Supprimer vraiment le cahier des charges?
         title: le cahier des charges "%{name}".
       index:
@@ -390,3 +399,22 @@ fr-CH:
     pending_contract: Tableau en attente
     waiting_for_civil_servant_decision: Attendre l'entrée en vigueur de la loi civile
   successful_registration: Inscription réussie
+  sys_admins:
+    blog_entries:
+      destroy:
+        successful_destroy: Article de blog supprimé avec succès
+      edit:
+        title: Modifier l'article du blog
+      erroneous_creation: L'entrée du blog n'a pas pu être créée
+      erroneous_update: L'entrée du blog n'a pas pu être mise à jour
+      index:
+        destroy_confirm: Supprimer vraiment un article de blog ?
+        empty_table: Aucun article de blog disponible
+        new: Nouvel article de blog
+        new_blog_entry: Créer un nouvel article de blog
+        table_title: Articles de blog
+        title: Blog
+      new:
+        title: Nouvel article de blog
+      successful_creation: Entrée de blog créée avec succès
+      successful_update: Mise à jour réussie de l'entrée du blog

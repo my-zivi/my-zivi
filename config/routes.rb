@@ -37,6 +37,12 @@ Rails.application.routes.draw do
   }
   devise_for :sys_admins
 
+  authenticated :sys_admin do
+    namespace :sys_admins do
+      resources :blog_entries
+    end
+  end
+
   resource :mailing_list, only: :create
   resources :expense_sheets, only: :show
 
