@@ -11,5 +11,7 @@ require_relative 'seed_data/organization_members'
 require_relative 'seed_data/service_specifications'
 require_relative 'seed_data/services'
 require_relative 'seed_data/expense_sheets_and_payments'
+require_relative 'seed_data/sys_admins'
+require_relative 'seed_data/blog_entries'
 
 puts 'Done :)'

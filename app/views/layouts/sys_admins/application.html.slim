@@ -1,0 +1,25 @@
+doctype html
+html lang=I18n.locale.to_s
+  head
+    title = t('layouts.sys_admin.application.title')
+    = render 'layouts/meta_tags'
+    = csrf_meta_tags
+    = csp_meta_tag
+    = javascript_pack_tag 'sys_admins/application', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'sys_admins/application', media: 'all', 'data-turbolinks-track': 'reload'
+    = render 'layouts/sentry'
+  body
+    .sys-admin-banner.py-2
+      .container
+        .d-flex.justify-content-between
+          .font-weight-bold.text-white = t('layouts.sys_admins.application.banner_title')
+          div
+            => link_to(t('layouts.sys_admins.application.rails_admin'), rails_admin_path)
+            .separator.d-inline |
+            =< link_to(t('layouts.sys_admins.application.sign_out'), destroy_sys_admin_session_path, method: :delete)
+    main#top
+      div[data-layout="container" class=(content_for?(:container_class) ? yield(:container_class) : 'container')]
+        - unless content_for?(:hide_flash_messages)
+          .mt-3
+            = render 'base/dismissible_flash_messages'
+        = yield

@@ -1,0 +1,25 @@
+.mt-3
+  = link_to sys_admins_blog_entries_path do
+    i.fas.fa-chevron-left.mr-2
+    = t('actions.back')
+
+.d-flex.justify-content-between.align-items-baseline
+  div: h1.mt-3 = @blog_entry.title
+  div = render 'sys_admins/blog_entries/badge', blog_entry: @blog_entry
+h5.text-muted = @blog_entry.author
+.card.mt-3
+  .card-header
+    .text-right
+      = link_to edit_sys_admins_blog_entry_path(@blog_entry) do
+        i.fas.fa-pencil-alt
+      = link_to sys_admins_blog_entry_path(@blog_entry),
+              method: :delete,
+              class: 'ml-2 text-danger',
+              'data-confirm': t('sys_admins.blog_entries.index.destroy_confirm') do
+        i.fas.fa-trash
+  .card-body.bg-light
+    h5 = t('activerecord.attributes.blog_entry.description')
+    = @blog_entry.description
+    hr
+    h5 = t('activerecord.attributes.blog_entry.content')
+    == @blog_entry.content
