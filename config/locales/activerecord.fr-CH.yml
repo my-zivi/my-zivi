@@ -139,6 +139,10 @@ fr-CH:
       workshop:
         name: Nom
     enums:
+      blog_entries:
+        published:
+          'false': Draft
+          'true': Publié
       expense_sheet:
         states:
           closed: Terminé

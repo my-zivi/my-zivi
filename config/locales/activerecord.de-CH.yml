@@ -139,6 +139,10 @@ de-CH:
       workshop:
         name: Name
     enums:
+      blog_entries:
+        published:
+          'false': Entwurf
+          'true': Veröffentlicht
       expense_sheet:
         states:
           closed: Abgeschlossen
@@ -149,10 +153,6 @@ de-CH:
           long: Langer Einsatz
           normal: Normaler Einsatz
           probation: Probeeinsatz
-      blog_entries:
-        published:
-          true: Veröffentlicht
-          false: Entwurf
     errors:
       messages:
         before_beginning: vor Start

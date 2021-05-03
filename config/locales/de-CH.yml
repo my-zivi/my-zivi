@@ -407,6 +407,7 @@ de-CH:
       edit:
         title: Blogeintrag bearbeiten
       erroneous_creation: Blogeintrag konnte nicht erstellt werden
+      erroneous_update: Blogeintrag konnte nicht aktualisiert werden
       index:
         destroy_confirm: Blogeintrag wirklich löschen?
         empty_table: Keine Blogeinträge vorhanden
@@ -418,4 +419,3 @@ de-CH:
         title: Neuer Blogeintrag
       successful_creation: Blogeintrag erfolgreich erstellt
       successful_update: Blogeintrag erfolgreich aktualisiert
-      erroneous_update: "Blogeintrag konnte nicht aktualisiert werden"
