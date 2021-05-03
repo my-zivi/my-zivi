@@ -406,6 +406,7 @@ fr-CH:
       edit:
         title: Modifier l'article du blog
       erroneous_creation: L'entrée du blog n'a pas pu être créée
+      erroneous_update: L'entrée du blog n'a pas pu être mise à jour
       index:
         destroy_confirm: Supprimer vraiment un article de blog ?
         empty_table: Aucun article de blog disponible

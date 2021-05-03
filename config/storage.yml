@@ -1,16 +1,16 @@
 test:
   service: Disk
-  root: <%= Rails.root.join("tmp/storage") %>
+  root: <%= Rails.root.join('tmp/storage') %>
 
 local:
   service: Disk
-  root: <%= Rails.root.join("storage") %>
+  root: <%= Rails.root.join('storage') %>
 
 google:
   service: GCS
-  project: my-zivi
+  project: <%= ENV['GCS_PROJECT_NAME'] %>
   credentials: <%= Rails.application.credentials.dig(:gcs_credentials).as_json %>
-  bucket: my_zivi_develop
+  bucket: <%= ENV['GCS_BUCKET_NAME'] %>
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:

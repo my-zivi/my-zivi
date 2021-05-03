@@ -7,7 +7,7 @@ module SysAdmins
     before_action :set_blog_entry, only: %i[show edit update destroy]
 
     def index
-      @blog_entries = BlogEntry.all
+      @blog_entries = BlogEntry.order(created_at: :desc)
     end
 
     def show; end
@@ -35,6 +35,7 @@ module SysAdmins
         redirect_to sys_admins_blog_entry_path(@blog_entry),
                     notice: I18n.t('sys_admins.blog_entries.successful_update')
       else
+        flash[:error] = I18n.t('sys_admins.blog_entries.erroneous_update')
         render :edit
       end
     end

@@ -1,0 +1,37 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "aa1f9358f56bf561ff88f4a0df0028597b07d8c54a7832eabab5acf771867342",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/sys_admins/blog_entries/show.html.slim",
+      "line": 25,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "BlogEntry.find(params[:id]).content",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "SysAdmins::BlogEntriesController",
+          "method": "show",
+          "line": 14,
+          "file": "app/controllers/sys_admins/blog_entries_controller.rb",
+          "rendered": {
+            "name": "sys_admins/blog_entries/show",
+            "file": "app/views/sys_admins/blog_entries/show.html.slim"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "sys_admins/blog_entries/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "note": ""
+    }
+  ],
+  "updated": "2021-05-03 14:13:12 +0200",
+  "brakeman_version": "4.10.0"
+}

@@ -4,7 +4,10 @@
     "selector-no-qualifying-type": [
       true,
       {
-        "ignore": ["attribute", "class"]
+        "ignore": [
+          "attribute",
+          "class"
+        ]
       }
     ],
     "scss/at-import-partial-extension": null,
@@ -22,7 +25,17 @@
     "selector-max-type": [
       4,
       {
-        "ignore": ["child"]
+        "ignore": [
+          "child"
+        ]
+      }
+    ],
+    "selector-type-no-unknown": [
+      true,
+      {
+        "ignoreTypes": [
+          "action-text-attachment"
+        ]
       }
     ]
   }

@@ -149,6 +149,10 @@ de-CH:
           long: Langer Einsatz
           normal: Normaler Einsatz
           probation: Probeeinsatz
+      blog_entries:
+        published:
+          true: Veröffentlicht
+          false: Entwurf
     errors:
       messages:
         before_beginning: vor Start

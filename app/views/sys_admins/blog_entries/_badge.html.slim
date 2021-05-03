@@ -1,4 +1,4 @@
 - if blog_entry.published?
-  .badge.badge-success Veröffentlicht
+  .badge.badge-success = t('activerecord.enums.blog_entries.published.true')
 - else
-  .badge.badge-secondary Entwurf
+  .badge.badge-secondary = t('activerecord.enums.blog_entries.published.false')

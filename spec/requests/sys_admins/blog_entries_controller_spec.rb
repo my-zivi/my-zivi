@@ -10,25 +10,28 @@ RSpec.describe SysAdmins::BlogEntriesController, type: :request do
   before { sign_in sys_admin }
 
   describe '#index' do
-    before { create(:blog_entry) }
-
-    it 'renders a successful response' do
+    before do
+      create(:blog_entry)
       get sys_admins_blog_entries_url
+    end
+
+    it 'renders a successful response' do
       expect(response).to be_successful
     end
   end
 
-  describe 'GET /show' do
+  describe '#show' do
+    before { get sys_admins_blog_entry_path(create(:blog_entry)) }
+
     it 'renders a successful response' do
-      blog_entry = BlogEntry.create! valid_attributes
-      get sys_admin_blog_entry_path(blog_entry)
       expect(response).to be_successful
     end
   end
 
-  describe 'GET /new' do
+  describe '#new' do
+    before { get new_sys_admins_blog_entry_path }
+
     it 'renders a successful response' do
-      get new_sys_admins_blog_entry_path
       expect(response).to be_successful
     end
   end
@@ -87,6 +90,7 @@ RSpec.describe SysAdmins::BlogEntriesController, type: :request do
         expect { perform_request }.not_to change(blog_entry, :reload)
         expect(response).to be_successful
         expect(response).to render_template 'sys_admins/blog_entries/edit'
+        expect(flash[:error]).to eq I18n.t('sys_admins.blog_entries.erroneous_update')
       end
     end
   end
