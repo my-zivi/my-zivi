@@ -2,8 +2,10 @@
 
 FactoryBot.define do
   factory :blog_entry, class: 'BlogEntry' do
-    title { 'MyString' }
-    body { 'MyText' }
-    author { 'MyString' }
+    sequence(:title) { |i| "My cool Blogpost #{i}" }
+    content { 'This is my cool content' }
+    description { 'This is my cool description' }
+    author { 'Max Mustermann' }
+    published { true }
   end
 end

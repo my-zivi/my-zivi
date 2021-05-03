@@ -25,6 +25,7 @@ module SysAdmins
         redirect_to sys_admins_blog_entry_path(@blog_entry),
                     notice: I18n.t('sys_admins.blog_entries.successful_creation')
       else
+        flash[:error] = I18n.t('sys_admins.blog_entries.erroneous_creation')
         render :new
       end
     end
@@ -40,7 +41,7 @@ module SysAdmins
 
     def destroy
       @blog_entry.destroy
-      redirect_to sys_admins_blog_entries_path, notice: 'Blog entry was successfully destroyed.'
+      redirect_to sys_admins_blog_entries_path, notice: t('.successful_destroy')
     end
 
     private

@@ -4,7 +4,7 @@ Rails.application.configure do
   config.cache_classes = false
   config.action_controller.perform_caching = false
   config.action_view.cache_template_loading = true
-  config.action_view.raise_on_missing_translations = true
+  config.i18n.raise_on_missing_translations = true
   config.eager_load = false
 
   config.public_file_server.enabled = true
