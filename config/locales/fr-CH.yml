@@ -401,8 +401,11 @@ fr-CH:
   successful_registration: Inscription réussie
   sys_admins:
     blog_entries:
+      destroy:
+        successful_destroy: Article de blog supprimé avec succès
       edit:
         title: Modifier l'article du blog
+      erroneous_creation: L'entrée du blog n'a pas pu être créée
       index:
         destroy_confirm: Supprimer vraiment un article de blog ?
         empty_table: Aucun article de blog disponible
