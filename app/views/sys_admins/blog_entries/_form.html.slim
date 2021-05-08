@@ -2,7 +2,13 @@
   = simple_form_for [:sys_admins, @blog_entry] do |f|
     = f.input :published
     = f.input :title, input_html: { autocomplete: 'off' }
-    = f.input :author, input_html: { autocomplete: 'on' }
+    .row
+      .col-12.col-md-6
+        = f.input :author, input_html: { autocomplete: 'on' }
+      .col-12.col-md-6
+        = f.input :slug,
+                required: f.object.persisted?,
+                hint: (t('.slug_hint') if f.object.new_record?)
     = f.input :description
     .field
       = f.label :content

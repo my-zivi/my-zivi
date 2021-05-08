@@ -40,7 +40,7 @@ Rails.application.routes.draw do
 
   authenticated :sys_admin do
     namespace :sys_admins do
-      resources :blog_entries
+      resources :blog_entries, param: :slug
     end
   end
 

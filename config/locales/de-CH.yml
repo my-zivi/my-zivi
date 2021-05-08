@@ -420,4 +420,9 @@ de-CH:
         title: Neuer Blogeintrag
       successful_creation: Blogeintrag erfolgreich erstellt
       successful_update: Blogeintrag erfolgreich aktualisiert
+      form:
+        slug_hint: "Wird automatisch generiert, falls nicht ausgefüllt"
   written_by: "Geschrieben von %{author} am %{date}"
+  blog_entries:
+    index:
+      title: "Blog"

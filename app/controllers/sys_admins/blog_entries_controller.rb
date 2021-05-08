@@ -48,11 +48,11 @@ module SysAdmins
     private
 
     def set_blog_entry
-      @blog_entry = BlogEntry.find(params[:id])
+      @blog_entry = BlogEntry.find_by!(slug: params[:slug])
     end
 
     def blog_entry_params
-      params.require(:blog_entry).permit(:title, :content, :author, :published, :description)
+      params.require(:blog_entry).permit(:title, :content, :author, :published, :description, :slug)
     end
   end
 end

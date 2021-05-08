@@ -1,15 +1,18 @@
 - content_for(:container_class, 'index-container')
-- content_for(:page_title, 'Über uns')
+- content_for(:page_title, t('blog_entries.index.title'))
 = render 'home/navbar'
 
 .hero
   .container
     .hero-content.w-100
-      h1.text-center Blog
+      h1.text-center = t('blog_entries.index.title')
 
-.container
-  - @blog_entries.each do |entry|
-    = link_to entry do
-      h3 = entry.title
-      p = entry.description
-    hr
+section.container
+  .row
+    - @blog_entries.each do |entry|
+      .col-12.col-md-6.col-lg-4
+        .card
+          .card-header
+            h3 = entry.title
+          .card-body
+            p = entry.description
