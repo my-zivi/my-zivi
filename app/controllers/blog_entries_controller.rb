@@ -4,7 +4,7 @@ class BlogEntriesController < ApplicationController
   before_action -> { I18n.locale = :'de-CH' }
 
   def index
-    @blog_entries = BlogEntry.published
+    @blog_entries = BlogEntry.published.order(created_at: :desc)
   end
 
   def show

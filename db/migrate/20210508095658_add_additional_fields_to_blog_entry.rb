@@ -1,6 +1,7 @@
-class AddSlugToBlogEntry < ActiveRecord::Migration[6.1]
+class AddAdditionalFieldsToBlogEntry < ActiveRecord::Migration[6.1]
   def up
     add_column :blog_entries, :slug, :string
+    add_column :blog_entries, :subtitle, :string
 
     execute <<~SQL.squish.freeze
       UPDATE blog_entries SET slug = LOWER(REPLACE(title, ' ', '-'))

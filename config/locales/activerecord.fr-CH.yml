@@ -13,8 +13,10 @@ fr-CH:
       blog_entry:
         author: Auteur
         content: Contenu
+        created_at: Écrit le
         description: Description
         published: Publié sur
+        slug: URL-Slug
         title: Titre
       civil_servant:
         address: Adresse

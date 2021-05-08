@@ -250,7 +250,8 @@ CREATE TABLE public.blog_entries (
     published boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    slug character varying NOT NULL
+    slug character varying NOT NULL,
+    subtitle character varying
 );
 
 

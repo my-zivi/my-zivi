@@ -1,19 +1,40 @@
 .blog-entry-card {
-  text-decoration: none;
   color: $gray-700;
+  text-decoration: none;
 
   .card {
     transition: .15s;
     transition-property: box-shadow, transform;
   }
 
-  &:hover {
-    text-decoration: none !important;
-    color: $gray-700;
+  .disclosure-indicator {
+    transition: .15s color;
+    color: $gray-300;
+    display: none;
 
-    .card {
-      box-shadow: 0 12px 19px 0 rgba($black, .1);
-      transform: scale(1.01);
+    @include media-breakpoint-up(lg) {
+      display: block;
     }
   }
+
+  &:hover {
+    color: $gray-700;
+    text-decoration: none !important;
+
+    .card {
+      box-shadow: 0 12px 19px 0 rgba($black, .1), 1px 2px 3px rgba($black, .05);
+      transform: scale(1.01);
+    }
+
+    @include media-breakpoint-up(lg) {
+      .disclosure-indicator {
+        color: $primary;
+      }
+    }
+  }
+}
+
+.blog-content img {
+  max-width: 100%;
+  height: auto;
 }

@@ -13,5 +13,6 @@ require_relative 'seed_data/services'
 require_relative 'seed_data/expense_sheets_and_payments'
 require_relative 'seed_data/sys_admins'
 require_relative 'seed_data/blog_entries'
+require_relative 'seed_data/job_postings'
 
 puts 'Done :)'

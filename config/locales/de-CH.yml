@@ -38,6 +38,9 @@ de-CH:
           'true': Einsatz bestätigt
         service_duration: 'Dauer: %{beginning_date} - %{ending_date}'
         service_with: Einsatz bei %{org_name}
+  blog_entries:
+    index:
+      title: Blog
   cancel: Abbrechen
   civil_servants:
     civil_servants:
@@ -135,8 +138,8 @@ de-CH:
       links:
         about_us: Über uns
         admin: Administration
+        blog: Blog
         recruiting: Rekrutieren
-        blog: "Blog"
   layouts:
     application:
       meta:
@@ -409,20 +412,18 @@ de-CH:
         title: Blogeintrag bearbeiten
       erroneous_creation: Blogeintrag konnte nicht erstellt werden
       erroneous_update: Blogeintrag konnte nicht aktualisiert werden
+      form:
+        slug_hint: Wird automatisch generiert, falls nicht ausgefüllt
       index:
         destroy_confirm: Blogeintrag wirklich löschen?
         empty_table: Keine Blogeinträge vorhanden
         new: Neuer Blogeintrag
         new_blog_entry: Neuer Blogeintrag erstellen
+        publish_tooltip: Blogeintrag veröffentlichen
         table_title: Alle Blogeinträge
         title: Blog
       new:
         title: Neuer Blogeintrag
       successful_creation: Blogeintrag erfolgreich erstellt
       successful_update: Blogeintrag erfolgreich aktualisiert
-      form:
-        slug_hint: "Wird automatisch generiert, falls nicht ausgefüllt"
-  written_by: "Geschrieben von %{author} am %{date}"
-  blog_entries:
-    index:
-      title: "Blog"
+  written_by: Geschrieben von %{author} am %{date}

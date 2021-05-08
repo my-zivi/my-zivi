@@ -9,9 +9,12 @@
   .container
     .hero-content.w-100
       h1.text-center = @blog_entry.title
+      h2.text-center = @blog_entry.subtitle
 
 .container
   section
-    p.text-muted
-      = I18n.t('.written_by', author: @blog_entry.author, date: l(@blog_entry.created_at.to_date, format: :short))
-    article.line-height-17 == @blog_entry.content
+    .row.justify-content-center
+      .col-12.col-lg-10.col-xxl-8
+        p.text-muted
+          = I18n.t('.written_by', author: @blog_entry.author, date: l(@blog_entry.created_at.to_date, format: :short))
+        article.line-height-17.blog-content == @blog_entry.content
