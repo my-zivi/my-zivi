@@ -249,7 +249,8 @@ CREATE TABLE public.blog_entries (
     description character varying NOT NULL,
     published boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    slug character varying NOT NULL
 );
 
 
@@ -1285,6 +1286,13 @@ CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.ac
 
 
 --
+-- Name: index_blog_entries_on_slug; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_blog_entries_on_slug ON public.blog_entries USING btree (slug);
+
+
+--
 -- Name: index_civil_servants_driving_licenses_on_civil_servant_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1809,6 +1817,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210414175455'),
 ('20210501204040'),
 ('20210501204041'),
-('20210501235424');
+('20210501235424'),
+('20210508095658');
 
 

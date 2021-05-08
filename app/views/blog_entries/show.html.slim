@@ -1,0 +1,14 @@
+- content_for(:container_class, 'index-container')
+- content_for(:page_title, 'Über uns')
+= render 'home/navbar'
+
+.hero
+  .container
+    .hero-content.w-100
+      h1.text-center = @blog_entry.title
+
+.container
+  section
+    p.text-muted
+      = I18n.t('.written_by', author: @blog_entry.author, date: l(@blog_entry.created_at.to_date, format: :short))
+    article.line-height-17 == @blog_entry.content

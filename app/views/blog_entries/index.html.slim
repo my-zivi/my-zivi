@@ -1,0 +1,15 @@
+- content_for(:container_class, 'index-container')
+- content_for(:page_title, 'Über uns')
+= render 'home/navbar'
+
+.hero
+  .container
+    .hero-content.w-100
+      h1.text-center Blog
+
+.container
+  - @blog_entries.each do |entry|
+    = link_to entry do
+      h3 = entry.title
+      p = entry.description
+    hr

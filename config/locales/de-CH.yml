@@ -136,6 +136,7 @@ de-CH:
         about_us: Über uns
         admin: Administration
         recruiting: Rekrutieren
+        blog: "Blog"
   layouts:
     application:
       meta:
@@ -419,3 +420,4 @@ de-CH:
         title: Neuer Blogeintrag
       successful_creation: Blogeintrag erfolgreich erstellt
       successful_update: Blogeintrag erfolgreich aktualisiert
+  written_by: "Geschrieben von %{author} am %{date}"
