@@ -10,9 +10,11 @@
 section.container
   .row
     - @blog_entries.each do |entry|
-      .col-12.col-md-6.col-lg-4
-        .card
-          .card-header
-            h3 = entry.title
-          .card-body
-            p = entry.description
+      .col-12.col-md-6.mb-5
+        = link_to entry, class: 'blog-entry-card' do
+          .card
+            .card-header
+              h2 = entry.title
+              p #{entry.author} / #{l(entry.created_at.to_date, format: :short)}
+            .card-body
+              p = entry.description

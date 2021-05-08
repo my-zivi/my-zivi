@@ -1,0 +1,19 @@
+.blog-entry-card {
+  text-decoration: none;
+  color: $gray-700;
+
+  .card {
+    transition: .15s;
+    transition-property: box-shadow, transform;
+  }
+
+  &:hover {
+    text-decoration: none !important;
+    color: $gray-700;
+
+    .card {
+      box-shadow: 0 12px 19px 0 rgba($black, .1);
+      transform: scale(1.01);
+    }
+  }
+}

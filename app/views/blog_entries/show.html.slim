@@ -1,5 +1,8 @@
+- content_for(:head_additions) do
+  = render 'structured_data', blog_entry: @blog_entry
+
 - content_for(:container_class, 'index-container')
-- content_for(:page_title, 'Über uns')
+- content_for(:page_title, @blog_entry.title)
 = render 'home/navbar'
 
 .hero

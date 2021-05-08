@@ -1,0 +1,25 @@
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "<%= url_for(blog_entry) %>"
+    },
+    "headline": "<%= blog_entry.title %>",
+    "datePublished": "<%= blog_entry.created_at.iso8601 %>",
+    "dateModified": "<%= blog_entry.updated_at.iso8601 %>",
+    "author": {
+      "@type": "Person",
+      "name": "<%= blog_entry.author %>"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MyZivi",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "<%= asset_pack_url('media/images/my_zivi_transparent.png') %>"
+      }
+    }
+  }
+</script>
