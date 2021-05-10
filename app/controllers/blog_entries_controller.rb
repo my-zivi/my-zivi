@@ -11,5 +11,6 @@ class BlogEntriesController < ApplicationController
 
   def show
     @blog_entry = BlogEntry.find_by(slug: params[:slug])
+    raise ActiveRecord::RecordNotFound unless can?(:read, @blog_entry)
   end
 end
