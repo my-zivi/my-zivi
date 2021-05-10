@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'sys_admins/blog_entries/show', type: :view do
-  let(:blog_entry) { build(:blog_entry, id: 1) }
+  let(:blog_entry) { build(:blog_entry, slug: 'slug', created_at: 10.minutes.ago) }
 
   before do
     assign(:blog_entry, blog_entry)

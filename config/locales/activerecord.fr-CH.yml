@@ -17,6 +17,7 @@ fr-CH:
         description: Description
         published: Publié sur
         slug: URL-Slug
+        subtitle: Sous-titre
         title: Titre
       civil_servant:
         address: Adresse

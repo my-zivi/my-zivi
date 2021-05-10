@@ -17,8 +17,8 @@ de-CH:
         description: Beschreibung
         published: Veröffentlicht
         slug: URL-Slug
-        title: Titel
         subtitle: Untertitel
+        title: Titel
       civil_servant:
         address: Adresse
         birthday: Geburtstag

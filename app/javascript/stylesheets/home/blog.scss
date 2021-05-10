@@ -8,9 +8,9 @@
   }
 
   .disclosure-indicator {
-    transition: .15s color;
-    color: $gray-300;
     display: none;
+    color: $gray-300;
+    transition: .15s color;
 
     @include media-breakpoint-up(lg) {
       display: block;
