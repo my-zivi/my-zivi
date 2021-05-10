@@ -9,7 +9,8 @@
   .container
     .hero-content.w-100
       h1.text-center = @blog_entry.title
-      h2.text-center = @blog_entry.subtitle
+      - if @blog_entry.subtitle.present?
+        h2.text-center = @blog_entry.subtitle
 
 .container
   .row.justify-content-center
