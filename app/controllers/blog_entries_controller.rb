@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class BlogEntriesController < ApplicationController
+  authorize_resource
+
   before_action -> { I18n.locale = :'de-CH' }
 
   def index

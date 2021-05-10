@@ -7,8 +7,9 @@ RSpec.describe Ability do
 
   let(:user) { nil }
 
-  it 'can create entries in mailing list but cannot access any portal' do
+  it 'can create entries in mailing list and view blog entries but cannot access any portal' do
     expect(ability).to be_able_to(:create, MailingList)
+    expect(ability).to be_able_to(:read, BlogEntry)
     expect(ability).not_to be_able_to(:access, :civil_servant_portal)
     expect(ability).not_to be_able_to(:access, :organization_portal)
     expect(ability).not_to be_able_to(:access, :rails_admin)

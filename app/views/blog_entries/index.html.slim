@@ -1,26 +1,14 @@
 - content_for(:container_class, 'index-container')
 - content_for(:page_title, t('blog_entries.index.title'))
-= render 'home/navbar'
 
-.hero
-  .container
-    .hero-content.w-100
-      h1.text-center = t('blog_entries.index.title')
+- cache BlogEntry.order(:updated_at).last
+  = render 'home/navbar'
 
-section.container
-  .row
-    - @blog_entries.each do |entry|
-      .col-12.col-md-6.mb-5
-        = link_to entry, class: 'blog-entry-card' do
-          .card
-            .card-header
-              .d-flex.justify-content-between
-                div
-                  h2 = entry.title
-                  - if entry.subtitle.present?
-                    h3.text-muted = entry.subtitle
-                  p.text-muted #{entry.author} / #{l(entry.created_at.to_date, format: :short)}
-                .disclosure-indicator
-                  i.fas.fa-arrow-right.fa-2x
-            .card-body
-              p = entry.description
+  .hero
+    .container
+      .hero-content.w-100
+        h1.text-center = t('blog_entries.index.title')
+
+  section.container
+    .row
+      = render partial: 'blog_entries/blog_entry_card', collection: @blog_entries, as: :blog_entry

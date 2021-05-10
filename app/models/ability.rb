@@ -8,6 +8,7 @@ class Ability
     alias_action :create, :read, :update, :destroy, to: :crud
 
     can :create, MailingList
+    can :read, BlogEntry
 
     return if user.blank?
 
