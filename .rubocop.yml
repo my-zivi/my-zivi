@@ -56,6 +56,9 @@ RSpec/AggregateExamples:
   Exclude:
     - 'spec/views/organizations/payments/index.html.slim_spec.rb'
 
+Rails/EnvironmentVariableAccess:
+  AllowReads: true
+
 Rails/Output:
   Exclude:
     - 'lib/v1/data_migrator.rb'
