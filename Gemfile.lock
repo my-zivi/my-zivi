@@ -144,7 +144,7 @@ GEM
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.1.0)
     ffi (1.15.0)
-    fillable-pdf (0.9.1)
+    fillable-pdf (0.9.0)
       rjb (~> 1.6)
     flutie (2.2.0)
     fugit (1.4.5)
@@ -572,7 +572,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
-  fillable-pdf
+  fillable-pdf (= 0.9.0)
   flutie
   google-cloud-storage (~> 1.31)
   hexapdf
