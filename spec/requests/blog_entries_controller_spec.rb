@@ -35,7 +35,7 @@ RSpec.describe BlogEntriesController, type: :request do
       expect(response.body).to include(
         blog_entry.title,
         blog_entry.subtitle,
-        I18n.t('written_by', author: blog_entry.author, date: '05.02.20'),
+        I18n.t('blog_entries.show.written_by', author: blog_entry.author, date: '05.02.20'),
         blog_entry.content.to_plain_text
       )
     end

@@ -41,6 +41,8 @@ fr-CH:
   blog_entries:
     index:
       title: Blog
+    show:
+      written_by: Posté par %{author} le %{date}
   cancel: Annuler
   civil_servants:
     civil_servants:
@@ -425,4 +427,3 @@ fr-CH:
         title: Nouvel article de blog
       successful_creation: Entrée de blog créée avec succès
       successful_update: Mise à jour réussie de l'entrée du blog
-  written_by: Posté par %{author} le %{date}

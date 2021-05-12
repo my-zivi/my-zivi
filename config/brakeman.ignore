@@ -3,13 +3,44 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "aa1f9358f56bf561ff88f4a0df0028597b07d8c54a7832eabab5acf771867342",
+      "fingerprint": "1523c7798c3504ad6d5ea5d95b5bc0bd4ed2f9ef58241b487d283757074743c1",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/blog_entries/show.html.slim",
+      "line": 27,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "BlogEntry.find_by(:slug => slug_params).content",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "BlogEntriesController",
+          "method": "show",
+          "line": 15,
+          "file": "app/controllers/blog_entries_controller.rb",
+          "rendered": {
+            "name": "blog_entries/show",
+            "file": "app/views/blog_entries/show.html.slim"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "blog_entries/show"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "bfffa7326ba130d718184053c9138e75481baed7e35e1527441c760a92afabfd",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/sys_admins/blog_entries/show.html.slim",
-      "line": 25,
+      "line": 28,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "BlogEntry.find(params[:id]).content",
+      "code": "BlogEntry.find_by!(:slug => params[:slug]).content",
       "render_path": [
         {
           "type": "controller",
@@ -28,10 +59,10 @@
         "template": "sys_admins/blog_entries/show"
       },
       "user_input": null,
-      "confidence": "High",
+      "confidence": "Medium",
       "note": ""
     }
   ],
-  "updated": "2021-05-03 14:13:12 +0200",
+  "updated": "2021-05-12 19:39:20 +0200",
   "brakeman_version": "4.10.0"
 }

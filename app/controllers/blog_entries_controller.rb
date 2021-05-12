@@ -10,7 +10,13 @@ class BlogEntriesController < ApplicationController
   end
 
   def show
-    @blog_entry = BlogEntry.find_by(slug: params[:slug])
+    @blog_entry = BlogEntry.find_by(slug: slug_params)
     raise ActiveRecord::RecordNotFound unless can?(:read, @blog_entry)
+  end
+
+  private
+
+  def slug_params
+    params.require(:slug)
   end
 end
