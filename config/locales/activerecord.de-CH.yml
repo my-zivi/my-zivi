@@ -13,8 +13,11 @@ de-CH:
       blog_entry:
         author: Author
         content: Inhalt
+        created_at: Geschrieben am
         description: Beschreibung
         published: Veröffentlicht
+        slug: URL-Slug
+        subtitle: Untertitel
         title: Titel
       civil_servant:
         address: Adresse

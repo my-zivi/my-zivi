@@ -1,0 +1,27 @@
+- content_for(:head_additions) do
+  = render 'structured_data', blog_entry: @blog_entry
+
+- content_for(:container_class, 'index-container')
+- content_for(:page_title, @blog_entry.title)
+
+- cache @blog_entry do
+  = render 'home/navbar'
+
+  .hero
+    .container
+      .hero-content.w-100
+        h1.text-center = @blog_entry.title
+        - if @blog_entry.subtitle.present?
+          h2.text-center = @blog_entry.subtitle
+
+  .container
+    .row.justify-content-center
+      .col-12.col-lg-10.col-xxl-8
+        .pt-5
+          = link_to blog_entries_path do
+            i.fas.fa-arrow-left
+            span.ml-2 = t('actions.back')
+        section.pt-5
+          p.text-muted
+            = I18n.t('blog_entries.show.written_by', author: @blog_entry.author, date: l(@blog_entry.created_at.to_date, format: :short))
+          article.line-height-17.blog-content == @blog_entry.content
