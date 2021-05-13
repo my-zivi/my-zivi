@@ -38,6 +38,11 @@ fr-CH:
           'true': Service confirmé
         service_duration: 'Durée : %{beginning_date} - %{ending_date}'
         service_with: A utiliser avec %{org_name}.
+  blog_entries:
+    index:
+      title: Blog
+    show:
+      written_by: Posté par %{author} le %{date}
   cancel: Annuler
   civil_servants:
     civil_servants:
@@ -135,6 +140,7 @@ fr-CH:
       links:
         about_us: ''
         admin: Administration
+        blog: Blog
         recruiting: Recruter
   layouts:
     application:
@@ -407,11 +413,14 @@ fr-CH:
         title: Modifier l'article du blog
       erroneous_creation: L'entrée du blog n'a pas pu être créée
       erroneous_update: L'entrée du blog n'a pas pu être mise à jour
+      form:
+        slug_hint: Généré automatiquement si non rempli
       index:
         destroy_confirm: Supprimer vraiment un article de blog ?
         empty_table: Aucun article de blog disponible
         new: Nouvel article de blog
         new_blog_entry: Créer un nouvel article de blog
+        publish_tooltip: Publier un article de blog
         table_title: Articles de blog
         title: Blog
       new:

@@ -9,6 +9,7 @@ html lang=I18n.locale.to_s
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = render 'layouts/sentry'
     = render 'layouts/tag_manager'
+    = content_for(:head_additions)
   body
     - if ENV['GOOGLE_TAG_MANAGER_KEY'].present?
       noscript

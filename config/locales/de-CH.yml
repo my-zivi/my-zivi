@@ -38,6 +38,11 @@ de-CH:
           'true': Einsatz bestätigt
         service_duration: 'Dauer: %{beginning_date} - %{ending_date}'
         service_with: Einsatz bei %{org_name}
+  blog_entries:
+    index:
+      title: Blog
+    show:
+      written_by: Geschrieben von %{author} am %{date}
   cancel: Abbrechen
   civil_servants:
     civil_servants:
@@ -135,13 +140,14 @@ de-CH:
       links:
         about_us: Über uns
         admin: Administration
+        blog: Blog
         recruiting: Rekrutieren
   layouts:
     application:
       meta:
         description: Mit MyZivi Admin können Zivi-Einsätze, Spesenabrechnungen und Einsatzvereinbarungen einfach erstellt und verwaltet werden.
         og_title: MyZivi Admin
-      title: MyZivi Admin - Einsätze einfach verwalten
+      title: MyZivi
     sys_admin:
       application:
         title: MyZivi SysAdmin
@@ -408,11 +414,14 @@ de-CH:
         title: Blogeintrag bearbeiten
       erroneous_creation: Blogeintrag konnte nicht erstellt werden
       erroneous_update: Blogeintrag konnte nicht aktualisiert werden
+      form:
+        slug_hint: Wird automatisch generiert, falls nicht ausgefüllt
       index:
         destroy_confirm: Blogeintrag wirklich löschen?
         empty_table: Keine Blogeinträge vorhanden
         new: Neuer Blogeintrag
         new_blog_entry: Neuer Blogeintrag erstellen
+        publish_tooltip: Blogeintrag veröffentlichen
         table_title: Alle Blogeinträge
         title: Blog
       new:

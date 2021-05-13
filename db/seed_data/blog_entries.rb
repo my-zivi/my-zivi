@@ -2,6 +2,7 @@
 
 BlogEntry.create!(
   title: 'Lorem Ipsum',
+  subtitle: 'About a latin journey',
   description: 'Why is Lorem so popular?',
   author: 'Marcus Tullius Cicero',
   published: true,
