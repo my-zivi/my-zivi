@@ -14,7 +14,8 @@ RailsAdmin.config do |config|
   config.authorize_with :cancancan
 
   config.navigation_static_links = {
-    'Sidekiq' => '/sidekiq'
+    'Sidekiq' => '/sidekiq',
+    'Blog' => '/sys_admins/blog_entries'
   }
 
   ## == PaperTrail ==

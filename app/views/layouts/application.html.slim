@@ -1,5 +1,5 @@
 doctype html
-html lang=I18n.locale
+html lang=I18n.locale.to_s
   head
     title = page_title(app_name: t('layouts.application.title'), separator: ' | ')
     = render 'layouts/meta_tags'
@@ -9,6 +9,7 @@ html lang=I18n.locale
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = render 'layouts/sentry'
     = render 'layouts/tag_manager'
+    = content_for(:head_additions)
   body
     - if ENV['GOOGLE_TAG_MANAGER_KEY'].present?
       noscript

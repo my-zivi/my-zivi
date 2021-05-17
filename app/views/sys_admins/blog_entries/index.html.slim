@@ -1,0 +1,51 @@
+h1.mt-3.mb-4 = t('.title')
+
+.card.my-3
+  .card-header
+    .row.align-items-center.justify-content-between
+      .col-4.col-sm-auto.d-flex.align-items-center.pr-0
+        h4.fs-0.mb-0.text-nowrap.py-2.py-xl-0 = t('.table_title')
+      .col-8.col-sm-auto.text-right.pl-2
+        = button_to new_sys_admins_blog_entry_path, class: 'btn btn-falcon-default btn-sm', method: :get do
+          i.fas.fa-plus data-fa-transform="shrink-3 down-2"
+          span.d-none.d-sm-inline-block.ml-1 = t('.new')
+  .card-body.p-0
+    .falcon-data-table
+      .dataTables_wrapper.dt-bootstrap4.no-footer
+        .table-responsive
+          table.table.table-sm.mb-0.table-striped.table-dashboard.fs--1.data-table.border-bottom.border-200.dataTable.no-footer role="grid"
+            thead.bg-200.text-900
+              tr role="row"
+                th.align-middle = BlogEntry.human_attribute_name(:title)
+                th.align-middle = BlogEntry.human_attribute_name(:author)
+                th.align-middle = BlogEntry.human_attribute_name(:description)
+                th.align-middle = BlogEntry.human_attribute_name(:published)
+                th
+            tbody#customers
+              - if @blog_entries.empty?
+                tr
+                  td.text-center.border-bottom-0 colspan="5"
+                    h5.mt-2 = t('.empty_table')
+                    p = link_to(t('.new_blog_entry'), new_sys_admins_blog_entry_path)
+              - @blog_entries.each do |blog_entry|
+                tr role="row"
+                  td.py-2.align-middle = link_to(blog_entry.title, sys_admins_blog_entry_path(blog_entry))
+                  td.py-2.align-middle = blog_entry.author
+                  td.py-2.align-middle = blog_entry.description.truncate(40)
+                  td.py-2.align-middle = render 'sys_admins/blog_entries/badge', blog_entry: blog_entry
+                  td.py.align-middle.text-right.pr-4
+                    = link_to edit_sys_admins_blog_entry_path(blog_entry), class: 'ml-2' do
+                      i.fas.fa-pencil-alt
+                    - unless blog_entry.published?
+                      = link_to sys_admins_blog_entry_path(blog_entry, blog_entry: { published: true }),
+                              method: :put,
+                              'data-toggle': 'tooltip',
+                              'data-placement': 'top',
+                              title: t('.publish_tooltip'),
+                              class: 'ml-2' do
+                        i.fas.fa-cloud-upload-alt
+                    = link_to sys_admins_blog_entry_path(blog_entry),
+                            method: :delete,
+                            class: 'ml-2 text-danger',
+                            'data-confirm': t('.destroy_confirm') do
+                      i.fas.fa-trash

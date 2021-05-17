@@ -38,6 +38,11 @@ de-CH:
           'true': Einsatz bestätigt
         service_duration: 'Dauer: %{beginning_date} - %{ending_date}'
         service_with: Einsatz bei %{org_name}
+  blog_entries:
+    index:
+      title: Blog
+    show:
+      written_by: Geschrieben von %{author} am %{date}
   cancel: Abbrechen
   civil_servants:
     civil_servants:
@@ -135,6 +140,7 @@ de-CH:
       links:
         about_us: Über uns
         admin: Administration
+        blog: Blog
         recruiting: Rekrutieren
   layouts:
     application:
@@ -142,6 +148,14 @@ de-CH:
         description: Mit MyZivi Admin können Zivi-Einsätze, Spesenabrechnungen und Einsatzvereinbarungen einfach erstellt und verwaltet werden.
         og_title: MyZivi Admin
       title: MyZivi
+    sys_admin:
+      application:
+        title: MyZivi SysAdmin
+    sys_admins:
+      application:
+        banner_title: MyZivi SysAdmin
+        rails_admin: Rails Admin
+        sign_out: Logout
   lead_person_html: 'Leitende Person: %{link}'
   loading: Lade...
   mailing_list:
@@ -319,6 +333,7 @@ de-CH:
         erroneous_destroy: Pflichtenheft konnte nicht gelöscht werden
         successful_destroy: Pflichtenheft erfolgreicht gelöscht
       edit:
+        delete: Pflichtenheft löschen
         destroy_service_specification_confirmation: Pflichtenheft wirklich löschen?
         title: Pflichtenheft “%{name}”
       index:
@@ -391,3 +406,25 @@ de-CH:
     pending_contract: Aufgebot ausstehend
     waiting_for_civil_servant_decision: Warte auf Zivi
   successful_registration: Registration erfolgreich
+  sys_admins:
+    blog_entries:
+      destroy:
+        successful_destroy: Blogeintrag erfolgreich gelöscht
+      edit:
+        title: Blogeintrag bearbeiten
+      erroneous_creation: Blogeintrag konnte nicht erstellt werden
+      erroneous_update: Blogeintrag konnte nicht aktualisiert werden
+      form:
+        slug_hint: Wird automatisch generiert, falls nicht ausgefüllt
+      index:
+        destroy_confirm: Blogeintrag wirklich löschen?
+        empty_table: Keine Blogeinträge vorhanden
+        new: Neuer Blogeintrag
+        new_blog_entry: Neuer Blogeintrag erstellen
+        publish_tooltip: Blogeintrag veröffentlichen
+        table_title: Alle Blogeinträge
+        title: Blog
+      new:
+        title: Neuer Blogeintrag
+      successful_creation: Blogeintrag erfolgreich erstellt
+      successful_update: Blogeintrag erfolgreich aktualisiert

@@ -30,12 +30,11 @@ COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching
 CREATE FUNCTION public.civil_servant_agreed_changed() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
-    BEGIN
-        UPDATE services
-        SET civil_servant_decided_at = NOW()
-        WHERE id = NEW.id;
-        RETURN NULL;
-    END;
+  BEGIN
+    UPDATE services SET civil_servant_decided_at = NOW()
+      WHERE id = NEW.id;
+    RETURN NULL;
+  END;
 $$;
 
 
@@ -137,7 +136,8 @@ CREATE TABLE public.active_storage_blobs (
     metadata text,
     byte_size bigint NOT NULL,
     checksum character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    service_name character varying NOT NULL
 );
 
 
@@ -158,6 +158,36 @@ CREATE SEQUENCE public.active_storage_blobs_id_seq
 --
 
 ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage_blobs.id;
+
+
+--
+-- Name: active_storage_variant_records; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.active_storage_variant_records (
+    id bigint NOT NULL,
+    blob_id bigint NOT NULL,
+    variation_digest character varying NOT NULL
+);
+
+
+--
+-- Name: active_storage_variant_records_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.active_storage_variant_records_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_storage_variant_records_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.active_storage_variant_records_id_seq OWNED BY public.active_storage_variant_records.id;
 
 
 --
@@ -216,8 +246,12 @@ CREATE TABLE public.blog_entries (
     id bigint NOT NULL,
     title character varying NOT NULL,
     author character varying NOT NULL,
+    description character varying NOT NULL,
+    published boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    slug character varying NOT NULL,
+    subtitle character varying
 );
 
 
@@ -908,6 +942,13 @@ ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: active_storage_variant_records id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAULT nextval('public.active_storage_variant_records_id_seq'::regclass);
+
+
+--
 -- Name: addresses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1048,6 +1089,14 @@ ALTER TABLE ONLY public.active_storage_attachments
 
 ALTER TABLE ONLY public.active_storage_blobs
     ADD CONSTRAINT active_storage_blobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: active_storage_variant_records active_storage_variant_records_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_variant_records
+    ADD CONSTRAINT active_storage_variant_records_pkey PRIMARY KEY (id);
 
 
 --
@@ -1228,6 +1277,20 @@ CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active
 --
 
 CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
+
+
+--
+-- Name: index_active_storage_variant_records_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.active_storage_variant_records USING btree (blob_id, variation_digest);
+
+
+--
+-- Name: index_blog_entries_on_slug; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_blog_entries_on_slug ON public.blog_entries USING btree (slug);
 
 
 --
@@ -1666,6 +1729,14 @@ ALTER TABLE ONLY public.organizations
 
 
 --
+-- Name: active_storage_variant_records fk_rails_993965df05; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_variant_records
+    ADD CONSTRAINT fk_rails_993965df05 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
 -- Name: service_specifications fk_rails_a76f6f7cb3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1742,10 +1813,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201122111941'),
 ('20201123144121'),
 ('20201204215926'),
-('20210131114416'),
-('20210413115424'),
 ('20210413210828'),
 ('20210413210829'),
-('20210414175455');
+('20210414175455'),
+('20210501204040'),
+('20210501204041'),
+('20210501235424'),
+('20210508095658');
 
 

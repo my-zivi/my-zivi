@@ -27,6 +27,7 @@ module Abilities
       can(:manage, CreditorDetail)
       can(:manage, Payment)
       can(:manage, MailingList)
+      can(:manage, BlogEntry)
       can(:read, RegionalCenter)
     end
     # rubocop:enable Metrics/MethodLength
