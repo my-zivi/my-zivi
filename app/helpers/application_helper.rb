@@ -15,6 +15,10 @@ module ApplicationHelper
     end
   end
 
+  def app_page_title
+    page_title(app_name: t('layouts.application.title'), separator: ' | ')
+  end
+
   private
 
   def generate_picture_tag(base_path, extension, mime, **kwargs)

@@ -61,4 +61,16 @@ RSpec.describe ApplicationHelper do
       end
     end
   end
+
+  describe '#app_page_title' do
+    subject { helper.app_page_title }
+
+    it { is_expected.to eq I18n.t('layouts.application.title') }
+
+    context 'with page title' do
+      before { helper.content_for(:page_title, 'Test') }
+
+      it { is_expected.to eq "#{I18n.t('layouts.application.title')} | Test" }
+    end
+  end
 end
