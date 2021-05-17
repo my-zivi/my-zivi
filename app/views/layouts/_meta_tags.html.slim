@@ -16,10 +16,14 @@ link href="/site.webmanifest" rel="manifest" /
 link color="#5bbad5" href="/safari-pinned-tab.svg" rel="mask-icon" /
 meta content="#eff0f1" name="msapplication-TileColor" /
 meta content="#ffffff" name="theme-color" /
-meta name="description" content=t('layouts.application.meta.description') /
-meta property="og:title" content=t('layouts.application.meta.og_title') /
-meta property="og:type" content='website' /
 link rel="preconnect" href="https://fonts.gstatic.com" /
+
+- if content_for?(:social_tags)
+  = yield(:social_tags)
+- else
+  meta name="description" content=t('layouts.application.meta.description') /
+  meta property="og:title" content=t('layouts.application.meta.og_title') /
+  meta property="og:type" content='website' /
 
 - %w[LightItalic Light Italic Regular MediumItalic Medium BoldItalic Bold].each do |font|
   link[
