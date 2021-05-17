@@ -1,7 +1,7 @@
 doctype html
 html lang=I18n.locale.to_s
   head
-    title = page_title(app_name: t('layouts.application.title'), separator: ' | ')
+    title = app_page_title
     = render 'layouts/meta_tags'
     = csrf_meta_tags
     = csp_meta_tag
