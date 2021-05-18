@@ -4,7 +4,7 @@
 .home-hero
   .container
     .hero-content.text-center
-      h1 Der einfachste Weg mit Zivis zu arbeiten
+      h1 Die besten Zivi-Einsätze finden
       .row.justify-content-center
         .col-12.col-xxl-8
           .search-field
@@ -35,7 +35,7 @@ section.jobs
 
 section.solution
   .container
-    h3.section-title Unsere Lösungen für Betriebe
+    h3.section-title Unsere Lösungen für Zivis
     p.section-subtitle
       | MyZivi deckt den gesamten Prozess ab:
         Zivis finden, Bewerbungsgespräche führen, Probetage durchführen,
@@ -68,97 +68,5 @@ section.solution
         = link_to administration_path, class: 'btn btn-link pl-0' do
           | Mehr erfahren
           .fas.fa-angle-right.ml-2
-section.advantages
-  .container
-    .row
-      .col-12.col-md-4
-        i.fas.fa-check.fa-2x.mb-3
-        h4.text-white Nie mehr warten
-        p Du schreibst Deine Einsätze schnell und schön aus. Zivis bewerben sich blitzschnell bei Dir und Du hast sofort alle Informationen, die Du benötigst.
-      .col-12.col-md-4.mt-3.mt-md-0
-        i.fas.fa-check.fa-2x.mb-3
-        h4.text-white Nie mehr Zeit verlieren
-        p Du automatisierst und digitalisierst  Deine Administration. Verschwende nie mehr Zeit mit Spesenauszahlungen und Einsatzvereinbarungen.
-      .col-12.col-md-4.mt-3.mt-md-0
-        i.fas.fa-check.fa-2x.mb-3
-        h4.text-white Nie mehr Wichtiges vergessen
-        p Du hast alle wichtigen Informationen überall und jederzeit zur Verfügung. Telefonlisten und ein Organisationstool lassen Dich in die Zukunft planen.
-
-section.workflow
-  .container
-    h3.section-title Wie es funktioniert
-    .row.mt-5
-      .col-12.col-md.text-center.text-md-right
-        = image_pack_tag 'home/steps/video_call.svg',
-                class: 'illustration-image',
-                alt: 'Einfach eine Demo vereinbaren'
-      .d-none.col-md.d-md-inline-flex.justify-content-center.align-items-center.flex-grow-0
-        .steps-badge 1
-      .col-12.col-md.mt-3.mt-md-0
-        .text-uppercase.text-muted.my-3 Demo
-        h4 Interessiert? Vereinbare eine kurze Demo
-        p
-          | In einer kurzen Demo zeigen wir Dir, wie Du MyZivi am besten in Deinen bestehenden Prozess
-            einbinden kannst.
-        p
-          = link_to ENV['DEMO_URL'], rel: 'noreferrer nofollow noopener', target: '_blank' do
-            span Jetzt Demo vereinbaren
-            i.fas.fa-chevron-right.ml-2
-    hr.d-md-none.my-4
-    .row.mt-5
-      .col-12.col-md.text-center.text-md-left.order-0.order-md-2
-        = image_pack_tag 'home/steps/account.svg',
-                class: 'illustration-image',
-                alt: 'Erhalte dein Account'
-      .d-none.col-md.d-md-inline-flex.justify-content-center.align-items-center.order-md-1.flex-grow-0
-        .steps-badge 2
-      .col-12.col-md.mt-3.mt-md-0.order-1.order-md-0
-        .text-uppercase.text-muted.my-3 Account
-        h4 Erhalte Deinen Account
-        p
-          | Sobald wir das richtige Angebot für Dich gefunden haben, wird innerhalb von einem Arbeitstag
-            Dein My-Zivi-Account aufgeschaltet und Du kannst loslegen.
-    hr.d-md-none.my-4
-    .row.mt-5
-      .col-12.col-md.text-center.text-md-right
-        = image_pack_tag 'home/steps/applications.svg',
-                class: 'illustration-image',
-                alt: 'Erhalte Bewerbungen'
-      .d-none.col-md.d-md-inline-flex.justify-content-center.align-items-center.flex-grow-0
-        .steps-badge 3
-      .col-12.col-md.mt-3.mt-md-0
-        .text-uppercase.text-muted.my-3 Bewerbungsprozess
-        h4 Erhalte Bewerbungen
-        p
-          | Sichte und verwalte Zivi-Bewerbungen in MyZivi und kontaktiere passende Zivis.
-            Behalte den Überblick über laufende Bewerbungen mit dem praktischen Kanban-Board.
-    hr.d-md-none.my-4
-    .row.mt-5
-      .col-12.col-md.text-center.text-md-left.order-0.order-md-2
-        = image_pack_tag 'home/steps/dashboard.svg',
-                class: 'illustration-image',
-                alt: 'MyZivi Admin'
-      .d-none.col-md.d-md-inline-flex.justify-content-center.align-items-center.order-md-1.flex-grow-0
-        .steps-badge 4
-      .col-12.col-md.mt-3.mt-md-0.order-1.order-md-0
-        .text-uppercase.text-muted.my-3 Administration
-        h4 Digitalisiere Deine Administration
-        p
-          | Verwalte digital Deine Spesen, Auszahlungen und Einsatzvereinbarungen.
-            Mit dem Übersichts-Tool siehst Du zudem, wie viele Zivis wann im Einsatz sind.
-
-section.publications
-  .container.mb-2: h3.section-title MyZivi in der Presse
-  .d-flex.justify-content-center.align-items-center.flex-wrap
-    - %w[civia landbote salzh zhaw startupticker].each do |icon|
-      .publication-icon
-        = webp_picture_pack_tag("home/publications/#{icon}.webp", alt: icon.to_s.upcase_first)
-
-section.publications.pt-0
-  .container.mb-2.mt-4: h3.section-title MyZivi Partner
-  .d-flex.justify-content-center.align-items-center.flex-wrap
-    - %w[runway tpw gw].each do |icon|
-      .publication-icon
-        = webp_picture_pack_tag("home/publications/#{icon}.webp", alt: icon.to_s.upcase_first)
 
 = render 'home/footer'

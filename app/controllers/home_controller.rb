@@ -5,6 +5,8 @@ class HomeController < ApplicationController
 
   def index; end
 
+  def organizations; end
+
   def administration; end
 
   def recruiting; end

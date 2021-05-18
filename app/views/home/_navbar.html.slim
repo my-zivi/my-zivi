@@ -14,14 +14,17 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.my-zivi-top-navbar
         i.fas.fa-bars.fa-lg
     #navbarScroll.collapse.navbar-collapse
       ul.navbar-nav.mr-auto.my-2.my-lg-0.navbar-nav-scroll
+        = navbar_link('Einsatz suchen', "#{ENV['SMARTJOBBOARD_PUBLIC_URL']}/jobs")
+        = navbar_link('Einsatz veröffentlichen', "#{ENV['SMARTJOBBOARD_PUBLIC_URL']}/registration/?user_group_id=Employer")
         = navbar_link(t('home.navbar.links.recruiting'), recruiting_path)
         = navbar_link(t('home.navbar.links.admin'), administration_path)
         = navbar_link(t('home.navbar.links.about_us'), about_us_path)
         = navbar_link(t('home.navbar.links.blog'), blog_entries_path)
       .d-flex.mt-4.mt-lg-0
-        = link_to t('home.navbar.demo'),
-                ENV['DEMO_URL'],
-                class: 'btn btn-gradient',
-                target: '_blank',
-                rel: 'nofollow noopener noreferrer'
+        - if content_for?(:displays_demo_button)
+          = link_to t('home.navbar.demo'),
+                  ENV['DEMO_URL'],
+                  class: 'btn btn-gradient',
+                  target: '_blank',
+                  rel: 'nofollow noopener noreferrer'
 .navbar-spacer
