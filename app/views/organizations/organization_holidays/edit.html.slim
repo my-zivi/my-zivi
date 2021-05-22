@@ -1,0 +1,15 @@
+.card.mt-3.mb-4
+  .card-header.bg-white
+    .d-flex.align-items-baseline.justify-content-between.w-100
+      h5.mb-0 = t('.title', description: @organization_holiday.description)
+      - if @organization_holiday.beginning.future?
+        = link_to(organizations_organization_holiday_path(@organization_holiday),
+                method: :delete,
+                class: 'btn btn-link text-danger',
+                data: { confirm: t('.destroy_confirm') }) do
+          i.fas.fa-trash.mr-2
+          = t('.destroy')
+  .card-body.bg-light
+    = render 'form',
+            organization_holiday: @organization_holiday,
+            url: organizations_organization_holiday_path(@organization_holiday)

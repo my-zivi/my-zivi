@@ -9,6 +9,8 @@ class OrganizationHoliday < ApplicationRecord
 
   belongs_to :organization
 
+  before_destroy -> { throw :abort }, unless: :can_safely_destroy?
+
   # TODO: get region from organization
   def work_days(region = :ch)
     range.reject { |day| day.on_weekend? || Holidays.on(day, region).present? }
@@ -16,5 +18,9 @@ class OrganizationHoliday < ApplicationRecord
 
   def range
     beginning..ending
+  end
+
+  def can_safely_destroy?
+    beginning.future?
   end
 end

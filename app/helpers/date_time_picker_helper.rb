@@ -14,9 +14,10 @@ module DateTimePickerHelper
   # :reek:BooleanParameter
   def date_picker(form, field_key, value, required: false, **date_picker_options)
     form.input field_key, as: :string, input_html: {
-      type: 'date', value: localize_date(value),
+      type: 'date',
+      value: localize_date(value),
       class: 'datetimepicker',
-      data: { options: date_picker_options(date_picker_options) }
+      data: { options: date_picker_options(date_picker_options, value) }
     }, required: required
   end
 
@@ -25,7 +26,7 @@ module DateTimePickerHelper
     form.input field_key, input_html: {
       type: 'date', class: 'datetimepicker',
       value: value, readonly: true,
-      data: { options: range_date_picker_options(date_picker_options) }
+      data: { options: range_date_picker_options(date_picker_options, value) }
     }, required: required
   end
 
@@ -46,18 +47,20 @@ module DateTimePickerHelper
   def localize_date(date)
     return '' if date.nil?
 
-    I18n.l(date)
+    date.iso8601
   end
 
-  def build_options(options)
-    DEFAULT_OPTIONS.merge(locale: I18n.locale).merge(options)
+  def build_options(custom_options, value)
+    options = { locale: I18n.locale }
+    options[:defaultDate] = l(value) if value.present?
+    DEFAULT_OPTIONS.merge(**options, **custom_options)
   end
 
-  def date_picker_options(options)
-    build_options(options).to_json
+  def date_picker_options(options, value)
+    build_options(options, value).to_json
   end
 
-  def range_date_picker_options(options)
-    build_options(options.merge(mode: 'range')).to_json
+  def range_date_picker_options(options, value)
+    build_options(options.merge(mode: 'range'), value).to_json
   end
 end

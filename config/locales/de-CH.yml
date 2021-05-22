@@ -220,6 +220,7 @@ de-CH:
         address_information: Addressdaten
         creditor_information: Zahlungsdaten
         organization_information: Betriebsdaten
+        administrate: "Verwalten"
       update:
         erroneous_update: Betriebsdaten konnten nicht aktualisiert werden
         successful_update: Betriebsdaten wurden erfolgreich aktualisiert
@@ -356,6 +357,24 @@ de-CH:
         title: Einsatzübersicht
       show:
         expense_sheets: Spesenblätter
+    organization_holidays:
+      edit:
+        title: "%{description} bearbeiten"
+        destroy_confirm: "Betriebsferien wirklich löschen?"
+        destroy: "Löschen"
+      index:
+        title: "Betriebsferien"
+        new_organization_holiday: "Neue Betriebsferien erfassen"
+        duration: "Von %{beginning} bis %{ending}"
+      update:
+        successful_update: "Betriebsferien wurden erfolgreich aktualisiert"
+        erroneous_update: "Betriebsferien konnten nicht aktualisiert werden"
+        successful_destroy: "Betriebsferien erfolgreich gelöscht"
+        erroneous_destroy: "Betriebsferien konnten nicht gelöscht werden"
+        erroneous_create: "Betriebsferien konnten nicht erfasst werden"
+        successful_create: "Betriebsferien erfolgreich erfasst"
+      new:
+        title: "Betriebsferien erfassen"
   payment:
     expenses_from: Spesen vom %{from_date}
   pdfs:
