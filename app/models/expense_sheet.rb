@@ -9,6 +9,7 @@ class ExpenseSheet < ApplicationRecord
 
   has_one :service_specification, through: :service
   has_one :civil_servant, through: :service
+  has_one :organization, through: :service
 
   validates :beginning, :ending, :work_days, :state, :service, presence: true
 

@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class EndingDateLooper
-  def initialize(beginning, service_days)
+  def initialize(beginning, service_days, organization)
     @beginning = beginning
     @service_days = service_days
+    @organization = organization
     @remaining_workfree_days = ShortServiceCalculator.eligible_workfree_days(service_days)
   end
 
@@ -36,12 +37,12 @@ class EndingDateLooper
   end
 
   def company_holiday_day?(day)
-    HolidayCalculator.new(day, day).calculate_company_holiday_days.positive?
+    HolidayCalculator.new(day, day, @organization).calculate_company_holiday_days.positive?
   end
 
   def workfree_day?(day)
     [
-      HolidayCalculator.new(day, day).calculate_public_holiday_days.positive?,
+      HolidayCalculator.new(day, day, @organization).calculate_public_holiday_days.positive?,
       day.on_weekend?
     ].any?
   end

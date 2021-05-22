@@ -3,20 +3,26 @@
 require 'rails_helper'
 
 RSpec.describe ServiceCalculator, type: :service do
-  let(:beginning) { Date.parse('2018-01-01') }
-  let(:service_calculator) { described_class.new(beginning, last_civil_service, false) }
+  let(:beginning) { Date.new(2018, 1, 1) }
+  let(:organization) { create(:organization) }
   let(:last_civil_service) { false }
   let(:probation_civil_service) { false }
   let(:short_service_calculator) do
-    instance_double ShortServiceCalculator,
+    instance_double(ShortServiceCalculator,
                     calculate_ending_date: true,
-                    calculate_chargeable_service_days: true
+                    calculate_chargeable_service_days: true)
   end
   let(:normal_service_calculator) do
-    instance_double NormalServiceCalculator,
+    instance_double(NormalServiceCalculator,
                     calculate_ending_date: true,
                     calculate_chargeable_service_days: true,
-                    calculate_eligible_paid_vacation_days: true
+                    calculate_eligible_paid_vacation_days: true)
+  end
+  let(:service_calculator) do
+    described_class.new(beginning, organization, {
+                          last_civil_service?: last_civil_service,
+                          probation_civil_service?: probation_civil_service
+                        })
   end
 
   before do
@@ -140,12 +146,12 @@ RSpec.describe ServiceCalculator, type: :service do
         end
       end
 
-      context 'when duration is invalid' do
+      context 'when service is not ending on friday' do
         context 'when is not a last civil service' do
           it 'raises error' do
             expect do
               service_calculator.calculate_chargeable_service_days(beginning + 27.days)
-            end.to raise_error CalculationError
+            end.not_to raise_error CalculationError
           end
         end
 

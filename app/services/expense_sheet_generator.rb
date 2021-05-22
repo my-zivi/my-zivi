@@ -40,8 +40,8 @@ class ExpenseSheetGenerator
       service: @service,
       beginning: beginning,
       ending: ending,
-      work_days: DayCalculator.new(beginning, ending).calculate_work_days,
-      workfree_days: DayCalculator.new(beginning, ending).calculate_workfree_days,
+      work_days: DayCalculator.new(beginning, ending, @service.organization).calculate_work_days,
+      workfree_days: DayCalculator.new(beginning, ending, @service.organization).calculate_workfree_days,
       # TODO: Where to get bank_account_number from?
       credited_iban: @service.civil_servant.iban
     )
