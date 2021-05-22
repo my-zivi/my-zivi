@@ -64,10 +64,10 @@ class ServiceCalculator
   end
 
   def last_civil_service?
-    @flags[:last_civil_service?]
+    @flags.fetch(:last_civil_service?, false)
   end
 
   def probation_civil_service?
-    @flags[:probation_civil_service?]
+    @flags.fetch(:probation_civil_service?, false)
   end
 end

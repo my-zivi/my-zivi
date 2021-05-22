@@ -151,7 +151,7 @@ RSpec.describe ServiceCalculator, type: :service do
           it 'raises error' do
             expect do
               service_calculator.calculate_chargeable_service_days(beginning + 27.days)
-            end.not_to raise_error CalculationError
+            end.not_to raise_error
           end
         end
 

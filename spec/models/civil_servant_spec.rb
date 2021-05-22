@@ -63,7 +63,7 @@ RSpec.describe CivilServant, type: :model do
     ]
   end
 
-  describe 'active record hooks' do
+  describe 'active record callbacks' do
     let(:model) { create :civil_servant, :full }
     let(:address) { model.address }
 
