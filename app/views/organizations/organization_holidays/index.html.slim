@@ -1,0 +1,24 @@
+.card.mb-3.mb-lg-0
+  .card-header.bg-light.d-flex.justify-content-between.align-items-center
+    h5 = t('.title')
+    = link_to t('.new_organization_holiday'), new_organizations_organization_holiday_path, class: 'btn btn-primary'
+  .card-body
+    - @organization_holidays.group_by { |h| h.beginning.year }.each do |year, organization_holidays|
+      h4 = year
+      hr
+      .row.mb-3
+        - organization_holidays.each do |organization_holiday|
+          .col-md-6.h-100.mb-4
+            .media.btn-reveal-trigger
+              div class=(organization_holiday.ending.past? ? 'inactive-calendar' : '')
+                .calendar
+                  span.calendar-month = l(organization_holiday.beginning, format: '%b')
+                  span.calendar-day = l(organization_holiday.beginning, format: '%d')
+              .media-body.position-relative.pl-3
+                h6.fs-0.mb-0
+                  = link_to(organization_holiday.description,
+                          edit_organizations_organization_holiday_path(organization_holiday))
+                p.text-1000.mb-0
+                  = t('.duration',
+                          beginning: l(organization_holiday.beginning, format: :short),
+                          ending: l(organization_holiday.ending, format: :short))

@@ -38,5 +38,10 @@
             = ff.input :iban
           .col-md-6.col-12
             = ff.input :bic
+      hr
+      h4 = t('activerecord.models.organization_holiday')
+      = link_to(organizations_organization_holidays_path, class: 'btn btn-link pl-0') do
+        = t('.administrate')
+        i.fas.fa-chevron-right.ml-2
       .mt-4
         = f.submit class: 'btn btn-primary'

@@ -7,7 +7,7 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
   let(:civil_servant) { build(:civil_servant, :full) }
   let(:beginning) { Date.parse('2018-01-01') }
   let(:ending) { Date.parse('2018-01-26') }
-  let(:service) { build(:service, beginning: beginning, ending: ending, civil_servant: civil_servant) }
+  let(:service) { create(:service, beginning: beginning, ending: ending, civil_servant: civil_servant) }
   let(:expense_sheet) { build(:expense_sheet, beginning: beginning, ending: ending, service: service) }
 
   let(:expected_work_days) { 19 }

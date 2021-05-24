@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe ExpenseSheetGenerator, type: :service do
-  let(:service) { create :service, :long, beginning: '2018-01-01', ending: '2018-06-29' }
+  let(:service) { create(:service, :long, beginning: '2018-01-01', ending: '2018-06-29') }
   let(:expense_sheet_generator) { described_class.new(service) }
 
   describe '#create_expense_sheets!' do
@@ -28,7 +28,7 @@ RSpec.describe ExpenseSheetGenerator, type: :service do
     end
 
     context 'with a single month service' do
-      let(:service) { create :service, beginning: '2018-01-01', ending: '2018-01-26' }
+      let(:service) { create(:service, beginning: '2018-01-01', ending: '2018-01-26') }
 
       it 'creates one new expense sheet' do
         expect do
@@ -47,9 +47,9 @@ RSpec.describe ExpenseSheetGenerator, type: :service do
 
     context 'with a multi month service' do
       before do
-        create :organization_holiday, beginning: '2018-02-23', ending: '2018-03-05'
-        create :organization_holiday, beginning: '2018-04-05', ending: '2018-04-15'
-        create :organization_holiday, beginning: '2018-05-17', ending: '2018-05-20'
+        create(:organization_holiday, beginning: '2018-02-23', ending: '2018-03-05', organization: service.organization)
+        create(:organization_holiday, beginning: '2018-04-05', ending: '2018-04-15', organization: service.organization)
+        create(:organization_holiday, beginning: '2018-05-17', ending: '2018-05-20', organization: service.organization)
 
         create_expense_sheets
       end

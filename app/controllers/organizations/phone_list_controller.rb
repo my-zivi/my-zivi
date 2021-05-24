@@ -40,13 +40,9 @@ module Organizations
       ending =  @filters[:ending]
 
       if beginning.present? && ending.present?
-        Service
-          .accessible_by(current_ability)
-          .overlapping_date_range(beginning, ending)
+        Service.accessible_by(current_ability).overlapping_date_range(beginning, ending)
       else
-        Service
-          .accessible_by(current_ability)
-          .active
+        Service.accessible_by(current_ability).active
       end
     end
 

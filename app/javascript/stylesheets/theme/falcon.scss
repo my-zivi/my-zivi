@@ -30,3 +30,16 @@
   }
 }
 
+.inactive-calendar {
+  color: $gray-600;
+
+  .calendar {
+    .calendar-month {
+      background-color: $gray-500 !important;
+    }
+    .calendar-day {
+      border-color: $gray-500 !important;
+    }
+  }
+}
+

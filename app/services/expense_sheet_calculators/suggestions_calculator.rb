@@ -61,7 +61,11 @@ module ExpenseSheetCalculators
     end
 
     def day_calculator
-      @day_calculator ||= DayCalculator.new(@expense_sheet.beginning, @expense_sheet.ending)
+      @day_calculator ||= DayCalculator.new(
+        @expense_sheet.beginning,
+        @expense_sheet.ending,
+        @expense_sheet.organization
+      )
     end
   end
 end

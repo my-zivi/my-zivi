@@ -66,6 +66,7 @@ Rails.application.routes.draw do
 
     resource :organization, only: %i[edit update]
     resources :organization_members, as: 'members', except: :show
+    resources :organization_holidays, except: :show
     resources :service_specifications, except: :show
     resources :service_agreements, only: %i[index destroy create new]
     get '/service_agreements/civil_servants/search',

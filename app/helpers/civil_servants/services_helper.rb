@@ -17,7 +17,7 @@ module CivilServants
     def service_row_class(service)
       return '' unless service.past?
 
-      'inactive-service'
+      'inactive-calendar'
     end
 
     def organization_information_table(service)

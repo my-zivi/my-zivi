@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class HolidayCalculator
-  def initialize(beginning, ending, region = :ch)
+  def initialize(beginning, ending, organization, region = :ch)
     @beginning = beginning
     @ending = ending
-    @all_organization_holidays = OrganizationHoliday.overlapping_date_range(@beginning, @ending)
+    @all_organization_holidays = organization.organization_holidays.overlapping_date_range(@beginning, @ending)
     @all_public_holidays = Holidays.between(@beginning, @ending, region)
   end
 

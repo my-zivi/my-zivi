@@ -5,9 +5,10 @@ class DayCalculator
            :calculate_company_holiday_days,
            to: :holiday_calculator
 
-  def initialize(beginning, ending)
+  def initialize(beginning, ending, organization)
     @beginning = beginning
     @ending = ending
+    @organization = organization
   end
 
   def calculate_workfree_days
@@ -24,6 +25,6 @@ class DayCalculator
   private
 
   def holiday_calculator
-    @holiday_calculator ||= HolidayCalculator.new(@beginning, @ending)
+    @holiday_calculator ||= HolidayCalculator.new(@beginning, @ending, @organization)
   end
 end

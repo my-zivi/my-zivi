@@ -13,6 +13,7 @@ module Abilities
       can :manage, OrganizationMember, organization_id: organization_id
       can :manage, ServiceSpecification, organization_id: organization_id
       can :manage, Payment, organization_id: organization_id
+      can :manage, OrganizationHoliday, organization_id: organization_id
       can %i[edit update], Organization, id: organization_id
 
       can(:read, CivilServant,
