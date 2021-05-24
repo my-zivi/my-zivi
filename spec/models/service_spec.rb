@@ -423,7 +423,8 @@ RSpec.describe Service, type: :model do
   end
 
   describe '#service_days' do
-    let(:service) { build(:service, beginning: beginning, ending: beginning + 25.days) }
+    let(:service) { build(:service, beginning: beginning, ending: beginning + 25.days, organization: organization) }
+    let(:organization) { create(:organization) }
     let(:beginning) { Time.zone.today.beginning_of_week }
 
     it 'returns the service days of the service' do
