@@ -13,17 +13,10 @@ class ExpenseSheet < ApplicationRecord
 
   validates :beginning, :ending, :work_days, :state, :service, presence: true
 
-  validates :work_days,
-            :workfree_days,
-            :sick_days,
-            :paid_vacation_days,
-            :unpaid_vacation_days,
-            :unpaid_company_holiday_days,
-            :paid_company_holiday_days,
+  validates :work_days, :workfree_days, :sick_days, :paid_vacation_days,
+            :unpaid_vacation_days, :unpaid_company_holiday_days, :paid_company_holiday_days,
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :driving_expenses,
-            :extraordinary_expenses,
-            :clothing_expenses,
+  validates :driving_expenses, :extraordinary_expenses, :clothing_expenses,
             numericality: { greater_than_or_equal_to: 0 }
 
   validates :payment_id, presence: true, if: :closed?
