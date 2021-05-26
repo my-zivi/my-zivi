@@ -1,0 +1,10 @@
+= simple_form_for organization_holiday, url: url do |f|
+  .row
+    .col-md-12
+      = f.input :description
+    .col-md-6.col-12
+      = date_picker(f, :beginning, f.object.beginning, required: true)
+    .col-md-6.col-12
+      = date_picker(f, :ending, f.object.ending, required: true)
+  .mt-4
+    = f.submit class: 'btn btn-primary'

@@ -6,8 +6,9 @@ class NormalServiceCalculator
   ADDITIONAL_HOLIDAY_DAYS_PER_MONTH = 2
   DAYS_PER_MONTH = 30
 
-  def initialize(beginning_date)
+  def initialize(beginning_date, organization)
     @beginning_date = beginning_date
+    @organization = organization
   end
 
   def calculate_ending_date(required_service_days)
@@ -38,7 +39,7 @@ class NormalServiceCalculator
 
   def calculate_unpaid_days(service_days, ending_date)
     company_holiday_days = HolidayCalculator
-                           .new(@beginning_date, ending_date)
+                           .new(@beginning_date, ending_date, @organization)
                            .calculate_company_holiday_days
     paid_vacation_days = calculate_eligible_paid_vacation_days service_days
     [0, company_holiday_days - paid_vacation_days].max

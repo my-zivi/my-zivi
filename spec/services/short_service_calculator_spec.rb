@@ -3,11 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe ShortServiceCalculator, type: :service do
+  let(:organization) { create(:organization) }
+
   describe '#calculate_ending_date' do
     subject { calculated_ending_day }
 
-    let(:beginning) { Date.parse('2020-06-01') }
-    let(:short_service_calculator) { described_class.new(beginning) }
+    let(:beginning) { Date.new(2020, 6, 1) }
+    let(:short_service_calculator) { described_class.new(beginning, organization) }
     let(:required_service_days) { 26 }
     let(:calculated_ending_day) { short_service_calculator.calculate_ending_date(required_service_days) }
 
@@ -15,17 +17,20 @@ RSpec.describe ShortServiceCalculator, type: :service do
       let(:required_service_days) { 7 }
 
       before do
-        create :organization_holiday, beginning: beginning, ending: beginning + 7.days
+        create(:organization_holiday,
+               beginning: beginning,
+               ending: beginning + 7.days,
+               organization: organization)
       end
 
-      it { is_expected.to eq Date.parse('2020-06-16') }
+      it { is_expected.to eq Date.new(2020, 6, 16) }
     end
 
     context 'with public holidays' do
       let(:required_service_days) { 6 }
-      let(:beginning) { Date.parse('2019-12-30') }
+      let(:beginning) { Date.new(2019, 12, 30) }
 
-      it { is_expected.to eq Date.parse('2020-01-07') }
+      it { is_expected.to eq Date.new(2020, 1, 7) }
     end
 
     context 'when service days are between 1 and 5' do
@@ -101,8 +106,8 @@ RSpec.describe ShortServiceCalculator, type: :service do
   describe '#calculate_chargeable_service_days' do
     subject { calculate_chargeable_service_days }
 
-    let(:beginning) { Date.parse('2020-06-01') }
-    let(:short_service_calculator) { described_class.new(beginning) }
+    let(:beginning) { Date.new(2020, 6, 1) }
+    let(:short_service_calculator) { described_class.new(beginning, organization) }
     let(:ending) { beginning }
     let(:calculate_chargeable_service_days) { short_service_calculator.calculate_chargeable_service_days(ending) }
 
@@ -111,7 +116,10 @@ RSpec.describe ShortServiceCalculator, type: :service do
       let(:company_holiday_ending) { company_holiday_beginning }
 
       before do
-        create :organization_holiday, beginning: company_holiday_beginning, ending: company_holiday_ending
+        create(:organization_holiday,
+               beginning: company_holiday_beginning,
+               ending: company_holiday_ending,
+               organization: organization)
       end
 
       context 'with a long company holiday' do
@@ -140,14 +148,14 @@ RSpec.describe ShortServiceCalculator, type: :service do
 
     context 'with public holidays' do
       context 'with a public holiday which affects the service days' do
-        let(:beginning) { Date.parse('2018-01-01') }
+        let(:beginning) { Date.new(2018, 1, 1) }
         let(:ending) { beginning + 10.days }
 
         it { is_expected.to eq 9 }
       end
 
       context 'with a public holiday which doesnt affect the service days' do
-        let(:beginning) { Date.parse('2017-01-01') }
+        let(:beginning) { Date.new(2017, 1, 1) }
         let(:ending) { beginning + 11.days }
 
         it { is_expected.to eq 11 }
@@ -155,12 +163,10 @@ RSpec.describe ShortServiceCalculator, type: :service do
     end
 
     context 'with public and company holidays' do
-      let(:beginning) { Date.parse('2018-01-01') }
+      let(:beginning) { Date.new(2018, 1, 1) }
       let(:ending) { beginning + 7.days }
 
-      before do
-        create :organization_holiday, beginning: ending, ending: ending
-      end
+      before { create(:organization_holiday, beginning: ending, ending: ending, organization: organization) }
 
       it { is_expected.to eq 4 }
     end

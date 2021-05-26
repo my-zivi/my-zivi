@@ -193,6 +193,24 @@ fr-CH:
       update:
         erroneous_update: La note de frais n'a pas pu être mis à jour
         successful_update: La note de frais mis à jour avec succès
+    organization_holidays:
+      edit:
+        destroy: Supprimer
+        destroy_confirm: Supprimer vraiment les vacances d'entreprise ?
+        title: "%{description} éditer"
+      index:
+        duration: De %{beginning} à %{ending}
+        new_organization_holiday: Saisir de nouvelles vacances d'entreprise
+        title: Vacances d'entreprise
+      new:
+        title: Saisir les congés de l'entreprise
+      update:
+        erroneous_create: Les vacances de l'entreprise n'ont pas pu être enregistrées
+        erroneous_destroy: Les vacances de l'entreprise n'ont pas pu être supprimées
+        erroneous_update: Les vacances de l'entreprise n'ont pas pu être mises à jour
+        successful_create: Enregistrement réussi des vacances d'entreprise
+        successful_destroy: Vacances d'entreprise supprimées avec succès
+        successful_update: Les vacances de l'entreprise ont été mises à jour avec succès
     organization_members:
       create:
         erroneous_create: L'employé n'a pas pu être enregistré
@@ -217,6 +235,7 @@ fr-CH:
     organizations:
       edit:
         address_information: Données d'adresse
+        administrate: Gérer
         creditor_information: Détails du paiement
         organization_information: Données sur les entreprises
       update:

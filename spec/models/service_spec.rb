@@ -423,7 +423,8 @@ RSpec.describe Service, type: :model do
   end
 
   describe '#service_days' do
-    let(:service) { build(:service, beginning: beginning, ending: beginning + 25.days) }
+    let(:service) { build(:service, beginning: beginning, ending: beginning + 25.days, organization: organization) }
+    let(:organization) { create(:organization) }
     let(:beginning) { Time.zone.today.beginning_of_week }
 
     it 'returns the service days of the service' do
@@ -432,7 +433,13 @@ RSpec.describe Service, type: :model do
   end
 
   describe '#eligible_paid_vacation_days' do
-    let(:service) { build(:service, :long, beginning: beginning, ending: beginning + 214.days) }
+    subject(:service) do
+      build(:service, :long,
+            beginning: beginning,
+            ending: beginning + 214.days,
+            organization: create(:organization))
+    end
+
     let(:beginning) { Time.zone.today.beginning_of_week }
 
     it 'returns the eligible personal vacation days of the service' do
@@ -441,7 +448,10 @@ RSpec.describe Service, type: :model do
   end
 
   describe '#eligible_sick_days' do
-    let(:service) { build(:service, beginning: beginning, ending: beginning + 25.days) }
+    subject(:service) do
+      build(:service, beginning: beginning, ending: beginning + 25.days, organization: create(:organization))
+    end
+
     let(:beginning) { Time.zone.today.beginning_of_week }
     let(:service_calculator) { instance_double ServiceCalculator }
 

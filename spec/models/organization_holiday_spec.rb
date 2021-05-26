@@ -72,4 +72,20 @@ RSpec.describe OrganizationHoliday, type: :model do
       it { expect(holiday.work_days).to eq expected_work_days }
     end
   end
+
+  describe 'destroy callback' do
+    let!(:organization_holiday) { create(:organization_holiday, :in_future) }
+
+    it 'can destroy the organization holiday' do
+      expect(organization_holiday.destroy).to eq organization_holiday
+    end
+
+    context 'when the organization holiday is in the past' do
+      let(:organization_holiday) { create(:organization_holiday) }
+
+      it 'cannot destroy the organization holiday' do
+        expect(organization_holiday.destroy).to eq false
+      end
+    end
+  end
 end

@@ -5,13 +5,14 @@ require 'rails_helper'
 RSpec.describe HolidayCalculator, type: :service do
   let(:beginning) { Date.parse('2019-12-30') }
   let(:ending) { Date.parse('2020-01-31') }
-  let(:holiday_calculator) { described_class.new(beginning, ending) }
+  let(:organization) { create(:organization) }
+  let(:holiday_calculator) { described_class.new(beginning, ending, organization) }
 
   describe '#calculate_company_holiday_days' do
     subject { holiday_calculator.calculate_company_holiday_days }
 
     before do
-      create :organization_holiday, beginning: '2020-01-13', ending: '2020-01-19'
+      create(:organization_holiday, beginning: '2020-01-13', ending: '2020-01-19', organization: organization)
     end
 
     context 'when there are no public holidays' do
@@ -23,10 +24,21 @@ RSpec.describe HolidayCalculator, type: :service do
 
       context 'when there are overlapping company holidays' do
         before do
-          create :organization_holiday, beginning: '2020-01-16', ending: '2020-01-21'
+          create(:organization_holiday, beginning: '2020-01-16', ending: '2020-01-21', organization: organization)
         end
 
         it { is_expected.to eq 7 }
+      end
+
+      context 'when the company holidays are from a different organization' do
+        before do
+          create(:organization_holiday,
+                 beginning: '2020-01-16',
+                 ending: '2020-01-21',
+                 organization: create(:organization))
+        end
+
+        it { is_expected.to eq 5 }
       end
     end
 
@@ -37,7 +49,7 @@ RSpec.describe HolidayCalculator, type: :service do
 
       context 'when there are overlapping company holidays' do
         before do
-          create :organization_holiday, beginning: '2020-01-16', ending: '2020-01-21'
+          create(:organization_holiday, beginning: '2020-01-16', ending: '2020-01-21', organization: organization)
         end
 
         it { is_expected.to eq 7 }

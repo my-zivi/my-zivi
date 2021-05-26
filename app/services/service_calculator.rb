@@ -3,10 +3,10 @@
 class ServiceCalculator
   LINEAR_CALCULATION_THRESHOLD = 26
 
-  def initialize(beginning_date, last_civil_service, probation_civil_service)
+  def initialize(beginning_date, organization, flags)
     @beginning_date = beginning_date
-    @last_civil_service = last_civil_service
-    @probation_civil_service = probation_civil_service
+    @organization = organization
+    @flags = flags
   end
 
   def calculate_ending_date(required_service_days)
@@ -50,16 +50,24 @@ class ServiceCalculator
   private
 
   def invalid_ending_date?(ending_date)
-    return false if @last_civil_service || @probation_civil_service
+    return false if last_civil_service? || probation_civil_service?
 
     ending_date.on_weekend?
   end
 
   def short_service_calculator
-    @short_service_calculator ||= ShortServiceCalculator.new @beginning_date
+    @short_service_calculator ||= ShortServiceCalculator.new(@beginning_date, @organization)
   end
 
   def normal_service_calculator
-    @normal_service_calculator ||= NormalServiceCalculator.new @beginning_date
+    @normal_service_calculator ||= NormalServiceCalculator.new(@beginning_date, @organization)
+  end
+
+  def last_civil_service?
+    @flags.fetch(:last_civil_service?, false)
+  end
+
+  def probation_civil_service?
+    @flags.fetch(:probation_civil_service?, false)
   end
 end

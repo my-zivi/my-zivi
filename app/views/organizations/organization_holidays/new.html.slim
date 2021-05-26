@@ -1,0 +1,8 @@
+.card.mt-3.mb-4
+  .card-header.bg-white
+    .d-flex.align-items-baseline.justify-content-between.w-100
+      h5.mb-0 = t('.title')
+  .card-body.bg-light
+    = render 'form',
+            organization_holiday: @organization_holiday,
+            url: organizations_organization_holidays_path

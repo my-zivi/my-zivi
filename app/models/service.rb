@@ -90,7 +90,10 @@ class Service < ApplicationRecord
   end
 
   def service_calculator
-    @service_calculator ||= ServiceCalculator.new(beginning, last_service?, probation_civil_service?)
+    @service_calculator ||= ServiceCalculator.new(beginning, organization, {
+                                                    last_service?: last_service?,
+                                                    probation_civil_service?: probation_civil_service?
+                                                  })
   end
 
   def check_definitive_service_destroy
