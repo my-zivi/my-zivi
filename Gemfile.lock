@@ -524,7 +524,7 @@ GEM
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
     unicode-display_width (1.7.0)
-    validates_timeliness (4.1.1)
+    validates_timeliness (5.0.0)
       timeliness (>= 0.3.10, < 1)
     vcr (6.0.0)
     view_component (2.22.1)
