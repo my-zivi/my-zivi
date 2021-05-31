@@ -283,6 +283,7 @@ CREATE TABLE public.blog_entries (
     published boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
+    slug character varying NOT NULL,
     subtitle character varying
 );
 
@@ -1397,6 +1398,13 @@ CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.ac
 --
 
 CREATE INDEX index_available_service_periods_on_job_postings_id ON public.available_service_periods USING btree (job_postings_id);
+
+
+--
+-- Name: index_blog_entries_on_slug; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_blog_entries_on_slug ON public.blog_entries USING btree (slug);
 
 
 --
