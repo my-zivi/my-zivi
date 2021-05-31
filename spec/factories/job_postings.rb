@@ -7,6 +7,13 @@ FactoryBot.define do
     publication_date { 3.days.ago }
     icon_url { 'https://i.picsum.photos/id/458/40/40.jpg?hmac=QK8u-TtdS_88CLa_qvzYyB9aZ6akNFET2fE50QihRUw' }
     company { 'MyCompany' }
+    canton { 'Zürich' }
+    identification_number { 8315 }
+    category { 'nature_conservancy' }
+    sub_category { 'landscape_conservation' }
+    language { 'de' }
+    minimum_service_length { '1 Monat(e)' }
+    contact_information { 'Sir Dr. Roland Hutter' }
     description do
       <<~HTML.squish
         <h3>Lorem ipsum dolor sit amet,<h3>
