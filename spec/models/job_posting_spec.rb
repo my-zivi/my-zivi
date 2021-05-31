@@ -22,4 +22,8 @@ RSpec.describe JobPosting, type: :model do
     expect(model).to validate_uniqueness_of(:link)
     expect(model).to validate_uniqueness_of(:identification_number)
   end
+
+  describe 'relations' do
+    it { is_expected.to have_many(:workshops).through(:job_posting_workshops) }
+  end
 end

@@ -6,6 +6,18 @@ require 'open-uri'
 class JobPostingPollerService
   class << self
     PATH = '/feeds/standard.xml'
+    DEFAULT_ATTRIBUTES = {
+      organization_name: 'MyZivi',
+      canton: 'Zürich',
+      category: JobPosting.categories[:nature_conservancy],
+      sub_category: JobPosting.sub_categories[:landscape_conservation],
+      language: JobPosting.languages[:german],
+      minimum_service_length: '1 Monat(e)',
+      contact_information: <<~TEXT.squish
+        Dieser Betrieb ist noch nicht bei MyZivi registriert.
+        Bitte bewerbe Dich im EZIVI.
+      TEXT
+    }.freeze
 
     def poll
       URI.parse(url).open do |page|
@@ -38,14 +50,19 @@ class JobPostingPollerService
     end
 
     def sync_posting(attributes)
+      identification_number = JobPosting.order(:identification_number).last&.identification_number || 0
       JobPosting.find_or_create_by(link: attributes[:link]).tap do |posting|
-        posting.assign_attributes(format_posting_attributes(attributes))
+        identification_number += 1
+        posting.assign_attributes(
+          format_posting_attributes(identification_number: identification_number, **attributes)
+        )
         posting.save
       end
     end
 
     def format_posting_attributes(attributes)
-      attributes.slice(:title, :publication_date, :icon_url, :company).merge(
+      attributes.slice(:title, :publication_date, :icon_url, :company, :identification_number).merge(
+        **DEFAULT_ATTRIBUTES,
         description: attributes[:description].squish
       )
     end

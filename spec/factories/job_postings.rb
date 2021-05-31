@@ -6,7 +6,7 @@ FactoryBot.define do
     sequence(:link) { |i| "https://www.example.com/#{i}" }
     publication_date { 3.days.ago }
     icon_url { 'https://i.picsum.photos/id/458/40/40.jpg?hmac=QK8u-TtdS_88CLa_qvzYyB9aZ6akNFET2fE50QihRUw' }
-    company { 'MyCompany' }
+    organization_name { 'MyCompany' }
     canton { 'Zürich' }
     identification_number { 8315 }
     category { JobPosting.categories[:nature_conservancy] }
