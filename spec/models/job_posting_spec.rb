@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe JobPosting, type: :model do
-  subject(:model) { described_class.new }
+  subject(:model) { build(:job_posting) }
 
   it_behaves_like 'validates presence of required fields', %i[
     link
@@ -13,7 +13,6 @@ RSpec.describe JobPosting, type: :model do
     canton
     identification_number
     category
-    sub_category
     language
     minimum_service_length
     contact_information

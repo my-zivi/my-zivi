@@ -9,9 +9,9 @@ FactoryBot.define do
     company { 'MyCompany' }
     canton { 'Zürich' }
     identification_number { 8315 }
-    category { 'nature_conservancy' }
-    sub_category { 'landscape_conservation' }
-    language { 'de' }
+    category { JobPosting.categories[:nature_conservancy] }
+    sub_category { JobPosting.sub_categories[:landscape_conservation] }
+    language { JobPosting.languages[:german] }
     minimum_service_length { '1 Monat(e)' }
     contact_information { 'Sir Dr. Roland Hutter' }
     description do
