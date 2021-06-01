@@ -8,7 +8,7 @@ FactoryBot.define do
     icon_url { 'https://i.picsum.photos/id/458/40/40.jpg?hmac=QK8u-TtdS_88CLa_qvzYyB9aZ6akNFET2fE50QihRUw' }
     organization_name { 'MyCompany' }
     canton { 'Zürich' }
-    identification_number { 8315 }
+    sequence(:identification_number) { |i| i }
     category { JobPosting.categories[:nature_conservancy] }
     sub_category { JobPosting.sub_categories[:landscape_conservation] }
     language { JobPosting.languages[:german] }
