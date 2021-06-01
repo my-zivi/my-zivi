@@ -17,8 +17,8 @@ RSpec.describe JobPostingPollerService, :vcr do
       expect { polled_postings }.to change(JobPosting, :count).by(2)
 
       expect(polled_postings).to contain_exactly(
-        have_attributes(title: 'Naturschutzeinsatz'),
-        have_attributes(title: 'Landschaftspflege')
+        have_attributes(title: 'Naturschutzeinsatz', organization_name: 'MyZivi'),
+        have_attributes(title: 'Landschaftspflege', organization_name: 'MyZivi')
       )
     end
 

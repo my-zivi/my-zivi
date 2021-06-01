@@ -3,11 +3,27 @@
 require 'rails_helper'
 
 RSpec.describe JobPosting, type: :model do
-  subject(:model) { described_class.new }
+  subject(:model) { build(:job_posting) }
 
-  it_behaves_like 'validates presence of required fields', %i[link title publication_date description]
+  it_behaves_like 'validates presence of required fields', %i[
+    link
+    title
+    publication_date
+    description
+    canton
+    identification_number
+    category
+    language
+    minimum_service_length
+    contact_information
+  ]
 
-  it 'validates uniqueness of link' do
+  it 'validates uniqueness of link and identification_number' do
     expect(model).to validate_uniqueness_of(:link)
+    expect(model).to validate_uniqueness_of(:identification_number)
+  end
+
+  describe 'relations' do
+    it { is_expected.to have_many(:workshops).through(:job_posting_workshops) }
   end
 end
