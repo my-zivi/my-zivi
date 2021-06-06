@@ -1,6 +1,7 @@
 class AdaptJobPostings < ActiveRecord::Migration[6.1]
   def change
     rename_column :job_postings, :minimum_service_length, :minimum_service_months
+    rename_column :job_postings, :organizations_id, :organization_id
     rename_column :available_service_periods, :job_postings_id, :job_posting_id
 
     reversible do |dir|

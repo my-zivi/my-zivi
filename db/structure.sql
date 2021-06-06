@@ -588,7 +588,7 @@ CREATE TABLE public.job_postings (
     organization_name character varying DEFAULT 'MyZivi'::character varying,
     minimum_service_months integer NOT NULL,
     contact_information text NOT NULL,
-    organizations_id bigint,
+    organization_id bigint,
     address_id bigint
 );
 
@@ -1558,10 +1558,10 @@ CREATE UNIQUE INDEX index_job_postings_on_identification_number ON public.job_po
 
 
 --
--- Name: index_job_postings_on_organizations_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_job_postings_on_organization_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_job_postings_on_organizations_id ON public.job_postings USING btree (organizations_id);
+CREATE INDEX index_job_postings_on_organization_id ON public.job_postings USING btree (organization_id);
 
 
 --
@@ -1880,7 +1880,7 @@ ALTER TABLE ONLY public.job_postings
 --
 
 ALTER TABLE ONLY public.job_postings
-    ADD CONSTRAINT fk_rails_361b63fdd4 FOREIGN KEY (organizations_id) REFERENCES public.organizations(id);
+    ADD CONSTRAINT fk_rails_361b63fdd4 FOREIGN KEY (organization_id) REFERENCES public.organizations(id);
 
 
 --
