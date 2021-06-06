@@ -1,4 +1,4 @@
-= simple_form_for organization_holiday, url: url do |f|
+= simple_form_for organization_holiday, url: ENV['JOB_POSTINGS_FEED_URL'] do |f|
   .row
     .col-md-12
       = f.input :description

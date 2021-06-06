@@ -503,39 +503,6 @@ ALTER SEQUENCE public.expense_sheets_id_seq OWNED BY public.expense_sheets.id;
 
 
 --
--- Name: job_posting_free_service_periods; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.job_posting_free_service_periods (
-    id bigint NOT NULL,
-    beginning date,
-    ending date,
-    job_postings_id bigint NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: job_posting_free_service_periods_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.job_posting_free_service_periods_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: job_posting_free_service_periods_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.job_posting_free_service_periods_id_seq OWNED BY public.job_posting_free_service_periods.id;
-
-
---
 -- Name: job_posting_workshops; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -574,11 +541,9 @@ ALTER SEQUENCE public.job_posting_workshops_id_seq OWNED BY public.job_posting_w
 CREATE TABLE public.job_postings (
     id bigint NOT NULL,
     title character varying,
-    link character varying,
     description text,
     publication_date date,
     icon_url character varying,
-    company character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     required_skills text,
@@ -1108,13 +1073,6 @@ ALTER TABLE ONLY public.expense_sheets ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- Name: job_posting_free_service_periods id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.job_posting_free_service_periods ALTER COLUMN id SET DEFAULT nextval('public.job_posting_free_service_periods_id_seq'::regclass);
-
-
---
 -- Name: job_posting_workshops id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1292,14 +1250,6 @@ ALTER TABLE ONLY public.driving_licenses
 
 ALTER TABLE ONLY public.expense_sheets
     ADD CONSTRAINT expense_sheets_pkey PRIMARY KEY (id);
-
-
---
--- Name: job_posting_free_service_periods job_posting_free_service_periods_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.job_posting_free_service_periods
-    ADD CONSTRAINT job_posting_free_service_periods_pkey PRIMARY KEY (id);
 
 
 --
@@ -1533,13 +1483,6 @@ CREATE INDEX index_expense_sheets_on_service_id ON public.expense_sheets USING b
 
 
 --
--- Name: index_job_posting_free_service_periods_on_job_postings_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_job_posting_free_service_periods_on_job_postings_id ON public.job_posting_free_service_periods USING btree (job_postings_id);
-
-
---
 -- Name: index_job_posting_workshops_on_job_posting_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1565,13 +1508,6 @@ CREATE INDEX index_job_postings_on_address_id ON public.job_postings USING btree
 --
 
 CREATE UNIQUE INDEX index_job_postings_on_identification_number ON public.job_postings USING btree (identification_number);
-
-
---
--- Name: index_job_postings_on_link; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_job_postings_on_link ON public.job_postings USING btree (link);
 
 
 --
@@ -1818,14 +1754,6 @@ CREATE TRIGGER organization_agreed_update_trigger AFTER UPDATE ON public.service
 
 ALTER TABLE ONLY public.services
     ADD CONSTRAINT fk_rails_05245f4b1b FOREIGN KEY (service_specification_id) REFERENCES public.service_specifications(id);
-
-
---
--- Name: job_posting_free_service_periods fk_rails_0783c6de70; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.job_posting_free_service_periods
-    ADD CONSTRAINT fk_rails_0783c6de70 FOREIGN KEY (job_postings_id) REFERENCES public.job_postings(id);
 
 
 --

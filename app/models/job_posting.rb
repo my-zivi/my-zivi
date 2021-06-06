@@ -2,7 +2,6 @@
 
 class JobPosting < ApplicationRecord
   REQUIRED_FIELDS = %i[
-    link
     title
     publication_date
     description
@@ -10,7 +9,7 @@ class JobPosting < ApplicationRecord
     identification_number
     category
     language
-    minimum_service_length
+    minimum_service_months
     contact_information
   ].freeze
 
@@ -18,11 +17,15 @@ class JobPosting < ApplicationRecord
   belongs_to :address, optional: true
   has_many :job_posting_workshops, inverse_of: :job_posting, dependent: :destroy
   has_many :workshops, through: :job_posting_workshops
+  has_many :available_service_periods, inverse_of: :job_posting, autosave: true, dependent: :destroy
 
   alias_attribute :required_workshops, :workshops
 
   validates(*REQUIRED_FIELDS, presence: true)
-  validates :link, :identification_number, uniqueness: true
+  validates :identification_number, uniqueness: true
+  validates :minimum_service_months, :identification_number, numericality: { greater_than: 0, allow_nil: true }
+
+  accepts_nested_attributes_for :workshops, :available_service_periods, allow_destroy: false
 
   enum language: {
     german: 'de-CH',

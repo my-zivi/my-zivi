@@ -21,14 +21,14 @@ section.jobs
     .row
       - JobPosting.order(publication_date: :desc).first(6).each do |posting|
         .col-12.col-lg-6.mb-4
-          = link_to posting.link, target: '_blank' do
+          = link_to '#', target: '_blank' do
             .card.card-body
               .d-flex
                 .mr-3
-                  img.company-icon src=posting.icon_url alt=posting.company
+                  img.company-icon src=posting.icon_url alt=posting.organization_name
                 div
                   h5 = posting.title
-                  .text-muted.mb-3 Erstellt am #{l(posting.publication_date)}
+                  .text-muted.mb-3 = posting.organization_name
                   .job-description = strip_tags(posting.description).truncate(200)
       .col-12.text-center.mt-3
         = link_to('Weitere Einsätze anzeigen…', ENV['SMARTJOBBOARD_PUBLIC_URL'], class: 'btn btn-link')
