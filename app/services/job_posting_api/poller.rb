@@ -6,7 +6,6 @@ require 'open-uri'
 module JobPostingApi
   class Poller
     JOB_ITEM_XPATH = '//item'
-    FEED_URL = ENV['JOB_POSTINGS_FEED_URL']
     DEFAULT_ATTRIBUTES = {
       icon_url: 'https://i.picsum.photos/id/458/40/40.jpg?hmac=QK8u-TtdS_88CLa_qvzYyB9aZ6akNFET2fE50QihRUw',
       contact_information: <<~TEXT.squish
@@ -20,7 +19,7 @@ module JobPostingApi
     end
 
     def perform
-      URI.parse(FEED_URL).open do |page|
+      URI.parse(ENV['JOB_POSTINGS_FEED_URL']).open do |page|
         feed = Nokogiri::XML(page, &:noblanks)
         process_feed(feed)
       end
@@ -67,7 +66,7 @@ module JobPostingApi
       JobPosting.transaction do
         job_posting.available_service_periods.select(&:persisted?).each(&:destroy)
         job_posting.job_posting_workshops.select(&:persisted?).each(&:destroy)
-        job_posting.save
+        job_posting.save!
       end
     end
 
