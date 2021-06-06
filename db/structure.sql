@@ -503,6 +503,39 @@ ALTER SEQUENCE public.expense_sheets_id_seq OWNED BY public.expense_sheets.id;
 
 
 --
+-- Name: job_posting_free_service_periods; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.job_posting_free_service_periods (
+    id bigint NOT NULL,
+    beginning date,
+    ending date,
+    job_postings_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: job_posting_free_service_periods_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.job_posting_free_service_periods_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: job_posting_free_service_periods_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.job_posting_free_service_periods_id_seq OWNED BY public.job_posting_free_service_periods.id;
+
+
+--
 -- Name: job_posting_workshops; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -556,7 +589,7 @@ CREATE TABLE public.job_postings (
     sub_category character varying,
     language character varying NOT NULL,
     organization_name character varying DEFAULT 'MyZivi'::character varying,
-    minimum_service_length character varying NOT NULL,
+    minimum_service_months integer NOT NULL,
     contact_information text NOT NULL,
     organizations_id bigint,
     address_id bigint
@@ -1075,6 +1108,13 @@ ALTER TABLE ONLY public.expense_sheets ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: job_posting_free_service_periods id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.job_posting_free_service_periods ALTER COLUMN id SET DEFAULT nextval('public.job_posting_free_service_periods_id_seq'::regclass);
+
+
+--
 -- Name: job_posting_workshops id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1252,6 +1292,14 @@ ALTER TABLE ONLY public.driving_licenses
 
 ALTER TABLE ONLY public.expense_sheets
     ADD CONSTRAINT expense_sheets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: job_posting_free_service_periods job_posting_free_service_periods_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.job_posting_free_service_periods
+    ADD CONSTRAINT job_posting_free_service_periods_pkey PRIMARY KEY (id);
 
 
 --
@@ -1482,6 +1530,13 @@ CREATE INDEX index_expense_sheets_on_payment_id ON public.expense_sheets USING b
 --
 
 CREATE INDEX index_expense_sheets_on_service_id ON public.expense_sheets USING btree (service_id);
+
+
+--
+-- Name: index_job_posting_free_service_periods_on_job_postings_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_posting_free_service_periods_on_job_postings_id ON public.job_posting_free_service_periods USING btree (job_postings_id);
 
 
 --
@@ -1766,6 +1821,14 @@ ALTER TABLE ONLY public.services
 
 
 --
+-- Name: job_posting_free_service_periods fk_rails_0783c6de70; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.job_posting_free_service_periods
+    ADD CONSTRAINT fk_rails_0783c6de70 FOREIGN KEY (job_postings_id) REFERENCES public.job_postings(id);
+
+
+--
 -- Name: services fk_rails_085da598bb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2009,6 +2072,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210501204041'),
 ('20210501235424'),
 ('20210508095658'),
-('20210531194253');
+('20210531194253'),
+('20210602184752');
 
 
