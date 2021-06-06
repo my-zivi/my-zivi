@@ -1,7 +1,7 @@
 class AdaptJobPostings < ActiveRecord::Migration[6.1]
   def change
     rename_column :job_postings, :minimum_service_length, :minimum_service_months
-    remove_column :job_postings, :company
+    rename_column :available_service_periods, :job_postings_id, :job_posting_id
 
     reversible do |dir|
       dir.up do
@@ -18,5 +18,13 @@ class AdaptJobPostings < ActiveRecord::Migration[6.1]
     end
 
     remove_column :job_postings, :link, :string
+    remove_column :job_postings, :company, :string
+
+    create_table :job_posting_api_poll_logs do |t|
+      t.text :log, null: false
+      t.integer :status, null: false
+
+      t.timestamps
+    end
   end
 end

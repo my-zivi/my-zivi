@@ -3,24 +3,55 @@
 module JobPostingApi
   class Parser
     class << self
+      STRING_FIELDS = {
+        title: 'title',
+        description: 'description',
+        organization_name: 'organization_name',
+        canton: 'canton',
+        category: 'category',
+        sub_category: 'sub_category',
+        language: 'language',
+        required_skills: 'required_skills',
+        preferred_skills: 'preferred_skills'
+      }.freeze
+
+      INTEGER_FIELDS = {
+        identification_number: 'identification_number',
+        minimum_service_months: 'minimum_service_months'
+      }.freeze
+
       def parse_job_posting_attributes(job_posting_xml)
-        {
-          identification_number: job_field(job_posting_xml, 'identification_number').to_i,
-          title: job_field(job_posting_xml, 'title'),
-          publication_date: Date.parse(job_field(job_posting_xml, 'pubDate')),
-          description: job_field(job_posting_xml, 'description'),
-          organization_name: job_field(job_posting_xml, 'organization_name'),
-          required_skills: job_field(job_posting_xml, 'required_skills'),
-          preferred_skills: job_field(job_posting_xml, 'preferred_skills'),
-          canton: job_field(job_posting_xml, 'canton'),
-          category: job_field(job_posting_xml, 'category'),
-          sub_category: job_field(job_posting_xml, 'sub_category'),
-          language: job_field(job_posting_xml, 'language'),
-          minimum_service_months: job_field(job_posting_xml, 'minimum_service_months').to_i
-        }
+        parse_string_fields(job_posting_xml).merge(
+          **parse_integer_fields(job_posting_xml),
+          **available_service_periods_attributes(job_posting_xml),
+          publication_date: Date.parse(job_field(job_posting_xml, 'pubDate'))
+        )
       end
 
       private
+
+      def available_service_periods_attributes(job_posting_xml)
+        available_periods = job_posting_xml.xpath('free_service_periods/free_service_period')
+
+        return {} if available_periods.empty?
+
+        available_periods = available_periods.map do |available_period|
+          {
+            beginning: Date.parse(available_period.attr('beginning')),
+            ending: Date.parse(available_period.attr('ending'))
+          }
+        end
+
+        { available_service_periods_attributes: available_periods }
+      end
+
+      def parse_integer_fields(job_posting_xml)
+        INTEGER_FIELDS.transform_values { |xml_key| job_field(job_posting_xml, xml_key).to_i }
+      end
+
+      def parse_string_fields(job_posting_xml)
+        STRING_FIELDS.transform_values { |xml_key| job_field(job_posting_xml, xml_key) }
+      end
 
       def job_field(job, field)
         job.xpath(field).text.squish.presence

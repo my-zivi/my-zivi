@@ -30,6 +30,7 @@ module Abilities
       can(:manage, BlogEntry)
       can(:manage, JobPosting)
       can(:read, RegionalCenter)
+      can(:read, JobPostingApi::PollLog)
     end
     # rubocop:enable Metrics/MethodLength
   end

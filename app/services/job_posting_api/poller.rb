@@ -24,23 +24,27 @@ module JobPostingApi
         feed = Nokogiri::XML(page, &:noblanks)
         process_feed(feed)
       end
+
+      log_result!
+    end
+
+    private
+
+    def log_result!
+      status = @errored_job_postings.empty? ? :success : :error
+      PollLog.create!(log: JSON.dump(error_report), status: PollLog.statuses[status])
     end
 
     def error_report
-      report = { status: @errored_job_postings.empty? ? 'success' : 'errors' }
-      return report if @errored_job_postings.empty?
+      return {} if @errored_job_postings.empty?
 
-      report[:errored_job_postings] = @errored_job_postings.map do |job_posting|
+      @errored_job_postings.map do |job_posting|
         {
           errors: job_posting.errors.messages,
           attributes: job_posting.attributes
         }
       end
-
-      report
     end
-
-    private
 
     def process_feed(feed)
       feed.xpath(JOB_ITEM_XPATH).map do |job_xml|

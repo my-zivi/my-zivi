@@ -16,7 +16,7 @@ Workshop.create!(
     { name: 'Pflegehilfe 1' },
     { name: 'Umwelt- und Naturschutz' },
     { name: 'Alp-Pflege' },
-    { name: 'Sicherheit im Auslandeinsatz' },
+    { name: 'Sicherheit im Auslandeinsatz' }
   ]
 )
 
