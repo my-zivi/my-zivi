@@ -24,11 +24,25 @@ module JobPostingApi
         parse_string_fields(job_posting_xml).merge(
           **parse_integer_fields(job_posting_xml),
           **available_service_periods_attributes(job_posting_xml),
+          **required_workshops_attributes(job_posting_xml),
           publication_date: Date.parse(job_field(job_posting_xml, 'pubDate'))
         )
       end
 
       private
+
+      def required_workshops_attributes(job_posting_xml)
+        required_workshops = job_posting_xml.xpath('required_courses/required_course')
+        workshop_names = required_workshops.map { |xml| xml.text.squish.presence }
+
+        return {} if workshop_names.empty?
+
+        workshop_ids = Workshop.where(name: workshop_names).pluck(:id)
+
+        {
+          job_posting_workshops_attributes: workshop_ids.map { |id| { workshop_id: id } }
+        }
+      end
 
       def available_service_periods_attributes(job_posting_xml)
         available_periods = job_posting_xml.xpath('free_service_periods/free_service_period')
@@ -54,7 +68,7 @@ module JobPostingApi
       end
 
       def job_field(job, field)
-        job.xpath(field).text.squish.presence
+        job.xpath(field).text&.squish&.presence
       end
     end
   end

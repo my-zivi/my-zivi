@@ -32,18 +32,21 @@ module JobPostingApi
 
     def log_result!
       status = @errored_job_postings.empty? ? :success : :error
-      PollLog.create!(log: JSON.dump(error_report), status: PollLog.statuses[status])
+      PollLog.create!(log: error_report, status: PollLog.statuses[status])
     end
 
     def error_report
-      return {} if @errored_job_postings.empty?
+      return { error_count: 0 } if @errored_job_postings.empty?
 
-      @errored_job_postings.map do |job_posting|
-        {
-          errors: job_posting.errors.messages,
-          attributes: job_posting.attributes
-        }
-      end
+      {
+        error_count: @errored_job_postings.length,
+        failed_imports: @errored_job_postings.map do |job_posting|
+          {
+            errors: job_posting.errors,
+            attributes: job_posting.attributes
+          }
+        end
+      }
     end
 
     def process_feed(feed)
@@ -53,9 +56,17 @@ module JobPostingApi
     end
 
     def sync_posting(attributes)
-      JobPosting.find_or_create_by(identification_number: attributes[:identification_number]).tap do |job_posting|
-        job_posting.assign_attributes(attributes.merge(**DEFAULT_ATTRIBUTES))
-        register_job_posting_error(job_posting) unless job_posting.valid?
+      job_posting = JobPosting.find_or_initialize_by(identification_number: attributes[:identification_number])
+      job_posting.assign_attributes(attributes.merge(**DEFAULT_ATTRIBUTES))
+      return register_job_posting_error(job_posting) unless job_posting.valid?
+
+      persist_job_posting(job_posting)
+    end
+
+    def persist_job_posting(job_posting)
+      JobPosting.transaction do
+        job_posting.available_service_periods.select(&:persisted?).each(&:destroy)
+        job_posting.job_posting_workshops.select(&:persisted?).each(&:destroy)
         job_posting.save
       end
     end

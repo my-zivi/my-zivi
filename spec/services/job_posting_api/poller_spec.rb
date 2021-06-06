@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe JobPostingPollerService, :vcr do
+RSpec.describe JobPostingApi::Poller, :vcr do
   around do |spec|
-    ClimateControl.modify(SMARTJOBBOARD_PUBLIC_URL: 'https://www.myzivi.ch') do
+    ClimateControl.modify(JOB_POSTINGS_FEED_URL: 'https://scraper.myzivi.ch/xml.rss') do
       spec.run
     end
   end

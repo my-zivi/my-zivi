@@ -21,7 +21,7 @@ class AdaptJobPostings < ActiveRecord::Migration[6.1]
     remove_column :job_postings, :company, :string
 
     create_table :job_posting_api_poll_logs do |t|
-      t.text :log, null: false
+      t.jsonb :log, null: false
       t.integer :status, null: false
 
       t.timestamps

@@ -508,7 +508,7 @@ ALTER SEQUENCE public.expense_sheets_id_seq OWNED BY public.expense_sheets.id;
 
 CREATE TABLE public.job_posting_api_poll_logs (
     id bigint NOT NULL,
-    log text NOT NULL,
+    log jsonb NOT NULL,
     status integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL

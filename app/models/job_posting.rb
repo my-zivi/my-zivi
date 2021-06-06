@@ -23,9 +23,10 @@ class JobPosting < ApplicationRecord
 
   validates(*REQUIRED_FIELDS, presence: true)
   validates :identification_number, uniqueness: true
-  validates :minimum_service_months, :identification_number, numericality: { greater_than: 0, allow_nil: true }
+  validates :identification_number, numericality: { greater_than: 0, allow_nil: true }
+  validates :minimum_service_months, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
 
-  accepts_nested_attributes_for :workshops, :available_service_periods, allow_destroy: false
+  accepts_nested_attributes_for :job_posting_workshops, :available_service_periods, allow_destroy: true
 
   enum language: {
     german: 'de-CH',
