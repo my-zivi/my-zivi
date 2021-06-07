@@ -3,6 +3,6 @@ ExpenseSheetActivationJob:
   class: ExpenseSheetActivationJob
   queue: default
 JobPostingPollJob:
-  cron: "*/5 * * * *"
+  cron: "0 6 * * *"
   class: JobPostingPollJob
   queue: default
