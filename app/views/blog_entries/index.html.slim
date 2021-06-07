@@ -9,6 +9,8 @@
       .hero-content.w-100
         h1.text-center = t('blog_entries.index.title')
 
-  section.container
+  section.container.mb-6
     .row
       = render partial: 'blog_entries/blog_entry_card', collection: @blog_entries, as: :blog_entry
+
+= render 'home/footer'
