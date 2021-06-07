@@ -7,7 +7,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/blog_entries/show.html.slim",
-      "line": 27,
+      "line": 32,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "BlogEntry.find_by(:slug => slug_params).content",
       "render_path": [
@@ -61,8 +61,24 @@
       "user_input": null,
       "confidence": "Medium",
       "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 106,
+      "fingerprint": "c8adc1c0caf2c9251d1d8de588fb949070212d0eed5e1580aee88bab2287b772",
+      "check_name": "SanitizeMethods",
+      "message": "loofah gem 2.10.0 is vulnerable (CVE-2018-8048). Upgrade to 2.2.1",
+      "file": "Gemfile.lock",
+      "line": 250,
+      "link": "https://github.com/flavorjones/loofah/issues/144",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "Medium",
+      "note": ""
     }
   ],
-  "updated": "2021-05-12 19:39:20 +0200",
+  "updated": "2021-06-07 22:56:46 +0200",
   "brakeman_version": "4.10.0"
 }
