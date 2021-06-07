@@ -1,4 +1,3 @@
 User-agent: *
 Disallow: /organizations/
 Disallow: /civil_servants/
-Disallow: /packs/
