@@ -246,7 +246,7 @@ CREATE TABLE public.available_service_periods (
     id bigint NOT NULL,
     beginning date NOT NULL,
     ending date NOT NULL,
-    job_postings_id bigint NOT NULL,
+    job_posting_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -503,6 +503,38 @@ ALTER SEQUENCE public.expense_sheets_id_seq OWNED BY public.expense_sheets.id;
 
 
 --
+-- Name: job_posting_api_poll_logs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.job_posting_api_poll_logs (
+    id bigint NOT NULL,
+    log jsonb NOT NULL,
+    status integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: job_posting_api_poll_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.job_posting_api_poll_logs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: job_posting_api_poll_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.job_posting_api_poll_logs_id_seq OWNED BY public.job_posting_api_poll_logs.id;
+
+
+--
 -- Name: job_posting_workshops; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -541,11 +573,9 @@ ALTER SEQUENCE public.job_posting_workshops_id_seq OWNED BY public.job_posting_w
 CREATE TABLE public.job_postings (
     id bigint NOT NULL,
     title character varying,
-    link character varying,
     description text,
     publication_date date,
     icon_url character varying,
-    company character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     required_skills text,
@@ -556,9 +586,9 @@ CREATE TABLE public.job_postings (
     sub_category character varying,
     language character varying NOT NULL,
     organization_name character varying DEFAULT 'MyZivi'::character varying,
-    minimum_service_length character varying NOT NULL,
+    minimum_service_months integer NOT NULL,
     contact_information text NOT NULL,
-    organizations_id bigint,
+    organization_id bigint,
     address_id bigint
 );
 
@@ -1075,6 +1105,13 @@ ALTER TABLE ONLY public.expense_sheets ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: job_posting_api_poll_logs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.job_posting_api_poll_logs ALTER COLUMN id SET DEFAULT nextval('public.job_posting_api_poll_logs_id_seq'::regclass);
+
+
+--
 -- Name: job_posting_workshops id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1255,6 +1292,14 @@ ALTER TABLE ONLY public.expense_sheets
 
 
 --
+-- Name: job_posting_api_poll_logs job_posting_api_poll_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.job_posting_api_poll_logs
+    ADD CONSTRAINT job_posting_api_poll_logs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: job_posting_workshops job_posting_workshops_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1394,10 +1439,10 @@ CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.ac
 
 
 --
--- Name: index_available_service_periods_on_job_postings_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_available_service_periods_on_job_posting_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_available_service_periods_on_job_postings_id ON public.available_service_periods USING btree (job_postings_id);
+CREATE INDEX index_available_service_periods_on_job_posting_id ON public.available_service_periods USING btree (job_posting_id);
 
 
 --
@@ -1513,17 +1558,10 @@ CREATE UNIQUE INDEX index_job_postings_on_identification_number ON public.job_po
 
 
 --
--- Name: index_job_postings_on_link; Type: INDEX; Schema: public; Owner: -
+-- Name: index_job_postings_on_organization_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_job_postings_on_link ON public.job_postings USING btree (link);
-
-
---
--- Name: index_job_postings_on_organizations_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_job_postings_on_organizations_id ON public.job_postings USING btree (organizations_id);
+CREATE INDEX index_job_postings_on_organization_id ON public.job_postings USING btree (organization_id);
 
 
 --
@@ -1842,7 +1880,7 @@ ALTER TABLE ONLY public.job_postings
 --
 
 ALTER TABLE ONLY public.job_postings
-    ADD CONSTRAINT fk_rails_361b63fdd4 FOREIGN KEY (organizations_id) REFERENCES public.organizations(id);
+    ADD CONSTRAINT fk_rails_361b63fdd4 FOREIGN KEY (organization_id) REFERENCES public.organizations(id);
 
 
 --
@@ -1898,7 +1936,7 @@ ALTER TABLE ONLY public.expense_sheets
 --
 
 ALTER TABLE ONLY public.available_service_periods
-    ADD CONSTRAINT fk_rails_777383f591 FOREIGN KEY (job_postings_id) REFERENCES public.job_postings(id);
+    ADD CONSTRAINT fk_rails_777383f591 FOREIGN KEY (job_posting_id) REFERENCES public.job_postings(id);
 
 
 --
@@ -2009,6 +2047,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210501204041'),
 ('20210501235424'),
 ('20210508095658'),
-('20210531194253');
+('20210531194253'),
+('20210602184752');
 
 

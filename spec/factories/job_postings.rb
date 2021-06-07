@@ -3,7 +3,6 @@
 FactoryBot.define do
   factory :job_posting do
     title { 'Gruppeneinsatz Naturschutz' }
-    sequence(:link) { |i| "https://www.example.com/#{i}" }
     publication_date { 3.days.ago }
     icon_url { 'https://i.picsum.photos/id/458/40/40.jpg?hmac=QK8u-TtdS_88CLa_qvzYyB9aZ6akNFET2fE50QihRUw' }
     organization_name { 'MyCompany' }
@@ -12,7 +11,7 @@ FactoryBot.define do
     category { JobPosting.categories[:nature_conservancy] }
     sub_category { JobPosting.sub_categories[:landscape_conservation] }
     language { JobPosting.languages[:german] }
-    minimum_service_length { '1 Monat(e)' }
+    minimum_service_months { 1 }
     contact_information { 'Sir Dr. Roland Hutter' }
     description do
       <<~HTML.squish

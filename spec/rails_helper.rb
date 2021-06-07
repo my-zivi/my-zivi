@@ -79,4 +79,7 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.configure_rspec_metadata!
   config.default_cassette_options = { record: :new_episodes } unless ENV['CI']
+  config.before_record do |record|
+    record.response.body.force_encoding('UTF-8')
+  end
 end

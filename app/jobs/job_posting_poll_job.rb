@@ -4,6 +4,6 @@ class JobPostingPollJob < ApplicationJob
   queue_as :default
 
   def perform(*)
-    JobPostingPollerService.poll
+    JobPostingApi::Poller.new.perform
   end
 end
