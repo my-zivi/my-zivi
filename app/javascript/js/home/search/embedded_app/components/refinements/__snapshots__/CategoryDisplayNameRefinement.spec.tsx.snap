@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryDisplayNameRefinement renders correctly 1`] = `
+<CategoryDisplayNameRefinement>
+  <ConnectorWrapper
+    attribute="category_display_name"
+    limit={5}
+    searchable={false}
+    showMore={true}
+    translations={
+      Object {
+        "noResults": "string",
+        "placeholder": "string",
+        "resetTitle": "string",
+        "showMore": [Function],
+        "submitTitle": "string",
+      }
+    }
+  >
+    <Consumer>
+      <Consumer>
+        <AlgoliaRefinementList(RefinementListWidget)
+          attribute="category_display_name"
+          contextValue={
+            Object {
+              "createHrefForState": [Function],
+              "mainTargetedIndex": "JobPosting",
+              "onInternalStateUpdate": [Function],
+              "onSearchForFacetValues": [Function],
+              "onSearchParameters": [Function],
+              "onSearchStateChange": [Function],
+              "store": Object {
+                "getState": [Function],
+                "setState": [Function],
+                "subscribe": [Function],
+              },
+              "widgetsManager": Object {
+                "getWidgets": [Function],
+                "registerWidget": [Function],
+                "update": [Function],
+              },
+            }
+          }
+          limit={5}
+          operator="or"
+          searchable={false}
+          showMore={true}
+          showMoreLimit={20}
+          translations={
+            Object {
+              "noResults": "string",
+              "placeholder": "string",
+              "resetTitle": "string",
+              "showMore": [Function],
+              "submitTitle": "string",
+            }
+          }
+        >
+          <RefinementListWidget
+            attribute="category_display_name"
+            canRefine={false}
+            createURL={[Function]}
+            currentRefinement={Array []}
+            isFromSearch={false}
+            items={Array []}
+            limit={5}
+            operator="or"
+            refine={[Function]}
+            searchForItems={[Function]}
+            searchable={false}
+            showMore={true}
+            showMoreLimit={20}
+            translations={
+              Object {
+                "noResults": "string",
+                "placeholder": "string",
+                "resetTitle": "string",
+                "showMore": [Function],
+                "submitTitle": "string",
+              }
+            }
+          >
+            <PanelWrapper
+              attribute="category_display_name"
+              canRefine={false}
+              createURL={[Function]}
+              currentRefinement={Array []}
+              isFromSearch={false}
+              items={Array []}
+              limit={5}
+              operator="or"
+              refine={[Function]}
+              searchForItems={[Function]}
+              searchable={false}
+              showMore={true}
+              showMoreLimit={20}
+              translations={
+                Object {
+                  "noResults": "string",
+                  "placeholder": "string",
+                  "resetTitle": "string",
+                  "showMore": [Function],
+                  "submitTitle": "string",
+                }
+              }
+            >
+              <Consumer>
+                <PanelCallbackHandler
+                  canRefine={false}
+                  setCanRefine={[Function]}
+                >
+                  <Translatable(RefinementList)
+                    attribute="category_display_name"
+                    canRefine={false}
+                    createURL={[Function]}
+                    currentRefinement={Array []}
+                    isFromSearch={false}
+                    items={Array []}
+                    limit={5}
+                    operator="or"
+                    refine={[Function]}
+                    searchForItems={[Function]}
+                    searchable={false}
+                    showMore={true}
+                    showMoreLimit={20}
+                    translations={
+                      Object {
+                        "noResults": "string",
+                        "placeholder": "string",
+                        "resetTitle": "string",
+                        "showMore": [Function],
+                        "submitTitle": "string",
+                      }
+                    }
+                  >
+                    <RefinementList
+                      attribute="category_display_name"
+                      canRefine={false}
+                      class=""
+                      className=""
+                      createURL={[Function]}
+                      currentRefinement={Array []}
+                      isFromSearch={false}
+                      items={Array []}
+                      limit={5}
+                      operator="or"
+                      refine={[Function]}
+                      searchForItems={[Function]}
+                      searchable={false}
+                      showMore={true}
+                      showMoreLimit={20}
+                      translate={[Function]}
+                      translations={
+                        Object {
+                          "noResults": "string",
+                          "placeholder": "string",
+                          "resetTitle": "string",
+                          "showMore": [Function],
+                          "submitTitle": "string",
+                        }
+                      }
+                    >
+                      <List
+                        canRefine={false}
+                        class=""
+                        className=""
+                        cx={[Function]}
+                        isFromSearch={false}
+                        items={Array []}
+                        limit={5}
+                        query=""
+                        renderItem={[Function]}
+                        searchForItems={[Function]}
+                        searchable={false}
+                        selectItem={[Function]}
+                        showMore={true}
+                        showMoreLimit={20}
+                        translate={[Function]}
+                      >
+                        <div
+                          className="ais-RefinementList ais-RefinementList--noRefinement"
+                        />
+                      </List>
+                    </RefinementList>
+                  </Translatable(RefinementList)>
+                </PanelCallbackHandler>
+              </Consumer>
+            </PanelWrapper>
+          </RefinementListWidget>
+        </AlgoliaRefinementList(RefinementListWidget)>
+      </Consumer>
+    </Consumer>
+  </ConnectorWrapper>
+</CategoryDisplayNameRefinement>
+`;

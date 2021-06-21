@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class JobPosting < ApplicationRecord
+  include ActionView::Helpers::SanitizeHelper
+  include JobPostingSearchable
+
   REQUIRED_FIELDS = %i[
     title
     publication_date
@@ -11,6 +14,7 @@ class JobPosting < ApplicationRecord
     language
     minimum_service_months
     contact_information
+    brief_description
   ].freeze
 
   belongs_to :organization, optional: true
@@ -35,36 +39,26 @@ class JobPosting < ApplicationRecord
     italian: 'it-CH'
   }
 
-  enum category: {
-    nature_conservancy: 'nature_conservancy',
-    healthcare: 'healthcare',
-    social_welfare: 'social_welfare',
-    preservation_of_cultural_assets: 'preservation_of_cultural_assets',
-    agriculture: 'agriculture',
-    development_cooperation: 'development_cooperation',
-    disaster_relief: 'disaster_relief',
-    education: 'education'
+  enum relevancy: {
+    normal: 1,
+    urgent: 2,
+    featured: 3
   }
 
-  enum sub_category: {
-    assistance_service: 'assistance_service',
-    support_and_accompaniment: 'supportand_accompaniment',
-    handicraft_work: 'handicraft_work',
-    housekeeping: 'housekeeping',
-    housekeeping_and_hotel: 'housekeepingand_hotel',
-    kitchen: 'kitchen',
-    landscaping_and_gardening: 'landscaping_and_gardening',
-    landscape_conservation: 'landscape_conservation',
-    collaboration_in_the_company: 'collaboration_in_the_company',
-    organisation_and_participation_in_camps: 'organisation_and_participation_in_camps',
-    pedagogical_work: 'pedagogical_work',
-    passenger_transport: 'passenger_transport',
-    maintenance: 'maintenance',
-    processing: 'processing',
-    other: 'other',
-    social_care_and_counselling: 'social_care_and_counselling',
-    scientific_work: 'scientific_work',
-    alp_care: 'alp_care',
-    forestry_work: 'forestry_work'
-  }
+  enum category: %i[
+    nature_conservancy healthcare social_welfare disaster_relief education
+    preservation_of_cultural_assets agriculture development_cooperation
+  ].index_with(&:to_s)
+
+  enum sub_category: %i[
+    assistance_service support_and_accompaniment handicraft_work housekeeping
+    housekeeping_and_hotel kitchen landscaping_and_gardening collaboration_in_the_company
+    organisation_and_participation_in_camps pedagogical_work passenger_transport care
+    other social_care_and_counselling scientific_work alp_care
+    forestry_work processing
+  ].index_with(&:to_s)
+
+  def scraped?
+    organization.blank?
+  end
 end

@@ -4,10 +4,6 @@ de-CH:
     back: Zurück
     complete: Abschliessen
     next: Weiter
-  activerecord:
-    attributes:
-      service:
-        status: Status
   administrator: Administrator
   base:
     civil_servants:
@@ -142,6 +138,16 @@ de-CH:
         admin: Administration
         blog: Blog
         recruiting: Rekrutieren
+  job_postings:
+    show:
+      apply_on_ezivi: Jetzt über EZIVI bewerben
+      back: Zurück zur Suche
+      claim_html: Ist dies Dein Pflichtenheft? <a class="text-danger" href="%{link}">Klicke <u>hier</u> um es zu bearbeiten</a>
+      contact: Kontakt
+      disclaimer: Dieser Betrieb ist noch nicht bei MyZivi registriert. Alle Angaben sind ohne Gewähr.
+      months:
+        one: 1 Monat
+        other: "%{count} Monate"
   layouts:
     application:
       meta:
@@ -416,6 +422,38 @@ de-CH:
     service_agreement:
       file_name: Einsatzvereinbarung_%{name}_%{beginning}_%{ending}.pdf
   print: Drucken
+  search:
+    load_more: Weitere laden...
+    no_results_found: Keine Einsätze gefunden
+    powered_by: über
+    refinements:
+      canton: Kanton
+      category: Tätigkeitsbereich
+      collapse_button: Suche filtern
+      controls:
+        no_results: Keine Resultate
+        placeholder: Kanton suchen...
+        reset: Filter zurücksetzen
+        reset_title: Suche löschen
+        show_less: Weniger anzeigen
+        show_more: Mehr anzeigen
+        submit_title: Kantone durchsuchen
+      language: Sprache
+      languages:
+        french: Französisch
+        german: Deutsch
+        italian: Italienisch
+      minimum_service_months: Minimale Einsatzdauer
+      priority_program: Schwerpunktprogramm
+      priority_program_label: Zeige nur Einsätze gültig für den langen Einsatz
+    ribbons:
+      featured: Feat.
+      featured_full: Promoted
+      new: Neu
+      urgent: Wichtig
+    search: Suchen
+    search_placeholder: Einsätze suchen...
+    statistics: "%{count} Resultate gefunden (%{time}ms)"
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage

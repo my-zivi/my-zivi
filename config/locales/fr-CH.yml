@@ -4,10 +4,6 @@ fr-CH:
     back: Retour
     complete: Finaliser
     next: Continuer
-  activerecord:
-    attributes:
-      service:
-        status: Statut
   administrator: Administrator
   base:
     civil_servants:
@@ -142,6 +138,16 @@ fr-CH:
         admin: Administration
         blog: Blog
         recruiting: Recruter
+  job_postings:
+    show:
+      apply_on_ezivi: Postulez maintenant via EZIVI
+      back: Retour à la recherche
+      claim_html: Est-ce votre cahier des charges? <a class="text-danger" href="%{link}">Cliquez <u>ici</u> pour l'éditer</a>
+      contact: Contact
+      disclaimer: Cet établissement d'affectation n'est pas encore enregistrée sur MyZivi. Toutes les informations sont sans garantie.
+      months:
+        one: 1 mois
+        other: "%{count} mois"
   layouts:
     application:
       meta:
@@ -415,6 +421,38 @@ fr-CH:
     service_agreement:
       file_name: Convention_d_affectation_%{name}_%{beginning}_%{ending}.pdf
   print: Imprimer
+  search:
+    load_more: Afficher plus...
+    no_results_found: Aucun encart trouvé
+    powered_by: via
+    refinements:
+      canton: Canton
+      category: Domaine d'activité
+      collapse_button: Recherche par filtre
+      controls:
+        no_results: Aucun résultat
+        placeholder: Recherchez Canton...
+        reset: Réinitialiser le filtre
+        reset_title: Supprimer la recherche
+        show_less: Montrer moins
+        show_more: Afficher plus
+        submit_title: Recherche de cantons
+      language: Langue
+      languages:
+        french: Français
+        german: Allemand
+        italian: Italien
+      minimum_service_months: Durée d'affectation minimale
+      priority_program: Programme prioritaire
+      priority_program_label: Afficher uniquement les affectations valables pour la programme prioritaire
+    ribbons:
+      featured: Feat.
+      featured_full: Promoted
+      new: Nouveau
+      urgent: Important
+    search: Recherche
+    search_placeholder: Recherche d'affectation...
+    statistics: "%{count} résultats trouvés (%{time}ms)"
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.
     invalid_required_service_days: Jours du service non valables

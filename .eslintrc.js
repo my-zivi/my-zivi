@@ -23,6 +23,8 @@ module.exports = {
     '@typescript-eslint/semi': ['error'],
     'no-extra-semi': 'off',
     '@typescript-eslint/no-extra-semi': ['error'],
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -36,15 +38,9 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: [
-          '**/*.spec.tsx',
-          '**/*.spec.ts',
-          '**/*.spec.js',
-          '**/*.spec.jsx',
-          '**/setupJest.tsx',
-          '**/jest/utils.tsx',
-          '**/ServiceFactory.ts',
-        ],
+        devDependencies: true,
+        optionalDependencies: false,
+        peerDependencies: true,
       },
     ],
     'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
@@ -61,5 +57,6 @@ module.exports = {
   },
   globals: {
     FontAwesome: 'readonly',
+    location: 'readonly',
   },
 };

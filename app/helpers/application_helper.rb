@@ -19,6 +19,10 @@ module ApplicationHelper
     page_title(app_name: t('layouts.application.title'), separator: ' | ')
   end
 
+  def js_translations_export(translations)
+    translations.deep_transform_keys { |key| key.to_s.camelize(:lower) }.to_json
+  end
+
   private
 
   def generate_picture_tag(base_path, extension, mime, **kwargs)

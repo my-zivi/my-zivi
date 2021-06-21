@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<div
+  className="featured-ribbon blue"
+>
+  Neu
+</div>
+`;
+
+exports[` 2`] = `
+<div
+  className="featured-ribbon red"
+>
+  <FontAwesomeIcon
+    class="mr-2"
+    className="mr-2"
+    icon={
+      Array [
+        "fas",
+        "exclamation",
+      ]
+    }
+  />
+  Wichtig
+</div>
+`;
+
+exports[` 3`] = `
+<div
+  className="featured-ribbon yellow"
+>
+  <FontAwesomeIcon
+    class="mr-1"
+    className="mr-1"
+    icon={
+      Array [
+        "fas",
+        "star",
+      ]
+    }
+  />
+  Feat.
+</div>
+`;
+
+exports[`Ribbon renders correctly 1`] = `null`;
