@@ -1,0 +1,97 @@
+section.jobs,
+section.jobs-hits {
+  .company-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+
+  .card {
+    transition: .2s box-shadow;
+  }
+
+  a:hover {
+    text-decoration: none;
+
+    .card {
+      box-shadow: 0 12px 19px 0 rgba($black, .1);
+    }
+  }
+
+  .job-description {
+    color: $gray;
+  }
+}
+
+section.jobs-hits {
+  .job-posting-card-content {
+    overflow: hidden;
+
+    h5 {
+      hyphens: auto;
+      word-wrap: break-word;
+      white-space: pre-line;
+    }
+  }
+
+  .job-posting-card {
+    overflow: hidden;
+
+    @include media-breakpoint-up(md) {
+      &:hover .featured-ribbon {
+        opacity: 0;
+        transform: scale(1.1) rotate(45deg);
+      }
+    }
+  }
+
+  .featured-ribbon {
+    position: absolute;
+    top: 22px;
+    right: -30px;
+    width: 130px;
+    height: 28px;
+    font-weight: 500;
+    line-height: 27px;
+    color: $white;
+    text-align: center;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .1);
+    transition: .25s;
+    transition-property: opacity, transform;
+    transform: rotate(45deg);
+
+    &.yellow {
+      $background-color: #ffd700;
+      color: $black;
+      background-color: $background-color;
+      background-image: linear-gradient(180deg, $background-color 0%, darken($background-color, 3%));
+      border: 1px solid darken($background-color, 10%);
+    }
+
+    &.red {
+      background-color: $danger;
+      background-image: linear-gradient(180deg, $danger 0%, darken($danger, 3%));
+      border: 1px solid darken($danger, 10%);
+    }
+
+    &.blue {
+      background-color: $info;
+      background-image: linear-gradient(180deg, $info 0%, darken($info, 3%));
+      border: 1px solid darken($info, 10%);
+    }
+  }
+}
+
+section.job {
+  .job-posting-icon {
+    width: 80px;
+    max-height: 80px;
+    margin-right: map-get($spacers, 2);
+    background-position: center;
+    object-fit: contain;
+  }
+
+  .job-posting-title-card .card-content {
+    padding-right: 100px;
+  }
+}

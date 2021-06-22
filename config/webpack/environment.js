@@ -1,7 +1,7 @@
 const { environment } = require('@rails/webpacker');
-const typescript = require('./loaders/typescript');
 const webpack = require('webpack');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const typescript = require('./loaders/typescript');
 
 environment.plugins.append('Provide', new webpack.ProvidePlugin({
   $: 'jquery',
@@ -14,11 +14,11 @@ environment.plugins.append('MomentLocalesPlugin', new MomentLocalesPlugin({
 }));
 
 environment.config.merge({
-  "resolve": {
-    "alias": {
-      "react": "preact/compat",
-      "react-dom/test-utils": "preact/test-utils",
-      "react-dom": "preact/compat",
+  resolve: {
+    alias: {
+      react: 'preact/compat',
+      'react-dom/test-utils': 'preact/test-utils',
+      'react-dom': 'preact/compat',
     },
   },
 });

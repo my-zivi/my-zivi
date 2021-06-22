@@ -589,7 +589,12 @@ CREATE TABLE public.job_postings (
     minimum_service_months integer NOT NULL,
     contact_information text NOT NULL,
     organization_id bigint,
-    address_id bigint
+    address_id bigint,
+    published boolean DEFAULT true NOT NULL,
+    relevancy integer DEFAULT 1 NOT NULL,
+    brief_description character varying NOT NULL,
+    featured_as_new boolean DEFAULT false NOT NULL,
+    priority_program boolean DEFAULT false NOT NULL
 );
 
 
@@ -2048,6 +2053,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210501235424'),
 ('20210508095658'),
 ('20210531194253'),
-('20210602184752');
+('20210602184752'),
+('20210608143812');
 
 

@@ -4,30 +4,10 @@
 @import 'footer';
 @import 'hero';
 @import 'home_hero';
-
-section.jobs {
-  .company-icon {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-  }
-
-  .card {
-    transition: .2s box-shadow;
-  }
-
-  a:hover {
-    text-decoration: none;
-
-    .card {
-      box-shadow: 0 12px 19px 0 rgba($black, .1);
-    }
-  }
-
-  .job-description {
-    color: $gray;
-  }
-}
+@import 'search_field';
+@import 'autocomplete_container';
+@import 'search_filters';
+@import 'jobs';
 
 .section-title,
 .section-subtitle {

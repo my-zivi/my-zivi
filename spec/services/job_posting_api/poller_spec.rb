@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe JobPostingApi::Poller, :vcr do
   around do |spec|
-    ClimateControl.modify(JOB_POSTINGS_FEED_URL: 'http://scraper.example.com/xml.rss') do
+    ClimateControl.modify(JOB_POSTINGS_FEED_URL: 'http://scraper.example.com/xml.rss', APP_HOST: 'example.com') do
       spec.run
     end
   end

@@ -20,12 +20,22 @@ module JobPostingApi
         minimum_service_months: 'minimum_service_months'
       }.freeze
 
+      BOOLEAN_FIELDS = {
+        priority_program: 'focus_program'
+      }.freeze
+
+      BRIEF_DESCRIPTION_LENGTH = 120
+
       def parse_job_posting_attributes(job_posting_xml)
         parse_string_fields(job_posting_xml).merge(
           **parse_integer_fields(job_posting_xml),
+          **parse_boolean_fields(job_posting_xml),
           **available_service_periods_attributes(job_posting_xml),
           **required_workshops_attributes(job_posting_xml),
-          publication_date: Date.parse(job_field(job_posting_xml, 'pubDate'))
+          publication_date: Date.parse(job_field(job_posting_xml, 'pubDate')),
+          brief_description: ActionController::Base.helpers.strip_tags(job_field(job_posting_xml, 'description'))
+                               .squish
+                               .truncate(BRIEF_DESCRIPTION_LENGTH)
         )
       end
 
@@ -61,6 +71,10 @@ module JobPostingApi
 
       def parse_integer_fields(job_posting_xml)
         INTEGER_FIELDS.transform_values { |xml_key| job_field(job_posting_xml, xml_key).to_i }
+      end
+
+      def parse_boolean_fields(job_posting_xml)
+        BOOLEAN_FIELDS.transform_values { |xml_key| job_field(job_posting_xml, xml_key) == 'true' }
       end
 
       def parse_string_fields(job_posting_xml)

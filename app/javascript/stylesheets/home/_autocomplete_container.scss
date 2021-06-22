@@ -1,0 +1,34 @@
+.autocomplete-container {
+  position: relative;
+  top: 20px;
+  z-index: $zindex-popover;
+  height: 0;
+}
+
+.autocomplete-content {
+  overflow: hidden;
+  text-align: left;
+  background-color: $white;
+  border-radius: 35px;
+  box-shadow: 7px 7px 40px rgba($black, .6);
+
+  ul {
+    padding-left: 0;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    list-style: none;
+
+    a {
+      text-decoration: none;
+    }
+
+    li {
+      padding: .3em 40px;
+      color: $gray-900;
+    }
+
+    li.selected {
+      background-color: $gray-200;
+    }
+  }
+}

@@ -8,7 +8,7 @@
       .row.justify-content-center
         .col-12.col-xxl-8
           .search-field
-            form action="#{ENV['SMARTJOBBOARD_PUBLIC_URL']}/jobs" method="get" target="_blank"
+            form action=job_postings_path method="get"
               label.sr-only for="search-field" Einsatz suchen
               input#search-field type="text" placeholder="Einsatz suchen…" name="q"
               button.search-button type="submit"
@@ -21,7 +21,7 @@ section.jobs
     .row
       - JobPosting.order(publication_date: :desc).first(6).each do |posting|
         .col-12.col-lg-6.mb-4
-          = link_to '#', target: '_blank' do
+          = link_to job_posting_path(posting), target: '_blank' do
             .card.card-body
               .d-flex
                 .mr-3
@@ -31,7 +31,7 @@ section.jobs
                   .text-muted.mb-3 = posting.organization_name
                   .job-description = strip_tags(posting.description).truncate(200)
       .col-12.text-center.mt-3
-        = link_to('Weitere Einsätze anzeigen…', ENV['SMARTJOBBOARD_PUBLIC_URL'], class: 'btn btn-link')
+        = link_to('Weitere Einsätze anzeigen…', job_postings_path, class: 'btn btn-link')
 
 section.solution
   .container

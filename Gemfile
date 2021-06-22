@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
+gem 'algoliasearch-rails'
 gem 'cancancan'
 gem 'devise'
 gem 'devise-i18n'

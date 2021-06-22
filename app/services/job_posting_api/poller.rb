@@ -7,7 +7,7 @@ module JobPostingApi
   class Poller
     JOB_ITEM_XPATH = '//item'
     DEFAULT_ATTRIBUTES = {
-      icon_url: 'https://i.picsum.photos/id/458/40/40.jpg?hmac=QK8u-TtdS_88CLa_qvzYyB9aZ6akNFET2fE50QihRUw',
+      icon_url: '/myzivi-logo.jpg',
       contact_information: <<~TEXT.squish
         Dieser Betrieb ist noch nicht bei MyZivi registriert.
         Bitte bewerbe Dich im EZIVI.
@@ -56,7 +56,7 @@ module JobPostingApi
 
     def sync_posting(attributes)
       job_posting = JobPosting.find_or_initialize_by(identification_number: attributes[:identification_number])
-      job_posting.assign_attributes(attributes.merge(**DEFAULT_ATTRIBUTES))
+      job_posting.assign_attributes(attributes.merge(DEFAULT_ATTRIBUTES))
       return register_job_posting_error(job_posting) unless job_posting.valid?
 
       persist_job_posting(job_posting)

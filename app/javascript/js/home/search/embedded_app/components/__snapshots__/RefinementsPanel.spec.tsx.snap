@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RefinementsPanel renders correctly 1`] = `
+Array [
+  <div
+    className="card card-body"
+  >
+    <a
+      className="mx-0 w-100 d-block"
+      href="#"
+      onClick={[Function]}
+    >
+      <FontAwesomeIcon
+        class="mr-1"
+        className="mr-1"
+        icon={
+          Array [
+            "fas",
+            "chevron-down",
+          ]
+        }
+      />
+      string
+    </a>
+    <ForwardRef()
+      appear={false}
+      getDimensionValue={[Function]}
+      in={true}
+      mountOnEnter={false}
+      timeout={300}
+      unmountOnExit={false}
+    >
+      <div
+        className="mt-3"
+      >
+        <strong>
+          string
+        </strong>
+        <LanguageRefinement />
+        <hr />
+        <strong>
+          string
+        </strong>
+        <CategoryDisplayNameRefinement />
+        <hr />
+        <strong>
+          string
+        </strong>
+        <CantonDisplayNameRefinement />
+        <hr />
+        <strong>
+          string
+        </strong>
+        <MinimumServiceMonthsRefinement />
+        <hr />
+        <strong>
+          string
+        </strong>
+        <PriorityProgramRefinement />
+        <div
+          className="d-block d-lg-none mt-2"
+        >
+          <a
+            className="mx-0 w-100 d-block"
+            href="#"
+            onClick={[Function]}
+          >
+            <FontAwesomeIcon
+              class="mr-1"
+              className="mr-1"
+              icon={
+                Array [
+                  "fas",
+                  "chevron-up",
+                ]
+              }
+            />
+            string
+          </a>
+        </div>
+      </div>
+    </ForwardRef()>
+  </div>,
+  <ConnectorWrapper
+    class="my-3"
+    className="my-3"
+    clearsQuery={false}
+    translations={
+      Object {
+        "reset": "string",
+      }
+    }
+  />,
+]
+`;

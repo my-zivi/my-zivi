@@ -8,10 +8,13 @@ RSpec.describe JobPostingPollJob, type: :job do
 
     before do
       allow(JobPostingApi::Poller).to receive(:new).and_return poller
+      allow(JobPosting).to receive(:reindex!)
     end
 
     it 'calls polling service' do
-      expect(described_class.new.perform).to contain_exactly be_an_instance_of(JobPosting)
+      described_class.new.perform
+      expect(JobPosting).to have_received(:reindex!)
+      expect(poller).to have_received(:perform)
     end
   end
 end

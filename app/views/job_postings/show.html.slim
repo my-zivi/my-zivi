@@ -1,0 +1,56 @@
+- content_for(:container_class, 'index-container')
+= render 'home/navbar'
+
+.container
+  .mt-5
+    = link_to job_postings_path do
+      i.fas.fa-chevron-left.mr-1
+      = t('.back')
+  section.job.pt-5
+    .row
+      .col-12.col-lg-8.col-xl-9
+        = render 'job_posting_header_card', job_posting: @job_posting
+        .card.card-body
+          h4 = JobPosting.human_attribute_name(:description)
+          p == @job_posting.description
+          h4 = JobPosting.human_attribute_name(:required_skills)
+          p == @job_posting.required_skills
+          - if @job_posting.preferred_skills.present?
+            h4 = JobPosting.human_attribute_name(:preferred_skills)
+            p == @job_posting.preferred_skills
+      .col-12.col-lg-4.col-xl-3.mt-3.mt-lg-0
+        .card.card-body.mb-3
+          h5 = JobPosting.human_attribute_name(:canton)
+          p = @job_posting.canton_display_name
+          h5 = JobPosting.human_attribute_name(:category)
+          p = @job_posting.category_display_name
+          h5 = JobPosting.human_attribute_name(:minimum_service_months)
+          p = t('.months', count: @job_posting.minimum_service_months)
+          h5 = JobPosting.human_attribute_name(:priority_program)
+          - if @job_posting.priority_program
+            p
+              i.fas.fa-check.mr-1.text-success
+              = t('simple_form.yes')
+          - else
+            p
+              i.fas.fa-times.mr-1.text-danger
+              = t('simple_form.no')
+          - if @job_posting.available_service_periods.any?
+            h5 = JobPosting.human_attribute_name(:available_service_periods)
+            ul.pl-3
+              - @job_posting.available_service_periods.each do |available_service_period|
+                li = t('.service_period',
+                        from: l(available_service_period.beginning),
+                        to: l(available_service_period.ending))
+          - if @job_posting.workshops.any?
+            h5 = JobPosting.human_attribute_name(:workshops)
+            ul.pl-3
+              - @job_posting.workshops.each do |workshop|
+                li = workshop.name
+        .card.card-body
+          .card-title = t('.contact')
+          .card-text
+            - if @job_posting.scraped?
+              .text-danger = t('.disclaimer')
+              .mt-2.text-danger = t('.claim_html', link: '#')
+            .btn.btn-falcon-primary.w-100.mt-3 = t('.apply_on_ezivi')

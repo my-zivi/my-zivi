@@ -86,6 +86,16 @@ de-CH:
         workfree_days:
           one: Arbeitsfreier Tag
           other: Arbeitsfreie Tage
+      job_posting:
+        available_service_periods: Freie Einsatzzeiträume
+        canton: Kanton
+        category: Tätigkeitsbereich
+        description: Tätigkeitsbeschreibung
+        minimum_service_months: Mindesteinsatzdauer
+        preferred_skills: Erwünschte Kenntnisse
+        priority_program: Schwerpunktprogramm
+        required_skills: Vorausgesetzte Kenntnisse
+        workshops: Erforderliche Kurse
       organization:
         identification_number: Betriebs-Identifikationsnummer
         name: Name
@@ -114,6 +124,7 @@ de-CH:
         service_days: Einsatzdauer
         service_specification: Pflichtenheft
         service_type: Einsatztyp
+        status: Status
       service_specification:
         accommodation_expenses: Unterkunftsspesen
         active: Aktiv
@@ -151,6 +162,75 @@ de-CH:
           closed: Abgeschlossen
           editable: Aktiv
           locked: Zukünftig
+      job_postings:
+        canton:
+          AG: Aargau
+          AI: Appenzell Innerrhoden
+          AR: Appenzell Ausserrhoden
+          BE: Bern
+          BL: Basel-Landschaft
+          BS: Basel-Stadt
+          FR: Freiburg
+          GE: Genf
+          GL: Glarus
+          GR: Graubünden
+          JU: Jura
+          LU: Luzern
+          NE: Neuenburg
+          NW: Nidwalden
+          OW: Obwalden
+          SG: St. Gallen
+          SH: Schaffhausen
+          SO: Solothurn
+          SZ: Schwyz
+          TG: Thurgau
+          TI: Tessin
+          UR: Uri
+          VD: Waadt
+          VS: Wallis
+          ZG: Zug
+          ZH: Zürich
+        category:
+          agriculture: Landwirtschaft
+          development_cooperation: Entwicklungszusammenarbeit und humanitäre Hilfe
+          disaster_relief: Vorbeugung und Bewältigung von Katastrophen und Notlagen sowie Regeneration nach solchen Ereignissen
+          education: Schulwesen
+          healthcare: Gesundheitswesen
+          nature_conservancy: Umwelt- und Naturschutz, Landschaftspflege und Wald
+          preservation_of_cultural_assets: Kulturgütererhaltung
+          social_welfare: Sozialwesen
+        category_abbreviation:
+          agriculture: Landwirtschaft
+          development_cooperation: Entwicklungszusammenarbeit
+          disaster_relief: Katastrophenschutz
+          education: Schulwesen
+          healthcare: Gesundheitswesen
+          nature_conservancy: Naturschutz
+          preservation_of_cultural_assets: Kulturgütererhaltung
+          social_welfare: Sozialwesen
+        language:
+          french: Französisch
+          german: Deutsch
+          italian: Italienisch
+        sub_category:
+          alp_care: Alp-Pflege
+          assistance_service: Assistenzdienste
+          care: Pflege
+          collaboration_in_the_company: Mitarbeit im Einsatzbetrieb
+          forestry_work: Waldarbeiten
+          handicraft_work: Handwerkliche Tätigkeit
+          housekeeping: Hausdienst
+          housekeeping_and_hotel: Hauswirtschaft / Hotellerie
+          kitchen: Küche
+          landscaping_and_gardening: Landschafts- und Gartenarbeiten
+          organisation_and_participation_in_camps: Organisation / Teilnahme Lager
+          other: Sonstige unterstützende Arbeiten
+          passenger_transport: Personentransporte
+          pedagogical_work: Pädagogische Arbeiten
+          processing: Sachbearbeitung
+          scientific_work: Wissenschaftliche Arbeiten
+          social_care_and_counselling: Sozialberatung / -betreuung
+          support_and_accompaniment: Betreuung, Begleitung
       service:
         service_types:
           long: Langer Einsatz

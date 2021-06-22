@@ -73,4 +73,12 @@ RSpec.describe ApplicationHelper do
       it { is_expected.to eq "#{I18n.t('layouts.application.title')} | Test" }
     end
   end
+
+  describe '#js_translations_export' do
+    subject(:translations) { helper.js_translations_export(my_translation: 'cool') }
+
+    it 'exports a json of the given translations' do
+      expect(translations).to eq '{"myTranslation":"cool"}'
+    end
+  end
 end
