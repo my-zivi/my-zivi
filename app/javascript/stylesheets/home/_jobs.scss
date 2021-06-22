@@ -83,15 +83,54 @@ section.jobs-hits {
 }
 
 section.job {
+  .job-posting-card-columns {
+    display: flex;
+    flex-direction: column;
+
+    .icon-container {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+
   .job-posting-icon {
-    width: 80px;
-    max-height: 80px;
+    width: 40px;
+    max-height: 40px;
     margin-right: map-get($spacers, 2);
     background-position: center;
     object-fit: contain;
+    flex-shrink: 0;
   }
 
-  .job-posting-title-card .card-content {
-    padding-right: 100px;
+  .job-posting-title {
+    @include font-size($h3-font-size);
+    margin-top: map-get($spacers, 3);
+    margin-bottom: map-get($spacers, 3);
+    hyphens: auto;
+    word-break: break-word;
+    word-wrap: break-word;
+  }
+
+  .job-posting-subtitle {
+    @include font-size($h5-font-size);
+    color: $text-muted;
+    margin-bottom: 0;
+  }
+
+  @include media-breakpoint-up(md) {
+    .job-posting-card-columns {
+      padding-right: 70px;
+    }
+
+    .job-posting-icon {
+      width: 50px;
+      max-height: 50px;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    .job-posting-title {
+      @include font-size($h2-font-size);
+    }
   }
 }

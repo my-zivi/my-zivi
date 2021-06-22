@@ -22,6 +22,10 @@
   width: 100%;
 }
 
+.ais-RefinementList-checkbox {
+  flex-shrink: 0;
+}
+
 .ais-RefinementList-count {
   color: $gray-500;
 }

@@ -1,12 +1,12 @@
 .card.mb-3.overflow-hidden.animatable-card.job-posting-title-card
   .bg-holder.bg-card.corner-background-info.d-none.d-md-block
   .card-body.position-relative
-    .d-flex
-      div
+    .job-posting-card-columns
+      .icon-container
         img.job-posting-icon src=job_posting.icon_url alt=job_posting.organization_display_name
-      div
-        h1 #{job_posting.title} (#{job_posting.identification_number})
-        h3 = job_posting.organization_display_name
+        h3.job-posting-subtitle = job_posting.organization_display_name
+      .title-container
+        h1.job-posting-title #{job_posting.title} (#{job_posting.identification_number})
         - if job_posting.urgent?
           .badge.badge-pill.badge-soft-danger.mr-1
             i.fas.fa-exclamation-triangle.mr-1

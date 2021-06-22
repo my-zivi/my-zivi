@@ -2,11 +2,11 @@
 = render 'home/navbar'
 
 .container
-  .mt-5
+  .mt-4.mt-lg-5
     = link_to job_postings_path do
       i.fas.fa-chevron-left.mr-1
       = t('.back')
-  section.job.pt-5
+  section.job.pt-4
     .row
       .col-12.col-lg-8.col-xl-9
         = render 'job_posting_header_card', job_posting: @job_posting
