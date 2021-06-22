@@ -1,6 +1,7 @@
 import React from 'preact/compat';
 import { render, ComponentType } from 'preact';
 import moment from 'moment';
+import $ from 'jquery';
 
 export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
   private readonly selector: K | string;
