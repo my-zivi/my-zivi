@@ -5,7 +5,7 @@ import { JobPostingSearchHit, Relevancy } from 'js/home/search/embedded_app/type
 const JobPostingFactory: Factory<JobPostingSearchHit> = {
   build(overrides?: Record<string, unknown> | JobPostingSearchHit): JobPostingSearchHit {
     const defaultJobPostingSearchHit: JobPostingSearchHit = {
-      objectID: 1,
+      objectID: '1',
       title: 'Alp-Pflege',
       icon_url: '/myzivi-logo.jpg',
       publication_date: '2020-01-06',

@@ -148,6 +148,7 @@ fr-CH:
       months:
         one: 1 mois
         other: "%{count} mois"
+      service_period: "%{from} à %{to}"
   layouts:
     application:
       meta:

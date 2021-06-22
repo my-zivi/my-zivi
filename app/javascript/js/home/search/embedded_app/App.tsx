@@ -1,5 +1,4 @@
 import algoliasearch from 'algoliasearch';
-import 'instantsearch.css/themes/reset-min.css';
 import React from 'preact/compat';
 import { createBrowserLocalStorageCache } from '@algolia/cache-browser-local-storage';
 import { createFallbackableCache } from '@algolia/cache-common';

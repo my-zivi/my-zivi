@@ -8,7 +8,8 @@ import {
   CantonDisplayNameRefinement,
   CategoryDisplayNameRefinement,
   LanguageRefinement,
-  MinimumServiceMonthsRefinement, PriorityProgramRefinement,
+  MinimumServiceMonthsRefinement,
+  PriorityProgramRefinement,
 } from './refinements';
 
 class RefinementsPanel extends React.Component<Record<string, never>, { isCollapsed: boolean }> {
@@ -17,8 +18,7 @@ class RefinementsPanel extends React.Component<Record<string, never>, { isCollap
     this.state = { isCollapsed: mobile() };
   }
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  private panelContent(): any {
+  private panelContent(): JSX.Element {
     return (
       <div className="mt-3">
         <strong>{MyZivi.translations.search.refinements.language}</strong>

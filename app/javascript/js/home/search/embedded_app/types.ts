@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 export interface JobPostingSearchHit {
-  objectID: number;
+  objectID: string;
   title: string;
   icon_url: string;
   publication_date: string;

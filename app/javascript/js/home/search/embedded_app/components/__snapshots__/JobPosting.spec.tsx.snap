@@ -22,7 +22,7 @@ exports[`JobPosting renders correctly 1`] = `
           "language": "german",
           "link": "http://example.com/job_postings/1",
           "minimum_service_months": 1,
-          "objectID": 1,
+          "objectID": "1",
           "organization_display_name": "Alpbetrieb Untersteiglen-Schwand",
           "plain_description": "Alp-Pflege...",
           "preferred_skills": "Erfahrung im Bau von Trockenmauern",

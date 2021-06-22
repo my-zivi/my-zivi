@@ -22,7 +22,7 @@ export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
     if (container) {
       const { RootComponent } = this;
 
-      if ('MyZivi' in window) {
+      if ('MyZivi' in window && 'locale' in MyZivi) {
         moment.locale(MyZivi.locale);
       }
 

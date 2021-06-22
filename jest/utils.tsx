@@ -8,8 +8,8 @@ import { InstantSearch } from 'react-instantsearch-dom';
 import { defer } from 'lodash';
 import { mockClient } from '../app/javascript/js/tests/algolia/mocks';
 
-type MountComponentType = (componentInstance: preact.JSX.Element, targetComponentName?: string) => any;
-export const mountConsumer: MountComponentType = (componentInstance, targetComponentName) => {
+type MountConsumerComponentType = (componentInstance: preact.JSX.Element, targetComponentName?: string) => any;
+export const mountConsumerComponent: MountConsumerComponentType = (componentInstance, targetComponentName) => {
   const root = mount(componentInstance);
 
   if (!targetComponentName) {
@@ -21,7 +21,7 @@ export const mountConsumer: MountComponentType = (componentInstance, targetCompo
 
 type FakeWrapInApiProviderType = (api: IApi) => (wrapped: preact.JSX.Element, component: string) => any;
 export const fakeWrapInApiProvider: FakeWrapInApiProviderType = (api: IApi) => (
-  (wrapped, component) => mountConsumer(
+  (wrapped, component) => mountConsumerComponent(
     (
       <ApiContext.Provider value={api}>
         {wrapped}
@@ -31,7 +31,7 @@ export const fakeWrapInApiProvider: FakeWrapInApiProviderType = (api: IApi) => (
   )
 );
 
-export const mountInstantSearchClient: MountComponentType = (componentInstance, targetComponentName?) => mountConsumer(
+export const mountInstantSearchClient: MountConsumerComponentType = (componentInstance, targetComponentName?) => mountConsumerComponent(
   <InstantSearch searchClient={mockClient} indexName="JobPosting">
     {componentInstance}
   </InstantSearch>,

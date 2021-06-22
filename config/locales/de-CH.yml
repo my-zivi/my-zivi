@@ -148,6 +148,7 @@ de-CH:
       months:
         one: 1 Monat
         other: "%{count} Monate"
+      service_period: "%{from} bis %{to}"
   layouts:
     application:
       meta:
