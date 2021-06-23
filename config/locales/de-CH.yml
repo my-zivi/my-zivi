@@ -151,6 +151,8 @@ de-CH:
         one: 1 Monat
         other: "%{count} Monate"
       service_period: "%{from} bis %{to}"
+    index:
+      page_title: "Einsatz suchen"
   layouts:
     application:
       meta:

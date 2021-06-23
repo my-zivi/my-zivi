@@ -1,6 +1,9 @@
 - content_for(:container_class, 'index-container')
+- content_for(:page_title, t('.page_title'))
 - content_for(:head_additions) do
   = javascript_pack_tag 'home/embedded_apps/search'
 = render 'home/navbar'
 
 #search.mb-3
+
+= render 'home/footer'
