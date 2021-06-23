@@ -94,12 +94,12 @@ section.job {
   }
 
   .job-posting-icon {
+    flex-shrink: 0;
     width: 40px;
     max-height: 40px;
     margin-right: map-get($spacers, 2);
     background-position: center;
     object-fit: contain;
-    flex-shrink: 0;
   }
 
   .job-posting-title {
@@ -113,8 +113,8 @@ section.job {
 
   .job-posting-subtitle {
     @include font-size($h5-font-size);
-    color: $text-muted;
     margin-bottom: 0;
+    color: $text-muted;
   }
 
   @include media-breakpoint-up(md) {
