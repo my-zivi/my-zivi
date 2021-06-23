@@ -138,6 +138,8 @@ de-CH:
         admin: Administration
         blog: Blog
         recruiting: Rekrutieren
+        job_postings: "Einsatz suchen"
+        organizations: "Für Betriebe"
   job_postings:
     show:
       apply_on_ezivi: Jetzt über EZIVI bewerben
