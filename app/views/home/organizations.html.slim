@@ -116,6 +116,25 @@ section.workflow
           | Verwalte digital Deine Spesen, Auszahlungen und Einsatzvereinbarungen.
             Mit dem Übersichts-Tool siehst Du zudem, wie viele Zivis wann im Einsatz sind.
 
+section.py-0.quote
+  .quote-container
+    .container.text-center
+      .container-fluid
+        h3.mb-4 Interessiert?
+      p.mb-2
+        | Buche jetzt eine unverbindliche, kurze Demo und wir zeigen Dir, wie wir deinem Betrieb helfen können
+          und vereinbaren weitere Schritte.
+      p
+        | Gerne kannst du uns auch unter
+        a<> href="mailto:info@myzivi.ch" info@myzivi.ch
+        | kontaktieren.
+      .mt-4
+        = link_to t('home.navbar.demo'),
+                ENV['DEMO_URL'],
+                class: 'btn btn-gradient',
+                target: '_blank',
+                rel: 'nofollow noopener noreferrer'
+
 section.publications
   .container.mb-2: h3.section-title MyZivi in der Presse
   .d-flex.justify-content-center.align-items-center.flex-wrap
