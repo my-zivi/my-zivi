@@ -137,10 +137,12 @@ de-CH:
         about_us: Über uns
         admin: Administration
         blog: Blog
+        job_postings: Einsatz suchen
+        organizations: Für Betriebe
         recruiting: Rekrutieren
-        job_postings: "Einsatz suchen"
-        organizations: "Für Betriebe"
   job_postings:
+    index:
+      page_title: Einsatz suchen
     show:
       apply_on_ezivi: Jetzt über EZIVI bewerben
       back: Zurück zur Suche
@@ -151,8 +153,6 @@ de-CH:
         one: 1 Monat
         other: "%{count} Monate"
       service_period: "%{from} bis %{to}"
-    index:
-      page_title: "Einsatz suchen"
   layouts:
     application:
       meta:
