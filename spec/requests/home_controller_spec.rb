@@ -29,7 +29,7 @@ RSpec.describe HomeController, type: :request do
     end
   end
 
-  %w[administration recruiting agb privacy_policy about_us].each do |route|
+  %w[administration recruiting agb privacy_policy about_us for_organizations].each do |route|
     describe "##{route}" do
       it_behaves_like 'can access home page' do
         let(:path) { public_send(:"#{route}_path") }
