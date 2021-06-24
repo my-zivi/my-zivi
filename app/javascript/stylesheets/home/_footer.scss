@@ -15,10 +15,10 @@ footer {
   @include media-breakpoint-up(md) {
     flex-direction: row;
 
-    a:not(:last-child):after {
-      content: "|";
-      margin-left: map-get($spacers, 2);
+    a:not(:last-child)::after {
       margin-right: map-get($spacers, 2);
+      margin-left: map-get($spacers, 2);
+      content: '|';
     }
   }
 }
