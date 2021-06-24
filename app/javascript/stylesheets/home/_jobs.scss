@@ -1,9 +1,67 @@
+section.jobs-hits,
 section.jobs,
-section.jobs-hits {
-  .company-icon {
-    width: 80px;
-    height: 80px;
+section.job {
+  .job-posting-card-columns {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .icon-container {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .job-posting-icon {
+    flex-shrink: 0;
+    width: 40px;
+    max-height: 40px;
+    margin-right: map-get($spacers, 2);
+    background-position: center;
     object-fit: contain;
+  }
+
+  .job-posting-subtitle {
+    @include font-size($h5-font-size);
+    margin-bottom: 0;
+    color: $text-muted;
+  }
+
+  @include media-breakpoint-up(md) {
+    .job-posting-card-columns {
+      padding-right: 70px;
+    }
+
+    .job-posting-icon {
+      width: 50px;
+      max-height: 50px;
+    }
+  }
+}
+
+section.jobs-hits,
+section.jobs {
+  .job-posting-subtitle {
+    @include font-size($h6-font-size);
+  }
+
+  .job-posting-icon {
+    width: 30px;
+    max-height: 30px;
+  }
+
+  @include media-breakpoint-up(md) {
+    .job-posting-icon {
+      width: 40px;
+      max-height: 40px;
+    }
+
+    .job-posting-subtitle {
+      @include font-size($h5-font-size);
+    }
+
+    .job-posting-title {
+      @include font-size($h4-font-size);
+    }
   }
 
   .card {
@@ -21,10 +79,9 @@ section.jobs-hits {
   .job-description {
     color: $gray;
   }
-}
 
-section.jobs-hits {
   .job-posting-card-content {
+    margin-top: map-get($spacers, 3);
     overflow: hidden;
 
     h5 {
@@ -83,25 +140,6 @@ section.jobs-hits {
 }
 
 section.job {
-  .job-posting-card-columns {
-    display: flex;
-    flex-direction: column;
-
-    .icon-container {
-      display: inline-flex;
-      align-items: center;
-    }
-  }
-
-  .job-posting-icon {
-    flex-shrink: 0;
-    width: 40px;
-    max-height: 40px;
-    margin-right: map-get($spacers, 2);
-    background-position: center;
-    object-fit: contain;
-  }
-
   .job-posting-title {
     @include font-size($h3-font-size);
     margin-top: map-get($spacers, 3);
@@ -109,23 +147,6 @@ section.job {
     hyphens: auto;
     word-break: break-word;
     word-wrap: break-word;
-  }
-
-  .job-posting-subtitle {
-    @include font-size($h5-font-size);
-    margin-bottom: 0;
-    color: $text-muted;
-  }
-
-  @include media-breakpoint-up(md) {
-    .job-posting-card-columns {
-      padding-right: 70px;
-    }
-
-    .job-posting-icon {
-      width: 50px;
-      max-height: 50px;
-    }
   }
 
   @include media-breakpoint-up(lg) {
