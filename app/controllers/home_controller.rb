@@ -5,7 +5,7 @@ class HomeController < ApplicationController
 
   def index; end
 
-  def organizations; end
+  def for_organizations; end
 
   def administration; end
 
