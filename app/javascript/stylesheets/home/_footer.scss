@@ -2,3 +2,23 @@ footer {
   padding: 1.5em 0;
   background-color: $deep-ocean;
 }
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: map-get($spacers, 1);
+
+  a {
+    color: $text-muted;
+  }
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+
+    a:not(:last-child)::after {
+      margin-right: map-get($spacers, 2);
+      margin-left: map-get($spacers, 2);
+      content: '|';
+    }
+  }
+}

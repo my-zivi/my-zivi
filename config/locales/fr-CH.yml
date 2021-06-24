@@ -135,10 +135,12 @@ fr-CH:
       demo: Obtenir une démo
       links:
         about_us: ''
-        admin: Administration
         blog: Blog
-        recruiting: Recruter
+        job_postings: Rechercher une affectation
+        organizations: Pour les établissements d'affectation
   job_postings:
+    index:
+      page_title: Rechercher une affectation
     show:
       apply_on_ezivi: Postulez maintenant via EZIVI
       back: Retour à la recherche
