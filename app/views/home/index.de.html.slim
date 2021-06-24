@@ -15,21 +15,22 @@
                 = image_pack_tag 'home/search.svg', class: 'w-100 h-100'
   .gradient
 
-section.jobs
+section.jobs.pt-5
   .container
     h3.section-title.mb-4 Neue Einsätze
     .row
       - JobPosting.order(publication_date: :desc).first(6).each do |posting|
         .col-12.col-lg-6.mb-4
           = link_to job_posting_path(posting), target: '_blank' do
-            .card.card-body
-              .d-flex
-                .mr-3
-                  img.company-icon src=posting.icon_url alt=posting.organization_name
-                div
-                  h5 = posting.title
-                  .text-muted.mb-3 = posting.organization_name
-                  .job-description = strip_tags(posting.description).truncate(200)
+            .card.h-100.job-posting-card
+              .card-body
+                .d-flex.flex-column
+                  .icon-container
+                    img.job-posting-icon src=posting.icon_url alt=posting.organization_name
+                    h6.job-posting-subtitle = posting.organization_name
+                  .job-posting-card-content
+                    h5.job-posting-title = posting.title
+                    .job-description = strip_tags(posting.description).truncate(200)
       .col-12.text-center.mt-3
         = link_to('Weitere Einsätze anzeigen…', job_postings_path, class: 'btn btn-link')
 

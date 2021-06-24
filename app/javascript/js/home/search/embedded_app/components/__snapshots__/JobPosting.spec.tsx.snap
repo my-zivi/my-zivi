@@ -39,28 +39,30 @@ exports[`JobPosting renders correctly 1`] = `
       className="card-body"
     >
       <div
-        className="d-flex flex-column flex-md-row"
+        className="d-flex flex-column"
       >
         <div
-          className="mr-3"
+          className="icon-container"
         >
           <Memo()
             alt="Alpbetrieb Untersteiglen-Schwand"
             iconUrl="/myzivi-logo.jpg"
             key="/myzivi-logo.jpg"
           />
+          <h6
+            className="job-posting-subtitle"
+          >
+            Alpbetrieb Untersteiglen-Schwand
+          </h6>
         </div>
         <div
           className="job-posting-card-content"
         >
-          <h5>
+          <h5
+            className="job-posting-title"
+          >
             Alp-Pflege
           </h5>
-          <h6
-            className="text-muted"
-          >
-            Alpbetrieb Untersteiglen-Schwand
-          </h6>
           <div
             className="job-description"
           >
