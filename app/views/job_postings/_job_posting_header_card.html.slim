@@ -19,9 +19,9 @@
           .badge.badge-pill.badge-soft-warning.mr-1
             i.fas.fa-star.mr-1
             = t('search.ribbons.new')
-        .badge.badge-pill.badge-soft-info.mr-1 title=job_posting.category_display_name
+        .badge.badge-pill.badge-soft-info.mr-1 title=job_posting.full_category_display_name
           = job_posting_category_icon(job_posting)
-          = I18n.t(job_posting.category, scope: 'activerecord.enums.job_postings.category_abbreviation')
+          = job_posting.category_display_name
         .badge.badge-pill.badge-soft-info.mr-1
           i.fas.fa-comments.mr-1
           = I18n.t(job_posting.language, scope: 'activerecord.attributes.user.languages')

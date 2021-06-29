@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class JobPosting < ApplicationRecord
-  include ActionView::Helpers::SanitizeHelper
   include JobPostingSearchable
 
   REQUIRED_FIELDS = %i[
