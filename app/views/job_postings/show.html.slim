@@ -52,7 +52,15 @@
           .card-text
             - if @job_posting.scraped?
               .text-muted = t('.disclaimer')
-            .btn.btn-falcon-primary.w-100.mt-3 = t('.apply_on_ezivi')
+            button.btn.btn-falcon-primary.w-100.mt-3[
+              data-toggle="popover"
+              title=t('.ezivi_popover_title')
+              data-html='true'
+              data-sanitize='false'
+              data-content=t('.ezivi_popover_content')
+              data-trigger="focus"
+              data-custom-class="shadow-popover"
+            ] = t('.ezivi_link')
         - if @job_posting.scraped?
           .card.card-body
             .card-title = t('.claim_title')
