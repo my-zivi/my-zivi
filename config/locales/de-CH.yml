@@ -447,6 +447,9 @@ de-CH:
         german: Deutsch
         italian: Italienisch
       minimum_service_months: Minimale Einsatzdauer
+      month:
+        one: Monat
+        other: Monate
       priority_program: Schwerpunktprogramm
       priority_program_label: Zeige nur Einsätze gültig für den langen Einsatz
     ribbons:

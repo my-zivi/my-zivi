@@ -446,6 +446,9 @@ fr-CH:
         german: Allemand
         italian: Italien
       minimum_service_months: Durée d'affectation minimale
+      month:
+        one: Mois
+        other: Mois
       priority_program: Programme prioritaire
       priority_program_label: Afficher uniquement les affectations valables pour la programme prioritaire
     ribbons:
