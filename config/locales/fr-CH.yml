@@ -145,13 +145,13 @@ fr-CH:
       apply_on_ezivi: Postulez maintenant via EZIVI
       back: Retour à la recherche
       claim_html: <a class="text-danger" href="%{link}">Cliquez <u>ici</u> pour l'éditer</a>
+      claim_title: Est-ce votre cahier des charges?
       contact: Contact
       disclaimer: Cet établissement d'affectation n'est pas encore enregistrée sur MyZivi. Toutes les informations sont sans garantie.
       months:
         one: 1 mois
         other: "%{count} mois"
       service_period: "%{from} à %{to}"
-      claim_title: "Est-ce votre cahier des charges?"
   layouts:
     application:
       meta:

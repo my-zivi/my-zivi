@@ -145,13 +145,13 @@ de-CH:
       apply_on_ezivi: Jetzt über EZIVI bewerben
       back: Zurück zur Suche
       claim_html: Klicke <a href="%{link}">hier</a>, um es zu bearbeiten
+      claim_title: Ist das Dein Pflichtenheft?
       contact: Kontakt
       disclaimer: Dieser Betrieb ist noch nicht bei MyZivi registriert. Alle Angaben sind ohne Gewähr.
       months:
         one: 1 Monat
         other: "%{count} Monate"
       service_period: "%{from} bis %{to}"
-      claim_title: "Ist das Dein Pflichtenheft?"
   layouts:
     application:
       meta:
