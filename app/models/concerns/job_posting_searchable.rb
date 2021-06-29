@@ -2,6 +2,7 @@
 
 module JobPostingSearchable
   extend ActiveSupport::Concern
+  include ActionView::Helpers::SanitizeHelper
   include AlgoliaSearch
 
   included do
@@ -37,7 +38,7 @@ module JobPostingSearchable
   end
 
   def plain_description
-    strip_tags(description).squish
+    strip_tags(description.gsub(%r{<br ?/?>}, ' ')).squish
   end
 
   def organization_display_name
@@ -47,6 +48,10 @@ module JobPostingSearchable
   end
 
   def category_display_name
+    I18n.t(category, scope: 'activerecord.enums.job_postings.category_abbreviation')
+  end
+
+  def full_category_display_name
     I18n.t(category, scope: 'activerecord.enums.job_postings.category')
   end
 

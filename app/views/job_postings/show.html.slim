@@ -22,8 +22,6 @@
         .card.card-body.mb-3
           h5 = JobPosting.human_attribute_name(:canton)
           p = @job_posting.canton_display_name
-          h5 = JobPosting.human_attribute_name(:category)
-          p = @job_posting.category_display_name
           h5 = JobPosting.human_attribute_name(:minimum_service_months)
           p = t('.months', count: @job_posting.minimum_service_months)
           h5 = JobPosting.human_attribute_name(:priority_program)

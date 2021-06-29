@@ -56,9 +56,17 @@ RSpec.describe JobPosting, type: :model do
   end
 
   describe '#category_display_name' do
-    subject { build(:job_posting).category_display_name }
+    subject(:job_posting) { build(:job_posting) }
 
-    it { is_expected.to eq I18n.t('activerecord.enums.job_postings.category.nature_conservancy') }
+    it 'returns correct display names' do
+      expect(job_posting.category_display_name).to eq(
+        I18n.t('activerecord.enums.job_postings.category_abbreviation.nature_conservancy')
+      )
+
+      expect(job_posting.full_category_display_name).to eq(
+        I18n.t('activerecord.enums.job_postings.category.nature_conservancy')
+      )
+    end
   end
 
   describe '#sub_category_display_name' do
