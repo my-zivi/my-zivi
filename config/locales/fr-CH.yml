@@ -142,11 +142,14 @@ fr-CH:
     index:
       page_title: Rechercher une affectation
     show:
-      apply_on_ezivi: Postulez maintenant via EZIVI
       back: Retour à la recherche
-      claim_html: Est-ce votre cahier des charges? <a class="text-danger" href="%{link}">Cliquez <u>ici</u> pour l'éditer</a>
+      claim_html: <a class="text-danger" href="%{link}">Cliquez <u>ici</u> pour l'éditer</a>
+      claim_title: Est-ce votre cahier des charges?
       contact: Contact
       disclaimer: Cet établissement d'affectation n'est pas encore enregistrée sur MyZivi. Toutes les informations sont sans garantie.
+      ezivi_link: Voir sur EZIVI
+      ezivi_popover_content: Malheureusement, pour des raisons techniques, nous ne sommes pas en mesure de fournir un lien direct vers EZIVI. Vous pouvez trouver le cahier des charges en visitant <a href="https://www.ezivi.admin.ch" target="_blank" rel="noopener nofollow">EZIVI</a> et en recherchant le numéro du cahier des charges.
+      ezivi_popover_title: EZIVI
       months:
         one: 1 mois
         other: "%{count} mois"
@@ -446,6 +449,9 @@ fr-CH:
         german: Allemand
         italian: Italien
       minimum_service_months: Durée d'affectation minimale
+      month:
+        one: Mois
+        other: Mois
       priority_program: Programme prioritaire
       priority_program_label: Afficher uniquement les affectations valables pour la programme prioritaire
     ribbons:

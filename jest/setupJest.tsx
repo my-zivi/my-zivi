@@ -39,6 +39,10 @@ const globalConfig: MyZiviGlobal = {
           german: 'string',
           italian: 'string',
         },
+        month: {
+          one: 'string',
+          other: 'string',
+        },
         minimumServiceMonths: 'string',
         priorityProgram: 'string',
         priorityProgramLabel: 'string',
