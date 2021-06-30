@@ -3,7 +3,6 @@
 exports[`JobPosting renders correctly 1`] = `
 <a
   href="http://example.com/job_postings/1"
-  target="_blank"
 >
   <div
     className="card h-100 job-posting-card"
