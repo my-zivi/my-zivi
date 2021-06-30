@@ -7,7 +7,7 @@ const JobPostingIcon = React.memo((({ iconUrl, alt }) => (
 )) as React.FunctionComponent<{ iconUrl: string, alt: string }>);
 
 const JobPosting: React.FunctionComponent<{ hit: JobPostingSearchHit }> = ({ hit }) => (
-  <a href={hit.link} target="_blank">
+  <a href={hit.link}>
     <div className="card h-100 job-posting-card">
       <Ribbon hit={hit} />
       <div className="card-body">
