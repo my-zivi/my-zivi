@@ -56,6 +56,8 @@ module JobPostingApi
 
     def sync_posting(attributes)
       job_posting = JobPosting.find_or_initialize_by(identification_number: attributes[:identification_number])
+      return unless job_posting.scraped?
+
       job_posting.assign_attributes(attributes.merge(DEFAULT_ATTRIBUTES))
       return register_job_posting_error(job_posting) unless job_posting.valid?
 
