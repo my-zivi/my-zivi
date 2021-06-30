@@ -8,18 +8,15 @@ import PoweredBy from 'js/home/search/embedded_app/components/PoweredBy';
 import qs from 'qs';
 
 const HITS_PER_PAGE = 20;
-const DEBOUNCE_TIME = 700;
 
 type SearchState = Record<string, unknown>;
 type Props = { searchClient: SearchClient };
 type State = { searchState: SearchState };
 
-const searchStateToUrl = (searchState) => (searchState ? `?${qs.stringify(searchState)}` : '');
+const searchStateToUrl = (searchState: SearchState) => (searchState ? `?${qs.stringify(searchState)}` : '');
 const urlToSearchState = (search: string) => qs.parse(search.slice(1));
 
 class SearchPage extends React.Component<Props, State> {
-  private debouncedSetState: NodeJS.Timeout;
-
   constructor() {
     super();
     this.state = {
@@ -28,11 +25,7 @@ class SearchPage extends React.Component<Props, State> {
   }
 
   onSearchStateChange: (searchState: SearchState) => void = (searchState) => {
-    clearTimeout(this.debouncedSetState);
-
-    this.debouncedSetState = setTimeout(() => {
-      window.history.replaceState(null, null, searchStateToUrl(searchState));
-    }, DEBOUNCE_TIME);
+    window.history.replaceState(null, null, searchStateToUrl(searchState));
 
     this.setState({ searchState });
   };
