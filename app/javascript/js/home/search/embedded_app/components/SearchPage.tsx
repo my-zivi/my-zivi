@@ -19,12 +19,13 @@ const urlToSearchState = (search: string) => qs.parse(search.slice(1));
 class SearchPage extends React.Component<Props, State> {
   constructor() {
     super();
+
     this.state = {
       searchState: urlToSearchState(window.location.search),
     };
   }
 
-  onSearchStateChange: (searchState: SearchState) => void = (searchState) => {
+  private onSearchStateChange: (searchState: SearchState) => void = (searchState) => {
     window.history.replaceState(null, null, searchStateToUrl(searchState));
 
     this.setState({ searchState });

@@ -3,6 +3,7 @@
 exports[`SearchPage renders correctly 1`] = `
 <InstantSearch
   indexName="JobPosting"
+  onSearchStateChange={[Function]}
   refresh={false}
   searchClient={
     Object {
@@ -106,6 +107,7 @@ exports[`SearchPage renders correctly 1`] = `
       "waitAppTask": [Function],
     }
   }
+  searchState={Object {}}
   stalledSearchDelay={200}
 >
   <ConnectorWrapper
