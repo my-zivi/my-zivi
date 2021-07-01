@@ -18,6 +18,7 @@ fr-CH:
         civil_servants: Civilistes
         dashboard: Dashboard
         expense_sheets: Fiches de frais
+        job_postings: Annonces
         organization_information: Données d'exploitation
         organization_members: Employés
         payments: Paiements
@@ -154,6 +155,10 @@ fr-CH:
         one: 1 mois
         other: "%{count} mois"
       service_period: "%{from} à %{to}"
+      unpublished_alert:
+        action_html: 'Dès que l''annonce est prête à être publiée, vous pouvez la publier <a href="%{link}">ici</a> '
+        description: Cette annonce n'a pas encore été publiée. Cependant, puisque vous êtes connecté avec %{email}, vous pouvez prévisualiser l'annonce.
+        title: Appel d'offres non encore publié
   layouts:
     application:
       meta:
@@ -205,6 +210,18 @@ fr-CH:
       update:
         erroneous_update: La note de frais n'a pas pu être mis à jour
         successful_update: La note de frais mis à jour avec succès
+    job_postings:
+      edit:
+        description: Description
+        minimum_service_months_append: Mois
+        show: Ouvrir
+        specification: Spécifications
+        title: L'annonce "%{title}"
+      index:
+        title: Annonces
+      update:
+        erroneous_update: L'annonce n'a pas pu être mis à jour
+        successful_update: Mise à jour réussie de l'annonce
     organization_holidays:
       edit:
         destroy: Supprimer
@@ -366,6 +383,9 @@ fr-CH:
         delete: Supprimer les spécifications
         destroy_service_specification_confirmation: Supprimer vraiment le cahier des charges?
         title: le cahier des charges "%{name}".
+      form:
+        general_data: Données générales
+        reimbursements: Compensation
       index:
         new_service_specification: Ajouter une fiche de spécifications
         title: Les cahiers des charges

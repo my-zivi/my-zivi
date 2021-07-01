@@ -48,7 +48,7 @@ module JobPostingSearchable
   end
 
   def category_display_name
-    I18n.t(category, scope: 'activerecord.enums.job_posting.category_abbreviation')
+    I18n.t(category, scope: 'activerecord.enums.job_posting.category_abbreviations')
   end
 
   def full_category_display_name

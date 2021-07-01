@@ -159,7 +159,7 @@ de-CH:
       workshop:
         name: Name
     enums:
-      blog_entries:
+      blog_entry:
         published:
           'false': Entwurf
           'true': Veröffentlicht
@@ -205,7 +205,7 @@ de-CH:
           nature_conservancy: Umwelt- und Naturschutz, Landschaftspflege und Wald
           preservation_of_cultural_assets: Kulturgütererhaltung
           social_welfare: Sozialwesen
-        category_abbreviation:
+        category_abbreviations:
           agriculture: Landwirtschaft
           development_cooperation: Entwicklungszusammenarbeit
           disaster_relief: Katastrophenschutz

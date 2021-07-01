@@ -88,13 +88,19 @@ fr-CH:
           other: jours de congé
       job_posting:
         available_service_periods: Périodes durant lesquelles des places sont libres
+        brief_description: Brève description
         canton: Canton
         category: Domaine d'activité
         description: Descriptif des tâches
+        identification_number: Numéro d'identification
+        language: Langue
         minimum_service_months: Durée d'affectation minimale
         preferred_skills: Exigences posées au civiliste
         priority_program: Programme prioritaire
+        published: Publié sur
         required_skills: Connaissances exigées
+        sub_category: Domaine d'activité
+        title: Titre
         workshops: Cours obligatoires
       organization:
         identification_number: Numéro d'identification de l'entreprise
@@ -153,7 +159,7 @@ fr-CH:
       workshop:
         name: Nom
     enums:
-      blog_entries:
+      blog_entry:
         published:
           'false': Draft
           'true': Publié
@@ -162,7 +168,7 @@ fr-CH:
           closed: Terminé
           editable: Actif
           locked: À l'avenir
-      job_postings:
+      job_posting:
         cantons:
           AG: Argovie
           AI: Appenzell Rhodes-Intérieures
@@ -199,7 +205,7 @@ fr-CH:
           nature_conservancy: Protection de la nature et de l’environnement, entretien du paysage et forêt
           preservation_of_cultural_assets: Conservation des biens culturels
           social_welfare: Service social
-        category_abbreviation:
+        category_abbreviations:
           agriculture: Agriculture
           development_cooperation: Coopération au développement
           disaster_relief: Protection civile
@@ -315,6 +321,7 @@ fr-CH:
       civil_servant: Civiliste
       driving_licenses: Permis de conduire
       expense_sheet: note de frais
+      job_posting: Annonce
       organization: Établissement d'affectation
       organization_holiday: Vacances d'entreprise
       organization_member: Employés
