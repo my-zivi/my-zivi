@@ -1,14 +1,14 @@
 .card
   .card-header.bg-light
-    .row.align-items-center
-      .col
-        h5.mb-0
-          = t('.title')
-          span.d-none.d-sm-inline-block.ml-1.text-muted = "(#{@job_postings.count})"
+    h5.mb-0 = t('.title')
   .card-body.bg-light.p-0
     .list-group.border-radius-0
       - @job_postings.each do |job_posting|
         = link_to(edit_organizations_job_posting_path(job_posting),
                 class: 'list-group-item list-group-item-action flex-column align-items-start') do
-          h5.mb-1 = job_posting.title
-          p.text-muted.mb-1 = job_posting.brief_description
+          .d-flex
+            .flex-grow-1
+              h5.mb-1 = job_posting.title
+              p.text-muted.mb-1 = job_posting.brief_description
+            .flex-grow-0.align-self-center
+              i.fas.fa-chevron-right
