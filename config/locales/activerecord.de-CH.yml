@@ -321,6 +321,7 @@ de-CH:
       civil_servant: Zivildienstleistende Person
       driving_licenses: Fahrlizenz
       expense_sheet: Spesenblatt
+      job_posting: Ausschreibung
       organization: Einsatzbetrieb
       organization_holiday: Betriebsferien
       organization_member: Mitarbeiter
@@ -328,4 +329,3 @@ de-CH:
       service: Einsatz
       service_specification: Pflichtenheft
       workshop: Kurs
-      job_posting: Ausschreibung

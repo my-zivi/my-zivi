@@ -156,9 +156,9 @@ de-CH:
         other: "%{count} Monate"
       service_period: "%{from} bis %{to}"
       unpublished_alert:
-        title: "Ausschreibung ist noch nicht veröffentlicht"
-        description: "Diese Ausschreibung ist wurde noch nicht veröffentlicht. Da Du allerdings mit %{email} eingeloggt bist, kannst Du die Ausschreibung im Vorschau-Modus betrachten."
-        action_html: "Sobald die Ausschreibung zur Veröffentlichung bereit ist, kannst Du sie <a href=\"%{link}\">hier</a> veröffentlichen"
+        action_html: Sobald die Ausschreibung zur Veröffentlichung bereit ist, kannst Du sie <a href="%{link}">hier</a> veröffentlichen
+        description: Diese Ausschreibung ist wurde noch nicht veröffentlicht. Da Du allerdings mit %{email} eingeloggt bist, kannst Du die Ausschreibung im Vorschau-Modus betrachten.
+        title: Ausschreibung ist noch nicht veröffentlicht
   layouts:
     application:
       meta:
@@ -213,11 +213,11 @@ de-CH:
         successful_update: Spesenblatt erfolgreich aktualisiert
     job_postings:
       edit:
+        description: Beschreibung
+        minimum_service_months_append: Monate
+        show: Öffnen
+        specification: Spezifikation
         title: Ausschreibung “%{title}”
-        minimum_service_months_append: "Monate"
-        specification: "Spezifikation"
-        description: "Beschreibung"
-        show: "Öffnen"
       index:
         title: Ausschreibungen
       update:
