@@ -82,6 +82,15 @@ RSpec.describe JobPostingApi::Poller, :vcr do
         )
       end
 
+      context 'when the job posting has been claimed by an organization' do
+        let(:organization) { create(:organization) }
+        let(:job_posting) { create(:job_posting, identification_number: 89_117, organization: organization) }
+
+        it 'does not update the job posting' do
+          expect { poller.perform }.not_to(change { job_posting.reload.attributes })
+        end
+      end
+
       context 'when the job posting already has workshops assigned' do
         let(:old_workshop) { create(:workshop) }
         let(:job_posting) { create(:job_posting, identification_number: 89_117, workshops: [old_workshop]) }

@@ -35,10 +35,6 @@ export class AutocompleteImpl extends React.Component<Props, State> {
     this.flattenedHits = take(uniqBy(nextProps.hits, (hit) => hit.title), 10);
   }
 
-  componentDidUpdate(): void {
-    this.serializeSearchState();
-  }
-
   render(): JSX.Element {
     return (
       <>
@@ -84,12 +80,6 @@ export class AutocompleteImpl extends React.Component<Props, State> {
     selectedHitIndex %= this.flattenedHits.length;
     this.setState({ selectedHitIndex });
   };
-
-  private serializeSearchState() {
-    const queryParams = new URLSearchParams(window.location.search);
-    queryParams.set('q', this.props.currentRefinement);
-    window.history.replaceState(null, null, `?${queryParams.toString()}`);
-  }
 
   private collapseAutocomplete() {
     this.setState({ focused: false });

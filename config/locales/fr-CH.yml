@@ -143,7 +143,7 @@ fr-CH:
       page_title: Rechercher une affectation
     show:
       back: Retour à la recherche
-      claim_html: <a class="text-danger" href="%{link}">Cliquez <u>ici</u> pour l'éditer</a>
+      claim_html: Contactez nous <a href="%{link}">ici</a> pour le modifier
       claim_title: Est-ce votre cahier des charges?
       contact: Contact
       disclaimer: Cet établissement d'affectation n'est pas encore enregistrée sur MyZivi. Toutes les informations sont sans garantie.

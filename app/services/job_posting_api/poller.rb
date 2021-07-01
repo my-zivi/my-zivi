@@ -50,12 +50,13 @@ module JobPostingApi
 
     def process_feed(feed)
       feed.xpath(JOB_ITEM_XPATH).map do |job_xml|
-        sync_posting(Parser.parse_job_posting_attributes(job_xml))
+        attributes = Parser.parse_job_posting_attributes(job_xml)
+        job_posting = JobPosting.find_or_initialize_by(identification_number: attributes[:identification_number])
+        sync_posting(job_posting, attributes) if job_posting.scraped?
       end
     end
 
-    def sync_posting(attributes)
-      job_posting = JobPosting.find_or_initialize_by(identification_number: attributes[:identification_number])
+    def sync_posting(job_posting, attributes)
       job_posting.assign_attributes(attributes.merge(DEFAULT_ATTRIBUTES))
       return register_job_posting_error(job_posting) unless job_posting.valid?
 
