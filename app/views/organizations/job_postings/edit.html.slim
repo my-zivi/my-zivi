@@ -1,10 +1,10 @@
 .card.mb-3.mb-lg-5
   .card-header.bg-light
-    .d-flex.w-100.justify-content-between.align-items-baseline
+    .d-flex.w-100.justify-content-between.align-items-center.align-items-md-baseline
       h5 = t('.title', title: @job_posting.title)
       = link_to(job_posting_path(@job_posting), class: 'btn btn-link flex-shrink-0 pr-0', target: '_blank') do
         i.fas.fa-external-link-alt.mr-2
-        = t('.show')
+        .d-none.d-md-inline = t('.show')
   .card-body
     = simple_form_for [:organizations, @job_posting], wrapper: :input_group do |f|
       = f.input :published
