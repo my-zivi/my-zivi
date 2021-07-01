@@ -33,5 +33,13 @@ RSpec.describe JobPostingsController do
       expect(response).to have_http_status(:success)
       expect(response.body).to include job_posting.title, job_posting.organization_display_name
     end
+
+    context 'when job posting has not yet been published' do
+      let(:job_posting) { create(:job_posting, published: false) }
+
+      it 'raises a not found error' do
+        expect { get job_posting_path(job_posting) }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
   end
 end
