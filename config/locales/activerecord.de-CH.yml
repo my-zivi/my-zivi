@@ -88,13 +88,19 @@ de-CH:
           other: Arbeitsfreie Tage
       job_posting:
         available_service_periods: Freie Einsatzzeiträume
+        brief_description: Kurzbeschreibung
         canton: Kanton
         category: Tätigkeitsbereich
         description: Tätigkeitsbeschreibung
+        identification_number: Identifikationsnummer
+        language: Sprache
         minimum_service_months: Mindesteinsatzdauer
         preferred_skills: Erwünschte Kenntnisse
         priority_program: Schwerpunktprogramm
+        published: Veröffentlicht
         required_skills: Vorausgesetzte Kenntnisse
+        sub_category: Aufgabengebiet
+        title: Titel
         workshops: Erforderliche Kurse
       organization:
         identification_number: Betriebs-Identifikationsnummer
@@ -162,8 +168,8 @@ de-CH:
           closed: Abgeschlossen
           editable: Aktiv
           locked: Zukünftig
-      job_postings:
-        canton:
+      job_posting:
+        cantons:
           AG: Aargau
           AI: Appenzell Innerrhoden
           AR: Appenzell Ausserrhoden
@@ -190,7 +196,7 @@ de-CH:
           VS: Wallis
           ZG: Zug
           ZH: Zürich
-        category:
+        categories:
           agriculture: Landwirtschaft
           development_cooperation: Entwicklungszusammenarbeit und humanitäre Hilfe
           disaster_relief: Vorbeugung und Bewältigung von Katastrophen und Notlagen sowie Regeneration nach solchen Ereignissen
@@ -208,11 +214,11 @@ de-CH:
           nature_conservancy: Naturschutz
           preservation_of_cultural_assets: Kulturgütererhaltung
           social_welfare: Sozialwesen
-        language:
+        languages:
           french: Französisch
           german: Deutsch
           italian: Italienisch
-        sub_category:
+        sub_categories:
           alp_care: Alp-Pflege
           assistance_service: Assistenzdienste
           care: Pflege
@@ -322,3 +328,4 @@ de-CH:
       service: Einsatz
       service_specification: Pflichtenheft
       workshop: Kurs
+      job_posting: Ausschreibung

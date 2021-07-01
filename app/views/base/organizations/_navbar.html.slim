@@ -20,6 +20,9 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
         span.fas.fa-calendar-alt
       = render 'base/navbar_list_item', link: { t('.service_specifications') => organizations_service_specifications_path } do
         span.fas.fa-file
+      - if can?(:view, JobPosting) && current_organization.job_postings.any?
+        = render 'base/navbar_list_item', link: { t('.job_postings') => organizations_job_postings_path } do
+          span.fas.fa-bullhorn
       = render 'base/navbar_list_item', link: { t('.expense_sheets') => organizations_expense_sheets_path } do
         span.fas.fa-file-invoice-dollar
       = render 'base/navbar_list_item', link: { t('.payments') => organizations_payments_path } do

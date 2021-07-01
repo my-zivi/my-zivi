@@ -1,0 +1,47 @@
+.card.mb-3.mb-lg-5
+  .card-header.bg-light
+    .d-flex.w-100.justify-content-between.align-items-baseline
+      h5 = t('.title', title: @job_posting.title)
+      = link_to(job_posting_path(@job_posting), class: 'btn btn-link flex-shrink-0', target: '_blank') do
+        i.fas.fa-external-link-alt.mr-2
+        = t('.show')
+  .card-body
+    = simple_form_for [:organizations, @job_posting], wrapper: :input_group do |f|
+      = f.input :published
+      .row
+        .col-12.col-md-3
+          = f.input :identification_number
+        .col-12.col-md-9
+          = f.input :title
+      = f.input :brief_description
+      hr.my-4 /
+      a.collapsible-title href='#' data-toggle="collapse" data-target="#description" aria-expanded="false" aria-controls="description"
+        h5.mb-3
+          i.fas.fa-chevron-down.mr-2.collapse-icon
+          = t('.description')
+      .collapse.show#description
+        = f.input :description
+        = f.input :required_skills
+        = f.input :preferred_skills
+      hr.my-4 /
+      a.collapsible-title href='#' data-toggle="collapse" data-target="#specification" aria-expanded="false" aria-controls="specification"
+        h5.mb-3
+          i.fas.fa-chevron-down.mr-2.collapse-icon
+          = t('.specification')
+      .collapse.show#specification
+        .row
+          .col-12.col-md-6
+            = f.input :language, collection: enum_options_for_select(JobPosting, :language)
+          .col-12.col-md-6
+            = f.input :canton, collection: enum_options_for_select(JobPosting, :canton)
+        .row
+          .col-12.col-md-6
+            = f.input :category, collection: enum_options_for_select(JobPosting, :category)
+          .col-12.col-md-6
+            = f.input :sub_category, collection: enum_options_for_select(JobPosting, :sub_category)
+        .row
+          .col-12.col-md-6
+            = f.input :minimum_service_months, append: t('.minimum_service_months_append')
+      .d-flex.justify-content-end
+        = yield
+        = f.submit class: 'btn btn-primary float-right'

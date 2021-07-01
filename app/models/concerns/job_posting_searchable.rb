@@ -48,18 +48,18 @@ module JobPostingSearchable
   end
 
   def category_display_name
-    I18n.t(category, scope: 'activerecord.enums.job_postings.category_abbreviation')
+    I18n.t(category, scope: 'activerecord.enums.job_posting.category_abbreviation')
   end
 
   def full_category_display_name
-    I18n.t(category, scope: 'activerecord.enums.job_postings.category')
+    I18n.t(category, scope: 'activerecord.enums.job_posting.categories')
   end
 
   def sub_category_display_name
-    sub_category.presence && I18n.t(sub_category, scope: 'activerecord.enums.job_postings.sub_category')
+    sub_category.presence && I18n.t(sub_category, scope: 'activerecord.enums.job_posting.sub_categories')
   end
 
   def canton_display_name
-    I18n.t(canton, scope: 'activerecord.enums.job_postings.canton')
+    I18n.t(canton, scope: 'activerecord.enums.job_posting.cantons')
   end
 end

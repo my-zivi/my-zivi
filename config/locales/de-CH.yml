@@ -18,6 +18,7 @@ de-CH:
         civil_servants: Zivildienstleistende
         dashboard: Dashboard
         expense_sheets: Spesenblätter
+        job_postings: Ausschreibungen
         organization_information: Betriebsdaten
         organization_members: Mitarbeiter
         payments: Auszahlungen
@@ -206,6 +207,18 @@ de-CH:
       update:
         erroneous_update: Spesenblatt konnte nicht aktualisiert werden
         successful_update: Spesenblatt erfolgreich aktualisiert
+    job_postings:
+      edit:
+        title: Ausschreibung “%{title}”
+        minimum_service_months_append: "Monate"
+        specification: "Spezifikation"
+        description: "Beschreibung"
+        show: "Öffnen"
+      index:
+        title: Ausschreibungen
+      update:
+        erroneous_update: Ausschreibung konnte nicht aktualisiert werden
+        successful_update: Ausschreibung erfolgreich aktualisiert
     organization_holidays:
       edit:
         destroy: Löschen
@@ -367,6 +380,9 @@ de-CH:
         delete: Pflichtenheft löschen
         destroy_service_specification_confirmation: Pflichtenheft wirklich löschen?
         title: Pflichtenheft “%{name}”
+      form:
+        general_data: Allgemeine Daten
+        reimbursements: Entschädigungen
       index:
         new_service_specification: Pflichtenheft hinzufügen
         title: Pflichtenhefter

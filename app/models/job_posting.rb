@@ -57,6 +57,8 @@ class JobPosting < ApplicationRecord
     forestry_work processing
   ].index_with(&:to_s)
 
+  enum canton: I18n.t('activerecord.enums.job_posting.cantons').keys.map(&:to_sym).index_with(&:to_s)
+
   def scraped?
     organization.blank?
   end

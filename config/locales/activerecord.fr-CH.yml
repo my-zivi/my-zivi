@@ -163,7 +163,7 @@ fr-CH:
           editable: Actif
           locked: À l'avenir
       job_postings:
-        canton:
+        cantons:
           AG: Argovie
           AI: Appenzell Rhodes-Intérieures
           AR: Appenzell Rhodes-Extérieures
@@ -190,7 +190,7 @@ fr-CH:
           VS: Valais
           ZG: Zoug
           ZH: Zurich
-        category:
+        categories:
           agriculture: Agriculture
           development_cooperation: Coopération au développement et aide humanitaire
           disaster_relief: Prévention et maîtrise des catastrophes et des situations d’urgence et rétablissement après de tels événements
@@ -208,11 +208,11 @@ fr-CH:
           nature_conservancy: Conservation de la nature
           preservation_of_cultural_assets: Préservation des biens culturels
           social_welfare: Services sociaux
-        language:
+        languages:
           french: Français
           german: Allemand
           italian: Italien
-        sub_category:
+        sub_categories:
           alp_care: Entretien des alpages
           assistance_service: Services d'assistanat
           care: Soins
