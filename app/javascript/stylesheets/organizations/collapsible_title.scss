@@ -1,0 +1,9 @@
+@import '~bootstrap/scss/mixins';
+
+.collapse-icon {
+  @include transition($transition-collapse-icon);
+}
+
+.collapsible-title.collapsed .collapse-icon {
+  transform: rotate(-90deg);
+}

@@ -7,5 +7,6 @@ class JobPostingsController < ApplicationController
 
   def show
     @job_posting = JobPosting.eager_load(:workshops, :available_service_periods).find(params[:id])
+    raise ActiveRecord::RecordNotFound unless can?(:read, @job_posting)
   end
 end

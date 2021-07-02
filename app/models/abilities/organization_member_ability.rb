@@ -15,6 +15,7 @@ module Abilities
       can :manage, Payment, organization_id: organization_id
       can :manage, OrganizationHoliday, organization_id: organization_id
       can %i[edit update], Organization, id: organization_id
+      can :manage, JobPosting, organization_id: organization_id
 
       can(:read, CivilServant,
           services: {

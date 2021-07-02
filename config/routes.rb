@@ -83,6 +83,7 @@ Rails.application.routes.draw do
         put :confirm, on: :member
       end
     end
+    resources :job_postings, only: %i[index edit update]
   end
 
   get '/401' => 'errors#unauthorized', as: :unauthorized

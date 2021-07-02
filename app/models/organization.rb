@@ -9,6 +9,7 @@ class Organization < ApplicationRecord
   has_many :organization_holidays, inverse_of: :organization, dependent: :destroy
   has_many :service_specifications, inverse_of: :organization, dependent: :restrict_with_exception
   has_many :payments, inverse_of: :organization, dependent: :destroy
+  has_many :job_postings, inverse_of: :organization, dependent: :nullify
   has_many :services, through: :service_specifications
   has_many :civil_servants, through: :services
   has_many :expense_sheets, through: :services

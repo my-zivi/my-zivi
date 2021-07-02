@@ -1,6 +1,6 @@
 = simple_form_for [:organizations, service_specification], wrapper: :input_group do |f|
   = f.input :active
-  h5.mb-3 Allgemeine Daten
+  h5.mb-3 = t('.general_data')
   .row
     .col-12.col-lg-6
       = f.input :identification_number
@@ -15,19 +15,19 @@
     .col-12.col-lg-6
       = f.association :lead_person, label_method: :full_name, value_method: :id, collection: current_organization.organization_members
   hr.my-4
-    h5.mb-3 Entschädigungen
-    .row
-      .col-12.col-md-6
-        = f.input :work_clothing_expenses, append: t('simple_form.appended.chf')
-      .col-12.col-md-6
-        = f.input :accommodation_expenses, append: t('simple_form.appended.chf')
-  h6.fs-1.mt-3 Arbeitstage
+  h5.mb-3 = t('.reimbursements')
+  .row
+    .col-12.col-md-6
+      = f.input :work_clothing_expenses, append: t('simple_form.appended.chf')
+    .col-12.col-md-6
+      = f.input :accommodation_expenses, append: t('simple_form.appended.chf')
+  h6.fs-1.mt-3 = t('activerecord.attributes.expense_sheet.work_days.one')
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :work_days_expenses
-  h6.fs-1.mt-3 Erster Arbeitstag
+  h6.fs-1.mt-3 = t('activerecord.attributes.expense_sheet.first_work_days')
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :first_day_expenses
-  h6.fs-1.mt-3 Letzter Arbeitstag
+  h6.fs-1.mt-3 = t('activerecord.attributes.expense_sheet.last_work_days')
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :last_day_expenses
-  h6.fs-1.mt-3 Arbeitsfreie Tage
+  h6.fs-1.mt-3 = t('activerecord.attributes.expense_sheet.workfree_days.one')
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :paid_vacation_expenses
   .d-flex.justify-content-end
     = yield
