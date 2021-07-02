@@ -1,6 +1,7 @@
 import React from 'preact/compat';
 import { render, ComponentType } from 'preact';
 import moment from 'moment';
+import $ from 'jquery';
 
 export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
   private readonly selector: K | string;
@@ -22,7 +23,10 @@ export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
     if (container) {
       const { RootComponent } = this;
 
-      moment.locale(MyZivi.locale);
+      if ('MyZivi' in window && 'locale' in MyZivi) {
+        moment.locale(MyZivi.locale);
+      }
+
       render(<RootComponent />, container);
     }
   }

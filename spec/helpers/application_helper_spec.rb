@@ -70,7 +70,15 @@ RSpec.describe ApplicationHelper do
     context 'with page title' do
       before { helper.content_for(:page_title, 'Test') }
 
-      it { is_expected.to eq "#{I18n.t('layouts.application.title')} | Test" }
+      it { is_expected.to eq "Test | #{I18n.t('layouts.application.title')}" }
+    end
+  end
+
+  describe '#js_translations_export' do
+    subject(:translations) { helper.js_translations_export(my_translation: 'cool') }
+
+    it 'exports a json of the given translations' do
+      expect(translations).to eq '{"myTranslation":"cool"}'
     end
   end
 end

@@ -1,0 +1,170 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchPage renders correctly 1`] = `
+<InstantSearch
+  indexName="JobPosting"
+  onSearchStateChange={[Function]}
+  refresh={false}
+  searchClient={
+    Object {
+      "addAlgoliaAgent": [Function],
+      "addApiKey": [Function],
+      "appId": "appid",
+      "assignUserID": [Function],
+      "assignUserIDs": [Function],
+      "clearCache": [Function],
+      "clearDictionaryEntries": [Function],
+      "copyIndex": [Function],
+      "copyRules": [Function],
+      "copySettings": [Function],
+      "copySynonyms": [Function],
+      "deleteApiKey": [Function],
+      "deleteDictionaryEntries": [Function],
+      "destroy": [Function],
+      "generateSecuredApiKey": [Function],
+      "getApiKey": [Function],
+      "getAppTask": [Function],
+      "getDictionarySettings": [Function],
+      "getLogs": [Function],
+      "getSecuredApiKeyRemainingValidity": [Function],
+      "getTopUserIDs": [Function],
+      "getUserID": [Function],
+      "hasPendingMappings": [Function],
+      "initAnalytics": [Function],
+      "initIndex": [Function],
+      "initRecommendation": [Function],
+      "listApiKeys": [Function],
+      "listClusters": [Function],
+      "listIndices": [Function],
+      "listUserIDs": [Function],
+      "moveIndex": [Function],
+      "multipleBatch": [Function],
+      "multipleGetObjects": [Function],
+      "multipleQueries": [Function],
+      "multipleSearchForFacetValues": [Function],
+      "removeUserID": [Function],
+      "replaceDictionaryEntries": [Function],
+      "restoreApiKey": [Function],
+      "saveDictionaryEntries": [Function],
+      "search": [Function],
+      "searchDictionaryEntries": [Function],
+      "searchForFacetValues": [Function],
+      "searchUserIDs": [Function],
+      "setDictionarySettings": [Function],
+      "transporter": Object {
+        "headers": Object {
+          "content-type": "application/x-www-form-urlencoded",
+          "x-algolia-api-key": "apikey",
+          "x-algolia-application-id": "appid",
+        },
+        "hosts": Array [
+          Object {
+            "accept": 3,
+            "protocol": "http",
+            "url": "example.com",
+          },
+        ],
+        "hostsCache": Object {
+          "clear": [Function],
+          "delete": [Function],
+          "get": [Function],
+          "set": [Function],
+        },
+        "logger": Object {
+          "debug": [Function],
+          "error": [Function],
+          "info": [Function],
+        },
+        "queryParameters": Object {},
+        "read": [Function],
+        "requester": Object {
+          "send": [Function],
+        },
+        "requestsCache": Object {
+          "clear": [Function],
+          "delete": [Function],
+          "get": [Function],
+          "set": [Function],
+        },
+        "responsesCache": Object {
+          "clear": [Function],
+          "delete": [Function],
+          "get": [Function],
+          "set": [Function],
+        },
+        "timeouts": Object {
+          "connect": 2,
+          "read": 5,
+          "write": 30,
+        },
+        "userAgent": Object {
+          "add": [Function],
+          "value": "Algolia for JavaScript (4.9.1); Node.js (12.22.1)",
+        },
+        "write": [Function],
+      },
+      "updateApiKey": [Function],
+      "waitAppTask": [Function],
+    }
+  }
+  searchState={Object {}}
+  stalledSearchDelay={200}
+>
+  <ConnectorWrapper
+    hitsPerPage={20}
+  />
+  <div
+    className="hero"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="hero-content w-100"
+      >
+        <ConnectorWrapper
+          defaultRefinement={null}
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="container mt-6"
+  >
+    <div
+      className="d-flex justify-content-start justify-content-lg-end mb-2"
+    >
+      <div
+        className="text-muted mr-1"
+      >
+        <ConnectorWrapper
+          translations={
+            Object {
+              "stats": [Function],
+            }
+          }
+        />
+      </div>
+      <ConnectorWrapper />
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12 col-lg-9 order-1 order-lg-0"
+      >
+        <section
+          className="jobs-hits pt-0"
+        >
+          <ConnectorWrapper />
+        </section>
+      </div>
+      <div
+        className="col-12 col-lg-3 order-0 order-lg-1"
+      >
+        <RefinementsPanel />
+      </div>
+    </div>
+  </div>
+</InstantSearch>
+`;

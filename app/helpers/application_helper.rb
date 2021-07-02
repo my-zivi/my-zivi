@@ -16,7 +16,11 @@ module ApplicationHelper
   end
 
   def app_page_title
-    page_title(app_name: t('layouts.application.title'), separator: ' | ')
+    page_title(app_name: t('layouts.application.title'), separator: ' | ', reverse: true)
+  end
+
+  def js_translations_export(translations)
+    translations.deep_transform_keys { |key| key.to_s.camelize(:lower) }.to_json
   end
 
   private

@@ -56,6 +56,8 @@ fr-CH:
         ending: Fin
         extraordinary_expenses: Dépenses extraordinaires
         extraordinary_expenses_comment: Dépenses extraordinaires - Commentaire
+        first_work_days: Premier jour de travail
+        last_work_days: Dernier jour de travail
         paid_company_holiday_days:
           one: Vacances d'entreprise payées
           other: Jours de vacances d'entreprise payées
@@ -86,6 +88,22 @@ fr-CH:
         workfree_days:
           one: Jour de congé
           other: jours de congé
+      job_posting:
+        available_service_periods: Périodes durant lesquelles des places sont libres
+        brief_description: Brève description
+        canton: Canton
+        category: Domaine d'activité
+        description: Descriptif des tâches
+        identification_number: Numéro d'identification
+        language: Langue
+        minimum_service_months: Durée d'affectation minimale
+        preferred_skills: Exigences posées au civiliste
+        priority_program: Programme prioritaire
+        published: Publié sur
+        required_skills: Connaissances exigées
+        sub_category: Domaine d'activité
+        title: Titre
+        workshops: Cours obligatoires
       organization:
         identification_number: Numéro d'identification de l'entreprise
         name: Nom
@@ -114,6 +132,7 @@ fr-CH:
         service_days: Durée de vie
         service_specification: Spécifications
         service_type: Type d'insertion
+        status: Statut
       service_specification:
         accommodation_expenses: Frais d'hébergement
         active: Actif
@@ -142,7 +161,7 @@ fr-CH:
       workshop:
         name: Nom
     enums:
-      blog_entries:
+      blog_entry:
         published:
           'false': Draft
           'true': Publié
@@ -151,6 +170,75 @@ fr-CH:
           closed: Terminé
           editable: Actif
           locked: À l'avenir
+      job_posting:
+        cantons:
+          AG: Argovie
+          AI: Appenzell Rhodes-Intérieures
+          AR: Appenzell Rhodes-Extérieures
+          BE: Berne
+          BL: Bâle-Campagne
+          BS: Bâle-Ville
+          FR: Fribourg
+          GE: Genève
+          GL: Glaris
+          GR: Grisons
+          JU: Jura
+          LU: Lucerne
+          NE: Neuchâtel
+          NW: Nidwald
+          OW: Obwald
+          SG: Saint-Gall
+          SH: Schaffhouse
+          SO: Soleure
+          SZ: Schwytz
+          TG: Thurgovie
+          TI: Tessin
+          UR: Uri
+          VD: Vaud
+          VS: Valais
+          ZG: Zoug
+          ZH: Zurich
+        categories:
+          agriculture: Agriculture
+          development_cooperation: Coopération au développement et aide humanitaire
+          disaster_relief: Prévention et maîtrise des catastrophes et des situations d’urgence et rétablissement après de tels événements
+          education: Instruction publique
+          healthcare: Santé
+          nature_conservancy: Protection de la nature et de l’environnement, entretien du paysage et forêt
+          preservation_of_cultural_assets: Conservation des biens culturels
+          social_welfare: Service social
+        category_abbreviations:
+          agriculture: Agriculture
+          development_cooperation: Coopération au développement
+          disaster_relief: Protection civile
+          education: Système scolaire
+          healthcare: Soins de santé
+          nature_conservancy: Conservation de la nature
+          preservation_of_cultural_assets: Préservation des biens culturels
+          social_welfare: Services sociaux
+        languages:
+          french: Français
+          german: Allemand
+          italian: Italien
+        sub_categories:
+          alp_care: Entretien des alpages
+          assistance_service: Services d'assistanat
+          care: Soins
+          collaboration_in_the_company: Collaboration au sein de l'établissement d'affectation
+          forestry_work: Travaux forestiers
+          handicraft_work: Activité manuelle
+          housekeeping: Service domestique
+          housekeeping_and_hotel: Économie domestique / hôtellerie
+          kitchen: Cuisine
+          landscaping_and_gardening: Entretien du paysage et jardinage
+          organisation_and_participation_in_camps: Organisation / participation à des camps
+          other: Autres travaux de soutien
+          passenger_transport: Transports de personnes
+          pedagogical_work: Travaux pédagogiques
+          processing: Soutien administratif
+          scientific_work: Travaux scientifiques
+          social_care_and_counselling: Conseil / encadrement social
+          support_and_accompaniment: Encadrement, assistance
       service:
         service_types:
           long: Service de longue durée
@@ -235,6 +323,7 @@ fr-CH:
       civil_servant: Civiliste
       driving_licenses: Permis de conduire
       expense_sheet: note de frais
+      job_posting: Annonce
       organization: Établissement d'affectation
       organization_holiday: Vacances d'entreprise
       organization_member: Employés

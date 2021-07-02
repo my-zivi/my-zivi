@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBox renders correctly 1`] = `
+<div
+  className="search-field"
+>
+  <input
+    autoFocus={true}
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyUp={[Function]}
+    oninput={[Function]}
+    placeholder="string"
+    type="search"
+    value=""
+  />
+  <button
+    className="search-button"
+    onClick={[Function]}
+  >
+    <img
+      alt="string"
+      className="w-100 h-100"
+      src="test-file-stub"
+    />
+  </button>
+</div>
+`;

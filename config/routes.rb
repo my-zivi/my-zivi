@@ -24,11 +24,13 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/rails_admin', as: 'rails_admin'
   mount Sidekiq::Web, at: '/sidekiq' if defined? Sidekiq::Web
 
-  get '/administration', to: 'home#administration'
-  get '/recruiting', to: 'home#recruiting'
+  get '/for_organizations', to: 'home#for_organizations'
+  get '/for_organizations/administration', to: 'home#administration', as: :administration
+  get '/for_organizations/recruiting', to: 'home#recruiting', as: :recruiting
   get '/about_us', to: 'home#about_us'
   get '/agb', to: 'home#agb'
   get '/privacy_policy', to: 'home#privacy_policy'
+  resources :job_postings, only: %i[index show]
   resources :blog_entries, param: :slug, only: %i[index show], path: 'blog'
 
   devise_for :users, controllers: {
@@ -81,6 +83,7 @@ Rails.application.routes.draw do
         put :confirm, on: :member
       end
     end
+    resources :job_postings, only: %i[index edit update]
   end
 
   get '/401' => 'errors#unauthorized', as: :unauthorized

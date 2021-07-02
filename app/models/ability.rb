@@ -9,6 +9,7 @@ class Ability
 
     can(:create, MailingList)
     can(:read, BlogEntry, published: true)
+    can(:read, JobPosting, published: true)
 
     return if user.blank?
 

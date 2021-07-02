@@ -1,0 +1,27 @@
+.card.mb-3.overflow-hidden.animatable-card.job-posting-title-card
+  .bg-holder.bg-card.corner-background-info.d-none.d-md-block
+  .card-body.position-relative
+    .job-posting-card-columns
+      .icon-container
+        img.job-posting-icon src=job_posting.icon_url alt=job_posting.organization_display_name
+        h3.job-posting-subtitle = job_posting.organization_display_name
+      .title-container
+        h1.job-posting-title #{job_posting.title} (#{job_posting.identification_number})
+        - if job_posting.urgent?
+          .badge.badge-pill.badge-soft-danger.mr-1
+            i.fas.fa-exclamation-triangle.mr-1
+            = t('search.ribbons.urgent')
+        - if job_posting.featured?
+          .badge.badge-pill.badge-soft-warning.mr-1
+            i.fas.fa-star.mr-1
+            = t('search.ribbons.featured_full')
+        - if job_posting.featured_as_new?
+          .badge.badge-pill.badge-soft-warning.mr-1
+            i.fas.fa-star.mr-1
+            = t('search.ribbons.new')
+        .badge.badge-pill.badge-soft-info.mr-1 title=job_posting.full_category_display_name
+          = job_posting_category_icon(job_posting)
+          = job_posting.category_display_name
+        .badge.badge-pill.badge-soft-info.mr-1
+          i.fas.fa-comments.mr-1
+          = I18n.t(job_posting.language, scope: 'activerecord.enums.job_posting.languages')

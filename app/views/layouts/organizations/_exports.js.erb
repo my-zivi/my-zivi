@@ -1,8 +1,11 @@
 // Please be aware that this script is loaded directly in HEAD.
 // Do not use ES6 Syntax or Code that requires polyfilling in IE
+// noinspection ES6ConvertVarToLetConst
 
-if (!('MyZivi' in window)) {
-  window.MyZivi = {
+(function () {
+  "use strict";
+
+  var servicesOverviewExports = {
     locale: '<%= I18n.locale[0..1] %>',
     translations: {
       loading: '<%= I18n.t('loading') %>',
@@ -18,4 +21,10 @@ if (!('MyZivi' in window)) {
       servicesOverview: '<%= organizations_services_path(format: :json) %>'
     }
   };
-}
+
+  if (!('MyZivi' in window)) {
+    window.MyZivi = servicesOverviewExports;
+  } else {
+    $.extend(true, window.MyZivi, servicesOverviewExports);
+  }
+})();

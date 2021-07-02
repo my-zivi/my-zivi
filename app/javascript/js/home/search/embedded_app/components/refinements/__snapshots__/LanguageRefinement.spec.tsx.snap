@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguageRefinement renders correctly 1`] = `
+<LanguageRefinement>
+  <ConnectorWrapper
+    attribute="language"
+    limit={5}
+    searchable={false}
+    showMore={true}
+    transformItems={[Function]}
+    translations={
+      Object {
+        "noResults": "string",
+        "placeholder": "string",
+        "resetTitle": "string",
+        "showMore": [Function],
+        "submitTitle": "string",
+      }
+    }
+  >
+    <Consumer>
+      <Consumer>
+        <AlgoliaRefinementList(RefinementListWidget)
+          attribute="language"
+          contextValue={
+            Object {
+              "createHrefForState": [Function],
+              "mainTargetedIndex": "JobPosting",
+              "onInternalStateUpdate": [Function],
+              "onSearchForFacetValues": [Function],
+              "onSearchParameters": [Function],
+              "onSearchStateChange": [Function],
+              "store": Object {
+                "getState": [Function],
+                "setState": [Function],
+                "subscribe": [Function],
+              },
+              "widgetsManager": Object {
+                "getWidgets": [Function],
+                "registerWidget": [Function],
+                "update": [Function],
+              },
+            }
+          }
+          limit={5}
+          operator="or"
+          searchable={false}
+          showMore={true}
+          showMoreLimit={20}
+          transformItems={[Function]}
+          translations={
+            Object {
+              "noResults": "string",
+              "placeholder": "string",
+              "resetTitle": "string",
+              "showMore": [Function],
+              "submitTitle": "string",
+            }
+          }
+        >
+          <RefinementListWidget
+            attribute="language"
+            canRefine={false}
+            createURL={[Function]}
+            currentRefinement={Array []}
+            isFromSearch={false}
+            items={Array []}
+            limit={5}
+            operator="or"
+            refine={[Function]}
+            searchForItems={[Function]}
+            searchable={false}
+            showMore={true}
+            showMoreLimit={20}
+            transformItems={[Function]}
+            translations={
+              Object {
+                "noResults": "string",
+                "placeholder": "string",
+                "resetTitle": "string",
+                "showMore": [Function],
+                "submitTitle": "string",
+              }
+            }
+          >
+            <PanelWrapper
+              attribute="language"
+              canRefine={false}
+              createURL={[Function]}
+              currentRefinement={Array []}
+              isFromSearch={false}
+              items={Array []}
+              limit={5}
+              operator="or"
+              refine={[Function]}
+              searchForItems={[Function]}
+              searchable={false}
+              showMore={true}
+              showMoreLimit={20}
+              transformItems={[Function]}
+              translations={
+                Object {
+                  "noResults": "string",
+                  "placeholder": "string",
+                  "resetTitle": "string",
+                  "showMore": [Function],
+                  "submitTitle": "string",
+                }
+              }
+            >
+              <Consumer>
+                <PanelCallbackHandler
+                  canRefine={false}
+                  setCanRefine={[Function]}
+                >
+                  <Translatable(RefinementList)
+                    attribute="language"
+                    canRefine={false}
+                    createURL={[Function]}
+                    currentRefinement={Array []}
+                    isFromSearch={false}
+                    items={Array []}
+                    limit={5}
+                    operator="or"
+                    refine={[Function]}
+                    searchForItems={[Function]}
+                    searchable={false}
+                    showMore={true}
+                    showMoreLimit={20}
+                    transformItems={[Function]}
+                    translations={
+                      Object {
+                        "noResults": "string",
+                        "placeholder": "string",
+                        "resetTitle": "string",
+                        "showMore": [Function],
+                        "submitTitle": "string",
+                      }
+                    }
+                  >
+                    <RefinementList
+                      attribute="language"
+                      canRefine={false}
+                      class=""
+                      className=""
+                      createURL={[Function]}
+                      currentRefinement={Array []}
+                      isFromSearch={false}
+                      items={Array []}
+                      limit={5}
+                      operator="or"
+                      refine={[Function]}
+                      searchForItems={[Function]}
+                      searchable={false}
+                      showMore={true}
+                      showMoreLimit={20}
+                      transformItems={[Function]}
+                      translate={[Function]}
+                      translations={
+                        Object {
+                          "noResults": "string",
+                          "placeholder": "string",
+                          "resetTitle": "string",
+                          "showMore": [Function],
+                          "submitTitle": "string",
+                        }
+                      }
+                    >
+                      <List
+                        canRefine={false}
+                        class=""
+                        className=""
+                        cx={[Function]}
+                        isFromSearch={false}
+                        items={Array []}
+                        limit={5}
+                        query=""
+                        renderItem={[Function]}
+                        searchForItems={[Function]}
+                        searchable={false}
+                        selectItem={[Function]}
+                        showMore={true}
+                        showMoreLimit={20}
+                        translate={[Function]}
+                      >
+                        <div
+                          className="ais-RefinementList ais-RefinementList--noRefinement"
+                        />
+                      </List>
+                    </RefinementList>
+                  </Translatable(RefinementList)>
+                </PanelCallbackHandler>
+              </Consumer>
+            </PanelWrapper>
+          </RefinementListWidget>
+        </AlgoliaRefinementList(RefinementListWidget)>
+      </Consumer>
+    </Consumer>
+  </ConnectorWrapper>
+</LanguageRefinement>
+`;

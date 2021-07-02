@@ -1,0 +1,66 @@
+.ais-RefinementList,
+.ais-RangeInput-form,
+.ais-ToggleRefinement {
+  margin-top: .5em;
+}
+
+.ais-RefinementList-showMore--disabled,
+.ais-ClearRefinements-button--disabled {
+  display: none;
+}
+
+.ais-RefinementList-labelText,
+.ais-ToggleRefinement-labelText {
+  flex-grow: 1;
+  margin-left: .3em;
+}
+
+.ais-RefinementList-label,
+.ais-ToggleRefinement-label {
+  display: inline-flex;
+  align-items: baseline;
+  width: 100%;
+}
+
+.ais-RefinementList-checkbox {
+  flex-shrink: 0;
+}
+
+.ais-RefinementList-count {
+  color: $gray-500;
+}
+
+.ais-SearchBox-input {
+  flex-shrink: 1;
+  flex-grow: 1;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid $gray-500;
+  border-radius: 0;
+
+  &:focus,
+  &:focus-visible {
+    border-bottom: 2px solid $blue;
+    outline: none;
+  }
+}
+
+.ais-SearchBox-form {
+  display: inline-flex;
+  width: 100%;
+  margin-bottom: map-get($spacers, 2);
+
+  @include media-breakpoint-up(lg) {
+    margin-bottom: map-get($spacers, 3);
+  }
+}
+
+.ais-SearchBox-reset {
+  flex-shrink: 0;
+  margin-left: map-get($spacers, 1);
+}
+
+.ais-SearchBox-reset[hidden] {
+  display: block !important;
+  visibility: hidden;
+}

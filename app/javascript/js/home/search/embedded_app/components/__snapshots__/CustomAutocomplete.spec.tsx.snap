@@ -1,0 +1,279 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomAutocomplete renders an autocomplete menu when focusing input element 1`] = `
+<AutocompleteImpl
+  createURL={[Function]}
+  currentRefinement="alp"
+  defaultRefinement="alp"
+  hits={
+    Array [
+      Object {
+        "__position": 1,
+        "_highlightResult": Object {
+          "organization_display_name": Object {
+            "fullyHighlighted": false,
+            "matchLevel": "full",
+            "matchedWords": Array [
+              "al",
+            ],
+            "value": "<ais-highlight-0000000000>Al</ais-highlight-0000000000>",
+          },
+          "plain_description": Object {
+            "fullyHighlighted": false,
+            "matchLevel": "full",
+            "matchedWords": Array [
+              "al",
+            ],
+            "value": "100% Dauer <ais-highlight-0000000000>Al</ais-highlight-0000000000>psommer",
+          },
+          "title": Object {
+            "fullyHighlighted": false,
+            "matchLevel": "full",
+            "matchedWords": Array [
+              "al",
+            ],
+            "value": "<ais-highlight-0000000000>Al</ais-highlight-0000000000>p-Pflege",
+          },
+        },
+        "brief_description": "Bereich Kulturlandschaft, Biodiversität und Landschaftsqualität",
+        "canton_display_name": "Obwalden",
+        "category_display_name": "Landwirtschaft",
+        "contact_information": "Dieser Betrieb ist noch nicht bei MyZivi registriert. Bitte bewerbe Dich im EZIVI.",
+        "description": "MyDescription <b>Using HTML</b>",
+        "featured_as_new": true,
+        "icon_url": "/myzivi-logo.jpg",
+        "identification_number": 89372,
+        "language": "german",
+        "link": "http://localhost:3000/job_postings/3",
+        "minimum_service_months": 1,
+        "objectID": "3",
+        "organization_display_name": "Alpbetrieb Untersteiglen-Schwand im Tal-Melchsee-Frutt",
+        "plain_description": "100% Dauer Alpsommer: von 01.05. bis 15.10",
+        "preferred_skills": null,
+        "priority_program": true,
+        "publication_date": "2021-06-14",
+        "published": true,
+        "relevancy": 1,
+        "required_skills": "<p> Motivation und physische Kondition für harte körperliche Arbeit im Freien</p>",
+        "sub_category_display_name": null,
+        "title": "Alp-Pflege",
+      },
+    ]
+  }
+  refine={[Function]}
+>
+  <SearchBox
+    currentRefinement="alp"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    ref={
+      Object {
+        "current": Object {
+          "autocompleteSearch": [Function],
+        },
+      }
+    }
+    refine={[Function]}
+  >
+    <div
+      className="search-field"
+    >
+      <input
+        autoFocus={true}
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyUp={[Function]}
+        oninput={[Function]}
+        placeholder="string"
+        type="search"
+        value="alp"
+      />
+      <button
+        className="search-button"
+        onClick={[Function]}
+      >
+        <img
+          alt="string"
+          className="w-100 h-100"
+          src="test-file-stub"
+        />
+      </button>
+    </div>
+  </SearchBox>
+  <div
+    className="autocomplete-container d-block"
+  >
+    <div
+      className="autocomplete-content"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      ontouchend={[Function]}
+      ontouchstart={[Function]}
+    >
+      <ul>
+        <a
+          className="autocomplete-hit"
+          href="#"
+          key="3"
+          onClick={[Function]}
+        >
+          <li
+            onMouseOver={[Function]}
+          >
+            <FontAwesomeIcon
+              class="mr-2"
+              className="mr-2"
+              icon={
+                Array [
+                  "fas",
+                  "search",
+                ]
+              }
+            />
+            Alp-Pflege
+          </li>
+        </a>
+      </ul>
+    </div>
+  </div>
+</AutocompleteImpl>
+`;
+
+exports[`CustomAutocomplete renders correctly 1`] = `
+<AutocompleteImpl
+  createURL={[Function]}
+  currentRefinement="alp"
+  defaultRefinement="alp"
+  hits={
+    Array [
+      Object {
+        "__position": 1,
+        "_highlightResult": Object {
+          "organization_display_name": Object {
+            "fullyHighlighted": false,
+            "matchLevel": "full",
+            "matchedWords": Array [
+              "al",
+            ],
+            "value": "<ais-highlight-0000000000>Al</ais-highlight-0000000000>",
+          },
+          "plain_description": Object {
+            "fullyHighlighted": false,
+            "matchLevel": "full",
+            "matchedWords": Array [
+              "al",
+            ],
+            "value": "100% Dauer <ais-highlight-0000000000>Al</ais-highlight-0000000000>psommer",
+          },
+          "title": Object {
+            "fullyHighlighted": false,
+            "matchLevel": "full",
+            "matchedWords": Array [
+              "al",
+            ],
+            "value": "<ais-highlight-0000000000>Al</ais-highlight-0000000000>p-Pflege",
+          },
+        },
+        "brief_description": "Bereich Kulturlandschaft, Biodiversität und Landschaftsqualität",
+        "canton_display_name": "Obwalden",
+        "category_display_name": "Landwirtschaft",
+        "contact_information": "Dieser Betrieb ist noch nicht bei MyZivi registriert. Bitte bewerbe Dich im EZIVI.",
+        "description": "MyDescription <b>Using HTML</b>",
+        "featured_as_new": true,
+        "icon_url": "/myzivi-logo.jpg",
+        "identification_number": 89372,
+        "language": "german",
+        "link": "http://localhost:3000/job_postings/3",
+        "minimum_service_months": 1,
+        "objectID": "3",
+        "organization_display_name": "Alpbetrieb Untersteiglen-Schwand im Tal-Melchsee-Frutt",
+        "plain_description": "100% Dauer Alpsommer: von 01.05. bis 15.10",
+        "preferred_skills": null,
+        "priority_program": true,
+        "publication_date": "2021-06-14",
+        "published": true,
+        "relevancy": 1,
+        "required_skills": "<p> Motivation und physische Kondition für harte körperliche Arbeit im Freien</p>",
+        "sub_category_display_name": null,
+        "title": "Alp-Pflege",
+      },
+    ]
+  }
+  refine={[Function]}
+>
+  <SearchBox
+    currentRefinement="alp"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    ref={
+      Object {
+        "current": Object {
+          "autocompleteSearch": [Function],
+        },
+      }
+    }
+    refine={[Function]}
+  >
+    <div
+      className="search-field"
+    >
+      <input
+        autoFocus={true}
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyUp={[Function]}
+        oninput={[Function]}
+        placeholder="string"
+        type="search"
+        value="alp"
+      />
+      <button
+        className="search-button"
+        onClick={[Function]}
+      >
+        <img
+          alt="string"
+          className="w-100 h-100"
+          src="test-file-stub"
+        />
+      </button>
+    </div>
+  </SearchBox>
+  <div
+    className="autocomplete-container d-none"
+  >
+    <div
+      className="autocomplete-content"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      ontouchend={[Function]}
+      ontouchstart={[Function]}
+    >
+      <ul>
+        <a
+          className="autocomplete-hit"
+          href="#"
+          key="3"
+          onClick={[Function]}
+        >
+          <li
+            onMouseOver={[Function]}
+          >
+            <FontAwesomeIcon
+              class="mr-2"
+              className="mr-2"
+              icon={
+                Array [
+                  "fas",
+                  "search",
+                ]
+              }
+            />
+            Alp-Pflege
+          </li>
+        </a>
+      </ul>
+    </div>
+  </div>
+</AutocompleteImpl>
+`;

@@ -34,6 +34,37 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
+      "fingerprint": "39a32791acccf590a404f245cfcba6813a0eecd1f77786289e7306d3cb195abd",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/job_postings/show.html.slim",
+      "line": 15,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "JobPosting.eager_load(:workshops, :available_service_periods).find(params[:id]).description",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "JobPostingsController",
+          "method": "show",
+          "line": 10,
+          "file": "app/controllers/job_postings_controller.rb",
+          "rendered": {
+            "name": "job_postings/show",
+            "file": "app/views/job_postings/show.html.slim"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "job_postings/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
       "fingerprint": "bfffa7326ba130d718184053c9138e75481baed7e35e1527441c760a92afabfd",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
@@ -64,21 +95,67 @@
     },
     {
       "warning_type": "Cross-Site Scripting",
-      "warning_code": 106,
-      "fingerprint": "c8adc1c0caf2c9251d1d8de588fb949070212d0eed5e1580aee88bab2287b772",
-      "check_name": "SanitizeMethods",
-      "message": "loofah gem 2.10.0 is vulnerable (CVE-2018-8048). Upgrade to 2.2.1",
-      "file": "Gemfile.lock",
-      "line": 250,
-      "link": "https://github.com/flavorjones/loofah/issues/144",
-      "code": null,
-      "render_path": null,
-      "location": null,
+      "warning_code": 2,
+      "fingerprint": "db85dc8c39e5bad8c40a6ba5e1c3d18c3230ea55d28f0590ab63bd5150fd6211",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/job_postings/show.html.slim",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "JobPosting.eager_load(:workshops, :available_service_periods).find(params[:id]).required_skills",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "JobPostingsController",
+          "method": "show",
+          "line": 10,
+          "file": "app/controllers/job_postings_controller.rb",
+          "rendered": {
+            "name": "job_postings/show",
+            "file": "app/views/job_postings/show.html.slim"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "job_postings/show"
+      },
       "user_input": null,
-      "confidence": "Medium",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "f8189fa847c578618c5c3dac415f87aae9c5b4e01edcc5fddcc769f8ba78cfd1",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/job_postings/show.html.slim",
+      "line": 20,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "JobPosting.eager_load(:workshops, :available_service_periods).find(params[:id]).preferred_skills",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "JobPostingsController",
+          "method": "show",
+          "line": 10,
+          "file": "app/controllers/job_postings_controller.rb",
+          "rendered": {
+            "name": "job_postings/show",
+            "file": "app/views/job_postings/show.html.slim"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "job_postings/show"
+      },
+      "user_input": null,
+      "confidence": "High",
       "note": ""
     }
   ],
-  "updated": "2021-06-07 22:56:46 +0200",
-  "brakeman_version": "4.10.0"
+  "updated": "2021-06-18 10:45:13 +0200",
+  "brakeman_version": "5.0.4"
 }

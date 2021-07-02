@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PoweredBy renders correctly 1`] = `
+<PoweredByImpl
+  url="https://www.algolia.com/?utm_source=react-instantsearch&utm_medium=website&utm_content=localhost&utm_campaign=poweredby"
+>
+  <a
+    className="text-muted"
+    href="https://www.algolia.com/?utm_source=react-instantsearch&utm_medium=website&utm_content=localhost&utm_campaign=poweredby"
+    rel="nofollow noopener noreferrer"
+    target="_blank"
+  >
+    string
+    <FontAwesomeIcon
+      class="mx-1"
+      className="mx-1"
+      icon={
+        Array [
+          "fab",
+          "algolia",
+        ]
+      }
+    />
+    Algolia
+  </a>
+</PoweredByImpl>
+`;

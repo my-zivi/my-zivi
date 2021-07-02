@@ -4,10 +4,6 @@ de-CH:
     back: Zurück
     complete: Abschliessen
     next: Weiter
-  activerecord:
-    attributes:
-      service:
-        status: Status
   administrator: Administrator
   base:
     civil_servants:
@@ -22,6 +18,7 @@ de-CH:
         civil_servants: Zivildienstleistende
         dashboard: Dashboard
         expense_sheets: Spesenblätter
+        job_postings: Ausschreibungen
         organization_information: Betriebsdaten
         organization_members: Mitarbeiter
         payments: Auszahlungen
@@ -139,9 +136,29 @@ de-CH:
       demo: Eine Demo erhalten
       links:
         about_us: Über uns
-        admin: Administration
         blog: Blog
-        recruiting: Rekrutieren
+        job_postings: Einsatz suchen
+        organizations: Für Betriebe
+  job_postings:
+    index:
+      page_title: Einsatz suchen
+    show:
+      back: Zurück zur Suche
+      claim_html: Kontaktiere uns <a href="%{link}">hier</a>, um es zu bearbeiten
+      claim_title: Ist das Dein Pflichtenheft?
+      contact: Kontakt
+      disclaimer: Dieser Betrieb ist noch nicht bei MyZivi registriert. Alle Angaben sind ohne Gewähr.
+      ezivi_link: Auf EZIVI ansehen
+      ezivi_popover_content: Aus technischen Gründen ist es uns leider nicht möglich, einen Direktlink zu EZIVI zur Verfügung zu stellen. Du kannst das Pflichtenheft finden, in dem Du <a href="https://www.ezivi.admin.ch" target="_blank" rel="noopener nofollow">EZIVI</a> besuchst und dort nach der Identifikationsnummer des Einsatzes suchst.
+      ezivi_popover_title: EZIVI
+      months:
+        one: 1 Monat
+        other: "%{count} Monate"
+      service_period: "%{from} bis %{to}"
+      unpublished_alert:
+        action_html: Sobald die Ausschreibung zur Veröffentlichung bereit ist, kannst Du sie <a href="%{link}">hier</a> veröffentlichen
+        description: Diese Ausschreibung ist wurde noch nicht veröffentlicht. Da Du allerdings mit %{email} eingeloggt bist, kannst Du die Ausschreibung im Vorschau-Modus betrachten.
+        title: Ausschreibung ist noch nicht veröffentlicht
   layouts:
     application:
       meta:
@@ -194,6 +211,18 @@ de-CH:
       update:
         erroneous_update: Spesenblatt konnte nicht aktualisiert werden
         successful_update: Spesenblatt erfolgreich aktualisiert
+    job_postings:
+      edit:
+        description: Beschreibung
+        minimum_service_months_append: Monate
+        show: Öffnen
+        specification: Spezifikation
+        title: Ausschreibung “%{title}”
+      index:
+        title: Ausschreibungen
+      update:
+        erroneous_update: Ausschreibung konnte nicht aktualisiert werden
+        successful_update: Ausschreibung erfolgreich aktualisiert
     organization_holidays:
       edit:
         destroy: Löschen
@@ -355,6 +384,9 @@ de-CH:
         delete: Pflichtenheft löschen
         destroy_service_specification_confirmation: Pflichtenheft wirklich löschen?
         title: Pflichtenheft “%{name}”
+      form:
+        general_data: Allgemeine Daten
+        reimbursements: Entschädigungen
       index:
         new_service_specification: Pflichtenheft hinzufügen
         title: Pflichtenhefter
@@ -386,8 +418,6 @@ de-CH:
           full_amount: Total
         row_headers:
           extra: Extra
-          first_work_days: Erster Arbeitstag
-          last_work_days: Letzter Arbeitstag
         supplement:
           driving_expenses_comment_empty: Keine Angaben
           unpaid_vacation_comment: inkl. %{comment}
@@ -416,6 +446,41 @@ de-CH:
     service_agreement:
       file_name: Einsatzvereinbarung_%{name}_%{beginning}_%{ending}.pdf
   print: Drucken
+  search:
+    load_more: Weitere laden...
+    no_results_found: Keine Einsätze gefunden
+    powered_by: über
+    refinements:
+      canton: Kanton
+      category: Tätigkeitsbereich
+      collapse_button: Suche filtern
+      controls:
+        no_results: Keine Resultate
+        placeholder: Kanton suchen...
+        reset: Filter zurücksetzen
+        reset_title: Suche löschen
+        show_less: Weniger anzeigen
+        show_more: Mehr anzeigen
+        submit_title: Kantone durchsuchen
+      language: Sprache
+      languages:
+        french: Französisch
+        german: Deutsch
+        italian: Italienisch
+      minimum_service_months: Minimale Einsatzdauer
+      month:
+        one: Monat
+        other: Monate
+      priority_program: Schwerpunktprogramm
+      priority_program_label: Nur mögliche lange Einsätze anzeigen
+    ribbons:
+      featured: Feat.
+      featured_full: Promoted
+      new: Neu
+      urgent: Wichtig
+    search: Suchen
+    search_placeholder: Einsätze suchen...
+    statistics: "%{count} Resultate gefunden (%{time}ms)"
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage

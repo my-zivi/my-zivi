@@ -4,6 +4,7 @@
 @import 'home/administration';
 @import 'home/about_us';
 @import 'home/blog';
+@import '~instantsearch.css/themes/reset-min';
 
 body {
   font-family: $font-family-sans-serif;
@@ -11,4 +12,12 @@ body {
 
 .line-height-17 {
   line-height: 1.7;
+}
+
+.shadow-popover {
+  box-shadow: $box-shadow;
+}
+
+.border-radius-0 {
+  border-radius: 0;
 }

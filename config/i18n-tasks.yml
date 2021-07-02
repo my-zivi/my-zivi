@@ -38,6 +38,7 @@ ignore_unused:
   - 'organizations.phone_list.index.range'
   - 'civil_servants.registrations.steps_bar.steps.*'
   - 'helpers.*'
+  - 'search.*'
 
 ## Exclude these keys from the `i18n-tasks eq-base' report:
 # ignore_eq_base:

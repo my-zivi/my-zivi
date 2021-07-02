@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PriorityProgramRefinement renders correctly 1`] = `
+<PriorityProgramRefinement>
+  <ConnectorWrapper
+    attribute="priority_program"
+    label="string"
+    limit={5}
+    translations={
+      Object {
+        "noResults": "string",
+        "placeholder": "string",
+        "resetTitle": "string",
+        "showMore": [Function],
+        "submitTitle": "string",
+      }
+    }
+    value={true}
+  >
+    <Consumer>
+      <Consumer>
+        <AlgoliaToggle(ToggleRefinement)
+          attribute="priority_program"
+          contextValue={
+            Object {
+              "createHrefForState": [Function],
+              "mainTargetedIndex": "JobPosting",
+              "onInternalStateUpdate": [Function],
+              "onSearchForFacetValues": [Function],
+              "onSearchParameters": [Function],
+              "onSearchStateChange": [Function],
+              "store": Object {
+                "getState": [Function],
+                "setState": [Function],
+                "subscribe": [Function],
+              },
+              "widgetsManager": Object {
+                "getWidgets": [Function],
+                "registerWidget": [Function],
+                "update": [Function],
+              },
+            }
+          }
+          label="string"
+          limit={5}
+          translations={
+            Object {
+              "noResults": "string",
+              "placeholder": "string",
+              "resetTitle": "string",
+              "showMore": [Function],
+              "submitTitle": "string",
+            }
+          }
+          value={true}
+        >
+          <ToggleRefinement
+            attribute="priority_program"
+            canRefine={false}
+            class=""
+            className=""
+            count={
+              Object {
+                "checked": null,
+                "unchecked": null,
+              }
+            }
+            createURL={[Function]}
+            currentRefinement={false}
+            label="string"
+            limit={5}
+            refine={[Function]}
+            translations={
+              Object {
+                "noResults": "string",
+                "placeholder": "string",
+                "resetTitle": "string",
+                "showMore": [Function],
+                "submitTitle": "string",
+              }
+            }
+            value={true}
+          >
+            <div
+              className="ais-ToggleRefinement ais-ToggleRefinement--noRefinement"
+            >
+              <label
+                className="ais-ToggleRefinement-label"
+              >
+                <input
+                  checked={false}
+                  className="ais-ToggleRefinement-checkbox"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <span
+                  className="ais-ToggleRefinement-labelText"
+                >
+                  string
+                </span>
+              </label>
+            </div>
+          </ToggleRefinement>
+        </AlgoliaToggle(ToggleRefinement)>
+      </Consumer>
+    </Consumer>
+  </ConnectorWrapper>
+</PriorityProgramRefinement>
+`;

@@ -4,12 +4,17 @@ require 'rails_helper'
 
 RSpec.describe JobPostingPollJob, type: :job do
   describe '#perform' do
+    let(:poller) { instance_double('JobPostingApi::Poller', perform: [build(:job_posting)]) }
+
     before do
-      allow(JobPostingPollerService).to receive(:poll).and_return [build(:job_posting)]
+      allow(JobPostingApi::Poller).to receive(:new).and_return poller
+      allow(JobPosting).to receive(:reindex!)
     end
 
     it 'calls polling service' do
-      expect(described_class.new.perform).to contain_exactly be_an_instance_of(JobPosting)
+      described_class.new.perform
+      expect(JobPosting).to have_received(:reindex!)
+      expect(poller).to have_received(:perform)
     end
   end
 end
