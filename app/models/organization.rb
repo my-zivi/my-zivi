@@ -16,6 +16,16 @@ class Organization < ApplicationRecord
 
   validates :name, :identification_number, presence: true
 
+  has_one_attached :icon
+
   accepts_nested_attributes_for :address, allow_destroy: false, update_only: true
   accepts_nested_attributes_for :creditor_detail, allow_destroy: false, update_only: true
+
+  after_commit do
+    job_postings.reindex! if job_postings.any?
+  end
+
+  def thumb_icon
+    @thumb_icon ||= icon.variant(resize_to_limit: [60, 60]) if icon.attached?
+  end
 end

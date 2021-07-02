@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class JobPosting < ApplicationRecord
+  DEFAULT_ICON_URL = '/myzivi-logo.jpg'
+
   include JobPostingSearchable
 
   REQUIRED_FIELDS = %i[
@@ -61,5 +63,16 @@ class JobPosting < ApplicationRecord
 
   def scraped?
     organization.blank?
+  end
+
+  def icon_url
+    if organization&.thumb_icon.present?
+      return Rails.application.routes.url_helpers.rails_representation_url(
+        organization.thumb_icon,
+        only_path: true
+      )
+    end
+
+    DEFAULT_ICON_URL
   end
 end

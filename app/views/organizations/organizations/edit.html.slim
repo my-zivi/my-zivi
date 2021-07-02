@@ -1,7 +1,10 @@
 .card.mb-3
   .bg-holder.d-none.d-lg-block.bg-card.corner-background-success
   .card-body
-    h1 = @organization.name
+    .d-flex.align-items-center
+      - if @organization.thumb_icon.present?
+        = image_tag @organization.thumb_icon.processed, class: 'mr-3'
+      h1 = @organization.name
 
 .card.mt-3.mb-4
   .card-header.bg-white
@@ -14,31 +17,41 @@
           = f.input :name
         .col-md-6.col-12
           = f.input :identification_number
-      hr
-      h4 = t('.address_information')
-      = f.simple_fields_for :address do |ff|
-        .row
-          .col-md-6.col-12
-            = ff.input :primary_line
-          .col-md-6.col-12
-            = ff.input :secondary_line
-          .col-md-6.col-12
-            = ff.input :supplement
-          .col-md-6.col-12
-            = ff.input :street
-          .col-md-6.col-12
-            = ff.input :city
-          .col-md-6.col-12
-            = ff.input :zip
-      hr
-      h4 = t('.creditor_information')
-      = f.simple_fields_for :creditor_detail do |ff|
-        .row
-          .col-md-6.col-12
-            = ff.input :iban
-          .col-md-6.col-12
-            = ff.input :bic
-      hr
+        .col-md-6.col-12
+          = f.input :icon, hint: t('.icon_hint')
+      hr /
+      a.collapsible-title href='#' data-toggle="collapse" data-target="#address" aria-expanded="false" aria-controls="address"
+        h5.mb-3
+          i.fas.fa-chevron-down.mr-2.collapse-icon
+          = t('.address_information')
+      .collapse.show#address
+        = f.simple_fields_for :address do |ff|
+          .row
+            .col-md-6.col-12
+              = ff.input :primary_line
+            .col-md-6.col-12
+              = ff.input :secondary_line
+            .col-md-6.col-12
+              = ff.input :supplement
+            .col-md-6.col-12
+              = ff.input :street
+            .col-md-6.col-12
+              = ff.input :city
+            .col-md-6.col-12
+              = ff.input :zip
+      hr /
+      a.collapsible-title href='#' data-toggle="collapse" data-target="#payment" aria-expanded="false" aria-controls="payment"
+        h5.mb-3
+          i.fas.fa-chevron-down.mr-2.collapse-icon
+          = t('.creditor_information')
+      .collapse.show#payment
+        = f.simple_fields_for :creditor_detail do |ff|
+          .row
+            .col-md-6.col-12
+              = ff.input :iban
+            .col-md-6.col-12
+              = ff.input :bic
+      hr /
       h4 = t('activerecord.models.organization_holiday')
       = link_to(organizations_organization_holidays_path, class: 'btn btn-link pl-0') do
         = t('.administrate')

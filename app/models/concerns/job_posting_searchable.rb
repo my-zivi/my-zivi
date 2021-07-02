@@ -8,12 +8,12 @@ module JobPostingSearchable
   included do
     # :nocov:
     algoliasearch if: :published?, raise_on_failure: Rails.env.development?, enqueue: true do
-      attributes(:title, :icon_url, :publication_date, :description,
+      attributes(:title, :publication_date, :description,
                  :brief_description, :required_skills, :preferred_skills,
                  :identification_number, :contact_information, :published,
                  :minimum_service_months, :language, :featured_as_new, :priority_program)
 
-      add_attribute :plain_description, :organization_display_name,
+      add_attribute :plain_description, :organization_display_name, :icon_url,
                     :category_display_name, :sub_category_display_name, :canton_display_name
 
       attribute :link do
