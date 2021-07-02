@@ -56,6 +56,8 @@ fr-CH:
         ending: Fin
         extraordinary_expenses: Dépenses extraordinaires
         extraordinary_expenses_comment: Dépenses extraordinaires - Commentaire
+        first_work_days: Premier jour de travail
+        last_work_days: Dernier jour de travail
         paid_company_holiday_days:
           one: Vacances d'entreprise payées
           other: Jours de vacances d'entreprise payées

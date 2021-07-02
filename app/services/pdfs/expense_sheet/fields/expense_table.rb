@@ -18,7 +18,7 @@ module Pdfs
         DAY_ROWS = [
           {
             count: ->(expense_sheet) { expense_sheet.at_service_beginning? ? 1 : 0 },
-            header_title_key: 'pdfs.expense_sheet.expense_table.row_headers.first_work_days',
+            header_title_key: 'activerecord.attributes.expense_sheet.first_work_days',
             calculation_method: :calculate_first_day
           },
           {
@@ -28,7 +28,7 @@ module Pdfs
           },
           {
             count: ->(expense_sheet) { expense_sheet.at_service_ending? ? 1 : 0 },
-            header_title_key: 'pdfs.expense_sheet.expense_table.row_headers.last_work_days',
+            header_title_key: 'activerecord.attributes.expense_sheet.last_work_days',
             calculation_method: :calculate_last_day
           },
           {

@@ -23,9 +23,9 @@
       = f.input :accommodation_expenses, append: t('simple_form.appended.chf')
   h6.fs-1.mt-3 = t('activerecord.attributes.expense_sheet.work_days.one')
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :work_days_expenses
-  h6.fs-1.mt-3 = t('pdfs.expense_sheet.expense_table.row_headers.first_work_days')
+  h6.fs-1.mt-3 = t('activerecord.attributes.expense_sheet.first_work_days')
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :first_day_expenses
-  h6.fs-1.mt-3 = t('pdfs.expense_sheet.expense_table.row_headers.last_work_days')
+  h6.fs-1.mt-3 = t('activerecord.attributes.expense_sheet.last_work_days')
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :last_day_expenses
   h6.fs-1.mt-3 = t('activerecord.attributes.expense_sheet.workfree_days.one')
   = render 'organizations/service_specifications/daily_expense_inputs', f: f, field: :paid_vacation_expenses

@@ -417,8 +417,6 @@ fr-CH:
           full_amount: Total
         row_headers:
           extra: Extra
-          first_work_days: Premier jour de travail
-          last_work_days: Dernier jour de travail
         supplement:
           driving_expenses_comment_empty: Aucune information
           unpaid_vacation_comment: incl. %{comment}

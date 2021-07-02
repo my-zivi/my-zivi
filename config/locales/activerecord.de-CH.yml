@@ -56,6 +56,8 @@ de-CH:
         ending: Ende
         extraordinary_expenses: Ausserordentliche Spesen
         extraordinary_expenses_comment: Ausserordentliche Spesen - Kommentar
+        first_work_days: Erster Arbeitstag
+        last_work_days: Letzter Arbeitstag
         paid_company_holiday_days:
           one: Bezahlter Betriebsferientag
           other: Bezahlte Betriebsferientage
