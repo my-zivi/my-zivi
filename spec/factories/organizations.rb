@@ -7,5 +7,9 @@ FactoryBot.define do
     intro_text { 'This is the best zivi organization' }
     address
     creditor_detail
+
+    trait :with_icon do
+      icon { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/example_icon.png'), 'image/png') }
+    end
   end
 end

@@ -267,6 +267,7 @@ de-CH:
         address_information: Addressdaten
         administrate: Verwalten
         creditor_information: Zahlungsdaten
+        icon_hint: Das Logo wird für veröffentlichte Ausschreibungen verwendet. Es kann allerdings eine Zeit dauern, bis das Logo auf allen Ausschreibungen aktualisiert worden ist.
         organization_information: Betriebsdaten
       update:
         erroneous_update: Betriebsdaten konnten nicht aktualisiert werden

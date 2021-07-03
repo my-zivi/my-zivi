@@ -27,7 +27,7 @@ module Organizations
 
     def organization_params
       params.require(:organization)
-            .permit(:name, :identification_number,
+            .permit(:name, :identification_number, :icon,
                     address_attributes: %i[primary_line secondary_line supplement street city zip],
                     creditor_detail_attributes: %i[iban bic])
     end

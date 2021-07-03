@@ -92,4 +92,27 @@ RSpec.describe JobPosting, type: :model do
       it { is_expected.not_to be_scraped }
     end
   end
+
+  describe '#icon_url' do
+    subject { job_posting.icon_url }
+
+    let(:job_posting) { build(:job_posting, organization: organization) }
+    let(:organization) { build(:organization, :with_icon) }
+
+    it 'returns the url to the attached icon of the organization' do
+      expect(job_posting.icon_url).to match(%r{.+/example_icon\.png\z})
+    end
+
+    context 'when organization has no icon attached' do
+      let(:organization) { build(:organization) }
+
+      it { is_expected.to eq described_class::DEFAULT_ICON_URL }
+    end
+
+    context 'when job posting has no organization' do
+      let(:job_posting) { build(:job_posting) }
+
+      it { is_expected.to eq described_class::DEFAULT_ICON_URL }
+    end
+  end
 end

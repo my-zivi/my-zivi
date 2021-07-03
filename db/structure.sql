@@ -575,7 +575,6 @@ CREATE TABLE public.job_postings (
     title character varying,
     description text,
     publication_date date,
-    icon_url character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     required_skills text,
@@ -2054,6 +2053,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210508095658'),
 ('20210531194253'),
 ('20210602184752'),
-('20210608143812');
+('20210608143812'),
+('20210702194919');
 
 
