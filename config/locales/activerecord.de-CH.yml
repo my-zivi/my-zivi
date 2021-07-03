@@ -105,9 +105,9 @@ de-CH:
         title: Titel
         workshops: Erforderliche Kurse
       organization:
+        icon: Logo
         identification_number: Betriebs-Identifikationsnummer
         name: Name
-        icon: Logo
       organization_holiday:
         beginning: Anfang
         description: Beschreibung
