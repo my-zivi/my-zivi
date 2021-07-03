@@ -46,9 +46,14 @@ section.solution
         .text-uppercase.text-muted.my-3 Keine doppelte Arbeit
         h4 Nie mehr vergeblich bei dutzenden Betrieben anrufen
         p
-          | Gib uns die wichtigsten Infos durch: Wann willst Du Deinen Einsatz leisten,
-            bei welcher Art von Betrieb und wie lange. Wir suchen den passenden Betrieb.
-        = link_to 'https://h1jfkxgv69k.typeform.com/to/tst1He9H', class: 'btn btn-link pl-0' do
+          | Willst Du mal was anderes machen oder bei einem Betrieb arbeiten,
+            der sich um seine Zivis kümmert? Gib uns die wichtigsten Infos durch:
+            Wann willst Du Deinen Einsatz leisten, bei welcher Art von Betrieb und wie lange.
+            Wir suchen dann den passenden Betrieb für Dich.
+        = link_to('https://h1jfkxgv69k.typeform.com/to/tst1He9H',
+                rel: 'noopener nofollow',
+                target: '_blank',
+                class: 'btn btn-link pl-0') do
           | Jetzt anmelden
           .fas.fa-angle-right.ml-2
     hr.d-md-none.my-4
@@ -56,14 +61,12 @@ section.solution
       .col-12.col-md-6.text-center.text-xl-left.order-0.order-md-1
         = image_pack_tag 'home/illustrations/choose.svg', class: 'illustration-image', alt: 'MyZivi Admin'
       .col-12.col-md-6.mt-3.mt-md-0.order-1.order-md-0
-        .text-uppercase.text-muted.my-3 Administration
+        .text-uppercase.text-muted.my-3 Suche
         h4 Interessante Einsätze
         p
-          | Willst Du mal was anderes machen oder bei einem Betrieb arbeiten,
-            der sich um seine Zivis kümmert? Wir prüfen Betriebe und vernetzen Dich
-            mit den besten.
-        = link_to administration_path, class: 'btn btn-link pl-0' do
-          | Mehr erfahren
+          | Durchstöbere unsere Suche nach deinem nächsten Zivi-Einsatz.
+        = link_to job_postings_path, class: 'btn btn-link pl-0' do
+          | Jetzt Einsätze suchen
           .fas.fa-angle-right.ml-2
 
 = render 'home/footer'
