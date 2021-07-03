@@ -61,4 +61,21 @@ RailsAdmin.config do |config|
       exclude_fields :civil_servant
     end
   end
+
+  config.model 'JobPosting' do
+    edit do
+      fields_of_type(:date) do
+        strftime_format '%Y-%m-%d'
+      end
+      include_all_fields
+    end
+  end
+
+  config.model 'AvailableServicePeriod' do
+    edit do
+      fields_of_type(:date) do
+        strftime_format '%Y-%m-%d'
+      end
+    end
+  end
 end
