@@ -55,7 +55,7 @@ $$;
 
 SET default_tablespace = '';
 
-SET default_table_access_method = heap;
+SET default_with_oids = false;
 
 --
 -- Name: action_text_rich_texts; Type: TABLE; Schema: public; Owner: -
@@ -1775,28 +1775,28 @@ CREATE UNIQUE INDEX index_workshops_on_name ON public.workshops USING btree (nam
 -- Name: services civil_servant_agreed_insert_trigger; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER civil_servant_agreed_insert_trigger AFTER INSERT ON public.services FOR EACH ROW WHEN ((new.civil_servant_agreed IS NOT NULL)) EXECUTE FUNCTION public.civil_servant_agreed_changed();
+CREATE TRIGGER civil_servant_agreed_insert_trigger AFTER INSERT ON public.services FOR EACH ROW WHEN ((new.civil_servant_agreed IS NOT NULL)) EXECUTE PROCEDURE public.civil_servant_agreed_changed();
 
 
 --
 -- Name: services civil_servant_agreed_update_trigger; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER civil_servant_agreed_update_trigger AFTER UPDATE ON public.services FOR EACH ROW WHEN ((old.civil_servant_agreed IS DISTINCT FROM new.civil_servant_agreed)) EXECUTE FUNCTION public.civil_servant_agreed_changed();
+CREATE TRIGGER civil_servant_agreed_update_trigger AFTER UPDATE ON public.services FOR EACH ROW WHEN ((old.civil_servant_agreed IS DISTINCT FROM new.civil_servant_agreed)) EXECUTE PROCEDURE public.civil_servant_agreed_changed();
 
 
 --
 -- Name: services organization_agreed_insert_trigger; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER organization_agreed_insert_trigger AFTER INSERT ON public.services FOR EACH ROW WHEN ((new.organization_agreed IS NOT NULL)) EXECUTE FUNCTION public.organization_agreed_changed();
+CREATE TRIGGER organization_agreed_insert_trigger AFTER INSERT ON public.services FOR EACH ROW WHEN ((new.organization_agreed IS NOT NULL)) EXECUTE PROCEDURE public.organization_agreed_changed();
 
 
 --
 -- Name: services organization_agreed_update_trigger; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER organization_agreed_update_trigger AFTER UPDATE ON public.services FOR EACH ROW WHEN ((old.organization_agreed IS DISTINCT FROM new.organization_agreed)) EXECUTE FUNCTION public.organization_agreed_changed();
+CREATE TRIGGER organization_agreed_update_trigger AFTER UPDATE ON public.services FOR EACH ROW WHEN ((old.organization_agreed IS DISTINCT FROM new.organization_agreed)) EXECUTE PROCEDURE public.organization_agreed_changed();
 
 
 --
