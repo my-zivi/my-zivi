@@ -105,6 +105,7 @@ fr-CH:
         title: Titre
         workshops: Cours obligatoires
       organization:
+        icon: Logo
         identification_number: Numéro d'identification de l'entreprise
         name: Nom
       organization_holiday:

@@ -48,8 +48,16 @@ RSpec.describe Organizations::OrganizationsController, :without_bullet, type: :r
       before { sign_in organization_administrator.user }
 
       context 'with valid params' do
-        let(:organization_params) { { name: 'My new organization', identification_number: '1234' } }
+        let(:organization_params) do
+          {
+            name: 'My new organization',
+            identification_number: '1234',
+            icon: attributes_for(:organization, :with_icon)[:icon]
+          }
+        end
+
         let(:address_params) { attributes_for(:address, :organization) }
+        let(:expected_address_params) { address_params.transform_values { |v| v || '' } }
         let(:creditor_detail_params) { { iban: 'CH2889144435336993956', bic: 'ZKBKCHZZ80A' } }
         let(:params) do
           {
@@ -62,11 +70,12 @@ RSpec.describe Organizations::OrganizationsController, :without_bullet, type: :r
 
         it 'updates the organization and renders success message' do
           expect { perform_request && organization.reload }.to(
-            change { organization.slice(organization_params.keys) }.to(organization_params).and(
-              change { organization.address.slice(address_params.keys) }.to(address_params).and(
-                change { organization.creditor_detail.slice(creditor_detail_params.keys) }.to(creditor_detail_params)
+            change { organization.slice(organization_params.keys) }
+              .to(**organization_params, icon: be_a(ActiveStorage::Attached::One)).and(
+                change { organization.address.slice(address_params.keys) }.to(expected_address_params).and(
+                  change { organization.creditor_detail.slice(creditor_detail_params.keys) }.to(creditor_detail_params)
+                )
               )
-            )
           )
 
           expect(flash[:success]).to eq I18n.t('organizations.organizations.update.successful_update')

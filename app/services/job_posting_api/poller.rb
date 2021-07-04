@@ -7,7 +7,6 @@ module JobPostingApi
   class Poller
     JOB_ITEM_XPATH = '//item'
     DEFAULT_ATTRIBUTES = {
-      icon_url: '/myzivi-logo.jpg',
       contact_information: <<~TEXT.squish
         Dieser Betrieb ist noch nicht bei MyZivi registriert.
         Bitte bewerbe Dich im EZIVI.

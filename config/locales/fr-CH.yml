@@ -266,6 +266,7 @@ fr-CH:
         address_information: Données d'adresse
         administrate: Gérer
         creditor_information: Détails du paiement
+        icon_hint: Le logo est utilisé pour les appels d'offres publiés. Toutefois, la mise à jour du logo sur tous les appels d'offres peut prendre un certain temps.
         organization_information: Données sur les entreprises
       update:
         erroneous_update: Les données sur les entreprises n'ont pas pu être mises à jour
