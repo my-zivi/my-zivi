@@ -2,7 +2,7 @@
 
 module Organizations
   class JobPostingsController < BaseController
-    load_and_authorize_resource
+    load_and_authorize_resource find_by: :slug
     skip_authorize_resource only: :index
 
     def index
