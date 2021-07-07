@@ -6,16 +6,10 @@ RSpec.describe JobPostingsController do
   describe '#index' do
     let(:path) { job_postings_path }
 
-    around do |spec|
-      I18n.locale.yield_self do |default_locale|
-        spec.run
-        I18n.locale = default_locale
-      end
-    end
-
     it 'uses german locale' do
-      I18n.locale = :'fr-CH'
-      expect { get path }.to(change(I18n, :locale).to(:'de-CH'))
+      I18n.with_locale(:'fr-CH') do
+        expect { get path }.to(change(I18n, :locale).to(:'de-CH'))
+      end
     end
 
     it 'returns http success' do
