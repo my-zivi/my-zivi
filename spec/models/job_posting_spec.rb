@@ -61,12 +61,12 @@ RSpec.describe JobPosting, type: :model do
 
     it 'returns correct display names' do
       expect(job_posting.category_display_name).to eq(
-                                                     I18n.t('activerecord.enums.job_posting.category_abbreviations.nature_conservancy')
-                                                   )
+        I18n.t('activerecord.enums.job_posting.category_abbreviations.nature_conservancy')
+      )
 
       expect(job_posting.full_category_display_name).to eq(
-                                                          I18n.t('activerecord.enums.job_posting.categories.nature_conservancy')
-                                                        )
+        I18n.t('activerecord.enums.job_posting.categories.nature_conservancy')
+      )
     end
   end
 
