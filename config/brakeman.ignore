@@ -34,19 +34,19 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "39a32791acccf590a404f245cfcba6813a0eecd1f77786289e7306d3cb195abd",
+      "fingerprint": "2b82e9aea98370b685b09044d36d2109e0461db9f6331f7a423366132059d343",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/job_postings/show.html.slim",
-      "line": 15,
+      "line": 23,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "JobPosting.eager_load(:workshops, :available_service_periods).find(params[:id]).description",
+      "code": "JobPosting.eager_load(:workshops, :available_service_periods).find_by(:slug => slug_params).required_skills",
       "render_path": [
         {
           "type": "controller",
           "class": "JobPostingsController",
           "method": "show",
-          "line": 10,
+          "line": 11,
           "file": "app/controllers/job_postings_controller.rb",
           "rendered": {
             "name": "job_postings/show",
@@ -59,7 +59,69 @@
         "template": "job_postings/show"
       },
       "user_input": null,
-      "confidence": "High",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "64b0857da7c68e82cc83f99256e1d6c256a342b9630d1076eea507d8e1ec46cb",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/job_postings/show.html.slim",
+      "line": 21,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "JobPosting.eager_load(:workshops, :available_service_periods).find_by(:slug => slug_params).description",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "JobPostingsController",
+          "method": "show",
+          "line": 11,
+          "file": "app/controllers/job_postings_controller.rb",
+          "rendered": {
+            "name": "job_postings/show",
+            "file": "app/views/job_postings/show.html.slim"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "job_postings/show"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "91ce693b632669e0d40e4b306d9a8fad2601314c071c8ca1ccf7e4c83d256667",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/job_postings/show.html.slim",
+      "line": 26,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "JobPosting.eager_load(:workshops, :available_service_periods).find_by(:slug => slug_params).preferred_skills",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "JobPostingsController",
+          "method": "show",
+          "line": 11,
+          "file": "app/controllers/job_postings_controller.rb",
+          "rendered": {
+            "name": "job_postings/show",
+            "file": "app/views/job_postings/show.html.slim"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "job_postings/show"
+      },
+      "user_input": null,
+      "confidence": "Medium",
       "note": ""
     },
     {
@@ -92,70 +154,8 @@
       "user_input": null,
       "confidence": "Medium",
       "note": ""
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "db85dc8c39e5bad8c40a6ba5e1c3d18c3230ea55d28f0590ab63bd5150fd6211",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/job_postings/show.html.slim",
-      "line": 17,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "JobPosting.eager_load(:workshops, :available_service_periods).find(params[:id]).required_skills",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "JobPostingsController",
-          "method": "show",
-          "line": 10,
-          "file": "app/controllers/job_postings_controller.rb",
-          "rendered": {
-            "name": "job_postings/show",
-            "file": "app/views/job_postings/show.html.slim"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "job_postings/show"
-      },
-      "user_input": null,
-      "confidence": "High",
-      "note": ""
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "f8189fa847c578618c5c3dac415f87aae9c5b4e01edcc5fddcc769f8ba78cfd1",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/job_postings/show.html.slim",
-      "line": 20,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "JobPosting.eager_load(:workshops, :available_service_periods).find(params[:id]).preferred_skills",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "JobPostingsController",
-          "method": "show",
-          "line": 10,
-          "file": "app/controllers/job_postings_controller.rb",
-          "rendered": {
-            "name": "job_postings/show",
-            "file": "app/views/job_postings/show.html.slim"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "job_postings/show"
-      },
-      "user_input": null,
-      "confidence": "High",
-      "note": ""
     }
   ],
-  "updated": "2021-06-18 10:45:13 +0200",
+  "updated": "2021-07-07 22:00:43 +0200",
   "brakeman_version": "5.0.4"
 }
