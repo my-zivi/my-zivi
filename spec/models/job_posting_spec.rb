@@ -3,8 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe JobPosting, type: :model do
-  subject(:model) { build(:job_posting) }
+  subject(:model) { build(:job_posting).tap(&:validate) }
 
+  it_behaves_like 'sluggable model', factory_name: :job_posting
   it_behaves_like 'validates presence of required fields', %i[
     title
     publication_date
@@ -60,12 +61,12 @@ RSpec.describe JobPosting, type: :model do
 
     it 'returns correct display names' do
       expect(job_posting.category_display_name).to eq(
-        I18n.t('activerecord.enums.job_posting.category_abbreviations.nature_conservancy')
-      )
+                                                     I18n.t('activerecord.enums.job_posting.category_abbreviations.nature_conservancy')
+                                                   )
 
       expect(job_posting.full_category_display_name).to eq(
-        I18n.t('activerecord.enums.job_posting.categories.nature_conservancy')
-      )
+                                                          I18n.t('activerecord.enums.job_posting.categories.nature_conservancy')
+                                                        )
     end
   end
 
@@ -113,6 +114,21 @@ RSpec.describe JobPosting, type: :model do
       let(:job_posting) { build(:job_posting) }
 
       it { is_expected.to eq described_class::DEFAULT_ICON_URL }
+    end
+  end
+
+  describe '#default_slug' do
+    subject { job_posting.default_slug }
+
+    let(:created_at) { Time.new(2021, 11, 6, 17, 10, 0, '+01:00') }
+    let(:job_posting) { build(:job_posting, id: 12, created_at: created_at) }
+
+    it { is_expected.to eq '12163-gruppeneinsatz-naturschutz' }
+
+    context 'with different id' do
+      let(:job_posting) { build(:job_posting, id: 5, created_at: created_at) }
+
+      it { is_expected.to eq '51636-gruppeneinsatz-naturschutz' }
     end
   end
 end
