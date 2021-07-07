@@ -120,15 +120,14 @@ RSpec.describe JobPosting, type: :model do
   describe '#default_slug' do
     subject { job_posting.default_slug }
 
-    let(:created_at) { Time.new(2021, 11, 6, 17, 10, 0, '+01:00') }
-    let(:job_posting) { build(:job_posting, id: 12, created_at: created_at) }
+    let(:job_posting) { build(:job_posting, identification_number: 123_456) }
 
-    it { is_expected.to eq '12163-gruppeneinsatz-naturschutz' }
+    it { is_expected.to eq '123456-gruppeneinsatz-naturschutz' }
 
-    context 'with different id' do
-      let(:job_posting) { build(:job_posting, id: 5, created_at: created_at) }
+    context 'with non-6 digit identification number' do
+      let(:job_posting) { build(:job_posting, identification_number: 5) }
 
-      it { is_expected.to eq '51636-gruppeneinsatz-naturschutz' }
+      it { is_expected.to eq '000005-gruppeneinsatz-naturschutz' }
     end
   end
 end

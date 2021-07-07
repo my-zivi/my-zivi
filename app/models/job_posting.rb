@@ -2,7 +2,7 @@
 
 class JobPosting < ApplicationRecord
   DEFAULT_ICON_URL = '/myzivi-logo.jpg'
-  SLUG_IDENTIFIER_LENGTH = 5
+  SLUG_IDENTIFIER_LENGTH = 6
 
   include JobPostingSearchable
   include Sluggable
@@ -79,8 +79,6 @@ class JobPosting < ApplicationRecord
   end
 
   def default_slug
-    base_slug = title.parameterize
-    identification = "#{id}#{created_at.to_i}"[..(SLUG_IDENTIFIER_LENGTH - 1)]
-    "#{identification}-#{base_slug}"
+    "#{identification_number.to_s.rjust(SLUG_IDENTIFIER_LENGTH, '0')}-#{title.parameterize}"
   end
 end
