@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /organizations/
+Disallow: /civil_servants/
+
+<% if ENV['SITEMAP_ENABLED'] == 'true' && ENV['SITEMAP_PUBLIC_URL'].present? %>
+Sitemap: <%= ENV['SITEMAP_PUBLIC_URL'] %>
+<% end %>
