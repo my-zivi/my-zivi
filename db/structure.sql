@@ -55,7 +55,7 @@ $$;
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: action_text_rich_texts; Type: TABLE; Schema: public; Owner: -
@@ -593,7 +593,8 @@ CREATE TABLE public.job_postings (
     relevancy integer DEFAULT 1 NOT NULL,
     brief_description character varying NOT NULL,
     featured_as_new boolean DEFAULT false NOT NULL,
-    priority_program boolean DEFAULT false NOT NULL
+    priority_program boolean DEFAULT false NOT NULL,
+    slug character varying NOT NULL
 );
 
 
@@ -1569,6 +1570,13 @@ CREATE INDEX index_job_postings_on_organization_id ON public.job_postings USING 
 
 
 --
+-- Name: index_job_postings_on_slug; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_job_postings_on_slug ON public.job_postings USING btree (slug);
+
+
+--
 -- Name: index_mailing_lists_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1775,28 +1783,28 @@ CREATE UNIQUE INDEX index_workshops_on_name ON public.workshops USING btree (nam
 -- Name: services civil_servant_agreed_insert_trigger; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER civil_servant_agreed_insert_trigger AFTER INSERT ON public.services FOR EACH ROW WHEN ((new.civil_servant_agreed IS NOT NULL)) EXECUTE PROCEDURE public.civil_servant_agreed_changed();
+CREATE TRIGGER civil_servant_agreed_insert_trigger AFTER INSERT ON public.services FOR EACH ROW WHEN ((new.civil_servant_agreed IS NOT NULL)) EXECUTE FUNCTION public.civil_servant_agreed_changed();
 
 
 --
 -- Name: services civil_servant_agreed_update_trigger; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER civil_servant_agreed_update_trigger AFTER UPDATE ON public.services FOR EACH ROW WHEN ((old.civil_servant_agreed IS DISTINCT FROM new.civil_servant_agreed)) EXECUTE PROCEDURE public.civil_servant_agreed_changed();
+CREATE TRIGGER civil_servant_agreed_update_trigger AFTER UPDATE ON public.services FOR EACH ROW WHEN ((old.civil_servant_agreed IS DISTINCT FROM new.civil_servant_agreed)) EXECUTE FUNCTION public.civil_servant_agreed_changed();
 
 
 --
 -- Name: services organization_agreed_insert_trigger; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER organization_agreed_insert_trigger AFTER INSERT ON public.services FOR EACH ROW WHEN ((new.organization_agreed IS NOT NULL)) EXECUTE PROCEDURE public.organization_agreed_changed();
+CREATE TRIGGER organization_agreed_insert_trigger AFTER INSERT ON public.services FOR EACH ROW WHEN ((new.organization_agreed IS NOT NULL)) EXECUTE FUNCTION public.organization_agreed_changed();
 
 
 --
 -- Name: services organization_agreed_update_trigger; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER organization_agreed_update_trigger AFTER UPDATE ON public.services FOR EACH ROW WHEN ((old.organization_agreed IS DISTINCT FROM new.organization_agreed)) EXECUTE PROCEDURE public.organization_agreed_changed();
+CREATE TRIGGER organization_agreed_update_trigger AFTER UPDATE ON public.services FOR EACH ROW WHEN ((old.organization_agreed IS DISTINCT FROM new.organization_agreed)) EXECUTE FUNCTION public.organization_agreed_changed();
 
 
 --
@@ -2054,6 +2062,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210531194253'),
 ('20210602184752'),
 ('20210608143812'),
-('20210702194919');
+('20210702194919'),
+('20210707153648');
 
 

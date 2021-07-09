@@ -2,8 +2,10 @@
 
 class JobPosting < ApplicationRecord
   DEFAULT_ICON_URL = '/myzivi-logo.jpg'
+  SLUG_IDENTIFIER_LENGTH = 6
 
   include JobPostingSearchable
+  include Sluggable
 
   REQUIRED_FIELDS = %i[
     title
@@ -27,7 +29,7 @@ class JobPosting < ApplicationRecord
   alias_attribute :required_workshops, :workshops
 
   validates(*REQUIRED_FIELDS, presence: true)
-  validates :identification_number, uniqueness: true
+  validates :identification_number, :slug, uniqueness: true
   validates :identification_number, numericality: { greater_than: 0, allow_nil: true }
   validates :minimum_service_months, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
   validates :organization_name, presence: true, if: -> { organization_id.nil? }
@@ -74,5 +76,9 @@ class JobPosting < ApplicationRecord
     end
 
     DEFAULT_ICON_URL
+  end
+
+  def default_slug
+    "#{identification_number.to_s.rjust(SLUG_IDENTIFIER_LENGTH, '0')}-#{title.parameterize}"
   end
 end
