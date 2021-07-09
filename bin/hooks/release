@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+trap '[[ $BASH_COMMAND != echo* ]] && echo + $BASH_COMMAND' DEBUG
+
+echo "Preparing Release..."
+
+bin/bundle exec rails db:migrate
+
+if [ "$SITEMAP_ENABLED" = "true" ]; then
+  echo "Generating sitemap"
+  bin/rake sitemap:refresh
+fi

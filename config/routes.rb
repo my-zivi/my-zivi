@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   get '/about_us', to: 'home#about_us'
   get '/agb', to: 'home#agb'
   get '/privacy_policy', to: 'home#privacy_policy'
-  resources :job_postings, only: %i[index show]
+  resources :job_postings, param: :slug, only: %i[index show]
   resources :blog_entries, param: :slug, only: %i[index show], path: 'blog'
 
   devise_for :users, controllers: {
@@ -90,4 +90,5 @@ Rails.application.routes.draw do
   get '/404' => 'errors#not_found', as: :not_found
   get '/500' => 'errors#internal_server_error', as: :internal_server_error
   get '/422' => 'errors#unprocessable_entity', as: :unprocessable_entity
+  get '/robots', to: 'robots#robots'
 end

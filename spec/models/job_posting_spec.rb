@@ -3,8 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe JobPosting, type: :model do
-  subject(:model) { build(:job_posting) }
+  subject(:model) { build(:job_posting).tap(&:validate) }
 
+  it_behaves_like 'sluggable model', factory_name: :job_posting
   it_behaves_like 'validates presence of required fields', %i[
     title
     publication_date
@@ -113,6 +114,20 @@ RSpec.describe JobPosting, type: :model do
       let(:job_posting) { build(:job_posting) }
 
       it { is_expected.to eq described_class::DEFAULT_ICON_URL }
+    end
+  end
+
+  describe '#default_slug' do
+    subject { job_posting.default_slug }
+
+    let(:job_posting) { build(:job_posting, identification_number: 123_456) }
+
+    it { is_expected.to eq '123456-gruppeneinsatz-naturschutz' }
+
+    context 'with non-6 digit identification number' do
+      let(:job_posting) { build(:job_posting, identification_number: 5) }
+
+      it { is_expected.to eq '000005-gruppeneinsatz-naturschutz' }
     end
   end
 end

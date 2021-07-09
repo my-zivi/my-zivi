@@ -19,7 +19,7 @@ RSpec.describe 'job_postings/show.html.slim', type: :view do
   end
 
   context 'when job posting has not been published yet' do
-    let(:job_posting) { build(:job_posting, published: false, id: 1) }
+    let(:job_posting) { build(:job_posting, published: false, slug: 'my-slug') }
 
     it 'renders the publication notice' do
       expect(rendered).to include I18n.t('job_postings.show.unpublished_alert.title')
