@@ -18,7 +18,7 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.3.0",
     "@sentry/browser": "^5.29.0",
-    "algoliasearch": "^4.9.1",
+    "algoliasearch": "^4.10.3",
     "bootstrap": "^4.5.0",
     "core-js": "^3.8.1",
     "flatpickr": "^4.6.6",
