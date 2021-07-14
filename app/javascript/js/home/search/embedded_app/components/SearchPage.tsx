@@ -46,7 +46,11 @@ class SearchPage extends React.Component<Props, State> {
         <div className="hero">
           <div className="container">
             <div className="hero-content w-100">
-              <CustomAutocomplete defaultRefinement={defaultRefinement} />
+              <div className="row">
+                <div className="col-xl-1" />
+                <div className="col"><CustomAutocomplete defaultRefinement={defaultRefinement} /></div>
+                <div className="col-xl-1" />
+              </div>
             </div>
           </div>
         </div>
