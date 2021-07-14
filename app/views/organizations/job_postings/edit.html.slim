@@ -20,7 +20,7 @@
           i.fas.fa-chevron-down.mr-2.collapse-icon
           = t('.description')
       .collapse.show#description
-        = f.input :description
+        = f.input :description, input_html: { class: 'tinymce' }
         = f.input :required_skills
         = f.input :preferred_skills
       hr.my-4 /

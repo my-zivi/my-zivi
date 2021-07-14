@@ -531,6 +531,8 @@ GEM
     thor (1.1.0)
     tilt (2.0.10)
     timeliness (0.4.4)
+    tinymce-rails (5.8.2)
+      railties (>= 3.1.1)
     trailblazer-option (0.1.1)
     ttfunk (1.6.2.1)
     turbolinks (5.2.1)
@@ -638,6 +640,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   super_diff
   test-prof
+  tinymce-rails
   turbolinks (~> 5)
   tzinfo-data
   validates_timeliness
