@@ -1,6 +1,22 @@
 <figure class="attachment attachment--<%= blob.representable? ? "preview" : "file" %> attachment--<%= blob.filename.extension %>">
-  <% if blob.representable? %>
-    <%= image_tag blob.representation(resize_to_limit: local_assigns[:in_gallery] ? [ 800, 600 ] : [ 1024, 768 ]) %>
+  <% if blob.video? %>
+    <video
+      width="100%"
+      autoplay="false"
+      preload="metadata"
+      poster="<%= polymorphic_url(blob.representation(resize_to_limit: [1024, 768])) %>"
+      controls
+    >
+      <source src="<%= rails_blob_url(blob) %>" type="<%= blob.content_type %>">
+    </video>
+  <% elsif blob.audio? %>
+    <audio width="100%" preload="metadata" controls>
+      <source src="<%= rails_blob_url(blob) %>" type="<%= blob.content_type %>">
+    </audio>
+  <% elsif blob.content_type == 'application/pdf' %>
+    <%= link_to(blob.filename, rails_blob_url(blob), target: '_blank') %>
+  <% elsif blob.representable? %>
+    <%= image_tag blob.representation(resize_to_limit: local_assigns[:in_gallery] ? [800, 600] : [1024, 768]) %>
   <% end %>
 
   <figcaption class="attachment__caption">
