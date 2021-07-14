@@ -22,7 +22,7 @@ module Pdfs
             calculation_method: :calculate_first_day
           },
           {
-            count: lambda(&:work_days_count),
+            count: :work_days_count,
             header_title_key: 'activerecord.attributes.expense_sheet.work_days',
             calculation_method: :calculate_work_days
           },
@@ -32,22 +32,22 @@ module Pdfs
             calculation_method: :calculate_last_day
           },
           {
-            count: lambda(&:workfree_days),
+            count: :workfree_days,
             header_title_key: 'activerecord.attributes.expense_sheet.workfree_days',
             calculation_method: :calculate_workfree_days
           },
           {
-            count: lambda(&:sick_days),
+            count: :sick_days,
             header_title_key: 'activerecord.attributes.expense_sheet.sick_days',
             calculation_method: :calculate_sick_days
           },
           {
-            count: lambda(&:paid_vacation_days),
+            count: :paid_vacation_days,
             header_title_key: 'activerecord.attributes.expense_sheet.paid_vacation_days',
             calculation_method: :calculate_paid_vacation_days
           },
           {
-            count: lambda(&:unpaid_vacation_days),
+            count: :unpaid_vacation_days,
             header_title_key: 'activerecord.attributes.expense_sheet.unpaid_vacation_days',
             calculation_method: :calculate_unpaid_vacation_days
           }
