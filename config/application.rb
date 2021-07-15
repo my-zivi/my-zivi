@@ -40,6 +40,16 @@ module MyZivi
     config.generators.system_tests = nil
     config.active_record.schema_format = :sql
     config.exceptions_app = routes
+
+    config.after_initialize do
+      %w[style controls poster type preload autoplay width target].each do |attr|
+        ActionText::ContentHelper.allowed_attributes.add attr
+      end
+
+      %w[video audio source embed].each do |tag|
+        ActionText::ContentHelper.allowed_tags.add tag
+      end
+    end
   end
 end
 
