@@ -123,9 +123,23 @@ exports[`SearchPage renders correctly 1`] = `
       <div
         className="hero-content w-100"
       >
-        <ConnectorWrapper
-          defaultRefinement={null}
-        />
+        <div
+          className="row"
+        >
+          <div
+            className="col-xl-1"
+          />
+          <div
+            className="col"
+          >
+            <ConnectorWrapper
+              defaultRefinement={null}
+            />
+          </div>
+          <div
+            className="col-xl-1"
+          />
+        </div>
       </div>
     </div>
   </div>
