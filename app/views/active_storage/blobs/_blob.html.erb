@@ -4,7 +4,7 @@
       width="100%"
       autoplay="false"
       preload="metadata"
-      poster="<%= polymorphic_url(blob.representation(resize_to_limit: [1024, 768])) %>"
+      poster="<%= polymorphic_url(blob.preview(resize_to_limit: [1024, 768])) if blob.previewable? %>"
       controls
     >
       <source src="<%= rails_blob_url(blob) %>" type="<%= blob.content_type %>">
