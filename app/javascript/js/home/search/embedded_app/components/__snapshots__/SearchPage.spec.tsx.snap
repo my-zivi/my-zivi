@@ -32,6 +32,7 @@ exports[`SearchPage renders correctly 1`] = `
       "hasPendingMappings": [Function],
       "initAnalytics": [Function],
       "initIndex": [Function],
+      "initPersonalization": [Function],
       "initRecommendation": [Function],
       "listApiKeys": [Function],
       "listClusters": [Function],
@@ -99,7 +100,7 @@ exports[`SearchPage renders correctly 1`] = `
         },
         "userAgent": Object {
           "add": [Function],
-          "value": "Algolia for JavaScript (4.9.1); Node.js (12.22.1)",
+          "value": "Algolia for JavaScript (4.10.3); Node.js (12.22.1)",
         },
         "write": [Function],
       },
@@ -122,9 +123,23 @@ exports[`SearchPage renders correctly 1`] = `
       <div
         className="hero-content w-100"
       >
-        <ConnectorWrapper
-          defaultRefinement={null}
-        />
+        <div
+          className="row"
+        >
+          <div
+            className="col-xl-1"
+          />
+          <div
+            className="col"
+          >
+            <ConnectorWrapper
+              defaultRefinement={null}
+            />
+          </div>
+          <div
+            className="col-xl-1"
+          />
+        </div>
       </div>
     </div>
   </div>

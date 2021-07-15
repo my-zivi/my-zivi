@@ -11,7 +11,7 @@ const searchClient = algoliasearch(
   {
     responsesCache: createFallbackableCache({
       caches: [
-        createBrowserLocalStorageCache({ key: 'my-zivi-search' }),
+        createBrowserLocalStorageCache({ key: 'my-zivi-search', localStorage: window.sessionStorage }),
         createInMemoryCache(),
       ],
     }),
