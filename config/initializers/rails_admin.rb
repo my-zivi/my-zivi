@@ -62,6 +62,24 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model 'Workshop' do
+    configure :service_specifications_workshops do
+      visible(false)
+    end
+
+    configure :civil_servants_workshops do
+      visible(false)
+    end
+
+    configure :job_posting_workshops do
+      visible(false)
+    end
+
+    edit do
+      exclude_fields(:service_specifications, :civil_servants, :job_postings)
+    end
+  end
+
   config.model 'JobPosting' do
     edit do
       fields_of_type(:date) do
