@@ -143,6 +143,7 @@ fr-CH:
     index:
       page_title: Rechercher une affectation
     show:
+      apply_via_myzivi: Postuler via MyZivi
       back: Retour à la recherche
       claim_html: Contactez nous <a href="%{link}">ici</a> pour le modifier
       claim_title: Est-ce votre cahier des charges?

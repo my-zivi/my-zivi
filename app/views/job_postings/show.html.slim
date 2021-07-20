@@ -56,6 +56,11 @@
           .card-text
             - if @job_posting.scraped?
               .text-muted = t('.disclaimer')
+            = link_to(t('.apply_via_myzivi'),
+                    'https://h1jfkxgv69k.typeform.com/to/tst1He9H',
+                    class: 'btn btn-falcon-primary w-100 mt-3',
+                    target: '_blank',
+                    rel: 'noopener nofollow noreferrer')
             button.btn.btn-falcon-primary.w-100.mt-3[
               data-toggle="popover"
               title=t('.ezivi_popover_title')

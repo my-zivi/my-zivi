@@ -143,6 +143,7 @@ de-CH:
     index:
       page_title: Einsatz suchen
     show:
+      apply_via_myzivi: Über MyZivi bewerben
       back: Zurück zur Suche
       claim_html: Kontaktiere uns <a href="%{link}">hier</a>, um es zu bearbeiten
       claim_title: Ist das Dein Pflichtenheft?
