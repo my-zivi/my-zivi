@@ -56,7 +56,7 @@
           .card-text
             - if @job_posting.scraped?
               .text-muted = t('.disclaimer')
-            = link_to('Über MyZivi bewerben',
+            = link_to(t('.apply_via_myzivi'),
                     'https://h1jfkxgv69k.typeform.com/to/tst1He9H',
                     class: 'btn btn-falcon-primary w-100 mt-3',
                     target: '_blank',
