@@ -26,8 +26,8 @@ section.jobs.pt-5
               .card-body
                 .d-flex.flex-column
                   .icon-container
-                    img.job-posting-icon src=posting.icon_url alt=posting.organization_name
-                    h6.job-posting-subtitle = posting.organization_name
+                    img.job-posting-icon src=posting.icon_url alt=posting.organization_display_name
+                    h6.job-posting-subtitle = posting.organization_display_name
                   .job-posting-card-content
                     h5.job-posting-title = posting.title
                     .job-description = strip_tags(posting.description).truncate(200)
