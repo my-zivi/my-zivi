@@ -20,9 +20,9 @@
           i.fas.fa-chevron-down.mr-2.collapse-icon
           = t('.description')
       .collapse.show#description
-        = f.input :description
-        = f.input :required_skills
-        = f.input :preferred_skills
+        = f.rich_text_area :description
+        = f.rich_text_area :required_skills
+        = f.rich_text_area :preferred_skills
       hr.my-4 /
       a.collapsible-title href='#' data-toggle="collapse" data-target="#specification" aria-expanded="false" aria-controls="specification"
         h5.mb-3

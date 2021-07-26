@@ -573,12 +573,9 @@ ALTER SEQUENCE public.job_posting_workshops_id_seq OWNED BY public.job_posting_w
 CREATE TABLE public.job_postings (
     id bigint NOT NULL,
     title character varying,
-    description text,
     publication_date date,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    required_skills text,
-    preferred_skills text,
     canton character varying NOT NULL,
     identification_number integer NOT NULL,
     category character varying NOT NULL,
@@ -2063,6 +2060,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210602184752'),
 ('20210608143812'),
 ('20210702194919'),
-('20210707153648');
+('20210707153648'),
+('20210726075638');
 
 

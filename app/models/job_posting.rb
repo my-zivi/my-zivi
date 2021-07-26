@@ -63,6 +63,10 @@ class JobPosting < ApplicationRecord
 
   enum canton: I18n.t('activerecord.enums.job_posting.cantons').keys.map(&:to_sym).index_with(&:to_s)
 
+  has_rich_text :description
+  has_rich_text :required_skills
+  has_rich_text :preferred_skills
+
   def scraped?
     organization.blank?
   end
