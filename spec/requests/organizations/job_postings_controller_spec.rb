@@ -105,7 +105,11 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
   end
 
   describe '#update' do
-    let(:perform_request) { patch(organizations_job_posting_path(job_posting, params: { job_posting: update_params.merge(action_text_params) })) }
+    let(:perform_request) do
+      patch(organizations_job_posting_path(job_posting, params: {
+                                             job_posting: update_params.merge(action_text_params)
+                                           }))
+    end
     let(:organization) { create(:organization) }
     let(:job_posting) { create(:job_posting, organization: organization) }
 
@@ -127,7 +131,7 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
       {
         description: 'Meine lange Beschreibung',
         required_skills: 'Alles',
-        preferred_skills: 'Nichts',
+        preferred_skills: 'Nichts'
       }
     end
 
