@@ -591,7 +591,8 @@ CREATE TABLE public.job_postings (
     brief_description character varying NOT NULL,
     featured_as_new boolean DEFAULT false NOT NULL,
     priority_program boolean DEFAULT false NOT NULL,
-    slug character varying NOT NULL
+    slug character varying NOT NULL,
+    organization_member_id bigint
 );
 
 
@@ -688,7 +689,7 @@ ALTER SEQUENCE public.organization_holidays_id_seq OWNED BY public.organization_
 
 CREATE TABLE public.organization_members (
     id bigint NOT NULL,
-    organization_id bigint NOT NULL,
+    organization_id bigint,
     first_name character varying NOT NULL,
     last_name character varying NOT NULL,
     phone character varying NOT NULL,
@@ -895,6 +896,38 @@ CREATE SEQUENCE public.services_id_seq
 --
 
 ALTER SEQUENCE public.services_id_seq OWNED BY public.services.id;
+
+
+--
+-- Name: subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.subscriptions (
+    id bigint NOT NULL,
+    organization_id bigint,
+    type character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
 
 
 --
@@ -1177,6 +1210,13 @@ ALTER TABLE ONLY public.services ALTER COLUMN id SET DEFAULT nextval('public.ser
 
 
 --
+-- Name: subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('public.subscriptions_id_seq'::regclass);
+
+
+--
 -- Name: sys_admins id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1382,6 +1422,14 @@ ALTER TABLE ONLY public.services
 
 
 --
+-- Name: subscriptions subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.subscriptions
+    ADD CONSTRAINT subscriptions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: sys_admins sys_admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1567,6 +1615,13 @@ CREATE INDEX index_job_postings_on_organization_id ON public.job_postings USING 
 
 
 --
+-- Name: index_job_postings_on_organization_member_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_organization_member_id ON public.job_postings USING btree (organization_member_id);
+
+
+--
 -- Name: index_job_postings_on_slug; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1683,6 +1738,13 @@ CREATE INDEX index_services_on_civil_servant_id ON public.services USING btree (
 --
 
 CREATE INDEX index_services_on_service_specification_id ON public.services USING btree (service_specification_id);
+
+
+--
+-- Name: index_subscriptions_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_subscriptions_on_organization_id ON public.subscriptions USING btree (organization_id);
 
 
 --
@@ -1826,6 +1888,14 @@ ALTER TABLE ONLY public.services
 
 ALTER TABLE ONLY public.driving_licenses_service_specifications
     ADD CONSTRAINT fk_rails_09e79aa00d FOREIGN KEY (driving_license_id) REFERENCES public.driving_licenses(id);
+
+
+--
+-- Name: job_postings fk_rails_12619e823d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.job_postings
+    ADD CONSTRAINT fk_rails_12619e823d FOREIGN KEY (organization_member_id) REFERENCES public.organization_members(id);
 
 
 --
@@ -2061,6 +2131,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210608143812'),
 ('20210702194919'),
 ('20210707153648'),
-('20210726075638');
+('20210708095018'),
+('20210726075638'),
+('20210727075054');
 
 

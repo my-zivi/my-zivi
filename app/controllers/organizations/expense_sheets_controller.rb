@@ -15,8 +15,6 @@ module Organizations
 
     load_and_authorize_resource
 
-    include UsersHelper
-
     def index
       load_filters
       @expense_sheets = filtered_expense_sheets.order(ending: :desc, beginning: :desc)

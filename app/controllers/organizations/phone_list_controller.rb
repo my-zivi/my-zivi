@@ -5,6 +5,8 @@ module Organizations
     include RespondWithPdfConcern
     include DateTimePickerHelper
 
+    before_action -> { authorize!(:read, :phone_list) }
+
     def index
       load_filters
       set_service_specifications

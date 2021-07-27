@@ -12,8 +12,6 @@ module Organizations
     before_action :load_civil_servant, only: %i[new create]
     before_action :load_service_specifications, only: %i[new create]
 
-    include UsersHelper
-
     def index
       @service_agreements = Service.accessible_by(current_ability).agreement
     end

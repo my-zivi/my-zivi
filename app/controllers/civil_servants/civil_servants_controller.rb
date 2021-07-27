@@ -21,8 +21,6 @@ module CivilServants
     before_action :set_civil_servant, only: %i[edit update]
     before_action -> { authorize! params[:action].to_sym, @civil_servant }
 
-    include UsersHelper
-
     def edit; end
 
     def update

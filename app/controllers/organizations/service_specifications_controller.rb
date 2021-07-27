@@ -12,8 +12,6 @@ module Organizations
         last_day_expenses: %i[breakfast lunch dinner] }
     ].freeze
 
-    include UsersHelper
-
     load_and_authorize_resource param_method: :service_specification_params
 
     def index
