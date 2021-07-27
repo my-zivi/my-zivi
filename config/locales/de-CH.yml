@@ -269,10 +269,10 @@ de-CH:
         address_information: Addressdaten
         administrate: Verwalten
         creditor_information: Zahlungsdaten
-        icon_hint: Das Logo wird für veröffentlichte Ausschreibungen verwendet. Es kann allerdings eine Zeit dauern, bis das Logo auf allen Ausschreibungen aktualisiert worden ist.
-        organization_information: Betriebsdaten
         creditor_information_hint: Die Zahlungsdaten werden für das Erstellen von automatischen Auszahlungen verwendet. Mithilfe dieser generierten Auszahlungen können Sie unter dem Reiter "Auszahlungen" eine Zahlungsdatei generieren lassen, welche Sie dann bei ihrer Bank hochladen können, um die Spesen direkt auszuzahlen. Falls Sie dieses Feature nicht verwenden, können Sie die Zahlungsinformationen auch gänzlich leer lassen.
-        organization_holidays_hint: "Die Betriebsferien werden verwendet, um Spesenblätter korrekt zu generieren"
+        icon_hint: Das Logo wird für veröffentlichte Ausschreibungen verwendet. Es kann allerdings eine Zeit dauern, bis das Logo auf allen Ausschreibungen aktualisiert worden ist.
+        organization_holidays_hint: Die Betriebsferien werden verwendet, um Spesenblätter korrekt zu generieren
+        organization_information: Betriebsdaten
       update:
         erroneous_update: Betriebsdaten konnten nicht aktualisiert werden
         successful_update: Betriebsdaten wurden erfolgreich aktualisiert
@@ -285,6 +285,9 @@ de-CH:
           editable_expense_sheets:
             link: Spesenblätter
             title: Offene Spesenblätter
+          job_postings:
+            link: Ausschreibungen
+            title: Offene Aussschreibungen
           phone_lists:
             links:
               current_month: Aktueller Monat
@@ -302,9 +305,6 @@ de-CH:
             title: Einsatz-Pendenzen
           welcome_back:
             title: Wilkommen zurück, %{name}!
-          job_postings:
-            title: "Offene Aussschreibungen"
-            link: "Ausschreibungen"
     payments:
       badges:
         open:
@@ -339,10 +339,10 @@ de-CH:
           other: "%{count} Spesenblätter"
         mark_as_paid: Als ausgezahlt markieren
       show:
+        disabled_pain_button_html: Bitte gib die Zahlungsinformationen unter den <a href='%{link}'>Betriebsdaten</a> an, um eine Zahlungsdatei zu generieren
         expense_sheets_table:
           title: Spesenblätter
         title: Auszahlung vom %{date}
-        disabled_pain_button_html: Bitte gib die Zahlungsinformationen unter den <a href='%{link}'>Betriebsdaten</a> an, um eine Zahlungsdatei zu generieren
       update:
         erroneous_update: Die Auszahlung konnte nicht aktualisiert werden
         successful_update: Auszahlung wurde erfolgreich aktualisiert
