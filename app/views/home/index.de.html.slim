@@ -30,7 +30,7 @@ section.jobs.pt-5
                     h6.job-posting-subtitle = posting.organization_display_name
                   .job-posting-card-content
                     h5.job-posting-title = posting.title
-                    .job-description = strip_tags(posting.description).truncate(200)
+                    .job-description = posting.plain_description.truncate(200)
       .col-12.text-center.mt-3
         = link_to('Weitere Einsätze anzeigen…', job_postings_path, class: 'btn btn-link')
 

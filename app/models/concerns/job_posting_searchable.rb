@@ -38,7 +38,7 @@ module JobPostingSearchable
   end
 
   def plain_description
-    strip_tags(description.gsub(%r{<br ?/?>}, ' ')).squish
+    strip_tags(description.to_s.gsub(%r{<br ?/?>}, ' ')).squish
   end
 
   def organization_display_name

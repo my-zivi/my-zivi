@@ -28,11 +28,11 @@ RSpec.describe JobPostingApi::Poller, :vcr do
       expect(JobPosting.all).to contain_exactly(
         have_attributes(
           title: 'Naturschutzeinsatz',
-          description: be_a(String).and(be_present),
+          description: be_a(ActionText::RichText).and(be_present),
           publication_date: eq(Date.new(2021, 6, 6)),
           icon_url: be_a(String).and(be_present),
-          required_skills: be_a(String).and(be_present),
-          preferred_skills: be_a(String).and(be_present),
+          required_skills: be_a(ActionText::RichText).and(be_present),
+          preferred_skills: be_a(ActionText::RichText).and(be_present),
           canton: 'BE',
           identification_number: 89_117,
           category: 'agriculture',

@@ -18,12 +18,12 @@
         = render 'job_posting_header_card', job_posting: @job_posting
         .card.card-body
           h4 = JobPosting.human_attribute_name(:description)
-          p == @job_posting.description
-          h4 = JobPosting.human_attribute_name(:required_skills)
-          p == @job_posting.required_skills
+          div == @job_posting.description
+          h4.mt-3 = JobPosting.human_attribute_name(:required_skills)
+          div == @job_posting.required_skills
           - if @job_posting.preferred_skills.present?
-            h4 = JobPosting.human_attribute_name(:preferred_skills)
-            p == @job_posting.preferred_skills
+            h4.mt-3 = JobPosting.human_attribute_name(:preferred_skills)
+            div == @job_posting.preferred_skills
       .col-12.col-lg-4.col-xl-3.mt-3.mt-lg-0
         .card.card-body.mb-3
           h5 = JobPosting.human_attribute_name(:canton)
