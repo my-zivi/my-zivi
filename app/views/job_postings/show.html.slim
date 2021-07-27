@@ -19,10 +19,10 @@
         .card.card-body
           h4 = JobPosting.human_attribute_name(:description)
           div == @job_posting.description
-          h4 = JobPosting.human_attribute_name(:required_skills)
+          h4.mt-3 = JobPosting.human_attribute_name(:required_skills)
           div == @job_posting.required_skills
           - if @job_posting.preferred_skills.present?
-            h4 = JobPosting.human_attribute_name(:preferred_skills)
+            h4.mt-3 = JobPosting.human_attribute_name(:preferred_skills)
             div == @job_posting.preferred_skills
       .col-12.col-lg-4.col-xl-3.mt-3.mt-lg-0
         .card.card-body.mb-3
