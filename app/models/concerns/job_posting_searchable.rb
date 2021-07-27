@@ -35,6 +35,8 @@ module JobPostingSearchable
       attributeForDistinct 'organization_display_name'
     end
     # :nocov:
+
+    after_touch :index!
   end
 
   def plain_description
