@@ -139,6 +139,7 @@ fr-CH:
         blog: Blog
         job_postings: Rechercher une affectation
         organizations: Pour les établissements d'affectation
+      signup: Inscrivez-vous maintenant
   job_postings:
     index:
       page_title: Rechercher une affectation
@@ -475,8 +476,8 @@ fr-CH:
       priority_program: Programme prioritaire
       priority_program_label: Afficher uniquement les affectations valables pour la programme prioritaire
     ribbons:
-      featured: Feat.
-      featured_full: Promoted
+      featured: Prés.
+      featured_full: Présenté
       new: Nouveau
       urgent: Important
     search: Recherche

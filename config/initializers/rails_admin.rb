@@ -40,6 +40,20 @@ RailsAdmin.config do |config|
     # history_show
   end
 
+  config.model 'Organization' do
+    field :name
+    field :identification_number
+
+    field :address do
+      nested_form false
+    end
+
+    field :creditor_detail do
+      nested_form false
+    end
+    include_all_fields
+  end
+
   config.model 'CivilServant' do
     object_label_method { :full_name }
   end

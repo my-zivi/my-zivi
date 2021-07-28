@@ -105,7 +105,11 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
   end
 
   describe '#update' do
-    let(:perform_request) { patch(organizations_job_posting_path(job_posting, params: { job_posting: update_params })) }
+    let(:perform_request) do
+      patch(organizations_job_posting_path(job_posting, params: {
+                                             job_posting: update_params.merge(action_text_params)
+                                           }))
+    end
     let(:organization) { create(:organization) }
     let(:job_posting) { create(:job_posting, organization: organization) }
 
@@ -115,14 +119,19 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
         identification_number: 81_709,
         title: 'Waldpflege',
         brief_description: 'Meine kurze Beschreibung',
-        description: 'Meine lange Beschreibung',
-        required_skills: 'Alles',
-        preferred_skills: 'Nichts',
         language: 'german',
         canton: 'LU',
         category: 'agriculture',
         sub_category: nil,
         minimum_service_months: 1
+      }
+    end
+
+    let(:action_text_params) do
+      {
+        description: 'Meine lange Beschreibung',
+        required_skills: 'Alles',
+        preferred_skills: 'Nichts'
       }
     end
 
@@ -136,6 +145,9 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
           expect { perform_request }.to(
             change { job_posting.reload.slice(update_params.keys) }.to(update_params)
           )
+          expect(job_posting.reload.description).to be_a(ActionText::RichText)
+          expect(job_posting.reload.required_skills).to be_a(ActionText::RichText)
+          expect(job_posting.reload.preferred_skills).to be_a(ActionText::RichText)
 
           expect(response).to redirect_to(edit_organizations_job_posting_path(job_posting))
           expect(flash[:notice]).to eq I18n.t('organizations.job_postings.update.successful_update')

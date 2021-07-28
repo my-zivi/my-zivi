@@ -139,6 +139,7 @@ de-CH:
         blog: Blog
         job_postings: Einsatz suchen
         organizations: Für Betriebe
+      signup: Jetzt anmelden
   job_postings:
     index:
       page_title: Einsatz suchen
@@ -477,7 +478,7 @@ de-CH:
       priority_program_label: Nur mögliche lange Einsätze anzeigen
     ribbons:
       featured: Feat.
-      featured_full: Promoted
+      featured_full: Featured
       new: Neu
       urgent: Wichtig
     search: Suchen
