@@ -25,4 +25,10 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.my-zivi-top-navbar
                   class: 'btn btn-gradient',
                   target: '_blank',
                   rel: 'nofollow noopener noreferrer'
+        - if content_for?(:displays_signup_button)
+          = link_to t('home.navbar.signup'),
+                  'https://h1jfkxgv69k.typeform.com/to/tst1He9H',
+                  class: 'btn btn-gradient',
+                  target: '_blank',
+                  rel: 'nofollow noopener noreferrer'
 .navbar-spacer

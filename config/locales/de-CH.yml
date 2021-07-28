@@ -139,6 +139,7 @@ de-CH:
         blog: Blog
         job_postings: Einsatz suchen
         organizations: Für Betriebe
+      signup: Jetzt anmelden
   job_postings:
     index:
       page_title: Einsatz suchen

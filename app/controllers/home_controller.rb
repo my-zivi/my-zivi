@@ -7,6 +7,8 @@ class HomeController < ApplicationController
 
   def for_organizations; end
 
+  def for_civil_servants; end
+
   def administration; end
 
   def recruiting; end
