@@ -1,5 +1,6 @@
 - content_for(:container_class, 'index-container')
 - content_for(:page_title, 'Wieso MyZivi?')
+- content_for(:displays_signup_button, true)
 = render 'home/navbar'
 
 section.solution
@@ -17,9 +18,8 @@ section.solution
         h4 Nie mehr vergeblich bei dutzenden Betrieben anrufen
         p
           | Willst Du mal was anderes machen oder bei einem Betrieb arbeiten,
-            der sich um seine Zivis kümmert? Hast du keine Lust mehr, bei Betrieben vergeblich anzurufen,
-            weil sie keine Zivis mehr brauchen oder keine freie Einsatzzeiträume haben?
-            Wir übernehmen die zeitaufwändige Recherche und suchen den passenden Betrieb für Dich!
+            der sich um seine Zivis kümmert? Hast Du keine Lust mehr bei Betrieben vergeblich anzurufen?
+            Wir übernehmen die zeitaufwendige Recherche und suchen den passenden Betrieb für Dich.
     hr.d-md-none.my-4
     .row.mt-5
       .col-12.col-md-6.text-center.text-xl-left.order-0.order-md-1
@@ -90,18 +90,24 @@ section.py-0.quote
         h3.mb-4 Interessiert?
       p.mb-2
         | Fülle kurz das Formular aus und Du bist startklar!
+      p
+        | Dauert maximal 2 Minuten.
       .mt-4
         = link_to 'Jetzt anmelden',
                 'https://h1jfkxgv69k.typeform.com/to/tst1He9H',
-                class: 'btn btn-gradient',
+                class: 'btn btn-gradient btn-lg',
                 target: '_blank',
                 rel: 'nofollow noopener noreferrer'
-      .mt-5.row.justify-content-center
-        .col-12.col-lg-10.col-xl-8
-          | Falls Du dich nicht bereits für einen Einsatz festlegen möchtest oder doch lieber selbst auf die Suche
-            gehst, kannst Du auch unsere
-          =<> link_to('Suche', job_postings_path)
-          | verwenden. Dort findest Du #{number_with_delimiter(JobPosting.count)} Pflichtenhefter, welche Du
-            durchstöbern kannst.
+
+section.fallback
+  .container
+    h4.text-center Unsicher, ob es das Richtige für Dich ist?
+    .mt-5.row.justify-content-center
+      .col-12.col-lg-10.col-xl-8
+        | Falls Du dich nicht bereits für einen Einsatz festlegen möchtest oder doch lieber selbst auf die Suche
+          gehst, kannst Du auch unsere
+        =<> link_to('Suche', job_postings_path)
+        | verwenden. Dort findest Du #{number_with_delimiter(JobPosting.count)} Pflichtenhefter, welche Du
+          durchstöbern kannst.
 
 = render 'home/footer'
