@@ -37,8 +37,9 @@ module JobPostingSearchable
     end
     # :nocov:
 
-    after_save_commit :index!, if:
-      -> { !changed? && (description.changed? || required_skills.changed? || preferred_skills.changed?) }
+    after_save_commit :index!, if: lambda {
+      !changed? && (description.changed? || required_skills.changed? || preferred_skills.changed?)
+    }
   end
 
   def plain_description
