@@ -21,9 +21,9 @@ module JobPostingSearchable
 
       attribute(:relevancy) { relevancy_for_database }
 
-      attribute(:description) { description.body }
-      attribute(:required_skills) { required_skills.body }
-      attribute(:preferred_skills) { preferred_skills.body }
+      attribute(:description) { description.body&.to_plain_text }
+      attribute(:required_skills) { required_skills.body&.to_plain_text }
+      attribute(:preferred_skills) { preferred_skills.body&.to_plain_text }
 
       searchableAttributes %w[unordered(title) organization_display_name unordered(plain_description)]
       attributesForFaceting %w[
