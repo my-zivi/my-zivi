@@ -6,11 +6,13 @@ SitemapGenerator::Sitemap.default_host = "https://#{ENV['APP_HOST']}"
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::MyZiviGoogleStorageAdapter.new
+SitemapGenerator::Sitemap.compress = false
 
 STATIC_PAGES = [
   new_user_session_path,
   new_user_registration_path,
   for_organizations_path,
+  for_civil_servants_path,
   administration_path,
   recruiting_path,
   about_us_path,
