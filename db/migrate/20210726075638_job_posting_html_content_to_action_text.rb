@@ -1,5 +1,5 @@
 class JobPostingHtmlContentToActionText < ActiveRecord::Migration[6.1]
-include ActionView::Helpers::TextHelper
+  include ActionView::Helpers::TextHelper
 
   def up
     rename_column :job_postings, :description, :description_old
