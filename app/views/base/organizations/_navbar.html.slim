@@ -10,30 +10,30 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
         span.text-sans-serif = t('my_zivi')
   #navbarVerticalCollapse.collapse.navbar-collapse.perfect-scrollbar.scrollbar
     ul.navbar-nav.flex-column
-      = render 'base/navbar_list_item', link: { t('.dashboard') => organizations_path } do
+      = render 'base/navbar_list_item', resource: :organization_overview, link: { t('.dashboard') => organizations_path } do
         span.fas.fa-chart-pie
-      = render 'base/navbar_list_item', link: { t('.civil_servants') => organizations_civil_servants_path } do
+      = render 'base/navbar_list_item', resource: CivilServant, link: { t('.civil_servants') => organizations_civil_servants_path } do
         span.fas.fa-tools
-      = render 'base/navbar_list_item', link: { t('.service_agreements') => organizations_service_agreements_path } do
+      = render 'base/navbar_list_item', resource: Service, link: { t('.service_agreements') => organizations_service_agreements_path } do
         span.fas.fa-handshake
-      = render 'base/navbar_list_item', link: { t('.services_overview') => organizations_services_path } do
+      = render 'base/navbar_list_item', resource: Service, link: { t('.services_overview') => organizations_services_path } do
         span.fas.fa-calendar-alt
-      = render 'base/navbar_list_item', link: { t('.service_specifications') => organizations_service_specifications_path } do
+      = render 'base/navbar_list_item', resource: ServiceSpecification, link: { t('.service_specifications') => organizations_service_specifications_path } do
         span.fas.fa-file
-      - if can?(:view, JobPosting) && current_organization.job_postings.any?
-        = render 'base/navbar_list_item', link: { t('.job_postings') => organizations_job_postings_path } do
+      - if can?(:access, :recruiting_subscription)
+        = render 'base/navbar_list_item', resource: JobPosting, link: { t('.job_postings') => organizations_job_postings_path } do
           span.fas.fa-bullhorn
-      = render 'base/navbar_list_item', link: { t('.expense_sheets') => organizations_expense_sheets_path } do
+      = render 'base/navbar_list_item', resource: ExpenseSheet, link: { t('.expense_sheets') => organizations_expense_sheets_path } do
         span.fas.fa-file-invoice-dollar
-      = render 'base/navbar_list_item', link: { t('.payments') => organizations_payments_path } do
+      = render 'base/navbar_list_item', resource: Payment, link: { t('.payments') => organizations_payments_path } do
         span.fas.fa-wallet
-      = render 'base/navbar_list_item', link: { t('.phone_list') => organizations_phone_list_path } do
+      = render 'base/navbar_list_item', resource: :phone_list, link: { t('.phone_list') => organizations_phone_list_path } do
         span.fas.fa-phone
-      = render 'base/navbar_list_item', link: { t('.organization_information') => edit_organizations_organization_path } do
+      = render 'base/navbar_list_item', resource: current_organization, link: { t('.organization_information') => edit_organizations_organization_path } do
         span.fas.fa-building
-      = render 'base/navbar_list_item', link: { t('.organization_members') => organizations_members_path } do
+      = render 'base/navbar_list_item', resource: OrganizationMember, link: { t('.organization_members') => organizations_members_path } do
         span.fas.fa-user-friends
-      = render 'base/navbar_list_item', link: { t('.profile') => edit_organizations_member_path(current_organization_admin) } do
+      = render 'base/navbar_list_item', resource: current_organization_admin, link: { t('.profile') => edit_organizations_member_path(current_organization_admin) } do
         span.fas.fa-user
       = render 'base/navbar_list_item',
               link: { \

@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Civil Servants Service Agreement Page', type: :system do
-  let(:organization_one) { create(:organization, name: 'Org1') }
+  let(:organization_one) { create(:organization, :with_admin, name: 'Org1') }
   let(:service_specification_organization_one) do
     create(:service_specification, organization: organization_one, name: 'Einsatz Feld')
   end
-  let(:organization_two) { create(:organization, name: 'Org2') }
+  let(:organization_two) { create(:organization, :with_admin, name: 'Org2') }
 
   let(:civil_servant) { create(:civil_servant, :full) }
   let(:service_agreement) do

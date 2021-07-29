@@ -9,7 +9,7 @@ RSpec.describe Organization, type: :model do
     it 'defines relations correctly' do
       expect(model).to belong_to(:address).class_name('Address')
       expect(model).to belong_to(:letter_address).class_name('Address').optional(true)
-      expect(model).to belong_to(:creditor_detail)
+      expect(model).to belong_to(:creditor_detail).optional(true)
       expect(model).to have_many(:organization_members)
     end
   end
@@ -35,7 +35,7 @@ RSpec.describe Organization, type: :model do
   end
 
   describe 'after commit callback' do
-    let(:organization) { create(:organization, job_postings: [build(:job_posting)]) }
+    let(:organization) { create(:organization, :with_admin, job_postings: [build(:job_posting)]) }
 
     before do
       allow(organization.job_postings).to receive(:reindex!).and_return true
@@ -47,7 +47,7 @@ RSpec.describe Organization, type: :model do
     end
 
     context 'when no job postings are attached' do
-      let(:organization) { create(:organization, job_postings: []) }
+      let(:organization) { create(:organization, :with_admin, job_postings: []) }
 
       it 'does not attempt to reindex' do
         organization.update(icon: attributes_for(:organization, :with_icon)[:icon])

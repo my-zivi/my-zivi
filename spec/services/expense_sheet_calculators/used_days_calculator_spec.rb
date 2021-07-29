@@ -7,8 +7,10 @@ RSpec.describe ExpenseSheetCalculators::UsedDaysCalculator, type: :service do
   let(:service_range) { get_service_range months: 3 }
   let(:beginning) { service_range.begin }
   let(:ending) { service_range.end }
-  let(:service) { build(:service, beginning: beginning, ending: ending, organization: create(:organization)) }
   let(:created_expense_sheets) { ExpenseSheetGenerator.new(service).create_expense_sheets! }
+  let(:service) do
+    build(:service, beginning: beginning, ending: ending, organization: create(:organization, :with_admin))
+  end
 
   let(:payment) { nil }
   let(:sick_days_per_sheet) { 0 }

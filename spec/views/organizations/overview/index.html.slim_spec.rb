@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'organizations/overview/index.html.slim', type: :view do
   subject { rendered }
 
-  let(:current_organization_admin) { build(:organization_member) }
+  let(:current_organization_admin) { create(:organization_member, :with_admin_subscribed_organization) }
   let(:service) { create(:service) }
   let(:expected_strings) do
     [
@@ -27,9 +27,14 @@ RSpec.describe 'organizations/overview/index.html.slim', type: :view do
 
   before do
     create_pair(:civil_servant, :full, :with_service, organization: current_organization_admin.organization)
-
-    allow(view).to receive(:current_organization_admin).and_return current_organization_admin
     assign(:services, [service])
+
+    sign_in current_organization_admin.user
+
+    without_partial_double_verification do
+      allow(view).to receive(:current_organization_admin).and_return current_organization_admin
+      allow(view).to receive(:current_organization).and_return current_organization_admin.organization
+    end
 
     render
   end

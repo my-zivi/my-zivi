@@ -8,35 +8,50 @@
       ) \
     )
 
-  = render( \
-      OverviewCardComponent.new( \
-        title: "",
-          text: t('.cards.phone_lists.title'),
-          type: OverviewCardComponent::TYPES[:info],
-          links: {\
-            t('.cards.phone_lists.links.current_week') => current_week_phone_list_path,
-            t('.cards.phone_lists.links.current_month') => current_month_phone_list_path\
-          } \
-      ) \
-    )
-
-  = render(\
-        OverviewCardComponent.new(\
-          title: t('.cards.active_services.title'),
-          text: active_civil_servants_count,
-          type: OverviewCardComponent::TYPES[:info],
-          links: { t('.cards.active_services.link') => organizations_civil_servants_path } \
-        ) \
-      )
-
-  = render(\
-          OverviewCardComponent.new(\
-            title: t('.cards.editable_expense_sheets.title'),
-          text: editable_expense_sheets_count,
-          type: OverviewCardComponent::TYPES[:info],
-          links: {t('.cards.editable_expense_sheets.link') => organizations_expense_sheets_path} \
+  - if can?(:access, :admin_subscription)
+    - if can?(:read, :phone_list)
+      = render( \
+          OverviewCardComponent.new( \
+            title: "",
+            text: t('.cards.phone_lists.title'),
+            type: OverviewCardComponent::TYPES[:info],
+            links: {\
+              t('.cards.phone_lists.links.current_week') => current_week_phone_list_path,
+              t('.cards.phone_lists.links.current_month') => current_month_phone_list_path\
+            } \
           ) \
         )
 
-  .col-12
-    = render 'organizations/overview/services_table', services: @services
+    - if can?(:read, CivilServant)
+      = render(\
+            OverviewCardComponent.new(\
+              title: t('.cards.active_services.title'),
+              text: active_civil_servants_count,
+              type: OverviewCardComponent::TYPES[:info],
+              links: { t('.cards.active_services.link') => organizations_civil_servants_path } \
+            ) \
+          )
+
+    - if can?(:read, ExpenseSheet)
+      = render(\
+              OverviewCardComponent.new(\
+                title: t('.cards.editable_expense_sheets.title'),
+              text: editable_expense_sheets_count,
+              type: OverviewCardComponent::TYPES[:info],
+              links: {t('.cards.editable_expense_sheets.link') => organizations_expense_sheets_path} \
+              ) \
+            )
+
+  - if can?(:access, :recruiting_subscription) && can?(:manage, JobPosting)
+    = render(\
+          OverviewCardComponent.new(\
+            title: t('.cards.job_postings.title'),
+            text: current_organization.job_postings.where(published: true).count.to_s,
+            type: OverviewCardComponent::TYPES[:success],
+            links: {t('.cards.job_postings.link') => organizations_job_postings_path} \
+          ) \
+        )
+
+  - if can?(:read, Service)
+    .col-12
+      = render 'organizations/overview/services_table', services: @services

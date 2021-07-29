@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe NormalServiceCalculator, type: :service do
   let(:beginning) { Date.parse('2018-01-01') }
-  let(:organization) { create(:organization) }
+  let(:organization) { create(:organization, :with_admin) }
   let(:normal_service_calculator) { described_class.new(beginning, organization) }
 
   context 'when there are no company holidays during service' do

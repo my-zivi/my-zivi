@@ -40,21 +40,25 @@
             .col-md-6.col-12
               = ff.input :zip
       hr /
-      a.collapsible-title href='#' data-toggle="collapse" data-target="#payment" aria-expanded="false" aria-controls="payment"
-        h5.mb-3
-          i.fas.fa-chevron-down.mr-2.collapse-icon
-          = t('.creditor_information')
-      .collapse.show#payment
-        = f.simple_fields_for :creditor_detail do |ff|
-          .row
-            .col-md-6.col-12
-              = ff.input :iban
-            .col-md-6.col-12
-              = ff.input :bic
-      hr /
-      h4 = t('activerecord.models.organization_holiday')
-      = link_to(organizations_organization_holidays_path, class: 'btn btn-link pl-0') do
-        = t('.administrate')
-        i.fas.fa-chevron-right.ml-2
+      - if can?(:manage, Payment)
+        a.collapsible-title href='#' data-toggle="collapse" data-target="#payment" aria-expanded="false" aria-controls="payment"
+          h5.mb-3
+            i.fas.fa-chevron-down.mr-2.collapse-icon
+            = t('.creditor_information')
+        .collapse.show#payment
+          = f.simple_fields_for :creditor_detail do |ff|
+            .row
+              .col-md-6.col-12
+                = ff.input :iban
+              .col-md-6.col-12
+                = ff.input :bic
+          small.text-muted = t('.creditor_information_hint')
+        hr /
+      - if can?(:manage, OrganizationHoliday)
+        h4 = t('activerecord.models.organization_holiday')
+        = link_to(organizations_organization_holidays_path, class: 'btn btn-link pl-0') do
+          = t('.administrate')
+          i.fas.fa-chevron-right.ml-2
+        small.d-block.mt-2.text-muted = t('.organization_holidays_hint')
       .mt-4
         = f.submit class: 'btn btn-primary'

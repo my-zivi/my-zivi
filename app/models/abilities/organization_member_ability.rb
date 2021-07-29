@@ -4,68 +4,31 @@ module Abilities
   class OrganizationMemberAbility
     include CanCan::Ability
 
-    # rubocop:disable Metrics/MethodLength
-    def initialize(permitting_organization_member)
-      organization_id = permitting_organization_member.organization_id
+    def initialize(organization_member)
+      organization = load_organization(organization_member) || organization_member.organization
 
-      can :access, :organization_portal
-      can :read, :organization_overview
-      can :manage, OrganizationMember, organization_id: organization_id
-      can :manage, ServiceSpecification, organization_id: organization_id
-      can :manage, Payment, organization_id: organization_id
-      can :manage, OrganizationHoliday, organization_id: organization_id
-      can %i[edit update], Organization, id: organization_id
-      can :manage, JobPosting, organization_id: organization_id
+      can(:access, :organization_portal)
+      can(:read, :organization_overview)
 
-      can(:read, CivilServant,
-          services: {
-            civil_servant_agreed: true,
-            organization_agreed: true,
-            service_specification: {
-              organization_id: organization_id
-            }
-          })
-
-      expense_sheet_abilities(organization_id)
-      service_abilities(organization_id)
+      organization.subscriptions.each do |subscription|
+        abilities_for_subscription(subscription, organization)
+      end
     end
 
     private
 
-    def expense_sheet_abilities(organization_id)
-      can(:manage, ExpenseSheet, {
-            service: {
-              civil_servant_agreed: true,
-              organization_agreed: true,
-              service_specification: {
-                organization_id: organization_id
-              }
-            }
-          })
-
-      cannot(:edit, ExpenseSheet, { state: 'locked' })
+    def load_organization(organization_member)
+      Organization.includes(:subscriptions).find_by(id: organization_member.organization_id)
     end
 
-    def service_abilities(organization_id)
-      base_scope = { service_specification: { organization_id: organization_id } }
-
-      can(:read, Service, base_scope)
-      can(:crud, Service, base_scope.merge(
-                            organization_agreed: true,
-                            civil_servant_agreed: nil
-                          ))
-
-      can(:confirm, Service, base_scope.merge(
-                               organization_agreed: true,
-                               civil_servant_agreed: true,
-                               confirmation_date: nil
-                             ))
-
-      can(:destroy, Service, base_scope.merge(
-                               organization_agreed: true,
-                               civil_servant_agreed: false
-                             ))
+    def abilities_for_subscription(subscription, organization)
+      # noinspection RubyCaseWithoutElseBlockInspection
+      case subscription
+      when ::Subscriptions::Admin
+        merge(Abilities::Subscriptions::AdminAbility.new(organization))
+      when ::Subscriptions::Recruiting
+        merge(Abilities::Subscriptions::RecruitingAbility.new(organization))
+      end
     end
-    # rubocop:enable Metrics/MethodLength
   end
 end

@@ -21,7 +21,9 @@
           = t('.description')
       .collapse.show#description
         = f.rich_text_area :description
+        h6.h5.mt-4.mb-2 = JobPosting.human_attribute_name(:required_skills)
         = f.rich_text_area :required_skills
+        h6.h5.mt-4.mb-2 = JobPosting.human_attribute_name(:preferred_skills)
         = f.rich_text_area :preferred_skills
       hr.my-4 /
       a.collapsible-title href='#' data-toggle="collapse" data-target="#specification" aria-expanded="false" aria-controls="specification"

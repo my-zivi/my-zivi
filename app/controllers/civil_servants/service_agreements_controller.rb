@@ -4,8 +4,6 @@ module CivilServants
   class ServiceAgreementsController < BaseController
     authorize_resource :service, only: :index
 
-    include UsersHelper
-
     def index
       @service_agreements = Service.includes(:organization, :service_specification)
                                    .accessible_by(current_ability).agreement

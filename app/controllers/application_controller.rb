@@ -1,6 +1,24 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  helper_method :current_organization_admin, :current_civil_servant, :current_organization, :current_referencee
+
+  def current_organization_admin
+    @current_organization_admin ||= current_referencee if current_referencee.instance_of?(OrganizationMember)
+  end
+
+  def current_civil_servant
+    @current_civil_servant ||= current_referencee if current_referencee.instance_of?(CivilServant)
+  end
+
+  def current_organization
+    @current_organization ||= current_organization_admin&.organization
+  end
+
+  def current_referencee
+    @current_referencee ||= current_user&.referencee
+  end
+
   protected
 
   def signed_in_root_path(user)

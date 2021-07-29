@@ -2,14 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe UsersHelper, type: :helper do
+RSpec.describe ApplicationController, type: :controller do
   describe '#current_organization_admin' do
-    subject(:current_organization_admin) { helper.current_organization_admin }
+    subject(:current_organization_admin) { controller.current_organization_admin }
 
-    before { allow(helper).to receive(:current_user).and_return current_user }
+    before { allow(controller).to receive(:current_user).and_return current_user }
 
     context 'when an organization administrator is signed in' do
-      let(:admin) { build :organization_member }
+      let(:admin) { build(:organization_member) }
 
       let(:current_user) { admin.user }
 
@@ -30,9 +30,9 @@ RSpec.describe UsersHelper, type: :helper do
   end
 
   describe '#current_civil_servant' do
-    subject(:current_civil_servant) { helper.current_civil_servant }
+    subject(:current_civil_servant) { controller.current_civil_servant }
 
-    before { allow(helper).to receive(:current_user).and_return current_user }
+    before { allow(controller).to receive(:current_user).and_return current_user }
 
     context 'when a civil servant is signed in' do
       let(:civil_servant) { build(:civil_servant, :full) }
@@ -55,12 +55,12 @@ RSpec.describe UsersHelper, type: :helper do
   end
 
   describe '#current_organization' do
-    subject { helper.current_organization }
+    subject { controller.current_organization }
 
-    before { allow(helper).to receive(:current_user).and_return current_user }
+    before { allow(controller).to receive(:current_user).and_return current_user }
 
     context 'when an organization administrator is signed in' do
-      let(:organization) { create :organization }
+      let(:organization) { create :organization, :with_admin }
       let(:admin) { build :organization_member, organization: organization }
 
       let(:current_user) { admin.user }

@@ -4,7 +4,10 @@ require 'rails_helper'
 
 RSpec.describe 'civil_servants/civil_servants/edit.html.erb', type: :view do
   before do
-    allow(view).to receive(:current_civil_servant).and_return civil_servant
+    without_partial_double_verification do
+      allow(view).to receive(:current_civil_servant).and_return civil_servant
+    end
+
     assign(:civil_servant, civil_servant)
 
     render

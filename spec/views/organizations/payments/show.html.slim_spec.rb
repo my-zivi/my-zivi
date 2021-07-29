@@ -17,6 +17,10 @@ RSpec.describe 'organizations/payments/show.html.slim', type: :view do
 
   before do
     assign(:payment, payment)
+    without_partial_double_verification do
+      allow(view).to receive(:current_organization).and_return build(:organization)
+    end
+
     render
   end
 

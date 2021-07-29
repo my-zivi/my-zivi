@@ -36,7 +36,7 @@ class OverviewCardComponent < ViewComponent::Base
 
   def links_html
     @links.map do |text, path|
-      link_to(path, class: 'font-weight-semi-bold fs--1 text-nowrap') do
+      link_to(path, class: "font-weight-semi-bold fs--1 text-nowrap #{text_class}") do
         concat text
         concat <<-HTML.html_safe
           <i class="fas fa-angle-right ml-1"></i>

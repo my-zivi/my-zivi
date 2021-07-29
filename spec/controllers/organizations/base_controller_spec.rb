@@ -11,10 +11,10 @@ RSpec.describe Organizations::BaseController, type: :controller do
     end
   end
 
-  context 'when a civil servant is authenticated' do
+  context 'when an organization administrator is authenticated' do
     subject { response }
 
-    let(:organization_admin) { create :organization_member }
+    let(:organization_admin) { create(:organization_member) }
 
     before do
       sign_in organization_admin.user

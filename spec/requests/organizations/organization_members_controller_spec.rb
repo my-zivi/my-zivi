@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Organizations::OrganizationMembersController, type: :request do
   context 'when a organization admin is signed in' do
-    let(:organization) { create :organization }
+    let(:organization) { create :organization, :with_admin }
     let(:organization_admin) { create :organization_member, organization: organization }
 
     before { sign_in organization_admin.user }
@@ -12,7 +12,7 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
     describe '#index' do
       subject { response }
 
-      let(:outside_organization) { create :organization }
+      let(:outside_organization) { create :organization, :with_admin }
       let(:perform_request) { get organizations_members_path }
       let!(:outside_organization_member) do
         create(:organization_member,
@@ -83,7 +83,7 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
       end
 
       context 'when the currently signed in organization admin is not in the organization of the resource' do
-        let(:other_organization) { create :organization }
+        let(:other_organization) { create :organization, :with_admin }
         let(:editing_organization_member) do
           create(:organization_member, :without_login, organization: other_organization)
         end
@@ -133,7 +133,7 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
       end
 
       context 'when updating a different organization member of a different organization' do
-        let(:other_organization) { create :organization }
+        let(:other_organization) { create :organization, :with_admin }
         let(:updating_organization_member) { create :organization_member, organization: other_organization }
         let(:update_params) { { first_name: 'Updated name' } }
 
@@ -179,7 +179,7 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
       end
 
       context 'when trying to delete an organization member of a different organization' do
-        let(:other_organization) { create :organization }
+        let(:other_organization) { create :organization, :with_admin }
         let(:deleting_user) { create(:organization_member, :without_login, organization: other_organization) }
 
         it_behaves_like 'unauthorized request' do
@@ -233,7 +233,7 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
     end
 
     describe '#edit' do
-      let(:organization_member) { create :organization_member }
+      let(:organization_member) { create(:organization_member) }
       let(:perform_request) { get edit_organizations_member_path(organization_member) }
 
       before { perform_request }
