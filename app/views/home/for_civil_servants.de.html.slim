@@ -1,0 +1,118 @@
+- content_for(:container_class, 'index-container')
+- content_for(:page_title, 'Wieso MyZivi?')
+- content_for(:displays_signup_button, true)
+- content_for(:social_tags) do
+  meta name='description' content='Mit MyZivi planst Du Deinen Einsatz in wenigen Schritten' /
+  meta property='og:title' content=t('layouts.application.meta.og_title') /
+  meta property='og:type' content='website' /
+
+= render 'home/navbar'
+
+section.solution
+  .container
+    h3.section-title Einfach Deinen nächsten Einsatz finden
+    p.section-subtitle
+      | Mit MyZivi planst Du Deinen Einsatz in wenigen Schritten
+    .row.mt-5
+      .col-12.col-md-6.text-center.text-xl-right
+        = image_pack_tag 'home/illustrations/call.svg',
+                class: 'illustration-image',
+                alt: 'Wir vermitteln Dich einfach zu Betrieben'
+      .col-12.col-md-6.mt-3.mt-md-0
+        .text-uppercase.text-muted.my-3 Keine doppelte Arbeit
+        h4 Nie mehr vergeblich bei dutzenden Betrieben anrufen
+        p
+          | Willst Du mal was anderes machen oder bei einem Betrieb arbeiten,
+            der sich um seine Zivis kümmert? Hast Du keine Lust mehr bei Betrieben vergeblich anzurufen?
+            Wir übernehmen die zeitaufwendige Recherche und suchen den passenden Betrieb für Dich.
+    hr.d-md-none.my-4
+    .row.mt-5
+      .col-12.col-md-6.text-center.text-xl-left.order-0.order-md-1
+        = image_pack_tag 'home/illustrations/choose.svg', class: 'illustration-image', alt: 'MyZivi Admin'
+      .col-12.col-md-6.mt-3.mt-md-0.order-1.order-md-0
+        .text-uppercase.text-muted.my-3 Suche
+        h4 Interessante Einsätze
+        p
+          | Durch unsere Nähe zu Betrieben vermitteln wir Dich zu Einsätzen,
+            welche wir als sinnvoll und interessant erachten.
+
+section.workflow
+  .container
+    h3.section-title Und so funktionierts
+    .row.mt-5
+      .col-12.col-md.text-center.text-md-right
+        = image_pack_tag 'home/steps/account.svg',
+                class: 'illustration-image',
+                alt: 'Kontaktaufnahme'
+      .d-none.col-md.d-md-inline-flex.justify-content-center.align-items-center.flex-grow-0
+        .steps-badge 1
+      .col-12.col-md.mt-3.mt-md-0
+        .text-uppercase.text-muted.my-3 Angaben
+        h4 Interessiert? Gib uns deine Kontaktdaten durch
+        p
+          | Fülle unser Formular aus und gib deine Kontaktdaten und wichtige Informationen
+            für deinen Einsatz, wie absolvierte Kurse, an.
+        p
+          = link_to('https://h1jfkxgv69k.typeform.com/to/tst1He9H',
+                  rel: 'noopener nofollow',
+                  target: '_blank',
+                  class: 'btn btn-link pl-0') do
+            | Jetzt anmelden
+            i.fas.fa-angle-right.ml-2
+    hr.d-md-none.my-4
+    .row.mt-5
+      .col-12.col-md.text-center.text-md-left.order-0.order-md-2
+        = image_pack_tag 'home/steps/video_call.svg',
+                class: 'illustration-image',
+                alt: 'Kontakt'
+      .d-none.col-md.d-md-inline-flex.justify-content-center.align-items-center.order-md-1.flex-grow-0
+        .steps-badge 2
+      .col-12.col-md.mt-3.mt-md-0.order-1.order-md-0
+        .text-uppercase.text-muted.my-3 Kontakt
+        h4 Wir kontaktieren Dich
+        p
+          | Sobald wir deine Angaben haben kontaktieren wir Dich kurz, um weitere Details und Wünsche abzuklären.
+            Danach legen wir mit der Suche los.
+    hr.d-md-none.my-4
+    .row.mt-5
+      .col-12.col-md.text-center.text-md-right
+        = image_pack_tag 'home/steps/applications.svg',
+                class: 'illustration-image',
+                alt: 'Erhalte Bewerbungen'
+      .d-none.col-md.d-md-inline-flex.justify-content-center.align-items-center.flex-grow-0
+        .steps-badge 3
+      .col-12.col-md.mt-3.mt-md-0
+        .text-uppercase.text-muted.my-3 Vorschläge
+        h4 Erhalte Vorschläge zu passenden Einsätzen
+        p
+          | Sobald wir einen passenden Einsätz gefunden haben, kontaktieren wir Dich erneut.
+            Wir wünschen Dir viel Erfolg bei deinem neuen Einsatz!
+
+section.py-0.quote
+  .quote-container
+    .container.text-center
+      .container-fluid
+        h3.mb-4 Interessiert?
+      p.mb-2
+        | Fülle kurz das Formular aus und Du bist startklar!
+      p
+        | Dauert maximal 2 Minuten.
+      .mt-4
+        = link_to 'Jetzt anmelden',
+                'https://h1jfkxgv69k.typeform.com/to/tst1He9H',
+                class: 'btn btn-gradient btn-lg',
+                target: '_blank',
+                rel: 'nofollow noopener noreferrer'
+
+section.fallback
+  .container
+    h4.text-center Unsicher, ob es das Richtige für Dich ist?
+    .mt-5.row.justify-content-center
+      .col-12.col-lg-10.col-xl-8
+        | Falls Du dich nicht bereits für einen Einsatz festlegen möchtest oder doch lieber selbst auf die Suche
+          gehst, kannst Du auch unsere
+        =<> link_to('Suche', job_postings_path)
+        | verwenden. Dort findest Du #{number_with_delimiter(JobPosting.count)} Pflichtenhefter, welche Du
+          durchstöbern kannst.
+
+= render 'home/footer'
