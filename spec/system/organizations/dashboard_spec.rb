@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Organizations Portal Dashboard', type: :system do
-  let!(:organization) { create(:organization) }
+  let(:organization) { create(:organization) }
   let!(:organization_administrator) do
     create(:organization_member,
            first_name: 'Johnny',
@@ -16,34 +16,29 @@ RSpec.describe 'Organizations Portal Dashboard', type: :system do
     visit organizations_path
   end
 
-  around do |spec|
-    travel_to Date.parse('2020-09-10') do
-      spec.run
-    end
-  end
-
   describe 'the navigation' do
-    let(:expected_nav_items) { %w[base.organizations.navbar.dashboard base.organizations.navbar.sign_out] }
+    let(:expected_nav_items) { %w[dashboard sign_out] }
 
     let(:unexpected_nav_items) do
       %w[
-        base.organizations.navbar.civil_servants
-        base.organizations.navbar.service_agreements
-        base.organizations.navbar.services_overview
-        base.organizations.navbar.service_specifications
-        base.organizations.navbar.job_postings
-        base.organizations.navbar.expense_sheets
-        base.organizations.navbar.payments
-        base.organizations.navbar.phone_list
-        base.organizations.navbar.organization_information
-        base.organizations.navbar.organization_members
-        base.organizations.navbar.profile
+        civil_servants
+        service_agreements
+        services_overview
+        service_specifications
+        job_postings
+        expense_sheets
+        payments
+        phone_list
+        organization_information
+        organization_members
+        profile
       ]
     end
 
     it 'shows the expected nav items' do
       expected_nav_items.each do |expected_nav_item|
-        expect(page).to have_css('li.nav-item > a', text: I18n.t(expected_nav_item))
+        expected_text = I18n.t(expected_nav_item, scope: %i[base organizations navbar])
+        expect(page).to have_css('li.nav-item > a', text: expected_text)
       end
 
       expect(page).to have_css('li.nav-item > a', count: expected_nav_items.size)
@@ -51,7 +46,8 @@ RSpec.describe 'Organizations Portal Dashboard', type: :system do
 
     it 'does not show any unexpected nav items' do
       unexpected_nav_items.each do |unexpected_nav_item|
-        expect(page).not_to have_css('li.nav-item > a', text: I18n.t(unexpected_nav_item))
+        unexpected_text = I18n.t(unexpected_nav_item, scope: %i[base organizations navbar])
+        expect(page).not_to have_css('li.nav-item > a', text: unexpected_text)
       end
     end
 
@@ -60,28 +56,29 @@ RSpec.describe 'Organizations Portal Dashboard', type: :system do
 
       let(:expected_nav_items) do
         %w[
-          base.organizations.navbar.dashboard
-          base.organizations.navbar.civil_servants
-          base.organizations.navbar.service_agreements
-          base.organizations.navbar.services_overview
-          base.organizations.navbar.service_specifications
-          base.organizations.navbar.expense_sheets
-          base.organizations.navbar.payments
-          base.organizations.navbar.phone_list
-          base.organizations.navbar.organization_information
-          base.organizations.navbar.organization_members
-          base.organizations.navbar.profile
-          base.organizations.navbar.sign_out
+          dashboard
+          civil_servants
+          service_agreements
+          services_overview
+          service_specifications
+          expense_sheets
+          payments
+          phone_list
+          organization_information
+          organization_members
+          profile
+          sign_out
         ]
       end
 
       let(:unexpected_nav_items) do
-        %w[base.organizations.navbar.job_postings]
+        %w[job_postings]
       end
 
       it 'shows the expected nav items' do
         expected_nav_items.each do |expected_nav_item|
-          expect(page).to have_css('li.nav-item > a', text: I18n.t(expected_nav_item))
+          expected_text = I18n.t(expected_nav_item, scope: %i[base organizations navbar])
+          expect(page).to have_css('li.nav-item > a', text: expected_text)
         end
 
         expect(page).to have_css('li.nav-item > a', count: expected_nav_items.size)
@@ -89,7 +86,8 @@ RSpec.describe 'Organizations Portal Dashboard', type: :system do
 
       it 'does not show any unexpected nav items' do
         unexpected_nav_items.each do |unexpected_nav_item|
-          expect(page).not_to have_css('li.nav-item > a', text: I18n.t(unexpected_nav_item))
+          unexpected_text = I18n.t(unexpected_nav_item, scope: %i[base organizations navbar])
+          expect(page).not_to have_css('li.nav-item > a', text: unexpected_text)
         end
       end
     end
@@ -99,30 +97,31 @@ RSpec.describe 'Organizations Portal Dashboard', type: :system do
 
       let(:expected_nav_items) do
         %w[
-          base.organizations.navbar.dashboard
-          base.organizations.navbar.job_postings
-          base.organizations.navbar.organization_information
-          base.organizations.navbar.organization_members
-          base.organizations.navbar.profile
-          base.organizations.navbar.sign_out
+          dashboard
+          job_postings
+          organization_information
+          organization_members
+          profile
+          sign_out
         ]
       end
 
       let(:unexpected_nav_items) do
         %w[
-          base.organizations.navbar.civil_servants
-          base.organizations.navbar.service_agreements
-          base.organizations.navbar.services_overview
-          base.organizations.navbar.service_specifications
-          base.organizations.navbar.expense_sheets
-          base.organizations.navbar.payments
-          base.organizations.navbar.phone_list
+          civil_servants
+          service_agreements
+          services_overview
+          service_specifications
+          expense_sheets
+          payments
+          phone_list
         ]
       end
 
       it 'shows the expected nav items' do
         expected_nav_items.each do |expected_nav_item|
-          expect(page).to have_css('li.nav-item > a', text: I18n.t(expected_nav_item))
+          expected_text = I18n.t(expected_nav_item, scope: 'base.organizations.navbar')
+          expect(page).to have_css('li.nav-item > a', text: expected_text)
         end
 
         expect(page).to have_css('li.nav-item > a', count: expected_nav_items.size)
@@ -130,7 +129,8 @@ RSpec.describe 'Organizations Portal Dashboard', type: :system do
 
       it 'does not show any unexpected nav items' do
         unexpected_nav_items.each do |unexpected_nav_item|
-          expect(page).not_to have_css('li.nav-item > a', text: I18n.t(unexpected_nav_item))
+          unexpected_text = I18n.t(unexpected_nav_item, scope: %i[base organizations navbar])
+          expect(page).not_to have_css('li.nav-item > a', text: unexpected_text)
         end
       end
     end
