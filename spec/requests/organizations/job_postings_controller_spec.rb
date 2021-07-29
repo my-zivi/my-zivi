@@ -32,21 +32,7 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when nobody is signed in' do
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
-    end
+    it_behaves_like 'recruiting subscription route only'
   end
 
   describe '#edit' do
@@ -87,21 +73,7 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when nobody is signed in' do
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
-    end
+    it_behaves_like 'recruiting subscription route only'
   end
 
   describe '#update' do
@@ -175,20 +147,6 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when nobody is signed in' do
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
-    end
+    it_behaves_like 'recruiting subscription route only'
   end
 end

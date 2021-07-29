@@ -6,13 +6,13 @@ RSpec.describe Users::RegistrationsController do
   describe '#edit' do
     let(:perform_request) { get edit_user_registration_path }
 
-    before do
-      sign_in(user) if user
-      perform_request
-    end
-
     context 'when an organization member is signed in' do
       let(:user) { create(:organization_member).user }
+
+      before do
+        sign_in user
+        perform_request
+      end
 
       it 'renders template correct' do
         expect(response).to have_http_status(:ok)
@@ -20,20 +20,7 @@ RSpec.describe Users::RegistrationsController do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:user) { create(:civil_servant, :full).user }
-
-      it 'renders template correct' do
-        expect(response).to have_http_status(:ok)
-        expect(response).to render_template 'users/registrations/edit', 'layouts/civil_servants/application'
-      end
-    end
-
-    context 'when nobody is signed in' do
-      let(:user) { nil }
-
-      it_behaves_like 'unauthenticated request'
-    end
+    it_behaves_like 'admin subscription route only', skip_civil_servant_check: true
   end
 
   describe '#update' do
@@ -41,12 +28,10 @@ RSpec.describe Users::RegistrationsController do
     let(:user_params) { { password: new_password, password_confirmation: new_password, current_password: '12345678' } }
     let(:new_password) { 'MyNewSecureP4SSW0RD/' }
 
-    before do
-      sign_in(user) if user
-    end
-
     context 'when an organization member is signed in' do
       let(:user) { create(:organization_member).user }
+
+      before { sign_in user }
 
       it 'updates the user' do
         expect { perform_request }.to(change { user.reload.encrypted_password })
@@ -54,21 +39,6 @@ RSpec.describe Users::RegistrationsController do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:user) { create(:civil_servant, :full).user }
-
-      it 'updates the user' do
-        expect { perform_request }.to(change { user.reload.encrypted_password })
-        expect(response).to redirect_to civil_servants_path
-      end
-    end
-
-    context 'when nobody is signed in' do
-      let(:user) { nil }
-
-      it_behaves_like 'unauthenticated request' do
-        before { perform_request }
-      end
-    end
+    it_behaves_like 'admin subscription route only', skip_civil_servant_check: true
   end
 end

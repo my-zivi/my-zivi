@@ -20,7 +20,7 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
         span.fas.fa-calendar-alt
       = render 'base/navbar_list_item', resource: ServiceSpecification, link: { t('.service_specifications') => organizations_service_specifications_path } do
         span.fas.fa-file
-      - if current_organization.job_postings.any?
+      - if can?(:access, :recruiting_subscription)
         = render 'base/navbar_list_item', resource: JobPosting, link: { t('.job_postings') => organizations_job_postings_path } do
           span.fas.fa-bullhorn
       = render 'base/navbar_list_item', resource: ExpenseSheet, link: { t('.expense_sheets') => organizations_expense_sheets_path } do

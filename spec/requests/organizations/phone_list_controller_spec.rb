@@ -5,65 +5,68 @@ require 'rails_helper'
 RSpec.describe Organizations::PhoneListController, type: :request do
   let(:organization) { create :organization, :with_admin }
 
-  context 'when signed in as an organization administrator' do
-    let(:organization_administrator) { create :organization_member, organization: organization }
+  let(:organization_administrator) { create :organization_member, organization: organization }
 
-    let(:first_service_specification) { create :service_specification, organization: organization, name: '1. Spec' }
-    let(:second_service_specification) { create :service_specification, organization: organization, name: '2. Spec' }
+  let(:first_service_specification) { create :service_specification, organization: organization, name: '1. Spec' }
+  let(:second_service_specification) { create :service_specification, organization: organization, name: '2. Spec' }
 
-    let(:first_civil_servant) { create :civil_servant, :full, first_name: 'Hanspeter', last_name: 'Hugentobler' }
-    let(:second_civil_servant) { create :civil_servant, :full }
-    let(:third_civil_servant) do
-      create :civil_servant, :with_service, :with_user,
-             first_name: 'Not', last_name: 'Here',
-             service_attributes: {
-               beginning: '2020-08-03',
-               ending: '2020-09-11',
-               service_specification: first_service_specification
-             },
-             service_traits: [
-               :civil_servant_agreement_pending
-             ]
-    end
-
-    let(:first_service) do
-      create :service,
-             civil_servant: first_civil_servant,
+  let(:first_civil_servant) { create :civil_servant, :full, first_name: 'Hanspeter', last_name: 'Hugentobler' }
+  let(:second_civil_servant) { create :civil_servant, :full }
+  let(:third_civil_servant) do
+    create :civil_servant, :with_service, :with_user,
+           first_name: 'Not', last_name: 'Here',
+           service_attributes: {
              beginning: '2020-08-03',
              ending: '2020-09-11',
              service_specification: first_service_specification
-    end
-    let(:second_service) do
-      create :service,
-             civil_servant: first_civil_servant,
-             beginning: '2020-09-14',
-             ending: '2020-10-16',
-             service_specification: second_service_specification
-    end
-    let(:third_service) do
-      create :service,
-             civil_servant: second_civil_servant,
-             beginning: '2020-08-03',
-             ending: '2020-09-11',
-             service_specification: second_service_specification
-    end
+           },
+           service_traits: [
+             :civil_servant_agreement_pending
+           ]
+  end
 
-    before do
-      first_service
-      second_service
-      third_service
-      sign_in organization_administrator.user
-    end
+  let(:first_service) do
+    create :service,
+           civil_servant: first_civil_servant,
+           beginning: '2020-08-03',
+           ending: '2020-09-11',
+           service_specification: first_service_specification
+  end
+  let(:second_service) do
+    create :service,
+           civil_servant: first_civil_servant,
+           beginning: '2020-09-14',
+           ending: '2020-10-16',
+           service_specification: second_service_specification
+  end
+  let(:third_service) do
+    create :service,
+           civil_servant: second_civil_servant,
+           beginning: '2020-08-03',
+           ending: '2020-09-11',
+           service_specification: second_service_specification
+  end
 
-    around do |spec|
-      travel_to(Date.parse('2020-09-08')) { spec.run }
-    end
+  before do
+    first_service
+    second_service
+    third_service
+  end
 
-    describe '#index' do
-      context 'when format is html' do
-        before { get organizations_phone_list_path(params: params) }
+  around do |spec|
+    travel_to(Date.parse('2020-09-08')) { spec.run }
+  end
 
-        let(:params) { {} }
+  describe '#index' do
+    context 'when format is html' do
+      let(:perform_request) { get organizations_phone_list_path(params: params) }
+      let(:params) { {} }
+
+      context 'when signed in as organization administrator' do
+        before do
+          sign_in organization_administrator.user
+          perform_request
+        end
 
         context 'when there is no filter' do
           it 'returns expected data' do
@@ -118,10 +121,19 @@ RSpec.describe Organizations::PhoneListController, type: :request do
         end
       end
 
-      context 'when format is pdf' do
-        let(:params) { {} }
+      it_behaves_like 'admin subscription route only'
+    end
 
-        before { get organizations_phone_list_path(format: :pdf, params: params) }
+    context 'when format is pdf' do
+      let(:perform_request) { get organizations_phone_list_path(format: :pdf, params: params) }
+
+      let(:params) { {} }
+
+      context 'when signed in as organization administrator' do
+        before do
+          sign_in organization_administrator.user
+          perform_request
+        end
 
         context 'when there is no filter' do
           it 'returns correct response' do
@@ -148,30 +160,8 @@ RSpec.describe Organizations::PhoneListController, type: :request do
           end
         end
       end
-    end
-  end
 
-  context 'when signed in as a civil servant' do
-    let(:civil_servant) { create :civil_servant, :full }
-
-    before { sign_in civil_servant.user }
-
-    describe '#index' do
-      let(:perform_request) { get organizations_phone_list_path }
-
-      before { perform_request }
-
-      it_behaves_like 'unauthorized request'
-    end
-  end
-
-  context 'when no one is signed in' do
-    describe '#index' do
-      let(:perform_request) { get organizations_phone_list_path }
-
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
+      it_behaves_like 'admin subscription route only'
     end
   end
 end

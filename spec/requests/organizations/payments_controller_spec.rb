@@ -30,29 +30,7 @@ RSpec.describe Organizations::PaymentsController, type: :request do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when not subscribed to admin ability' do
-      let(:organization) { create(:organization, :with_recruiting) }
-
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
-    end
-
-    context 'when no one is signed in' do
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
-    end
+    it_behaves_like 'admin subscription route only'
   end
 
   describe '#new' do
@@ -110,22 +88,7 @@ RSpec.describe Organizations::PaymentsController, type: :request do
       end
     end
 
-    describe 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before do
-        sign_in civil_servant.user
-        perform_request
-      end
-
-      it_behaves_like 'unauthorized request'
-    end
-
-    context 'when nobody is signed in' do
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
-    end
+    it_behaves_like 'admin subscription route only'
   end
 
   describe '#create' do
@@ -160,24 +123,8 @@ RSpec.describe Organizations::PaymentsController, type: :request do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
+    it_behaves_like 'admin subscription route only' do
       let(:expense_sheet_ids) { [''] }
-
-      before do
-        sign_in civil_servant.user
-        perform_request
-      end
-
-      it_behaves_like 'unauthorized request'
-    end
-
-    context 'when nobody is signed in' do
-      let(:expense_sheet_ids) { [''] }
-
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
     end
   end
 
@@ -243,19 +190,10 @@ RSpec.describe Organizations::PaymentsController, type: :request do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      before do
-        sign_in civil_servant.user
-        perform_request
-      end
+    context 'when user is not allowed to access' do
+      let(:service) { create(:service) }
 
-      it_behaves_like 'unauthorized request'
-    end
-
-    context 'when nobody is signed in' do
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
+      it_behaves_like 'admin subscription route only'
     end
   end
 
@@ -302,21 +240,7 @@ RSpec.describe Organizations::PaymentsController, type: :request do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when nobody is signed in' do
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
-    end
+    it_behaves_like 'admin subscription route only'
   end
 
   describe '#destroy' do
@@ -357,20 +281,6 @@ RSpec.describe Organizations::PaymentsController, type: :request do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when nobody is signed in' do
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
-    end
+    it_behaves_like 'admin subscription route only'
   end
 end

@@ -21,19 +21,7 @@ RSpec.describe Organizations::ServicesController, type: :request do
         end
       end
 
-      context 'when a civil servant is signed in' do
-        before { sign_in create(:civil_servant, :full).user }
-
-        it_behaves_like 'unauthorized request' do
-          before { perform_request }
-        end
-      end
-
-      context 'when nobody is signed in' do
-        it_behaves_like 'unauthenticated request' do
-          before { perform_request }
-        end
-      end
+      it_behaves_like 'admin subscription route only'
     end
 
     context 'when format is json' do
@@ -52,20 +40,7 @@ RSpec.describe Organizations::ServicesController, type: :request do
         end
       end
 
-      context 'when a civil servant is signed in' do
-        before do
-          sign_in create(:civil_servant, :full).user
-          perform_request
-        end
-
-        it_behaves_like 'unauthorized json request'
-      end
-
-      context 'when nobody is signed in' do
-        it_behaves_like 'unauthenticated json request' do
-          before { perform_request }
-        end
-      end
+      it_behaves_like 'admin subscription json route only'
     end
   end
 
@@ -115,19 +90,6 @@ RSpec.describe Organizations::ServicesController, type: :request do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      before do
-        sign_in create(:civil_servant, :full).user
-        perform_request
-      end
-
-      it_behaves_like 'unauthorized request'
-    end
-
-    context 'when nobody is signed in' do
-      it_behaves_like 'unauthenticated request' do
-        before { perform_request }
-      end
-    end
+    it_behaves_like 'admin subscription route only'
   end
 end

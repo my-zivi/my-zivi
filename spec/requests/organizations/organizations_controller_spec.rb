@@ -20,21 +20,7 @@ RSpec.describe Organizations::OrganizationsController, :without_bullet, type: :r
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create :civil_servant, :full }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when no user is signed in' do
-      it_behaves_like 'unauthenticated request' do
-        before { perform_request }
-      end
-    end
+    it_behaves_like 'admin subscription route only'
   end
 
   describe '#update' do
@@ -94,20 +80,6 @@ RSpec.describe Organizations::OrganizationsController, :without_bullet, type: :r
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create :civil_servant, :full }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when no user is signed in' do
-      it_behaves_like 'unauthenticated request' do
-        before { perform_request }
-      end
-    end
+    it_behaves_like 'admin subscription route only'
   end
 end
