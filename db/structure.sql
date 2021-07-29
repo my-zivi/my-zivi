@@ -591,8 +591,7 @@ CREATE TABLE public.job_postings (
     brief_description character varying NOT NULL,
     featured_as_new boolean DEFAULT false NOT NULL,
     priority_program boolean DEFAULT false NOT NULL,
-    slug character varying NOT NULL,
-    organization_member_id bigint
+    slug character varying NOT NULL
 );
 
 
@@ -689,7 +688,7 @@ ALTER SEQUENCE public.organization_holidays_id_seq OWNED BY public.organization_
 
 CREATE TABLE public.organization_members (
     id bigint NOT NULL,
-    organization_id bigint,
+    organization_id bigint NOT NULL,
     first_name character varying NOT NULL,
     last_name character varying NOT NULL,
     phone character varying NOT NULL,
@@ -1615,13 +1614,6 @@ CREATE INDEX index_job_postings_on_organization_id ON public.job_postings USING 
 
 
 --
--- Name: index_job_postings_on_organization_member_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_job_postings_on_organization_member_id ON public.job_postings USING btree (organization_member_id);
-
-
---
 -- Name: index_job_postings_on_slug; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1891,14 +1883,6 @@ ALTER TABLE ONLY public.driving_licenses_service_specifications
 
 
 --
--- Name: job_postings fk_rails_12619e823d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.job_postings
-    ADD CONSTRAINT fk_rails_12619e823d FOREIGN KEY (organization_member_id) REFERENCES public.organization_members(id);
-
-
---
 -- Name: driving_licenses_service_specifications fk_rails_13305e59f4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2131,7 +2115,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210608143812'),
 ('20210702194919'),
 ('20210707153648'),
-('20210708095018'),
 ('20210726075638'),
 ('20210727075054');
 
