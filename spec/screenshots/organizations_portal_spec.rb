@@ -4,7 +4,10 @@ require 'rails_helper'
 require 'percy'
 
 RSpec.describe 'Organizations Portal Screenshots', type: :system, js: true do
-  let(:organization_administrator) { create(:organization_member, first_name: 'Therese', last_name: 'Mayer') }
+  let(:organization) { create(:organization) }
+  let(:organization_administrator) do
+    create(:organization_member, first_name: 'Therese', last_name: 'Mayer', organization: organization)
+  end
 
   before do
     service_specification = create(:service_specification, organization: organization_administrator.organization)
@@ -16,5 +19,34 @@ RSpec.describe 'Organizations Portal Screenshots', type: :system, js: true do
   it 'renders front page correctly' do
     visit organizations_path
     Percy.snapshot(page, { name: 'Organizations Dashboard' })
+  end
+
+  context 'when organization subscribed to admin' do
+    let(:organization) { create(:organization, :with_admin) }
+
+    it 'renders front page correctly' do
+      visit organizations_path
+      Percy.snapshot(page, { name: 'Organizations Dashboard with Admin Subscription' })
+    end
+  end
+
+  context 'when organization subscribed to recruiting' do
+    let(:organization) { create(:organization, :with_recruiting) }
+
+    it 'renders front page correctly' do
+      visit organizations_path
+      Percy.snapshot(page, { name: 'Organizations Dashboard with Recruiting Subscription' })
+    end
+  end
+
+  context 'when organization subscribed to recruiting and admin' do
+    let(:organization) do
+      create(:organization, subscriptions: [build(:recruiting_subscription), build(:admin_subscription)])
+    end
+
+    it 'renders front page correctly' do
+      visit organizations_path
+      Percy.snapshot(page, { name: 'Organizations Dashboard with Recruiting and Admin Subscription' })
+    end
   end
 end
