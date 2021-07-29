@@ -6,6 +6,18 @@ RSpec.describe Users::RegistrationsController do
   describe '#edit' do
     let(:perform_request) { get edit_user_registration_path }
 
+    shared_examples_for 'renders password edit' do
+      before do
+        sign_in user
+        perform_request
+      end
+
+      it 'renders template correct' do
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template 'users/registrations/edit', 'layouts/organizations/application'
+      end
+    end
+
     context 'when an organization member is signed in' do
       let(:user) { create(:organization_member).user }
 
@@ -19,18 +31,6 @@ RSpec.describe Users::RegistrationsController do
     end
 
     it_behaves_like 'admin subscription route only', skip_civil_servant_check: true
-
-    shared_examples_for 'renders password edit' do
-      before do
-        sign_in user
-        perform_request
-      end
-
-      it 'renders template correct' do
-        expect(response).to have_http_status(:ok)
-        expect(response).to render_template 'users/registrations/edit', 'layouts/organizations/application'
-      end
-    end
   end
 
   describe '#update' do

@@ -19,10 +19,6 @@ class Organization < ApplicationRecord
 
   has_one_attached :icon
 
-  enum subscription: {
-    admin: 'admin'
-  }
-
   accepts_nested_attributes_for :address, allow_destroy: false, update_only: true
   accepts_nested_attributes_for :creditor_detail, allow_destroy: false, update_only: true, reject_if: :all_blank
 
