@@ -8,7 +8,11 @@ RSpec.describe 'organizations/service_specifications/edit', type: :view do
 
   before do
     assign(:service_specification, service_specification)
-    allow(view).to receive(:current_organization_admin).and_return current_organization_admin
+
+    without_partial_double_verification do
+      allow(view).to receive(:current_organization).and_return current_organization_admin.organization
+      allow(view).to receive(:current_organization_admin).and_return current_organization_admin
+    end
   end
 
   it_behaves_like 'renders service specification form' do
