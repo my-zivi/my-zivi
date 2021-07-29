@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Organizations::PaymentsController, type: :request do
   subject { response }
 
-  let(:organization) { create :organization }
+  let(:organization) { create :organization, :with_admin }
 
   describe '#index' do
     let(:perform_request) { get organizations_payments_path }
@@ -40,6 +40,14 @@ RSpec.describe Organizations::PaymentsController, type: :request do
       end
     end
 
+    context 'when not subscribed to admin ability' do
+      let(:organization) { create(:organization, :with_recruiting) }
+
+      before { perform_request }
+
+      it_behaves_like 'unauthenticated request'
+    end
+
     context 'when no one is signed in' do
       before { perform_request }
 
@@ -63,7 +71,7 @@ RSpec.describe Organizations::PaymentsController, type: :request do
       end
 
       describe 'expense sheets selection' do
-        let(:outside_organization) { create(:organization) }
+        let(:outside_organization) { create(:organization, :with_admin) }
         let(:civil_servants) do
           [
             create(:civil_servant, :full, :with_service,

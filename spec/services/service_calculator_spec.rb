@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ServiceCalculator, type: :service do
   let(:beginning) { Date.new(2018, 1, 1) }
-  let(:organization) { create(:organization) }
+  let(:organization) { create(:organization, :with_admin) }
   let(:last_civil_service) { false }
   let(:probation_civil_service) { false }
   let(:short_service_calculator) do

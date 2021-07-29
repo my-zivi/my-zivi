@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'organizations/overview/index.html.slim', type: :view do
   subject { rendered }
 
-  let(:current_organization_admin) { create(:organization_member) }
+  let(:current_organization_admin) { create(:organization_member, :with_admin_subscribed_organization) }
   let(:service) { create(:service) }
   let(:expected_strings) do
     [

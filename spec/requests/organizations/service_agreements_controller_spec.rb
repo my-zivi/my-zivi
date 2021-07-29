@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Organizations::ServiceAgreementsController, type: :request do
   describe '#index', :without_bullet do
     let(:perform_request) { get organizations_service_agreements_path }
-    let(:organization) { create :organization }
+    let(:organization) { create :organization, :with_admin }
     let(:service_specification) { create :service_specification, organization: organization }
 
     let(:brigitte) { create(:civil_servant, :with_service, :full, first_name: 'Brigitte') }
@@ -61,7 +61,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
 
   describe '#destroy' do
     let(:perform_request) { delete organizations_service_agreement_path(maria_service) }
-    let(:organization) { create :organization }
+    let(:organization) { create :organization, :with_admin }
     let(:service_specification) { create :service_specification, organization: organization }
 
     let(:maria) { create(:civil_servant, :full, first_name: 'Maria') }
@@ -136,7 +136,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
       get organizations_service_agreement_civil_servant_search_path(term: search_term, format: :json)
     end
     let(:search_term) { nil }
-    let(:organization) { create :organization }
+    let(:organization) { create :organization, :with_admin }
 
     before do
       create_list(:civil_servant, 3, :full)
@@ -196,7 +196,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
 
   describe '#new' do
     let(:perform_request) { get new_organizations_service_agreement_path(params: request_params) }
-    let(:organization) { create :organization }
+    let(:organization) { create :organization, :with_admin }
     let(:service_specification) { create :service_specification, organization: organization }
 
     let(:maria) { create(:civil_servant, :full, first_name: 'Maria') }
@@ -270,7 +270,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
     let(:perform_request) { post(organizations_service_agreements_path, params: params) }
     let(:params) { { service_agreement: service_agreement_params } }
 
-    let(:organization) { create :organization }
+    let(:organization) { create :organization, :with_admin }
     let(:service_specification) { create :service_specification, organization: organization }
 
     let(:valid_service_agreement_params) do

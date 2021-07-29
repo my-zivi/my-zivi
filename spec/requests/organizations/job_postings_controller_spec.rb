@@ -5,12 +5,12 @@ require 'rails_helper'
 RSpec.describe Organizations::JobPostingsController, type: :request do
   describe '#index' do
     let(:perform_request) { get(organizations_job_postings_path) }
-    let(:organization) { create(:organization, :with_recruiting_subscription) }
+    let(:organization) { create(:organization, :with_recruiting) }
     let(:visible_job_posting) { create(:job_posting, organization: organization, title: 'Naturschutz') }
     let(:invisible_job_postings) do
       [
         create(:job_posting, title: 'Pflege'),
-        create(:job_posting, organization: create(:organization), title: 'Archivierung')
+        create(:job_posting, organization: create(:organization, :with_admin), title: 'Archivierung')
       ]
     end
 
@@ -51,7 +51,7 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
 
   describe '#edit' do
     let(:perform_request) { get edit_organizations_job_posting_path(job_posting) }
-    let(:organization) { create(:organization, :with_recruiting_subscription) }
+    let(:organization) { create(:organization, :with_recruiting) }
     let(:job_posting) { create(:job_posting, organization: organization) }
 
     context 'when a organization administrator is signed in' do
@@ -110,7 +110,7 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
                                              job_posting: update_params.merge(action_text_params)
                                            }))
     end
-    let(:organization) { create(:organization, :with_recruiting_subscription) }
+    let(:organization) { create(:organization, :with_recruiting) }
     let(:job_posting) { create(:job_posting, organization: organization) }
 
     let(:update_params) do

@@ -60,7 +60,7 @@ RSpec.describe ApplicationController, type: :controller do
     before { allow(controller).to receive(:current_user).and_return current_user }
 
     context 'when an organization administrator is signed in' do
-      let(:organization) { create :organization }
+      let(:organization) { create :organization, :with_admin }
       let(:admin) { build :organization_member, organization: organization }
 
       let(:current_user) { admin.user }

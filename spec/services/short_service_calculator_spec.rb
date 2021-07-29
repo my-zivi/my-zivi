@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe ShortServiceCalculator, type: :service do
-  let(:organization) { create(:organization) }
+  let(:organization) { create(:organization, :with_admin) }
 
   describe '#calculate_ending_date' do
     subject { calculated_ending_day }

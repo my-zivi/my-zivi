@@ -98,7 +98,7 @@ RSpec.describe CivilServantServiceAgreementSearch, type: :service do
   describe '#filtered_organization_civil_servants' do
     subject(:search_result) { described_class.filtered_organization_civil_servants(search_term, organization) }
 
-    let(:organization) { create :organization }
+    let(:organization) { create :organization, :with_admin }
     let(:service_specification) { create :service_specification, organization: organization }
 
     let!(:maria) { create(:civil_servant, :full, first_name: 'Maria', last_name: 'Magdalena') }

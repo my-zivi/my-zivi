@@ -51,7 +51,7 @@ FactoryBot.define do
 
     trait :with_service do
       transient do
-        organization { create :organization }
+        organization { create :organization, :with_admin }
         service_specification { create :service_specification, organization: organization }
         service_attributes { {} }
         service_traits { [] }

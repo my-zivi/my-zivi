@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Organizations Portal Walkthrough', type: :system do
-  let!(:organization) { create(:organization) }
+  let!(:organization) { create(:organization, :with_admin) }
   let!(:service_specification) { create(:service_specification, organization: organization) }
   let!(:civil_servant) { create(:civil_servant, :full) }
   let!(:service) do

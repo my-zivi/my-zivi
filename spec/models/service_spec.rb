@@ -424,7 +424,7 @@ RSpec.describe Service, type: :model do
 
   describe '#service_days' do
     let(:service) { build(:service, beginning: beginning, ending: beginning + 25.days, organization: organization) }
-    let(:organization) { create(:organization) }
+    let(:organization) { create(:organization, :with_admin) }
     let(:beginning) { Time.zone.today.beginning_of_week }
 
     it 'returns the service days of the service' do
@@ -437,7 +437,7 @@ RSpec.describe Service, type: :model do
       build(:service, :long,
             beginning: beginning,
             ending: beginning + 214.days,
-            organization: create(:organization))
+            organization: create(:organization, :with_admin))
     end
 
     let(:beginning) { Time.zone.today.beginning_of_week }
@@ -449,7 +449,10 @@ RSpec.describe Service, type: :model do
 
   describe '#eligible_sick_days' do
     subject(:service) do
-      build(:service, beginning: beginning, ending: beginning + 25.days, organization: create(:organization))
+      build(:service,
+            beginning: beginning,
+            ending: beginning + 25.days,
+            organization: create(:organization, :with_admin))
     end
 
     let(:beginning) { Time.zone.today.beginning_of_week }

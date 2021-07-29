@@ -6,7 +6,7 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
   subject { response }
 
   context 'when an organization administrator is signed in' do
-    let(:organization_admin) { create :organization_member }
+    let(:organization_admin) { create(:organization_member, :with_admin_subscribed_organization) }
 
     before { sign_in organization_admin.user }
 
@@ -53,7 +53,7 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
       end
 
       context 'when trying to access an outside service specification' do
-        let(:outside_organization) { create :organization }
+        let(:outside_organization) { create :organization, :with_admin }
         let(:service_specification) { create :service_specification, organization: outside_organization }
 
         it_behaves_like 'unauthorized request' do
@@ -133,7 +133,7 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
         end
 
         context 'when trying to update a service specification of an outside organization' do
-          let(:outside_organization) { create :organization }
+          let(:outside_organization) { create :organization, :with_admin }
           let(:service_specification) { create :service_specification, organization: outside_organization }
 
           it_behaves_like 'unauthorized request' do
@@ -177,7 +177,7 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
       end
 
       context 'when trying to destroy ' do
-        let(:outside_organization) { create :organization }
+        let(:outside_organization) { create :organization, :with_admin }
         let(:service_specification) { create :service_specification, organization: outside_organization }
 
         it 'does not delete the service specification' do

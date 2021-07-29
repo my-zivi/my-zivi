@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Organizations::ExpenseSheetsController, type: :request do
   describe '#index', :without_bullet do
     let(:perform_request) { get organizations_expense_sheets_path }
-    let(:organization) { create :organization }
+    let(:organization) { create :organization, :with_admin }
 
     let(:brigitte) { create(:civil_servant, :with_service, :full, first_name: 'Brigitte') }
     let(:peter) { create(:civil_servant, :with_service, :full, first_name: 'Peter') }
@@ -74,7 +74,7 @@ RSpec.describe Organizations::ExpenseSheetsController, type: :request do
 
   describe '#edit' do
     let(:perform_request) { get edit_organizations_expense_sheet_path(paul_expense_sheet) }
-    let(:organization) { create :organization }
+    let(:organization) { create :organization, :with_admin }
 
     let(:brigitte) { create(:civil_servant, :with_service, :full, first_name: 'Brigitte') }
     let(:maria) { create(:civil_servant, :with_service, :full, organization: organization, first_name: 'Maria') }
@@ -152,7 +152,7 @@ RSpec.describe Organizations::ExpenseSheetsController, type: :request do
     let(:perform_request) do
       patch organizations_expense_sheet_path(paul_expense_sheet, params: { expense_sheet: update_params })
     end
-    let(:organization) { create :organization }
+    let(:organization) { create :organization, :with_admin }
 
     let(:paul) { create(:civil_servant, :with_service, :full, organization: organization, first_name: 'Paul') }
     let(:paul_service) { paul.services.first }

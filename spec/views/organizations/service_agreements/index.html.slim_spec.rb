@@ -30,7 +30,7 @@ RSpec.describe 'organizations/service_agreements/index.html.slim', type: :view d
       create(:service, civil_servant: third_civil_servant)
     ]
   end
-  let(:organization) { create :organization }
+  let(:organization) { create :organization, :with_admin }
 
   before do
     assign(:service_agreements, service_agreements)

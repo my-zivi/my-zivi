@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Organizations::CivilServantsController, type: :request do
   describe '#index' do
     let(:perform_request) { get organizations_civil_servants_path }
-    let(:organization) { create :organization }
+    let(:organization) { create :organization, :with_admin }
 
     before do
       create(:civil_servant, :with_service, :full, first_name: 'Maria')
@@ -20,7 +20,7 @@ RSpec.describe Organizations::CivilServantsController, type: :request do
     end
 
     context 'when a organization administrator is signed in' do
-      let(:organization_administrator) { create :organization_member, organization: organization }
+      let(:organization_administrator) { create(:organization_member, organization: organization) }
 
       before { sign_in organization_administrator.user }
 
@@ -62,7 +62,7 @@ RSpec.describe Organizations::CivilServantsController, type: :request do
   describe '#show' do
     let(:perform_request) { get organizations_civil_servant_path(civil_servant) }
 
-    let(:organization) { create(:organization) }
+    let(:organization) { create(:organization, :with_admin) }
     let(:civil_servant) { create(:civil_servant, :full, :with_service, organization: organization) }
 
     context 'when an organization administrator is signed in' do

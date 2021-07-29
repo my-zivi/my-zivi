@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Organizations::PhoneListController, type: :request do
-  let(:organization) { create :organization }
+  let(:organization) { create :organization, :with_admin }
 
   context 'when signed in as an organization administrator' do
     let(:organization_administrator) { create :organization_member, organization: organization }

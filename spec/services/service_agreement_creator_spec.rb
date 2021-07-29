@@ -8,7 +8,7 @@ RSpec.describe ServiceAgreementCreator, type: :service do
       described_class.new(civil_servant, service_creator).call(service_agreement_params)
     end
 
-    let(:organization) { create :organization }
+    let(:organization) { create :organization, :with_admin }
     let(:service_specification) { create :service_specification, organization: organization }
 
     let(:valid_service_agreement_params) do

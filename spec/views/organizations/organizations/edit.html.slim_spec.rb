@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'organizations/organizations/edit.html.slim', type: :view do
-  let(:organization) { create(:organization) }
+  let(:organization) { create(:organization, :with_admin) }
   let(:organization_member) { create(:organization_member, organization: organization) }
 
   before do
@@ -52,7 +52,7 @@ RSpec.describe 'organizations/organizations/edit.html.slim', type: :view do
     end
 
     context 'when organization does not have admin subscription' do
-      let(:organization) { create(:organization, :with_recruiting_subscription) }
+      let(:organization) { create(:organization, :with_recruiting) }
 
       it 'does not contain creditor detail related fields' do
         expect(rendered).not_to(have_input_field('organization[creditor_detail_attributes][iban]'))

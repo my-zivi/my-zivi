@@ -158,7 +158,7 @@ RSpec.describe CivilServant, type: :model do
     context 'when an organization is given' do
       subject { civil_servant.active_service(organization) }
 
-      let(:organization) { create(:organization) }
+      let(:organization) { create(:organization, :with_admin) }
       let(:service_specification) { create(:service_specification, organization: organization) }
 
       context 'when current service is in given organization' do

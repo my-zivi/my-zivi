@@ -11,7 +11,7 @@ RSpec.describe Organizations::ServicesController, type: :request do
 
       context 'when an organization administrator is signed in' do
         before do
-          sign_in create(:organization_member).user
+          sign_in create(:organization_member, :with_admin_subscribed_organization).user
           perform_request
         end
 
@@ -41,7 +41,7 @@ RSpec.describe Organizations::ServicesController, type: :request do
 
       context 'when an organization administrator is signed in' do
         before do
-          sign_in create(:organization_member).user
+          sign_in create(:organization_member, :with_admin_subscribed_organization).user
           perform_request
         end
 
@@ -72,7 +72,7 @@ RSpec.describe Organizations::ServicesController, type: :request do
   describe '#confirm' do
     let(:perform_request) { put confirm_organizations_civil_servant_service_path(service.civil_servant, service) }
 
-    let(:organization_administrator) { create(:organization_member) }
+    let(:organization_administrator) { create(:organization_member, :with_admin_subscribed_organization) }
     let(:service) { civil_servant.services.first }
     let(:civil_servant) do
       create(:civil_servant, :full, :with_service,
