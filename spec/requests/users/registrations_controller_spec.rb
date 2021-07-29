@@ -9,6 +9,18 @@ RSpec.describe Users::RegistrationsController do
     context 'when an organization member is signed in' do
       let(:user) { create(:organization_member).user }
 
+      it_behaves_like 'renders password edit'
+    end
+
+    context 'when a civil servant is signed in' do
+      let(:user) { create(:civil_servant, :with_user, :full).user }
+
+      it_behaves_like 'renders password edit'
+    end
+
+    it_behaves_like 'admin subscription route only', skip_civil_servant_check: true
+
+    shared_examples_for 'renders password edit' do
       before do
         sign_in user
         perform_request
@@ -19,8 +31,6 @@ RSpec.describe Users::RegistrationsController do
         expect(response).to render_template 'users/registrations/edit', 'layouts/organizations/application'
       end
     end
-
-    it_behaves_like 'admin subscription route only', skip_civil_servant_check: true
   end
 
   describe '#update' do
