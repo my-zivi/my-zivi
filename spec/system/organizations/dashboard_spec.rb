@@ -56,7 +56,7 @@ RSpec.describe 'Organizations Portal Dashboard', type: :system do
     end
 
     context 'when organization has admin subscription' do
-      let!(:organization) { create(:organization, :with_admin) }
+      let(:organization) { create(:organization, :with_admin) }
 
       let(:expected_nav_items) do
         %w[
@@ -95,7 +95,7 @@ RSpec.describe 'Organizations Portal Dashboard', type: :system do
     end
 
     context 'when organization has recruiting subscription' do
-      let!(:organization) { create(:organization, :with_recruiting) }
+      let(:organization) { create(:organization, :with_recruiting) }
 
       let(:expected_nav_items) do
         %w[
@@ -138,7 +138,7 @@ RSpec.describe 'Organizations Portal Dashboard', type: :system do
 
   describe 'dashboard content' do
     let(:expected_content_strings) do
-      [ I18n.t('organizations.overview.index.cards.welcome_back.title', name: organization_administrator.full_name) ]
+      [I18n.t('organizations.overview.index.cards.welcome_back.title', name: organization_administrator.full_name)]
     end
 
     let(:unexpected_content_strings) do
@@ -164,7 +164,7 @@ RSpec.describe 'Organizations Portal Dashboard', type: :system do
     end
 
     context 'when organization has admin subscription' do
-      let!(:organization) { create(:organization, :with_admin) }
+      let(:organization) { create(:organization, :with_admin) }
 
       let(:expected_content_strings) do
         [
@@ -177,7 +177,7 @@ RSpec.describe 'Organizations Portal Dashboard', type: :system do
       end
 
       let(:unexpected_content_strings) do
-        [ I18n.t('organizations.overview.index.cards.job_postings.title') ]
+        [I18n.t('organizations.overview.index.cards.job_postings.title')]
       end
 
       it 'renders expected content' do
@@ -191,11 +191,10 @@ RSpec.describe 'Organizations Portal Dashboard', type: :system do
           expect(page).not_to have_content(unexpected_content_string)
         end
       end
-
     end
 
     context 'when organization has recruiting subscription' do
-      let!(:organization) { create(:organization, :with_recruiting) }
+      let(:organization) { create(:organization, :with_recruiting) }
 
       let(:expected_content_strings) do
         [

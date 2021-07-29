@@ -63,8 +63,8 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
       it 'render a successful response' do
         expect(response).to be_successful
         expect(response.body).to include(
-                                   I18n.t('organizations.service_specifications.edit.title', name: service_specification.name)
-                                 )
+          I18n.t('organizations.service_specifications.edit.title', name: service_specification.name)
+        )
       end
 
       context 'when trying to access an outside service specification' do
