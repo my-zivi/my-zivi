@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Authentication', type: :system do
   context 'when user is an organization administrator' do
-    let(:organization_administrator) { create(:organization_member) }
+    let(:organization_administrator) { create(:organization_member, :with_admin_subscribed_organization) }
 
     it 'can sign in' do
       visit new_user_session_path
