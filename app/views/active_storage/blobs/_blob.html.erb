@@ -2,7 +2,6 @@
   <% if blob.video? %>
     <video
       width="100%"
-      autoplay="false"
       preload="metadata"
       poster="<%= polymorphic_url(blob.preview(resize_to_limit: [1024, 768])) if blob.previewable? %>"
       controls
