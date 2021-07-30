@@ -25,3 +25,8 @@ body {
 .bg-blue {
   background-color: $blue;
 }
+
+.attachment.attachment--preview > img {
+  max-width: 100%;
+  height: auto;
+}
