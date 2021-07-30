@@ -42,7 +42,7 @@ module MyZivi
     config.exceptions_app = routes
 
     config.after_initialize do
-      %w[style controls poster type preload autoplay width target].each do |attr|
+      %w[style controls poster type preload width target].each do |attr|
         ActionText::ContentHelper.allowed_attributes.add attr
       end
 

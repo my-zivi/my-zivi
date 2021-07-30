@@ -2,11 +2,11 @@
 
 module Organizations
   class OrganizationsController < BaseController
-    include UsersHelper
-
     before_action :load_organization
 
-    def edit; end
+    def edit
+      @organization.build_creditor_detail unless @organization.creditor_detail
+    end
 
     def update
       if @organization.update(organization_params)

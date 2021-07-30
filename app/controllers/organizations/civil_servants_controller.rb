@@ -4,8 +4,6 @@ module Organizations
   class CivilServantsController < BaseController
     load_and_authorize_resource
 
-    include UsersHelper
-
     def index
       load_filters
       @civil_servants = filtered_civil_servants

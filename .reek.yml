@@ -27,6 +27,11 @@ detectors:
       - e
 
 directories:
+  "app/models/abilities":
+    ControlParameter:
+      enabled: false
+    UtilityFunction:
+      enabled: false
   "app/helpers":
     UtilityFunction:
       enabled: false

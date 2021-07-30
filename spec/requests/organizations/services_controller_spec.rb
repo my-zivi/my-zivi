@@ -11,7 +11,7 @@ RSpec.describe Organizations::ServicesController, type: :request do
 
       context 'when an organization administrator is signed in' do
         before do
-          sign_in create(:organization_member).user
+          sign_in create(:organization_member, :with_admin_subscribed_organization).user
           perform_request
         end
 
@@ -21,19 +21,7 @@ RSpec.describe Organizations::ServicesController, type: :request do
         end
       end
 
-      context 'when a civil servant is signed in' do
-        before { sign_in create(:civil_servant, :full).user }
-
-        it_behaves_like 'unauthorized request' do
-          before { perform_request }
-        end
-      end
-
-      context 'when nobody is signed in' do
-        it_behaves_like 'unauthenticated request' do
-          before { perform_request }
-        end
-      end
+      it_behaves_like 'admin subscription route only'
     end
 
     context 'when format is json' do
@@ -41,7 +29,7 @@ RSpec.describe Organizations::ServicesController, type: :request do
 
       context 'when an organization administrator is signed in' do
         before do
-          sign_in create(:organization_member).user
+          sign_in create(:organization_member, :with_admin_subscribed_organization).user
           perform_request
         end
 
@@ -52,27 +40,14 @@ RSpec.describe Organizations::ServicesController, type: :request do
         end
       end
 
-      context 'when a civil servant is signed in' do
-        before do
-          sign_in create(:civil_servant, :full).user
-          perform_request
-        end
-
-        it_behaves_like 'unauthorized json request'
-      end
-
-      context 'when nobody is signed in' do
-        it_behaves_like 'unauthenticated json request' do
-          before { perform_request }
-        end
-      end
+      it_behaves_like 'admin subscription json route only'
     end
   end
 
   describe '#confirm' do
     let(:perform_request) { put confirm_organizations_civil_servant_service_path(service.civil_servant, service) }
 
-    let(:organization_administrator) { create(:organization_member) }
+    let(:organization_administrator) { create(:organization_member, :with_admin_subscribed_organization) }
     let(:service) { civil_servant.services.first }
     let(:civil_servant) do
       create(:civil_servant, :full, :with_service,
@@ -115,19 +90,6 @@ RSpec.describe Organizations::ServicesController, type: :request do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      before do
-        sign_in create(:civil_servant, :full).user
-        perform_request
-      end
-
-      it_behaves_like 'unauthorized request'
-    end
-
-    context 'when nobody is signed in' do
-      it_behaves_like 'unauthenticated request' do
-        before { perform_request }
-      end
-    end
+    it_behaves_like 'admin subscription route only'
   end
 end

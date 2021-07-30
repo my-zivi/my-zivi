@@ -5,12 +5,12 @@ require 'rails_helper'
 RSpec.describe Organizations::JobPostingsController, type: :request do
   describe '#index' do
     let(:perform_request) { get(organizations_job_postings_path) }
-    let(:organization) { create(:organization) }
+    let(:organization) { create(:organization, :with_recruiting) }
     let(:visible_job_posting) { create(:job_posting, organization: organization, title: 'Naturschutz') }
     let(:invisible_job_postings) do
       [
         create(:job_posting, title: 'Pflege'),
-        create(:job_posting, organization: create(:organization), title: 'Archivierung')
+        create(:job_posting, organization: create(:organization, :with_admin), title: 'Archivierung')
       ]
     end
 
@@ -32,26 +32,12 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when nobody is signed in' do
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
-    end
+    it_behaves_like 'recruiting subscription route only'
   end
 
   describe '#edit' do
     let(:perform_request) { get edit_organizations_job_posting_path(job_posting) }
-    let(:organization) { create(:organization) }
+    let(:organization) { create(:organization, :with_recruiting) }
     let(:job_posting) { create(:job_posting, organization: organization) }
 
     context 'when a organization administrator is signed in' do
@@ -87,21 +73,7 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when nobody is signed in' do
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
-    end
+    it_behaves_like 'recruiting subscription route only'
   end
 
   describe '#update' do
@@ -110,7 +82,7 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
                                              job_posting: update_params.merge(action_text_params)
                                            }))
     end
-    let(:organization) { create(:organization) }
+    let(:organization) { create(:organization, :with_recruiting) }
     let(:job_posting) { create(:job_posting, organization: organization) }
 
     let(:update_params) do
@@ -175,20 +147,6 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when nobody is signed in' do
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
-    end
+    it_behaves_like 'recruiting subscription route only'
   end
 end

@@ -18,8 +18,10 @@ RSpec.describe 'organizations/service_agreements/new.html.slim', type: :view do
       t('activerecord.enums.service.service_types.normal')
     ]
   end
-  let(:service_agreement) { build(:service, civil_servant: civil_servant, organization: create(:organization)) }
-  let(:organization) { create(:organization) }
+  let(:organization) { create(:organization, :with_admin) }
+  let(:service_agreement) do
+    build(:service, civil_servant: civil_servant, organization: create(:organization, :with_admin))
+  end
 
   before do
     assign(:service_agreement, service_agreement)

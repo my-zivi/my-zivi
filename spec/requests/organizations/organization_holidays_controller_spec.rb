@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Organizations::OrganizationHolidaysController, :without_bullet, type: :request do
   describe '#index' do
     let(:perform_request) { get organizations_organization_holidays_path }
-    let(:organization) { create(:organization) }
+    let(:organization) { create(:organization, :with_admin) }
     let(:other_organization_holiday) { create(:organization_holiday) }
     let!(:organization_holidays) do
       [
@@ -30,25 +30,11 @@ RSpec.describe Organizations::OrganizationHolidaysController, :without_bullet, t
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when nobody is signed in' do
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
-    end
+    it_behaves_like 'admin subscription route only'
   end
 
   describe '#edit' do
-    let(:organization) { create(:organization) }
+    let(:organization) { create(:organization, :with_admin) }
     let(:organization_holiday) { create(:organization_holiday, organization: organization) }
     let(:perform_request) { get edit_organizations_organization_holiday_path(organization_holiday) }
 
@@ -65,28 +51,14 @@ RSpec.describe Organizations::OrganizationHolidaysController, :without_bullet, t
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when no user is signed in' do
-      it_behaves_like 'unauthenticated request' do
-        before { perform_request }
-      end
-    end
+    it_behaves_like 'admin subscription route only'
   end
 
   describe '#new' do
     let(:perform_request) { get new_organizations_organization_holiday_path }
 
     context 'when a organization administrator is signed in' do
-      let(:organization_administrator) { create(:organization_member) }
+      let(:organization_administrator) { create(:organization_member, :with_admin_subscribed_organization) }
 
       before { sign_in organization_administrator.user }
 
@@ -97,21 +69,7 @@ RSpec.describe Organizations::OrganizationHolidaysController, :without_bullet, t
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when nobody is signed in' do
-      before { perform_request }
-
-      it_behaves_like 'unauthenticated request'
-    end
+    it_behaves_like 'admin subscription route only'
   end
 
   describe '#create' do
@@ -119,7 +77,7 @@ RSpec.describe Organizations::OrganizationHolidaysController, :without_bullet, t
     let(:params) { {} }
 
     context 'when an organization admin is signed in' do
-      let(:organization_administrator) { create(:organization_member) }
+      let(:organization_administrator) { create(:organization_member, :with_admin_subscribed_organization) }
 
       before { sign_in organization_administrator.user }
 
@@ -154,25 +112,11 @@ RSpec.describe Organizations::OrganizationHolidaysController, :without_bullet, t
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when no user is signed in' do
-      it_behaves_like 'unauthenticated request' do
-        before { perform_request }
-      end
-    end
+    it_behaves_like 'admin subscription route only'
   end
 
   describe '#update' do
-    let(:organization) { create(:organization) }
+    let(:organization) { create(:organization, :with_admin) }
     let(:organization_holiday) { create(:organization_holiday, organization: organization) }
     let(:perform_request) { patch organizations_organization_holiday_path(organization_holiday), params: params }
     let(:params) { {} }
@@ -222,26 +166,12 @@ RSpec.describe Organizations::OrganizationHolidaysController, :without_bullet, t
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when no user is signed in' do
-      it_behaves_like 'unauthenticated request' do
-        before { perform_request }
-      end
-    end
+    it_behaves_like 'admin subscription route only'
   end
 
   describe '#destroy' do
     let(:perform_request) { delete organizations_organization_holiday_path(organization_holiday) }
-    let(:organization) { create(:organization) }
+    let(:organization) { create(:organization, :with_admin) }
     let!(:organization_holiday) { create(:organization_holiday, :in_future, organization: organization) }
 
     context 'when an organization admin is signed in' do
@@ -275,20 +205,6 @@ RSpec.describe Organizations::OrganizationHolidaysController, :without_bullet, t
       end
     end
 
-    context 'when a civil servant is signed in' do
-      let(:civil_servant) { create(:civil_servant, :full) }
-
-      before { sign_in civil_servant.user }
-
-      it_behaves_like 'unauthorized request' do
-        before { perform_request }
-      end
-    end
-
-    context 'when no user is signed in' do
-      it_behaves_like 'unauthenticated request' do
-        before { perform_request }
-      end
-    end
+    it_behaves_like 'admin subscription route only'
   end
 end

@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe HolidayCalculator, type: :service do
   let(:beginning) { Date.parse('2019-12-30') }
   let(:ending) { Date.parse('2020-01-31') }
-  let(:organization) { create(:organization) }
+  let(:organization) { create(:organization, :with_admin) }
   let(:holiday_calculator) { described_class.new(beginning, ending, organization) }
 
   describe '#calculate_company_holiday_days' do
@@ -35,7 +35,7 @@ RSpec.describe HolidayCalculator, type: :service do
           create(:organization_holiday,
                  beginning: '2020-01-16',
                  ending: '2020-01-21',
-                 organization: create(:organization))
+                 organization: create(:organization, :with_admin))
         end
 
         it { is_expected.to eq 5 }

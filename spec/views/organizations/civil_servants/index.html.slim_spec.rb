@@ -16,6 +16,10 @@ RSpec.describe 'organizations/civil_servants/index.html.slim', type: :view do
   before do
     assign(:civil_servants, civil_servants)
     assign(:filters, { show_inactive: show_inactive })
+    without_partial_double_verification do
+      allow(view).to receive(:current_organization).and_return build(:organization)
+    end
+
     render
   end
 

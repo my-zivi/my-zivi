@@ -83,7 +83,7 @@ RSpec.describe JobPostingApi::Poller, :vcr do
       end
 
       context 'when the job posting has been claimed by an organization' do
-        let(:organization) { create(:organization) }
+        let(:organization) { create(:organization, :with_admin) }
         let(:job_posting) { create(:job_posting, identification_number: 89_117, organization: organization) }
 
         it 'does not update the job posting' do

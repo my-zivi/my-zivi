@@ -4,8 +4,6 @@ module Organizations
   class OrganizationMembersController < BaseController
     PERMITTED_ORGANIZATION_MEMBER_PARAMS = %i[first_name last_name phone organization_role contact_email].freeze
 
-    include UsersHelper
-
     load_and_authorize_resource
 
     def index

@@ -898,6 +898,38 @@ ALTER SEQUENCE public.services_id_seq OWNED BY public.services.id;
 
 
 --
+-- Name: subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.subscriptions (
+    id bigint NOT NULL,
+    organization_id bigint,
+    type character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
+
+
+--
 -- Name: sys_admins; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1177,6 +1209,13 @@ ALTER TABLE ONLY public.services ALTER COLUMN id SET DEFAULT nextval('public.ser
 
 
 --
+-- Name: subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('public.subscriptions_id_seq'::regclass);
+
+
+--
 -- Name: sys_admins id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1379,6 +1418,14 @@ ALTER TABLE ONLY public.service_specifications
 
 ALTER TABLE ONLY public.services
     ADD CONSTRAINT services_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: subscriptions subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.subscriptions
+    ADD CONSTRAINT subscriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -1683,6 +1730,13 @@ CREATE INDEX index_services_on_civil_servant_id ON public.services USING btree (
 --
 
 CREATE INDEX index_services_on_service_specification_id ON public.services USING btree (service_specification_id);
+
+
+--
+-- Name: index_subscriptions_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_subscriptions_on_organization_id ON public.subscriptions USING btree (organization_id);
 
 
 --
@@ -2061,6 +2115,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210608143812'),
 ('20210702194919'),
 ('20210707153648'),
-('20210726075638');
+('20210726075638'),
+('20210727075054');
 
 

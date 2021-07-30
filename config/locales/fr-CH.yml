@@ -268,7 +268,9 @@ fr-CH:
         address_information: Données d'adresse
         administrate: Gérer
         creditor_information: Détails du paiement
+        creditor_information_hint: Les données de paiement sont utilisées pour créer des paiements automatiques. Grâce à ces paiements générés, vous pouvez générer un fichier de paiement sous l'onglet "Paiements", que vous pouvez ensuite télécharger vers votre banque pour payer directement les dépenses. Si vous n'utilisez pas cette fonction, vous pouvez également laisser les informations relatives au paiement complètement vides.
         icon_hint: Le logo est utilisé pour les appels d'offres publiés. Toutefois, la mise à jour du logo sur tous les appels d'offres peut prendre un certain temps.
+        organization_holidays_hint: Les jours fériés de l'entreprise sont utilisés pour générer correctement les feuilles de dépenses
         organization_information: Données sur les entreprises
       update:
         erroneous_update: Les données sur les entreprises n'ont pas pu être mises à jour
@@ -282,6 +284,9 @@ fr-CH:
           editable_expense_sheets:
             link: Notes de frais
             title: Ouvrez les notes de frais
+          job_postings:
+            link: Appels d'offres
+            title: Appels d'offres ouverts
           phone_lists:
             links:
               current_month: Mois en cours
@@ -333,6 +338,7 @@ fr-CH:
           other: "%{count} notes de frais"
         mark_as_paid: Marquer comme payé
       show:
+        disabled_pain_button_html: Veuillez saisir les informations de paiement sous les <a href='%{link}'>données d'exploitation</a> pour générer un fichier de paiement.
         expense_sheets_table:
           title: Notes de frais
         title: Paiement à partir de %{date}

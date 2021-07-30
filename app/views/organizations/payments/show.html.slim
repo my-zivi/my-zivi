@@ -8,9 +8,23 @@
           .ml-2 = payment_badge(@payment)
         h4.text-muted = number_to_currency(@payment.amount, locale: 'de-CH')
         .d-flex.mt-4.mb-0
-          = link_to(organizations_payment_path(@payment, format: :xml), class: 'btn btn-falcon-default btn-sm')
-            i.fas.fa-download.mr-1
-            = t('organizations.payments.payment_row.download_pain')
+          - if current_organization.pain_generation_enabled?
+            = link_to(organizations_payment_path(@payment, format: :xml), class: 'btn btn-falcon-default btn-sm')
+              i.fas.fa-download.mr-1
+              = t('organizations.payments.payment_row.download_pain')
+          - else
+            div[
+              data-toggle='popover'
+              data-sanitize='false'
+              data-content=t('.disabled_pain_button_html', link: edit_organizations_organization_path)
+              data-trigger='hover'
+              data-html='true'
+              data-delay='{ "show": 0, "hide": 3000 }'
+              data-custom-class='shadow-popover'
+            ]
+              button.btn.btn-falcon-default.btn-sm.disabled style='pointer-events: none'
+                i.fas.fa-download.mr-1
+                = t('organizations.payments.payment_row.download_pain')
           - if @payment.open?
             .dropdown
               button#dropdown-button.btn.btn-falcon-default.btn-sm.dropdown-toggle.ml-2.dropdown-caret-none aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"

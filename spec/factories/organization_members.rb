@@ -18,5 +18,13 @@ FactoryBot.define do
       user { nil }
       sequence(:contact_email) { |n| "example#{n}@example.testing" }
     end
+
+    trait :with_admin_subscribed_organization do
+      association(:organization, factory: %i[organization with_admin])
+    end
+
+    trait :with_recruiting_subscribed_organization do
+      association(:organization, factory: %i[organization with_recruiting])
+    end
   end
 end

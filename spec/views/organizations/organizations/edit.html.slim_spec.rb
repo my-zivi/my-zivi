@@ -3,10 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe 'organizations/organizations/edit.html.slim', type: :view do
-  let(:organization) { create(:organization) }
+  let(:organization) { create(:organization, :with_admin) }
+  let(:organization_member) { create(:organization_member, organization: organization) }
 
   before do
     assign(:organization, organization)
+    sign_in organization_member.user
     render
   end
 
@@ -47,6 +49,15 @@ RSpec.describe 'organizations/organizations/edit.html.slim', type: :view do
       expect(rendered).to(
         have_input_field('organization[creditor_detail_attributes][bic]').with_value(organization.creditor_detail.bic)
       )
+    end
+
+    context 'when organization does not have admin subscription' do
+      let(:organization) { create(:organization, :with_recruiting) }
+
+      it 'does not contain creditor detail related fields' do
+        expect(rendered).not_to(have_input_field('organization[creditor_detail_attributes][iban]'))
+        expect(rendered).not_to(have_input_field('organization[creditor_detail_attributes][bic]'))
+      end
     end
   end
 end
