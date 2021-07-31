@@ -28,7 +28,8 @@ services:
       - db
     volumes:
       - ./:/app
-    command: bin/webpack-dev-server
+    command: >
+      sh -c "yarn && bin/webpack-dev-server"
     env_file: .dev-docker.env
 
   db:

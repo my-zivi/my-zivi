@@ -61,7 +61,7 @@ development:
 
   dev_server:
     https: false
-    host: localhost
+    host: <%= ENV.fetch("WEBPACKER_HOST") { "localhost" } %>
     port: 3035
     public: localhost:3035
     hmr: false
