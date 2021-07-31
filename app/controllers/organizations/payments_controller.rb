@@ -7,6 +7,7 @@ module Organizations
     before_action :load_accessible_expense_sheets, only: :new
 
     load_and_authorize_resource
+    breadcrumb 'organizations.payments', :organizations_payments_path
 
     def index
       @payments = @payments.order(state: :asc, created_at: :desc)
@@ -28,6 +29,8 @@ module Organizations
     end
 
     def show
+      breadcrumb I18n.t('organizations.payments.show.title', date: l(@payment.created_at.to_date)),
+                 organizations_payments_path(@payment)
       respond_to do |format|
         format.html
         format.xml { respond_to_xml }

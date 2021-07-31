@@ -5,6 +5,7 @@ module Organizations
     before_action :load_organization
 
     def edit
+      breadcrumb 'organizations.organizations', :edit_organizations_organization
       @organization.build_creditor_detail unless @organization.creditor_detail
     end
 

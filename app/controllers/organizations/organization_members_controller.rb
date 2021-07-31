@@ -5,12 +5,18 @@ module Organizations
     PERMITTED_ORGANIZATION_MEMBER_PARAMS = %i[first_name last_name phone organization_role contact_email].freeze
 
     load_and_authorize_resource
+    breadcrumb 'organizations.organization_members.index', :organizations_members_path
 
     def index
       @organization_members = @organization_members.includes(:user)
     end
 
+    def new
+      breadcrumb 'organizations.organization_members.new', :new_organizations_member_path
+    end
+
     def create
+      breadcrumb 'organizations.organization_members.new', :new_organizations_member_path
       if @organization_member.save
         flash[:success] = t('.successfully_created')
         redirect_to organizations_members_path
@@ -20,7 +26,9 @@ module Organizations
       end
     end
 
-    def edit; end
+    def edit
+      breadcrumb @organization_member.full_name, organizations_members_path(@organization_member)
+    end
 
     def update
       if @organization_member.update(update_params)

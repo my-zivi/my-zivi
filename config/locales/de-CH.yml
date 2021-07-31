@@ -179,6 +179,23 @@ de-CH:
         sign_out: Logout
   lead_person_html: 'Leitende Person: %{link}'
   loading: Lade...
+  loaf:
+    breadcrumbs:
+      organizations:
+        civil_servants: 'Zivildienstleistende'
+        expense_sheets: 'Spesenblätter'
+        job_postings: 'Ausschreibungen'
+        organization: 'Betrieb'
+        organizations: 'Betriebsdaten'
+        organization_holidays:
+          index: 'Betriebsferien'
+          new: 'Neu'
+        organization_members:
+          index: 'Mitarbeiter'
+          new: 'Neu'
+        overview: 'Dashboard'
+        payments: 'Auszahlungen'
+        service_agreements: 'Einsatzvereinbarung'
   mailing_list:
     erroneous_creation: Bitte beheben Sie die folgend markierten Fehler
     successful_creation: Vielen Dank für Ihr Interesse. Wir werden Sie bald kontaktieren

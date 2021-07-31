@@ -4,12 +4,15 @@ module Organizations
   class JobPostingsController < BaseController
     load_and_authorize_resource find_by: :slug
     skip_authorize_resource only: :index
+    breadcrumb 'organizations.job_postings', :organizations_job_postings_path
 
     def index
       @job_postings = @job_postings.accessible_by(current_ability, :edit)
     end
 
-    def edit; end
+    def edit
+      breadcrumb @job_posting.title, organizations_job_postings_path(@job_posting)
+    end
 
     def update
       if @job_posting.update(job_posting_params)

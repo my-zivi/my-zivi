@@ -8,6 +8,7 @@ module Organizations
     ].freeze
 
     authorize_resource :service
+    breadcrumb 'organizations.service_agreements', :organizations_service_agreements_path
 
     before_action :load_civil_servant, only: %i[new create]
     before_action :load_service_specifications, only: %i[new create]
