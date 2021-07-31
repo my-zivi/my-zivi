@@ -1,0 +1,63 @@
+version: '3.3'
+
+services:
+  app:
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - 3000:3000
+    image: myzivi:develop
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+      args:
+        - GH_NPM_TOKEN
+    depends_on:
+      - db
+      - webpacker
+    volumes:
+      - ./:/app
+    command: bin/rails s -p 3000 -b '0.0.0.0'
+    env_file: .develop.env
+
+  webpacker:
+    ports:
+      - 3035:3035
+    image: myzivi:develop
+    depends_on:
+      - db
+    volumes:
+      - ./:/app
+    command: >
+      sh -c "yarn && bin/webpack-dev-server"
+    env_file: .develop.env
+
+  db:
+    image: postgres:13.3-alpine
+    volumes:
+      - 'db:/var/lib/postgresql/data'
+    ports:
+      - 8432:5432
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  redis:
+    image: 'redis:5-alpine'
+    command: redis-server
+    volumes:
+      - 'redis:/data'
+
+  sidekiq:
+    depends_on:
+      - 'db'
+      - 'redis'
+    image: myzivi:develop
+    command: bundle exec sidekiq
+    volumes:
+      - '.:/app'
+      - '/app/tmp' # don't mount tmp directory
+    env_file: .develop.env
+
+volumes:
+  redis:
+  db:

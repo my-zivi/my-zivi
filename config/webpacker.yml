@@ -59,10 +59,9 @@ development:
   # Verifies that correct packages and versions are installed by inspecting package.json, yarn.lock, and node_modules
   check_yarn_integrity: false
 
-  # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
     https: false
-    host: localhost
+    host: <%= ENV.fetch("WEBPACKER_HOST") { "localhost" } %>
     port: 3035
     public: localhost:3035
     hmr: false
@@ -78,7 +77,6 @@ development:
       'Access-Control-Allow-Origin': '*'
     watch_options:
       ignored: '**/node_modules/**'
-
 
 test:
   <<: *default
