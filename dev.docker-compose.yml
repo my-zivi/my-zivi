@@ -18,7 +18,7 @@ services:
     volumes:
       - ./:/app
     command: bin/rails s -p 3000 -b '0.0.0.0'
-    env_file: .develop.env
+    env_file: .dev-docker.env
 
   webpacker:
     ports:
@@ -30,7 +30,7 @@ services:
       - ./:/app
     command: >
       sh -c "yarn && bin/webpack-dev-server"
-    env_file: .develop.env
+    env_file: .dev-docker.env
 
   db:
     image: postgres:13.3-alpine
@@ -56,7 +56,7 @@ services:
     volumes:
       - '.:/app'
       - '/app/tmp' # don't mount tmp directory
-    env_file: .develop.env
+    env_file: .dev-docker.env
 
 volumes:
   redis:

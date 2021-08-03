@@ -7,8 +7,6 @@ LABEL description="MyZivi"
 ARG GH_NPM_TOKEN
 
 ENV BUNDLER_VERSION 2.1.4
-# ENV RAILS_ENV=production
-# ENV RACK_ENV=production
 ENV PATH "/usr/lib/jvm/java-11-openjdk/bin:${PATH}"
 ENV JAVA_HOME "/usr/lib/jvm/java-11-openjdk/"
 ENV LD_LIBRARY_PATH "/usr/lib/jvm/java-11-openjdk/jre/lib/amd64/server/"
