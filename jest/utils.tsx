@@ -50,3 +50,5 @@ export const deferredCheck: DeferredCheck = (rendered, callback) => new Promise<
     return result.then(resolve).catch(reject);
   });
 });
+
+export const setImmediate = (fn: () => void) => setTimeout(fn, 0);
