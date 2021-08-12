@@ -11,9 +11,9 @@ class User < ApplicationRecord
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   enum language: {
-    german: 'de',
-    french: 'fr',
-    italian: 'it',
+    german: 'de-CH',
+    french: 'fr-CH',
+    italian: 'it-CH',
     english: 'en'
   }
 
