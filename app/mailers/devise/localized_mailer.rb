@@ -5,8 +5,7 @@ module Devise
     protected
 
     def devise_mail(record, action, opts = nil, &block)
-      lang = record.try(:language_for_database)&.to_sym || :'de-CH'
-      I18n.with_locale(lang) do
+      I18n.with_locale(record.try(:i18n_language) || I18n.default_locale) do
         super
       end
     end

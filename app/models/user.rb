@@ -26,6 +26,11 @@ class User < ApplicationRecord
     @validate_password = false
   end
 
+  def i18n_language
+    lang = language_for_database&.to_sym
+    lang.in?(I18n.available_locales) ? lang : I18n.default_locale
+  end
+
   private
 
   def password_required?
