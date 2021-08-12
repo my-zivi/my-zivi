@@ -10,11 +10,10 @@
               required: true,
               autofocus: true,
               hint: (t('devise.shared.minimum_password_length', count: @minimum_password_length) if @minimum_password_length),
-              input_html: { autocomplete: "new-password" }
+              input_html: { autocomplete: 'new-password' }
       = f.input :password_confirmation,
               label: t('devise.passwords.edit.confirm_new_password'),
               required: true,
-              input_html: { autocomplete: "new-password" }
+              input_html: { autocomplete: 'new-password' }
     .form-group
-      = f.button :submit, t('devise.confirmations.new.submit'), class: 'btn btn-primary btn-block mt-3'
-  = render 'devise/shared/links'
+      = f.button :submit, t('devise.passwords.edit.change_your_password'), class: 'btn btn-primary btn-block mt-4'
