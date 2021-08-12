@@ -25,6 +25,7 @@ fr-CH:
         instruction: 'Vous pouvez confirmer votre courriel grâce au lien ci-dessous :'
         subject: Instructions de confirmation
       email_changed:
+        footer: Votre équipe MyZivi
         greeting: Bonjour %{recipient} !
         message: Nous vous contactons pour vous notifier que votre adresse de courriel a été changée en %{email}.
         subject: Courriel modifié

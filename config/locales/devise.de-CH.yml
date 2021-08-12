@@ -25,6 +25,7 @@ de-CH:
         instruction: 'Folgen Sie dem untenstehenden Link, um Ihr Konto zu bestätigen:'
         subject: Anleitung zur Bestätigung Ihres Kontos
       email_changed:
+        footer: Ihr MyZivi-Team
         greeting: Hallo %{recipient}!
         message: Wir schreiben Ihnen, um Sie darüber zu informieren, dass Ihre E-Mail-Adresse zu %{email} geändert wurde.
         subject: E-Mail-Adresse geändert
