@@ -10,6 +10,8 @@ class User < ApplicationRecord
   validates :language, presence: true
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
+  attribute :language, :string, default: 'german'
+
   enum language: {
     german: 'de-CH',
     french: 'fr-CH',
