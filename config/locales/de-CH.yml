@@ -221,6 +221,7 @@ de-CH:
         specification: Spezifikation
         title: Ausschreibung “%{title}”
       index:
+        notice_html: Falls Sie noch weitere Ausschreibungen haben, welche hier nicht gelistet sind, können Sie uns gerne unter <a href="mailto:info@myzivi.ch">info@myzivi.ch</a> kontaktieren.
         title: Ausschreibungen
       update:
         erroneous_update: Ausschreibung konnte nicht aktualisiert werden
