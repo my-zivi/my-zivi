@@ -1,0 +1,10 @@
+<p>Hallo <%= @email %>!</p>
+
+<p>
+  Klicken Sie <%= link_to 'hier', confirmation_url(@resource, confirmation_token: @token) %>, um ihr Konto zu
+  bestätigen.
+  <br>
+  Wir freuen uns, dass Sie sich bei MyZivi registriert haben!
+</p>
+
+<p>Ihr MyZivi-Team</p>

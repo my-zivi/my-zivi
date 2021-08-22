@@ -1,5 +1,6 @@
 = render 'devise/shared/authentication_card' do
   h4.mb-3 = t('devise.passwords.new.forgot_your_password')
+  p.fs--1.text-muted = t('devise.passwords.new.hint')
   = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
     = f.error_notification
     .form-inputs
