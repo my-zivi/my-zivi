@@ -4,7 +4,7 @@ import ServiceFactory from 'js/tests/factories/ServiceFactory';
 import { IApi } from 'js/shared/Api';
 import { Service } from 'js/organizations/services/embedded_app/types';
 import ServicesOverviewCard from './ServicesOverviewCard';
-import { fakeWrapInApiProvider } from '../../../../../../../jest/utils';
+import { fakeWrapInApiProvider, setImmediate } from '../../../../../../../jest/utils';
 
 const servicesOverviewWrapper = (fakeApi: IApi) => (
   fakeWrapInApiProvider(fakeApi)(<ServicesOverviewCard />, 'ServicesOverviewCardImpl')
