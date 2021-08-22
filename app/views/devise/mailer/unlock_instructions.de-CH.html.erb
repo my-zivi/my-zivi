@@ -1,0 +1,9 @@
+<p>Hallo <%= @resource.email %>!</p>
+
+<p>Ihr Konto wurde aufgrund einer großen Anzahl von fehlgeschlagenen Anmeldeversuchen gesperrt.</p>
+
+<p>Folgen Sie dem untenstehenden Link, um Ihr Konto zu entsperren:</p>
+
+<p><%= link_to 'Mein Konto entsperren', unlock_url(@resource, unlock_token: @token) %></p>
+
+<p>Ihr MyZivi-Team</p>

@@ -35,4 +35,30 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#i18n_language' do
+    subject { user.i18n_language }
+
+    let(:user) { build(:user, language: 'german') }
+
+    it { is_expected.to eq :'de-CH' }
+
+    context 'when user is french' do
+      let(:user) { build(:user, language: 'french') }
+
+      it { is_expected.to eq :'fr-CH' }
+    end
+
+    context 'when user is italian' do
+      let(:user) { build(:user, language: 'italian') }
+
+      it { is_expected.to eq :'de-CH' }
+    end
+
+    context 'when user has no language assigned' do
+      let(:user) { build(:user, language: nil) }
+
+      it { is_expected.to eq :'de-CH' }
+    end
+  end
 end
