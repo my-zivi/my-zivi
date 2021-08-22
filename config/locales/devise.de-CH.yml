@@ -1,35 +1,5 @@
 ---
 de-CH:
-  activerecord:
-    attributes:
-      user:
-        confirmation_sent_at: Bestätigung gesendet am
-        confirmation_token: Bestätigungs-Token
-        confirmed_at: Bestätigt am
-        created_at: Erstellt am
-        current_password: Bisheriges Passwort
-        current_sign_in_at: Aktuelle Anmeldung vom
-        current_sign_in_ip: IP der aktuellen Anmeldung
-        email: E-Mail
-        encrypted_password: Verschlüsseltes Passwort
-        failed_attempts: Fehlversuche
-        last_sign_in_at: Letzte Anmeldung am
-        last_sign_in_ip: IP der letzten Anmeldung
-        locked_at: Gesperrt am
-        password: Passwort
-        password_confirmation: Passwortbestätigung
-        remember_created_at: Angemeldet bleiben vom
-        remember_me: Angemeldet bleiben
-        reset_password_sent_at: Passwort-Zurücksetzen-E-Mail gesendet am
-        reset_password_token: Passwort-Zurücksetzen-Token
-        sign_in_count: Anzahl Anmeldungen
-        unconfirmed_email: Unbestätigte E-Mail-Adresse
-        unlock_token: Entsperrungs-Token
-        updated_at: Aktualisiert am
-    models:
-      user:
-        one: Benutzer
-        other: Benutzer
   devise:
     confirmations:
       confirmed: Ihre E-Mail-Adresse wurde erfolgreich bestätigt.
@@ -55,6 +25,7 @@ de-CH:
         instruction: 'Folgen Sie dem untenstehenden Link, um Ihr Konto zu bestätigen:'
         subject: Anleitung zur Bestätigung Ihres Kontos
       email_changed:
+        footer: Ihr MyZivi-Team
         greeting: Hallo %{recipient}!
         message: Wir schreiben Ihnen, um Sie darüber zu informieren, dass Ihre E-Mail-Adresse zu %{email} geändert wurde.
         subject: E-Mail-Adresse geändert
@@ -80,12 +51,13 @@ de-CH:
       success: Sie haben sich erfolgreich mit Ihrem %{kind}-Konto angemeldet.
     passwords:
       edit:
-        change_my_password: Ändere mein Passwort
+        change_my_password: Mein Passwort ändern
         change_your_password: Passwort ändern
         confirm_new_password: Neues Passwort bestätigen
         new_password: Neues Passwort
       new:
         forgot_your_password: Haben Sie Ihr Passwort vergessen?
+        hint: Hier können Sie es zurücksetzen. Geben Sie dafür Ihre E-Mail Adresse an, mit welcher Sie sich registriert haben, und wir senden Ihnen dann einen Link zu, mit dem Sie das Passwort zurücksetzen können.
         send_me_reset_password_instructions: Schicken Sie mir die Anleitung, mein Passwort zurückzusetzen
       no_token: Sie können sich nicht auf dieser Seite anmelden, wenn Sie nicht von einer Passwort-Zurücksetzen-E-Mail kommen. Wenn Sie von solch einer E-Mail kommen, überprüfen Sie bitte, ob Sie die gesamte URL verwendet haben.
       send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit der Anleitung, wie Sie Ihr Passwort zurücksetzen können.

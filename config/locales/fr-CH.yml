@@ -220,6 +220,7 @@ fr-CH:
         specification: Spécifications
         title: L'annonce "%{title}"
       index:
+        notice_html: Si vous avez d'autres offres qui ne figurent pas ici, n'hésitez pas à nous contacter à l'adresse <a href="mailto:info@myzivi.ch">info@myzivi.ch</a>.
         title: Annonces
       update:
         erroneous_update: L'annonce n'a pas pu être mis à jour

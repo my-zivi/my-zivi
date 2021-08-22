@@ -10,10 +10,12 @@ class User < ApplicationRecord
   validates :language, presence: true
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
+  attribute :language, :string, default: 'german'
+
   enum language: {
-    german: 'de',
-    french: 'fr',
-    italian: 'it',
+    german: 'de-CH',
+    french: 'fr-CH',
+    italian: 'it-CH',
     english: 'en'
   }
 
@@ -24,6 +26,11 @@ class User < ApplicationRecord
 
   def skip_password_validation!
     @validate_password = false
+  end
+
+  def i18n_language
+    lang = language_for_database&.to_sym
+    lang.in?(I18n.available_locales) ? lang : I18n.default_locale
   end
 
   private
