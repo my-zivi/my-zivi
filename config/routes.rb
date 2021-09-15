@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'sidekiq/web'
-require 'sidekiq/cron/web'
+require 'sidekiq-scheduler/web'
 
 if Rails.env.production?
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|

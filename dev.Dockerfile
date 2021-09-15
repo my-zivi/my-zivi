@@ -22,7 +22,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.14/main' >> /etc/apk/repositor
 postgresql-dev npm postgresql-libs postgresql openjdk11 \
 tzdata gcc g++ pkgconfig shadow musl-dev autoconf automake \
 make libtool nasm tiff jpeg zlib zlib-dev file pkgconf dpkg \
-libpng libpng-dev postgresql-client=13.3-r0 imagemagick
+libpng libpng-dev postgresql-client imagemagick
 
 RUN bash -lc "mkdir -p /usr/lib/jvm/java-11-openjdk/lib/amd64/server"
 RUN bash -lc "ln -s /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so /usr/lib/jvm/java-11-openjdk/lib/amd64/server/libjvm.so"
