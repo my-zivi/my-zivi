@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe JobPostingApi::Poller, :vcr do
   around do |spec|
-    ClimateControl.modify(JOB_POSTINGS_FEED_URL: 'http://scraper.example.com/xml.rss', APP_HOST: 'example.com') do
+    ClimateControl.modify(JOB_POSTINGS_FEED_URL: 'https://scraper.myzivi.ch/dev/xml.rss', APP_HOST: 'myzivi.ch') do
       spec.run
     end
   end
@@ -12,56 +12,57 @@ RSpec.describe JobPostingApi::Poller, :vcr do
   describe '#perform' do
     subject(:poller) { described_class.new }
 
-    let!(:workshop) { create(:workshop, name: 'Umwelt- und Naturschutz') }
+    let!(:workshop) { create(:workshop, name: 'Kommunikation & Betreuung') }
 
     # rubocop:disable RSpec/ExampleLength
     # cassette manually produced by serving a modified XML feed
     it 'polls the most recent jobs, parses them correctly and saves a Log' do
       expect { poller.perform }.to(
-        change(JobPosting, :count).by(2).and(
+        change(JobPosting, :count).by(20).and(
           change(JobPostingApi::PollLog, :count).by(1)
         )
       )
 
       expect(JobPostingApi::PollLog.last).to be_success
 
-      expect(JobPosting.all).to contain_exactly(
+      expect(JobPosting.all).to include(
         have_attributes(
-          title: 'Naturschutzeinsatz',
+          title: 'Assistent Betreuung',
           description: be_a(ActionText::RichText).and(be_present),
-          publication_date: eq(Date.new(2021, 6, 6)),
+          publication_date: eq(Date.new(2021, 9, 14)),
           icon_url: be_a(String).and(be_present),
           required_skills: be_a(ActionText::RichText).and(be_present),
           preferred_skills: be_a(ActionText::RichText).and(be_present),
-          canton: 'BE',
-          identification_number: 89_117,
-          category: 'agriculture',
+          canton: 'SO',
+          identification_number: 94_796,
+          category: 'social_welfare',
           sub_category: be_nil,
           language: 'german',
-          organization_name: 'Talbetrieb Hattenbühl',
-          minimum_service_months: 1,
+          organization_name: 'Cutohof',
+          minimum_service_months: 3,
           contact_information: be_a(String).and(be_present)
         ),
-        have_attributes(title: 'Landschaftspflege', organization_name: 'Talbetrieb Brügger Peter')
+        have_attributes(title: 'Waldpflege', organization_name: 'Talbetrieb Biohof Saum')
       )
     end
     # rubocop:enable RSpec/ExampleLength
 
     it 'parses relations correctly' do
       poller.perform
-      job_posting = JobPosting.find_by(identification_number: 89_117)
+      job_posting = JobPosting.find_by(identification_number: 80_443)
       expect(job_posting.workshops).to contain_exactly workshop
       expect(job_posting.organization).to be_nil
       expect(job_posting.available_service_periods).to(
-        contain_exactly(have_attributes(beginning: Date.new(2021, 6, 6), ending: Date.new(2023, 6, 11)))
+        contain_exactly(have_attributes(beginning: Date.new(2021, 9, 14), ending: Date.new(2023, 9, 17)))
       )
     end
 
     context 'when an imported job posting is invalid' do
       let(:poll_log) { JobPostingApi::PollLog.last }
 
+      # Manually inserted an invalid job posting in cassette
       it 'processes the valid postings and reports the invalid' do
-        expect { poller.perform }.to(change(JobPosting, :count).by(1))
+        expect { poller.perform }.to(change(JobPosting, :count).by(19))
 
         expect(poll_log).to be_error
         expect(poll_log.log['error_count']).to eq 1
@@ -72,11 +73,11 @@ RSpec.describe JobPostingApi::Poller, :vcr do
     end
 
     context 'when a fetched job with the same identification number already exists' do
-      let!(:job_posting) { create(:job_posting, identification_number: 89_117) }
+      let!(:job_posting) { create(:job_posting, identification_number: 80_443) }
 
       it 'merges existing job postings and updates them' do
         expect { poller.perform }.to(
-          change(JobPosting, :count).by(1).and(
+          change(JobPosting, :count).by(19).and(
             change { job_posting.reload.slice(:description, :icon_url, :organization_name, :publication_date) }
           )
         )
@@ -84,7 +85,7 @@ RSpec.describe JobPostingApi::Poller, :vcr do
 
       context 'when the job posting has been claimed by an organization' do
         let(:organization) { create(:organization, :with_admin) }
-        let(:job_posting) { create(:job_posting, identification_number: 89_117, organization: organization) }
+        let(:job_posting) { create(:job_posting, identification_number: 80_443, organization: organization) }
 
         it 'does not update the job posting' do
           expect { poller.perform }.not_to(change { job_posting.reload.attributes })
@@ -93,7 +94,7 @@ RSpec.describe JobPostingApi::Poller, :vcr do
 
       context 'when the job posting already has workshops assigned' do
         let(:old_workshop) { create(:workshop) }
-        let(:job_posting) { create(:job_posting, identification_number: 89_117, workshops: [old_workshop]) }
+        let(:job_posting) { create(:job_posting, identification_number: 80_443, workshops: [old_workshop]) }
 
         it 'replaces existing required workshops with the updated workshops' do
           expect { poller.perform }.to(
@@ -107,13 +108,13 @@ RSpec.describe JobPostingApi::Poller, :vcr do
       context 'when the job posting already has available service periods assigned' do
         let(:old_available_service_period) { build(:available_service_period) }
         let(:job_posting) do
-          create(:job_posting, identification_number: 89_117, available_service_periods: [old_available_service_period])
+          create(:job_posting, identification_number: 80_443, available_service_periods: [old_available_service_period])
         end
 
         it 'replaces existing required available_service_periods with the updated available_service_periods' do
           expect { poller.perform }.to(
             change { job_posting.reload.available_service_periods }.to(
-              contain_exactly(have_attributes(beginning: Date.new(2021, 6, 6), ending: Date.new(2023, 6, 11)))
+              contain_exactly(have_attributes(beginning: Date.new(2021, 9, 14), ending: Date.new(2023, 9, 17)))
             )
           )
         end
