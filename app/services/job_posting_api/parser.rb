@@ -32,7 +32,7 @@ module JobPostingApi
           **parse_boolean_fields(job_posting_xml),
           **available_service_periods_attributes(job_posting_xml),
           **required_workshops_attributes(job_posting_xml),
-          publication_date: Date.parse(job_field(job_posting_xml, 'pubDate')),
+          publication_date: Date.parse(job_field(job_posting_xml, 'publication_date')),
           brief_description: ActionController::Base.helpers.strip_tags(job_field(job_posting_xml, 'description'))
                                .squish
                                .truncate(BRIEF_DESCRIPTION_LENGTH)
