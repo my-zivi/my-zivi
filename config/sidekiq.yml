@@ -5,3 +5,13 @@
   - [active_storage_analysis, 1]
   - [active_storage_purge, 1]
   - [algoliasearch, 1]
+:schedule:
+  expense_sheet_activation_job:
+    cron: "0 1 * * *"
+    class: ExpenseSheetActivationJob
+    queue: default
+  job_posting_poll_job:
+    cron: "0 6 * * *"
+    class: JobPostingPollJob
+    queue: default
+
