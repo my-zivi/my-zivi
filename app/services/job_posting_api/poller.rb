@@ -5,7 +5,7 @@ require 'open-uri'
 
 module JobPostingApi
   class Poller
-    JOB_ITEM_XPATH = '//item'
+    JOB_POSTING_XPATH = '//job_posting'
     DEFAULT_ATTRIBUTES = {
       contact_information: <<~TEXT.squish
         Dieser Betrieb ist noch nicht bei MyZivi registriert.
@@ -48,7 +48,7 @@ module JobPostingApi
     end
 
     def process_feed(feed)
-      feed.xpath(JOB_ITEM_XPATH).map do |job_xml|
+      feed.xpath(JOB_POSTING_XPATH).map do |job_xml|
         attributes = Parser.parse_job_posting_attributes(job_xml)
         job_posting = JobPosting.find_or_initialize_by(identification_number: attributes[:identification_number])
         sync_posting(job_posting, attributes) if job_posting.scraped?
