@@ -43,6 +43,7 @@ gem 'rails_admin', '~> 2.1'
 
 group :production do
   gem 'lograge'
+  gem 'newrelic_rpm'
   gem 'norobots'
   gem 'sentry-rails'
   gem 'sentry-ruby'
