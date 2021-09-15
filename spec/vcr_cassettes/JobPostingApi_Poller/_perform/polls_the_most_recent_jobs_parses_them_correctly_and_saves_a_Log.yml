@@ -35,13 +35,13 @@ http_interactions:
       X-Permitted-Cross-Domain-Policies:
       - none
       X-Request-Id:
-      - 148dc8bf-c028-4cec-bf80-fb629f21e717
+      - 37b51edb-8900-45b8-a717-504f4f80310d
       X-Runtime:
-      - '0.077957'
+      - '0.083557'
       X-Xss-Protection:
       - 1; mode=block
       Date:
-      - Wed, 15 Sep 2021 18:00:25 GMT
+      - Wed, 15 Sep 2021 18:30:12 GMT
       Transfer-Encoding:
       - chunked
     body:
@@ -684,5 +684,5 @@ http_interactions:
         \       <primary_line>Cutohof</primary_line>\n        <secondary_line/>\n
         \       <street>Dorfstrasse 1</street>\n        <supplement/>\n        <city>Kyburg-Buchegg</city>\n
         \       <zip>4586</zip>\n      </address>\n    </item>\n  </channel>\n</rss>\n"
-  recorded_at: Wed, 15 Sep 2021 18:00:25 GMT
+  recorded_at: Wed, 15 Sep 2021 18:30:12 GMT
 recorded_with: VCR 6.0.0

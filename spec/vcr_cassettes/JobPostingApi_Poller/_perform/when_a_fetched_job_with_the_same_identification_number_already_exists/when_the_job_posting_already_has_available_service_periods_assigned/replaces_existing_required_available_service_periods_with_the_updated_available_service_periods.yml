@@ -2,137 +2,6 @@
 http_interactions:
 - request:
     method: get
-    uri: http://scraper.example.com/xml.rss
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Host:
-      - scraper.example.com
-      Date:
-      - Sun, 06 Jun 2021 22:47:04 GMT
-      Connection:
-      - close
-      Content-Type:
-      - application/rss+xml
-      Content-Length:
-      - '5599'
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <rss version="2.0">
-          <channel>
-            <title>EZivi Scrapper</title>
-            <description>This are the latest scrapped Entries</description>
-            <link>https://scraper.myzivi.ch/xml.rss</link>
-            <item>
-              <pubDate>Sun, 06 Jun 2021 04:25:22 +0200</pubDate>
-              <title>Naturschutzeinsatz</title>
-              <identification_number>89117</identification_number>
-              <description>&lt;ul&gt;
-                &lt;li&gt;
-                &lt;strong&gt;100% Kulturlandschaftsarbeiten (01.04.-30.9.)&lt;/strong&gt;Mithilfe bei der Pflege der
-                Kulturlandschaft zu deren Erhaltung und Weiterentwicklung und zur Förderung der Artenvielfalt. Gemäss Art. 5
-                Bst. a Zivildienstverordnung (ZDV) Mithilfe bei der Anlage und Pflege der Biodiversitätsförderflächen, der
-                Bewirtschaftung von Hängen und Steillagen und der Förderung und Weiterentwicklung der Landschaftsqualität mit
-                Arbeiten wie Entfernen der Vegetation, Ansäen und Ansetzen zur Verbesserung der Qualität der
-                Biodiversitätsförderflächen, Mähen, Heuen, Emden, Bekämpfen und Entsorgen von Problempflanzen und Neophyten
-                (Blacken, Disteln, Kreuzkräuter, Goldrute, Knöterich), Vorbeugen gegen Verbuschung und Vergandung durch
-                Entfernen von eingewachsenen Bäumen, Sträuchern und Dornen, Abführen des Schnittgutes, Erstellen, Ausbessern und
-                Erneuern von Trockenmauern usw.
-
-                In Ausnahmefällen wie während betrieblichen Spitzenbelastungen oder infolge witterungsbedingten Unterbruchs der
-                Arbeiten gemäss Art. 7 ZDV Mithilfe in der landwirtschaftlichen Produktion wie Besorgen des Futters, Füttern der
-                Tiere, Misten, Melken, Reinigen der Gebäude und Werkzeuge, Aufbauen und Entfernen der Zäune, Viehtrieb,
-                Bewirtschaften der Felder, Bekämpfen von Unkraut und Schädlingen, Ablesen, Auflesen, Sortieren und Abfüllen von
-                Früchten und Gemüse, Mosten, Holzen usw.
-
-                Ausgeschlossen ist die Mithilfe bei Aktivitäten im Agrotourismus wie Schlafen im Stroh und Bewirtung von Gästen.&lt;/li&gt;
-                &lt;/ul&gt;
-              </description>
-              <required_skills>&lt;p&gt;
-                Motivation für körperliche Arbeit im Freien, Bereitschaft bei der Bauernfamilie zu leben.
-
-                &lt;/p&gt;
-              </required_skills>
-              <preferred_skills>&lt;p&gt;
-                Gute körperliche Verfassung, Bereitschaft zu erhöhter Präsenzzeit (45h).
-                &lt;/p&gt;
-              </preferred_skills>
-              <required_courses>
-                <required_course>Umwelt- und Naturschutz</required_course>
-              </required_courses>
-              <free_service_periods>
-                <free_service_period beginning="06.06.2021" ending="11.06.2023"/>
-              </free_service_periods>
-              <canton>BE</canton>
-              <category>agriculture</category>
-              <organization_name>Talbetrieb Hattenbühl</organization_name>
-              <sub_category/>
-              <minimum_service_months>1</minimum_service_months>
-              <language>de-CH</language>
-            </item>
-            <item>
-              <pubDate>Sun, 06 Jun 2021 04:25:26 +0200</pubDate>
-              <title>Landschaftspflege</title>
-              <identification_number>83756</identification_number>
-              <description>&lt;ul&gt;
-                &lt;li&gt;
-                &lt;strong&gt;100% Kulturlandschaftsarbeiten (01.04. bis 30.09.)&lt;/strong&gt;Mithilfe bei der Pflege der
-                Kulturlandschaft zu deren Erhaltung und Weiterentwicklung und zur Förderung der Artenvielfalt. Gemäss Art. 6
-                Bst. a Zivildienstverordnung (ZDV) Mithilfe bei der Anlage und Pflege der Biodiversitätsförderflächen, der
-                Bewirtschaftung von Hängen und Steillagen und der Förderung und Weiterentwicklung der Landschaftsqualität mit
-                Arbeiten wie Entfernen der Vegetation, Ansäen und Ansetzen zur Verbesserung der Qualität der
-                Biodiversitätsförderflächen, Mähen, Heuen, Emden, Bekämpfen und Entsorgen von Problempflanzen und Neophyten
-                (Blacken, Disteln, Kreuzkräuter, Goldrute, Knöterich), Vorbeugen gegen Verbuschung und Vergandung durch
-                Entfernen von eingewachsenen Bäumen, Sträuchern und Dornen, Abführen des Schnittgutes, Erstellen, Ausbessern und
-                Erneuern von Trockenmauern usw.
-
-                In Ausnahmefällen wie während betrieblichen Spitzenbelastungen oder infolge witterungsbedingten Unterbruchs der
-                Arbeiten gemäss Art. 7 ZDV Mithilfe in der landwirtschaftlichen Produktion wie Besorgen des Futters, Füttern der
-                Tiere, Misten, Melken, Reinigen der Gebäude und Werkzeuge, Aufbauen und Entfernen der Zäune, Viehtrieb,
-                Bewirtschaften der Felder, Bekämpfen von Unkraut und Schädlingen, Ablesen, Auflesen, Sortieren und Abfüllen von
-                Früchten und Gemüse, Mosten, Holzen usw.
-
-                Ausgeschlossen ist die Mithilfe bei Aktivitäten im Agrotourismus wie Schlafen im Stroh und Bewirtung von Gästen.&lt;/li&gt;
-                &lt;/ul&gt;
-              </description>
-              <required_skills>&lt;p&gt;
-                Motivation für körperliche Arbeit im Freien, Bereitschaft bei der Bauernfamilie zu leben.
-                &lt;/p&gt;
-              </required_skills>
-              <preferred_skills>&lt;p&gt;
-                Gute körperliche Verfassung, Bereitschaft zu erhöhter Präsenzzeit (45h).
-                &lt;/p&gt;
-              </preferred_skills>
-              <required_courses>
-              </required_courses>
-              <free_service_periods>
-              </free_service_periods>
-              <canton>BE</canton>
-              <category>agriculture</category>
-              <organization_name>Talbetrieb Brügger Peter</organization_name>
-              <sub_category/>
-              <minimum_service_months>1</minimum_service_months>
-              <language>de-CH</language>
-            </item>
-          </channel>
-        </rss>
-  recorded_at: Sun, 06 Jun 2021 22:47:04 GMT
-- request:
-    method: get
     uri: https://scraper.myzivi.ch/dev/xml.rss
     body:
       encoding: US-ASCII
@@ -166,13 +35,13 @@ http_interactions:
       X-Permitted-Cross-Domain-Policies:
       - none
       X-Request-Id:
-      - c1df1274-1e1a-4f70-8d09-3e5e4dd14030
+      - 7b400ffa-5284-4202-ac39-d5fd043cf6ce
       X-Runtime:
-      - '0.044632'
+      - '0.051252'
       X-Xss-Protection:
       - 1; mode=block
       Date:
-      - Wed, 15 Sep 2021 18:11:32 GMT
+      - Wed, 15 Sep 2021 18:30:16 GMT
       Transfer-Encoding:
       - chunked
     body:
@@ -815,5 +684,5 @@ http_interactions:
         \       <primary_line>Cutohof</primary_line>\n        <secondary_line/>\n
         \       <street>Dorfstrasse 1</street>\n        <supplement/>\n        <city>Kyburg-Buchegg</city>\n
         \       <zip>4586</zip>\n      </address>\n    </item>\n  </channel>\n</rss>\n"
-  recorded_at: Wed, 15 Sep 2021 18:11:32 GMT
+  recorded_at: Wed, 15 Sep 2021 18:30:16 GMT
 recorded_with: VCR 6.0.0
