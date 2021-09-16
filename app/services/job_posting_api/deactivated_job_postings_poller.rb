@@ -6,7 +6,7 @@ require 'net/http'
 module JobPostingApi
   class ApiError < StandardError
     def initialize(msg = nil, **extra)
-      super
+      super(msg)
       @extra = extra
     end
 
@@ -19,10 +19,10 @@ module JobPostingApi
     def perform
       response = Net::HTTP.get_response(URI("#{ENV['JOB_POSTINGS_API_URL']}/deleted.json"))
 
-      raise ApiError('API returned non-200 status code', response: response) unless response.code.match?(/2\d\d/)
+      raise ApiError.new('API returned non-200 status code', response: response) unless response.code.match?(/2\d\d/)
 
       json_response = JSON.parse(response.body, symbolize_names: true)
-      raise ApiError("API returned error status (#{json_response[:status]})") if json_response[:status] != 'ok'
+      raise ApiError, "API returned error status (#{json_response[:status]})" if json_response[:status] != 'ok'
 
       handle_response(json_response)
     end
