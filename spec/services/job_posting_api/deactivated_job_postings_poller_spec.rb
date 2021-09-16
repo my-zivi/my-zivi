@@ -8,13 +8,13 @@ RSpec.describe JobPostingApi::DeactivatedJobPostingsPoller do
 
     let(:api_url) { 'https://scraper.myzivi.ch' }
 
-    describe 'api request' do
-      around do |spec|
-        ClimateControl.modify(JOB_POSTINGS_API_URL: api_url, APP_HOST: 'myzivi.ch') do
-          spec.run
-        end
+    around do |spec|
+      ClimateControl.modify(JOB_POSTINGS_API_URL: api_url, APP_HOST: 'myzivi.ch') do
+        spec.run
       end
+    end
 
+    describe 'api request' do
       it 'sends a request to the api and processes the response', :vcr do
         expect { perform }.not_to raise_error
       end
