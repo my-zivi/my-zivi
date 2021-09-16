@@ -7,6 +7,7 @@ class JobPostingSyncJob < ApplicationJob
   def perform(*)
     JobPosting.without_auto_index do
       JobPostingApi::CurrentJobPostingsPoller.new.perform
+      JobPostingApi::DeactivatedJobPostingsPoller.new.perform
     end
 
     JobPosting.reindex!

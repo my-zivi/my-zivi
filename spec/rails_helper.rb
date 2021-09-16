@@ -79,6 +79,11 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.configure_rspec_metadata!
   config.default_cassette_options = { record: :new_episodes } unless ENV['CI']
+
+  File.read(Rails.root.join('.env')).scan(/#?\s*(\S+)=\S*/).each do |key|
+    config.filter_sensitive_data("[#{key}]") { ENV[key] } if key.match?(/secret|key|password/i)
+  end
+
   config.before_record do |record|
     record.response.body.force_encoding('UTF-8')
   end
