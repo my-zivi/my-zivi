@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe JobPostingPollJob, type: :job do
+RSpec.describe JobPostingSyncJob, type: :job do
   describe '#perform' do
     let(:poller) { instance_double('JobPostingApi::Poller', perform: [build(:job_posting)]) }
 
     before do
-      allow(JobPostingApi::Poller).to receive(:new).and_return poller
+      allow(JobPostingApi::CurrentJobPostingsPoller).to receive(:new).and_return poller
       allow(JobPosting).to receive(:reindex!)
     end
 

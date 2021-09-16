@@ -4,7 +4,7 @@ require 'nokogiri'
 require 'open-uri'
 
 module JobPostingApi
-  class Poller
+  class CurrentJobPostingsPoller
     JOB_POSTING_XPATH = '//job_posting'
     DEFAULT_ATTRIBUTES = {
       contact_information: <<~TEXT.squish

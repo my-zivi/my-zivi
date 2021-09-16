@@ -10,8 +10,8 @@
     cron: "0 1 * * *"
     class: ExpenseSheetActivationJob
     queue: default
-  job_posting_poll_job:
+  job_posting_sync_job:
     cron: "0 6 * * *"
-    class: JobPostingPollJob
+    class: JobPostingSyncJob
     queue: default
 
