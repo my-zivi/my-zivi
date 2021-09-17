@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://scraper.myzivi.ch/dev/xml.rss
+    uri: https://scraper.myzivi.ch/dev/current_postings.xml
     body:
       encoding: US-ASCII
       string: ''
@@ -21,9 +21,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       Content-Type:
-      - application/rss+xml; charset=utf-8
+      - application/xml; charset=utf-8
       Etag:
-      - W/"77380bb666e5d204747ed5cf3436b603"
+      - W/"dde74a38e94b3dbfbffa157e6efcaee6"
       Referrer-Policy:
       - strict-origin-when-cross-origin
       X-Content-Type-Options:
@@ -35,248 +35,18 @@ http_interactions:
       X-Permitted-Cross-Domain-Policies:
       - none
       X-Request-Id:
-      - c4ff4fef-9504-4a0d-aad7-68caf74d8121
+      - a4210d18-7890-4d98-b441-6cef1027766b
       X-Runtime:
-      - '0.043370'
+      - '0.039581'
       X-Xss-Protection:
       - 1; mode=block
       Date:
-      - Wed, 15 Sep 2021 19:02:14 GMT
+      - Fri, 17 Sep 2021 21:26:33 GMT
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<channel>\n  <title>EZivi
-        Scrapper</title>\n  <description>This are the latest scrapped Entries</description>\n
-        \ <link>https://scraper.myzivi.ch/xml.rss</link>\n  <job_posting>\n    <publication_date>Tue,
-        14 Sep 2021 05:04:47 +0200</publication_date>\n    <title>Mitarbeiter Informatik</title>\n
-        \   <identification_number>61869</identification_number>\n    <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;20%
-        Netzwerk&lt;/strong&gt;&lt;br&gt;Mithilfe beim Unterhalt und bei der Instandhaltung
-        von Netzwerken-Komponenten und Verkabelungen&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;20%
-        PC Installation&lt;/strong&gt;&lt;br&gt;Mithilfe beim Installieren von Software
-        auf PCs und beim Vorbereiten von PCs für den Roll-out&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;60%
-        IT Support&lt;/strong&gt;&lt;br&gt;Mithilfe bei der Bedienung der Hotline
-        und beim Benutzersupport / Unterstützung bei der Installation von PCs und
-        Druckern vor Ort&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n    <required_skills>&lt;p&gt;\n\t\t\t\tAbgeschlossene
-        Lehre als Informatiker oder gleichwertige Ausbildung / Gute Auffassungsgabe
-        / Angenehme Umgangsformen mit dem Personal / Gepflegtes Auftreten\n\t\t\t&lt;/p&gt;\n</required_skills>\n
-        \   <preferred_skills>&lt;p&gt;\n\t\t\t\t\tSelbständiges, zuverlässiges Arbeiten
-        / Teamfähigkeit\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n    <required_courses>\n
-        \   </required_courses>\n    <free_service_periods>\n      <free_service_period
-        beginning=\"14.09.2021\" ending=\"26.09.2021\"/>\n      <free_service_period
-        beginning=\"11.10.2021\" ending=\"05.12.2021\"/>\n      <free_service_period
-        beginning=\"03.01.2022\" ending=\"17.09.2023\"/>\n    </free_service_periods>\n
-        \   <canton>OW</canton>\n    <category>healthcare</category>\n    <organization_name>Kantonsspital
-        Obwalden</organization_name>\n    <sub_category/>\n    <minimum_service_months>2</minimum_service_months>\n
-        \   <focus_program>false</focus_program>\n    <language>de-CH</language>\n
-        \   <contact>\n      <gender>Frau</gender>\n      <job>Koordinatorin Zivildienst</job>\n
-        \     <first_name>Madeleine</first_name>\n      <last_name>von Ah Bieri</last_name>\n
-        \     <phone>+41 41 666 40 15</phone>\n      <email>madeleine.vonah@ksow.ch</email>\n
-        \   </contact>\n    <address>\n      <primary_line>Kantonsspital Obwalden</primary_line>\n
-        \     <secondary_line/>\n      <street>Brünigstrasse 181</street>\n      <supplement/>\n
-        \     <city>Sarnen</city>\n      <zip>6060</zip>\n    </address>\n  </job_posting>\n
-        \ <job_posting>\n    <publication_date>Tue, 14 Sep 2021 05:04:47 +0200</publication_date>\n
-        \   <title>Hilfspfleger</title>\n    <identification_number>55934</identification_number>\n
-        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;60% Pflege
-        / Betreuung&lt;/strong&gt;&lt;br&gt;Mithilfe in der Grundpflege unter Anweisung
-        und Überwachung des diplomierten Pflegepersonals / Betreuen und Begleiten
-        der Patientinnen und Patienten bei Mobilitätsverbesserungen und Bewegungsaktivitäten
-        zur Bereicherung des Alltags (Spazieren,\n Botengänge, Untersuchungen, Therapien
-        usw.)&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;40% Hausdienst&lt;/strong&gt;&lt;br&gt;Mithilfe
-        bei der Unterhaltsreinigung in den Patientenzimmern und bei allgemeinen hauswirtschaftlichen
-        Arbeiten wie z.B. Essensverteilung&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n
-        \   <required_skills>&lt;p&gt;\n\t\t\t\tBesuch des Ausbildungskurses \"Gesundheits-
-        und Krankenpflege\" / Soziale Kompetenz / Physisch und psychisch belastbar
-        / Bereitschaft zur Arbeit nach Dienstplänen\n\t\t\t&lt;/p&gt;\n</required_skills>\n
-        \   <preferred_skills>&lt;p&gt;\n\t\t\t\t\tSelbständiges und zuverlässiges
-        Arbeiten / Teamfähigkeit / Flexibilität / Motivation für den Umgang mit pflegebedürftigen
-        Menschen\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n    <required_courses>\n
-        \     <required_course>Pflegehilfe 1</required_course>\n      <required_course>Pflegehilfe
-        2</required_course>\n    </required_courses>\n    <free_service_periods>\n
-        \     <free_service_period beginning=\"14.09.2021\" ending=\"17.09.2023\"/>\n
-        \   </free_service_periods>\n    <canton>OW</canton>\n    <category>healthcare</category>\n
-        \   <organization_name>Kantonsspital Obwalden</organization_name>\n    <sub_category/>\n
-        \   <minimum_service_months>3</minimum_service_months>\n    <focus_program>true</focus_program>\n
-        \   <language>de-CH</language>\n    <contact>\n      <gender>Frau</gender>\n
-        \     <job>Koordinatorin Zivildienst</job>\n      <first_name>Madeleine</first_name>\n
-        \     <last_name>von Ah Bieri</last_name>\n      <phone>+41 41 666 40 15</phone>\n
-        \     <email>madeleine.vonah@ksow.ch</email>\n    </contact>\n    <address>\n
-        \     <primary_line>Kantonsspital Obwalden</primary_line>\n      <secondary_line/>\n
-        \     <street>Brünigstrasse 181</street>\n      <supplement/>\n      <city>Sarnen</city>\n
-        \     <zip>6060</zip>\n    </address>\n  </job_posting>\n  <job_posting>\n
-        \   <publication_date>Tue, 14 Sep 2021 05:04:47 +0200</publication_date>\n
-        \   <title>Koch</title>\n    <identification_number>55949</identification_number>\n
-        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;10% Reinigung&lt;/strong&gt;&lt;br&gt;Mithilfe
-        bei der täglichen Reinigung von Geschirr, Kochgeräten usw.&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;20%
-        Kontrolle&lt;/strong&gt;&lt;br&gt;Mithilfe bei der Überwachung der Warenanlieferungen
-        / Unterstützung beim Speisenach- und Speiserückschub / Kontrolle der Lebensmittellager
-        und der Kühlräume / Mithilfe bei der Durchsetzung der Küchen- und Lebensmittelhygiene&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;70%
-        Menuezubereitung&lt;/strong&gt;&lt;br&gt;Mithilfe bei der Zubereitung und
-        beim Anrichten von kalten und warmen Speisen gemäss Anweisungen und Vorgaben
-        des Vorgesetzten / Unterstützung bei der wirtschaftlichen Verwendung der Lebensmittel&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n
-        \   <required_skills>&lt;p&gt;\n\t\t\t\tAbgeschlossene Berufslehre als Koch
-        / Gepflegtes Auftreten / Persönliche Hygiene / Geschicklichkeit in der individuellen
-        Nahrungsmittelzubereitung / Zuvorkommender Umgang mit Patienten, Personal
-        und Besuchern / Bereitschaft zur Arbeit nach Dienstplänen\n\t\t\t&lt;/p&gt;\n</required_skills>\n
-        \   <preferred_skills>&lt;p&gt;\n\t\t\t\t\tSelbständiges und zuverlässiges
-        Arbeiten / Flexibilität / Teamfähigkeit / Freude an der Produktion von warmen
-        und kalten Speisen\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n    <required_courses>\n
-        \   </required_courses>\n    <free_service_periods>\n      <free_service_period
-        beginning=\"14.09.2021\" ending=\"17.09.2023\"/>\n    </free_service_periods>\n
-        \   <canton>OW</canton>\n    <category>healthcare</category>\n    <organization_name>Kantonsspital
-        Obwalden</organization_name>\n    <sub_category/>\n    <minimum_service_months>1</minimum_service_months>\n
-        \   <focus_program>false</focus_program>\n    <language>de-CH</language>\n
-        \   <contact>\n      <gender>Frau</gender>\n      <job>Koordinatorin Zivildienst</job>\n
-        \     <first_name>Madeleine</first_name>\n      <last_name>von Ah Bieri</last_name>\n
-        \     <phone>+41 41 666 40 15</phone>\n      <email>madeleine.vonah@ksow.ch</email>\n
-        \   </contact>\n    <address>\n      <primary_line>Kantonsspital Obwalden</primary_line>\n
-        \     <secondary_line/>\n      <street>Brünigstrasse 181</street>\n      <supplement/>\n
-        \     <city>Sarnen</city>\n      <zip>6060</zip>\n    </address>\n  </job_posting>\n
-        \ <job_posting>\n    <publication_date>Tue, 14 Sep 2021 05:04:47 +0200</publication_date>\n
-        \   <title>Küchenhilfe</title>\n    <identification_number>55950</identification_number>\n
-        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;60% Küchenarbeiten&lt;/strong&gt;&lt;br&gt;Mithilfe
-        bei den Küchenarbeiten wie rüsten, schälen, anrichten usw. / Unterstützung
-        bei der Vorbereitung und Bestückung der Essensverteilwagen / Allgemeine Vorbereitungsarbeiten
-        zur Unterstützung und Entlastung des Fachpersonals&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;40%
-        Reinigung&lt;/strong&gt;&lt;br&gt;Mithilfe bei der täglichen Reinigung von
-        Geschirr, Kochgeräten, Kücheneinrichtungen, Lager- und Kühlräumen&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n
-        \   <required_skills>&lt;p&gt;\n\t\t\t\tGepflegte Erscheinung / Sauberes Auftreten
-        / Einhaltung der Hygienevorschriften / Zuvorkommender Umgang mit Patienten,
-        Personal und Besuchern / Bereitschaft zur Arbeit nach Dienstplänen\n\t\t\t&lt;/p&gt;\n</required_skills>\n
-        \   <preferred_skills>&lt;p&gt;\n\t\t\t\t\tSelbständiges und zuverlässiges
-        Arbeiten / Flexibilität / Teamfähigkeit / Flair im Umgang mit Lebensmitteln
-        / Interesse an der Kochkunst\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n    <required_courses>\n
-        \   </required_courses>\n    <free_service_periods>\n      <free_service_period
-        beginning=\"14.09.2021\" ending=\"17.09.2023\"/>\n    </free_service_periods>\n
-        \   <canton>OW</canton>\n    <category>healthcare</category>\n    <organization_name>Kantonsspital
-        Obwalden</organization_name>\n    <sub_category/>\n    <minimum_service_months>1</minimum_service_months>\n
-        \   <focus_program>false</focus_program>\n    <language>de-CH</language>\n
-        \   <contact>\n      <gender>Frau</gender>\n      <job>Koordinatorin Zivildienst</job>\n
-        \     <first_name>Madeleine</first_name>\n      <last_name>von Ah Bieri</last_name>\n
-        \     <phone>+41 41 666 40 15</phone>\n      <email>madeleine.vonah@ksow.ch</email>\n
-        \   </contact>\n    <address>\n      <primary_line>Kantonsspital Obwalden</primary_line>\n
-        \     <secondary_line/>\n      <street>Brünigstrasse 181</street>\n      <supplement/>\n
-        \     <city>Sarnen</city>\n      <zip>6060</zip>\n    </address>\n  </job_posting>\n
-        \ <job_posting>\n    <publication_date>Wed, 15 Sep 2021 05:05:01 +0200</publication_date>\n
-        \   <title>Mitbetreuer Bundesasylzentrum Altstätten SG</title>\n    <identification_number>93473</identification_number>\n
-        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;100% Betreuung&lt;/strong&gt;&lt;br&gt;Fahrdienst:
-        \nVorbereiten, termingereichtes Durchführen und Nachbereiten (Führen des Fahrtenbuches)
-        von Personentransporten (z.B. zu Arztterminen, Migrationsämtern etc.); Begleiten
-        von Minderjährigen in den Zielkanton\n\nAktivitäten: \nBetreuung und Anleitung
-        von Freizeitaktivitäten (z.B. Sport, Spiele, Basteln, Deutschunterricht etc.)\n\nHausarbeiten
-        mit den Asylsuchenden: \nInstruktion und Begleitung von Asylsuchenden bei
-        der Reinigung und Pflege der Unterkunft (Vorzeigen, Erklären, Kontrollieren,
-        Korrigieren etc.)\n\nGrundversorgung und Betreuung: \nVersorgung der Asylsuchenden
-        (z.B. Ausgabe von Mahlzeiten und Kleidung, Reinigung von Sanitäreinrichtungen,
-        Abgabe von Hygieneartikeln etc.); Betreuung (z.B. individuelle Fragen der
-        Asylsuchenden beantworten und Auskünfte erteilen, Durchsetzung der Hausordnung
-        in Zusammenarbeit mit Mitarbeitern der Sicherheit, Präsenz auf dem Areal,
-        Anleitung der Asylsuchenden in Alltagsfragen etc.); termingerechte und korrekte
-        Erledigung individueller Aufträge\n\nTeilnahme an Teamsitzungen: \nUnterstützung
-        der Teamentwicklung durch aktive Teilnahme an Teamsitzungen&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n
-        \   <required_skills>&lt;p&gt;\n\t\t\t\tBerufsausbildung / Schulabschluss;
-        drei Jahre Berufserfahrung; Organisationsfähigkeit; Fähigkeit trotz sprachlicher
-        Barrieren korrekt zu Instruieren; gute Deutschkenntnisse in Wort und Schrift;
-        Kenntnisse in Englisch, Französisch und einer klientenrelevanten Sprache;
-        Führerausweis Kat. B\n\t\t\t&lt;/p&gt;\n</required_skills>\n    <preferred_skills>&lt;p&gt;\n\t\t\t\t\tWeitere
-        Fremdsprachenkenntnisse; Erfahrungen im Animationsbereich\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n
-        \   <required_courses>\n      <required_course>Kommunikation &amp; Betreuung</required_course>\n
-        \   </required_courses>\n    <free_service_periods>\n      <free_service_period
-        beginning=\"15.09.2021\" ending=\"17.09.2023\"/>\n    </free_service_periods>\n
-        \   <canton>ZH</canton>\n    <category>social_welfare</category>\n    <organization_name>AOZ</organization_name>\n
-        \   <sub_category/>\n    <minimum_service_months>3</minimum_service_months>\n
-        \   <focus_program>true</focus_program>\n    <language>de-CH</language>\n
-        \   <contact>\n      <gender>Herr</gender>\n      <job>Stv. Leiter Betreuung</job>\n
-        \     <first_name>Martin</first_name>\n      <last_name>Heeb</last_name>\n
-        \     <phone>+41 58 480 49 60</phone>\n      <email>martin.heeb@sem.admin.ch</email>\n
-        \   </contact>\n    <address>\n      <primary_line>AOZ</primary_line>\n      <secondary_line>Frau
-        Preska Lingeswaran</secondary_line>\n      <street>Zypressenstrasse 60</street>\n
-        \     <supplement>Fachspezialistin Personaladministration</supplement>\n      <city>Zürich</city>\n
-        \     <zip>8040</zip>\n    </address>\n  </job_posting>\n  <job_posting>\n
-        \   <publication_date>Wed, 15 Sep 2021 05:05:37 +0200</publication_date>\n
-        \   <title>Mitarbeit im Schülerhort</title>\n    <identification_number>74923</identification_number>\n
-        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;80% Betreuung&lt;/strong&gt;&lt;br&gt;Mitarbeit
-        in der Betreuung der Kindergarten- und Schulkinder während der Mittagszeit
-        und am Nachmittag (z.B. Spiele drinnen und draussen, Basteln etc.); Hausaufgabenhilfe;
-        Kinderabholdienst (Pedibus)&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;20%
-        Mitarbeit Küche&lt;/strong&gt;&lt;br&gt;Mithilfe bei der Zubereitung des Mittagessens
-        im Schülerhort; Küchenhilfe&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n
-        \   <required_skills>&lt;p&gt;\n\t\t\t\tFreude an Kindern; Kreativität; Kommunikationsfähigkeit;
-        Teamfähigkeit; Verantwortungsbewusstsein\n\t\t\t&lt;/p&gt;\n</required_skills>\n
-        \   <preferred_skills>&lt;p&gt;\n\t\t\t\t\tErfahrung mit Kindergruppen\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n
-        \   <required_courses>\n      <required_course>Betreuung von Kindern 1</required_course>\n
-        \     <required_course>Betreuung von Kindern 2</required_course>\n      <required_course>Kommunikation
-        &amp; Betreuung</required_course>\n    </required_courses>\n    <free_service_periods>\n
-        \     <free_service_period beginning=\"15.09.2021\" ending=\"17.09.2023\"/>\n
-        \   </free_service_periods>\n    <canton>ZH</canton>\n    <category>social_welfare</category>\n
-        \   <organization_name>Kinderbetreuung Langnau am Albis</organization_name>\n
-        \   <sub_category/>\n    <minimum_service_months>3</minimum_service_months>\n
-        \   <focus_program>true</focus_program>\n    <language>de-CH</language>\n
-        \   <contact>\n      <gender>Frau</gender>\n      <job>Co-Geschäftsleiterin
-        KibeLaA</job>\n      <first_name>Alexandra</first_name>\n      <last_name>Meier-Schmid</last_name>\n
-        \     <phone>+41 44 713 34 97</phone>\n      <email>alexandra.meier@kibelaa.ch</email>\n
-        \   </contact>\n    <address>\n      <primary_line>Kinderbetreuung Langnau
-        am Albis</primary_line>\n      <secondary_line>Frau Belinda Inglin</secondary_line>\n
-        \     <street>Rütibohlstrasse 11</street>\n      <supplement>Co-Geschäftsführerin</supplement>\n
-        \     <city>Langnau am Albis</city>\n      <zip>8135</zip>\n    </address>\n
-        \ </job_posting>\n  <job_posting>\n    <publication_date>Fri, 10 Sep 2021
-        05:03:22 +0200</publication_date>\n    <title>Begleitung und Betreuung von
-        Jugendlichen im Bildungsbereich</title>\n    <identification_number>94516</identification_number>\n
-        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;100% Betreuung
-        und Begleitung&lt;/strong&gt;&lt;br&gt;Unter der Anleitung der Fachmitarbeitenden
-        begleiten und betreuen Sie Jugendliche, die aus einer Klink austreten oder
-        beispielsweise ihre Lehre abbrechen mussten und nun eine Tagestruktur benötigen.
-        Sie unterstützten die Jugendlichen beim Aufbau einer Tagesstruktur, bei der
-        Berufsvorbereitung, bei der Aufgaben- und Nachhilfe sowie bei Schulprojekten.
-        Sie unterstützen und betreuen die Jugendlichen bei ihrer Ausbildung und helfen
-        mit ihre Motivation zu fördern und ihre Persönlichkeit zu stärken. Während
-        der Gruppenzeiten helfen Sie bei Aktivitäten und bei der Verpflegung mit.
-        Des Weiteren nehmen Sie an Sitzungen oder Supervisionen teil.&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n
-        \   <required_skills>&lt;p&gt;\n\t\t\t\tMindestalter 22 Jahre, digitale Kenntnisse,
-        Nichtraucher, Suchtabstinenz\n\t\t\t&lt;/p&gt;\n</required_skills>\n    <preferred_skills>&lt;p&gt;\n\t\t\t\t\tErfahrung
-        im Sozialbereich\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n    <required_courses>\n
-        \     <required_course>Kommunikation &amp; Betreuung</required_course>\n    </required_courses>\n
-        \   <free_service_periods>\n    </free_service_periods>\n    <canton>ZH</canton>\n
-        \   <category>social_welfare</category>\n    <organization_name>Quellenhof-Stiftung</organization_name>\n
-        \   <sub_category/>\n    <minimum_service_months>3</minimum_service_months>\n
-        \   <focus_program>true</focus_program>\n    <language>de-CH</language>\n
-        \   <contact>\n      <gender>Frau</gender>\n      <job>Assistenz Geschäftsleitung/HR</job>\n
-        \     <first_name>Lydia</first_name>\n      <last_name>Peier</last_name>\n
-        \     <phone>+41 52 245 13 21</phone>\n      <email>lydia.peier@qhs.ch</email>\n
-        \   </contact>\n    <address>\n      <primary_line>Quellenhof-Stiftung</primary_line>\n
-        \     <secondary_line>Frau Lydia Peier</secondary_line>\n      <street>Barbara-Reinhart-Strasse
-        20</street>\n      <supplement>Assistenz Geschäftsleitung/HR</supplement>\n
-        \     <city>Winterthur</city>\n      <zip>8404</zip>\n    </address>\n  </job_posting>\n
-        \ <job_posting>\n    <publication_date>Tue, 14 Sep 2021 05:05:17 +0200</publication_date>\n
-        \   <title>Mithilfe, Pflege, Begleitung und Betreuung betagter Menschen</title>\n
-        \   <identification_number>53256</identification_number>\n    <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;90%
-        Begleitung, Betreuung und Pflege&lt;/strong&gt;&lt;br&gt;Begleitung und Betreuung
-        betagter Menschen. Einfache Grundpflege nach Anweisung ausführen. Unterstützung
-        der Fachperson bei der ganzheitlichen Pflege. Mithilfe beim Anrichten und
-        Servieren der Mahlzeiten. Mithilfe bei der Durchführung von\n Veranstaltungen.
-        Bewohner begleiten und betreuen während den Anlässen/Aktivitäten.&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;10%
-        Hauswirtschaftliche Tätigkeiten&lt;/strong&gt;&lt;br&gt;Hauswirtschaftliche
-        Tätigkeiten. Zimmer aufräumen, Pflanzen pflegen.&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n
-        \   <required_skills>&lt;p&gt;\n\t\t\t\tKeine Berührungsängste mit betagten
-        Menschen. Verlässlichkeit, Wertschätzung, Einfühlungsvermögen und Hilfsbereitschaft.\n\t\t\t&lt;/p&gt;\n</required_skills>\n
-        \   <preferred_skills>&lt;p&gt;\n\t\t\t\t\tInteresse an betagten Menschen.
-        Auseinandersetzung  mit dem Tod. Interesse sich fachlich und persönlich weiter
-        zu bilden. Beobachten und weiterleiten von Veränderungen.\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n
-        \   <required_courses>\n      <required_course>Kommunikation &amp; Betreuung</required_course>\n
-        \     <required_course>Pflegehilfe 1</required_course>\n      <required_course>Pflegehilfe
-        2</required_course>\n    </required_courses>\n    <free_service_periods>\n
-        \     <free_service_period beginning=\"14.09.2021\" ending=\"17.09.2023\"/>\n
-        \   </free_service_periods>\n    <canton>BE</canton>\n    <category>social_welfare</category>\n
-        \   <organization_name>Domicil Spitalackerpark</organization_name>\n    <sub_category/>\n
-        \   <minimum_service_months>3</minimum_service_months>\n    <focus_program>true</focus_program>\n
-        \   <language>de-CH</language>\n    <contact>\n      <gender>Frau</gender>\n
-        \     <job>Leitung Betreuung und Pflege</job>\n      <first_name>Ursula</first_name>\n
-        \     <last_name>Pfyl</last_name>\n      <phone>+41 31 560 13 02</phone>\n
-        \     <email>ursula.pfyl@domicilbern.ch</email>\n    </contact>\n    <address>\n
-        \     <primary_line>Domicil Spitalackerpark</primary_line>\n      <secondary_line>Frau
-        Regula Fischer</secondary_line>\n      <street>Beundenfeldstrasse 26</street>\n
-        \     <supplement>Leitung Hotellerie</supplement>\n      <city>Bern</city>\n
-        \     <zip>3013</zip>\n    </address>\n  </job_posting>\n  <job_posting>\n
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<channel>\n  <job_posting>\n
         \   <publication_date>Sun, 12 Sep 2021 05:01:01 +0200</publication_date>\n
         \   <title>Unterstützung im Unterricht und bei der Betreuung (Schulkreis Staad
         und Altenrhein)</title>\n    <identification_number>94517</identification_number>\n
@@ -316,9 +86,10 @@ http_interactions:
         \     <primary_line>Schule Thal</primary_line>\n      <secondary_line>Herr
         Marco Hollenstein</secondary_line>\n      <street>Kirchplatz 4</street>\n
         \     <supplement>Schulleiter Altenrhein und Staad</supplement>\n      <city>Thal</city>\n
-        \     <zip>9425</zip>\n    </address>\n  </job_posting>\n  <job_posting>\n
-        \   <publication_date>Tue, 14 Sep 2021 05:03:30 +0200</publication_date>\n
-        \   <title>Mithilfe auf dem Hof und pädagogische Arbeiten</title>\n    <identification_number>79739</identification_number>\n
+        \     <zip>9425</zip>\n      <lat>9.56875517596468</lat>\n      <lng>47.4650375</lng>\n
+        \   </address>\n  </job_posting>\n  <job_posting>\n    <publication_date>Thu,
+        16 Sep 2021 02:51:57 +0200</publication_date>\n    <title>Mithilfe auf dem
+        Hof und pädagogische Arbeiten</title>\n    <identification_number>79739</identification_number>\n
         \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;40% Pädagogische
         Arbeiten&lt;/strong&gt;&lt;br&gt;Mithilfe bei Führungen und Arbeitseinsätzen
         von Schulklassen.&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;20% Handwerkliche
@@ -330,7 +101,7 @@ http_interactions:
         Fähigkeiten.\n\t\t\t&lt;/p&gt;\n</required_skills>\n    <preferred_skills>&lt;p&gt;\n\t\t\t\t\tFahrausweis
         (Kat. B mit Anhänger).\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n    <required_courses>\n
         \     <required_course>Kommunikation &amp; Betreuung</required_course>\n    </required_courses>\n
-        \   <free_service_periods>\n      <free_service_period beginning=\"14.09.2021\"
+        \   <free_service_periods>\n      <free_service_period beginning=\"16.09.2021\"
         ending=\"17.09.2023\"/>\n    </free_service_periods>\n    <canton>BE</canton>\n
         \   <category>social_welfare</category>\n    <organization_name>Bauernhof
         Falbringen - Stiftung für Landwirtschaft und Pädagogik</organization_name>\n
@@ -342,12 +113,13 @@ http_interactions:
         \   </contact>\n    <address>\n      <primary_line>Bauernhof Falbringen -
         Stiftung für Landwirtschaft und Pädagogik</primary_line>\n      <secondary_line/>\n
         \     <street>Falbringen 24</street>\n      <supplement/>\n      <city>Biel/Bienne</city>\n
-        \     <zip>2502</zip>\n    </address>\n  </job_posting>\n  <job_posting>\n
-        \   <publication_date>Sun, 12 Sep 2021 05:02:54 +0200</publication_date>\n
-        \   <title>Collaborateur secteur mobilité douce et aménagement du territoire
-        </title>\n    <identification_number>65723</identification_number>\n    <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;20%
-        Soutien pour travail administratif &lt;/strong&gt;&lt;br&gt;Archivage, soutien
-        aux collaboratrices et collaborateurs du département sur divers projets ayant
+        \     <zip>2502</zip>\n      <lat>7.25366446548199</lat>\n      <lng>47.15061475</lng>\n
+        \   </address>\n  </job_posting>\n  <job_posting>\n    <publication_date>Sun,
+        12 Sep 2021 05:02:54 +0200</publication_date>\n    <title>Collaborateur secteur
+        mobilité douce et aménagement du territoire </title>\n    <identification_number>65723</identification_number>\n
+        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;20% Soutien
+        pour travail administratif &lt;/strong&gt;&lt;br&gt;Archivage, soutien aux
+        collaboratrices et collaborateurs du département sur divers projets ayant
         trait à l'aménagement du territoire ou aux procédures d'autorisation de construire
         (prestations au public).&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;80%
         Promotion de la mobilité douce&lt;/strong&gt;&lt;br&gt;Participer à l'élaboration
@@ -372,8 +144,9 @@ http_interactions:
         \     <primary_line>Ville de Bienne - Service de l'urbanisme</primary_line>\n
         \     <secondary_line>Frau Florence Schmoll</secondary_line>\n      <street>Rue
         Centrale 49</street>\n      <supplement>Responsable du département d'urbanisme</supplement>\n
-        \     <city>Biel/Bienne</city>\n      <zip>2501</zip>\n    </address>\n  </job_posting>\n
-        \ <job_posting>\n    <publication_date>Sun, 12 Sep 2021 05:02:54 +0200</publication_date>\n
+        \     <city>Biel/Bienne</city>\n      <zip>2501</zip>\n      <lat>7.2471391</lat>\n
+        \     <lng>47.1368807</lng>\n    </address>\n  </job_posting>\n  <job_posting>\n
+        \   <publication_date>Sun, 12 Sep 2021 05:02:54 +0200</publication_date>\n
         \   <title>Mitarbeiter/Mitarbeiterin Bereich Langsamverkehr und Raumplanung</title>\n
         \   <identification_number>65724</identification_number>\n    <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;20%
         Unterstützung bei administrativen Arbeit&lt;/strong&gt;&lt;br&gt;Archivierung,
@@ -402,24 +175,25 @@ http_interactions:
         de l'urbanisme</primary_line>\n      <secondary_line>Frau Florence Schmoll</secondary_line>\n
         \     <street>Rue Centrale 49</street>\n      <supplement>Responsable du département
         d'urbanisme</supplement>\n      <city>Biel/Bienne</city>\n      <zip>2501</zip>\n
-        \   </address>\n  </job_posting>\n  <job_posting>\n    <publication_date>Sun,
-        12 Sep 2021 05:04:00 +0200</publication_date>\n    <title>Mitarbeiter Fahrdienst
-        und Disposition</title>\n    <identification_number>84719</identification_number>\n
-        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;30% Fahrdienst
-        evtl. Besuchs-&amp;amp; Begleitdienst&lt;/strong&gt;&lt;br&gt;Mithilfe im
-        Fahrdienst durch selbständige Durchführung von Fahrten entweder mit dem SRK-eigenen
-        Rollstuhlauto oder mit dem eigenen Personenwagen zum Arzt, ins Spital oder
-        zu anderen Aktivitäten: Abholen, Hilfestellungen beim Ein- und Ausstieg, Betreuen
-        der betagten, kranken oder behinderten Kundschaft während des Transports und
-        ab und zu auch am Zielort beim Wahrnehmen des Termins sowie schliesslich Rücktransport
-        nach Hause \nBei Gelegenheit Mithilfe im Besuchs- und Begleitdienst bei Betreuungsaufgaben
-        bei den Kunden zuhause wie Unterstützung im Haushalt, Spaziergänge, Gespräche,
-        Spiele, Hilfe beim Einkaufen, Begleitung zu Terminen, administrative und technische
-        Hilfe sowie einfache pflegerische Handreichungen usw.&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;10%
-        Organisation&lt;/strong&gt;&lt;br&gt;Mithilfe bei der Pausenablösung am Empfang,
-        beim Telefondienst, bei Reinigungs- und Unterhaltsarbeiten, bei der fachgerechten
-        Entsorgung der Abfälle, bei Aktionen, Versandaufträgen und Botengängen sowie
-        bei administrativen Arbeiten für verschiedene Dienstleistungen des SRK&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;50%
+        \     <lat>7.2471391</lat>\n      <lng>47.1368807</lng>\n    </address>\n
+        \ </job_posting>\n  <job_posting>\n    <publication_date>Sun, 12 Sep 2021
+        05:04:00 +0200</publication_date>\n    <title>Mitarbeiter Fahrdienst und Disposition</title>\n
+        \   <identification_number>84719</identification_number>\n    <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;30%
+        Fahrdienst evtl. Besuchs-&amp;amp; Begleitdienst&lt;/strong&gt;&lt;br&gt;Mithilfe
+        im Fahrdienst durch selbständige Durchführung von Fahrten entweder mit dem
+        SRK-eigenen Rollstuhlauto oder mit dem eigenen Personenwagen zum Arzt, ins
+        Spital oder zu anderen Aktivitäten: Abholen, Hilfestellungen beim Ein- und
+        Ausstieg, Betreuen der betagten, kranken oder behinderten Kundschaft während
+        des Transports und ab und zu auch am Zielort beim Wahrnehmen des Termins sowie
+        schliesslich Rücktransport nach Hause \nBei Gelegenheit Mithilfe im Besuchs-
+        und Begleitdienst bei Betreuungsaufgaben bei den Kunden zuhause wie Unterstützung
+        im Haushalt, Spaziergänge, Gespräche, Spiele, Hilfe beim Einkaufen, Begleitung
+        zu Terminen, administrative und technische Hilfe sowie einfache pflegerische
+        Handreichungen usw.&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;10% Organisation&lt;/strong&gt;&lt;br&gt;Mithilfe
+        bei der Pausenablösung am Empfang, beim Telefondienst, bei Reinigungs- und
+        Unterhaltsarbeiten, bei der fachgerechten Entsorgung der Abfälle, bei Aktionen,
+        Versandaufträgen und Botengängen sowie bei administrativen Arbeiten für verschiedene
+        Dienstleistungen des SRK&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;50%
         Fahrdienstvermittlung&lt;/strong&gt;&lt;br&gt;Mithilfe bei der telefonischen
         Fahrdienstvermittlung: Entgegennahme der Kundentelefone, Vereinbarung der
         Fahrt und anschliessende Suche einer freiwilligen Fahrerin oder eines freiwilligen
@@ -450,8 +224,9 @@ http_interactions:
         \     <phone>+41 41 418 74 43</phone>\n      <email>philipp.baettig@srk-luzern.ch</email>\n
         \   </contact>\n    <address>\n      <primary_line>SRK Kanton Luzern</primary_line>\n
         \     <secondary_line/>\n      <street>Maihofstrasse 95c</street>\n      <supplement/>\n
-        \     <city>Luzern</city>\n      <zip>6002</zip>\n    </address>\n  </job_posting>\n
-        \ <job_posting>\n    <publication_date>Tue, 14 Sep 2021 05:04:44 +0200</publication_date>\n
+        \     <city>Luzern</city>\n      <zip>6002</zip>\n      <lat>8.314384</lat>\n
+        \     <lng>47.0672951</lng>\n    </address>\n  </job_posting>\n  <job_posting>\n
+        \   <publication_date>Tue, 14 Sep 2021 05:04:44 +0200</publication_date>\n
         \   <title>Küchengehilfe</title>\n    <identification_number>80444</identification_number>\n
         \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;30% Betreuung&lt;/strong&gt;&lt;br&gt;Betreuung
         von Mitarbeitenden im geschützten Rahmen bei der Erledigung von Hilfsarbeiten&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;20%
@@ -480,8 +255,9 @@ http_interactions:
         \     <phone>+41 41 349 89 89</phone>\n      <email>esther.joller@bfvi.ch</email>\n
         \   </contact>\n    <address>\n      <primary_line>Blinden-Fürsorge-Verein-Innerschweiz</primary_line>\n
         \     <secondary_line/>\n      <street>Kantonsstrasse 2</street>\n      <supplement/>\n
-        \     <city>Horw</city>\n      <zip>6048</zip>\n    </address>\n  </job_posting>\n
-        \ <job_posting>\n    <publication_date>Tue, 14 Sep 2021 05:04:44 +0200</publication_date>\n
+        \     <city>Horw</city>\n      <zip>6048</zip>\n      <lat>8.30518021203474</lat>\n
+        \     <lng>47.02638635</lng>\n    </address>\n  </job_posting>\n  <job_posting>\n
+        \   <publication_date>Tue, 14 Sep 2021 05:04:44 +0200</publication_date>\n
         \   <title>Mitarbeiter Reinigung</title>\n    <identification_number>80443</identification_number>\n
         \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;30% Betreuung&lt;/strong&gt;&lt;br&gt;Mithilfe
         und Betreuungsaufgaben beim Mittag- und Abendservice sowie Kontakt mit den
@@ -510,8 +286,9 @@ http_interactions:
         \     <phone>+41 41 349 89 89</phone>\n      <email>esther.joller@bfvi.ch</email>\n
         \   </contact>\n    <address>\n      <primary_line>Blinden-Fürsorge-Verein-Innerschweiz</primary_line>\n
         \     <secondary_line/>\n      <street>Kantonsstrasse 2</street>\n      <supplement/>\n
-        \     <city>Horw</city>\n      <zip>6048</zip>\n    </address>\n  </job_posting>\n
-        \ <job_posting>\n    <publication_date>Mon, 13 Sep 2021 05:08:47 +0200</publication_date>\n
+        \     <city>Horw</city>\n      <zip>6048</zip>\n      <lat>8.30518021203474</lat>\n
+        \     <lng>47.02638635</lng>\n    </address>\n  </job_posting>\n  <job_posting>\n
+        \   <publication_date>Mon, 13 Sep 2021 05:08:47 +0200</publication_date>\n
         \   <title>Mithilfe Betreuung Globi Kinderkrippe Oberbüren</title>\n    <identification_number>94840</identification_number>\n
         \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;100% Mithilfe
         im Krippenbetrieb&lt;/strong&gt;&lt;br&gt;Hauptaufgabe ist die Mithilfe bei
@@ -538,8 +315,9 @@ http_interactions:
         \   </contact>\n    <address>\n      <primary_line>Verein Globi Kinderkrippen
         Schweiz</primary_line>\n      <secondary_line>Frau Tanja Waser</secondary_line>\n
         \     <street>Merkurstrasse 4</street>\n      <supplement>Mitarbeiterin Administration</supplement>\n
-        \     <city>St. Gallen</city>\n      <zip>9000</zip>\n    </address>\n  </job_posting>\n
-        \ <job_posting>\n    <publication_date>Tue, 14 Sep 2021 05:06:04 +0200</publication_date>\n
+        \     <city>St. Gallen</city>\n      <zip>9000</zip>\n      <lat>9.3718821</lat>\n
+        \     <lng>47.4236944</lng>\n    </address>\n  </job_posting>\n  <job_posting>\n
+        \   <publication_date>Tue, 14 Sep 2021 05:06:04 +0200</publication_date>\n
         \   <title>Kulturlandschaftspflege Sommer</title>\n    <identification_number>94617</identification_number>\n
         \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;100% Kulturlandschaftsarbeiten
         (1.4.-30.9.)&lt;/strong&gt;&lt;br&gt;Mithilfe bei der Pflege der Kulturlandschaft
@@ -573,8 +351,9 @@ http_interactions:
         \     <phone>+41 31 812 00 44</phone>\n      <email>philipp.tschirren@gmx.ch</email>\n
         \   </contact>\n    <address>\n      <primary_line>Talbetrieb Biohof Saum</primary_line>\n
         \     <secondary_line/>\n      <street>Saum 34</street>\n      <supplement/>\n
-        \     <city>Belpberg</city>\n      <zip>3124</zip>\n    </address>\n  </job_posting>\n
-        \ <job_posting>\n    <publication_date>Tue, 14 Sep 2021 05:06:04 +0200</publication_date>\n
+        \     <city>Belpberg</city>\n      <zip>3124</zip>\n      <lat>7.52171767941928</lat>\n
+        \     <lng>46.87432215</lng>\n    </address>\n  </job_posting>\n  <job_posting>\n
+        \   <publication_date>Tue, 14 Sep 2021 05:06:04 +0200</publication_date>\n
         \   <title>Kulturlandschaftspflege Winter</title>\n    <identification_number>94618</identification_number>\n
         \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;100% Kulturlandschaftsarbeiten
         (1.10.-31.3.)&lt;/strong&gt;&lt;br&gt;Mithilfe bei der Pflege der Kulturlandschaft
@@ -608,8 +387,9 @@ http_interactions:
         \     <phone>+41 31 812 00 44</phone>\n      <email>philipp.tschirren@gmx.ch</email>\n
         \   </contact>\n    <address>\n      <primary_line>Talbetrieb Biohof Saum</primary_line>\n
         \     <secondary_line/>\n      <street>Saum 34</street>\n      <supplement/>\n
-        \     <city>Belpberg</city>\n      <zip>3124</zip>\n    </address>\n  </job_posting>\n
-        \ <job_posting>\n    <publication_date>Tue, 14 Sep 2021 05:06:05 +0200</publication_date>\n
+        \     <city>Belpberg</city>\n      <zip>3124</zip>\n      <lat>7.52171767941928</lat>\n
+        \     <lng>46.87432215</lng>\n    </address>\n  </job_posting>\n  <job_posting>\n
+        \   <publication_date>Tue, 14 Sep 2021 05:06:05 +0200</publication_date>\n
         \   <title>Waldpflege</title>\n    <identification_number>94619</identification_number>\n
         \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;100% Pflege
         des Waldes&lt;/strong&gt;&lt;br&gt;Mithilfe bei der Pflege des Waldes gemäss
@@ -641,8 +421,9 @@ http_interactions:
         \     <phone>+41 31 812 00 44</phone>\n      <email>philipp.tschirren@gmx.ch</email>\n
         \   </contact>\n    <address>\n      <primary_line>Talbetrieb Biohof Saum</primary_line>\n
         \     <secondary_line/>\n      <street>Saum 34</street>\n      <supplement/>\n
-        \     <city>Belpberg</city>\n      <zip>3124</zip>\n    </address>\n  </job_posting>\n
-        \ <job_posting>\n    <publication_date>Tue, 14 Sep 2021 05:08:12 +0200</publication_date>\n
+        \     <city>Belpberg</city>\n      <zip>3124</zip>\n      <lat>7.52171767941928</lat>\n
+        \     <lng>46.87432215</lng>\n    </address>\n  </job_posting>\n  <job_posting>\n
+        \   <publication_date>Tue, 14 Sep 2021 05:08:12 +0200</publication_date>\n
         \   <title>Assistent Betreuung</title>\n    <identification_number>94796</identification_number>\n
         \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;50% Assistenz
         berufliche Integration&lt;/strong&gt;&lt;br&gt;Mithilfe stets in Zusammenarbeit
@@ -679,7 +460,273 @@ http_interactions:
         \     <phone>+41 32 530 10 82</phone>\n      <email>jeanne@cutohof.ch</email>\n
         \   </contact>\n    <address>\n      <primary_line>Cutohof</primary_line>\n
         \     <secondary_line/>\n      <street>Dorfstrasse 1</street>\n      <supplement/>\n
-        \     <city>Kyburg-Buchegg</city>\n      <zip>4586</zip>\n    </address>\n
-        \ </job_posting>\n</channel>\n"
-  recorded_at: Wed, 15 Sep 2021 19:02:14 GMT
+        \     <city>Kyburg-Buchegg</city>\n      <zip>4586</zip>\n      <lat>7.50584196262306</lat>\n
+        \     <lng>47.14141245</lng>\n    </address>\n  </job_posting>\n  <job_posting>\n
+        \   <publication_date>Thu, 16 Sep 2021 02:48:09 +0200</publication_date>\n
+        \   <title>Projektmitarbeiter Oberflächengewässer (SURF) Inland</title>\n
+        \   <identification_number>86241</identification_number>\n    <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;100%
+        Mitarbeit in einem Forschungsprojekt&lt;/strong&gt;&lt;br&gt;Die Abteilung
+        Oberflächengewässer (SURF) betreibt Forschung, Unterricht und Beratung im
+        Bereich der Nutzung und des Schutzes von Oberflächengewässern (OG). Die Tätigkeit
+        der Abteilung umfasst folgende Ziele:\n\n• Erforschung der Funktion von natürlichen
+        OG\n• Bestimmung des menschlichen Einflusses auf OG und Aufzeigen der Grenzen
+        der Beeinträchtigung\n• Ausarbeitung von akzeptablen Kompromissen bei mehrfacher
+        und widersprüchlicher Nutzung von OG\n• Ausbildung und Beratung in Fragen
+        der Gewässernutzung und des Gewässerschutzes\n\nDie Inlandeinsätze für Zivildienstleistende
+        innerhalb der Abteilung umfassen Projekte der Gewässerbelastung mit Verunreinigungen,
+        Feststoffen, Nährstoffen, Radioaktivität und Wärme, sowie der Untersuchung
+        von Sedimentablagerungen in Seen, Reservoiren und Gletschern, und der Erforschung
+        von natürlichen Stoffkreisläufen. Als Einflussfaktoren stehen hydroelektrische
+        Nutzung, Landwirtschaft und Klima im Vordergrund. Die praktischen Tätigkeiten
+        umfassen Probenahmen in der Natur (meist Gewässer) und Laboruntersuchungen,
+        sowie Recherchieren und Dokumentieren von wissenschaftlichen Ergebnissen und
+        das Verfassen von Berichten. Die Bestandteile eines Einsatzes umfassen Einarbeitungsphase,
+        Hauptprojektphase und Dokumentationsphase. &lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n
+        \   <required_skills>&lt;p&gt;\n\t\t\t\tBachelor- oder Masterstudium in Naturwissenschaften
+        oder Ingenieurwissenschaften; Interesse an natürlichen Systemen und systemisches
+        Denken.\n\t\t\t&lt;/p&gt;\n</required_skills>\n    <preferred_skills>&lt;p&gt;\n\t\t\t\t\tTeamfähigkeit,
+        respektvoller Umgang, Effizienz und Selbständigkeit.\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n
+        \   <required_courses>\n    </required_courses>\n    <free_service_periods>\n
+        \     <free_service_period beginning=\"03.01.2022\" ending=\"17.09.2023\"/>\n
+        \   </free_service_periods>\n    <canton>ZH</canton>\n    <category>nature_conservancy</category>\n
+        \   <organization_name>Eawag</organization_name>\n    <sub_category/>\n    <minimum_service_months>2</minimum_service_months>\n
+        \   <focus_program>false</focus_program>\n    <language>de-CH</language>\n
+        \   <contact>\n      <gender>Frau</gender>\n      <job>Personalassistentin</job>\n
+        \     <first_name>Senta Lena</first_name>\n      <last_name>Schödler</last_name>\n
+        \     <phone>+41 58 765 67 66</phone>\n      <email>zivildienst@eawag.ch</email>\n
+        \   </contact>\n    <address>\n      <primary_line>Eawag</primary_line>\n
+        \     <secondary_line>Frau Senta Lena Schödler</secondary_line>\n      <street>Überlandstrasse
+        133</street>\n      <supplement>Personalassistentin</supplement>\n      <city>Dübendorf</city>\n
+        \     <zip>8600</zip>\n      <lat>8.61021949306273</lat>\n      <lng>47.40464385</lng>\n
+        \   </address>\n  </job_posting>\n  <job_posting>\n    <publication_date>Thu,
+        16 Sep 2021 02:48:09 +0200</publication_date>\n    <title>Projektmitarbeiter
+        Bibliothek Lib4RI</title>\n    <identification_number>86262</identification_number>\n
+        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;100% Mitarbeit
+        in der Bibliothek Lib4RI&lt;/strong&gt;&lt;br&gt;Die Lib4RI – Library for
+        the Research Institutes within the ETH Domain: Eawag, Empa, PSI, WSL ist die
+        gemeinsame Bibliothek der Forschungsanstalten im ETH-Bereich: Eawag, Empa,
+        PSI und WSL.\n \nDie Kernaufgabe der Bibliothek ist die Unterstützung der
+        Institutsmitarbeitenden in Studium, Forschung und Lehre. Dies erfolgt durch
+        eine optimale Informations- und Literaturversorgung aus internen und externen
+        Informationsquellen und -medien und durch das Anbieten von kundenorientierten
+        Dienstleistungen.\n \nZudem gehört das Sammeln, Archivieren und zugänglich
+        machen der institutseigenen Publikationen zu den Aufgaben der Bibliothek.
+        \n\nDie Einsätze für Zivildienstleistende innerhalb der Bibliothek umfassen
+        verschiedene Projekte zur Verbesserung des Dienstleistungsangebotes sowie
+        der Bestandsaufarbeitung und -verwaltung.&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n
+        \   <required_skills>&lt;p&gt;\n\t\t\t\tAusbildung im I+D Bereich oder gleichwertige
+        Ausbildung oder Natur- und Sozialwissenschaftler.\n\t\t\t&lt;/p&gt;\n</required_skills>\n
+        \   <preferred_skills>&lt;p&gt;\n\t\t\t\t\tSelbständiges und exaktes Arbeiten,
+        Teamfähigkeit und Flexibilität, rasche Auffassungsgabe.\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n
+        \   <required_courses>\n    </required_courses>\n    <free_service_periods>\n
+        \     <free_service_period beginning=\"08.11.2021\" ending=\"17.09.2023\"/>\n
+        \   </free_service_periods>\n    <canton>ZH</canton>\n    <category>nature_conservancy</category>\n
+        \   <organization_name>Eawag</organization_name>\n    <sub_category/>\n    <minimum_service_months>2</minimum_service_months>\n
+        \   <focus_program>false</focus_program>\n    <language>de-CH</language>\n
+        \   <contact>\n      <gender>Frau</gender>\n      <job>Personalassistentin</job>\n
+        \     <first_name>Senta Lena</first_name>\n      <last_name>Schödler</last_name>\n
+        \     <phone>+41 58 765 67 66</phone>\n      <email>zivildienst@eawag.ch</email>\n
+        \   </contact>\n    <address>\n      <primary_line>Eawag</primary_line>\n
+        \     <secondary_line>Frau Senta Lena Schödler</secondary_line>\n      <street>Überlandstrasse
+        133</street>\n      <supplement>Personalassistentin</supplement>\n      <city>Dübendorf</city>\n
+        \     <zip>8600</zip>\n      <lat>8.61021949306273</lat>\n      <lng>47.40464385</lng>\n
+        \   </address>\n  </job_posting>\n  <job_posting>\n    <publication_date>Thu,
+        16 Sep 2021 02:51:57 +0200</publication_date>\n    <title>Mitarbeitender Pflegedienst
+        und Therapien</title>\n    <identification_number>90005</identification_number>\n
+        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;40% Betreuung&lt;/strong&gt;&lt;br&gt;Frühstücks-Buffet
+        durchführen, bei Mittagsservice unterstützen, Begleitung der Bewohner zu Arztterminen&lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;60%
+        Bewegung&lt;/strong&gt;&lt;br&gt;Nach Anleitung/Instruktion der Leitung Bewegung
+        oder Physiotherapeuten individuelle Bewegungstrainings mit Bewohnern durchführen
+        (z.B. an Geräten, Gehtraining, Spaziergänge)&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n
+        \   <required_skills>&lt;p&gt;\n\t\t\t\tTeamfähigkeit, emotionale und körperliche
+        Belastbarkeit, Zuverlässigkeit, sowie Interesse und Freude an Menschen\n\t\t\t&lt;/p&gt;\n</required_skills>\n
+        \   <preferred_skills>&lt;p&gt;\n\t\t\t\t\tUmgangssprache Deutsch, Französischkenntnisse\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n
+        \   <required_courses>\n      <required_course>Betreuung von betagten Menschen
+        1</required_course>\n      <required_course>Betreuung von betagten Menschen
+        2</required_course>\n      <required_course>Kommunikation &amp; Betreuung</required_course>\n
+        \   </required_courses>\n    <free_service_periods>\n      <free_service_period
+        beginning=\"16.09.2021\" ending=\"17.09.2023\"/>\n    </free_service_periods>\n
+        \   <canton>BE</canton>\n    <category>social_welfare</category>\n    <organization_name>Schlössli
+        Biel-Bienne AG</organization_name>\n    <sub_category/>\n    <minimum_service_months>2</minimum_service_months>\n
+        \   <focus_program>true</focus_program>\n    <language>de-CH</language>\n
+        \   <contact>\n      <gender>Frau</gender>\n      <job>Fachverantwortliche
+        Pflege</job>\n      <first_name>Karin</first_name>\n      <last_name>Eggenberger</last_name>\n
+        \     <phone>+41 32 344 08 31</phone>\n      <email>karin.eggenberger@schloessli-biel.ch</email>\n
+        \   </contact>\n    <address>\n      <primary_line>Schlössli Biel-Bienne AG</primary_line>\n
+        \     <secondary_line>Mühlestrasse 11</secondary_line>\n      <street>Mühlestrasse
+        11</street>\n      <supplement/>\n      <city>Biel/Bienne</city>\n      <zip>2504</zip>\n
+        \     <lat>7.270329</lat>\n      <lng>47.1462726</lng>\n    </address>\n  </job_posting>\n
+        \ <job_posting>\n    <publication_date>Fri, 17 Sep 2021 03:42:22 +0200</publication_date>\n
+        \   <title>Kulturlandschaftspflege Winter</title>\n    <identification_number>94917</identification_number>\n
+        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;100% Kulturlandschaftsarbeiten
+        (1.10.-31.3.)&lt;/strong&gt;&lt;br&gt;Mithilfe bei der Pflege der Kulturlandschaft
+        zu deren Erhaltung und Weiterentwicklung und zur Förderung der Artenvielfalt.
+        Gemäss Art. 5 Bst. a Zivildienstverordnung (ZDV) Mithilfe bei der Anlage und
+        Pflege der Biodiversitätsförderflächen, der Bewirtschaftung von Hängen und
+        Steillagen und der Förderung und Weiterentwicklung der Landschaftsqualität
+        mit Arbeiten wie Schneiden von Hecken und Bäumen, Ansetzen einzelner Hecken
+        und Bäume zur Aufwertung der Qualität der Hecke, Mähen des Krautsaums und
+        Uferbereichs, Abführen des Schnittgutes, Vorbeugen gegen Verbuschung und Vergandung
+        durch Entfernen von eingewachsenen Bäumen, Sträuchern und Dornen, Reinigen
+        von Nistkästen, Anlegen von Steinhaufen usw. \n\nIn Ausnahmefällen wie während
+        betrieblichen Spitzenbelastungen oder infolge witterungsbedingten Unterbruchs
+        der Arbeiten gemäss Art. 7 ZDV Mithilfe in der landwirtschaftlichen Produktion
+        wie Besorgen des Futters, Füttern der Tiere, Misten, Melken, Reinigen der
+        Gebäude und Werkzeuge, Aufbauen und Entfernen der Zäune, Viehtrieb, Bewirtschaften
+        der Felder, Bekämpfen von Unkraut und Schädlingen, Ablesen, Auflesen, Sortieren
+        und Abfüllen von Früchten und Gemüse, Mosten, Holzen usw. \n\nAusgeschlossen
+        ist die Mithilfe bei Aktivitäten im Agrotourismus wie Schlafen im Stroh und
+        Bewirtung von Gästen.&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n    <required_skills>&lt;p&gt;\n\t\t\t\tMotivation
+        für körperliche Arbeit im Freien, Bereitschaft bei der Bauernfamilie zu leben.\n\t\t\t&lt;/p&gt;\n</required_skills>\n
+        \   <preferred_skills>&lt;p&gt;\n\t\t\t\t\tGute körperliche Verfassung, Bereitschaft
+        zu erhöhter Präsenzzeit (45h).\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n    <required_courses>\n
+        \     <required_course>Umgang mit der Motorsäge</required_course>\n    </required_courses>\n
+        \   <free_service_periods>\n    </free_service_periods>\n    <canton>BE</canton>\n
+        \   <category>agriculture</category>\n    <organization_name>Talbetrieb Hehlen
+        Hans</organization_name>\n    <sub_category/>\n    <minimum_service_months>1</minimum_service_months>\n
+        \   <focus_program>false</focus_program>\n    <language>de-CH</language>\n
+        \   <contact>\n      <gender>Herr</gender>\n      <job>Betriebsleiter</job>\n
+        \     <first_name>Hans</first_name>\n      <last_name>Hehlen</last_name>\n
+        \     <phone>+41 32 633 10 84</phone>\n      <email>maxina@bluewin.ch</email>\n
+        \   </contact>\n    <address>\n      <primary_line>Talbetrieb Hehlen Hans</primary_line>\n
+        \     <secondary_line/>\n      <street>Hinterlehnweg 2</street>\n      <supplement/>\n
+        \     <city>Niederbipp</city>\n      <zip>4704</zip>\n      <lat>7.69644721541851</lat>\n
+        \     <lng>47.2824822</lng>\n    </address>\n  </job_posting>\n  <job_posting>\n
+        \   <publication_date>Fri, 17 Sep 2021 03:42:22 +0200</publication_date>\n
+        \   <title>Kulturlandschaftspflege Sommer</title>\n    <identification_number>94918</identification_number>\n
+        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;100% Kulturlandschaftsarbeiten
+        (1.4.-30.9.)&lt;/strong&gt;&lt;br&gt;Mithilfe bei der Pflege der Kulturlandschaft
+        zu deren Erhaltung und Weiterentwicklung und zur Förderung der Artenvielfalt.
+        Gemäss Art. 5 Bst. a Zivildienstverordnung (ZDV) Mithilfe bei der Anlage und
+        Pflege der Biodiversitätsförderflächen, der Bewirtschaftung von Hängen und
+        Steillagen und der Förderung und Weiterentwicklung der Landschaftsqualität
+        mit Arbeiten wie Entfernen der Vegetation, Ansäen und Ansetzen zur Verbesserung
+        der Qualität der Biodiversitätsförderflächen, Mähen, Heuen, Emden, Bekämpfen
+        und Entsorgen von Problempflanzen und Neophyten (Blacken, Disteln, Kreuzkräuter,
+        Goldrute, Knöterich), Vorbeugen gegen Verbuschung und Vergandung durch Entfernen
+        von eingewachsenen Bäumen, Sträuchern und Dornen, Abführen des Schnittgutes,
+        Erstellen, Ausbessern und Erneuern von Trockenmauern usw. \n\nIn Ausnahmefällen
+        wie während betrieblichen Spitzenbelastungen oder infolge witterungsbedingten
+        Unterbruchs der Arbeiten gemäss Art. 7 ZDV Mithilfe in der landwirtschaftlichen
+        Produktion wie Besorgen des Futters, Füttern der Tiere, Misten, Melken, Reinigen
+        der Gebäude und Werkzeuge, Aufbauen und Entfernen der Zäune, Viehtrieb, Bewirtschaften
+        der Felder, Bekämpfen von Unkraut und Schädlingen, Ablesen, Auflesen, Sortieren
+        und Abfüllen von Früchten und Gemüse, Mosten, Holzen usw. \n\nAusgeschlossen
+        ist die Mithilfe bei Aktivitäten im Agrotourismus wie Schlafen im Stroh und
+        Bewirtung von Gästen.&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n    <required_skills>&lt;p&gt;\n\t\t\t\tMotivation
+        für körperliche Arbeit im Freien, Bereitschaft bei der Bauernfamilie zu leben.\n\t\t\t&lt;/p&gt;\n</required_skills>\n
+        \   <preferred_skills>&lt;p&gt;\n\t\t\t\t\tGute körperliche Verfassung, Bereitschaft
+        zu erhöhter Präsenzzeit (45h).\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n    <required_courses>\n
+        \   </required_courses>\n    <free_service_periods>\n    </free_service_periods>\n
+        \   <canton>BE</canton>\n    <category>agriculture</category>\n    <organization_name>Talbetrieb
+        Hehlen Hans</organization_name>\n    <sub_category/>\n    <minimum_service_months>1</minimum_service_months>\n
+        \   <focus_program>false</focus_program>\n    <language>de-CH</language>\n
+        \   <contact>\n      <gender>Herr</gender>\n      <job>Betriebsleiter</job>\n
+        \     <first_name>Hans</first_name>\n      <last_name>Hehlen</last_name>\n
+        \     <phone>+41 32 633 10 84</phone>\n      <email>maxina@bluewin.ch</email>\n
+        \   </contact>\n    <address>\n      <primary_line>Talbetrieb Hehlen Hans</primary_line>\n
+        \     <secondary_line/>\n      <street>Hinterlehnweg 2</street>\n      <supplement/>\n
+        \     <city>Niederbipp</city>\n      <zip>4704</zip>\n      <lat>7.69644721541851</lat>\n
+        \     <lng>47.2824822</lng>\n    </address>\n  </job_posting>\n  <job_posting>\n
+        \   <publication_date>Fri, 17 Sep 2021 03:42:46 +0200</publication_date>\n
+        \   <title>Kulturlandschaftspflege Sommer</title>\n    <identification_number>94923</identification_number>\n
+        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;100% Kulturlandschaftsarbeiten
+        (1.4.-30.9.)&lt;/strong&gt;&lt;br&gt;Mithilfe bei der Pflege der Kulturlandschaft
+        zu deren Erhaltung und Weiterentwicklung und zur Förderung der Artenvielfalt.
+        Gemäss Art. 5 Bst. a Zivildienstverordnung (ZDV) Mithilfe bei der Anlage und
+        Pflege der Biodiversitätsförderflächen, der Bewirtschaftung von Hängen und
+        Steillagen und der Förderung und Weiterentwicklung der Landschaftsqualität
+        mit Arbeiten wie Entfernen der Vegetation, Ansäen und Ansetzen zur Verbesserung
+        der Qualität der Biodiversitätsförderflächen, Mähen, Heuen, Emden, Bekämpfen
+        und Entsorgen von Problempflanzen und Neophyten (Blacken, Disteln, Kreuzkräuter,
+        Goldrute, Knöterich), Vorbeugen gegen Verbuschung und Vergandung durch Entfernen
+        von eingewachsenen Bäumen, Sträuchern und Dornen, Abführen des Schnittgutes,
+        Erstellen, Ausbessern und Erneuern von Trockenmauern usw. \n\nIn Ausnahmefällen
+        wie während betrieblichen Spitzenbelastungen oder infolge witterungsbedingten
+        Unterbruchs der Arbeiten gemäss Art. 7 ZDV Mithilfe in der landwirtschaftlichen
+        Produktion wie Besorgen des Futters, Füttern der Tiere, Misten, Melken, Reinigen
+        der Gebäude und Werkzeuge, Aufbauen und Entfernen der Zäune, Viehtrieb, Bewirtschaften
+        der Felder, Bekämpfen von Unkraut und Schädlingen, Ablesen, Auflesen, Sortieren
+        und Abfüllen von Früchten und Gemüse, Mosten, Holzen usw. \n\nAusgeschlossen
+        ist die Mithilfe bei Aktivitäten im Agrotourismus wie Schlafen im Stroh und
+        Bewirtung von Gästen.&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n    <required_skills>&lt;p&gt;\n\t\t\t\tMotivation
+        für körperliche Arbeit im Freien, Bereitschaft bei der Bauernfamilie zu leben\n\t\t\t&lt;/p&gt;\n</required_skills>\n
+        \   <preferred_skills>&lt;p&gt;\n\t\t\t\t\tGute körperliche Verfassung, Bereitschaft
+        zu erhöhter Präsenzzeit (45h)\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n    <required_courses>\n
+        \   </required_courses>\n    <free_service_periods>\n    </free_service_periods>\n
+        \   <canton>BE</canton>\n    <category>agriculture</category>\n    <organization_name>Talbetrieb
+        Altgfähl</organization_name>\n    <sub_category/>\n    <minimum_service_months>1</minimum_service_months>\n
+        \   <focus_program>false</focus_program>\n    <language>de-CH</language>\n
+        \   <contact>\n      <gender>Herr</gender>\n      <job>Betriebsleiter</job>\n
+        \     <first_name>Hans</first_name>\n      <last_name>Zaugg-Niederhauser</last_name>\n
+        \     <phone/>\n      <email>himugueglizaugg@bluewin.ch</email>\n    </contact>\n
+        \   <address>\n      <primary_line>Talbetrieb Altgfähl</primary_line>\n      <secondary_line/>\n
+        \     <street>ober Altgfähl 353 A</street>\n      <supplement/>\n      <city>Trubschachen</city>\n
+        \     <zip>3555</zip>\n      <lat/>\n      <lng/>\n    </address>\n  </job_posting>\n
+        \ <job_posting>\n    <publication_date>Fri, 17 Sep 2021 03:42:50 +0200</publication_date>\n
+        \   <title>Unterstützung Berufsbildungszentrum IDM</title>\n    <identification_number>82938</identification_number>\n
+        \   <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;100% Unterstützung
+        IDM&lt;/strong&gt;&lt;br&gt;Unterstützung des Sekretariats Thun und Spiez:\n\n-
+        Kundenanfragen bearbeiten\n- Kundengespräche führen\n- Kundeninformationen
+        bearbeiten\n- Daten und Dokumente verwalten\n- Interne Kommunikationsinstrumente
+        anwenden\n- Schriftstücke bearbeiten\n- Bei Briefversänden mithelfen\n- Allgemeine
+        Kommunikation und Zusammenarbeit im Betrieb unterstützen\n\nFachübergreifende
+        Unterstützung im Unterricht:\n\n- Unterstützung von Schulprojekten\n- Mitarbeit
+        in Projektwochen\n- Unterstützung und Entlastung als Schülerhilfe im Unterricht\n-
+        Unterstützung der Lehrpersonen\n\nMitarbeit Hausdienst:\n\n- Diverse Arbeiten
+        Hausdienst (Gebäudeunterhaltung)\n&lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n
+        \   <required_skills>&lt;p&gt;\n\t\t\t\tAbgeschlossene Berufsausbildung oder
+        Mittelschulabschluss (z.B. Matura, BMS, DMS, Handelsschule) Grundkenntnisse
+        Microsoft Office, positiver Umgang mit Menschen (va. Jugendlichen)\n\t\t\t&lt;/p&gt;\n</required_skills>\n
+        \   <preferred_skills>&lt;p&gt;\n\t\t\t\t\tPädagogischer Bezug, Grundkenntnisse
+        Outlook\n\t\t\t\t&lt;/p&gt;</preferred_skills>\n    <required_courses>\n      <required_course>Betreuung
+        von Jugendlichen 1</required_course>\n      <required_course>Betreuung von
+        Jugendlichen 2</required_course>\n      <required_course>Kommunikation &amp;
+        Betreuung</required_course>\n    </required_courses>\n    <free_service_periods>\n
+        \     <free_service_period beginning=\"04.04.2022\" ending=\"17.09.2023\"/>\n
+        \   </free_service_periods>\n    <canton>BE</canton>\n    <category>education</category>\n
+        \   <organization_name>Berufsbildungszentrum IDM</organization_name>\n    <sub_category/>\n
+        \   <minimum_service_months>1</minimum_service_months>\n    <focus_program>true</focus_program>\n
+        \   <language>de-CH</language>\n    <contact>\n      <gender>Frau</gender>\n
+        \     <job>Leiterin Sekretariat</job>\n      <first_name>Ramona</first_name>\n
+        \     <last_name>Schär</last_name>\n      <phone>+41 33 227 33 54</phone>\n
+        \     <email>ramona.schaer@idm.ch</email>\n    </contact>\n    <address>\n
+        \     <primary_line>Berufsbildungszentrum IDM</primary_line>\n      <secondary_line/>\n
+        \     <street>Mönchstrasse 30B</street>\n      <supplement/>\n      <city>Thun</city>\n
+        \     <zip>3600</zip>\n      <lat>7.63173601394415</lat>\n      <lng>46.7491916</lng>\n
+        \   </address>\n  </job_posting>\n  <job_posting>\n    <publication_date>Fri,
+        17 Sep 2021 03:43:49 +0200</publication_date>\n    <title>Animateur - Gardien</title>\n
+        \   <identification_number>74597</identification_number>\n    <description>&lt;ul&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;30%
+        Parkaufsicht &lt;/strong&gt;&lt;br&gt;Kontrollgänge im Naturpark (zu Fuss
+        oder mit Fahrzeug). Der Zivildienstleistende achtet darauf, dass die Schutzbestimmungen
+        von den Parkbesuchern nicht verletzt werden. Er hilft bei Natur- und Umweltschutzaufgaben
+        sowie Landschaftsarbeiten mit (z.B. Neophytenbekämpfung). &lt;/li&gt;\n\t\t\t\t\t&lt;li&gt;\n&lt;strong&gt;70%
+        Information und Animation&lt;/strong&gt;&lt;br&gt;Er sensibilisiert die Bevölkerung
+        und die Besucher des Pfynwaldes bei jeder sich bietenden Gelegenheit. Der
+        Zivildienstleistende hilft den fest angestellten Animateurs-gardiens des Naturparks
+        bei deren Aktionen bezüglich Information und Animation. Hierzu gehört unter
+        anderem die Verteilung von Informationsmaterial, die Mitarbeit bei Standaktionen
+        oder die Organisation und Durchführung von Animationsangeboten. Der Zivildienstleistende
+        hilft bei der Leitung und Organisation von Exkursionen im und in der Umgebung
+        des Walliser Naturparks Pfyn-Finges. Er unterstützt das Büroteam des Regionalen
+        Naturparks in den Bereichen Information und Animation.\n &lt;/li&gt;\n\t\t\t&lt;/ul&gt;</description>\n
+        \   <required_skills>&lt;p&gt;\n\t\t\t\tBiologiestudium, Geologiestudium oder
+        abgeschlossene Berufslehre mit guten Kenntnissen im Natur- und Landschaftsbereich;
+        Fahrausweis Kat. B.\n\t\t\t&lt;/p&gt;\n</required_skills>\n    <preferred_skills>&lt;p&gt;\n\t\t\t\t\tFahrausweis
+        Kat. D1, selbständige Arbeitsweise, Freude an Natur, Kontaktfreudigkeit. \n\t\t\t\t&lt;/p&gt;</preferred_skills>\n
+        \   <required_courses>\n      <required_course>Kommunikation &amp; Betreuung</required_course>\n
+        \     <required_course>Umwelt- &amp; Naturschutz</required_course>\n    </required_courses>\n
+        \   <free_service_periods>\n      <free_service_period beginning=\"17.09.2021\"
+        ending=\"17.09.2023\"/>\n    </free_service_periods>\n    <canton>VS</canton>\n
+        \   <category>nature_conservancy</category>\n    <organization_name>Regionaler
+        Naturpark Pfyn-Finges</organization_name>\n    <sub_category/>\n    <minimum_service_months>4</minimum_service_months>\n
+        \   <focus_program>true</focus_program>\n    <language>de-CH</language>\n
+        \   <contact>\n      <gender>Frau</gender>\n      <job>Vizedirektorin</job>\n
+        \     <first_name>Viola</first_name>\n      <last_name>Anthamatten</last_name>\n
+        \     <phone>+41 27 452 60 60</phone>\n      <email>v.anthamatten@pfyn-finges.ch</email>\n
+        \   </contact>\n    <address>\n      <primary_line>Regionaler Naturpark Pfyn-Finges</primary_line>\n
+        \     <secondary_line/>\n      <street>Kirchstrasse 4</street>\n      <supplement/>\n
+        \     <city>Salgesch</city>\n      <zip>3970</zip>\n      <lat>7.570111</lat>\n
+        \     <lng>46.3115532</lng>\n    </address>\n  </job_posting>\n</channel>\n"
+  recorded_at: Fri, 17 Sep 2021 21:26:33 GMT
 recorded_with: VCR 6.0.0
