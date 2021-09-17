@@ -34,6 +34,8 @@ class JobPosting < ApplicationRecord
   validates :minimum_service_months, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
   validates :organization_name, presence: true, if: -> { organization_id.nil? }
 
+  scope :scraped, -> { where(organization: nil) }
+
   accepts_nested_attributes_for :job_posting_workshops, :available_service_periods, allow_destroy: true
 
   enum language: {

@@ -4,7 +4,7 @@ require 'nokogiri'
 require 'open-uri'
 
 module JobPostingApi
-  class Poller
+  class CurrentJobPostingsPoller
     JOB_POSTING_XPATH = '//job_posting'
     DEFAULT_ATTRIBUTES = {
       contact_information: <<~TEXT.squish
@@ -18,7 +18,7 @@ module JobPostingApi
     end
 
     def perform
-      URI.parse(ENV['JOB_POSTINGS_FEED_URL']).open do |page|
+      URI.parse(ENV['CURRENT_JOB_POSTINGS_API_URL']).open do |page|
         feed = Nokogiri::XML(page, &:noblanks)
         process_feed(feed)
       end
