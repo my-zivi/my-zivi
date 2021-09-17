@@ -18,7 +18,7 @@ module JobPostingApi
     end
 
     def perform
-      URI.parse("#{ENV['JOB_POSTINGS_API_URL']}/dev/xml.rss").open do |page|
+      URI.parse(ENV['CURRENT_JOB_POSTINGS_API_URL']).open do |page|
         feed = Nokogiri::XML(page, &:noblanks)
         process_feed(feed)
       end

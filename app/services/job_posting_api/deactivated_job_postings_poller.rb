@@ -17,7 +17,7 @@ module JobPostingApi
 
   class DeactivatedJobPostingsPoller
     def perform
-      response = Net::HTTP.get_response(URI("#{ENV['JOB_POSTINGS_API_URL']}/deleted.json"))
+      response = Net::HTTP.get_response(URI(ENV['DEACTIVATED_JOB_POSTINGS_API_URL']))
 
       raise ApiError.new('API returned non-200 status code', response: response) unless response.code.match?(/2\d\d/)
 

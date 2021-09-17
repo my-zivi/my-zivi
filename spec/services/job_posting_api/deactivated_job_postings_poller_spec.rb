@@ -6,10 +6,10 @@ RSpec.describe JobPostingApi::DeactivatedJobPostingsPoller do
   describe '#perform' do
     subject(:perform) { described_class.new.perform }
 
-    let(:api_url) { 'https://scraper.myzivi.ch' }
+    let(:api_url) { 'https://scraper.myzivi.ch/deleted.json' }
 
     around do |spec|
-      ClimateControl.modify(JOB_POSTINGS_API_URL: api_url, APP_HOST: 'myzivi.ch') do
+      ClimateControl.modify(DEACTIVATED_JOB_POSTINGS_API_URL: api_url, APP_HOST: 'myzivi.ch') do
         spec.run
       end
     end
@@ -29,7 +29,7 @@ RSpec.describe JobPostingApi::DeactivatedJobPostingsPoller do
         }
       end
 
-      before { WebMock.stub_request(:get, "#{api_url}/deleted.json").to_return(body: returned_json.to_json) }
+      before { WebMock.stub_request(:get, api_url).to_return(body: returned_json.to_json) }
 
       after { WebMock.reset! }
 
@@ -62,7 +62,7 @@ RSpec.describe JobPostingApi::DeactivatedJobPostingsPoller do
       end
 
       context 'when the server returns non 2xx status code' do
-        before { WebMock.stub_request(:get, "#{api_url}/deleted.json").to_return(body: '', status: 404) }
+        before { WebMock.stub_request(:get, api_url).to_return(body: '', status: 404) }
 
         it 'raises an api error' do
           expect { perform }.to raise_error(JobPostingApi::ApiError, 'API returned non-200 status code') do |error|
