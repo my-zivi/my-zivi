@@ -1,6 +1,5 @@
 [![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/922c0763/my-zivi)
 [![Build Status](https://my-zivi.semaphoreci.com/badges/my-zivi/branches/master.svg)](https://my-zivi.semaphoreci.com/projects/my-zivi)
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/my-zivi/my-zivi)
 
 # [MyZivi](https://www.myzivi.ch)
 

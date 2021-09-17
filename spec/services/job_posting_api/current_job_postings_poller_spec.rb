@@ -2,11 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe JobPostingApi::Poller, :vcr do
+RSpec.describe JobPostingApi::CurrentJobPostingsPoller, :vcr do
   around do |spec|
-    ClimateControl.modify(JOB_POSTINGS_FEED_URL: 'https://scraper.myzivi.ch/dev/xml.rss', APP_HOST: 'myzivi.ch') do
-      spec.run
-    end
+    envs = {
+      CURRENT_JOB_POSTINGS_API_URL: 'https://scraper.myzivi.ch/dev/current_postings.xml',
+      APP_HOST: 'myzivi.ch'
+    }
+
+    ClimateControl.modify(envs) { spec.run }
   end
 
   describe '#perform' do
