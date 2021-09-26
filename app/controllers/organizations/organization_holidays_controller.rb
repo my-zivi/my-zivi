@@ -3,7 +3,8 @@
 module Organizations
   class OrganizationHolidaysController < BaseController
     load_and_authorize_resource
-    breadcrumb 'organizations.organization_holidays.index', :organizations_organization_holidays_path
+    breadcrumb 'organizations.organizations', :edit_organizations_organization
+    breadcrumb 'organizations.organization_holidays.index', :organizations_organization_holidays_path, match: :exclusive
 
     def index
       @organization_holidays = @organization_holidays.order(beginning: :desc)

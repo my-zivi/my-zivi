@@ -5,7 +5,7 @@ module Organizations
     PERMITTED_ORGANIZATION_MEMBER_PARAMS = %i[first_name last_name phone organization_role contact_email].freeze
 
     load_and_authorize_resource
-    breadcrumb 'organizations.organization_members.index', :organizations_members_path
+    before_action :set_breadcrumb
 
     def index
       @organization_members = @organization_members.includes(:user)
@@ -27,7 +27,11 @@ module Organizations
     end
 
     def edit
-      breadcrumb @organization_member.full_name, organizations_members_path(@organization_member)
+      if @organization_member.id == current_organization_admin.id
+        breadcrumb 'organizations.profile', organizations_members_path(@organization_member)
+      else
+        breadcrumb @organization_member.full_name, organizations_members_path(@organization_member)
+      end
     end
 
     def update
@@ -48,6 +52,12 @@ module Organizations
         flash[:error] = t('.erroneous_delete')
         render :edit
       end
+    end
+
+    private
+
+    def set_breadcrumb
+      breadcrumb 'organizations.organization_members.index', organizations_members_path(@organization_member) unless @organization_member == current_organization_admin
     end
 
     private

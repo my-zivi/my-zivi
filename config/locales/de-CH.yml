@@ -195,6 +195,8 @@ de-CH:
           new: 'Neu'
         overview: 'Dashboard'
         payments: 'Auszahlungen'
+        phone_list: 'Telefonliste'
+        profile: 'Profil'
         service_agreements: 'Einsatzvereinbarung'
   mailing_list:
     erroneous_creation: Bitte beheben Sie die folgend markierten Fehler
@@ -215,6 +217,8 @@ de-CH:
       edit:
         subtitle_html: Für den Einsatz %{spec_name} vom %{beginning} bis %{ending}
         title_html: Spesenblatt von %{name}
+      breadcrumbs:
+        title: Spesenblatt von %{name} vom %{beginning} bis %{ending}
       form:
         company_holidays: Betriebsferien
         days: Tage

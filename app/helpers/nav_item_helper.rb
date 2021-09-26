@@ -2,7 +2,7 @@
 
 module NavItemHelper
   def nav_item_class(nav_path)
-    return 'active' if current_page?(nav_path)
+    return 'active' if breadcrumb_trail.to_a.any? { |breadcrumb| breadcrumb.path == nav_path }
 
     ''
   end

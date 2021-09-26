@@ -23,10 +23,8 @@ module Organizations
 
     def edit
       load_suggestions
-      breadcrumb I18n.t('organizations.expense_sheets.edit.title_html',
-                        name: @expense_sheet.civil_servant.full_name) + ' ' +
-                 I18n.t('organizations.expense_sheets.edit.subtitle_html',
-                        spec_name: @expense_sheet.service.service_specification.name,
+      breadcrumb I18n.t('organizations.expense_sheets.breadcrumbs.title',
+                        name: @expense_sheet.civil_servant.full_name,
                         beginning: l(@expense_sheet.service.beginning),
                         ending: l(@expense_sheet.service.ending)),
                  organizations_expense_sheets_path(@expense_sheet)
