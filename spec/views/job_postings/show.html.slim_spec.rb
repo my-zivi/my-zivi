@@ -25,4 +25,20 @@ RSpec.describe 'job_postings/show.html.slim', type: :view do
       expect(rendered).to include I18n.t('job_postings.show.unpublished_alert.title')
     end
   end
+
+  context 'when the job posting has an address' do
+    let(:job_posting) { build(:job_posting, :with_address) }
+
+    it 'renders the map box' do
+      expect(rendered).to have_selector('#map-embed')
+    end
+
+    context 'when address has no coordinates' do
+      let(:job_posting) { build(:job_posting, address: build(:address)) }
+
+      it 'does not render the map box' do
+        expect(rendered).not_to have_selector('#map-embed')
+      end
+    end
+  end
 end

@@ -146,13 +146,15 @@ fr-CH:
     show:
       apply_via_myzivi: Postuler via MyZivi
       back: Retour à la recherche
-      claim_html: Contactez nous <a href="%{link}">ici</a> pour le modifier
+      claim_html: Contactez nous <a href="%{link}" target="_blank" rel="noopener noreferrer">ici</a> pour le modifier
       claim_title: Est-ce votre cahier des charges?
       contact: Contact
       disclaimer: Cet établissement d'affectation n'est pas encore enregistrée sur MyZivi. Toutes les informations sont sans garantie.
       ezivi_link: Voir sur EZIVI
       ezivi_popover_content: Malheureusement, pour des raisons techniques, nous ne sommes pas en mesure de fournir un lien direct vers EZIVI. Vous pouvez trouver le cahier des charges en visitant <a href="https://www.ezivi.admin.ch" target="_blank" rel="noopener nofollow">EZIVI</a> et en recherchant le numéro du cahier des charges.
       ezivi_popover_title: EZIVI
+      javascript_notice: Veuillez activer Javascript pour voir la carte
+      map: Carte
       months:
         one: 1 mois
         other: "%{count} mois"

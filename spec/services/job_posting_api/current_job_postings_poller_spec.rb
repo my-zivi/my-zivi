@@ -22,7 +22,9 @@ RSpec.describe JobPostingApi::CurrentJobPostingsPoller, :vcr do
     it 'polls the most recent jobs, parses them correctly and saves a Log' do
       expect { poller.perform }.to(
         change(JobPosting, :count).by(20).and(
-          change(JobPostingApi::PollLog, :count).by(1)
+          change(Address, :count).by(20).and(
+            change(JobPostingApi::PollLog, :count).by(1)
+          )
         )
       )
 
@@ -43,7 +45,16 @@ RSpec.describe JobPostingApi::CurrentJobPostingsPoller, :vcr do
           language: 'german',
           organization_name: 'Cutohof',
           minimum_service_months: 3,
-          contact_information: be_a(String).and(be_present)
+          contact_information: be_a(String).and(be_present),
+          address: have_attributes(
+            primary_line: 'Cutohof',
+            secondary_line: be_nil,
+            street: 'Dorfstrasse 1',
+            city: 'Kyburg-Buchegg',
+            zip: 4586,
+            latitude: be_within(1e-4).of(7.50584196262306),
+            longitude: be_within(1e-4).of(47.14141245)
+          )
         ),
         have_attributes(title: 'Waldpflege', organization_name: 'Talbetrieb Biohof Saum')
       )
@@ -55,6 +66,7 @@ RSpec.describe JobPostingApi::CurrentJobPostingsPoller, :vcr do
       job_posting = JobPosting.find_by(identification_number: 80_443)
       expect(job_posting.workshops).to contain_exactly workshop
       expect(job_posting.organization).to be_nil
+      expect(job_posting.address).to be_present
       expect(job_posting.available_service_periods).to(
         contain_exactly(have_attributes(beginning: Date.new(2021, 9, 14), ending: Date.new(2023, 9, 17)))
       )
@@ -76,12 +88,14 @@ RSpec.describe JobPostingApi::CurrentJobPostingsPoller, :vcr do
     end
 
     context 'when a fetched job with the same identification number already exists' do
-      let!(:job_posting) { create(:job_posting, identification_number: 80_443) }
+      let!(:job_posting) { create(:job_posting, :with_address, identification_number: 80_443) }
 
       it 'merges existing job postings and updates them' do
         expect { poller.perform }.to(
-          change(JobPosting, :count).by(19).and(
+          change(JobPosting, :count).by(19).and(change(Address, :count).by(19)).and(
             change { job_posting.reload.slice(:description, :icon_url, :organization_name, :publication_date) }
+          ).and(
+            change { job_posting.address.reload.slice(:primary_line, :street, :zip, :city, :latitude, :longitude) }
           )
         )
       end
@@ -92,6 +106,10 @@ RSpec.describe JobPostingApi::CurrentJobPostingsPoller, :vcr do
 
         it 'does not update the job posting' do
           expect { poller.perform }.not_to(change { job_posting.reload.attributes })
+        end
+
+        it 'does not update the address' do
+          expect { poller.perform }.not_to(change { job_posting.reload.address })
         end
       end
 

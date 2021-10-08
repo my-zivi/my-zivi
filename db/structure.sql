@@ -203,7 +203,9 @@ CREATE TABLE public.addresses (
     city character varying NOT NULL,
     zip integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    latitude numeric(10,6),
+    longitude numeric(10,6)
 );
 
 
@@ -2117,6 +2119,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210707153648'),
 ('20210726075638'),
 ('20210727075054'),
-('20210812130003');
+('20210812130003'),
+('20210919203342');
 
 

@@ -48,6 +48,10 @@ FactoryBot.define do
       end
     end
 
+    trait :with_address do
+      association(:address, factory: %i[address with_coordinates])
+    end
+
     trait :with_available_service_periods do
       after(:build) do |job_posting|
         job_posting.available_service_periods << build(:available_service_period)

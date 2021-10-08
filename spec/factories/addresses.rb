@@ -26,5 +26,10 @@ FactoryBot.define do
       city { 'Zürich' }
       zip { 8000 }
     end
+
+    trait :with_coordinates do
+      latitude { 47.38831865 }
+      longitude { 8.48376134687825 }
+    end
   end
 end

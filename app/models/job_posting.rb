@@ -35,8 +35,9 @@ class JobPosting < ApplicationRecord
   validates :organization_name, presence: true, if: -> { organization_id.nil? }
 
   scope :scraped, -> { where(organization: nil) }
+  scope :published, -> { where(published: true) }
 
-  accepts_nested_attributes_for :job_posting_workshops, :available_service_periods, allow_destroy: true
+  accepts_nested_attributes_for :job_posting_workshops, :available_service_periods, :address, allow_destroy: true
 
   enum language: {
     german: 'de-CH',

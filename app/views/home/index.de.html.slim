@@ -19,7 +19,7 @@ section.jobs.pt-5
   .container
     h3.section-title.mb-4 Neue Einsätze
     .row
-      - JobPosting.order(publication_date: :desc).first(6).each do |posting|
+      - JobPosting.published.order(publication_date: :desc).first(6).each do |posting|
         .col-12.col-lg-6.mb-4
           = link_to job_posting_path(posting), target: '_blank' do
             .card.h-100.job-posting-card
