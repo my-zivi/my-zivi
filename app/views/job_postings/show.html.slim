@@ -75,10 +75,10 @@
           .card.card-body.mb-3
             .card-title = t('.map')
             .card-text
-              #map-embed[
+              #map-embed.w-100[
                 data-leaflet-map='true'
                 data-coordinates=@job_posting.address.coordinates.join(',')
-                style="height: 160px; width: 100%"
+                style="height: 160px"
               ]
                 noscript: h3 = t('.javascript_notice')
         .card.card-body.mb-3
