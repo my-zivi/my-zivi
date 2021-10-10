@@ -31,6 +31,7 @@ Metrics/BlockLength:
     - 'config/environments/**/*.rb'
     - 'config/routes.rb'
     - 'config/initializers/*.rb'
+    - 'app/models/concerns/job_posting_searchable.rb'
 
 Metrics/MethodLength:
   Max: 12

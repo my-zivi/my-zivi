@@ -18,7 +18,7 @@ CivilServant.create!(
       user: User.new(
         email: 'max.zivi@example.com',
         password: '12345678',
-        language: 'fr',
+        language: 'fr-CH',
         confirmed_at: 2.years.ago
       ),
       regional_center: RegionalCenter.rueti,
@@ -46,7 +46,7 @@ CivilServant.create!(
       user: User.new(
         email: 'niels@example.com',
         password: '12345678',
-        language: 'de',
+        language: 'de-CH',
         confirmed_at: 1.year.ago
       ),
       regional_center: RegionalCenter.rueti,
@@ -74,7 +74,7 @@ CivilServant.create!(
       user: User.new(
         email: 'joel.zivi@example.com',
         password: '12345678',
-        language: 'de',
+        language: 'de-CH',
         confirmed_at: 1.year.ago
       ),
       regional_center: RegionalCenter.rueti,
@@ -102,7 +102,7 @@ CivilServant.create!(
       user: User.new(
         email: 'andy.zivi@example.com',
         password: '12345678',
-        language: 'de',
+        language: 'de-CH',
         confirmed_at: 5.months.ago
       ),
       regional_center: RegionalCenter.thun,
@@ -130,7 +130,7 @@ CivilServant.create!(
       user: User.new(
         email: 'philipp.zivi@example.com',
         password: '12345678',
-        language: 'de',
+        language: 'de-CH',
         confirmed_at: 20.minutes.ago
       ),
       regional_center: RegionalCenter.thun,

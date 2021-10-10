@@ -146,13 +146,15 @@ de-CH:
     show:
       apply_via_myzivi: Über MyZivi bewerben
       back: Zurück zur Suche
-      claim_html: Kontaktiere uns <a href="%{link}">hier</a>, um es zu bearbeiten
+      claim_html: Kontaktiere uns <a href="%{link}" target="_blank" rel="noopener noreferrer">hier</a>, um es zu bearbeiten
       claim_title: Ist das Dein Pflichtenheft?
       contact: Kontakt
       disclaimer: Dieser Betrieb ist noch nicht bei MyZivi registriert. Alle Angaben sind ohne Gewähr.
       ezivi_link: Auf EZIVI ansehen
       ezivi_popover_content: Aus technischen Gründen ist es uns leider nicht möglich, einen Direktlink zu EZIVI zur Verfügung zu stellen. Du kannst das Pflichtenheft finden, in dem Du <a href="https://www.ezivi.admin.ch" target="_blank" rel="noopener nofollow">EZIVI</a> besuchst und dort nach der Identifikationsnummer des Einsatzes suchst.
       ezivi_popover_title: EZIVI
+      javascript_notice: Bitte aktiviere Javascript, um die Karte zu sehen
+      map: Karte
       months:
         one: 1 Monat
         other: "%{count} Monate"

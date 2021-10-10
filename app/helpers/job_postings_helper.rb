@@ -15,4 +15,19 @@ module JobPostingsHelper
 
     tag.i(class: "#{klass} mr-1")
   end
+
+  def google_maps_link(job_posting)
+    link_to(google_maps_url(job_posting), target: '_blank', rel: 'noreferrer nofollow noopener') do
+      tag.div(class: 'd-inline-flex') do
+        concat job_posting.organization_display_name
+        concat tag.i(class: 'fas fa-external-link-alt ml-1')
+      end
+    end
+  end
+
+  private
+
+  def google_maps_url(job_posting)
+    "https://www.google.com/maps/search/?api=1&query=#{job_posting.address.latitude},#{job_posting.address.longitude}"
+  end
 end
