@@ -1,5 +1,24 @@
 - content_for(:container_class, 'index-container')
+- render_map = @job_posting.address&.coordinates.present?
 = render 'home/navbar'
+
+- if render_map
+  - content_for(:head_additions) do
+    script crossorigin="" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    link[
+      crossorigin=""
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      onload="this.onload=null;this.rel='stylesheet'"
+      as="style"
+      rel="preload"
+    ] /
+    noscript
+      link[
+        crossorigin=""
+        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      ] /
 
 .container
   .mt-4.mt-lg-5
@@ -52,6 +71,16 @@
             ul.pl-3
               - @job_posting.workshops.each do |workshop|
                 li = workshop.name
+        - if render_map
+          .card.card-body.mb-3
+            .card-title = t('.map')
+            .card-text
+              #map-embed.w-100[
+                data-leaflet-map='true'
+                data-coordinates=@job_posting.address.coordinates.join(',')
+                style="height: 160px"
+              ]
+                noscript: h3 = t('.javascript_notice')
         .card.card-body.mb-3
           .card-title = t('.contact')
           .card-text
@@ -76,6 +105,31 @@
             .card-title = t('.claim_title')
             .card-text
               .mt-2 = t('.claim_html',
-                      link: "mailto:info@myzivi.ch?subject=Pflichtenheft%20#{@job_posting.identification_number}")
+                      link: 'https://h1jfkxgv69k.typeform.com/to/ZsKYhH79')
 
 = render 'home/footer'
+
+- if render_map
+  javascript:
+    $(document).on('turbolinks:load', function () {
+      var $element = $('#map-embed');
+      if ($element.length === 0) {
+        return;
+      }
+
+      var coordinates = $element.data('coordinates').split(',').map(parseFloat);
+      var map = L.map('map-embed').setView(coordinates, 14);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      L.marker(coordinates)
+        .addTo(map)
+        .bindPopup(
+          '<strong class="d-block mr-3">' +
+          '#{google_maps_link(@job_posting)}' +
+          '</strong>'
+        )
+        .openPopup();
+    });

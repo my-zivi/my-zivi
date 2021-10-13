@@ -19,11 +19,37 @@ RSpec.describe Address, type: :model do
       street
       primary_line
     ]
+
+    context 'when latitude and longitude are present' do
+      subject(:model) { build(:address, :with_coordinates) }
+
+      %i[latitude longitude].each do |field|
+        it_behaves_like 'validates presence of required fields', [field]
+
+        it "validates numericality of #{field}" do
+          expect(model).to validate_numericality_of(field)
+        end
+      end
+    end
   end
 
   describe '#zip_with_city' do
     subject { build(:address, zip: 6274, city: 'RSpec-Hausen').zip_with_city }
 
     it { is_expected.to eq '6274 RSpec-Hausen' }
+  end
+
+  describe '#coordinates' do
+    subject { model.coordinates }
+
+    let(:model) { build(:address, latitude: 8, longitude: 9) }
+
+    it { is_expected.to eq [8.0, 9.0] }
+
+    context 'when there are no coordinates' do
+      let(:model) { build(:address) }
+
+      it { is_expected.to be_nil }
+    end
   end
 end

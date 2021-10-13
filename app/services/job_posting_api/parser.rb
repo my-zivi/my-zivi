@@ -24,14 +24,26 @@ module JobPostingApi
         priority_program: 'focus_program'
       }.freeze
 
+      ADDRESS_FIELDS = {
+        primary_line: 'primary_line',
+        secondary_line: 'secondary_line',
+        street: 'street',
+        supplement: 'supplement',
+        city: 'city',
+        zip: 'zip',
+        latitude: 'lat',
+        longitude: 'lng'
+      }.freeze
+
       BRIEF_DESCRIPTION_LENGTH = 120
 
       def parse_job_posting_attributes(job_posting_xml)
         parse_string_fields(job_posting_xml).merge(
           **parse_integer_fields(job_posting_xml),
           **parse_boolean_fields(job_posting_xml),
-          **available_service_periods_attributes(job_posting_xml),
+          **address_attributes(job_posting_xml),
           **required_workshops_attributes(job_posting_xml),
+          **available_service_periods_attributes(job_posting_xml),
           publication_date: Date.parse(job_field(job_posting_xml, 'publication_date')),
           brief_description: ActionController::Base.helpers.strip_tags(job_field(job_posting_xml, 'description'))
                                .squish
@@ -40,6 +52,18 @@ module JobPostingApi
       end
 
       private
+
+      def address_attributes(job_posting_xml)
+        address = job_posting_xml.xpath('address')
+        attributes = ADDRESS_FIELDS.transform_values do |xml_key|
+          address.xpath(xml_key).text&.squish.presence
+        end
+
+        attributes[:latitude] &&= attributes[:latitude].to_f
+        attributes[:longitude] &&= attributes[:longitude].to_f
+
+        { address_attributes: attributes }
+      end
 
       def required_workshops_attributes(job_posting_xml)
         required_workshops = job_posting_xml.xpath('required_courses/required_course')

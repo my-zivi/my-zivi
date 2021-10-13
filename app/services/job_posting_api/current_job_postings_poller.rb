@@ -55,8 +55,12 @@ module JobPostingApi
       end
     end
 
+    # :reek:FeatureEnvy
     def sync_posting(job_posting, attributes)
-      job_posting.assign_attributes(attributes.merge(DEFAULT_ATTRIBUTES))
+      enhanced_attributes = attributes.merge(**DEFAULT_ATTRIBUTES)
+      enhanced_attributes[:address_attributes][:id] = job_posting.address_id if job_posting.address.present?
+
+      job_posting.assign_attributes(enhanced_attributes)
       return register_job_posting_error(job_posting) unless job_posting.valid?
 
       persist_job_posting(job_posting)

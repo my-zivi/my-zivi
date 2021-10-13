@@ -25,7 +25,10 @@ module JobPostingSearchable
       attribute(:required_skills) { required_skills.body&.to_plain_text }
       attribute(:preferred_skills) { preferred_skills.body&.to_plain_text }
 
-      searchableAttributes %w[unordered(title) organization_display_name unordered(plain_description)]
+      searchableAttributes %w[
+        unordered(title) organization_display_name unordered(plain_description) identification_number
+      ]
+
       attributesForFaceting %w[
         searchable(canton_display_name) category_display_name
         priority_program sub_category_display_name
