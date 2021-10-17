@@ -37,6 +37,7 @@ de-CH:
         service_with: Einsatz bei %{org_name}
   blog_entries:
     index:
+      empty: Keine Einträge gefunden
       title: Blog
     show:
       written_by: Geschrieben von %{author} am %{date}

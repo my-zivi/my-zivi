@@ -6,14 +6,21 @@
         = f.input :title, input_html: { autocomplete: 'off' }
       .col-12.col-md-6
         = f.input :subtitle, input_html: { autocomplete: 'off' }
-      .col-12.col-md-3
-        = f.input :author, input_html: { autocomplete: 'on' }
-      .col-12.col-md-3
-        = f.input :created_at
       .col-12.col-md-6
-        = f.input :slug,
-                required: f.object.persisted?,
-                hint: (t('.slug_hint') if f.object.new_record?)
+        .row
+          .col-12.col-xxl-6
+            = f.input :author, input_html: { autocomplete: 'on' }
+          .col-12.col-xxl-6
+            = f.input :created_at
+          .col-12
+            = f.input :slug,
+                    required: f.object.persisted?,
+                    hint: (t('.slug_hint') if f.object.new_record?)
+      .col-12.col-md-6
+        = f.input :tags,
+                collection: BlogEntry::SUPPORTED_TAGS.index_by { |tag| I18n.t(tag, scope: 'activerecord.arrays.blog_entry.tags') },
+                include_blank: false,
+                input_html: { multiple: true }
     = f.input :description
     .field
       = f.label :content

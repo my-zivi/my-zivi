@@ -37,6 +37,7 @@ fr-CH:
         service_with: A utiliser avec %{org_name}.
   blog_entries:
     index:
+      empty: Aucune entrée trouvée
       title: Blog
     show:
       written_by: Posté par %{author} le %{date}
