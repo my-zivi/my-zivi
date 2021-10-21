@@ -10,20 +10,4 @@ RSpec.describe JobPostingsHelper, type: :helper do
       end
     end
   end
-
-  describe '#google_maps_link' do
-    subject(:link) { helper.google_maps_link(job_posting) }
-
-    let(:job_posting) { build(:job_posting, :with_address) }
-
-    it 'renders link' do
-      expect(link).to eq <<~HTML.squish.gsub(/> </, '><')
-        <a target="_blank"
-           rel="noreferrer nofollow noopener"
-           href="https://www.google.com/maps/search/?api=1&amp;query=47.388319,8.483761">
-          <div class="d-inline-flex">MyCompany<i class="fas fa-external-link-alt ml-1"></i></div>
-        </a>
-      HTML
-    end
-  end
 end
