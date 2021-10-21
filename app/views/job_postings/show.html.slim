@@ -1,24 +1,5 @@
 - content_for(:container_class, 'index-container')
-- render_map = @job_posting.address&.coordinates.present?
 = render 'home/navbar'
-
-- if render_map
-  - content_for(:head_additions) do
-    script crossorigin="" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    link[
-      crossorigin=""
-      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-      onload="this.onload=null;this.rel='stylesheet'"
-      as="style"
-      rel="preload"
-    ] /
-    noscript
-      link[
-        crossorigin=""
-        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-      ] /
 
 .container
   .mt-4.mt-lg-5
@@ -71,13 +52,17 @@
             ul.pl-3
               - @job_posting.workshops.each do |workshop|
                 li = workshop.name
-        - if render_map
+        - if @job_posting.address&.coordinates.present?
           .card.card-body.mb-3
-            .card-title = t('.map')
+            .d-flex.justify-content-between.align-items-baseline
+              .card-title = t('.map')
+              = link_to google_maps_url(@job_posting), rel: 'noreferrer noopener nofollow', target: '_blank' do
+                i.fas.fa-external-link-alt
             .card-text
-              #map-embed.w-100[
+              .w-100[
                 data-leaflet-map='true'
                 data-coordinates=@job_posting.address.coordinates.join(',')
+                data-title=@job_posting.organization_display_name
                 style="height: 160px"
               ]
                 noscript: h3 = t('.javascript_notice')
@@ -108,28 +93,3 @@
                       link: 'https://h1jfkxgv69k.typeform.com/to/ZsKYhH79')
 
 = render 'home/footer'
-
-- if render_map
-  javascript:
-    $(document).on('turbolinks:load', function () {
-      var $element = $('#map-embed');
-      if ($element.length === 0) {
-        return;
-      }
-
-      var coordinates = $element.data('coordinates').split(',').map(parseFloat);
-      var map = L.map('map-embed').setView(coordinates, 14);
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
-
-      L.marker(coordinates)
-        .addTo(map)
-        .bindPopup(
-          '<strong class="d-block mr-3">' +
-          '#{google_maps_link(@job_posting)}' +
-          '</strong>'
-        )
-        .openPopup();
-    });

@@ -30,14 +30,14 @@ RSpec.describe 'job_postings/show.html.slim', type: :view do
     let(:job_posting) { build(:job_posting, :with_address) }
 
     it 'renders the map box' do
-      expect(rendered).to have_selector('#map-embed')
+      expect(rendered).to have_selector('[data-leaflet-map]')
     end
 
     context 'when address has no coordinates' do
       let(:job_posting) { build(:job_posting, address: build(:address)) }
 
       it 'does not render the map box' do
-        expect(rendered).not_to have_selector('#map-embed')
+        expect(rendered).not_to have_selector('[data-leaflet-map]')
       end
     end
   end
