@@ -36,10 +36,6 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Max: 12
 
-Lint/LambdaWithoutLiteralBlock:
-  Exclude:
-    - 'app/services/pdfs/expense_sheet/fields/expense_table.rb'
-
 RSpec/MultipleExpectations:
   Enabled: false
 
