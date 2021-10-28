@@ -215,7 +215,7 @@ fr-CH:
           new: Nouveau
         services:
           index: Services
-          show: Service de %{début} à %{fin}
+          show: Service de %{beginning} à %{ending}
   mailing_list:
     erroneous_creation: Veuillez corriger les erreurs marquées suivantes
     successful_creation: Merci beaucoup pour votre intérêt. Nous vous contacterons bientôt
