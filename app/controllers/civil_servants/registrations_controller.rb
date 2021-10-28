@@ -34,7 +34,7 @@ module CivilServants
 
     def respond_to_successful_update
       if @civil_servant.registration_step.last?
-        flash.now[:success] = I18n.t('successful_registration')
+        flash[:success] = I18n.t('successful_registration')
         redirect_to civil_servants_path
       else
         redirect_to civil_servants_register_path(displayed_step: @displayed_step.next.identifier)
