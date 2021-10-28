@@ -3,7 +3,7 @@
 module Organizations
   class CivilServantsController < BaseController
     load_and_authorize_resource
-    breadcrumb 'organizations.civil_servants', :organizations_civil_servants_path
+    breadcrumb 'organizations.civil_servants.index', :organizations_civil_servants_path
 
     def index
       load_filters

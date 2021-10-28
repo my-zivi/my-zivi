@@ -8,7 +8,7 @@ module Organizations
     ].freeze
 
     authorize_resource :service
-    breadcrumb 'organizations.service_agreements', :organizations_service_agreements_path
+    breadcrumb 'organizations.service_agreements.index', :organizations_service_agreements_path
 
     before_action :load_civil_servant, only: %i[new create]
     before_action :load_service_specifications, only: %i[new create]
@@ -21,9 +21,9 @@ module Organizations
       service = Service.find(params[:id])
       authorize! :destroy, service
       if service.destroy
-        flash[:notice] = t('.successful_destroy')
+        flash.now[:notice] = t('.successful_destroy')
       else
-        flash[:error] = t('.erroneous_destroy')
+        flash.now[:error] = t('.erroneous_destroy')
       end
 
       redirect_back fallback_location: organizations_service_agreements_path
@@ -41,16 +41,18 @@ module Organizations
     end
 
     def new
+      new_breadcrumb
       @service_agreement = Service.new(civil_servant: @civil_servant)
     end
 
     def create
+      new_breadcrumb
       agreement_creator = ServiceAgreementCreator.new(@civil_servant, current_organization_admin)
       if agreement_creator.call(service_agreement_params)
         redirect_to organizations_service_agreements_path, notice: t('.successful_create')
       else
         @service_agreement = agreement_creator.service_agreement
-        flash[:error] = t('.erroneous_create')
+        flash.now[:error] = t('.erroneous_create')
         render :new
       end
     end
@@ -75,6 +77,10 @@ module Organizations
 
     def service_agreement_params
       params.require(:service_agreement).permit(*PERMITTED_PARAMS)
+    end
+
+    def new_breadcrumb
+      breadcrumb 'organizations.service_agreements.new', :new_organizations_service_agreement_path
     end
   end
 end

@@ -3,7 +3,6 @@
 module Organizations
   class BaseController < ApplicationController
     include ::AuthenticableAndAuthorizable
-    breadcrumb 'organizations.organization', :organizations_path
 
     before_action -> { authorize! :access, :organization_portal }
 

@@ -25,7 +25,7 @@ module SysAdmins
         redirect_to sys_admins_blog_entry_path(@blog_entry),
                     notice: I18n.t('sys_admins.blog_entries.successful_creation')
       else
-        flash[:error] = I18n.t('sys_admins.blog_entries.erroneous_creation')
+        flash.now[:error] = I18n.t('sys_admins.blog_entries.erroneous_creation')
         render :new
       end
     end
@@ -35,7 +35,7 @@ module SysAdmins
         redirect_to sys_admins_blog_entry_path(@blog_entry),
                     notice: I18n.t('sys_admins.blog_entries.successful_update')
       else
-        flash[:error] = I18n.t('sys_admins.blog_entries.erroneous_update')
+        flash.now[:error] = I18n.t('sys_admins.blog_entries.erroneous_update')
         render :edit
       end
     end

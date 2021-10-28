@@ -5,16 +5,16 @@ module Organizations
     before_action :load_organization
 
     def edit
-      breadcrumb 'organizations.organizations', :edit_organizations_organization
+      breadcrumb 'organizations.organizations.index', :edit_organizations_organization
       @organization.build_creditor_detail unless @organization.creditor_detail
     end
 
     def update
       if @organization.update(organization_params)
-        flash[:success] = t('organizations.organizations.update.successful_update')
+        flash.now[:success] = t('organizations.organizations.update.successful_update')
         redirect_to edit_organizations_organization_path
       else
-        flash[:error] = t('organizations.organizations.update.erroneous_update')
+        flash.now[:error] = t('organizations.organizations.update.erroneous_update')
         render :edit
       end
     end

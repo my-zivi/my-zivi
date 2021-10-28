@@ -7,29 +7,32 @@ module Organizations
     before_action :load_accessible_expense_sheets, only: :new
 
     load_and_authorize_resource
-    breadcrumb 'organizations.payments', :organizations_payments_path
+    breadcrumb 'organizations.payments.index', :organizations_payments_path
 
     def index
       @payments = @payments.order(state: :asc, created_at: :desc)
     end
 
-    def new; end
+    def new
+      breadcrumb 'organizations.payments.new', :new_organizations_payment_path
+    end
 
     def create
+      breadcrumb 'organizations.payments.new', :new_organizations_payment_path
       @payment.amount = @payment.expense_sheets.sum(&:amount)
 
       if @payment.save
-        flash[:success] = t('.successful_create')
+        flash.now[:success] = t('.successful_create')
         redirect_to organizations_payment_path(@payment)
       else
         load_accessible_expense_sheets
-        flash[:error] = t('.erroneous_create')
+        flash.now[:error] = t('.erroneous_create')
         render :new
       end
     end
 
     def show
-      breadcrumb I18n.t('organizations.payments.show.title', date: l(@payment.created_at.to_date)),
+      breadcrumb I18n.t('loaf.breadcrumbs.organizations.payments.show', date: l(@payment.created_at.to_date)),
                  organizations_payments_path(@payment)
       respond_to do |format|
         format.html
@@ -46,9 +49,9 @@ module Organizations
 
     def destroy
       if @payment.destroy
-        flash[:success] = t('.successful_destroy')
+        flash.now[:success] = t('.successful_destroy')
       else
-        flash[:error] = t('.erroneous_destroy')
+        flash.now[:error] = t('.erroneous_destroy')
       end
 
       redirect_back fallback_location: organizations_payments_path
@@ -58,9 +61,9 @@ module Organizations
 
     def process_paid_state_update
       if payment_params[:state] == 'paid' && !@payment.readonly? && @payment.paid_out!
-        flash[:success] = I18n.t('organizations.payments.update.successful_update')
+        flash.now[:success] = I18n.t('organizations.payments.update.successful_update')
       else
-        flash[:error] = I18n.t('organizations.payments.update.erroneous_update')
+        flash.now[:error] = I18n.t('organizations.payments.update.erroneous_update')
       end
     end
 

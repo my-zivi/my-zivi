@@ -6,7 +6,7 @@ module Organizations
     include DateTimePickerHelper
 
     before_action -> { authorize!(:read, :phone_list) }
-    breadcrumb 'organizations.phone_list', :organizations_phone_list_path
+    breadcrumb 'organizations.phone_list.index', :organizations_phone_list_path
 
     def index
       load_filters

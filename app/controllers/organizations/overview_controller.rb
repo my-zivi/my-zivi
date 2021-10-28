@@ -3,7 +3,7 @@
 module Organizations
   class OverviewController < BaseController
     before_action -> { authorize! :read, :organization_overview }
-    breadcrumb 'organizations.overview', :organizations_path
+    breadcrumb 'organizations.overview.index', :organizations_path
 
     def index
       @services = can?(:read, Service) ? load_services : Service.none

@@ -3,7 +3,7 @@
 module Organizations
   class OrganizationHolidaysController < BaseController
     load_and_authorize_resource
-    breadcrumb 'organizations.organizations', :edit_organizations_organization
+    breadcrumb 'organizations.organizations.index', :edit_organizations_organization
     breadcrumb 'organizations.organization_holidays.index', :organizations_organization_holidays_path, match: :exclusive
 
     def index
@@ -22,30 +22,30 @@ module Organizations
       build_organization_holiday
 
       if @organization_holiday.save
-        flash[:success] = t('organizations.organization_holidays.update.successful_create')
+        flash.now[:success] = t('organizations.organization_holidays.update.successful_create')
         redirect_to organizations_organization_holidays_path
       else
-        flash[:error] = t('organizations.organization_holidays.update.erroneous_create')
+        flash.now[:error] = t('organizations.organization_holidays.update.erroneous_create')
         render :new
       end
     end
 
     def update
       if @organization_holiday.update(organization_holiday_params)
-        flash[:success] = t('organizations.organization_holidays.update.successful_update')
+        flash.now[:success] = t('organizations.organization_holidays.update.successful_update')
         redirect_to organizations_organization_holidays_path
       else
-        flash[:error] = t('organizations.organization_holidays.update.erroneous_update')
+        flash.now[:error] = t('organizations.organization_holidays.update.erroneous_update')
         render :edit
       end
     end
 
     def destroy
       if @organization_holiday.destroy
-        flash[:success] = t('organizations.organization_holidays.update.successful_destroy')
+        flash.now[:success] = t('organizations.organization_holidays.update.successful_destroy')
         redirect_to organizations_organization_holidays_path
       else
-        flash[:error] = t('organizations.organization_holidays.update.erroneous_destroy')
+        flash.now[:error] = t('organizations.organization_holidays.update.erroneous_destroy')
         render :edit
       end
     end

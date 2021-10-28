@@ -14,7 +14,7 @@ module Organizations
     ].freeze
 
     load_and_authorize_resource
-    breadcrumb 'organizations.expense_sheets', :organizations_expense_sheets_path
+    breadcrumb 'organizations.expense_sheets.index', :organizations_expense_sheets_path
 
     def index
       load_filters
@@ -22,20 +22,17 @@ module Organizations
     end
 
     def edit
+      breadcrumb @expense_sheet.civil_servant.full_name, organizations_expense_sheets_path(@expense_sheet)
       load_suggestions
-      breadcrumb I18n.t('organizations.expense_sheets.breadcrumbs.title',
-                        name: @expense_sheet.civil_servant.full_name,
-                        beginning: l(@expense_sheet.service.beginning),
-                        ending: l(@expense_sheet.service.ending)),
-                 organizations_expense_sheets_path(@expense_sheet)
     end
 
     def update
+      breadcrumb @expense_sheet.civil_servant.full_name, organizations_expense_sheets_path(@expense_sheet)
       if @expense_sheet.update(expense_sheets_params)
         redirect_to edit_organizations_expense_sheet_path, notice: t('.successful_update')
       else
         load_suggestions
-        flash[:error] = t('.erroneous_update')
+        flash.now[:error] = t('.erroneous_update')
         render :edit
       end
     end

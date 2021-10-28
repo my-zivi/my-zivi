@@ -7,20 +7,28 @@ module Organizations
     load_and_authorize_resource :service, through: :civil_servant, except: :index
 
     def index
+      breadcrumb 'organizations.services.index', :organizations_services_path
       respond_to do |format|
         format.html
         format.json { render json: ServicesSerializer.call(services) }
       end
     end
 
-    def show; end
+    def show
+      breadcrumb 'organizations.civil_servants.index', :organizations_civil_servants_path
+      breadcrumb @service.civil_servant.full_name, organizations_civil_servants_path(@service.civil_servant)
+      breadcrumb I18n.t(
+        'loaf.breadcrumbs.organizations.services.show',
+        beginning: I18n.l(@service.beginning),
+        ending: I18n.l(@service.ending)), organizations_services_path(@service)
+    end
 
     def confirm
       if @service.confirm!
-        flash[:success] = I18n.t('organizations.services.confirm.successful_confirm')
+        flash.now[:success] = I18n.t('organizations.services.confirm.successful_confirm')
         redirect_to organizations_civil_servant_service_path(@civil_servant, @service)
       else
-        flash[:error] = I18n.t('organizations.services.confirm.erroneous_confirm')
+        flash.now[:error] = I18n.t('organizations.services.confirm.erroneous_confirm')
         redirect_back(fallback_location: organizations_path)
       end
     end

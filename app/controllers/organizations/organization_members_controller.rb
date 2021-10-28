@@ -18,38 +18,38 @@ module Organizations
     def create
       breadcrumb 'organizations.organization_members.new', :new_organizations_member_path
       if @organization_member.save
-        flash[:success] = t('.successfully_created')
+        flash.now[:success] = t('.successfully_created')
         redirect_to organizations_members_path
       else
-        flash[:error] = t('.erroneous_create')
+        flash.now[:error] = t('.erroneous_create')
         render :new
       end
     end
 
     def edit
       if @organization_member.id == current_organization_admin.id
-        breadcrumb 'organizations.profile', organizations_members_path(@organization_member)
+        breadcrumb 'organizations.organization_members.profile', edit_organizations_member_path(@organization_member)
       else
-        breadcrumb @organization_member.full_name, organizations_members_path(@organization_member)
+        breadcrumb @organization_member.full_name, edit_organizations_member_path(@organization_member)
       end
     end
 
     def update
       if @organization_member.update(update_params)
-        flash[:success] = t('.successfully_updated')
+        flash.now[:success] = t('.successfully_updated')
         redirect_to edit_organizations_member_path(@organization_member)
       else
-        flash[:error] = t('.erroneous_update')
+        flash.now[:error] = t('.erroneous_update')
         render :edit
       end
     end
 
     def destroy
       if @organization_member != current_organization_admin && @organization_member.destroy
-        flash[:success] = t('.successfully_deleted')
+        flash.now[:success] = t('.successfully_deleted')
         redirect_to organizations_members_path
       else
-        flash[:error] = t('.erroneous_delete')
+        flash.now[:error] = t('.erroneous_delete')
         render :edit
       end
     end
@@ -57,7 +57,7 @@ module Organizations
     private
 
     def set_breadcrumb
-      breadcrumb 'organizations.organization_members.index', organizations_members_path(@organization_member) unless @organization_member == current_organization_admin
+      breadcrumb 'organizations.organization_members.index', organizations_members_path unless @organization_member == current_organization_admin
     end
 
     private

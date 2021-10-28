@@ -14,6 +14,8 @@ module Organizations
 
     load_and_authorize_resource param_method: :service_specification_params
 
+    breadcrumb 'organizations.service_specifications.index', :organizations_service_specifications_path
+
     def index
       @service_specifications = @service_specifications
                                 .order(active: :desc, name: :asc)
@@ -21,34 +23,39 @@ module Organizations
     end
 
     def new
+      breadcrumb 'organizations.service_specifications.new', :new_organizations_service_specification_path
       @service_specification = current_organization_admin.organization.service_specifications.build
     end
 
-    def edit; end
+    def edit
+      breadcrumb @service_specification.name, :new_organizations_service_specification_path
+    end
 
     def create
+      breadcrumb 'organizations.service_specifications.new', :new_organizations_service_specification_path
       if @service_specification.save
         redirect_to organizations_service_specifications_path, notice: t('.successful_create')
       else
-        flash[:error] = t('.erroneous_create')
+        flash.now[:error] = t('.erroneous_create')
         render :new
       end
     end
 
     def update
+      breadcrumb @service_specification.name, :new_organizations_service_specification_path
       if @service_specification.update(service_specification_params)
         redirect_to edit_organizations_service_specification_path, notice: t('.successful_update')
       else
-        flash[:error] = t('.erroneous_update')
+        flash.now[:error] = t('.erroneous_update')
         render :edit
       end
     end
 
     def destroy
       if @service_specification.destroy
-        flash[:notice] = t('.successful_destroy')
+        flash.now[:notice] = t('.successful_destroy')
       else
-        flash[:error] = t('.erroneous_destroy')
+        flash.now[:error] = t('.erroneous_destroy')
       end
 
       redirect_to organizations_service_specifications_path

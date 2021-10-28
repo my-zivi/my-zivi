@@ -182,22 +182,40 @@ de-CH:
   loaf:
     breadcrumbs:
       organizations:
-        civil_servants: 'Zivildienstleistende'
-        expense_sheets: 'Spesenblätter'
-        job_postings: 'Ausschreibungen'
-        organization: 'Betrieb'
-        organizations: 'Betriebsdaten'
+        civil_servants:
+          index: 'Zivildienstleistende'
+        expense_sheets:
+          index: 'Spesenblätter'
+        job_postings:
+          index: 'Ausschreibungen'
+        organization:
+          index: 'Betrieb'
+        organizations:
+          index: 'Betriebsdaten'
         organization_holidays:
           index: 'Betriebsferien'
           new: 'Neu'
         organization_members:
           index: 'Mitarbeiter'
           new: 'Neu'
-        overview: 'Dashboard'
-        payments: 'Auszahlungen'
-        phone_list: 'Telefonliste'
-        profile: 'Profil'
-        service_agreements: 'Einsatzvereinbarung'
+          profile: 'Profil'
+        overview:
+          index: 'Dashboard'
+        payments:
+          index: 'Auszahlungen'
+          new: 'Neu'
+          show: 'Auszahlung vom %{date}'
+        phone_list:
+          index: 'Telefonliste'
+        services:
+          index: 'Einsatzübersicht'
+          show: 'Einsatz vom %{beginning} bis %{ending}'
+        service_agreements:
+          index: 'Einsatzvereinbarung'
+          new: 'Neu'
+        service_specifications:
+          index: 'Pflichtenhefter'
+          new: 'Neu'
   mailing_list:
     erroneous_creation: Bitte beheben Sie die folgend markierten Fehler
     successful_creation: Vielen Dank für Ihr Interesse. Wir werden Sie bald kontaktieren
@@ -217,8 +235,6 @@ de-CH:
       edit:
         subtitle_html: Für den Einsatz %{spec_name} vom %{beginning} bis %{ending}
         title_html: Spesenblatt von %{name}
-      breadcrumbs:
-        title: Spesenblatt von %{name} vom %{beginning} bis %{ending}
       form:
         company_holidays: Betriebsferien
         days: Tage

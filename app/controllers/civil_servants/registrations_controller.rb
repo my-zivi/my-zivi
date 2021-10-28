@@ -25,7 +25,7 @@ module CivilServants
       if @civil_servant.update(civil_servant_params)
         respond_to_successful_update
       else
-        flash[:error] = t('.erroneous_update')
+        flash.now[:error] = t('.erroneous_update')
         render :edit
       end
     end
@@ -34,7 +34,7 @@ module CivilServants
 
     def respond_to_successful_update
       if @civil_servant.registration_step.last?
-        flash[:success] = I18n.t('successful_registration')
+        flash.now[:success] = I18n.t('successful_registration')
         redirect_to civil_servants_path
       else
         redirect_to civil_servants_register_path(displayed_step: @displayed_step.next.identifier)

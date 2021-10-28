@@ -25,7 +25,7 @@ module CivilServants
 
     def update
       if @civil_servant.update(civil_servant_params)
-        flash[:success] = t('.successfully_updated')
+        flash.now[:success] = t('.successfully_updated')
         redirect_to edit_civil_servants_civil_servant_path
       else
         respond_to do |format|
