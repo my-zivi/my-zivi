@@ -183,39 +183,39 @@ de-CH:
     breadcrumbs:
       organizations:
         civil_servants:
-          index: 'Zivildienstleistende'
+          index: Zivildienstleistende
         expense_sheets:
-          index: 'Spesenblätter'
+          index: Spesenblätter
         job_postings:
-          index: 'Ausschreibungen'
+          index: Ausschreibungen
         organization:
-          index: 'Betrieb'
-        organizations:
-          index: 'Betriebsdaten'
+          index: Betrieb
         organization_holidays:
-          index: 'Betriebsferien'
-          new: 'Neu'
+          index: Betriebsferien
+          new: Neu
         organization_members:
-          index: 'Mitarbeiter'
-          new: 'Neu'
-          profile: 'Profil'
+          index: Mitarbeiter
+          new: Neu
+          profile: Profil
+        organizations:
+          index: Betriebsdaten
         overview:
-          index: 'Dashboard'
+          index: Dashboard
         payments:
-          index: 'Auszahlungen'
-          new: 'Neu'
-          show: 'Auszahlung vom %{date}'
+          index: Auszahlungen
+          new: Neu
+          show: Auszahlung vom %{date}
         phone_list:
-          index: 'Telefonliste'
-        services:
-          index: 'Einsatzübersicht'
-          show: 'Einsatz vom %{beginning} bis %{ending}'
+          index: Telefonliste
         service_agreements:
-          index: 'Einsatzvereinbarung'
-          new: 'Neu'
+          index: Einsatzvereinbarung
+          new: Neu
         service_specifications:
-          index: 'Pflichtenhefter'
-          new: 'Neu'
+          index: Pflichtenhefter
+          new: Neu
+        services:
+          index: Einsatzübersicht
+          show: Einsatz vom %{beginning} bis %{ending}
   mailing_list:
     erroneous_creation: Bitte beheben Sie die folgend markierten Fehler
     successful_creation: Vielen Dank für Ihr Interesse. Wir werden Sie bald kontaktieren
