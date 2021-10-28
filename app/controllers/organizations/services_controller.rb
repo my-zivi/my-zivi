@@ -20,7 +20,8 @@ module Organizations
       breadcrumb I18n.t(
         'loaf.breadcrumbs.organizations.services.show',
         beginning: I18n.l(@service.beginning),
-        ending: I18n.l(@service.ending)), organizations_services_path(@service)
+        ending: I18n.l(@service.ending)
+      ), organizations_services_path(@service)
     end
 
     def confirm

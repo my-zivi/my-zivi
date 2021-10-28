@@ -57,10 +57,11 @@ module Organizations
     private
 
     def set_breadcrumb
-      breadcrumb 'organizations.organization_members.index', organizations_members_path unless @organization_member == current_organization_admin
-    end
+      return if @organization_member == current_organization_admin
 
-    private
+      breadcrumb 'organizations.organization_members.index',
+                 organizations_members_path
+    end
 
     def create_params
       params.require(:organization_member).permit(*PERMITTED_ORGANIZATION_MEMBER_PARAMS)

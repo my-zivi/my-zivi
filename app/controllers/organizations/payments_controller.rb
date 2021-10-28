@@ -5,6 +5,7 @@ module Organizations
     PAIN_SCHEME = 'pain.001.001.03.ch.02'
 
     before_action :load_accessible_expense_sheets, only: :new
+    before_action :new_breadcrumb, only: %i[new create]
 
     load_and_authorize_resource
     breadcrumb 'organizations.payments.index', :organizations_payments_path
@@ -13,12 +14,9 @@ module Organizations
       @payments = @payments.order(state: :asc, created_at: :desc)
     end
 
-    def new
-      breadcrumb 'organizations.payments.new', :new_organizations_payment_path
-    end
+    def new; end
 
     def create
-      breadcrumb 'organizations.payments.new', :new_organizations_payment_path
       @payment.amount = @payment.expense_sheets.sum(&:amount)
 
       if @payment.save
@@ -103,6 +101,10 @@ module Organizations
 
     def payment_params
       params.require(:payment).permit(:state)
+    end
+
+    def new_breadcrumb
+      breadcrumb 'organizations.payments.new', :new_organizations_payment_path
     end
   end
 end
