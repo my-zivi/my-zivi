@@ -179,6 +179,43 @@ fr-CH:
         sign_out: Déconnexion
   lead_person_html: 'Personne responsable: %{link}'
   loading: En chargeant...
+  loaf:
+    breadcrumbs:
+      organizations:
+        civil_servants:
+          index: Travailleurs des services communautaires
+        expense_sheets:
+          index: Feuilles de dépenses
+        job_postings:
+          index: Appels d'offres
+        organization:
+          index: Opération
+        organization_holidays:
+          index: Vacances d'entreprise
+          new: Nouveau
+        organization_members:
+          index: Employés
+          new: Nouveau
+          profile: Profil
+        organizations:
+          index: Données d'exploitation
+        overview:
+          index: Tableau de bord
+        payments:
+          index: Décaissements
+          new: Nouveau
+          show: Paiement à partir de %{date}
+        phone_list:
+          index: Liste des téléphones
+        service_agreements:
+          index: Accord de déploiement
+          new: Nouveau
+        service_specifications:
+          index: Spécification des besoins
+          new: Nouveau
+        services:
+          index: Aperçu de la mission
+          show: A utiliser de %{début} à %{fin}
   mailing_list:
     erroneous_creation: Veuillez corriger les erreurs marquées suivantes
     successful_creation: Merci beaucoup pour votre intérêt. Nous vous contacterons bientôt
