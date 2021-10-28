@@ -6,16 +6,15 @@ module Organizations
     skip_authorize_resource only: :index
     breadcrumb 'organizations.job_postings.index', :organizations_job_postings_path
 
+    before_action :edit_breadcrumb, only: %i[edit update]
+
     def index
       @job_postings = @job_postings.accessible_by(current_ability, :edit)
     end
 
-    def edit
-      edit_breadcrumb
-    end
+    def edit; end
 
     def update
-      edit_breadcrumb
       if @job_posting.update(job_posting_params)
         redirect_to edit_organizations_job_posting_path(@job_posting), notice: t('.successful_update')
       else

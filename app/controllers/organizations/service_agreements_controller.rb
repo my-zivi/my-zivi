@@ -12,6 +12,7 @@ module Organizations
 
     before_action :load_civil_servant, only: %i[new create]
     before_action :load_service_specifications, only: %i[new create]
+    before_action :new_breadcrumb, only: %i[new create]
 
     def index
       @service_agreements = Service.accessible_by(current_ability).agreement
@@ -41,12 +42,10 @@ module Organizations
     end
 
     def new
-      new_breadcrumb
       @service_agreement = Service.new(civil_servant: @civil_servant)
     end
 
     def create
-      new_breadcrumb
       agreement_creator = ServiceAgreementCreator.new(@civil_servant, current_organization_admin)
       if agreement_creator.call(service_agreement_params)
         redirect_to organizations_service_agreements_path, notice: t('.successful_create')

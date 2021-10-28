@@ -4,15 +4,15 @@ module Organizations
   class OrganizationHolidaysController < BaseController
     load_and_authorize_resource
     breadcrumb 'organizations.organizations.index', :edit_organizations_organization
-    breadcrumb 'organizations.organization_holidays.index', :organizations_organization_holidays_path, match: :exclusive
+    breadcrumb 'organizations.organization_holidays.index', :organizations_organization_holidays_path
+
+    before_action :new_breadcrumb, only: %i[new create]
 
     def index
       @organization_holidays = @organization_holidays.order(beginning: :desc)
     end
 
-    def new
-      breadcrumb 'organizations.organization_holidays.new', :new_organizations_organization_holiday_path
-    end
+    def new; end
 
     def edit
       breadcrumb @organization_holiday.description, :organizations_organization_holiday_path
@@ -61,6 +61,10 @@ module Organizations
                               .organization
                               .organization_holidays
                               .build(organization_holiday_params)
+    end
+
+    def new_breadcrumb
+      breadcrumb 'organizations.organization_holidays.new', :new_organizations_organization_holiday_path
     end
   end
 end
