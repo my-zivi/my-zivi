@@ -179,43 +179,6 @@ fr-CH:
         sign_out: Déconnexion
   lead_person_html: 'Personne responsable: %{link}'
   loading: En chargeant...
-  loaf:
-    breadcrumbs:
-      organizations:
-        civil_servants:
-          index: Zivildienstleistende
-        expense_sheets:
-          index: Spesenblätter
-        job_postings:
-          index: Ausschreibungen
-        organization:
-          index: Betrieb
-        organization_holidays:
-          index: Betriebsferien
-          new: Neu
-        organization_members:
-          index: Mitarbeiter
-          new: Neu
-          profile: Profil
-        organizations:
-          index: Betriebsdaten
-        overview:
-          index: Dashboard
-        payments:
-          index: Auszahlungen
-          new: Neu
-          show: Auszahlung vom %{date}
-        phone_list:
-          index: Telefonliste
-        service_agreements:
-          index: Einsatzvereinbarung
-          new: Neu
-        service_specifications:
-          index: Pflichtenhefter
-          new: Neu
-        services:
-          index: Einsatzübersicht
-          show: Einsatz vom %{beginning} bis %{ending}
   mailing_list:
     erroneous_creation: Veuillez corriger les erreurs marquées suivantes
     successful_creation: Merci beaucoup pour votre intérêt. Nous vous contacterons bientôt
