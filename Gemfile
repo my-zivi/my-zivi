@@ -18,6 +18,7 @@ gem 'hexapdf'
 gem 'holidays'
 gem 'iban-tools'
 gem 'image_processing'
+gem 'loaf', '~> 0.10.0'
 gem 'nokogiri'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'prawn'
@@ -100,4 +101,3 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem 'loaf', '~> 0.10.0'
