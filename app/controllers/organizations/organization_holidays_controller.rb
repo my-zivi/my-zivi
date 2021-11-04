@@ -3,6 +3,11 @@
 module Organizations
   class OrganizationHolidaysController < BaseController
     load_and_authorize_resource
+    breadcrumb 'organizations.organizations.index', :edit_organizations_organization
+    breadcrumb 'organizations.organization_holidays.index', :organizations_organization_holidays_path
+
+    before_action :new_breadcrumb, only: %i[new create]
+    before_action :edit_breadcrumb, only: %i[edit update]
 
     def index
       @organization_holidays = @organization_holidays.order(beginning: :desc)
@@ -16,30 +21,30 @@ module Organizations
       build_organization_holiday
 
       if @organization_holiday.save
-        flash[:success] = t('organizations.organization_holidays.update.successful_create')
+        flash.now[:success] = t('organizations.organization_holidays.update.successful_create')
         redirect_to organizations_organization_holidays_path
       else
-        flash[:error] = t('organizations.organization_holidays.update.erroneous_create')
+        flash.now[:error] = t('organizations.organization_holidays.update.erroneous_create')
         render :new
       end
     end
 
     def update
       if @organization_holiday.update(organization_holiday_params)
-        flash[:success] = t('organizations.organization_holidays.update.successful_update')
+        flash.now[:success] = t('organizations.organization_holidays.update.successful_update')
         redirect_to organizations_organization_holidays_path
       else
-        flash[:error] = t('organizations.organization_holidays.update.erroneous_update')
+        flash.now[:error] = t('organizations.organization_holidays.update.erroneous_update')
         render :edit
       end
     end
 
     def destroy
       if @organization_holiday.destroy
-        flash[:success] = t('organizations.organization_holidays.update.successful_destroy')
+        flash.now[:success] = t('organizations.organization_holidays.update.successful_destroy')
         redirect_to organizations_organization_holidays_path
       else
-        flash[:error] = t('organizations.organization_holidays.update.erroneous_destroy')
+        flash.now[:error] = t('organizations.organization_holidays.update.erroneous_destroy')
         render :edit
       end
     end
@@ -55,6 +60,14 @@ module Organizations
                               .organization
                               .organization_holidays
                               .build(organization_holiday_params)
+    end
+
+    def new_breadcrumb
+      breadcrumb 'organizations.organization_holidays.new', :new_organizations_organization_holiday_path
+    end
+
+    def edit_breadcrumb
+      breadcrumb @organization_holiday.description, :organizations_organization_holiday_path
     end
   end
 end

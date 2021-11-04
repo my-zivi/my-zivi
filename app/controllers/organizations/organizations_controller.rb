@@ -4,16 +4,18 @@ module Organizations
   class OrganizationsController < BaseController
     before_action :load_organization
 
+    before_action :edit_breadcrumb, only: %i[edit update]
+
     def edit
       @organization.build_creditor_detail unless @organization.creditor_detail
     end
 
     def update
       if @organization.update(organization_params)
-        flash[:success] = t('organizations.organizations.update.successful_update')
+        flash.now[:success] = t('organizations.organizations.update.successful_update')
         redirect_to edit_organizations_organization_path
       else
-        flash[:error] = t('organizations.organizations.update.erroneous_update')
+        flash.now[:error] = t('organizations.organizations.update.erroneous_update')
         render :edit
       end
     end
@@ -30,6 +32,10 @@ module Organizations
             .permit(:name, :identification_number, :icon,
                     address_attributes: %i[primary_line secondary_line supplement street city zip],
                     creditor_detail_attributes: %i[iban bic])
+    end
+
+    def edit_breadcrumb
+      breadcrumb 'organizations.organizations.index', :edit_organizations_organization
     end
   end
 end

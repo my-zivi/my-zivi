@@ -24,6 +24,14 @@ RSpec.describe Organizations::CivilServantsController, type: :request do
 
       before { sign_in organization_administrator.user }
 
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [I18n.t('loaf.breadcrumbs.organizations.civil_servants.index')]
+        end
+
+        before { perform_request }
+      end
+
       it 'successfully fetches a list of civil servants in the organization' do
         perform_request
         expect(response).to have_http_status(:success)
@@ -55,6 +63,17 @@ RSpec.describe Organizations::CivilServantsController, type: :request do
       let(:organization_administrator) { create(:organization_member, organization: organization) }
 
       before { sign_in organization_administrator.user }
+
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [
+            I18n.t('loaf.breadcrumbs.organizations.civil_servants.index'),
+            civil_servant.full_name
+          ]
+        end
+
+        before { perform_request }
+      end
 
       it 'renders the civil servant details page' do
         perform_request

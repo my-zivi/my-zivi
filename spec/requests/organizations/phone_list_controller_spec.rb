@@ -68,6 +68,12 @@ RSpec.describe Organizations::PhoneListController, type: :request do
           perform_request
         end
 
+        it_behaves_like 'validates presence of breadcrumbs' do
+          let(:expected_breadcrumbs) do
+            [I18n.t('loaf.breadcrumbs.organizations.phone_list.index')]
+          end
+        end
+
         context 'when there is no filter' do
           it 'returns expected data' do
             expect(response).to have_http_status(:success)

@@ -25,7 +25,7 @@ module CivilServants
       if @civil_servant.update(civil_servant_params)
         respond_to_successful_update
       else
-        flash[:error] = t('.erroneous_update')
+        flash.now[:error] = t('.erroneous_update')
         render :edit
       end
     end

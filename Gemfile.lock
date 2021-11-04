@@ -255,6 +255,8 @@ GEM
     listen (3.3.3)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    loaf (0.10.0)
+      railties (>= 3.2)
     lograge (0.11.2)
       actionpack (>= 4)
       activesupport (>= 4)
@@ -610,6 +612,7 @@ DEPENDENCIES
   image_processing
   letter_opener
   listen (~> 3.2)
+  loaf (~> 0.10.0)
   lograge
   newrelic_rpm
   nokogiri
