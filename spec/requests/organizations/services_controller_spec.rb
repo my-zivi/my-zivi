@@ -15,6 +15,12 @@ RSpec.describe Organizations::ServicesController, type: :request do
           perform_request
         end
 
+        it_behaves_like 'validates presence of breadcrumbs' do
+          let(:expected_breadcrumbs) do
+            [I18n.t('loaf.breadcrumbs.organizations.services.index')]
+          end
+        end
+
         it 'renders a successful response' do
           expect(response).to be_successful
           expect(response).to render_template 'organizations/services/index'
@@ -64,6 +70,20 @@ RSpec.describe Organizations::ServicesController, type: :request do
         perform_request
       end
 
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [
+            I18n.t('loaf.breadcrumbs.organizations.civil_servants.index'),
+            civil_servant.full_name,
+            I18n.t(
+              'loaf.breadcrumbs.organizations.services.show',
+              beginning: I18n.l(service.beginning),
+              ending: I18n.l(service.ending)
+            )
+          ]
+        end
+      end
+
       it 'renders a successful response' do
         expect(response).to be_successful
         expect(response).to render_template 'organizations/services/show'
@@ -100,7 +120,7 @@ RSpec.describe Organizations::ServicesController, type: :request do
       it 'confirms the service and returns a successful response' do
         expect { perform_request }.to(
           change { service.reload.confirmation_date }.from(nil).to(now)
-            .and(change(ExpenseSheet, :count).by(2))
+                                                     .and(change(ExpenseSheet, :count).by(2))
         )
         expect(response).to redirect_to organizations_civil_servant_service_path(service.civil_servant, service)
         expect(flash[:success]).to eq I18n.t('organizations.services.confirm.successful_confirm')

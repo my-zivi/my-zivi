@@ -5,10 +5,11 @@ module Organizations
     PAIN_SCHEME = 'pain.001.001.03.ch.02'
 
     before_action :load_accessible_expense_sheets, only: :new
-    before_action :new_breadcrumb, only: %i[new create]
 
     load_and_authorize_resource
     breadcrumb 'organizations.payments.index', :organizations_payments_path
+    before_action :new_breadcrumb, only: %i[new create]
+    before_action :show_breadcrumb, only: :show
 
     def index
       @payments = @payments.order(state: :asc, created_at: :desc)
@@ -30,8 +31,6 @@ module Organizations
     end
 
     def show
-      breadcrumb I18n.t('loaf.breadcrumbs.organizations.payments.show', date: l(@payment.created_at.to_date)),
-                 organizations_payments_path(@payment)
       respond_to do |format|
         format.html
         format.xml { respond_to_xml }
@@ -105,6 +104,11 @@ module Organizations
 
     def new_breadcrumb
       breadcrumb 'organizations.payments.new', :new_organizations_payment_path
+    end
+
+    def show_breadcrumb
+      breadcrumb I18n.t('loaf.breadcrumbs.organizations.payments.show', date: l(@payment.created_at.to_date)),
+                 organizations_payments_path(@payment)
     end
   end
 end

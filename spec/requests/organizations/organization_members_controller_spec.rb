@@ -13,9 +13,6 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
       subject { response }
 
       let(:outside_organization) { create :organization, :with_admin }
-      let(:expected_breadcrumbs) do
-        [I18n.t('loaf.breadcrumbs.organizations.organization_members.index')]
-      end
       let(:perform_request) { get organizations_members_path }
       let!(:outside_organization_member) do
         create(:organization_member,
@@ -31,7 +28,9 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
       end
 
       it_behaves_like 'validates presence of breadcrumbs' do
-        let(:breadcrumbs) { expected_breadcrumbs }
+        let(:expected_breadcrumbs) do
+          [I18n.t('loaf.breadcrumbs.organizations.organization_members.index')]
+        end
       end
 
       it 'returns a list of organization members inside the organization' do
@@ -47,15 +46,13 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
     describe '#new' do
       before { get new_organizations_member_path }
 
-      let(:expected_breadcrumbs) do
-        [
-          I18n.t('loaf.breadcrumbs.organizations.organization_members.index'),
-          I18n.t('loaf.breadcrumbs.organizations.organization_members.new')
-        ]
-      end
-
       it_behaves_like 'validates presence of breadcrumbs' do
-        let(:breadcrumbs) { expected_breadcrumbs }
+        let(:expected_breadcrumbs) do
+          [
+            I18n.t('loaf.breadcrumbs.organizations.organization_members.index'),
+            I18n.t('loaf.breadcrumbs.organizations.organization_members.new')
+          ]
+        end
       end
 
       it 'returns a successful response' do
@@ -91,15 +88,14 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
 
     describe '#edit' do
       let(:editing_organization_member) { organization_admin }
-      let(:expected_breadcrumbs) do
-        [I18n.t('loaf.breadcrumbs.organizations.organization_members.profile')]
-      end
       let(:perform_request) { get edit_organizations_member_path(editing_organization_member) }
 
       before { perform_request }
 
       it_behaves_like 'validates presence of breadcrumbs' do
-        let(:breadcrumbs) { expected_breadcrumbs }
+        let(:expected_breadcrumbs) do
+          [I18n.t('loaf.breadcrumbs.organizations.organization_members.profile')]
+        end
       end
 
       it 'renders the form' do
@@ -112,15 +108,13 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
         let(:perform_request) { get edit_organizations_member_path(edited_organization_member) }
         let(:edited_organization_member) { create :organization_member, organization: organization }
 
-        let(:expected_breadcrumbs) do
-          [
-            I18n.t('loaf.breadcrumbs.organizations.organization_members.index'),
-            edited_organization_member.full_name
-          ]
-        end
-
         it_behaves_like 'validates presence of breadcrumbs' do
-          let(:breadcrumbs) { expected_breadcrumbs }
+          let(:expected_breadcrumbs) do
+            [
+              I18n.t('loaf.breadcrumbs.organizations.organization_members.index'),
+              edited_organization_member.full_name
+            ]
+          end
         end
 
         it 'renders the form' do

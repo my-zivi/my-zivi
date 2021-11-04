@@ -34,6 +34,14 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
 
       before { sign_in organization_administrator.user }
 
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [I18n.t('loaf.breadcrumbs.organizations.service_agreements.index')]
+        end
+
+        before { perform_request }
+      end
+
       it 'successfully fetches a list of service agreements in the organization' do
         perform_request
         expect(response).to have_http_status(:success)
@@ -175,6 +183,15 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
       before do
         sign_in organization_administrator.user
         perform_request
+      end
+
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [
+            I18n.t('loaf.breadcrumbs.organizations.service_agreements.index'),
+            I18n.t('loaf.breadcrumbs.organizations.service_agreements.new')
+          ]
+        end
       end
 
       context 'when there is no civil servant set' do

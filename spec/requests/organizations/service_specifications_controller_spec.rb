@@ -23,6 +23,12 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
         perform_request
       end
 
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [I18n.t('loaf.breadcrumbs.organizations.service_specifications.index')]
+        end
+      end
+
       it 'renders a list of the organization\'s service specifications successfully' do
         expect(response).to be_successful
         expect(response.body).to include(*service_specifications.map(&:name))
@@ -42,6 +48,15 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
         perform_request
       end
 
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [
+            I18n.t('loaf.breadcrumbs.organizations.service_specifications.index'),
+            I18n.t('loaf.breadcrumbs.organizations.service_specifications.new')
+          ]
+        end
+      end
+
       it 'renders a successful response' do
         expect(response).to be_successful
       end
@@ -58,6 +73,15 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
       before do
         sign_in organization_admin.user
         perform_request
+      end
+
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [
+            I18n.t('loaf.breadcrumbs.organizations.service_specifications.index'),
+            service_specification.name
+          ]
+        end
       end
 
       it 'render a successful response' do

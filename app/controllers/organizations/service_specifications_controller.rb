@@ -14,10 +14,10 @@ module Organizations
 
     load_and_authorize_resource param_method: :service_specification_params
 
+    breadcrumb 'organizations.service_specifications.index', :organizations_service_specifications_path
+
     before_action :new_breadcrumbs, only: %i[new create]
     before_action :edit_breadcrumbs, only: %i[edit update]
-
-    breadcrumb 'organizations.service_specifications.index', :organizations_service_specifications_path
 
     def index
       @service_specifications = @service_specifications

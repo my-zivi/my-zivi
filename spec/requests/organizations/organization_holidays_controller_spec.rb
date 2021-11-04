@@ -19,6 +19,17 @@ RSpec.describe Organizations::OrganizationHolidaysController, :without_bullet, t
 
       before { sign_in organization_administrator.user }
 
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [
+            I18n.t('loaf.breadcrumbs.organizations.organizations.index'),
+            I18n.t('loaf.breadcrumbs.organizations.organization_holidays.index')
+          ]
+        end
+
+        before { perform_request }
+      end
+
       it 'successfully fetches a list of organization holidays in the organization' do
         perform_request
         expect(response).to have_http_status(:success)
@@ -43,6 +54,18 @@ RSpec.describe Organizations::OrganizationHolidaysController, :without_bullet, t
 
       before { sign_in organization_administrator.user }
 
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [
+            I18n.t('loaf.breadcrumbs.organizations.organizations.index'),
+            I18n.t('loaf.breadcrumbs.organizations.organization_holidays.index'),
+            organization_holiday.description
+          ]
+        end
+
+        before { perform_request }
+      end
+
       it 'renders the edit form for the organization holiday' do
         perform_request
         expect(response).to have_http_status(:ok)
@@ -61,6 +84,18 @@ RSpec.describe Organizations::OrganizationHolidaysController, :without_bullet, t
       let(:organization_administrator) { create(:organization_member, :with_admin_subscribed_organization) }
 
       before { sign_in organization_administrator.user }
+
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [
+            I18n.t('loaf.breadcrumbs.organizations.organizations.index'),
+            I18n.t('loaf.breadcrumbs.organizations.organization_holidays.index'),
+            I18n.t('loaf.breadcrumbs.organizations.organization_holidays.new')
+          ]
+        end
+
+        before { perform_request }
+      end
 
       it 'successfully renders the form' do
         perform_request

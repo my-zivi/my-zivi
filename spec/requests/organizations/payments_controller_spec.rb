@@ -21,6 +21,14 @@ RSpec.describe Organizations::PaymentsController, type: :request do
 
       before { sign_in organization_administrator.user }
 
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [I18n.t('loaf.breadcrumbs.organizations.payments.index')]
+        end
+
+        before { perform_request }
+      end
+
       it 'returns http success' do
         perform_request
         expect(response).to have_http_status(:success)
@@ -40,6 +48,17 @@ RSpec.describe Organizations::PaymentsController, type: :request do
       let(:organization_administrator) { create(:organization_member, organization: organization) }
 
       before { sign_in organization_administrator.user }
+
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [
+            I18n.t('loaf.breadcrumbs.organizations.payments.index'),
+            I18n.t('loaf.breadcrumbs.organizations.payments.new')
+          ]
+        end
+
+        before { perform_request }
+      end
 
       it 'returns successful response' do
         perform_request
@@ -141,6 +160,17 @@ RSpec.describe Organizations::PaymentsController, type: :request do
       let(:organization_administrator) { create(:organization_member, organization: organization) }
 
       before { sign_in organization_administrator.user }
+
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [
+            I18n.t('loaf.breadcrumbs.organizations.payments.index'),
+            I18n.t('loaf.breadcrumbs.organizations.payments.show', date: I18n.l(payment.created_at.to_date))
+          ]
+        end
+
+        before { perform_request }
+      end
 
       it 'returns a detail view of the payment', :without_bullet do
         perform_request

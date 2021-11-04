@@ -37,6 +37,14 @@ RSpec.describe Organizations::ExpenseSheetsController, type: :request do
 
       before { sign_in organization_administrator.user }
 
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [I18n.t('loaf.breadcrumbs.organizations.expense_sheets.index')]
+        end
+
+        before { perform_request }
+      end
+
       it 'successfully fetches a list of expense sheets in the organization' do
         perform_request
         expect(response).to have_http_status(:success)
@@ -99,6 +107,17 @@ RSpec.describe Organizations::ExpenseSheetsController, type: :request do
       end
 
       before { sign_in organization_administrator.user }
+
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [
+            I18n.t('loaf.breadcrumbs.organizations.expense_sheets.index'),
+            paul_expense_sheet.civil_servant.full_name
+          ]
+        end
+
+        before { perform_request }
+      end
 
       it 'successfully displays a expense sheet form in the organization' do
         perform_request

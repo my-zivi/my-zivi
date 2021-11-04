@@ -38,7 +38,7 @@ module CivilServants
       TabularCardComponent.humanize_table_values(
         Service,
         'civil_servant.address': simple_format(civi_address.full_compose),
-        service_specification: spec.name
+        'service_specification': spec.name
       )
     end
 
