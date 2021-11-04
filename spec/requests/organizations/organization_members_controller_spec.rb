@@ -79,7 +79,19 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
 
       it 'renders the form' do
         expect(response).to be_successful
+        expect(response.body).to include I18n.t('loaf.breadcrumbs.organizations.organization_members.index')
         expect(response).to render_template 'organizations/organization_members/edit'
+      end
+
+      context 'when the editing organization member is not the edited one' do
+        let(:perform_request) { get edit_organizations_member_path(edited_organization_member) }
+        let(:edited_organization_member) { create :organization_member, organization: organization }
+        
+        it 'renders the form' do
+          expect(response).to be_successful
+          expect(response.body).to include I18n.t('loaf.breadcrumbs.organizations.organization_members.index')
+          expect(response).to render_template 'organizations/organization_members/edit'
+        end
       end
 
       context 'when the currently signed in organization admin is not in the organization of the resource' do

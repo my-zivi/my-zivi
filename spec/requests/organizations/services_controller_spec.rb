@@ -44,6 +44,35 @@ RSpec.describe Organizations::ServicesController, type: :request do
     end
   end
 
+  describe '#show' do
+    let(:perform_request) { get organizations_civil_servant_service_path(civil_servant, service) }
+    let(:service) { civil_servant.services.first }
+    let(:civil_servant) do
+      create(:civil_servant, :full, :with_service,
+             organization: organization_administrator.organization,
+             service_traits: %i[unconfirmed],
+             service_attributes: {
+               beginning: Date.parse('2020-09-07'),
+               ending: Date.parse('2020-10-30')
+             })
+    end
+    let(:organization_administrator) { create(:organization_member, :with_admin_subscribed_organization) }
+
+    context 'when an organization administrator is signed in' do
+      before do
+        sign_in organization_administrator.user
+        perform_request
+      end
+
+      it 'renders a successful response' do
+        expect(response).to be_successful
+        expect(response).to render_template 'organizations/services/show'
+      end
+    end
+
+    it_behaves_like 'admin subscription route only'
+  end
+
   describe '#confirm' do
     let(:perform_request) { put confirm_organizations_civil_servant_service_path(service.civil_servant, service) }
 
