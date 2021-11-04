@@ -6,7 +6,7 @@ class BlogEntriesController < ApplicationController
   before_action -> { I18n.locale = :'de-CH' }
 
   def index
-    @blog_entries = BlogEntry.published.where(filter_params).order(created_at: :desc)
+    @blog_entries = BlogEntry.published.including_tags(*filter_params[:tags]).order(created_at: :desc)
   end
 
   def show
@@ -22,11 +22,8 @@ class BlogEntriesController < ApplicationController
 
   # :reek:DuplicateMethodCall
   def filter_params
-    return @filter_params if @filter_params
-
-    filter = params.permit(filter: %i[tags])[:filter] || {}
-    filter[:tags] ||= BlogEntry::SUPPORTED_TAGS.first
-    filter[:tags] &&= [filter[:tags]]
+    filter = params.permit(filter: { tags: [] })[:filter] || {}
+    filter[:tags] ||= BlogEntry::SUPPORTED_TAGS
     @filter_params = filter
   end
 end

@@ -38,6 +38,7 @@ fr-CH:
   blog_entries:
     index:
       empty: Aucune entrée trouvée
+      tags_filter: Filtrer par catégorie
       title: Blog
     show:
       written_by: Posté par %{author} le %{date}

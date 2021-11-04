@@ -19,4 +19,33 @@ RSpec.describe BlogEntry, type: :model do
       end
     end
   end
+
+  describe '.including_tags' do
+    subject { described_class.including_tags('article') }
+
+    let!(:articles) do
+      [create(:blog_entry, title: 'Article', tags: %w[article]),
+       create(:blog_entry, title: 'Article about Podcasts', tags: %w[article podcast]),
+       create(:blog_entry, tags: %w[podcast]),
+       create(:blog_entry, tags: %w[podcast news])]
+    end
+
+    it { is_expected.to contain_exactly(articles.first, articles.second) }
+
+    context 'when filtering for news tag' do
+      subject { described_class.including_tags('news') }
+
+      it { is_expected.to contain_exactly(articles.fourth) }
+    end
+
+    context 'when filtering for multiple tags' do
+      subject { described_class.including_tags('article', 'news') }
+
+      it { is_expected.to contain_exactly(articles.first, articles.second, articles.fourth) }
+    end
+
+    context 'when filter is empty' do
+      it { expect { described_class.including_tags }.to raise_error(ArgumentError) }
+    end
+  end
 end

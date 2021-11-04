@@ -11,6 +11,9 @@ class BlogEntry < ApplicationRecord
   validates :tags, inclusion: { in: SUPPORTED_TAGS }
 
   scope :published, -> { where(published: true) }
+  scope :including_tags, lambda { |*tags|
+    merge(tags.map { |tag| BlogEntry.where('? = ANY(tags)', tag) }.reduce(&:or))
+  }
 
   def default_slug
     title.parameterize

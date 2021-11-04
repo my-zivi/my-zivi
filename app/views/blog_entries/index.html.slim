@@ -11,11 +11,15 @@
 
   section.container.mb-6
     .mb-4
-      = form_for(:filter, url: blog_entries_path, method: :get) do |f|
-        = f.select(:tags,
-                BlogEntry::SUPPORTED_TAGS.index_by { |tag| I18n.t(tag, scope: 'activerecord.arrays.blog_entry.tags') },
-                { selected: @filter_params[:tags].first },
-                onchange: 'this.form.submit()')
+      .dropdown
+        button#filter-button.btn.btn-link.dropdown-toggle[
+          type='button'
+          data-toggle='dropdown'
+          aria-haspopup='true'
+          aria-expanded='false'
+        ] = t('.tags_filter')
+        .dropdown-menu aria-labelledby='filter-button'
+          = tags_filter_menu_items(@filter_params)
     - if @blog_entries.empty?
       h3.text-center.muted = t('.empty')
     - else

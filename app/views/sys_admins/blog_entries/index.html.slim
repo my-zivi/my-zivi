@@ -19,6 +19,7 @@ h1.mt-3.mb-4 = t('.title')
                 th.align-middle = BlogEntry.human_attribute_name(:title)
                 th.align-middle = BlogEntry.human_attribute_name(:author)
                 th.align-middle = BlogEntry.human_attribute_name(:description)
+                th.align-middle = BlogEntry.human_attribute_name(:tags)
                 th.align-middle = BlogEntry.human_attribute_name(:published)
                 th
             tbody#customers
@@ -32,6 +33,9 @@ h1.mt-3.mb-4 = t('.title')
                   td.py-2.align-middle = link_to(blog_entry.title, sys_admins_blog_entry_path(blog_entry))
                   td.py-2.align-middle = blog_entry.author
                   td.py-2.align-middle = blog_entry.description.truncate(40)
+                  td.py-2.align-middle
+                    - blog_entry.tags.map do |tag|
+                      .badge.badge-dark.mr-2 = t(tag, scope: 'activerecord.arrays.blog_entry.tags')
                   td.py-2.align-middle = render 'sys_admins/blog_entries/badge', blog_entry: blog_entry
                   td.py.align-middle.text-right.pr-4
                     = link_to edit_sys_admins_blog_entry_path(blog_entry), class: 'ml-2' do

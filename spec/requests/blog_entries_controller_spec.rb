@@ -8,6 +8,7 @@ RSpec.describe BlogEntriesController, type: :request do
   describe '#index' do
     let!(:blog_entries) { create_pair(:blog_entry) }
     let!(:hidden_blog_entry) { create(:blog_entry, published: false) }
+    let!(:podcast_blog_entry) { create(:blog_entry, tags: %w[podcast]) }
 
     before { get blog_entries_path }
 
@@ -19,7 +20,8 @@ RSpec.describe BlogEntriesController, type: :request do
         blog_entries.first.author,
         blog_entries.second.author,
         blog_entries.first.slug,
-        blog_entries.second.slug
+        blog_entries.second.slug,
+        podcast_blog_entry.title
       )
       expect(response.body).not_to include(hidden_blog_entry.title)
     end
