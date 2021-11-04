@@ -4,8 +4,9 @@ module Organizations
   class OrganizationsController < BaseController
     before_action :load_organization
 
+    before_action :edit_breadcrumb, only: %i[edit update]
+
     def edit
-      breadcrumb 'organizations.organizations.index', :edit_organizations_organization
       @organization.build_creditor_detail unless @organization.creditor_detail
     end
 
@@ -31,6 +32,10 @@ module Organizations
             .permit(:name, :identification_number, :icon,
                     address_attributes: %i[primary_line secondary_line supplement street city zip],
                     creditor_detail_attributes: %i[iban bic])
+    end
+
+    def edit_breadcrumb
+      breadcrumb 'organizations.organizations.index', :edit_organizations_organization
     end
   end
 end

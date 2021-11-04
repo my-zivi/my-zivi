@@ -14,6 +14,9 @@ module Organizations
 
     load_and_authorize_resource param_method: :service_specification_params
 
+    before_action :new_breadcrumbs, only: %i[new create]
+    before_action :edit_breadcrumbs, only: %i[edit update]
+
     breadcrumb 'organizations.service_specifications.index', :organizations_service_specifications_path
 
     def index
@@ -23,16 +26,12 @@ module Organizations
     end
 
     def new
-      breadcrumb 'organizations.service_specifications.new', :new_organizations_service_specification_path
       @service_specification = current_organization_admin.organization.service_specifications.build
     end
 
-    def edit
-      breadcrumb @service_specification.name, :new_organizations_service_specification_path
-    end
+    def edit; end
 
     def create
-      breadcrumb 'organizations.service_specifications.new', :new_organizations_service_specification_path
       if @service_specification.save
         redirect_to organizations_service_specifications_path, notice: t('.successful_create')
       else
@@ -42,7 +41,6 @@ module Organizations
     end
 
     def update
-      breadcrumb @service_specification.name, :new_organizations_service_specification_path
       if @service_specification.update(service_specification_params)
         redirect_to edit_organizations_service_specification_path, notice: t('.successful_update')
       else
@@ -74,6 +72,14 @@ module Organizations
       %i[work_days_expenses paid_vacation_expenses first_day_expenses last_day_expenses].each do |daily_expense_field|
         params[daily_expense_field]&.transform_values!(&:to_i)
       end
+    end
+
+    def new_breadcrumbs
+      breadcrumb 'organizations.service_specifications.new', :new_organizations_service_specification_path
+    end
+
+    def edit_breadcrumbs
+      breadcrumb @service_specification.name, :new_organizations_service_specification_path
     end
   end
 end

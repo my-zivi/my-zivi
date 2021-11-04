@@ -16,18 +16,18 @@ module Organizations
     load_and_authorize_resource
     breadcrumb 'organizations.expense_sheets.index', :organizations_expense_sheets_path
 
+    before_action :edit_breadcrumbs, only: %i[edit update]
+
     def index
       load_filters
       @expense_sheets = filtered_expense_sheets.order(ending: :desc, beginning: :desc)
     end
 
     def edit
-      breadcrumb @expense_sheet.civil_servant.full_name, organizations_expense_sheets_path(@expense_sheet)
       load_suggestions
     end
 
     def update
-      breadcrumb @expense_sheet.civil_servant.full_name, organizations_expense_sheets_path(@expense_sheet)
       if @expense_sheet.update(expense_sheets_params)
         redirect_to edit_organizations_expense_sheet_path, notice: t('.successful_update')
       else
@@ -59,6 +59,10 @@ module Organizations
       @filters = {
         show_all: params.dig(:filters, :show_all) == 'true'
       }
+    end
+
+    def edit_breadcrumbs
+      breadcrumb @expense_sheet.civil_servant.full_name, organizations_expense_sheets_path(@expense_sheet)
     end
   end
 end

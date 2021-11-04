@@ -6,6 +6,8 @@ module Organizations
     load_and_authorize_resource :civil_servant, except: :index
     load_and_authorize_resource :service, through: :civil_servant, except: :index
 
+    before_action :show_breadcrumbs, only: :show
+
     def index
       breadcrumb 'organizations.services.index', :organizations_services_path
       respond_to do |format|
@@ -14,15 +16,7 @@ module Organizations
       end
     end
 
-    def show
-      breadcrumb 'organizations.civil_servants.index', :organizations_civil_servants_path
-      breadcrumb @service.civil_servant.full_name, organizations_civil_servants_path(@service.civil_servant)
-      breadcrumb I18n.t(
-        'loaf.breadcrumbs.organizations.services.show',
-        beginning: I18n.l(@service.beginning),
-        ending: I18n.l(@service.ending)
-      ), organizations_services_path(@service)
-    end
+    def show; end
 
     def confirm
       if @service.confirm!
@@ -57,5 +51,15 @@ module Organizations
       nil
     end
     # :nocov:
+
+    def show_breadcrumbs
+      breadcrumb 'organizations.civil_servants.index', :organizations_civil_servants_path
+      breadcrumb @service.civil_servant.full_name, organizations_civil_servants_path(@service.civil_servant)
+      breadcrumb I18n.t(
+        'loaf.breadcrumbs.organizations.services.show',
+        beginning: I18n.l(@service.beginning),
+        ending: I18n.l(@service.ending)
+      ), organizations_services_path(@service)
+    end
   end
 end

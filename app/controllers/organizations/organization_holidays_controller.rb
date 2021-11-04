@@ -7,6 +7,7 @@ module Organizations
     breadcrumb 'organizations.organization_holidays.index', :organizations_organization_holidays_path
 
     before_action :new_breadcrumb, only: %i[new create]
+    before_action :edit_breadcrumb, only: %i[edit update]
 
     def index
       @organization_holidays = @organization_holidays.order(beginning: :desc)
@@ -14,9 +15,7 @@ module Organizations
 
     def new; end
 
-    def edit
-      breadcrumb @organization_holiday.description, :organizations_organization_holiday_path
-    end
+    def edit; end
 
     def create
       build_organization_holiday
@@ -65,6 +64,10 @@ module Organizations
 
     def new_breadcrumb
       breadcrumb 'organizations.organization_holidays.new', :new_organizations_organization_holiday_path
+    end
+
+    def edit_breadcrumb
+      breadcrumb @organization_holiday.description, :organizations_organization_holiday_path
     end
   end
 end
