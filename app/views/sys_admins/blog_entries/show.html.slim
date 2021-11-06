@@ -8,6 +8,9 @@
   div = render 'sys_admins/blog_entries/badge', blog_entry: @blog_entry
 h2.h3.mb-3.text-muted = @blog_entry.subtitle
 h5.text-muted #{@blog_entry.author} / #{l(@blog_entry.created_at)}
+.mt-2
+  - @blog_entry.tags.map do |tag|
+    .badge.badge-light.mr-2 = t(tag, scope: 'activerecord.arrays.blog_entry.tags')
 .card.mt-3
   .card-header
     .text-right

@@ -6,6 +6,7 @@ BlogEntry.create!(
   description: 'Why is Lorem so popular?',
   author: 'Marcus Tullius Cicero',
   published: true,
+  tags: ['article'],
   content: <<~TEXT.squish
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel dolor nec leo mattis viverra eu et tellus.
     Cras faucibus, augue vel dictum tempor, leo metus facilisis risus, ut consectetur diam erat id leo. Suspendisse

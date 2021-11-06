@@ -8,20 +8,51 @@ RSpec.describe BlogEntriesController, type: :request do
   describe '#index' do
     let!(:blog_entries) { create_pair(:blog_entry) }
     let!(:hidden_blog_entry) { create(:blog_entry, published: false) }
+    let!(:podcast_blog_entry) { create(:blog_entry, tags: %w[podcast]) }
 
-    before { get blog_entries_path }
+    context 'when no filter params are set' do
+      before { get blog_entries_path }
 
-    it 'renders the blog entries' do
-      expect(response).to be_successful
-      expect(response.body).to include(
-        blog_entries.first.title,
-        blog_entries.second.title,
-        blog_entries.first.author,
-        blog_entries.second.author,
-        blog_entries.first.slug,
-        blog_entries.second.slug
-      )
-      expect(response.body).not_to include(hidden_blog_entry.title)
+      it 'renders all the public blog entries' do
+        expect(response).to be_successful
+        expect(response.body).to include(
+          blog_entries.first.title,
+          blog_entries.second.title,
+          blog_entries.first.author,
+          blog_entries.second.author,
+          blog_entries.first.slug,
+          blog_entries.second.slug,
+          podcast_blog_entry.title
+        )
+        expect(response.body).not_to include(hidden_blog_entry.title)
+      end
+    end
+
+    context 'when filtering for podcast tag only' do
+      before { get blog_entries_path(params: { filter: { tags: %w[podcast] } }) }
+
+      it 'only renders blog entries with the podcast tag' do
+        expect(response.body).to include(podcast_blog_entry.title)
+        blog_entries.each { |entry| expect(response.body).not_to include(entry.title) }
+      end
+    end
+
+    context 'when filtering for article tag only' do
+      before { get blog_entries_path(params: { filter: { tags: %w[article] } }) }
+
+      it 'only renders blog entries with the podcast tag' do
+        expect(response.body).not_to include(podcast_blog_entry.title)
+        blog_entries.each { |entry| expect(response.body).to include(entry.title) }
+      end
+    end
+
+    context 'when filtering for article and podcast tags only' do
+      before { get blog_entries_path(params: { filter: { tags: %w[article podcast] } }) }
+
+      it 'only renders blog entries with the podcast tag' do
+        expect(response.body).to include(podcast_blog_entry.title)
+        blog_entries.each { |entry| expect(response.body).to include(entry.title) }
+      end
     end
   end
 
