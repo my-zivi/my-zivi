@@ -1,6 +1,12 @@
 ---
 fr-CH:
   activerecord:
+    arrays:
+      blog_entry:
+        tags:
+          article: Article
+          news: Nouvelles
+          podcast: Podcast
     attributes:
       address:
         city: Ville

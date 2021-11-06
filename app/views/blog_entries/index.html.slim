@@ -1,7 +1,7 @@
 - content_for(:container_class, 'index-container')
 - content_for(:page_title, t('blog_entries.index.title'))
 
-- cache BlogEntry.order(:updated_at).last
+- cache [BlogEntry.order(:updated_at).last, @filter_params]
   = render 'home/navbar'
 
   .hero
@@ -10,7 +10,20 @@
         h1.text-center = t('blog_entries.index.title')
 
   section.container.mb-6
-    .row
-      = render partial: 'blog_entries/blog_entry_card', collection: @blog_entries, as: :blog_entry
+    .mb-4
+      .dropdown
+        button#filter-button.btn.btn-link.dropdown-toggle[
+          type='button'
+          data-toggle='dropdown'
+          aria-haspopup='true'
+          aria-expanded='false'
+        ] = t('.tags_filter')
+        .dropdown-menu aria-labelledby='filter-button'
+          = tags_filter_menu_items(@filter_params)
+    - if @blog_entries.empty?
+      h3.text-center.muted = t('.empty')
+    - else
+      .row
+        = render partial: 'blog_entries/blog_entry_card', collection: @blog_entries, as: :blog_entry
 
 = render 'home/footer'

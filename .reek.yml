@@ -37,6 +37,8 @@ directories:
       enabled: false
     FeatureEnvy:
       enabled: false
+    ControlParameter:
+      enabled: false
   "app/jobs":
     UtilityFunction:
       enabled: false
