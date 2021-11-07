@@ -20,8 +20,9 @@ RSpec.describe JobPostingApi::DeactivatedJobPostingsPoller do
       end
     end
 
-    describe 'job posting deactivation' do
+    describe 'job posting deactivation and reactivation' do
       let!(:job_posting) { create(:job_posting, published: true) }
+      let!(:unpublished_job_posting) { create(:job_posting, published: false) }
       let(:returned_json) do
         {
           status: 'ok',
@@ -37,7 +38,19 @@ RSpec.describe JobPostingApi::DeactivatedJobPostingsPoller do
         expect { perform }.to(change { job_posting.reload.published }.from(true).to(false))
       end
 
-      context 'when the job posting is claimed' do
+      it 'reactivates the deleted job postings' do
+        expect { perform }.to(change { unpublished_job_posting.reload.published }.from(false).to(true))
+      end
+
+      context 'when the unpublished job posting is claimed' do
+        let(:unpublished_job_posting) { create(:job_posting, :claimed_by_organization, published: false) }
+
+        it 'does not reactivate the posting' do
+          expect { perform }.not_to(change { unpublished_job_posting.reload.published })
+        end
+      end
+
+      context 'when the published job posting is claimed' do
         let(:job_posting) { create(:job_posting, :claimed_by_organization, published: true) }
 
         it 'does not deactivate the posting' do
@@ -50,59 +63,6 @@ RSpec.describe JobPostingApi::DeactivatedJobPostingsPoller do
 
         it 'does nothing' do
           expect { perform }.not_to(change(job_posting, :reload))
-        end
-      end
-
-      context 'when the server returns a non-success status' do
-        let(:returned_json) { { status: 'error', deleted: [] } }
-
-        it 'raises an api error' do
-          expect { perform }.to raise_error(JobPostingApi::ApiError, /API returned error status/)
-        end
-      end
-
-      context 'when the server returns non 2xx status code' do
-        before { WebMock.stub_request(:get, api_url).to_return(body: '', status: 404) }
-
-        it 'raises an api error' do
-          expect { perform }.to raise_error(JobPostingApi::ApiError, 'API returned non-200 status code') do |error|
-            expect(error.sentry_context).to include(extra: include(response: be_a(Net::HTTPResponse)))
-          end
-        end
-      end
-    end
-
-    describe 'job posting reactivation' do
-      let!(:job_posting) { create(:job_posting, published: true) }
-      let!(:unpublished_job_posting) { create(:job_posting, published: false) }
-      let(:returned_json) do
-        {
-          status: 'ok',
-          deleted: [job_posting.identification_number, job_posting.identification_number + 12]
-        }
-      end
-
-      before { WebMock.stub_request(:get, api_url).to_return(body: returned_json.to_json) }
-
-      after { WebMock.reset! }
-
-      it 'reactivates the deleted job postings' do
-        expect { perform }.to(change { unpublished_job_posting.reload.published }.from(false).to(true))
-      end
-
-      context 'when the job posting is claimed' do
-        let(:unpublished_job_posting) { create(:job_posting, :claimed_by_organization, published: false) }
-
-        it 'does not reactivate the posting' do
-          expect { perform }.not_to(change { unpublished_job_posting.reload.published })
-        end
-      end
-
-      context 'when the server returns no deleted job postings' do
-        let(:returned_json) { { status: 'ok', deleted: [] } }
-
-        it 'does nothing' do
-          expect { perform }.not_to(change(unpublished_job_posting, :reload))
         end
       end
 
