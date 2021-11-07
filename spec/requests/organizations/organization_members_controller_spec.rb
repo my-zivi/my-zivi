@@ -27,6 +27,12 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
         perform_request
       end
 
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [I18n.t('loaf.breadcrumbs.organizations.organization_members.index')]
+        end
+      end
+
       it 'returns a list of organization members inside the organization' do
         expect(response).to be_successful
         expect(response.body).to include(*organization.organization_members.pick(:first_name, :last_name))
@@ -39,6 +45,15 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
 
     describe '#new' do
       before { get new_organizations_member_path }
+
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [
+            I18n.t('loaf.breadcrumbs.organizations.organization_members.index'),
+            I18n.t('loaf.breadcrumbs.organizations.organization_members.new')
+          ]
+        end
+      end
 
       it 'returns a successful response' do
         expect(response).to have_http_status(:ok)
@@ -77,9 +92,35 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
 
       before { perform_request }
 
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [I18n.t('loaf.breadcrumbs.organizations.organization_members.profile')]
+        end
+      end
+
       it 'renders the form' do
         expect(response).to be_successful
+        expect(response.body).to include I18n.t('loaf.breadcrumbs.organizations.organization_members.index')
         expect(response).to render_template 'organizations/organization_members/edit'
+      end
+
+      context 'when the editing organization member is not the edited one' do
+        let(:perform_request) { get edit_organizations_member_path(edited_organization_member) }
+        let(:edited_organization_member) { create :organization_member, organization: organization }
+
+        it_behaves_like 'validates presence of breadcrumbs' do
+          let(:expected_breadcrumbs) do
+            [
+              I18n.t('loaf.breadcrumbs.organizations.organization_members.index'),
+              edited_organization_member.full_name
+            ]
+          end
+        end
+
+        it 'renders the form' do
+          expect(response).to be_successful
+          expect(response).to render_template 'organizations/organization_members/edit'
+        end
       end
 
       context 'when the currently signed in organization admin is not in the organization of the resource' do

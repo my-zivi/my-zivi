@@ -37,6 +37,8 @@ de-CH:
         service_with: Einsatz bei %{org_name}
   blog_entries:
     index:
+      empty: Keine Einträge gefunden
+      tags_filter: Nach Kategorie filtern
       title: Blog
     show:
       written_by: Geschrieben von %{author} am %{date}
@@ -179,6 +181,43 @@ de-CH:
         sign_out: Logout
   lead_person_html: 'Leitende Person: %{link}'
   loading: Lade...
+  loaf:
+    breadcrumbs:
+      organizations:
+        civil_servants:
+          index: Zivildienstleistende
+        expense_sheets:
+          index: Spesenblätter
+        job_postings:
+          index: Ausschreibungen
+        organization:
+          index: Betrieb
+        organization_holidays:
+          index: Betriebsferien
+          new: Neu
+        organization_members:
+          index: Mitarbeiter
+          new: Neu
+          profile: Profil
+        organizations:
+          index: Betriebsdaten
+        overview:
+          index: Dashboard
+        payments:
+          index: Auszahlungen
+          new: Neu
+          show: Auszahlung vom %{date}
+        phone_list:
+          index: Telefonliste
+        service_agreements:
+          index: Einsatzvereinbarung
+          new: Neu
+        service_specifications:
+          index: Pflichtenhefter
+          new: Neu
+        services:
+          index: Einsatzübersicht
+          show: Einsatz vom %{beginning} bis %{ending}
   mailing_list:
     erroneous_creation: Bitte beheben Sie die folgend markierten Fehler
     successful_creation: Vielen Dank für Ihr Interesse. Wir werden Sie bald kontaktieren

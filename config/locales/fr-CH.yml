@@ -25,7 +25,7 @@ fr-CH:
         phone_list: Liste de téléphone
         profile: Profil
         service_agreements: Accord de service
-        service_specifications: cahiers des charges
+        service_specifications: Cahiers des charges
         services_overview: Aperçu d'affectations
         sign_out: Déconnexion
     services:
@@ -37,6 +37,8 @@ fr-CH:
         service_with: A utiliser avec %{org_name}.
   blog_entries:
     index:
+      empty: Aucune entrée trouvée
+      tags_filter: Filtrer par catégorie
       title: Blog
     show:
       written_by: Posté par %{author} le %{date}
@@ -179,6 +181,43 @@ fr-CH:
         sign_out: Déconnexion
   lead_person_html: 'Personne responsable: %{link}'
   loading: En chargeant...
+  loaf:
+    breadcrumbs:
+      organizations:
+        civil_servants:
+          index: Civilistes
+        expense_sheets:
+          index: Notes de frais
+        job_postings:
+          index: Appels d'offres
+        organization:
+          index: Opération
+        organization_holidays:
+          index: Vacances d'entreprise
+          new: Nouveau
+        organization_members:
+          index: Employés
+          new: Nouveau
+          profile: Profil
+        organizations:
+          index: Établissement d'affectation
+        overview:
+          index: Aperçu d'affectations
+        payments:
+          index: Paiements
+          new: Nouveau
+          show: Paiement à partir de %{date}
+        phone_list:
+          index: Liste des téléphones
+        service_agreements:
+          index: Accord de service
+          new: Nouveau
+        service_specifications:
+          index: Cahiers des charges
+          new: Nouveau
+        services:
+          index: Services
+          show: Service de %{beginning} à %{ending}
   mailing_list:
     erroneous_creation: Veuillez corriger les erreurs marquées suivantes
     successful_creation: Merci beaucoup pour votre intérêt. Nous vous contacterons bientôt
@@ -300,7 +339,7 @@ fr-CH:
               confirm: La civiliste a été appelé à l'affectation
               details: Détails
             headers:
-              civil_servant: Personne effectuant des travaux d'intérêt général
+              civil_servant: Civiliste
               date_range: Période
               service_specification: Spécifications
               status: Statut

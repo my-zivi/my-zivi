@@ -1,0 +1,10 @@
+- breadcrumbs = breadcrumb_trail.to_a
+- if breadcrumbs.any?
+  nav aria-label="breadcrumb"
+    ol.breadcrumb
+      - last = breadcrumbs.pop
+      - breadcrumbs.each do |crumb|
+        li.breadcrumb-item class=("#{crumb.current? ? "" : "active"}")
+          = link_to crumb.name, crumb.url, (crumb.current? ? {"aria-current" => "page"} : {})
+      li.breadcrumb-item
+        = last.name

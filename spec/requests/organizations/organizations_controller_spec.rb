@@ -12,6 +12,14 @@ RSpec.describe Organizations::OrganizationsController, :without_bullet, type: :r
 
       before { sign_in organization_administrator.user }
 
+      it_behaves_like 'validates presence of breadcrumbs' do
+        let(:expected_breadcrumbs) do
+          [I18n.t('loaf.breadcrumbs.organizations.organizations.index')]
+        end
+
+        before { perform_request }
+      end
+
       it 'renders the edit form for the organization administrators organization' do
         perform_request
         expect(response).to have_http_status(:ok)

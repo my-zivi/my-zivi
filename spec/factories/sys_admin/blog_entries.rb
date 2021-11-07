@@ -8,5 +8,6 @@ FactoryBot.define do
     description { 'This is my cool description' }
     author { Faker::Name.name }
     published { true }
+    tags { ['article'] }
   end
 end

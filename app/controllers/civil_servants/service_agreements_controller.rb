@@ -13,9 +13,9 @@ module CivilServants
       service = Service.find(params[:service_agreement_id])
       authorize! :accept, service
       if service.update(civil_servant_agreed: true)
-        flash[:notice] = t('.successful_accept')
+        flash.now[:notice] = t('.successful_accept')
       else
-        flash[:error] = format_errors(t('.erroneous_accept'), service)
+        flash.now[:error] = format_errors(t('.erroneous_accept'), service)
       end
       redirect_to civil_servants_service_agreements_path
     end
@@ -24,9 +24,9 @@ module CivilServants
       service = Service.find(params[:service_agreement_id])
       authorize! :decline, service
       if service.update(civil_servant_agreed: false)
-        flash[:notice] = t('.successful_decline')
+        flash.now[:notice] = t('.successful_decline')
       else
-        flash[:error] = format_errors(t('.erroneous_decline'), service)
+        flash.now[:error] = format_errors(t('.erroneous_decline'), service)
       end
       redirect_to civil_servants_service_agreements_path
     end
