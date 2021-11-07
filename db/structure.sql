@@ -286,7 +286,8 @@ CREATE TABLE public.blog_entries (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     slug character varying NOT NULL,
-    subtitle character varying
+    subtitle character varying,
+    tags character varying[]
 );
 
 
@@ -2120,6 +2121,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210726075638'),
 ('20210727075054'),
 ('20210812130003'),
-('20210919203342');
+('20210919203342'),
+('20211015073108');
 
 

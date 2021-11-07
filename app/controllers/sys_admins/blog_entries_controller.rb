@@ -53,7 +53,11 @@ module SysAdmins
 
     def blog_entry_params
       params.require(:blog_entry)
-            .permit(:title, :subtitle, :content, :author, :published, :description, :slug, :created_at)
+            .permit(:title, :subtitle, :content,
+                    :author, :published, :description,
+                    :slug, :created_at, tags: []).tap do |entry_params|
+        entry_params[:tags]&.reject!(&:blank?)
+      end
     end
   end
 end

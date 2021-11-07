@@ -1,6 +1,12 @@
 ---
 de-CH:
   activerecord:
+    arrays:
+      blog_entry:
+        tags:
+          article: Artikel
+          news: News
+          podcast: Podcast
     attributes:
       address:
         city: Stadt
