@@ -20,8 +20,9 @@ RSpec.describe JobPostingApi::DeactivatedJobPostingsPoller do
       end
     end
 
-    describe 'job posting deactivation' do
+    describe 'job posting deactivation and reactivation' do
       let!(:job_posting) { create(:job_posting, published: true) }
+      let!(:unpublished_job_posting) { create(:job_posting, published: false) }
       let(:returned_json) do
         {
           status: 'ok',
@@ -37,7 +38,19 @@ RSpec.describe JobPostingApi::DeactivatedJobPostingsPoller do
         expect { perform }.to(change { job_posting.reload.published }.from(true).to(false))
       end
 
-      context 'when the job posting is claimed' do
+      it 'reactivates the deleted job postings' do
+        expect { perform }.to(change { unpublished_job_posting.reload.published }.from(false).to(true))
+      end
+
+      context 'when the unpublished job posting is claimed' do
+        let(:unpublished_job_posting) { create(:job_posting, :claimed_by_organization, published: false) }
+
+        it 'does not reactivate the posting' do
+          expect { perform }.not_to(change { unpublished_job_posting.reload.published })
+        end
+      end
+
+      context 'when the published job posting is claimed' do
         let(:job_posting) { create(:job_posting, :claimed_by_organization, published: true) }
 
         it 'does not deactivate the posting' do

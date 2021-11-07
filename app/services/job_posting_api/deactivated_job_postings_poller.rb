@@ -30,19 +30,37 @@ module JobPostingApi
     private
 
     def handle_response(json_response)
-      deleted_identification_numbers = json_response[:deleted]
-      return if deleted_identification_numbers.empty?
+      remote_unpublished_job_posting = json_response[:deleted]
+      return if remote_unpublished_job_posting.empty?
 
-      deleted_identification_numbers.in_groups_of(100, false) do |identification_number_group|
+      local_unpublished_job_postings = JobPosting.scraped.where(published: false).pluck(:identification_number)
+      unpublish_job_postings(local_unpublished_job_postings, remote_unpublished_job_posting)
+      publish_job_postings(local_unpublished_job_postings, remote_unpublished_job_posting)
+    end
+
+    def unpublish_job_postings(local_unpublished_job_postings, remote_unpublished_job_posting)
+      needs_unpublishing = remote_unpublished_job_posting.difference(local_unpublished_job_postings)
+      update_job_postings_in_group(needs_unpublishing, published: false)
+
+      Rails.logger.info "Deactivated #{needs_unpublishing.length} job postings"
+    end
+
+    def publish_job_postings(local_unpublished_job_postings, remote_unpublished_job_posting)
+      needs_publishing = local_unpublished_job_postings.difference(remote_unpublished_job_posting)
+      update_job_postings_in_group(needs_publishing, published: true)
+
+      Rails.logger.info "Reactivated #{needs_publishing.length} job postings"
+    end
+
+    def update_job_postings_in_group(identification_numbers, job_posting_parameters)
+      identification_numbers.in_groups_of(100, false) do |identification_number_group|
         # rubocop:disable Rails/SkipsModelValidations
         JobPosting.scraped.where(identification_number: identification_number_group).update_all(
-          published: false,
-          updated_at: Time.zone.now
+          updated_at: Time.zone.now,
+          **job_posting_parameters
         )
         # rubocop:enable Rails/SkipsModelValidations
       end
-
-      Rails.logger.info "Deactivated #{deleted_identification_numbers.length} job postings"
     end
   end
 end
