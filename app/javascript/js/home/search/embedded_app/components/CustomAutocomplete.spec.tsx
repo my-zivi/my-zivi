@@ -69,4 +69,24 @@ describe('CustomAutocomplete', () => {
       expect(refine).toHaveBeenCalledWith('Mitarbeiter Jugendhilfe');
     });
   });
+
+  describe('when the user presses the enter key', () => {
+    const refine = jest.fn();
+
+    it('searches for the selected term', () => deferredCheck(root, () => {
+      const hits = [{
+        objectID: '123',
+        ...JobPostingFactory.build({ title: 'Mitarbeiter Jugendhilfe' }),
+      } as Hit<JobPostingSearchHit>];
+      root = mount(<AutocompleteImpl refine={refine} hits={hits} currentRefinement="" />);
+      root.setProps({ currentRefinement: 'Mitarbeiter' });
+      root.update();
+
+      document.dispatchEvent(new KeyboardEvent('keyup', { key: 'arrowdown', keyCode: 40 }));
+      document.dispatchEvent(new KeyboardEvent('keyup', { key: 'enter', keyCode: 13 }));
+      root.update();
+
+      expect(refine).toHaveBeenCalledWith('Mitarbeiter Jugendhilfe');
+    }));
+  });
 });
