@@ -80,11 +80,10 @@ describe('CustomAutocomplete', () => {
       } as Hit<JobPostingSearchHit>];
       root = mount(<AutocompleteImpl refine={refine} hits={hits} currentRefinement="" />);
       root.setProps({ currentRefinement: 'Mitarbeiter' });
-      root.update();
 
       document.dispatchEvent(new KeyboardEvent('keyup', { key: 'arrowdown', keyCode: 40 }));
-      document.dispatchEvent(new KeyboardEvent('keyup', { key: 'enter', keyCode: 13 }));
       root.update();
+      document.dispatchEvent(new KeyboardEvent('keyup', { key: 'enter', keyCode: 13 }));
 
       expect(refine).toHaveBeenCalledWith('Mitarbeiter Jugendhilfe');
     }));
