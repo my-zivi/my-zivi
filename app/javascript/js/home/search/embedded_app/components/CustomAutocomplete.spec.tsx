@@ -73,7 +73,7 @@ describe('CustomAutocomplete', () => {
   describe('when the user presses the enter key', () => {
     const refine = jest.fn();
 
-    it('searches for the selected term', () => deferredCheck(root, () => {
+    it('searches for the selected term', () => {
       const hits = [{
         objectID: '123',
         ...JobPostingFactory.build({ title: 'Mitarbeiter Jugendhilfe' }),
@@ -86,6 +86,15 @@ describe('CustomAutocomplete', () => {
       document.dispatchEvent(new KeyboardEvent('keyup', { key: 'enter', keyCode: 13 }));
 
       expect(refine).toHaveBeenCalledWith('Mitarbeiter Jugendhilfe');
-    }));
+    });
+
+    describe('when there are no results for the autocomplete', () => {
+      root = mount(<AutocompleteImpl refine={refine} hits={[]} currentRefinement="Mitarbeiter" />);
+      document.dispatchEvent(new KeyboardEvent('keyup', { key: 'arrowdown', keyCode: 40 }));
+      root.update();
+      document.dispatchEvent(new KeyboardEvent('keyup', { key: 'enter', keyCode: 13 }));
+
+      expect(refine).not.toHaveBeenCalled();
+    });
   });
 });
