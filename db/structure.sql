@@ -328,7 +328,33 @@ CREATE TABLE public.civil_servants (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     regional_center character varying,
-    registration_step character varying
+    registration_step character varying,
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip character varying,
+    last_sign_in_ip character varying,
+    confirmation_token character varying,
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying,
+    failed_attempts integer DEFAULT 0 NOT NULL,
+    unlock_token character varying,
+    locked_at timestamp without time zone,
+    invitation_token character varying,
+    invitation_created_at timestamp without time zone,
+    invitation_sent_at timestamp without time zone,
+    invitation_accepted_at timestamp without time zone,
+    invitation_limit integer,
+    invited_by_type character varying,
+    invited_by_id bigint,
+    invitations_count integer DEFAULT 0,
+    language character varying DEFAULT 'de'::character varying NOT NULL
 );
 
 
@@ -730,7 +756,33 @@ CREATE TABLE public.organization_members (
     organization_role character varying NOT NULL,
     contact_email character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip character varying,
+    last_sign_in_ip character varying,
+    confirmation_token character varying,
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying,
+    failed_attempts integer DEFAULT 0 NOT NULL,
+    unlock_token character varying,
+    locked_at timestamp without time zone,
+    invitation_token character varying,
+    invitation_created_at timestamp without time zone,
+    invitation_sent_at timestamp without time zone,
+    invitation_accepted_at timestamp without time zone,
+    invitation_limit integer,
+    invited_by_type character varying,
+    invited_by_id bigint,
+    invitations_count integer DEFAULT 0,
+    language character varying DEFAULT 'de'::character varying NOT NULL
 );
 
 
@@ -1045,64 +1097,6 @@ ALTER SEQUENCE public.sys_admins_id_seq OWNED BY public.sys_admins.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.users (
-    id bigint NOT NULL,
-    email character varying NOT NULL,
-    referencee_id bigint,
-    referencee_type character varying,
-    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying,
-    reset_password_sent_at timestamp without time zone,
-    remember_created_at timestamp without time zone,
-    sign_in_count integer DEFAULT 0 NOT NULL,
-    current_sign_in_at timestamp without time zone,
-    last_sign_in_at timestamp without time zone,
-    current_sign_in_ip inet,
-    last_sign_in_ip inet,
-    confirmation_token character varying,
-    confirmed_at timestamp without time zone,
-    confirmation_sent_at timestamp without time zone,
-    unconfirmed_email character varying,
-    failed_attempts integer DEFAULT 0 NOT NULL,
-    unlock_token character varying,
-    locked_at timestamp without time zone,
-    language character varying DEFAULT 'de'::character varying NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    invitation_token character varying,
-    invitation_created_at timestamp without time zone,
-    invitation_sent_at timestamp without time zone,
-    invitation_accepted_at timestamp without time zone,
-    invitation_limit integer,
-    invited_by_type character varying,
-    invited_by_id bigint,
-    invitations_count integer DEFAULT 0
-);
-
-
---
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.users_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
-
-
---
 -- Name: workshops; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1306,13 +1300,6 @@ ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.sys_admins ALTER COLUMN id SET DEFAULT nextval('public.sys_admins_id_seq'::regclass);
-
-
---
--- Name: users id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
@@ -1539,14 +1526,6 @@ ALTER TABLE ONLY public.sys_admins
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
 -- Name: workshops workshops_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1622,6 +1601,55 @@ CREATE INDEX index_civil_servants_driving_licenses_on_driving_license_id ON publ
 --
 
 CREATE INDEX index_civil_servants_on_address_id ON public.civil_servants USING btree (address_id);
+
+
+--
+-- Name: index_civil_servants_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_civil_servants_on_confirmation_token ON public.civil_servants USING btree (confirmation_token);
+
+
+--
+-- Name: index_civil_servants_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_civil_servants_on_email ON public.civil_servants USING btree (email);
+
+
+--
+-- Name: index_civil_servants_on_invitation_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_civil_servants_on_invitation_token ON public.civil_servants USING btree (invitation_token);
+
+
+--
+-- Name: index_civil_servants_on_invited_by; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_civil_servants_on_invited_by ON public.civil_servants USING btree (invited_by_type, invited_by_id);
+
+
+--
+-- Name: index_civil_servants_on_invited_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_civil_servants_on_invited_by_id ON public.civil_servants USING btree (invited_by_id);
+
+
+--
+-- Name: index_civil_servants_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_civil_servants_on_reset_password_token ON public.civil_servants USING btree (reset_password_token);
+
+
+--
+-- Name: index_civil_servants_on_unlock_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_civil_servants_on_unlock_token ON public.civil_servants USING btree (unlock_token);
 
 
 --
@@ -1737,6 +1765,13 @@ CREATE INDEX index_organization_holidays_on_organization_id ON public.organizati
 
 
 --
+-- Name: index_organization_members_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_organization_members_on_confirmation_token ON public.organization_members USING btree (confirmation_token);
+
+
+--
 -- Name: index_organization_members_on_contact_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1744,10 +1779,52 @@ CREATE UNIQUE INDEX index_organization_members_on_contact_email ON public.organi
 
 
 --
+-- Name: index_organization_members_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_organization_members_on_email ON public.organization_members USING btree (email);
+
+
+--
+-- Name: index_organization_members_on_invitation_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_organization_members_on_invitation_token ON public.organization_members USING btree (invitation_token);
+
+
+--
+-- Name: index_organization_members_on_invited_by; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_members_on_invited_by ON public.organization_members USING btree (invited_by_type, invited_by_id);
+
+
+--
+-- Name: index_organization_members_on_invited_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_members_on_invited_by_id ON public.organization_members USING btree (invited_by_id);
+
+
+--
 -- Name: index_organization_members_on_organization_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_organization_members_on_organization_id ON public.organization_members USING btree (organization_id);
+
+
+--
+-- Name: index_organization_members_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_organization_members_on_reset_password_token ON public.organization_members USING btree (reset_password_token);
+
+
+--
+-- Name: index_organization_members_on_unlock_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_organization_members_on_unlock_token ON public.organization_members USING btree (unlock_token);
 
 
 --
@@ -1867,69 +1944,6 @@ CREATE UNIQUE INDEX index_sys_admins_on_reset_password_token ON public.sys_admin
 --
 
 CREATE UNIQUE INDEX index_sys_admins_on_unlock_token ON public.sys_admins USING btree (unlock_token);
-
-
---
--- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_confirmation_token ON public.users USING btree (confirmation_token);
-
-
---
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
-
-
---
--- Name: index_users_on_invitation_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_invitation_token ON public.users USING btree (invitation_token);
-
-
---
--- Name: index_users_on_invitations_count; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_invitations_count ON public.users USING btree (invitations_count);
-
-
---
--- Name: index_users_on_invited_by_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_invited_by_id ON public.users USING btree (invited_by_id);
-
-
---
--- Name: index_users_on_invited_by_type_and_invited_by_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_invited_by_type_and_invited_by_id ON public.users USING btree (invited_by_type, invited_by_id);
-
-
---
--- Name: index_users_on_referencee_id_and_referencee_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_referencee_id_and_referencee_type ON public.users USING btree (referencee_id, referencee_type);
-
-
---
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
-
-
---
--- Name: index_users_on_unlock_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unlock_token);
 
 
 --
@@ -2237,7 +2251,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210812130003'),
 ('20210919203342'),
 ('20211015073108'),
+('20220306104256'),
 ('20211118161909'),
+('20211118185144'),
+('20211118185334'),
+('20211118185739'),
 ('20220306104256');
 
 

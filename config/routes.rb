@@ -20,6 +20,8 @@ if Rails.env.production?
 end
 
 Rails.application.routes.draw do
+  devise_for :organization_members
+  devise_for :civil_servants
   root 'home#index'
   mount RailsAdmin::Engine => '/rails_admin', as: 'rails_admin'
   mount Sidekiq::Web, at: '/sidekiq' if defined? Sidekiq::Web
@@ -35,11 +37,11 @@ Rails.application.routes.draw do
   resources :job_postings, param: :slug, only: %i[index show]
   resources :blog_entries, param: :slug, only: %i[index show], path: 'blog'
 
-  devise_for :users, controllers: {
-    invitations: 'users/invitations',
-    registrations: 'users/registrations',
-    sessions: 'users/sessions'
-  }
+  # devise_for :users, controllers: {
+  #   invitations: 'users/invitations',
+  #   registrations: 'users/registrations',
+  #   sessions: 'users/sessions'
+  # }
   devise_for :sys_admins
 
   authenticated :sys_admin do

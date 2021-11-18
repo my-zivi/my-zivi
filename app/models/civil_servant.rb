@@ -5,6 +5,13 @@ require 'regional_center_column'
 require 'registration_step_column'
 
 class CivilServant < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :invitable, :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
+         :confirmable, :lockable, :trackable
+
+  include LoginableUser
   include CivilServantValidatable
   extend CivilServantSearchable
 
@@ -12,8 +19,6 @@ class CivilServant < ApplicationRecord
   attribute :registration_step, RegistrationStepColumn.new
 
   belongs_to :address, dependent: :destroy, optional: true
-
-  has_one :user, as: :referencee, dependent: :destroy, required: true, autosave: true
 
   has_many :services, dependent: :restrict_with_error
   has_many :expense_sheets, through: :services
@@ -30,7 +35,6 @@ class CivilServant < ApplicationRecord
            to: :registration_step, allow_nil: true
   alias registered? service_specific_step_completed?
 
-  accepts_nested_attributes_for :user, allow_destroy: false
   accepts_nested_attributes_for :address, allow_destroy: false, update_only: true
 
   after_commit :update_address, on: :update, if: -> { address.present? }
