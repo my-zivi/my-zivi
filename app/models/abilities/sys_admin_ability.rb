@@ -29,6 +29,7 @@ module Abilities
       can(:manage, MailingList)
       can(:manage, BlogEntry)
       can(:manage, JobPosting)
+      can(:manage, Faq)
       can(:read, RegionalCenter)
       can(:read, JobPostingApi::PollLog)
     end

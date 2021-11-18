@@ -506,6 +506,38 @@ ALTER SEQUENCE public.expense_sheets_id_seq OWNED BY public.expense_sheets.id;
 
 
 --
+-- Name: faqs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.faqs (
+    id bigint NOT NULL,
+    question character varying,
+    answer character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: faqs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.faqs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: faqs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.faqs_id_seq OWNED BY public.faqs.id;
+
+
+--
 -- Name: job_posting_api_poll_logs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1142,6 +1174,13 @@ ALTER TABLE ONLY public.expense_sheets ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: faqs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.faqs ALTER COLUMN id SET DEFAULT nextval('public.faqs_id_seq'::regclass);
+
+
+--
 -- Name: job_posting_api_poll_logs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1333,6 +1372,14 @@ ALTER TABLE ONLY public.driving_licenses
 
 ALTER TABLE ONLY public.expense_sheets
     ADD CONSTRAINT expense_sheets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: faqs faqs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.faqs
+    ADD CONSTRAINT faqs_pkey PRIMARY KEY (id);
 
 
 --
@@ -2122,6 +2169,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210727075054'),
 ('20210812130003'),
 ('20210919203342'),
-('20211015073108');
+('20211015073108'),
+('20211118161909');
 
 

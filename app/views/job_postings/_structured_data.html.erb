@@ -1,0 +1,28 @@
+<script type="application/ld+json">
+  {
+      "@context" : "https://schema.org/",
+      "@type" : "JobPosting",
+      "title" : "<%= job_posting.title %>",
+      "description" : "<%= job_posting.description.to_plain_text.squish %>",
+      "datePosted" : "<%= job_posting.updated_at %>>",
+      "hiringOrganization" : {
+        "@type" : "Organization",
+        "name" : "<%= job_posting.organization_display_name %>",
+        "logo" : "<%= job_posting.icon_url %>",
+        "description": "",
+        "url": ""
+      },
+      "jobLocation": {
+      "@type": "Place",
+        "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "<%= job_posting.address&.street %>",
+        "addressLocality": "<%= job_posting.address&.city %>",
+        "addressRegion": "<%= job_posting.address&.city %>",
+        "postalCode": "<%= job_posting.address&.zip %>",
+        "addressCountry": "Schweiz"
+        }
+      }
+    }
+
+</script>

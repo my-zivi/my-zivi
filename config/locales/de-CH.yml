@@ -141,7 +141,11 @@ de-CH:
         blog: Blog
         job_postings: Einsatz suchen
         organizations: Für Betriebe
+        civil_servant_faq: "Zivi-FAQ"
       signup: Jetzt anmelden
+    civil_servant_faq:
+      page_title: FAQ um den Schweizer Zivildienst
+      subtitle: MyZivi ist ein Softwareanbieter, der Zivis und Betriebe auf einer zentralen, einfach bedienbaren Plattform bedient. Hier versuchen wir Dir bestmöglich die wichtigsten Fragen rund um den Zivildienst zu beantworten.
   job_postings:
     index:
       page_title: Einsatz suchen

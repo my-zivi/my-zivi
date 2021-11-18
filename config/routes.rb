@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get '/for_organizations/recruiting', to: 'home#recruiting', as: :recruiting
   get '/wieso-myzivi', to: 'home#for_civil_servants', as: :for_civil_servants
   get '/about_us', to: 'home#about_us'
+  get '/zivi-faq', to: 'home#civil_servant_faq'
   get '/agb', to: 'home#agb'
   get '/privacy_policy', to: 'home#privacy_policy'
   resources :job_postings, param: :slug, only: %i[index show]

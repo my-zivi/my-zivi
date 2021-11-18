@@ -36,4 +36,22 @@ RSpec.describe HomeController, type: :request do
       end
     end
   end
+
+  describe 'zivi-faq' do
+    let(:perform_request) { get zivi_faq_path }
+    let!(:zivi_faq) { create(:faq) }
+
+    it 'renders the faq' do
+      perform_request
+      expect(response).to be_successful
+      expect(response.body).to include(
+        zivi_faq.question,
+        zivi_faq.answer
+      )
+    end
+
+    it_behaves_like 'can access home page' do
+      let(:path) { public_send(:zivi_faq_path) }
+    end
+  end
 end

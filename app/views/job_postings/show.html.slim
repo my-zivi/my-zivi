@@ -1,3 +1,6 @@
+- content_for(:head_additions) do
+  = render 'structured_data', job_posting: @job_posting
+
 - content_for(:container_class, 'index-container')
 = render 'home/navbar'
 
