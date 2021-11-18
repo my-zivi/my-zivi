@@ -3,5 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Faq, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject(:model) { build(:job_posting).tap(&:validate) }
+
+  it_behaves_like 'validates presence of required fields', %i[
+    question
+    answer
+  ]
 end
