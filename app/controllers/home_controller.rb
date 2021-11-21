@@ -4,7 +4,6 @@ class HomeController < ApplicationController
   before_action -> { I18n.locale = :'de-CH' }
 
   before_action :load_faqs, only: :civil_servant_faq
-  before_action :load_structured_faqs, only: :civil_servant_faq
 
   def index; end
 
@@ -28,20 +27,5 @@ class HomeController < ApplicationController
 
   def load_faqs
     @faqs = Faq.all
-  end
-
-  # :reek:FeatureEnvy
-  def load_structured_faqs
-    @faqs_structured = {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: Faq.all.map do |faq|
-        {
-          '@type': 'Question',
-          name: faq.question,
-          acceptedAnswer: { '@type': 'Answer', text: faq.answer }
-        }
-      end
-    }
   end
 end
