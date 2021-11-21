@@ -1,5 +1,6 @@
 - content_for(:head_additions) do
-  = structured_faqs(@faqs).to_json.html_safe
+  script type="application/ld+json"
+    = structured_faqs(@faqs).to_json.html_safe
 
 - content_for(:container_class, 'index-container')
 - content_for(:page_title, t('.page_title'))
