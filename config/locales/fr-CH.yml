@@ -141,7 +141,11 @@ fr-CH:
         blog: Blog
         job_postings: Rechercher une affectation
         organizations: Pour les établissements d'affectation
+        civil_servant_faq: "FAQ du civiliste"
       signup: Inscrivez-vous maintenant
+    civil_servant_faq:
+      page_title: "FAQ sur le service civil suisse"
+      subtitle: "MyZivi est un développeur de solutions informatiques qui sert les civilistes et les établissements sur une plateforme centrale et simple d'utilisation. Ici, nous essayons de répondre au mieux aux questions les plus importantes concernant le service civil."
   job_postings:
     index:
       page_title: Rechercher une affectation
@@ -562,5 +566,3 @@ fr-CH:
         title: Nouvel article de blog
       successful_creation: Entrée de blog créée avec succès
       successful_update: Mise à jour réussie de l'entrée du blog
-  description: ""
-  page_title: ""
