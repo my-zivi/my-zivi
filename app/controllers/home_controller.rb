@@ -29,7 +29,8 @@ class HomeController < ApplicationController
   def load_faqs
     @faqs = Faq.all
   end
-
+  
+  # :reek:FeatureEnvy
   def load_structured_faqs
     @faqs_structured = {
       '@context': 'https://schema.org',
