@@ -1,18 +1,3 @@
 <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-      <% faqs.each_with_index do |faq, index| %>
-          {
-          "@type": "Question",
-          "name": "<%= faq.question %>",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "<p><%= faq.answer %></p>"
-          }
-        }<%= ',' unless index == faqs.count - 1 %>
-      <% end %>
-      ]
-    }
+    <%= @faqs_structured.to_json.html_safe %>
 </script>
