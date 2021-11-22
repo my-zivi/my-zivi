@@ -110,4 +110,8 @@ RailsAdmin.config do |config|
       end
     end
   end
+
+  config.model 'Faq' do
+    object_label_method { :question }
+  end
 end

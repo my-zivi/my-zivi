@@ -128,6 +128,9 @@ fr-CH:
     unprocessable_entity:
       title: La ressource n'a pas pu être mise à jour
   home:
+    civil_servant_faq:
+      page_title: FAQ sur le service civil suisse
+      subtitle: MyZivi est un développeur de solutions informatiques qui sert les civilistes et les établissements sur une plateforme centrale et simple d'utilisation. Ici, nous essayons de répondre au mieux aux questions les plus importantes concernant le service civil.
     mailing_list:
       lead: Laissez-nous vos coordonnées et notre équipe commerciale se fera un plaisir de vous contacter pour une brève discussion
       link_to_homepage: Lien vers le site Internet
@@ -139,6 +142,7 @@ fr-CH:
       links:
         about_us: ''
         blog: Blog
+        civil_servant_faq: FAQ du civiliste
         job_postings: Rechercher une affectation
         organizations: Pour les établissements d'affectation
       signup: Inscrivez-vous maintenant

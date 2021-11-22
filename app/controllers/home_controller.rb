@@ -13,6 +13,10 @@ class HomeController < ApplicationController
 
   def recruiting; end
 
+  def civil_servant_faq
+    @faqs = Faq.all
+  end
+
   def agb; end
 
   def privacy_policy; end

@@ -1,0 +1,28 @@
+- content_for(:head_additions) do
+  script type="application/ld+json"
+    == structured_faqs(@faqs).to_json.html_safe
+
+- content_for(:container_class, 'index-container')
+- content_for(:page_title, t('.page_title'))
+- content_for(:social_tags) do
+  meta name="description" content=t('.subtitle') /
+  meta property="og:title" content=app_page_title /
+
+= render 'home/navbar'
+
+.hero
+  .container
+    .hero-content.w-100
+      h1.text-center = t('.page_title')
+      h2.h3 = t('.subtitle')
+
+.container.mb-6
+  .row.justify-content-center
+    .col-12.col-lg-10.col-xxl-8
+      section.pt-5
+        #faqAccordion.accordion
+          - @faqs.each_with_index do |faq, index|
+            = render CardAccordionEntryComponent.new(title: faq.question, parent_id: 'faqAccordion', expanded: index.zero?) do
+              p = faq.answer
+
+= render 'home/footer'
