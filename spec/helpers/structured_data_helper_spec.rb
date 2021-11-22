@@ -33,11 +33,5 @@ RSpec.describe StructuredDataHelper, type: :helper do
         }
       ) }
     end
-
-    context 'when it is not current page' do
-      let(:current_page_path) { 'other_page' }
-
-      it { is_expected.to eq '' }
-    end
   end
 end
