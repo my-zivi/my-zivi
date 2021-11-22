@@ -38,7 +38,7 @@ RSpec.describe HomeController, type: :request do
   end
 
   describe 'zivi-faq' do
-    let(:perform_request) { get zivi_faq_path }
+    let(:perform_request) { get civil_servant_faq_path }
     let!(:zivi_faq) { create(:faq) }
 
     it 'renders the faq' do
