@@ -18,7 +18,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.my-zivi-top-navbar
         = navbar_link(t('home.navbar.links.organizations'), for_organizations_path)
         = navbar_link(t('home.navbar.links.about_us'), about_us_path)
         = navbar_link(t('home.navbar.links.blog'), blog_entries_path)
-        = navbar_link(t('home.navbar.links.civil_servant_faq'), zivi_faq_path)
+        = navbar_link(t('home.navbar.links.civil_servant_faq'), civil_servant_faq_path)
       .d-flex.mt-4.mt-lg-0
         - if content_for?(:displays_demo_button)
           = link_to t('home.navbar.demo'),

@@ -1,6 +1,6 @@
 - content_for(:head_additions) do
   script type="application/ld+json"
-    = structured_faqs(@faqs).to_json.html_safe
+    == structured_faqs(@faqs).to_json.html_safe
 
 - content_for(:container_class, 'index-container')
 - content_for(:page_title, t('.page_title'))
@@ -22,7 +22,7 @@
       section.pt-5
         #faqAccordion.accordion
           - @faqs.each_with_index do |faq, index|
-            = render CardAccordionEntryComponent.new(title: faq.question, parent_id: 'faqAccordion', expanded: index == 0) do
+            = render CardAccordionEntryComponent.new(title: faq.question, parent_id: 'faqAccordion', expanded: index.zero?) do
               p = faq.answer
 
 = render 'home/footer'

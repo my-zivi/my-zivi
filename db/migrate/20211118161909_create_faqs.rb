@@ -3,7 +3,7 @@ class CreateFaqs < ActiveRecord::Migration[6.1]
     create_table :faqs do |t|
 
       t.string :question
-      t.string :answer
+      t.text :answer
       t.timestamps
     end
   end
