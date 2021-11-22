@@ -51,7 +51,7 @@ RSpec.describe HomeController, type: :request do
     end
 
     it_behaves_like 'can access home page' do
-      let(:path) { public_send(:zivi_faq_path) }
+      let(:path) { public_send(:civil_servant_faq_path) }
     end
   end
 end
