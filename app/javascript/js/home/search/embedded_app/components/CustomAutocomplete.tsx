@@ -21,14 +21,19 @@ export class AutocompleteImpl extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.searchBoxRef = React.createRef<SearchBoxRef>();
+    this.state = {
+      focused: false,
+      isHovering: false,
+      selectedHitIndex: undefined,
+    };
   }
 
   componentDidMount(): void {
-    window.addEventListener('keyup', this.onKeyup);
+    document.addEventListener('keyup', this.onKeyup);
   }
 
   componentWillUnmount(): void {
-    window.removeEventListener('keyup', this.onKeyup);
+    document.removeEventListener('keyup', this.onKeyup);
   }
 
   componentWillUpdate(nextProps: Readonly<Props>): void {
@@ -112,8 +117,12 @@ export class AutocompleteImpl extends React.Component<Props, State> {
     );
   }
 
-  private onAutocompleteHitClick(hit, event?: MouseEvent) {
+  private onAutocompleteHitClick(hit?: JobPostingSearchHit, event?: MouseEvent) {
     event?.preventDefault();
+    if (!hit) {
+      return;
+    }
+
     this.searchBoxRef.current.autocompleteSearch(hit.title);
     this.setState({ isHovering: false, focused: false, selectedHitIndex: undefined });
   }
