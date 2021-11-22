@@ -7,31 +7,34 @@ RSpec.describe StructuredDataHelper, type: :helper do
     subject(:structured_faqs) { helper.structured_faqs(faqs) }
 
     context 'when there are faqs' do
-      let(:faq) { create_list :faq, 3 }
-
-      it { is_expected.to eq(
+      let(:faqs) { create_list :faq, 3 }
+      let(:expected_hash) do
         {
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
           mainEntity: [
             {
               '@type': 'Question',
-              name: 'Question 1',
-              acceptedAnswer: { '@type': 'Answer', text: 'Answer 1' }
+              name: faqs.first.question,
+              acceptedAnswer: { '@type': 'Answer', text: faqs.first.answer }
             },
             {
               '@type': 'Question',
-              name: 'Question 2',
-              acceptedAnswer: { '@type': 'Answer', text: 'Answer 2' }
+              name: faqs.second.question,
+              acceptedAnswer: { '@type': 'Answer', text: faqs.second.answer }
             },
             {
               '@type': 'Question',
-              name: 'Question 3',
-              acceptedAnswer: { '@type': 'Answer', text: 'Answer 3' }
-            },
+              name: faqs.third.question,
+              acceptedAnswer: { '@type': 'Answer', text: faqs.third.answer }
+            }
           ]
         }
-      ) }
+      end
+
+      it {
+        expect(structured_faqs).to eq expected_hash
+      }
     end
   end
 end
