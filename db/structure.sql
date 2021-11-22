@@ -512,7 +512,7 @@ ALTER SEQUENCE public.expense_sheets_id_seq OWNED BY public.expense_sheets.id;
 CREATE TABLE public.faqs (
     id bigint NOT NULL,
     question character varying,
-    answer character varying,
+    answer text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
