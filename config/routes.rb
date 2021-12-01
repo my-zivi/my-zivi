@@ -93,4 +93,5 @@ Rails.application.routes.draw do
   get '/500' => 'errors#internal_server_error', as: :internal_server_error
   get '/422' => 'errors#unprocessable_entity', as: :unprocessable_entity
   get '/robots', to: 'robots#robots'
+  get '/sitemap.xml' => redirect(ENV['SITEMAP_PUBLIC_URL']) if ENV['SITEMAP_PUBLIC_URL'].present?
 end
