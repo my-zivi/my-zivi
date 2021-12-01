@@ -1,0 +1,77 @@
+name: Rails CI
+
+on: [ push ]
+
+jobs:
+  ci:
+    name: Automatic Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:12.9
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Git Repository
+        uses: actions/checkout@v2
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache Yarn Dependencies
+        uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Load Ruby version
+        run: echo "##[set-output name=RUBYV;]$(cat .ruby-version)"
+        id: rnv
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install PostgreSQL 12 client
+        run: |
+          sudo apt-get -yqq install libpq-dev
+
+      - name: Build App
+        env:
+          DATABASE_HOST: postgres
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: postgres
+          RAILS_ENV: test
+        run: |
+          cp .env.example .env
+          bin/rails db:create db:schema:load
+          bin/yarn install --cache-folder $(yarn cache dir)
+          bin/webpack
+
+      - name: Linting
+        env:
+          RAILS_ENV: test
+        run: |
+          bin/lint
+
+      - name: Run Tests
+        env:
+          DATABASE_HOST: postgres
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: postgres
+          RAILS_ENV: test
+        run: |
+          bin/unit-tests
+
