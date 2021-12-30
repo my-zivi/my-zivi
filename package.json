@@ -8,7 +8,7 @@
     "@algolia/requester-common": "^4.10.5",
     "@babel/plugin-transform-react-jsx": "^7.12.7",
     "@babel/preset-typescript": "^7.13.0",
-    "@fortawesome/fontawesome-free": "^5.13.1",
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@my-zivi/falcon": "2.6.6",
