@@ -16,6 +16,30 @@ default: &default
       street: Malerweg 6
       city: Thun
       zip: 3600
+  aarau:
+    name: Regionalzentrum Aarau
+    address:
+      primary_line: Regionalzentrum Aarau
+      secondary_line: Postfach
+      street: Bahnhofstrasse 29
+      city: Aarau
+      zip: 5000
+  lausanne:
+    name: Regionalzentrum Lausanne
+    address:
+      primary_line: Centre régional de Lausanne
+      secondary_line: Case postale
+      street: Route de Chavannes 31
+      city: Lausanne
+      zip: 1001
+  rivera:
+    name: Regionalzentrum Rivera
+    address:
+      primary_line: Centro regionale Rivera
+      secondary_line: CP 443
+      street: Via Lagacci 8
+      city: Rivera
+      zip: 6802
 
 development:
   <<: *default
