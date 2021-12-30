@@ -40,6 +40,7 @@ module MyZivi
     config.generators.system_tests = nil
     config.active_record.schema_format = :sql
     config.exceptions_app = routes
+    config.x.urls = config_for(:urls)
 
     config.after_initialize do
       %w[style controls poster type preload width target].each do |attr|

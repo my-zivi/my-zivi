@@ -1,0 +1,13 @@
+default: &default
+  demo_url: https://calendly.com/myzivi-joshua/onlinedemo
+  civil_servant_register_form: https://h1jfkxgv69k.typeform.com/to/tst1He9H
+  job_posting_claim_form: https://h1jfkxgv69k.typeform.com/to/ZsKYhH79
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
