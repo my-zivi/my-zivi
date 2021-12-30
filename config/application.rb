@@ -40,6 +40,8 @@ module MyZivi
     config.generators.system_tests = nil
     config.active_record.schema_format = :sql
     config.exceptions_app = routes
+    config.x.urls = config_for(:urls)
+    config.x.regional_centers = config_for(:regional_centers)
 
     config.after_initialize do
       %w[style controls poster type preload width target].each do |attr|
@@ -52,5 +54,3 @@ module MyZivi
     end
   end
 end
-
-require_relative './regional_centers'

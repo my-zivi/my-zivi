@@ -75,7 +75,7 @@
             - if @job_posting.scraped?
               .text-muted = t('.disclaimer')
             = link_to(t('.apply_via_myzivi'),
-                    'https://h1jfkxgv69k.typeform.com/to/tst1He9H',
+                    Rails.configuration.x.urls.civil_servant_register_form,
                     class: 'btn btn-falcon-primary w-100 mt-3',
                     target: '_blank',
                     rel: 'noopener nofollow noreferrer')
@@ -93,6 +93,6 @@
             .card-title = t('.claim_title')
             .card-text
               .mt-2 = t('.claim_html',
-                      link: 'https://h1jfkxgv69k.typeform.com/to/ZsKYhH79')
+                      link: Rails.configuration.x.urls.job_posting_claim_form)
 
 = render 'home/footer'
