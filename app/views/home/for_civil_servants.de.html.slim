@@ -53,7 +53,7 @@ section.workflow
           | Fülle unser Formular aus und gib deine Kontaktdaten und wichtige Informationen
             für deinen Einsatz, wie absolvierte Kurse, an.
         p
-          = link_to('https://h1jfkxgv69k.typeform.com/to/tst1He9H',
+          = link_to(Rails.configuration.x.urls.civil_servant_register_form,
                   rel: 'noopener nofollow',
                   target: '_blank',
                   class: 'btn btn-link pl-0') do
@@ -99,7 +99,7 @@ section.py-0.quote
         | Dauert maximal 2 Minuten.
       .mt-4
         = link_to 'Jetzt anmelden',
-                'https://h1jfkxgv69k.typeform.com/to/tst1He9H',
+                Rails.configuration.x.urls.civil_servant_register_form,
                 class: 'btn btn-gradient btn-lg',
                 target: '_blank',
                 rel: 'nofollow noopener noreferrer'
