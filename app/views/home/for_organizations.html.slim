@@ -71,7 +71,7 @@ section.workflow
           | In einer kurzen Demo zeigen wir Dir, wie Du MyZivi am besten in Deinen bestehenden Prozess
             einbinden kannst.
         p
-          = link_to ENV['DEMO_URL'], rel: 'noreferrer nofollow noopener', target: '_blank' do
+          = link_to Rails.configuration.x.urls.demo_url, rel: 'noreferrer nofollow noopener', target: '_blank' do
             span Jetzt Demo vereinbaren
             i.fas.fa-chevron-right.ml-2
     hr.d-md-none.my-4
@@ -131,7 +131,7 @@ section.py-0.quote
         | kontaktieren.
       .mt-4
         = link_to t('home.navbar.demo'),
-                ENV['DEMO_URL'],
+                Rails.configuration.x.urls.demo_url,
                 class: 'btn btn-gradient',
                 target: '_blank',
                 rel: 'nofollow noopener noreferrer'

@@ -22,13 +22,13 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.my-zivi-top-navbar
       .d-flex.mt-4.mt-lg-0
         - if content_for?(:displays_demo_button)
           = link_to t('home.navbar.demo'),
-                  ENV['DEMO_URL'],
+                  Rails.configuration.x.urls.demo_url,
                   class: 'btn btn-gradient',
                   target: '_blank',
                   rel: 'nofollow noopener noreferrer'
         - if content_for?(:displays_signup_button)
           = link_to t('home.navbar.signup'),
-                  'https://h1jfkxgv69k.typeform.com/to/tst1He9H',
+                  Rails.configuration.x.urls.civil_servant_register_form,
                   class: 'btn btn-gradient',
                   target: '_blank',
                   rel: 'nofollow noopener noreferrer'

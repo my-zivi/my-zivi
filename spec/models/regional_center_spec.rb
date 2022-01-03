@@ -14,7 +14,7 @@ RSpec.describe RegionalCenter, type: :model do
 
     it 'returns all registered regional centers' do
       expect(all).not_to be_empty
-      expect(all.map(&:identifier)).to contain_exactly(*Rails.configuration.x.regional_centers.keys)
+      expect(all.map(&:identifier)).to contain_exactly(*Rails.configuration.x.regional_centers.keys.map(&:to_s))
     end
   end
 
