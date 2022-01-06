@@ -3,10 +3,19 @@
       "@context" : "https://schema.org/",
       "@type" : "JobPosting",
       "title" : "<%= job_posting.title %>",
-      "baseSalary" : 1800,
+      "baseSalary" : {
+        "@type": "MonetaryAmount",
+        "currency": "CHF",
+        "value": {
+          "@type": "QuantitativeValue",
+          "minValue": 62.00,
+          "maxValue": 196.00,
+          "unitText": "DAY"
+        }
+      },
       "description" : "<%= job_posting.description.to_plain_text.squish %>",
       "datePosted" : "<%= job_posting.updated_at %>>",
-      "employmentType" : "contract"
+      "employmentType" : "contract",
       "hiringOrganization" : {
         "@type" : "Organization",
         "name" : "<%= job_posting.organization_display_name %>",
