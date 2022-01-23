@@ -3,8 +3,19 @@
       "@context" : "https://schema.org/",
       "@type" : "JobPosting",
       "title" : "<%= job_posting.title %>",
+      "baseSalary" : {
+        "@type": "MonetaryAmount",
+        "currency": "CHF",
+        "value": {
+          "@type": "QuantitativeValue",
+          "minValue": 62.00,
+          "maxValue": 196.00,
+          "unitText": "DAY"
+        }
+      },
       "description" : "<%= job_posting.description.to_plain_text.squish %>",
       "datePosted" : "<%= job_posting.updated_at %>>",
+      "employmentType" : "contract",
       "hiringOrganization" : {
         "@type" : "Organization",
         "name" : "<%= job_posting.organization_display_name %>",
@@ -22,6 +33,7 @@
         "postalCode": "<%= job_posting.address&.zip %>",
         "addressCountry": "Schweiz"
         }
-      }
+      },
+      "validThrough": "<%= (job_posting.scraped? ? job_posting.publication_date : Time.zone.now) + 30.days %>"
     }
 </script>
