@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
-RSpec.describe User, type: :model do
-  it { is_expected.to belong_to(:referencee) }
-
+RSpec.shared_examples_for 'loginable user' do
   describe 'model definition' do
     subject(:model) { described_class.new }
 
@@ -16,7 +12,7 @@ RSpec.describe User, type: :model do
   describe 'validations' do
     subject(:model) { described_class.new }
 
-    it { is_expected.to validate_presence_of :email }
+    it { is_expected.to validate_presence_of(email) }
 
     describe '#email' do
       let(:valid_emails) { %w[valid@email.org a@b.c something+other@gmail.com me@subdomain.domain.co.in] }

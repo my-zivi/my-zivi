@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :civil_servant do
     first_name { 'Zivi' }
     last_name { 'Mustermann' }
+    email { 'zivi@example.com' }
 
     trait :personal_step_completed do
       sequence(:zdp) { |n| 123_456 + n }
@@ -37,16 +38,7 @@ FactoryBot.define do
     end
 
     trait :full do
-      with_user
       service_specific_step_completed
-    end
-
-    trait :with_user do
-      association :user, strategy: :build, factory: %i[user confirmed]
-
-      after(:create) do |civil_servant|
-        civil_servant.user.save
-      end
     end
 
     trait :with_service do

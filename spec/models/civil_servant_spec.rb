@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe CivilServant, type: :model do
+  it_behaves_like 'loginable user'
+
   describe 'model definition' do
     subject(:model) { described_class.new }
-
-    it { is_expected.to have_one(:user).dependent(:destroy).required(true) }
 
     describe 'foreign relations' do
       it 'defines has_many relations' do
@@ -29,7 +29,7 @@ RSpec.describe CivilServant, type: :model do
   describe 'validations' do
     subject(:model) { build(:civil_servant, :service_specific_step_completed) }
 
-    before { create(:civil_servant, :full) }
+    before { create(:civil_servant) }
 
     let(:invalid_ibans) do
       %w[
@@ -64,7 +64,7 @@ RSpec.describe CivilServant, type: :model do
   end
 
   describe 'active record callbacks' do
-    let(:model) { create :civil_servant, :full }
+    let(:model) { create(:civil_servant) }
     let(:address) { model.address }
 
     let(:new_last_name) { 'NeueNachname' }

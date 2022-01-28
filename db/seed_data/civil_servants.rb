@@ -15,12 +15,10 @@ CivilServant.create!(
       driving_licenses: DrivingLicense.where(name: %w[B A]),
       workshops: Workshop.where(name: %w[Kommunikation\ und\ Betreuung Pflegehilfe\ 1]),
       registration_step: last_registration_step,
-      user: User.new(
-        email: 'max.zivi@example.com',
-        password: '12345678',
-        language: 'fr-CH',
-        confirmed_at: 2.years.ago
-      ),
+      email: 'max.zivi@example.com',
+      password: '12345678',
+      language: 'fr-CH',
+      confirmed_at: 2.years.ago,
       regional_center: RegionalCenter.rueti,
       address: Address.new(
         primary_line: 'Maximilian Mustermann',
@@ -43,12 +41,10 @@ CivilServant.create!(
       driving_licenses: DrivingLicense.where(name: %w[F]),
       workshops: [],
       registration_step: last_registration_step,
-      user: User.new(
-        email: 'niels@example.com',
-        password: '12345678',
-        language: 'de-CH',
-        confirmed_at: 1.year.ago
-      ),
+      email: 'niels@example.com',
+      password: '12345678',
+      language: 'de-CH',
+      confirmed_at: 1.year.ago,
       regional_center: RegionalCenter.rueti,
       address: Address.new(
         primary_line: 'Niels Schweizer',
@@ -71,12 +67,10 @@ CivilServant.create!(
       driving_licenses: DrivingLicense.where(name: %w[B C1]),
       workshops: Workshop.where(name: 'Alp-Pflege'),
       registration_step: last_registration_step,
-      user: User.new(
-        email: 'joel.zivi@example.com',
-        password: '12345678',
-        language: 'de-CH',
-        confirmed_at: 1.year.ago
-      ),
+      email: 'joel.zivi@example.com',
+      password: '12345678',
+      language: 'de-CH',
+      confirmed_at: 1.year.ago,
       regional_center: RegionalCenter.rueti,
       address: Address.new(
         primary_line: 'Joel Hauser',
@@ -99,12 +93,10 @@ CivilServant.create!(
       driving_licenses: DrivingLicense.where(name: []),
       workshops: [Workshop.find_by(name: 'Umwelt- und Naturschutz')],
       registration_step: last_registration_step,
-      user: User.new(
-        email: 'andy.zivi@example.com',
-        password: '12345678',
-        language: 'de-CH',
-        confirmed_at: 5.months.ago
-      ),
+      email: 'andy.zivi@example.com',
+      password: '12345678',
+      language: 'de-CH',
+      confirmed_at: 5.months.ago,
       regional_center: RegionalCenter.thun,
       address: Address.new(
         primary_line: 'Andy Pfeuti',
@@ -127,12 +119,10 @@ CivilServant.create!(
       workshops: [Workshop.find_by(name: 'Umwelt- und Naturschutz')],
       health_insurance: 'Zivicare P1us',
       registration_step: last_registration_step,
-      user: User.new(
-        email: 'philipp.zivi@example.com',
-        password: '12345678',
-        language: 'de-CH',
-        confirmed_at: 20.minutes.ago
-      ),
+      email: 'philipp.zivi@example.com',
+      password: '12345678',
+      language: 'de-CH',
+      confirmed_at: 20.minutes.ago,
       regional_center: RegionalCenter.thun,
       address: Address.new(
         primary_line: 'Philipp Van Fehr',

@@ -11,12 +11,10 @@ OrganizationMember.create!(
       last_name: 'Bieler',
       phone: '+41 (0) 76 123 45 67',
       organization_role: 'Geschäftsführung',
-      user: User.new(
-        email: 'admin@example.com',
-        password: '12345678',
-        language: :english,
-        confirmed_at: 1.year.ago
-      )
+      email: 'admin@example.com',
+      password: '12345678',
+      language: :english,
+      confirmed_at: 1.year.ago
     },
     {
       organization: alterszentrum_birkhoelzli,
@@ -24,7 +22,7 @@ OrganizationMember.create!(
       last_name: 'Clark',
       phone: '+41 (0) 70 321 54 76',
       organization_role: 'Zivildienstadministration',
-      contact_email: 'emily@example.com'
+      email: 'emily@example.com'
     },
     {
       organization: alterszentrum_birkhoelzli,
@@ -32,7 +30,7 @@ OrganizationMember.create!(
       last_name: 'Black',
       phone: '+41 (0) 76 098 76 54',
       organization_role: 'Buchhaltung',
-      contact_email: 'cobe@example.com'
+      email: 'cobe@example.com'
     },
     {
       organization: alterszentrum_birkhoelzli,
@@ -40,13 +38,10 @@ OrganizationMember.create!(
       last_name: 'Schmid',
       phone: '+41 (0) 79 521 90 01',
       organization_role: 'Zivildienstleitung',
-      contact_email: 'susanne@example.com',
-      user: User.new(
-        email: 'admin3@example.com',
-        password: '12345678',
-        language: :german,
-        confirmed_at: 2.years.ago
-      )
+      email: 'susanne@example.com',
+      password: '12345678',
+      language: :german,
+      confirmed_at: 2.years.ago
     },
     {
       organization: alterszentrum_birkhoelzli,
@@ -54,13 +49,10 @@ OrganizationMember.create!(
       last_name: 'Schramm',
       phone: '+41 (0) 44 123 45 67',
       organization_role: 'Geschäftsleitung',
-      contact_email: 'erwin@example.com',
-      user: User.new(
-        email: 'admin4@example.com',
-        password: '12345678',
-        language: :german,
-        confirmed_at: 2.years.ago + 1.day
-      )
+      email: 'erwin@example.com',
+      password: '12345678',
+      language: :german,
+      confirmed_at: 2.years.ago + 1.day
     },
     {
       organization: homoeopathy_foundation,
@@ -68,12 +60,10 @@ OrganizationMember.create!(
       last_name: 'Jackson',
       phone: '+41 (0) 79 123 45 68',
       organization_role: 'Leiter Zivildienst',
-      user: User.new(
-        email: 'admin2@example.com',
-        password: '12345678',
-        language: :italian,
-        confirmed_at: 5.months.ago
-      )
+      email: 'percy@example.com',
+      password: '12345678',
+      language: :italian,
+      confirmed_at: 5.months.ago
     }
   ]
 )

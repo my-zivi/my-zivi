@@ -13,7 +13,7 @@ RSpec.describe Organizations::PhoneListController, type: :request do
   let(:first_civil_servant) { create :civil_servant, :full, first_name: 'Hanspeter', last_name: 'Hugentobler' }
   let(:second_civil_servant) { create :civil_servant, :full }
   let(:third_civil_servant) do
-    create :civil_servant, :with_service, :with_user,
+    create :civil_servant, :with_service,
            first_name: 'Not', last_name: 'Here',
            service_attributes: {
              beginning: '2020-08-03',

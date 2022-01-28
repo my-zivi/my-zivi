@@ -11,7 +11,7 @@ FactoryBot.define do
     service_specification
     civil_servant_agreed { true }
     organization_agreed { true }
-    association :civil_servant, :full
+    association :civil_servant
 
     trait :civil_servant_agreement_pending do
       civil_servant_agreed { nil }

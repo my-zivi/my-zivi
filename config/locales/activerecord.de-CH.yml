@@ -119,7 +119,6 @@ de-CH:
         description: Beschreibung
         ending: Ende
       organization_member:
-        contact_email: E-Mail
         first_name: Vorname
         last_name: Nachname
         organization_role: Tätigkeitsbereich innerhalb der Unternehmung

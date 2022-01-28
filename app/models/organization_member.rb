@@ -21,8 +21,7 @@ class OrganizationMember < ApplicationRecord
            dependent: :restrict_with_exception,
            foreign_key: :contact_person_id
 
-  validates :first_name, :last_name, :phone, :organization_role, presence: true
-  validates :contact_email, presence: true, if: -> { user.nil? }
+  validates :first_name, :last_name, :phone, :organization_role, :email, presence: true
 
   def full_name
     "#{first_name} #{last_name}"
