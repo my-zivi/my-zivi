@@ -23,7 +23,28 @@ class OrganizationMember < ApplicationRecord
 
   validates :first_name, :last_name, :phone, :organization_role, :email, presence: true
 
+  enum privilege: {
+    member: 0,
+    admin: 1
+  }, _suffix: 'privilege'
+
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  protected
+
+  def password_required?
+    ability.can?(:access, :organization_portal)
+  end
+
+  def active_for_authentication?
+    ability.can?(:access, :organization_portal)
+  end
+
+  private
+
+  def ability
+    @ability ||= Ability.new(self)
   end
 end

@@ -754,6 +754,7 @@ CREATE TABLE public.organization_members (
     last_name character varying NOT NULL,
     phone character varying NOT NULL,
     organization_role character varying NOT NULL,
+    contact_email character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     email character varying DEFAULT ''::character varying NOT NULL,
@@ -781,7 +782,8 @@ CREATE TABLE public.organization_members (
     invited_by_type character varying,
     invited_by_id bigint,
     invitations_count integer DEFAULT 0,
-    language character varying DEFAULT 'de'::character varying NOT NULL
+    language character varying DEFAULT 'de'::character varying NOT NULL,
+    privilege integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1771,6 +1773,13 @@ CREATE UNIQUE INDEX index_organization_members_on_confirmation_token ON public.o
 
 
 --
+-- Name: index_organization_members_on_contact_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_organization_members_on_contact_email ON public.organization_members USING btree (contact_email);
+
+
+--
 -- Name: index_organization_members_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2207,7 +2216,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200611110653'),
 ('20200625081749'),
 ('20200625093448'),
-('20200625101411'),
 ('20200703212709'),
 ('20200709150256'),
 ('20200710141431'),
@@ -2249,6 +2257,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211118185144'),
 ('20211118185334'),
 ('20211118185739'),
-('20220306104256');
+('20220128153013');
 
 

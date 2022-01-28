@@ -14,6 +14,7 @@ OrganizationMember.create!(
       email: 'admin@example.com',
       password: '12345678',
       language: :english,
+      privilege: :admin,
       confirmed_at: 1.year.ago
     },
     {
@@ -22,6 +23,8 @@ OrganizationMember.create!(
       last_name: 'Clark',
       phone: '+41 (0) 70 321 54 76',
       organization_role: 'Zivildienstadministration',
+      privilege: :member,
+      language: :german,
       email: 'emily@example.com'
     },
     {
@@ -30,6 +33,8 @@ OrganizationMember.create!(
       last_name: 'Black',
       phone: '+41 (0) 76 098 76 54',
       organization_role: 'Buchhaltung',
+      privilege: :member,
+      language: :german,
       email: 'cobe@example.com'
     },
     {
@@ -40,6 +45,7 @@ OrganizationMember.create!(
       organization_role: 'Zivildienstleitung',
       email: 'susanne@example.com',
       password: '12345678',
+      privilege: :admin,
       language: :german,
       confirmed_at: 2.years.ago
     },
@@ -51,6 +57,7 @@ OrganizationMember.create!(
       organization_role: 'Geschäftsleitung',
       email: 'erwin@example.com',
       password: '12345678',
+      privilege: :admin,
       language: :german,
       confirmed_at: 2.years.ago + 1.day
     },
@@ -62,6 +69,7 @@ OrganizationMember.create!(
       organization_role: 'Leiter Zivildienst',
       email: 'percy@example.com',
       password: '12345678',
+      privilege: :admin,
       language: :italian,
       confirmed_at: 5.months.ago
     }

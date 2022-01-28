@@ -5,6 +5,8 @@ module Abilities
     include CanCan::Ability
 
     def initialize(organization_member)
+      return if organization_member.member_privilege?
+
       organization = load_organization(organization_member) || organization_member.organization
 
       can(:access, :organization_portal)

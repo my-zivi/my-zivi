@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-philipp = User.find_by(email: 'philipp.zivi@example.com').referencee
+philipp = CivilServant.find_by(email: 'philipp.zivi@example.com')
 philipp_service = philipp.services.first
 
-joel = User.find_by(email: 'joel.zivi@example.com').referencee
+joel = CivilServant.find_by(email: 'joel.zivi@example.com')
 joel_service = joel.services.last
 
-andy = User.find_by(email: 'andy.zivi@example.com').referencee
+andy = CivilServant.find_by(email: 'andy.zivi@example.com')
 andy_service = andy.services.last
 
-max_mustermann = User.find_by(email: 'max.zivi@example.com').referencee
+max_mustermann = CivilServant.find_by(email: 'max.zivi@example.com')
 max_mustermann_services = max_mustermann.services.order(:beginning)
 first_max_mustermann_service = max_mustermann_services.first
 

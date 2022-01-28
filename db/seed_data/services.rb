@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-max_mustermann = User.find_by(email: 'max.zivi@example.com').referencee
-philipp = User.find_by(email: 'philipp.zivi@example.com').referencee
-joel = User.find_by(email: 'joel.zivi@example.com').referencee
-andy = User.find_by(email: 'andy.zivi@example.com').referencee
-niels_schweizer = User.find_by(email: 'niels@example.com').referencee
+max_mustermann = CivilServant.find_by(email: 'max.zivi@example.com')
+philipp = CivilServant.find_by(email: 'philipp.zivi@example.com')
+joel = CivilServant.find_by(email: 'joel.zivi@example.com')
+andy = CivilServant.find_by(email: 'andy.zivi@example.com')
+niels_schweizer = CivilServant.find_by(email: 'niels@example.com')
 jugendarbeit = ServiceSpecification.find_by(name: 'Mitarbeit in der Jugendarbeit')
 zirkusarbeit = ServiceSpecification.find_by(name: 'Mitarbeit Sozialpädagogische Zirkusschule')
 hausdienst = ServiceSpecification.find_by(name: 'Mitarbeit Hausdienst')
