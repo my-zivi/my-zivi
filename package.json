@@ -46,6 +46,9 @@
   "peerDependencies": {
     "preact-compat": "^3.19.0"
   },
+  "engines": {
+    "node": "14.19.0"
+  },
   "scripts": {
     "heroku-prebuild": "node ./bin/heroku-prebuild.js",
     "lint": "eslint app/javascript",
