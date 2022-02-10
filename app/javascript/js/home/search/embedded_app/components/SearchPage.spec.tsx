@@ -6,7 +6,7 @@ import { mockClient } from '../../../../tests/algolia/mocks';
 describe('SearchPage', () => {
   it('renders correctly', () => {
     expect(
-      shallow(<SearchPage searchClient={mockClient} />),
+      shallow(<SearchPage searchClient={mockClient} />).find('.search-main').first(),
     ).toMatchSnapshot();
   });
 });
