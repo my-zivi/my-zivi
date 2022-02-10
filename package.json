@@ -6,6 +6,7 @@
     "@algolia/cache-common": "^4.9.3",
     "@algolia/cache-in-memory": "^4.9.3",
     "@algolia/requester-common": "^4.10.5",
+    "@algolia/client-search": "^4.12.1",
     "@babel/plugin-transform-react-jsx": "^7.12.7",
     "@babel/preset-typescript": "^7.13.0",
     "@fortawesome/fontawesome-free": "^5.15.4",
@@ -45,6 +46,9 @@
   },
   "peerDependencies": {
     "preact-compat": "^3.19.0"
+  },
+  "engines": {
+    "node": "14.19.0"
   },
   "scripts": {
     "heroku-prebuild": "node ./bin/heroku-prebuild.js",
