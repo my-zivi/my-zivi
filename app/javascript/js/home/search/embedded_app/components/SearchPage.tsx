@@ -43,39 +43,41 @@ class SearchPage extends React.Component<Props, State> {
         indexName="JobPosting"
       >
         <Configure hitsPerPage={HITS_PER_PAGE} />
-        <div className="hero">
-          <div className="container">
-            <div className="hero-content w-100">
-              <div className="row">
-                <div className="col-xl-1" />
-                <div className="col"><CustomAutocomplete defaultRefinement={defaultRefinement} /></div>
-                <div className="col-xl-1" />
+        <div className="search-main">
+          <div className="hero">
+            <div className="container">
+              <div className="hero-content w-100">
+                <div className="row">
+                  <div className="col-xl-1" />
+                  <div className="col"><CustomAutocomplete defaultRefinement={defaultRefinement} /></div>
+                  <div className="col-xl-1" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="container mt-6">
-          <div className="d-flex justify-content-start justify-content-lg-end mb-2">
-            <div className="text-muted mr-1">
-              <Stats translations={{
-                stats(hitsCount, processingTimeMS) {
-                  return MyZivi.translations.search.statistics
-                    .replace('%{count}', hitsCount.toLocaleString())
-                    .replace('%{time}', processingTimeMS.toLocaleString());
-                },
-              }} />
+          <div className="container mt-6">
+            <div className="d-flex justify-content-start justify-content-lg-end mb-2">
+              <div className="text-muted mr-1">
+                <Stats translations={{
+                  stats(hitsCount, processingTimeMS) {
+                    return MyZivi.translations.search.statistics
+                      .replace('%{count}', hitsCount.toLocaleString())
+                      .replace('%{time}', processingTimeMS.toLocaleString());
+                  },
+                }} />
+              </div>
+              <PoweredBy />
             </div>
-            <PoweredBy />
-          </div>
-          <div className="row">
-            <div className="col-12 col-lg-9 order-1 order-lg-0">
-              <section className="jobs-hits pt-0">
-                <CustomHitComponent />
-              </section>
-            </div>
-            <div className="col-12 col-lg-3 order-0 order-lg-1">
-              <RefinementsPanel />
+            <div className="row">
+              <div className="col-12 col-lg-9 order-1 order-lg-0">
+                <section className="jobs-hits pt-0">
+                  <CustomHitComponent />
+                </section>
+              </div>
+              <div className="col-12 col-lg-3 order-0 order-lg-1">
+                <RefinementsPanel />
+              </div>
             </div>
           </div>
         </div>
