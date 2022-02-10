@@ -20,6 +20,13 @@ blocks:
         - name: my-zivi
       jobs:
         - name: cache
+          priority:
+            - value: 70
+              when: "branch = 'master'"
+            - value: 60
+              when: "branch = 'develop'"
+            - value: 50
+              when: true
           commands:
             - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
             - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
@@ -61,17 +68,45 @@ blocks:
           - bin/yarn install --cache-folder ~/.cache/yarn
       jobs:
         - name: Lint
+          priority:
+            - value: 70
+              when: "branch = 'master'"
+            - value: 60
+              when: "branch = 'develop'"
+            - value: 50
+              when: true
           commands:
             - bin/lint
         - name: Unit Tests
+          priority:
+            - value: 70
+              when: "branch = 'master'"
+            - value: 60
+              when: "branch = 'develop'"
+            - value: 50
+              when: true
           commands:
             - sem-service start postgres 12
             - 'bundle exec rails db:create db:structure:load'
             - bin/unit-tests
         - name: JavaScript Tests
+          priority:
+            - value: 70
+              when: "branch = 'master'"
+            - value: 60
+              when: "branch = 'develop'"
+            - value: 50
+              when: true
           commands:
             - yarn test
         - name: System Tests
+          priority:
+            - value: 70
+              when: "branch = 'master'"
+            - value: 60
+              when: "branch = 'develop'"
+            - value: 50
+              when: true
           commands:
             - sem-service start postgres 12
             - 'bundle exec rails db:create db:structure:load'
@@ -110,6 +145,13 @@ blocks:
           - 'bundle exec rails db:create db:structure:load'
       jobs:
         - name: Capture Screenshots
+          priority:
+            - value: 70
+              when: "branch = 'master'"
+            - value: 60
+              when: "branch = 'develop'"
+            - value: 50
+              when: true
           commands:
             - NO_COVERAGE=true yarn run percy:capture-screenshots
       epilogue:
