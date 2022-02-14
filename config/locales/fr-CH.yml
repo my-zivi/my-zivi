@@ -37,6 +37,7 @@ fr-CH:
         service_with: A utiliser avec %{org_name}.
   blog_entries:
     index:
+      description: Reste au courant de l'actualité du monde des civilistes
       empty: Aucune entrée trouvée
       tags_filter: Filtrer par catégorie
       title: Blog

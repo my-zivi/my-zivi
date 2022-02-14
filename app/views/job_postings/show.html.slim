@@ -2,6 +2,8 @@
   = render 'structured_data', job_posting: @job_posting
 
 - content_for(:container_class, 'index-container')
+- content_for(:page_title, @job_posting.title)
+- content_for(:page_description, @job_posting.brief_description)
 = render 'home/navbar'
 
 .container

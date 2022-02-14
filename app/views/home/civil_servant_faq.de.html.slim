@@ -4,9 +4,7 @@
 
 - content_for(:container_class, 'index-container')
 - content_for(:page_title, t('.page_title'))
-- content_for(:social_tags) do
-  meta name="description" content=t('.subtitle') /
-  meta property="og:title" content=app_page_title /
+- content_for(:page_description, t('.subtitle'))
 
 = render 'home/navbar'
 
