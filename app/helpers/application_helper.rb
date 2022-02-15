@@ -25,6 +25,10 @@ module ApplicationHelper
 
   private
 
+  def current_url
+    request.base_url + request.fullpath
+  end
+
   def generate_picture_tag(base_path, extension, mime, **kwargs)
     fallback_image_name = "#{base_path}.#{extension}"
 
