@@ -37,6 +37,7 @@ de-CH:
         service_with: Einsatz bei %{org_name}
   blog_entries:
     index:
+      description: Bleibe auf dem Laufenden in der Zivi-Welt
       empty: Keine Einträge gefunden
       tags_filter: Nach Kategorie filtern
       title: Blog

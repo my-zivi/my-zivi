@@ -17,13 +17,11 @@ link color="#5bbad5" href="/safari-pinned-tab.svg" rel="mask-icon" /
 meta content="#eff0f1" name="msapplication-TileColor" /
 meta content="#ffffff" name="theme-color" /
 link rel="preconnect" href="https://fonts.gstatic.com" /
+meta property="twitter:card" content="summary_large_image"
+= opengraph_tags
 
-- if content_for?(:social_tags)
-  = yield(:social_tags)
-- else
-  meta name="description" content=t('layouts.application.meta.description') /
-  meta property="og:title" content=t('layouts.application.meta.og_title') /
-  meta property="og:type" content='website' /
+- if content_for?(:additional_social_tags)
+  = yield(:additional_social_tags)
 
 - %w[LightItalic Light Italic Regular MediumItalic Medium BoldItalic Bold].each do |font|
   link[
