@@ -3,10 +3,9 @@
 
 - content_for(:container_class, 'index-container')
 - content_for(:page_title, @blog_entry.title)
-- content_for(:social_tags) do
-  meta name="description" content=@blog_entry.description /
-  meta property="og:title" content=app_page_title /
-  meta property="og:type" content='article' /
+- content_for(:page_description, @blog_entry.description)
+- content_for(:og_type, 'article')
+- content_for(:additional_social_tags) do
   meta property="article:author" content=@blog_entry.author /
 
 - cache @blog_entry do
