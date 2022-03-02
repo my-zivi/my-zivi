@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@algolia/cache-browser-local-storage": "^4.9.3",
-    "@algolia/cache-common": "^4.9.3",
+    "@algolia/cache-common": "^4.12.1",
     "@algolia/cache-in-memory": "^4.9.3",
     "@algolia/requester-common": "^4.10.5",
     "@algolia/client-search": "^4.12.1",
