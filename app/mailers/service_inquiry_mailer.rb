@@ -13,7 +13,9 @@ class ServiceInquiryMailer < ApplicationMailer
   def send_confirmation
     @service_inquiry = ServiceInquiry.find(params[:service_inquiry_id])
 
-    german_mail to: @service_inquiry.email, reply_to: CONFIRMATION_MAIL_REPLY_TO
+    german_mail to: @service_inquiry.email,
+                reply_to: CONFIRMATION_MAIL_REPLY_TO,
+                from: "Joshua Devadas <#{ENV['MAIL_SENDER']}>"
   end
 
   private
