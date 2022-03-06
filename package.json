@@ -5,13 +5,14 @@
     "@algolia/cache-browser-local-storage": "^4.9.3",
     "@algolia/cache-common": "^4.9.3",
     "@algolia/cache-in-memory": "^4.9.3",
-    "@algolia/requester-common": "^4.10.5",
     "@algolia/client-search": "^4.12.1",
+    "@algolia/requester-common": "^4.10.5",
     "@babel/plugin-transform-react-jsx": "^7.12.7",
     "@babel/preset-typescript": "^7.13.0",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@hotwired/turbo": "^7.1.0",
     "@my-zivi/falcon": "2.6.6",
     "@rails/actioncable": "^6.0.0",
     "@rails/actiontext": "^6.0.3-6",
@@ -41,7 +42,6 @@
     "stickyfilljs": "^2.1.0",
     "trix": "^1.2.0",
     "ts-loader": "^8.0.11",
-    "turbolinks": "^5.2.0",
     "typescript": "^4.1.2"
   },
   "peerDependencies": {

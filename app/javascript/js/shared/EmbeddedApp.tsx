@@ -14,7 +14,7 @@ export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
 
   install(): void {
     this.attachToContainer();
-    $(document).on('turbolinks:load', () => this.attachToContainer());
+    $(document).on('turbo:load', () => this.attachToContainer());
   }
 
   attachToContainer(): void {

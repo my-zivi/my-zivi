@@ -8,6 +8,7 @@ class Ability
     alias_action :create, :read, :update, :destroy, to: :crud
 
     can(:create, MailingList)
+    can(:create, ServiceInquiry)
     can(:read, BlogEntry, published: true)
     can(:read, JobPosting, published: true)
 

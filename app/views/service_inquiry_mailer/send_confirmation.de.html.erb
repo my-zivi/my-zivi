@@ -1,0 +1,29 @@
+<p>Guten Tag <%= @service_inquiry.name %></p>
+
+<p>
+  Besten Dank für Deine Bewerbung über MyZivi für den Einsatz
+  "<%= @service_inquiry.job_posting.title %> (<%= @service_inquiry.job_posting.identification_number %>)".
+  <br>
+  Wir haben Deine Bewerbung an die zuständige Person beim Betrieb weitergeleitet.
+</p>
+
+<p>Deine Bewerbung, welche wir weitergeleitet haben:</p>
+<blockquote>
+  Email: <%= @service_inquiry.email %> <br>
+  Gewünschter Einsatzstart: <%= @service_inquiry.service_beginning %> <br>
+  Gewünschte Einsatzlänge: <%= @service_inquiry.service_duration %> <br>
+  <br>
+  <%= @service_inquiry.message %> <br>
+</blockquote>
+
+<p>
+  Betriebe antworten nicht immer - wir empfehlen Dir, Dich bei mehreren Betrieben zu bewerben. <br>
+  Diese werden Dich, falls Dein Profil passt, für ein Interview oder einen Probetag kontaktieren.
+</p>
+
+<p>
+  Freundliche Grüsse <br>
+  Joshua Devadas <br>
+  076 528 25 92 / joshua.devadas@myzivi.ch <br>
+  Co-Founder & CEO <br>
+</p>

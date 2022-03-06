@@ -76,11 +76,7 @@
           .card-text
             - if @job_posting.scraped?
               .text-muted = t('.disclaimer')
-            = link_to(t('.apply_via_myzivi'),
-                    Rails.configuration.x.urls.civil_servant_register_form,
-                    class: 'btn btn-falcon-primary w-100 mt-3',
-                    target: '_blank',
-                    rel: 'noopener nofollow noreferrer')
+            button.btn.btn-falcon-primary.w-100.mt-3 data-target="#inquiryModal" data-toggle="modal" type="button" = t('.apply_via_myzivi')
             button.btn.btn-falcon-primary.w-100.mt-3[
               data-toggle="popover"
               title=t('.ezivi_popover_title')
@@ -96,5 +92,18 @@
             .card-text
               .mt-2 = t('.claim_html',
                       link: Rails.configuration.x.urls.job_posting_claim_form)
+
+#inquiryModal.modal.fade aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  .modal-dialog.modal-dialog-centered.modal-lg.mt-6 role="document"
+    .modal-content.border-0
+      .modal-body.p-0
+        .bg-light.rounded-top.py-3.px-4.d-flex.justify-content-between.align-items-baseline
+          h4.mb-0 = t('.apply_via_myzivi')
+          button.btn-close.btn.btn-sm.btn-rounded-close aria-label="Close" data-dismiss="modal"
+            i.fas.fa-times
+        .px-4.pt-2.pb-4
+          = turbo_frame_tag :service_inquiry,
+                  src: new_service_inquiry_path(service_inquiry: { job_posting_id: @job_posting.id }) do
+            p.text-center.text-muted.mt-3 = t('loading')
 
 = render 'home/footer'

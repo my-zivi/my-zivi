@@ -140,6 +140,13 @@ fr-CH:
         service_specification: Spécifications
         service_type: Type d'insertion
         status: Statut
+      service_inquiry:
+        email: E-Mail
+        message: Message
+        name: Nom
+        phone: Téléphone
+        service_beginning: Début d'affectation souhaitée
+        service_duration: Durée d'affectation souhaitée
       service_specification:
         accommodation_expenses: Frais d'hébergement
         active: Actif
@@ -337,6 +344,13 @@ fr-CH:
               already_decided: ne peut être modifiée, puisqu'une décision a déjà été prise pour cette affectation.
             service_days:
               invalid_length: ne peut être inférieure à 26 jours.
+        service_inquiry:
+          attributes:
+            service_beginning:
+              invalid_datetime: n'est pas une date valide
+            service_ending:
+              after: ne doit pas être antérieure à la date de début
+              invalid_datetime: n'est pas une date valide
         user:
           attributes:
             bank_iban:
