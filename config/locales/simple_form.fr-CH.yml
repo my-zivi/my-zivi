@@ -37,6 +37,11 @@ fr-CH:
         name: Max Muster
         organization: Fondation ...
         telephone: "+41 (0) 79 123 45 67"
+      service_inquiry:
+        email: max.mustermann@example.com
+        name: Max Mustermann
+        phone: "+41 (0) 41 123 45 67"
+        service_duration: p. ex. 1 mois
       user:
         email: max.muster@example.com
         password: Passeport

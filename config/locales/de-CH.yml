@@ -547,7 +547,7 @@ de-CH:
       line2: Zusätzlich hast Du noch eine Bestätigung der Bewerbung auf Deine E-Mail Adresse erhalten.
       title: Deine Anfrage wurde erfolgreich entgegen genommen
     new:
-      info: Deine Bewerbung wird direkt an den Betrieb geschickt und Du wirst eine Bestätigung Deiner Bewerbung erhalten
+      service_beginning_placeholder: bspw. "Mitte Mai %{year}"
       submit: Abschicken
   service_states:
     active: Definitiv

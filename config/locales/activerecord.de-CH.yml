@@ -144,6 +144,7 @@ de-CH:
         email: E-Mail
         message: Nachricht
         name: Name
+        phone: Telefon
         service_beginning: Gewünschter Einsatzstart
         service_ending: Gewünschtes Einsatzende
       service_specification:

@@ -546,6 +546,7 @@ fr-CH:
       line2: De plus, tu as encore reçu une confirmation de la candidature sur ton adresse e-mail.
       title: Ta demande a bien été prise en compte
     new:
+      service_beginning_placeholder: par ex. "Mi-mai %{year}"
       submit: Envoyer
   service_states:
     active: Définitivement

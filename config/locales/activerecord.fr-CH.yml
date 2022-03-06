@@ -140,6 +140,13 @@ fr-CH:
         service_specification: Spécifications
         service_type: Type d'insertion
         status: Statut
+      service_inquiry:
+        email: E-Mail
+        message: Message
+        name: Nom
+        phone: Téléphone
+        service_beginning: Début d'affectation
+        service_ending: Fin d'affectation
       service_specification:
         accommodation_expenses: Frais d'hébergement
         active: Actif

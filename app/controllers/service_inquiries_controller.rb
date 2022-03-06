@@ -22,6 +22,6 @@ class ServiceInquiriesController < ApplicationController
 
   def service_inquiry_params
     params.require(:service_inquiry).permit(:name, :email, :phone, :service_beginning,
-                                            :service_ending, :message, :job_posting_id)
+                                            :service_duration, :message, :job_posting_id)
   end
 end

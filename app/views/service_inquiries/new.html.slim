@@ -3,19 +3,14 @@
     = f.input :job_posting_id, value: f.object.job_posting_id, as: :hidden
     .row
       .col-12.col-md-6
+        = f.input :service_beginning, placeholder: t('.service_beginning_placeholder', year: 1.year.from_now.year)
+      .col-12.col-md-6
+        = f.input :service_duration
+      .col-12.col-md-6
         = f.input :name
+        = f.input :phone
       .col-12.col-md-6
         = f.input :email
-      .col-12.col-md-6
-        = f.input :service_beginning,
-                as: :string,
-                value: f.object.service_beginning&.to_date&.iso8601,
-                input_html: { type: :date }
-      .col-12.col-md-6
-        = f.input :service_ending,
-                as: :string,
-                value: f.object.service_ending&.to_date&.iso8601,
-                input_html: { type: :date }
       .col-12
         = f.input :message
       .col-12.col-md-6
