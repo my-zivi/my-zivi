@@ -2,12 +2,12 @@
 
 FactoryBot.define do
   factory :service_inquiry do
-    name { 'MyString' }
-    email { 'MyString' }
-    phone { 'MyString' }
-    service_beginning { '2022-03-06 11:42:56' }
-    service_ending { '2022-03-06 11:42:56' }
-    message { 'MyText' }
-    job_posting { nil }
+    name { Faker::Name.name }
+    sequence(:email) { |i| "mail#{i}@example.com" }
+    phone { '044 123 34 45' }
+    service_beginning { 1.month.from_now }
+    service_ending { 2.months.from_now }
+    message { 'That is my inquiry!' }
+    job_posting
   end
 end

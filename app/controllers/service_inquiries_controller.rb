@@ -5,13 +5,13 @@ class ServiceInquiriesController < ApplicationController
 
   def new
     job_posting = JobPosting.find(service_inquiry_params[:job_posting_id])
-    raise ActionController::BadRequest unless can?(:read, job_posting)
+    raise ActiveRecord::RecordNotFound unless can?(:read, job_posting)
 
     @service_inquiry = ServiceInquiry.new(job_posting: job_posting)
   end
 
   def create
-    raise ActionController::BadRequest unless can?(:read, @service_inquiry.job_posting)
+    raise ActiveRecord::RecordNotFound unless can?(:read, @service_inquiry.job_posting)
 
     if @service_inquiry.save
       render :create
