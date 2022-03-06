@@ -50,6 +50,7 @@ Rails.application.routes.draw do
 
   resource :mailing_list, only: :create
   resources :expense_sheets, only: :show
+  resources :service_inquiries, only: %i[new create]
 
   namespace :civil_servants do
     get '/', to: 'overview#index'

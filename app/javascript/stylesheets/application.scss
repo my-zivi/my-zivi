@@ -31,3 +31,21 @@ body {
   max-width: 100%;
   height: auto;
 }
+
+.btn-rounded-close {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  background-color: $gray-200;
+  width: 36px;
+  height: 36px;
+  color: $black;
+  font-weight: lighter;
+
+  &:hover {
+    color: $black;
+    background-color: $gray-300;
+    border: 1px solid $gray-400;
+  }
+}

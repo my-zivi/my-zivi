@@ -567,3 +567,11 @@ fr-CH:
         title: Nouvel article de blog
       successful_creation: Entrée de blog créée avec succès
       successful_update: Mise à jour réussie de l'entrée du blog
+  service_inquiries:
+    new:
+      submit: "Envoyer"
+    create:
+      title: "Ta demande a bien été prise en compte"
+      line1: "L'établissement d'affectation sera contactée dès que nous aurons vérifié la légitimité de ta candidature (en général dans les 24 heures)."
+      line2: "De plus, tu as encore reçu une confirmation de la candidature sur ton adresse e-mail."
+  close: "Fermer"

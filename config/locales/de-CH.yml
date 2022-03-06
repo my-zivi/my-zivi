@@ -568,3 +568,12 @@ de-CH:
         title: Neuer Blogeintrag
       successful_creation: Blogeintrag erfolgreich erstellt
       successful_update: Blogeintrag erfolgreich aktualisiert
+  service_inquiries:
+    new:
+      submit: Abschicken
+      info: "Deine Bewerbung wird direkt an den Betrieb geschickt und Du wirst eine Bestätigung Deiner Bewerbung erhalten"
+    create:
+      title: "Deine Anfrage wurde erfolgreich entgegen genommen"
+      line1: "Der Betrieb wird kontaktiert, sobald wir überprüft haben, dass Deine Bewerbung legitim ist (i.d.R innerhalb 24h)."
+      line2: "Zusätzlich hast Du noch eine Bestätigung der Bewerbung auf Deine E-Mail Adresse erhalten."
+  close: "Schliessen"

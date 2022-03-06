@@ -8,6 +8,12 @@ de-CH:
           news: News
           podcast: Podcast
     attributes:
+      service_inquiry:
+        message: Nachricht
+        name: Name
+        email: E-Mail
+        service_beginning: Gewünschter Einsatzstart
+        service_ending: Gewünschtes Einsatzende
       address:
         city: Stadt
         primary_line: Erste Adresszeile
@@ -347,6 +353,13 @@ de-CH:
               unknown_country_code: unbekannter Landescode
             base:
               cant_delete_himself: Du kannst dich nicht selbst löschen
+        service_inquiry:
+          attributes:
+            service_ending:
+              after: darf nicht vor dem Startdatum liegen
+              invalid_datetime: ist kein valides Datum
+            service_beginning:
+              invalid_datetime: ist kein valides Datum
     models:
       address: Adresse
       blog_entry: Blogeintrag

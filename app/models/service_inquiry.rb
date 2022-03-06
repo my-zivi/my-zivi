@@ -5,4 +5,6 @@ class ServiceInquiry < ApplicationRecord
 
   validates :name, :email, :service_beginning, :service_ending, :message, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :service_beginning, timeliness: true
+  validates :service_ending, timeliness: { after: :service_beginning }
 end

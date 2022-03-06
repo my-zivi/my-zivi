@@ -1,0 +1,24 @@
+= turbo_frame_tag :service_inquiry do
+  = simple_form_for @service_inquiry do |f|
+    = f.input :job_posting_id, value: f.object.job_posting_id, as: :hidden
+    .row
+      .col-12.col-md-6
+        = f.input :name
+      .col-12.col-md-6
+        = f.input :email
+      .col-12.col-md-6
+        = f.input :service_beginning,
+                as: :string,
+                value: f.object.service_beginning&.to_date&.iso8601,
+                input_html: { type: :date }
+      .col-12.col-md-6
+        = f.input :service_ending,
+                as: :string,
+                value: f.object.service_ending&.to_date&.iso8601,
+                input_html: { type: :date }
+      .col-12
+        = f.input :message
+      .col-12.col-md-6
+        button.btn.btn-outline-secondary.w-100 type="button" data-dismiss="modal" = t('cancel')
+      .col-12.col-md-6.mt-3.mt-md-0
+        = f.submit t('.submit'), class: 'btn btn-primary w-100'

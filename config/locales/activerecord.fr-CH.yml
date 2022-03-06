@@ -347,6 +347,13 @@ fr-CH:
               unknown_country_code: code de pays inconnu
             base:
               cant_delete_himself: Vous ne pouvez pas vous effacer
+        service_inquiry:
+          attributes:
+            service_ending:
+              after: ne doit pas être antérieure à la date de début
+              invalid_datetime: n'est pas une date valide
+            service_beginning:
+              invalid_datetime: n'est pas une date valide
     models:
       address: Adresse
       blog_entry: Blog post
