@@ -37,6 +37,11 @@ de-CH:
         name: Max Muster
         organization: Stiftung ...
         telephone: "+41 (0) 79 123 45 67"
+      service_inquiry:
+        email: max.mustermann@example.com
+        name: Max Mustermann
+        phone: "+41 (0) 41 123 45 67"
+        service_duration: bspw. 1 Monat
       user:
         email: max.muster@example.com
         password: Passwort

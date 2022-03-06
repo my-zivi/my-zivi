@@ -834,6 +834,43 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: service_inquiries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.service_inquiries (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    email character varying NOT NULL,
+    phone character varying,
+    service_beginning character varying NOT NULL,
+    service_duration character varying NOT NULL,
+    message text NOT NULL,
+    job_posting_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: service_inquiries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.service_inquiries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: service_inquiries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.service_inquiries_id_seq OWNED BY public.service_inquiries.id;
+
+
+--
 -- Name: service_specifications; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1237,6 +1274,13 @@ ALTER TABLE ONLY public.payments ALTER COLUMN id SET DEFAULT nextval('public.pay
 
 
 --
+-- Name: service_inquiries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_inquiries ALTER COLUMN id SET DEFAULT nextval('public.service_inquiries_id_seq'::regclass);
+
+
+--
 -- Name: service_specifications id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1452,6 +1496,14 @@ ALTER TABLE ONLY public.payments
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: service_inquiries service_inquiries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_inquiries
+    ADD CONSTRAINT service_inquiries_pkey PRIMARY KEY (id);
 
 
 --
@@ -1724,6 +1776,13 @@ CREATE INDEX index_organizations_on_letter_address_id ON public.organizations US
 --
 
 CREATE INDEX index_payments_on_organization_id ON public.payments USING btree (organization_id);
+
+
+--
+-- Name: index_service_inquiries_on_job_posting_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_service_inquiries_on_job_posting_id ON public.service_inquiries USING btree (job_posting_id);
 
 
 --
@@ -2061,6 +2120,14 @@ ALTER TABLE ONLY public.organizations
 
 
 --
+-- Name: service_inquiries fk_rails_97146d55eb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_inquiries
+    ADD CONSTRAINT fk_rails_97146d55eb FOREIGN KEY (job_posting_id) REFERENCES public.job_postings(id);
+
+
+--
 -- Name: active_storage_variant_records fk_rails_993965df05; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2170,6 +2237,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210812130003'),
 ('20210919203342'),
 ('20211015073108'),
-('20211118161909');
+('20211118161909'),
+('20220306104256');
 
 

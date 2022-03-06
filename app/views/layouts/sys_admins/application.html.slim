@@ -5,8 +5,8 @@ html lang=I18n.locale.to_s
     = render 'layouts/meta_tags'
     = csrf_meta_tags
     = csp_meta_tag
-    = javascript_pack_tag 'sys_admins/application', 'data-turbolinks-track': 'reload'
-    = stylesheet_pack_tag 'sys_admins/application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'sys_admins/application', 'data-turbo-track': 'reload'
+    = stylesheet_pack_tag 'sys_admins/application', media: 'all', 'data-turbo-track': 'reload'
     = render 'layouts/sentry'
   body
     .sys-admin-banner.py-2

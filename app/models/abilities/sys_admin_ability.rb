@@ -13,7 +13,7 @@ module Abilities
 
     private
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def operation_abilities
       can(:manage, User)
       can(:manage, Organization)
@@ -32,7 +32,8 @@ module Abilities
       can(:manage, Faq)
       can(:read, RegionalCenter)
       can(:read, JobPostingApi::PollLog)
+      can(:read, ServiceInquiry)
     end
-    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
   end
 end

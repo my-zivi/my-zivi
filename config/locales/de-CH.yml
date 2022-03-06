@@ -109,6 +109,7 @@ de-CH:
         actions:
           download: Einsatzvereinbarung herunterladen
         service_duration: "%{beginning_date} bis %{ending_date}"
+  close: Schliessen
   date:
     formats:
       default: "%d.%m.%Y"
@@ -540,6 +541,19 @@ de-CH:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
+  service_inquiries:
+    create:
+      line1: Der Betrieb wird kontaktiert, sobald wir überprüft haben, dass Deine Bewerbung legitim ist (i.d.R innerhalb 24h).
+      line2: Zusätzlich hast Du noch eine Bestätigung der Bewerbung auf Deine E-Mail Adresse erhalten.
+      title: Deine Anfrage wurde erfolgreich entgegen genommen
+    new:
+      service_beginning_placeholder: bspw. "Mitte Mai %{year}"
+      submit: Abschicken
+  service_inquiry_mailer:
+    send_confirmation:
+      subject: Empfangsbestätigung Deiner Bewerbung über MyZivi
+    send_inquiry:
+      subject: Neue Zivi-Bewerbung über MyZivi
   service_states:
     active: Definitiv
     civil_servant_rejected: Abgelehnt durch Zivi
