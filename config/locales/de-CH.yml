@@ -109,6 +109,7 @@ de-CH:
         actions:
           download: Einsatzvereinbarung herunterladen
         service_duration: "%{beginning_date} bis %{ending_date}"
+  close: Schliessen
   date:
     formats:
       default: "%d.%m.%Y"
@@ -540,6 +541,14 @@ de-CH:
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein
     invalid_required_service_days: Ungültige Einsatztage
+  service_inquiries:
+    create:
+      line1: Der Betrieb wird kontaktiert, sobald wir überprüft haben, dass Deine Bewerbung legitim ist (i.d.R innerhalb 24h).
+      line2: Zusätzlich hast Du noch eine Bestätigung der Bewerbung auf Deine E-Mail Adresse erhalten.
+      title: Deine Anfrage wurde erfolgreich entgegen genommen
+    new:
+      info: Deine Bewerbung wird direkt an den Betrieb geschickt und Du wirst eine Bestätigung Deiner Bewerbung erhalten
+      submit: Abschicken
   service_states:
     active: Definitiv
     civil_servant_rejected: Abgelehnt durch Zivi
@@ -568,12 +577,3 @@ de-CH:
         title: Neuer Blogeintrag
       successful_creation: Blogeintrag erfolgreich erstellt
       successful_update: Blogeintrag erfolgreich aktualisiert
-  service_inquiries:
-    new:
-      submit: Abschicken
-      info: "Deine Bewerbung wird direkt an den Betrieb geschickt und Du wirst eine Bestätigung Deiner Bewerbung erhalten"
-    create:
-      title: "Deine Anfrage wurde erfolgreich entgegen genommen"
-      line1: "Der Betrieb wird kontaktiert, sobald wir überprüft haben, dass Deine Bewerbung legitim ist (i.d.R innerhalb 24h)."
-      line2: "Zusätzlich hast Du noch eine Bestätigung der Bewerbung auf Deine E-Mail Adresse erhalten."
-  close: "Schliessen"

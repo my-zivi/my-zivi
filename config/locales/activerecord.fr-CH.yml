@@ -337,6 +337,13 @@ fr-CH:
               already_decided: ne peut être modifiée, puisqu'une décision a déjà été prise pour cette affectation.
             service_days:
               invalid_length: ne peut être inférieure à 26 jours.
+        service_inquiry:
+          attributes:
+            service_beginning:
+              invalid_datetime: n'est pas une date valide
+            service_ending:
+              after: ne doit pas être antérieure à la date de début
+              invalid_datetime: n'est pas une date valide
         user:
           attributes:
             bank_iban:
@@ -347,13 +354,6 @@ fr-CH:
               unknown_country_code: code de pays inconnu
             base:
               cant_delete_himself: Vous ne pouvez pas vous effacer
-        service_inquiry:
-          attributes:
-            service_ending:
-              after: ne doit pas être antérieure à la date de début
-              invalid_datetime: n'est pas une date valide
-            service_beginning:
-              invalid_datetime: n'est pas une date valide
     models:
       address: Adresse
       blog_entry: Blog post

@@ -8,12 +8,6 @@ de-CH:
           news: News
           podcast: Podcast
     attributes:
-      service_inquiry:
-        message: Nachricht
-        name: Name
-        email: E-Mail
-        service_beginning: Gewünschter Einsatzstart
-        service_ending: Gewünschtes Einsatzende
       address:
         city: Stadt
         primary_line: Erste Adresszeile
@@ -146,6 +140,12 @@ de-CH:
         service_specification: Pflichtenheft
         service_type: Einsatztyp
         status: Status
+      service_inquiry:
+        email: E-Mail
+        message: Nachricht
+        name: Name
+        service_beginning: Gewünschter Einsatzstart
+        service_ending: Gewünschtes Einsatzende
       service_specification:
         accommodation_expenses: Unterkunftsspesen
         active: Aktiv
@@ -343,6 +343,13 @@ de-CH:
               already_decided: kann nicht verändert werden, da für diesen Einsatz bereits eine Entscheidung getroffen wurde.
             service_days:
               invalid_length: kann nicht kürzer als 26 Tage sein.
+        service_inquiry:
+          attributes:
+            service_beginning:
+              invalid_datetime: ist kein valides Datum
+            service_ending:
+              after: darf nicht vor dem Startdatum liegen
+              invalid_datetime: ist kein valides Datum
         user:
           attributes:
             bank_iban:
@@ -353,13 +360,6 @@ de-CH:
               unknown_country_code: unbekannter Landescode
             base:
               cant_delete_himself: Du kannst dich nicht selbst löschen
-        service_inquiry:
-          attributes:
-            service_ending:
-              after: darf nicht vor dem Startdatum liegen
-              invalid_datetime: ist kein valides Datum
-            service_beginning:
-              invalid_datetime: ist kein valides Datum
     models:
       address: Adresse
       blog_entry: Blogeintrag
