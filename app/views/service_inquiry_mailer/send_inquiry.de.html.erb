@@ -1,0 +1,42 @@
+Guten Tag "Vorname Name Betrieb"
+<br>
+<br>
+
+<p>
+  Folgender Zivi hat sich über MyZivi für Ihren Einsatz, <%= link_to job_posting_url(@job_posting) do %>
+    <%= @job_posting.title %> (<%= @job_posting.identification_number %>)
+  <% end %>
+  beworben:
+</p>
+
+<blockquote>
+  <strong><%= @service_inquiry.name %></strong> (<%= @service_inquiry.email %>) <br>
+  Gewünschter Einsatzstart: <%= @service_inquiry.service_beginning %> <br>
+  Gewünschte Einsatzlänge: <%= @service_inquiry.service_duration %> <br>
+  <br>
+  <%= @service_inquiry.message %> <br>
+</blockquote>
+
+<p>Gerne bitten wir Sie, Kontakt mit diesem Zivi aufzunehmen, falls das Profil interessant für Sie ist.</p>
+
+----
+<br>
+
+<p>
+  MyZivi ist eine Plattform, die Betriebe und Zivi umsonst verbindet. <br>
+  Zivis können schweizweit Einsätze finden und sich direkt bei Ihnen bewerben.
+</p>
+
+<p>
+  Falls Sie Ihren Einsatz bearbeiten und so mehr Bewerbungen erhalten wollen, <br>
+  können Sie <%= link_to('hier ein Login erstellen', Rails.configuration.x.urls.job_posting_claim_form) %>.
+</p>
+
+<p>Bei weiteren Fragen stehen wir gerne zu Ihrer Verfügung.</p>
+
+<p>
+  Freundliche Grüsse <br>
+  Joshua Devadas <br>
+  076 528 25 92 / joshua.devadas@myzivi.ch <br>
+  Co-Founder & CEO <br>
+</p>

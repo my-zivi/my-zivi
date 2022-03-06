@@ -548,6 +548,11 @@ fr-CH:
     new:
       service_beginning_placeholder: par ex. "Mi-mai %{year}"
       submit: Envoyer
+  service_inquiry_mailer:
+    send_confirmation:
+      subject: Accusé de réception de ta candidature via MyZivi
+    send_inquiry:
+      subject: Nouvelle candidature de civiliste via MyZivi
   service_states:
     active: Définitivement
     civil_servant_rejected: Rejeté par la partie civile

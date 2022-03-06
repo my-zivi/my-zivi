@@ -9,5 +9,13 @@ FactoryBot.define do
     service_duration { '1 Monat' }
     message { 'That is my inquiry!' }
     job_posting
+
+    transient do
+      send_inquiry_mails { false }
+    end
+
+    before(:create) do |inquiry, evaluator|
+      inquiry.skip_inquiry_mail = true unless evaluator.send_inquiry_mails
+    end
   end
 end

@@ -549,6 +549,11 @@ de-CH:
     new:
       service_beginning_placeholder: bspw. "Mitte Mai %{year}"
       submit: Abschicken
+  service_inquiry_mailer:
+    send_confirmation:
+      subject: Empfangsbestätigung Deiner Bewerbung über MyZivi
+    send_inquiry:
+      subject: Neue Zivi-Bewerbung über MyZivi
   service_states:
     active: Definitiv
     civil_servant_rejected: Abgelehnt durch Zivi

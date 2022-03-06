@@ -146,7 +146,7 @@ de-CH:
         name: Name
         phone: Telefon
         service_beginning: Gewünschter Einsatzstart
-        service_ending: Gewünschtes Einsatzende
+        service_duration: Gewünschte Einsatzdauer
       service_specification:
         accommodation_expenses: Unterkunftsspesen
         active: Aktiv

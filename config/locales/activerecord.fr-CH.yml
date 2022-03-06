@@ -145,8 +145,8 @@ fr-CH:
         message: Message
         name: Nom
         phone: Téléphone
-        service_beginning: Début d'affectation
-        service_ending: Fin d'affectation
+        service_beginning: Début d'affectation souhaitée
+        service_duration: Durée d'affectation souhaitée
       service_specification:
         accommodation_expenses: Frais d'hébergement
         active: Actif
