@@ -7,9 +7,10 @@ RSpec.describe ServiceInquiriesController do
     subject { response }
 
     let(:job_posting) { create(:job_posting) }
-    let(:perform_request) { get new_service_inquiry_path(service_inquiry: { job_posting_id: job_posting.id }) }
 
     context 'when a valid job posting id is passed' do
+      let(:perform_request) { get new_service_inquiry_path(service_inquiry: { job_posting_id: job_posting.id }) }
+
       before { perform_request }
 
       it { is_expected.to render_template 'service_inquiries/new' }
@@ -32,6 +33,7 @@ RSpec.describe ServiceInquiriesController do
     end
 
     context 'when the passed job posting id is not readable' do
+      let(:perform_request) { get new_service_inquiry_path(service_inquiry: { job_posting_id: job_posting.id }) }
       let(:job_posting) { create(:job_posting, published: false) }
 
       it 'raises a not found error' do
