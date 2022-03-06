@@ -1,5 +1,5 @@
 import Rails from '@rails/ujs';
-import Turbolinks from 'turbolinks';
+import * as Turbo from '@hotwired/turbo';
 import 'popper.js/dist/popper.min';
 
 import $ from 'jquery';
@@ -10,8 +10,8 @@ window.jQuery = $;
 window.$ = $;
 
 Rails.start();
-Turbolinks.start();
+Turbo.start();
 
 FontAwesome.config.mutateApproach = 'sync';
 
-$(document).on('turbolinks:load', () => $('[data-toggle="popover"]').popover());
+$(document).on('turbo:load', () => $('[data-toggle="popover"]').popover());

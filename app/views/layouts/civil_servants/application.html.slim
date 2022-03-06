@@ -6,8 +6,8 @@ html lang=I18n.locale.to_s
     title = t('my_zivi')
     = csrf_meta_tags
     = csp_meta_tag
-    = javascript_pack_tag 'civil_servants/application', 'data-turbolinks-track': 'reload'
-    = stylesheet_pack_tag 'civil_servants/application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'civil_servants/application', 'data-turbo-track': 'reload'
+    = stylesheet_pack_tag 'civil_servants/application', media: 'all', 'data-turbo-track': 'reload'
     = render 'layouts/sentry'
   body
     main#top
@@ -17,4 +17,4 @@ html lang=I18n.locale.to_s
           = render 'base/civil_servants/horizontal_nav_bar'
           = render 'base/flash_messages'
           = yield
-    = javascript_pack_tag 'falcon', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'falcon', 'data-turbo-track': 'reload'
