@@ -1,18 +1,13 @@
 # frozen_string_literal: true
 
 class ServiceInquiriesController < ApplicationController
-  load_and_authorize_resource except: :new
+  load_and_authorize_resource
 
-  def new
-    job_posting = JobPosting.find(service_inquiry_params[:job_posting_id])
-    raise ActiveRecord::RecordNotFound unless can?(:read, job_posting)
+  before_action :authorize_job_posting_association!
 
-    @service_inquiry = ServiceInquiry.new(job_posting: job_posting)
-  end
+  def new; end
 
   def create
-    raise ActiveRecord::RecordNotFound unless can?(:read, @service_inquiry.job_posting)
-
     if @service_inquiry.save
       render :create
     else
@@ -23,5 +18,13 @@ class ServiceInquiriesController < ApplicationController
   def service_inquiry_params
     params.require(:service_inquiry).permit(:name, :email, :phone, :service_beginning,
                                             :service_duration, :message, :job_posting_id)
+  end
+
+  private
+
+  def authorize_job_posting_association!
+    return if @service_inquiry.job_posting.present? && can?(:read, @service_inquiry.job_posting)
+
+    raise ActiveRecord::RecordNotFound
   end
 end

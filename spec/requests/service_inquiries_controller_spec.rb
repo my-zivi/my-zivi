@@ -27,7 +27,7 @@ RSpec.describe ServiceInquiriesController do
       let(:perform_request) { get new_service_inquiry_path }
 
       it 'raises a parameter missing error' do
-        expect { perform_request }.to raise_error ActionController::ParameterMissing
+        expect { perform_request }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
@@ -88,6 +88,14 @@ RSpec.describe ServiceInquiriesController do
 
       it 'raises a parameter missing error' do
         expect { perform_request }.to raise_error ActionController::ParameterMissing
+      end
+    end
+
+    context 'when the job posting is not public' do
+      let(:job_posting) { create(:job_posting, published: false) }
+
+      it 'raises a not found error' do
+        expect { perform_request }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end
