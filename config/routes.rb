@@ -33,7 +33,9 @@ Rails.application.routes.draw do
   get '/agb', to: 'home#agb'
   get '/privacy_policy', to: 'home#privacy_policy'
   get '/pricing', to: 'home#pricing'
-  resources :job_postings, param: :slug, only: %i[index show]
+  resources :job_postings, param: :slug, only: %i[index show] do
+    get :preview, to: 'job_postings#preview', on: :member
+  end
   resources :blog_entries, param: :slug, only: %i[index show], path: 'blog'
 
   devise_for :users, controllers: {

@@ -9,28 +9,30 @@ const JobPostingIcon = React.memo((({ iconUrl, alt }) => (
   <img src={iconUrl} alt={alt} className="job-posting-icon" />
 )) as React.FunctionComponent<{ iconUrl: string, alt: string }>);
 
-type Props = { hit: Hit<JobPostingSearchHit>, insights: WrappedInsightsClient };
+interface Props {
+  hit: Hit<JobPostingSearchHit>,
+  insights: WrappedInsightsClient,
+  onclick: (event: MouseEvent) => void,
+}
+
 const JobPosting: React.FunctionComponent<Props> = (props) => {
   const { hit, insights } = props;
+  const onClickEvent = (event: MouseEvent) => {
+    try {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      insights('clickedObjectIDsAfterSearch', { eventName: 'JobPosting Clicked' });
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e);
+    } finally {
+      props.onclick(event);
+    }
+  };
 
   return (
-    <a href={hit.link} onClick={(event: MouseEvent) => {
-      event.stopImmediatePropagation();
-      event.preventDefault();
-
-      insights('clickedObjectIDsAfterSearch', {
-        eventName: 'JobPosting Clicked',
-      });
-
-      // FIXME: Since Turbo.visit(..., { action: 'replace' }) actually loads and replaces the page,
-      // the React app would be mounted and re-rendered causing a flash of all the content. Hence, we need to use
-      // window.history.replaceState directly, but this is not supported by Turbo. To make Turbo know the page we
-      // left, we call the internal update method of the Turbo.Navigator and inject the location into the state.
-      const { Turbo: { navigator } } = window;
-      navigator.history.update(window.history.replaceState, window.location, navigator.history.restorationIdentifier);
-
-      window.Turbo.visit(hit.link);
-    }}>
+    <a href={hit.link} onClick={onClickEvent}>
       <div className="card h-100 job-posting-card">
         <Ribbon hit={hit} />
         <div className="card-body">

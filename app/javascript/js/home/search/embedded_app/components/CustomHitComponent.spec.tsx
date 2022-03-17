@@ -11,7 +11,7 @@ describe('CustomHitComponent', () => {
   beforeEach(() => {
     rendered = mount(
       <InstantSearch searchClient={mockClient} indexName="JobPosting">
-        <CustomHitComponent />
+        <CustomHitComponent onclick={jest.fn()} />
       </InstantSearch>,
     );
   });

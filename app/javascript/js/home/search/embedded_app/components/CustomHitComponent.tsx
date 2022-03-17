@@ -16,17 +16,29 @@ const NoResults: React.FunctionComponent = () => (
   </div>
 );
 
-const renderHits = (hits: JobPostingSearchHit[]) => (
-  hits.map((hit) => (
-    <div className="col-12 col-xl-6 mb-4">
-      <JobPosting hit={hit as never} key={hit.objectID} />
-    </div>
-  ))
+type ClickHandler = (hit: JobPostingSearchHit) => void;
+
+const renderHits = (hits: JobPostingSearchHit[], onclick: ClickHandler) => (
+  hits.map((hit) => {
+    const props = {
+      onclick: () => onclick(hit),
+      hit,
+    };
+
+    return (
+      <div className="col-12 col-xl-6 mb-4">
+        <JobPosting key={hit.objectID} {...(props as never)} />
+      </div>
+    );
+  })
 );
 
-const Hits: ComponentType<InfiniteHitsProvided> = ({ hits, hasMore, refineNext }) => (
+type Props = InfiniteHitsProvided & { onclick: ClickHandler };
+const Hits: ComponentType<Props> = ({
+  hits, hasMore, refineNext, onclick,
+}) => (
   <div className="row">
-    {isEmpty(hits) ? <NoResults /> : renderHits(hits)}
+    {isEmpty(hits) ? <NoResults /> : renderHits(hits, onclick)}
     {hasMore && (
       <div className="col-12 text-center mt-3">
         <button className="btn btn-link" onClick={refineNext}>{MyZivi.translations.search.loadMore}</button>
@@ -35,4 +47,4 @@ const Hits: ComponentType<InfiniteHitsProvided> = ({ hits, hasMore, refineNext }
   </div>
 );
 
-export default connectInfiniteHits(Hits);
+export default connectInfiniteHits<Props, JobPostingSearchHit>(Hits);

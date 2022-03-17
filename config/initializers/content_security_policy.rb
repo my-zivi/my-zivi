@@ -14,17 +14,19 @@ Rails.application.config.content_security_policy do |policy|
   policy.script_src  :self, :https, :unsafe_inline, :unsafe_eval
   policy.style_src   :self, :https, :unsafe_inline
   # If you are using webpack-dev-server then specify webpack-dev-server host
-  policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
+  if Rails.env.development?
+    policy.connect_src :self, :https, 'http://localhost:3000', 'http://localhost:3035', 'ws://localhost:3035'
+  end
 
   # Specify URI for violation reports
   policy.report_uri ENV['CSP_REPORT_URI'] if ENV['CSP_REPORT_URI']
 end
 
 # If you are using UJS then enable automatic nonce generation
-# Rails.application.config.content_security_policy_nonce_generator = ->(request) { SecureRandom.base64(16) }
+# Rails.application.config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(16) }
 
 # Set the nonce only to specific directives
-# Rails.application.config.content_security_policy_nonce_directives = %w(script-src)
+# Rails.application.config.content_security_policy_nonce_directives = %w[script-src]
 
 # Report CSP violations to a specified URI
 # For further information see the following documentation:
