@@ -43,8 +43,7 @@ class SearchPage extends React.Component<Props, State> {
         searchState={this.state.searchState}
         indexName="JobPosting"
       >
-        <Configure hitsPerPage={HITS_PER_PAGE} />
-        <Configure clickAnalytics />
+        <Configure hitsPerPage={HITS_PER_PAGE} clickAnalytics />
         <div className="search-main">
           <div className="hero">
             <div className="container">
