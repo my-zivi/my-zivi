@@ -4,6 +4,13 @@ import { createBrowserLocalStorageCache } from '@algolia/cache-browser-local-sto
 import { createFallbackableCache } from '@algolia/cache-common';
 import { createInMemoryCache } from '@algolia/cache-in-memory';
 import SearchPage from 'js/home/search/embedded_app/components/SearchPage';
+import aa from 'search-insights';
+
+aa('init', {
+  appId: MyZivi.algolia.applicationId,
+  apiKey: MyZivi.algolia.apiKey,
+  useCookie: true,
+});
 
 const searchClient = algoliasearch(
   MyZivi.algolia.applicationId,

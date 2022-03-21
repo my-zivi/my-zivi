@@ -6,6 +6,7 @@ import React, { JSX } from 'preact/compat';
 import { SearchClient } from 'algoliasearch';
 import PoweredBy from 'js/home/search/embedded_app/components/PoweredBy';
 import qs from 'qs';
+import aa from 'search-insights';
 
 const HITS_PER_PAGE = 20;
 
@@ -42,7 +43,7 @@ class SearchPage extends React.Component<Props, State> {
         searchState={this.state.searchState}
         indexName="JobPosting"
       >
-        <Configure hitsPerPage={HITS_PER_PAGE} />
+        <Configure hitsPerPage={HITS_PER_PAGE} clickAnalytics />
         <div className="search-main">
           <div className="hero">
             <div className="container">

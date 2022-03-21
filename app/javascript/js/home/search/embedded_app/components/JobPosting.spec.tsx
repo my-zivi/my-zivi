@@ -1,12 +1,19 @@
-import { shallow } from 'enzyme';
 import React from 'preact/compat';
 import JobPosting from './JobPosting';
 import JobPostingFactory from '../../../../tests/factories/JobPostingFactory';
+import { mountInstantSearchClient } from '../../../../../../../jest/utils';
 
 describe('JobPosting', () => {
+  let rendered;
+
+  beforeEach(() => {
+    rendered = mountInstantSearchClient(
+      <JobPosting hit={JobPostingFactory.build() as never} />,
+    );
+  });
+
   it('renders correctly', () => {
-    expect(
-      shallow(<JobPosting hit={JobPostingFactory.build()} />),
-    ).toMatchSnapshot();
+    const jobPostingComponent = rendered.find('JobPosting').children();
+    expect(jobPostingComponent).toMatchSnapshot();
   });
 });

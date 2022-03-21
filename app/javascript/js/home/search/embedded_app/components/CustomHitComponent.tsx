@@ -19,7 +19,7 @@ const NoResults: React.FunctionComponent = () => (
 const renderHits = (hits: JobPostingSearchHit[]) => (
   hits.map((hit) => (
     <div className="col-12 col-xl-6 mb-4">
-      <JobPosting hit={hit} key={hit.objectID} />
+      <JobPosting hit={hit as never} key={hit.objectID} />
     </div>
   ))
 );

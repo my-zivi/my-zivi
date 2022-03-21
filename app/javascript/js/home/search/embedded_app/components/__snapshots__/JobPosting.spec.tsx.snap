@@ -3,6 +3,7 @@
 exports[`JobPosting renders correctly 1`] = `
 <a
   href="http://example.com/job_postings/1"
+  onClick={[Function]}
 >
   <div
     className="card h-100 job-posting-card"
@@ -47,7 +48,18 @@ exports[`JobPosting renders correctly 1`] = `
             alt="Alpbetrieb Untersteiglen-Schwand"
             iconUrl="/myzivi-logo.jpg"
             key="/myzivi-logo.jpg"
-          />
+          >
+            <Component
+              alt="Alpbetrieb Untersteiglen-Schwand"
+              iconUrl="/myzivi-logo.jpg"
+            >
+              <img
+                alt="Alpbetrieb Untersteiglen-Schwand"
+                className="job-posting-icon"
+                src="/myzivi-logo.jpg"
+              />
+            </Component>
+          </Memo()>
           <h6
             className="job-posting-subtitle"
           >
