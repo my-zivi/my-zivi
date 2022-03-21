@@ -1,9 +1,10 @@
 import React from 'preact/compat';
 import { JobPostingSearchHit } from 'js/home/search/embedded_app/types';
 import Ribbon from 'js/home/search/embedded_app/components/Ribbon';
-import { connectHitInsights, ConnectHitInsightsProvided, WrappedInsightsClient } from 'react-instantsearch-core';
+import { connectHitInsights, WrappedInsightsClient } from 'react-instantsearch-core';
 import aa from 'search-insights';
 import { Hit } from '@algolia/client-search';
+import * as Turbo from '@hotwired/turbo';
 
 const JobPostingIcon = React.memo((({ iconUrl, alt }) => (
   <img src={iconUrl} alt={alt} className="job-posting-icon" />
@@ -14,10 +15,17 @@ const JobPosting: React.FunctionComponent<Props> = (props) => {
   const { hit, insights } = props;
 
   return (
-    <a href={hit.link} onClick={() => {
+    <a href={hit.link} onClick={(event: MouseEvent) => {
+      const target = event.target as HTMLAnchorElement;
+
+      event.stopImmediatePropagation();
+      event.preventDefault();
+
       insights('clickedObjectIDsAfterSearch', {
         eventName: 'Product Clicked',
       });
+
+      Turbo.visit(target.href);
     }}>
       <div className="card h-100 job-posting-card">
         <Ribbon hit={hit} />

@@ -70,7 +70,7 @@ exports[`CustomHitComponent renders correctly 1`] = `
     <div
       className="col-12 col-xl-6 mb-4"
     >
-      <JobPosting
+      <ConnectorWrapper
         hit={
           Object {
             "__position": 1,
@@ -126,13 +126,29 @@ exports[`CustomHitComponent renders correctly 1`] = `
         }
         key="3"
       >
-        <a
-          href="http://localhost:3000/job_postings/3"
-        >
-          <div
-            className="card h-100 job-posting-card"
-          >
-            <Ribbon
+        <Consumer>
+          <Consumer>
+            <AlgoliaInsights(JobPosting)
+              contextValue={
+                Object {
+                  "createHrefForState": [Function],
+                  "mainTargetedIndex": "JobPosting",
+                  "onInternalStateUpdate": [Function],
+                  "onSearchForFacetValues": [Function],
+                  "onSearchParameters": [Function],
+                  "onSearchStateChange": [Function],
+                  "store": Object {
+                    "getState": [Function],
+                    "setState": [Function],
+                    "subscribe": [Function],
+                  },
+                  "widgetsManager": Object {
+                    "getWidgets": [Function],
+                    "registerWidget": [Function],
+                    "update": [Function],
+                  },
+                }
+              }
               hit={
                 Object {
                   "__position": 1,
@@ -187,62 +203,184 @@ exports[`CustomHitComponent renders correctly 1`] = `
                 }
               }
             >
-              <div
-                className="featured-ribbon blue"
+              <JobPosting
+                hit={
+                  Object {
+                    "__position": 1,
+                    "_highlightResult": Object {
+                      "organization_display_name": Object {
+                        "fullyHighlighted": false,
+                        "matchLevel": "full",
+                        "matchedWords": Array [
+                          "al",
+                        ],
+                        "value": "<ais-highlight-0000000000>Al</ais-highlight-0000000000>",
+                      },
+                      "plain_description": Object {
+                        "fullyHighlighted": false,
+                        "matchLevel": "full",
+                        "matchedWords": Array [
+                          "al",
+                        ],
+                        "value": "100% Dauer <ais-highlight-0000000000>Al</ais-highlight-0000000000>psommer",
+                      },
+                      "title": Object {
+                        "fullyHighlighted": false,
+                        "matchLevel": "full",
+                        "matchedWords": Array [
+                          "al",
+                        ],
+                        "value": "<ais-highlight-0000000000>Al</ais-highlight-0000000000>p-Pflege",
+                      },
+                    },
+                    "brief_description": "Bereich Kulturlandschaft, Biodiversität und Landschaftsqualität",
+                    "canton_display_name": "Obwalden",
+                    "category_display_name": "Landwirtschaft",
+                    "contact_information": "Dieser Betrieb ist noch nicht bei MyZivi registriert. Bitte bewerbe Dich im EZIVI.",
+                    "description": "MyDescription <b>Using HTML</b>",
+                    "featured_as_new": true,
+                    "icon_url": "/myzivi-logo.jpg",
+                    "identification_number": 89372,
+                    "language": "german",
+                    "link": "http://localhost:3000/job_postings/3",
+                    "minimum_service_months": 1,
+                    "objectID": "3",
+                    "organization_display_name": "Alpbetrieb Untersteiglen-Schwand im Tal-Melchsee-Frutt",
+                    "plain_description": "100% Dauer Alpsommer: von 01.05. bis 15.10",
+                    "preferred_skills": null,
+                    "priority_program": true,
+                    "publication_date": "2021-06-14",
+                    "published": true,
+                    "relevancy": 1,
+                    "required_skills": "<p> Motivation und physische Kondition für harte körperliche Arbeit im Freien</p>",
+                    "sub_category_display_name": null,
+                    "title": "Alp-Pflege",
+                  }
+                }
+                insights={[Function]}
               >
-                Neu
-              </div>
-            </Ribbon>
-            <div
-              className="card-body"
-            >
-              <div
-                className="d-flex flex-column"
-              >
-                <div
-                  className="icon-container"
+                <a
+                  href="http://localhost:3000/job_postings/3"
+                  onClick={[Function]}
                 >
-                  <Memo()
-                    alt="Alpbetrieb Untersteiglen-Schwand im Tal-Melchsee-Frutt"
-                    iconUrl="/myzivi-logo.jpg"
-                    key="/myzivi-logo.jpg"
-                  >
-                    <Component
-                      alt="Alpbetrieb Untersteiglen-Schwand im Tal-Melchsee-Frutt"
-                      iconUrl="/myzivi-logo.jpg"
-                    >
-                      <img
-                        alt="Alpbetrieb Untersteiglen-Schwand im Tal-Melchsee-Frutt"
-                        className="job-posting-icon"
-                        src="/myzivi-logo.jpg"
-                      />
-                    </Component>
-                  </Memo()>
-                  <h6
-                    className="job-posting-subtitle"
-                  >
-                    Alpbetrieb Untersteiglen-Schwand im Tal-Melchsee-Frutt
-                  </h6>
-                </div>
-                <div
-                  className="job-posting-card-content"
-                >
-                  <h5
-                    className="job-posting-title"
-                  >
-                    Alp-Pflege
-                  </h5>
                   <div
-                    className="job-description"
+                    className="card h-100 job-posting-card"
                   >
-                    Bereich Kulturlandschaft, Biodiversität und Landschaftsqualität
+                    <Ribbon
+                      hit={
+                        Object {
+                          "__position": 1,
+                          "_highlightResult": Object {
+                            "organization_display_name": Object {
+                              "fullyHighlighted": false,
+                              "matchLevel": "full",
+                              "matchedWords": Array [
+                                "al",
+                              ],
+                              "value": "<ais-highlight-0000000000>Al</ais-highlight-0000000000>",
+                            },
+                            "plain_description": Object {
+                              "fullyHighlighted": false,
+                              "matchLevel": "full",
+                              "matchedWords": Array [
+                                "al",
+                              ],
+                              "value": "100% Dauer <ais-highlight-0000000000>Al</ais-highlight-0000000000>psommer",
+                            },
+                            "title": Object {
+                              "fullyHighlighted": false,
+                              "matchLevel": "full",
+                              "matchedWords": Array [
+                                "al",
+                              ],
+                              "value": "<ais-highlight-0000000000>Al</ais-highlight-0000000000>p-Pflege",
+                            },
+                          },
+                          "brief_description": "Bereich Kulturlandschaft, Biodiversität und Landschaftsqualität",
+                          "canton_display_name": "Obwalden",
+                          "category_display_name": "Landwirtschaft",
+                          "contact_information": "Dieser Betrieb ist noch nicht bei MyZivi registriert. Bitte bewerbe Dich im EZIVI.",
+                          "description": "MyDescription <b>Using HTML</b>",
+                          "featured_as_new": true,
+                          "icon_url": "/myzivi-logo.jpg",
+                          "identification_number": 89372,
+                          "language": "german",
+                          "link": "http://localhost:3000/job_postings/3",
+                          "minimum_service_months": 1,
+                          "objectID": "3",
+                          "organization_display_name": "Alpbetrieb Untersteiglen-Schwand im Tal-Melchsee-Frutt",
+                          "plain_description": "100% Dauer Alpsommer: von 01.05. bis 15.10",
+                          "preferred_skills": null,
+                          "priority_program": true,
+                          "publication_date": "2021-06-14",
+                          "published": true,
+                          "relevancy": 1,
+                          "required_skills": "<p> Motivation und physische Kondition für harte körperliche Arbeit im Freien</p>",
+                          "sub_category_display_name": null,
+                          "title": "Alp-Pflege",
+                        }
+                      }
+                    >
+                      <div
+                        className="featured-ribbon blue"
+                      >
+                        Neu
+                      </div>
+                    </Ribbon>
+                    <div
+                      className="card-body"
+                    >
+                      <div
+                        className="d-flex flex-column"
+                      >
+                        <div
+                          className="icon-container"
+                        >
+                          <Memo()
+                            alt="Alpbetrieb Untersteiglen-Schwand im Tal-Melchsee-Frutt"
+                            iconUrl="/myzivi-logo.jpg"
+                            key="/myzivi-logo.jpg"
+                          >
+                            <Component
+                              alt="Alpbetrieb Untersteiglen-Schwand im Tal-Melchsee-Frutt"
+                              iconUrl="/myzivi-logo.jpg"
+                            >
+                              <img
+                                alt="Alpbetrieb Untersteiglen-Schwand im Tal-Melchsee-Frutt"
+                                className="job-posting-icon"
+                                src="/myzivi-logo.jpg"
+                              />
+                            </Component>
+                          </Memo()>
+                          <h6
+                            className="job-posting-subtitle"
+                          >
+                            Alpbetrieb Untersteiglen-Schwand im Tal-Melchsee-Frutt
+                          </h6>
+                        </div>
+                        <div
+                          className="job-posting-card-content"
+                        >
+                          <h5
+                            className="job-posting-title"
+                          >
+                            Alp-Pflege
+                          </h5>
+                          <div
+                            className="job-description"
+                          >
+                            Bereich Kulturlandschaft, Biodiversität und Landschaftsqualität
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a>
-      </JobPosting>
+                </a>
+              </JobPosting>
+            </AlgoliaInsights(JobPosting)>
+          </Consumer>
+        </Consumer>
+      </ConnectorWrapper>
     </div>
   </div>
 </Hits>
