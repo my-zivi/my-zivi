@@ -13,7 +13,7 @@ describe('JobPosting', () => {
   });
 
   it('renders correctly', () => {
-    const jobPostingComponent = rendered.find('JobPosting');
+    const jobPostingComponent = rendered.find('JobPosting').children();
     expect(jobPostingComponent).toMatchSnapshot();
   });
 });
