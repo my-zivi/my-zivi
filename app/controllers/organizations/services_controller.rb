@@ -20,10 +20,10 @@ module Organizations
 
     def confirm
       if @service.confirm!
-        flash.now[:success] = I18n.t('organizations.services.confirm.successful_confirm')
+        flash[:success] = I18n.t('organizations.services.confirm.successful_confirm')
         redirect_to organizations_civil_servant_service_path(@civil_servant, @service)
       else
-        flash.now[:error] = I18n.t('organizations.services.confirm.erroneous_confirm')
+        flash[:error] = I18n.t('organizations.services.confirm.erroneous_confirm')
         redirect_back(fallback_location: organizations_path)
       end
     end

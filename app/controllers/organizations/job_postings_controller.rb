@@ -19,7 +19,7 @@ module Organizations
         redirect_to edit_organizations_job_posting_path(@job_posting), notice: t('.successful_update')
       else
         flash.now[:error] = t('.erroneous_update')
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 
