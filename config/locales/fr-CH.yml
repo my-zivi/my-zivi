@@ -189,6 +189,16 @@ fr-CH:
   loading: En chargeant...
   loaf:
     breadcrumbs:
+      civil_servants:
+        civil_servants:
+          edit: Profil
+        overview:
+          index: Aperçu
+        service_agreements:
+          index: Accords de service
+        services:
+          index: Aperçu des déploiements
+          show: Déploiement de %{beginning} à %{ending}
       organizations:
         civil_servants:
           index: Civilistes
@@ -402,7 +412,7 @@ fr-CH:
           with_filter: Liste de téléphone du %{range}
           without_filter: Liste de téléphone
     service_agreements:
-      confirm_destroy: Supprimer vraiment le paiement?
+      confirm_destroy: Supprimer vraiment l'accord de service?
       create:
         erroneous_create: Le contrat de service n'a pas pu être créé
         successful_create: Un contrat de service a été créé avec succès
@@ -410,11 +420,11 @@ fr-CH:
         erroneous_destroy: Le contrat de service n'a pas pu être supprimé
         successful_destroy: Le contrat de service a été supprimé
       index:
-        create_new_service_agreement: Créer une nouveau convention d’affectation
+        create_new_service_agreement: Créer un nouveau accord de service
         days:
           one: 1 Jour
           other: "%{amount} Journées"
-        new_service_agreement: Nouvelle convention d'affectation
+        new_service_agreement: Nouveau accord de service
         title: Services dont le consentement des civilists est en attente
       new:
         title: Nouveau contrat de service

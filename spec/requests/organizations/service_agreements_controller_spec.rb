@@ -272,7 +272,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
 
           it 'does not create a new service agreement and renders an error' do
             expect { perform_request }.to change(Service, :count).by(0).and change(CivilServant, :count).by(0)
-            expect(response).to be_successful
+            expect(response).to have_http_status(:unprocessable_entity)
             expect(response).to render_template 'organizations/service_agreements/new'
             expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'),
                                              I18n.t('errors.messages.blank'))
@@ -307,7 +307,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
 
           it 'does not create a new service agreement and renders an error' do
             expect { perform_request }.to change(Service, :count).by(0).and change(CivilServant, :count).by(0)
-            expect(response).to be_successful
+            expect(response).to have_http_status(:unprocessable_entity)
             expect(response).to render_template 'organizations/service_agreements/new'
             expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'),
                                              I18n.t('errors.messages.blank'))

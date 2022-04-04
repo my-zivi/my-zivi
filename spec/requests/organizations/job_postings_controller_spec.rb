@@ -150,7 +150,7 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
 
         it 'does not update' do
           expect { perform_request }.not_to(change { job_posting.reload.attributes })
-          expect(response).to have_http_status(:success)
+          expect(response).to have_http_status(:unprocessable_entity)
           expect(flash[:error]).to eq I18n.t('organizations.job_postings.update.erroneous_update')
         end
       end

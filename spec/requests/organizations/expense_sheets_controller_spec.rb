@@ -174,7 +174,7 @@ RSpec.describe Organizations::ExpenseSheetsController, type: :request do
 
           it 'does not update' do
             expect { perform_request }.not_to(change { paul_expense_sheet.reload.slice(update_params.keys) })
-            expect(response).to have_http_status(:success)
+            expect(response).to have_http_status(:unprocessable_entity)
             expect(flash[:error]).to eq I18n.t('organizations.expense_sheets.update.erroneous_update')
           end
         end
