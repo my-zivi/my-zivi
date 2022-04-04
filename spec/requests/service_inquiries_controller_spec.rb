@@ -62,9 +62,8 @@ RSpec.describe ServiceInquiriesController do
 
     it 'creates a new inquiry' do
       expect { perform_request }.to change(ServiceInquiry, :count)
-      expect(created_service_inquiry.attributes.symbolize_keys.without(:id, :created_at, :updated_at)).to eq(
-        service_inquiry_params
-      )
+      attributes = created_service_inquiry.attributes.symbolize_keys.without(:id, :created_at, :updated_at, :agreement)
+      expect(attributes).to eq(service_inquiry_params)
       expect(response).to render_template 'service_inquiries/create'
     end
 
