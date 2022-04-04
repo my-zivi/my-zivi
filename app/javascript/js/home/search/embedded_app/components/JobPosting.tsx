@@ -22,7 +22,7 @@ const JobPosting: React.FunctionComponent<Props> = (props) => {
       event.preventDefault();
 
       insights('clickedObjectIDsAfterSearch', {
-        eventName: 'JobPostingJobPosting renders correctly  Clicked',
+        eventName: 'JobPosting Clicked',
       });
 
       Turbo.visit(target.href);
