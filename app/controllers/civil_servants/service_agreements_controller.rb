@@ -4,6 +4,8 @@ module CivilServants
   class ServiceAgreementsController < BaseController
     authorize_resource :service, only: :index
 
+    breadcrumb 'civil_servants.service_agreements.index', :civil_servants_service_agreements_path
+
     def index
       @service_agreements = Service.includes(:organization, :service_specification)
                                    .accessible_by(current_ability).agreement

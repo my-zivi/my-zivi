@@ -224,6 +224,16 @@ de-CH:
         services:
           index: Einsatzübersicht
           show: Einsatz vom %{beginning} bis %{ending}
+      civil_servants:
+        overview:
+          index: Übersicht
+        service_agreements:
+          index: Einsatzvereinbarungen
+        services:
+          index: Einsatzübersicht
+          show: Einsatz vom %{beginning} bis %{ending}
+        civil_servants:
+          edit: Profil
   mailing_list:
     erroneous_creation: Bitte beheben Sie die folgend markierten Fehler
     successful_creation: Vielen Dank für Ihr Interesse. Wir werden Sie bald kontaktieren

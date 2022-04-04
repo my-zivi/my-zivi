@@ -5,6 +5,8 @@ module CivilServants
     include RespondWithPdfConcern
 
     load_and_authorize_resource
+    breadcrumb 'civil_servants.services.index', :civil_servants_services_path
+    before_action :show_breadcrumb, only: :show
 
     def index
       load_filters
@@ -49,6 +51,14 @@ module CivilServants
         ),
         Rails.root.join('lib/assets/pdfs/german_service_agreement_form.pdf').to_s
       )
+    end
+
+    def show_breadcrumb
+      title = I18n.t('loaf.breadcrumbs.civil_servants.services.show',
+                     beginning: I18n.l(@service.beginning, format: :short),
+                     ending: I18n.l(@service.ending, format: :short))
+
+      breadcrumb title, :civil_servants_service_path
     end
   end
 end

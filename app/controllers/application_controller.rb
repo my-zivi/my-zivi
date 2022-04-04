@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include Turbo::Redirection
+
   helper_method :current_organization_admin, :current_civil_servant, :current_organization, :current_referencee
 
   def current_organization_admin
