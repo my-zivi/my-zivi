@@ -7,8 +7,15 @@ class ServiceInquiry < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   attr_accessor :skip_inquiry_mail
+  attr_reader :agreement
+
+  attribute :agreement, :boolean, default: false
 
   after_create_commit :send_inquiry_mails
+
+  def agreement=(value)
+    @agreement = ['1', true].include?(value)
+  end
 
   private
 

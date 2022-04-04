@@ -147,6 +147,7 @@ de-CH:
         phone: Telefon
         service_beginning: Gewünschter Einsatzstart
         service_duration: Gewünschte Einsatzdauer
+        agreement: Ich bestätige, dass ich ein aktiver Zivildienstleistender bin
       service_specification:
         accommodation_expenses: Unterkunftsspesen
         active: Aktiv
@@ -374,5 +375,6 @@ de-CH:
       regional_center: Regionalzentrum
       service: Einsatz
       service_specification: Pflichtenheft
+      service_inquiry: Einsatzanfrage
       user: Benutzer
       workshop: Kurs
