@@ -12,7 +12,7 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/react-fontawesome": "^0.1.14",
-    "@hotwired/turbo": "^7.1.0",
+    "@hotwired/turbo-rails": "^7.1.1",
     "@my-zivi/falcon": "2.6.6",
     "@rails/actioncable": "^6.0.0",
     "@rails/actiontext": "^6.0.3-6",

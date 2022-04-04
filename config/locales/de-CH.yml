@@ -189,6 +189,16 @@ de-CH:
   loading: Lade...
   loaf:
     breadcrumbs:
+      civil_servants:
+        civil_servants:
+          edit: Profil
+        overview:
+          index: Übersicht
+        service_agreements:
+          index: Einsatzvereinbarungen
+        services:
+          index: Einsatzübersicht
+          show: Einsatz vom %{beginning} bis %{ending}
       organizations:
         civil_servants:
           index: Zivildienstleistende

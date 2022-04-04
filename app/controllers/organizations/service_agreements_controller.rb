@@ -52,7 +52,7 @@ module Organizations
       else
         @service_agreement = agreement_creator.service_agreement
         flash.now[:error] = t('.erroneous_create')
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 

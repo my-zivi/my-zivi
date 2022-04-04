@@ -17,11 +17,11 @@ module Organizations
 
     def create
       if @organization_member.save
-        flash.now[:success] = t('.successfully_created')
+        flash[:success] = t('.successfully_created')
         redirect_to organizations_members_path
       else
         flash.now[:error] = t('.erroneous_create')
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -29,21 +29,21 @@ module Organizations
 
     def update
       if @organization_member.update(update_params)
-        flash.now[:success] = t('.successfully_updated')
+        flash[:success] = t('.successfully_updated')
         redirect_to edit_organizations_member_path(@organization_member)
       else
         flash.now[:error] = t('.erroneous_update')
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 
     def destroy
       if @organization_member != current_organization_admin && @organization_member.destroy
-        flash.now[:success] = t('.successfully_deleted')
+        flash[:success] = t('.successfully_deleted')
         redirect_to organizations_members_path
       else
         flash.now[:error] = t('.erroneous_delete')
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 
