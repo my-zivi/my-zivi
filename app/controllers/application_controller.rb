@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'turbo/redirection'
+
 class ApplicationController < ActionController::Base
   include Turbo::Redirection
 

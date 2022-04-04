@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 module Turbo
   module Redirection
     extend ActiveSupport::Concern
@@ -30,3 +31,4 @@ module Turbo
     end
   end
 end
+# :nocov:

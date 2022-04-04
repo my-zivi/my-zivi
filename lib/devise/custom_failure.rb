@@ -8,11 +8,7 @@ module Devise
     end
 
     def respond
-      if request_format == :turbo_stream
-        redirect
-      else
-        super
-      end
+      request_format == :turbo_stream ? redirect : super
     end
   end
 end
