@@ -1,13 +1,17 @@
 = render 'devise/shared/authentication_card' do
   h4.mb-3 = t('devise.unlocks.new.resend_unlock_instructions')
-  = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+  = simple_form_for(resource,
+                    as: resource_name,
+                    url: unlock_path(resource_name),
+                    html: { method: :post },
+                    data: { turbo: false }) do |f|
     = f.error_notification
     = f.full_error :unlock_token
     .form-inputs
       = f.input :email,
         required: true,
         autofocus: true,
-        input_html: { autocomplete: "email" }
+        input_html: { autocomplete: 'email' }
     .form-group
       = f.button :submit, t('devise.confirmations.new.submit'), class: 'btn btn-primary btn-block mt-3'
-  = render "devise/shared/links"
+  = render 'devise/shared/links'

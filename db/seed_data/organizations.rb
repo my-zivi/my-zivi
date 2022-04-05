@@ -15,7 +15,8 @@ Organization.create!(
   creditor_detail: CreditorDetail.new(
     bic: 'ZKBKCHZZ80A',
     iban: 'CH7089144325721587778'
-  )
+  ),
+  subscriptions: [Subscriptions::Admin.new, Subscriptions::Recruiting.new]
 )
 
 Organization.create!(

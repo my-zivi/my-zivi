@@ -21,31 +21,31 @@ module Organizations
       build_organization_holiday
 
       if @organization_holiday.save
-        flash.now[:success] = t('organizations.organization_holidays.update.successful_create')
+        flash[:success] = t('organizations.organization_holidays.update.successful_create')
         redirect_to organizations_organization_holidays_path
       else
         flash.now[:error] = t('organizations.organization_holidays.update.erroneous_create')
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
     def update
       if @organization_holiday.update(organization_holiday_params)
-        flash.now[:success] = t('organizations.organization_holidays.update.successful_update')
+        flash[:success] = t('organizations.organization_holidays.update.successful_update')
         redirect_to organizations_organization_holidays_path
       else
         flash.now[:error] = t('organizations.organization_holidays.update.erroneous_update')
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 
     def destroy
       if @organization_holiday.destroy
-        flash.now[:success] = t('organizations.organization_holidays.update.successful_destroy')
+        flash[:success] = t('organizations.organization_holidays.update.successful_destroy')
         redirect_to organizations_organization_holidays_path
       else
         flash.now[:error] = t('organizations.organization_holidays.update.erroneous_destroy')
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 

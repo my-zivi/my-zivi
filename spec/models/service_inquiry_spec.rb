@@ -26,4 +26,23 @@ RSpec.describe ServiceInquiry, type: :model do
       end
     end
   end
+
+  describe '#agreement=' do
+    subject(:model) { build(:service_inquiry) }
+
+    it 'sets agreement to true if value is "1"' do
+      model.agreement = '1'
+      expect(model.agreement).to be true
+    end
+
+    it 'sets agreement to false if value is "0"' do
+      model.agreement = '0'
+      expect(model.agreement).to be false
+    end
+
+    it 'sets agreement to true if value is true' do
+      model.agreement = true
+      expect(model.agreement).to be true
+    end
+  end
 end

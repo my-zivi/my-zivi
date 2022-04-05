@@ -16,8 +16,9 @@ RSpec.describe 'Job Postings screenshots', type: :system, js: true do
   it 'renders inquiry form correctly' do
     visit job_posting_path(job_posting)
     click_button I18n.t('job_postings.show.apply_via_myzivi')
-    fill_in 'service_inquiry[service_beginning]', with: 4.months.from_now.to_date.iso8601
+    fill_in 'service_inquiry[service_beginning]', with: '01.05.2025'
     fill_in 'service_inquiry[service_duration]', with: '8 Monate'
+    check 'service_inquiry[agreement]'
     click_button I18n.t('service_inquiries.new.submit')
     expect(page).to have_content(I18n.t('errors.messages.blank'))
     Percy.snapshot(page, { name: 'Service Inquiry Form' })

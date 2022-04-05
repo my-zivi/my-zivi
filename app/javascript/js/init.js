@@ -1,5 +1,5 @@
 import Rails from '@rails/ujs';
-import * as Turbo from '@hotwired/turbo';
+import '@hotwired/turbo-rails';
 import 'popper.js/dist/popper.min';
 
 import $ from 'jquery';
@@ -10,7 +10,6 @@ window.jQuery = $;
 window.$ = $;
 
 Rails.start();
-Turbo.start();
 
 FontAwesome.config.mutateApproach = 'sync';
 
