@@ -141,6 +141,7 @@ fr-CH:
         service_type: Type d'insertion
         status: Statut
       service_inquiry:
+        agreement: Je confirme que je suis un civiliste actif
         email: E-Mail
         message: Message
         name: Nom
@@ -373,6 +374,7 @@ fr-CH:
       organization_member: Employés
       regional_center: Centre régional
       service: Déploiement
+      service_inquiry: Demande d'intervention
       service_specification: Spécifications
       user: Utilisateur
       workshop: Cours
