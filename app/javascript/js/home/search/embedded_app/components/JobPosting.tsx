@@ -15,8 +15,6 @@ const JobPosting: React.FunctionComponent<Props> = (props) => {
 
   return (
     <a href={hit.link} onClick={(event: MouseEvent) => {
-      const target = event.target as HTMLAnchorElement;
-
       event.stopImmediatePropagation();
       event.preventDefault();
 
@@ -24,7 +22,7 @@ const JobPosting: React.FunctionComponent<Props> = (props) => {
         eventName: 'JobPosting Clicked',
       });
 
-      window.Turbo.visit(target.href);
+      window.Turbo.visit(hit.link);
     }}>
       <div className="card h-100 job-posting-card">
         <Ribbon hit={hit} />
