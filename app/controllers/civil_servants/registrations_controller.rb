@@ -26,7 +26,7 @@ module CivilServants
         respond_to_successful_update
       else
         flash.now[:error] = t('.erroneous_update')
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 

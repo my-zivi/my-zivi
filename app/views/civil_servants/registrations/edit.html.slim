@@ -1,4 +1,6 @@
 - content_for(:hide_flash_messages, true)
+- content_for(:head_additions) do
+  = javascript_pack_tag 'falcon', 'data-turbo-track': 'reload'
 
 .row.flex-center.min-vh-100.py-6
   .col-sm-11.col-md-9.col-lg-7.col-xl-6.col-xxl-5

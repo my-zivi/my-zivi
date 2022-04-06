@@ -6,7 +6,11 @@
     .d-flex.align-items-center
       h5 = t('devise.registrations.edit.title', resource: resource.model_name.human)
   .card-body.bg-light
-    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+    = simple_form_for(resource,
+            as: resource_name,
+            url: registration_path(resource_name),
+            html: { method: :put },
+            data: { turbo: false }) do |f|
       .row
         .col-12
           = f.input :current_password,
