@@ -103,6 +103,7 @@ RSpec.describe CivilServants::RegistrationsController, :without_bullet, type: :r
           it 'does not update civil servant and renders error' do
             expect { perform_request }.not_to change(civil_servant, :reload)
             expect(response).to render_template 'civil_servants/registrations/steps/_personal'
+            expect(response).to have_http_status(:unprocessable_entity)
             expect(response.body).to include I18n.t('civil_servants.registrations.update.erroneous_update')
           end
         end
