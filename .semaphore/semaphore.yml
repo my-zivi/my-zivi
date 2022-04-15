@@ -28,14 +28,18 @@ blocks:
             - value: 50
               when: true
           commands:
-            - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
-            - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
-            - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
-            - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
+            - 'cache restore gems-gemfile-lock-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop'
+            - 'cache restore node-modules-yarn-lock-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop'
+            - 'cache restore nvm-nvmrc-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop'
             - bundle install --deployment -j 4 --path vendor/bundle
             - nvm install
             - bin/yarn install --cache-folder ~/.cache/yarn
-            - cache store
+            - cache store gems-gemfile-lock-$(checksum Gemfile.lock) vendor/bundle
+            - cache store gems-$SEMAPHORE_GIT_BRANCH vendor/bundle
+            - cache store node-modules-yarn-lock-$(checksum yarn.lock) ~/.cache/yarn
+            - cache store node-modules-$SEMAPHORE_GIT_BRANCH ~/.cache/yarn
+            - cache store nvm-nvmrc-$(checksum .nvmrc) $HOME/.nvm
+            - cache store nvm-$SEMAPHORE_GIT_BRANCH $HOME/.nvm
       prologue:
         commands:
           - checkout --use-cache
@@ -59,13 +63,9 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
-          - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
-          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
-          - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
-          - bundle install --deployment --path vendor/bundle
-          - nvm install
-          - bin/yarn install --cache-folder ~/.cache/yarn
+          - 'cache restore gems-gemfile-lock-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop'
+          - 'cache restore node-modules-yarn-lock-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop'
+          - 'cache restore nvm-nvmrc-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop'
       jobs:
         - name: Lint
           priority:
@@ -132,15 +132,11 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
-          - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
-          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
-          - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
+          - 'cache restore gems-gemfile-lock-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop'
+          - 'cache restore node-modules-yarn-lock-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop'
+          - 'cache restore nvm-nvmrc-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop'
           - sudo apt-get update
           - sudo apt-get install libxss1
-          - bundle install --deployment --path vendor/bundle
-          - nvm install
-          - bin/yarn install --cache-folder ~/.cache/yarn
           - sem-service start postgres 12
           - 'bundle exec rails db:create db:structure:load'
       jobs:
@@ -181,15 +177,11 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - 'cache restore nvm-$SEMAPHORE_GIT_BRANCH-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop,nvm-master'
-          - 'cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop,gems-master'
-          - 'cache restore yarn-cache-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-develop,yarn-cache-master'
-          - 'cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop,node-modules-master'
+          - 'cache restore gems-gemfile-lock-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop'
+          - 'cache restore node-modules-yarn-lock-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop'
+          - 'cache restore nvm-nvmrc-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop'
           - sudo apt-get update
           - sudo apt-get install libxss1
-          - bundle install --deployment --path vendor/bundle
-          - nvm install
-          - bin/yarn install --cache-folder ~/.cache/yarn && yarn global add @lhci/cli@^0.5.0
           - bin/rake assets:precompile
           - sem-service start postgres 12
           - 'bundle exec rails db:create db:structure:load'
