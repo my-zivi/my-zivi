@@ -28,7 +28,7 @@ module Pdfs
         'Arbeitsort' => ->(service:) { service.service_specification.location },
         'Einsatzbeginn' => ->(service:) { I18n.l service.beginning },
         'Einsatzende' => ->(service:) { I18n.l service.ending },
-        'Pflichtenheft' => ->(service:) { service.service_specification.title },
+        'Pflichtenheft' => ->(service:) { service.service_specification.title }
       }.freeze
     end
   end

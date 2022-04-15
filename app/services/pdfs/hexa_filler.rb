@@ -13,13 +13,8 @@ module Pdfs
       field.field_value = data.to_s
     end
 
-    def save_as(file_path, flatten: false)
+    def save_as(file_path)
       @doc.write(file_path, validate: false, incremental: false)
     end
-
-    def close
-
-    end
-
   end
 end
