@@ -28,7 +28,7 @@ RSpec.describe SitemapGenerator::MyZiviSitemap do
       expect(SitemapGenerator::Sitemap).to(
         have_received(:ping_search_engines).with('https://example.com/mymap.xml')
       )
-      expect(File.exist?(sitemap_location)).to eq true
+      expect(File.exist?(sitemap_location)).to be true
     end
 
     describe 'generated links' do
@@ -54,7 +54,7 @@ RSpec.describe SitemapGenerator::MyZiviSitemap do
         described_class.generate(ping_search_engines: false)
         expect(SitemapGenerator::Sitemap).not_to(have_received(:ping_search_engines))
         expect(SitemapGenerator::Sitemap).to have_received(:create)
-        expect(File.exist?(sitemap_location)).to eq true
+        expect(File.exist?(sitemap_location)).to be true
       end
     end
   end

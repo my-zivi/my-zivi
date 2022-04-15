@@ -39,8 +39,8 @@ RSpec.describe ExpenseSheetActivationJob, type: :job do
       change { not_yet_editable_expense_sheet.reload.state }.from('locked').to('editable')
     )
 
-    expect(closed_expense_sheet.closed?).to eq true
-    expect(locked_expense_sheet.locked?).to eq true
+    expect(closed_expense_sheet.closed?).to be true
+    expect(locked_expense_sheet.locked?).to be true
   end
 
   context 'when current expense sheet is already editable' do

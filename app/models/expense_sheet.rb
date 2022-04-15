@@ -11,7 +11,7 @@ class ExpenseSheet < ApplicationRecord
   has_one :civil_servant, through: :service
   has_one :organization, through: :service
 
-  validates :beginning, :ending, :work_days, :state, :service, presence: true
+  validates :beginning, :ending, :work_days, :state, presence: true
 
   validates :work_days, :workfree_days, :sick_days, :paid_vacation_days,
             :unpaid_vacation_days, :unpaid_company_holiday_days, :paid_company_holiday_days,

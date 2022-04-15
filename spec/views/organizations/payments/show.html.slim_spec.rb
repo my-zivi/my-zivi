@@ -3,16 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe 'organizations/payments/show.html.slim', type: :view do
-  subject { rendered }
-
-  let(:civil_servant) { create(:civil_servant, :full, :with_service) }
+  let(:civil_servant) { create(:civil_servant, :full, :with_service, first_name: 'Zivi', last_name: 'Mustermann') }
 
   let(:payment) do
-    build(:payment,
-          id: 1,
-          created_at: '2020-04-01',
-          amount: 12,
-          expense_sheets: build_pair(:expense_sheet, id: 2, service: civil_servant.services.first))
+    build(:payment, id: 1, created_at: '2020-04-01', amount: 12, expense_sheets: [
+            build(:expense_sheet, id: 1, service: civil_servant.services.first),
+            build(:expense_sheet, id: 2, service: civil_servant.services.first)
+          ])
   end
 
   before do
