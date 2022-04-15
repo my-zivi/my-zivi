@@ -188,7 +188,7 @@ blocks:
           - 'cache restore nvm-nvmrc-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop'
           - bundle install --deployment -j 4 --path vendor/bundle
           - nvm install
-          - bin/yarn install --cache-folder ~/.cache/yarn
+          - bin/yarn install --cache-folder ~/.cache/yarn && yarn global add @lhci/cli@^0.8.x
           - sudo apt-get update
           - sudo apt-get install libxss1
           - bin/rake assets:precompile
