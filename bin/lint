@@ -3,9 +3,9 @@
 set -exo pipefail
 
 bundle exec rubocop -D --parallel
-yarn run lint
-yarn run typescript:typecheck
-yarn run lint-style
+bin/yarn run lint
+bin/yarn run typescript:typecheck
+bin/yarn run lint-style
 bundle exec brakeman -q -z --no-summary --no-pager
 bundle exec reek -c .reek.yml app/
 bin/rails zeitwerk:check

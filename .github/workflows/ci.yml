@@ -10,18 +10,32 @@ jobs:
 
     services:
       postgres:
-        image: postgres:12.9
+        image: postgres:13.6
         env:
           POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: my_zivi_test
+        ports: ["5432:5432"]
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
 
+    env:
+      GITHUB_NPM_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
+      DATABASE_HOST: localhost
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      RAILS_ENV: test
+
+    strategy:
+      matrix:
+        Task: [ lint, test, system ]
+
     steps:
       - name: Checkout Git Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -36,43 +50,63 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Load Ruby version
-        run: echo "##[set-output name=RUBYV;]$(cat .ruby-version)"
-        id: rnv
+      - name: Get Node Version
+        id: node-version
+        run: echo "::set-output name=version::$(cat .nvmrc | tr -d '\n')"
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Install PostgreSQL 12 client
-        run: |
-          sudo apt-get -yqq install libpq-dev
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.node-version.outputs.version }}
+          cache: 'yarn'
+
+      - name: Install PostgreSQL client
+        run: sudo apt-get -yqq install libpq-dev
 
       - name: Build App
-        env:
-          DATABASE_HOST: postgres
-          DATABASE_USERNAME: postgres
-          DATABASE_PASSWORD: postgres
-          RAILS_ENV: test
         run: |
           cp .env.example .env
           bin/rails db:create db:schema:load
           bin/yarn install --cache-folder $(yarn cache dir)
+
+      - name: Cache Webpack Output
+        uses: actions/cache@v3
+        if: matrix.Task == 'system'
+        with:
+          path: |
+            ${{ github.workspace }}/public/packs-test
+            ${{ github.workspace }}/public/packs
+          key: ${{ runner.os }}-webpack-output-${{ github.ref }}
+
+      - name: Webpack Build
+        if: matrix.Task == 'system'
+        run: |
           bin/webpack
 
       - name: Linting
+        if: matrix.Task == 'lint'
         env:
           RAILS_ENV: test
-        run: |
-          bin/lint
+        run: bin/lint
 
-      - name: Run Tests
-        env:
-          DATABASE_HOST: postgres
-          DATABASE_USERNAME: postgres
-          DATABASE_PASSWORD: postgres
-          RAILS_ENV: test
-        run: |
-          bin/unit-tests
+      - name: Run Unit Tests
+        if: matrix.Task == 'test'
+        run: bin/unit-tests
 
+      - name: Run System Tests
+        if: matrix.Task == 'system'
+        run: bin/system-tests
+
+      - name: Upload Log Artifacts
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: Build failure logs
+          path: |
+            ${{ github.workspace }}/log/test.log
+            ${{ github.workspace }}/screenshots
