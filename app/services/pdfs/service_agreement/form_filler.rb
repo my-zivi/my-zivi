@@ -25,7 +25,7 @@ module Pdfs
 
         def fill_fields(pdf, pdf_field_data)
           pdf_field_data.each do |field_name, field_data|
-            pdf.set_field(field_name, field_data) if field_data # needed because '' for checkbox is true
+            pdf.fill_field(field_name, field_data) if field_data # needed because '' for checkbox is true
           end
         end
       end

@@ -7,7 +7,7 @@ module Pdfs
       @doc = HexaPDF::Document.open(@file_path)
     end
 
-    def set_field(name, data)
+    def fill_field(name, data)
       form = @doc.acro_form
       field = form.field_by_name(name)
       field.field_value = data.to_s
