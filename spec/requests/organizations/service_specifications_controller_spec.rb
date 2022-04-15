@@ -248,7 +248,7 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
         end
       end
 
-      context 'when trying to destroy ' do
+      context 'when trying to destroy' do
         let(:outside_organization) { create :organization, :with_admin }
         let(:service_specification) { create :service_specification, organization: outside_organization }
 

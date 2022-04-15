@@ -6,7 +6,6 @@ import React, { JSX } from 'preact/compat';
 import { SearchClient } from 'algoliasearch';
 import PoweredBy from 'js/home/search/embedded_app/components/PoweredBy';
 import qs from 'qs';
-import aa from 'search-insights';
 
 const HITS_PER_PAGE = 20;
 
@@ -27,7 +26,7 @@ class SearchPage extends React.Component<Props, State> {
   }
 
   private onSearchStateChange: (searchState: SearchState) => void = (searchState) => {
-    window.history.replaceState(null, null, searchStateToUrl(searchState));
+    window.Turbo.visit(searchStateToUrl(searchState), { action: 'replace' });
 
     this.setState({ searchState });
   };

@@ -57,7 +57,6 @@ exports[`PriorityProgramRefinement renders correctly 1`] = `
           <ToggleRefinement
             attribute="priority_program"
             canRefine={false}
-            class=""
             className=""
             count={
               Object {
