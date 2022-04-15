@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'percy'
 
 RSpec.describe 'Job Postings screenshots', type: :system, js: true do
   let!(:job_posting) do
@@ -10,7 +9,7 @@ RSpec.describe 'Job Postings screenshots', type: :system, js: true do
 
   it 'renders front page correctly' do
     visit job_posting_path(job_posting)
-    Percy.snapshot(page, { name: 'Job Posting Detail View' })
+    page.percy_snapshot(page, { name: 'Job Posting Detail View' })
   end
 
   it 'renders inquiry form correctly' do
@@ -21,6 +20,6 @@ RSpec.describe 'Job Postings screenshots', type: :system, js: true do
     check 'service_inquiry[agreement]'
     click_button I18n.t('service_inquiries.new.submit')
     expect(page).to have_content(I18n.t('errors.messages.blank'))
-    Percy.snapshot(page, { name: 'Service Inquiry Form' })
+    page.percy_snapshot(page, { name: 'Service Inquiry Form' })
   end
 end
