@@ -13,7 +13,6 @@ exports[` 2`] = `
   className="featured-ribbon red"
 >
   <FontAwesomeIcon
-    class="mr-2"
     className="mr-2"
     icon={
       Array [
@@ -31,7 +30,6 @@ exports[` 3`] = `
   className="featured-ribbon yellow"
 >
   <FontAwesomeIcon
-    class="mr-1"
     className="mr-1"
     icon={
       Array [
