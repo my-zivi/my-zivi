@@ -66,6 +66,9 @@ blocks:
           - 'cache restore gems-gemfile-lock-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop'
           - 'cache restore node-modules-yarn-lock-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop'
           - 'cache restore nvm-nvmrc-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop'
+          - bundle install --deployment -j 4 --path vendor/bundle
+          - nvm install
+          - bin/yarn install --cache-folder ~/.cache/yarn
       jobs:
         - name: Lint
           priority:
@@ -135,6 +138,9 @@ blocks:
           - 'cache restore gems-gemfile-lock-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop'
           - 'cache restore node-modules-yarn-lock-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop'
           - 'cache restore nvm-nvmrc-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop'
+          - bundle install --deployment -j 4 --path vendor/bundle
+          - nvm install
+          - bin/yarn install --cache-folder ~/.cache/yarn
           - sudo apt-get update
           - sudo apt-get install libxss1
           - sem-service start postgres 12
@@ -180,6 +186,9 @@ blocks:
           - 'cache restore gems-gemfile-lock-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-develop'
           - 'cache restore node-modules-yarn-lock-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-develop'
           - 'cache restore nvm-nvmrc-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-develop'
+          - bundle install --deployment -j 4 --path vendor/bundle
+          - nvm install
+          - bin/yarn install --cache-folder ~/.cache/yarn
           - sudo apt-get update
           - sudo apt-get install libxss1
           - bin/rake assets:precompile
