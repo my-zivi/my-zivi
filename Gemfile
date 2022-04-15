@@ -11,7 +11,6 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise_invitable'
 gem 'dotenv-rails'
-gem 'fillable-pdf'
 gem 'flutie'
 gem 'google-cloud-storage', '~> 1.31', require: false
 gem 'hexapdf'

@@ -18,7 +18,7 @@ module Pdfs
         private
 
         def fill_form(pdf_field_data, template_path, output_path)
-          fillable_pdf = FillablePDF.new template_path
+          fillable_pdf = HexaFiller.new template_path
           fill_fields fillable_pdf, pdf_field_data
           fillable_pdf.save_as(output_path, flatten: true)
           fillable_pdf.close
