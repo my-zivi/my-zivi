@@ -35,13 +35,13 @@ body {
 .btn-rounded-close {
   display: flex;
   align-items: center;
+  justify-items: center;
   width: 36px;
   height: 36px;
   font-weight: lighter;
   color: $black;
   background-color: $gray-200;
   border-radius: 50%;
-  justify-items: center;
 
   &:hover {
     color: $black;
