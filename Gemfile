@@ -13,7 +13,7 @@ gem 'devise_invitable'
 gem 'dotenv-rails'
 gem 'flutie'
 gem 'google-cloud-storage', '~> 1.31', require: false
-gem 'hexapdf'
+gem 'hexapdf', '~> 0.21.1'
 gem 'holidays'
 gem 'iban-tools'
 gem 'image_processing'
