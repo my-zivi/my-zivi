@@ -175,8 +175,6 @@ GEM
     faraday-rack (1.0.0)
     faraday-retry (1.0.3)
     ffi (1.15.5)
-    fillable-pdf (0.9.3)
-      rjb (= 1.6.2)
     flutie (2.2.0)
     fugit (1.5.3)
       et-orbi (~> 1, >= 1.2.7)
@@ -223,7 +221,7 @@ GEM
       tilt
     hashdiff (1.0.1)
     hashery (2.1.2)
-    hexapdf (0.22.0)
+    hexapdf (0.21.1)
       cmdparse (~> 3.0, >= 3.0.3)
       geom2d (~> 0.3)
     highline (2.0.3)
@@ -423,7 +421,6 @@ GEM
       railties (>= 5.0)
     retriable (3.1.2)
     rexml (3.2.5)
-    rjb (1.6.2)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
     rspec-expectations (3.11.0)
@@ -621,10 +618,9 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
-  fillable-pdf
   flutie
   google-cloud-storage (~> 1.31)
-  hexapdf
+  hexapdf (~> 0.21.1)
   holidays
   i18n-tasks
   iban-tools
@@ -686,4 +682,4 @@ RUBY VERSION
    ruby 2.7.5p203
 
 BUNDLED WITH
-   2.3.8
+   2.3.11
