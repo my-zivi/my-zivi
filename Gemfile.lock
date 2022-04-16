@@ -221,7 +221,7 @@ GEM
       tilt
     hashdiff (1.0.1)
     hashery (2.1.2)
-    hexapdf (0.22.0)
+    hexapdf (0.21.1)
       cmdparse (~> 3.0, >= 3.0.3)
       geom2d (~> 0.3)
     highline (2.0.3)
@@ -620,7 +620,7 @@ DEPENDENCIES
   faker
   flutie
   google-cloud-storage (~> 1.31)
-  hexapdf
+  hexapdf (~> 0.21.1)
   holidays
   i18n-tasks
   iban-tools
@@ -682,4 +682,4 @@ RUBY VERSION
    ruby 2.7.5p203
 
 BUNDLED WITH
-   2.3.8
+   2.3.11
