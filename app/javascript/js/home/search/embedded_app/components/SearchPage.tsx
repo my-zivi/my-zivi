@@ -26,7 +26,7 @@ class SearchPage extends React.Component<Props, State> {
   }
 
   private onSearchStateChange: (searchState: SearchState) => void = (searchState) => {
-    window.Turbo.visit(searchStateToUrl(searchState), { action: 'replace' });
+    window.history.replaceState(null, null, searchStateToUrl(searchState));
 
     this.setState({ searchState });
   };
