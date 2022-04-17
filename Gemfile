@@ -62,7 +62,7 @@ group :development, :test do
   gem 'faker'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'reek', '~> 6.0.1'
+  gem 'reek', '~> 6.1.0'
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
