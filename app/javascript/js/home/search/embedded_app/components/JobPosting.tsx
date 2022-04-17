@@ -22,6 +22,8 @@ const JobPosting: React.FunctionComponent<Props> = (props) => {
         eventName: 'JobPosting Clicked',
       });
 
+      const { Turbo: { navigator } } = window;
+      navigator.history.update(window.history.replaceState, window.location, navigator.history.restorationIdentifier);
       window.Turbo.visit(hit.link);
     }}>
       <div className="card h-100 job-posting-card">
