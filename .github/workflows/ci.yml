@@ -3,7 +3,7 @@ name: Rails CI
 on: [ push ]
 
 jobs:
-  ci:
+  tests:
     name: Automatic Tests
     runs-on: ubuntu-latest
     timeout-minutes: 40
@@ -31,7 +31,7 @@ jobs:
 
     strategy:
       matrix:
-        Task: [ lint, test, system ]
+        Task: [ lint, test, system, screenshots ]
 
     steps:
       - name: Checkout Git Repository
@@ -74,17 +74,8 @@ jobs:
           bin/rails db:create db:schema:load
           bin/yarn install --cache-folder $(yarn cache dir)
 
-      - name: Cache Webpack Output
-        uses: actions/cache@v3
-        if: matrix.Task == 'system'
-        with:
-          path: |
-            ${{ github.workspace }}/public/packs-test
-            ${{ github.workspace }}/public/packs
-          key: ${{ runner.os }}-webpack-output-${{ github.ref }}
-
       - name: Webpack Build
-        if: matrix.Task == 'system'
+        if: matrix.Task == 'system' || matrix.Task == 'screenshots'
         run: |
           bin/webpack
 
@@ -102,6 +93,10 @@ jobs:
         if: matrix.Task == 'system'
         run: bin/system-tests
 
+      - name: Run Screenshots
+        if: matrix.Task == 'screenshots'
+        run: NO_COVERAGE=true yarn run percy:capture-screenshots
+
       - name: Upload Log Artifacts
         if: ${{ failure() }}
         uses: actions/upload-artifact@v3
@@ -110,3 +105,64 @@ jobs:
           path: |
             ${{ github.workspace }}/log/test.log
             ${{ github.workspace }}/screenshots
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    needs:
+      - tests
+
+    env:
+      GITHUB_NPM_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
+      DATABASE_HOST: localhost
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      RAILS_ENV: test
+
+    steps:
+      - name: Checkout Git Repository
+        uses: actions/checkout@v3
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache Yarn Dependencies
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Get Node Version
+        id: node-version
+        run: echo "::set-output name=version::$(cat .nvmrc | tr -d '\n')"
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.node-version.outputs.version }}
+          cache: 'yarn'
+
+      - name: Install PostgreSQL client
+        run: sudo apt-get -yqq install libpq-dev
+
+      - name: Setup Environment
+        run: |
+          cp .env.example .env
+          bin/rails db:create db:schema:load
+          bin/yarn install --cache-folder $(yarn cache dir) && yarn global add @lhci/cli@^0.8.x
+          sudo apt-get update && sudo apt-get -yqq install libxss1
+
+      - name: Precompile assets
+        run: bin/rake assets:precompile
+
+      - name: Generate Lighthouse Report
+        run: lhci autorun
