@@ -35,6 +35,8 @@ nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
         span.fas.fa-user-friends
       = render 'base/navbar_list_item', resource: current_organization_admin, link: { t('.profile') => edit_organizations_member_path(current_organization_admin) } do
         span.fas.fa-user
+      = render 'base/navbar_list_item', resource: Subscriptions::Base, link: { t('.subscriptions') => organizations_subscriptions_path } do
+        span.fas.fa-money-check
       = render 'base/navbar_list_item',
               link: { \
                 t('.sign_out') => destroy_user_session_path,

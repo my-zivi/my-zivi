@@ -87,6 +87,8 @@ Rails.application.routes.draw do
       end
     end
     resources :job_postings, only: %i[index edit update]
+
+    resources :subscriptions, only: :index
   end
 
   get '/401' => 'errors#unauthorized', as: :unauthorized

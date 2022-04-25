@@ -9,6 +9,7 @@ module Abilities
 
       can(:access, :organization_portal)
       can(:read, :organization_overview)
+      can(:read, ::Subscriptions::Base)
 
       organization.subscriptions.each do |subscription|
         abilities_for_subscription(subscription, organization)
