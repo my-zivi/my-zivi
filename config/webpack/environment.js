@@ -1,13 +1,14 @@
 const { environment } = require('@rails/webpacker');
 const webpack = require('webpack');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
-const typescript = require('./loaders/typescript');
 const path = require('path');
 
 environment.plugins.append('Provide', new webpack.ProvidePlugin({
   $: 'jquery',
   jQuery: 'jquery',
   Popper: ['popper.js', 'default'],
+  h: ['preact', 'h'],
+  Fragment: ['preact', 'Fragment'],
 }));
 
 environment.plugins.append('MomentLocalesPlugin', new MomentLocalesPlugin({
@@ -30,5 +31,4 @@ environment.config.merge({
   },
 });
 
-environment.loaders.prepend('typescript', typescript);
 module.exports = environment;

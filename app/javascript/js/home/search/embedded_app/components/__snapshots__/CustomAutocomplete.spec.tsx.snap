@@ -80,9 +80,9 @@ exports[`CustomAutocomplete renders an autocomplete menu when focusing input ele
     >
       <input
         autoFocus={true}
-        onBlur={[Function]}
-        onFocus={[Function]}
         onKeyUp={[Function]}
+        onfocusin={[Function]}
+        onfocusout={[Function]}
         oninput={[Function]}
         placeholder="string"
         type="search"
@@ -101,7 +101,7 @@ exports[`CustomAutocomplete renders an autocomplete menu when focusing input ele
     </div>
   </SearchBox>
   <div
-    className="autocomplete-container d-block"
+    className="autocomplete-container d-none"
   >
     <div
       className="autocomplete-content"
@@ -121,7 +121,6 @@ exports[`CustomAutocomplete renders an autocomplete menu when focusing input ele
             onMouseOver={[Function]}
           >
             <FontAwesomeIcon
-              class="mr-2"
               className="mr-2"
               icon={
                 Array [
@@ -219,9 +218,9 @@ exports[`CustomAutocomplete renders correctly 1`] = `
     >
       <input
         autoFocus={true}
-        onBlur={[Function]}
-        onFocus={[Function]}
         onKeyUp={[Function]}
+        onfocusin={[Function]}
+        onfocusout={[Function]}
         oninput={[Function]}
         placeholder="string"
         type="search"
@@ -260,7 +259,6 @@ exports[`CustomAutocomplete renders correctly 1`] = `
             onMouseOver={[Function]}
           >
             <FontAwesomeIcon
-              class="mr-2"
               className="mr-2"
               icon={
                 Array [

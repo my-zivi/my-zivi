@@ -32,12 +32,7 @@ RSpec.describe CivilServant, type: :model do
     before { create(:civil_servant, :full) }
 
     let(:invalid_ibans) do
-      %w[
-        CH93\ 0076\ 2011\ 6238\ 5295\ 7
-        CH93007620116238529577
-        CH9300762011623852956
-        XX9300762011623852957
-      ]
+      ['CH93 0076 2011 6238 5295 7', 'CH93007620116238529577', 'CH9300762011623852956', 'XX9300762011623852957']
     end
 
     it 'validates the model correctly' do
@@ -125,20 +120,20 @@ RSpec.describe CivilServant, type: :model do
     context 'when the civil_servants is currently doing civil service' do
       let(:beginning) { Time.zone.today.at_beginning_of_week }
 
-      it { is_expected.to eq true }
+      it { is_expected.to be true }
     end
 
     context 'when the civil_servants is not doing civil service' do
       let(:beginning) { Time.zone.today.at_beginning_of_week + 1.week }
 
-      it { is_expected.to eq false }
+      it { is_expected.to be false }
     end
 
     context 'when the civil service he\'s currently doing ends today' do
       let(:beginning) { Time.zone.today.at_beginning_of_week - 1.week }
       let(:service) { build(:service, :last, beginning: beginning, ending: Time.zone.today) }
 
-      it { is_expected.to eq true }
+      it { is_expected.to be true }
     end
   end
 

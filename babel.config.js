@@ -1,3 +1,4 @@
+// eslint-disable-next-line func-names
 module.exports = function (api) {
   const validEnv = ['development', 'test', 'production'];
   const currentEnv = api.env();
@@ -25,12 +26,6 @@ module.exports = function (api) {
           },
         },
       ],
-      isTestEnv && [
-        '@babel/preset-typescript',
-        {
-          jsxPragma: 'h',
-        },
-      ],
       (isProductionEnv || isDevelopmentEnv) && [
         '@babel/preset-env',
         {
@@ -41,6 +36,15 @@ module.exports = function (api) {
           exclude: ['transform-typeof-symbol'],
         },
       ],
+      [
+        '@babel/preset-typescript',
+        {
+          allExtensions: true,
+          isTSX: true,
+          jsxPragma: 'h',
+          jsxPragmaFrag: 'Fragment',
+        },
+      ],
     ].filter(Boolean),
     plugins: [
       'babel-plugin-macros',
@@ -49,9 +53,15 @@ module.exports = function (api) {
       '@babel/plugin-transform-destructuring',
       [
         '@babel/plugin-proposal-class-properties',
-        {
-          loose: true,
-        },
+        { loose: true },
+      ],
+      [
+        '@babel/plugin-proposal-private-property-in-object',
+        { loose: true },
+      ],
+      [
+        '@babel/plugin-proposal-private-methods',
+        { loose: true },
       ],
       [
         '@babel/plugin-proposal-object-rest-spread',

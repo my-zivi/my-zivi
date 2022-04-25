@@ -6,9 +6,9 @@ exports[`SearchBox renders correctly 1`] = `
 >
   <input
     autoFocus={true}
-    onBlur={[Function]}
-    onFocus={[Function]}
     onKeyUp={[Function]}
+    onfocusin={[Function]}
+    onfocusout={[Function]}
     oninput={[Function]}
     placeholder="string"
     type="search"

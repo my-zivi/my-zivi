@@ -13,7 +13,7 @@ CivilServant.create!(
       iban: 'CH9300762011623852957',
       health_insurance: 'Sanicare',
       driving_licenses: DrivingLicense.where(name: %w[B A]),
-      workshops: Workshop.where(name: %w[Kommunikation\ und\ Betreuung Pflegehilfe\ 1]),
+      workshops: Workshop.where(name: ['Kommunikation und Betreuung', 'Pflegehilfe 1']),
       registration_step: last_registration_step,
       user: User.new(
         email: 'max.zivi@example.com',

@@ -65,46 +65,46 @@ RSpec.describe ServiceSpecification, type: :model do
     let(:service_specification) { build(:service_specification, work_days_expenses: expenses) }
 
     context 'when it has a valid format' do
-      it('allows all required keys') { is_expected.to eq false }
+      it('allows all required keys') { is_expected.to be false }
     end
 
     context 'when there are too few keys' do
       let(:expenses) { { breakfast: 400 } }
 
-      it { is_expected.to eq true }
+      it { is_expected.to be true }
     end
 
     context 'when there are too many keys' do
       let(:expenses) { { breakfast: 400, lunch: 900, dinner: 700, supper: 12 } }
 
-      it { is_expected.to eq true }
+      it { is_expected.to be true }
     end
 
     context 'when there are keys which are invalid' do
       let(:expenses) { { breakfast: 400, lunch: 900, invalid: 700 } }
 
-      it { is_expected.to eq true }
+      it { is_expected.to be true }
     end
 
     context 'when there are non numeric values' do
       let(:error_key) { :not_a_positive_currency_amount }
       let(:expenses) { { breakfast: 400, lunch: 900, dinner: 'really expensive' } }
 
-      it { is_expected.to eq true }
+      it { is_expected.to be true }
     end
 
     context 'when there are negative values' do
       let(:error_key) { :not_a_positive_currency_amount }
       let(:expenses) { { breakfast: 400, lunch: -900, dinner: -800 } }
 
-      it { is_expected.to eq true }
+      it { is_expected.to be true }
     end
 
     context 'when there are float values' do
       let(:error_key) { :not_a_positive_currency_amount }
       let(:expenses) { { breakfast: 400, lunch: -900.123, dinner: 800.123 } }
 
-      it { is_expected.to eq true }
+      it { is_expected.to be true }
     end
   end
 

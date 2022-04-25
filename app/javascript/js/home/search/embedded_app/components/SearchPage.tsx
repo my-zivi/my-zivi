@@ -6,7 +6,6 @@ import React, { JSX } from 'preact/compat';
 import { SearchClient } from 'algoliasearch';
 import PoweredBy from 'js/home/search/embedded_app/components/PoweredBy';
 import qs from 'qs';
-import aa from 'search-insights';
 
 const HITS_PER_PAGE = 20;
 

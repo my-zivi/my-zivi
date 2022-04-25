@@ -7,8 +7,8 @@ module DateTimePickerHelper
   }.freeze
 
   RANGE_SPLITTERS = {
-    "fr-CH": ' au ',
-    "de-CH": ' bis '
+    'fr-CH': ' au ',
+    'de-CH': ' bis '
   }.freeze
 
   # :reek:BooleanParameter

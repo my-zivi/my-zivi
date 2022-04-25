@@ -12,7 +12,6 @@ exports[`PoweredBy renders correctly 1`] = `
   >
     string
     <FontAwesomeIcon
-      class="mx-1"
       className="mx-1"
       icon={
         Array [

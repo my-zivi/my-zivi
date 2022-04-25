@@ -42,6 +42,7 @@ exports[`MinimumServiceMonthsRefinement renders correctly 1`] = `
               },
             }
           }
+          facetOrdering={true}
           limit={5}
           operator="or"
           searchable={false}
@@ -63,6 +64,7 @@ exports[`MinimumServiceMonthsRefinement renders correctly 1`] = `
             canRefine={false}
             createURL={[Function]}
             currentRefinement={Array []}
+            facetOrdering={true}
             isFromSearch={false}
             items={Array []}
             limit={5}
@@ -88,6 +90,7 @@ exports[`MinimumServiceMonthsRefinement renders correctly 1`] = `
               canRefine={false}
               createURL={[Function]}
               currentRefinement={Array []}
+              facetOrdering={true}
               isFromSearch={false}
               items={Array []}
               limit={5}
@@ -118,6 +121,7 @@ exports[`MinimumServiceMonthsRefinement renders correctly 1`] = `
                     canRefine={false}
                     createURL={[Function]}
                     currentRefinement={Array []}
+                    facetOrdering={true}
                     isFromSearch={false}
                     items={Array []}
                     limit={5}
@@ -141,10 +145,10 @@ exports[`MinimumServiceMonthsRefinement renders correctly 1`] = `
                     <RefinementList
                       attribute="minimum_service_months"
                       canRefine={false}
-                      class=""
                       className=""
                       createURL={[Function]}
                       currentRefinement={Array []}
+                      facetOrdering={true}
                       isFromSearch={false}
                       items={Array []}
                       limit={5}
@@ -168,7 +172,6 @@ exports[`MinimumServiceMonthsRefinement renders correctly 1`] = `
                     >
                       <List
                         canRefine={false}
-                        class=""
                         className=""
                         cx={[Function]}
                         isFromSearch={false}

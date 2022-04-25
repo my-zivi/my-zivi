@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'percy'
 
 RSpec.describe 'Organizations Portal Screenshots', type: :system, js: true do
   let(:organization) { create(:organization) }
@@ -18,7 +17,7 @@ RSpec.describe 'Organizations Portal Screenshots', type: :system, js: true do
 
   it 'renders front page correctly' do
     visit organizations_path
-    Percy.snapshot(page, { name: 'Organizations Dashboard' })
+    page.percy_snapshot(page, { name: 'Organizations Dashboard' })
   end
 
   context 'when organization subscribed to admin' do
@@ -26,7 +25,7 @@ RSpec.describe 'Organizations Portal Screenshots', type: :system, js: true do
 
     it 'renders front page correctly' do
       visit organizations_path
-      Percy.snapshot(page, { name: 'Organizations Dashboard with Admin Subscription' })
+      page.percy_snapshot(page, { name: 'Organizations Dashboard with Admin Subscription' })
     end
   end
 
@@ -35,7 +34,7 @@ RSpec.describe 'Organizations Portal Screenshots', type: :system, js: true do
 
     it 'renders front page correctly' do
       visit organizations_path
-      Percy.snapshot(page, { name: 'Organizations Dashboard with Recruiting Subscription' })
+      page.percy_snapshot(page, { name: 'Organizations Dashboard with Recruiting Subscription' })
     end
   end
 
@@ -46,7 +45,7 @@ RSpec.describe 'Organizations Portal Screenshots', type: :system, js: true do
 
     it 'renders front page correctly' do
       visit organizations_path
-      Percy.snapshot(page, { name: 'Organizations Dashboard with Recruiting and Admin Subscription' })
+      page.percy_snapshot(page, { name: 'Organizations Dashboard with Recruiting and Admin Subscription' })
     end
   end
 end

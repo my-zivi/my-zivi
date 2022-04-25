@@ -5,10 +5,6 @@ require 'rails_helper'
 RSpec.describe Pdfs::ExpenseSheet::GeneratorService, type: :service do
   describe '#render' do
     context 'when locale is german' do
-      before { I18n.locale = :'de-CH' }
-
-      after { I18n.locale = I18n.default_locale }
-
       let(:pdf) { described_class.new(expense_sheet).render }
       let(:expense_sheet) { create :expense_sheet, expense_sheet_data }
       let(:service) { create :service, service_data }
@@ -31,6 +27,12 @@ RSpec.describe Pdfs::ExpenseSheet::GeneratorService, type: :service do
         }
       end
       let(:pdf_page_inspector) { PDF::Inspector::Page.analyze(pdf) }
+
+      around do |spec|
+        I18n.with_locale(:'de-CH') do
+          spec.run
+        end
+      end
 
       it 'renders first page correctly' do
         expect(pdf_page_inspector.pages.size).to eq 1

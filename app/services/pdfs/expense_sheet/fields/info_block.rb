@@ -18,7 +18,7 @@ module Pdfs
             label: "#{I18n.t('activerecord.attributes.address.street')}:",
             content: lambda { |expense_sheet|
               "#{expense_sheet.service.civil_servant.address.street}, " \
-              "#{expense_sheet.service.civil_servant.address.zip_with_city} "
+                "#{expense_sheet.service.civil_servant.address.zip_with_city} "
             }
           },
           {

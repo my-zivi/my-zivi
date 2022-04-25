@@ -62,10 +62,10 @@ RSpec.describe RegistrationStep, type: :model do
     let(:step) { described_class.new(identifier: :address) }
 
     it 'generates convenience check methods' do
-      expect(step.personal_step_completed?).to eq true
-      expect(step.address_step_completed?).to eq true
-      expect(step.bank_and_insurance_step_completed?).to eq false
-      expect(step.service_specific_step_completed?).to eq false
+      expect(step.personal_step_completed?).to be true
+      expect(step.address_step_completed?).to be true
+      expect(step.bank_and_insurance_step_completed?).to be false
+      expect(step.service_specific_step_completed?).to be false
     end
   end
 end

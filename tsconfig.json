@@ -15,7 +15,8 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noEmit": true,
   },
   "exclude": [
     "**/*.spec.ts",
