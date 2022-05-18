@@ -10,7 +10,13 @@ Guten Tag [[ Vorname Name Betrieb ]]
 </p>
 
 <blockquote>
-  <strong><%= @service_inquiry.name %></strong> (<%= @service_inquiry.email %>) <br>
+  <%
+    contact = [
+      mail_to(@service_inquiry.email),
+      (phone_to(@service_inquiry.phone) if @service_inquiry.phone)
+    ].compact.to_sentence
+  %>
+  <strong><%= @service_inquiry.name %></strong> (<%== contact %>) <br>
   Gewünschter Einsatzstart: <%= @service_inquiry.service_beginning %> <br>
   Gewünschte Einsatzlänge: <%= @service_inquiry.service_duration %> <br>
   <br>
@@ -19,7 +25,7 @@ Guten Tag [[ Vorname Name Betrieb ]]
 
 <p>Gerne bitten wir Sie, Kontakt mit diesem Zivi aufzunehmen, falls das Profil interessant für Sie ist.</p>
 
-----
+<%= '–' * 15 %>
 <br>
 
 <p>
