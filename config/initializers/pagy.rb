@@ -169,8 +169,8 @@ require 'pagy/extras/bootstrap'
 
 # Overflow extra: Allow for easy handling of overflowing pages
 # See https://ddnexus.github.io/pagy/extras/overflow
-# require 'pagy/extras/overflow'
-# Pagy::DEFAULT[:overflow] = :empty_page    # default  (other options: :last_page and :exception)
+require 'pagy/extras/overflow'
+Pagy::DEFAULT[:overflow] = :last_page # default  (other options: :last_page and :exception)
 
 # Support extra: Extra support for features like: incremental, infinite, auto-scroll pagination
 # See https://ddnexus.github.io/pagy/extras/support
@@ -178,9 +178,9 @@ require 'pagy/extras/bootstrap'
 
 # Trim extra: Remove the page=1 param from links
 # See https://ddnexus.github.io/pagy/extras/trim
-# require 'pagy/extras/trim'
+require 'pagy/extras/trim'
 # set to false only if you want to make :trim_extra an opt-in variable
-# Pagy::DEFAULT[:trim_extra] = false # default true
+Pagy::DEFAULT[:trim_extra] = true # default true
 
 # Standalone extra: Use pagy in non Rack environment/gem
 # See https://ddnexus.github.io/pagy/extras/standalone
