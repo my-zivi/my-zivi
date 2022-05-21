@@ -29,8 +29,7 @@ BlogEntry.create!(
     tincidunt libero sit amet magna sodales sodales. Cras convallis magna a arcu mollis finibus. Proin tortor lacus,
     viverra nec tempus non, blandit vitae risus. Sed luctus eros a ipsum dapibus, id dictum tellus sollicitudin. Quisque
     interdum laoreet tellus blandit iaculis. Donec consequat tellus vitae vulputate elementum.
-TEXT
+  TEXT
 )
-
 
 puts '> Blog entries seeded'
