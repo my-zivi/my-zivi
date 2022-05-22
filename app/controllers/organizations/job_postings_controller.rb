@@ -2,6 +2,10 @@
 
 module Organizations
   class JobPostingsController < BaseController
+    include Pagy::Backend
+
+    ITEMS = 10
+
     load_and_authorize_resource find_by: :slug
     skip_authorize_resource only: :index
     breadcrumb 'organizations.job_postings.index', :organizations_job_postings_path
@@ -9,7 +13,10 @@ module Organizations
     before_action :edit_breadcrumb, only: %i[edit update]
 
     def index
-      @job_postings = @job_postings.accessible_by(current_ability, :edit)
+      @pagy, @job_postings = pagy(
+        @job_postings.accessible_by(current_ability, :edit).order(:title),
+        items: ITEMS
+      )
     end
 
     def edit; end

@@ -12,5 +12,8 @@
               p.text-muted.mb-1 = job_posting.brief_description
             .flex-grow-0.align-self-center
               i.fas.fa-chevron-right
+  - if @pagy.pages > 1
+    .d-flex.justify-content-center.mt-3
+      == pagy_bootstrap_nav(@pagy)
 
-small.d-block.mt-3.text-muted = t('.notice_html')
+small.d-block.my-3.text-muted = t('.notice_html')
