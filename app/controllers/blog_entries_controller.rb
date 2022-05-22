@@ -1,12 +1,21 @@
 # frozen_string_literal: true
 
 class BlogEntriesController < ApplicationController
+  include Pagy::Backend
+
+  ITEMS = 20
+
   authorize_resource
 
-  before_action -> { I18n.locale = :'de-CH' }
+  around_action do |_controller, action|
+    I18n.with_locale(:'de-CH', &action)
+  end
 
   def index
-    @blog_entries = BlogEntry.published.including_tags(*filter_params[:tags]).order(created_at: :desc)
+    @pagy, @blog_entries = pagy(
+      BlogEntry.published.including_tags(*filter_params[:tags]).order(created_at: :desc),
+      items: ITEMS
+    )
   end
 
   def show

@@ -6,16 +6,22 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
   describe '#index' do
     let(:perform_request) { get(organizations_job_postings_path) }
     let(:organization) { create(:organization, :with_recruiting) }
-    let(:visible_job_posting) { create(:job_posting, organization: organization, title: 'Naturschutz') }
+    let(:visible_job_postings) do
+      [
+        create(:job_posting, organization: organization, title: 'Alp-Pflege'),
+        create(:job_posting, organization: organization, title: 'Naturschutz')
+      ]
+    end
+
     let(:invisible_job_postings) do
       [
-        create(:job_posting, title: 'Pflege'),
+        create(:job_posting, title: 'Kinderbetreuung'),
         create(:job_posting, organization: create(:organization, :with_admin), title: 'Archivierung')
       ]
     end
 
     before do
-      visible_job_posting
+      visible_job_postings
       invisible_job_postings
     end
 
@@ -35,8 +41,22 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
       it 'successfully fetches a list of job postings in the organization' do
         perform_request
         expect(response).to have_http_status(:success)
-        expect(response.body).to include visible_job_posting.title
+        expect(response.body).to include(*visible_job_postings.map(&:title))
         expect(response.body).not_to include(*invisible_job_postings.map(&:title))
+        expect(response.body).not_to include 'pagination'
+      end
+
+      context 'when content gets too long' do
+        before do
+          stub_const('Organizations::JobPostingsController::ITEMS', 1)
+        end
+
+        it 'paginates the response' do
+          perform_request
+          expect(response.body).to include 'pagination'
+          expect(response.body).to include visible_job_postings.first.title
+          expect(response.body).not_to include visible_job_postings.second.title
+        end
       end
     end
 
