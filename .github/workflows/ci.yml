@@ -74,10 +74,10 @@ jobs:
           bin/rails db:create db:schema:load
           bin/yarn install --cache-folder $(yarn cache dir)
 
-      - name: Webpack Build
+      - name: Vite Build
         if: matrix.Task == 'system'
         run: |
-          bin/webpack
+          bin/vite build
 
       - name: Linting
         if: matrix.Task == 'lint'
@@ -171,9 +171,9 @@ jobs:
           bin/rails db:create db:schema:load
           bin/yarn install --cache-folder $(yarn cache dir)
 
-      - name: Webpack Build
+      - name: Vite Build
         if: steps.cache-webpack.outputs.cache-hit != 'true'
-        run: bin/webpack
+        run: bin/vite build
 
       - name: Run Screenshots
         run: NO_COVERAGE=true yarn run percy:capture-screenshots
