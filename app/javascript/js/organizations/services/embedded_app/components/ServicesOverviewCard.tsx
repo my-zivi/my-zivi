@@ -1,6 +1,6 @@
 import { Component, ComponentChild } from 'preact';
-import { DATE_FORMATS } from '~/js/constants';
 import React from 'preact/compat';
+import { DATE_FORMATS } from '~/js/constants';
 import { Service } from '~/js/organizations/services/embedded_app/types';
 import Spinner from '~/js/shared/components/Spinner';
 import withApi, { WithApiProps } from '~/js/shared/withApiHelper';

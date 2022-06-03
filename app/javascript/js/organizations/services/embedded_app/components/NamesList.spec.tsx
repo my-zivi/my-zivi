@@ -1,9 +1,9 @@
+import { shallow } from 'enzyme';
+import React from 'preact/compat';
 import ServicesList from '~/js/organizations/services/embedded_app/models/ServicesList';
 import Factories from '~/js/tests/factories/Factories';
 import ServiceFactory from '~/js/tests/factories/ServiceFactory';
-import { shallow } from 'enzyme';
 import NamesList from '~/js/organizations/services/embedded_app/components/NamesList';
-import React from 'preact/compat';
 
 describe('NamesList', () => {
   const servicesList = new ServicesList(Factories.buildList(ServiceFactory, 3, {

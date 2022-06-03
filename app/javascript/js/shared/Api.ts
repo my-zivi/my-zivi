@@ -1,5 +1,5 @@
-import { Service } from '~/js/organizations/services/embedded_app/types';
 import Rails from '@rails/ujs';
+import { Service } from '~/js/organizations/services/embedded_app/types';
 
 interface RequestOptions {
   url: string;

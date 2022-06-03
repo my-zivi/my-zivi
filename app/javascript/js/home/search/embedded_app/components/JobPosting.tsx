@@ -1,9 +1,9 @@
 import React from 'preact/compat';
-import { JobPostingSearchHit } from '~/js/home/search/embedded_app/types';
-import Ribbon from '~/js/home/search/embedded_app/components/Ribbon';
 import { connectHitInsights, WrappedInsightsClient } from 'react-instantsearch-core';
 import aa from 'search-insights';
 import { Hit } from '@algolia/client-search';
+import Ribbon from '~/js/home/search/embedded_app/components/Ribbon';
+import { JobPostingSearchHit } from '~/js/home/search/embedded_app/types';
 
 const JobPostingIcon = React.memo((({ iconUrl, alt }) => (
   <img src={iconUrl} alt={alt} className="job-posting-icon" />

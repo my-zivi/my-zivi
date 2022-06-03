@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
-import { Relevancy, JobPostingSearchHit } from '~/js/home/search/embedded_app/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'preact/compat';
+import { Relevancy, JobPostingSearchHit } from '~/js/home/search/embedded_app/types';
 
 const Ribbon: React.FunctionComponent<{hit: JobPostingSearchHit}> = ({ hit: { relevancy, featured_as_new } }) => {
   if (relevancy === Relevancy.Urgent) {

@@ -1,11 +1,11 @@
 import { Configure, InstantSearch, Stats } from 'react-instantsearch-dom';
+import React, { JSX } from 'preact/compat';
+import { SearchClient } from 'algoliasearch';
+import qs from 'qs';
 import CustomAutocomplete from '~/js/home/search/embedded_app/components/CustomAutocomplete';
 import CustomHitComponent from '~/js/home/search/embedded_app/components/CustomHitComponent';
 import RefinementsPanel from '~/js/home/search/embedded_app/components/RefinementsPanel';
-import React, { JSX } from 'preact/compat';
-import { SearchClient } from 'algoliasearch';
 import PoweredBy from '~/js/home/search/embedded_app/components/PoweredBy';
-import qs from 'qs';
 
 const HITS_PER_PAGE = 20;
 

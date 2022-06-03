@@ -1,6 +1,6 @@
 import { FunctionalComponent } from 'preact';
-import ServicesList from '~/js/organizations/services/embedded_app/models/ServicesList';
 import React from 'preact/compat';
+import ServicesList from '~/js/organizations/services/embedded_app/models/ServicesList';
 
 const NamesList: FunctionalComponent<{ servicesList: ServicesList }> = ({ servicesList }) => (
     <div className="names-list">

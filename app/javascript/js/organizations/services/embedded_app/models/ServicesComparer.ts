@@ -1,5 +1,5 @@
-import { Service } from '~/js/organizations/services/embedded_app/types';
 import moment from 'moment';
+import { Service } from '~/js/organizations/services/embedded_app/types';
 
 export default class ServicesComparer {
   static compare(service1: Service, service2: Service): number {

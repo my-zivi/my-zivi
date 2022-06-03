@@ -1,6 +1,6 @@
+import * as _ from 'lodash';
 import { Service } from '~/js/organizations/services/embedded_app/types';
 
-import * as _ from 'lodash';
 import Factory from '~/js/tests/factories/Factory';
 
 const randomName = () => _.sample([

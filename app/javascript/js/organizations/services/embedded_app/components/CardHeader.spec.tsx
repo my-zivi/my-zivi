@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
-import CardHeader from '~/js/organizations/services/embedded_app/components/CardHeader';
 import React from 'preact/compat';
+import CardHeader from '~/js/organizations/services/embedded_app/components/CardHeader';
 
 describe('CardHeader', () => {
   it('renders correctly', () => {

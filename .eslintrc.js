@@ -49,9 +49,16 @@ module.exports = {
     react: {
       version: 'detect',
     },
-    'import/extensions': ['.js', '.mjs', '.jsx', '.ts', '.tsx'],
+    'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
     'import/resolver': {
       typescript: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+      alias: {
+        map: [
+          ['@', './app/javascript'],
+          ['~', './app/javascript'],
+        ],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },

@@ -1,6 +1,6 @@
 import React from 'preact/compat';
-import { IApi } from '~/js/shared/Api';
 import { ComponentClass, ComponentType } from 'preact';
+import { IApi } from '~/js/shared/Api';
 import { ApiContext } from '~/js/shared/ApiProvider';
 
 export type WithApiProps = { api: IApi };

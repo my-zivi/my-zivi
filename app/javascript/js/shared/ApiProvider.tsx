@@ -1,6 +1,6 @@
 import React from 'preact/compat';
-import Api, { IApi } from '~/js/shared/Api';
 import { ComponentChild } from 'preact';
+import Api, { IApi } from '~/js/shared/Api';
 
 export const ApiContext = React.createContext<IApi>(undefined);
 
