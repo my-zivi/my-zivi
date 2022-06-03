@@ -2,7 +2,7 @@ import React, {
   forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState,
 } from 'preact/compat';
 import { delay } from 'lodash';
-import { debounceDelay } from 'js/home/search/embedded_app/helpers/SearchBoxHelper';
+import { debounceDelay } from '~/js/home/search/embedded_app/helpers/SearchBoxHelper';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const searchIcon = require('../../../../../images/home/search.svg');

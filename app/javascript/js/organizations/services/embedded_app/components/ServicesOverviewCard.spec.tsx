@@ -1,8 +1,8 @@
 import React from 'preact/compat';
-import Factories from 'js/tests/factories/Factories';
-import ServiceFactory from 'js/tests/factories/ServiceFactory';
-import { IApi } from 'js/shared/Api';
-import { Service } from 'js/organizations/services/embedded_app/types';
+import Factories from '~/js/tests/factories/Factories';
+import ServiceFactory from '~/js/tests/factories/ServiceFactory';
+import { IApi } from '~/js/shared/Api';
+import { Service } from '~/js/organizations/services/embedded_app/types';
 import ServicesOverviewCard from './ServicesOverviewCard';
 import { fakeWrapInApiProvider, setImmediate } from '../../../../../../../jest/utils';
 

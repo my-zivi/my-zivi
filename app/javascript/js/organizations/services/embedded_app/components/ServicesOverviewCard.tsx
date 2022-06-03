@@ -1,9 +1,9 @@
 import { Component, ComponentChild } from 'preact';
-import { DATE_FORMATS } from 'js/constants';
+import { DATE_FORMATS } from '~/js/constants';
 import React from 'preact/compat';
-import { Service } from 'js/organizations/services/embedded_app/types';
-import Spinner from 'js/shared/components/Spinner';
-import withApi, { WithApiProps } from 'js/shared/withApiHelper';
+import { Service } from '~/js/organizations/services/embedded_app/types';
+import Spinner from '~/js/shared/components/Spinner';
+import withApi, { WithApiProps } from '~/js/shared/withApiHelper';
 import ServicesList from '../models/ServicesList';
 import OverviewTable from './OverviewTable';
 import CardHeader from './CardHeader';

@@ -13,3 +13,9 @@ $my-zivi-gradient: linear-gradient(294.82deg, $purple 0%, $blue 100%);
 $type-scale: 1.3;
 $transition-collapse: height .35s ease;
 $transition-collapse-icon: transform .35s ease;
+
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins/breakpoints';
+@import '@my-zivi/falcon/scss/theme/functions';
+@import '@my-zivi/falcon/scss/theme/variables';

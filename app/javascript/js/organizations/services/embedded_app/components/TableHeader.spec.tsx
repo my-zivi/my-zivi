@@ -1,5 +1,5 @@
-import TableHeader from 'js/organizations/services/embedded_app/components/TableHeader';
-import MonthlyGroup from 'js/organizations/services/embedded_app/models/MonthlyGroup';
+import TableHeader from '~/js/organizations/services/embedded_app/components/TableHeader';
+import MonthlyGroup from '~/js/organizations/services/embedded_app/models/MonthlyGroup';
 import { shallow } from 'enzyme';
 import moment from 'moment';
 import React from 'preact/compat';

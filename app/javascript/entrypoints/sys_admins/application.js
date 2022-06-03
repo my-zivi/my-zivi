@@ -1,5 +1,5 @@
 import '../application';
-import '../../js/init';
+import '~/js/init';
 import 'trix';
 import '@rails/actiontext';
 import '@my-zivi/falcon/js/theme/flatpickr';

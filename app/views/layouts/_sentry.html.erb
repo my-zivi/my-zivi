@@ -3,5 +3,5 @@
     window.sentryConfig = { dsn: '<%= ENV['SENTRY_DSN']%>', environment: '<%= ENV['SENTRY_ENVIRONMENT']%>' };
   </script>
 
-  <%= javascript_pack_tag 'sentry' %>
+  <%= vite_javascript_tag 'sentry' %>
 <% end %>

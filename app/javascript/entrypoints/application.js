@@ -12,3 +12,5 @@ import 'bootstrap/dist/js/bootstrap.min';
 import '../stylesheets/application.scss';
 import '../images';
 import '../../../lib/javascripts/modernizr';
+
+import '../fonts/ubuntu/Ubuntu-Bold.ttf';

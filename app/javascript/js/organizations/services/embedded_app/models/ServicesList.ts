@@ -1,8 +1,8 @@
 import moment, { Moment } from 'moment';
 import { range } from 'lodash';
-import MonthlyGroup from 'js/organizations/services/embedded_app/models/MonthlyGroup';
-import { Service } from 'js/organizations/services/embedded_app/types';
-import ServicesComparer from 'js/organizations/services/embedded_app/models/ServicesComparer';
+import MonthlyGroup from '~/js/organizations/services/embedded_app/models/MonthlyGroup';
+import { Service } from '~/js/organizations/services/embedded_app/types';
+import ServicesComparer from '~/js/organizations/services/embedded_app/models/ServicesComparer';
 
 export default class ServicesList {
   public readonly services: Service[];

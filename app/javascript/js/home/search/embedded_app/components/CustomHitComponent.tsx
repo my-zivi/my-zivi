@@ -3,7 +3,7 @@ import { InfiniteHitsProvided } from 'react-instantsearch-core';
 import React from 'preact/compat';
 import { connectInfiniteHits } from 'react-instantsearch-dom';
 import { isEmpty } from 'lodash';
-import { JobPostingSearchHit } from 'js/home/search/embedded_app/types';
+import { JobPostingSearchHit } from '~/js/home/search/embedded_app/types';
 import JobPosting from './JobPosting';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

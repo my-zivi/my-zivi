@@ -1,4 +1,4 @@
-import Factory, { Overrides } from 'js/tests/factories/Factory';
+import Factory, { Overrides } from '~/js/tests/factories/Factory';
 import { range } from 'lodash';
 
 export default {

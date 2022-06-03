@@ -1,6 +1,8 @@
+@import '../theme/variables';
+
 .home-hero {
   background-color: transparent;
-  background-image: url('../images/home/hero-blurred.jpg');
+  background-image: url('~/images/home/hero-blurred.jpg');
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: cover;

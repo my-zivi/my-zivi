@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
-import Factory from 'js/tests/factories/Factory';
-import { JobPostingSearchHit, Relevancy } from 'js/home/search/embedded_app/types';
+import Factory from '~/js/tests/factories/Factory';
+import { JobPostingSearchHit, Relevancy } from '~/js/home/search/embedded_app/types';
 
 const JobPostingFactory: Factory<JobPostingSearchHit> = {
   build(overrides?: Record<string, unknown> | JobPostingSearchHit): JobPostingSearchHit {

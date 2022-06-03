@@ -1,7 +1,7 @@
 import React from 'preact/compat';
 import { FunctionalComponent } from 'preact';
-import MonthlyGroup from 'js/organizations/services/embedded_app/models/MonthlyGroup';
-import { DATE_FORMATS } from 'js/constants';
+import MonthlyGroup from '~/js/organizations/services/embedded_app/models/MonthlyGroup';
+import { DATE_FORMATS } from '~/js/constants';
 
 interface Props {
   monthlyGroup: MonthlyGroup;

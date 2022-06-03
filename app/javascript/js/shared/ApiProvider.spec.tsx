@@ -1,6 +1,6 @@
 import React from 'preact/compat';
-import withApi from 'js/shared/withApiHelper';
-import ApiProvider from 'js/shared/ApiProvider';
+import withApi from '~/js/shared/withApiHelper';
+import ApiProvider from '~/js/shared/ApiProvider';
 import { mountConsumerComponent } from '../../../../jest/utils';
 
 describe('ApiProvider', () => {

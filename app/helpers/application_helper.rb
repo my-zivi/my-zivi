@@ -35,7 +35,7 @@ module ApplicationHelper
     tag.picture do
       concat tag.source(srcset: asset_pack_path("media/images/#{base_path}.webp"), type: 'image/webp')
       concat tag.source(srcset: asset_pack_path("media/images/#{fallback_image_name}"), type: mime)
-      concat image_pack_tag(fallback_image_name, **kwargs)
+      concat vite_image_tag(fallback_image_name, **kwargs)
     end
   end
 end

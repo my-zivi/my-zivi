@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { DATE_FORMATS } from 'js/constants';
+import { DATE_FORMATS } from '~/js/constants';
 
 export default class MonthlyGroup {
   public readonly month: Moment;

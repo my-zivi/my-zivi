@@ -1,8 +1,8 @@
 import React from 'preact/compat';
 import { FunctionalComponent } from 'preact';
-import MonthlyGroup from 'js/organizations/services/embedded_app/models/MonthlyGroup';
-import ServicesList from 'js/organizations/services/embedded_app/models/ServicesList';
-import { Service } from 'js/organizations/services/embedded_app/types';
+import MonthlyGroup from '~/js/organizations/services/embedded_app/models/MonthlyGroup';
+import ServicesList from '~/js/organizations/services/embedded_app/models/ServicesList';
+import { Service } from '~/js/organizations/services/embedded_app/types';
 import { Moment } from 'moment';
 
 interface Props {

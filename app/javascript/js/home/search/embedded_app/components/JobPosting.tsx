@@ -1,6 +1,6 @@
 import React from 'preact/compat';
-import { JobPostingSearchHit } from 'js/home/search/embedded_app/types';
-import Ribbon from 'js/home/search/embedded_app/components/Ribbon';
+import { JobPostingSearchHit } from '~/js/home/search/embedded_app/types';
+import Ribbon from '~/js/home/search/embedded_app/components/Ribbon';
 import { connectHitInsights, WrappedInsightsClient } from 'react-instantsearch-core';
 import aa from 'search-insights';
 import { Hit } from '@algolia/client-search';

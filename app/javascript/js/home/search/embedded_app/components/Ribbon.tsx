@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Relevancy, JobPostingSearchHit } from 'js/home/search/embedded_app/types';
+import { Relevancy, JobPostingSearchHit } from '~/js/home/search/embedded_app/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'preact/compat';
 

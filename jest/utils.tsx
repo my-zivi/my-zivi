@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { mount } from 'enzyme';
-import { IApi } from 'js/shared/Api';
+import { IApi } from '~/js/shared/Api';
 import preact from 'preact';
-import { ApiContext } from 'js/shared/ApiProvider';
+import { ApiContext } from '~/js/shared/ApiProvider';
 import React from 'preact/compat';
 import { InstantSearch } from 'react-instantsearch-dom';
 import { defer } from 'lodash';

@@ -1,7 +1,7 @@
-import { Service } from 'js/organizations/services/embedded_app/types';
+import { Service } from '~/js/organizations/services/embedded_app/types';
 
 import * as _ from 'lodash';
-import Factory from 'js/tests/factories/Factory';
+import Factory from '~/js/tests/factories/Factory';
 
 const randomName = () => _.sample([
   'Peter Parker', 'Clark Kent', 'Bruce Wayne', 'Tony Stark',

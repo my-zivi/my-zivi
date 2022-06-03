@@ -1,8 +1,8 @@
 import { FunctionalComponent } from 'preact';
 import React from 'preact/compat';
-import ServicesList from 'js/organizations/services/embedded_app/models/ServicesList';
-import TableContent from 'js/organizations/services/embedded_app/components/TableContent';
-import NamesList from 'js/organizations/services/embedded_app/components/NamesList';
+import ServicesList from '~/js/organizations/services/embedded_app/models/ServicesList';
+import TableContent from '~/js/organizations/services/embedded_app/components/TableContent';
+import NamesList from '~/js/organizations/services/embedded_app/components/NamesList';
 import TableHeader from './TableHeader';
 
 interface Props {

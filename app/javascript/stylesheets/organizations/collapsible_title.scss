@@ -1,4 +1,5 @@
-@import '~bootstrap/scss/mixins';
+@import '../theme/variables';
+@import 'bootstrap/scss/mixins/transition';
 
 .collapse-icon {
   @include transition($transition-collapse-icon);
