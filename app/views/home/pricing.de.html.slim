@@ -1,0 +1,92 @@
+- content_for(:container_class, 'index-container')
+- content_for(:page_title, 'Preisliste')
+- content_for(:page_description, 'Preisliste unseres Angebots')
+= render 'home/navbar'
+
+.hero
+  .container
+    .hero-content.text-center.w-100
+      h1 Preise
+
+section.container
+  .row.justify-content-center
+    .col-12.text-center.mb-4
+      h3.fs-2.fs-md-3
+        | Gratis-Account zum Loslegen.
+        br.d-none.d-md-block/
+        | Premium-Account um durchzustarten.
+    .col-12.col-lg-9.col-xl-10.col-xxl-8
+      .row
+        .col-md
+          .border.overflow-hidden.mb-3.mb-md-0.shadow-sm.rounded
+            .p-4.bg-glass.border-bottom
+              h2.font-weight-medium.fs-5.mb-0.text-primary Gratis
+              h3.font-weight-light.mt-0.text-primary.fs-3 CHF 0.00.–
+            .p-4.bg-light
+              ul.list-unstyled
+                li.border-bottom.py-2
+                  i.fas.fa-check.text-primary.mr-1 data-fa-transform="shrink-2"
+                  | Ausschreibung gestalten & editieren
+                li.border-bottom.py-2
+                  i.fas.fa-check.text-primary.mr-1 data-fa-transform="shrink-2"
+                  | Bewerbungen erhalten
+                li.py-2.border-bottom.text-300
+                  i.fas.fa-check.mr-1 data-fa-transform="shrink-2"
+                  | Individueller Ausschreibungsvorschlag
+                li.py-2.border-bottom.text-300
+                  i.fas.fa-check.mr-1 data-fa-transform="shrink-2"
+                  | Erhöhte Visibilität
+                li.py-2.border-bottom.text-300
+                  i.fas.fa-check.mr-1 data-fa-transform="shrink-2"
+                  | Priorisierte Bewerbungen
+                li.py-2.border-bottom.text-300
+                  i.fas.fa-check.mr-1 data-fa-transform="shrink-2"
+                  | Prioritätsmarkierung in der Ausschreibung
+                li.py-2.border-bottom.text-300
+                  i.fas.fa-check.mr-1 data-fa-transform="shrink-2"
+                  | Bevorzugter Support
+              a.btn.btn-outline-primary.d-block.w-100[
+                type="button"
+                href=Rails.configuration.x.urls.job_posting_claim_form
+                target="_blank"
+                rel="noopener noreferrer"
+              ]
+                | Jetzt kostenlos einen Account erstellen
+        .col-md
+          .border.overflow-hidden.mb-3.mb-md-0.shadow-sm.rounded
+            .p-4.bg-glass.border-bottom
+              h2.font-weight-medium.fs-5.mb-0.text-primary Premium
+              h3.font-weight-light.mt-0.text-primary
+                span.fs-3 CHF 200.00.–
+                sub.fs-2<
+                  ' / 30 Tage
+            .p-4.bg-light
+              ul.list-unstyled
+                li.border-bottom.py-2
+                  i.fas.fa-check.text-primary.mr-1 data-fa-transform="shrink-2"
+                  | Ausschreibung gestalten & editieren
+                li.border-bottom.py-2
+                  i.fas.fa-check.text-primary.mr-1 data-fa-transform="shrink-2"
+                  | Bewerbungen erhalten
+                li.py-2.border-bottom
+                  i.fas.fa-check.text-primary.mr-1 data-fa-transform="shrink-2"
+                  | Individueller Ausschreibungsvorschlag
+                li.py-2.border-bottom
+                  i.fas.fa-check.text-primary.mr-1 data-fa-transform="shrink-2"
+                  | Erhöhte Visibilität
+                li.py-2.border-bottom
+                  i.fas.fa-check.text-primary.mr-1 data-fa-transform="shrink-2"
+                  | Priorisierte Bewerbungen
+                li.py-2.border-bottom
+                  i.fas.fa-check.text-primary.mr-1 data-fa-transform="shrink-2"
+                  | Prioritätsmarkierung in der Ausschreibung
+                li.py-2.border-bottom
+                  i.fas.fa-check.text-primary.mr-1 data-fa-transform="shrink-2"
+                  | Bevorzugter Support
+              button.btn.btn-primary.d-block.w-100 type="button" Jetzt Inserat anfordern
+    .col-12.text-center
+      h5.mt-5 Haben Sie noch weitere Fragen?
+      p.fs-1
+        | Kontaktieren Sie uns gerne unter
+        a< href="mailto:info@myzivi.ch" info@myzivi.ch
+        | .
