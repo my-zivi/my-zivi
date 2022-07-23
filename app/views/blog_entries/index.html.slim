@@ -2,7 +2,7 @@
 - content_for(:page_title, t('blog_entries.index.title'))
 - content_for(:page_description, t('blog_entries.index.description'))
 
-- cache [BlogEntry.order(:updated_at).last, @filter_params]
+- cache [BlogEntry.order(:updated_at).last, @filter_params, @pagy.page]
   = render 'home/navbar'
 
   .hero
