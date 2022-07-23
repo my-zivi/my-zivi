@@ -17,7 +17,7 @@ html lang=I18n.locale.to_s
         = render 'base/organizations/navbar'
         .content
           = render 'base/organizations/horizontal_nav_bar'
-          = render 'layouts/organizations/breadcrumb'
+          = render 'layouts/breadcrumb'
           = render 'base/flash_messages'
           = yield
     = javascript_pack_tag 'falcon', 'data-turbo-track': 'reload'

@@ -140,6 +140,7 @@ de-CH:
         service_type: Einsatztyp
         status: Status
       service_inquiry:
+        agreement: Ich bestätige, dass ich ein aktiver Zivildienstleistender bin
         email: E-Mail
         message: Nachricht
         name: Name
@@ -372,6 +373,7 @@ de-CH:
       organization_member: Mitarbeiter
       regional_center: Regionalzentrum
       service: Einsatz
+      service_inquiry: Einsatzanfrage
       service_specification: Pflichtenheft
       user: Benutzer
       workshop: Kurs

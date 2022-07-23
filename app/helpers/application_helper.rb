@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  include Pagy::Frontend
+
   def webp_picture_pack_tag(path, **kwargs)
     base_path = "#{File.dirname(path)}/#{File.basename(path, File.extname(path))}"
     extension = kwargs.delete(:fallback) || :png

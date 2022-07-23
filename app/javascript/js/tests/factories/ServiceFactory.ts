@@ -2,7 +2,12 @@ import { Service } from 'js/organizations/services/embedded_app/types';
 
 import * as _ from 'lodash';
 import Factory from 'js/tests/factories/Factory';
-import { name } from 'faker';
+
+const randomName = () => _.sample([
+  'Peter Parker', 'Clark Kent', 'Bruce Wayne', 'Tony Stark',
+  'Bruce Banner', 'Steve Rogers', 'Thor Odinson', 'Natasha Romanoff',
+  'Clint Barton', 'Wade Wilson',
+]);
 
 const ServiceFactory: Factory<Service> = {
   build(overrides?: Record<string, unknown> | Service): Service {
@@ -11,7 +16,7 @@ const ServiceFactory: Factory<Service> = {
       ending: '2020-02-07',
       definitive: true,
       civilServant: {
-        fullName: name.findName(),
+        fullName: randomName(),
       },
     };
 

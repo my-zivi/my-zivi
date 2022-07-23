@@ -146,7 +146,7 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
 
         it 'does not create a new service specification and renders an error' do
           expect { perform_request }.not_to change(ServiceSpecification, :count)
-          expect(response).to be_successful
+          expect(response).to have_http_status(:unprocessable_entity)
           expect(response).to render_template 'organizations/service_specifications/new'
           expect(response.body).to include(*expected_error_messages)
         end
@@ -248,7 +248,7 @@ RSpec.describe Organizations::ServiceSpecificationsController, type: :request do
         end
       end
 
-      context 'when trying to destroy ' do
+      context 'when trying to destroy' do
         let(:outside_organization) { create :organization, :with_admin }
         let(:service_specification) { create :service_specification, organization: outside_organization }
 

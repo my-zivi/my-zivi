@@ -3,7 +3,6 @@
 module Organizations
   class OrganizationsController < BaseController
     before_action :load_organization
-
     before_action :edit_breadcrumb, only: %i[edit update]
 
     def edit
@@ -12,11 +11,11 @@ module Organizations
 
     def update
       if @organization.update(organization_params)
-        flash.now[:success] = t('organizations.organizations.update.successful_update')
+        flash[:success] = t('organizations.organizations.update.successful_update')
         redirect_to edit_organizations_organization_path
       else
         flash.now[:error] = t('organizations.organizations.update.erroneous_update')
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 

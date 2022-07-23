@@ -1,0 +1,16 @@
+---
+de-CH:
+  pagy:
+    combo_nav_js: "<label>Seite %{page_input} von %{pages}</label>"
+    info:
+      multiple_pages: Zeige %{item_name} <b>%{from}-%{to}</b> von <b>%{count}</b> gesamt
+      no_items: Kein %{item_name} gefunden
+      single_page: Zeige <b>%{count}</b> %{item_name}
+    item_name:
+      one: Eintrag
+      other: Einträge
+    items_selector_js: "<label>Zeige %{items_input} %{item_name} pro Seite</label>"
+    nav:
+      gap: "&hellip;"
+      next: Weiter&nbsp;&rsaquo;
+      prev: "&lsaquo;&nbsp;Zurück"

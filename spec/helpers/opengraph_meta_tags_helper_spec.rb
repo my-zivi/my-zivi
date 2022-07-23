@@ -57,7 +57,7 @@ RSpec.describe OpengraphMetaTagsHelper do
     let(:request) { Rack::Request.new(Rack::MockRequest.env_for('https://www.myzivi.ch/my/url')) }
     let(:expected_content) do
       'https://mugshotbot.com/m?color=009fe3&hide_watermark=true&mode=light' \
-      '&pattern=topography&url=https%3A%2F%2Fwww.myzivi.ch%2Fmy%2Furl'
+        '&pattern=topography&url=https%3A%2F%2Fwww.myzivi.ch%2Fmy%2Furl'
     end
 
     before { allow(helper).to receive(:request).and_return request }

@@ -41,6 +41,7 @@ ignore_unused:
   - 'helpers.*'
   - 'search.*'
   - 'loaf.*'
+  - 'pagy.*'
 
 ## Exclude these keys from the `i18n-tasks eq-base' report:
 # ignore_eq_base:

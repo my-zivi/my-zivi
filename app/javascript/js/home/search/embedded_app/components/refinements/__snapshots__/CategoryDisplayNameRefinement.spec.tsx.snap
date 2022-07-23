@@ -41,6 +41,7 @@ exports[`CategoryDisplayNameRefinement renders correctly 1`] = `
               },
             }
           }
+          facetOrdering={true}
           limit={5}
           operator="or"
           searchable={false}
@@ -61,6 +62,7 @@ exports[`CategoryDisplayNameRefinement renders correctly 1`] = `
             canRefine={false}
             createURL={[Function]}
             currentRefinement={Array []}
+            facetOrdering={true}
             isFromSearch={false}
             items={Array []}
             limit={5}
@@ -85,6 +87,7 @@ exports[`CategoryDisplayNameRefinement renders correctly 1`] = `
               canRefine={false}
               createURL={[Function]}
               currentRefinement={Array []}
+              facetOrdering={true}
               isFromSearch={false}
               items={Array []}
               limit={5}
@@ -114,6 +117,7 @@ exports[`CategoryDisplayNameRefinement renders correctly 1`] = `
                     canRefine={false}
                     createURL={[Function]}
                     currentRefinement={Array []}
+                    facetOrdering={true}
                     isFromSearch={false}
                     items={Array []}
                     limit={5}
@@ -136,10 +140,10 @@ exports[`CategoryDisplayNameRefinement renders correctly 1`] = `
                     <RefinementList
                       attribute="category_display_name"
                       canRefine={false}
-                      class=""
                       className=""
                       createURL={[Function]}
                       currentRefinement={Array []}
+                      facetOrdering={true}
                       isFromSearch={false}
                       items={Array []}
                       limit={5}
@@ -162,7 +166,6 @@ exports[`CategoryDisplayNameRefinement renders correctly 1`] = `
                     >
                       <List
                         canRefine={false}
-                        class=""
                         className=""
                         cx={[Function]}
                         isFromSearch={false}

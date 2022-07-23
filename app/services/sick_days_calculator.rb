@@ -16,7 +16,7 @@ class SickDaysCalculator
     def calculate_eligible_sick_days(service_days)
       remainder = service_days % SICK_DAYS_PERIOD
       sick_days_periods = service_days / SICK_DAYS_PERIOD
-      sick_days_periods * SICK_DAYS_PER_PERIOD + eligible_sick_days_remainder(remainder)
+      (sick_days_periods * SICK_DAYS_PER_PERIOD) + eligible_sick_days_remainder(remainder)
     end
 
     private

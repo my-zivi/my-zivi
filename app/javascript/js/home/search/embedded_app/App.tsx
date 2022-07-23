@@ -4,6 +4,20 @@ import { createBrowserLocalStorageCache } from '@algolia/cache-browser-local-sto
 import { createFallbackableCache } from '@algolia/cache-common';
 import { createInMemoryCache } from '@algolia/cache-in-memory';
 import SearchPage from 'js/home/search/embedded_app/components/SearchPage';
+import aa from 'search-insights';
+import Turbo from '@hotwired/turbo-rails';
+
+declare global {
+  interface Window {
+    Turbo: typeof Turbo;
+  }
+}
+
+aa('init', {
+  appId: MyZivi.algolia.applicationId,
+  apiKey: MyZivi.algolia.apiKey,
+  useCookie: true,
+});
 
 const searchClient = algoliasearch(
   MyZivi.algolia.applicationId,

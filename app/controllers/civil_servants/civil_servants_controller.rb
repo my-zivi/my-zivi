@@ -21,11 +21,13 @@ module CivilServants
     before_action :set_civil_servant, only: %i[edit update]
     before_action -> { authorize! params[:action].to_sym, @civil_servant }
 
+    breadcrumb 'civil_servants.civil_servants.edit', :edit_civil_servants_civil_servant_path
+
     def edit; end
 
     def update
       if @civil_servant.update(civil_servant_params)
-        flash.now[:success] = t('.successfully_updated')
+        flash[:success] = t('.successfully_updated')
         redirect_to edit_civil_servants_civil_servant_path
       else
         respond_to do |format|

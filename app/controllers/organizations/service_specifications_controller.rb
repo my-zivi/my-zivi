@@ -36,7 +36,7 @@ module Organizations
         redirect_to organizations_service_specifications_path, notice: t('.successful_create')
       else
         flash.now[:error] = t('.erroneous_create')
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -45,15 +45,15 @@ module Organizations
         redirect_to edit_organizations_service_specification_path, notice: t('.successful_update')
       else
         flash.now[:error] = t('.erroneous_update')
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 
     def destroy
       if @service_specification.destroy
-        flash.now[:notice] = t('.successful_destroy')
+        flash[:notice] = t('.successful_destroy')
       else
-        flash.now[:error] = t('.erroneous_destroy')
+        flash[:error] = t('.erroneous_destroy')
       end
 
       redirect_to organizations_service_specifications_path

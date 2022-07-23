@@ -11,7 +11,6 @@ Array [
       onClick={[Function]}
     >
       <FontAwesomeIcon
-        class="mr-1"
         className="mr-1"
         icon={
           Array [
@@ -66,7 +65,6 @@ Array [
             onClick={[Function]}
           >
             <FontAwesomeIcon
-              class="mr-1"
               className="mr-1"
               icon={
                 Array [
@@ -82,7 +80,6 @@ Array [
     </ForwardRef()>
   </div>,
   <ConnectorWrapper
-    class="my-3"
     className="my-3"
     clearsQuery={false}
     translations={

@@ -40,7 +40,7 @@ RSpec.describe Service, type: :model do
         let(:service_range) { Date.parse('2018-01-01')..Date.parse('2018-01-19') }
 
         it 'adds a length error' do
-          expect(length_error_added).to eq true
+          expect(length_error_added).to be true
         end
       end
 
@@ -538,18 +538,18 @@ RSpec.describe Service, type: :model do
 
     let(:service) { build(:service) }
 
-    it { is_expected.to eq true }
+    it { is_expected.to be true }
 
     context 'when civil servant agreement is pending' do
       let(:service) { build(:service, :civil_servant_agreement_pending) }
 
-      it { is_expected.to eq false }
+      it { is_expected.to be false }
     end
 
     context 'when civil organization agreement is pending' do
       let(:service) { build(:service, :organization_agreement_pending) }
 
-      it { is_expected.to eq false }
+      it { is_expected.to be false }
     end
   end
 
@@ -564,7 +564,7 @@ RSpec.describe Service, type: :model do
 
     it 'sets the confirmation_date and generates expense sheets' do
       expect { confirmed }.to(change { service.reload.confirmation_date }.and(change(ExpenseSheet, :count).by(2)))
-      expect(confirmed).to eq true
+      expect(confirmed).to be true
     end
 
     context 'when update fails because something is invalid' do
@@ -577,7 +577,7 @@ RSpec.describe Service, type: :model do
           expect { confirmed }.not_to(change { service.reload.confirmation_date })
         end.not_to change(ExpenseSheet, :count)
 
-        expect(confirmed).to eq false
+        expect(confirmed).to be false
         expect(Sentry).to(
           have_received(:capture_exception)
             .with(be_instance_of(ActiveRecord::RecordInvalid), be_a(Hash))
@@ -596,7 +596,7 @@ RSpec.describe Service, type: :model do
           expect { confirmed }.not_to(change { service.reload.confirmation_date })
         end.not_to change(ExpenseSheet, :count)
 
-        expect(confirmed).to eq false
+        expect(confirmed).to be false
         expect(Sentry).to have_received(:capture_exception).with(be_a(StandardError), be_a(Hash))
       end
     end

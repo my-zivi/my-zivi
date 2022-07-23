@@ -6,14 +6,14 @@ RSpec.describe BlogEntriesController, type: :request do
   subject { response }
 
   describe '#index' do
+    let(:perform_request) { get blog_entries_path }
     let!(:blog_entries) { create_pair(:blog_entry) }
     let!(:hidden_blog_entry) { create(:blog_entry, published: false) }
     let!(:podcast_blog_entry) { create(:blog_entry, tags: %w[podcast]) }
 
     context 'when no filter params are set' do
-      before { get blog_entries_path }
-
       it 'renders all the public blog entries' do
+        perform_request
         expect(response).to be_successful
         expect(response.body).to include(
           blog_entries.first.title,
@@ -25,6 +25,15 @@ RSpec.describe BlogEntriesController, type: :request do
           podcast_blog_entry.title
         )
         expect(response.body).not_to include(hidden_blog_entry.title)
+      end
+
+      context 'when results are too long' do
+        before { stub_const('BlogEntriesController::ITEMS', 1) }
+
+        it 'paginates the result' do
+          perform_request
+          expect(response.body).to include 'pagination'
+        end
       end
     end
 

@@ -22,12 +22,9 @@ RSpec.describe ModelTableComponent, type: :component do
       }
     }
   end
-  let(:model) do
-    OpenStruct.new(
-      something: 'lala',
-      other: 'Hans'
-    )
-  end
+  # rubocop:disable RSpec/VerifiedDoubles
+  let(:model) { double(something: 'lala', other: 'Hans') }
+  # rubocop:enable RSpec/VerifiedDoubles
 
   let(:rendered_column) { rendered.css('td').map(&:text).reject(&:empty?) }
   let(:rendered_header) { rendered.css('th').map(&:text).reject(&:empty?) }

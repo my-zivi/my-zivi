@@ -48,7 +48,9 @@ RSpec.configure do |config|
     driven_by :selenium, using: :headless_chrome
   end
 
+  # rubocop:disable Rails/I18nLocaleAssignment
   config.after { I18n.locale = I18n.default_locale }
+  # rubocop:enable Rails/I18nLocaleAssignment
 
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!

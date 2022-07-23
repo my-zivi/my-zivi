@@ -3,11 +3,11 @@ import { render, ComponentType } from 'preact';
 import moment from 'moment';
 import $ from 'jquery';
 
-export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap> {
-  private readonly selector: K | string;
+export default class EmbeddedApp<K extends keyof HTMLElementTagNameMap | string> {
+  private readonly selector: K;
   private RootComponent: ComponentType;
 
-  constructor(selector: K | string, RootComponent: ComponentType) {
+  constructor(selector: K, RootComponent: ComponentType) {
     this.selector = selector;
     this.RootComponent = RootComponent;
   }

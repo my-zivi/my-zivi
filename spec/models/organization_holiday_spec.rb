@@ -84,7 +84,7 @@ RSpec.describe OrganizationHoliday, type: :model do
       let(:organization_holiday) { create(:organization_holiday) }
 
       it 'cannot destroy the organization holiday' do
-        expect(organization_holiday.destroy).to eq false
+        expect(organization_holiday.destroy).to be false
       end
     end
   end

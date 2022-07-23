@@ -29,7 +29,7 @@ RSpec.describe ServiceSpecificationsWorkshop, type: :model do
     subject(:model) { described_class.new }
 
     it 'sets mandatory by default to true' do
-      expect(model.mandatory).to eq true
+      expect(model.mandatory).to be true
     end
   end
 end

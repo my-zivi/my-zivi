@@ -70,7 +70,7 @@ RSpec.describe Payment, type: :model do
           expect { payment.paid_out! }.to raise_error(ActiveRecord::RecordInvalid)
         end.not_to(change { payment.expense_sheets.reload.map(&:state).uniq })
 
-        expect(payment.open?).to eq true
+        expect(payment.open?).to be true
         expect(payment.paid_timestamp).to be_nil
       end
     end
