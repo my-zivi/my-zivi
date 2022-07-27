@@ -83,7 +83,13 @@ section.container
                 li.py-2.border-bottom
                   i.fas.fa-check.text-primary.mr-1 data-fa-transform="shrink-2"
                   | Bevorzugter Support
-              button.btn.btn-primary.d-block.w-100 type="button" Jetzt Inserat anfordern
+              a.btn.btn-primary.d-block.w-100[
+                type="button"
+                href=Rails.configuration.x.urls.premium_job_posting_form
+                target="_blank"
+                rel="noopener noreferrer"
+              ]
+                | Jetzt Inserat anfordern
     .col-12.text-center
       h5.mt-5 Haben Sie noch weitere Fragen?
       p.fs-1
