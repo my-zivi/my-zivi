@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get '/zivi-faq', to: 'home#civil_servant_faq', as: :civil_servant_faq
   get '/agb', to: 'home#agb'
   get '/privacy_policy', to: 'home#privacy_policy'
+  get '/pricing', to: 'home#pricing'
   resources :job_postings, param: :slug, only: %i[index show]
   resources :blog_entries, param: :slug, only: %i[index show], path: 'blog'
 
