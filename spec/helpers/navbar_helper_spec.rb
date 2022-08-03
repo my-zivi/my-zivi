@@ -39,4 +39,24 @@ RSpec.describe NavbarHelper do
       HTML
     end
   end
+
+  describe '#dropdown_item' do
+    subject(:dropdown_item) { helper.dropdown_item('MyItem', '/my-item-path').html(is_current_page) }
+
+    let(:is_current_page) { false }
+
+    it 'creates a dropdown item' do
+      expect(dropdown_item).to eq(<<~HTML.squish)
+        <a class="dropdown-item " href="/my-item-path">MyItem</a>
+      HTML
+    end
+
+    context 'when current page is link item path' do
+      let(:is_current_page) { true }
+
+      it 'renders an active dropdown item' do
+        expect(dropdown_item).to include 'active font-weight-bold'
+      end
+    end
+  end
 end
