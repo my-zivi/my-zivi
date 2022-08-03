@@ -143,10 +143,13 @@ de-CH:
       demo: Eine Demo erhalten
       links:
         about_us: Über uns
+        admin: Administration
         blog: Blog
         civil_servant_faq: Zivi-FAQ
         job_postings: Einsatz suchen
         organizations: Für Betriebe
+        pricing: Preise
+        recruiting: Rekrutieren
       signup: Jetzt anmelden
   job_postings:
     index:

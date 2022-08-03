@@ -143,10 +143,13 @@ fr-CH:
       demo: Obtenir une démo
       links:
         about_us: ''
+        admin: Administration
         blog: Blog
         civil_servant_faq: FAQ du civiliste
         job_postings: Rechercher une affectation
         organizations: Pour les établissements d'affectation
+        pricing: Tarifs
+        recruiting: Recrutement
       signup: Inscrivez-vous maintenant
   job_postings:
     index:

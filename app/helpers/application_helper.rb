@@ -11,12 +11,6 @@ module ApplicationHelper
     generate_picture_tag(base_path, extension, mime, **kwargs)
   end
 
-  def navbar_link(name, path)
-    tag.li(class: "nav-item #{current_page?(path) ? 'active font-weight-bold' : ''}".squish) do
-      link_to(name, path, class: 'nav-link')
-    end
-  end
-
   def app_page_title
     page_title(app_name: t('layouts.application.title'), separator: ' | ', reverse: true)
   end
