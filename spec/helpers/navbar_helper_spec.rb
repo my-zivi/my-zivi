@@ -24,7 +24,12 @@ RSpec.describe NavbarHelper do
   describe '#dropdown_navbar_link' do
     subject(:dropdown) { helper.dropdown_navbar_link('MyDropdown', '/my-path', *dropdown_items) }
 
-    let(:dropdown_items) { [helper.dropdown_item('MyItem', '/my-item-path')] }
+    let(:dropdown_items) do
+      [
+        helper.dropdown_item('MyItem', '/my-item-path'),
+        helper.dropdown_item('MyItem 2', '/my-item-path-2')
+      ]
+    end
 
     it 'creates a dropdown link' do
       expect(dropdown).to eq(<<~HTML.squish.gsub(/> </, '><'))
@@ -33,6 +38,7 @@ RSpec.describe NavbarHelper do
           <div class="dropdown-menu dropdown-menu-card dropdown-caret mt-0">
             <div class="bg-white py-2">
               <a class="dropdown-item " href="/my-item-path">MyItem</a>
+              <a class="dropdown-item " href="/my-item-path-2">MyItem 2</a>
             </div>
           </div>
         </li>
