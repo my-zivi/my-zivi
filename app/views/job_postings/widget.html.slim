@@ -1,0 +1,15 @@
+.card.main-card
+  .card-header.bg-white.border-bottom
+    .d-flex.align-items-center
+      img.job-posting-icon src=@job_posting.icon_url alt=@job_posting.organization_display_name
+      div.ml-0.ml-sm-3
+        h1.m-0.p-0.job-posting-title = @job_posting.title
+        .d-none.d-sm-block
+          = render 'job_posting_header_badges', job_posting: @job_posting
+  .card-body
+    .brief-description-container.d-block.d-sm-none
+      p = @job_posting.brief_description
+    .description-container.d-none.d-sm-block
+      .scrollable-text
+        == @job_posting.description
+      .overflow-shadow
