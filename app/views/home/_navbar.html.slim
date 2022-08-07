@@ -15,7 +15,11 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.my-zivi-top-navbar
     #navbarScroll.collapse.navbar-collapse
       ul.navbar-nav.mr-auto.my-2.my-lg-0.navbar-nav-scroll
         = navbar_link(t('home.navbar.links.job_postings'), job_postings_path)
-        = navbar_link(t('home.navbar.links.organizations'), for_organizations_path)
+        = dropdown_navbar_link(t('home.navbar.links.organizations'), for_organizations_path,
+                dropdown_item(t('home.navbar.links.overview'), for_organizations_path),
+                dropdown_item(t('home.navbar.links.admin'), administration_path),
+                dropdown_item(t('home.navbar.links.recruiting'), recruiting_path),
+                dropdown_item(t('home.navbar.links.pricing'), pricing_path))
         = navbar_link(t('home.navbar.links.about_us'), about_us_path)
         = navbar_link(t('home.navbar.links.blog'), blog_entries_path)
         = navbar_link(t('home.navbar.links.civil_servant_faq'), civil_servant_faq_path)

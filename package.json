@@ -76,7 +76,7 @@
     "@types/qs": "^6.9.7",
     "@types/react-instantsearch-core": "^6.10.7",
     "@types/react-instantsearch-dom": "^6.12.2",
-    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.19.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-preact-pure": "^4.0.1",

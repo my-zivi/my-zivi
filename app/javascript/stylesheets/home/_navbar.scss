@@ -9,6 +9,16 @@ $navbar-height: 73px;
   .my-zivi-logo {
     vertical-align: sub;
   }
+
+  @include media-breakpoint-down(md) {
+    .dropdown-menu {
+      margin: 0 .35em;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
 }
 
 .navbar-spacer {

@@ -8,10 +8,14 @@
                 class: 'list-group-item list-group-item-action flex-column align-items-start') do
           .d-flex
             .flex-grow-1
-              h5.mb-1 = job_posting.title
+              h5.mb-1.d-flex.align-items-center
+                = job_posting.title
+                - if job_posting.featured?
+                  .badge.badge-soft-warning.badge-pill.fs--2.ml-2
+                    i.fas.fa-star
               p.text-muted.mb-1 = job_posting.brief_description
             .flex-grow-0.align-self-center
-              i.fas.fa-chevron-right
+              i.fas.fa-chevron-right.ml-1
   - if @pagy.pages > 1
     .d-flex.justify-content-center.mt-3
       == pagy_bootstrap_nav(@pagy)
