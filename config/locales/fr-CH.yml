@@ -142,14 +142,15 @@ fr-CH:
     navbar:
       demo: Obtenir une démo
       links:
-        about_us: ''
-        admin: Administration
+        about_us: À propos de nous
+        admin: Administration des civilistes
         blog: Blog
         civil_servant_faq: FAQ du civiliste
         job_postings: Rechercher une affectation
         organizations: Pour les établissements d'affectation
+        overview: Aperçu
         pricing: Tarifs
-        recruiting: Recrutement
+        recruiting: Recrutement des civilistes
       signup: Inscrivez-vous maintenant
   job_postings:
     index:
