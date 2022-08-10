@@ -129,6 +129,7 @@ jobs:
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres
       RAILS_ENV: test
+      DISABLE_ADS: true
 
     steps:
       - name: Checkout Git Repository
@@ -207,6 +208,7 @@ jobs:
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres
       RAILS_ENV: test
+      DISABLE_ADS: true
 
     steps:
       - name: Checkout Git Repository
