@@ -1,0 +1,17 @@
+<% unless ENV['DISABLE_GOOGLE_AD_SENSE'] == 'true' || ENV['DISABLE_ADS'] == 'true' %>
+  <script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=<%= ENV['GOOGLE_AD_SENSE_CLIENT_ID'] %>"
+    crossorigin="anonymous"
+  ></script>
+  <!-- Blogad -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="<%= ENV['GOOGLE_AD_SENSE_CLIENT_ID'] %>"
+       data-ad-slot="2045829123"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+<% end %>

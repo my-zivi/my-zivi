@@ -29,5 +29,6 @@
           p.text-muted
             = I18n.t('blog_entries.show.written_by', author: @blog_entry.author, date: l(@blog_entry.created_at.to_date, format: :short))
           article.line-height-17.blog-content == @blog_entry.content
+          = render 'ad'
 
 = render 'home/footer'

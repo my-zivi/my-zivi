@@ -1,0 +1,6 @@
+- unless ENV['DISABLE_GOOGLE_AD_SENSE'] == 'true'
+  script[
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=#{ENV['GOOGLE_AD_SENSE_CLIENT_ID']}"
+    crossorigin="anonymous"
+  ]
