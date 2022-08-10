@@ -10,6 +10,7 @@ html lang=I18n.locale.to_s
     = javascript_tag { render partial: 'layouts/exports', formats: [:js] }
     = render 'layouts/sentry'
     = render 'layouts/tag_manager'
+    = render 'layouts/ad_sense'
     = content_for(:head_additions)
   body
     - if ENV['GOOGLE_TAG_MANAGER_KEY'].present?
