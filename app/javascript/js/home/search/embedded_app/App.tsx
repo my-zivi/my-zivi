@@ -3,9 +3,9 @@ import React from 'preact/compat';
 import { createBrowserLocalStorageCache } from '@algolia/cache-browser-local-storage';
 import { createFallbackableCache } from '@algolia/cache-common';
 import { createInMemoryCache } from '@algolia/cache-in-memory';
-import SearchPage from 'js/home/search/embedded_app/components/SearchPage';
 import aa from 'search-insights';
 import Turbo from '@hotwired/turbo-rails';
+import SearchPage from './components/SearchPage';
 
 declare global {
   interface Window {

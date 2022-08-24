@@ -1,6 +1,6 @@
-import ApiProvider from 'js/shared/ApiProvider';
-import ServicesOverviewCard from 'js/organizations/services/embedded_app/components/ServicesOverviewCard';
 import React from 'preact/compat';
+import ServicesOverviewCard from './ServicesOverviewCard';
+import ApiProvider from '../../../../shared/ApiProvider';
 
 const App: React.FunctionComponent = () => (
   <ApiProvider>

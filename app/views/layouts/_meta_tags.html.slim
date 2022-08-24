@@ -26,7 +26,7 @@ meta property="twitter:card" content="summary_large_image"
 - %w[LightItalic Light Italic Regular MediumItalic Medium BoldItalic Bold].each do |font|
   link[
     rel="preload"
-    href=asset_pack_url("media/fonts/ubuntu/Ubuntu-#{font}.ttf")
+    href=font_url("ubuntu/Ubuntu-#{font}.ttf")
     as="font"
     type="font/ttf"
     crossorigin

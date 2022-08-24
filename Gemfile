@@ -37,7 +37,7 @@ gem 'slim-rails'
 gem 'turbo-rails'
 gem 'validates_timeliness'
 gem 'view_component'
-gem 'webpacker', '~> 5.2.1'
+gem 'jsbundling-rails'
 # gem 'jbuilder', '~> 2.7'
 
 gem 'bootsnap', '>= 1.4.2', require: false

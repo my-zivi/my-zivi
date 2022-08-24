@@ -10,5 +10,4 @@ import '@fortawesome/fontawesome-free/js/all.min';
 import 'bootstrap/dist/js/bootstrap.min';
 
 import '../stylesheets/application.scss';
-import '../images';
-import '../../../lib/javascripts/modernizr';
+// import '../../../lib/javascripts/modernizr';

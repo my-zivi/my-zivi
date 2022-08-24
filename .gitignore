@@ -31,3 +31,6 @@ spec/examples.txt
 
 /.lighthouseci/
 debug.log
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
