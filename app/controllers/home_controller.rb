@@ -3,6 +3,8 @@
 class HomeController < ApplicationController
   before_action -> { I18n.locale = :'de-CH' }
 
+  content_security_policy false
+
   def index; end
 
   def for_organizations; end
