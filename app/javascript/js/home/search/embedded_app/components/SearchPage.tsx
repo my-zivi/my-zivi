@@ -1,11 +1,10 @@
 import { Configure, InstantSearch, Stats } from 'react-instantsearch-dom';
 import CustomAutocomplete from 'js/home/search/embedded_app/components/CustomAutocomplete';
-import CustomHitComponent from 'js/home/search/embedded_app/components/CustomHitComponent';
-import RefinementsPanel from 'js/home/search/embedded_app/components/RefinementsPanel';
 import React, { JSX } from 'preact/compat';
 import { SearchClient } from 'algoliasearch';
-import PoweredBy from 'js/home/search/embedded_app/components/PoweredBy';
 import qs from 'qs';
+import MapSearchView from 'js/home/search/embedded_app/components/MapSearchView';
+import TilesSearchView from 'js/home/search/embedded_app/components/TilesSearchView';
 
 const HITS_PER_PAGE = 20;
 
@@ -56,30 +55,8 @@ class SearchPage extends React.Component<Props, State> {
             </div>
           </div>
 
-          <div className="container mt-6">
-            <div className="d-flex justify-content-start justify-content-lg-end mb-2">
-              <div className="text-muted mr-1">
-                <Stats translations={{
-                  stats(hitsCount, processingTimeMS) {
-                    return MyZivi.translations.search.statistics
-                      .replace('%{count}', hitsCount.toLocaleString())
-                      .replace('%{time}', processingTimeMS.toLocaleString());
-                  },
-                }} />
-              </div>
-              <PoweredBy />
-            </div>
-            <div className="row">
-              <div className="col-12 col-lg-9 order-1 order-lg-0">
-                <section className="jobs-hits pt-0">
-                  <CustomHitComponent />
-                </section>
-              </div>
-              <div className="col-12 col-lg-3 order-0 order-lg-1">
-                <RefinementsPanel />
-              </div>
-            </div>
-          </div>
+          <MapSearchView />
+          {/*<TilesSearchView />*/}
         </div>
       </InstantSearch>
     );

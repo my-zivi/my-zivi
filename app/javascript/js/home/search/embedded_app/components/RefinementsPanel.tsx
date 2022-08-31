@@ -12,7 +12,7 @@ import {
   PriorityProgramRefinement,
 } from './refinements';
 
-class RefinementsPanel extends React.Component<Record<string, never>, { isCollapsed: boolean }> {
+class RefinementsPanel extends React.Component<{ clearFiltersInsideCard?: boolean }, { isCollapsed: boolean }> {
   constructor() {
     super();
     this.state = { isCollapsed: mobile() };
@@ -35,6 +35,7 @@ class RefinementsPanel extends React.Component<Record<string, never>, { isCollap
         <hr />
         <strong>{MyZivi.translations.search.refinements.priorityProgram}</strong>
         <PriorityProgramRefinement />
+        {this.props.clearFiltersInsideCard === true && this.getClearRefinements()}
         <div className="d-block d-lg-none mt-2">
           {this.collapseButton('chevron-down', 'chevron-up')}
         </div>
@@ -68,11 +69,15 @@ class RefinementsPanel extends React.Component<Record<string, never>, { isCollap
             {this.panelContent()}
           </Collapse>
         </div>
-        <ClearRefinements clearsQuery={false} className="my-3" translations={{
-          reset: MyZivi.translations.search.refinements.controls.reset,
-        }} />
+        {!this.props.clearFiltersInsideCard && this.getClearRefinements()}
       </>
     );
+  }
+
+  private getClearRefinements() {
+    return <ClearRefinements clearsQuery={false} className="my-3" translations={{
+      reset: MyZivi.translations.search.refinements.controls.reset,
+    }} />;
   }
 }
 

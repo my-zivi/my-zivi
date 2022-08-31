@@ -19,6 +19,12 @@ module JobPostingSearchable
         Rails.application.routes.url_helpers.job_posting_url(self, host: ENV['APP_HOST'], port: ENV['APP_PORT'])
       end
 
+      attribute :_geoloc do
+        if [address&.latitude, address&.longitude].all?(&:present?)
+          { lat: address.latitude.to_f, lng: address.longitude.to_f }
+        end
+      end
+
       attribute(:relevancy) { relevancy_for_database }
 
       attribute(:description) { description.body&.to_plain_text }
