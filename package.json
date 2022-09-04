@@ -27,7 +27,7 @@
     "image-webpack-loader": "^8.1.0",
     "instantsearch.css": "^7.4.5",
     "is_js": "^0.9.0",
-    "jquery": "^3.6.0",
+    "jquery": "^3.6.1",
     "leaflet": "^1.7.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
