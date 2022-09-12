@@ -19,7 +19,8 @@ module JobPostingApi
 
     def perform
       URI.parse(ENV['CURRENT_JOB_POSTINGS_API_URL']).open do |page|
-        feed = Nokogiri::XML(page, &:noblanks)
+        feed = JSON.parse(page.read)
+        debugger
         process_feed(feed)
       end
 
@@ -48,10 +49,10 @@ module JobPostingApi
     end
 
     def process_feed(feed)
-      feed.xpath(JOB_POSTING_XPATH).map do |job_xml|
-        attributes = Parser.parse_job_posting_attributes(job_xml)
+      feed.map do |job_hash|
+        attributes = Parser.parse_job_posting_attributes(job_hash)
         job_posting = JobPosting.find_or_initialize_by(identification_number: attributes[:identification_number])
-        sync_posting(job_posting, attributes) if job_posting.scraped?
+        sync_posting(job_posting, job_hash) if job_posting.scraped?
       end
     end
 
