@@ -19,8 +19,7 @@ module JobPostingApi
 
     def perform
       URI.parse(ENV['CURRENT_JOB_POSTINGS_API_URL']).open do |page|
-        feed = JSON.parse(page.read)
-        debugger
+        feed = JSON.parse(page.read, symbolize_names: true)
         process_feed(feed)
       end
 
@@ -52,7 +51,7 @@ module JobPostingApi
       feed.map do |job_hash|
         attributes = Parser.parse_job_posting_attributes(job_hash)
         job_posting = JobPosting.find_or_initialize_by(identification_number: attributes[:identification_number])
-        sync_posting(job_posting, job_hash) if job_posting.scraped?
+        sync_posting(job_posting, attributes) if job_posting.scraped?
       end
     end
 

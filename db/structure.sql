@@ -626,7 +626,8 @@ CREATE TABLE public.job_postings (
     brief_description character varying NOT NULL,
     featured_as_new boolean DEFAULT false NOT NULL,
     priority_program boolean DEFAULT false NOT NULL,
-    slug character varying NOT NULL
+    slug character varying NOT NULL,
+    last_found_at date NOT NULL
 );
 
 
@@ -2238,6 +2239,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210919203342'),
 ('20211015073108'),
 ('20211118161909'),
-('20220306104256');
+('20220306104256'),
+('20220912174014');
 
 
