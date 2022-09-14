@@ -62,7 +62,7 @@ RSpec.describe JobPostingApi::CurrentJobPostingsPoller, :vcr do
           work_on_weekend: true,
           work_night_shift: false,
           accommodation_provided: true,
-          food_provided: true,
+          food_provided: true
         ),
         have_attributes(title: 'Spielplatzbetreuer', organization_name: 'Spielplatz Längmuur')
       )
