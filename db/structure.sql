@@ -627,7 +627,15 @@ CREATE TABLE public.job_postings (
     featured_as_new boolean DEFAULT false NOT NULL,
     priority_program boolean DEFAULT false NOT NULL,
     slug character varying NOT NULL,
-    last_found_at date NOT NULL
+    last_found_at date NOT NULL,
+    weekly_work_time double precision,
+    fixed_work_time boolean,
+    good_reputation boolean,
+    e_government boolean,
+    work_on_weekend boolean,
+    work_night_shift boolean,
+    accommodation_provided boolean,
+    food_provided boolean
 );
 
 
@@ -2240,6 +2248,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211015073108'),
 ('20211118161909'),
 ('20220306104256'),
-('20220912174014');
+('20220912174014'),
+('20220914083725');
 
 
