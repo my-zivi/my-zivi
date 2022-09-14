@@ -5,7 +5,9 @@ module JobPostingApi
     class << self
       SIMPLE_FIELDS = %i[title description organization_name canton category sub_category
                          language required_skills preferred_skills identification_number
-                         minimum_service_months priority_program publication_date last_found_at].freeze
+                         minimum_service_months priority_program publication_date last_found_at
+                         weekly_work_time fixed_work_time good_reputation e_government
+                         work_on_weekend work_night_shift accommodation_provided food_provided].freeze
 
       ADDRESS_FIELDS = %i[primary_line secondary_line street supplement city zip latitude longitude].freeze
 
