@@ -23,7 +23,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - W/"784b93d3016ca133e8729aaeccb552a0"
+      - W/"182a707a29bf493e937951c3faa94f19"
       Referrer-Policy:
       - strict-origin-when-cross-origin
       X-Content-Type-Options:
@@ -35,18 +35,18 @@ http_interactions:
       X-Permitted-Cross-Domain-Policies:
       - none
       X-Request-Id:
-      - 1e385f9e-29e5-41b0-8f9c-464657aea620
+      - 40a901e3-78e4-4a97-9ede-8a17236f1cae
       X-Runtime:
-      - '6.753533'
+      - '0.018212'
       X-Xss-Protection:
       - 1; mode=block
       Date:
-      - Tue, 13 Sep 2022 11:35:57 GMT
+      - Wed, 14 Sep 2022 15:51:50 GMT
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '[{"publication_date":"Tue, 30 Aug 2022 06:23:46 +0000","title":"Betreuer
+      string: '[{"publication_date":"Wed, 14 Sep 2022 10:51:22 +0200","title":"Betreuer
         / Fahrdienst / Techn. Dienst","identification_number":16240,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e80%\n\t\t\t\t\t\t\t\t\t\tBetreuung
         / Fahrdienst\u003c/strong\u003e\u003cbr\u003eBewohner beim Einkaufen, bei
         Ausflügen begleiten, spazieren, spielen, vorlesen.\nFahrten zum Arzt, Zahnarzt,
@@ -56,13 +56,13 @@ http_interactions:
         Kat. B, verantwortungsbewusstes Fahren.\n\t\t\t","preferred_skills":"Selbständige
         Arbeitsweise, Bereitschaft sich auf betagte und demente Menschen einzulassen.","required_courses":["Kommunikation
         \u0026 Betreuung","Betreuung von betagten Menschen 1","Betreuung von betagten
-        Menschen 2"],"free_service_periods":[],"canton":"BE","category":null,"organization_name":"Domicil
-        Weiermatt","sub_category":"support_and_accompaniment","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"Tue,
-        13 Sep 2022 00:23:16 +0000","contact":{"gender":"Frau","job":"Leitung Sekretariat","first_name":"Andrea","last_name":"Josi","phone":"+41
+        Menschen 2"],"free_service_periods":[],"canton":"BE","category":"social_welfare","organization_name":"Domicil
+        Weiermatt","sub_category":"support_and_accompaniment","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"13
+        Sep 2022","contact":{"gender":"Frau","job":"Leitung Sekretariat","first_name":"Andrea","last_name":"Josi","phone":"+41
         31 868 30 60","email":"andrea.josi@domicilbern.ch"},"address":{"primary_line":"Domicil
         Weiermatt","secondary_line":"Frau Anja Rüegsegger","street":"Moosgasse 15","supplement":"Sachbearbeiterin
-        Administration","city":"Münchenbuchsee","zip":3053,"latitude":47.02366235,"longitude":7.45053836713023}},{"publication_date":"Sun,
-        28 Aug 2022 06:31:11 +0000","title":"Hilfsbetreuer","identification_number":18470,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e30%\n\t\t\t\t\t\t\t\t\t\tHausdienst\u003c/strong\u003e\u003cbr\u003eMithilfe
+        Administration","city":"Münchenbuchsee","zip":3053,"latitude":47.02366235,"longitude":7.45053836713023},"weekly_work_time":42.0,"fixed_work_time":true,"good_reputation":false,"e_government":true,"work_on_weekend":false,"work_night_shift":false,"accommodation_provided":false,"food_provided":true},{"publication_date":"Wed,
+        14 Sep 2022 10:55:56 +0200","title":"Hilfsbetreuer","identification_number":18470,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e30%\n\t\t\t\t\t\t\t\t\t\tHausdienst\u003c/strong\u003e\u003cbr\u003eMithilfe
         im Haushalt / Unterstützung bei der Erziehungsplanung und bei administrativen
         Tätigkeiten der Wohngemeinschaft\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e60%\n\t\t\t\t\t\t\t\t\t\tBetreuung\u003c/strong\u003e\u003cbr\u003eBetreuen
         und Begleiten von geistig behinderten Menschen bei den täglichen Tätigkeiten\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e10%\n\t\t\t\t\t\t\t\t\t\tFreizeitgestaltung\u003c/strong\u003e\u003cbr\u003eMitgestalten
@@ -70,11 +70,11 @@ http_interactions:
         Berufslehre/Mittelschule / Physisch und psychisch belastbar / Soziale Kompetenz\n\t\t\t","preferred_skills":"Teamfähigkeit","required_courses":["Kommunikation
         \u0026 Betreuung","Betreuung von Menschen mit einer Beeinträchtigung 1","Betreuung
         von Menschen mit einer Beeinträchtigung 2"],"free_service_periods":[],"canton":"LU","category":"social_welfare","organization_name":"CASA
-        FARFALLA","sub_category":"support_and_accompaniment","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"Tue,
-        13 Sep 2022 04:56:46 +0000","contact":{"gender":"Herr","job":"Leiter Grossfamilie","first_name":null,"last_name":"n/a
+        FARFALLA","sub_category":"support_and_accompaniment","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"14
+        Sep 2022","contact":{"gender":"Herr","job":"Leiter Grossfamilie","first_name":null,"last_name":"n/a
         n/a","phone":"+ 41 41 980 61 83","email":null},"address":{"primary_line":"CASA
-        FARFALLA","secondary_line":null,"street":"Erlenstrasse 23","supplement":null,"city":"Emmenbrücke","zip":6020,"latitude":47.07833455,"longitude":8.26958010337137}},{"publication_date":"Tue,
-        30 Aug 2022 06:23:47 +0000","title":"Spielplatzbetreuer","identification_number":18588,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e5%\n\t\t\t\t\t\t\t\t\t\tBüroarbeit\u003c/strong\u003e\u003cbr\u003eErstellen
+        FARFALLA","secondary_line":null,"street":"Erlenstrasse 23","supplement":null,"city":"Emmenbrücke","zip":6020,"latitude":47.07833455,"longitude":8.26958010337137},"weekly_work_time":42.0,"fixed_work_time":true,"good_reputation":false,"e_government":true,"work_on_weekend":true,"work_night_shift":false,"accommodation_provided":true,"food_provided":true},{"publication_date":"Wed,
+        14 Sep 2022 11:01:48 +0200","title":"Spielplatzbetreuer","identification_number":18588,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e5%\n\t\t\t\t\t\t\t\t\t\tBüroarbeit\u003c/strong\u003e\u003cbr\u003eErstellen
         von BenutzerInnenstatistik, Beteiligung bei Versandarbeiten, Vermietung Barackenlokal
         und Spielzeug\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e25%\n\t\t\t\t\t\t\t\t\t\tAnimation
         mit Kindern\u003c/strong\u003e\u003cbr\u003eKinderbetreuung, Znüni, Hilfe
@@ -84,90 +84,90 @@ http_interactions:
         Selbständigkeit, Flexibilität, handwerkliches Geschick, Freude am Umgang mit
         Kindern\n\t\t\t","preferred_skills":"Belastbarkeit und Vielseitigkeit","required_courses":["Betreuung
         von Kindern 1","Betreuung von Kindern 2","Kommunikation \u0026 Betreuung"],"free_service_periods":[],"canton":"BE","category":"social_welfare","organization_name":"Spielplatz
-        Längmuur","sub_category":"organisation_and_participation_in_camps","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"Tue,
-        13 Sep 2022 00:11:14 +0000","contact":{"gender":"Herr","job":"Leiter Spielplatz","first_name":"Martin","last_name":"Flückiger","phone":"+41
+        Längmuur","sub_category":"organisation_and_participation_in_camps","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"13
+        Sep 2022","contact":{"gender":"Herr","job":"Leiter Spielplatz","first_name":"Martin","last_name":"Flückiger","phone":"+41
         79 285 00 89","email":"laengmuur@spieleninbern.ch"},"address":{"primary_line":"Spielplatz
-        Längmuur","secondary_line":"Langmauerweg 20 A","street":"Langmauerweg 20 A","supplement":null,"city":"Bern","zip":3011,"latitude":46.9498207,"longitude":7.4482925}},{"publication_date":"Mon,
-        12 Sep 2022 18:24:25 +0000","title":"Mitarbeit im Archiv","identification_number":18660,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e80%\n\t\t\t\t\t\t\t\t\t\tArchiv\u003c/strong\u003e\u003cbr\u003eArchivische
+        Längmuur","secondary_line":"Langmauerweg 20 A","street":"Langmauerweg 20 A","supplement":null,"city":"Bern","zip":3011,"latitude":46.9498207,"longitude":7.4482925},"weekly_work_time":42.0,"fixed_work_time":false,"good_reputation":false,"e_government":false,"work_on_weekend":true,"work_night_shift":false,"accommodation_provided":false,"food_provided":false},{"publication_date":"Wed,
+        14 Sep 2022 10:59:39 +0200","title":"Mitarbeit im Archiv","identification_number":18660,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e80%\n\t\t\t\t\t\t\t\t\t\tArchiv\u003c/strong\u003e\u003cbr\u003eArchivische
         Ordnung und Verzeichnung von Körperschaftsarchiven und Privatnachlässen\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e20%\n\t\t\t\t\t\t\t\t\t\tPlanung\u003c/strong\u003e\u003cbr\u003eVorbereitungsarbeiten,
         kleinere historische Recherchen, Dokumentation, Informationsvermittlung\u003c/li\u003e\n\t\t\t\t\t\t\u003c/ul\u003e\n\t\t\t\n\t\t","required_skills":"Matura,
         Berufsmatura, EDV-Kenntnisse\n\t\t\t","preferred_skills":"Kenntnisse in Politik
-        und Wirtschaft, selbständige Arbeitsweise","required_courses":[],"free_service_periods":[],"canton":"ZH","category":null,"organization_name":"Schweiz.
-        Sozialarchiv","sub_category":null,"minimum_service_months":3,"priority_program":false,"language":"de-CH","last_found_at":"Thu,
-        19 May 2022 23:22:11 +0000","contact":{"gender":"Herr","job":"Stv. Leiter","first_name":"Urs","last_name":"Kälin","phone":"+41
+        und Wirtschaft, selbständige Arbeitsweise","required_courses":[],"free_service_periods":[{"beginning":"02.01.2023","ending":"26.05.2024"}],"canton":"ZH","category":"preservation_of_cultural_assets","organization_name":"Schweiz.
+        Sozialarchiv","sub_category":null,"minimum_service_months":3,"priority_program":false,"language":"de-CH","last_found_at":"20
+        May 2022","contact":{"gender":"Herr","job":"Stv. Leiter","first_name":"Urs","last_name":"Kälin","phone":"+41
         43 268 87 40","email":"kaelin@sozarch.uzh.ch"},"address":{"primary_line":"Schweiz.
         Sozialarchiv","secondary_line":"Herr Urs Kälin","street":"Stadelhoferstrasse
-        12","supplement":"Stv. Leiter","city":"Zürich","zip":8001,"latitude":47.3668061,"longitude":8.54752350513336}},{"publication_date":"Thu,
-        03 Mar 2022 20:34:19 +0000","title":"Erfassen von Bilddokumenten","identification_number":18661,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e80%\n\t\t\t\t\t\t\t\t\t\tBildarchiv,
+        12","supplement":"Stv. Leiter","city":"Zürich","zip":8001,"latitude":47.3668061,"longitude":8.54752350513336},"weekly_work_time":42.0,"fixed_work_time":true,"good_reputation":false,"e_government":true,"work_on_weekend":false,"work_night_shift":false,"accommodation_provided":false,"food_provided":false},{"publication_date":"Wed,
+        14 Sep 2022 11:02:26 +0200","title":"Erfassen von Bilddokumenten","identification_number":18661,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e80%\n\t\t\t\t\t\t\t\t\t\tBildarchiv,
         Archiv\u003c/strong\u003e\u003cbr\u003eSelbständiges Ordnen und Verzeichnen
         von Bilddokumenten, Körperschaftsarchiven und Privat-Nachlässen\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e20%\n\t\t\t\t\t\t\t\t\t\tPlanung\u003c/strong\u003e\u003cbr\u003eVorbereitungsarbeiten,
         historische Recherchen, Dokumentation\u003c/li\u003e\n\t\t\t\t\t\t\u003c/ul\u003e\n\t\t\t\n\t\t","required_skills":"Hochschulstudium
         in Geschichte, Soziologie oder Politikwissenschaft (mind. 4 Semester) oder
-        gleichwertige Ausbildung\n\t\t\t","preferred_skills":"fundierte EDV-Kentnise\n\t","required_courses":[],"free_service_periods":[],"canton":"ZH","category":"preservation_of_cultural_assets","organization_name":"Schweiz.
-        Sozialarchiv","sub_category":"processing","minimum_service_months":2,"priority_program":false,"language":"de-CH","last_found_at":"Thu,
-        19 May 2022 23:22:10 +0000","contact":{"gender":"Herr","job":"Stv. Leiter","first_name":"Urs","last_name":"Kälin","phone":"+41
+        gleichwertige Ausbildung\n\t\t\t","preferred_skills":"fundierte EDV-Kenntnisse","required_courses":[],"free_service_periods":[{"beginning":"02.01.2023","ending":"26.05.2024"}],"canton":"ZH","category":"preservation_of_cultural_assets","organization_name":"Schweiz.
+        Sozialarchiv","sub_category":null,"minimum_service_months":2,"priority_program":false,"language":"de-CH","last_found_at":"20
+        May 2022","contact":{"gender":"Herr","job":"Stv. Leiter","first_name":"Urs","last_name":"Kälin","phone":"+41
         43 268 87 40","email":"kaelin@sozarch.uzh.ch"},"address":{"primary_line":"Schweiz.
         Sozialarchiv","secondary_line":"Herr Urs Kälin","street":"Stadelhoferstrasse
-        12","supplement":"Stv. Leiter","city":"Zürich","zip":8001,"latitude":47.3668061,"longitude":8.54752350513336}},{"publication_date":"Thu,
-        03 Mar 2022 20:28:16 +0000","title":"Besucherinformation","identification_number":18938,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e30%\n\t\t\t\t\t\t\t\t\t\tErarbeitung
+        12","supplement":"Stv. Leiter","city":"Zürich","zip":8001,"latitude":47.3668061,"longitude":8.54752350513336},"weekly_work_time":42.0,"fixed_work_time":true,"good_reputation":false,"e_government":true,"work_on_weekend":false,"work_night_shift":false,"accommodation_provided":false,"food_provided":false},{"publication_date":"Wed,
+        14 Sep 2022 10:51:17 +0200","title":"Besucherinformation","identification_number":18938,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e30%\n\t\t\t\t\t\t\t\t\t\tErarbeitung
         von Materialien\u003c/strong\u003e\u003cbr\u003eErarbeitung von Materialien
         zur Umwelterziehung im Zusammenhang mit dem Infozentrum (Büroanteil 15%)\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e50%\n\t\t\t\t\t\t\t\t\t\tEmpfang
         und Information\u003c/strong\u003e\u003cbr\u003eEmpfang, Betreuung von Besuchenden;
         Führung von Gruppen und Schulklassen, Animation zu Lernprogramm\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e20%\n\t\t\t\t\t\t\t\t\t\tHandwerkliche
         Arbeiten\u003c/strong\u003e\u003cbr\u003eAufbau, Unterhalt und Rückbau von
         Ausstellungen\u003c/li\u003e\n\t\t\t\t\t\t\u003c/ul\u003e\n\t\t\t\n\t\t","required_skills":"Biologische
-        oder didaktische Kenntnisse, Interesse am Konakt mit Besuchern\n\t\t\t","preferred_skills":"Teamfähigkeit\n\t","required_courses":["Umwelt-
-        \u0026 Naturschutz"],"free_service_periods":[],"canton":"ZH","category":"nature_conservancy","organization_name":"BirdLife-Naturzentrum
-        Neeracherried","sub_category":"pedagogical_work","minimum_service_months":3,"priority_program":true,"language":"de-CH","last_found_at":"Thu,
-        19 May 2022 23:18:29 +0000","contact":{"gender":"Herr","job":"Leiter Naturzentrum","first_name":"Stefan","last_name":"Heller","phone":"+41
+        oder didaktische Kenntnisse, Interesse am Konakt mit Besuchern\n\t\t\t","preferred_skills":"Teamfähigkeit","required_courses":["Umwelt-
+        \u0026 Naturschutz"],"free_service_periods":[{"beginning":"02.01.2023","ending":"26.05.2024"}],"canton":"ZH","category":"nature_conservancy","organization_name":"BirdLife-Naturzentrum
+        Neeracherried","sub_category":null,"minimum_service_months":3,"priority_program":true,"language":"de-CH","last_found_at":"20
+        May 2022","contact":{"gender":"Herr","job":"Leiter Naturzentrum","first_name":"Stefan","last_name":"Heller","phone":"+41
         44 858 13 00","email":"stefan.heller@birdlife.ch"},"address":{"primary_line":"BirdLife-Naturzentrum
-        Neracheried","secondary_line":"Her Stefan Heler","street":"Dielsdorferstrase
-        13","supplement":"Leiter Naturzentrum","city":"Nerach","zip":8173,"latitude":47.499771,"longitude":8.47898461297843}},{"publication_date":"Mon,
-        12 Sep 2022 07:36:42 +0000","title":"Lagerleiter","identification_number":19707,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e10%\n\t\t\t\t\t\t\t\t\t\tLagergestaltung\u003c/strong\u003e\u003cbr\u003eMithilfe
+        Neeracherried","secondary_line":"Herr Stefan Heller","street":"Dielsdorferstrasse
+        13","supplement":"Leiter Naturzentrum","city":"Neerach","zip":8173,"latitude":47.499771,"longitude":8.47898461297843},"weekly_work_time":42.0,"fixed_work_time":false,"good_reputation":false,"e_government":true,"work_on_weekend":true,"work_night_shift":false,"accommodation_provided":false,"food_provided":false},{"publication_date":"Wed,
+        14 Sep 2022 10:58:30 +0200","title":"Lagerleiter","identification_number":19707,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e10%\n\t\t\t\t\t\t\t\t\t\tLagergestaltung\u003c/strong\u003e\u003cbr\u003eMithilfe
         bei der Lagervorbereitung, Lagergestaltung und Lagerdurchführung\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e60%\n\t\t\t\t\t\t\t\t\t\tOrganisation\u003c/strong\u003e\u003cbr\u003eFachliche
         und menschliche Unterstützung des Betreuerteams, Aufgabenzuteilung\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e30%\n\t\t\t\t\t\t\t\t\t\tMaterialverwaltung\u003c/strong\u003e\u003cbr\u003eMithilfe
         bei der Budgeterstellung, Kontrolltätigkeiten, Materialverwaltung und Organisation\u003c/li\u003e\n\t\t\t\t\t\t\u003c/ul\u003e\n\t\t\t\n\t\t","required_skills":"Pädagogische,
         soziale oder pflegerische Ausbildung / Erfahrung mit behinderten Menschen
         / Bereitschaft zu erhöhter Präsenzzeit\n\t\t\t","preferred_skills":"Führungs-
         und Organisationstalent / Fahrausweis Kat. B","required_courses":[],"free_service_periods":[],"canton":"SZ","category":"social_welfare","organization_name":"insieme
-        Innerschwyz","sub_category":"organisation_and_participation_in_camps","minimum_service_months":1,"priority_program":false,"language":"de-CH","last_found_at":"Mon,
-        12 Sep 2022 23:51:52 +0000","contact":{"gender":"Frau","job":"Administration","first_name":"Tamara","last_name":"Züger","phone":"+41
+        Innerschwyz","sub_category":"organisation_and_participation_in_camps","minimum_service_months":1,"priority_program":false,"language":"de-CH","last_found_at":"14
+        Sep 2022","contact":{"gender":"Frau","job":"Administration","first_name":"Tamara","last_name":"Züger","phone":"+41
         41 511 79 60","email":"tamara.zueger@insieme-innerschwyz.ch"},"address":{"primary_line":"insieme
-        Innerschwyz","secondary_line":"Bahnhofplatz 19","street":"Bahnhofplatz 19","supplement":null,"city":"Brunnen","zip":6440,"latitude":46.999906,"longitude":8.6089199}},{"publication_date":"Mon,
-        12 Sep 2022 07:35:26 +0000","title":"Küchengehilfe","identification_number":19708,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e70%\n\t\t\t\t\t\t\t\t\t\tMahlzeitenzubereitung\u003c/strong\u003e\u003cbr\u003eMithilfe
+        Innerschwyz","secondary_line":"Bahnhofplatz 19","street":"Bahnhofplatz 19","supplement":null,"city":"Brunnen","zip":6440,"latitude":46.999906,"longitude":8.6089199},"weekly_work_time":50.0,"fixed_work_time":true,"good_reputation":false,"e_government":true,"work_on_weekend":true,"work_night_shift":true,"accommodation_provided":true,"food_provided":true},{"publication_date":"Wed,
+        14 Sep 2022 10:57:34 +0200","title":"Küchengehilfe","identification_number":19708,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e70%\n\t\t\t\t\t\t\t\t\t\tMahlzeitenzubereitung\u003c/strong\u003e\u003cbr\u003eMithilfe
         bei der Zubereitung der Mahlzeiten in der selbstgeführten Lagerküche\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e20%\n\t\t\t\t\t\t\t\t\t\tVorbereitung\u003c/strong\u003e\u003cbr\u003eMithilfe
         bei der Vorbereitung des Menueplanes, Einkauf der Nahrungsmittel\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e10%\n\t\t\t\t\t\t\t\t\t\tAdministrative
         Arbeiten\u003c/strong\u003e\u003cbr\u003eMithilfe bei den administrativen
         Arbeiten, Nachbearbeitung der Lagertätigkeit, Lagerabrechnung\u003c/li\u003e\n\t\t\t\t\t\t\u003c/ul\u003e\n\t\t\t\n\t\t","required_skills":"Sauberes
         Auftreten / soziale Kompetenz / Teamfähigkeit / Bereitschaft zu erhöhter Präsenzzeit\n\t\t\t","preferred_skills":"Kenntnisse
         der Lebensmittelhygiene und in der Nahrungsmittelzubereitung","required_courses":[],"free_service_periods":[],"canton":"SZ","category":"social_welfare","organization_name":"insieme
-        Innerschwyz","sub_category":"organisation_and_participation_in_camps","minimum_service_months":1,"priority_program":false,"language":"de-CH","last_found_at":"Mon,
-        12 Sep 2022 23:51:49 +0000","contact":{"gender":"Frau","job":"Administration","first_name":"Tamara","last_name":"Züger","phone":"+41
+        Innerschwyz","sub_category":"organisation_and_participation_in_camps","minimum_service_months":1,"priority_program":false,"language":"de-CH","last_found_at":"14
+        Sep 2022","contact":{"gender":"Frau","job":"Administration","first_name":"Tamara","last_name":"Züger","phone":"+41
         41 511 79 60","email":"tamara.zueger@insieme-innerschwyz.ch"},"address":{"primary_line":"insieme
-        Innerschwyz","secondary_line":"Bahnhofplatz 19","street":"Bahnhofplatz 19","supplement":null,"city":"Brunnen","zip":6440,"latitude":46.999906,"longitude":8.6089199}},{"publication_date":"Mon,
-        12 Sep 2022 07:25:26 +0000","title":"Lagermitbetreuer","identification_number":19709,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e40%\n\t\t\t\t\t\t\t\t\t\tBetreuung
+        Innerschwyz","secondary_line":"Bahnhofplatz 19","street":"Bahnhofplatz 19","supplement":null,"city":"Brunnen","zip":6440,"latitude":46.999906,"longitude":8.6089199},"weekly_work_time":50.0,"fixed_work_time":true,"good_reputation":false,"e_government":true,"work_on_weekend":true,"work_night_shift":true,"accommodation_provided":true,"food_provided":true},{"publication_date":"Wed,
+        14 Sep 2022 10:51:58 +0200","title":"Lagermitbetreuer","identification_number":19709,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e40%\n\t\t\t\t\t\t\t\t\t\tBetreuung
         / Begleitung\u003c/strong\u003e\u003cbr\u003eMithilfe bei der Betreuung und
         Begleitung der Lagerteilnehmer bei den täglichen, persönlichen Tätigkeiten\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e60%\n\t\t\t\t\t\t\t\t\t\tBeschäftigung\u003c/strong\u003e\u003cbr\u003eMithilfe
         bei der Vorbereitung und Durchführung von Beschäftigungen (Basteln, Sport,
         Werken)\u003c/li\u003e\n\t\t\t\t\t\t\u003c/ul\u003e\n\t\t\t\n\t\t","required_skills":"Teamfähigkeit
         / Offenheit / Ehrlichkeit / Bereitschaft zu erhöhter Präsenzzeit\n\t\t\t","preferred_skills":"Selbständigkeit
         / Soziale Kompetenz / Körperlich belastbar","required_courses":[],"free_service_periods":[],"canton":"SZ","category":"social_welfare","organization_name":"insieme
-        Innerschwyz","sub_category":"organisation_and_participation_in_camps","minimum_service_months":1,"priority_program":false,"language":"de-CH","last_found_at":"Mon,
-        12 Sep 2022 23:51:53 +0000","contact":{"gender":"Frau","job":"Administration","first_name":"Tamara","last_name":"Züger","phone":"+41
+        Innerschwyz","sub_category":"organisation_and_participation_in_camps","minimum_service_months":1,"priority_program":false,"language":"de-CH","last_found_at":"14
+        Sep 2022","contact":{"gender":"Frau","job":"Administration","first_name":"Tamara","last_name":"Züger","phone":"+41
         41 511 79 60","email":"tamara.zueger@insieme-innerschwyz.ch"},"address":{"primary_line":"insieme
-        Innerschwyz","secondary_line":"Bahnhofplatz 19","street":"Bahnhofplatz 19","supplement":null,"city":"Brunnen","zip":6440,"latitude":46.999906,"longitude":8.6089199}},{"publication_date":"Tue,
-        30 Aug 2022 06:24:19 +0000","title":"Mitarbeiter Heroinabgabe","identification_number":20714,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e30%\n\t\t\t\t\t\t\t\t\t\tBetreuung\u003c/strong\u003e\u003cbr\u003eBeratung,
+        Innerschwyz","secondary_line":"Bahnhofplatz 19","street":"Bahnhofplatz 19","supplement":null,"city":"Brunnen","zip":6440,"latitude":46.999906,"longitude":8.6089199},"weekly_work_time":50.0,"fixed_work_time":true,"good_reputation":false,"e_government":true,"work_on_weekend":true,"work_night_shift":true,"accommodation_provided":true,"food_provided":true},{"publication_date":"Wed,
+        14 Sep 2022 10:59:51 +0200","title":"Mitarbeiter Heroinabgabe","identification_number":20714,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e30%\n\t\t\t\t\t\t\t\t\t\tBetreuung\u003c/strong\u003e\u003cbr\u003eBeratung,
         Betreuung der Patienten während der Abgabe\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e70%\n\t\t\t\t\t\t\t\t\t\tHeroinabgabe\u003c/strong\u003e\u003cbr\u003eMitarbeit
         bei der Organisation und Durchführung der Heroinabgabe, Pflegedienst, Mithilfe
         bei der Verwaltung der Apotheke, Einkauf von medizinischem Material und Medikamenten
         (30% Büro)\u003c/li\u003e\n\t\t\t\t\t\t\u003c/ul\u003e\n\t\t\t\n\t\t","required_skills":"Kranken-
         oder Psychiatriepfleger, Lebenserfahrung, Flexibilität, Frustrationstoleranz\n\t\t\t","preferred_skills":"Interesse
         den der Drogenproblematik und für die Menschen mit psycho-sozialen Defiziten","required_courses":["Kommunikation
-        \u0026 Betreuung"],"free_service_periods":[],"canton":"BE","category":"healthcare","organization_name":"KODA-1","sub_category":"social_care_and_counselling","minimum_service_months":3,"priority_program":true,"language":"de-CH","last_found_at":"Tue,
-        13 Sep 2022 00:21:16 +0000","contact":{"gender":"Herr","job":"Pflegedienstleiter","first_name":"Helmut","last_name":"Zürcher","phone":"+41
+        \u0026 Betreuung"],"free_service_periods":[],"canton":"BE","category":"healthcare","organization_name":"KODA-1","sub_category":"social_care_and_counselling","minimum_service_months":3,"priority_program":true,"language":"de-CH","last_found_at":"13
+        Sep 2022","contact":{"gender":"Herr","job":"Pflegedienstleiter","first_name":"Helmut","last_name":"Zürcher","phone":"+41
         31 390 92 22","email":"helmut.zuercher@koda.ch"},"address":{"primary_line":"KODA-1","secondary_line":"Belpstrase
-        47","street":"Belpstrasse 47","supplement":null,"city":"Bern 14","zip":3000,"latitude":46.9426682,"longitude":7.4317326}},{"publication_date":"Sun,
-        28 Aug 2022 06:31:11 +0000","title":"Betreuer WG Neuenkirch","identification_number":21001,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e50%\n\t\t\t\t\t\t\t\t\t\tHausdienst\u003c/strong\u003e\u003cbr\u003eMithilfe
+        47","street":"Belpstrasse 47","supplement":null,"city":"Bern 14","zip":3000,"latitude":46.9426682,"longitude":7.4317326},"weekly_work_time":42.0,"fixed_work_time":true,"good_reputation":false,"e_government":false,"work_on_weekend":false,"work_night_shift":false,"accommodation_provided":false,"food_provided":false},{"publication_date":"Wed,
+        14 Sep 2022 10:51:34 +0200","title":"Betreuer WG Neuenkirch","identification_number":21001,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e50%\n\t\t\t\t\t\t\t\t\t\tHausdienst\u003c/strong\u003e\u003cbr\u003eMithilfe
         bei den Haushalts- und Küchenarbeiten in Zusammenarbeit mit den Bewohner/innen
         / Mithilfe bei den Unterhalts- und Wartungsarbeiten an Gebäuden und öffentlichen
         Standorten\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e10%\n\t\t\t\t\t\t\t\t\t\tFreizeitgestaltung\u003c/strong\u003e\u003cbr\u003eMitgestaltung
@@ -181,12 +181,11 @@ http_interactions:
         Kat. B / Erfahrung im pädagogischen Bereich / Eigenverantwortung / Selbständige
         Arbeitsweise","required_courses":["Kommunikation \u0026 Betreuung","Betreuung
         von Jugendlichen 1","Betreuung von Jugendlichen 2"],"free_service_periods":[],"canton":"LU","category":"social_welfare","organization_name":"Sozialpädagogische
-        Wohnheime Luzern","sub_category":"social_care_and_counselling","minimum_service_months":3,"priority_program":true,"language":"de-CH","last_found_at":"Tue,
-        13 Sep 2022 04:57:02 +0000","contact":{"gender":"Herr","job":"Leiter Ausbildung
-        und Arbeit","first_name":"Guido","last_name":"Burri","phone":null,"email":"guido.burri@ufwind.ch"},"address":{"primary_line":"Sozialpädagogische
+        Wohnheime Luzern","sub_category":"social_care_and_counselling","minimum_service_months":3,"priority_program":true,"language":"de-CH","last_found_at":"14
+        Sep 2022","contact":{"gender":"Herr","job":"Leiter Ausbildung und Arbeit","first_name":"Guido","last_name":"Burri","phone":null,"email":"guido.burri@ufwind.ch"},"address":{"primary_line":"Sozialpädagogische
         Wohnheime Luzern","secondary_line":"Frau Andrea Kälin","street":"Maihofstrasse
-        41","supplement":"Maihofstrase 41","city":"Luzern","zip":6004,"latitude":47.06381875,"longitude":8.31019746036831}},{"publication_date":"Tue,
-        13 Sep 2022 11:21:39 +0000","title":"Betreuer WG Luzern","identification_number":21002,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e40%\n\t\t\t\t\t\t\t\t\t\tBetreuung\u003c/strong\u003e\u003cbr\u003eBetreuen
+        41","supplement":"Maihofstrase 41","city":"Luzern","zip":6004,"latitude":47.06381875,"longitude":8.31019746036831},"weekly_work_time":42.0,"fixed_work_time":false,"good_reputation":false,"e_government":true,"work_on_weekend":false,"work_night_shift":false,"accommodation_provided":false,"food_provided":true},{"publication_date":"Wed,
+        14 Sep 2022 10:57:26 +0200","title":"Betreuer WG Luzern","identification_number":21002,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e40%\n\t\t\t\t\t\t\t\t\t\tBetreuung\u003c/strong\u003e\u003cbr\u003eBetreuen
         der jugendlichen Menschen in der Wohngemeinschaft und bei internen Beschäftigung
         / Förderung der jugendlichen Menschen im Bereich Arbeit, Vermittelbarkeit
         und Lehrstellensuche / Beratung inhaltlich und administrativ\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e50%\n\t\t\t\t\t\t\t\t\t\tHausdienst\u003c/strong\u003e\u003cbr\u003eMithilfe
@@ -199,12 +198,12 @@ http_interactions:
         belastbar / Teamfähigkeit\n\t\t\t","preferred_skills":"Interesse in der Jugendarbeit
         / Sozialkompetenz / Hohe Motivation / Eigenverantwortung / Selbständige Arbeitsweise
         / Erfahrung in Haushaltarbeiten","required_courses":["Kommunikation \u0026
-        Betreuung","Betreuung von Jugendlichen 1","Betreuung von Jugendlichen 2"],"free_service_periods":[{"beginning":"13.09.2022","ending":"16.10.2022"},{"beginning":"12.12.2022","ending":"15.09.2024"}],"canton":"LU","category":"social_welfare","organization_name":"Sozialpädagogische
-        Wohnheime Luzern","sub_category":"social_care_and_counselling","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"Tue,
-        13 Sep 2022 05:03:52 +0000","contact":{"gender":"Frau","job":null,"first_name":"Andrea","last_name":"Kälin","phone":null,"email":"andrea.kaelin@wohnheimdynamo.ch"},"address":{"primary_line":"Sozialpädagogische
+        Betreuung","Betreuung von Jugendlichen 1","Betreuung von Jugendlichen 2"],"free_service_periods":[{"beginning":"14.09.2022","ending":"16.10.2022"},{"beginning":"12.12.2022","ending":"04.06.2023"},{"beginning":"24.07.2023","ending":"15.09.2024"}],"canton":"LU","category":"social_welfare","organization_name":"Sozialpädagogische
+        Wohnheime Luzern","sub_category":"social_care_and_counselling","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"14
+        Sep 2022","contact":{"gender":"Frau","job":null,"first_name":"Andrea","last_name":"Kälin","phone":null,"email":"andrea.kaelin@wohnheimdynamo.ch"},"address":{"primary_line":"Sozialpädagogische
         Wohnheime Luzern","secondary_line":"Frau Andrea Kälin","street":"Maihofstrasse
-        41","supplement":"Maihofstrase 41","city":"Luzern","zip":6004,"latitude":47.06381875,"longitude":8.31019746036831}},{"publication_date":"Mon,
-        01 Aug 2022 09:58:50 +0000","title":"Behinderten Mitbetreuer","identification_number":21183,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e10%\n\t\t\t\t\t\t\t\t\t\tAdministrative
+        41","supplement":"Maihofstrase 41","city":"Luzern","zip":6004,"latitude":47.06381875,"longitude":8.31019746036831},"weekly_work_time":42.0,"fixed_work_time":false,"good_reputation":false,"e_government":true,"work_on_weekend":false,"work_night_shift":false,"accommodation_provided":false,"food_provided":true},{"publication_date":"Wed,
+        14 Sep 2022 11:00:33 +0200","title":"Behinderten Mitbetreuer","identification_number":21183,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e10%\n\t\t\t\t\t\t\t\t\t\tAdministrative
         Arbeiten\u003c/strong\u003e\u003cbr\u003eMithilfe bei der Organisation / Teilnahme
         an Sitzungen\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e70%\n\t\t\t\t\t\t\t\t\t\tBetreuung
         / Begleitung\u003c/strong\u003e\u003cbr\u003eUnterstützung der Lehrperson
@@ -219,11 +218,11 @@ http_interactions:
         der EDV Anwendung","required_courses":["Kommunikation \u0026 Betreuung","Betreuung
         von Menschen mit einer Beeinträchtigung 1","Betreuung von Menschen mit einer
         Beeinträchtigung 2"],"free_service_periods":[],"canton":"SZ","category":"social_welfare","organization_name":"heilpädagogisches
-        zentrum","sub_category":"support_and_accompaniment","minimum_service_months":6,"priority_program":true,"language":"de-CH","last_found_at":"Mon,
-        12 Sep 2022 23:51:34 +0000","contact":{"gender":"Frau","job":"Schulleiterin","first_name":"Barbara","last_name":"Ardizzone","phone":"+41
+        zentrum","sub_category":"support_and_accompaniment","minimum_service_months":6,"priority_program":true,"language":"de-CH","last_found_at":"14
+        Sep 2022","contact":{"gender":"Frau","job":"Schulleiterin","first_name":"Barbara","last_name":"Ardizzone","phone":"+41
         41 811 16 23","email":"sekretariat@hzi.sz.ch"},"address":{"primary_line":"heilpädagogisches
-        zentrum","secondary_line":null,"street":"Gotthardstrasse 126","supplement":null,"city":"Ibach","zip":6438,"latitude":47.016853,"longitude":8.6430937141709}},{"publication_date":"Tue,
-        30 Aug 2022 06:19:18 +0000","title":"Pflegefachmann","identification_number":30956,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e90%\n\t\t\t\t\t\t\t\t\t\tPflege/Betreuung\u003c/strong\u003e\u003cbr\u003eSelbständige
+        zentrum","secondary_line":null,"street":"Gotthardstrasse 126","supplement":null,"city":"Ibach","zip":6438,"latitude":47.016853,"longitude":8.6430937141709},"weekly_work_time":42.0,"fixed_work_time":true,"good_reputation":false,"e_government":false,"work_on_weekend":false,"work_night_shift":false,"accommodation_provided":false,"food_provided":true},{"publication_date":"Wed,
+        14 Sep 2022 11:00:06 +0200","title":"Pflegefachmann","identification_number":30956,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e90%\n\t\t\t\t\t\t\t\t\t\tPflege/Betreuung\u003c/strong\u003e\u003cbr\u003eSelbständige
         Verrichtung der Grund- und Behandlungspflege / Betreuung der Patienten im
         Alltag / Erledigung von allgemeinen, hauswirtschaftlichen Arbeiten\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e10%\n\t\t\t\t\t\t\t\t\t\tOrganisation\u003c/strong\u003e\u003cbr\u003eUebernahme
         der Verantwortung als Fachperson / Tagesverantwortung / Teilnahme an internen
@@ -232,12 +231,12 @@ http_interactions:
         im Umgang mit betagten Menschen\n\t\t\t","preferred_skills":"Selbständiges
         und zuverlässiges Arbeiten / Teamfähigkeit / Flexibilität / Bereitschaft zur
         Arbeit nach Dienstplänen","required_courses":[],"free_service_periods":[],"canton":"LU","category":"social_welfare","organization_name":"Murhof
-        Betreutes Wohnen und Pflege","sub_category":"care","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"Tue,
-        13 Sep 2022 03:40:01 +0000","contact":{"gender":"Herr","job":"Heimleiter","first_name":"Ueli","last_name":"Eggimann","phone":"+41
+        Betreutes Wohnen und Pflege","sub_category":"care","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"14
+        Sep 2022","contact":{"gender":"Herr","job":"Heimleiter","first_name":"Ueli","last_name":"Eggimann","phone":"+41
         62 918 18 18","email":"info@murhof.ch"},"address":{"primary_line":"Murhof
         Betreutes Wohnen und Pflege","secondary_line":"Murhofstrasse 4","street":"Murhofstrasse
-        4","supplement":null,"city":"St. Urban","zip":4915,"latitude":47.2327566,"longitude":7.84576214131717}},{"publication_date":"Mon,
-        01 Aug 2022 09:59:14 +0000","title":"Betreuung/Begleitung","identification_number":31196,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e30%\n\t\t\t\t\t\t\t\t\t\tHausdienst\u003c/strong\u003e\u003cbr\u003eMithilfe
+        4","supplement":null,"city":"St. Urban","zip":4915,"latitude":47.2327566,"longitude":7.84576214131717},"weekly_work_time":42.0,"fixed_work_time":true,"good_reputation":false,"e_government":true,"work_on_weekend":true,"work_night_shift":false,"accommodation_provided":false,"food_provided":false},{"publication_date":"Wed,
+        14 Sep 2022 10:57:23 +0200","title":"Betreuung/Begleitung","identification_number":31196,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e30%\n\t\t\t\t\t\t\t\t\t\tHausdienst\u003c/strong\u003e\u003cbr\u003eMithilfe
         bei Hausdienst- und Hauswirtschaftsaufgaben, zum Teil in Zusammenarbeit mit  den
         Jugendlichen und jungen Erwachsenen / Mithilfe bei anfallenden Reparatur-
         und Unterhaltsarbeiten an Gebäuden und Einrichtungen, je nach Begabung\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e60%\n\t\t\t\t\t\t\t\t\t\tBetreuung/Begleitung\u003c/strong\u003e\u003cbr\u003eBetreuung
@@ -250,12 +249,12 @@ http_interactions:
         belastbar / Gute Kommunikationsfähigkeiten\n\t\t\t","preferred_skills":"Selbständiges
         und zuverlässiges Arbeiten / Teamfähigkeit / Einfühlungsvermögen / Motivation
         für den Umgang mit Jugendlichen und jungen erwachsenen Menschen","required_courses":["Betreuung
-        von Jugendlichen 1","Betreuung von Jugendlichen 2","Kommunikation \u0026 Betreuung"],"free_service_periods":[],"canton":"UR","category":"social_welfare","organization_name":"Wohngemeinschaft
-        an der Reuss","sub_category":"support_and_accompaniment","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"Mon,
-        01 Aug 2022 00:16:47 +0000","contact":{"gender":"Herr","job":"Leiter","first_name":"Martin","last_name":"Kopp","phone":"+41
+        von Jugendlichen 1","Betreuung von Jugendlichen 2","Kommunikation \u0026 Betreuung"],"free_service_periods":[{"beginning":"14.09.2022","ending":"06.11.2022"},{"beginning":"28.11.2022","ending":"04.12.2022"},{"beginning":"02.01.2023","ending":"15.09.2024"}],"canton":"UR","category":"social_welfare","organization_name":"Wohngemeinschaft
+        an der Reuss","sub_category":"support_and_accompaniment","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"14
+        Sep 2022","contact":{"gender":"Herr","job":"Leiter","first_name":"Martin","last_name":"Kopp","phone":"+41
         41 881 01 91","email":"martin.u.kopp@gmail.com"},"address":{"primary_line":"Wohngemeinschaft
-        an der Reuss","secondary_line":null,"street":"Leonhardstrasse 16","supplement":null,"city":"Erstfeld","zip":6472,"latitude":46.82177195,"longitude":8.64659305}},{"publication_date":"Wed,
-        29 Jun 2022 08:11:22 +0000","title":"Mitarbeiter Bauforschung/Inventar","identification_number":31905,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e70%\n\t\t\t\t\t\t\t\t\t\tBauforschung/Inventarisation\u003c/strong\u003e\u003cbr\u003eErstellen
+        an der Reuss","secondary_line":null,"street":"Leonhardstrasse 16","supplement":null,"city":"Erstfeld","zip":6472,"latitude":46.82177195,"longitude":8.64659305},"weekly_work_time":42.0,"fixed_work_time":true,"good_reputation":false,"e_government":true,"work_on_weekend":true,"work_night_shift":true,"accommodation_provided":true,"food_provided":true},{"publication_date":"Wed,
+        14 Sep 2022 11:03:54 +0200","title":"Mitarbeiter Bauforschung/Inventar","identification_number":31905,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e70%\n\t\t\t\t\t\t\t\t\t\tBauforschung/Inventarisation\u003c/strong\u003e\u003cbr\u003eErstellen
         von Aufnahmeplänen, Fotographien und Sicherungstellungsdokumentationen zu
         geschützten oder abbruchgefährdeten Kulturobjekten / Quellenforschung zur
         Baugeschichte / planerische Aufnahmen zu Kulturobjekten, Siedlungen und archäologischen\n
@@ -269,13 +268,13 @@ http_interactions:
         (Hochbauzeichner, Architekt) oder Studium in phil.-hist. Richtung (Geschichte
         oder Kunstgeschichte) / gute EDV Kenntnisse\n\t\t\t","preferred_skills":"Selbständige
         Arbeitsweise / Ordnungssinn / Fotographiekenntnisse / Interesse an Architektur
-        und Kultur","required_courses":[],"free_service_periods":[],"canton":"OW","category":"preservation_of_cultural_assets","organization_name":"Bildungs-
-        und Kulturdepartement Obwalden","sub_category":"scientific_work","minimum_service_months":1,"priority_program":false,"language":"de-CH","last_found_at":"Sun,
-        26 Jun 2022 23:01:42 +0000","contact":{"gender":"Herr","job":"Kant. Denkmalpfleger","first_name":"Peter","last_name":"Omachen","phone":"+41
+        und Kultur","required_courses":[],"free_service_periods":[{"beginning":"14.09.2022","ending":"25.12.2022"},{"beginning":"09.01.2023","ending":"07.05.2023"},{"beginning":"04.09.2023","ending":"15.09.2024"}],"canton":"OW","category":"preservation_of_cultural_assets","organization_name":"Bildungs-
+        und Kulturdepartement Obwalden","sub_category":"scientific_work","minimum_service_months":1,"priority_program":false,"language":"de-CH","last_found_at":"14
+        Sep 2022","contact":{"gender":"Herr","job":"Kant. Denkmalpfleger","first_name":"Peter","last_name":"Omachen","phone":"+41
         41 666 62 51","email":"peter.omachen@ow.ch"},"address":{"primary_line":"Bildungs-
         und Kulturdepartement Obwalden","secondary_line":null,"street":"Brünigstrasse
-        178","supplement":null,"city":"Sarnen","zip":6060,"latitude":46.89132965,"longitude":8.24465353951169}},{"publication_date":"Tue,
-        30 Aug 2022 06:23:36 +0000","title":"Haus- und Umgebungsarbeiten/Kinderbetreuung","identification_number":31981,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e10%\n\t\t\t\t\t\t\t\t\t\tKüche/Waschküche\u003c/strong\u003e\u003cbr\u003eAllgemeine
+        178","supplement":null,"city":"Sarnen","zip":6060,"latitude":46.89132965,"longitude":8.24465353951169},"weekly_work_time":42.0,"fixed_work_time":false,"good_reputation":false,"e_government":true,"work_on_weekend":false,"work_night_shift":false,"accommodation_provided":false,"food_provided":false},{"publication_date":"Wed,
+        14 Sep 2022 10:57:56 +0200","title":"Haus- und Umgebungsarbeiten/Kinderbetreuung","identification_number":31981,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e10%\n\t\t\t\t\t\t\t\t\t\tKüche/Waschküche\u003c/strong\u003e\u003cbr\u003eAllgemeine
         Hilfsarbeiten in der Küche.\nSortieren und Zusammenlegen der Wäsche in der
         Waschküche.\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e25%\n\t\t\t\t\t\t\t\t\t\tRenovationen\u003c/strong\u003e\u003cbr\u003eKinderzimmer
         renovieren und malen.\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e30%\n\t\t\t\t\t\t\t\t\t\tUmgebung/Garten\u003c/strong\u003e\u003cbr\u003eKompostieren,
@@ -285,11 +284,11 @@ http_interactions:
         Angaben vorhanden\n\t\t\t","preferred_skills":"Handwerkliche Fähigkeiten.
         Gute körperliche Verfassung. Erfahrung im Umgang mit Kindern. Fahrausweis
         Kat. B.","required_courses":["Kommunikation \u0026 Betreuung","Betreuung von
-        Jugendlichen 1","Betreuung von Jugendlichen 2"],"free_service_periods":[],"canton":"BE","category":"social_welfare","organization_name":"Kinder-
-        und Jugendheim  Maiezyt","sub_category":"other","minimum_service_months":2,"priority_program":true,"language":"de-CH","last_found_at":"Tue,
-        13 Sep 2022 00:05:15 +0000","contact":{"gender":"Herr","job":"Heimleiter","first_name":"Olaf","last_name":"Backes","phone":null,"email":"olaf.backes@maiezyt.ch"},"address":{"primary_line":"Kinder-
-        und Jugendheim Maiezyt","secondary_line":null,"street":"Lindenweg 9","supplement":null,"city":"Wabern","zip":3084,"latitude":46.9221412,"longitude":7.45873704624581}},{"publication_date":"Thu,
-        30 Jun 2022 06:21:41 +0000","title":"Hilfspfleger","identification_number":32773,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e70%\n\t\t\t\t\t\t\t\t\t\tPflege
+        Jugendlichen 1","Betreuung von Jugendlichen 2"],"free_service_periods":[{"beginning":"14.11.2022","ending":"15.09.2024"}],"canton":"BE","category":"social_welfare","organization_name":"Kinder-
+        und Jugendheim  Maiezyt","sub_category":"other","minimum_service_months":2,"priority_program":true,"language":"de-CH","last_found_at":"13
+        Sep 2022","contact":{"gender":"Herr","job":"Heimleiter","first_name":"Olaf","last_name":"Backes","phone":null,"email":"olaf.backes@maiezyt.ch"},"address":{"primary_line":"Kinder-
+        und Jugendheim Maiezyt","secondary_line":null,"street":"Lindenweg 9","supplement":null,"city":"Wabern","zip":3084,"latitude":46.9221412,"longitude":7.45873704624581},"weekly_work_time":42.0,"fixed_work_time":true,"good_reputation":false,"e_government":true,"work_on_weekend":false,"work_night_shift":false,"accommodation_provided":false,"food_provided":true},{"publication_date":"Wed,
+        14 Sep 2022 11:02:08 +0200","title":"Hilfspfleger","identification_number":32773,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e70%\n\t\t\t\t\t\t\t\t\t\tPflege
         / Betreuung\u003c/strong\u003e\u003cbr\u003eMithilfe bei der Grundpflege unter
         Anweisung und Überwachung des diplomierten Personals\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e30%\n\t\t\t\t\t\t\t\t\t\tHauswirtschaft\u003c/strong\u003e\u003cbr\u003eMithifle
         bei der Unterhaltsreinigung in den Patientenzimmern und bei den allgemeinen,
@@ -299,11 +298,11 @@ http_interactions:
         Arbeit nach Dienstplänen\n\t\t\t","preferred_skills":"Gute körperliche Verfassung
         / Selbständiges und zuverlässiges Arbeiten / Teamfähigkeit","required_courses":["Kommunikation
         \u0026 Betreuung","Pflegehilfe 1","Pflegehilfe 2"],"free_service_periods":[],"canton":"SG","category":"social_welfare","organization_name":"St.
-        Antonius","sub_category":"care","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"Mon,
-        12 Sep 2022 00:03:27 +0000","contact":{"gender":"Herr","job":"Heimleiter","first_name":"Beat","last_name":"Abegg","phone":"+41
+        Antonius","sub_category":"care","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"12
+        Sep 2022","contact":{"gender":"Herr","job":"Heimleiter","first_name":"Beat","last_name":"Abegg","phone":"+41
         55 415 50 80","email":"b.abegg@st-antonius-hurden.ch"},"address":{"primary_line":"St.
-        Antonius","secondary_line":null,"street":"Hurdenerstrasse 104","supplement":null,"city":"Hurden","zip":8640,"latitude":47.2142501,"longitude":8.8043485}},{"publication_date":"Thu,
-        30 Jun 2022 06:21:42 +0000","title":"Pflegefachmann","identification_number":32774,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e90%\n\t\t\t\t\t\t\t\t\t\tPflege
+        Antonius","secondary_line":null,"street":"Hurdenerstrasse 104","supplement":null,"city":"Hurden","zip":8640,"latitude":47.2142501,"longitude":8.8043485},"weekly_work_time":42.5,"fixed_work_time":true,"good_reputation":false,"e_government":true,"work_on_weekend":true,"work_night_shift":false,"accommodation_provided":false,"food_provided":false},{"publication_date":"Wed,
+        14 Sep 2022 11:01:57 +0200","title":"Pflegefachmann","identification_number":32774,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e90%\n\t\t\t\t\t\t\t\t\t\tPflege
         / Betreuung\u003c/strong\u003e\u003cbr\u003eSelbständige Verrichtung der Grund-
         und Behandlungspflege, Betreuung der Patienten im Alltag, Erledigung von allgemeinen
         hauswirtschaftlichen Arbeiten\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e10%\n\t\t\t\t\t\t\t\t\t\tOrganisation\u003c/strong\u003e\u003cbr\u003eÜbernahmen
@@ -312,12 +311,12 @@ http_interactions:
         im Gesundheits- und Krankenpflege / Sozial- und Selbstkompetenz / Motivation
         im Umgang mit behinderten und pflegebedürftigen Menschen / Bereitschaft zur
         Arbeit nach Dienstplänen\n\t\t\t","preferred_skills":"Selbständiges und zuverlässiges
-        Arbeiten / Teamfähigkeit / Flexibilität","required_courses":[],"free_service_periods":[],"canton":"SG","category":null,"organization_name":"St.
-        Antonius","sub_category":"care","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"Mon,
-        12 Sep 2022 00:03:20 +0000","contact":{"gender":"Herr","job":"Heimleiter","first_name":"Beat","last_name":"Abegg","phone":"+41
+        Arbeiten / Teamfähigkeit / Flexibilität","required_courses":[],"free_service_periods":[],"canton":"SG","category":"social_welfare","organization_name":"St.
+        Antonius","sub_category":"care","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"12
+        Sep 2022","contact":{"gender":"Herr","job":"Heimleiter","first_name":"Beat","last_name":"Abegg","phone":"+41
         55 415 50 80","email":"b.abegg@st-antonius-hurden.ch"},"address":{"primary_line":"St.
-        Antonius","secondary_line":null,"street":"Hurdenerstrasse 104","supplement":null,"city":"Hurden","zip":8640,"latitude":47.2142501,"longitude":8.8043485}},{"publication_date":"Thu,
-        30 Jun 2022 06:21:41 +0000","title":"Mitbetreuer","identification_number":32776,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e10%\n\t\t\t\t\t\t\t\t\t\tOragnisation\u003c/strong\u003e\u003cbr\u003eTeilnahme
+        Antonius","secondary_line":null,"street":"Hurdenerstrasse 104","supplement":null,"city":"Hurden","zip":8640,"latitude":47.2142501,"longitude":8.8043485},"weekly_work_time":42.5,"fixed_work_time":true,"good_reputation":false,"e_government":true,"work_on_weekend":true,"work_night_shift":false,"accommodation_provided":false,"food_provided":false},{"publication_date":"Wed,
+        14 Sep 2022 11:02:13 +0200","title":"Mitbetreuer","identification_number":32776,"description":"\n\t\t\t\n\t\t\t\t\t\t\u003cul\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e10%\n\t\t\t\t\t\t\t\t\t\tOragnisation\u003c/strong\u003e\u003cbr\u003eTeilnahme
         an Rapporten und Sitzungen, Führen von Verlaufsrapporten, Erledigung von administrativen
         Arbeiten\u003c/li\u003e\n\t\t\t\t\t\t\t\t\u003cli\u003e\n\u003cstrong\u003e20%\n\t\t\t\t\t\t\t\t\t\tHausdienst\u003c/strong\u003e\u003cbr\u003eMithilfe;
         - bei den Aufgaben im Hausdienst, zum Teil in Zusammenarbeit mit den Menschen
@@ -333,9 +332,9 @@ http_interactions:
         Arbeiten / Teamfähigkeit / Agogische Kenntinsse","required_courses":["Kommunikation
         \u0026 Betreuung","Betreuung von Menschen mit einer Beeinträchtigung 1","Betreuung
         von Menschen mit einer Beeinträchtigung 2"],"free_service_periods":[],"canton":"SG","category":"social_welfare","organization_name":"St.
-        Antonius","sub_category":"support_and_accompaniment","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"Mon,
-        12 Sep 2022 00:03:28 +0000","contact":{"gender":"Herr","job":"Heimleiter","first_name":"Beat","last_name":"Abegg","phone":"+41
+        Antonius","sub_category":"support_and_accompaniment","minimum_service_months":1,"priority_program":true,"language":"de-CH","last_found_at":"12
+        Sep 2022","contact":{"gender":"Herr","job":"Heimleiter","first_name":"Beat","last_name":"Abegg","phone":"+41
         55 415 50 80","email":"b.abegg@st-antonius-hurden.ch"},"address":{"primary_line":"St.
-        Antonius","secondary_line":null,"street":"Hurdenerstrasse 104","supplement":null,"city":"Hurden","zip":8640,"latitude":47.2142501,"longitude":8.8043485}}]'
-  recorded_at: Tue, 13 Sep 2022 11:35:57 GMT
+        Antonius","secondary_line":null,"street":"Hurdenerstrasse 104","supplement":null,"city":"Hurden","zip":8640,"latitude":47.2142501,"longitude":8.8043485},"weekly_work_time":42.5,"fixed_work_time":true,"good_reputation":false,"e_government":true,"work_on_weekend":true,"work_night_shift":false,"accommodation_provided":false,"food_provided":false}]'
+  recorded_at: Wed, 14 Sep 2022 15:51:50 GMT
 recorded_with: VCR 6.1.0
