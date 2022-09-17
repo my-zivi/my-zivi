@@ -175,6 +175,8 @@ de-CH:
         action_html: Sobald die Ausschreibung zur Veröffentlichung bereit ist, kannst Du sie <a href="%{link}">hier</a> veröffentlichen
         description: Diese Ausschreibung ist wurde noch nicht veröffentlicht. Da Du allerdings mit %{email} eingeloggt bist, kannst Du die Ausschreibung im Vorschau-Modus betrachten.
         title: Ausschreibung ist noch nicht veröffentlicht
+      structured_data:
+        title: "Zivi-Einsatz: %title"
   layouts:
     application:
       meta:
