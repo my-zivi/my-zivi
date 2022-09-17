@@ -561,6 +561,7 @@ de-CH:
       file_name: Einsatzvereinbarung_%{name}_%{beginning}_%{ending}.pdf
   print: Drucken
   search:
+    details: Details
     load_more: Weitere laden...
     no_results_found: Keine Einsätze gefunden
     powered_by: über

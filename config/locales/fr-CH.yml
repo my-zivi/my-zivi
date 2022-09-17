@@ -560,6 +560,7 @@ fr-CH:
       file_name: Convention_d_affectation_%{name}_%{beginning}_%{ending}.pdf
   print: Imprimer
   search:
+    details: Détails
     load_more: Afficher plus...
     no_results_found: Aucun encart trouvé
     powered_by: via

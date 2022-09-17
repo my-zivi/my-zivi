@@ -14,7 +14,7 @@ import {
 
 const VirtualRefinementList = connectRefinementList(() => <></>);
 
-class RefinementsPanel extends React.Component<{ clearFiltersInsideCard?: boolean }, { isCollapsed: boolean }> {
+class RefinementsInnerPanel extends React.Component<{ clearFiltersInsideCard?: boolean }, { isCollapsed: boolean }> {
   constructor() {
     super();
     this.state = { isCollapsed: mobile() };
@@ -38,7 +38,7 @@ class RefinementsPanel extends React.Component<{ clearFiltersInsideCard?: boolea
         <strong>{MyZivi.translations.search.refinements.priorityProgram}</strong>
         <PriorityProgramRefinement />
         <VirtualRefinementList attribute={'internal_tag'} defaultRefinement={['coordinates_present']} />
-        {this.props.clearFiltersInsideCard === true && RefinementsPanel.getClearRefinements()}
+        {this.props.clearFiltersInsideCard === true && RefinementsInnerPanel.getClearRefinements()}
         <div className="d-block d-lg-none mt-2">
           {this.collapseButton('chevron-down', 'chevron-up')}
         </div>
@@ -72,16 +72,16 @@ class RefinementsPanel extends React.Component<{ clearFiltersInsideCard?: boolea
             {this.panelContent()}
           </Collapse>
         </div>
-        {!this.props.clearFiltersInsideCard && RefinementsPanel.getClearRefinements()}
+        {!this.props.clearFiltersInsideCard && RefinementsInnerPanel.getClearRefinements()}
       </>
     );
   }
 
   private static getClearRefinements() {
-    return <ClearRefinements clearsQuery={false} className="my-3" translations={{
-      reset: MyZivi.translations.search.refinements.controls.reset,
-    }} />;
+    const { refinements: { controls: { reset } } } = MyZivi.translations.search;
+
+    return <ClearRefinements clearsQuery={false} className="my-3" translations={{ reset }} />;
   }
 }
 
-export default RefinementsPanel;
+export default RefinementsInnerPanel;

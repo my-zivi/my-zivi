@@ -1,11 +1,11 @@
 import React from 'preact/compat';
 import { shallow } from 'enzyme';
-import RefinementsPanel from './RefinementsPanel';
+import RefinementsInnerPanel from './RefinementsInnerPanel';
 
-describe('RefinementsPanel', () => {
+describe('RefinementsInnerPanel', () => {
   it('renders correctly', () => {
     expect(
-      shallow(<RefinementsPanel />),
+      shallow(<RefinementsInnerPanel />),
     ).toMatchSnapshot();
   });
 });

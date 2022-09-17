@@ -1,7 +1,7 @@
 import L from 'leaflet/dist/leaflet';
 import 'leaflet.markercluster/dist/leaflet.markercluster';
-import { connectGeoSearch, GeoSearchProvided } from 'react-instantsearch-core';
-import * as React from 'preact';
+import { GeoSearchProvided } from 'react-instantsearch-core';
+import * as React from 'preact/compat';
 import { MarkerIcon } from 'js/home/leaflet_icons';
 import { JobPostingSearchHit } from 'js/home/search/embedded_app/types';
 import { MarkerClusterGroup } from 'leaflet';
@@ -9,7 +9,16 @@ import { Configure } from 'react-instantsearch-dom';
 
 const centerOfSwitzerland = [46.93109081925106, 8.354415938390526];
 
-class GeoSearchImpl extends React.Component<GeoSearchProvided, Record<string, never>> {
+export interface MapBounds {
+  northEast: { lat: number, lng: number },
+  southWest: { lat: number, lng: number },
+}
+
+interface GeoSearchProps extends Pick<GeoSearchProvided, 'position' | 'currentRefinement' | 'hits'> {
+  onMapMove: (bounds: MapBounds) => void;
+}
+
+export default class GeoSearch extends React.PureComponent<GeoSearchProps, Record<string, never>> {
   private readonly mapRef: React.RefObject<HTMLDivElement>;
 
   private mapInstance: L.Map;
@@ -34,35 +43,35 @@ class GeoSearchImpl extends React.Component<GeoSearchProvided, Record<string, ne
     }).addTo(this.mapInstance);
     this.mapInstance.attributionControl.setPosition('bottomleft');
 
-    // this.mapInstance.on('moveend', () => {
-    //   if (this.userInteractionEnabled) {
-    //     const ne = this.mapInstance.getBounds().getNorthEast();
-    //     const sw = this.mapInstance.getBounds().getSouthWest();
-    //
-    //     this.props.refine({
-    //       northEast: { lat: ne.lat, lng: ne.lng },
-    //       southWest: { lat: sw.lat, lng: sw.lng },
-    //     });
-    //   }
-    // });
+    this.mapInstance.on('moveend', () => {
+      if (this.userInteractionEnabled) {
+        const ne = this.mapInstance.getBounds().getNorthEast();
+        const sw = this.mapInstance.getBounds().getSouthWest();
+
+        this.props.onMapMove({
+          northEast: { lat: ne.lat, lng: ne.lng },
+          southWest: { lat: sw.lat, lng: sw.lng },
+        });
+      }
+    });
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps: GeoSearchProps) {
     const { hits, currentRefinement, position } = this.props;
 
     this.updateMarkers(hits);
 
-    this.userInteractionEnabled = false;
-    if (!currentRefinement && this.markerClusterGroups.length) {
-      this.mapInstance.fitBounds(L.featureGroup(this.markerClusterGroups).getBounds(), { animate: false });
-    } else if (!currentRefinement) {
-      this.mapInstance.setView(position || centerOfSwitzerland, 8, { animate: false });
-    }
-    this.userInteractionEnabled = true;
+    // this.userInteractionEnabled = false;
+    // if (!currentRefinement && this.markerClusterGroups.length) {
+    //   this.mapInstance.fitBounds(L.featureGroup(this.markerClusterGroups).getBounds(), { animate: false });
+    // } else if (!currentRefinement) {
+    //   this.mapInstance.setView(position || centerOfSwitzerland, 8, { animate: false });
+    // }
+    // this.userInteractionEnabled = true;
   }
 
   private updateMarkers(ungroupedHits: JobPostingSearchHit[]) {
-    const hits = GeoSearchImpl.groupByLocation(ungroupedHits);
+    const hits = GeoSearch.groupByLocation(ungroupedHits);
 
     this.markerClusterGroups.forEach((group) => group.clearLayers());
     /* eslint-disable camelcase */
@@ -74,7 +83,7 @@ class GeoSearchImpl extends React.Component<GeoSearchProvided, Record<string, ne
           .bindPopup(`
           <strong>${title}</strong>
           <p>${brief_description}</p>
-          <a href="${link}">Details</a>
+          <a href="${link}" target="_blank">${MyZivi.translations.search.details}</a>
       `);
 
         clusterGroup.addLayer(marker);
@@ -111,6 +120,3 @@ class GeoSearchImpl extends React.Component<GeoSearchProvided, Record<string, ne
     );
   }
 }
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default connectGeoSearch(GeoSearchImpl as any);

@@ -1,8 +1,9 @@
 import { Configure, Stats } from 'react-instantsearch-dom';
 import PoweredBy from 'js/home/search/embedded_app/components/PoweredBy';
 import CustomHitComponent from 'js/home/search/embedded_app/components/CustomHitComponent';
-import RefinementsPanel from 'js/home/search/embedded_app/components/RefinementsPanel';
+import RefinementsInnerPanel from 'js/home/search/embedded_app/components/RefinementsInnerPanel';
 import React from 'preact/compat';
+import TilesSearchRefinementsPanel from 'js/home/search/embedded_app/components/TilesSearchRefinementsPanel';
 
 const HITS_PER_PAGE = 20;
 
@@ -28,7 +29,7 @@ export default () => (
         </section>
       </div>
       <div className="col-12 col-lg-3 order-0 order-lg-1">
-        <RefinementsPanel />
+        <TilesSearchRefinementsPanel />
       </div>
     </div>
   </div>

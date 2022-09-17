@@ -1,6 +1,7 @@
 // Generated file using `rake types:generate`
 
 declare interface SearchTranslations {
+  details: string;
   loadMore: string;
   noResultsFound: string;
   poweredBy: string;
@@ -39,9 +40,9 @@ declare interface SearchTranslations {
   };
   search: string;
   searchPlaceholder: string;
-  statistics: string;
   searchView: {
     map: string;
     tiles: string;
   };
+  statistics: string;
 }
