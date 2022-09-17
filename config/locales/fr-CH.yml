@@ -593,6 +593,9 @@ fr-CH:
       urgent: Important
     search: Recherche
     search_placeholder: Recherche d'affectation...
+    search_view:
+      map: Carte
+      tiles: Grille
     statistics: "%{count} résultats trouvés (%{time}ms)"
   service_calculator:
     end_date_cannot_be_on_weekend: La fin du service ne peut pas avoir lieu la fin de semaine.

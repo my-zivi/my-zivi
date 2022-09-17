@@ -1,9 +1,7 @@
 import * as React from 'preact/compat';
 import { AutocompleteProvided, connectAutoComplete } from 'react-instantsearch-core';
 import { JobPostingSearchHit } from 'js/home/search/embedded_app/types';
-import {
-  isEmpty, isInteger, take, uniqBy,
-} from 'lodash';
+import { isEmpty, isInteger, take, uniqBy } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SearchBox, { SearchBoxRef } from './SearchBox';
 

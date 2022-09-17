@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchViewSwitch renders correctly 1`] = `
+<div
+  className="search-view-switch"
+>
+  <SearchViewSwitchButton
+    icon={
+      Array [
+        "fas",
+        "th",
+      ]
+    }
+    isActive={false}
+    onClick={[Function]}
+    title="Raster"
+  >
+    <button
+      className="search-view-switch-button "
+      onClick={[Function]}
+      type="button"
+    >
+      <FontAwesomeIcon
+        className="mr-2"
+        icon={
+          Array [
+            "fas",
+            "th",
+          ]
+        }
+      />
+      Raster
+    </button>
+  </SearchViewSwitchButton>
+  <SearchViewSwitchButton
+    icon={
+      Array [
+        "fas",
+        "map",
+      ]
+    }
+    isActive={true}
+    onClick={[Function]}
+    title="Karte"
+  >
+    <button
+      className="search-view-switch-button active"
+      onClick={[Function]}
+      type="button"
+    >
+      <FontAwesomeIcon
+        className="mr-2"
+        icon={
+          Array [
+            "fas",
+            "map",
+          ]
+        }
+      />
+      Karte
+    </button>
+  </SearchViewSwitchButton>
+</div>
+`;

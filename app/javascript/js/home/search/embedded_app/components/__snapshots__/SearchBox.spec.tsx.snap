@@ -5,7 +5,6 @@ exports[`SearchBox renders correctly 1`] = `
   className="search-field"
 >
   <input
-    autoFocus={true}
     onKeyUp={[Function]}
     onfocusin={[Function]}
     onfocusout={[Function]}

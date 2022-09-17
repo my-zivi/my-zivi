@@ -594,6 +594,9 @@ de-CH:
       urgent: Wichtig
     search: Suchen
     search_placeholder: Einsätze suchen...
+    search_view:
+      map: Karte
+      tiles: Raster
     statistics: "%{count} Resultate gefunden (%{time}ms)"
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein

@@ -8,7 +8,7 @@ exports[`ServicesOverviewCard when API is still loading displays a loading indic
     }
   }
 >
-  <d>
+  <Component>
     <Consumer>
       <ServicesOverviewCardImpl
         api={
@@ -54,7 +54,7 @@ exports[`ServicesOverviewCard when API is still loading displays a loading indic
         </div>
       </ServicesOverviewCardImpl>
     </Consumer>
-  </d>
+  </Component>
 </Provider>
 `;
 
@@ -66,7 +66,7 @@ exports[`ServicesOverviewCard when API returns an error displays the error 1`] =
     }
   }
 >
-  <d>
+  <Component>
     <Consumer>
       <ServicesOverviewCardImpl
         api={
@@ -106,7 +106,7 @@ exports[`ServicesOverviewCard when API returns an error displays the error 1`] =
         </div>
       </ServicesOverviewCardImpl>
     </Consumer>
-  </d>
+  </Component>
 </Provider>
 `;
 
@@ -118,7 +118,7 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
     }
   }
 >
-  <d>
+  <Component>
     <Consumer>
       <ServicesOverviewCardImpl
         api={
@@ -1319,6 +1319,6 @@ exports[`ServicesOverviewCard when api returns services matches snapshot 1`] = `
         </div>
       </ServicesOverviewCardImpl>
     </Consumer>
-  </d>
+  </Component>
 </Provider>
 `;

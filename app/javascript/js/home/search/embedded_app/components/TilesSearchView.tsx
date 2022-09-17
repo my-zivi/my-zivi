@@ -1,11 +1,14 @@
-import { Stats } from 'react-instantsearch-dom';
+import { Configure, Stats } from 'react-instantsearch-dom';
 import PoweredBy from 'js/home/search/embedded_app/components/PoweredBy';
 import CustomHitComponent from 'js/home/search/embedded_app/components/CustomHitComponent';
 import RefinementsPanel from 'js/home/search/embedded_app/components/RefinementsPanel';
 import React from 'preact/compat';
 
+const HITS_PER_PAGE = 20;
+
 export default () => (
-  <div className="container mt-6 mb-3">
+  <div className="container pt-6 mb-3">
+    <Configure hitsPerPage={HITS_PER_PAGE} clickAnalytics />
     <div className="d-flex justify-content-start justify-content-lg-end mb-2">
       <div className="text-muted mr-1">
         <Stats translations={{

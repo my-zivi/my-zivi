@@ -1,9 +1,38 @@
 @import '../theme/variables';
-@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/variables';
+
+$geo-search-height-margins: (
+  'xs': 254px,
+  'sm': 254px,
+  'md': 271px,
+  'lg': 271px,
+  'xl': 271px,
+  'xxl': 303px,
+);
 
 .geo-search-container {
-  position: relative;
-  height: calc(100vh - 400px);
+  height: calc(100vh - #{map-get($geo-search-height-margins, 'xs')});
+  min-height: 600px;
+  margin-bottom: 60px;
+
+  @include media-breakpoint-up(sm) {
+    height: calc(100vh - #{map-get($geo-search-height-margins, 'sm')});
+    margin-bottom: 0;
+  }
+
+  @include media-breakpoint-up(md) {
+    height: calc(100vh - #{map-get($geo-search-height-margins, 'md')});
+  }
+
+  @include media-breakpoint-up(lg) {
+    height: calc(100vh - #{map-get($geo-search-height-margins, 'lg')});
+    min-height: 600px;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    height: calc(100vh - #{map-get($geo-search-height-margins, 'xxl')});
+    min-height: 650px;
+  }
 }
 
 .leaflet-map {
@@ -12,26 +41,58 @@
 }
 
 .refinements-panel-container {
-  position: absolute;
-  top: map-get($spacers, 2);
-  right: map-get($spacers, 2);
-  padding-bottom: map-get($spacers, 2) * 2;
-  z-index: $zindex-popover;
-  height: 100%;
+  position: sticky;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $zindex-sticky;
+
+  @include media-breakpoint-up(sm) {
+    position: absolute;
+    top: map-get($spacers, 4);
+    right: map-get($spacers, 4);
+    bottom: inherit;
+    left: inherit;
+    height: 100%;
+    padding-top: inherit;
+    padding-bottom: map-get($spacers, 4) * 2;
+  }
+
+  @include media-breakpoint-up(lg) {
+    top: map-get($spacers, 2);
+    right: map-get($spacers, 2);
+    padding-bottom: map-get($spacers, 2) * 2;
+  }
 
   .card {
+    max-height: max(calc(100vh - #{map-get($geo-search-height-margins, 'sm')} - 6em), 300px);
     overflow-y: scroll;
-    max-height: 100%;
+    background-color: rgba($white, .96);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
+    @supports (backdrop-filter: blur(1px)) {
+      background-color: rgba($white, .9);
+      backdrop-filter: blur(5px);
+    }
 
     &::-webkit-scrollbar {
-      width: 4px;
+      width: 5px;
+      overflow: hidden;
       background-color: transparent;
+      border-top-right-radius: $card-inner-border-radius;
+      border-bottom-right-radius: $card-inner-border-radius;
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: $black;
+      background-color: #aaa;
+      border-radius: $card-inner-border-radius;
+    }
+
+    @include media-breakpoint-up(sm) {
+      max-height: 100%;
+      border-top-left-radius: $card-inner-border-radius;
       border-top-right-radius: $card-inner-border-radius;
-      border-bottom-right-radius: $card-inner-border-radius;
     }
   }
 }

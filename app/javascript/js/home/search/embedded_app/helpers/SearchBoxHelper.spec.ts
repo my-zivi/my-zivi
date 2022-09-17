@@ -1,6 +1,4 @@
-import {
-  debounceDelay, INITIAL_DEBOUNCE_TIME, MAX_CALL_TIMES, MAX_DEBOUNCE_TIME,
-} from './SearchBoxHelper';
+import { debounceDelay, INITIAL_DEBOUNCE_TIME, MAX_CALL_TIMES, MAX_DEBOUNCE_TIME } from './SearchBoxHelper';
 
 describe('SearchBoxHelper', () => {
   describe('#debounceDelay', () => {

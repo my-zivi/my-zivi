@@ -23,11 +23,11 @@ declare interface SearchTranslations {
       german: string;
       italian: string;
     };
+    minimumServiceMonths: string;
     month: {
       one: string;
       other: string;
     };
-    minimumServiceMonths: string;
     priorityProgram: string;
     priorityProgramLabel: string;
   };
@@ -40,4 +40,8 @@ declare interface SearchTranslations {
   search: string;
   searchPlaceholder: string;
   statistics: string;
+  searchView: {
+    map: string;
+    tiles: string;
+  };
 }

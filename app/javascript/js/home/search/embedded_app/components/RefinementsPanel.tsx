@@ -1,4 +1,4 @@
-import { ClearRefinements } from 'react-instantsearch-dom';
+import { ClearRefinements, connectRefinementList } from 'react-instantsearch-dom';
 import React from 'preact/compat';
 import { Collapse } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +11,8 @@ import {
   MinimumServiceMonthsRefinement,
   PriorityProgramRefinement,
 } from './refinements';
+
+const VirtualRefinementList = connectRefinementList(() => <></>);
 
 class RefinementsPanel extends React.Component<{ clearFiltersInsideCard?: boolean }, { isCollapsed: boolean }> {
   constructor() {
@@ -35,7 +37,8 @@ class RefinementsPanel extends React.Component<{ clearFiltersInsideCard?: boolea
         <hr />
         <strong>{MyZivi.translations.search.refinements.priorityProgram}</strong>
         <PriorityProgramRefinement />
-        {this.props.clearFiltersInsideCard === true && this.getClearRefinements()}
+        <VirtualRefinementList attribute={'internal_tag'} defaultRefinement={['coordinates_present']} />
+        {this.props.clearFiltersInsideCard === true && RefinementsPanel.getClearRefinements()}
         <div className="d-block d-lg-none mt-2">
           {this.collapseButton('chevron-down', 'chevron-up')}
         </div>
@@ -69,12 +72,12 @@ class RefinementsPanel extends React.Component<{ clearFiltersInsideCard?: boolea
             {this.panelContent()}
           </Collapse>
         </div>
-        {!this.props.clearFiltersInsideCard && this.getClearRefinements()}
+        {!this.props.clearFiltersInsideCard && RefinementsPanel.getClearRefinements()}
       </>
     );
   }
 
-  private getClearRefinements() {
+  private static getClearRefinements() {
     return <ClearRefinements clearsQuery={false} className="my-3" translations={{
       reset: MyZivi.translations.search.refinements.controls.reset,
     }} />;
