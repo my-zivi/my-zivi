@@ -45,7 +45,13 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system, js: true) do
-    driven_by :selenium, using: :headless_chrome
+    driven_by :selenium_chrome_headless
+  end
+
+  config.around(:each, type: :system, js: true) do |example|
+    WebMock.allow_net_connect!
+    VCR.turned_off { example.run }
+    WebMock.disable_net_connect!
   end
 
   # rubocop:disable Rails/I18nLocaleAssignment
@@ -88,5 +94,9 @@ VCR.configure do |config|
 
   config.before_record do |record|
     record.response.body.force_encoding('UTF-8')
+  end
+
+  config.ignore_request do |request|
+    request.headers.include?('Referer')
   end
 end

@@ -1,4 +1,4 @@
-- unless ENV['DISABLE_GOOGLE_AD_SENSE'] == 'true'
+- unless ENV['DISABLE_GOOGLE_AD_SENSE'] == 'true' || Rails.env.test?
   script[
     async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=#{ENV['GOOGLE_AD_SENSE_CLIENT_ID']}"
