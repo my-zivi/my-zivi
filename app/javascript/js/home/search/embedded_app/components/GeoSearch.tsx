@@ -62,7 +62,7 @@ class GeoSearchImpl extends React.Component<GeoSearchProvided, Record<string, ne
   }
 
   private updateMarkers(ungroupedHits: JobPostingSearchHit[]) {
-    const hits = this.groupByLocation(ungroupedHits);
+    const hits = GeoSearchImpl.groupByLocation(ungroupedHits);
 
     this.markerClusterGroups.forEach((group) => group.clearLayers());
     /* eslint-disable camelcase */
@@ -87,7 +87,7 @@ class GeoSearchImpl extends React.Component<GeoSearchProvided, Record<string, ne
     /* eslint-enable camelcase */
   }
 
-  private groupByLocation(hits: JobPostingSearchHit[]): JobPostingSearchHit[][] {
+  private static groupByLocation(hits: JobPostingSearchHit[]): JobPostingSearchHit[][] {
     const grouped = hits.reduce((acc, hit) => {
       const key = hit.geoloc_hash;
       if (!acc[key]) {
