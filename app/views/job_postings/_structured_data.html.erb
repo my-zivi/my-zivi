@@ -2,7 +2,7 @@
   {
       "@context" : "https://schema.org/",
       "@type" : "JobPosting",
-      "title" : "<%= job_posting.title %>",
+      "title" : "<%= I18n.t('job_postings.show.structured_data.title', title: job_posting.title) %>",
       "baseSalary" : {
         "@type": "MonetaryAmount",
         "currency": "CHF",

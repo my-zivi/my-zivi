@@ -171,6 +171,8 @@ fr-CH:
         one: 1 mois
         other: "%{count} mois"
       service_period: "%{from} à %{to}"
+      structured_data:
+        title: 'Affectation de civiliste: %title'
       unpublished_alert:
         action_html: 'Dès que l''annonce est prête à être publiée, vous pouvez la publier <a href="%{link}">ici</a> '
         description: Cette annonce n'a pas encore été publiée. Cependant, puisque vous êtes connecté avec %{email}, vous pouvez prévisualiser l'annonce.
