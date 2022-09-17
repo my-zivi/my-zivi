@@ -171,6 +171,8 @@ de-CH:
         one: 1 Monat
         other: "%{count} Monate"
       service_period: "%{from} bis %{to}"
+      structured_data:
+        title: 'Zivi-Einsatz: %{title}'
       unpublished_alert:
         action_html: Sobald die Ausschreibung zur Veröffentlichung bereit ist, kannst Du sie <a href="%{link}">hier</a> veröffentlichen
         description: Diese Ausschreibung ist wurde noch nicht veröffentlicht. Da Du allerdings mit %{email} eingeloggt bist, kannst Du die Ausschreibung im Vorschau-Modus betrachten.

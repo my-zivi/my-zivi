@@ -19,6 +19,7 @@ FactoryBot.define do
     brief_description { 'Lorem ipsum dolor sit amet' }
     featured_as_new { false }
     priority_program { true }
+    last_found_at { 1.week.ago }
     description do
       <<~HTML.squish
         <h5>Lorem ipsum dolor sit amet,</h5>

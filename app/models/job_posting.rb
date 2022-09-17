@@ -18,6 +18,7 @@ class JobPosting < ApplicationRecord
     minimum_service_months
     contact_information
     brief_description
+    last_found_at
   ].freeze
 
   belongs_to :organization, optional: true
