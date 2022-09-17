@@ -15,7 +15,7 @@ RSpec.describe 'job_postings/_structured_data.html.erb', type: :view do
     expect(parsed).to include(
       '@context' => 'https://schema.org/',
       '@type' => 'JobPosting',
-      'title' => be_a(String)
+      'title' => I18n.t('job_postings.show.structured_data.title', title: job_posting.title)
     )
   end
 end
