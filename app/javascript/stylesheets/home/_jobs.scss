@@ -174,9 +174,9 @@ section.job {
   .job-posting-attribute {
     display: inline-flex;
     flex-direction: column;
-    align-items: center;
     flex-grow: 1;
     flex-shrink: 0;
+    align-items: center;
 
     @include media-breakpoint-up(xl) {
       border-right: $border-width solid $border-color;
