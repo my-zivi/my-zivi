@@ -67,6 +67,8 @@ directories:
       enabled: false
     BooleanParameter:
       enabled: false
+    FeatureEnvy:
+      enabled: false
 
 exclude_paths:
   - tmp

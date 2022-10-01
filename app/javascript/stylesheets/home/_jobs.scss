@@ -155,3 +155,39 @@ section.job {
     }
   }
 }
+
+.job-posting-attributes-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: map-get($spacers, 1);
+
+  @include media-breakpoint-up(sm) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include media-breakpoint-up(xl) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include media-breakpoint-up(xxl) {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .job-posting-attribute {
+    display: inline-flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+    align-items: center;
+
+    @include media-breakpoint-up(xxl) {
+      border-right: $border-width solid $border-color;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+}

@@ -95,11 +95,16 @@ de-CH:
           one: Arbeitsfreier Tag
           other: Arbeitsfreie Tage
       job_posting:
+        accommodation_provided: Unterkunft angeboten
         available_service_periods: Freie Einsatzzeiträume
         brief_description: Kurzbeschreibung
         canton: Kanton
         category: Tätigkeitsbereich
         description: Tätigkeitsbeschreibung
+        e_government: E-Government
+        fixed_work_time: Feste Arbeitszeit
+        food_provided: Verpflegung angeboten
+        good_reputation: Leumundsabklärung notwendig
         identification_number: Identifikationsnummer
         language: Sprache
         minimum_service_months: Mindesteinsatzdauer
@@ -109,6 +114,9 @@ de-CH:
         required_skills: Vorausgesetzte Kenntnisse
         sub_category: Aufgabengebiet
         title: Titel
+        weekly_work_time: Wochenarbeitszeit
+        work_night_shift: Nachtarbeit
+        work_on_weekend: Wochenendarbeit
         workshops: Erforderliche Kurse
       organization:
         icon: Logo
