@@ -166,6 +166,10 @@ section.job {
   }
 
   @include media-breakpoint-up(xl) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include media-breakpoint-up(xxl) {
     display: flex;
     flex-direction: row;
     overflow-x: auto;
@@ -178,7 +182,7 @@ section.job {
     flex-shrink: 0;
     align-items: center;
 
-    @include media-breakpoint-up(xl) {
+    @include media-breakpoint-up(xxl) {
       border-right: $border-width solid $border-color;
 
       &:last-child {
