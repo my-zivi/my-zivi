@@ -95,16 +95,16 @@ fr-CH:
           one: Jour de congé
           other: jours de congé
       job_posting:
-        accommodation_provided: Hébergement proposé
+        accommodation_provided: Logement fourni
         available_service_periods: Périodes durant lesquelles des places sont libres
         brief_description: Brève description
         canton: Canton
         category: Domaine d'activité
         description: Descriptif des tâches
-        e_government: Gouvernement électronique
-        fixed_work_time: Horaires fixes
-        food_provided: Repas offerts
-        good_reputation: Preuve de moralité nécessaire
+        e_government: Cyberadministration
+        fixed_work_time: Horaire de travail fixe
+        food_provided: Nourriture fournie
+        good_reputation: Vérification de la réputation
         identification_number: Numéro d'identification
         language: Langue
         minimum_service_months: Durée d'affectation minimale
