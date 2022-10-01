@@ -3,7 +3,14 @@
 
 # [MyZivi](https://www.myzivi.ch)
 
+Wir sind ein kleines Startup-Unternehmen aus der Schweiz, das versucht, das Leben von Zivildienstleistenden zu verbessern.
+
+Sie leisten einen wichtigen und wertvollen Beitrag in unterbezahlten oder unterbesetzten Arbeitsbereichen. Zum Beispiel im Naturschutz 🌱, im Sozialwesen 🎴 oder im Bildungswesen 🎒.
+
+Unsere Plattform bietet eine einfache und leistungsfähige Suche, um die richtige Stelle zu finden, und ein intuitives Verwaltungsinstrument für die Organisationen, die mit den Zivis arbeiten.
+
 ## ZHAW Startup Challenge 2020
+
 Mit MyZivi haben wir den ZHAW Startup Challenge 2020 gewonnen.
 
 In den Medien:
