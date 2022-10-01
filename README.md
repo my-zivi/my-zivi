@@ -18,3 +18,12 @@ In den Medien:
 - [StartupTicker](https://www.startupticker.ch/en/news/june-2020/software-fur-effizientere-zivildienstadministration-gewinnt-startup-challenge)
 - [SalZH](https://blog.salzh.ch/2020/06/11/my-zivi/)
 - [Landbote](https://www.landbote.ch/per-app-zum-eigenen-zivi-730601035587)
+
+## Entwicklung
+
+Um den Entwicklungsserver zu starten, kann folgender Command verwendet werden:
+
+```sh
+bin/setup
+bin/rails server
+```
