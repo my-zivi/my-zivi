@@ -153,55 +153,55 @@ de-CH:
         recruiting: Zivis Rekrutieren
       signup: Jetzt anmelden
   job_postings:
-    attributes:
-      weekly_work_time:
-        title: Wochenarbeitszeit
-        body: "%{weekly_work_time} std."
-      fixed_work_time:
-        title: Arbeitszeit
-        body:
-          true: fest
-          false: flexibel
-      good_reputation:
-        title: Leumundsabklärung
-        body:
-          true: erforderlich
-          false: keine
-      e_government:
-        title: E-Government
-        body:
-          true: ja
-          false: nein
-      work_on_weekend:
-        title: Wochenendarbeit
-        body:
-          true: möglich
-          false: nein
-      work_night_shift:
-        title: Nachtdienst
-        body:
-          true: möglich
-          false: nein
-      accommodation_provided:
-        title: Unterkunft
-        body:
-          true: vorhanden
-          false: nein
-      food_provided:
-        title: Verpflegung
-        body:
-          true: angeboten
-          false: nein
     additional_information_card:
       months:
         one: 1 Monat
         other: "%{count} Monate"
       service_period: "%{from} bis %{to}"
-    map_card:
-      map: Karte
-      javascript_notice: Bitte aktiviere Javascript, um die Karte zu sehen
+    attributes:
+      accommodation_provided:
+        body:
+          'false': nein
+          'true': vorhanden
+        title: Unterkunft
+      e_government:
+        body:
+          'false': nein
+          'true': ja
+        title: E-Government
+      fixed_work_time:
+        body:
+          'false': flexibel
+          'true': fest
+        title: Arbeitszeit
+      food_provided:
+        body:
+          'false': nein
+          'true': angeboten
+        title: Verpflegung
+      good_reputation:
+        body:
+          'false': keine
+          'true': erforderlich
+        title: Leumundsabklärung
+      weekly_work_time:
+        body: "%{weekly_work_time} std."
+        title: Wochenarbeitszeit
+      work_night_shift:
+        body:
+          'false': nein
+          'true': möglich
+        title: Nachtdienst
+      work_on_weekend:
+        body:
+          'false': nein
+          'true': möglich
+        title: Wochenendarbeit
     index:
       page_title: Einsatz suchen
+    map_card:
+      javascript_notice: Bitte aktiviere Javascript, um die Karte zu sehen
+      map: Karte
     show:
       apply_via_myzivi: Über MyZivi bewerben
       back: Zurück zur Suche

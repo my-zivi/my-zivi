@@ -158,11 +158,50 @@ fr-CH:
         one: 1 mois
         other: "%{count} mois"
       service_period: "%{from} à %{to}"
-    map_card:
-      map: Carte
-      javascript_notice: Veuillez activer Javascript pour voir la carte
+    attributes:
+      accommodation_provided:
+        body:
+          'false': non
+          'true': disponible
+        title: Hébergement
+      e_government:
+        body:
+          'false': non
+          'true': oui
+        title: Cyberadministration
+      fixed_work_time:
+        body:
+          'false': flexible
+          'true': fixe
+        title: Horaire de travail
+      food_provided:
+        body:
+          'false': non
+          'true': proposé
+        title: Restauration
+      good_reputation:
+        body:
+          'false': vérifier
+          'true': nécessaire
+        title: réputation
+      weekly_work_time:
+        body: "%{weekly_work_time} h."
+        title: Temps de travail hebdomadaire
+      work_night_shift:
+        body:
+          'false': non
+          'true': possible
+        title: Travail de nuit
+      work_on_weekend:
+        body:
+          'false': non
+          'true': possible
+        title: Travail le week-end
     index:
       page_title: Rechercher une affectation
+    map_card:
+      javascript_notice: Veuillez activer Javascript pour voir la carte
+      map: Carte
     show:
       apply_via_myzivi: Postuler via MyZivi
       back: Retour à la recherche
