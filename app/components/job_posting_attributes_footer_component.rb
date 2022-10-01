@@ -14,6 +14,7 @@ class JobPostingAttributesFooterComponent < ViewComponent::Base
   }.freeze
 
   def initialize(job_posting:)
+    super
     @job_posting = job_posting
   end
 
