@@ -35,7 +35,7 @@ RSpec.describe ServiceAgreementCreator, type: :service do
 
         context 'with valid parameters' do
           it 'creates a new service agreement and redirects back to the service specifications list' do
-            expect { created_service_agreement }.to change(Service, :count).by(1).and change(CivilServant, :count).by(0)
+            expect { created_service_agreement }.to change(Service, :count).by(1).and not_change(CivilServant, :count)
           end
         end
 
@@ -43,7 +43,7 @@ RSpec.describe ServiceAgreementCreator, type: :service do
           let(:service_agreement_params) { valid_service_agreement_params.merge(beginning: nil) }
 
           it 'does not create a new service agreement and renders an error' do
-            expect { created_service_agreement }.to change(Service, :count).by(0).and change(CivilServant, :count).by(0)
+            expect { created_service_agreement }.to not_change(Service, :count).and not_change(CivilServant, :count)
           end
         end
       end
@@ -72,7 +72,7 @@ RSpec.describe ServiceAgreementCreator, type: :service do
           let(:service_agreement_params) { valid_service_agreement_params.merge(beginning: nil) }
 
           it 'does not create a new service agreement and renders an error' do
-            expect { created_service_agreement }.to change(Service, :count).by(0).and change(CivilServant, :count).by(0)
+            expect { created_service_agreement }.to not_change(Service, :count).and not_change(CivilServant, :count)
           end
         end
       end

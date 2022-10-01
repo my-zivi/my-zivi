@@ -57,6 +57,10 @@ RSpec/AggregateExamples:
   Exclude:
     - 'spec/views/organizations/payments/index.html.slim_spec.rb'
 
+RSpec/VerifiedDoubleReference:
+  Enabled: true
+  EnforcedStyle: string
+
 Rails/Output:
   Exclude:
     - 'lib/v1/data_migrator.rb'

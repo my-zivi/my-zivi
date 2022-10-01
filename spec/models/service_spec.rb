@@ -262,8 +262,8 @@ RSpec.describe Service, type: :model do
 
   describe 'memoization' do
     let(:service) { build :service }
-    let(:used_days_calculator) { instance_double ExpenseSheetCalculators::UsedDaysCalculator }
-    let(:remaining_days_calculator) { instance_double ExpenseSheetCalculators::RemainingDaysCalculator }
+    let(:used_days_calculator) { instance_double 'UsedDaysCalculator' }
+    let(:remaining_days_calculator) { instance_double 'RemainingDaysCalculator' }
 
     before do
       allow(ExpenseSheetCalculators::UsedDaysCalculator).to receive(:new).and_return used_days_calculator
@@ -456,7 +456,7 @@ RSpec.describe Service, type: :model do
     end
 
     let(:beginning) { Time.zone.today.beginning_of_week }
-    let(:service_calculator) { instance_double ServiceCalculator }
+    let(:service_calculator) { instance_double 'ServiceCalculator' }
 
     before do
       allow(ServiceCalculator).to receive(:new).and_return service_calculator

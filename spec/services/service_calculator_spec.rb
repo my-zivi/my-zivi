@@ -8,12 +8,12 @@ RSpec.describe ServiceCalculator, type: :service do
   let(:last_civil_service) { false }
   let(:probation_civil_service) { false }
   let(:short_service_calculator) do
-    instance_double(ShortServiceCalculator,
+    instance_double('ShortServiceCalculator',
                     calculate_ending_date: true,
                     calculate_chargeable_service_days: true)
   end
   let(:normal_service_calculator) do
-    instance_double(NormalServiceCalculator,
+    instance_double('NormalServiceCalculator',
                     calculate_ending_date: true,
                     calculate_chargeable_service_days: true,
                     calculate_eligible_paid_vacation_days: true)
