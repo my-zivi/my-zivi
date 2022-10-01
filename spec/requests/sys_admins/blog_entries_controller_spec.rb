@@ -63,7 +63,7 @@ RSpec.describe SysAdmins::BlogEntriesController, type: :request do
       let(:params) { invalid_attributes }
 
       it 'does not create blog entry and renders an error message' do
-        expect { perform_request }.to change(BlogEntry, :count).by(0)
+        expect { perform_request }.not_to change(BlogEntry, :count)
         expect(response).to be_successful
         expect(flash[:error]).to eq I18n.t('sys_admins.blog_entries.erroneous_creation')
       end

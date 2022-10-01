@@ -32,7 +32,7 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
   end
 
   describe '#suggested_work_days' do
-    let(:day_calculator) { instance_double(DayCalculator, calculate_work_days: expected_work_days) }
+    let(:day_calculator) { instance_double('DayCalculator', calculate_work_days: expected_work_days) }
 
     before { allow(DayCalculator).to receive(:new).and_return day_calculator }
 
@@ -43,7 +43,7 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
   end
 
   describe '#suggested_workfree_days' do
-    let(:day_calculator) { instance_double(DayCalculator, calculate_workfree_days: expected_workfree_days) }
+    let(:day_calculator) { instance_double('DayCalculator', calculate_workfree_days: expected_workfree_days) }
 
     before { allow(DayCalculator).to receive(:new).and_return day_calculator }
 
@@ -58,7 +58,7 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
 
     let(:remaining_paid_vacation_days) { 0 }
     let(:company_holiday_days) { 0 }
-    let(:day_calculator) { instance_double(DayCalculator, calculate_company_holiday_days: company_holiday_days) }
+    let(:day_calculator) { instance_double('DayCalculator', calculate_company_holiday_days: company_holiday_days) }
 
     before do
       allow(expense_sheet.service).to receive(:remaining_paid_vacation_days).and_return remaining_paid_vacation_days
@@ -104,7 +104,7 @@ RSpec.describe ExpenseSheetCalculators::SuggestionsCalculator, type: :service do
 
     let(:remaining_paid_vacation_days) { 0 }
     let(:company_holiday_days) { 0 }
-    let(:day_calculator) { instance_double(DayCalculator, calculate_company_holiday_days: company_holiday_days) }
+    let(:day_calculator) { instance_double('DayCalculator', calculate_company_holiday_days: company_holiday_days) }
 
     before do
       allow(expense_sheet.service).to receive(:remaining_paid_vacation_days).and_return remaining_paid_vacation_days

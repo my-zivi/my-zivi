@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ExpenseSheetCalculators::RemainingDaysCalculator, type: :service do
   let(:calculator) { described_class.new(service) }
-  let(:service) { instance_double Service }
+  let(:service) { instance_double 'Service' }
   let(:eligible_sick_days) { 0 }
   let(:used_sick_days) { 0 }
   let(:eligible_paid_vacation_days) { 0 }
