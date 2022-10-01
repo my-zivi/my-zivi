@@ -153,6 +153,53 @@ de-CH:
         recruiting: Zivis Rekrutieren
       signup: Jetzt anmelden
   job_postings:
+    attributes:
+      weekly_work_time:
+        title: Wochenarbeitszeit
+        body: "%{weekly_work_time} std."
+      fixed_work_time:
+        title: Arbeitszeit
+        body:
+          true: fest
+          false: flexibel
+      good_reputation:
+        title: Leumundsabklärung
+        body:
+          true: erforderlich
+          false: keine
+      e_government:
+        title: E-Government
+        body:
+          true: ja
+          false: nein
+      work_on_weekend:
+        title: Wochenendarbeit
+        body:
+          true: möglich
+          false: nein
+      work_night_shift:
+        title: Nachtdienst
+        body:
+          true: möglich
+          false: nein
+      accommodation_provided:
+        title: Unterkunft
+        body:
+          true: vorhanden
+          false: nein
+      food_provided:
+        title: Verpflegung
+        body:
+          true: angeboten
+          false: nein
+    additional_information_card:
+      months:
+        one: 1 Monat
+        other: "%{count} Monate"
+      service_period: "%{from} bis %{to}"
+    map_card:
+      map: Karte
+      javascript_notice: Bitte aktiviere Javascript, um die Karte zu sehen
     index:
       page_title: Einsatz suchen
     show:
@@ -165,12 +212,6 @@ de-CH:
       ezivi_link: Auf EZIVI ansehen
       ezivi_popover_content: Aus technischen Gründen ist es uns leider nicht möglich, einen Direktlink zu EZIVI zur Verfügung zu stellen. Du kannst das Pflichtenheft finden, in dem Du <a href="https://www.ezivi.admin.ch" target="_blank" rel="noopener nofollow">EZIVI</a> besuchst und dort nach der Identifikationsnummer des Einsatzes suchst.
       ezivi_popover_title: EZIVI
-      javascript_notice: Bitte aktiviere Javascript, um die Karte zu sehen
-      map: Karte
-      months:
-        one: 1 Monat
-        other: "%{count} Monate"
-      service_period: "%{from} bis %{to}"
       structured_data:
         title: 'Zivi-Einsatz: %{title}'
       unpublished_alert:

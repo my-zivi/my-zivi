@@ -1,0 +1,13 @@
+.card.card-body.mb-3
+  .d-flex.justify-content-between.align-items-baseline
+    .card-title = t('.map')
+    = link_to google_maps_url(job_posting), rel: 'noreferrer noopener nofollow', target: '_blank' do
+      i.fas.fa-external-link-alt
+  .card-text
+    .w-100[
+      data-leaflet-map='true'
+      data-coordinates=job_posting.address.coordinates.join(',')
+      data-title=job_posting.organization_display_name
+      style="height: 160px"
+    ]
+      noscript: h3 = t('.javascript_notice')

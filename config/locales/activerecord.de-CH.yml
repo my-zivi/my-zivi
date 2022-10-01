@@ -95,6 +95,14 @@ de-CH:
           one: Arbeitsfreier Tag
           other: Arbeitsfreie Tage
       job_posting:
+        weekly_work_time: Wochenarbeitszeit
+        fixed_work_time: Feste Arbeitszeit
+        good_reputation: Leumundsabklärung notwendig
+        e_government: E-Government
+        work_on_weekend: Wochenendarbeit
+        work_night_shift: Nachtarbeit
+        accommodation_provided: Unterkunft angeboten
+        food_provided: Verpflegung angeboten
         available_service_periods: Freie Einsatzzeiträume
         brief_description: Kurzbeschreibung
         canton: Kanton

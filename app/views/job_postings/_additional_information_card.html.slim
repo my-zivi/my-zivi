@@ -1,0 +1,26 @@
+.card.card-body.mb-3
+  h5 = JobPosting.human_attribute_name(:canton)
+  p = job_posting.canton_display_name
+  h5 = JobPosting.human_attribute_name(:minimum_service_months)
+  p = t('.months', count: job_posting.minimum_service_months)
+  h5 = JobPosting.human_attribute_name(:priority_program)
+  - if job_posting.priority_program
+    p
+      i.fas.fa-check.mr-1.text-success
+      = t('simple_form.yes')
+  - else
+    p
+      i.fas.fa-times.mr-1.text-danger
+      = t('simple_form.no')
+  - if job_posting.available_service_periods.any?
+    h5 = JobPosting.human_attribute_name(:available_service_periods)
+    ul.pl-3
+      - job_posting.available_service_periods.each do |available_service_period|
+        li = t('.service_period',
+                from: l(available_service_period.beginning),
+                to: l(available_service_period.ending))
+  - if job_posting.workshops.any?
+    h5 = JobPosting.human_attribute_name(:workshops)
+    ul.pl-3
+      - job_posting.workshops.each do |workshop|
+        li = workshop.name

@@ -20,57 +20,11 @@
         p.mb-0 = t('.unpublished_alert.action_html', link: edit_organizations_job_posting_path(@job_posting))
     .row
       .col-12.col-lg-8.col-xl-9
-        = render 'job_posting_header_card', job_posting: @job_posting
-        .card.card-body
-          h4 = JobPosting.human_attribute_name(:description)
-          div == @job_posting.description
-          - if @job_posting.required_skills&.body&.to_plain_text.present?
-            h4.mt-3 = JobPosting.human_attribute_name(:required_skills)
-            div == @job_posting.required_skills
-          - if @job_posting.preferred_skills&.body&.to_plain_text.present?
-            h4.mt-3 = JobPosting.human_attribute_name(:preferred_skills)
-            div == @job_posting.preferred_skills
+        = render 'main_section', job_posting: @job_posting
       .col-12.col-lg-4.col-xl-3.mt-3.mt-lg-0
-        .card.card-body.mb-3
-          h5 = JobPosting.human_attribute_name(:canton)
-          p = @job_posting.canton_display_name
-          h5 = JobPosting.human_attribute_name(:minimum_service_months)
-          p = t('.months', count: @job_posting.minimum_service_months)
-          h5 = JobPosting.human_attribute_name(:priority_program)
-          - if @job_posting.priority_program
-            p
-              i.fas.fa-check.mr-1.text-success
-              = t('simple_form.yes')
-          - else
-            p
-              i.fas.fa-times.mr-1.text-danger
-              = t('simple_form.no')
-          - if @job_posting.available_service_periods.any?
-            h5 = JobPosting.human_attribute_name(:available_service_periods)
-            ul.pl-3
-              - @job_posting.available_service_periods.each do |available_service_period|
-                li = t('.service_period',
-                        from: l(available_service_period.beginning),
-                        to: l(available_service_period.ending))
-          - if @job_posting.workshops.any?
-            h5 = JobPosting.human_attribute_name(:workshops)
-            ul.pl-3
-              - @job_posting.workshops.each do |workshop|
-                li = workshop.name
+        = render 'additional_information_card', job_posting: @job_posting
         - if @job_posting.address&.coordinates.present?
-          .card.card-body.mb-3
-            .d-flex.justify-content-between.align-items-baseline
-              .card-title = t('.map')
-              = link_to google_maps_url(@job_posting), rel: 'noreferrer noopener nofollow', target: '_blank' do
-                i.fas.fa-external-link-alt
-            .card-text
-              .w-100[
-                data-leaflet-map='true'
-                data-coordinates=@job_posting.address.coordinates.join(',')
-                data-title=@job_posting.organization_display_name
-                style="height: 160px"
-              ]
-                noscript: h3 = t('.javascript_notice')
+          = render 'map_card', job_posting: @job_posting
         .card.card-body.mb-3
           .card-title = t('.contact')
           .card-text

@@ -1,0 +1,7 @@
+- if attributes.any?
+  hr /
+  .job-posting-attributes-section
+    - attributes.each do |attribute|
+      .job-posting-attribute.px-2.mb-2
+        small.font-weight-medium.text-muted.text-uppercase = attribute[:title]
+        strong = attribute[:body]

@@ -153,6 +153,14 @@ fr-CH:
         recruiting: Recrutement des civilistes
       signup: Inscrivez-vous maintenant
   job_postings:
+    additional_information_card:
+      months:
+        one: 1 mois
+        other: "%{count} mois"
+      service_period: "%{from} à %{to}"
+    map_card:
+      map: Carte
+      javascript_notice: Veuillez activer Javascript pour voir la carte
     index:
       page_title: Rechercher une affectation
     show:
@@ -165,12 +173,6 @@ fr-CH:
       ezivi_link: Voir sur EZIVI
       ezivi_popover_content: Malheureusement, pour des raisons techniques, nous ne sommes pas en mesure de fournir un lien direct vers EZIVI. Vous pouvez trouver le cahier des charges en visitant <a href="https://www.ezivi.admin.ch" target="_blank" rel="noopener nofollow">EZIVI</a> et en recherchant le numéro du cahier des charges.
       ezivi_popover_title: EZIVI
-      javascript_notice: Veuillez activer Javascript pour voir la carte
-      map: Carte
-      months:
-        one: 1 mois
-        other: "%{count} mois"
-      service_period: "%{from} à %{to}"
       structured_data:
         title: 'Affectation de civiliste: %{title}'
       unpublished_alert:
