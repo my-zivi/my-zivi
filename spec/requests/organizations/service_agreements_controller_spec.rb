@@ -261,7 +261,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
 
         context 'with valid parameters' do
           it 'creates a new service agreement and redirects back to the service specifications list' do
-            expect { perform_request }.to change(Service, :count).by(1).and change(CivilServant, :count).by(0)
+            expect { perform_request }.to change(Service, :count).by(1).and not_change(CivilServant, :count)
             expect(response).to redirect_to(organizations_service_agreements_path)
             expect(Service.last.civil_servant).to eq(civil_servant)
           end
@@ -271,7 +271,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
           let(:service_agreement_params) { valid_service_agreement_params.merge(beginning: nil) }
 
           it 'does not create a new service agreement and renders an error' do
-            expect { perform_request }.to change(Service, :count).by(0).and change(CivilServant, :count).by(0)
+            expect { perform_request }.to not_change(Service, :count).and not_change(CivilServant, :count)
             expect(response).to have_http_status(:unprocessable_entity)
             expect(response).to render_template 'organizations/service_agreements/new'
             expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'),
@@ -306,7 +306,7 @@ RSpec.describe Organizations::ServiceAgreementsController, type: :request do
           let(:service_agreement_params) { valid_service_agreement_params.merge(beginning: nil) }
 
           it 'does not create a new service agreement and renders an error' do
-            expect { perform_request }.to change(Service, :count).by(0).and change(CivilServant, :count).by(0)
+            expect { perform_request }.to not_change(Service, :count).and not_change(CivilServant, :count)
             expect(response).to have_http_status(:unprocessable_entity)
             expect(response).to render_template 'organizations/service_agreements/new'
             expect(response.body).to include(I18n.t('activerecord.attributes.service.beginning'),

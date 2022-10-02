@@ -192,7 +192,7 @@ RSpec.describe Organizations::OrganizationMembersController, type: :request do
           end
 
           it 'does not send a confirmation email' do
-            expect { perform_request }.not_to(change { ActionMailer::Base.deliveries })
+            expect { perform_request }.not_to(change(ActionMailer::Base, :deliveries))
           end
         end
       end

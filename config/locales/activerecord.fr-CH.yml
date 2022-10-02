@@ -95,11 +95,16 @@ fr-CH:
           one: Jour de congé
           other: jours de congé
       job_posting:
+        accommodation_provided: Logement fourni
         available_service_periods: Périodes durant lesquelles des places sont libres
         brief_description: Brève description
         canton: Canton
         category: Domaine d'activité
         description: Descriptif des tâches
+        e_government: Cyberadministration
+        fixed_work_time: Horaire de travail fixe
+        food_provided: Nourriture fournie
+        good_reputation: Vérification de la réputation
         identification_number: Numéro d'identification
         language: Langue
         minimum_service_months: Durée d'affectation minimale
@@ -109,6 +114,9 @@ fr-CH:
         required_skills: Connaissances exigées
         sub_category: Domaine d'activité
         title: Titre
+        weekly_work_time: Temps de travail hebdomadaire
+        work_night_shift: Travail de nuit
+        work_on_weekend: Travail le week-end
         workshops: Cours obligatoires
       organization:
         icon: Logo

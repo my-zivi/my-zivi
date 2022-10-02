@@ -153,8 +153,55 @@ de-CH:
         recruiting: Zivis Rekrutieren
       signup: Jetzt anmelden
   job_postings:
+    additional_information_card:
+      months:
+        one: 1 Monat
+        other: "%{count} Monate"
+      service_period: "%{from} bis %{to}"
+    attributes:
+      accommodation_provided:
+        body:
+          'false': nein
+          'true': vorhanden
+        title: Unterkunft
+      e_government:
+        body:
+          'false': nein
+          'true': ja
+        title: E-Government
+      fixed_work_time:
+        body:
+          'false': flexibel
+          'true': fest
+        title: Arbeitszeit
+      food_provided:
+        body:
+          'false': nein
+          'true': angeboten
+        title: Verpflegung
+      good_reputation:
+        body:
+          'false': keine
+          'true': erforderlich
+        title: Leumundsabklärung
+      weekly_work_time:
+        body: "%{weekly_work_time} std."
+        title: Wochenarbeitszeit
+      work_night_shift:
+        body:
+          'false': nein
+          'true': möglich
+        title: Nachtdienst
+      work_on_weekend:
+        body:
+          'false': nein
+          'true': möglich
+        title: Wochenendarbeit
     index:
       page_title: Einsatz suchen
+    map_card:
+      javascript_notice: Bitte aktiviere Javascript, um die Karte zu sehen
+      map: Karte
     show:
       apply_via_myzivi: Über MyZivi bewerben
       back: Zurück zur Suche
@@ -165,12 +212,6 @@ de-CH:
       ezivi_link: Auf EZIVI ansehen
       ezivi_popover_content: Aus technischen Gründen ist es uns leider nicht möglich, einen Direktlink zu EZIVI zur Verfügung zu stellen. Du kannst das Pflichtenheft finden, in dem Du <a href="https://www.ezivi.admin.ch" target="_blank" rel="noopener nofollow">EZIVI</a> besuchst und dort nach der Identifikationsnummer des Einsatzes suchst.
       ezivi_popover_title: EZIVI
-      javascript_notice: Bitte aktiviere Javascript, um die Karte zu sehen
-      map: Karte
-      months:
-        one: 1 Monat
-        other: "%{count} Monate"
-      service_period: "%{from} bis %{to}"
       structured_data:
         title: 'Zivi-Einsatz: %{title}'
       unpublished_alert:

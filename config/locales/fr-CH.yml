@@ -153,8 +153,55 @@ fr-CH:
         recruiting: Recrutement des civilistes
       signup: Inscrivez-vous maintenant
   job_postings:
+    additional_information_card:
+      months:
+        one: 1 mois
+        other: "%{count} mois"
+      service_period: "%{from} à %{to}"
+    attributes:
+      accommodation_provided:
+        body:
+          'false': non
+          'true': disponible
+        title: Hébergement
+      e_government:
+        body:
+          'false': non
+          'true': oui
+        title: Cyberadministration
+      fixed_work_time:
+        body:
+          'false': flexible
+          'true': fixe
+        title: Horaire de travail
+      food_provided:
+        body:
+          'false': non
+          'true': proposé
+        title: Restauration
+      good_reputation:
+        body:
+          'false': vérifier
+          'true': nécessaire
+        title: réputation
+      weekly_work_time:
+        body: "%{weekly_work_time} h."
+        title: Temps de travail hebdomadaire
+      work_night_shift:
+        body:
+          'false': non
+          'true': possible
+        title: Travail de nuit
+      work_on_weekend:
+        body:
+          'false': non
+          'true': possible
+        title: Travail le week-end
     index:
       page_title: Rechercher une affectation
+    map_card:
+      javascript_notice: Veuillez activer Javascript pour voir la carte
+      map: Carte
     show:
       apply_via_myzivi: Postuler via MyZivi
       back: Retour à la recherche
@@ -165,12 +212,6 @@ fr-CH:
       ezivi_link: Voir sur EZIVI
       ezivi_popover_content: Malheureusement, pour des raisons techniques, nous ne sommes pas en mesure de fournir un lien direct vers EZIVI. Vous pouvez trouver le cahier des charges en visitant <a href="https://www.ezivi.admin.ch" target="_blank" rel="noopener nofollow">EZIVI</a> et en recherchant le numéro du cahier des charges.
       ezivi_popover_title: EZIVI
-      javascript_notice: Veuillez activer Javascript pour voir la carte
-      map: Carte
-      months:
-        one: 1 mois
-        other: "%{count} mois"
-      service_period: "%{from} à %{to}"
       structured_data:
         title: 'Affectation de civiliste: %{title}'
       unpublished_alert:

@@ -20,6 +20,14 @@ FactoryBot.define do
     featured_as_new { false }
     priority_program { true }
     last_found_at { 1.week.ago }
+    weekly_work_time { 40 }
+    fixed_work_time { true }
+    good_reputation { false }
+    e_government { true }
+    work_on_weekend { false }
+    work_night_shift { false }
+    accommodation_provided { true }
+    food_provided { true }
     description do
       <<~HTML.squish
         <h5>Lorem ipsum dolor sit amet,</h5>
