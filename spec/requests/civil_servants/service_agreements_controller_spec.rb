@@ -89,8 +89,8 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
           expect(flash[:error]).to(
             eq(
               "#{I18n.t('civil_servants.service_agreements.accept.erroneous_accept')}" \
-              "#{I18n.t('activerecord.attributes.service.civil_servant_agreed')}" \
-              " #{I18n.t('activerecord.errors.models.service.attributes.civil_servant_agreed.already_decided')}"
+              "#{I18n.t('activerecord.attributes.service.civil_servant_agreed')} " \
+              "#{I18n.t('activerecord.errors.models.service.attributes.civil_servant_agreed.already_decided')}"
             )
           )
         end
@@ -148,8 +148,8 @@ RSpec.describe CivilServants::ServiceAgreementsController, type: :request do
           expect(flash[:error]).to(
             eq(
               "#{I18n.t('civil_servants.service_agreements.decline.erroneous_decline')}" \
-              "#{I18n.t('activerecord.attributes.service.civil_servant_agreed')}" \
-              " #{I18n.t('activerecord.errors.models.service.attributes.civil_servant_agreed.already_decided')}"
+              "#{I18n.t('activerecord.attributes.service.civil_servant_agreed')} " \
+              "#{I18n.t('activerecord.errors.models.service.attributes.civil_servant_agreed.already_decided')}"
             )
           )
         end

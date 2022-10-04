@@ -34,6 +34,6 @@ namespace :types do
       declare interface SearchTranslations #{content[..-1]}
     JS
 
-    File.write(Rails.root.join('app/javascript/js/shared/SearchTranslations.d.ts'), template)
+    Rails.root.join('app/javascript/js/shared/SearchTranslations.d.ts').write(template)
   end
 end

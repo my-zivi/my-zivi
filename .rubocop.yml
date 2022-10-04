@@ -25,6 +25,9 @@ Style/MixinUsage:
 Style/NonNilCheck:
   IncludeSemanticChanges: true
 
+Style/FetchEnvVar:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
@@ -60,6 +63,13 @@ RSpec/AggregateExamples:
 RSpec/VerifiedDoubleReference:
   Enabled: true
   EnforcedStyle: string
+
+RSpec/NoExpectationExample:
+  Exclude:
+    - 'spec/support/**/*'
+    - 'spec/views/**/*'
+    - 'spec/system/**/*'
+    - 'spec/screenshots/**/*'
 
 Rails/Output:
   Exclude:

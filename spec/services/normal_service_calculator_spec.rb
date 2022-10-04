@@ -54,7 +54,7 @@ RSpec.describe NormalServiceCalculator, type: :service do
 
       context 'when service days are between 0 and 179' do
         it 'returns 0', :aggregate_failures do
-          (0..179).each do |days|
+          180.times do |days|
             personal_vacation_days = normal_service_calculator.calculate_eligible_paid_vacation_days(days)
             expect(personal_vacation_days).to eq(0)
           end

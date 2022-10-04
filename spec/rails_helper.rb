@@ -82,7 +82,7 @@ VCR.configure do |config|
   config.configure_rspec_metadata!
   config.default_cassette_options = { record: :new_episodes } unless ENV['CI']
 
-  File.read(Rails.root.join('.env.example')).scan(/#?\s*(\S+)=\S*/).flatten.each do |key|
+  Rails.root.join('.env.example').read.scan(/#?\s*(\S+)=\S*/).flatten.each do |key|
     config.filter_sensitive_data("[#{key}]") { ENV[key] } if key.match?(/secret|key|password/i)
   end
 
