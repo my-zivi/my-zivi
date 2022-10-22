@@ -53,7 +53,9 @@ Rails.application.routes.draw do
 
   resource :mailing_list, only: :create
   resources :expense_sheets, only: :show
-  resources :service_inquiries, only: %i[new create]
+  resource :service_inquiry, only: %i[new create] do
+    get :preview, on: :collection, to: 'service_inquiries#new', defaults: { preview: true }
+  end
 
   namespace :civil_servants do
     get '/', to: 'overview#index'

@@ -46,7 +46,7 @@ RSpec.describe ServiceInquiriesController do
     subject { response }
 
     let(:job_posting) { create(:job_posting) }
-    let(:perform_request) { post service_inquiries_path(service_inquiry: service_inquiry_params) }
+    let(:perform_request) { post service_inquiry_path(service_inquiry: service_inquiry_params) }
     let(:service_inquiry_params) do
       attributes_for(:service_inquiry, job_posting: job_posting)
         .except(:job_posting)

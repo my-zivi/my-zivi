@@ -17,8 +17,17 @@
               h1.job-posting-title #{@job_posting.title} (#{@job_posting.identification_number})
               h3.job-posting-subtitle = @job_posting.organization_display_name
             .mt-3
-              button.btn.btn-falcon-primary data-target="#inquiryModal" data-toggle="modal" type="button" = t('job_postings.show.apply_via_myzivi')
+              button.btn.btn-falcon-primary.collapsed data-target="#inquiryModal" data-toggle="collapse" type="button" aria-expanded="false" aria-controls="inquiryModal" = t('job_postings.show.apply_via_myzivi')
     .card.card-body.p-0.overflow-hidden.job-posting-content-card
+      #inquiryModal.px-4.collapse aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1" style="background-color: #fafafa"
+        .bg-light.rounded-top.py-3.px-4.d-flex.justify-content-between.align-items-baseline
+          h4.mb-0 = t('job_postings.show.apply_via_myzivi')
+          button.btn-close.btn.btn-sm.btn-rounded-close aria-label="Close" data-target="#inquiryModal" data-toggle="collapse"
+            i.fas.fa-times
+        .px-4.pt-2.pb-4
+          = turbo_frame_tag :service_inquiry,
+                  src: preview_service_inquiry_path(service_inquiry: { job_posting_id: @job_posting.id }) do
+            p.text-center.text-muted.mt-3 = t('loading')
       .px-4
         .attributes-container.mt-3
           .attribute
@@ -131,16 +140,3 @@
                     li = workshop.name
               - else
                 span.text-muted n/a
-
-  #inquiryModal.modal.fade aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    .modal-dialog.modal-dialog-centered.modal-lg.mt-6 role="document"
-      .modal-content.border-0
-        .modal-body.p-0
-          .bg-light.rounded-top.py-3.px-4.d-flex.justify-content-between.align-items-baseline
-            h4.mb-0 = t('job_postings.show.apply_via_myzivi')
-            button.btn-close.btn.btn-sm.btn-rounded-close aria-label="Close" data-dismiss="modal"
-              i.fas.fa-times
-          .px-4.pt-2.pb-4
-            = turbo_frame_tag :service_inquiry,
-                    src: new_service_inquiry_path(service_inquiry: { job_posting_id: @job_posting.id }) do
-              p.text-center.text-muted.mt-3 = t('loading')
