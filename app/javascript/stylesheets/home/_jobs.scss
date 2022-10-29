@@ -193,12 +193,9 @@ section.job-preview {
   }
 
   .attributes-container {
-    display: flex;
+    display: grid;
     justify-content: space-evenly;
-  }
-
-  .delimiter {
-    border-right: 1px solid lightgray;
+    grid-auto-columns: auto;
   }
 
   .attribute {

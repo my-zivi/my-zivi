@@ -13,9 +13,10 @@ class JobPostingAttributesFooterComponent < ViewComponent::Base
     end
   }.freeze
 
-  def initialize(job_posting:)
+  def initialize(job_posting:, preview: false)
     super
     @job_posting = job_posting
+    @preview = preview
   end
 
   def attributes
@@ -25,6 +26,10 @@ class JobPostingAttributesFooterComponent < ViewComponent::Base
         title: I18n.t("job_postings.attributes.#{key}.title")
       }
     end
+  end
+
+  def preview?
+    @preview
   end
 
   def format_body(key, value)

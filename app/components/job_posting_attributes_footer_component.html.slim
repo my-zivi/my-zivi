@@ -1,5 +1,6 @@
 - if attributes.any?
-  hr /
+  - unless preview?
+    hr /
   .job-posting-attributes-section
     - attributes.each do |attribute|
       .job-posting-attribute.px-2.mb-2

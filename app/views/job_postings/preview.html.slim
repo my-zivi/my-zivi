@@ -34,28 +34,23 @@
             .attribute-title = t('search.ribbons.new')
             .attribute-content
               i.fas.fa-star
-          .delimiter
           .attribute
             .attribute-title Kategorie
             .attribute-content
               = job_posting_category_icon(@job_posting)
               = @job_posting.category_display_name
-          .delimiter
           .attribute
             .attribute-title Sprache
             .attribute-content
               = I18n.t(@job_posting.language, scope: 'activerecord.enums.job_posting.languages')
-          .delimiter
           .attribute
             .attribute-title = JobPosting.human_attribute_name(:canton)
             .attribute-content
               = @job_posting.canton_display_name
-          .delimiter
           .attribute
-            .attribute-title MIndest&shy;einsatz&shy;dauer
+            .attribute-title Mindest&shy;einsatz&shy;dauer
             .attribute-content
-              = t('job_postings.show.months', count: @job_posting.minimum_service_months)
-          .delimiter
+              = t('job_postings.additional_information_card.months', count: @job_posting.minimum_service_months)
           .attribute
             .attribute-title Schwer&shy;punkt
             .attribute-content
@@ -104,39 +99,5 @@
           ]
             noscript: h3 = t('job_postings.show.javascript_notice')
       .border-top.mt-4
-      .px-4 style="background-color: #fafafa"
-        .row
-          / .col-4.border-right.pt-3
-            h6 = JobPosting.human_attribute_name(:canton)
-            p = @job_posting.canton_display_name
-            h6 = JobPosting.human_attribute_name(:minimum_service_months)
-            p = t('job_postings.show.months', count: @job_posting.minimum_service_months)
-            h6 = JobPosting.human_attribute_name(:priority_program)
-            - if @job_posting.priority_program
-              p
-                i.fas.fa-check.mr-1.text-success
-                = t('simple_form.yes')
-            - else
-              p
-                i.fas.fa-times.mr-1.text-danger
-                = t('simple_form.no')
-          .col-6.pt-3.border-right
-            h6 = JobPosting.human_attribute_name(:available_service_periods)
-            .mb-3
-              - if @job_posting.available_service_periods.any?
-                ul.pl-3
-                  - @job_posting.available_service_periods.each do |available_service_period|
-                    li = t('job_postings.show.service_period',
-                            from: l(available_service_period.beginning),
-                            to: l(available_service_period.ending))
-              - else
-                span.text-muted n/a
-          .col-6.pt-3
-            h6 = JobPosting.human_attribute_name(:workshops)
-            .mb-3
-              - if @job_posting.workshops.any?
-                ul.pl-3
-                  - @job_posting.workshops.each do |workshop|
-                    li = workshop.name
-              - else
-                span.text-muted n/a
+      .px-4.pt-3 style="background-color: #fafafa"
+        = render JobPostingAttributesFooterComponent.new(job_posting: @job_posting, preview: true)

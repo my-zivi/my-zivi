@@ -92,7 +92,7 @@ class SearchPage extends React.Component<Props, State> {
               </div>
             </div>
           </div>
-          {this.state.openJobPosting && <TurboModal url={`${this.state.openJobPosting.link}/preview`} onclose={() => {
+          {this.state.openJobPosting && <TurboModal title={this.state.openJobPosting.title} url={this.state.openJobPosting.link} onclose={() => {
             this.setState({
               openJobPosting: undefined,
             });
