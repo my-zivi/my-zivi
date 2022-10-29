@@ -149,7 +149,7 @@ fr-CH:
         service_type: Type d'insertion
         status: Statut
       service_inquiry:
-        agreement: Je confirme que je suis un civiliste actif
+        agreement: Je suis un civiliste actif ou je prévois de le devenir
         email: E-Mail
         message: Message
         name: Nom
