@@ -22,7 +22,7 @@ RSpec.describe 'Service Inquiries', type: :system, js: true do
       expect(page).to have_content I18n.t('service_inquiries.create.title')
     end.to change(ServiceInquiry, :count)
 
-    click_button '.btn-close'
+    find('button.btn-close').click
     expect(page).not_to have_content I18n.t('service_inquiries.create.title')
   end
 
