@@ -140,7 +140,7 @@ section.jobs {
   }
 }
 
-section.job {
+section.job, section.job-preview {
   .job-posting-title {
     @include font-size($h3-font-size);
     margin-top: map-get($spacers, 3);
@@ -188,7 +188,6 @@ section.job-preview {
   }
 
   .job-posting-title {
-    @include font-size($h3-font-size);
     margin-bottom: 0;
   }
 
@@ -243,6 +242,130 @@ section.job-preview {
       &:last-child {
         border-right: none;
       }
+    }
+  }
+}
+
+// Preview
+section.job-preview {
+  .attributes-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0 0;
+    place-items: center;
+
+    .attribute {
+      height: 100%;
+      width: 100%;
+      background-color: #fff;
+
+      padding-bottom: 0.25em;
+
+      &.featured {
+        color: #c46632;
+      }
+    }
+
+    .attribute-title {
+      text-align: center;
+    }
+
+    .attribute:nth-child(2n+1) {
+      border-right: 1px solid lightgray;
+    }
+
+    @include media-breakpoint-up(md) {
+      grid-template-columns: repeat(3, 1fr);
+
+      .attribute:nth-child(2n+1) {
+        border-right: none;
+      }
+
+      .attribute:nth-child(3n+1) {
+        border-right: 1px solid lightgray;
+      }
+
+      .attribute:nth-child(3n) {
+        border-left: 1px solid lightgray;
+      }
+    }
+
+    @include media-breakpoint-up(xxl) {
+      display: flex;
+      justify-content: space-evenly;
+
+      .attribute {
+        border-right: 1px solid lightgray;
+      }
+
+      .attribute:last-child {
+        border-right: none;
+      }
+
+      .attribute {
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+aside {
+  .aside-button {
+    $size: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: $size;
+    height: $size;
+    color: #eee;
+    margin: 0.25em 0 0 0.25em;
+
+    svg {
+      width: 24px;
+    }
+  }
+
+  .close-button, .sharing-button, .open-button {
+    color: $black;
+    background-color: rgba($white, .92);
+    border-radius: 50%;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .turbo-modal-wrapper {
+    .container {
+      box-sizing: unset !important;
+      padding: 0 !important;
+      max-width: 100%;
+
+      .row {
+        margin-right: 0;
+        margin-left: 0;
+
+        .col-12 {
+          padding: 0 !important;
+        }
+      }
+    }
+  }
+
+  .turbo-inner-modal-wrapper {
+    flex-direction: column-reverse;
+    margin-top: 0 !important;
+  }
+
+  aside {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    width: 100vw;
+    margin-left: 0 !important;
+
+    .aside-button {
+      margin-top: 0.25em;
+      margin-right: 0.25em;
+      margin-bottom: 0.25em;
     }
   }
 }

@@ -8,7 +8,7 @@ import PoweredBy from 'js/home/search/embedded_app/components/PoweredBy';
 import qs from 'qs';
 import aa from 'search-insights';
 import { JobPostingSearchHit } from 'js/home/search/embedded_app/types';
-import TurboModal from 'js/home/search/embedded_app/components/TurboModal';
+import PreviewModal from 'js/home/search/embedded_app/components/PreviewModal';
 
 const HITS_PER_PAGE = 20;
 
@@ -39,6 +39,8 @@ class SearchPage extends React.Component<Props, State> {
     this.setState({
       openJobPosting: hit,
     });
+
+
   };
 
   render(): JSX.Element {
@@ -92,7 +94,7 @@ class SearchPage extends React.Component<Props, State> {
               </div>
             </div>
           </div>
-          {this.state.openJobPosting && <TurboModal title={this.state.openJobPosting.title} url={this.state.openJobPosting.link} onclose={() => {
+          {this.state.openJobPosting && <PreviewModal hit={this.state.openJobPosting} onclose={() => {
             this.setState({
               openJobPosting: undefined,
             });

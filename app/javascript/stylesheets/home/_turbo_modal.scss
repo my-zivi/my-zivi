@@ -20,27 +20,6 @@ $animation-duration: .25s;
     user-select: text;
     -webkit-touch-callout: default;
   }
-
-  .aside-button {
-    $size: 48px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: $size;
-    height: $size;
-    color: #eee;
-    margin-top: 1em;
-
-    svg {
-      width: 24px;
-    }
-  }
-
-  .close-button, .sharing-button {
-    color: $black;
-    background-color: rgba($white, .92);
-    border-radius: 50%;
-  }
 }
 
 @keyframes blur-in {
@@ -76,67 +55,5 @@ $animation-duration: .25s;
 @media (prefers-reduced-motion) {
   .turbo-modal-wrapper {
     animation: none !important;
-  }
-}
-
-@include media-breakpoint-down(md) {
-  .turbo-modal-wrapper {
-    .container {
-      box-sizing: unset !important;
-      padding: 0 !important;
-
-      .row {
-        margin-right: 0;
-        margin-left: 0;
-
-        .col-12 {
-          padding: 0 !important;
-        }
-      }
-    }
-
-    .turbo-inner-modal-wrapper {
-      flex-direction: column-reverse;
-      margin-top: 0 !important;
-
-      turbo-frame {
-        .job-posting-title-card {
-          border-top-right-radius: 0;
-          border-top-left-radius: 0;
-        }
-
-        .attributes-container {
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr;
-          grid-gap: 0 1px;
-          place-items: center;
-          background-color: lightgray;
-
-          .attribute {
-            height: 100%;
-            width: 100%;
-            background-color: #fff;
-          }
-
-          .attribute-title {
-            text-align: center;
-          }
-        }
-      }
-    }
-
-    aside {
-      display: flex;
-      justify-content: flex-start;
-      flex-direction: row-reverse;
-      width: 100vw;
-      margin-left: 0 !important;
-
-      .aside-button {
-        margin-top: 0.25em;
-        margin-right: 0.25em;
-        margin-bottom: 0.25em;
-      }
-    }
   }
 }
