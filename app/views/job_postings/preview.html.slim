@@ -21,7 +21,7 @@
       #inquiryModal.px-4.collapse aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1" style="background-color: #fafafa"
         .bg-light.rounded-top.py-3.px-4.d-flex.justify-content-between.align-items-baseline
           h4.mb-0 = t('job_postings.show.apply_via_myzivi')
-          button.btn-close.btn.btn-sm.btn-rounded-close aria-label="Close" data-target="#inquiryModal" data-toggle="collapse"
+          button.btn-close.btn.btn-sm.btn-rounded-close data-target="#inquiryModal" data-toggle="collapse" *{ 'aria-label' => t('close') }
             i.fas.fa-times
         .px-4.pt-2.pb-4
           = turbo_frame_tag :service_inquiry,
@@ -82,14 +82,14 @@
           h4.mt-3 = JobPosting.human_attribute_name(:preferred_skills)
           div == @job_posting.preferred_skills
         - if @job_posting.address&.coordinates.present?
-          h4.mt-3 = t('job_postings.show.map')
+          h4.mt-3 = t('job_postings.map_card.map')
           .w-100[
             data-leaflet-map='true'
             data-coordinates=@job_posting.address.coordinates.join(',')
             data-title=@job_posting.organization_display_name
             style="height: 260px"
           ]
-            noscript: h3 = t('job_postings.show.javascript_notice')
+            noscript: h3 = t('job_postings.map_card.javascript_notice')
       .border-top.mt-4
       .px-4.py-3.footer-details
         = render JobPostingAttributesFooterComponent.new(job_posting: @job_posting, preview: true)
