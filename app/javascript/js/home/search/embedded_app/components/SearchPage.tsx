@@ -39,8 +39,6 @@ class SearchPage extends React.Component<Props, State> {
     this.setState({
       openJobPosting: hit,
     });
-
-
   };
 
   render(): JSX.Element {
