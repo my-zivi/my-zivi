@@ -1,0 +1,136 @@
+@use 'sass:math';
+@import '../theme/variables';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+$geo-search-height-margins: (
+  'xs': 254px,
+  'sm': 254px,
+  'md': 271px,
+  'lg': 271px,
+  'xl': 271px,
+  'xxl': 303px,
+);
+$panel-background-without-blur: rgba($white, .96);
+$panel-background-with-blur: rgba($white, .9);
+$panel-backdrop-filter: blur(5px);
+
+.geo-search-container {
+  height: calc(100vh - #{map-get($geo-search-height-margins, 'xs')});
+  min-height: 600px;
+  margin-bottom: 60px;
+
+  @include media-breakpoint-up(sm) {
+    height: calc(100vh - #{map-get($geo-search-height-margins, 'sm')});
+    margin-bottom: 0;
+  }
+
+  @include media-breakpoint-up(md) {
+    height: calc(100vh - #{map-get($geo-search-height-margins, 'md')});
+  }
+
+  @include media-breakpoint-up(lg) {
+    height: calc(100vh - #{map-get($geo-search-height-margins, 'lg')});
+    min-height: 600px;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    height: calc(100vh - #{map-get($geo-search-height-margins, 'xxl')});
+    min-height: 650px;
+  }
+}
+
+.leaflet-map {
+  width: 100%;
+  height: 100%;
+}
+
+.side-panel-container {
+  position: sticky;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $zindex-sticky;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: -40px;
+
+  @include media-breakpoint-up(sm) {
+    align-items: flex-end;
+    position: absolute;
+    top: 0;
+    right: map-get($spacers, 2);
+    left: inherit;
+    height: 100%;
+    padding: map-get($spacers, 4) 0;
+    margin-top: 0;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding: map-get($spacers, 2) 0;
+  }
+
+  .card {
+    max-height: max(calc(100vh - #{map-get($geo-search-height-margins, 'sm')} - 6em), 300px);
+    overflow-y: scroll;
+    background-color: $panel-background-without-blur;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
+    @supports (backdrop-filter: blur(1px)) {
+      background-color: $panel-background-with-blur;
+      backdrop-filter: $panel-backdrop-filter;
+    }
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      overflow: hidden;
+      background-color: transparent;
+      border-top-right-radius: $card-inner-border-radius;
+      border-bottom-right-radius: $card-inner-border-radius;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #aaa;
+      border-radius: $card-inner-border-radius;
+    }
+
+    @include media-breakpoint-up(sm) {
+      max-height: 100%;
+      border-top-left-radius: $card-inner-border-radius;
+      border-top-right-radius: $card-inner-border-radius;
+    }
+  }
+
+  .side-panel-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 map-get($spacers, 2);
+
+    @include media-breakpoint-up(md) {
+      padding: 0;
+    }
+
+    button:not(:last-child) {
+      margin-right: map-get($spacers, 2);
+    }
+  }
+
+  .btn-translucent-action {
+    @include button-variant($panel-background-without-blur, $panel-background-without-blur);
+
+    @supports (backdrop-filter: blur(1px)) {
+      @include button-variant($panel-background-with-blur, $panel-background-with-blur);
+      backdrop-filter: $panel-backdrop-filter;
+    }
+
+    height: 36px;
+    border-radius: math.div(36px, 2);
+  }
+
+  .btn-circle {
+    width: 36px;
+    padding: 0;
+  }
+}

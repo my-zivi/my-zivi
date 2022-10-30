@@ -62,9 +62,7 @@ const content = {
       nbPages: 1,
       hitsPerPage: 20,
       facets: {
-        language: {
-          german: 10,
-        },
+        language: { german: 10 },
         priority_program: {
           true: 9,
           false: 1,

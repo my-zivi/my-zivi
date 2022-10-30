@@ -1,6 +1,7 @@
 // Generated file using `rake types:generate`
 
 declare interface SearchTranslations {
+  details: string;
   loadMore: string;
   noResultsFound: string;
   poweredBy: string;
@@ -23,11 +24,11 @@ declare interface SearchTranslations {
       german: string;
       italian: string;
     };
+    minimumServiceMonths: string;
     month: {
       one: string;
       other: string;
     };
-    minimumServiceMonths: string;
     priorityProgram: string;
     priorityProgramLabel: string;
   };
@@ -39,5 +40,9 @@ declare interface SearchTranslations {
   };
   search: string;
   searchPlaceholder: string;
+  searchView: {
+    map: string;
+    tiles: string;
+  };
   statistics: string;
 }

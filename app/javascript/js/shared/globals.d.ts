@@ -23,3 +23,14 @@ declare interface MyZiviGlobal {
 }
 
 declare const MyZivi: MyZiviGlobal;
+
+// Allow asset imports in typescript (handled by webpack later)
+declare module '*.png' {
+  const content: object;
+  export default content;
+}
+
+declare module '*.jpg' {
+  const content: object;
+  export default content;
+}

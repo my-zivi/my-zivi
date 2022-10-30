@@ -1,6 +1,4 @@
-import React, {
-  forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState,
-} from 'preact/compat';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'preact/compat';
 import { delay } from 'lodash';
 import { debounceDelay } from 'js/home/search/embedded_app/helpers/SearchBoxHelper';
 
@@ -20,9 +18,7 @@ export type SearchBoxRef = {
   autocompleteSearch: (string) => void,
 };
 
-const SearchBox = forwardRef<SearchBoxRef, Props>(({
-  currentRefinement, refine, onFocus, onBlur,
-}, ref) => {
+const SearchBox = forwardRef<SearchBoxRef, Props>(({ currentRefinement, refine, onFocus, onBlur }, ref) => {
   const [currentInputValue, setCurrentInputValue] = useState(currentRefinement);
   const [debounceTimerId, setDebounceTimerId] = useState(null);
   const currentDelay = useMemo(() => debounceDelay(), []);
@@ -60,7 +56,6 @@ const SearchBox = forwardRef<SearchBoxRef, Props>(({
         placeholder={MyZivi.translations.search.searchPlaceholder}
         onFocus={onFocus}
         onBlur={onBlur}
-        autoFocus={true}
         onChange={(e) => setCurrentInputValue(e.currentTarget.value)}
         onKeyUp={
           (e) => {

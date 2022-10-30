@@ -22,6 +22,12 @@ export interface JobPostingSearchHit {
   link: string;
   featured_as_new: boolean;
   priority_program: boolean;
+  _geoloc: {
+    lat: number;
+    lng: number;
+  },
+  _tags: string[];
+  geoloc_hash: string;
 }
 
 export enum Relevancy {

@@ -1,0 +1,51 @@
+@use 'sass:math';
+@import '../theme/variables';
+@import '~bootstrap/scss/variables';
+
+$hover-background-color: lighten($blue, 50%);
+$active-background-color: lighten($blue, 40%);
+$active-color: darken($blue, 25%);
+
+.search-view-switch {
+  $height: 40px;
+
+  position: absolute;
+  top: -1 * math.div($height, 2);
+  z-index: $zindex-sticky;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $height;
+  overflow: hidden;
+  background-color: $border-color;
+  border: 1px solid $border-color;
+  border-radius: 40px;
+
+  .search-view-switch-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 map-get($spacers, 3);
+    color: $body-color;
+    cursor: pointer;
+    user-select: none;
+    background-color: $white;
+    border: none;
+    border-right: 1px solid $border-color;
+    -webkit-touch-callout: none;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    &:hover {
+      background-color: $hover-background-color;
+    }
+
+    &.active {
+      color: $active-color;
+      background-color: $active-background-color;
+    }
+  }
+}

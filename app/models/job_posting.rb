@@ -71,6 +71,10 @@ class JobPosting < ApplicationRecord
   has_rich_text :required_skills
   has_rich_text :preferred_skills
 
+  def address
+    super || organization&.address
+  end
+
   def scraped?
     organization.blank?
   end

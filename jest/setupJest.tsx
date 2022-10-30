@@ -56,6 +56,10 @@ const globalConfig: MyZiviGlobal = {
       search: 'string',
       searchPlaceholder: 'string',
       statistics: 'string',
+      searchView: {
+        map: 'Karte',
+        tiles: 'Raster',
+      },
     } as any,
     loading: 'Laden...',
     error: 'Fehler',

@@ -1,0 +1,47 @@
+@import '../theme/variables';
+
+$cluster-background-colors: (
+  'small': $blue,
+  'medium': mix($blue, $purple, 60%),
+  'large': mix($blue, $purple, 35%),
+);
+
+$cluster-colors: (
+  'small': $deep-ocean,
+  'medium': $white,
+  'large': $white
+);
+
+@each $size, $color in $cluster-background-colors {
+  .marker-cluster-#{$size} {
+    background-color: rgba(lighten($color, 10%), .6);
+
+    div {
+      color: map-get($cluster-colors, $size);
+      background-color: rgba($color, .6);
+    }
+  }
+}
+
+.marker-cluster {
+  background-clip: padding-box;
+  border-radius: 20px;
+}
+
+.marker-cluster div {
+  $margin: 5px;
+  $size: 30px;
+
+  width: $size;
+  height: $size;
+  margin-top: $margin;
+  margin-left: $margin;
+  font: 12px Ubuntu, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+  text-align: center;
+  border-radius: 15px;
+}
+
+.marker-cluster span {
+  line-height: 30px;
+}

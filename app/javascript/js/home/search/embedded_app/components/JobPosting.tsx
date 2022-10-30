@@ -18,9 +18,7 @@ const JobPosting: React.FunctionComponent<Props> = (props) => {
       event.stopImmediatePropagation();
       event.preventDefault();
 
-      insights('clickedObjectIDsAfterSearch', {
-        eventName: 'JobPosting Clicked',
-      });
+      insights('clickedObjectIDsAfterSearch', { eventName: 'JobPosting Clicked' });
 
       // FIXME: Since Turbo.visit(..., { action: 'replace' }) actually loads and replaces the page,
       // the React app would be mounted and re-rendered causing a flash of all the content. Hence, we need to use

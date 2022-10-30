@@ -14,11 +14,7 @@ describe('ServicesOverviewCard', () => {
   describe('when api returns services', () => {
     const wrapper = servicesOverviewWrapper({
       fetchServices(): Promise<Array<Service>> {
-        return Promise.resolve(Factories.buildList(ServiceFactory, 2, {
-          civilServant: {
-            fullName: 'Peter Parker',
-          },
-        }));
+        return Promise.resolve(Factories.buildList(ServiceFactory, 2, { civilServant: { fullName: 'Peter Parker' } }));
       },
     });
 

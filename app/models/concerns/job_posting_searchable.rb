@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module JobPostingSearchable
+  CLUSTER_GROUP_PRECISION = 2
+
   extend ActiveSupport::Concern
   include ActionView::Helpers::SanitizeHelper
   include AlgoliaSearch
@@ -12,11 +14,21 @@ module JobPostingSearchable
                  :contact_information, :published, :minimum_service_months,
                  :language, :featured_as_new, :priority_program)
 
-      add_attribute :plain_description, :organization_display_name, :icon_url,
+      add_attribute :plain_description, :organization_display_name, :icon_url, :geoloc_hash,
                     :category_display_name, :sub_category_display_name, :canton_display_name
 
       attribute :link do
         Rails.application.routes.url_helpers.job_posting_url(self, host: ENV['APP_HOST'], port: ENV['APP_PORT'])
+      end
+
+      attribute :_geoloc do
+        { lat: address.latitude.to_f, lng: address.longitude.to_f } if coordinates_present?
+      end
+
+      attribute :internal_tag do
+        [
+          ('coordinates_present' if coordinates_present?)
+        ].compact
       end
 
       attribute(:relevancy) { relevancy_for_database }
@@ -32,7 +44,7 @@ module JobPostingSearchable
       attributesForFaceting %w[
         searchable(canton_display_name) category_display_name
         priority_program sub_category_display_name
-        minimum_service_months language
+        minimum_service_months language internal_tag
       ]
 
       customRanking %w[desc(relevancy) desc(featured_as_new)]
@@ -69,5 +81,17 @@ module JobPostingSearchable
 
   def canton_display_name
     I18n.t(canton, scope: 'activerecord.enums.job_posting.cantons')
+  end
+
+  def coordinates_present?
+    [address&.latitude, address&.longitude].all?(&:present?)
+  end
+
+  def geoloc_hash
+    return unless coordinates_present?
+
+    Digest::MD5.hexdigest(
+      "#{address.latitude.to_f.round(CLUSTER_GROUP_PRECISION)}-#{address.longitude.to_f.round(CLUSTER_GROUP_PRECISION)}"
+    )
   end
 end

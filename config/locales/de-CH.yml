@@ -561,6 +561,7 @@ de-CH:
       file_name: Einsatzvereinbarung_%{name}_%{beginning}_%{ending}.pdf
   print: Drucken
   search:
+    details: Details
     load_more: Weitere laden...
     no_results_found: Keine Einsätze gefunden
     powered_by: über
@@ -594,6 +595,9 @@ de-CH:
       urgent: Wichtig
     search: Suchen
     search_placeholder: Einsätze suchen...
+    search_view:
+      map: Karte
+      tiles: Raster
     statistics: "%{count} Resultate gefunden (%{time}ms)"
   service_calculator:
     end_date_cannot_be_on_weekend: Einsatzende kann nicht an einem Wochenende sein

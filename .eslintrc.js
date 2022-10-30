@@ -44,16 +44,11 @@ module.exports = {
       },
     ],
     'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
+    'object-curly-newline': 'off',
   },
   settings: {
-    react: {
-      version: 'detect',
-    },
-    'import/resolver': {
-      typescript: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      },
-    },
+    react: { version: 'detect' },
+    'import/resolver': { typescript: { extensions: ['.js', '.jsx', '.ts', '.tsx'] } },
   },
   globals: {
     FontAwesome: 'readonly',

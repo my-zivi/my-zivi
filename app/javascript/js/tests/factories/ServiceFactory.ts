@@ -15,9 +15,7 @@ const ServiceFactory: Factory<Service> = {
       beginning: '2020-01-06',
       ending: '2020-02-07',
       definitive: true,
-      civilServant: {
-        fullName: randomName(),
-      },
+      civilServant: { fullName: randomName() },
     };
 
     return _.merge(defaultService, overrides);

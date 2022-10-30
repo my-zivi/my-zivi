@@ -1,23 +1,46 @@
+@use 'sass:math';
+
 .search-field {
-  $search-button-size: 60px;
-  $radius: 70px / 2;
+  $height: (
+    'xs': 60px,
+    'md': 70px
+  );
+  $search-button-inset-margin: 5px;
+  $search-button-size: (
+    'xs': map-get($height, 'xs') - $search-button-inset-margin * 2,
+    'md': map-get($height, 'md') - $search-button-inset-margin * 2
+  );
+
+  $radius: (
+    'xs': math.div(map-get($height, 'xs'), 2),
+    'md': math.div(map-get($height, 'md'), 2),
+  );
 
   position: relative;
 
   input {
+    @mixin search-field-dimension($size) {
+      height: map-get($height, $size);
+      padding-right: calc(#{map-get($search-button-size, $size)} + .7em);
+      padding-left: calc(#{map-get($radius, $size)} + .2em);
+      border-radius: map-get($radius, $size);
+    }
+
+    @include search-field-dimension('xs');
+
     width: 100%;
-    height: 70px;
-    padding-right: calc(#{$search-button-size} + .7em);
-    padding-left: calc(#{$radius} + .2em);
+    margin-bottom: 1em; // lift up the search field a bit above the view switcher on mobile
     font-size: 1.5em;
     color: $gray;
     text-align: left;
     background-color: $white;
     border: none;
-    border-radius: $radius;
     box-shadow: 7px 7px 40px rgba($black, .6);
 
     @include media-breakpoint-up(md) {
+      @include search-field-dimension('md');
+      margin-bottom: 0;
+
       font-size: 2em;
     }
 
@@ -29,21 +52,30 @@
   }
 
   .search-button {
+    @mixin search-button-dimensions($size) {
+      width: map-get($search-button-size, $size);
+      height: map-get($search-button-size, $size);
+    }
+
     position: absolute;
     right: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: $search-button-size;
-    height: $search-button-size;
     padding: 10px;
-    margin-top: 5px;
-    margin-right: 5px;
+    margin-top: $search-button-inset-margin;
+    margin-right: $search-button-inset-margin;
     font-size: 2em;
     cursor: pointer;
     background-image: $my-zivi-gradient;
     border: none;
     border-radius: 50px;
     outline: none;
+
+    @include search-button-dimensions('xs');
+
+    @include media-breakpoint-up('md') {
+      @include search-button-dimensions('md');
+    }
   }
 }

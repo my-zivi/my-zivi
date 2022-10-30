@@ -1,34 +1,56 @@
-import { Configure, InstantSearch, Stats } from 'react-instantsearch-dom';
+import { InstantSearch } from 'react-instantsearch-dom';
 import CustomAutocomplete from 'js/home/search/embedded_app/components/CustomAutocomplete';
-import CustomHitComponent from 'js/home/search/embedded_app/components/CustomHitComponent';
-import RefinementsPanel from 'js/home/search/embedded_app/components/RefinementsPanel';
 import React, { JSX } from 'preact/compat';
 import { SearchClient } from 'algoliasearch';
-import PoweredBy from 'js/home/search/embedded_app/components/PoweredBy';
 import qs from 'qs';
-
-const HITS_PER_PAGE = 20;
+import MapSearchView from 'js/home/search/embedded_app/components/MapSearchView';
+import SearchViewSwitch, { SearchView } from 'js/home/search/embedded_app/components/SearchViewSwitch';
+import TilesSearchView from 'js/home/search/embedded_app/components/TilesSearchView';
 
 type SearchState = Record<string, unknown>;
 type Props = { searchClient: SearchClient };
-type State = { searchState: SearchState };
+type State = { searchState: SearchState, activeView: SearchView };
 
-const searchStateToUrl = (searchState: SearchState) => (searchState ? `?${qs.stringify(searchState)}` : '');
-const urlToSearchState = (search: string) => qs.parse(search.slice(1));
+const parseQueryString = (search: string) => {
+  try {
+    return qs.parse(search.slice(1));
+  } catch (e) {
+    return {};
+  }
+};
 
 class SearchPage extends React.Component<Props, State> {
   constructor() {
     super();
 
+    const query = parseQueryString(window.location.search);
+    const activeView = Object.values(SearchView).includes(query.view as SearchView)
+      ? (query.view as SearchView)
+      : SearchView.Tiles;
+
     this.state = {
-      searchState: urlToSearchState(window.location.search),
+      searchState: (query.s || {}) as SearchState,
+      activeView,
     };
   }
 
-  private onSearchStateChange: (searchState: SearchState) => void = (searchState) => {
-    window.history.replaceState(null, null, searchStateToUrl(searchState));
+  componentDidUpdate() {
+    const queryState = {
+      s: this.state.searchState,
+      view: this.state.activeView,
+    };
+    window.history.replaceState(null, null, `?${qs.stringify(queryState)}`);
+  }
 
-    this.setState({ searchState });
+  private getCurrentSearchView = (): JSX.Element => {
+    switch (this.state.activeView) {
+      case SearchView.Tiles:
+        return <TilesSearchView />;
+      case SearchView.Map:
+        return <MapSearchView />;
+      default:
+        return null;
+    }
   };
 
   render(): JSX.Element {
@@ -38,15 +60,14 @@ class SearchPage extends React.Component<Props, State> {
     return (
       <InstantSearch
         searchClient={searchClient}
-        onSearchStateChange={this.onSearchStateChange}
+        onSearchStateChange={(searchState: SearchState) => this.setState({ searchState })}
         searchState={this.state.searchState}
         indexName="JobPosting"
       >
-        <Configure hitsPerPage={HITS_PER_PAGE} clickAnalytics />
         <div className="search-main">
           <div className="hero">
             <div className="container">
-              <div className="hero-content w-100">
+              <div className="hero-content narrow w-100">
                 <div className="row">
                   <div className="col-xl-1" />
                   <div className="col"><CustomAutocomplete defaultRefinement={defaultRefinement} /></div>
@@ -56,29 +77,12 @@ class SearchPage extends React.Component<Props, State> {
             </div>
           </div>
 
-          <div className="container mt-6">
-            <div className="d-flex justify-content-start justify-content-lg-end mb-2">
-              <div className="text-muted mr-1">
-                <Stats translations={{
-                  stats(hitsCount, processingTimeMS) {
-                    return MyZivi.translations.search.statistics
-                      .replace('%{count}', hitsCount.toLocaleString())
-                      .replace('%{time}', processingTimeMS.toLocaleString());
-                  },
-                }} />
-              </div>
-              <PoweredBy />
-            </div>
-            <div className="row">
-              <div className="col-12 col-lg-9 order-1 order-lg-0">
-                <section className="jobs-hits pt-0">
-                  <CustomHitComponent />
-                </section>
-              </div>
-              <div className="col-12 col-lg-3 order-0 order-lg-1">
-                <RefinementsPanel />
-              </div>
-            </div>
+          <div className="position-relative">
+            <SearchViewSwitch
+              activeView={this.state.activeView}
+              onChange={(activeView: SearchView) => this.setState({ activeView })}
+            />
+            {this.getCurrentSearchView()}
           </div>
         </div>
       </InstantSearch>
