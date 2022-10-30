@@ -6,7 +6,6 @@ import React, { JSX } from 'preact/compat';
 import { SearchClient } from 'algoliasearch';
 import PoweredBy from 'js/home/search/embedded_app/components/PoweredBy';
 import qs from 'qs';
-import aa from 'search-insights';
 import { JobPostingSearchHit } from 'js/home/search/embedded_app/types';
 import PreviewModal from 'js/home/search/embedded_app/components/PreviewModal';
 

@@ -140,7 +140,8 @@ section.jobs {
   }
 }
 
-section.job, section.job-preview {
+section.job,
+section.job-preview {
   .job-posting-title {
     @include font-size($h3-font-size);
     margin-top: map-get($spacers, 3);
@@ -153,59 +154,6 @@ section.job, section.job-preview {
   @include media-breakpoint-up(lg) {
     .job-posting-title {
       @include font-size($h2-font-size);
-    }
-  }
-}
-
-section.job-preview {
-  .job-posting-title-card {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  .job-posting-content-card {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-
-  .job-posting-card-grid {
-    display: grid;
-    grid-template-rows: [row-start] max-content [row-start] auto;
-    grid-template-columns: min-content auto;
-    grid-gap: 1em;
-  }
-
-  .flexible-job-posting-icon-container {
-    display: inline-flex;
-    height: 100%;
-    align-items: center;
-  }
-
-  .flexible-job-posting-icon {
-    flex-shrink: 1;
-    object-fit: scale-down;
-    height: 120px;
-  }
-
-  .job-posting-title {
-    margin-bottom: 0;
-  }
-
-  .attributes-container {
-    display: grid;
-    justify-content: space-evenly;
-    grid-auto-columns: auto;
-  }
-
-  .attribute {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-
-    .attribute-title {
-      text-transform: uppercase;
-      font-weight: bold;
     }
   }
 }
@@ -248,18 +196,65 @@ section.job-preview {
 
 // Preview
 section.job-preview {
+  .job-posting-title-card {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .job-posting-content-card {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .job-posting-card-grid {
+    display: grid;
+    grid-template-rows: [row-start] max-content [row-start] auto;
+    grid-template-columns: min-content auto;
+    grid-gap: 1em;
+  }
+
+  .flexible-job-posting-icon-container {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .flexible-job-posting-icon {
+    flex-shrink: 1;
+    object-fit: scale-down;
+    height: 120px;
+  }
+
+  .job-posting-title {
+    margin-bottom: 0;
+  }
+
+  .attribute {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    .attribute-title {
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+
   .attributes-container {
+    $border-color: #fff;
+
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 0 0;
+    grid-gap: 0;
     place-items: center;
 
     .attribute {
-      height: 100%;
       width: 100%;
-      background-color: #fff;
+      height: 100%;
 
-      padding-bottom: 0.25em;
+      padding-bottom: .25em;
+      background-color: #fff;
 
       &.featured {
         color: #c46632;
@@ -271,7 +266,7 @@ section.job-preview {
     }
 
     .attribute:nth-child(2n+1) {
-      border-right: 1px solid lightgray;
+      border-right: 1px solid darken($border-color, 35%);
     }
 
     @include media-breakpoint-up(md) {
@@ -282,11 +277,11 @@ section.job-preview {
       }
 
       .attribute:nth-child(3n+1) {
-        border-right: 1px solid lightgray;
+        border-right: 1px solid darken($border-color, 35%);
       }
 
       .attribute:nth-child(3n) {
-        border-left: 1px solid lightgray;
+        border-left: 1px solid darken($border-color, 35%);
       }
     }
 
@@ -294,19 +289,28 @@ section.job-preview {
       display: flex;
       justify-content: space-evenly;
 
-      .attribute {
-        border-right: 1px solid lightgray;
+      .attribute:nth-child(3n+1),
+      .attribute:nth-child(3n) {
+        border-left: none !important;
+      }
+
+      .attribute:nth-child(1n) {
+        padding-bottom: 0;
+        border-right: 1px solid darken($border-color, 35%) !important;
       }
 
       .attribute:last-child {
-        border-right: none;
-      }
-
-      .attribute {
-        padding-bottom: 0;
+        border-right: none !important;
       }
     }
   }
+
+  .footer-details {
+    $background-color: #fff;
+
+    background-color: darken($background-color, 3%);
+  }
+
 }
 
 aside {
@@ -317,15 +321,17 @@ aside {
     justify-content: center;
     width: $size;
     height: $size;
+    margin: .25em 0 0 .25em;
     color: #eee;
-    margin: 0.25em 0 0 0.25em;
 
     svg {
       width: 24px;
     }
   }
 
-  .close-button, .sharing-button, .open-button {
+  .close-button,
+  .sharing-button,
+  .open-button {
     color: $black;
     background-color: rgba($white, .92);
     border-radius: 50%;
@@ -336,8 +342,8 @@ aside {
   .turbo-modal-wrapper {
     .container {
       box-sizing: unset !important;
-      padding: 0 !important;
       max-width: 100%;
+      padding: 0 !important;
 
       .row {
         margin-right: 0;
@@ -357,15 +363,15 @@ aside {
 
   aside {
     display: flex;
-    justify-content: flex-start;
     flex-direction: row-reverse;
+    justify-content: flex-start;
     width: 100vw;
     margin-left: 0 !important;
 
     .aside-button {
-      margin-top: 0.25em;
-      margin-right: 0.25em;
-      margin-bottom: 0.25em;
+      margin-top: .25em;
+      margin-right: .25em;
+      margin-bottom: .25em;
     }
   }
 }
