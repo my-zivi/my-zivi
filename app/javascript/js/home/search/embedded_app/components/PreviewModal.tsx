@@ -61,6 +61,7 @@ const PreviewModal: FunctionComponent<PreviewModalProps> = ({
           href={url}
           target="_blank"
           className="aside-button open-button"
+          rel="noopener noreferrer"
         >
           <FontAwesomeIcon icon={['fas', 'external-link-alt']}/>
         </a>
