@@ -12,7 +12,7 @@ const PreviewModal: FunctionComponent<PreviewModalProps> = ({
   hit, onclose,
 }) => {
   // eslint-disable-next-line no-param-reassign
-  const url = hit.link.replace('http://my-zivi.localhost:3000', 'https://myzivi-dev.thefehr.ch');
+  const url = hit.link;
 
   const shareData = {
     title: hit.title,
