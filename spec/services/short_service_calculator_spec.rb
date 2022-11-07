@@ -173,7 +173,7 @@ RSpec.describe ShortServiceCalculator, type: :service do
 
     context 'when service end is within weekdays of beginning week' do
       it 'returns correct eligible days', :aggregate_failures do
-        (0..4).each do |delta|
+        5.times do |delta|
           service_days = short_service_calculator.calculate_chargeable_service_days(beginning + delta.days)
           expect(service_days).to eq(delta + 1)
         end

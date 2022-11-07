@@ -16,7 +16,6 @@ module Pdfs
         ].freeze
 
         # false positive: Do not use symbol for lambda
-        # rubocop:disable Lint/LambdaWithoutLiteralBlock
         DAY_ROWS = [
           {
             count: ->(expense_sheet) { expense_sheet.at_service_beginning? ? 1 : 0 },
@@ -54,8 +53,6 @@ module Pdfs
             calculation_method: :calculate_unpaid_vacation_days
           }
         ].freeze
-        # rubocop:enable Lint/LambdaWithoutLiteralBlock
-
         COLUMNS = %i[pocket_money accommodation breakfast lunch dinner total].freeze
 
         include ExpenseTableAdditions

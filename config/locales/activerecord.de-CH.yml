@@ -149,7 +149,7 @@ de-CH:
         service_type: Einsatztyp
         status: Status
       service_inquiry:
-        agreement: Ich bestätige, dass ich ein aktiver Zivildienstleistender bin
+        agreement: Ich bin aktiver Zivildienstleistender oder plane es zu werden
         email: E-Mail
         message: Nachricht
         name: Name

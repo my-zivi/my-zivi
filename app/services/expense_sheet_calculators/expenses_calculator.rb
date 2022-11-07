@@ -82,7 +82,7 @@ module ExpenseSheetCalculators
       }
 
       expenses.merge(day_spec.symbolize_keys.slice(:breakfast, :lunch, :dinner))
-              .yield_self { |full_expenses| full_expenses.merge(total: count * full_expenses.values.sum) }
+              .then { |full_expenses| full_expenses.merge(total: count * full_expenses.values.sum) }
     end
   end
 end
