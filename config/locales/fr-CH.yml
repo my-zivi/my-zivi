@@ -204,7 +204,6 @@ fr-CH:
       map: Carte
     show:
       apply_via_myzivi: Postuler via MyZivi
-      back: Retour à la recherche
       claim_html: Contactez nous <a href="%{link}" target="_blank" rel="noopener noreferrer">ici</a> pour le modifier
       claim_title: Est-ce votre cahier des charges?
       contact: Contact
