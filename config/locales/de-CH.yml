@@ -323,6 +323,7 @@ de-CH:
         show: Öffnen
         specification: Spezifikation
         title: Ausschreibung “%{title}”
+        weekly_work_time_append: std.
       index:
         notice_html: Falls Sie noch weitere Ausschreibungen haben, welche hier nicht gelistet sind, können Sie uns gerne unter <a href="mailto:info@myzivi.ch">info@myzivi.ch</a> kontaktieren.
         title: Ausschreibungen

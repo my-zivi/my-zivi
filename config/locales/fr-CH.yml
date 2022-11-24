@@ -322,6 +322,7 @@ fr-CH:
         show: Ouvrir
         specification: Spécifications
         title: L'annonce "%{title}"
+        weekly_work_time_append: h.
       index:
         notice_html: Si vous avez d'autres offres qui ne figurent pas ici, n'hésitez pas à nous contacter à l'adresse <a href="mailto:info@myzivi.ch">info@myzivi.ch</a>.
         title: Annonces

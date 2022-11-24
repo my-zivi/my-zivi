@@ -6,7 +6,7 @@
         i.fas.fa-external-link-alt.mr-2
         .d-none.d-md-inline = t('.show')
   .card-body
-    = simple_form_for [:organizations, @job_posting], wrapper: :input_group do |f|
+    = simple_form_for [:organizations, @job_posting], wrapper: :input_group_without_valid_classes do |f|
       = f.input :published
       .row
         .col-12.col-md-3
@@ -15,7 +15,13 @@
           = f.input :title
       = f.input :brief_description
       hr.my-4 /
-      a.collapsible-title href='#' data-toggle="collapse" data-target="#description" aria-expanded="false" aria-controls="description"
+      a.collapsible-title[
+        href='#'
+        data-toggle="collapse"
+        data-target="#description"
+        aria-expanded="false"
+        aria-controls="description"
+      ]
         h5.mb-3
           i.fas.fa-chevron-down.mr-2.collapse-icon
           = t('.description')
@@ -26,7 +32,13 @@
         h6.h5.mt-4.mb-2 = JobPosting.human_attribute_name(:preferred_skills)
         = f.rich_text_area :preferred_skills
       hr.my-4 /
-      a.collapsible-title href='#' data-toggle="collapse" data-target="#specification" aria-expanded="false" aria-controls="specification"
+      a.collapsible-title[
+        href='#'
+        data-toggle="collapse"
+        data-target="#specification"
+        aria-expanded="false"
+        aria-controls="specification"
+      ]
         h5.mb-3
           i.fas.fa-chevron-down.mr-2.collapse-icon
           = t('.specification')
@@ -42,8 +54,16 @@
           .col-12.col-md-6
             = f.input :sub_category, collection: enum_options_for_select(JobPosting, :sub_category)
         .row
-          .col-12.col-md-6
+          .col-12.col-md-6.col-lg-3
             = f.input :minimum_service_months, append: t('.minimum_service_months_append')
+          .col-12.col-md-6.col-lg-3
+            = f.input :weekly_work_time, append: t('.weekly_work_time_append')
+          - %i[fixed_work_time good_reputation e_government work_on_weekend work_night_shift accommodation_provided food_provided].each do |attribute|
+            .col-12.col-md-6.col-lg-3
+              = f.input attribute,
+                      label: t("job_postings.attributes.#{attribute}.title"),
+                      collection: [[t("job_postings.attributes.#{attribute}.body.true"), true],
+                                   [t("job_postings.attributes.#{attribute}.body.false"), false]]
       .d-flex.justify-content-end
         = yield
         = f.submit class: 'btn btn-primary float-right'
