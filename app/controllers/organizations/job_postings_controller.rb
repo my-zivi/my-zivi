@@ -41,7 +41,9 @@ module Organizations
         :title, :description, :required_skills, :preferred, :category,
         :published, :preferred_skills, :priority_program, :language,
         :identification_number, :sub_category, :canton,
-        :brief_description, :minimum_service_months
+        :brief_description, :minimum_service_months, :weekly_work_time,
+        :fixed_work_time, :good_reputation, :e_government, :work_on_weekend,
+        :work_night_shift, :accommodation_provided, :food_provided
       )
     end
   end

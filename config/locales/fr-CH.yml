@@ -204,7 +204,6 @@ fr-CH:
       map: Carte
     show:
       apply_via_myzivi: Postuler via MyZivi
-      back: Retour à la recherche
       claim_html: Contactez nous <a href="%{link}" target="_blank" rel="noopener noreferrer">ici</a> pour le modifier
       claim_title: Est-ce votre cahier des charges?
       contact: Contact
@@ -323,6 +322,7 @@ fr-CH:
         show: Ouvrir
         specification: Spécifications
         title: L'annonce "%{title}"
+        weekly_work_time_append: h.
       index:
         notice_html: Si vous avez d'autres offres qui ne figurent pas ici, n'hésitez pas à nous contacter à l'adresse <a href="mailto:info@myzivi.ch">info@myzivi.ch</a>.
         title: Annonces

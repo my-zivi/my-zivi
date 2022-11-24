@@ -134,7 +134,15 @@ RSpec.describe Organizations::JobPostingsController, type: :request do
         canton: 'LU',
         category: 'agriculture',
         sub_category: nil,
-        minimum_service_months: 1
+        minimum_service_months: 1,
+        weekly_work_time: 45,
+        fixed_work_time: true,
+        good_reputation: true,
+        e_government: true,
+        work_on_weekend: true,
+        work_night_shift: true,
+        accommodation_provided: false,
+        food_provided: false
       }
     end
 

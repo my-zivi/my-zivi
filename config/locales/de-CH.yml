@@ -204,7 +204,6 @@ de-CH:
       map: Karte
     show:
       apply_via_myzivi: Über MyZivi bewerben
-      back: Zurück zur Suche
       claim_html: Kontaktiere uns <a href="%{link}" target="_blank" rel="noopener noreferrer">hier</a>, um es zu bearbeiten
       claim_title: Ist das Dein Pflichtenheft?
       contact: Kontakt
@@ -324,6 +323,7 @@ de-CH:
         show: Öffnen
         specification: Spezifikation
         title: Ausschreibung “%{title}”
+        weekly_work_time_append: std.
       index:
         notice_html: Falls Sie noch weitere Ausschreibungen haben, welche hier nicht gelistet sind, können Sie uns gerne unter <a href="mailto:info@myzivi.ch">info@myzivi.ch</a> kontaktieren.
         title: Ausschreibungen
