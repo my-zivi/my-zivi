@@ -32,7 +32,7 @@ class JobPosting < ApplicationRecord
   validates(*REQUIRED_FIELDS, presence: true)
   validates :identification_number, :slug, uniqueness: true
   validates :identification_number, numericality: { greater_than: 0, allow_nil: true }
-  validates :minimum_service_months, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
+  validates :minimum_service_months, :weekly_work_time, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
   validates :organization_name, presence: true, if: -> { organization_id.nil? }
 
   scope :scraped, -> { where(organization: nil) }
