@@ -41,7 +41,7 @@ gem 'webpacker', '~> 5.2.1'
 # gem 'jbuilder', '~> 2.7'
 
 gem 'bootsnap', '>= 1.4.2', require: false
-gem 'rails_admin', '~> 2.1'
+gem 'rails_admin', '~> 3.1'
 
 group :production do
   gem 'lograge'
