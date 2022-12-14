@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 RailsAdmin.config do |config|
+  config.asset_source = :webpacker
   require 'i18n'
   I18n.default_locale = :'de-CH'
 

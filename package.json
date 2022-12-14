@@ -35,6 +35,7 @@
     "popper.js": "^1.16.1",
     "preact": "^10.11.0",
     "qs": "^6.10.3",
+    "rails_admin": "3.1.0",
     "react-bootstrap": "^2.4.0",
     "react-instantsearch-dom": "^6.23.3",
     "regenerator-runtime": "^0.13.9",
