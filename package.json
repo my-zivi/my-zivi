@@ -72,7 +72,7 @@
     "@types/faker": "^6.6.9",
     "@types/jest": "^26.0.24",
     "@types/jquery": "^3.5.14",
-    "@types/lodash": "^4.14.181",
+    "@types/lodash": "^4.14.191",
     "@types/qs": "^6.9.7",
     "@types/react-instantsearch-core": "^6.10.7",
     "@types/react-instantsearch-dom": "^6.12.2",
