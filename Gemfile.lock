@@ -550,8 +550,8 @@ GEM
     validates_timeliness (5.0.0)
       timeliness (>= 0.3.10, < 1)
     vcr (6.1.0)
-    view_component (2.74.0)
-      activesupport (>= 5.0.0, < 8.0)
+    view_component (2.80.0)
+      activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
     warden (1.2.9)
@@ -577,7 +577,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.1)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
