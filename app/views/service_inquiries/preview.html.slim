@@ -3,7 +3,7 @@
     = f.input :job_posting_id, value: f.object.job_posting_id, as: :hidden
     .row
       .col-12.col-md-6
-        = f.input :service_beginning, placeholder: t('.service_beginning_placeholder', year: 1.year.from_now.year), required: true
+        = f.input :service_beginning, placeholder: t('service_inquiries.new.service_beginning_placeholder', year: 1.year.from_now.year), required: true
       .col-12.col-md-6
         = f.input :service_duration, required: true
       .col-12.col-md-6
@@ -16,7 +16,5 @@
         = f.input :message, required: true
       .col-12
         = f.input :agreement, as: :boolean, required: true, input_html: { data: { toggle_submit: 'toggle' } }
-      .col-12.col-md-6
-        button.btn.btn-outline-secondary.w-100 type="button" data-dismiss="modal" = t('cancel')
-      .col-12.col-md-6.mt-3.mt-md-0
-        = f.submit t('.submit'), class: 'btn btn-primary w-100', disabled: f.object.agreement != true
+      .col-12.d-inline-flex.justify-content-center
+        = f.submit t('service_inquiries.new.submit'), class: 'btn btn-primary', disabled: f.object.agreement != true

@@ -4,7 +4,7 @@ import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
-$(document).on('turbo:load', () => {
+const initializeLeafletMap = () => {
   $('[data-leaflet-map]').each((_i, element) => {
     const $element = $(element);
     const coordinates = $element.data('coordinates').split(',').map(parseFloat);
@@ -30,4 +30,7 @@ $(document).on('turbo:load', () => {
       .bindPopup(`<strong>${($element.data('title'))}</strong>`)
       .openPopup();
   });
-});
+};
+
+$(document).on('turbo:load', initializeLeafletMap);
+$(document).on('turbo:frame-load', initializeLeafletMap);

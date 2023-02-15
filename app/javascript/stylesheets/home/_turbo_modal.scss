@@ -1,0 +1,59 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+$animation-duration: .25s;
+
+.turbo-modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $zindex-fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  user-select: none;
+  background-color: rgba($black, .7);
+  animation: $animation-duration fade-in ease-out;
+  -webkit-touch-callout: none;
+
+  .turbo-modal-content {
+    user-select: text;
+    -webkit-touch-callout: default;
+  }
+}
+
+@keyframes blur-in {
+  from {
+    backdrop-filter: blur(0);
+    opacity: 0;
+  }
+
+  to {
+    backdrop-filter: blur(5px) grayscale(25%);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .turbo-modal-wrapper {
+    background-color: rgba($black, .4);
+    animation: $animation-duration blur-in ease-out;
+    backdrop-filter: blur(5px) grayscale(25%);
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .turbo-modal-wrapper {
+    animation: none !important;
+  }
+}

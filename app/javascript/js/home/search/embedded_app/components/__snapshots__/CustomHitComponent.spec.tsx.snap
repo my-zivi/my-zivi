@@ -60,6 +60,7 @@ exports[`CustomHitComponent renders correctly 1`] = `
       },
     ]
   }
+  onclick={[MockFunction]}
   refine={[Function]}
   refineNext={[Function]}
   refinePrevious={[Function]}
@@ -125,6 +126,7 @@ exports[`CustomHitComponent renders correctly 1`] = `
           }
         }
         key="3"
+        onclick={[Function]}
       >
         <Consumer>
           <Consumer>
@@ -202,6 +204,7 @@ exports[`CustomHitComponent renders correctly 1`] = `
                   "title": "Alp-Pflege",
                 }
               }
+              onclick={[Function]}
             >
               <JobPosting
                 hit={
@@ -258,6 +261,7 @@ exports[`CustomHitComponent renders correctly 1`] = `
                   }
                 }
                 insights={[Function]}
+                onclick={[Function]}
               >
                 <a
                   href="http://localhost:3000/job_postings/3"
@@ -392,6 +396,7 @@ exports[`CustomHitComponent when no results have been loaded yet renders no resu
   hasMore={false}
   hasPrevious={false}
   hits={Array []}
+  onclick={[MockFunction]}
   refine={[Function]}
   refineNext={[Function]}
   refinePrevious={[Function]}

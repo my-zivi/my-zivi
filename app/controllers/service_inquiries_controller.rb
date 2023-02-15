@@ -5,7 +5,13 @@ class ServiceInquiriesController < ApplicationController
 
   before_action :authorize_job_posting_association!
 
-  def new; end
+  def new
+    if params[:preview]
+      render :preview
+    else
+      render :new
+    end
+  end
 
   def create
     if @service_inquiry.save
