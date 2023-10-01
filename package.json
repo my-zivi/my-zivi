@@ -5,7 +5,7 @@
     "@algolia/cache-browser-local-storage": "^4.13.0",
     "@algolia/cache-common": "^4.13.0",
     "@algolia/cache-in-memory": "^4.14.2",
-    "@algolia/client-search": "^4.13.0",
+    "@algolia/client-search": "^4.20.0",
     "@algolia/requester-common": "^4.13.0",
     "@babel/plugin-transform-react-jsx": "^7.17.3",
     "@babel/preset-typescript": "^7.16.7",
