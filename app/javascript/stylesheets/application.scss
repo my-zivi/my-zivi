@@ -6,46 +6,4 @@
 @import 'home/blog';
 @import '~instantsearch.css/themes/reset-min';
 @import '~leaflet/dist/leaflet';
-
-body {
-  font-family: $font-family-sans-serif;
-}
-
-.line-height-17 {
-  line-height: 1.7;
-}
-
-.shadow-popover {
-  box-shadow: $box-shadow;
-}
-
-.border-radius-0 {
-  border-radius: 0;
-}
-
-.bg-blue {
-  background-color: $blue;
-}
-
-.attachment.attachment--preview > img {
-  max-width: 100%;
-  height: auto;
-}
-
-.btn-rounded-close {
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  width: 36px;
-  height: 36px;
-  font-weight: lighter;
-  color: $black;
-  background-color: $gray-200;
-  border-radius: 50%;
-
-  &:hover {
-    color: $black;
-    background-color: $gray-300;
-    border: 1px solid $gray-400;
-  }
-}
+@import 'shared';

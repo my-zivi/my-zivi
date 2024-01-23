@@ -11,6 +11,7 @@ class Ability
     can(:create, ServiceInquiry)
     can(:read, BlogEntry, published: true)
     can(:read, JobPosting, published: true)
+    can(:read_widget, JobPosting, relevancy: JobPosting.relevancies[:featured])
 
     return if user.blank?
 

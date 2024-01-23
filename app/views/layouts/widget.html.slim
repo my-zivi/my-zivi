@@ -1,0 +1,22 @@
+doctype html
+html lang=I18n.locale.to_s
+  head
+    title = app_page_title
+    = render 'layouts/meta_tags'
+    = csrf_meta_tags
+    = csp_meta_tag
+    = javascript_pack_tag 'widget/application'
+    = stylesheet_pack_tag 'widget/application', media: 'all', 'data-turbo-track': 'reload'
+    = render 'layouts/sentry'
+    = render 'layouts/tag_manager'
+    = content_for(:head_additions)
+  body
+    - if ENV['GOOGLE_TAG_MANAGER_KEY'].present?
+      noscript
+        iframe[
+          height="0"
+          src="https://www.googletagmanager.com/ns.html?id=#{ENV['GOOGLE_TAG_MANAGER_KEY']}"
+          style="display:none;visibility:hidden"
+          width="0"]
+    main#top
+      = yield
